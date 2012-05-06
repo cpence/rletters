@@ -1,20 +1,6 @@
 language: ruby
 rvm:
-  - 1.8.7
   - 1.9.3
-  - ree
-  - jruby-18mode
-
-# Some *really* odd bug is cropping up here, that I think
-# is an interaction between the way that RSolr::Ext::Response
-# derives from Hash and the way Hashes/Arrays are treated
-# in the RBX kernel.  Haven't had time to debug this one.
-#  - rbx-18mode
-#  - rbx-19mode
-
-# No clue.  Fails on my box with REXML errors, fails on
-# Travis with stack overflows.  Maybe someday.
-#  - jruby-19mode
 
 bundler_args: --without production development
 
@@ -22,8 +8,7 @@ before_script:
   - "cp config/database.yml.travis config/database.yml"
   - "cp config/app_config.yml.travis config/app_config.yml"
   - "mkdir downloads"
-  - "mysql -e 'create database rletters_test;'"
   - "bundle exec rake db:test:load db:test:prepare"
 
-script: "bundle exec rspec"
+script: "bundle exec rake"
 

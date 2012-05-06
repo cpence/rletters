@@ -5,8 +5,7 @@ describe Serializers::RDF do
   
   context "when serializing a single document" do
     before(:each) do
-      Examples.stub_with(/localhost\/solr\/.*/, :precise_one_doc)
-      @doc = Document.find('00972c5123877961056b21aea4177d0dc69c7318')
+      @doc = FactoryGirl.build(:full_document)
       @graph = @doc.to_rdf
     end
     

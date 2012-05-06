@@ -4,7 +4,7 @@ require 'spec_helper'
 describe "jobs/plot_dates/start" do
   
   before(:each) do
-    @dataset = mock_model(Dataset)
+    @dataset = FactoryGirl.create(:dataset)
   end
   
   it 'has a link to start the task' do

@@ -5,8 +5,7 @@ describe Serializers::EndNote do
   
   context "when serializing a single document" do
     before(:each) do
-      Examples.stub_with(/localhost\/solr\/.*/, :precise_one_doc)
-      @doc = Document.find('00972c5123877961056b21aea4177d0dc69c7318')
+      @doc = FactoryGirl.build(:full_document)
       @str = @doc.to_endnote
     end
     
@@ -31,8 +30,7 @@ describe Serializers::EndNote do
   
   context "when serializing an array of documents" do
     before(:each) do
-      Examples.stub_with(/localhost\/solr\/.*/, :precise_one_doc)
-      doc = Document.find('00972c5123877961056b21aea4177d0dc69c7318')
+      doc = FactoryGirl.build(:full_document)
       @docs = [doc, doc]
       @str = @docs.to_endnote
     end

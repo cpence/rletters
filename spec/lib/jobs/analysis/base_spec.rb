@@ -24,8 +24,6 @@ end
 
 describe Jobs::Analysis::Base do
 
-  fixtures :users, :datasets, :dataset_entries
-  
   describe '.view_path' do
     it 'returns the right value' do
       expected = File.join('jobs', 'mock_job', 'test')
@@ -34,11 +32,14 @@ describe Jobs::Analysis::Base do
   end
 
   describe '.error' do
+    
     before(:each) do
       Delayed::Worker.delay_jobs = false
 
-      @job = Jobs::Analysis::FailingJob.new(:user_id => users(:john).to_param,
-                                            :dataset_id => datasets(:one).to_param)
+      @user = FactoryGirl.create(:user)
+      @dataset = FactoryGirl.create(:full_dataset, :user => @user)
+      @job = Jobs::Analysis::FailingJob.new(:user_id => @user.to_param,
+                                            :dataset_id => @dataset.to_param)
 
       # Yes, I know this raises an error, that is indeed
       # the point
@@ -52,11 +53,11 @@ describe Jobs::Analysis::Base do
     end
 
     it 'creates an analysis task' do
-      datasets(:one).analysis_tasks[0].should be
+      @dataset.analysis_tasks[0].should be
     end
 
     it 'sets the failed bit on the task' do
-      datasets(:one).analysis_tasks[0].failed.should be_true
+      @dataset.analysis_tasks[0].failed.should be_true
     end
   end
   

@@ -5,10 +5,7 @@ describe "users/new" do
   
   context 'when new user is invalid' do
     before(:each) do
-      user = User.new
-      user.name = 'New User Test'
-      user.email = 'this isabademail'
-      user.identifier = 'notaurl'
+      user = FactoryGirl.build(:user, :identifier => 'notaurl')
       user.save
       
       assign(:new_user, user)

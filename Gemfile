@@ -3,6 +3,8 @@ source 'http://rubygems.org'
 gem 'rails', '~> 3.0'
 gem 'rails-i18n', '= 0.4.0'
 
+gem 'sqlite3'
+gem 'activerecord-jdbcsqlite3-adapter', :platforms => :jruby
 gem 'mysql2', :platforms => [ :ruby, :mswin, :mingw ]
 gem 'activerecord-jdbcmysql-adapter', :platforms => :jruby
 gem 'jruby-openssl', :platforms => :jruby
@@ -19,7 +21,7 @@ gem 'rpx_now'
 gem 'email_validator'
 
 gem 'rubyzip'
-gem 'rsolr'
+gem 'rsolr', '>= 1.0.7'
 gem 'rsolr-ext'
 gem 'marc'
 gem 'rdf', '>= 0.3.5'
@@ -56,6 +58,7 @@ group :test, :development do
 end
 
 group :test do
+  gem 'factory_girl_rails'
   gem 'shoulda-matchers'
   gem 'webrat'
   gem 'webmock', :require => false

@@ -1,0 +1,14 @@
+#!/bin/bash
+
+cd contrib/solr/example
+java -jar winstone.jar --warfile=solr.war --httpPort=8983 --httpListenAddress=127.0.0.1 > ../../../tmp/solr.out 2>&1 &
+
+echo $! > ../../../tmp/solr.pid
+sleep 0.5
+
+while read line; do
+    if [[ $line == *HTTP\ Listener\ started:\ port=8080 ]]; then
+        echo "Solr server started successfully"
+        break
+    fi
+done <../../../tmp/solr.out

@@ -3,12 +3,12 @@ require 'spec_helper'
 
 describe "datasets/show" do
   
-  fixtures :users, :datasets, :dataset_entries
-  login_user(:john)
+  login_user
   
   before(:each) do
-    assign(:dataset, datasets(:one))    
-    params[:id] = datasets(:one).to_param
+    @dataset = FactoryGirl.create(:full_dataset, :entries_count => 10)
+    assign(:dataset, @dataset)    
+    params[:id] = @dataset.to_param
   end
   
   it 'shows the number of dataset entries' do
@@ -24,7 +24,7 @@ describe "datasets/show" do
   it "has a reference somewhere to the task list" do
     # Need to render the layout in order to get the page-JS
     render :template => 'datasets/show', :layout => 'layouts/application'
-    rendered.should include(task_list_dataset_path(datasets(:one)))
+    rendered.should include(task_list_dataset_path(@dataset))
   end
   
 end

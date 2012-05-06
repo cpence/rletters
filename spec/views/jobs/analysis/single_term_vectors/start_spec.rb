@@ -5,10 +5,7 @@ describe "jobs/single_term_vectors/start" do
   
   context "when dataset has one document" do
     before(:each) do
-      doc = mock_model(Document)
-      
-      @dataset = mock_model(Dataset)
-      @dataset.stub(:entries).and_return([ doc ])
+      @dataset = FactoryGirl.create(:full_dataset, :entries_count => 1)
     end
 
     it 'has a link to start the task' do
@@ -22,10 +19,7 @@ describe "jobs/single_term_vectors/start" do
   
   context "when dataset has more than one document" do
     before(:each) do
-      doc = mock_model(Document)
-      
-      @dataset = mock_model(Dataset)
-      @dataset.stub(:entries).and_return([ doc, doc ])
+      @dataset = FactoryGirl.create(:full_dataset)
     end
     
     it 'does not have a link to start the task' do

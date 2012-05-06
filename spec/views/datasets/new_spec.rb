@@ -3,11 +3,9 @@ require 'spec_helper'
 
 describe "datasets/new" do
   
-  fixtures :users
-  login_user(:john)
-  
+  login_user
   before(:each) do
-    assign(:dataset, users(:john).datasets.build)
+    assign(:dataset, FactoryGirl.build(:dataset, :user => @user))
   end
   
   shared_examples_for "all new forms" do

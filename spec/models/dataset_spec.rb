@@ -3,23 +3,10 @@ require 'spec_helper'
 
 describe Dataset do
   
-  fixtures :datasets, :users
-  
   describe '#valid?' do
-    context 'when empty' do
-      before(:each) do
-        @dataset = Dataset.new
-      end
-      
-      it "isn't valid" do 
-        @dataset.should_not be_valid
-      end
-    end
-    
     context 'when name is not specified' do
       before(:each) do
-        @dataset = Dataset.new
-        @dataset.user = users(:john)
+        @dataset = FactoryGirl.build(:dataset, :name => nil)
       end
       
       it "isn't valid" do
@@ -29,7 +16,7 @@ describe Dataset do
     
     context 'when user is not specified' do
       before(:each) do
-        @dataset = Dataset.new({ :name => 'Test Dataset' })
+        @dataset = FactoryGirl.build(:dataset, :user => nil)
       end
       
       it "isn't valid" do
@@ -39,8 +26,7 @@ describe Dataset do
     
     context 'when user and name are specified' do
       before (:each) do
-        @dataset = Dataset.new({ :name => 'Test Dataset' })
-        @dataset.user = users(:john)
+        @dataset = FactoryGirl.create(:dataset)
       end
       
       it "is valid" do
@@ -52,12 +38,8 @@ describe Dataset do
   describe '#analysis_tasks' do
     context 'when an analysis task is created' do
       before(:each) do
-        @dataset = Dataset.new({ :name => 'The Dataset'})
-        @dataset.user = users(:john)
-        @dataset.save.should be_true
-        
-        @task = AnalysisTask.new({ :name => 'test', :dataset => @dataset, :job_type => 'Base' })
-        @task.save.should be_true
+        @dataset = FactoryGirl.create(:dataset)
+        @task = FactoryGirl.create(:analysis_task, :dataset => @dataset, :name => 'test')
       end
       
       after(:each) do
@@ -78,14 +60,13 @@ describe Dataset do
   describe '#entries' do
     context 'when creating a new dataset' do
       before(:each) do
-        @dataset = users(:alice).datasets.build({ :name => 'Alices Dataset' })
-        @dataset.entries.build({ :shasum => '00cdb0f945c1e1d7b7789cd8178f3232a57fee34' })
-        @dataset.entries.build({ :shasum => '00dbffbfff2d18a74ed5f8895fa9f515bf38bf5f' })
-        @dataset.save.should be_true
+        @user = FactoryGirl.create(:user)
+        @dataset = FactoryGirl.create(:full_dataset, :user => @user, :entries_count => 2)
       end
       
       it "is connected to the user" do
-        users(:alice).datasets.should have(1).items
+        @user.datasets.reload
+        @user.datasets.should have(1).items
       end
       
       it "has the right number of entries" do

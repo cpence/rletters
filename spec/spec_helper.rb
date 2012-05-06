@@ -18,26 +18,45 @@ Spork.prefork do
     config.use_transactional_fixtures = true
     config.infer_base_class_for_anonymous_controllers = true
     
-    config.before(:all) do
-      # Disable net connections outbound
-      WebMock.enable!
-      WebMock.disable_net_connect!
+    config.before(:suite) do
+      # Fire up the Solr server
+      SolrServer.start
       
       # Speed up testing by deferring garbage collection
       DeferredGarbageCollection.start
+
+      # If we're using a memory testing database, load the schema
+      if ActiveRecord::Base.connection.class == ActiveRecord::ConnectionAdapters::SQLite3Adapter and
+          ActiveRecord::Base.configurations['test']['database'] == ':memory:'
+        load_schema = lambda {
+          load Rails.root.join('db', 'schema.rb')
+        }
+        silence_stream(STDOUT, &load_schema)
+      end
     end
-    config.after(:all) do
+    
+    config.after(:suite) do
+      # Clean up GC
       DeferredGarbageCollection.reconsider
+
+      # Stop the Solr server
+      SolrServer.stop
     end
 
-    # Reset the locale and timezone to defaults on each new test
     config.before(:each) do
+      # Disable net connections outbound
+      WebMock.enable!
+      WebMock.disable_net_connect!(:allow_localhost => true)
+      
+      # Reset the locale and timezone to defaults on each new test
       I18n.locale = I18n.default_locale
       Time.zone = 'Eastern Time (US & Canada)'
     end
 
-    # Add a helper for logging in (and out!) a user
+    # Add a helper for logging in (and out!) a user, and for breaking
+    # the Solr server on demand
     config.extend UserLoginHelper
+    config.extend SolrServerHelper
   
     # Skip some tests on JRuby
     if RUBY_PLATFORM == "java"

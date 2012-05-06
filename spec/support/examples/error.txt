@@ -1,7 +1,0 @@
-HTTP/1.1 200 OK
-Last-Modified: Thu, 02 Feb 2012 21:12:04 GMT
-ETag: "YjI1MjU4ZDM0YzgwMDAwMFNvbHI="
-Content-Type: text/plain; charset=utf-8
-Server: Jetty(6.1.3)
-
-{}

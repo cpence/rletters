@@ -1,5 +1,5 @@
-test:
-  adapter: mysql2
-  database: rletters_test
-  username: root
-  encoding: utf8
+test: &test
+  adapter: sqlite3
+  database: ":memory:"
+  verbosity: quiet
+  timeout: 5000

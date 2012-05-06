@@ -3,8 +3,7 @@ require 'spec_helper'
 
 describe "libraries/query" do
   
-  fixtures :users
-  login_user(:john)
+  login_user
   
   context 'when libraries are assigned' do
     before(:each) do

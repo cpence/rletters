@@ -3,8 +3,6 @@ require 'spec_helper'
 
 describe SearchHelper do
 
-  fixtures :users
-
   describe '#num_results_string' do
     before(:each) do
       Document.send(:class_variable_set, :@@num_results, 100)
@@ -121,7 +119,6 @@ describe SearchHelper do
   
   describe '#list_links_for_facet' do
     before(:each) do
-      Examples.stub_with(/localhost\/solr\/.*/, :precise_all_docs)
       @docs = Document.find_all_by_solr_query({ :q => "*:*", :qt => "precise" })
     end
 
@@ -135,23 +132,23 @@ describe SearchHelper do
       end
 
       it 'includes a link to add a facet' do
-        url = "/search/?" + CGI::escape('fq[]=authors_facet:"Elisa Lobato"').gsub("%26", "&").gsub("%3D", "=")
-        @ret.should have_selector("a[href=\"#{url}\"]", :content => "Elisa Lobato")
+        url = "/search/?" + CGI::escape('fq[]=authors_facet:"J. C. Crabbe"').gsub("%26", "&").gsub("%3D", "=")
+        @ret.should have_selector("a[href=\"#{url}\"]", :content => "J. C. Crabbe")
       end 
     end
 
     context 'with an active facet' do
       before(:each) do
-        @ret = helper.list_links_for_facet(:authors_facet, "Authors", [Document.facets.for_query("authors_facet:\"Amanda M. Koltz\"")])
+        @ret = helper.list_links_for_facet(:authors_facet, "Authors", [Document.facets.for_query("authors_facet:\"J. C. Crabbe\"")])
       end
 
       it 'does not include the active facet in the list' do
-        @ret.should_not have_selector('li', :content => "Amanda M. Koltz1")
+        @ret.should_not have_selector('li', :content => "J. C. Crabbe9")
       end
 
       it 'does include the sixth facet in the list' do
-        url = "/search/?" + CGI::escape('fq[]=authors_facet:"Amanda M. Koltz"&fq[]=authors_facet:"Erich Möstl"').gsub("%26", "&").gsub("%3D", "=")
-        @ret.should have_selector("a[href=\"#{url}\"]", :content => "Erich Möstl")
+        url = "/search/?" + CGI::escape('fq[]=authors_facet:"J. C. Crabbe"&fq[]=authors_facet:"J. N. Crawley"').gsub("%26", "&").gsub("%3D", "=")
+        @ret.should have_selector("a[href=\"#{url}\"]", :content => "J. N. Crawley")
       end
     end
   end
@@ -169,7 +166,6 @@ describe SearchHelper do
 
     context 'with no active facets' do
       before(:each) do
-        Examples.stub_with(/localhost\/solr\/.*/, :precise_all_docs)
         @docs = Document.find_all_by_solr_query({ :q => "*:*", :qt => "precise" })
         @ret = helper.facet_link_list
       end
@@ -181,8 +177,8 @@ describe SearchHelper do
       end
 
       it "includes a link to add an author facet" do
-        url = "/search/?" + CGI::escape('fq[]=authors_facet:"Elisa Lobato"').gsub("%26", "&").gsub("%3D", "=")
-        @ret.should have_selector("a[href=\"#{url}\"]", :content => "Elisa Lobato")
+        url = "/search/?" + CGI::escape('fq[]=authors_facet:"J. C. Crabbe"').gsub("%26", "&").gsub("%3D", "=")
+        @ret.should have_selector("a[href=\"#{url}\"]", :content => "J. C. Crabbe")
       end
 
       it "includes a link to add a journal facet" do
@@ -198,10 +194,10 @@ describe SearchHelper do
 
     context 'with active facets' do
       before(:each) do
-        Examples.stub_with(/localhost\/solr\/.*/, :precise_all_docs)
-        @docs = Document.find_all_by_solr_query({ :q => "*:*", :qt => "precise" })
+        @docs = Document.find_all_by_solr_query({ :q => "*:*", :qt => "precise",
+                                                  :fq => ["authors_facet:\"Elisa Lobato\"", "year:[2010 TO *]"] })
 
-        params[:fq] = ["authors_facet:\"Elisa Lobato\"", "year:[2000 TO 2009]"]
+        params[:fq] = ["authors_facet:\"Elisa Lobato\"", "year:[2010 TO *]"]
         @ret = helper.facet_link_list
       end
 
@@ -210,7 +206,7 @@ describe SearchHelper do
       end
       
       it "includes a link to remove an individual facet" do
-        url = "/search/?" + CGI::escape('fq[]=year:[2000 TO 2009]').gsub("%26", "&").gsub("%3D", "=")
+        url = "/search/?" + CGI::escape('fq[]=year:[2010 TO *]').gsub("%26", "&").gsub("%3D", "=")
         @ret.should have_selector("a[href=\"#{url}\"]", :content => "Authors: Elisa Lobato")
       end
     end
@@ -218,8 +214,7 @@ describe SearchHelper do
   
   describe '#document_bibliography_entry' do
     before(:each) do
-      Examples.stub_with(/localhost\/solr\/.*/, :precise_one_doc)
-      @doc = Document.find('00972c5123877961056b21aea4177d0dc69c7318')
+      @doc = Document.find(FactoryGirl.generate(:working_shasum))
     end
     
     context 'when no user is logged in' do
@@ -232,7 +227,7 @@ describe SearchHelper do
     end
     
     context 'when the user has no CSL style set' do
-      login_user(:alice)
+      login_user
 
       it "renders the default template" do
         helper.should_receive(:render).with({ :partial => 'document', :locals => { :document => @doc } })
@@ -241,10 +236,10 @@ describe SearchHelper do
     end
 
     context 'when the user has a CSL style set' do
-      login_user(:john)
+      login_user(:csl_style => "apa.csl")
 
       it "renders a CSL style" do
-        @doc.should_receive(:to_csl_entry).with(users(:john).csl_style)
+        @doc.should_receive(:to_csl_entry).with("apa.csl")
         helper.document_bibliography_entry(@doc)
       end
     end

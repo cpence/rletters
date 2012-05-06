@@ -3,11 +3,10 @@ require 'spec_helper'
 
 describe LibrariesController do
   
-  fixtures :libraries, :users
-  login_user(:john)
+  login_user
   
   before(:each) do
-    @harvard = users(:john).libraries[0]
+    @library = FactoryGirl.create(:library, :user => @user)
   end
   
   describe '#index' do
@@ -28,12 +27,12 @@ describe LibrariesController do
     context 'when library is valid' do
       it 'creates a library' do
         expect {
-          post :create, :library => @harvard.attributes
-        }.to change{users(:john).libraries.count}.by(1)
+          post :create, :library => FactoryGirl.attributes_for(:library, :user => @user)
+        }.to change{@user.libraries.count}.by(1)
       end
       
       it 'redirects to the user page' do
-        post :create, :library => @harvard.attributes
+        post :create, :library => FactoryGirl.attributes_for(:library, :user => @user)
         response.should redirect_to(user_path)
       end
     end
@@ -41,20 +40,20 @@ describe LibrariesController do
     context 'when library is invalid' do
       it "doesn't create a library" do
         expect {
-          post :create, :library => { :name => 'bad', :url => 'not##::aurl.asdfwut' }
-        }.to_not change{users(:john).libraries.count}
+          post :create, :library => FactoryGirl.attributes_for(:library, :url => 'not##::aurl.asdfwut', :user => @user)
+        }.to_not change{@user.libraries.count}
       end
       
       it "renders the new form" do
-        post :create, :library => { :name => 'bad', :url => 'not##::aurl.asdfwut' }
-        response.should render_template(:new)
+        post :create, :library => FactoryGirl.attributes_for(:library, :url => 'not##::aurl.asdfwut', :user => @user)
+        response.should_not redirect_to(user_path)
       end
     end
   end
   
   describe '#edit' do
     it 'loads successfully' do
-      get :edit, :id => @harvard.to_param
+      get :edit, :id => @library.to_param
       response.should be_success
     end
   end
@@ -62,38 +61,35 @@ describe LibrariesController do
   describe '#update' do
     context 'when library is valid' do
       it 'edits the library' do
-        put :update, :id => @harvard.to_param, :library => { :user => users(:john).to_param,
-          :name => 'Woo', :url => 'http://sfx.hul.harvard.edu/sfx_local?' }
-        
-        Library.find(@harvard.to_param).name.should eq('Woo')
+        put :update, :id => @library.to_param, :library => @library.attributes.merge({ :name => 'Woo' })
+        @library.reload
+        @library.name.should eq('Woo')
       end
       
       it 'redirects to the user page' do
-        put :update, :id => @harvard.to_param, :library => @harvard.attributes
+        put :update, :id => @library.to_param, :library => @library.attributes
         response.should redirect_to(user_path)
       end
     end
     
     context 'when library is invalid' do
       it "doesn't edit the library" do
-        put :update, :id => @harvard.to_param, :library => { :user => users(:john).to_param,
-          :name => 'Woo', :url => 'not##::aurl.asdfwut' }
-        
-        users(:john).libraries(true)
-        users(:john).libraries[0].name.should eq('Harvard')
+        put :update, :id => @library.to_param, :library => @library.attributes.merge({ :url => '1234%%#$' })
+
+        @library.reload
+        @library.url.should_not eq('1234%%#$')
       end
       
       it 'renders the edit form' do
-        put :update, :id => @harvard.to_param, :library => { :user => users(:john).to_param,
-          :name => 'Woo', :url => 'not##::aurl.asdfwut' }
-        response.should render_template(:edit)
+        put :update, :id => @library.to_param, :library => @library.attributes.merge({ :url => '1234%%#$' })
+        response.should_not redirect_to(user_path)
       end
     end
   end
   
   describe '#delete' do
     it 'loads successfully' do
-      get :delete, :id => @harvard.to_param
+      get :delete, :id => @library.to_param
       response.should be_success
     end
   end
@@ -102,12 +98,12 @@ describe LibrariesController do
     context 'when cancel is pressed' do
       it 'does not delete the library' do
         expect {
-          delete :destroy, :id => @harvard.to_param, :cancel => true
-        }.to_not change{users(:john).libraries.count}
+          delete :destroy, :id => @library.to_param, :cancel => true
+        }.to_not change{@user.libraries.count}
       end
       
       it 'redirects to the user page' do
-        delete :destroy, :id => @harvard.to_param, :cancel => true
+        delete :destroy, :id => @library.to_param, :cancel => true
         response.should redirect_to(user_path)
       end
     end
@@ -115,12 +111,12 @@ describe LibrariesController do
     context 'when cancel is not pressed' do
       it 'deletes the library' do
         expect {
-          delete :destroy, :id => @harvard.to_param
-        }.to change{users(:john).libraries.count}.by(-1)
+          delete :destroy, :id => @library.to_param
+        }.to change{@user.libraries.count}.by(-1)
       end
       
       it 'redirects to the user page' do
-        delete :destroy, :id => @harvard.to_param, :cancel => true
+        delete :destroy, :id => @library.to_param, :cancel => true
         response.should redirect_to(user_path)
       end
     end
@@ -129,7 +125,7 @@ describe LibrariesController do
   describe '#query' do
     context 'when no libraries are returned' do
       it 'assigns no libraries' do
-        Examples.stub_with(/worldcatlibraries.org\/registry\/lookup.*/, :worldcat_response_empty)
+        stub_request(:any, /worldcatlibraries.org\/registry\/lookup.*/).to_return(File.new(Rails.root.join('spec', 'support', 'webmock', 'worldcat_response_empty.txt')))
         get :query
         assigns(:libraries).should have(0).items
       end
@@ -137,7 +133,7 @@ describe LibrariesController do
     
     context 'when libraries are returned' do
       it 'assigns the libraries' do
-        Examples.stub_with(/worldcatlibraries.org\/registry\/lookup.*/, :worldcat_response_nd)
+        stub_request(:any, /worldcatlibraries.org\/registry\/lookup.*/).to_return(File.new(Rails.root.join('spec', 'support', 'webmock', 'worldcat_response_nd.txt')))
         get :query
         assigns(:libraries).should have(1).item
       end

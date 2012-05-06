@@ -3,13 +3,10 @@ require 'spec_helper'
 
 describe SearchController do
 
-  fixtures :users, :datasets, :dataset_entries
-  
   describe '#index' do
     context 'with empty search results' do
       before(:each) do
-        Examples.stub_with(/localhost\/solr\/.*/, :standard_empty_search)
-        get :index
+        get :index, { :q => 'shatner' }
       end
 
       it 'loads successfully' do
@@ -19,7 +16,6 @@ describe SearchController do
 
     context 'with precise search results' do
       before(:each) do
-        Examples.stub_with(/localhost\/solr\/.*/, :precise_all_docs)
         get :index
       end
 
@@ -50,8 +46,7 @@ describe SearchController do
 
     context 'with faceted search results' do
       before(:each) do
-        Examples.stub_with(/localhost\/solr\/.*/, :precise_facet_author_and_journal)
-        get :index, { :fq => [ 'authors_facet:"Amanda M. Koltz"', 'journal_facet:"Ethology"' ] }
+        get :index, { :fq => [ 'journal_facet:"Journal of Nothing"' ] }
       end
 
       it 'assigns solr_fq' do
@@ -65,12 +60,11 @@ describe SearchController do
 
     context 'with a dismax search' do
       before(:each) do
-        Examples.stub_with(/localhost\/solr\/.*/, :standard_search_diversity)
-        get :index, { :q => 'diversity' }
+        get :index, { :q => 'testing' }
       end
 
       it 'assigns solr_q' do
-        assigns(:solr_q).should eq('diversity')
+        assigns(:solr_q).should eq('testing')
       end
 
       it 'assigns solr_qt' do
@@ -102,84 +96,76 @@ describe SearchController do
   end
   
   describe '#show' do
-    before(:each) do
-      Examples.stub_with(/localhost\/solr\/.*/, :precise_one_doc)
-    end
-    
     context 'when displaying as HTML' do
       it 'loads successfully' do
-        get :show, { :id => '00972c5123877961056b21aea4177d0dc69c7318' }
+        get :show, { :id => FactoryGirl.generate(:working_shasum) }
         response.should be_success
       end
     
       it 'assigns document' do
-        get :show, { :id => '00972c5123877961056b21aea4177d0dc69c7318' }
+        get :show, { :id => FactoryGirl.generate(:working_shasum) }
         assigns(:document).should be
       end
     end
     
     context 'when exporting in other formats' do
       it "exports in MARC format" do
-        get :show, { :id => '00972c5123877961056b21aea4177d0dc69c7318', :format => 'marc' }
+        get :show, { :id => FactoryGirl.generate(:working_shasum), :format => 'marc' }
         response.should be_valid_download('application/marc')
       end
 
       it "exports in MARC-JSON format" do
-        get :show, { :id => '00972c5123877961056b21aea4177d0dc69c7318', :format => 'json' }
+        get :show, { :id => FactoryGirl.generate(:working_shasum), :format => 'json' }
         response.should be_valid_download('application/json')
       end
 
       it "exports in MARC-XML format" do
-        get :show, { :id => '00972c5123877961056b21aea4177d0dc69c7318', :format => 'marcxml' }
+        get :show, { :id => FactoryGirl.generate(:working_shasum), :format => 'marcxml' }
         response.should be_valid_download('application/marcxml+xml')
       end
 
       it "exports in BibTeX format" do
-        get :show, { :id => '00972c5123877961056b21aea4177d0dc69c7318', :format => 'bibtex' }
+        get :show, { :id => FactoryGirl.generate(:working_shasum), :format => 'bibtex' }
         response.should be_valid_download('application/x-bibtex')
       end
 
       it "exports in EndNote format" do
-        get :show, { :id => '00972c5123877961056b21aea4177d0dc69c7318', :format => 'endnote' }
+        get :show, { :id =>  FactoryGirl.generate(:working_shasum), :format => 'endnote' }
         response.should be_valid_download('application/x-endnote-refer')
       end
 
       it "exports in RIS format" do
-        get :show, { :id => '00972c5123877961056b21aea4177d0dc69c7318', :format => 'ris' }
+        get :show, { :id =>  FactoryGirl.generate(:working_shasum), :format => 'ris' }
         response.should be_valid_download('application/x-research-info-systems')
       end
 
       it "exports in MODS format" do
-        get :show, { :id => '00972c5123877961056b21aea4177d0dc69c7318', :format => 'mods' }
+        get :show, { :id =>  FactoryGirl.generate(:working_shasum), :format => 'mods' }
         response.should be_valid_download('application/mods+xml')
       end
 
       it "exports in RDF/XML format", :jruby => false do
-        get :show, { :id => '00972c5123877961056b21aea4177d0dc69c7318', :format => 'rdf' }
+        get :show, { :id =>  FactoryGirl.generate(:working_shasum), :format => 'rdf' }
         response.should be_valid_download('application/rdf+xml')
       end
 
       it "exports in RDF/N3 format" do
-        get :show, { :id => '00972c5123877961056b21aea4177d0dc69c7318', :format => 'n3' }
+        get :show, { :id => FactoryGirl.generate(:working_shasum), :format => 'n3' }
         response.should be_valid_download('text/rdf+n3')
       end
 
       it "fails to export an invalid format" do
-        get :show, { :id => '00972c5123877961056b21aea4177d0dc69c7318', :format => 'csv' }
+        get :show, { :id => FactoryGirl.generate(:working_shasum), :format => 'csv' }
         controller.should respond_with(406)
       end
     end
   end
 
   describe '#add' do
-    login_user(:john)
+    login_user
     
-    before(:each) do
-      Examples.stub_with(/localhost\/solr\/.*/, :precise_one_doc)
-    end
-
     it 'loads successfully' do
-      get :add, { :id => datasets(:one).to_param, :shasum => '00972c5123877961056b21aea4177d0dc69c7318' }
+      get :add, { :id => FactoryGirl.generate(:working_shasum) }
       response.should be_success
     end
   end
@@ -195,8 +181,7 @@ describe SearchController do
       end
       
       before(:each) do
-        Examples.stub_with(/api\.mendeley\.com\/oapi\/documents\/search\/title.*/, :mendeley_response_p1d)
-        Examples.stub_with(/localhost\/solr\/.*/, :precise_one_doc)
+        stub_request(:any, /api\.mendeley\.com\/oapi\/documents\/search\/title.*/).to_return(File.new(Rails.root.join('spec', 'support', 'webmock', 'mendeley_response_p1d.txt')))
       end
             
       it 'redirects to Mendeley' do
@@ -216,12 +201,11 @@ describe SearchController do
       
       before(:each) do
         stub_request(:any, /api\.mendeley\.com\/oapi\/documents\/search\/title.*/).to_timeout
-        Examples.stub_with(/localhost\/solr\/.*/, :precise_one_doc)
       end
       
       it 'raises an exception' do
         expect {
-          get :to_mendeley, { :id => '00972c5123877961056b21aea4177d0dc69c7318' }
+          get :to_mendeley, { :id => FactoryGirl.generate(:working_shasum) }
         }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
@@ -230,8 +214,7 @@ describe SearchController do
   describe '#to_citeulike' do
     context 'when request succeeds' do
       before(:each) do
-        Examples.stub_with(/www\.citeulike\.org\/json\/search\/all\?.*/, :citeulike_response_p1d)
-        Examples.stub_with(/localhost\/solr\/.*/, :precise_one_doc)
+        stub_request(:any, /www\.citeulike\.org\/json\/search\/all\?.*/).to_return(File.new(Rails.root.join('spec', 'support', 'webmock', 'citeulike_response_p1d.txt')))
       end
       
       it 'redirects to citeulike' do
@@ -243,12 +226,11 @@ describe SearchController do
     context 'when request times out' do
       before(:each) do
         stub_request(:any, /www\.citeulike\.org\/json\/search\/all\?.*/).to_timeout
-        Examples.stub_with(/localhost\/solr\/.*/, :precise_one_doc)
       end
       
       it 'raises an exception' do
         expect {
-          get :to_citeulike, { :id => '00972c5123877961056b21aea4177d0dc69c7318' }
+          get :to_citeulike, { :id => FactoryGirl.generate(:working_shasum) }
         }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end

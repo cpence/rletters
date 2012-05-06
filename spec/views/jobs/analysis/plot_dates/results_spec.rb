@@ -4,10 +4,9 @@ require 'spec_helper'
 describe "jobs/plot_dates/results" do
   
   before(:each) do
-    @dataset = mock_model(Dataset)
-    
-    @task = AnalysisTask.new(:name => "Plot dataset by date", :job_type => 'PlotDates')
-    @task.dataset = @dataset
+    @dataset = FactoryGirl.create(:full_dataset)
+    @task = FactoryGirl.create(:analysis_task, :name => "Plot dataset by date",
+                               :job_type => 'PlotDates', :dataset => @dataset)
     @task.result_file = Download.create_file('temp.yml') do |file|
       file.write([ [ 2003, 13 ] ].to_yaml)
       file.close

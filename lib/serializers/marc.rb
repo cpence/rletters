@@ -75,10 +75,8 @@ module Serializers
       end
 
       unless title.blank?
-        marc_title = title
-        marc_title << '.' unless marc_title[-1] == '.'
         record.append(::MARC::DataField.new('245', '1', '0',
-          ['a', marc_title]))
+          ['a', title + (title[-1] == '.' ? nil : '.')]))
       end
 
       marc_volume = ''

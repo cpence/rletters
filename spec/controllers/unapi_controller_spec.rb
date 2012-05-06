@@ -9,8 +9,8 @@ describe UnapiController do
   
   def get_unapi(with_id = false, format = nil)
     if with_id
-      Examples.stub_with(/localhost\/solr\/.*/, :precise_one_doc)
-      get :index, { :id => '00972c5123877961056b21aea4177d0dc69c7318', :format => format }
+      @id = FactoryGirl.generate(:working_shasum)
+      get :index, { :id => @id, :format => format }
     else
       get :index
     end
@@ -97,7 +97,7 @@ describe UnapiController do
       response.should redirect_to(
         :controller => 'search',
         :action => 'show', 
-        :id => '00972c5123877961056b21aea4177d0dc69c7318', 
+        :id => @id, 
         :format => f.attributes['name'].to_s)
     end
   end

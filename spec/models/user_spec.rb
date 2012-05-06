@@ -5,22 +5,10 @@ SimpleCov.command_name 'spec:models' if defined?(SimpleCov) && RUBY_VERSION >= "
 
 describe User do
   
-  fixtures :users
-  
   describe '#valid' do
-    context 'when empty' do
-      before(:each) do
-        @user = User.new
-      end
-      
-      it "isn't valid" do
-        @user.should_not be_valid
-      end
-    end
-    
     context 'when no identifier is specified' do
       before(:each) do
-        @user = User.new({ :name => 'John Doe', :email => 'bob@bob.com' })
+        @user = FactoryGirl.build(:user, :identifier => nil)
       end
       
       it "isn't valid" do
@@ -30,8 +18,7 @@ describe User do
     
     context 'when no name is specified' do
       before(:each) do
-        @user = User.new({ :email => 'bob@bob.com' })
-        @user.identifier = 'https://google.com'
+        @user = FactoryGirl.build(:user, :name => nil)
       end
       
       it "isn't valid" do
@@ -41,8 +28,7 @@ describe User do
     
     context 'when no email is specified' do
       before(:each) do
-        @user = User.new({ :name => 'John Doe' })
-        @user.identifier = 'https://google.com'
+        @user = FactoryGirl.build(:user, :email => nil)
       end
       
       it "isn't valid" do
@@ -52,9 +38,8 @@ describe User do
     
     context 'when a duplicate email is specified' do
       before(:each) do
-        # This is duplicate with users(:john)
-        @user = User.new({ :name => 'Email Test User', :email => 'jdoe@gmail.com' })
-        @user.identifier = 'https://google.com/notduplicate'
+        @dupe = FactoryGirl.create(:user)
+        @user = FactoryGirl.build(:user, :email => @dupe.email)
       end
       
       it "isn't valid" do
@@ -64,8 +49,7 @@ describe User do
     
     context 'when a bad email is specified' do
       before(:each) do
-        @user = User.new({ :name => 'Email Test User', :email => 'asdf-not-an-email.com' })
-        @user.identifier = 'https://google.com/notduplicate'
+        @user = FactoryGirl.build(:user, :email => 'asdf-not-an-email.com')
       end
       
       it "isn't valid" do
@@ -75,9 +59,8 @@ describe User do
     
     context 'when a duplicate identifier is specified' do
       before(:each) do
-        # This is duplicate with users(:john)
-        @user = User.new({ :name => 'ID test user', :email => 'notduplicate@gmail.com' })
-        @user.identifier = 'https://google.com/profiles/johndoe'
+        @dupe = FactoryGirl.create(:user)
+        @user = FactoryGirl.build(:user, :identifier => @dupe.identifier)
       end
       
       it "isn't valid" do
@@ -87,8 +70,7 @@ describe User do
     
     context 'when a non-URL identifier is specified' do
       before(:each) do
-        @user = User.new({ :name => 'ID test user', :email => 'notduplicate@gmail.com' })
-        @user.identifier = 'thisisnotaurl'
+        @user = FactoryGirl.build(:user, :identifier => 'thisisnotaurl')
       end
       
       it "isn't valid" do
@@ -98,9 +80,7 @@ describe User do
     
     context 'when a non-numeric per_page is specified' do
       before(:each) do
-        @user = User.new({ :name => 'New Guy', :email => 'new@guy.com', 
-          :per_page => 'asdfasdfwut' })
-        @user.identifier = 'https://newguy.com'
+        @user = FactoryGirl.build(:user, :per_page => 'asdfasdf')
       end
       
       it "isn't valid" do
@@ -110,9 +90,7 @@ describe User do
     
     context 'when a non-integer per_page is specified' do
       before(:each) do
-        @user = User.new({ :name => 'New Guy', :email => 'new@guy.com',
-          :per_page => 3.1415927 })
-        @user.identifier = 'https://newguy.com'
+        @user = FactoryGirl.build(:user, :per_page => 3.14159)
       end
       
       it "isn't valid" do
@@ -122,9 +100,7 @@ describe User do
     
     context 'when a negative per_page is specified' do
       before(:each) do
-        @user = User.new({ :name => 'New Guy', :email => 'new@guy.com',
-          :per_page => -10 })
-        @user.identifier = 'https://newguy.com'
+        @user = FactoryGirl.build(:user, :per_page => -20)
       end
       
       it "isn't valid" do
@@ -134,9 +110,7 @@ describe User do
     
     context 'when per_page is zero' do
       before(:each) do
-        @user = User.new({ :name => 'New Guy', :email => 'new@guy.com',
-          :per_page => 0 })
-        @user.identifier = 'https://newguy.com'
+        @user = FactoryGirl.build(:user, :per_page => 0)
       end
       
       it "isn't valid" do
@@ -146,9 +120,7 @@ describe User do
     
     context 'when language is invalid' do
       before(:each) do
-        @user = User.new({ :name => 'New Guy', :email => 'new@guy.com',
-          :per_page => 10, :language => 'notalocaleCODE123' })
-        @user.identifier = 'https://newguy.com'
+        @user = FactoryGirl.build(:user, :language => 'notalocaleCODE123')
       end
       
       it "isn't valid" do
@@ -158,10 +130,7 @@ describe User do
     
     context 'when all attributes are set correctly' do
       before(:each) do
-        @user = User.new({ :name => 'New Guy', :email => 'new@guy.com',
-          :per_page => 10, :language => 'en-US', 
-          :timezone => 'America/New_York', :csl_style => 'apa.csl' })
-        @user.identifier = 'https://newguy.com'
+        @user = FactoryGirl.create(:user)
       end
       
       it "is valid" do
@@ -173,15 +142,21 @@ describe User do
   describe '.find_or_initialize_with_rpx' do
     context 'when given an existing user in the database' do
       before(:each) do
+        @db_user = FactoryGirl.create(:user)
+        
         hash = {
-          'name' => 'John Doe',
-          'email' => 'jdoe@gmail.com',
-          'identifier' => 'https://google.com/profiles/johndoe' }
+          'name' => @db_user.name,
+          'email' => @db_user.email,
+          'identifier' => @db_user.identifier }
         @user = User.find_or_initialize_with_rpx(hash)        
       end
       
       it 'does not create a new record' do
         @user.should_not be_new_record
+      end
+
+      it 'is the same record' do
+        @user.should eq(@db_user)
       end
     end
     

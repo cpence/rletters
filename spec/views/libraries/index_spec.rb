@@ -3,20 +3,22 @@ require 'spec_helper'
 
 describe "libraries/index" do
   
-  fixtures :users, :libraries
-  login_user(:john)
+  login_user
   
   before(:each) do
-    assign(:libraries, users(:john).libraries)    
+    @library = FactoryGirl.create(:library, :user => @user)
+    @user.libraries.reload
+    
+    assign(:libraries, @user.libraries)    
     render
   end
   
   it 'has a link to edit the library' do
-    rendered.should have_selector("a[href='#{edit_user_library_path(libraries(:harvard))}']", :content => 'Harvard')
+    rendered.should have_selector("a[href='#{edit_user_library_path(@library)}']", :content => @library.name)
   end
   
   it 'has a link to delete the library' do
-    rendered.should have_selector("a[href='#{delete_user_library_path(libraries(:harvard))}']")
+    rendered.should have_selector("a[href='#{delete_user_library_path(@library)}']")
   end
   
   it 'has a link to add a new library' do

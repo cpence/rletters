@@ -15,6 +15,7 @@ all_environments: &all_environments
   google_analytics_key: "<%= Capistrano::CLI.ui.ask("Enter Google Analytics account ID: ") %>"
   
   solr_server_url: <%= Capistrano::CLI.ui.ask("Enter Solr server path: ") %>
+  solr_timeout: <%= Capistrano::CLI::ui.ask("Enter Solr timeout (in seconds, default 120): ")>
   
   available_csl_styles:
     - apa.csl

@@ -55,7 +55,7 @@ class LibrariesController < ApplicationController
     @library.user = @user
 
     if @library.save
-      @user.libraries(true)
+      @user.libraries.reload
       redirect_to user_path, :notice => I18n.t('libraries.create.success')
     else
       render :action => 'new', :layout => 'dialog'
@@ -70,7 +70,7 @@ class LibrariesController < ApplicationController
     raise ActiveRecord::RecordNotFound unless @library
     
     if @library.update_attributes(params[:library])
-      @user.libraries(true)
+      @user.libraries.reload
       redirect_to user_path, :notice => I18n.t('libraries.update.success')
     else
       render :action => 'edit', :layout => 'dialog'
@@ -87,8 +87,8 @@ class LibrariesController < ApplicationController
     redirect_to user_path and return if params[:cancel]
 
     @library.destroy
-    @user.libraries(true)
-
+    @user.libraries.reload
+    
     redirect_to user_path
   end
   

@@ -1,22 +1,22 @@
 # -*- encoding : utf-8 -*-
 
 module UserLoginHelper
-  def login_user(user)
+  def login_user(attributes = {})
     before(:each) do
-      session[:user_id] = users(user).to_param
-      @user = users(user)
+      @user = FactoryGirl.create(:user, attributes)
+      session[:user_id] = @user.to_param
     end
 
     after(:each) do
-      session[:user_id] = nil
       @user = nil
+      session[:user_id] = nil
     end
   end
 
   def logout_user
     before(:each) do
-      session[:user_id] = nil
       @user = nil
+      session[:user_id] = nil
     end
   end
 end

@@ -10,14 +10,15 @@ class Library < ActiveRecord::Base
   
   validates :name, :presence => true
   validates :url, :presence => true
-  validates :url, :format => { :with => /^(#{URI::regexp(%w(http https))})$/u }
+  # http://daringfireball.net/2010/07/improved_regex_for_matching_urls
+  validates :url, :format => { :with => /(?i)\b((?:[a-z][\w-]+:(?:\/{1,3}|[a-z0-9%])|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}\/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'".,<>?«»“”‘’]))/u }
   validates :user_id, :presence => true
   
   attr_accessible :url, :name
 
   protected
   
-  before_validation do |library|
+  after_validation do |library|
     unless library.url.blank?
       library.url = "http://" + url unless library.url.start_with? "http"
       library.url = library.url + "?" unless library.url.end_with? "?"

@@ -3,8 +3,10 @@ require 'spec_helper'
 
 describe DatasetsController do
   
-  fixtures :datasets, :dataset_entries, :users
-  login_user(:john)
+  login_user  
+  before(:each) do
+    @dataset = FactoryGirl.create(:full_dataset, :user => @user, :working => true)
+  end
   
   describe '#index' do
     context "when not logged in" do
@@ -33,7 +35,7 @@ describe DatasetsController do
       
       it "assigns the list of datsets" do
         get :dataset_list
-        assigns(:datasets).should eq(users(:john).datasets)
+        assigns(:datasets).should eq([ @dataset ])
       end
     end
   end
@@ -52,10 +54,8 @@ describe DatasetsController do
   
   describe '#create' do
     it 'creates a delayed job' do
-      Examples.stub_with(/localhost\/solr\/.*/, :dataset_precise_all)
-
       expected_job = Jobs::CreateDataset.new(
-        :user_id => users(:john).to_param,
+        :user_id => @user.to_param,
         :name => 'Test Dataset',
         :q => '*:*',
         :fq => nil,
@@ -76,23 +76,23 @@ describe DatasetsController do
   describe '#show' do
     context 'without clear_failed' do
       it 'loads successfully' do
-        get :show, :id => datasets(:one).to_param
+        get :show, :id => @dataset.to_param
         response.should be_success
       end
 
       it 'assigns dataset' do
-        get :show, :id => datasets(:one).to_param
-        assigns(:dataset).should eq(datasets(:one))
+        get :show, :id => @dataset.to_param
+        assigns(:dataset).should eq(@dataset)
       end
     end
     
     context 'with clear_failed' do
       before(:each) do
-        task = datasets(:one).analysis_tasks.create(:name => 'failure', :job_type => 'FakeJob')
+        task = FactoryGirl.build(:analysis_task, :dataset => @dataset)
         task.failed = true
         task.save.should be_true
 
-        get :show, :id => datasets(:one).to_param, :clear_failed => true
+        get :show, :id => @dataset.to_param, :clear_failed => true
       end
 
       it 'loads successfully' do
@@ -100,7 +100,7 @@ describe DatasetsController do
       end
       
       it 'deletes the failed task' do
-        datasets(:one).analysis_tasks.failed.count.should eq(0)
+        @dataset.analysis_tasks.failed.count.should eq(0)
       end
       
       it 'sets the flash' do
@@ -111,13 +111,13 @@ describe DatasetsController do
   
   describe '#delete' do
     it 'loads successfully' do
-      get :delete, :id => datasets(:one).to_param
+      get :delete, :id => @dataset.to_param
       response.should be_success
     end
     
     it 'assigns dataset' do
-      get :delete, :id => datasets(:one).to_param
-      assigns(:dataset).should eq(datasets(:one))
+      get :delete, :id => @dataset.to_param
+      assigns(:dataset).should eq(@dataset)
     end
   end
   
@@ -125,15 +125,15 @@ describe DatasetsController do
     context 'when cancel is not passed' do
       it 'creates a delayed job' do
         expected_job = Jobs::DestroyDataset.new(
-          :user_id => users(:john).to_param,
-          :dataset_id => datasets(:one).to_param)
+          :user_id => @user.to_param,
+          :dataset_id => @dataset.to_param)
         Delayed::Job.should_receive(:enqueue).with(expected_job).once
 
-        delete :destroy, :id => datasets(:one).to_param
+        delete :destroy, :id => @dataset.to_param
       end
       
       it 'redirects to index when done' do
-        delete :destroy, :id => datasets(:one).to_param
+        delete :destroy, :id => @dataset.to_param
         response.should redirect_to(datasets_path)
       end
     end
@@ -141,12 +141,12 @@ describe DatasetsController do
     context 'when cancel is passed' do
       it 'does not create a delayed job' do
         Delayed::Job.should_not_receive(:enqueue)
-        delete :destroy, :id => datasets(:one).to_param, :cancel => true
+        delete :destroy, :id => @dataset.to_param, :cancel => true
       end
       
       it 'redirects to the dataset page' do
-        delete :destroy, :id => datasets(:one).to_param, :cancel => true
-        response.should redirect_to(datasets(:one))
+        delete :destroy, :id => @dataset.to_param, :cancel => true
+        response.should redirect_to(@dataset)
       end
     end
   end
@@ -154,28 +154,22 @@ describe DatasetsController do
   describe '#add' do
     context 'when an invalid document is passed' do
       it 'raises an exception' do
-        Examples.stub_with(/localhost\/solr\/.*/, :standard_empty_search)
-        
         expect {
-          get :add, :dataset_id => datasets(:one).to_param, :shasum => 'fail'
+          get :add, :dataset_id => @dataset.to_param, :shasum => 'fail'
         }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
 
     context 'when all parameters are valid' do
-      before(:each) do
-        Examples.stub_with(/localhost\/solr\/.*/, :precise_one_doc)
-      end
-      
       it 'adds to the dataset' do
         expect {
-          get :add, :dataset_id => datasets(:one).to_param, :shasum => '00972c5123877961056b21aea4177d0dc69c7318'
-        }.to change{datasets(:one).entries.count}.by(1)
+          get :add, :dataset_id => @dataset.to_param, :shasum => FactoryGirl.generate(:working_shasum)
+        }.to change{@dataset.entries.count}.by(1)
       end
 
       it 'redirects to the dataset page' do
-        get :add, :dataset_id => datasets(:one).to_param, :shasum => '00972c5123877961056b21aea4177d0dc69c7318'
-        response.should redirect_to(dataset_path(datasets(:one)))
+        get :add, :dataset_id => @dataset.to_param, :shasum => FactoryGirl.generate(:working_shasum)
+        response.should redirect_to(dataset_path(@dataset))
       end
     end
   end
@@ -184,7 +178,7 @@ describe DatasetsController do
     context 'when an invalid class is passed' do
       it 'raises an exception' do
         expect {
-          get :task_start, :id => datasets(:one).to_param, :class => 'ThisIsNoClass'
+          get :task_start, :id => @dataset.to_param, :class => 'ThisIsNoClass'
         }.to raise_error
       end
     end
@@ -192,7 +186,7 @@ describe DatasetsController do
     context 'when Base is passed' do
       it 'raises an exception' do
         expect {
-          get :task_start, :id => datasets(:one).to_param, :class => 'Base'
+          get :task_start, :id => @dataset.to_param, :class => 'Base'
         }.to raise_error
       end
     end
@@ -200,23 +194,23 @@ describe DatasetsController do
     context 'when a valid class is passed' do
       it 'does not raise an exception' do
         expect {
-          get :task_start, :id => datasets(:one).to_param, :class => 'ExportCitations', :job_params => { :format => 'bibtex' }
+          get :task_start, :id => @dataset.to_param, :class => 'ExportCitations', :job_params => { :format => 'bibtex' }
         }.to_not raise_error
       end
       
       it 'enqueues a job' do
         expected_job = Jobs::Analysis::ExportCitations.new(
-          :user_id => users(:john).to_param,
-          :dataset_id => datasets(:one).to_param,
+          :user_id => @user.to_param,
+          :dataset_id => @dataset.to_param,
           :format => 'bibtex')
         Delayed::Job.should_receive(:enqueue).with(expected_job).once
         
-        get :task_start, :id => datasets(:one).to_param, :class => 'ExportCitations', :job_params => { :format => 'bibtex' }
+        get :task_start, :id => @dataset.to_param, :class => 'ExportCitations', :job_params => { :format => 'bibtex' }
       end
       
       it 'redirects to the dataset page' do
-        get :task_start, :id => datasets(:one).to_param, :class => 'ExportCitations', :job_params => { :format => 'bibtex' }
-        response.should redirect_to(dataset_path(datasets(:one)))
+        get :task_start, :id => @dataset.to_param, :class => 'ExportCitations', :job_params => { :format => 'bibtex' }
+        response.should redirect_to(dataset_path(@dataset))
       end
     end
   end
@@ -225,14 +219,14 @@ describe DatasetsController do
     context 'when an invalid task ID is passed' do
       it 'raises an exception' do
         expect {
-          get :task_view, :id => datasets(:one).to_param, :task_id => '12312312312312', :view => 'test'
+          get :task_view, :id => @dataset.to_param, :task_id => '12312312312312', :view => 'test'
         }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
     
     context 'when a valid task ID is passed' do
       before(:each) do
-        @task = datasets(:one).analysis_tasks.create(:name => 'test', :job_type => 'ExportCitations')
+        @task = FactoryGirl.create(:analysis_task, :dataset => @dataset, :job_type => 'ExportCitations')
       end
       
       after(:each) do
@@ -241,7 +235,7 @@ describe DatasetsController do
       
       it 'does not raise an exception' do
         expect {
-          get :task_view, :id => datasets(:one).to_param, :task_id => @task.to_param, :view => 'start'
+          get :task_view, :id => @dataset.to_param, :task_id => @task.to_param, :view => 'start'
         }.to_not raise_error
       end
     end
@@ -250,17 +244,16 @@ describe DatasetsController do
   describe '#task_download' do
     before(:each) do
       # Execute an export job, which should create an AnalysisTask
-      Examples.stub_with(/localhost\/solr\/.*/, :precise_one_doc)
       Jobs::Analysis::ExportCitations.new(
-        :user_id => users(:john).to_param,
-        :dataset_id => datasets(:one).to_param,
+        :user_id => @user.to_param,
+        :dataset_id => @dataset.to_param,
         :format => :bibtex).perform
 
       # Double-check that the task is created
-      datasets(:one).analysis_tasks.should have(1).item
-      datasets(:one).analysis_tasks[0].should be
+      @dataset.analysis_tasks.should have(1).item
+      @dataset.analysis_tasks[0].should be
       
-      @task = datasets(:one).analysis_tasks[0]
+      @task = @dataset.analysis_tasks[0]
     end
     
     after(:each) do
@@ -268,17 +261,17 @@ describe DatasetsController do
     end
     
     it 'loads successfully' do
-      get :task_download, :id => datasets(:one).to_param, :task_id => @task.to_param
+      get :task_download, :id => @dataset.to_param, :task_id => @task.to_param
       response.should be_success
     end
     
     it 'has the right MIME type' do
-      get :task_download, :id => datasets(:one).to_param, :task_id => @task.to_param
+      get :task_download, :id => @dataset.to_param, :task_id => @task.to_param
       response.content_type.should eq('application/zip')
     end
     
     it 'sends some data' do
-      get :task_download, :id => datasets(:one).to_param, :task_id => @task.to_param
+      get :task_download, :id => @dataset.to_param, :task_id => @task.to_param
       response.body.length.should be > 0
     end
   end
@@ -287,14 +280,14 @@ describe DatasetsController do
     context 'when an invalid task ID is passed' do
       it 'raises an exception' do
         expect {
-          get :task_destroy, :id => datasets(:one).to_param, :task_id => '12312312312312'
+          get :task_destroy, :id => @dataset.to_param, :task_id => '12312312312312'
         }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
     
     context 'when cancel is pressed' do
       before(:each) do
-        @task = datasets(:one).analysis_tasks.create(:name => 'test', :job_type => 'ExportCitations')
+        @task = FactoryGirl.create(:analysis_task, :dataset => @dataset, :job_type => 'ExportCitations')
       end
       
       after(:each) do
@@ -303,30 +296,30 @@ describe DatasetsController do
       
       it "doesn't delete the task" do
         expect {
-          get :task_destroy, :id => datasets(:one).to_param, :task_id => @task.to_param, :cancel => true
-        }.to_not change{datasets(:one).analysis_tasks.count}
+          get :task_destroy, :id => @dataset.to_param, :task_id => @task.to_param, :cancel => true
+        }.to_not change{@dataset.analysis_tasks.count}
       end
       
       it 'redirects to the dataset page' do
-        get :task_destroy, :id => datasets(:one).to_param, :task_id => @task.to_param, :cancel => true
-        response.should redirect_to(dataset_path(datasets(:one)))
+        get :task_destroy, :id => @dataset.to_param, :task_id => @task.to_param, :cancel => true
+        response.should redirect_to(dataset_path(@dataset))
       end
     end
     
     context "when cancel is not pressed" do
       before(:each) do
-        @task = datasets(:one).analysis_tasks.create(:name => 'test', :job_type => 'ExportCitations')
+        @task = FactoryGirl.create(:analysis_task, :dataset => @dataset, :job_type => 'ExportCitations')
       end
       
       it "deletes the task" do
         expect {
-          get :task_destroy, :id => datasets(:one).to_param, :task_id => @task.to_param
-        }.to change{datasets(:one).analysis_tasks.count}.by(-1)
+          get :task_destroy, :id => @dataset.to_param, :task_id => @task.to_param
+        }.to change{@dataset.analysis_tasks.count}.by(-1)
       end
       
       it 'redirects to the dataset page' do
-        get :task_destroy, :id => datasets(:one).to_param, :task_id => @task.to_param
-        response.should redirect_to(dataset_path(datasets(:one)))
+        get :task_destroy, :id => @dataset.to_param, :task_id => @task.to_param
+        response.should redirect_to(dataset_path(@dataset))
       end
     end
   end

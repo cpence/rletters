@@ -4,8 +4,7 @@ require 'spec_helper'
 describe Serializers::CSL do
 
   before(:each) do
-    Examples.stub_with(/localhost\/solr\/.*/, :precise_one_doc)
-    @doc = Document.find('00972c5123877961056b21aea4177d0dc69c7318')
+    @doc = FactoryGirl.build(:full_document)
   end
   
   context "when fetching a single document" do
@@ -47,7 +46,7 @@ describe Serializers::CSL do
     end
     
     it "fetches CSL styles over HTTP" do
-      Examples.stub_with('https://raw.github.com/citation-style-language/styles/master/science.csl', :csl_response_science)
+      stub_request(:any, 'https://raw.github.com/citation-style-language/styles/master/science.csl').to_return(File.new(Rails.root.join('spec', 'support', 'webmock', 'csl_response_science.txt')))
       entry = @doc.to_csl_entry('https://raw.github.com/citation-style-language/styles/master/science.csl')
       entry.to_s.should eq("C. A. Botero, A. E. Mudge, A. M. Koltz, W. M. Hochachka, S. L. Vehrencamp, How Reliable are the Methods for Estimating Repertoire Size?, <i>Ethology</i> <b>114</b>, 1227-1238 (2008).")
     end

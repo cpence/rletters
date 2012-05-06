@@ -4,7 +4,7 @@ require 'spec_helper'
 describe "jobs/export_citations/start" do
   
   before(:each) do
-    @dataset = mock_model(Dataset)
+    @dataset = FactoryGirl.create(:dataset)
   end
   
   it 'has links to all the document formats' do

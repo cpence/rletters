@@ -3,30 +3,26 @@ require 'spec_helper'
 
 describe "datasets/dataset_list" do
   
-  fixtures :datasets, :users, :dataset_entries
-  login_user(:john)
-  
+  login_user
   before(:each) do
-    assign(:datasets, users(:john).datasets)
+    @dataset = FactoryGirl.create(:full_dataset, :user => @user)
+    assign(:datasets, [ @dataset ])
   end
 
   it 'lists the dataset' do
     render
-    rendered.should contain("Test Dataset 10")
+    rendered.should contain("#{@dataset.name} #{@dataset.entries.count}")
   end
   
   it 'lists pending analysis tasks' do
-    task = AnalysisTask.new({ :name => 'test', :dataset => datasets(:one), :job_type => 'Base' })
-    task.save
+    @task = FactoryGirl.create(:analysis_task, :dataset => @dataset)
     render
     
     rendered.should have_selector("li[data-theme=e]", :content => 'You have one analysis task pending...')
   end
   
   it 'does not list completed analysis tasks' do
-    task = AnalysisTask.new({ :name => 'test', :dataset => datasets(:one), :job_type => 'Base' })
-    task.finished_at = Time.zone.now
-    task.save
+    @task = FactoryGirl.create(:analysis_task, :dataset => @dataset, :finished_at => 5.minutes.ago)
     render
     
     rendered.should_not have_selector("li[data-theme=e]")

@@ -2,8 +2,6 @@
 require 'spec_helper'
 
 describe UsersController do
-  
-  fixtures :users
   logout_user
   
   describe '#show' do
@@ -61,32 +59,32 @@ describe UsersController do
   describe '#update' do
     context 'when not logged in' do
       it 'redirects to index' do
-        post :update, :id => users(:john), :user => { :name => 'Not Johns Name', :email => 'jdoe@gmail.com' }
+        post :update, :id => '12345', :user => { :name => 'Not Johns Name', :email => 'jdoe@gmail.com' }
         response.should redirect_to(user_path)
       end
     end
     
     context 'when logged in' do
-      login_user(:john)
+      login_user
 
       context 'when parameters are valid' do
         it 'updates the user without errors' do
-          post :update, :id => users(:john), :user => { :name => 'Not Johns Name', :email => 'jdoe@gmail.com' }
-          users(:john).errors.should have(0).items
+          post :update, :id => @user.to_param, :user => { :name => 'Not Johns Name', :email => 'jdoe@gmail.com' }
+          @user.errors.should have(0).items
         end
 
         it 'saves the updated data' do
-          post :update, :id => users(:john), :user => { :name => 'Not Johns Name', :email => 'jdoe@gmail.com' }
-          users(:john).reload
-          users(:john).name.should eq("Not Johns Name")
+          post :update, :id => @user.to_param, :user => { :name => 'Not Johns Name', :email => 'jdoe@gmail.com' }
+          @user.reload
+          @user.name.should eq("Not Johns Name")
         end
       end
 
       context 'when parameters are invalid' do
         it 'does not change the parameters' do
           expect {
-            post :update, :id => users(:john), :user => { :name => 'John Doe', :email => 'thisisnotan.email' }
-          }.to_not change{users(:john).email}
+            post :update, :id => @user, :user => { :name => 'John Doe', :email => 'thisisnotan.email' }
+          }.to_not change{@user.email}
         end
       end
     end
@@ -110,7 +108,7 @@ describe UsersController do
     end
     
     context 'when logged in' do
-      login_user(:john)
+      login_user
       
       it 'clears the user variable' do
         get :logout

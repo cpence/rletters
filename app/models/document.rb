@@ -162,7 +162,7 @@ class Document
 
     # Do the Solr query
     solr_response = Solr::Connection.find params
-
+    
     # Set the num_results count (before possibly bailing!)
     @@num_results = 0
     @@num_results = solr_response.total if solr_response.ok?

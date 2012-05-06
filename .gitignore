@@ -7,7 +7,9 @@
 config/app_config.yml
 config/database.yml
 config/deploy/deploy_config.rb
-db/*.sqlite3
+contrib/solr/example/logs/*
+contrib/solr/example/work
+db/*.sqlite*
 doc
 downloads
 spec/coverage/

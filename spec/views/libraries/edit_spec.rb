@@ -3,20 +3,20 @@ require 'spec_helper'
 
 describe "libraries/edit" do
   
-  fixtures :users, :libraries
-  login_user(:john)
+  login_user
   
   before(:each) do
-    assign(:library, users(:john).libraries[0])    
+    @library = FactoryGirl.create(:library, :user => @user)
+    assign(:library, @library)    
     render
   end
   
   it 'has a filled-in name field' do
-    rendered.should have_selector("input[name='library[name]'][value=Harvard]")
+    rendered.should have_selector("input[name='library[name]'][value=#{@library.name}]")
   end
   
   it 'has a filled-in URL field' do
-    rendered.should have_selector("input[name='library[url]'][value='http://sfx.hul.harvard.edu/sfx_local?']")
+    rendered.should have_selector("input[name='library[url]'][value='#{@library.url}']")
   end
   
 end

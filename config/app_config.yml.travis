@@ -14,7 +14,8 @@ all_environments: &all_environments
   airbrake_key: ""
   google_analytics_key: ""
   
-  solr_server_url: http://localhost/solr
+  solr_server_url: http://localhost:8983
+  solr_timeout: 120
   
   available_csl_styles:
     - apa.csl

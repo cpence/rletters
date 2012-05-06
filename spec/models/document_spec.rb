@@ -5,9 +5,9 @@ describe Document do
   it_should_behave_like "ActiveModel"
   
   describe '#valid' do
-    context "when empty" do
+    context "when no shasum is specified" do
       before(:each) do
-        @doc = Document.new
+        @doc = FactoryGirl.build(:document, :shasum => nil)
       end
       
       it "isn't valid" do
@@ -17,7 +17,7 @@ describe Document do
     
     context "when a short shasum is specified" do
       before(:each) do
-        @doc = Document.new({ "shasum" => "notanshasum" })
+        @doc = FactoryGirl.build(:document, :shasum => "notanshasum")
       end
       
       it "isn't valid" do
@@ -27,7 +27,7 @@ describe Document do
     
     context "when a bad shasum is specified" do
       before(:each) do
-        @doc = Document.new({ "shasum" => "1234567890thisisbad!" })
+        @doc = FactoryGirl.build(:document, :shasum => "1234567890thisisbad!")
       end
       
       it "isn't valid" do
@@ -37,7 +37,7 @@ describe Document do
     
     context "when a good shasum is specified" do
       before(:each) do
-        @doc = Document.new({ "shasum" => "00972c5123877961056b21aea4177d0dc69c7318" })
+        @doc = FactoryGirl.build(:document)
       end
       
       it "is valid" do
@@ -47,17 +47,14 @@ describe Document do
   end
   
   def precise_one_doc
-    Examples.stub_with(/localhost\/solr\/.*/, :precise_one_doc)
     @doc = Document.find('00972c5123877961056b21aea4177d0dc69c7318')
   end
   
   def fulltext_one_doc
-    Examples.stub_with(/localhost\/solr\/.*/, :fulltext_one_doc)
     @doc = Document.find_with_fulltext('00972c5123877961056b21aea4177d0dc69c7318')
   end
   
   def precise_all_docs
-    Examples.stub_with(/localhost\/solr\/.*/, :precise_all_docs)
     @docs = Document.find_all_by_solr_query({ :q => "*:*", :qt => "precise" })
   end
   
@@ -73,9 +70,7 @@ describe Document do
     end
     
     context "when Solr fails" do
-      before(:each) do
-        Examples.stub_with(/localhost\/solr\/.*/, :error)
-      end
+      break_solr
       
       it "raises an exception" do
         expect { Document.find("FAILURE") }.to raise_error(ActiveRecord::StatementInvalid)
@@ -83,10 +78,6 @@ describe Document do
     end
     
     context "when no documents are returned" do
-      before(:each) do
-        Examples.stub_with(/localhost\/solr\/.*/, :standard_empty_search)
-      end
-      
       it "raises an exception" do
         expect { Document.find("shatner") }.to raise_error(ActiveRecord::RecordNotFound)
       end
@@ -105,9 +96,7 @@ describe Document do
     end
     
     context "when Solr fails" do
-      before(:each) do
-        Examples.stub_with(/localhost\/solr\/.*/, :error)
-      end
+      break_solr
       
       it "raises an exception" do
         expect { Document.find_with_fulltext("FAILURE") }.to raise_error(ActiveRecord::StatementInvalid)
@@ -115,10 +104,6 @@ describe Document do
     end
     
     context "when no documents are returned" do
-      before(:each) do
-        Examples.stub_with(/localhost\/solr\/.*/, :standard_empty_search)
-      end
-      
       it "raises an exception" do
         expect { Document.find_with_fulltext("shatner") }.to raise_error(ActiveRecord::RecordNotFound)
       end
@@ -137,9 +122,7 @@ describe Document do
     end
     
     context "when Solr fails" do
-      before(:each) do
-        Examples.stub_with(/localhost\/solr\/.*/, :error)
-      end
+      break_solr
       
       it "raises an exception" do
         expect { Document.find_all_by_solr_query({ :q => "FAILURE", :qt => "standard" }) }.to raise_error(ActiveRecord::StatementInvalid)
@@ -147,10 +130,6 @@ describe Document do
     end
     
     context "when no documents are returned" do
-      before(:each) do
-        Examples.stub_with(/localhost\/solr\/.*/, :standard_empty_search)
-      end
-      
       it "returns an empty array" do
         Document.find_all_by_solr_query({ :q => 'shatner', :qt => "standard" }).should have(0).items
       end
@@ -173,8 +152,8 @@ describe Document do
         precise_all_docs
       end
       
-      it "sets num_results to 10" do
-        Document.num_results.should eq(10)
+      it "sets num_results" do
+        Document.num_results.should eq(1042)
       end
     end
   end
@@ -208,9 +187,9 @@ describe Document do
       end
       
       it "parses authors_facet correctly" do
-        f = Document.facets.for_field(:authors_facet).detect { |f| f.value == 'Jennifer L. Snekser' }
+        f = Document.facets.for_field(:authors_facet).detect { |f| f.value == 'J. C. Crabbe' }
         f.should be
-        f.hits.should eq(1)
+        f.hits.should eq(9)
       end
       
       it "does not include authors_facet entries for authors not present" do
@@ -226,7 +205,7 @@ describe Document do
       it "parses journal_facet correctly" do
         f = Document.facets.for_field(:journal_facet).detect { |f| f.value == 'Ethology' }
         f.should be
-        f.hits.should eq(10)
+        f.hits.should eq(594)
       end
       
       it "does not include journal_facet entries for journals not present" do
@@ -237,7 +216,7 @@ describe Document do
       it "parses year facet queries correctly" do
         f = Document.facets.for_field(:year).detect { |f| f.value == '[2000 TO 2009]' }
         f.should be
-        f.hits.should eq(7)
+        f.hits.should eq(788)
       end
       
       it "does not include year facet queries for non-present years" do
@@ -311,10 +290,6 @@ describe Document do
         @docs[7].volume.should eq('104')
       end
       
-      it "sets the number" do
-        @docs[4].number.should eq('6')
-      end
-      
       it "sets the pages" do
         @docs[8].pages.should eq('181-187')
       end
@@ -382,7 +357,7 @@ describe Document do
     
     context "when loading a document with funny page ranges" do
       before(:each) do
-        @doc = Document.new({ "shasum" => "00972c5123877961056b21aea4177d0dc69c7318", "pages" => "1483-92" })
+        @doc = FactoryGirl.build(:document, :pages => "1483-92")
       end
       
       it "parses start_page correctly" do
@@ -416,23 +391,23 @@ describe Document do
       end
       
       it "sets tf" do
-        @doc.term_vectors["cornell"][:tf].should eq(3)
+        @doc.term_vectors["m"][:tf].should eq(2)
       end
       
       it "sets offsets" do
-        @doc.term_vectors["neurobiology"][:offsets][0].should eq(527...539)
+        @doc.term_vectors["vehrencampf"][:offsets][0].should eq(162...173)
       end
       
       it "sets positions" do
-        @doc.term_vectors["reliable"][:positions][0].should eq(2)
+        @doc.term_vectors["center"][:positions][0].should eq(26)
       end
       
       it "sets df" do
-        @doc.term_vectors["laboratory"][:df].should eq(2)
+        @doc.term_vectors["reliable"][:df].should eq(1.0)
       end
       
       it "sets tfidf" do
-        @doc.term_vectors["humboldt"][:tfidf].should eq(1.0)
+        @doc.term_vectors["andrew"][:tfidf].should be_within(0.001).of(0.06666)
       end
       
       it "doesn't set anything for terms that don't appear" do

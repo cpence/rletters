@@ -3,8 +3,6 @@ require 'spec_helper'
 
 describe ApplicationController do
 
-  fixtures :users
-
   describe '#get_user' do
     controller(ApplicationController) do
       def index
@@ -46,18 +44,18 @@ describe ApplicationController do
     end
 
     context 'with a good user ID' do
-      login_user(:john)
+      login_user
       
       before(:each) do
         get :index
       end
 
       it 'leaves the user ID alone' do
-        session[:user_id].should eq(users(:john).to_param)
+        session[:user_id].should eq(@user.to_param)
       end
 
       it 'sets the right user' do
-        assigns(:user).should eq(users(:john))
+        assigns(:user).should eq(@user)
       end
     end
   end
@@ -82,7 +80,7 @@ describe ApplicationController do
     end
 
     context 'with a user' do
-      login_user(:alice)
+      login_user(:language => 'es-MX')
       
       before(:each) do
         get :index
@@ -114,7 +112,7 @@ describe ApplicationController do
     end
 
     context 'with a user' do
-      login_user(:alice)
+      login_user(:timezone => 'Mexico City')
       
       before(:each) do
         get :index
@@ -150,7 +148,7 @@ describe ApplicationController do
     end
 
     context 'with a user specified' do
-      login_user(:john)
+      login_user
 
       it 'does not redirect' do
         get :index

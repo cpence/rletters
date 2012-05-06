@@ -4,10 +4,9 @@ require 'spec_helper'
 describe "jobs/single_term_vectors/results" do
   
   before(:each) do
-    @dataset = mock_model(Dataset)
-    
-    @task = AnalysisTask.new(:name => "Term frequency information", :job_type => 'SingleTermVectors')
-    @task.dataset = @dataset
+    @dataset = FactoryGirl.create(:dataset)
+    @task = FactoryGirl.create(:analysis_task, :name => "Term frequency information",
+                               :job_type => 'SingleTermVectors', :dataset => @dataset)
     @task.result_file = Download.create_file('temp.yml') do |file|
       file.write({ "test" => { :tf => 3, :df => 1, :tfidf => 2.5 }}.to_yaml)
       file.close

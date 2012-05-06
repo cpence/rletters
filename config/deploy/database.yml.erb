@@ -16,7 +16,9 @@ production:
   database: <%= application %>_production
   <<: *base
 
-test:
-  database: <%= application %>_test
-  <<: *base
+test: &test
+  adapter: sqlite3
+  database: ":memory:"
+  verbosity: quiet
+  timeout: 5000
 

@@ -3,11 +3,10 @@ require 'spec_helper'
 
 describe "libraries/new" do
   
-  fixtures :users
-  login_user(:john)
+  login_user
   
   before(:each) do
-    assign(:library, users(:john).libraries.build)    
+    assign(:library, @user.libraries.build)    
     render
   end
   
