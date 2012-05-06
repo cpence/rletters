@@ -15,7 +15,8 @@ downloads
 spec/coverage/
 log/*.log
 public/assets/
-tmp
+tmp/*
+!tmp/.gitkeep
 vendor/bundle
 
 app/views/static/*.markdown
