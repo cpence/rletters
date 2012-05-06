@@ -1,18 +1,7 @@
 # -*- encoding : utf-8 -*-
 
-require 'pty'
-
-# Start and stop a bundled Solr server
+# Break the Solr server by stubbing it out using WebMock, to simulate errors.
 module SolrServer
-
-  def self.start
-    `#{Rails.root.join('script', 'solr_start')} "#{Rails.root.to_s}"`
-    sleep 3
-  end
-
-  def self.stop
-    `#{Rails.root.join('script', 'solr_stop')} "#{Rails.root.to_s}"`
-  end
 
   def self.disable
     WebMock.disable_net_connect!

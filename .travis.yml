@@ -8,7 +8,7 @@ before_script:
   - "cp config/database.yml.travis config/database.yml"
   - "cp config/app_config.yml.travis config/app_config.yml"
   - "mkdir downloads"
-  - "script/solr_start"
+  - "script/solr_start ."
 
 script:
   - "bundle exec rake db:drop db:create db:schema:load spec --trace"
