@@ -8,7 +8,6 @@ before_script:
   - "cp config/database.yml.travis config/database.yml"
   - "cp config/app_config.yml.travis config/app_config.yml"
   - "mkdir downloads"
-  - "bundle exec rake db:create db:migrate db:test:prepare"
 
-script: "bundle exec rake"
+script: "RAILS_ENV=test bundle exec rake --trace db:migrate spec"
 
