@@ -1,10 +1,12 @@
 #!/bin/sh
 
-if [[ ! -f tmp/solr.pid ]]; then
+ROOT="$1"
+
+if [[ ! -f $ROOT/tmp/solr.pid ]]; then
     echo "Solr is not currently running"
-    rm -f tmp/solr.out
+    rm -f $ROOT/tmp/solr.out
     exit
 fi
 
-kill `cat tmp/solr.pid`
-rm -f tmp/solr.pid tmp/solr.out
+kill `cat $ROOT/tmp/solr.pid`
+rm -f $ROOT/tmp/solr.pid $ROOT/tmp/solr.out

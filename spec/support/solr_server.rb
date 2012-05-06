@@ -6,12 +6,12 @@ require 'pty'
 module SolrServer
 
   def self.start
-    `#{Rails.root.join('script', 'solr_start')}`
+    `#{Rails.root.join('script', 'solr_start')} "#{Rails.root.to_s}"`
     sleep 3
   end
 
   def self.stop
-    `#{Rails.root.join('script', 'solr_stop')}`
+    `#{Rails.root.join('script', 'solr_stop')} "#{Rails.root.to_s}"`
   end
 
   def self.disable

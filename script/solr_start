@@ -1,9 +1,11 @@
 #!/bin/bash
 
-cd contrib/solr/example
+ROOT="$1"
+
+cd $ROOT/contrib/solr/example
 java -jar winstone.jar --warfile=solr.war --httpPort=8983 --httpListenAddress=127.0.0.1 > ../../../tmp/solr.out 2>&1 &
 
-echo $! > ../../../tmp/solr.pid
+echo $! > $ROOT/tmp/solr.pid
 sleep 0.5
 
 while read line; do
@@ -11,4 +13,4 @@ while read line; do
         echo "Solr server started successfully"
         break
     fi
-done <../../../tmp/solr.out
+done <$ROOT/tmp/solr.out
