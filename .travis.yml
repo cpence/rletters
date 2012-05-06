@@ -8,7 +8,7 @@ before_script:
   - "cp config/database.yml.travis config/database.yml"
   - "cp config/app_config.yml.travis config/app_config.yml"
   - "mkdir downloads"
-  - "bundle exec rake db:migrate db:test:load db:test:prepare"
+  - "bundle exec rake db:create db:migrate db:test:prepare"
 
 script: "bundle exec rake"
 
