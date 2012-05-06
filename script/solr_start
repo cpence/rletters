@@ -3,7 +3,7 @@
 ROOT="$1"
 
 cd $ROOT/contrib/solr/example
-java -jar winstone.jar --warfile=solr.war --httpPort=8983 --httpListenAddress=127.0.0.1 > ../../../tmp/solr.out 2>&1 &
+java -jar winstone.jar --warfile=solr.war --httpPort=8983 --httpListenAddress=127.0.0.1 > $ROOT/tmp/solr.out 2>&1 &
 
 echo $! > $ROOT/tmp/solr.pid
 sleep 0.5
