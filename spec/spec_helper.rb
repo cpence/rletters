@@ -19,9 +19,6 @@ Spork.prefork do
     config.infer_base_class_for_anonymous_controllers = true
     
     config.before(:suite) do
-      # Fire up the Solr server
-      SolrServer.start
-      
       # Speed up testing by deferring garbage collection
       DeferredGarbageCollection.start
 
@@ -38,9 +35,6 @@ Spork.prefork do
     config.after(:suite) do
       # Clean up GC
       DeferredGarbageCollection.reconsider
-
-      # Stop the Solr server
-      SolrServer.stop
     end
 
     config.before(:each) do
