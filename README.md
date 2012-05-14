@@ -5,7 +5,7 @@
 [sm]: http://stillmaintained.com/cpence/rletters
 [sm_img]: http://stillmaintained.com/cpence/rletters.png
 [travis]: http://travis-ci.org/cpence/rletters
-[travis_img]: http://travis-ci.org/cpence/rletters.png
+[travis_img]: https://secure.travis-ci.org/cpence/rletters.png?branch=master
 
 **Homepage:** [http://charlespence.net/rletters](http://charlespence.net/rletters})  
 **Git:** [http://github.com/cpence/rletters](http://github.com/cpence/rletters)  
