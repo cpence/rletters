@@ -14,7 +14,8 @@ doc
 downloads
 spec/coverage/
 log/*.log
-public/assets/
+public/assets
+public/static_assets
 tmp/*
 !tmp/.gitkeep
 vendor/bundle

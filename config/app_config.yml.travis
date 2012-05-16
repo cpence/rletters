@@ -17,6 +17,8 @@ all_environments: &all_environments
   solr_server_url: http://localhost:8983
   solr_timeout: 120
   
+  jquery_mobile_theme: ""
+  
   available_csl_styles:
     - apa.csl
     - apsa.csl

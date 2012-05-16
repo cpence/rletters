@@ -10,12 +10,14 @@ all_environments: &all_environments
   janrain_appid: <%= Capistrano::CLI.ui.ask("Enter Janrain application ID: ") %>
   janrain_secret: <%= Capistrano::CLI.ui.ask("Enter Janrain secret: ") %>
   
-  mendeley_key: "<%= Capistrano::CLI.ui.ask("Enter Mendeley key: ") %>"
-  airbrake_key: "<%= Capistrano::CLI.ui.ask("Enter Airbrake API key: ") %>"
-  google_analytics_key: "<%= Capistrano::CLI.ui.ask("Enter Google Analytics account ID: ") %>"
+  mendeley_key: "<%= Capistrano::CLI.ui.ask("Enter Mendeley key (or leave blank): ") %>"
+  airbrake_key: "<%= Capistrano::CLI.ui.ask("Enter Airbrake API key (or leave blank): ") %>"
+  google_analytics_key: "<%= Capistrano::CLI.ui.ask("Enter Google Analytics account ID (or leave blank): ") %>"
   
   solr_server_url: <%= Capistrano::CLI.ui.ask("Enter Solr server path: ") %>
   solr_timeout: <%= Capistrano::CLI::ui.ask("Enter Solr timeout (in seconds, default 120): ")>
+
+  jquery_mobile_theme: "<%= Capistrano::CLI::ui.ask("Enter custom jQuery Mobile theme name (or leave blank): ") %>"
   
   available_csl_styles:
     - apa.csl
