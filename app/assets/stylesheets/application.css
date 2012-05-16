@@ -1,9 +1,6 @@
 /*
- jQuery Mobile themes are to be loaded *before* the original styling from
- jQM itself, according to the documentation.
- 
- *= require jquery_mobile_theme
  *= require jquery_mobile
+ *= require jquery_mobile_theme
  *= require_self
  *= require_tree . 
 */
