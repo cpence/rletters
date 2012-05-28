@@ -1,9 +1,7 @@
 # RLetters #
 
-[![Still Maintained][sm_img]][sm] [![Build Status][travis_img]][travis]
+[![Build Status][travis_img]][travis]
 
-[sm]: http://stillmaintained.com/cpence/rletters
-[sm_img]: http://stillmaintained.com/cpence/rletters.png
 [travis]: http://travis-ci.org/cpence/rletters
 [travis_img]: https://secure.travis-ci.org/cpence/rletters.png?branch=master
 
