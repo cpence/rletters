@@ -35,12 +35,14 @@ FactoryGirl.define do
 
     factory :full_dataset do
       ignore do
+        working false
         entries_count 5
       end
 
-      after_create do |dataset, evaluator|
+      after(:create) do |dataset, evaluator|
         dataset.entries = evaluator.entries_count.times.map do
-          FactoryGirl.create(:dataset_entry, :dataset => dataset, :working => working)
+          FactoryGirl.create(:dataset_entry, :dataset => dataset,
+                             :working => evaluator.working)
         end
       end
     end

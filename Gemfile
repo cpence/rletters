@@ -3,18 +3,12 @@ source 'http://rubygems.org'
 gem 'rails', '~> 3.0'
 gem 'rails-i18n', '= 0.4.0'
 
-gem 'sqlite3'
-gem 'activerecord-jdbcsqlite3-adapter', :platforms => :jruby
-gem 'mysql2', :platforms => [ :ruby, :mswin, :mingw ]
-gem 'activerecord-jdbcmysql-adapter', :platforms => :jruby
 gem 'jruby-openssl', :platforms => :jruby
 gem 'activerecord-import'
 
 gem 'capistrano'
 gem 'delayed_job', '~> 3.0', '>= 3.0.1'
 gem 'delayed_job_active_record'
-gem 'daemons', :require => false
-gem 'whenever', :require => false
 gem 'airbrake'
 
 gem 'rpx_now'
@@ -40,6 +34,14 @@ gem 'kramdown'
 gem 'jquery-rails', '= 1.0.18'
 gem 'jquery_mobile-rails', '= 1.1.0'
 
+group :production do
+  gem 'mysql2', :platforms => [ :ruby, :mswin, :mingw ]
+  gem 'activerecord-jdbcmysql-adapter', :platforms => :jruby
+
+  gem 'daemons', :require => false
+  gem 'whenever', :require => false
+end
+
 group :assets do
   gem 'sass-rails'
   gem 'uglifier'
@@ -55,6 +57,9 @@ end
 
 group :test, :development do
   gem 'rspec-rails'
+
+  gem 'sqlite3'
+  gem 'activerecord-jdbcsqlite3-adapter', :platforms => :jruby
 end
 
 group :test do
@@ -63,17 +68,11 @@ group :test do
   gem 'webrat'
   gem 'webmock', :require => false
   gem 'nokogiri'
-  
-  gem 'spork', '> 0.9.0rc'
-  gem 'guard-rspec'
-  gem 'guard-spork'
-  gem 'growl'
 end
 
 group :development do
   gem 'yard'
   gem 'yard-rails'
-  gem 'yardstick', :require => false
 
   gem 'magic_encoding', :require => false
 
