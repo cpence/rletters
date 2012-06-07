@@ -21,6 +21,24 @@
       </analyzer>
     </fieldType>
 
+    <!-- A field that splits on dashes and preserves original tokens; this is
+         used only for page numbers (issue #4) -->
+    <fieldType name="text_pageNumber" class="solr.TextField" positionIncrementGap="20">
+      <analyzer>
+        <tokenizer class="solr.WhitespaceTokenizerFactory"/>
+        <filter class="solr.WordDelimiterFilterFactory"
+                splitOnCaseChange="0"
+                splitOnNumerics="0"
+                stemEnglishPossessive="0"
+                generateWordParts="1"
+                generateNumberParts="1"
+                catenateWords="0"
+                catenateNumbers="0"
+                catenateAll="0"
+                preserveOriginal="1"/>
+      </analyzer>
+    </fieldType>
+
     <!-- A text field that only splits words and lowercases, otherwise leaving 
          verbatim, for searchable bibliographic data -->
     <fieldType name="text_searchableVerbatim" class="solr.TextField" positionIncrementGap="10">
@@ -95,7 +113,7 @@
    <field name="year" type="text_searchableVerbatim" indexed="true" stored="true" omitNorms="true" />
    <field name="volume" type="text_searchableVerbatim" indexed="true" stored="true" omitNorms="true" />
    <field name="number" type="text_searchableVerbatim" indexed="true" stored="true" omitNorms="true" />
-   <field name="pages" type="text_searchableVerbatim" indexed="true" stored="true" omitNorms="true" />
+   <field name="pages" type="text_pageNumber" indexed="true" stored="true" omitNorms="true" />
 
    <!-- Here we want searchable text, but with stopwords removed -->
    <field name="fulltext" type="text_searchable" indexed="true" stored="true" omitNorms="true" termVectors="true"
