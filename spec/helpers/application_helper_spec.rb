@@ -57,12 +57,34 @@ describe ApplicationHelper do
   end
   
   describe '#t_md' do
-    it "should render Markdown in translations" do
-      I18n.backend.store_translations :en, :test_markdown => '# Testing #'
-      
-      html = t_md(:test_markdown)
-      html.should be
-      html.should have_selector('h1', :content => 'Testing')
+    context "without a shortcut" do
+      it "should render Markdown in translations" do
+        I18n.backend.store_translations :en, :test_markdown => '# Testing #'
+        
+        html = helper.t_md(:test_markdown)
+        html.should be
+        html.should have_selector('h1', :content => 'Testing')
+      end
+    end
+
+    context "with a shortcut" do
+      before(:all) do
+        I18n.backend.store_translations :en, :info => { :spectest => { :testing => '# Testing #' }}
+
+        @custom_filename = Rails.root.join('app', 'views', 'info', 'spectest.html.haml')
+        File.open(@custom_filename, 'w') do |f|
+          f.write('= t_md(".testing")')
+        end
+      end
+
+      after(:all) do
+        File.delete(@custom_filename)
+      end
+
+      it "should render Markdown in translations" do
+        render :template => 'info/spectest'
+        rendered.should have_selector('h1', :content => 'Testing')
+      end
     end
   end
   
