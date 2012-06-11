@@ -53,7 +53,6 @@ unless index.nil?
   else
     writer_threads = Integer(writer_threads)
   end
-
   ARGV.delete_at(index + 1)
   ARGV.delete_at(index)
 end
@@ -71,9 +70,9 @@ Options:
   -u <url>, --url <url> the URL for the Solr server (default:
                         http://localhost:8080/solr)
 
-  --reader_threads <n>  the number of XML-reading threads to spawn
+  --reader-threads <n>  the number of XML-reading threads to spawn
                         (default: 2)
-  --writer_threads <n>  the number of Solr writing threads to spawn
+  --writer-threads <n>  the number of Solr writing threads to spawn
                         (default: 2)
 EOF
   exit
