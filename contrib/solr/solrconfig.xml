@@ -110,7 +110,7 @@
         <bool name="tv.tf">true</bool>
         <bool name="tv.df">true</bool>
         <bool name="tv.tf_idf">true</bool>
-        <bool name="tv.positions">false</bool>
+        <bool name="tv.positions">true</bool>
         <bool name="tv.offsets">false</bool>
      </lst>
      <arr name="last-components">
