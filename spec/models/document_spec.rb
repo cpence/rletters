@@ -393,10 +393,12 @@ describe Document do
       it "sets tf" do
         @doc.term_vectors["m"][:tf].should eq(2)
       end
-      
-      it "sets offsets" do
-        @doc.term_vectors["vehrencampf"][:offsets][0].should eq(162...173)
-      end
+
+      # For the moment, offsets are disabled in the Solr config, as we aren't
+      # using them anywhere.
+      #it "sets offsets" do
+      #  @doc.term_vectors["vehrencampf"][:offsets][0].should eq(162...173)
+      #end
       
       it "sets positions" do
         @doc.term_vectors["center"][:positions][0].should eq(26)

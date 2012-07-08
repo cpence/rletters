@@ -19,10 +19,10 @@
         <str name="defType">dismax</str>
         <float name="tie">0.1</float>
         <str name="qf">
-           title_search^8.0 fulltext_search^5.0 journal_search
+           title_stem^8.0 fulltext_stem^5.0 journal_stem
         </str>
         <str name="pf">
-           title_search^8.0 fulltext_search^5.0 journal_search
+           title_stem^8.0 fulltext_stem^5.0 journal_stem
         </str>
         <str name="q.alt">*:*</str>
         
@@ -93,6 +93,31 @@
         <str name="facet.query">year:[1990 TO 1999]</str>
         <str name="facet.query">year:[2000 TO 2009]</str>
         <str name="facet.query">year:[2010 TO *]</str>
+     </lst>
+  </requestHandler>
+
+  <!-- Return only shasums, for creating datasets. -->
+  <requestHandler name="dataset" class="solr.SearchHandler">
+     <lst name="defaults">
+        <str name="echoParams">explicit</str>
+        <str name="fl">shasum</str>
+        <str name="defType">dismax</str>
+        <float name="tie">0.1</float>
+        <str name="qf">
+           title_stem^8.0 fulltext_stem^5.0 journal_stem
+        </str>
+        <str name="pf">
+           title_stem^8.0 fulltext_stem^5.0 journal_stem
+        </str>
+        <str name="q.alt">*:*</str>
+     </lst>
+  </requestHandler>
+
+  <!-- Return only shasums, for creating datasets, precise search. -->
+  <requestHandler name="dataset_precise" class="solr.SearchHandler">
+     <lst name="defaults">
+        <str name="echoParams">explicit</str>
+        <str name="fl">shasum</str>
      </lst>
   </requestHandler>
 

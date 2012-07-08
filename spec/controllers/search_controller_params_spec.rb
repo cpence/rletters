@@ -73,9 +73,9 @@ describe SearchController do
         :title_type => 'fuzzy', :fulltext => 'alien',
         :fulltext_type => 'fuzzy' }
       ret = controller.send(:search_params_to_solr_query, params)
-      ret[:q].should include('journal_search:(Astrobiology)')
-      ret[:q].should include('title_search:(Testing with Spaces)')
-      ret[:q].should include('fulltext_search:(alien)')
+      ret[:q].should include('journal_stem:(Astrobiology)')
+      ret[:q].should include('title_stem:(Testing with Spaces)')
+      ret[:q].should include('fulltext_stem:(alien)')
     end
 
     it "handles multiple authors correctly" do

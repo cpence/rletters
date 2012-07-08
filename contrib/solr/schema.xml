@@ -39,63 +39,70 @@
       </analyzer>
     </fieldType>
 
-    <!-- A text field that only splits words and lowercases, otherwise leaving 
-         verbatim, for searchable bibliographic data -->
-    <fieldType name="text_searchableVerbatim" class="solr.TextField" positionIncrementGap="10">
-      <analyzer>
-        <tokenizer class="solr.WhitespaceTokenizerFactory"/>
-        <!-- Strip leading and trailing punctuation (issue #2) -->
-        <filter class="solr.PatternReplaceFilterFactory"
-            pattern="^(\p{Punct}*)(.*?)(\p{Punct}*)$"
-            replacement="$2"/>
+    <!-- NOTE: We make heavy use here of StandardTokenizerFactory and
+         StandardFilterFactory.  In Solr versions greater than 3.1,
+         these should be replaced by ClassicTokenizerFactory and
+         ClassicFilterFactory. -->
+
+    <!-- A text field that:
+           - splits words
+           - lowercases
+           - removes punctuation from beginning and end of tokens (issue #2)
+
+         When we search on this field, we remove stop words, as you never
+         want to match stop words in a search query.  Stop words are, however,
+         indexed, and thus will appear in things like word frequency lists
+         (unless disabled at the analysis job level). -->
+    <fieldType name="text_splitLower" class="solr.TextField" positionIncrementGap="100">
+      <analyzer type="index">
+        <tokenizer class="solr.StandardTokenizerFactory"/>
         <filter class="solr.LowerCaseFilterFactory"/>
+        <!-- We do *not* want StandardFilterFactory here, as that removes
+             apostrophe-S from the end of possessives, which is bad for
+             text analysis.  Instead, strip all punctuation from the beginning
+             and end of every word. -->
+        <filter class="solr.PatternReplaceFilterFactory"
+                pattern="^(\p{P}*)(.*?)(\p{P}*)$"
+                replacement="$2"/>
+      </analyzer>
+      <analyzer type="query">
+        <tokenizer class="solr.StandardTokenizerFactory"/>
+        <filter class="solr.LowerCaseFilterFactory"/>
+        <filter class="solr.PatternReplaceFilterFactory"
+                pattern="^(\p{P}*)(.*?)(\p{P}*)$"
+                replacement="$2"/>
+        <!-- When we're querying, remove stop words from the queries so that
+             they don't match against the full text. -->
+        <filter class="solr.StopFilterFactory"
+                ignoreCase="true"
+                words="stopwords.txt"
+                enablePositionIncrements="true"/>
       </analyzer>
     </fieldType>    
 
-    <!-- A text field that splits words, removes stop-words, and lower-cases 
-         (for the TermComponent), and does nothing else.  In particular, no
-         stemming. -->
-    <fieldType name="text_searchable" class="solr.TextField" positionIncrementGap="100">
+    <!-- All the processing of the previous filter, plus:
+           - Add WordDelimiterFilter to split on case-change, al-num boundaries,
+             and non-alphanumeric characters ("wifi", "wi fi" match "Wi-Fi")
+           - English-language stemming
+    -->
+    <fieldType name="text_splitLowerStopStem" class="solr.TextField" positionIncrementGap="100">
       <analyzer>
         <tokenizer class="solr.StandardTokenizerFactory"/>
-        <filter class="solr.StopFilterFactory"
-                ignoreCase="true"
-                words="stopwords.txt"
-                enablePositionIncrements="true"
-                />
         <filter class="solr.StandardFilterFactory"/>
+        <filter class="solr.WordDelimiterFilterFactory" 
+                generateWordParts="1" generateNumberParts="1"
+                catenateWords="1" catenateNumbers="1" catenateAll="0"
+                splitOnCaseChange="1"/>
         <filter class="solr.LowerCaseFilterFactory"/>
-      </analyzer>
-    </fieldType>
-
-    <!-- A text field that uses WordDelimiterFilter to enable splitting and matching of
-        words on case-change, alpha numeric boundaries, and non-alphanumeric chars,
-        so that a query of "wifi" or "wi fi" could match a document containing "Wi-Fi".
-        Synonyms and stopwords are customized by external files, and stemming is enabled.
-        -->
-    <fieldType name="text_searchableStemmed" class="solr.TextField" positionIncrementGap="100">
-      <analyzer type="index">
-        <tokenizer class="solr.WhitespaceTokenizerFactory"/>
+        <filter class="solr.PatternReplaceFilterFactory"
+                pattern="^(\p{P}*)(.*?)(\p{P}*)$"
+                replacement="$2"/>
+        <filter class="solr.SnowballPorterFilterFactory" language="English"
+                protected="protwords.txt"/>
         <filter class="solr.StopFilterFactory"
                 ignoreCase="true"
                 words="stopwords.txt"
-                enablePositionIncrements="true"
-                />
-        <filter class="solr.WordDelimiterFilterFactory" generateWordParts="1" generateNumberParts="1" catenateWords="1" catenateNumbers="1" catenateAll="0" splitOnCaseChange="1"/>
-        <filter class="solr.LowerCaseFilterFactory"/>
-        <filter class="solr.SnowballPorterFilterFactory" language="English" protected="protwords.txt"/>
-      </analyzer>
-      <analyzer type="query">
-        <tokenizer class="solr.WhitespaceTokenizerFactory"/>
-        <filter class="solr.SynonymFilterFactory" synonyms="synonyms.txt" ignoreCase="true" expand="true"/>
-        <filter class="solr.StopFilterFactory"
-                ignoreCase="true"
-                words="stopwords.txt"
-                enablePositionIncrements="true"
-                />
-        <filter class="solr.WordDelimiterFilterFactory" generateWordParts="1" generateNumberParts="1" catenateWords="0" catenateNumbers="0" catenateAll="0" splitOnCaseChange="1"/>
-        <filter class="solr.LowerCaseFilterFactory"/>
-        <filter class="solr.SnowballPorterFilterFactory" language="English" protected="protwords.txt"/>
+                enablePositionIncrements="true"/>
       </analyzer>
     </fieldType>
  </types>
@@ -107,22 +114,21 @@
    <field name="doi" type="string" indexed="true" stored="true" omitNorms="true" />
    
    <!-- The original bibliographic data: search it, but don't delete stopwords -->   
-   <field name="authors" type="text_searchableVerbatim" indexed="true" stored="true" omitNorms="true" />
-   <field name="title" type="text_searchableVerbatim" indexed="true" stored="true" omitNorms="true" />
-   <field name="journal" type="text_searchableVerbatim" indexed="true" stored="true" omitNorms="true" />
-   <field name="year" type="text_searchableVerbatim" indexed="true" stored="true" omitNorms="true" />
-   <field name="volume" type="text_searchableVerbatim" indexed="true" stored="true" omitNorms="true" />
-   <field name="number" type="text_searchableVerbatim" indexed="true" stored="true" omitNorms="true" />
+   <field name="authors" type="text_splitLower" indexed="true" stored="true" omitNorms="true" />
+   <field name="title" type="text_splitLower" indexed="true" stored="true" omitNorms="true" />
+   <field name="journal" type="text_splitLower" indexed="true" stored="true" omitNorms="true" />
+   <field name="year" type="text_splitLower" indexed="true" stored="true" omitNorms="true" />
+   <field name="volume" type="text_splitLower" indexed="true" stored="true" omitNorms="true" />
+   <field name="number" type="text_splitLower" indexed="true" stored="true" omitNorms="true" />
    <field name="pages" type="text_pageNumber" indexed="true" stored="true" omitNorms="true" />
 
-   <!-- Here we want searchable text, but with stopwords removed -->
-   <field name="fulltext" type="text_searchable" indexed="true" stored="true" omitNorms="true" termVectors="true"
-      termPositions="true" termOffsets="true" />
+   <!-- The original full text, for text analysis -->
+   <field name="fulltext" type="text_splitLower" indexed="true" stored="true" omitNorms="false" termVectors="true" termPositions="true" termOffsets="true" />
 
    <!-- These three fields can be searched with stemming enabled -->
-   <field name="title_search" type="text_searchableStemmed" indexed="true" stored="false" omitNorms="true" />
-   <field name="journal_search" type="text_searchableStemmed" indexed="true" stored="false" omitNorms="true" />
-   <field name="fulltext_search" type="text_searchableStemmed" indexed="true" stored="false" omitNorms="false" />
+   <field name="title_stem" type="text_splitLowerStopStem" indexed="true" stored="false" omitNorms="true" />
+   <field name="journal_stem" type="text_splitLowerStopStem" indexed="true" stored="false" omitNorms="true" />
+   <field name="fulltext_stem" type="text_splitLowerStopStem" indexed="true" stored="false" omitNorms="false" />
 
    <!-- Faceting stores data in different formats (authors are tokenized by author,
         journals aren't tokenized whatsoever) -->
@@ -141,10 +147,10 @@
    -->
  <uniqueKey>shasum</uniqueKey>
 
- <!-- Copy our _search fields -->
- <copyField source="title" dest="title_search"/>
- <copyField source="journal" dest="journal_search"/>
- <copyField source="fulltext" dest="fulltext_search"/>
+ <!-- Copy our _stem fields -->
+ <copyField source="title" dest="title_stem"/>
+ <copyField source="journal" dest="journal_stem"/>
+ <copyField source="fulltext" dest="fulltext_stem"/>
 
  <!-- Copy our facet fields -->
  <copyField source="authors" dest="authors_facet"/>

@@ -177,7 +177,7 @@ class SearchController < ApplicationController
       # Verbatim or fuzzy search fields
       %W(title journal fulltext).each do |f|
         field = f
-        field += "_search" if params[(f + "_type").to_sym] and params[(f + "_type").to_sym] == "fuzzy"
+        field += "_stem" if params[(f + "_type").to_sym] and params[(f + "_type").to_sym] == "fuzzy"
         q_array << "#{field}:(#{params[f.to_sym]})" unless params[f.to_sym].blank?
       end
       
