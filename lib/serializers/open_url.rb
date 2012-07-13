@@ -21,8 +21,9 @@ module Serializers
       params << "&rft.spage=#{CGI::escape(start_page)}" unless start_page.blank?
       params << "&rft.epage=#{CGI::escape(end_page)}" unless end_page.blank?
       unless formatted_author_list.nil? || formatted_author_list.count == 0
-        params << "&rft.aufirst=#{CGI::escape(formatted_author_list[0].first)}"
-        params << "&rft.aulast=#{CGI::escape(formatted_author_list[0].last)}"
+        au = formatted_author_list[0]
+        params << "&rft.aufirst=#{CGI::escape(au.first)}" unless au.first.blank?
+        params << "&rft.aulast=#{CGI::escape(au.last)}" unless au.last.blank?
       end
       unless author_list.nil? || author_list.count <= 1
         author_list[1...author_list.size].each do |a|
