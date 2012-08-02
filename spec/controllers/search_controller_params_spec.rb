@@ -53,7 +53,7 @@ describe SearchController do
       ret = controller.send(:search_params_to_solr_query, params)
       ret[:q].should include('journal:(Astrobiology)')
       ret[:q].should include('title:(Testing with Spaces)')
-      ret[:q].should include('fulltext:(alien)')
+      ret[:q].should include('fulltext_search:(alien)')
     end
 
     it "handles fuzzy params with type set to verbatim" do
@@ -64,7 +64,7 @@ describe SearchController do
       ret = controller.send(:search_params_to_solr_query, params)
       ret[:q].should include('journal:(Astrobiology)')
       ret[:q].should include('title:(Testing with Spaces)')
-      ret[:q].should include('fulltext:(alien)')
+      ret[:q].should include('fulltext_search:(alien)')
     end
 
     it "handles fuzzy params with type set to fuzzy" do

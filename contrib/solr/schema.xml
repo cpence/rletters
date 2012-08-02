@@ -49,12 +49,9 @@
            - lowercases
            - removes punctuation from beginning and end of tokens (issue #2)
 
-         When we search on this field, we remove stop words, as you never
-         want to match stop words in a search query.  Stop words are, however,
-         indexed, and thus will appear in things like word frequency lists
-         (unless disabled at the analysis job level). -->
+         No removing of stop words, though, for text analysis. -->
     <fieldType name="text_splitLower" class="solr.TextField" positionIncrementGap="100">
-      <analyzer type="index">
+      <analyzer>
         <tokenizer class="solr.StandardTokenizerFactory"/>
         <filter class="solr.LowerCaseFilterFactory"/>
         <!-- We do *not* want StandardFilterFactory here, as that removes
@@ -65,14 +62,17 @@
                 pattern="^(\p{P}*)(.*?)(\p{P}*)$"
                 replacement="$2"/>
       </analyzer>
-      <analyzer type="query">
+    </fieldType>    
+
+    <!-- All the processing of the previous filter, plus removing of stop
+         words -->
+    <fieldType name="text_splitLowerStop" class="solr.TextField" positionIncrementGap="100">
+      <analyzer>
         <tokenizer class="solr.StandardTokenizerFactory"/>
         <filter class="solr.LowerCaseFilterFactory"/>
         <filter class="solr.PatternReplaceFilterFactory"
                 pattern="^(\p{P}*)(.*?)(\p{P}*)$"
                 replacement="$2"/>
-        <!-- When we're querying, remove stop words from the queries so that
-             they don't match against the full text. -->
         <filter class="solr.StopFilterFactory"
                 ignoreCase="true"
                 words="stopwords.txt"
@@ -125,6 +125,9 @@
    <!-- The original full text, for text analysis -->
    <field name="fulltext" type="text_splitLower" indexed="true" stored="true" omitNorms="false" termVectors="true" termPositions="true" termOffsets="true" />
 
+   <!-- The full text for searching, with stop words removed -->
+   <field name="fulltext_search" type="text_splitLowerStop" indexed="true" stored="false" omitNorms="true" />
+
    <!-- These three fields can be searched with stemming enabled -->
    <field name="title_stem" type="text_splitLowerStopStem" indexed="true" stored="false" omitNorms="true" />
    <field name="journal_stem" type="text_splitLowerStopStem" indexed="true" stored="false" omitNorms="true" />
@@ -151,6 +154,9 @@
  <copyField source="title" dest="title_stem"/>
  <copyField source="journal" dest="journal_stem"/>
  <copyField source="fulltext" dest="fulltext_stem"/>
+
+ <!-- Copy over the full text to the search field -->
+ <copyField source="fulltext" dest="fulltext_search"/>
 
  <!-- Copy our facet fields -->
  <copyField source="authors" dest="authors_facet"/>

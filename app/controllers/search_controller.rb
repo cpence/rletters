@@ -175,10 +175,20 @@ class SearchController < ApplicationController
       end
 
       # Verbatim or fuzzy search fields
-      %W(title journal fulltext).each do |f|
+      %W(title journal).each do |f|
         field = f
         field += "_stem" if params[(f + "_type").to_sym] and params[(f + "_type").to_sym] == "fuzzy"
         q_array << "#{field}:(#{params[f.to_sym]})" unless params[f.to_sym].blank?
+      end
+
+      # Fulltext is different, because of fulltext_search
+      unless params[:fulltext].blank?
+        if params[:fulltext_type] and params[:fulltext_type] == "fuzzy"
+          field = "fulltext_stem"
+        else
+          field = "fulltext_search"
+        end
+        q_array << "#{field}:(#{params[:fulltext]})"
       end
       
       # Handle the authors separately, for splitting support (authors search
