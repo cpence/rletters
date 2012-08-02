@@ -2,7 +2,6 @@
   Analyze word frequency in dataset
   %ul
     = form_tag({ :controller => 'datasets', :action => 'task_start', :id => @dataset.to_param, :class => 'WordFrequency' }, { :method => :get }) do
-      %li{ 'data-role' => 'list-divider' } Word Frequency Analysis Options
       %li
         %div{ 'data-role' => 'fieldcontain' }
           = label_tag('job_params[num_words]', "Number of words to analyze:")
