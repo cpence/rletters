@@ -218,5 +218,15 @@ describe WordFrequencyAnalyzer do
       end
     end
   end
+
+  describe "#num_corpus_documents" do
+    before(:each) do
+      @analyzer = WordFrequencyAnalyzer.new(@dataset)
+    end
+    
+    it "works" do
+      @analyzer.num_corpus_documents.should eq(1042)
+    end
+  end
 end
 
