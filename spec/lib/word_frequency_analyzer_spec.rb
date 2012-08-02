@@ -171,5 +171,52 @@ describe WordFrequencyAnalyzer do
       end
     end      
   end
+
+  describe "#block_stats" do
+    before(:each) do
+      @analyzer = WordFrequencyAnalyzer.new(@dataset)
+    end
+
+    it 'includes name, types, and tokens' do
+      @analyzer.block_stats[0][:name].should be
+      @analyzer.block_stats[0][:types].should be
+      @analyzer.block_stats[0][:tokens].should be
+    end
+  end
+
+  describe "#word_list" do
+    before(:each) do
+      @analyzer = WordFrequencyAnalyzer.new(@dataset,
+                                            :num_words => 10)
+    end
+
+    it "only includes the requested number of words" do
+      @analyzer.word_list.should have(10).words
+    end
+
+    it "analyzes those words in the blocks" do
+      @analyzer.word_list.each do |w|
+        @analyzer.blocks[0][w].should be
+      end
+    end
+  end
+
+  describe "#tf_in_dataset" do
+    before(:each) do
+      @analyzer = WordFrequencyAnalyzer.new(@dataset)
+    end
+
+    it "includes (at least) all the words in the list" do
+      @analyzer.word_list.each do |w|
+        @analyzer.tf_in_dataset[w].should be
+      end
+    end
+
+    it "returns the same values as a single-block analysis" do
+      @analyzer.word_list.each do |w|
+        @analyzer.blocks[0][w].should eq(@analyzer.tf_in_dataset[w])
+      end
+    end
+  end
 end
 
