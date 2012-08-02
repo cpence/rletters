@@ -42,6 +42,35 @@ module Jobs
 
         # Make a new analysis task
         @task = dataset.analysis_tasks.create(:name => "Word frequency list", :job_type => 'WordFrequency')
+
+        # Cast all the values
+        if @block_size.blank?
+          @block_size = nil
+        else
+          @block_size = Integer(@block_size)
+        end
+
+        if @num_blocks.blank?
+          @num_blocks = nil
+        else
+          @num_blocks = Integer(@num_blocks)
+        end
+
+        if @num_words.blank?
+          @num_words = nil
+        else
+          @num_words = Integer(@num_words)
+        end
+
+        if @split_across.blank?
+          @split_across = nil
+        else
+          if @split_across == "true"
+            @split_across = true
+          else
+            @split_across = false
+          end
+        end
         
         # Perform the analysis
         analyzer = WordFrequencyAnalyzer.new(dataset,
