@@ -9,7 +9,7 @@
         = field_set_tag "Text block method:", 'data-role' => 'controlgroup' do
           = radio_button_tag('block_method_switch', 'count', true)
           = label_tag('block_method_switch_count', "By number of words")
-          = radio_button_tag('block_method_switch', 'blocks', true)
+          = radio_button_tag('block_method_switch', 'blocks', false)
           = label_tag('block_method_switch_blocks', "By number of blocks")
       %div{ :id => 'count_controls', 'data-role' => 'fieldcontain' }
         = label_tag('job_params[block_size]', 'Number of words per block:')
