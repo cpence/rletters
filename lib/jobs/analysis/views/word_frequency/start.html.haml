@@ -1,26 +1,28 @@
-= form_tag :controller => 'datasets', :action => 'task_start', :id => @dataset.to_param, :class => 'WordFrequency' do
-  %ul{ 'data-role' => 'listview', 'data-theme' => 'd', 'data-divider-theme' => 'c' }
-    %li{ 'data-role' => 'list-divider' } Word Frequency Analysis Options
-    %li
-      %div{ 'data-role' => 'fieldcontain' }
-        = label_tag('job_params[num_words]', "Number of words to analyze:")
-        = number_field_tag('job_params[num_words]')
-      %div{ 'data-role' => 'fieldcontain' }
-        = field_set_tag "Text block method:", 'data-role' => 'controlgroup' do
-          = radio_button_tag('block_method_switch', 'count', true)
-          = label_tag('block_method_switch_count', "By number of words")
-          = radio_button_tag('block_method_switch', 'blocks', false)
-          = label_tag('block_method_switch_blocks', "By number of blocks")
-      %div{ :id => 'count_controls', 'data-role' => 'fieldcontain' }
-        = label_tag('job_params[block_size]', 'Number of words per block:')
-        = number_field_tag('job_params[block_size]')
-      %div{ :id => 'blocks_controls', 'data-role' => 'fieldcontain' }
-        = label_tag('job_params[num_blocks]', 'Number of blocks:')
-        = number_field_tag('job_params[num_blocks]')
-      %div{ 'data-role' => 'fieldcontain' }
-        = label_tag('job_params[split_across]', 'Split blocks across documents?')
-        = check_box_tag('job_params[split_across]', 'true', true)
-      = submit_tag 'Run Frequency Analysis'
+%li
+  Analyze word frequency in dataset
+  %ul
+    = form_tag({ :controller => 'datasets', :action => 'task_start', :id => @dataset.to_param, :class => 'WordFrequency' }, { :method => :get }) do
+      %li{ 'data-role' => 'list-divider' } Word Frequency Analysis Options
+      %li
+        %div{ 'data-role' => 'fieldcontain' }
+          = label_tag('job_params[num_words]', "Number of words to analyze:")
+          = number_field_tag('job_params[num_words]')
+        %div{ 'data-role' => 'fieldcontain' }
+          = field_set_tag "Text block method:", 'data-role' => 'controlgroup' do
+            = radio_button_tag('block_method_switch', 'count', true)
+            = label_tag('block_method_switch_count', "By number of words")
+            = radio_button_tag('block_method_switch', 'blocks', false)
+            = label_tag('block_method_switch_blocks', "By number of blocks")
+        %div{ :id => 'count_controls', 'data-role' => 'fieldcontain' }
+          = label_tag('job_params[block_size]', 'Number of words per block:')
+          = number_field_tag('job_params[block_size]')
+        %div{ :id => 'blocks_controls', 'data-role' => 'fieldcontain' }
+          = label_tag('job_params[num_blocks]', 'Number of blocks:')
+          = number_field_tag('job_params[num_blocks]')
+        %div{ 'data-role' => 'fieldcontain' }
+          = label_tag('job_params[split_across]', 'Split blocks across documents?')
+          = check_box_tag('job_params[split_across]', 'true', true)
+        = submit_tag 'Run Frequency Analysis'
 
 
 
