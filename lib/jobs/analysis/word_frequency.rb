@@ -31,10 +31,6 @@ module Jobs
       # return all the words.  Defaults to zero.
       attr_accessor :num_words
 
-      def tfidf(tf, df, num_docs)
-        tf * Math.log10(num_docs.to_f / df.to_f)
-      end
-
       def perform
         # Fetch the user based on ID
         user = User.find(user_id)
@@ -84,10 +80,10 @@ module Jobs
                 r << b[word].to_s
                 r << (b[word].to_f / s[:tokens].to_f).to_s
 
-                r << tfidf(b[word].to_f / s[:tokens].to_f,
-                           analyzer.df_in_dataset[word], dataset.entries.count)
-                r << tfidf(b[word].to_f / s[:tokens].to_f,
-                           analyzer.df_in_corpus[word], analyzer.num_corpus_documents)
+                r << Math.tfidf(b[word].to_f / s[:tokens].to_f,
+                                analyzer.df_in_dataset[word], dataset.entries.count)
+                r << Math.tfidf(b[word].to_f / s[:tokens].to_f,
+                                analyzer.df_in_corpus[word], analyzer.num_corpus_documents)
               end
 
               # Output the block stats at the end
@@ -115,7 +111,7 @@ module Jobs
             csv << [w,
                     tf_in_dataset.to_s,
                     (tf_in_dataset.to_f / analyzer.num_dataset_tokens.to_f).to_s,
-                    tfidf(tf_in_dataset, analyzer.df_in_corpus[w], analyzer.num_corpus_documents)]
+                    Math.tfidf(tf_in_dataset, analyzer.df_in_corpus[w], analyzer.num_corpus_documents)]
           end
           csv << ["Number of types", analyzer.num_dataset_types.to_s]
           csv << ["Number of tokens", analyzer.num_dataset_tokens.to_s]
