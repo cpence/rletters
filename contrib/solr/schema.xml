@@ -114,8 +114,8 @@
    <field name="doi" type="string" indexed="true" stored="true" omitNorms="true" />
    
    <!-- The license type and URL are stored verbatim -->
-   <field name="license" type="string" indexed="false" stored="true" omitNorms="true" />
-   <field name="license_url" type="string" indexed="false" stored="true" omitNorms="true" />
+   <field name="license" type="string" indexed="true" stored="true" omitNorms="true" />
+   <field name="license_url" type="string" indexed="true" stored="true" omitNorms="true" />
    
    <!-- The original bibliographic data: search it, but don't delete stopwords -->   
    <field name="authors" type="text_splitLower" indexed="true" stored="true" omitNorms="true" />
