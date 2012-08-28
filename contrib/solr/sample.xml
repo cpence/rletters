@@ -2,6 +2,8 @@
 <doc>
   <field name="shasum">1234567890abcdef1234</field>
   <field name="doi">10.2307/2408842</field>
+  <field name="license">© Society for the Study of Evolution</field>
+  <field name="license_url">http://onlinelibrary.wiley.com/journal/10.1111/(ISSN)1558-5646/homepage/Permissions.html</field>
   <field name="authors">Russell Lande, Stevan J. Arnold</field>
   <field name="title">The Measurement of Selection on Correlated Characters</field>
   <field name="journal">Evolution</field>

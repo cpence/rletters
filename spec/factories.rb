@@ -68,6 +68,8 @@ FactoryGirl.define do
     ignore do
       shasum "1111111111111111111111111111111111111111"
       doi nil
+      license nil
+      license_url nil
       authors nil
       title nil
       journal nil
@@ -82,6 +84,8 @@ FactoryGirl.define do
       ignore do
         shasum '00972c5123877961056b21aea4177d0dc69c7318'
         doi '10.1111/j.1439-0310.2008.01576.x'
+        license '© Blackwell Verlag GmbH'
+        license_url 'http://onlinelibrary.wiley.com/journal/10.1111/(ISSN)1439-0310/homepage/Permissions.html'
         authors 'Carlos A. Botero, Andrew E. Mudge, Amanda M. Koltz, Wesley M. Hochachka, Sandra L. Vehrencamp'
         title 'How Reliable are the Methods for Estimating Repertoire Size?'
         journal 'Ethology'
@@ -93,7 +97,8 @@ FactoryGirl.define do
     end
 
     initialize_with {
-      Document.new(:shasum => shasum, :doi => doi, :authors => authors, :title => title,
+      Document.new(:shasum => shasum, :doi => doi, :license => license, 
+                   :license_url => license_url, :authors => authors, :title => title,
                    :journal => journal, :year => year, :volume => volume, :number => number,
                    :pages => pages, :fulltext => fulltext)
     }

@@ -270,6 +270,14 @@ describe Document do
         @docs[3].doi.should eq('10.1111/j.1439-0310.2009.01716.x')
       end
       
+      it "sets the license" do
+        @docs[0].license.should eq('© Blackwell Verlag GmbH')
+      end
+      
+      it "doesn't set the license URL (none specified)" do
+        @docs[2].license_url.should_not be
+      end
+      
       it "sets the authors" do
         @docs[9].authors.should eq('Troy G. Murphy')
       end

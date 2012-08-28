@@ -15,7 +15,7 @@
      <lst name="defaults">
         <str name="echoParams">explicit</str>
         <!-- We return all of the original fields, not the _search versions -->
-        <str name="fl">shasum,doi,authors,title,journal,year,volume,number,pages</str>
+        <str name="fl">shasum,doi,license,license_url,authors,title,journal,year,volume,number,pages</str>
         <str name="defType">dismax</str>
         <float name="tie">0.1</float>
         <str name="qf">
@@ -63,7 +63,7 @@
   <requestHandler name="precise" class="solr.SearchHandler">
      <lst name="defaults">
         <str name="echoParams">explicit</str>
-        <str name="fl">shasum,doi,authors,title,journal,year,volume,number,pages</str>
+        <str name="fl">shasum,doi,license,license_url,authors,title,journal,year,volume,number,pages</str>
         
         <bool name="facet">true</bool>
         <int name="facet.limit">10</int>
@@ -127,7 +127,7 @@
   <requestHandler name="fulltext" class="solr.SearchHandler">
      <lst name="defaults">
         <str name="echoParams">explicit</str>
-        <str name="fl">shasum,doi,authors,title,journal,year,volume,number,pages,fulltext</str>
+        <str name="fl">shasum,doi,license,license_url,authors,title,journal,year,volume,number,pages,fulltext</str>
 
         <!-- Enable term vectors, against the full text -->
         <bool name="tv">true</bool>
