@@ -3,6 +3,13 @@ require 'spec_helper'
 
 describe "jobs/single_term_vectors/start" do
   
+  before(:each) do
+    # RSpec isn't smart enough to read our routes for us, so set
+    # things manually here.
+    controller.controller_path = "datasets"
+    controller.request.path_parameters[:controller] = "datasets"
+  end
+  
   context "when dataset has one document" do
     before(:each) do
       @dataset = FactoryGirl.create(:full_dataset, :entries_count => 1)

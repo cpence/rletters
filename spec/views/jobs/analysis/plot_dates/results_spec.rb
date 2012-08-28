@@ -4,6 +4,11 @@ require 'spec_helper'
 describe "jobs/plot_dates/results" do
   
   before(:each) do
+    # RSpec isn't smart enough to read our routes for us, so set
+    # things manually here.
+    controller.controller_path = "datasets"
+    controller.request.path_parameters[:controller] = "datasets"
+    
     @dataset = FactoryGirl.create(:full_dataset)
     @task = FactoryGirl.create(:analysis_task, :name => "Plot dataset by date",
                                :job_type => 'PlotDates', :dataset => @dataset)
