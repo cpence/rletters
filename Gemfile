@@ -49,7 +49,9 @@ group :assets do
   # Uglifier needs an ExecJS runtime, but we don't need to
   # require it everywhere.
   gem 'execjs', :require => false
-  gem 'therubyracer', :require => false, 
+  gem 'therubyracer', '>= 0.11.0beta5', :require => false, 
+    :platforms => [ :ruby, :mswin, :mingw ]
+  gem 'libv8', '~> 3.11.8', :require => false,
     :platforms => [ :ruby, :mswin, :mingw ]
   gem 'therubyrhino', :require => false, 
     :platforms => :jruby
