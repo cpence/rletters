@@ -212,6 +212,10 @@ class Document
   attr_reader :shasum
   # @return [String] the DOI (Digital Object Identifier) of this document
   attr_reader :doi
+  # @return [String] the human-readable name of the document's license
+  attr_reader :license
+  # @return [String] a URL referencing the document's license terms
+  attr_reader :license_url
   # @return [String] the document's authors, in a comma-delimited list
   attr_reader :authors
   # @return [Array<String>] the document's authors, in an array
