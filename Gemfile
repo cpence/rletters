@@ -31,8 +31,8 @@ gem 'haml'
 gem 'haml-rails'
 gem 'kramdown'
 
-gem 'jquery-rails', '= 2.0.1'
-gem 'jquery_mobile_rails', '= 1.1.1.1'
+gem 'jquery-rails', '= 2.1.3'
+gem 'jquery_mobile_rails', '= 1.2.0'
 
 group :production do
   gem 'mysql2', :platforms => [ :ruby, :mswin, :mingw ]
