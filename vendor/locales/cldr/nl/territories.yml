@@ -18,11 +18,10 @@ nl:
     034: Zuid-Azië
     035: Zuidoost-Azië
     039: Zuid-Europa
-    053: "Australië en Nieuw-Zeeland"
+    053: Australazië
     054: Melanesië
     057: "Micronesische regio"
     061: Polynesië
-    062: "Zuidelijk Centraal-Azië"
     142: Azië
     143: Centraal-Azië
     145: West-Azië
@@ -30,9 +29,7 @@ nl:
     151: Oost-Europa
     154: Noord-Europa
     155: West-Europa
-    172: "Gemenebest van Onafhankelijke Staten"
     419: Latijns-Amerika
-    830: Kanaaleilanden
     AC: Ascension
     AD: Andorra
     AE: "Verenigde Arabische Emiraten"
@@ -64,6 +61,7 @@ nl:
     BM: Bermuda
     BN: Brunei
     BO: Bolivia
+    BQ: "Caribisch Nederland"
     BR: Brazilië
     BS: Bahama’s
     BT: Bhutan
@@ -85,9 +83,9 @@ nl:
     CO: Colombia
     CP: Clipperton
     CR: "Costa Rica"
-    CS: "Servië en Montenegro"
     CU: Cuba
     CV: Kaapverdië
+    CW: Curaçao
     CX: Christmaseiland
     CY: Cyprus
     CZ: Tsjechië
@@ -113,7 +111,6 @@ nl:
     FM: Micronesië
     FO: Faeröer
     FR: Frankrijk
-    FX: "Europese Frankrijk"
     GA: Gabon
     GB: "Verenigd Koninkrijk"
     GD: Grenada
@@ -128,7 +125,7 @@ nl:
     GP: Guadeloupe
     GQ: Equatoriaal-Guinea
     GR: Griekenland
-    GS: "Zuid-Georgië en Zuidelijke Sandwicheilanden"
+    GS: "Zuid-Georgia en Zuidelijke Sandwicheilanden"
     GT: Guatemala
     GU: Guam
     GW: Guinee-Bissau
@@ -180,7 +177,7 @@ nl:
     MC: Monaco
     MD: Moldavië
     ME: Montenegro
-    MF: Sint-Maarten
+    MF: Saint-Martin
     MG: Madagaskar
     MH: Marshalleilanden
     MK: "Macedonië [FYROM]"
@@ -248,8 +245,10 @@ nl:
     SN: Senegal
     SO: Somalië
     SR: Suriname
+    SS: Zuid-Soedan
     ST: "Sao Tomé en Principe"
     SV: "El Salvador"
+    SX: Sint-Maarten
     SY: Syrië
     SZ: Swaziland
     TA: "Tristan da Cunha"
@@ -289,4 +288,4 @@ nl:
     ZA: Zuid-Afrika
     ZM: Zambia
     ZW: Zimbabwe
-    ZZ: "Onbekend of onjuist gebied"
+    ZZ: "Onbekend gebied"

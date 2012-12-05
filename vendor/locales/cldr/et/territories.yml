@@ -18,11 +18,10 @@ et:
     034: Lõuna-Aasia
     035: Kagu-Aasia
     039: Lõuna-Euroopa
-    053: "Austraalia ja Uus-Meremaa"
+    053: Australaasia
     054: Melaneesia
     057: Mikroneesia
     061: Polüneesia
-    062: "Kesk-Aasia lõunaosa"
     142: Aasia
     143: Kesk-Aasia
     145: Lääne-Aasia
@@ -30,7 +29,6 @@ et:
     151: Ida-Euroopa
     154: Põhja-Euroopa
     155: Lääne-Euroopa
-    172: "Sõltumatute Riikide Ühendus"
     419: Ladina-Ameerika
     AC: "Ascensioni saar"
     AD: Andorra
@@ -63,6 +61,7 @@ et:
     BM: Bermuda
     BN: Brunei
     BO: Boliivia
+    BQ: "Hollandi Kariibi mere saared"
     BR: Brasiilia
     BS: Bahama
     BT: Bhutan
@@ -84,9 +83,9 @@ et:
     CO: Colombia
     CP: "Clippertoni saar"
     CR: "Costa Rica"
-    CS: "Serbia ja Montenegro"
     CU: Kuuba
     CV: Roheneemesaared
+    CW: Curaçao
     CX: Jõulusaar
     CY: Küpros
     CZ: Tšehhi
@@ -185,7 +184,7 @@ et:
     ML: Mali
     MM: Myanmar
     MN: Mongoolia
-    MO: Aomen
+    MO: Macau
     MP: Põhja-Mariaanid
     MQ: Martinique
     MR: Mauritaania
@@ -246,8 +245,10 @@ et:
     SN: Senegal
     SO: Somaalia
     SR: Suriname
+    SS: Lõuna-Sudaan
     ST: "São Tomé ja Príncipe"
     SV: "El Salvador"
+    SX: "Sint Maarten"
     SY: Süüria
     SZ: Svaasimaa
     TA: "Tristan da Cunha"
@@ -287,4 +288,3 @@ et:
     ZA: "Lõuna-Aafrika Vabariik"
     ZM: Sambia
     ZW: Zimbabwe
-    ZZ: määramata

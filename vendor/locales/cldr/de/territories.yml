@@ -22,7 +22,6 @@ de:
     054: Melanesien
     057: "Mikronesisches Inselgebiet"
     061: Polynesien
-    062: Süd-Zentralasien
     142: Asien
     143: Zentralasien
     145: Westasien
@@ -30,9 +29,7 @@ de:
     151: Osteuropa
     154: Nordeuropa
     155: Westeuropa
-    172: "Gemeinschaft Unabhängiger Staaten"
     419: Lateinamerika
-    830: Kanalinseln
     AC: Ascension
     AD: Andorra
     AE: "Vereinigte Arabische Emirate"
@@ -64,6 +61,7 @@ de:
     BM: Bermuda
     BN: "Brunei Darussalam"
     BO: Bolivien
+    BQ: "Karibische Niederlande"
     BR: Brasilien
     BS: Bahamas
     BT: Bhutan
@@ -85,9 +83,9 @@ de:
     CO: Kolumbien
     CP: Clipperton-Insel
     CR: "Costa Rica"
-    CS: "Serbien und Montenegro"
     CU: Kuba
     CV: "Kap Verde"
+    CW: Curaçao
     CX: Weihnachtsinsel
     CY: Zypern
     CZ: "Tschechische Republik"
@@ -113,7 +111,6 @@ de:
     FM: Mikronesien
     FO: Färöer
     FR: Frankreich
-    FX: Metropolitan-Frankreich
     GA: Gabun
     GB: "Vereinigtes Königreich"
     GD: Grenada
@@ -220,7 +217,7 @@ de:
     PK: Pakistan
     PL: Polen
     PM: "St. Pierre und Miquelon"
-    PN: Pitcairn
+    PN: Pitcairninseln
     PR: "Puerto Rico"
     PS: "Palästinensische Autonomiegebiete"
     PT: Portugal
@@ -248,8 +245,10 @@ de:
     SN: Senegal
     SO: Somalia
     SR: Suriname
+    SS: Südsudan
     ST: "São Tomé und Príncipe"
     SV: "El Salvador"
+    SX: "Sint Maarten"
     SY: Syrien
     SZ: Swasiland
     TA: "Tristan da Cunha"

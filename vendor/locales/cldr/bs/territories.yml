@@ -22,7 +22,6 @@ bs:
     054: Melanezija
     057: Micronezija
     061: Polinezija
-    062: "Južno-centralna Azija"
     142: Azija
     143: "Centralna Azija"
     145: "Zapadna Azija"
@@ -30,9 +29,7 @@ bs:
     151: "Istočna Evropa"
     154: "Severna Evropa"
     155: "Zapadna Evropa"
-    172: "Komonvelt nezavisnih država"
     419: "Latinska Amerika"
-    830: "Kanalska ostrva"
     AC: "Ostrvo Asension"
     AD: Andora
     AE: "Ujedinjeni Arapski Emirati"
@@ -85,7 +82,6 @@ bs:
     CO: Kolumbija
     CP: "Ostrvo Kliperton"
     CR: Kostarika
-    CS: "Srbija i Crna Gora"
     CU: Kuba
     CV: "Kape Verde"
     CX: "Božićna Ostrva"
@@ -247,6 +243,7 @@ bs:
     SN: Senegal
     SO: Somalija
     SR: Surinam
+    SS: "Južni Sudan"
     ST: "Sao Tome i Principe"
     SV: Salvador
     SY: Sirija

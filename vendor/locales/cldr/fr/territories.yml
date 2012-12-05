@@ -22,7 +22,6 @@ fr:
     054: Mélanésie
     057: "région micronésienne"
     061: Polynésie
-    062: "Asie centrale et du Sud"
     142: Asie
     143: "Asie centrale"
     145: "Asie occidentale"
@@ -30,10 +29,8 @@ fr:
     151: "Europe orientale"
     154: "Europe septentrionale"
     155: "Europe occidentale"
-    172: "Communauté des États indépendants"
     419: "Amérique latine"
-    830: "Îles Anglo-normandes"
-    AC: "Île de l'Ascension"
+    AC: "Île de l’Ascension"
     AD: Andorre
     AE: "Émirats arabes unis"
     AF: Afghanistan
@@ -64,6 +61,7 @@ fr:
     BM: Bermudes
     BN: "Brunéi Darussalam"
     BO: Bolivie
+    BQ: "Pays-Bas caribéens"
     BR: Brésil
     BS: Bahamas
     BT: Bhoutan
@@ -72,8 +70,8 @@ fr:
     BY: Bélarus
     BZ: Belize
     CA: Canada
-    CC: "Îles Cocos - Keeling"
-    CD: Congo-Kinshasa
+    CC: "Îles Cocos [Keeling]"
+    CD: "Congo [RDC]"
     CF: "République centrafricaine"
     CG: "République du Congo"
     CH: Suisse
@@ -85,9 +83,9 @@ fr:
     CO: Colombie
     CP: "Île Clipperton"
     CR: "Costa Rica"
-    CS: Serbie-et-Monténégro
     CU: Cuba
     CV: Cap-Vert
+    CW: Curaçao
     CX: "Île Christmas"
     CY: Chypre
     CZ: "République tchèque"
@@ -113,7 +111,6 @@ fr:
     FM: "États fédérés de Micronésie"
     FO: "Îles Féroé"
     FR: France
-    FX: "France métropolitaine"
     GA: Gabon
     GB: Royaume-Uni
     GD: Grenade
@@ -128,7 +125,7 @@ fr:
     GP: Guadeloupe
     GQ: "Guinée équatoriale"
     GR: Grèce
-    GS: "Géorgie du Sud et les îles Sandwich du Sud"
+    GS: "Géorgie du Sud et les Îles Sandwich du Sud"
     GT: Guatemala
     GU: Guam
     GW: Guinée-Bissau
@@ -180,10 +177,10 @@ fr:
     MC: Monaco
     MD: Moldavie
     ME: Monténégro
-    MF: Saint-Martin
+    MF: "Saint-Martin [partie française]"
     MG: Madagascar
     MH: "Îles Marshall"
-    MK: Macédoine
+    MK: "Macédoine [ARYM]"
     ML: Mali
     MM: Myanmar
     MN: Mongolie
@@ -248,8 +245,10 @@ fr:
     SN: Sénégal
     SO: Somalie
     SR: Suriname
-    ST: "Sao Tomé-et-Principe"
+    SS: "Soudan du Sud"
+    ST: "Sao Tomé-et-Príncipe"
     SV: "El Salvador"
+    SX: "Saint-Martin [partie néerlandaise]"
     SY: Syrie
     SZ: Swaziland
     TA: "Tristan da Cunha"
@@ -271,7 +270,7 @@ fr:
     TZ: Tanzanie
     UA: Ukraine
     UG: Ouganda
-    UM: "Îles Mineures Éloignées des États-Unis"
+    UM: "Îles éloignées des États-Unis"
     US: États-Unis
     UY: Uruguay
     UZ: Ouzbékistan

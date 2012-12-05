@@ -3,60 +3,49 @@ pt-PT:
     009: Oceânia
     015: "Norte de África"
     035: "Sudeste Asiático"
+    053: Australásia
     154: "Europa do Norte"
-    AC: Ascensão
-    AE: "Emiratos Árabes Unidos"
     AI: Anguila
     AM: Arménia
-    AQ: Antárctica
     AX: "Ilhas Åland"
-    AZ: Azerbeijão
-    BD: Bangladeche
-    BF: Burkina-Faso
-    BH: Bahrein
+    BH: Barém
     BJ: Benim
-    BS: Baamas
+    BQ: "Países Baixos Caribenhos"
     BY: Bielorrússia
     CC: "Ilhas Cocos"
     CG: "República do Congo"
     CM: Camarões
+    CW: Curaçau
     CX: "Ilha do Natal"
     CZ: "República Checa"
     DJ: Jibuti
+    DM: Domínica
     EE: Estónia
     EG: Egipto
-    EH: "Sara Ocidental"
     FK: "Ilhas Falkland"
-    FM: "Estados Federados da Micronésia"
     FO: "Ilhas Faroé"
-    FX: "França (continental)"
     GL: Gronelândia
+    GU: Guame
     GW: Guiné-Bissau
     HK: "Região Administrativa Especial de Hong Kong"
     IR: Irão
     KE: Quénia
     KG: Quirguizistão
-    KN: "Saint Kitts e Nevis"
-    KW: Koweit
+    KN: "São Cristóvão e Neves"
     KY: "Ilhas Caimão"
     KZ: Cazaquistão
-    LA: "Laos, República Popular Democrática do"
-    LK: "Sri Lanca"
     LV: Letónia
     MC: Mónaco
-    MD: "Moldávia, República da"
     MG: Madagáscar
-    MK: "Antiga República jugoslava da Macedónia"
-    MM: Mianmar
+    MK: "Antiga República Jugoslava da Macedónia"
     MO: "Região Administrativa Especial de Macau"
-    MP: "Ilhas Mariana do Norte"
     MS: Monserrate
     MU: Maurícias
-    MW: Malavi
     NC: "Nova Caledónia"
     NL: "Países Baixos"
     PG: "Papuásia-Nova Guiné"
     PL: Polónia
+    PN: Pitcairn
     PS: "Território Palestiniano"
     QO: "Oceânia Insular"
     RO: Roménia
@@ -69,7 +58,8 @@ pt-PT:
     TM: Turquemenistão
     TT: "Trindade e Tobago"
     UZ: Usbequistão
-    VI: "Ilhas Virgin E.U.A."
     VN: Vietname
     YE: Iémen
-    ZW: Zimbabwe
+    YT: Maiote
+    ZW: Zimbabué
+    ZZ: "Região desconhecida ou inválida"

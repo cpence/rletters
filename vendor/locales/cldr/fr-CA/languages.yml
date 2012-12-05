@@ -1,3 +1,9 @@
 fr-CA: 
   languages: 
+    es-ES: "espagnol ibérique"
     ps: ps
+    pt-PT: "portugais ibérique"
+    si: singhalais
+    to: tongan
+    ug: ouïghour
+    und: indéterminé

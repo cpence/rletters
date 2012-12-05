@@ -2,7 +2,7 @@ is:
   languages: 
     ab: abkasíska
     ace: akkíska
-    ach: akólí
+    ach: acoli
     ada: adangme
     ady: adýge
     ae: avestíska
@@ -15,7 +15,7 @@ is:
     alg: "algonkvínsk mál"
     am: amharíska
     an: aragonska
-    ang: "fornenska (um 450-1100)"
+    ang: fornenska
     apa: apatsjamál
     ar: arabíska
     arc: arameíska
@@ -43,7 +43,7 @@ is:
     bem: bemba
     ber: berbamál
     bg: búlgarska
-    bh: bíharí
+    bh: "bíharísk mál"
     bho: bojpúrí
     bi: bíslama
     bik: bíkol
@@ -76,8 +76,9 @@ is:
     chn: sínúk
     cho: sjoktá
     chp: sípevíska
-    chr: sjerókí
+    chr: Cherokee-mál
     chy: sjeyen
+    ckb: sorani-kúrdíska
     cmc: "kamísk mál"
     co: korsíska
     cop: koptíska
@@ -108,26 +109,26 @@ is:
     dra: "dravidísk mál (önnur)"
     dsb: lágsorbneska
     dua: dúala
-    dum: "miðhollenska (um 1050-1350)"
+    dum: miðhollenska
     dv: dívehí
     dyu: djúla
     dz: dsongka
-    ee: eve
+    ee: ewe
     efi: efík
     egy: fornegypska
     eka: ekajúk
-    el: "nýgríska (1453-)"
+    el: gríska
     elx: elamít
     en: enska
     en-AU: "áströlsk enska"
     en-CA: "kanadísk enska"
     en-GB: "bresk enska"
     en-US: "bandarísk enska"
-    enm: "miðenska (1100-1500)"
+    enm: miðenska
     eo: esperantó
     es: spænska
     es-419: "latnesk-amerísk spænska"
-    es-ES: "íberísk spænska"
+    es-ES: "evrópsk spænska"
     et: eistneska
     eu: baskneska
     ewo: evondó
@@ -144,8 +145,8 @@ is:
     fr: franska
     fr-CA: "kanadísk franska"
     fr-CH: "svissnesk franska"
-    frm: "miðfranska (um 1400-1600)"
-    fro: "fornfranska (842 - um 1400)"
+    frm: miðfranska
+    fro: fornfranska
     frr: norðurfrísneska
     frs: austurfrísneska
     fur: fríúlska
@@ -159,14 +160,14 @@ is:
     gez: gís
     gil: gilberska
     gl: gallegska
-    gmh: "miðháþýska (um 1050-1500"
+    gmh: miðháþýska
     gn: gvaraní
-    goh: "fornháþýska (um 750-1050)"
+    goh: fornháþýska
     gon: gondí
     gor: gorontaló
     got: gotneska
     grb: gerbó
-    grc: "forngríska (til 1453)"
+    grc: forngríska
     gsw: "svissnesk þýska"
     gu: gújaratí
     gv: manx
@@ -188,7 +189,7 @@ is:
     hup: húpa
     hy: armenska
     hz: hereró
-    ia: interlingva
+    ia: alþjóðatunga
     iba: íban
     id: indónesíska
     ie: interlingve
@@ -219,7 +220,7 @@ is:
     kar: karen
     kaw: kaví
     kbd: kabardíska
-    kg: kongó
+    kg: kongóska
     kha: kasí
     khi: "koímál (önnur)"
     kho: kotaska
@@ -256,10 +257,10 @@ is:
     ln: lingala
     lo: laó
     lol: mongó
-    loz: losí
+    loz: lozi
     lt: litháíska
     lu: lúbakatanga
-    lua: lúbalúlúa
+    lua: luba-lulua
     lui: lúisenó
     lun: lúnda
     luo: lúó
@@ -275,8 +276,9 @@ is:
     mdf: moksa
     mdr: mandar
     men: mende
+    mfe: morisyen
     mg: malagasíska
-    mga: "miðírska (900-1200)"
+    mga: miðírska
     mh: marshallska
     mi: maórí
     mic: mikmak
@@ -328,16 +330,16 @@ is:
     nv: navahó
     ny: "njanja; sísjeva; sjeva"
     nym: njamvesí
-    nyn: njankóle
+    nyn: nyankole
     nyo: njóró
     nzi: nsíma
-    oc: "okkitíska (eftir 1500); próvensalska"
+    oc: oksítaníska
     oj: ojibva
-    om: órómó
+    om: oromo
     or: óría
     os: ossetíska
     osa: ósage
-    ota: "tyrkneska, ottóman (1500-1928)"
+    ota: "tyrkneska, ottóman"
     oto: ótommál
     pa: púnjabí
     paa: "papúsk mál (önnur)"
@@ -353,16 +355,16 @@ is:
     pl: pólska
     pon: ponpeiska
     pra: prakrítmál
-    pro: "fornpróvensalska (til 1500)"
+    pro: fornpróvensalska
     ps: pushto
     pt: portúgalska
     pt-BR: "brasílísk portúgalska"
-    pt-PT: "íberísk portúgalska"
+    pt-PT: "evrópsk portúgalska"
     qu: kvesjúa
     raj: rajastaní
     rap: rapanúí
     rar: rarótongska
-    rm: retórómanska
+    rm: rómanska
     rn: rúndí
     ro: rúmenska
     roa: "rómönsk mál (önnur)"
@@ -386,11 +388,11 @@ is:
     sel: selkúp
     sem: "semísk mál (önnur)"
     sg: sangó
-    sga: "fornírska (til 900)"
+    sga: fornírska
     sgn: táknmál
     sh: serbókróatíska
     shn: sjan
-    si: singalesíska
+    si: sinhala
     sid: sídamó
     sio: síúmál
     sk: slóvakíska
@@ -435,11 +437,11 @@ is:
     tk: túrkmenska
     tkl: tókeláska
     tl: tagalog
-    tlh: klingónska
+    tlh: klingonska
     tli: tlingit
     tmh: tamasjek
     tn: tsúana
-    to: "tongverska (tongaeyjar)"
+    to: tongverska
     tog: "tongverska (nyasa)"
     tpi: tokpisin
     tr: tyrkneska
@@ -458,7 +460,7 @@ is:
     uga: úgarítíska
     uk: úkraínska
     umb: úmbúndú
-    und: "óþekkt eða ógilt tungumál"
+    und: "óþekkt tungumál"
     ur: úrdú
     uz: úsbekska
     vai: vaí

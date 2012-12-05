@@ -18,11 +18,10 @@ pl:
     034: "Azja Południowa"
     035: "Azja Południowo-Wschodnia"
     039: "Europa Południowa"
-    053: "Australia i Nowa Zelandia"
+    053: Australazja
     054: Melanezja
     057: Mikronezja
     061: Polinezja
-    062: "Azja Południowo-Środkowa"
     142: Azja
     143: "Azja Środkowa"
     145: "Azja Zachodnia"
@@ -30,9 +29,7 @@ pl:
     151: "Europa Wschodnia"
     154: "Europa Północna"
     155: "Europa Zachodnia"
-    172: "Wspólnota Niezależnych Państw"
     419: "Ameryka Łacińska"
-    830: "Wyspy Normandzkie"
     AC: "Wyspa Wniebowstąpienia"
     AD: Andora
     AE: "Zjednoczone Emiraty Arabskie"
@@ -60,10 +57,11 @@ pl:
     BH: Bahrajn
     BI: Burundi
     BJ: Benin
-    BL: "Saint Barthélemy"
+    BL: Saint-Barthélemy
     BM: Bermudy
     BN: "Brunei Darussalam"
     BO: Boliwia
+    BQ: "Niderlandy Karaibskie"
     BR: Brazylia
     BS: Bahamy
     BT: Bhutan
@@ -85,9 +83,9 @@ pl:
     CO: Kolumbia
     CP: Clipperton
     CR: Kostaryka
-    CS: "Serbia i Czarnogóra"
     CU: Kuba
     CV: "Republika Zielonego Przylądka"
+    CW: Curaçao
     CX: "Wyspa Bożego Narodzenia"
     CY: Cypr
     CZ: Czechy
@@ -113,7 +111,6 @@ pl:
     FM: "Federalne Stany Mikronezji"
     FO: "Wyspy Owcze"
     FR: Francja
-    FX: "Francja metropolitalna"
     GA: Gabon
     GB: "Wielka Brytania"
     GD: Grenada
@@ -180,7 +177,7 @@ pl:
     MC: Monako
     MD: Mołdawia
     ME: Czarnogóra
-    MF: "Sint Maarten"
+    MF: Saint-Martin
     MG: Madagaskar
     MH: "Wyspy Marshalla"
     MK: Macedonia
@@ -248,8 +245,10 @@ pl:
     SN: Senegal
     SO: Somalia
     SR: Surinam
+    SS: "Sudan Południowy"
     ST: "Wyspy Świętego Tomasza i Książęca"
     SV: Salwador
+    SX: "Sint Maarten"
     SY: Syria
     SZ: Suazi
     TA: "Tristan da Cunha"
@@ -289,4 +288,4 @@ pl:
     ZA: "Republika Południowej Afryki"
     ZM: Zambia
     ZW: Zimbabwe
-    ZZ: "Nieznany lub nieprawidłowy region"
+    ZZ: "Nieznany region"

@@ -18,11 +18,10 @@ it:
     034: "Asia del Sud"
     035: "Asia sudorientale"
     039: "Europa del Sud"
-    053: "Australia e Nuova Zelanda"
+    053: Australasia
     054: Melanesia
     057: "Regione Micronesiana"
     061: Polinesia
-    062: "Asia centro-meridionale"
     142: Asia
     143: "Asia centrale"
     145: "Asia occidentale"
@@ -30,7 +29,6 @@ it:
     151: "Europa orientale"
     154: "Europa del Nord"
     155: "Europa occidentale"
-    172: "Comunità di Stati Indipendenti"
     419: "America Latina"
     AC: "Isola di Ascensione"
     AD: Andorra
@@ -63,6 +61,7 @@ it:
     BM: Bermuda
     BN: Brunei
     BO: Bolivia
+    BQ: "Caraibi Olandesi"
     BR: Brasile
     BS: Bahamas
     BT: Bhutan
@@ -84,9 +83,9 @@ it:
     CO: Colombia
     CP: "Isola di Clipperton"
     CR: "Costa Rica"
-    CS: "Serbia e Montenegro"
     CU: Cuba
     CV: "Capo Verde"
+    CW: Curaçao
     CX: "Isola di Christmas"
     CY: Cipro
     CZ: "Repubblica Ceca"
@@ -112,7 +111,6 @@ it:
     FM: Micronesia
     FO: "Isole Faroe"
     FR: Francia
-    FX: "Francia metropolitana"
     GA: Gabon
     GB: "Regno Unito"
     GD: Grenada
@@ -247,8 +245,10 @@ it:
     SN: Senegal
     SO: Somalia
     SR: Suriname
+    SS: "Sudan del Sud"
     ST: "Sao Tomé e Príncipe"
     SV: "El Salvador"
+    SX: "Sint Maarten"
     SY: Siria
     SZ: Swaziland
     TA: "Tristan da Cunha"
@@ -270,11 +270,11 @@ it:
     TZ: Tanzania
     UA: Ucraina
     UG: Uganda
-    UM: "Isole Minori lontane dagli Stati Uniti"
+    UM: "Isole periferiche agli USA"
     US: "Stati Uniti"
     UY: Uruguay
     UZ: Uzbekistan
-    VA: Vaticano
+    VA: "Città del Vaticano"
     VC: "Saint Vincent e Grenadines"
     VE: Venezuela
     VG: "Isole Vergini Britanniche"

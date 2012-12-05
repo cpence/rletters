@@ -1,19 +1,26 @@
 sw: 
   languages: 
     ab: Kiabkhazi
+    ach: Kiakoli
     af: Kiafrikana
-    ak: Kiakan
+    ak: Kiakani
     am: Kiamhari
     ar: Kiarabu
     as: Kiassam
     ay: Aimara
     az: Kiazeri
     be: Kibelarusi
+    bem: Kibemba
     bg: Kibulgaria
+    bh: Kibihari
     bn: Kibangla
     bo: Kitibeti
+    br: Kibretoni
     bs: Kibosnia
     ca: Kikatalani
+    chr: Kicherokee
+    ckb: "Kisorani Kikurdi"
+    co: Kikosikani
     cs: Kicheki
     cy: Kiwelisi
     da: Kidenmaki
@@ -22,6 +29,7 @@ sw:
     de-CH: "Kijerumani cha Juu cha Uswisi"
     dv: Kidivehi
     dz: Kizongkha
+    ee: Kiwe
     efi: Kiefiki
     el: Kigiriki
     en: Kiingereza
@@ -32,7 +40,7 @@ sw:
     eo: Kiesperanto
     es: Kihispania
     es-419: "Kihispania cha Amerika ya Kilatinini"
-    es-ES: "Kihispania cha Iberia"
+    es-ES: "Kihispania cha Ulaya"
     et: Kiestonia
     eu: Kibasque
     fa: Kiajemi
@@ -45,6 +53,7 @@ sw:
     fr-CH: "Kifaransa cha Uswisi"
     fy: "Kifrisia cha Magharibi"
     ga: Kiayalandi
+    gaa: Kiga
     gd: "Kigaeli cha Uskoti"
     gl: Kigalisia
     gn: Kiguarani
@@ -58,6 +67,7 @@ sw:
     ht: Kihaiti
     hu: Kihungari
     hy: Kiarmenia
+    ia: Kiintalingua
     id: Kiindonesia
     ig: Kiigbo
     is: Kiaisilandi
@@ -65,21 +75,26 @@ sw:
     ja: Kijapani
     jv: Kijava
     ka: Kijojia
+    kg: Kikongo
     kk: Kikazaki
     km: Kikambodia
     kn: Kikannada
     ko: Kikorea
-    ks: Kashmiri
+    ks: Kikashmiri
     ku: Kikurdi
     ky: Kirigizi
     la: Kilatini
     lb: Kilasembagi
+    lg: Kiganda
     ln: Kilingala
     lo: Kilaosi
+    loz: Kilozi
     lt: Kilithuania
+    lua: Kiluba-Lulua
     lv: Kilatvia
+    mfe: Kimoriseni
     mg: Malagasi
-    mi: Maori
+    mi: Kimaori
     mk: Kimasedonia
     ml: Kimalayalam
     mn: Mongolia
@@ -95,6 +110,9 @@ sw:
     nn: "Kinorwe Kipya"
     nso: "Kisotho cha Kaskazini"
     ny: Kinyanja
+    nyn: Kinyankole
+    oc: Kiokitani
+    om: Kioromo
     or: Kioriya
     os: Kiosetia
     pa: Kipunjabi
@@ -102,8 +120,8 @@ sw:
     ps: Kipushto
     pt: Kireno
     pt-BR: "Kireno cha Brazil"
-    pt-PT: "Kireno cha Iberia"
-    qu: Quechua
+    pt-PT: "Kireno cha Ulaya"
+    qu: Kiquechua
     rm: Kiromanshi
     rn: Kirundi
     ro: Kiromania
@@ -133,12 +151,14 @@ sw:
     th: Kitailandi
     ti: Kitigrinya
     tk: Kiturukimeni
+    tlh: Kiklingoni
     tn: Kitswana
     to: Tonga
     tpi: Kitokpisin
     tr: Kituruki
     ts: Kitsonga
     tt: Kitatari
+    tum: Kitumbuka
     ty: Kitahiti
     ug: Kiuiguri
     uk: Kiukrania
@@ -147,8 +167,9 @@ sw:
     uz: Kiuzbeki
     ve: Kivenda
     vi: Kivietinamu
-    wo: Wolof
+    wo: Kiwolofu
     xh: Kixhosa
+    yi: Kiyidi
     yo: Kiyoruba
     zh: Kichina
     zh-Hans: "Kichina Rahisi"

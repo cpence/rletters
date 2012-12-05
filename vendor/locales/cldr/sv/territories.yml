@@ -15,14 +15,13 @@ sv:
     021: "norra Amerika"
     029: Karibien
     030: Östasien
-    034: "södra Asien"
+    034: Sydasien
     035: Sydostasien
     039: Sydeuropa
-    053: "Australien och Nya Zeeland"
+    053: Australasien
     054: Melanesien
     057: "Mikronesiska öarna"
     061: Polynesien
-    062: "södra Centralasien"
     142: Asien
     143: Centralasien
     145: Västasien
@@ -30,9 +29,7 @@ sv:
     151: Östeuropa
     154: Nordeuropa
     155: Västeuropa
-    172: "Oberoende staters samvälde"
     419: Latinamerika
-    830: Kanalöarna
     AC: Ascension
     AD: Andorra
     AE: "Förenade Arabemiraten"
@@ -64,6 +61,7 @@ sv:
     BM: Bermuda
     BN: Brunei
     BO: Bolivia
+    BQ: "Karibiska Nederländerna"
     BR: Brasilien
     BS: Bahamas
     BT: Bhutan
@@ -85,9 +83,9 @@ sv:
     CO: Colombia
     CP: Clippertonön
     CR: "Costa Rica"
-    CS: "Serbien och Montenegro"
     CU: Kuba
     CV: "Kap Verde"
+    CW: Curaçao
     CX: Julön
     CY: Cypern
     CZ: Tjeckien
@@ -113,7 +111,6 @@ sv:
     FM: Mikronesien
     FO: Färöarna
     FR: Frankrike
-    FX: "Europeiska Frankrike"
     GA: Gabon
     GB: Storbritannien
     GD: Grenada
@@ -220,7 +217,7 @@ sv:
     PK: Pakistan
     PL: Polen
     PM: "S:t Pierre och Miquelon"
-    PN: Pitcairn
+    PN: Pitcairnöarna
     PR: "Puerto Rico"
     PS: "Palestinska territoriet"
     PT: Portugal
@@ -248,8 +245,10 @@ sv:
     SN: Senegal
     SO: Somalia
     SR: Surinam
+    SS: Sydsudan
     ST: "São Tomé och Príncipe"
     SV: "El Salvador"
+    SX: "S:t Martin (nederländska delen)"
     SY: Syrien
     SZ: Swaziland
     TA: "Tristan da Cunha"
@@ -289,4 +288,4 @@ sv:
     ZA: Sydafrika
     ZM: Zambia
     ZW: Zimbabwe
-    ZZ: "okänd eller ogiltig regionkod"
+    ZZ: "okänd region"

@@ -18,11 +18,10 @@ fi:
     034: Etelä-Aasia
     035: Kaakkois-Aasia
     039: Etelä-Eurooppa
-    053: "Australia ja Uusi-Seelanti"
+    053: Australaasia
     054: Melanesia
     057: Mikronesia
     061: Polynesia
-    062: "Etelä- ja Keski-Aasia"
     142: Aasia
     143: Keski-Aasia
     145: Länsi-Aasia
@@ -30,9 +29,7 @@ fi:
     151: Itä-Eurooppa
     154: Pohjois-Eurooppa
     155: Länsi-Eurooppa
-    172: "Itsenäisten valtioiden yhteisö"
     419: "Latinalainen Amerikka"
-    830: Kanaalisaaret
     AC: Ascension-saari
     AD: Andorra
     AE: Arabiemiirikunnat
@@ -64,6 +61,7 @@ fi:
     BM: Bermuda
     BN: Brunei
     BO: Bolivia
+    BQ: "Karibian Alankomaat"
     BR: Brasilia
     BS: Bahama
     BT: Bhutan
@@ -72,7 +70,7 @@ fi:
     BY: Valko-Venäjä
     BZ: Belize
     CA: Kanada
-    CC: Kookossaaret
+    CC: "Kookossaaret [Keelingsaaret]"
     CD: Kongo-Kinshasa
     CF: "Keski-Afrikan tasavalta"
     CG: Kongo-Brazzaville
@@ -85,9 +83,9 @@ fi:
     CO: Kolumbia
     CP: Clippertoninsaari
     CR: "Costa Rica"
-    CS: "Serbia ja Montenegro"
     CU: Kuuba
     CV: "Kap Verde"
+    CW: Curaçao
     CX: Joulusaari
     CY: Kypros
     CZ: Tšekki
@@ -106,13 +104,13 @@ fi:
     ER: Eritrea
     ES: Espanja
     ET: Etiopia
+    EU: "Euroopan unioni"
     FI: Suomi
     FJ: Fidži
     FK: "Falklandinsaaret [Malvinassaaret]"
     FM: "Mikronesian liittovaltio"
     FO: Färsaaret
     FR: Ranska
-    FX: "Ranskan Eurooppaan kuuluvat osat"
     GA: Gabon
     GB: Britannia
     GD: Grenada
@@ -247,8 +245,10 @@ fi:
     SN: Senegal
     SO: Somalia
     SR: Surinam
+    SS: Etelä-Sudan
     ST: "São Tomé ja Príncipe"
     SV: "El Salvador"
+    SX: "Sint Maarten"
     SY: Syyria
     SZ: Swazimaa
     TA: "Tristan da Cunha"
@@ -288,4 +288,4 @@ fi:
     ZA: Etelä-Afrikka
     ZM: Sambia
     ZW: Zimbabwe
-    ZZ: "tuntematon tai virheellinen alue"
+    ZZ: "tuntematon alue"

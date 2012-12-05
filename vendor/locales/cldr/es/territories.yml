@@ -18,11 +18,10 @@ es:
     034: "Asia meridional"
     035: "Sudeste asiático"
     039: "Europa meridional"
-    053: "Australia y Nueva Zelanda"
+    053: Australasia
     054: Melanesia
     057: "Micronesia [057]"
     061: Polinesia
-    062: "Asia centromeridional"
     142: Asia
     143: "Asia central"
     145: "Asia occidental"
@@ -30,7 +29,6 @@ es:
     151: "Europa oriental"
     154: "Europa septentrional"
     155: "Europa occidental"
-    172: "Comunidad de Estados Independientes"
     419: Latinoamérica
     AC: "Isla de la Ascensión"
     AD: Andorra
@@ -63,6 +61,7 @@ es:
     BM: Bermudas
     BN: Brunéi
     BO: Bolivia
+    BQ: "Caribe neerlandés"
     BR: Brasil
     BS: Bahamas
     BT: Bután
@@ -84,9 +83,9 @@ es:
     CO: Colombia
     CP: "Isla Clipperton"
     CR: "Costa Rica"
-    CS: "Serbia y Montenegro"
     CU: Cuba
     CV: "Cabo Verde"
+    CW: Curazao
     CX: "Isla Christmas"
     CY: Chipre
     CZ: "República Checa"
@@ -112,7 +111,6 @@ es:
     FM: Micronesia
     FO: "Islas Feroe"
     FR: Francia
-    FX: "Francia metropolitana"
     GA: Gabón
     GB: "Reino Unido"
     GD: Granada
@@ -247,8 +245,10 @@ es:
     SN: Senegal
     SO: Somalia
     SR: Surinam
+    SS: "Sudán del Sur"
     ST: "Santo Tomé y Príncipe"
     SV: "El Salvador"
+    SX: "Sint Maarten"
     SY: Siria
     SZ: Suazilandia
     TA: "Tristán da Cunha"

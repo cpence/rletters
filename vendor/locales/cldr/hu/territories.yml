@@ -18,11 +18,10 @@ hu:
     034: Dél-Ázsia
     035: Délkelet-Ázsia
     039: Dél-Európa
-    053: "Ausztrália és Új-Zéland"
+    053: Ausztrálázsia
     054: Melanézia
     057: "Mikronéziai régió"
     061: Polinézia
-    062: Délközép-Ázsia
     142: Ázsia
     143: Közép-Ázsia
     145: Nyugat-Ázsia
@@ -30,9 +29,7 @@ hu:
     151: Kelet-Európa
     154: Észak-Európa
     155: Nyugat-Európa
-    172: "Független Államok Közössége"
     419: Latin-Amerika
-    830: Csatorna-szigetek
     AC: Ascension-sziget
     AD: Andorra
     AE: "Egyesült Arab Emirátus"
@@ -49,7 +46,7 @@ hu:
     AT: Ausztria
     AU: Ausztrália
     AW: Aruba
-    AX: Aland-szigetek
+    AX: Åland-szigetek
     AZ: Azerbajdzsán
     BA: Bosznia-Hercegovina
     BB: Barbados
@@ -64,6 +61,7 @@ hu:
     BM: Bermuda
     BN: Brunei
     BO: Bolívia
+    BQ: "Holland Karib-térség"
     BR: Brazília
     BS: Bahama-szigetek
     BT: Bhután
@@ -85,9 +83,9 @@ hu:
     CO: Kolumbia
     CP: Clipperton-sziget
     CR: "Costa Rica"
-    CS: "Szerbia és Montenegró"
     CU: Kuba
     CV: "Zöld-foki Köztársaság"
+    CW: Curaçao
     CX: Karácsony-szigetek
     CY: Ciprus
     CZ: Csehország
@@ -247,8 +245,10 @@ hu:
     SN: Szenegál
     SO: Szomália
     SR: Suriname
+    SS: Dél-Szudán
     ST: "Sao Tomé és Príncipe"
     SV: Salvador
+    SX: "Sint Maarten"
     SY: Szíria
     SZ: Szváziföld
     TA: "Tristan da Cunha"
