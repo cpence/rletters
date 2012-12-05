@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 
 gem 'rails', '~> 3.0'
-gem 'rails-i18n', '= 0.4.0'
+gem 'rails-i18n', '= 0.7.1'
 
 gem 'jruby-openssl', :platforms => :jruby
 gem 'activerecord-import'

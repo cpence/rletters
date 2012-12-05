@@ -14,10 +14,18 @@ APP_CONFIG['available_locales'] = ['en']
 # 'plurals.rb' (if available), and 'territories.yml').  Currently this 
 # excludes the following languages:
 # - csb (Kashubian, not in CLDR at all)
+# - dsb (Lower Sorbian, not in CLDR at all)
 # - fur (Friulian, CLDR is missing languages and territories, still in draft)
-"ar, az, bg, bs, ca, cs, cy, da, de, de-AT, de-CH, el, en-AU, en-GB, " \
-"en-US, eo, es, es-AR, es-CL, es-CO, es-MX, et, eu, fa, fi, fr, fr-CA, " \
-"fr-CH, gsw-CH, he, hi, hi-IN, hu, is, it, ja, kn, ko, lv, nb, nl, " \
-"pl, pt-BR, pt-PT, ro, ru, sk, sv-SE, sw, th, uk, zh-CN, zh-TW".split(',').each do |loc|
+# - hsb (Upper Sorbian, not in CLDR at all)
+# - mn (or mon, Mongolian, not in CLDR at all)
+# - scr (obsolete for Serbo-Croatian, not in CLDR at all)
+# - tl (or tgl, Tagalog, not in CLDR at all)
+# - wo (or wol, Wolof, not in CLDR at all)
+"ar, az, bg, bn-IN, bs, ca, cs, cy, da, de, de-AT, de-CH, el, en-AU, en-CA, " \
+"en-GB, en-IN, en-US, eo, es, es-AR, es-CL, es-CO, es-419, es-MX, es-PE, " \
+"es-VE, et, eu, fa, fi, fr, fr-CA, fr-CH, gl-ES, gsw-CH, he, hi, hi-IN, hr, " \
+"hu, id, is, it, ja, kn, ko, lo, lt, lv, mk, nb, ne, nl, nn, pl, pt-BR, " \
+"pt-PT, rm, ro, ru, sk, sl, sr, sv-SE, sw, th, tr, uk, uz, vi, zh-CN, " \
+"zh-TW".split(',').each do |loc|
   APP_CONFIG['available_locales'] << loc.strip
 end
