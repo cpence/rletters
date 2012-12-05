@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-SimpleCov.command_name 'spec:views' if defined?(SimpleCov) && RUBY_VERSION >= "1.9.0"
+SimpleCov.command_name 'spec:views' if defined?(SimpleCov)
 
 describe "search/index" do
   

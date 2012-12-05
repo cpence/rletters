@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-SimpleCov.command_name 'spec:models' if defined?(SimpleCov) && RUBY_VERSION >= "1.9.0"
+SimpleCov.command_name 'spec:models' if defined?(SimpleCov)
 
 describe User do
   

@@ -45,7 +45,7 @@ module RLetters
     config.i18n.load_path += Dir[Rails.root.join('vendor', 'locales', '**', '*.{rb,yml}').to_s]
     config.i18n.default_locale = :'en-US'
 
-    # Configure the default encoding used in templates for Ruby 1.9.
+    # Configure the default encoding used in templates.
     config.encoding = "utf-8"
 
     # Configure sensitive parameters which will be filtered from the log file.
