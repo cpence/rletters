@@ -15,7 +15,7 @@ module Jobs
       # @return [undefined]
       # @example Start a job for exporting term vectors
       #   Delayed::Job.enqueue Jobs::Analysis::SingleTermVectors.new(
-      #     :user_id => @user.to_param, 
+      #     :user_id => current_user.to_param, 
       #     :dataset_id => dataset.to_param)
       def perform        
         # Fetch the user based on ID

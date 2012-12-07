@@ -5,7 +5,8 @@ describe "datasets/task_list" do
   
   before(:each) do
     @user = FactoryGirl.create(:user)
-    sign_in @user
+    view.stub(:current_user) { @user }
+    view.stub(:user_signed_in?) { true }
 
     @dataset = FactoryGirl.create(:full_dataset, :user => @user)
     assign(:dataset, @dataset)    

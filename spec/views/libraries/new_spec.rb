@@ -5,8 +5,9 @@ describe "libraries/new" do
   
   before(:each) do
     @user = FactoryGirl.create(:user)
-    sign_in @user
-    
+    view.stub(:current_user) { @user }
+    view.stub(:user_signed_in?) { true }
+
     assign(:library, @user.libraries.build)    
     render
   end

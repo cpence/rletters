@@ -5,7 +5,8 @@ describe "datasets/show" do
   
   before(:each) do
     @user = FactoryGirl.create(:user)
-    sign_in @user
+    view.stub(:current_user) { @user }
+    view.stub(:user_signed_in?) { true }
 
     @dataset = FactoryGirl.create(:full_dataset, :entries_count => 10)
     assign(:dataset, @dataset)    

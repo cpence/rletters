@@ -5,7 +5,8 @@ describe "datasets/new" do
   
   before(:each) do
     @user = FactoryGirl.create(:user)
-    sign_in @user
+    view.stub(:current_user) { @user }
+    view.stub(:user_signed_in?) { true }
 
     assign(:dataset, FactoryGirl.build(:dataset, :user => @user))
   end

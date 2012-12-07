@@ -16,9 +16,9 @@ describe DatasetsController do
         sign_out :user
       end
       
-      it "redirects to the users page" do
+      it "redirects to the login page" do
         get :index
-        response.should redirect_to(user_path)
+        response.should redirect_to(new_user_session_path)
       end
     end
     

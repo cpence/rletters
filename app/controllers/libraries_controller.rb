@@ -17,7 +17,7 @@ class LibrariesController < ApplicationController
   # @api public
   # @return [undefined]
   def index
-    @libraries = @user.libraries
+    @libraries = current_user.libraries
     render :layout => false
   end
   
@@ -25,7 +25,7 @@ class LibrariesController < ApplicationController
   # @api public
   # @return [undefined]
   def new
-    @library = @user.libraries.build
+    @library = current_user.libraries.build
     render :layout => 'dialog'
   end
 
@@ -33,7 +33,7 @@ class LibrariesController < ApplicationController
   # @api public
   # @return [undefined]
   def edit
-    @library = @user.libraries.find(params[:id])
+    @library = current_user.libraries.find(params[:id])
     raise ActiveRecord::RecordNotFound unless @library
     render :layout => 'dialog'
   end
@@ -42,7 +42,7 @@ class LibrariesController < ApplicationController
   # @api public
   # @return [undefined]
   def delete
-    @library = @user.libraries.find(params[:id])
+    @library = current_user.libraries.find(params[:id])
     raise ActiveRecord::RecordNotFound unless @library
     render :layout => 'dialog'
   end
@@ -52,11 +52,11 @@ class LibrariesController < ApplicationController
   # @return [undefined]
   def create
     @library = Library.new(params[:library])
-    @library.user = @user
+    @library.user = current_user
 
     if @library.save
-      @user.libraries.reload
-      redirect_to user_path, :notice => I18n.t('libraries.create.success')
+      current_user.libraries.reload
+      redirect_to edit_user_registration_path, :notice => I18n.t('libraries.create.success')
     else
       render :action => 'new', :layout => 'dialog'
     end
@@ -66,12 +66,12 @@ class LibrariesController < ApplicationController
   # @api public
   # @return [undefined]
   def update
-    @library = @user.libraries.find(params[:id])
+    @library = current_user.libraries.find(params[:id])
     raise ActiveRecord::RecordNotFound unless @library
     
     if @library.update_attributes(params[:library])
-      @user.libraries.reload
-      redirect_to user_path, :notice => I18n.t('libraries.update.success')
+      current_user.libraries.reload
+      redirect_to edit_user_registration_path, :notice => I18n.t('libraries.update.success')
     else
       render :action => 'edit', :layout => 'dialog'
     end
@@ -81,15 +81,15 @@ class LibrariesController < ApplicationController
   # @api public
   # @return [undefined]
   def destroy
-    @library = @user.libraries.find(params[:id])
+    @library = current_user.libraries.find(params[:id])
     raise ActiveRecord::RecordNotFound unless @library
     
-    redirect_to user_path and return if params[:cancel]
+    redirect_to edit_user_registration_path and return if params[:cancel]
 
     @library.destroy
-    @user.libraries.reload
+    current_user.libraries.reload
     
-    redirect_to user_path
+    redirect_to edit_user_registration_path
   end
   
   # Query the list of available libraries from OCLC

@@ -86,7 +86,7 @@ class Download < ActiveRecord::Base
   # @param [ActionController] controller The controller to use
   # @return [undefined]
   # @example Send this file to the user from controller method
-  #   f = @user.downloads.find_by_id('1')
+  #   f = current_user.downloads.find_by_id('1')
   #   f.send_file(self)
   def send_file(controller)
     ext = File.extname(filename)[1..-1]

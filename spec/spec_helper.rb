@@ -44,11 +44,9 @@ RSpec.configure do |config|
     I18n.locale = I18n.default_locale
     Time.zone = 'Eastern Time (US & Canada)'
   end
-  
+    
+  # Add helpers for Devise and for breaking the Solr server
   config.include Devise::TestHelpers, :type => :controller
-  
-  # Add a helper for logging in (and out!) a user, and for breaking
-  # the Solr server on demand
   config.extend SolrServerHelper
   
   # Skip some tests on JRuby

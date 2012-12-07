@@ -27,7 +27,7 @@ class SearchController < ApplicationController
     @page = 0 if @page < 0
 
     @per_page = 10
-    @per_page = @user.per_page if @user
+    @per_page = current_user.per_page if current_user
     @per_page = Integer(params[:per_page]) if params.has_key? :per_page
     @per_page = 0 if @per_page < 0
     @per_page = 100 if @per_page > 100
@@ -86,10 +86,10 @@ class SearchController < ApplicationController
   # @api public
   # @return [undefined]
   def add
-    raise ActiveRecord::RecordNotFound unless @user
+    raise ActiveRecord::RecordNotFound unless user_signed_in?
     
     @document = Document.find(params[:id])
-    @datasets = @user.datasets
+    @datasets = current_user.datasets
 
     render :layout => 'dialog'
   end

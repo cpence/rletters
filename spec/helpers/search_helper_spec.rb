@@ -219,7 +219,8 @@ describe SearchHelper do
     
     context 'when no user is logged in' do
       before(:each) do
-        sign_out :user
+        helper.stub(:current_user) { nil }
+        helper.stub(:user_signed_in?) { false }
       end
 
       it "renders the default template" do
@@ -231,7 +232,8 @@ describe SearchHelper do
     context 'when the user has no CSL style set' do
       before(:each) do
         @user = FactoryGirl.create(:user)
-        sign_in @user
+        helper.stub(:current_user) { @user }
+        helper.stub(:user_signed_in?) { true }
       end
 
       it "renders the default template" do
@@ -243,7 +245,8 @@ describe SearchHelper do
     context 'when the user has a CSL style set' do
       before(:each) do
         @user = FactoryGirl.create(:user, :csl_style => 'apa.csl')
-        sign_in @user
+        helper.stub(:current_user) { @user }
+        helper.stub(:user_signed_in?) { true }
       end
 
       it "renders a CSL style" do
