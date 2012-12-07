@@ -173,14 +173,11 @@ class Document
     
     # Grab all of the document-attributes that Solr returned, forcing
     # everything into UTF-8 encoding, which is how all Solr's data
-    # comes back.  On Ruby 1.8, this just happens, because $KCODE is UTF-8.
-    documents = solr_response["response"]["docs"]
-    if RUBY_VERSION >= "1.9.0"
-      documents.map! do |doc| 
-        doc.each do |k, v|
-          if v.is_a? String
-            doc[k] = v.force_encoding("UTF-8")
-          end
+    # comes back.
+    documents = solr_response["response"]["docs"].map do |doc|
+      doc.each do |k, v|
+        if v.is_a? String
+          doc[k] = v.force_encoding("UTF-8")
         end
       end
     end

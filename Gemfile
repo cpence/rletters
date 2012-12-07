@@ -21,7 +21,6 @@ gem 'marc'
 gem 'rdf', '>= 0.3.5'
 gem 'rdf-rdfxml', :platforms => [ :ruby, :mswin, :mingw ]
 gem 'rdf-n3'
-gem 'fastercsv', :platforms => [ :ruby_18, :mingw_18, :jruby ]
 
 gem 'latex-decode', '>= 0.0.11'
 gem 'bibtex-ruby', '~> 2.0', :require => 'bibtex'
@@ -51,7 +50,7 @@ group :assets do
   gem 'execjs', :require => false
   gem 'therubyracer', '>= 0.11.0beta5', :require => false, 
     :platforms => [ :ruby, :mswin, :mingw ]
-  gem 'libv8', '~> 3.11.8', :require => false,
+  gem 'libv8', '>= 3.11.8', :require => false,
     :platforms => [ :ruby, :mswin, :mingw ]
   gem 'therubyrhino', :require => false, 
     :platforms => :jruby
@@ -78,8 +77,7 @@ group :development do
 
   gem 'magic_encoding', :require => false
 
-  # SimpleCov requires manual intervention, don't run it in CI. Also,
-  # it only runs on Ruby 1.9.
+  # SimpleCov requires manual intervention, don't run it in CI.
   gem 'simplecov', '>= 0.4.0', :require => false,
     :platforms => [ :ruby_19, :mingw_19 ]
 end
