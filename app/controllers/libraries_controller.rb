@@ -7,7 +7,7 @@
 #
 # @see Library
 class LibrariesController < ApplicationController
-  before_filter :login_required
+  before_filter :authenticate_user!
 
   # Display the list of the user's libraries
   #

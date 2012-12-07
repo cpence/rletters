@@ -3,9 +3,10 @@ require 'spec_helper'
 
 describe "datasets/task_list" do
   
-  login_user
-  
   before(:each) do
+    @user = FactoryGirl.create(:user)
+    sign_in @user
+
     @dataset = FactoryGirl.create(:full_dataset, :user => @user)
     assign(:dataset, @dataset)    
     params[:id] = @dataset.to_param

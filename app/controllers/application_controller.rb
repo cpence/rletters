@@ -9,31 +9,8 @@ class ApplicationController < ActionController::Base
 
   private
   
-  before_filter :get_user, :set_locale, :set_timezone, :ensure_trailing_slash
+  before_filter :set_locale, :set_timezone, :ensure_trailing_slash
   
-  # Get the user if one is currently logged in
-  #
-  # We must save only the user's ID, as packing the +datasets+ value into the
-  # session table is a big problem.  This filter looks up the user
-  # automatically on every page load and saves it as +@user+.  
-  # Do not disable it!
-  #
-  # @api private
-  # @return [undefined]
-  def get_user
-    @user = nil
-    return if session[:user_id].nil?
-    
-    # Don't throw a 404 if someone tries to spoof the user_id, just
-    # chomp it silently
-    begin
-      @user = User.find(session[:user_id])
-    rescue ActiveRecord::RecordNotFound
-      @user = nil
-      session.delete :user_id
-    end
-  end
-
   # Set the locale if the user is logged in
   #
   # This function is called as a +before_filter+ in all controllers, you do
@@ -43,10 +20,10 @@ class ApplicationController < ActionController::Base
   # @api private
   # @return [undefined]
   def set_locale
-    if @user.nil?
-      I18n.locale = I18n.default_locale
+    if user_signed_in?
+      I18n.locale = current_user.language.to_sym
     else
-      I18n.locale = @user.language.to_sym
+      I18n.locale = I18n.default_locale
     end
   end
   
@@ -59,26 +36,10 @@ class ApplicationController < ActionController::Base
   # @api private
   # @return [undefined]
   def set_timezone
-    if @user.nil?
-      Time.zone = 'Eastern Time (US & Canada)'
+    if user_signed_in?
+      Time.zone = current_user.timezone
     else
-      Time.zone = @user.timezone
-    end
-  end
-
-  # Redirect to the users page if there is no logged in user
-  #
-  # This function is intended to serve as an optional +before_filter+ that
-  # a controller can use to indicate that only logged-in users should be able
-  # to access certain pages.
-  #
-  # @api private
-  # @return [undefined]
-  # @example Require login for the "index" action of a controller
-  #   before_filter :login_required, :only => [ :index ]
-  def login_required
-    if @user.nil?
-      redirect_to user_path, :rel => :external, :notice => I18n.t('all.login_warning')
+      Time.zone = 'Eastern Time (US & Canada)'
     end
   end
   

@@ -118,7 +118,9 @@ FactoryGirl.define do
   factory :user do
     name "John Doe"
     sequence(:email) {|n| "person#{n}@example.com" }
-    sequence(:identifier) {|n| "https://google.com/profiles/guy#{n}" }
+    password 'password'
+    password_confirmation 'password'
+    remember_me false
     per_page 10
     language 'en-US'
     timezone 'Eastern Time (US & Canada)'

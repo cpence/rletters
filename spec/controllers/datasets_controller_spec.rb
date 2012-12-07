@@ -3,15 +3,19 @@ require 'spec_helper'
 
 describe DatasetsController do
   
-  login_user  
   before(:each) do
+    @user = FactoryGirl.create(:user)
+    sign_in @user
+    
     @dataset = FactoryGirl.create(:full_dataset, :user => @user, :working => true)
   end
   
   describe '#index' do
     context "when not logged in" do
-      logout_user
-
+      before(:each) do
+        sign_out :user
+      end
+      
       it "redirects to the users page" do
         get :index
         response.should redirect_to(user_path)

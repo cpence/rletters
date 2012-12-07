@@ -3,7 +3,10 @@ require 'spec_helper'
 
 describe "libraries/query" do
   
-  login_user
+  before(:each) do
+    @user = FactoryGirl.create(:user)
+    sign_in @user
+  end
   
   context 'when libraries are assigned' do
     before(:each) do

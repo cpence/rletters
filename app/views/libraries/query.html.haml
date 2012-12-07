@@ -4,7 +4,7 @@
   %p= t('.no_libraries')
 - else
   - @libraries.each do |library|
-    = form_tag(user_libraries_path, :method => :post) do
+    = form_tag(libraries_path, :method => :post) do
       = hidden_field_tag 'library[name]', library[:name]
       = hidden_field_tag 'library[url]', library[:url]
       = submit_tag library[:name]

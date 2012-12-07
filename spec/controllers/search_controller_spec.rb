@@ -162,7 +162,10 @@ describe SearchController do
   end
 
   describe '#add' do
-    login_user
+    before(:each) do
+      @user = FactoryGirl.create(:user)
+      sign_in @user
+    end
     
     it 'loads successfully' do
       get :add, { :id => FactoryGirl.generate(:working_shasum) }

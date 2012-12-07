@@ -9,7 +9,7 @@
 #
 # @see Dataset
 class DatasetsController < ApplicationController
-  before_filter :login_required
+  before_filter :authenticate_user!
   
   # Show all of the current user's datasets
   # @api public

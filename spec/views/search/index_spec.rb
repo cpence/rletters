@@ -86,9 +86,10 @@ describe "search/index" do
     end
     
     context 'when logged in' do
-      login_user(:csl_style => 'chicago-author-date.csl')
-      
       before(:each) do
+        @user = FactoryGirl.create(:user)
+        sign_in @user
+
         render
       end
       

@@ -3,8 +3,10 @@ require 'spec_helper'
 
 describe "datasets/dataset_list" do
   
-  login_user
   before(:each) do
+    @user = FactoryGirl.create(:user)
+    sign_in @user
+    
     @dataset = FactoryGirl.create(:full_dataset, :user => @user)
     assign(:datasets, [ @dataset ])
   end

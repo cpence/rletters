@@ -1,4 +1,4 @@
 - content_for :title do
   = t('.head')
-= render :partial => 'form', :locals => { :url => user_library_path(@library) }
+= render :partial => 'form', :locals => { :url => library_path(@library) }
 = link_to t('.cancel'), user_path, 'data-role' => 'button'

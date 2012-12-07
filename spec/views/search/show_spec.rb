@@ -52,9 +52,10 @@ describe "search/show" do
   end
   
   context 'when logged in' do
-    login_user
-    
     before(:each) do
+      @user = FactoryGirl.create(:user)
+      sign_in @user
+
       @library = FactoryGirl.create(:library, :user => @user)
       @user.libraries.reload
       

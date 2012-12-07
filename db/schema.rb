@@ -1,4 +1,4 @@
-# -*- encoding : utf-8 -*-
+# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -11,14 +11,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120124192349) do
+ActiveRecord::Schema.define(:version => 20121207143836) do
 
   create_table "analysis_tasks", :force => true do |t|
     t.string   "name"
     t.datetime "finished_at"
     t.integer  "dataset_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
     t.boolean  "failed",      :default => false
     t.string   "job_type"
   end
@@ -28,8 +28,8 @@ ActiveRecord::Schema.define(:version => 20120124192349) do
   create_table "dataset_entries", :force => true do |t|
     t.string   "shasum"
     t.integer  "dataset_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   add_index "dataset_entries", ["dataset_id"], :name => "index_dataset_entries_on_dataset_id"
@@ -37,8 +37,8 @@ ActiveRecord::Schema.define(:version => 20120124192349) do
   create_table "datasets", :force => true do |t|
     t.string   "name"
     t.integer  "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   add_index "datasets", ["user_id"], :name => "index_datasets_on_user_id"
@@ -52,8 +52,8 @@ ActiveRecord::Schema.define(:version => 20120124192349) do
     t.datetime "locked_at"
     t.datetime "failed_at"
     t.string   "locked_by"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
     t.string   "queue"
   end
 
@@ -61,8 +61,8 @@ ActiveRecord::Schema.define(:version => 20120124192349) do
 
   create_table "downloads", :force => true do |t|
     t.string   "filename"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
     t.integer  "analysis_task_id"
   end
 
@@ -72,8 +72,8 @@ ActiveRecord::Schema.define(:version => 20120124192349) do
     t.string   "name"
     t.string   "url"
     t.integer  "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   add_index "libraries", ["user_id"], :name => "index_libraries_on_user_id"
@@ -81,23 +81,34 @@ ActiveRecord::Schema.define(:version => 20120124192349) do
   create_table "sessions", :force => true do |t|
     t.string   "session_id", :null => false
     t.text     "data"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
   add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
 
   create_table "users", :force => true do |t|
-    t.string   "email"
     t.string   "name"
-    t.string   "identifier"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "per_page",   :default => 10
-    t.string   "language",   :default => "en-US"
-    t.string   "csl_style",  :default => ""
-    t.string   "timezone",   :default => "Eastern Time (US & Canada)"
+    t.datetime "created_at",                                                       :null => false
+    t.datetime "updated_at",                                                       :null => false
+    t.integer  "per_page",               :default => 10
+    t.string   "language",               :default => "en-US"
+    t.string   "csl_style",              :default => ""
+    t.string   "timezone",               :default => "Eastern Time (US & Canada)"
+    t.string   "email",                  :default => "",                           :null => false
+    t.string   "encrypted_password",     :default => "",                           :null => false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          :default => 0
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
   end
+
+  add_index "users", ["email"], :name => "index_users_on_email", :unique => true
+  add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
 
 end

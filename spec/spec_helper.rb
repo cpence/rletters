@@ -45,9 +45,10 @@ RSpec.configure do |config|
     Time.zone = 'Eastern Time (US & Canada)'
   end
   
+  config.include Devise::TestHelpers, :type => :controller
+  
   # Add a helper for logging in (and out!) a user, and for breaking
   # the Solr server on demand
-  config.extend UserLoginHelper
   config.extend SolrServerHelper
   
   # Skip some tests on JRuby

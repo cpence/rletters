@@ -3,8 +3,10 @@ require 'spec_helper'
 
 describe "datasets/new" do
   
-  login_user
   before(:each) do
+    @user = FactoryGirl.create(:user)
+    sign_in @user
+
     assign(:dataset, FactoryGirl.build(:dataset, :user => @user))
   end
   
