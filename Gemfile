@@ -11,8 +11,8 @@ gem 'delayed_job', '~> 3.0', '>= 3.0.1'
 gem 'delayed_job_active_record'
 gem 'airbrake'
 
-gem 'rpx_now'
-gem 'email_validator'
+gem 'devise'
+gem 'devise-i18n'
 
 gem 'rubyzip'
 gem 'rsolr', '>= 1.0.7'
