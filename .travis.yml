@@ -2,6 +2,10 @@ language: ruby
 rvm:
   - 1.9.3
 
+branches:
+  only:
+    - master
+
 bundler_args: --without production development
 
 before_script:
