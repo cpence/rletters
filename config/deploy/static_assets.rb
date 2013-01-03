@@ -22,7 +22,7 @@ Capistrano::Configuration.instance.load do
       run "ln -s #{shared_path}/static_assets #{release_path}/public/static_assets"
     end
     
-    before "deploy:finalize_update", "rletters:copy_static_assets"
+    after "deploy:assets:symlink", "rletters:copy_static_assets"
     
   end
   

@@ -151,8 +151,8 @@ Capistrano::Configuration.instance.load do
 
     end
 
-    after "deploy:setup",           "deploy:db:setup"   unless fetch(:skip_db_setup, false)
-    before "deploy:finalize_update", "deploy:db:symlink"
+    after "deploy:setup", "deploy:db:setup"   unless fetch(:skip_db_setup, false)
+    after "deploy:assets:symlink", "deploy:db:symlink"
 
   end
 

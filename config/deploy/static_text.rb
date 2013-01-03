@@ -28,7 +28,7 @@ Capistrano::Configuration.instance.load do
       run "ln -sf #{shared_path}/static_text/* #{release_path}/app/views/static/"
     end
     
-    before "deploy:finalize_update", "rletters:copy_static_text"
+    before "deploy:assets:symlink", "rletters:copy_static_text"
     
   end
   
