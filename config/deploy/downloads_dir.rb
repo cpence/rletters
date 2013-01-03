@@ -14,12 +14,12 @@ Capistrano::Configuration.instance.load do
       This task will create an empty directory in shared if this is a 
       new installation.
     DESC
-    task :link_downloads do
+    task :symlink_downloads do
       run "mkdir -p #{shared_path}/downloads"
       run "ln -s #{shared_path}/downloads #{release_path}"
     end
     
-    before "deploy:finalize_update", "rletters:link_downloads"
+    after "deploy:assets:symlink", "rletters:symlink_downloads"
     
   end
   
