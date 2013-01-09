@@ -28,7 +28,10 @@ RLetters::Application.routes.draw do
   end
 
   # User login routes
-  devise_for :users
+  devise_for :users do
+    # Redirect to the main user page after a successful user edit
+    get 'users', :to => 'info#index', :as => :user_root
+  end
   
   # Libraries, nested under users
   scope '/users' do
