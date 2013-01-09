@@ -1,8 +1,6 @@
 /*
  *= require jquery.mobile
  *= require jquery_mobile_theme
- *= require_self
- *= require_tree . 
 */
 
 .verticalpad { margin-top: 14px; margin-bottom: 14px; }
@@ -18,3 +16,6 @@ ul.longlist .ui-li-desc, li.longlist .ui-li-desc {
   margin-bottom: 1.25em;
 }
 
+@import "footer";
+@import "plot_dates";
+@import "search";

@@ -13,6 +13,7 @@ gem 'airbrake'
 
 gem 'devise'
 gem 'devise-i18n'
+gem 'activeadmin'
 
 gem 'rubyzip'
 gem 'rsolr', '>= 1.0.7'
@@ -30,9 +31,6 @@ gem 'haml'
 gem 'haml-rails'
 gem 'kramdown'
 
-gem 'jquery-rails', '= 2.1.3'
-gem 'jquery_mobile_rails', '= 1.2.0'
-
 group :production do
   gem 'mysql2', :platforms => [ :ruby, :mswin, :mingw ]
   gem 'activerecord-jdbcmysql-adapter', :platforms => :jruby
@@ -43,8 +41,13 @@ end
 
 group :assets do
   gem 'sass-rails'
-  gem 'uglifier'
+  gem 'coffee-rails'
   
+  gem 'jquery-rails', '= 2.1.3'
+  gem 'jquery_mobile_rails', '= 1.2.0'
+  
+  gem 'uglifier'
+
   # Uglifier needs an ExecJS runtime, but we don't need to
   # require it everywhere.
   gem 'execjs', :require => false

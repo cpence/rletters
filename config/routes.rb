@@ -33,6 +33,10 @@ RLetters::Application.routes.draw do
     get 'users', :to => 'info#index', :as => :user_root
   end
   
+  # Administration pages
+  ActiveAdmin.routes(self)
+  devise_for :admin_users, ActiveAdmin::Devise.config
+  
   # Libraries, nested under users
   scope '/users' do
     resources :libraries, :except => :show do
