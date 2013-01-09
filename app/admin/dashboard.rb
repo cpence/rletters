@@ -7,6 +7,18 @@ ActiveAdmin.register_page "Dashboard" do
     
     columns do
       column do
+        panel "Newest Datasets" do
+          table_for Dataset.order("created_at desc").limit(5) do
+            column :name do |dataset|
+              link_to dataset.name, [:admin, dataset]
+            end
+            column :user do |dataset|
+              link_to dataset.user.name, [:admin, user]
+            end
+            column :created_at
+          end
+        end
+        
         panel "Backend Information" do
           h4 "Database"
           
@@ -43,6 +55,19 @@ ActiveAdmin.register_page "Dashboard" do
       end
       
       column do
+        panel "Newest Analysis Tasks" do
+          table_for AnalysisTask.order("created_at desc").limit(10) do
+            column :name do |task|
+              link_to task.name, [:admin, task]
+            end
+            column :job_type
+            column :dataset do |task|
+              link_to task.dataset.name, [:admin, task.dataset]
+            end
+            column :failed
+          end
+        end
+        
         panel "Recently Seen Users" do
           table_for User.order("last_sign_in_at desc").limit(5) do
             column :name do |user|
