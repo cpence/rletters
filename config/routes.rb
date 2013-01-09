@@ -28,17 +28,15 @@ RLetters::Application.routes.draw do
   end
 
   # User login routes
-  devise_for :users do
-    # Redirect to the main user page after a successful user edit
+  devise_for :users
+
+  # Redirect to the main user page after a successful user edit
+  devise_scope :user do
     get 'users', :to => 'info#index', :as => :user_root
   end
   
-  # Administration pages
-  ActiveAdmin.routes(self)
-  devise_for :admin_users, ActiveAdmin::Devise.config
-  
-  # Libraries, nested under users
   scope '/users' do
+    # Libraries, nested under users
     resources :libraries, :except => :show do
       member do
         get 'delete'
@@ -49,6 +47,10 @@ RLetters::Application.routes.draw do
     end
   end
 
+  # Administration pages
+  ActiveAdmin.routes(self)
+  devise_for :admin_users, ActiveAdmin::Devise.config
+  
   # Static information pages
   match 'info' => 'info#index', :via => :get
   match 'info/about' => 'info#about', :via => :get

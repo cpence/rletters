@@ -33,7 +33,9 @@ en:
       dataset_entry: "Dataset Entry"
       download: "Download"
       library: "Library"
-      user: "User"
+      user:
+          one: "User"
+          other: "Users"
     attributes:
       analysis_task:
         name: "Name"
