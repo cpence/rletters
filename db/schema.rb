@@ -89,6 +89,7 @@ ActiveRecord::Schema.define(:version => 20121207143836) do
   add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
 
   create_table "users", :force => true do |t|
+    t.string   "email",                  :default => "",                           :null => false
     t.string   "name"
     t.datetime "created_at",                                                       :null => false
     t.datetime "updated_at",                                                       :null => false
@@ -96,7 +97,6 @@ ActiveRecord::Schema.define(:version => 20121207143836) do
     t.string   "language",               :default => "en-US"
     t.string   "csl_style",              :default => ""
     t.string   "timezone",               :default => "Eastern Time (US & Canada)"
-    t.string   "email",                  :default => "",                           :null => false
     t.string   "encrypted_password",     :default => "",                           :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
