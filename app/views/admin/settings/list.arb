@@ -1,0 +1,4 @@
+table_for assigns[:settings] do
+  column :key
+  column :val
+end
