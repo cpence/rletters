@@ -244,13 +244,13 @@ describe SearchHelper do
 
     context 'when the user has a CSL style set' do
       before(:each) do
-        @user = FactoryGirl.create(:user, :csl_style => 'apa.csl')
+        @user = FactoryGirl.create(:user, :csl_style => 'American Psychological Association 6th Edition')
         helper.stub(:current_user) { @user }
         helper.stub(:user_signed_in?) { true }
       end
 
       it "renders a CSL style" do
-        @doc.should_receive(:to_csl_entry).with("apa.csl")
+        @doc.should_receive(:to_csl_entry).with("American Psychological Association 6th Edition")
         helper.document_bibliography_entry(@doc)
       end
     end

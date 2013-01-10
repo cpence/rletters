@@ -18,20 +18,6 @@ all_environments: &all_environments
   solr_timeout: <%= Capistrano::CLI::ui.ask("Enter Solr timeout (in seconds, default 120): ") %>
 
   jquery_mobile_theme: "<%= Capistrano::CLI::ui.ask("Enter custom jQuery Mobile theme name (or leave blank): ") %>"
-  
-  available_csl_styles:
-    - apa.csl
-    - apsa.csl
-    - asa.csl
-    - chicago-author-date.csl
-    - chicago-note-bibliography.csl
-    - harvard1.csl
-    - ieee.csl
-    - mhra.csl
-    - mla.csl
-    - nature.csl
-    - nlm.csl
-    - vancouver.csl
 
 development:
   <<: *all_environments  

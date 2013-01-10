@@ -93,7 +93,7 @@ describe "search/index" do
     
     context 'when logged in' do
       before(:each) do
-        @user = FactoryGirl.create(:user, :csl_style => 'chicago-author-date.csl')
+        @user = FactoryGirl.create(:user, :csl_style => 'Chicago Manual of Style (Author-Date format)')
         view.stub(:current_user) { @user }
         view.stub(:user_signed_in?) { true }
         

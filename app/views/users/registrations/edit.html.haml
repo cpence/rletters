@@ -52,7 +52,7 @@
   
       %div{ 'data-role' => 'fieldcontain' }
         = f.label :csl_style, User.human_attribute_name('csl_style')
-        = f.select :csl_style, options_from_csl_styles(@user.csl_style)
+        = f.select :csl_style, options_from_collection_for_select(CslStyle.all, 'name', 'name')
 
     %li= f.submit "Update"
   
