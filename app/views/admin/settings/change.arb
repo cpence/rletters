@@ -1,0 +1,24 @@
+form_for :settings, :url => set_values_admin_settings_path do |f|
+  # Duplicate the Formtastic styles
+  fieldset nil, :class => 'inputs' do
+    ol do
+      assigns[:settings].each do |s|
+        li :class => 'string input optional stringish' do
+          f.label s.key, I18n.t("settings.#{s.key}"), :class => 'label'
+          f.text_field s.key, :value => s.val
+        end
+      end
+    end
+  end
+  
+  fieldset nil, :class => 'actions' do
+    ol do
+      li do
+        f.submit
+      end
+      li :class => 'cancel' do
+        link_to "Cancel", admin_settings_path
+      end
+    end
+  end
+end

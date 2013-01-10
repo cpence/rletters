@@ -14,14 +14,14 @@ en:
                 shasum: "SHA-1 checksum"
                 doi: "DOI"
                 authors: "Authors"
-            title: "Title"
-            journal: "Journal"
-            year: "Year"
-            volume: "Volume"
-            number: "Number"
-            pages: "Pages"
-            fulltext: "Full text"
-            term_vectors: "Term vectors"    
+                title: "Title"
+                journal: "Journal"
+                year: "Year"
+                volume: "Volume"
+                number: "Number"
+                pages: "Pages"
+                fulltext: "Full text"
+                term_vectors: "Term vectors"
         errors:
             models:
                 document:
@@ -363,3 +363,7 @@ en:
             head: "Are you sure?"
             "yes": "Yes"
             "no": "No"
+    settings:
+        app_name: Application Name
+        app_email: Contact E-Mail
+        app_domain: Application Root URL
