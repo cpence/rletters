@@ -4,6 +4,7 @@ gem 'rails', '~> 3.0'
 gem 'rails-i18n', '= 0.7.1'
 
 gem 'jruby-openssl', :platforms => :jruby
+gem 'seed-fu', '>= 2.1.0'
 gem 'activerecord-import'
 
 gem 'capistrano'

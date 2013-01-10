@@ -1,4 +1,5 @@
 # -*- encoding : utf-8 -*-
+
 ActiveAdmin.register AdminUser do
   menu :parent => "Users"
     

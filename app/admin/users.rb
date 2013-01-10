@@ -1,4 +1,5 @@
 # -*- encoding : utf-8 -*-
+
 ActiveAdmin.register User do
   actions :index, :show
   

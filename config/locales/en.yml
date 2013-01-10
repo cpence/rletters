@@ -31,6 +31,9 @@ en:
                         invalid: "SHA-1 checksum contains invalid characters (internal error)"
     activerecord:
         models:
+            csl_style:
+                one: CSL Style
+                other: CSL Styles
             dataset:
                 one: Dataset
                 other: Datasets

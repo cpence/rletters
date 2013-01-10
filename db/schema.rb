@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130109194903) do
+ActiveRecord::Schema.define(:version => 20130109223820) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -57,6 +57,13 @@ ActiveRecord::Schema.define(:version => 20130109194903) do
   end
 
   add_index "analysis_tasks", ["dataset_id"], :name => "index_analysis_tasks_on_dataset_id"
+
+  create_table "csl_styles", :force => true do |t|
+    t.string   "name"
+    t.text     "style"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "dataset_entries", :force => true do |t|
     t.string   "shasum"

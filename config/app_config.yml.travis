@@ -14,20 +14,6 @@ all_environments: &all_environments
   solr_timeout: 120
   
   jquery_mobile_theme: ""
-  
-  available_csl_styles:
-    - apa.csl
-    - apsa.csl
-    - asa.csl
-    - chicago-author-date.csl
-    - chicago-note-bibliography.csl
-    - harvard1.csl
-    - ieee.csl
-    - mhra.csl
-    - mla.csl
-    - nature.csl
-    - nlm.csl
-    - vancouver.csl
 
 development:
   <<: *all_environments  
