@@ -1,9 +1,5 @@
 
 all_environments: &all_environments
-  app_name: RLetters Testing
-  app_email: charles@charlespence.net
-  app_domain: not.a.web.site.com
-  
   ruby_path: /usr/bin
   
   mendeley_key: ""

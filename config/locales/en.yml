@@ -366,4 +366,4 @@ en:
     settings:
         app_name: Application Name
         app_email: Contact E-Mail
-        app_domain: Application Root URL
+        app_domain: Application Domain Name

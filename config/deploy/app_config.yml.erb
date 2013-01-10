@@ -1,9 +1,5 @@
 
 all_environments: &all_environments
-  app_name: <%= Capistrano::CLI.ui.ask("Enter friendly application name: ") %>
-  app_email: <%= Capistrano::CLI.ui.ask("Enter developer e-mail: ") %>
-  app_domain: <%= Capistrano::CLI.ui.ask("Enter application domain: ") %>
-  
   ruby_path: <%= RbConfig::CONFIG['bindir'].sub(/.*\s.*/m, '"\&"') %>
   
   janrain_appname: <%= Capistrano::CLI.ui.ask("Enter Janrain application name: ") %>
