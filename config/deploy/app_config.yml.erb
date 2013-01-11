@@ -1,9 +1,5 @@
 
 all_environments: &all_environments
-  janrain_appname: <%= Capistrano::CLI.ui.ask("Enter Janrain application name: ") %>
-  janrain_appid: <%= Capistrano::CLI.ui.ask("Enter Janrain application ID: ") %>
-  janrain_secret: <%= Capistrano::CLI.ui.ask("Enter Janrain secret: ") %>
-  
   solr_server_url: <%= Capistrano::CLI.ui.ask("Enter Solr server path: ") %>
   solr_timeout: <%= Capistrano::CLI::ui.ask("Enter Solr timeout (in seconds, default 120): ") %>
 
