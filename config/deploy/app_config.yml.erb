@@ -1,7 +1,5 @@
 
 all_environments: &all_environments
-  ruby_path: <%= RbConfig::CONFIG['bindir'].sub(/.*\s.*/m, '"\&"') %>
-  
   janrain_appname: <%= Capistrano::CLI.ui.ask("Enter Janrain application name: ") %>
   janrain_appid: <%= Capistrano::CLI.ui.ask("Enter Janrain application ID: ") %>
   janrain_secret: <%= Capistrano::CLI.ui.ask("Enter Janrain secret: ") %>
