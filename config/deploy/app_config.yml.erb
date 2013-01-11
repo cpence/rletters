@@ -3,8 +3,6 @@ all_environments: &all_environments
   solr_server_url: <%= Capistrano::CLI.ui.ask("Enter Solr server path: ") %>
   solr_timeout: <%= Capistrano::CLI::ui.ask("Enter Solr timeout (in seconds, default 120): ") %>
 
-  jquery_mobile_theme: "<%= Capistrano::CLI::ui.ask("Enter custom jQuery Mobile theme name (or leave blank): ") %>"
-
 development:
   <<: *all_environments  
 

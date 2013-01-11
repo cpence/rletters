@@ -4,6 +4,9 @@
   %title= Settings.app_name
   
   = stylesheet_link_tag 'application'
+  - unless Settings.jquery_mobile_theme_blob.blank?
+    %style{ :type => 'text/css' }
+      = Settings.jquery_mobile_theme_blob
   = javascript_include_tag "https://www.google.com/jsapi"
   = javascript_include_tag 'application'
   = csrf_meta_tags
