@@ -4,11 +4,11 @@ require 'spec_helper'
 describe "search/show" do
   
   before(:all) do
-    APP_CONFIG['mendeley_key'] = 'asdf'
+    Settings.mendeley_key = 'asdf'
   end
   
   after(:all) do
-    APP_CONFIG['mendeley_key'] = ''
+    Settings.mendeley_key = ''
   end
   
   before(:each) do

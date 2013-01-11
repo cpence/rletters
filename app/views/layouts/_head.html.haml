@@ -26,7 +26,7 @@
   %link{ :href => "/static_assets/favicon.ico", :rel => "shortcut icon" }/
   
   -# Load Google analytics (if enabled)
-  - unless APP_CONFIG['google_analytics_key'].blank?
+  - unless Settings.google_analytics_key.blank?
     = render :partial => 'layouts/google'
   
   = content_for :head_tags
