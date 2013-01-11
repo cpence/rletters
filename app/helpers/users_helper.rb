@@ -17,7 +17,7 @@ module UsersHelper
   def options_from_locales(current = I18n.locale)
     list = []
 
-    APP_CONFIG['available_locales'].each do |loc|
+    Rails.application.config.i18n.available_locales.each do |loc|
       parts = loc.split('-')
       entry = ''
 

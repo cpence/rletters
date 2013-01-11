@@ -3,10 +3,17 @@ form_for :settings, :url => set_values_admin_settings_path do |f|
   fieldset nil, :class => 'inputs' do
     ol do
       assigns[:settings].each do |s|
+        is_integer = Integer(s.val) rescue nil
+        
         if s.key.to_s.end_with? '_blob'
           li :class => 'text input optional' do
             f.label s.key, I18n.t("settings.#{s.key}"), :class => 'label'
             f.text_area s.key, :value => s.val, :rows => 20
+          end
+        elsif is_integer != nil
+          li :class => 'numeric input optional stringish' do
+            f.label s.key, I18n.t("settings.#{s.key}"), :class => 'label'
+            f.number_field s.key, :value => s.val
           end
         else
           li :class => 'string input optional stringish' do

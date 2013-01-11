@@ -13,7 +13,7 @@ ActiveAdmin.register User do
   
   filter :name
   filter :email
-  filter :language, :as => :select, :collection => proc { APP_CONFIG['available_locales'] }
+  filter :language, :as => :select, :collection => proc { Rails.application.config.i18n.available_locales }
   filter :time_zone
   filter :csl_style
   filter :created_at

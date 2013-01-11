@@ -34,9 +34,20 @@ module Solr
     private
     
     def self.get_solr
-      @@solr ||= RSolr::Ext.connect(:url => APP_CONFIG['solr_server_url'],
-                                    :read_timeout => APP_CONFIG['solr_timeout'],
-                                    :open_timeout => APP_CONFIG['solr_timeout'])
+      @@solr ||= RSolr::Ext.connect(:url => Settings.solr_server_url,
+                                    :read_timeout => Settings.solr_timeout.to_i,
+                                    :open_timeout => Settings.solr_timeout.to_i)
+      
+      # Make sure that we update the Solr connection when we change the
+      # Solr URL, since it can be dynamically modified in the admin panel
+      @@url ||= Settings.solr_server_url
+      if @@url != Settings.solr_server_url
+        @@url = Settings.solr_server_url
+        
+        @@solr = RSolr::Ext.connect(:url => Settings.solr_server_url,
+                                    :read_timeout => Settings.solr_timeout.to_i,
+                                    :open_timeout => Settings.solr_timeout.to_i)
+      end
     end
   end  
 end

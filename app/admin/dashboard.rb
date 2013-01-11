@@ -32,25 +32,30 @@ ActiveAdmin.register_page "Dashboard" do
     
             solr_response = Solr::Connection.find solr_query
             
-            if (solr_response["response"] &&
-                solr_response["response"]["numFound"])
-              li "Database size: #{solr_response["response"]["numFound"]} items"
+            if solr_response['response'] &&
+               solr_response['response']['numFound']
+              li "Database size: #{solr_response['response']['numFound']} items"
             else
-              li "Database size: cannot query!"
+              li "Cannot connect to Solr!  Configure the Solr URL on the #{link_to "settings page.", list_admin_settings_path}".html_safe
             end
             
-            li "Local database latency: #{solr_response['responseHeader']['QTime']} ms"
+            if solr_response['responseHeader'] &&
+               solr_response['responseHeader']['QTime']
+               li "Local database latency: #{solr_response['responseHeader']['QTime']} ms"
+             end
           end
           
-          h4 "Solr Server"
+          solr_info = Solr::Connection.info
           
-          ul do
-            solr_info = Solr::Connection.info
+          if solr_info['lucene'] && solr_info['jvm']
+            h4 "Solr Server"
 
-            li "Solr #{solr_info['lucene']['solr-spec-version']}, Lucene #{solr_info['lucene']['lucene-spec-version']}"
-            li "Java #{solr_info['jvm']['version']}"
+            ul do            
+              li "Solr #{solr_info['lucene']['solr-spec-version']}, Lucene #{solr_info['lucene']['lucene-spec-version']}"
+              li "Java #{solr_info['jvm']['version']}"
             
-            li "Memory: #{solr_info['jvm']['memory']['used']} used, with #{solr_info['jvm']['memory']['free']} free of #{solr_info['jvm']['memory']['total']}; #{solr_info['jvm']['memory']['max']} max"
+              li "Memory: #{solr_info['jvm']['memory']['used']} used, with #{solr_info['jvm']['memory']['free']} free of #{solr_info['jvm']['memory']['total']}; #{solr_info['jvm']['memory']['max']} max"
+            end
           end
         end
       end

@@ -367,6 +367,8 @@ en:
         app_name: Application Name
         app_email: Contact E-Mail
         app_domain: Application Domain Name
+        solr_server_url: Solr URL
+        solr_timeout: Solr Timeout (sec)
         mendeley_key: Mendeley Consumer Key
         airbrake_key: Airbrake API Key
         google_analytics_key: Google Analytics Tracking ID
