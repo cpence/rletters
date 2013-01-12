@@ -46,6 +46,9 @@ en:
             library:
                 one: Library
                 other: Libraries
+            markdown_page:
+                one: Custom Page
+                other: Custom Pages
             user:
                 one: User
                 other: Users
@@ -63,6 +66,10 @@ en:
             library:
                 name: "Name"
                 url: "Base URL"
+            markdown_page:
+                friendly_name: "Name"
+                name: "Name"
+                content: "Content"
             user:
                 email: "Email"
                 name: "Name"
@@ -373,3 +380,9 @@ en:
         airbrake_key: Airbrake API Key
         google_analytics_key: Google Analytics Tracking ID
         jquery_mobile_theme_blob: jQuery Mobile Theme CSS
+    markdown_pages:
+        tutorial: Tutorial
+        privacy_short: Privacy Notice (short)
+        privacy_long: Privacy Notice (full)
+        faq: FAQ
+        about: About

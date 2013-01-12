@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 
 ActiveAdmin.register Settings do
-  actions :except => [ :index, :update, :edit, :show ]
+  actions :except => [ :index, :update, :edit, :show, :destroy, :new ]
   config.filters = false
   config.batch_actions = false
   

@@ -19,7 +19,6 @@ after "deploy:start", "delayed_job:start"
 require 'remote_file'
 require 'capistrano_database'
 require 'static_assets'
-require 'static_text'
 require 'downloads_dir'
 require 'secret_token_replacer'
 
