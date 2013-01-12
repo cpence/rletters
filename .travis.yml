@@ -15,7 +15,7 @@ before_script:
   - "script/solr_start $PWD"
 
 script:
-  - "bundle exec rake spec --trace"
+  - "bundle exec rspec spec"
 
 after_script:
   - "script/solr_stop $PWD"
