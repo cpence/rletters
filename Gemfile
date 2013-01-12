@@ -13,6 +13,8 @@ gem 'airbrake'
 
 gem 'seed-fu', '>= 2.1.0'
 gem 'rails-settings-cached'
+gem 'paperclip', '~> 3.0'
+gem 'paperclip-meta'
 
 gem 'devise'
 gem 'devise-i18n'

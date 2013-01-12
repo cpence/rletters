@@ -49,6 +49,9 @@ en:
             markdown_page:
                 one: Custom Page
                 other: Custom Pages
+            uploaded_asset:
+                one: Custom Asset
+                other: Custom Assets
             user:
                 one: User
                 other: Users
@@ -70,6 +73,10 @@ en:
                 friendly_name: "Name"
                 name: "Name"
                 content: "Content"
+            uploaded_asset:
+                friendly_name: "Name"
+                name: "Name"
+                file: "Attachment"
             user:
                 email: "Email"
                 name: "Name"
@@ -386,3 +393,12 @@ en:
         privacy_long: Privacy Notice (full)
         faq: FAQ
         about: About
+    uploaded_assets:
+        splash-low: Splash Screen (320x460)
+        splash-high: Splash Screen (768x1004)
+        favicon: Favorite Icon (16x16)
+        error-watermark: Error Page Watermark (~500x400)
+        apple-touch-icon-precomposed-low: App Icon (precomposed, 57x57)
+        apple-touch-icon-low: App Icon (57x57)
+        apple-touch-icon-med: App Icon (72x72)
+        apple-touch-icon-high: App Icon (114x114)

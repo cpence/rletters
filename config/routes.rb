@@ -63,4 +63,9 @@ RLetters::Application.routes.draw do
 
   # Start off on the info/home page
   root :to => 'info#index'
+  
+  # Error pages
+  match "/404" => "errors#not_found"
+  match "/422" => "errors#unprocessable"
+  match "/500" => "errors#internal_error"
 end
