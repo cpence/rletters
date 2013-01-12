@@ -47,19 +47,21 @@ module Serializers
     # specified style using CSL.
     #
     # @api public
-    # @param [String] style CSL style to use (by name, in database)
+    # @param [String] style_or_url CSL style to use (a CslStyle or URL)
     # @return [String] bibliographic entry in the given style
     # @example Convert a given document to Chicago author-date format
-    #   doc.to_csl_entry('Chicago Manual of Style (Author-Date format)')
+    #   doc.to_csl_entry(csl_style)
     #   # => "Doe, John. 2000. ..."
-    def to_csl_entry(style = '')
-      style = 'Chicago Manual of Style (Author-Date format)' if style.blank?
-      unless style.match(/\Ahttps?:/)
-        style_record = CslStyle.find_by_name(style)
-        return "(ERROR: Bad CSL style)" unless style_record
-        style = style_record.style
-      end
-
+    def to_csl_entry(style_or_url)
+      if style_or_url.is_a? CslStyle
+        # Get the XML style
+        style = style_or_url.style
+      elsif style_or_url.is_a? String
+        style = style_or_url
+      else
+        raise ArgumentError, "Argument must be CslStyle or String"
+      end        
+      
       CiteProc.process(to_csl, :format => :html, :style => style).strip.html_safe
     end
   end

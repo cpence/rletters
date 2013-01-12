@@ -70,7 +70,7 @@ en:
                 per_page: "Number of search results per page"
                 language: "Preferred language"
                 timezone: "Time zone"
-                csl_style: "Citation style"
+                csl_style_id: "Citation style"
                 libraries: "Library access links"
         errors:
             models:

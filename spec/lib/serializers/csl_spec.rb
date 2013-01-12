@@ -26,23 +26,19 @@ describe Serializers::CSL do
   end
   
   context "when formatting CSL citations" do
-    it "creates good CSL citations" do
-      @doc.to_csl_entry.to_s.should eq("Botero, Carlos A., Andrew E. Mudge, Amanda M. Koltz, Wesley M. Hochachka, and Sandra L. Vehrencamp. 2008. “How Reliable are the Methods for Estimating Repertoire Size?”. <i>Ethology</i> 114: 1227-1238.")
-    end
-    
-    it "formats with all our alternate CSL style files" do
-      @doc.to_csl_entry("American Psychological Association 6th Edition").should eq("Botero, C. A., Mudge, A. E., Koltz, A. M., Hochachka, W. M., &#38; Vehrencamp, S. L. (2008). How Reliable are the Methods for Estimating Repertoire Size?. <i>Ethology</i>, <i>114</i>, 1227-1238.")
-      @doc.to_csl_entry('American Political Science Association').should eq("Botero, Carlos A., Andrew E. Mudge, Amanda M. Koltz, Wesley M. Hochachka, and Sandra L. Vehrencamp. 2008. “How Reliable are the Methods for Estimating Repertoire Size?”. <i>Ethology</i> 114: 1227-1238.")
-      @doc.to_csl_entry('American Sociological Association').should eq("Botero, Carlos A., Andrew E. Mudge, Amanda M. Koltz, Wesley M. Hochachka, and Sandra L. Vehrencamp. 2008. “How Reliable are the Methods for Estimating Repertoire Size?”. <i>Ethology</i> 114:1227-1238.")
-      @doc.to_csl_entry('Chicago Manual of Style (Author-Date format)').should eq("Botero, Carlos A., Andrew E. Mudge, Amanda M. Koltz, Wesley M. Hochachka, and Sandra L. Vehrencamp. 2008. “How Reliable are the Methods for Estimating Repertoire Size?”. <i>Ethology</i> 114: 1227-1238.")
-      @doc.to_csl_entry('Chicago Manual of Style (Note with Bibliography)').should eq("Botero, Carlos A., Andrew E. Mudge, Amanda M. Koltz, Wesley M. Hochachka, and Sandra L. Vehrencamp. “How Reliable are the Methods for Estimating Repertoire Size?”. <i>Ethology</i> 114 (2008): 1227-1238.")
-      @doc.to_csl_entry('Harvard Reference format 1 (Author-Date)').should eq("Botero, C.A., Mudge, A.E., Koltz, A.M., Hochachka, W.M. &#38; Vehrencamp, S.L., 2008. How Reliable are the Methods for Estimating Repertoire Size?. <i>Ethology</i>, 114, 1227-1238.")
-      @doc.to_csl_entry('IEEE').should eq("C.A. Botero, A.E. Mudge, A.M. Koltz, W.M. Hochachka and S.L. Vehrencamp, “How Reliable are the Methods for Estimating Repertoire Size?”, <i>Ethology</i>, vol. 114, 2008, 1227-1238.")
-      @doc.to_csl_entry('Modern Humanities Research Association (Note with Bibliography)').should eq("Botero, Carlos A., Andrew E. Mudge, Amanda M. Koltz, Wesley M. Hochachka, and Sandra L. Vehrencamp, ‘How Reliable Are the Methods For Estimating Repertoire Size?’, <i>Ethology</i>, 114 (2008), 1227-1238.")
-      @doc.to_csl_entry('Modern Language Association').should eq("Botero, Carlos A., Andrew E. Mudge, Amanda M. Koltz, Wesley M. Hochachka, and Sandra L. Vehrencamp. “How Reliable are the Methods for Estimating Repertoire Size?”. <i>Ethology</i> 114 (2008): 1227-1238. Print.")
-      @doc.to_csl_entry('Nature Journal').should eq("Botero, C.A., Mudge, A.E., Koltz, A.M., Hochachka, W.M. &#38; Vehrencamp, S.L. How Reliable are the Methods for Estimating Repertoire Size?. <i>Ethology</i> <b>114</b>, 1227-1238 (2008).")
-      @doc.to_csl_entry('National Library of Medicine').should eq("Botero CA, Mudge AE, Koltz AM, Hochachka WM, Vehrencamp SL. How Reliable are the Methods for Estimating Repertoire Size?. Ethology 2008;114:1227-1238.")
-      @doc.to_csl_entry('Vancouver').should eq("Botero CA, Mudge AE, Koltz AM, Hochachka WM, Vehrencamp SL. How Reliable are the Methods for Estimating Repertoire Size?. Ethology. 2008;114:1227–38.")
+    it "formats with all the CSL style files" do
+      @doc.to_csl_entry(CslStyle.find_by_name("American Psychological Association 6th Edition")).should eq("Botero, C. A., Mudge, A. E., Koltz, A. M., Hochachka, W. M., &#38; Vehrencamp, S. L. (2008). How Reliable are the Methods for Estimating Repertoire Size?. <i>Ethology</i>, <i>114</i>, 1227-1238.")
+      @doc.to_csl_entry(CslStyle.find_by_name('American Political Science Association')).should eq("Botero, Carlos A., Andrew E. Mudge, Amanda M. Koltz, Wesley M. Hochachka, and Sandra L. Vehrencamp. 2008. “How Reliable are the Methods for Estimating Repertoire Size?”. <i>Ethology</i> 114: 1227-1238.")
+      @doc.to_csl_entry(CslStyle.find_by_name('American Sociological Association')).should eq("Botero, Carlos A., Andrew E. Mudge, Amanda M. Koltz, Wesley M. Hochachka, and Sandra L. Vehrencamp. 2008. “How Reliable are the Methods for Estimating Repertoire Size?”. <i>Ethology</i> 114:1227-1238.")
+      @doc.to_csl_entry(CslStyle.find_by_name('Chicago Manual of Style (Author-Date format)')).should eq("Botero, Carlos A., Andrew E. Mudge, Amanda M. Koltz, Wesley M. Hochachka, and Sandra L. Vehrencamp. 2008. “How Reliable are the Methods for Estimating Repertoire Size?”. <i>Ethology</i> 114: 1227-1238.")
+      @doc.to_csl_entry(CslStyle.find_by_name('Chicago Manual of Style (Note with Bibliography)')).should eq("Botero, Carlos A., Andrew E. Mudge, Amanda M. Koltz, Wesley M. Hochachka, and Sandra L. Vehrencamp. “How Reliable are the Methods for Estimating Repertoire Size?”. <i>Ethology</i> 114 (2008): 1227-1238.")
+      @doc.to_csl_entry(CslStyle.find_by_name('Harvard Reference format 1 (Author-Date)')).should eq("Botero, C.A., Mudge, A.E., Koltz, A.M., Hochachka, W.M. &#38; Vehrencamp, S.L., 2008. How Reliable are the Methods for Estimating Repertoire Size?. <i>Ethology</i>, 114, 1227-1238.")
+      @doc.to_csl_entry(CslStyle.find_by_name('IEEE')).should eq("C.A. Botero, A.E. Mudge, A.M. Koltz, W.M. Hochachka and S.L. Vehrencamp, “How Reliable are the Methods for Estimating Repertoire Size?”, <i>Ethology</i>, vol. 114, 2008, 1227-1238.")
+      @doc.to_csl_entry(CslStyle.find_by_name('Modern Humanities Research Association (Note with Bibliography)')).should eq("Botero, Carlos A., Andrew E. Mudge, Amanda M. Koltz, Wesley M. Hochachka, and Sandra L. Vehrencamp, ‘How Reliable Are the Methods For Estimating Repertoire Size?’, <i>Ethology</i>, 114 (2008), 1227-1238.")
+      @doc.to_csl_entry(CslStyle.find_by_name('Modern Language Association')).should eq("Botero, Carlos A., Andrew E. Mudge, Amanda M. Koltz, Wesley M. Hochachka, and Sandra L. Vehrencamp. “How Reliable are the Methods for Estimating Repertoire Size?”. <i>Ethology</i> 114 (2008): 1227-1238. Print.")
+      @doc.to_csl_entry(CslStyle.find_by_name('Nature Journal')).should eq("Botero, C.A., Mudge, A.E., Koltz, A.M., Hochachka, W.M. &#38; Vehrencamp, S.L. How Reliable are the Methods for Estimating Repertoire Size?. <i>Ethology</i> <b>114</b>, 1227-1238 (2008).")
+      @doc.to_csl_entry(CslStyle.find_by_name('National Library of Medicine')).should eq("Botero CA, Mudge AE, Koltz AM, Hochachka WM, Vehrencamp SL. How Reliable are the Methods for Estimating Repertoire Size?. Ethology 2008;114:1227-1238.")
+      @doc.to_csl_entry(CslStyle.find_by_name('Vancouver')).should eq("Botero CA, Mudge AE, Koltz AM, Hochachka WM, Vehrencamp SL. How Reliable are the Methods for Estimating Repertoire Size?. Ethology. 2008;114:1227–38.")
     end
     
     it "fetches CSL styles over HTTP" do

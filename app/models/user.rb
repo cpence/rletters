@@ -10,7 +10,7 @@
 # @attr [Integer] per_page Number of search results to display per page
 # @attr [String] language Locale code of user's preferred language
 # @attr [String] timezone User's timezone, in Rails' format
-# @attr [String] csl_style User's preferred citation style, blank for default
+# @attr [Integer] csl_style_id User's preferred citation style (id of a CslStyle)
 #
 # @attr [Array<Dataset>] datasets All datasets created by the user (+has_many+)
 # @attr [Array<Library>] libraries All library links added by the user (+has_many+)
@@ -41,5 +41,10 @@ class User < ActiveRecord::Base
   # Attributes that can be edited by the user (in the user options form) 
   # should be whitelisted here.  Programmatic-access things (like datasets)
   # do *not* need to occur here.
-  attr_accessible :name, :per_page, :language, :csl_style, :libraries, :timezone
+  attr_accessible :name, :per_page, :language, :csl_style_id, :libraries, :timezone
+  
+  # Convert the csl_style_id to a CslStyle (or nil)
+  def csl_style
+    CslStyle.find(self.csl_style_id) rescue nil
+  end
 end

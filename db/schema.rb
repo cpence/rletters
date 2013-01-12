@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130110034148) do
+ActiveRecord::Schema.define(:version => 20130112012448) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -146,7 +146,6 @@ ActiveRecord::Schema.define(:version => 20130110034148) do
     t.datetime "updated_at",                                                       :null => false
     t.integer  "per_page",               :default => 10
     t.string   "language",               :default => "en-US"
-    t.string   "csl_style",              :default => ""
     t.string   "timezone",               :default => "Eastern Time (US & Canada)"
     t.string   "encrypted_password",     :default => "",                           :null => false
     t.string   "reset_password_token"
@@ -157,6 +156,7 @@ ActiveRecord::Schema.define(:version => 20130110034148) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
+    t.integer  "csl_style_id"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

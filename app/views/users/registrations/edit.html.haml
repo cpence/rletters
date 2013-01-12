@@ -51,8 +51,8 @@
           = f.label :per_page_100, 100.to_s
   
       %div{ 'data-role' => 'fieldcontain' }
-        = f.label :csl_style, User.human_attribute_name('csl_style')
-        = f.select :csl_style, options_from_collection_for_select(CslStyle.all, 'name', 'name')
+        = f.label :csl_style_id, User.human_attribute_name('csl_style_id')
+        = f.select :csl_style_id, options_from_collection_for_select(CslStyle.all, 'id', 'name')
 
     %li= f.submit "Update"
   

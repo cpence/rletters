@@ -15,7 +15,6 @@ ActiveAdmin.register User do
   filter :email
   filter :language, :as => :select, :collection => proc { Rails.application.config.i18n.available_locales }
   filter :time_zone
-  filter :csl_style
   filter :created_at
   filter :updated_at
   filter :current_sign_in_at
