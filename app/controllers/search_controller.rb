@@ -78,7 +78,7 @@ class SearchController < ApplicationController
         send_file f[:method].call(@document), "export.#{request.format.to_sym.to_s}", request.format.to_s
         return
       }
-      format.any { render(:file => Rails.root.join('public', '404.html'), :layout => false, :status => 406) and return }
+      format.any { render(:file => Rails.root.join('app', 'views', 'errors', '404.html'), :layout => false, :status => 406) and return }
     end
   end
 

@@ -27,7 +27,7 @@ class UnapiController < ApplicationController
         if Document.serializers.has_key? format
           redirect_to :controller => 'search', :action => 'show', :id => params[:id], :format => format
         else
-          render :file => Rails.root.join('public', '404.html'), :layout => false, :status => 406
+          render :file => Rails.root.join('app', 'views', 'errors', '404.html'), :layout => false, :status => 406
         end
       else
         render :template => 'unapi/formats', :formats => [ :xml ], 
