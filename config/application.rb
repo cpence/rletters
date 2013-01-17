@@ -37,6 +37,9 @@ module RLetters
 
     # Configure the default encoding used in templates.
     config.encoding = "utf-8"
+    
+    # Bounce exceptions to the routing system
+    config.exceptions_app = self.routes
 
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [ :password, :password_confirmation ]

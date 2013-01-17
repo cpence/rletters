@@ -71,26 +71,6 @@ module Serializers
       graph
     end
     
-    unless RUBY_PLATFORM == "java"
-      # Returns this document as RDF+XML
-      #
-      # This method is disabled in JRuby, as the RDFXML gem simply doesn't
-      # work with the pure-Java version of Nokogiri.
-      #
-      # @note No tests for this method, as it is implemented by the RDF gem.
-      # @api public
-      # @return [String] document in RDF+XML format
-      # @example Download this document as an XML file
-      #   controller.send_data doc.to_rdf_xml, :filename => 'export.xml', :disposition => 'attachment'
-      # :nocov:
-      def to_rdf_xml
-        ::RDF::Writer.for(:rdfxml).buffer do |writer|
-          writer << to_rdf
-        end
-      end
-      # :nocov:
-    end
-    
     # Returns this document as RDF+N3
     #
     # @note No tests for this method, as it is implemented by the RDF gem.
@@ -109,33 +89,6 @@ module Serializers
 end
 
 class Array
-  unless RUBY_PLATFORM == "java"
-    # Convert this array (of Document objects) to an RDF+XML collection
-    #
-    # Only will work on arrays that consist entirely of Document objects, will
-    # raise an ArgumentError otherwise.
-    #
-    # @api public
-    # @return [String] array of documents as RDF+XML collection
-    # @note No tests for this method, as it is implemented by the RDF gem.
-    # @example Save an array of documents in RDF+XML format to stdout
-    #   doc_array = Document.find_all_by_solr_query(...)
-    #   $stdout.write(doc_array.to_rdf_xml)
-    # :nocov:
-    def to_rdf_xml
-      self.each do |x|
-        raise ArgumentError, 'No to_rdf method for array element' unless x.respond_to? :to_rdf
-      end
-    
-      ::RDF::Writer.for(:rdf).buffer do |writer|
-        self.each do |x|
-          writer << x.to_rdf
-        end
-      end
-    end
-    # :nocov:
-  end
-
   # Convert this array (of Document objects) to an RDF+N3 collection
   #
   # Only will work on arrays that consist entirely of Document objects, will
@@ -161,3 +114,54 @@ class Array
   end
   # :nocov:
 end
+
+# :nocov:
+unless RUBY_PLATFORM == "java"
+  
+  module Serializers
+    module RDF
+      # Returns this document as RDF+XML
+      #
+      # This method is disabled in JRuby, as the RDFXML gem simply doesn't
+      # work with the pure-Java version of Nokogiri.
+      #
+      # @note No tests for this method, as it is implemented by the RDF gem.
+      # @api public
+      # @return [String] document in RDF+XML format
+      # @example Download this document as an XML file
+      #   controller.send_data doc.to_rdf_xml, :filename => 'export.xml', :disposition => 'attachment'
+      def to_rdf_xml
+        ::RDF::Writer.for(:rdfxml).buffer do |writer|
+          writer << to_rdf
+        end
+      end
+    end
+  end
+  
+  class Array
+    # Convert this array (of Document objects) to an RDF+XML collection
+    #
+    # Only will work on arrays that consist entirely of Document objects, will
+    # raise an ArgumentError otherwise.
+    #
+    # @api public
+    # @return [String] array of documents as RDF+XML collection
+    # @note No tests for this method, as it is implemented by the RDF gem.
+    # @example Save an array of documents in RDF+XML format to stdout
+    #   doc_array = Document.find_all_by_solr_query(...)
+    #   $stdout.write(doc_array.to_rdf_xml)
+    def to_rdf_xml
+      self.each do |x|
+        raise ArgumentError, 'No to_rdf method for array element' unless x.respond_to? :to_rdf
+      end
+    
+      ::RDF::Writer.for(:rdf).buffer do |writer|
+        self.each do |x|
+          writer << x.to_rdf
+        end
+      end
+    end
+  end
+  
+end
+# :nocov:
