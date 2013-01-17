@@ -7,10 +7,14 @@
 #
 # @attr [String] name Full name
 # @attr [String] email E-mail address
+# @attr [String] password Password (encrypted, from Devise)
+# @attr [String] password_confirmation Password confirmation field (encrypted, from Devise)
+# @attr [Boolean] remember_me Whether to keep user logged in (from Devise)
+#
 # @attr [Integer] per_page Number of search results to display per page
 # @attr [String] language Locale code of user's preferred language
 # @attr [String] timezone User's timezone, in Rails' format
-# @attr [Integer] csl_style_id User's preferred citation style (id of a CslStyle)
+# @attr [Integer] csl_style_id User's preferred citation style (id of a CslStyle in database)
 #
 # @attr [Array<Dataset>] datasets All datasets created by the user (+has_many+)
 # @attr [Array<Library>] libraries All library links added by the user (+has_many+)
@@ -43,7 +47,13 @@ class User < ActiveRecord::Base
   # do *not* need to occur here.
   attr_accessible :name, :per_page, :language, :csl_style_id, :libraries, :timezone
   
-  # Convert the csl_style_id to a CslStyle (or nil)
+  # Convert the +csl_style_id+ to a CslStyle (or nil)
+  #
+  # @api public
+  # @return [CslStyle] the user's CSL style (or nil)
+  # @example Format a document with a user's CSL style
+  #   @document.to_csl_entry(@user.csl_style)
+  #   # Note: Do *not* call to_csl_entry with @user.csl_style_id, it will fail!
   def csl_style
     CslStyle.find(self.csl_style_id) rescue nil
   end
