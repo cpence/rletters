@@ -1,6 +1,8 @@
 # -*- encoding : utf-8 -*-
 
 module Solr
+  
+  # Methods for managing the singleton connection to the Solr server
   module Connection
     
     # Get a response from Solr
@@ -21,6 +23,13 @@ module Solr
       end
     end
     
+    # Get the info/statistics hash from Solr
+    #
+    # This method retrieves information about the Solr server, including the
+    # Solr and Java versions.
+    #
+    # @api private
+    # @return [Hash] Unprocessed Solr response
     def self.info
       begin
         get_solr
@@ -33,6 +42,14 @@ module Solr
     
     private
     
+    # Retrieve the Solr connection object
+    #
+    # Since the Solr connection URL can be updated on the fly using the
+    # administration console, this method has to watch the value of that URL
+    # and reconnect to Solr when required.
+    #
+    # @api private
+    # @return [RSolr::Client] Solr connection object
     def self.get_solr
       @@solr ||= RSolr::Ext.connect(:url => Settings.solr_server_url,
                                     :read_timeout => Settings.solr_timeout.to_i,
