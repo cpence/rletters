@@ -18,11 +18,7 @@ module Jobs
   # @!attribute qt
   #  @return [String] query type of this search
   class CreateDataset < Jobs::Base
-    attr_accessor :user_id
-    attr_accessor :name
-    attr_accessor :q
-    attr_accessor :fq
-    attr_accessor :qt
+    attr_accessor :user_id, :name, :q, :fq, :qt
     
     # Create a dataset for the user
     #

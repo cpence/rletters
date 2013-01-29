@@ -8,8 +8,10 @@ module Jobs
     #
     # This job fetches the contents of the dataset and offers them to the
     # user for download as bibliographic data.
+    #
+    # @!attribute format
+    #   @return [Symbol] the export format (see +Document.serializers+)
     class ExportCitations < Jobs::Analysis::Base
-      # @return [Symbol] the export format (see +Document.serializers+)
       attr_accessor :format
     
       # Export the dataset

@@ -10,7 +10,6 @@
 #   Settings.solr_server_url
 #   # => 'http://localhost:8983/solr/'
 class Settings < RailsSettings::CachedSettings
-	attr_accessible :var
 
   # A mock model for the settings
   #

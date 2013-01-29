@@ -18,6 +18,9 @@ class Download < ActiveRecord::Base
   validates :filename_before_type_cast, :format => { :with => /\A[A-Za-z0-9.\-_]+\z/ }
   
   belongs_to :analysis_task
+  
+  # This is not a documented attribute, as we will override its getter method
+  # down below.
   attr_accessible :filename
   
   before_destroy :delete_file

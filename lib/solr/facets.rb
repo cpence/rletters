@@ -3,9 +3,10 @@
 module Solr
   
   # The list of all facets returned by Solr
+  #
+  # @!attribute [r] all
+  #   @return [Array<Solr::Facet>] all the facet objects
   class Facets
-    
-    # @return [Array<Solr::Facet>] all the facet objects
     attr_reader :all
         
     # Get all facets for a given field
