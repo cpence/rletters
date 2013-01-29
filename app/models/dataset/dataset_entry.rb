@@ -5,8 +5,10 @@
 # We represent the content of datasets as a simple list of shasums, stored
 # in a separate database table.
 #
-# @attr [String] shasum The SHA-1 checksum of the document represented here
-# @attr [Dataset] dataset The dataset this entry belongs to
+# @!attribute shasum
+#   @return [String] The SHA-1 checksum of the document represented here
+# @!attribute dataset
+#   @return [Dataset] The dataset this entry belongs to
 class DatasetEntry < ActiveRecord::Base
   validates :shasum, :presence => true
   validates :shasum, :length => { :is => 40 }

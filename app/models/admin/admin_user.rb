@@ -6,10 +6,14 @@
 # the standard signup users (it's impossible for a "normal" user to promote
 # themself to administrator).
 #
-# @attr [String] email E-mail address (from Devise)
-# @attr [String] password Password (encrypted, from Devise)
-# @attr [String] password_confirmation Password confirmation field (encrypted, from Devise)
-# @attr [Boolean] remember_me Whether to keep user logged in (from Devise)
+# @!attribute email
+#   @return [String] E-mail address (from Devise)
+# @!attribute password
+#   @return [String] Password (encrypted, from Devise)
+# @!attribute password_confirmation
+#   @return [String] Password confirmation field (encrypted, from Devise)
+# @!attribute remember_me
+#   @return [Boolean] Whether to keep user logged in (from Devise)
 class AdminUser < ActiveRecord::Base
   devise :database_authenticatable, 
          :recoverable, :rememberable, :trackable, :validatable

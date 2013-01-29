@@ -6,13 +6,20 @@
 # for those delayed jobs to readily communicate with users via the web
 # front-end.  This model is how they do so.
 #
-# @attr [String] name The name of this task
-# @attr [DateTime] created_at The time at which this task was started
-# @attr [DateTime] finished_at The time at which this task was finished
-# @attr [Boolean] failed True if this job has failed
-# @attr [String] job_type The class name of the job this task contains
-# @attr [Dataset] dataset The dataset to which this task belongs (+belongs_to+)
-# @attr [Download] result_file The results of this analysis task, if available
+# @!attribute name
+#   @return [String] The name of this task
+# @!attribute created_at
+#   @return [DateTime] The time at which this task was started
+# @!attribute finished_at
+#   @return [DateTime] The time at which this task was finished
+# @!attribute failed
+#   @return [Boolean] True if this job has failed
+# @!attribute job_type
+#   @return [String] The class name of the job this task contains
+# @!attribute dataset
+#   @return [Dataset] The dataset to which this task belongs (+belongs_to+)
+# @!attribute result_file
+#   @return [Download] The results of this analysis task, if available
 class AnalysisTask < ActiveRecord::Base
   validates :name, :presence => true
   validates :dataset_id, :presence => true

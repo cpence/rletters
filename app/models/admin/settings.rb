@@ -18,8 +18,10 @@ class Settings < RailsSettings::CachedSettings
   # we need to have a fake model that can encapsulate each key/value pair in the
   # settings database.  That's what this class does.
   #
-  # @attr [String] key Key for this setting
-  # @attr [String] value Value of this setting
+  # @!attribute key
+  #   @return [String] Key for this setting
+  # @!attribute value
+  #   @return [String] Value of this setting
   class Value < Struct.new(:key, :val)
     include ActiveModel::Conversion  
     extend ActiveModel::Naming

@@ -5,19 +5,30 @@
 # RLetters keeps track of users so that it can send e-mails regarding
 # background jobs and keep a set of customizable user options.
 #
-# @attr [String] name Full name
-# @attr [String] email E-mail address
-# @attr [String] password Password (encrypted, from Devise)
-# @attr [String] password_confirmation Password confirmation field (encrypted, from Devise)
-# @attr [Boolean] remember_me Whether to keep user logged in (from Devise)
+# @!attribute name
+#   @return [String] Full name
+# @!attribute email
+#   @return [String] E-mail address
+# @!attribute password
+#   @return [String] Password (encrypted, from Devise)
+# @!attribute password_confirmation
+#   @return [String] Password confirmation field (encrypted, from Devise)
+# @!attribute remember_me
+#   @return [Boolean] Whether to keep user logged in (from Devise)
 #
-# @attr [Integer] per_page Number of search results to display per page
-# @attr [String] language Locale code of user's preferred language
-# @attr [String] timezone User's timezone, in Rails' format
-# @attr [Integer] csl_style_id User's preferred citation style (id of a CslStyle in database)
+# @!attribute per_page
+#   @return [Integer] Number of search results to display per page
+# @!attribute language
+#   @return [String] Locale code of user's preferred language
+# @!attribute timezone
+#   @return [String] User's timezone, in Rails' format
+# @!attribute csl_style_id
+#   @return [Integer] User's preferred citation style (id of a CslStyle in database)
 #
-# @attr [Array<Dataset>] datasets All datasets created by the user (+has_many+)
-# @attr [Array<Library>] libraries All library links added by the user (+has_many+)
+# @!attribute datasets
+#   @return [Array<Dataset>] All datasets created by the user (+has_many+)
+# @!attribute libraries
+#   @return [Array<Library>] All library links added by the user (+has_many+)
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,

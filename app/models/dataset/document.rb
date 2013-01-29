@@ -6,6 +6,124 @@
 # the RLetters Solr backend.  It abstracts both single-document retrieval and
 # document searching in class-level methods, and access to the data provided by
 # Solr in instance-level methods and attributes.
+#
+# @!attribute [r] shasum
+#   @raise [RecordInvalid] if the SHA-1 checksum is missing (validates :presence)
+#   @raise [RecordInvalid] if the SHA-1 checksum is not 40 characters (validates :length)
+#   @raise [RecordInvalid] if the SHA-1 checksum contains invalid characters (validates :format)
+#   @return [String] the SHA-1 checksum of this document
+# @!attribute [r] doi
+#   @return [String] the DOI (Digital Object Identifier) of this document
+#
+# @!attribute [r] license
+#   @return [String] the human-readable name of the document's license
+# @!attribute [r] license_url
+#   @return [String] a URL referencing the document's license terms
+#
+# @!attribute [r] authors
+#   @return [String] the document's authors, in a comma-delimited list
+# @!attribute [r] author_list
+#   @return [Array<String>] the document's authors, in an array
+# @!attribute [r] formatted_author_list
+#   @return [Array<Hash>] the document's authors, split into name parts, in an array
+#
+# @!attribute [r] title
+#   @return [String] the title of this document
+# @!attribute [r] journal
+#   @return [String] the journal in which this document was published
+# @!attribute [r] year
+#   @return [String] the year in which this document was published
+# @!attribute [r] volume
+#   @return [String] the journal volume number in which this document was published
+# @!attribute [r] number
+#   @return [String] the journal issue number in which this document was published
+# @!attribute [r] pages
+#   @return [String] the page numbers in the journal of this document, in the format "start-end"
+# @!attribute [r] fulltet
+#   @return [String] the full text of this document.  May be +nil+ if the query type used to retrieve the document does not provide the full text
+#
+# @!attribute [r] term_vectors
+#   Term vectors for this document
+#
+#   The Solr server returns a list of information for each term in every 
+#   document.  The following data is provided (based on Solr server 
+#   configuration):
+#
+#   - +:tf+, term frequency: the number of times this term appears in
+#     the given document
+#   - +:offsets+, term offsets: the start and end character offsets for
+#     this word within +fulltext+.  Note that these offsets can be
+#     complicated by string encoding issues, be careful when using them!
+#   - +:positions+, term positions: the position of this word (in
+#     _number of words_) within +fulltext+.  Note that these positions
+#     rely on the precise way in which Solr splits words, which is specified
+#     by {Unicode UAX #29.}[http://unicode.org/reports/tr29/]
+#   - +:df+, document frequency: the number of documents in the collection
+#     that contain this word
+#   - +:tfidf+, term frequency-inverse document frequency: equal to (term
+#     frequency / number of words in this document) * log(size of collection
+#     / document frequency).  A measure of how "significant" or "important"
+#     a given word is within a document, which gives high weight to words
+#     that occur frequently in a given document but do _not_ occur in other
+#     documents.
+#
+#   @note This attribute may be +nil+, if the query type requested from
+#     the Solr server does not return term vectors.
+#
+#   @api public
+#   @return [Hash] term vector information.  The hash contains the following
+#     keys:
+#       term_vectors["word"]
+#       term_vectors["word"][:tf] = Integer
+#       term_vectors["word"][:offsets] = Array<Range>
+#       term_vectors["word"][:offsets][0] = Range
+#       # ...
+#       term_vectors["word"][:positions] = Array<Integer>
+#       term_vectors["word"][:positions][0] = Integer
+#       # ...
+#       term_vectors["word"][:df] = Float
+#       term_vectors["word"][:tfidf] = Float
+#       term_vectors["otherword"]
+#       # ...
+#   @example Get the frequency of the term "general" in this document
+#     doc.term_vectors["general"][:tf]
+#
+# @!attribute [r] facets
+#   @!scope class
+#
+#   Faceted browsing information that was returned by the last search
+#
+#   For the purposes of faceted browsing, the Solr server (as configured by 
+#   default in RLetters) returns the number of items within the current search 
+#   with each author, journal, or publication decade.
+#
+#   @api public
+#   @return [Hash] facets returned by the last search, +nil+ if none.
+#     The hash contains the following keys:
+#       Document.facets[:authors_facet] = Array<Array>
+#         Document.facets[:authors_facet][0] = ["Particular Author", Integer]
+#       Document.facets[:journal_facet] = Array<Array>
+#         Document.facets[:journal_facet][0] = ["Particular Journal", Integer]
+#       Document.facets[:year]
+#         Document.facets[:year][0] = ["1940–1949", Integer]
+#
+#   @example Get the number of documents in the last search published by W. Shatner
+#     shatner_docs = Document.facets[:authors_facet].assoc("W. Shatner")[1]
+#
+# @!attribute [r] num_results
+#   @!scope class
+#
+#   Number of documents returned by the last search
+#
+#   Since the search results (i.e., the size of the +@documents+ variable 
+#   for a given view) are almost always limited by the per-page count,
+#   this variable returns the full number of documents that were returned by
+#   the last search.
+#
+#   @api public
+#   @return [Integer] number of documents in the last search
+#   @example Returns true if there are more hits than documents returned
+#     @documents.count > Document.num_results
 class Document
   # Make this class act like an ActiveRecord model, though it's not backed by
   # the database (it's in Solr)
@@ -205,39 +323,9 @@ class Document
     documents.map { |attrs| Document.new(attrs) }
   end
 
-  # @return [String] the SHA-1 checksum of this document
-  attr_reader :shasum
-  # @return [String] the DOI (Digital Object Identifier) of this document
-  attr_reader :doi
-  # @return [String] the human-readable name of the document's license
-  attr_reader :license
-  # @return [String] a URL referencing the document's license terms
-  attr_reader :license_url
-  # @return [String] the document's authors, in a comma-delimited list
-  attr_reader :authors
-  # @return [Array<String>] the document's authors, in an array
-  attr_reader :author_list
-  # @return [Array<Hash>] the document's authors, split into name parts, 
-  #   in an array
-  attr_reader :formatted_author_list
-  # @return [String] the title of this document
-  attr_reader :title
-  # @return [String] the journal in which this document was published
-  attr_reader :journal
-  # @return [String] the year in which this document was published
-  attr_reader :year
-  # @return [String] the journal volume number in which this document was 
-  #   published
-  attr_reader :volume
-  # @return [String] the journal issue number in which this document was
-  #   published
-  attr_reader :number
-  # @return [String] the page numbers in the journal of this document, in the
-  #   format "start-end"
-  attr_reader :pages
-  # @return [String] the full text of this document.  May be +nil+ if the query
-  #   type used to retrieve the document does not provide the full text
-  attr_reader :fulltext
+  attr_reader :shasum, :doi, :license, :license_url, :authors,
+              :author_list, :formatted_author_list, :title, :journal,
+              :year, :volume, :number, :pages, :fulltext, :term_vectors
   
   # @return [String] the starting page of this document, if it can be parsed
   def start_page
@@ -264,84 +352,7 @@ class Document
     ret
   end
   
-  # Term vectors for this document
-  #
-  # The Solr server returns a list of information for each term in every 
-  # document.  The following data is provided (based on Solr server 
-  # configuration):
-  #
-  # - +:tf+, term frequency: the number of times this term appears in
-  #   the given document
-  # - +:offsets+, term offsets: the start and end character offsets for
-  #   this word within +fulltext+.  Note that these offsets can be
-  #   complicated by string encoding issues, be careful when using them!
-  # - +:positions+, term positions: the position of this word (in
-  #   _number of words_) within +fulltext+.  Note that these positions
-  #   rely on the precise way in which Solr splits words, which is specified
-  #   by {Unicode UAX #29.}[http://unicode.org/reports/tr29/]
-  # - +:df+, document frequency: the number of documents in the collection
-  #   that contain this word
-  # - +:tfidf+, term frequency-inverse document frequency: equal to (term
-  #   frequency / number of words in this document) * log(size of collection
-  #   / document frequency).  A measure of how "significant" or "important"
-  #   a given word is within a document, which gives high weight to words
-  #   that occur frequently in a given document but do _not_ occur in other
-  #   documents.
-  #
-  # @note This attribute may be +nil+, if the query type requested from
-  #   the Solr server does not return term vectors.
-  #
-  # @api public
-  # @return [Hash] term vector information.  The hash contains the following
-  #   keys:
-  #     term_vectors["word"]
-  #     term_vectors["word"][:tf] = Integer
-  #     term_vectors["word"][:offsets] = Array<Range>
-  #     term_vectors["word"][:offsets][0] = Range
-  #     # ...
-  #     term_vectors["word"][:positions] = Array<Integer>
-  #     term_vectors["word"][:positions][0] = Integer
-  #     # ...
-  #     term_vectors["word"][:df] = Float
-  #     term_vectors["word"][:tfidf] = Float
-  #     term_vectors["otherword"]
-  #     # ...
-  # @example Get the frequency of the term "general" in this document
-  #   doc.term_vectors["general"][:tf]
-  attr_reader :term_vectors
-
-  # Faceted browsing information that was returned by the last search
-  #
-  # For the purposes of faceted browsing, the Solr server (as configured by 
-  # default in RLetters) returns the number of items within the current search 
-  # with each author, journal, or publication decade.
-  #
-  # @api public
-  # @return [Hash] facets returned by the last search, +nil+ if none.
-  #   The hash contains the following keys:
-  #     Document.facets[:authors_facet] = Array<Array>
-  #       Document.facets[:authors_facet][0] = ["Particular Author", Integer]
-  #     Document.facets[:journal_facet] = Array<Array>
-  #       Document.facets[:journal_facet][0] = ["Particular Journal", Integer]
-  #     Document.facets[:year]
-  #       Document.facets[:year][0] = ["1940–1949", Integer]
-  #
-  # @example Get the number of documents in the last search published by W. Shatner
-  #   shatner_docs = Document.facets[:authors_facet].assoc("W. Shatner")[1]
-  cattr_reader :facets
-
-  # Number of documents returned by the last search
-  #
-  # Since the search results (i.e., the size of the +@documents+ variable 
-  # for a given view) are almost always limited by the per-page count,
-  # this variable returns the full number of documents that were returned by
-  # the last search.
-  #
-  # @api public
-  # @return [Integer] number of documents in the last search
-  # @example Returns true if there are more hits than documents returned
-  #   @documents.count > Document.num_results
-  cattr_reader :num_results
+  cattr_reader :facets, :num_results
 
   # The shasum attribute is the only required one
   validates :shasum, :presence => true

@@ -299,8 +299,6 @@ GEM
       activesupport (>= 2.3.4)
       chronic (>= 0.6.3)
     yard (0.8.3)
-    yard-rails (0.3.0)
-      yard
 
 PLATFORMS
   java
@@ -359,4 +357,3 @@ DEPENDENCIES
   webrat
   whenever
   yard
-  yard-rails

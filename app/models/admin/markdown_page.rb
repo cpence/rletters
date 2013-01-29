@@ -11,8 +11,10 @@
 # passed through ERB before Markdown, so any Rails variables accessible at the
 # time of the call will be available (such as the +Settings+ hash).
 #
-# @attr [String] name Name of this page (an internal ID)
-# @attr [String] content Markdown content for this page
+# @!attribute name
+#   @return [String] Name of this page (an internal ID)
+# @!attribute content
+#   @return [String] Markdown content for this page
 class MarkdownPage < ActiveRecord::Base
   attr_accessible :name, :content
   

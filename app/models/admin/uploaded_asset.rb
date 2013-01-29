@@ -6,8 +6,10 @@
 # (such as images) that need to be uploaded and customized by the site
 # administrator.
 #
-# @attr [String] name Name of this asset (an internal key)
-# @attr [Paperclip::Attachment] file The asset itself
+# @!attribute name
+#   @return [String] Name of this asset (an internal key)
+# @!attribute file
+#   @return [Paperclip::Attachment] The asset itself
 class UploadedAsset < ActiveRecord::Base
   attr_accessible :name, :file
   has_attached_file :file, {

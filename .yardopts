@@ -3,7 +3,6 @@
 --main README.md
 --charset utf-8
 --title 'RLetters API Documentation'
---plugin rails
 app/**/*.rb
 lib/**/*.rb
 -

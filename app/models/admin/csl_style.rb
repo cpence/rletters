@@ -6,8 +6,10 @@
 # cannot be added to or edited by users.  Administrators can add new styles in
 # the administration interface.
 #
-# @attr [String] name Name of this CSL style
-# @attr [String] style XML source for this CSL style
+# @!attribute name
+#   @return [String] Name of this CSL style
+# @!attribute style
+#   @return [String] XML source for this CSL style
 class CslStyle < ActiveRecord::Base
   attr_accessible :name, :style
 end

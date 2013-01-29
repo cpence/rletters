@@ -81,7 +81,6 @@ end
 
 group :development do
   gem 'yard'
-  gem 'yard-rails'
 
   gem 'magic_encoding', :require => false
 

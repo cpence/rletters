@@ -1,36 +1,33 @@
 # -*- encoding : utf-8 -*-
 
 # Compute detailed word frequency information for a given dataset
+#
+# @!attribute [r] blocks
+#   @return [Array<Hash>] The analyzed blocks of text (array of hashes of tfs)
+# @!attribute [r] block_stats
+#   Information about each block.
+#
+#   Each hash in this array (one per block) has :name, :types, and :tokens 
+#   keys.
+#
+#   @return [Array<Hash>] Block information
+# @!attribute [r] word_list
+#   @return [Array<String>] The list of words analyzed
+# @!attribute [r] tf_in_dataset
+#   @return [Hash<String, Integer>] For each word, how many times that word occurs in the dataset
+# @!attribute [r] df_in_dataset
+#   @return [Hash<String, Integer>] For each word, the number of documents in the dataset in which that word appears
+# @!attribute [r] df_in_corpus
+#   @return [Hash<String, Integer>] For each word, the number of documents in the entire Solr corpus in which that word appears
+# @!attribute [r] num_dataset_tokens
+#   @return [Integer] The number of tokens in the dataset
+# @!attribute [r] num_dataset_types
+#   @return [Integer] The number of types in the dataset
 class WordFrequencyAnalyzer
 
-  # @return [Array<Hash>] The analyzed blocks of text (array of hashes of tfs)
-  attr_reader :blocks
-
-  # @return [Array<Hash>] Information about each block
-  #   Each hash has :name, :types, and :tokens keys
-  attr_reader :block_stats
-
-  # @return [Array<String>] The list of words analyzed
-  attr_reader :word_list
-
-  # @return [Hash<String, Integer>] For each word, how many times that word
-  #   occurs in the dataset
-  attr_reader :tf_in_dataset
-
-  # @return [Hash<String, Integer>] For each word, the number of documents in
-  #   the dataset in which that word appears
-  attr_reader :df_in_dataset
-
-  # @return [Hash<String, Integer>] For each word, the number of documents in
-  #   the entire Solr corpus in which that word appears
-  attr_reader :df_in_corpus
-
-  # @return [Integer] The number of tokens in the dataset
-  attr_reader :num_dataset_tokens
-
-  # @return [Integer] The number of types in the dataset
-  attr_reader :num_dataset_types
-
+  attr_reader :blocks, :block_stats, :word_list, :tf_in_dataset,
+              :df_in_dataset, :df_in_corpus, :num_dataset_tokens,
+              :num_dataset_types
 
   # Get the size of the entire Solr corpus.
   #

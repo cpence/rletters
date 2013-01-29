@@ -5,10 +5,14 @@
 # A dataset is the result set from a given search, persisted in the database
 # so that we can run digital humanities analyses on a collection of documents.
 #
-# @attr [String] name The name of this dataset
-# @attr [User] user The user that owns this dataset
-# @attr [Array<DatasetEntry>] entries The documents contained in this dataset (+has_many+)
-# @attr [Array<AnalysisTask>] analysis_tasks The analysis tasks run on this dataset (+has_many+)
+# @!attribute name
+#   @return [String] The name of this dataset
+# @!attribute user
+#   @return [User] The user that owns this dataset
+# @!attribute entries
+#   @return [Array<DatasetEntry>] The documents contained in this dataset (+has_many+)
+# @!attribute analysis_tasks
+#   @return [Array<AnalysisTask>] The analysis tasks run on this dataset (+has_many+)
 class Dataset < ActiveRecord::Base
   validates :name, :presence => true
   validates :user_id, :presence => true
