@@ -30,11 +30,13 @@ module Jobs
     #   user the results of the job in HTML form.  The standard way to do this
     #   is to write the job results out as YAML in +AnalysisTask#result_file+,
     #   and then to parse this YAML into HAML in the view.
+    #
+    # @!attribute user_id
+    #   @return [String] the user that created this dataset
+    # @!attribute dataset_id
+    #   @return [String] the dataset to export
     class Base < Jobs::Base
-      # @return [String] the user that created this dataset
-      attr_accessor :user_id
-      # @return [String] the dataset to export
-      attr_accessor :dataset_id
+      attr_accessor :user_id, :dataset_id
       
       # True if this job produces a download
       #

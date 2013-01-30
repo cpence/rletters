@@ -78,7 +78,7 @@ class SearchController < ApplicationController
         send_file f[:method].call(@document), "export.#{request.format.to_sym.to_s}", request.format.to_s
         return
       }
-      format.any { render(:file => Rails.root.join('public', '404.html'), :layout => false, :status => 406) and return }
+      format.any { render(:file => Rails.root.join('app', 'views', 'errors', '404.html'), :layout => false, :status => 406) and return }
     end
   end
 
@@ -98,13 +98,13 @@ class SearchController < ApplicationController
   # @api public
   # @return [undefined]
   def to_mendeley
-    raise ActiveRecord::RecordNotFound if APP_CONFIG['mendeley_key'].blank?
+    raise ActiveRecord::RecordNotFound if Settings.mendeley_key.blank?
     
     @document = Document.find(params[:id])
     
     begin
       res = Net::HTTP.start("api.mendeley.com") { |http| 
-        http.get("/oapi/documents/search/title%3A#{URI.escape(@document.title)}/?consumer_key=#{APP_CONFIG['mendeley_key']}") 
+        http.get("/oapi/documents/search/title%3A#{URI.escape(@document.title)}/?consumer_key=#{Settings.mendeley_key}") 
       }
       json = res.body
       result = JSON.parse(json)

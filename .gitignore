@@ -15,7 +15,7 @@ downloads
 spec/coverage/
 log/*.log
 public/assets
-public/static_assets
+public/system
 tmp/*
 !tmp/.gitkeep
 vendor/bundle

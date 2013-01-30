@@ -3,23 +3,6 @@
 # Markup generators common to all of RLetters
 module ApplicationHelper
   
-  # Render a partial from the 'static' folder
-  #
-  # This helper either renders a partial from the 'static' folder (if it
-  # exists), or renders the '.dist' version of that partial (otherwise).
-  #
-  # @api public
-  # @return [undefined]
-  # @example Render the 'about' partial
-  #   <%= render_static_partial 'about' %>
-  def render_static_partial(partial)
-    if File.exists?(Rails.root.join('app', 'views', 'static', "_#{partial}.markdown"))
-      render :file => Rails.root.join('app', 'views', 'static', "_#{partial}.markdown")
-    else
-      render :file => Rails.root.join('app', 'views', 'static', "_#{partial}.markdown.dist")
-    end
-  end
-  
   # Fetch a translation and run it through a Markdown parser
   #
   # Some translations are stored in the translation database as Markdown

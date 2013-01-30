@@ -1,7 +1,7 @@
 %ul.longlist{ 'data-role' => 'listview', 'data-theme' => 'd', 'data-divider-theme' => 'b' }
   %li
-    %h2= t('.head', :app_name => APP_CONFIG['app_name'])
+    %h2= t('.head', :app_name => Settings.app_name)
   -# Yes, this is a bad way to parse HTML, but a quick hack is better than
   -# a slow hack
-  - faq = render_static_partial 'faq'
+  - faq = MarkdownPage.render 'faq'
   = faq.gsub('<ul>', '').gsub('</ul>', '').html_safe

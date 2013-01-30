@@ -5,32 +5,38 @@ module Jobs
   module Analysis
     
     # Produce a parallel word frequency list for a dataset
+    #
+    # @!attribute block_size
+    #   Block size for this dataset, in words
+    #
+    #   If this attribute is zero, then we will read from +num_blocks+
+    #   instead.  Defaults to zero.
+    #
+    #   @return [Integer] block size for this dataset
+    # @!attribute num_blocks
+    #   Split the dataset into how many blocks?
+    #
+    #   If this attribute is zero, we will read from +block_size+ instead.
+    #   Defaults to zero.
+    #
+    #   @return [Integer] number of blocks for splitting
+    # @!attribute split_across
+    #   Split blocks only within, or across documents?
+    #
+    #   If this is set to true, then we will effectively concatenate all the
+    #   documents before splitting into blocks.  If false, we'll split blocks
+    #   on a per-document basis.  Defaults to true.
+    #
+    #   @return [Boolean] whether to split blocks across documents
+    # @!attribute num_words
+    #   How many words in the list?
+    #
+    #   If greater than the number of types in the dataset (or zero), then
+    #   return all the words.  Defaults to zero.
+    #
+    #   @return [Integer] how many words to keep in the list
     class WordFrequency < Jobs::Analysis::Base
-
-      # Block size for this dataset, in words
-      #
-      # If this attribute is zero, then we will read from +num_blocks+
-      # instead.  Defaults to zero.
-      attr_accessor :block_size
-
-      # Split the dataset into how many blocks?
-      #
-      # If this attribute is zero, we will read from +block_size+ instead.
-      # Defaults to zero.
-      attr_accessor :num_blocks
-
-      # Split blocks only within, or across documents?
-      #
-      # If this is set to true, then we will effectively concatenate all the
-      # documents before splitting into blocks.  If false, we'll split blocks
-      # on a per-document basis.  Defaults to true.
-      attr_accessor :split_across
-
-      # How many words in the list?
-      #
-      # If greater than the number of types in the dataset (or zero), then
-      # return all the words.  Defaults to zero.
-      attr_accessor :num_words
+      attr_accessor :block_size, :num_blocks, :split_across, :num_words
 
       def perform
         # Fetch the user based on ID

@@ -1,7 +1,12 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery.mobile
-//= require_tree .
+
+//= require datasets
+//= require plot_dates
+//= require search
+//= require user
+//= require word_frequency
 
 // Configure defaults for jQuery Mobile on all pages
 //$(document).bind("mobileinit", function(){

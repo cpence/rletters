@@ -17,7 +17,7 @@ module UsersHelper
   def options_from_locales(current = I18n.locale)
     list = []
 
-    APP_CONFIG['available_locales'].each do |loc|
+    Rails.application.config.i18n.available_locales.each do |loc|
       parts = loc.split('-')
       entry = ''
 
@@ -59,29 +59,6 @@ module UsersHelper
     else
       I18n.default_locale.to_s
     end
-  end
-
-  # Create a list of all available CSL styles
-  #
-  # This function returns a set of option tags for every CSL style available
-  # in RLetters (similar to +options_from_collection+ in Rails), which can be 
-  # put inside a select item.  See the configuration of the CSL styles at 
-  # +config/initializers/csl_style_names.rb+ and the files themselves at
-  # +vendor/csl+.
-  #
-  # @api public
-  # @param [String] current the currently selected CSL style
-  # @return [String] set of CSL-style option tags
-  # @example Create a select box for the CSL style
-  #   <select name='csl_style'><%= options_from_csl_styles(user.csl_style) %></select>
-  def options_from_csl_styles(current = '')
-    list = [ [ I18n.t('users.show.default_style'), '' ] ]
-
-    APP_CONFIG['available_csl_styles'].each do |loc|
-      list << [ APP_CONFIG['csl_style_names'][loc], loc ]
-    end
-
-    options_for_select(list, current)
   end
   
   # Create a list of all timezones

@@ -2,6 +2,13 @@
 
 RLetters::Application.routes.draw do
   
+  # Static information pages
+  match 'info' => 'info#index', :via => :get
+  match 'info/about' => 'info#about', :via => :get
+  match 'info/faq' => 'info#faq', :via => :get
+  match 'info/privacy' => 'info#privacy', :via => :get
+  match 'info/tutorial' => 'info#tutorial', :via => :get
+  
   # Search/Browse page
   match 'search' => 'search#index', :via => :get
   match 'search/advanced' => 'search#advanced', :via => :get
@@ -29,9 +36,14 @@ RLetters::Application.routes.draw do
 
   # User login routes
   devise_for :users
+
+  # Redirect to the main user page after a successful user edit
+  devise_scope :user do
+    get 'users', :to => 'info#index', :as => :user_root
+  end
   
-  # Libraries, nested under users
   scope '/users' do
+    # Libraries, nested under users
     resources :libraries, :except => :show do
       member do
         get 'delete'
@@ -42,16 +54,18 @@ RLetters::Application.routes.draw do
     end
   end
 
-  # Static information pages
-  match 'info' => 'info#index', :via => :get
-  match 'info/about' => 'info#about', :via => :get
-  match 'info/faq' => 'info#faq', :via => :get
-  match 'info/privacy' => 'info#privacy', :via => :get
-  match 'info/tutorial' => 'info#tutorial', :via => :get
-
+  # Administration pages
+  ActiveAdmin.routes(self)
+  devise_for :admin_users, ActiveAdmin::Devise.config
+  
   # unAPI service
   match 'unapi' => 'unapi#index', :via => :get
 
   # Start off on the info/home page
   root :to => 'info#index'
+  
+  # Error pages
+  match "/404" => "errors#not_found"
+  match "/422" => "errors#unprocessable"
+  match "/500" => "errors#internal_error"
 end

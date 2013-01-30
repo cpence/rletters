@@ -1,359 +1,404 @@
 en:
-  all:
-    home_button: "Home"
-    search_button: "Search / Browse"
-    datasets_button: "Datasets"
-    login_warning: "You must be logged in to view this page."
-  activemodel:
-    models:
-      document: "Document"
-    attributes:
-      document:
-        shasum: "SHA-1 checksum"
-        doi: "DOI"
-        authors: "Authors"
-        title: "Title"
-        journal: "Journal"
-        year: "Year"
-        volume: "Volume"
-        number: "Number"
-        pages: "Pages"
-        fulltext: "Full text"
-        term_vectors: "Term vectors"    
-    errors:
-      models:
-        document:
-          shasum:
-            blank: "SHA-1 checksum was not specified (internal error)"
-            wrong_length: "SHA-1 checksum is not 20 characters (internal error)"
-            invalid: "SHA-1 checksum contains invalid characters (internal error)"
-  activerecord:
-    models:
-      dataset: "Dataset"
-      dataset_entry: "Dataset Entry"
-      download: "Download"
-      library: "Library"
-      user: "User"
-    attributes:
-      analysis_task:
-        name: "Name"
-        created_at: "Creation date"
-        finished_at: "Completion date"
-      dataset:
-        name: "Name"
-      dataset_entry:
-        shasum: "SHA-1 checksum"
-      download:
-        filename: "Filename"
-      library:
-        name: "Name"
-        url: "Base URL"
-      user:
-        email: "Email"
-        name: "Name"
-        identifier: "Identifier"
-        per_page: "Number of search results per page"
-        language: "Preferred language"
-        timezone: "Time zone"
-        csl_style: "Citation style"
-        libraries: "Library access links"
-    errors:
-      models:
-        analysis_task:
-          name:
-            blank: "You must specify a name for this analysis task"
-          dataset:
-            blank: "Analysis task not connected to dataset (internal error)"
-        dataset:
-          name:
-            blank: "You must specify a name for this dataset"
-          user_id:
-            blank: "Dataset must have a user ID specified (internal error)"
-        dataset_entry:
-          shasum:
-            blank: "SHA-1 checksum was not specified (internal error)"
-            wrong_length: "SHA-1 checksum is not 20 characters (internal error)"
-            invalid: "SHA-1 checksum contains invalid characters (internal error)"
-        download:
-          filename:
-            blank: "Download must have a filename specified (internal error)"
-            invalid: "Download filename contains invalid characters (internal error)"
-        library:
-          name:
-            blank: "You must specify a name for this library entry"
-          url:
-            blank: "You must specify a URL for this library entry"
-            invalid: "Library base URL must be a URL"
-          user_id:
-            blank: "Library must be associated with user (internal error)"
-        user:
-          name:
-            blank: "You must specify a name"
-          email:
-            blank: "You must specify an email"
-            taken: "An account with this email address already exists"
-            invalid: "%{value} is not a valid email address"
-          identifier:
-            blank: "Identifier was not specified (internal error)"
-            taken: "An account using this external account already exists (internal error)"
-            invalid: "Identifier must be a URL (internal error)"
-          per_page:
-            blank: "Number of search results per page must be specified (internal error)"
-            not_a_number: "Number of search results per page must be an integer"
-            inclusion: "Number of search results must be greater than zero"
-          language:
-            blank: "Preferred language must be specified (internal error)"
-            invalid: "Preferred language must be a valid locale code (internal error)"
-          timezone:
-            blank: "Timezone must be specified (internal error)"
-  search:
-    index:
-      placeholder: "Search for articles..."
-      adv_search_placeholder: "(advanced search)"
-      num_results_found:
-        zero: "no articles found"
-        one: "1 article found"
-        other: "%{count} articles found"
-      num_results_database:
-        zero: "no articles in database"
-        one: "1 article in database"
-        other: "%{count} articles in database"
-      first_button: "First"
-      previous_button: "Previous"
-      next_button: "Next"
-      last_button: "Last"
-      tools: "Tools"
-      login_prompt: "Log in to analyze results!"
-      sort_prefix: "Sort:"
-      sort_unknown: "Unknown"
-      sort_asc: "(ascending)"
-      sort_desc: "(descending)"
-      sort_score: "Relevance"
-      create_dataset: "Create dataset from search"
-      advanced_search: "Advanced search"
-      filters: "Filter search"
-      active_filters: "Active Filters"
-      remove_all: "Remove All"
-      authors_facet: "Authors"
-      journal_facet: "Journal"
-      year_facet: "Publication Date"
-      authors_facet_short: "Authors"
-      journal_facet_short: "Journal"
-      year_facet_short: "Year"
-      year_before_1800: "Before 1800"
-      year_after_2010: "2010 and later"
-    advanced:
-      head: "Advanced search"
-      intro_header: "Construct an advanced search"
-      intro_markdown: >
-        This page lets you perform an advanced search of the article database.
-        You may choose either to utilize our guided search form, or to 
-        construct a query directly in [Solr's query 
-        syntax](http://wiki.apache.org/solr/SolrQuerySyntax), 
-        which is itself a superset of [Lucene query 
-        syntax](http://lucene.apache.org/java/2_9_1/queryparsersyntax.html).
-        These custom searches are extremely powerful.
-      search_header: "Guided search form"
-      type_fuzzy: "Fuzzy"
-      type_exact: "Exact"
-      title_type_label: "Title search type"
-      journal_type_label: "Journal search type"
-      fulltext_type_label: "Full text search type"
-      year_ranges: "Year ranges"
-      authors_placeholder: "e.g., A. Johnson, B. Smith"
-      year_ranges_placeholder: "e.g., 1999, 2005-2010, 2001"
-      pages_placeholder: "e.g., 135-150"
-      search_button: "Perform advanced search"
-      solr_header: "Search with Solr syntax"
-      solr_label: "Solr query"
-      solr_button: "Perform Solr query"
-    cite:
-      volume_abbr: "Vol. %{volume}"
-      number_abbr: "No. %{number}"
-      pages_abbr: "pp. %{pages}"
-    show:
-      details: "Document details"
-      single_dataset: "Create a dataset from only this document"
-      add_to_dataset: "Add this document to an existing dataset"
-      get: "Get this document"
-      publisher: "From the publisher (DOI: %{doi})"
-      ol_library: "Online and library access"
-      library: "Find this document in a library"
-      yours: "Your library:"
-      worldcat: "Find in WorldCat"
-      uk_openurl: "Find with UK OpenURL Resolver"
-      online: "Find this document online"
-      google: "Find on Google Scholar"
-      mendeley: "Find on Mendeley"
-      citeulike: "Find on CiteULike"
-    add:
-      title: "Add document to dataset"
-      no_datasets: "No datasets available"
-      submit: "Add"
-      cancel: "Cancel"
-  users:
-    show:
-      head: "Your user account"
-      user_id: "You are logged in as %{name} (%{email})"
-      not_you: "Not you? Log in as a different user."
-      options: "User options"
-      errors:
-        one: "1 error kept these options from being saved:"
-        other: "%{count} errors kept these options from being saved:"
-      submit_label: "Save user options"
-      default_style: "Default citation style"
-      library_links: "Look up documents using your local library"
-      loading_libraries: "Loading libraries..."
-    new:
-      head: "Welcome!"
-      intro: >
-        Thanks for signing up for %{app_name}!  Please double-check
-        your information before continuing.
-      errors:
-        one: "1 error kept you from creating your account:"
-        other: "%{count} errors kept you from creating your account:"
-      submit_label: "Create user account"
-    login:
-      head: "Log in to continue"
-      instructions_header: "Log in to %{app_name}"
-      instructions_one: >
-        If you want to perform any analysis on a set of search results,
-        you'll have to register for a user account.  This lets us save 
-        your search results as a dataset, perform analysis on them in 
-        the background, and send you an e-mail when the analysis is 
-        complete.
-      instructions_two: >
-        You can use your account with Google, Facebook, Yahoo, Flickr, 
-        myOpenID, or any other OpenID.
-      privacy_header: "Concerned about your privacy?"
-      privacy_text: >
-        If you're concerned about logging in with your third-party 
-        account, don't be!  There's no way for %{app_name} to leak your
-        account details: we never see your third-party password.  For 
-        more information, click to read our privacy policy.
-  libraries:
-    delete:
-      head: "Are you sure you want to delete this library link?"
-      "yes": "Yes"
-      "no": "No"
-    edit:
-      head: "Edit library link"
-      cancel: "Cancel"
-    index:
-      delete: "Delete"
-      query: "Look up your library automatically"
-      add_new: "Add your library manually"
-    new:
-      head: "Add your library manually"
-      cancel: "Cancel"
-    query:
-      head: "Look up library automatically"
-      no_libraries: >
-        Could not determine your library automatically.  If you'd like,
-        you can still add your library manually.
-      your_libraries: "Libraries available at your address:"
-    form:
-      errors:
-        one: "1 error kept you from adding your library:"
-        other: "%{count} errors kept you from adding your library:"
-      submit_label: "Link your library"
-    create:
-      success: "Library was successfully connected."
-      failure: "Could not save library link!"
-    update:
-      success: "Library was successfully updated."
-      failure: "Could not update library link!"
-  info:
-    index:
-      head: "%{app_name}"
-      tutorial_header: Welcome!
-      tutorial_text: >
-        Welcome to %{app_name}.  To get started, click here to view our
-        tutorial.
-      search: "Search or browse the database"
-      search_text: >
-        Get started here by browsing through the article database.
-      login: "Create an account or log in"
-      login_text: >
-        In order to create datasets and analyze them, log into your account
-        or create a new one.
-      datasets:
-        one: "You have one dataset"
-        other: "You have %{count} datasets"
-      datasets_text: >
-        Click here to view the list of your datasets, start new analysis tasks,
-        or view the results of previous analyses.
-      dbinfo: "Database information"
-      dbsize:
-        one: "The database contains one document"
-        other: "The database contains %{count} documents"
-      all_datasets:
-        one: "Users have saved a total of one dataset"
-        other: "Users have saved a total of %{count} datasets"
-      help: "More information and help"
-      faq_header: "Frequently asked questions"
-      faq_text: >
-        See a list of commonly asked questions about and problems 
-        with %{app_name}
-      account_header: "Your user account and settings"
-      account_text: >
-        Visit this page to configure your user account and personal 
-        settings.
-      privacy_header: "Privacy policy"
-      privacy_text: "How we use the information we collect from you."
-    privacy:
-      head: "Privacy Policy"
-    about:
-      head: "About %{app_name}"
-    tutorial:
-      head: "Tutorial"
-    faq:
-      head: "Frequently Asked Questions"
-  datasets:
-    index:
-      loading_datasets: "Loading datasets..."
-    dataset_list:
-      num_datasets_found:
-        zero: "no datasets found"
-        one: "1 dataset found"
-        other: "%{count} datasets found"
-      no_datasets: "No datasets"
-      tasks:
-        zero: "You have no analysis tasks pending..."
-        one: "You have one analysis task pending..."
-        other: "You have %{count} analysis tasks pending..."
-    new:
-      head: "Create a new dataset"      
-      errors:
-        one: "1 error kept you from creating this dataset:"
-        other: "%{count} errors kept you from creating this dataset:"
-      submit_label: "Save dataset"
-      cancel: "Cancel"
-    create:
-      building: "Now building dataset, please wait..."
-    show:
-      head: "Information for dataset"
-      num_entries: "Number of documents: %{count}"
-      created_at: "Created at: %{date}"
-      deleted: "Cleared all failed analysis tasks."
-      no_failed: "No failed tasks available to clear!"
-      loading_tasks: "Loading analysis tasks..."
-      new_task: "Start a new analysis task"
-      delete: "Delete this dataset"
-    task_list:
-      active_tasks: "Active analysis tasks for dataset"
-      pending:
-        one: "1 analysis task pending for this dataset..."
-        other: "%{count} analysis tasks pending for this dataset..."
-      failed:
-        one: "1 analysis task failed for this dataset!"
-        other: "%{count} analysis tasks failed for this dataset!"
-      clear_failed: "Clear failed analysis tasks..."
-      finished_tasks: "Completed analysis tasks for dataset"
-      task_header: "“%{name}” Complete"
-      download_task: "Download the results of this job"
-      delete_task: "Delete this task"
-    delete:
-      head: "Are you sure?"
-      "yes": "Yes"
-      "no": "No"
+    all:
+        home_button: "Home"
+        search_button: "Search / Browse"
+        datasets_button: "Datasets"
+        login_warning: "You must be logged in to view this page."
+    activemodel:
+        models:
+            document: 
+                one: Document
+                other: Documents
+        attributes:
+            document:
+                shasum: "SHA-1 checksum"
+                doi: "DOI"
+                authors: "Authors"
+                title: "Title"
+                journal: "Journal"
+                year: "Year"
+                volume: "Volume"
+                number: "Number"
+                pages: "Pages"
+                fulltext: "Full text"
+                term_vectors: "Term vectors"
+        errors:
+            models:
+                document:
+                    shasum:
+                        blank: "SHA-1 checksum was not specified (internal  error)"
+                        wrong_length: "SHA-1 checksum is not 20 characters (internal error)"
+                        invalid: "SHA-1 checksum contains invalid characters (internal error)"
+    activerecord:
+        models:
+            csl_style:
+                one: CSL Style
+                other: CSL Styles
+            dataset:
+                one: Dataset
+                other: Datasets
+            dataset_entry:
+                one: Dataset Entry
+                other: Dataset Entries
+            download:
+                one: Download
+                other: Downloads
+            library:
+                one: Library
+                other: Libraries
+            markdown_page:
+                one: Custom Page
+                other: Custom Pages
+            uploaded_asset:
+                one: Custom Asset
+                other: Custom Assets
+            user:
+                one: User
+                other: Users
+        attributes:
+            analysis_task:
+                name: "Name"
+                created_at: "Creation date"
+                finished_at: "Completion date"
+            dataset:
+                name: "Name"
+            dataset_entry:
+                shasum: "SHA-1 checksum"
+            download:
+                filename: "Filename"
+            library:
+                name: "Name"
+                url: "Base URL"
+            markdown_page:
+                friendly_name: "Name"
+                name: "Name"
+                content: "Content"
+            uploaded_asset:
+                friendly_name: "Name"
+                name: "Name"
+                file: "Attachment"
+            user:
+                email: "Email"
+                name: "Name"
+                identifier: "Identifier"
+                per_page: "Number of search results per page"
+                language: "Preferred language"
+                timezone: "Time zone"
+                csl_style_id: "Citation style"
+                libraries: "Library access links"
+        errors:
+            models:
+                analysis_task:
+                    name:
+                        blank: "You must specify a name for this analysis task"
+                    dataset:
+                        blank: "Analysis task not connected to dataset (internal error)"
+                dataset:
+                    name:
+                        blank: "You must specify a name for this dataset"
+                    user_id:
+                        blank: "Dataset must have a user ID specified (internal error)"
+                dataset_entry:
+                    shasum:
+                        blank: "SHA-1 checksum was not specified (internal error)"
+                        wrong_length: "SHA-1 checksum is not 20 characters (internal error)"
+                        invalid: "SHA-1 checksum contains invalid characters (internal error)"
+                download:
+                    filename:
+                        blank: "Download must have a filename specified (internal error)"
+                        invalid: "Download filename contains invalid characters (internal error)"
+                library:
+                    name:
+                        blank: "You must specify a name for this library entry"
+                    url:
+                        blank: "You must specify a URL for this library entry"
+                        invalid: "Library base URL must be a URL"
+                    user_id:
+                        blank: "Library must be associated with user (internal error)"
+                user:
+                    name:
+                        blank: "You must specify a name"
+                    email:
+                        blank: "You must specify an email"
+                        taken: "An account with this email address already exists"
+                        invalid: "%{value} is not a valid email address"
+                    identifier:
+                        blank: "Identifier was not specified (internal error)"
+                        taken: "An account using this external account already exists (internal error)"
+                        invalid: "Identifier must be a URL (internal error)"
+                    per_page:
+                        blank: "Number of search results per page must be specified (internal error)"
+                        not_a_number: "Number of search results per page must be an integer"
+                        inclusion: "Number of search results must be greater than zero"
+                    language:
+                        blank: "Preferred language must be specified (internal error)"
+                        invalid: "Preferred language must be a valid locale code (internal error)"
+                    timezone:
+                        blank: "Timezone must be specified (internal error)"
+    search:
+        index:
+            placeholder: "Search for articles..."
+            adv_search_placeholder: "(advanced search)"
+            num_results_found:
+                zero: "no articles found"
+                one: "1 article found"
+                other: "%{count} articles found"
+            num_results_database:
+                zero: "no articles in database"
+                one: "1 article in database"
+                other: "%{count} articles in database"
+            first_button: "First"
+            previous_button: "Previous"
+            next_button: "Next"
+            last_button: "Last"
+            tools: "Tools"
+            login_prompt: "Log in to analyze results!"
+            sort_prefix: "Sort:"
+            sort_unknown: "Unknown"
+            sort_asc: "(ascending)"
+            sort_desc: "(descending)"
+            sort_score: "Relevance"
+            create_dataset: "Create dataset from search"
+            advanced_search: "Advanced search"
+            filters: "Filter search"
+            active_filters: "Active Filters"
+            remove_all: "Remove All"
+            authors_facet: "Authors"
+            journal_facet: "Journal"
+            year_facet: "Publication Date"
+            authors_facet_short: "Authors"
+            journal_facet_short: "Journal"
+            year_facet_short: "Year"
+            year_before_1800: "Before 1800"
+            year_after_2010: "2010 and later"
+        advanced:
+            head: "Advanced search"
+            intro_header: "Construct an advanced search"
+            intro_markdown: >
+                This page lets you perform an advanced search of the article
+                database.  You may choose either to utilize our guided search
+                form, or to construct a query directly in [Solr's query 
+                syntax](http://wiki.apache.org/solr/SolrQuerySyntax), 
+                which is itself a superset of [Lucene query 
+                    syntax](http://lucene.apache.org/java/2_9_1/queryparsersyntax.html).
+                These custom searches are extremely powerful.
+            search_header: "Guided search form"
+            type_fuzzy: "Fuzzy"
+            type_exact: "Exact"
+            title_type_label: "Title search type"
+            journal_type_label: "Journal search type"
+            fulltext_type_label: "Full text search type"
+            year_ranges: "Year ranges"
+            authors_placeholder: "e.g., A. Johnson, B. Smith"
+            year_ranges_placeholder: "e.g., 1999, 2005-2010, 2001"
+            pages_placeholder: "e.g., 135-150"
+            search_button: "Perform advanced search"
+            solr_header: "Search with Solr syntax"
+            solr_label: "Solr query"
+            solr_button: "Perform Solr query"
+        cite:
+            volume_abbr: "Vol. %{volume}"
+            number_abbr: "No. %{number}"
+            pages_abbr: "pp. %{pages}"
+        show:
+            details: "Document details"
+            single_dataset: "Create a dataset from only this document"
+            add_to_dataset: "Add this document to an existing dataset"
+            get: "Get this document"
+            publisher: "From the publisher (DOI: %{doi})"
+            ol_library: "Online and library access"
+            library: "Find this document in a library"
+            yours: "Your library:"
+            worldcat: "Find in WorldCat"
+            uk_openurl: "Find with UK OpenURL Resolver"
+            online: "Find this document online"
+            google: "Find on Google Scholar"
+            mendeley: "Find on Mendeley"
+            citeulike: "Find on CiteULike"
+        add:
+            title: "Add document to dataset"
+            no_datasets: "No datasets available"
+            submit: "Add"
+            cancel: "Cancel"
+    users:
+        show:
+            head: "Your user account"
+            user_id: "You are logged in as %{name} (%{email})"
+            not_you: "Not you? Log in as a different user."
+            options: "User options"
+            errors:
+                one: "1 error kept these options from being saved:"
+                other: "%{count} errors kept these options from being saved:"
+            submit_label: "Save user options"
+            default_style: "Default citation style"
+            library_links: "Look up documents using your local library"
+            loading_libraries: "Loading libraries..."
+        new:
+            head: "Welcome!"
+            intro: >
+                Thanks for signing up for %{app_name}!  Please double-check
+                your information before continuing.
+            errors:
+                one: "1 error kept you from creating your account:"
+                other: "%{count} errors kept you from creating your account:"
+            submit_label: "Create user account"
+        login:
+            head: "Log in to continue"
+            instructions_header: "Log in to %{app_name}"
+            instructions_one: >
+                If you want to perform any analysis on a set of search results,
+                you'll have to register for a user account.  This lets us save 
+                your search results as a dataset, perform analysis on them in 
+                the background, and send you an e-mail when the analysis is 
+                complete.
+    libraries:
+        delete:
+            head: "Are you sure you want to delete this library link?"
+            "yes": "Yes"
+            "no": "No"
+        edit:
+            head: "Edit library link"
+            cancel: "Cancel"
+        index:
+            delete: "Delete"
+            query: "Look up your library automatically"
+            add_new: "Add your library manually"
+        new:
+            head: "Add your library manually"
+            cancel: "Cancel"
+        query:
+            head: "Look up library automatically"
+            no_libraries: >
+                Could not determine your library automatically.  If you'd like,
+                you can still add your library manually.
+            your_libraries: "Libraries available at your address:"
+        form:
+            errors:
+                one: "1 error kept you from adding your library:"
+                other: "%{count} errors kept you from adding your library:"
+            submit_label: "Link your library"
+        create:
+            success: "Library was successfully connected."
+            failure: "Could not save library link!"
+        update:
+            success: "Library was successfully updated."
+            failure: "Could not update library link!"
+    info:
+        index:
+            head: "%{app_name}"
+            tutorial_header: Welcome!
+            tutorial_text: >
+                Welcome to %{app_name}.  To get started, click here to view our
+                tutorial.
+            search: "Search or browse the database"
+            search_text: >
+                Get started here by browsing through the article database.
+            login: "Create an account or log in"
+            login_text: >
+                In order to create datasets and analyze them, log into your
+                account or create a new one.
+            datasets:
+                one: "You have one dataset"
+                other: "You have %{count} datasets"
+            datasets_text: >
+                Click here to view the list of your datasets, start new
+                analysis tasks, or view the results of previous analyses.
+            dbinfo: "Database information"
+            dbsize:
+                one: "The database contains one document"
+                other: "The database contains %{count} documents"
+            all_datasets:
+                one: "Users have saved a total of one dataset"
+                other: "Users have saved a total of %{count} datasets"
+            help: "More information and help"
+            faq_header: "Frequently asked questions"
+            faq_text: >
+                See a list of commonly asked questions about and problems 
+                with %{app_name}
+            account_header: "Your user account and settings"
+            account_text: >
+                Visit this page to configure your user account and personal 
+                settings.
+            privacy_header: "Privacy policy"
+            privacy_text: "How we use the information we collect from you."
+        privacy:
+            head: "Privacy Policy"
+        about:
+            head: "About %{app_name}"
+        tutorial:
+            head: "Tutorial"
+        faq:
+            head: "Frequently Asked Questions"
+    datasets:
+        index:
+            loading_datasets: "Loading datasets..."
+        dataset_list:
+            num_datasets_found:
+                zero: "no datasets found"
+                one: "1 dataset found"
+                other: "%{count} datasets found"
+            no_datasets: "No datasets"
+            tasks:
+                zero: "You have no analysis tasks pending..."
+                one: "You have one analysis task pending..."
+                other: "You have %{count} analysis tasks pending..."
+        new:
+            head: "Create a new dataset"      
+            errors:
+                one: "1 error kept you from creating this dataset:"
+                other: "%{count} errors kept you from creating this dataset:"
+            submit_label: "Save dataset"
+            cancel: "Cancel"
+        create:
+            building: "Now building dataset, please wait..."
+        show:
+            head: "Information for dataset"
+            num_entries: "Number of documents: %{count}"
+            created_at: "Created at: %{date}"
+            deleted: "Cleared all failed analysis tasks."
+            no_failed: "No failed tasks available to clear!"
+            loading_tasks: "Loading analysis tasks..."
+            new_task: "Start a new analysis task"
+            delete: "Delete this dataset"
+        task_list:
+            active_tasks: "Active analysis tasks for dataset"
+            pending:
+                one: "1 analysis task pending for this dataset..."
+                other: "%{count} analysis tasks pending for this dataset..."
+            failed:
+                one: "1 analysis task failed for this dataset!"
+                other: "%{count} analysis tasks failed for this dataset!"
+            clear_failed: "Clear failed analysis tasks..."
+            finished_tasks: "Completed analysis tasks for dataset"
+            task_header: "“%{name}” Complete"
+            download_task: "Download the results of this job"
+            delete_task: "Delete this task"
+        delete:
+            head: "Are you sure?"
+            "yes": "Yes"
+            "no": "No"
+    settings:
+        app_name: Application Name
+        app_email: Contact E-Mail
+        app_domain: Application Domain Name
+        solr_server_url: Solr URL
+        solr_timeout: Solr Timeout (sec)
+        mendeley_key: Mendeley Consumer Key
+        airbrake_key: Airbrake API Key
+        google_analytics_key: Google Analytics Tracking ID
+        jquery_mobile_theme_blob: jQuery Mobile Theme CSS
+    markdown_pages:
+        tutorial: Tutorial
+        privacy_short: Privacy Notice (short)
+        privacy_long: Privacy Notice (full)
+        faq: FAQ
+        about: About
+    uploaded_assets:
+        splash-low: Splash Screen (320x460)
+        splash-high: Splash Screen (768x1004)
+        favicon: Favorite Icon (16x16)
+        error-watermark: Error Page Watermark (~500x400)
+        apple-touch-icon-precomposed-low: App Icon (precomposed, 57x57)
+        apple-touch-icon-low: App Icon (57x57)
+        apple-touch-icon-med: App Icon (72x72)
+        apple-touch-icon-high: App Icon (114x114)

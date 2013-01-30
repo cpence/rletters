@@ -62,27 +62,27 @@ describe LibrariesController do
   describe '#update' do
     context 'when library is valid' do
       it 'edits the library' do
-        put :update, :id => @library.to_param, :library => @library.attributes.merge({ :name => 'Woo' })
+        put :update, :id => @library.to_param, :library => { :name => 'Woo' }
         @library.reload
         @library.name.should eq('Woo')
       end
       
       it 'redirects to the user page' do
-        put :update, :id => @library.to_param, :library => @library.attributes
+        put :update, :id => @library.to_param, :library => { :name => 'Woo' }
         response.should redirect_to(edit_user_registration_path)
       end
     end
     
     context 'when library is invalid' do
       it "doesn't edit the library" do
-        put :update, :id => @library.to_param, :library => @library.attributes.merge({ :url => '1234%%#$' })
+        put :update, :id => @library.to_param, :library => { :url => '1234%%#$' }
 
         @library.reload
         @library.url.should_not eq('1234%%#$')
       end
       
       it 'renders the edit form' do
-        put :update, :id => @library.to_param, :library => @library.attributes.merge({ :url => '1234%%#$' })
+        put :update, :id => @library.to_param, :library => { :url => '1234%%#$' }
         response.should_not redirect_to(edit_user_registration_path)
       end
     end

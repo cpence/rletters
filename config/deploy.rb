@@ -16,11 +16,7 @@ after "deploy:stop", "delayed_job:stop"
 after "deploy:start", "delayed_job:start"
 
 # Local recipes
-require 'remote_file'
 require 'capistrano_database'
-require 'app_config'
-require 'static_assets'
-require 'static_text'
 require 'downloads_dir'
 require 'secret_token_replacer'
 

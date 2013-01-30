@@ -2,7 +2,7 @@ User-agent: *
 Disallow: /assets/
 Disallow: /datasets/
 Disallow: /search/document/
-Disallow: /static_assets/
+Disallow: /system/
 Disallow: /unapi/
 Disallow: /user/
 

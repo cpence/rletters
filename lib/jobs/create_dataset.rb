@@ -6,17 +6,19 @@ module Jobs
   #
   # This job fetches results from the Solr server and spools them into the
   # database, creating a dataset for a user.
-  class CreateDataset < Jobs::Base    
-    # @return [String] the user that created this dataset
-    attr_accessor :user_id
-    # @return [String] the name of the dataset to create
-    attr_accessor :name
-    # @return [String] the Solr query for this search
-    attr_accessor :q
-    # @return [Array<String>] faceted browsing parameters for this search
-    attr_accessor :fq
-    # @return [String] query type of this search
-    attr_accessor :qt
+  #
+  # @!attribute user_id
+  #   @return [String] the user that created this dataset
+  # @!attribute name
+  #   @return [String] the name of the dataset to create
+  # @!attribute q
+  #  @return [String] the Solr query for this search
+  # @!attribute fq
+  #  @return [Array<String>] faceted browsing parameters for this search
+  # @!attribute qt
+  #  @return [String] query type of this search
+  class CreateDataset < Jobs::Base
+    attr_accessor :user_id, :name, :q, :fq, :qt
     
     # Create a dataset for the user
     #

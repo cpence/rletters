@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 # 
 # Capistrano Task for symlinking the config/initializers/secret_token.rb
 #

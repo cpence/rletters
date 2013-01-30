@@ -11,8 +11,14 @@ gem 'delayed_job', '~> 3.0', '>= 3.0.1'
 gem 'delayed_job_active_record'
 gem 'airbrake'
 
+gem 'seed-fu', '>= 2.1.0'
+gem 'rails-settings-cached'
+gem 'paperclip', '~> 3.0'
+gem 'paperclip-meta'
+
 gem 'devise'
 gem 'devise-i18n'
+gem 'activeadmin'
 
 gem 'rubyzip'
 gem 'rsolr', '>= 1.0.7'
@@ -30,9 +36,6 @@ gem 'haml'
 gem 'haml-rails'
 gem 'kramdown'
 
-gem 'jquery-rails', '= 2.1.3'
-gem 'jquery_mobile_rails', '= 1.2.0'
-
 group :production do
   gem 'mysql2', :platforms => [ :ruby, :mswin, :mingw ]
   gem 'activerecord-jdbcmysql-adapter', :platforms => :jruby
@@ -44,6 +47,11 @@ end
 group :assets do
   gem 'sass-rails'
   
+  gem 'coffee-rails'
+  
+  gem 'jquery-rails', '= 2.1.3'
+  gem 'jquery_mobile_rails', '= 1.2.0'
+
   unless ENV['TRAVIS']
     gem 'uglifier'
   
@@ -76,7 +84,6 @@ end
 
 group :development do
   gem 'yard'
-  gem 'yard-rails'
 
   gem 'magic_encoding', :require => false
 

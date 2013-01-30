@@ -29,14 +29,6 @@ describe UsersHelper do
     end
   end
   
-  describe '#options_from_csl_styles' do
-    it 'includes an option for some common CSL styles' do
-      ret = helper.options_from_csl_styles
-      ret.should have_selector('option[value="apa.csl"]', :content => "American Psychological Association 6th Edition")
-      ret.should have_selector('option[value="harvard1.csl"]', :content => "Harvard Reference format 1 (Author-Date)")
-    end
-  end
-  
   describe '#options_from_timezones' do
     it 'includes an option for some common time zones' do
       ret = helper.options_from_timezones

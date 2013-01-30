@@ -16,7 +16,7 @@ RSpec.configure do |config|
   config.use_transactional_fixtures = true
   config.infer_base_class_for_anonymous_controllers = true
   
-  config.before(:suite) do
+  config.before(:suite) do    
     # Speed up testing by deferring garbage collection
     DeferredGarbageCollection.start
     
@@ -28,6 +28,12 @@ RSpec.configure do |config|
       }
       silence_stream(STDOUT, &load_schema)
     end
+    
+    # Seed the DB.  I know that people object to this sort of thing, but I want
+    # things like the standard package of CSL styles to be available without
+    # my having to write giant XML CSL-style factories.
+    SeedFu.quiet = true
+    SeedFu.seed
   end
   
   config.after(:suite) do

@@ -1,0 +1,6 @@
+table_for assigns[:settings], :class => "index_table index" do
+  column "Setting", :key do |setting|
+    I18n.t("settings.#{setting.key}")
+  end
+  column "Value", :val
+end

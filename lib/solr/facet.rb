@@ -8,22 +8,21 @@ module Solr
   # Solr facets arrive in a variety of formats, and thus have to be parsed in
   # a variety of ways.  This class attempts to handle all of that in the most
   # generic and extensible way possible.
+  #
+  # @!attribute query
+  #   @return [String] the Solr filter query for this facet
+  # @!attribute field
+  #   @return [Symbol] the field that we are faceting on
+  # @!attribute value
+  #   @return [String] the value for this facet
+  # @!attribute hits
+  #   @return [Integer] the number of hits for this facet
+  # @!attribute label
+  #   @return [String] +value+ in human-readable form
+  # @!attribute field_label
+  #   @return [String] +field+ in human-readable form
   class Facet
-    
-    # @return [String] the Solr filter query for this facet
-    attr_accessor :query
-
-    # @return [Symbol] the field that we are faceting on
-    attr_accessor :field
-    # @return [String] the value for this facet
-    attr_accessor :value
-    # @return [Integer] the number of hits for this facet
-    attr_accessor :hits
-    
-    # @return [String] +value+ in human-readable form
-    attr_accessor :label
-    # @return [String] +field+ in human-readable form
-    attr_accessor :field_label
+    attr_accessor :query, :field, :value, :hits, :label, :field_label
     
     # Create a new facet
     #
