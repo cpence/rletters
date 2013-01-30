@@ -1,5 +1,5 @@
 - content_for :title do
   = t('.head')
-= form_for(@library, :url => user_library_path(@library), :html => { :method => 'delete' }) do |f|
+= form_for(@library, :url => library_path(@library), :html => { :method => 'delete' }) do |f|
   = f.submit t('.yes')
   = f.submit t('.no'), :name => 'cancel'

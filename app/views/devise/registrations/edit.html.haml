@@ -1,0 +1,73 @@
+%ul{ 'data-role' => 'listview', 'data-theme' => 'd', 'data-divider-theme' => 'b' }
+  %li{ 'data-role' => 'list-divider' } User options
+
+%div.verticalpad
+
+= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f|
+  %ul{ 'data-role' => 'listview', 'data-theme' => 'd', 'data-divider-theme' => 'b' }
+  - unless resource.errors.empty?
+    %li{ 'data-theme' => 'e' }= t("errors.messages.not_saved", :count => resource.errors.count, :resource => resource.class.model_name.human.downcase) 
+    - resource.errors.each do |msg|
+      %li{ 'data-theme' => 'e' }= msg
+  
+  %li
+    %div{ 'data-role' => 'fieldcontain' }
+      = f.label :email
+      = f.email_field :email
+
+    %div{ 'data-role' => 'fieldcontain' }
+      = f.label :password
+      = f.password_field :password, :autocomplete => "off", :placeholder => "(leave blank if you don't want to change it)"
+    
+    %div{ 'data-role' => 'fieldcontain' }
+      = f.label :password_confirmation
+      = f.password_field :password_confirmation
+    
+    %div{ 'data-role' => 'fieldcontain' }
+      = f.label :current_password
+      = f.password_field :current_password
+  
+    %div{ 'data-role' => 'fieldcontain' }
+      = f.label :language, User.human_attribute_name('language')
+      = f.select :language, options_from_locales(@user.language)
+  
+    %div{ 'data-role' => 'fieldcontain' }
+      = f.label :timezone, User.human_attribute_name('timezone')
+      = f.select :timezone, options_from_timezones(@user.timezone)
+  
+    %div{ 'data-role' => 'fieldcontain' }
+      = field_set_tag User.human_attribute_name('per_page'), 'data-role' => 'controlgroup', 'data-type' => 'horizontal' do
+        = f.radio_button :per_page, '10'
+        = f.label :per_page_10, 10.to_s
+        = f.radio_button :per_page, '25'
+        = f.label :per_page_25, 25.to_s
+        = f.radio_button :per_page, '50'
+        = f.label :per_page_50, 50.to_s
+        = f.radio_button :per_page, '100'
+        = f.label :per_page_100, 100.to_s
+  
+    %div{ 'data-role' => 'fieldcontain' }
+      = f.label :csl_style, User.human_attribute_name('csl_style')
+      = f.select :csl_style, options_from_csl_styles(@user.csl_style)
+
+  %li= f.submit "Update"
+  
+%div.verticalpad
+
+%ul{ 'data-role' => 'listview', 'data-theme' => 'd', 'data-divider-theme' => 'b' }
+  %li{ 'data-role' => 'list-divider' }= t('.library_links')
+
+%div.verticalpad
+
+%div.librarylist{ :'data-fetch-url' => libraries_path }
+  %ul{ 'data-role' => 'listview', 'data-split-icon' => 'delete', 'data-split-theme' => 'a' }
+    %li= t('.loading_libraries')
+  
+%div.verticalpad
+
+%ul{ 'data-role' => 'listview', 'data-theme' => 'd', 'data-divider-theme' => 'b' }
+  %li{ 'data-role' => 'list-divider' } Cancel my account
+  
+  %p Unhappy? #{link_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete}.
+  
+= link_to "Back", :back

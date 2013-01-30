@@ -1,6 +1,7 @@
 # -*- encoding : utf-8 -*-
 
 RLetters::Application.routes.draw do
+  
   # Search/Browse page
   match 'search' => 'search#index', :via => :get
   match 'search/advanced' => 'search#advanced', :via => :get
@@ -26,14 +27,11 @@ RLetters::Application.routes.draw do
     end
   end
 
-  # Custom login built around Janrain Engage
-  resource :user, :except => [ :destroy, :edit ] do
-    member do
-      post 'rpx'
-      get 'login'
-      get 'logout'
-    end
-    
+  # User login routes
+  devise_for :users
+  
+  # Libraries, nested under users
+  scope '/users' do
     resources :libraries, :except => :show do
       member do
         get 'delete'

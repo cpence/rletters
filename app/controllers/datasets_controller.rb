@@ -9,7 +9,7 @@
 #
 # @see Dataset
 class DatasetsController < ApplicationController
-  before_filter :login_required
+  before_filter :authenticate_user!
   
   # Show all of the current user's datasets
   # @api public
@@ -25,7 +25,7 @@ class DatasetsController < ApplicationController
   # @api public
   # @return [undefined]
   def dataset_list
-    @datasets = @user.datasets
+    @datasets = current_user.datasets
     render :layout => false
   end
 
@@ -37,7 +37,7 @@ class DatasetsController < ApplicationController
   # @api public
   # @return [undefined]
   def show
-    @dataset = @user.datasets.find(params[:id])
+    @dataset = current_user.datasets.find(params[:id])
     raise ActiveRecord::RecordNotFound unless @dataset
     
     if params[:clear_failed] && @dataset.analysis_tasks.failed.count > 0
@@ -50,7 +50,7 @@ class DatasetsController < ApplicationController
   # @api public
   # @return [undefined]
   def new
-    @dataset = @user.datasets.build
+    @dataset = current_user.datasets.build
     render :layout => 'dialog'
   end
   
@@ -58,7 +58,7 @@ class DatasetsController < ApplicationController
   # @api public
   # @return [undefined]
   def delete
-    @dataset = @user.datasets.find(params[:id])
+    @dataset = current_user.datasets.find(params[:id])
     raise ActiveRecord::RecordNotFound unless @dataset
     render :layout => 'dialog'
   end
@@ -68,7 +68,7 @@ class DatasetsController < ApplicationController
   # @return [undefined]
   def create
     Delayed::Job.enqueue Jobs::CreateDataset.new(
-      :user_id => @user.to_param,
+      :user_id => current_user.to_param,
       :name => params[:dataset][:name],
       :q => params[:q],
       :fq => params[:fq],
@@ -81,12 +81,12 @@ class DatasetsController < ApplicationController
   # @api public
   # @return [undefined]
   def destroy
-    @dataset = @user.datasets.find(params[:id])
+    @dataset = current_user.datasets.find(params[:id])
     raise ActiveRecord::RecordNotFound unless @dataset
     redirect_to @dataset and return if params[:cancel]
 
     Delayed::Job.enqueue Jobs::DestroyDataset.new(
-      :user_id => @user.to_param,
+      :user_id => current_user.to_param,
       :dataset_id => params[:id])
 
     redirect_to datasets_path
@@ -98,7 +98,7 @@ class DatasetsController < ApplicationController
   def add
     # This isn't a member action, so that it can be called easily from
     # a form.  Get the id from :dataset_id, not :id.
-    @dataset = @user.datasets.find(params[:dataset_id])
+    @dataset = current_user.datasets.find(params[:dataset_id])
     raise ActiveRecord::RecordNotFound unless @dataset
     @document = Document.find(params[:shasum])
     raise ActiveRecord::RecordNotFound unless @document
@@ -116,7 +116,7 @@ class DatasetsController < ApplicationController
   # @api public
   # @return [undefined]
   def task_list
-    @dataset = @user.datasets.find(params[:id])
+    @dataset = current_user.datasets.find(params[:id])
     raise ActiveRecord::RecordNotFound unless @dataset
     
     render :layout => false
@@ -130,7 +130,7 @@ class DatasetsController < ApplicationController
   # @api public
   # @return [undefined]
   def task_start
-    dataset = @user.datasets.find(params[:id])
+    dataset = current_user.datasets.find(params[:id])
     raise ActiveRecord::RecordNotFound unless dataset
     klass = AnalysisTask.job_class(params[:class])
     
@@ -140,7 +140,7 @@ class DatasetsController < ApplicationController
       job_params = params[:job_params].to_hash
       job_params.symbolize_keys!
     end
-    job_params[:user_id] = @user.to_param
+    job_params[:user_id] = current_user.to_param
     job_params[:dataset_id] = dataset.to_param
     
     # Enqueue the job
@@ -156,7 +156,7 @@ class DatasetsController < ApplicationController
   # @api public
   # @return [undefined]
   def task_view
-    @dataset = @user.datasets.find(params[:id])
+    @dataset = current_user.datasets.find(params[:id])
     raise ActiveRecord::RecordNotFound unless @dataset
     
     @task = @dataset.analysis_tasks.find(params[:task_id])
@@ -175,7 +175,7 @@ class DatasetsController < ApplicationController
   # @api public
   # @return [undefined]
   def task_destroy    
-    dataset = @user.datasets.find(params[:id])
+    dataset = current_user.datasets.find(params[:id])
     raise ActiveRecord::RecordNotFound unless dataset
     redirect_to dataset and return if params[:cancel]
     
@@ -194,7 +194,7 @@ class DatasetsController < ApplicationController
   # @api public
   # @return [undefined]
   def task_download
-    dataset = @user.datasets.find(params[:id])
+    dataset = current_user.datasets.find(params[:id])
     raise ActiveRecord::RecordNotFound unless dataset
     task = dataset.analysis_tasks.find(params[:task_id])
     raise ActiveRecord::RecordNotFound unless task

@@ -3,9 +3,11 @@ require 'spec_helper'
 
 describe "libraries/edit" do
   
-  login_user
-  
   before(:each) do
+    @user = FactoryGirl.create(:user)
+    view.stub(:current_user) { @user }
+    view.stub(:user_signed_in?) { true }
+
     @library = FactoryGirl.create(:library, :user => @user)
     assign(:library, @library)    
     render

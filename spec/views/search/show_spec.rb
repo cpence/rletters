@@ -12,6 +12,10 @@ describe "search/show" do
   end
   
   before(:each) do
+    # Default to no signed-in user
+    view.stub(:current_user) { nil }
+    view.stub(:user_signed_in?) { false }
+    
     params[:id] = '00972c5123877961056b21aea4177d0dc69c7318'
     assign(:document, Document.find(params[:id]))
   end
@@ -52,9 +56,11 @@ describe "search/show" do
   end
   
   context 'when logged in' do
-    login_user
-    
     before(:each) do
+      @user = FactoryGirl.create(:user)
+      view.stub(:current_user) { @user }
+      view.stub(:user_signed_in?) { true }
+
       @library = FactoryGirl.create(:library, :user => @user)
       @user.libraries.reload
       

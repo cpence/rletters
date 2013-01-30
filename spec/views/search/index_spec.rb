@@ -5,6 +5,12 @@ SimpleCov.command_name 'spec:views' if defined?(SimpleCov)
 
 describe "search/index" do
   
+  before(:each) do
+    # Default to no signed-in user
+    view.stub(:current_user) { nil }
+    view.stub(:user_signed_in?) { false }
+  end
+  
   def do_solr_query(q = nil, fq = nil, precise = false, other_params = {})
     assign(:page, 0)
     assign(:per_page, 10)
@@ -86,9 +92,11 @@ describe "search/index" do
     end
     
     context 'when logged in' do
-      login_user(:csl_style => 'chicago-author-date.csl')
-      
       before(:each) do
+        @user = FactoryGirl.create(:user, :csl_style => 'chicago-author-date.csl')
+        view.stub(:current_user) { @user }
+        view.stub(:user_signed_in?) { true }
+        
         render
       end
       

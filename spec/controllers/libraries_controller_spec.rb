@@ -3,9 +3,10 @@ require 'spec_helper'
 
 describe LibrariesController do
   
-  login_user
-  
   before(:each) do
+    @user = FactoryGirl.create(:user)
+    sign_in @user
+    
     @library = FactoryGirl.create(:library, :user => @user)
   end
   
@@ -33,7 +34,7 @@ describe LibrariesController do
       
       it 'redirects to the user page' do
         post :create, :library => FactoryGirl.attributes_for(:library, :user => @user)
-        response.should redirect_to(user_path)
+        response.should redirect_to(edit_user_registration_path)
       end
     end
     
@@ -46,7 +47,7 @@ describe LibrariesController do
       
       it "renders the new form" do
         post :create, :library => FactoryGirl.attributes_for(:library, :url => 'not##::aurl.asdfwut', :user => @user)
-        response.should_not redirect_to(user_path)
+        response.should_not redirect_to(edit_user_registration_path)
       end
     end
   end
@@ -68,7 +69,7 @@ describe LibrariesController do
       
       it 'redirects to the user page' do
         put :update, :id => @library.to_param, :library => @library.attributes
-        response.should redirect_to(user_path)
+        response.should redirect_to(edit_user_registration_path)
       end
     end
     
@@ -82,7 +83,7 @@ describe LibrariesController do
       
       it 'renders the edit form' do
         put :update, :id => @library.to_param, :library => @library.attributes.merge({ :url => '1234%%#$' })
-        response.should_not redirect_to(user_path)
+        response.should_not redirect_to(edit_user_registration_path)
       end
     end
   end
@@ -104,7 +105,7 @@ describe LibrariesController do
       
       it 'redirects to the user page' do
         delete :destroy, :id => @library.to_param, :cancel => true
-        response.should redirect_to(user_path)
+        response.should redirect_to(edit_user_registration_path)
       end
     end
     
@@ -117,7 +118,7 @@ describe LibrariesController do
       
       it 'redirects to the user page' do
         delete :destroy, :id => @library.to_param, :cancel => true
-        response.should redirect_to(user_path)
+        response.should redirect_to(edit_user_registration_path)
       end
     end
   end

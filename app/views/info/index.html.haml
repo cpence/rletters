@@ -1,12 +1,12 @@
 %ul{ 'data-role' => 'listview', 'data-theme' => 'd', 'data-divider-theme' => 'b' }
   %li{ 'data-role' => 'list-divider' }= t('.head', :app_name => APP_CONFIG['app_name'])
-  - if @user.nil?
+  - if current_user.nil?
     %li
       = link_to info_tutorial_path do
         %h3= t('.tutorial_header')
         %p= t('.tutorial_text', :app_name => APP_CONFIG['app_name'])
     %li{ 'data-theme' => 'e' }
-      = link_to user_path do
+      = link_to new_user_session_path do
         %h3= t('.login')
         %p= t('.login_text')
     %li
@@ -20,10 +20,10 @@
         %p= t('.search_text')
     %li
       = link_to datasets_path do
-        %h3= t('.datasets', :count => @user.datasets.count)
+        %h3= t('.datasets', :count => current_user.datasets.count)
         %p= t('.datasets_text')
     %li
-      = link_to user_path do
+      = link_to edit_user_registration_path do
         %h3= t('.account_header')
         %p= t('.account_text', :app_name => APP_CONFIG['app_name'])
     %li{ 'data-role' => 'list-divider' }= t('.dbinfo')

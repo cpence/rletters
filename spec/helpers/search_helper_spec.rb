@@ -218,7 +218,10 @@ describe SearchHelper do
     end
     
     context 'when no user is logged in' do
-      logout_user
+      before(:each) do
+        helper.stub(:current_user) { nil }
+        helper.stub(:user_signed_in?) { false }
+      end
 
       it "renders the default template" do
         helper.should_receive(:render).with({ :partial => 'document', :locals => { :document => @doc } })
@@ -227,7 +230,11 @@ describe SearchHelper do
     end
     
     context 'when the user has no CSL style set' do
-      login_user
+      before(:each) do
+        @user = FactoryGirl.create(:user)
+        helper.stub(:current_user) { @user }
+        helper.stub(:user_signed_in?) { true }
+      end
 
       it "renders the default template" do
         helper.should_receive(:render).with({ :partial => 'document', :locals => { :document => @doc } })
@@ -236,7 +243,11 @@ describe SearchHelper do
     end
 
     context 'when the user has a CSL style set' do
-      login_user(:csl_style => "apa.csl")
+      before(:each) do
+        @user = FactoryGirl.create(:user, :csl_style => 'apa.csl')
+        helper.stub(:current_user) { @user }
+        helper.stub(:user_signed_in?) { true }
+      end
 
       it "renders a CSL style" do
         @doc.should_receive(:to_csl_entry).with("apa.csl")

@@ -6,10 +6,6 @@ all_environments: &all_environments
   
   ruby_path: /usr/bin
   
-  janrain_appname: rletters
-  janrain_appid: asdfasdf
-  janrain_secret: 12341234
-  
   mendeley_key: ""
   airbrake_key: ""
   google_analytics_key: ""

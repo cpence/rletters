@@ -18,7 +18,7 @@ module Jobs
       # @return [undefined]
       # @example Start a job for exporting a datset as JSON
       #   Delayed::Job.enqueue Jobs::Analysis::ExportCitations.new(
-      #     :user_id => @user.to_param, 
+      #     :user_id => current_user.to_param, 
       #     :dataset_id => dataset.to_param,
       #     :format => :json)
       def perform        
