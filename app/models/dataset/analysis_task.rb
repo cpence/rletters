@@ -7,6 +7,7 @@
 # front-end.  This model is how they do so.
 #
 # @!attribute name
+#   @raise [RecordInvalid] if the name is missing (validates :presence)
 #   @return [String] The name of this task
 # @!attribute created_at
 #   @return [DateTime] The time at which this task was started
@@ -15,8 +16,10 @@
 # @!attribute failed
 #   @return [Boolean] True if this job has failed
 # @!attribute job_type
+#   @raise [RecordInvalid] if the job type is missing (validates :presence)
 #   @return [String] The class name of the job this task contains
 # @!attribute dataset
+#   @raise [RecordInvalid] if the dataset is missing (validates :presence)
 #   @return [Dataset] The dataset to which this task belongs (+belongs_to+)
 # @!attribute result_file
 #   @return [Download] The results of this analysis task, if available

@@ -67,6 +67,9 @@ class Download < ActiveRecord::Base
   # wraps the query of the filename variable and converts it to an absolute
   # path.
   #
+  # @raise [RecordInvalid] if the filename is missing (validates :presence)
+  # @raise [RecordInvalid] if the filename has invalid characters (validates :format, only [A-Za-z.-_] permitted)
+  #
   # @api public
   # @return [String] this download's filename
   # @example Open this file for reading
