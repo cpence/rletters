@@ -4,7 +4,6 @@
 .sass-cache
 .yardoc
 
-config/app_config.yml
 config/database.yml
 config/deploy/deploy_config.rb
 contrib/solr/example/logs/*
@@ -19,5 +18,3 @@ public/system
 tmp/*
 !tmp/.gitkeep
 vendor/bundle
-
-app/views/static/*.markdown
