@@ -15,20 +15,17 @@ RSpec.configure do |config|
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
   config.use_transactional_fixtures = true
   config.infer_base_class_for_anonymous_controllers = true
-  
+
   config.before(:suite) do    
     # Speed up testing by deferring garbage collection
     DeferredGarbageCollection.start
-    
-    # If we're using a memory testing database, load the schema
-    if ActiveRecord::Base.connection.class == ActiveRecord::ConnectionAdapters::SQLite3Adapter and
-        ActiveRecord::Base.configurations['test']['database'] == ':memory:'
-      load_schema = lambda {
-        load Rails.root.join('db', 'schema.rb')
-      }
-      silence_stream(STDOUT, &load_schema)
-    end
-    
+
+    # Load the schema for the test database, since it's in-memory
+    load_schema = lambda {
+      load Rails.root.join('db', 'schema.rb')
+    }
+    silence_stream(STDOUT, &load_schema)
+
     # Seed the DB.  I know that people object to this sort of thing, but I want
     # things like the standard package of CSL styles to be available without
     # my having to write giant XML CSL-style factories.
