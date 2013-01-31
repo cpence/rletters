@@ -11,7 +11,10 @@ bundler_args: --without production development
 before_script:
   - "cp config/database.yml.travis config/database.yml"
   - "mkdir downloads"
-  - "RAILS_ENV=test bundle exec rake db:migrate db:test:prepare db:seed_fu"
+  # Prepare the development database, because otherwise it will complain
+  - "bundle exec rake db:schema:load"
+  # Prepare the test database
+  - "RAILS_ENV=test bundle exec rake db:schema:load db:test:prepare db:seed_fu"
 
 script:
   - "bundle exec rake spec"
