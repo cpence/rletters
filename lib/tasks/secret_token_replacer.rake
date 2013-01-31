@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 #
 # Rake Task for replacing the secret-token in config/initializers/secret_token.rb
 #
