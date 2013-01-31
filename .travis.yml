@@ -11,8 +11,7 @@ bundler_args: --without production development
 before_script:
   - "cp config/database.yml.travis config/database.yml"
   - "mkdir downloads"
-  - "bundle exec rake db:test:prepare"
-  - "bundle exec rake db:seed_fu"
+  - "bundle exec rake db:migrate db:test:load db:seed_fu"
 
 script:
   - "bundle exec rake spec"
