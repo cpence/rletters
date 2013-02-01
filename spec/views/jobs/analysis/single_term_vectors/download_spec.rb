@@ -13,7 +13,7 @@ describe "jobs/single_term_vectors/download" do
     @task = FactoryGirl.create(:analysis_task, :name => "Term frequency information",
                                :job_type => 'SingleTermVectors', :dataset => @dataset)
     @task.result_file = Download.create_file('temp.yml') do |file|
-      file.write({ "test" => { :tf => 3, :df => 1, :tfidf => 2.5 }}.to_yaml)
+      file.write({ "test" => { :tf => 3, :df => 1, :tfidf => 2.5 }}.with_indifferent_access.to_yaml)
       file.close
     end
     @task.save

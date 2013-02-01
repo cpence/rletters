@@ -3,7 +3,7 @@
 if Rails.env.development?
 
   namespace :trans do
-    require 'yaml'
+    require 'safe_yaml'
     require 'net/http'
   
     desc "Downloads translation files from the 99translations server."
@@ -51,7 +51,7 @@ if Rails.env.development?
     def load_config
       file = config_file
       puts "Unable to read 99translations configuration file #{file}" and return unless File.file?(file)
-      YAML.load(File.read(file))
+      YAML.safe_load_file(file)
     end
   
     def config_file

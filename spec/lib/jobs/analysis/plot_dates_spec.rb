@@ -24,12 +24,12 @@ describe Jobs::Analysis::PlotDates do
     end
     
     it 'creates good YAML' do
-      arr = YAML.load_file(@dataset.analysis_tasks[0].result_file.filename)
+      arr = YAML.safe_load_file(@dataset.analysis_tasks[0].result_file.filename)
       arr.should be_an(Array)
     end
     
     it 'fills in some values' do
-      arr = YAML.load_file(@dataset.analysis_tasks[0].result_file.filename)
+      arr = YAML.safe_load_file(@dataset.analysis_tasks[0].result_file.filename)
       (1990..2012).should cover(arr[0][0])
       (1..5).should cover(arr[0][1])
     end
