@@ -6,18 +6,6 @@ namespace :solr do
     stdin, stdout, stderr, wait_thr = Open3.popen3("java -jar winstone.jar --warfile=solr.war --httpPort=8983 --httpListenAddress=127.0.0.1", :chdir => File.join(getwd, 'contrib', 'solr', 'example'))
     stdin.close
     stderr.close
-    
-    sleep 1
-    
-    line = ''
-    while !line.nil?
-      line = stdout.gets
-      if line =~ /.*HTTP Listener started: port=8983.*/
-        puts "Solr server started successfully"
-        break
-      end
-    end
-    
     stdout.close
     Process.detach wait_thr.pid
 
