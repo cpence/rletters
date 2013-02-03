@@ -1,6 +1,26 @@
 # -*- encoding : utf-8 -*-
 require 'rubygems'
 
+# Code coverage (invoked via a Rake task)
+if ENV['COVERAGE'] == 'true'
+  require 'simplecov'
+  
+  SimpleCov.start do
+    add_filter '/spec/'
+    add_filter '/config/'
+    add_filter '/db/'
+    add_filter '/vendor/bundle/'
+    
+    add_group 'Models', '/app/models/'
+    add_group 'Controllers', '/app/controllers/'
+    add_group 'Mailers', '/app/mailers/'
+    add_group 'Helpers', '/app/helpers/'
+    add_group 'Libraries', '/lib/'
+    
+    coverage_dir '/spec/coverage/'
+  end
+end
+
 # Standard setup for RSpec
 ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../../config/environment", __FILE__)
@@ -9,7 +29,7 @@ require 'rspec/autorun'
 require 'webmock/rspec'
   
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
-  
+
 RSpec.configure do |config|
   config.mock_with :rspec
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
@@ -47,11 +67,11 @@ RSpec.configure do |config|
     I18n.locale = I18n.default_locale
     Time.zone = 'Eastern Time (US & Canada)'
   end
-    
+
   # Add helpers for Devise and for breaking the Solr server
   config.include Devise::TestHelpers, :type => :controller
   config.extend SolrServerHelper
-  
+
   # Skip some tests on JRuby
   if RUBY_PLATFORM == "java"
     config.filter_run_excluding :jruby => false
