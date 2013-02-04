@@ -77,6 +77,7 @@ group :test, :development do
 end
 
 group :test do
+  gem 'fuubar'
   gem 'factory_girl_rails'
   gem 'shoulda-matchers'
   gem 'webrat'

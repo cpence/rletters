@@ -31,6 +31,11 @@ require 'webmock/rspec'
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
 RSpec.configure do |config|
+  config.color_enabled = true
+  config.tty = true
+  config.formatter = 'Fuubar'
+  config.order = 'random'
+  
   config.mock_with :rspec
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
   config.use_transactional_fixtures = true
