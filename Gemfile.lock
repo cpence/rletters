@@ -296,7 +296,7 @@ GEM
     uglifier (1.3.0)
       execjs (>= 0.3.0)
       multi_json (~> 1.0, >= 1.0.2)
-    unicode (0.4.3)
+    unicode (0.4.4)
     warden (1.2.1)
       rack (>= 1.0)
     webmock (1.9.0)
@@ -309,7 +309,7 @@ GEM
     whenever (0.8.0)
       activesupport (>= 2.3.4)
       chronic (>= 0.6.3)
-    yard (0.8.3)
+    yard (0.8.5)
 
 PLATFORMS
   java
@@ -366,6 +366,7 @@ DEPENDENCIES
   therubyracer (>= 0.11.0beta5)
   therubyrhino
   uglifier
+  unicode (>= 0.4.3.1.pre1)
   webmock
   webrat
   whenever

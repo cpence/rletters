@@ -30,6 +30,7 @@ gem 'rdf', '>= 0.3.5'
 gem 'rdf-rdfxml', :platforms => [ :ruby, :mswin, :mingw ]
 gem 'rdf-n3'
 
+gem 'unicode', '>= 0.4.3.1.pre1'
 gem 'latex-decode', '>= 0.0.11'
 gem 'bibtex-ruby', '~> 2.0', :require => 'bibtex'
 gem 'citeproc-ruby', '>= 0.0.4'
