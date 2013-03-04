@@ -1,10 +1,9 @@
 source 'http://rubygems.org'
 
+gem 'safe_yaml', '>= 0.6.2'
+
 gem 'rails', '~> 3.0'
 gem 'rails-i18n', '= 0.7.1'
-
-gem 'jruby-openssl', :platforms => :jruby
-gem 'safe_yaml', '>= 0.6.2'
 
 gem 'capistrano'
 gem 'delayed_job', '~> 3.0', '>= 3.0.1'
@@ -16,7 +15,7 @@ gem 'seed-fu', '>= 2.1.0'
 gem 'paperclip', '~> 3.0'
 gem 'paperclip-meta'
 
-gem 'rails-settings-cached'
+gem 'rails-settings-cached', '0.2.4' # 0.3.0 for Rails 4
 
 gem 'devise'
 gem 'devise-i18n'
@@ -41,7 +40,6 @@ gem 'kramdown'
 
 group :production do
   gem 'mysql2', :platforms => [ :ruby, :mswin, :mingw ]
-  gem 'activerecord-jdbcmysql-adapter', :platforms => :jruby
 
   gem 'daemons', :require => false
   gem 'whenever', :require => false
@@ -61,20 +59,14 @@ group :assets do
     # Uglifier needs an ExecJS runtime, but we don't need to
     # require it everywhere.
     gem 'execjs', :require => false
-    gem 'therubyracer', '>= 0.11.0beta5', :require => false, 
-      :platforms => [ :ruby, :mswin, :mingw ]
-    gem 'libv8', '>= 3.11.8', :require => false,
-      :platforms => [ :ruby, :mswin, :mingw ]
-    gem 'therubyrhino', :require => false, 
-      :platforms => :jruby
+    gem 'therubyracer', '>= 0.11.0beta5', :require => false
+    gem 'libv8', '>= 3.11.8', :require => false
   end
 end
 
 group :test, :development do
   gem 'rspec-rails'
-
-  gem 'sqlite3', :platforms => [ :ruby, :mswin, :mingw ]
-  gem 'activerecord-jdbcsqlite3-adapter', :platforms => :jruby
+  gem 'sqlite3'
 end
 
 group :test do
@@ -91,7 +83,6 @@ group :development do
 
   gem 'magic_encoding', :require => false
 
-  # SimpleCov requires manual intervention, don't run it in CI.
-  gem 'simplecov', '>= 0.4.0', :require => false,
-    :platforms => [ :ruby_19, :mingw_19 ]
+  # SimpleCov requires manual intervention, don't load it in CI.
+  gem 'simplecov', '>= 0.4.0', :require => false
 end
