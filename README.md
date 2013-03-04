@@ -1,9 +1,13 @@
 # RLetters #
 
-[![Build Status][travis_img]][travis]
+[![Build Status][travis_img]][travis] [![Code Climate][codeclimate_img]][codeclimate] [![Coverage Status][coveralls_img]][coveralls]
 
 [travis]: http://travis-ci.org/cpence/rletters
 [travis_img]: https://secure.travis-ci.org/cpence/rletters.png?branch=master
+[coveralls]: https://coveralls.io/r/cpence/rletters
+[coveralls_img]: https://coveralls.io/repos/cpence/rletters/badge.png?branch=master
+[codeclimate]: https://codeclimate.com/github/cpence/rletters
+[codeclimate_img]: https://codeclimate.com/github/cpence/rletters.png
 
 **Homepage:** [http://charlespence.net/rletters](http://charlespence.net/rletters})  
 **Git:** [http://github.com/cpence/rletters](http://github.com/cpence/rletters)  
