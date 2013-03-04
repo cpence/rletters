@@ -54,9 +54,4 @@ RSpec.configure do |config|
   # Add helpers for Devise and for breaking the Solr server
   config.include Devise::TestHelpers, :type => :controller
   config.extend SolrServerHelper
-
-  # Skip some tests on JRuby
-  if RUBY_PLATFORM == "java"
-    config.filter_run_excluding :jruby => false
-  end
 end

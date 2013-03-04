@@ -144,7 +144,7 @@ describe SearchController do
         response.should be_valid_download('application/mods+xml')
       end
 
-      it "exports in RDF/XML format", :jruby => false do
+      it "exports in RDF/XML format" do
         get :show, { :id =>  FactoryGirl.generate(:working_shasum), :format => 'rdf' }
         response.should be_valid_download('application/rdf+xml')
       end

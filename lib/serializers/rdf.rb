@@ -1,9 +1,7 @@
 # -*- encoding : utf-8 -*-
 
 require 'rdf/n3'
-unless RUBY_PLATFORM == "java"
-  require 'rdf/rdfxml'
-end
+require 'rdf/rdfxml'
 
 module Serializers
   
@@ -12,10 +10,8 @@ module Serializers
     
     # Register this serializer in the Document list
     def self.included(base)
-      unless RUBY_PLATFORM == "java"
-        base.register_serializer(:rdf, 'RDF/XML', lambda { |doc| doc.to_rdf_xml },
-          'http://www.w3.org/TR/rdf-syntax-grammar/')
-      end
+      base.register_serializer(:rdf, 'RDF/XML', lambda { |doc| doc.to_rdf_xml },
+        'http://www.w3.org/TR/rdf-syntax-grammar/')
       base.register_serializer(:n3, 'RDF/N3', lambda { |doc| doc.to_rdf_n3 },
         'http://www.w3.org/DesignIssues/Notation3.html')
     end
@@ -88,9 +84,6 @@ module Serializers
     
     # Returns this document as RDF+XML
     #
-    # This method is disabled in JRuby, as the RDFXML gem simply doesn't
-    # work with the pure-Java version of Nokogiri.
-    #
     # @note No tests for this method, as it is implemented by the RDF gem.
     # @api public
     # @return [String] document in RDF+XML format
@@ -98,8 +91,6 @@ module Serializers
     #   controller.send_data doc.to_rdf_xml, :filename => 'export.xml', :disposition => 'attachment'
     # :nocov:
     def to_rdf_xml
-      return "" if RUBY_PLATFORM == "java"
-      
       ::RDF::Writer.for(:rdfxml).buffer do |writer|
         writer << to_rdf
       end
@@ -148,8 +139,6 @@ class Array
   #   $stdout.write(doc_array.to_rdf_xml)
   # :nocov:
   def to_rdf_xml
-    return "" if RUBY_PLATFORM == "java"
-    
     self.each do |x|
       raise ArgumentError, 'No to_rdf method for array element' unless x.respond_to? :to_rdf
     end

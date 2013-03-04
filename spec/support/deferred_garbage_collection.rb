@@ -7,12 +7,10 @@ class DeferredGarbageCollection
   @@last_gc_run = Time.now
 
   def self.start
-    return if RUBY_PLATFORM == "java"
     GC.disable if DEFERRED_GC_THRESHOLD > 0
   end
 
   def self.reconsider
-    return if RUBY_PLATFORM == "java"
     if DEFERRED_GC_THRESHOLD > 0 && Time.now - @@last_gc_run >= DEFERRED_GC_THRESHOLD
       GC.enable
       GC.start
