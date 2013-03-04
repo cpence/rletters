@@ -3,19 +3,19 @@
 RLetters::Application.routes.draw do
   
   # Static information pages
-  match 'info' => 'info#index', :via => :get
-  match 'info/about' => 'info#about', :via => :get
-  match 'info/faq' => 'info#faq', :via => :get
-  match 'info/privacy' => 'info#privacy', :via => :get
-  match 'info/tutorial' => 'info#tutorial', :via => :get
+  get 'info' => 'info#index'
+  get 'info/about' => 'info#about'
+  get 'info/faq' => 'info#faq'
+  get 'info/privacy' => 'info#privacy'
+  get 'info/tutorial' => 'info#tutorial'
   
   # Search/Browse page
-  match 'search' => 'search#index', :via => :get
-  match 'search/advanced' => 'search#advanced', :via => :get
-  match 'search/document/:id' => 'search#show', :via => :get, :as => 'search_show'
-  match 'search/document/:id/add' => 'search#add', :via => :get, :as => 'search_add'
-  match 'search/document/:id/mendeley' => 'search#to_mendeley', :via => :get, :as => 'mendeley_redirect'
-  match 'search/document/:id/citeulike' => 'search#to_citeulike', :via => :get, :as => 'citeulike_redirect'
+  get 'search' => 'search#index'
+  get 'search/advanced' => 'search#advanced'
+  get 'search/document/:id' => 'search#show', :as => 'search_show'
+  get 'search/document/:id/add' => 'search#add', :as => 'search_add'
+  get 'search/document/:id/mendeley' => 'search#to_mendeley', :as => 'mendeley_redirect'
+  get 'search/document/:id/citeulike' => 'search#to_citeulike', :as => 'citeulike_redirect'
 
   # Datasets (per-user)
   resources :datasets, :except => [ :edit, :update ] do
@@ -39,7 +39,7 @@ RLetters::Application.routes.draw do
 
   # Redirect to the main user page after a successful user edit
   devise_scope :user do
-    get 'users', :to => 'info#index', :as => :user_root
+    get 'users' => 'info#index', :as => :user_root
   end
   
   scope '/users' do
@@ -59,13 +59,13 @@ RLetters::Application.routes.draw do
   devise_for :admin_users, ActiveAdmin::Devise.config
   
   # unAPI service
-  match 'unapi' => 'unapi#index', :via => :get
+  get 'unapi' => 'unapi#index'
 
   # Start off on the info/home page
   root :to => 'info#index'
   
   # Error pages
-  match "/404" => "errors#not_found"
-  match "/422" => "errors#unprocessable"
-  match "/500" => "errors#internal_error"
+  get "/404" => "errors#not_found"
+  get "/422" => "errors#unprocessable"
+  get "/500" => "errors#internal_error"
 end
