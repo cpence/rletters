@@ -1,5 +1,7 @@
 test:
-  adapter: sqlite3
-  database: ":memory:"
-  verbosity: quiet
-  timeout: 5000
+  adapter: postgresql
+  encoding: unicode
+  database: rletters_test
+  pool: 5
+  min_messages: WARNING
+  username: postgres

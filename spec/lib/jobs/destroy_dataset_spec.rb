@@ -22,7 +22,7 @@ describe Jobs::DestroyDataset do
   context "when an invalid user is specified" do
     it "raises an exception" do
       expect {
-        Jobs::DestroyDataset.new(:user_id => '123123123123123', 
+        Jobs::DestroyDataset.new(:user_id => '12345678', 
                                  :dataset_id => @dataset.to_param).perform
       }.to raise_error(ActiveRecord::RecordNotFound)
     end
@@ -33,7 +33,7 @@ describe Jobs::DestroyDataset do
       expect {
         expect {
           Jobs::DestroyDataset.new(:user_id => @user.to_param, 
-                                   :dataset_id => '123123123123').perform
+                                   :dataset_id => '12345678').perform
         }.to raise_error(ActiveRecord::RecordNotFound)
       }.to_not change{@user.datasets.count}
     end

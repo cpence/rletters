@@ -37,7 +37,7 @@ shared_examples_for 'an analysis job' do
   context "when an invalid user is specified" do
     it "raises an exception" do
       expect {
-        described_class.new(job_params.merge({ :user_id => '123123123123123', 
+        described_class.new(job_params.merge({ :user_id => '12345678', 
                                                :dataset_id => @dataset.to_param })).perform
       }.to raise_error(ActiveRecord::RecordNotFound)
     end
@@ -47,7 +47,7 @@ shared_examples_for 'an analysis job' do
     it "raises an exception" do
       expect {
         described_class.new(job_params.merge({ :user_id => @user.to_param, 
-                                               :dataset_id => '123123123123' })).perform
+                                               :dataset_id => '12345678' })).perform
       }.to raise_error(ActiveRecord::RecordNotFound)
     end
   end

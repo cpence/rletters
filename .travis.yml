@@ -10,11 +10,12 @@ branches:
 bundler_args: --without production development
 
 before_script:
-  - "cp config/database.yml.travis config/database.yml"
-  - "mkdir downloads"
+  - cp config/database.yml.travis config/database.yml
+  - psql -c 'create database rletters_test;' -U postgres
+  - mkdir downloads
 
 script:
-  - "bundle exec rake spec"
+  - bundle exec rake spec
 
 matrix:
   allow_failures:

@@ -10,7 +10,7 @@ describe Jobs::CreateDataset do
   context "when user is invalid" do
     it "raises an exception" do
       expect {
-        Jobs::CreateDataset.new(:user_id => '123123123123', 
+        Jobs::CreateDataset.new(:user_id => '12345678', 
           :name => 'Test Dataset', :q => '*:*', :fq => nil,
           :qt => 'precise').perform
       }.to raise_error(ActiveRecord::RecordNotFound)

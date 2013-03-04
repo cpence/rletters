@@ -223,7 +223,7 @@ describe DatasetsController do
     context 'when an invalid task ID is passed' do
       it 'raises an exception' do
         expect {
-          get :task_view, :id => @dataset.to_param, :task_id => '12312312312312', :view => 'test'
+          get :task_view, :id => @dataset.to_param, :task_id => '12345678', :view => 'test'
         }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
@@ -284,7 +284,7 @@ describe DatasetsController do
     context 'when an invalid task ID is passed' do
       it 'raises an exception' do
         expect {
-          get :task_destroy, :id => @dataset.to_param, :task_id => '12312312312312'
+          get :task_destroy, :id => @dataset.to_param, :task_id => '12345678'
         }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end

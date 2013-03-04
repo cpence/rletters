@@ -45,12 +45,6 @@ RSpec.configure do |config|
     # Speed up testing by deferring garbage collection
     DeferredGarbageCollection.start
 
-    # Load the schema for the test database, since it's in-memory
-    load_schema = lambda {
-      load Rails.root.join('db', 'schema.rb')
-    }
-    silence_stream(STDOUT, &load_schema)
-
     # Seed the DB.  I know that people object to this sort of thing, but I want
     # things like the standard package of CSL styles to be available without
     # my having to write giant XML CSL-style factories.

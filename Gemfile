@@ -10,6 +10,7 @@ gem 'delayed_job', '~> 3.0', '>= 3.0.1'
 gem 'delayed_job_active_record'
 gem 'airbrake'
 
+gem 'pg'
 gem 'activerecord-import'
 gem 'seed-fu', '>= 2.1.0'
 gem 'paperclip', '~> 3.0'
@@ -39,8 +40,6 @@ gem 'haml-rails'
 gem 'kramdown'
 
 group :production do
-  gem 'mysql2', :platforms => [ :ruby, :mswin, :mingw ]
-
   gem 'daemons', :require => false
   gem 'whenever', :require => false
 end
@@ -66,7 +65,6 @@ end
 
 group :test, :development do
   gem 'rspec-rails'
-  gem 'sqlite3'
 end
 
 group :test do

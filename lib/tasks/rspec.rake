@@ -15,10 +15,6 @@ namespace :spec do
   end
 end
 
-# Don't prep the test database; since it's in-memory we have to do that in
-# spec_helper.rb
-Rake::Task['spec'].prerequisites.delete('db:test:prepare')
-
 # Clear out unused RSpec tasks
 Rake::Task['spec:mailers'].clear
 Rake::Task['spec:rcov'].clear
