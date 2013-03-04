@@ -3,7 +3,7 @@ source 'http://rubygems.org'
 gem 'safe_yaml', '>= 0.6.2'
 
 gem 'rails', '~> 3.0'
-gem 'rails-i18n', '= 0.7.1'
+gem 'rails-i18n', '= 0.7.2'
 
 gem 'capistrano'
 gem 'capistrano-maintenance'
@@ -28,7 +28,7 @@ gem 'rsolr', '>= 1.0.7'
 gem 'rsolr-ext'
 gem 'marc'
 gem 'rdf', '>= 0.3.5'
-gem 'rdf-rdfxml', :platforms => [ :ruby, :mswin, :mingw ]
+gem 'rdf-rdfxml'
 gem 'rdf-n3'
 
 gem 'unicode', '>= 0.4.3.1.pre1'
