@@ -66,6 +66,7 @@ end
 
 group :test, :development do
   gem 'rspec-rails'
+  gem 'coveralls', :require => false
 end
 
 group :test do
@@ -79,9 +80,5 @@ end
 
 group :development do
   gem 'yard'
-
   gem 'magic_encoding', :require => false
-
-  # SimpleCov requires manual intervention, don't load it in CI.
-  gem 'simplecov', '>= 0.4.0', :require => false
 end

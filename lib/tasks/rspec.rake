@@ -6,15 +6,6 @@ Rake::Task['spec'].enhance do
   Rake::Task['solr:stop'].invoke
 end
 
-# Task for SimpleCov
-namespace :spec do
-  desc "Run all specs in spec directory with code coverage"
-  task :coverage do
-    ENV['COVERAGE'] = 'true'
-    Rake::Task['spec'].invoke
-  end
-end
-
 # Clear out unused RSpec tasks
 Rake::Task['spec:mailers'].clear
 Rake::Task['spec:rcov'].clear

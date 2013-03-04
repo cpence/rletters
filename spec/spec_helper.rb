@@ -1,25 +1,9 @@
 # -*- encoding : utf-8 -*-
 require 'rubygems'
 
-# Code coverage (invoked via a Rake task)
-if ENV['COVERAGE'] == 'true'
-  require 'simplecov'
-  
-  SimpleCov.start do
-    add_filter '/spec/'
-    add_filter '/config/'
-    add_filter '/db/'
-    add_filter '/vendor/bundle/'
-    
-    add_group 'Models', '/app/models/'
-    add_group 'Controllers', '/app/controllers/'
-    add_group 'Mailers', '/app/mailers/'
-    add_group 'Helpers', '/app/helpers/'
-    add_group 'Libraries', '/lib/'
-    
-    coverage_dir '/spec/coverage/'
-  end
-end
+# Coverage setup
+require 'coveralls'
+Coveralls.wear!
 
 # Standard setup for RSpec
 ENV["RAILS_ENV"] ||= 'test'
