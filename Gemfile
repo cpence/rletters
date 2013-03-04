@@ -6,6 +6,7 @@ gem 'rails', '~> 3.0'
 gem 'rails-i18n', '= 0.7.1'
 
 gem 'capistrano'
+gem 'capistrano-maintenance'
 gem 'delayed_job', '~> 3.0', '>= 3.0.1'
 gem 'delayed_job_active_record'
 gem 'airbrake'

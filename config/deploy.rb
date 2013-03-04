@@ -3,6 +3,7 @@ $LOAD_PATH.unshift File.join(File.dirname(__FILE__), 'deploy')
 
 
 # Gem recipes (Bundler, whenever, delayed_job)
+require 'capistrano/maintenance'
 require 'bundler/capistrano'
 
 set :whenever_command, "bundle exec whenever"
