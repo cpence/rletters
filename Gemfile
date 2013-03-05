@@ -74,6 +74,7 @@ group :test do
   gem 'factory_girl_rails'
   gem 'shoulda-matchers'
   gem 'webrat'
+  gem 'vcr', :require => false
   gem 'webmock', :require => false
   gem 'nokogiri', :require => false
 end

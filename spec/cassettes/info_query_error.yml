@@ -1,0 +1,35 @@
+--- 
+http_interactions: 
+- request: 
+    method: get
+    uri: http://localhost:8983/select?q=*:*&qt=precise&rows=5&start=0&wt=ruby
+    body: 
+      encoding: US-ASCII
+      string: ""
+    headers: {}
+
+  response: 
+    status: 
+      code: 200
+      message: OK
+    headers: 
+      Server: 
+      - Winstone Servlet Engine v0.9.10
+      Last-Modified: 
+      - Tue, 05 Mar 2013 01:41:29 GMT
+      Etag: 
+      - "\"YmVlMzM2ZjY5YzgwMDAwMFNvbHI=\""
+      Content-Type: 
+      - text/plain;charset=UTF-8
+      Connection: 
+      - Close
+      Date: 
+      - Tue, 05 Mar 2013 02:05:57 GMT
+      X-Powered-By: 
+      - Servlet/2.5 (Winstone/0.9.10)
+    body: 
+      encoding: US-ASCII
+      string: "{}"
+    http_version: 
+  recorded_at: Tue, 05 Mar 2013 02:05:57 GMT
+recorded_with: VCR 2.4.0

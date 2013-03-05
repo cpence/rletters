@@ -104,7 +104,7 @@ class SearchController < ApplicationController
     
     begin
       res = Net::HTTP.start("api.mendeley.com") { |http| 
-        http.get("/oapi/documents/search/title%3A#{URI.escape(@document.title)}/?consumer_key=#{Settings.mendeley_key}") 
+        http.get("/oapi/documents/search/title%3A#{CGI::escape(@document.title)}/?consumer_key=#{Settings.mendeley_key}") 
       }
       json = res.body
       result = JSON.parse(json)

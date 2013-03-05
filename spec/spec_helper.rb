@@ -3,8 +3,31 @@ require 'rubygems'
 
 # Coverage setup
 if ENV['TRAVIS']
+  require 'simplecov'
   require 'coveralls'
-  Coveralls.wear!
+
+  SimpleCov.formatter = Coveralls::SimpleCov::Formatter
+  SimpleCov.start do
+    add_filter '/spec/'
+    add_filter '/config/'
+    add_filter '/db/'
+    add_filter '/vendor/bundle/'
+    
+    add_group 'Models', '/app/models/'
+    add_group 'Controllers', '/app/controllers/'
+    add_group 'Mailers', '/app/mailers/'
+    add_group 'Helpers', '/app/helpers/'
+    add_group 'Libraries', '/lib/'
+  end
+end
+
+# VCR setup
+require 'vcr'
+VCR.configure do |c|
+  c.configure_rspec_metadata!
+  c.cassette_library_dir = 'spec/cassettes'
+  c.hook_into :webmock
+  c.default_cassette_options = { :serialize_with => :syck }
 end
 
 # Standard setup for RSpec
@@ -26,6 +49,7 @@ RSpec.configure do |config|
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
   config.use_transactional_fixtures = true
   config.infer_base_class_for_anonymous_controllers = true
+  config.treat_symbols_as_metadata_keys_with_true_values = true
 
   config.before(:suite) do    
     # Speed up testing by deferring garbage collection
@@ -53,7 +77,6 @@ RSpec.configure do |config|
     Time.zone = 'Eastern Time (US & Canada)'
   end
 
-  # Add helpers for Devise and for breaking the Solr server
+  # Add helpers for Devise
   config.include Devise::TestHelpers, :type => :controller
-  config.extend SolrServerHelper
 end

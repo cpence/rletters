@@ -117,7 +117,7 @@ describe SearchHelper do
     end
   end
   
-  describe '#list_links_for_facet' do
+  describe '#list_links_for_facet', :vcr => { :cassette_name => 'solr_default' } do
     before(:each) do
       @docs = Document.find_all_by_solr_query({ :q => "*:*", :qt => "precise" })
     end
@@ -164,7 +164,7 @@ describe SearchHelper do
       end
     end
 
-    context 'with no active facets' do
+    context 'with no active facets', :vcr => { :cassette_name => 'solr_default' } do
       before(:each) do
         @docs = Document.find_all_by_solr_query({ :q => "*:*", :qt => "precise" })
         @ret = helper.facet_link_list
@@ -192,7 +192,7 @@ describe SearchHelper do
       end
     end
 
-    context 'with active facets' do
+    context 'with active facets', :vcr => { :cassette_name => 'search_helper_facets' } do
       before(:each) do
         @docs = Document.find_all_by_solr_query({ :q => "*:*", :qt => "precise",
                                                   :fq => ["authors_facet:\"Elisa Lobato\"", "year:[2010 TO *]"] })
@@ -212,7 +212,7 @@ describe SearchHelper do
     end
   end
   
-  describe '#document_bibliography_entry' do
+  describe '#document_bibliography_entry', :vcr => { :cassette_name => 'solr_single' } do
     before(:each) do
       @doc = Document.find(FactoryGirl.generate(:working_shasum))
     end

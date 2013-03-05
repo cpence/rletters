@@ -17,21 +17,7 @@ describe Jobs::CreateDataset do
     end
   end
   
-  context "when Solr fails" do
-    break_solr
-    
-    it "raises an exception" do
-      expect {
-        Jobs::CreateDataset.new(:user_id => @user.to_param,
-          :name => 'Test Dataset', :q => '*:*', :fq => nil,
-          :qt => 'precise').perform
-      }.to raise_error
-      
-      @user.datasets.should have(0).items
-    end
-  end
-  
-  context "given a standard search" do
+  context "given a standard search", :vcr => { :cassette_name => 'create_dataset_standard' } do
     before(:each) do
       Jobs::CreateDataset.new(:user_id => @user.to_param,
         :name => 'Short Test Dataset', :q => 'test', :fq => nil,
@@ -50,7 +36,7 @@ describe Jobs::CreateDataset do
     end
   end
   
-  context "given large Solr dataset" do
+  context "given large Solr dataset", :vcr => { :cassette_name => 'create_dataset_large' } do
     before(:each) do
       Jobs::CreateDataset.new(:user_id => @user.to_param,
         :name => 'Long Dataset', :q => '*:*', :fq => nil,

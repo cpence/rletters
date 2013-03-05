@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe Jobs::Analysis::SingleTermVectors do
+describe Jobs::Analysis::SingleTermVectors, :vcr => { :cassette_name => 'solr_single_fulltext' } do
   
   it_should_behave_like 'an analysis job with a file' do
     let(:dataset_params) { { :entries_count => 1 } }

@@ -156,7 +156,7 @@ describe DatasetsController do
   end
 
   describe '#add' do
-    context 'when an invalid document is passed' do
+    context 'when an invalid document is passed', :vcr => { :cassette_name => 'solr_fail',  :serialize_with => :syck } do
       it 'raises an exception' do
         expect {
           get :add, :dataset_id => @dataset.to_param, :shasum => 'fail'
@@ -164,14 +164,14 @@ describe DatasetsController do
       end
     end
 
-    context 'when all parameters are valid' do
+    context 'when all parameters are valid', :vcr => { :cassette_name => 'solr_single' } do
       it 'adds to the dataset' do
         expect {
           get :add, :dataset_id => @dataset.to_param, :shasum => FactoryGirl.generate(:working_shasum)
         }.to change{@dataset.entries.count}.by(1)
       end
 
-      it 'redirects to the dataset page' do
+      it 'redirects to the dataset page', :vcr => { :cassette_name => 'solr_single' } do
         get :add, :dataset_id => @dataset.to_param, :shasum => FactoryGirl.generate(:working_shasum)
         response.should redirect_to(dataset_path(@dataset))
       end

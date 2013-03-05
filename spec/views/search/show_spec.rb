@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe "search/show" do
+describe "search/show", :vcr => { :cassette_name => 'solr_single' } do
   
   before(:all) do
     Settings.mendeley_key = 'asdf'

@@ -4,9 +4,9 @@ require 'spec_helper'
 describe SearchController do
 
   describe '#index' do
-    context 'with empty search results' do
+    context 'with empty search results', :vcr => { :cassette_name => 'search_controller_fail' } do
       before(:each) do
-        get :index, { :q => 'shatner' }
+        get :index, { :q => 'fail' }
       end
 
       it 'loads successfully' do
@@ -14,7 +14,7 @@ describe SearchController do
       end
     end
 
-    context 'with precise search results' do
+    context 'with precise search results', :vcr => { :cassette_name => 'search_controller_default' } do
       before(:each) do
         get :index
       end
@@ -46,6 +46,7 @@ describe SearchController do
 
     context 'with faceted search results' do
       before(:each) do
+        Document.should_receive(:find_all_by_solr_query).and_return([])
         get :index, { :fq => [ 'journal_facet:"Journal of Nothing"' ] }
       end
 
@@ -60,6 +61,7 @@ describe SearchController do
 
     context 'with a dismax search' do
       before(:each) do
+        Document.should_receive(:find_all_by_solr_query).and_return([])
         get :index, { :q => 'testing' }
       end
 
@@ -95,7 +97,7 @@ describe SearchController do
     end
   end
   
-  describe '#show' do
+  describe '#show', :vcr => { :cassette_name => 'solr_single' } do
     context 'when displaying as HTML' do
       it 'loads successfully' do
         get :show, { :id => FactoryGirl.generate(:working_shasum) }
@@ -161,7 +163,7 @@ describe SearchController do
     end
   end
 
-  describe '#add' do
+  describe '#add', :vcr => { :cassette_name => 'solr_single' } do
     before(:each) do
       @user = FactoryGirl.create(:user)
       sign_in @user
@@ -173,29 +175,25 @@ describe SearchController do
     end
   end
   
-  describe '#to_mendeley' do
+  describe '#to_mendeley', :vcr => { :cassette_name => 'search_mendeley' } do
     context 'when request succeeds' do
       before(:all) do
-        Settings.mendeley_key = 'asdf'
+        Settings.mendeley_key = '5ba3606d28aa1be94e9c58502b90a49c04dc17289'
       end
       
       after(:all) do
         Settings.mendeley_key = ''
       end
       
-      before(:each) do
-        stub_request(:any, /api\.mendeley\.com\/oapi\/documents\/search\/title.*/).to_return(File.new(Rails.root.join('spec', 'support', 'webmock', 'mendeley_response_p1d.txt')))
-      end
-            
       it 'redirects to Mendeley' do
         get :to_mendeley, { :id => '00972c5123877961056b21aea4177d0dc69c7318' }
-        response.should redirect_to('http://www.mendeley.com/research/how-reliable-are-the-methods-for-estimating-repertoire-size-1/')
+        response.should redirect_to('http://www.mendeley.com/research/reliable-methods-estimating-repertoire-size-1/')
       end
     end
     
     context 'when request times out' do
       before(:all) do
-        Settings.mendeley_key = 'asdf'
+        Settings.mendeley_key = '5ba3606d28aa1be94e9c58502b90a49c04dc17289'
       end
       
       after(:all) do
@@ -208,18 +206,14 @@ describe SearchController do
       
       it 'raises an exception' do
         expect {
-          get :to_mendeley, { :id => FactoryGirl.generate(:working_shasum) }
+          get :to_mendeley, { :id => '00972c5123877961056b21aea4177d0dc69c7318' }
         }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
   end
   
-  describe '#to_citeulike' do
+  describe '#to_citeulike', :vcr => { :cassette_name => 'search_citeulike' } do
     context 'when request succeeds' do
-      before(:each) do
-        stub_request(:any, /www\.citeulike\.org\/json\/search\/all\?.*/).to_return(File.new(Rails.root.join('spec', 'support', 'webmock', 'citeulike_response_p1d.txt')))
-      end
-      
       it 'redirects to citeulike' do
         get :to_citeulike, { :id => '00972c5123877961056b21aea4177d0dc69c7318' }
         response.should redirect_to('http://www.citeulike.org/article/3509563')
@@ -233,7 +227,7 @@ describe SearchController do
       
       it 'raises an exception' do
         expect {
-          get :to_citeulike, { :id => FactoryGirl.generate(:working_shasum) }
+          get :to_citeulike, { :id => '00972c5123877961056b21aea4177d0dc69c7318' }
         }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end

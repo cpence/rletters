@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe Jobs::Analysis::WordFrequency do
+describe Jobs::Analysis::WordFrequency, :vcr => { :cassette_name => 'solr_single_fulltext' } do
   
   it_should_behave_like 'an analysis job'
 

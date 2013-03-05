@@ -1,3 +1,4 @@
+- require 'csv'
 - term_vectors = YAML.load_file(@task.result_file.filename).with_indifferent_access
 = CSV.generate do |csv|
   - csv << [ 'Term', 'tf', 'df', 'tf*idf' ]

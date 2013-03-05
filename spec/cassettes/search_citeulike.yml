@@ -1,0 +1,127 @@
+--- 
+http_interactions: 
+- request: 
+    method: get
+    uri: http://localhost:8983/select?q=shasum:00972c5123877961056b21aea4177d0dc69c7318&qt=precise&wt=ruby
+    body: 
+      encoding: US-ASCII
+      string: ""
+    headers: {}
+
+  response: 
+    status: 
+      code: 200
+      message: OK
+    headers: 
+      Server: 
+      - Winstone Servlet Engine v0.9.10
+      Last-Modified: 
+      - Tue, 05 Mar 2013 02:26:59 GMT
+      Etag: 
+      - "\"YmVlMzM2ZjY5YzgwMDAwMFNvbHI=\""
+      Content-Type: 
+      - text/plain;charset=UTF-8
+      Connection: 
+      - Close
+      Date: 
+      - Tue, 05 Mar 2013 02:42:42 GMT
+      X-Powered-By: 
+      - Servlet/2.5 (Winstone/0.9.10)
+    body: 
+      encoding: ASCII-8BIT
+      string: "{'responseHeader'=>{'status'=>0,'QTime'=>7,'params'=>{'wt'=>'ruby','q'=>'shasum:00972c5123877961056b21aea4177d0dc69c7318','qt'=>'precise'}},'response'=>{'numFound'=>1,'start'=>0,'docs'=>[{'license'=>'\xC2\xA9 Blackwell Verlag GmbH','shasum'=>'00972c5123877961056b21aea4177d0dc69c7318','doi'=>'10.1111/j.1439-0310.2008.01576.x','authors'=>'Carlos A. Botero, Andrew E. Mudge, Amanda M. Koltz, Wesley M. Hochachka, Sandra L. Vehrencamp','title'=>'How Reliable are the Methods for Estimating Repertoire Size?','journal'=>'Ethology','year'=>'2008','volume'=>'114','pages'=>'1227-1238'}]},'facet_counts'=>{'facet_queries'=>{'year:[* TO 1799]'=>0,'year:[1800 TO 1809]'=>0,'year:[1810 TO 1819]'=>0,'year:[1820 TO 1829]'=>0,'year:[1830 TO 1839]'=>0,'year:[1840 TO 1849]'=>0,'year:[1850 TO 1859]'=>0,'year:[1860 TO 1869]'=>0,'year:[1870 TO 1879]'=>0,'year:[1880 TO 1889]'=>0,'year:[1890 TO 1899]'=>0,'year:[1900 TO 1909]'=>0,'year:[1910 TO 1919]'=>0,'year:[1920 TO 1929]'=>0,'year:[1930 TO 1939]'=>0,'year:[1940 TO 1949]'=>0,'year:[1950 TO 1959]'=>0,'year:[1960 TO 1969]'=>0,'year:[1970 TO 1979]'=>0,'year:[1980 TO 1989]'=>0,'year:[1990 TO 1999]'=>0,'year:[2000 TO 2009]'=>1,'year:[2010 TO *]'=>0},'facet_fields'=>{'authors_facet'=>['Amanda M. Koltz',1,'Andrew E. Mudge',1,'Carlos A. Botero',1,'Sandra L. Vehrencamp',1,'Wesley M. Hochachka',1,'. N. Mouton',0,'A Guo',0,'A Pickles',0,'A. A. Bailey',0,'A. A. Fienberg',0],'journal_facet'=>['Ethology',1,'Genes, Brain and Behavior',0]},'facet_dates'=>{}}}"
+    http_version: 
+  recorded_at: Tue, 05 Mar 2013 02:42:42 GMT
+- request: 
+    method: get
+    uri: http://www.citeulike.org/json/search/all?page=1&per_page=1&q=title:(How%20Reliable%20are%20the%20Methods%20for%20Estimating%20Repertoire%20Size?)
+    body: 
+      encoding: US-ASCII
+      string: ""
+    headers: 
+      Accept-Encoding: 
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept: 
+      - "*/*"
+      User-Agent: 
+      - Ruby
+  response: 
+    status: 
+      code: 200
+      message: OK
+    headers: 
+      Server: 
+      - nginx/0.8.31
+      Date: 
+      - Tue, 05 Mar 2013 02:42:45 GMT
+      Content-Type: 
+      - application/json; charset=utf-8
+      Transfer-Encoding: 
+      - chunked
+      Connection: 
+      - keep-alive
+      Vary: 
+      - Accept-Encoding
+      Max-Age: 
+      - "0"
+      Expires: 
+      - "0"
+      Cache-Control: 
+      - no-cache
+      Mime-Version: 
+      - "1.0"
+      Content-Encoding: 
+      - gzip
+    body: 
+      encoding: ASCII-8BIT
+      string: !binary |
+        H4sIAAAAAAAAA41TyW7bMBA9119B8NQCsiRKSbxcimxA0mYpEjQ9RIFBUxOL
+        MU0KFFVnQf69M3QS+FCg1YnzZvTmcebxdvAy4NIHrQzMdM2njJe7+WR3r+TJ
+        gNcyAEFFno+HQgxFycR4Wk6mxYTSjYd7SjchtNMqq7L1ep0qHaA3egmp84sq
+        e+Ousi3a8NRG2m+XP6+IJ+hgInDi1uwKjJZzA0x6YKEBdg6hcXXH7p1nx13Q
+        Kxm0XWBdCz44jVXX+hm+EtFvZ/pVZBJihwDddf0mLijsAsqZtXLxhhUjQsHW
+        W1g5JuzB9d5KQ7c7xvbGLZ4Ibvu50V0DnhIHRqrlGoxhPzYwyqIibGopn4vR
+        ZCj2RByl7ma9VQ2oJcQpX2zTEXIbp8wTLgp+hyyyx76+owzj7MAF8I4njO+n
+        7FB64zoK2Hlf42XwdJyyfVt7WEf4uzPhmU7nCK+krWWET5xqpGqWMcLUL+gM
+        4MWQ6AZwm1bJVUvhWcqu8S8vOSMtRtul60MUM/j0wt8XeHR5StW9j4P6sEH9
+        mNZOb/Yv8lTgV2UPqdgpJ8O8RIT8lOZid7SXPvLXZJvy1C7ABnnorAUV/sZO
+        JsNJU5XaVKXKraoMg4Bglc07VWVomiqjPlWW04eGeDvlooi2JDDnrwO6IMql
+        jf1bLNaiwdGBLq743RsJu3EmZdgkYRcOD0XKPh+BgtUcPCMZXxLWtpQoRkNR
+        lOOEYc/pfzVsXRegninX24Aq8y0NsyU8xa2Qqs2zm348NHRodA21x5eFs7S9
+        MXcDvPLgD7beBmX4AwAA
+
+    http_version: 
+  recorded_at: Tue, 05 Mar 2013 02:42:45 GMT
+- request: 
+    method: get
+    uri: http://localhost:8983/select?q=shasum:0097c3434054c25e1ace6243a1ac54b71f35bc28&qt=precise&wt=ruby
+    body: 
+      encoding: US-ASCII
+      string: ""
+    headers: {}
+
+  response: 
+    status: 
+      code: 200
+      message: OK
+    headers: 
+      Server: 
+      - Winstone Servlet Engine v0.9.10
+      Last-Modified: 
+      - Tue, 05 Mar 2013 02:26:59 GMT
+      Etag: 
+      - "\"YmVlMzM2ZjY5YzgwMDAwMFNvbHI=\""
+      Content-Type: 
+      - text/plain;charset=UTF-8
+      Connection: 
+      - Close
+      Date: 
+      - Tue, 05 Mar 2013 02:45:11 GMT
+      X-Powered-By: 
+      - Servlet/2.5 (Winstone/0.9.10)
+    body: 
+      encoding: ASCII-8BIT
+      string: "{'responseHeader'=>{'status'=>0,'QTime'=>5,'params'=>{'wt'=>'ruby','q'=>'shasum:0097c3434054c25e1ace6243a1ac54b71f35bc28','qt'=>'precise'}},'response'=>{'numFound'=>1,'start'=>0,'docs'=>[{'license'=>'\xC2\xA9 Blackwell Verlag GmbH','shasum'=>'0097c3434054c25e1ace6243a1ac54b71f35bc28','doi'=>'10.1046/j.1439-0310.2001.00723.x','authors'=>'Susan Bartmann, Gabriele Gerlach','title'=>'Multiple Paternity and Similar Variance in Reproductive Success of Male and Female Wood Mice (Apodemus sylvaticus) Housed in an Enclosure','journal'=>'Ethology','year'=>'2001','volume'=>'107','pages'=>'889-899'}]},'facet_counts'=>{'facet_queries'=>{'year:[* TO 1799]'=>0,'year:[1800 TO 1809]'=>0,'year:[1810 TO 1819]'=>0,'year:[1820 TO 1829]'=>0,'year:[1830 TO 1839]'=>0,'year:[1840 TO 1849]'=>0,'year:[1850 TO 1859]'=>0,'year:[1860 TO 1869]'=>0,'year:[1870 TO 1879]'=>0,'year:[1880 TO 1889]'=>0,'year:[1890 TO 1899]'=>0,'year:[1900 TO 1909]'=>0,'year:[1910 TO 1919]'=>0,'year:[1920 TO 1929]'=>0,'year:[1930 TO 1939]'=>0,'year:[1940 TO 1949]'=>0,'year:[1950 TO 1959]'=>0,'year:[1960 TO 1969]'=>0,'year:[1970 TO 1979]'=>0,'year:[1980 TO 1989]'=>0,'year:[1990 TO 1999]'=>0,'year:[2000 TO 2009]'=>1,'year:[2010 TO *]'=>0},'facet_fields'=>{'authors_facet'=>['Gabriele Gerlach',1,'Susan Bartmann',1,'. N. Mouton',0,'A Guo',0,'A Pickles',0,'A. A. Bailey',0,'A. A. Fienberg',0,'A. A. Palmer',0,'A. A. Tudor-Jones',0,'A. A. Wong',0],'journal_facet'=>['Ethology',1,'Genes, Brain and Behavior',0]},'facet_dates'=>{}}}"
+    http_version: 
+  recorded_at: Tue, 05 Mar 2013 02:45:11 GMT
+recorded_with: VCR 2.4.0

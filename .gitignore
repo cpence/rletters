@@ -7,10 +7,8 @@ config/database.yml
 config/deploy/deploy_config.rb
 contrib/solr/example/logs/*
 contrib/solr/example/work
-db/*.sqlite*
 doc
 downloads
-spec/coverage/
 log/*.log
 public/assets
 public/system

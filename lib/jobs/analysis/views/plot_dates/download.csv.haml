@@ -1,3 +1,4 @@
+- require 'csv'
 - dates = YAML.load_file(@task.result_file.filename)
 = CSV.generate do |csv|
   - csv << [ 'Year', 'Number of Documents' ]

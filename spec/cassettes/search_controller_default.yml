@@ -1,0 +1,35 @@
+--- 
+http_interactions: 
+- request: 
+    method: get
+    uri: http://localhost:8983/select?q=*:*&qt=precise&rows=10&sort=year_sort%20desc&start=0&wt=ruby
+    body: 
+      encoding: US-ASCII
+      string: ""
+    headers: {}
+
+  response: 
+    status: 
+      code: 200
+      message: OK
+    headers: 
+      Server: 
+      - Winstone Servlet Engine v0.9.10
+      Last-Modified: 
+      - Tue, 05 Mar 2013 02:26:59 GMT
+      Etag: 
+      - "\"YmVlMzM2ZjY5YzgwMDAwMFNvbHI=\""
+      Content-Type: 
+      - text/plain;charset=UTF-8
+      Connection: 
+      - Close
+      Date: 
+      - Tue, 05 Mar 2013 02:38:32 GMT
+      X-Powered-By: 
+      - Servlet/2.5 (Winstone/0.9.10)
+    body: 
+      encoding: ASCII-8BIT
+      string: "{'responseHeader'=>{'status'=>0,'QTime'=>271,'params'=>{'wt'=>'ruby','sort'=>'year_sort desc','rows'=>'10','q'=>'*:*','qt'=>'precise','start'=>'0'}},'response'=>{'numFound'=>1042,'start'=>0,'docs'=>[{'license'=>'\xC2\xA9 Blackwell Verlag GmbH','shasum'=>'0097e0f4029fef57b8158970112ab32c1e692cff','doi'=>'10.1111/j.1439-0310.2011.01898.x','authors'=>'Pavol Prokop, Michael R. Maxwell','title'=>'Sexual Conflict Over Spermatophore Attachment in a Nuptially Feeding Cricket','journal'=>'Ethology','year'=>'2011','volume'=>'117','pages'=>'520-528'},{'license'=>'\xC2\xA9 Blackwell Publishing Ltd/International Behavioural and Neural Genetics Society','shasum'=>'01aba6bb5df0e4f3941b17faa740197a32d71edc','doi'=>'10.1111/j.1601-183X.2010.00603.x','authors'=>'G. P. Lahvis, E. Alleva, M. L. Scattoni','title'=>'Translating mouse vocalizations: prosody and frequency modulation1','journal'=>'Genes, Brain and Behavior','year'=>'2011','volume'=>'10','pages'=>'4-16'},{'license'=>'\xC2\xA9 Blackwell Verlag GmbH','shasum'=>'04de62251a7c6d02f890a327b75710287b032a97','doi'=>'10.1111/j.1439-0310.2010.01870.x','authors'=>'Patricia Trubl, Valerie Blackmore, J. Chadwick Johnson','title'=>'Wasteful Killing in Urban Black Widows: Gluttony in Response to Food Abundance','journal'=>'Ethology','year'=>'2011','volume'=>'117','pages'=>'236-245'},{'license'=>'\xC2\xA9 Blackwell Publishing Ltd/International Behavioural and Neural Genetics Society','shasum'=>'0528c7bd3e2e4a7487a488fbd61ede4878b61916','doi'=>'10.1111/j.1601-183X.2010.00661.x','authors'=>'T. Kishi, Y. Fukuo, T. Kitajima, T. Okochi, Y. Yamanouchi, Y. Kinoshita, K. Kawashima, T. Inada, H. Kunugi, T. Kato, T. Yoshikawa, H. Ujike, N. Ozaki, N. Iwata','title'=>'SIRT1 gene, schizophrenia and bipolar disorder in the Japanese population: an association study','journal'=>'Genes, Brain and Behavior','year'=>'2011','volume'=>'10','pages'=>'257-263'},{'license'=>'\xC2\xA9 Blackwell Verlag GmbH','shasum'=>'09a2b37dab51e83128fabb613ff3821c802c57f2','doi'=>'10.1111/j.1439-0310.2010.01869.x','title'=>'A chacma baboon, Papio ursinus, in evening light, Mpumalanga, South Africa. Photo reproduced by permission of Andrew Young -http://www.wildimages.org','journal'=>'Ethology','year'=>'2011','volume'=>'117','pages'=>'i-i'},{'license'=>'\xC2\xA9 Blackwell Verlag GmbH','shasum'=>'0c0359c195af68981e363a9117bc4976d19a2b05','doi'=>'10.1111/j.1439-0310.2010.01842.x','authors'=>'Zachary Durisko, Les Shipp, Reuven Dukas','title'=>'Effects of Experience on Short- and Long-term Foraging Performance in Bumblebees','journal'=>'Ethology','year'=>'2011','volume'=>'117','pages'=>'49-55'},{'license'=>'\xC2\xA9 Blackwell Verlag GmbH','shasum'=>'10cb8a621fbe7e83ebb3836a212ae8f7921c5cd8','doi'=>'10.1111/j.1439-0310.2010.01857.x','authors'=>'Samantha P. Klaus, Lauren P. Fitzsimmons, Trevor E. Pitcher, Susan M. Bertram','title'=>'Song and Sperm in Crickets: A Trade-off between Pre- and Post-copulatory Traits or Phenotype-Linked Fertility?','journal'=>'Ethology','year'=>'2011','volume'=>'117','pages'=>'154-162'},{'license'=>'\xC2\xA9 Blackwell Verlag GmbH','shasum'=>'123066916819292ce0c41eddcd1713f840a803b2','doi'=>'10.1111/j.1439-0310.2010.01860.x','authors'=>'Petra Lantov\xC3\xA1, Kl\xC3\xA1ra \xC5\xA0\xC3\xADchov\xC3\xA1, Franti\xC5\xA1ek Sedl\xC3\xA1\xC4\x8Dek, Vojt\xC4\x9Bch Lanta','title'=>'Determining Behavioural Syndromes in Voles - The Effects of Social Environment','journal'=>'Ethology','year'=>'2011','volume'=>'117','pages'=>'124-132'},{'license'=>'\xC2\xA9 Blackwell Verlag GmbH','shasum'=>'146a667ea176f8da964a66f976972e8693459f4a','doi'=>'10.1111/j.1439-0310.2010.01858.x','authors'=>'Daniel R. Howard, Norman Lee, Carrie L. Hall, Andrew C. Mason','title'=>'Are Centrally Displaying Males Always the Centre of Female Attention? Acoustic Display Position and Female Choice in a Lek Mating Subterranean Insect','journal'=>'Ethology','year'=>'2011','volume'=>'117','pages'=>'199-207'},{'license'=>'\xC2\xA9 Blackwell Verlag GmbH','shasum'=>'1783ab4eec3f5e05f3909d8e8567c1fdab7c74e9','doi'=>'10.1111/j.1439-0310.2010.01866.x','title'=>'Pheromones: Fact or Fantasy?','journal'=>'Ethology','year'=>'2011','volume'=>'117','pages'=>'265-266'}]},'facet_counts'=>{'facet_queries'=>{'year:[* TO 1799]'=>0,'year:[1800 TO 1809]'=>0,'year:[1810 TO 1819]'=>0,'year:[1820 TO 1829]'=>0,'year:[1830 TO 1839]'=>0,'year:[1840 TO 1849]'=>0,'year:[1850 TO 1859]'=>0,'year:[1860 TO 1869]'=>0,'year:[1870 TO 1879]'=>0,'year:[1880 TO 1889]'=>0,'year:[1890 TO 1899]'=>0,'year:[1900 TO 1909]'=>0,'year:[1910 TO 1919]'=>0,'year:[1920 TO 1929]'=>0,'year:[1930 TO 1939]'=>0,'year:[1940 TO 1949]'=>0,'year:[1950 TO 1959]'=>0,'year:[1960 TO 1969]'=>0,'year:[1970 TO 1979]'=>0,'year:[1980 TO 1989]'=>0,'year:[1990 TO 1999]'=>94,'year:[2000 TO 2009]'=>788,'year:[2010 TO *]'=>160},'facet_fields'=>{'authors_facet'=>['J. C. Crabbe',9,'Michael H. Ferkin',9,'Douglas P. Chivers',8,'A. V. Kulikov',7,'Daniel T. Blumstein',7,'J. N. Crawley',6,'N. K. Popova',6,'A. A. Palmer',5,'D. I. Boomsma',5,'D. Wahlsten',5],'journal_facet'=>['Ethology',594,'Genes, Brain and Behavior',448]},'facet_dates'=>{}}}"
+    http_version: 
+  recorded_at: Tue, 05 Mar 2013 02:38:32 GMT
+recorded_with: VCR 2.4.0

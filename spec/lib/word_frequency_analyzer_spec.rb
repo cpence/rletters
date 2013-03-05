@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe WordFrequencyAnalyzer do
+describe WordFrequencyAnalyzer, :vcr => { :cassette_name => 'solr_single_fulltext' } do
   
   before(:each) do
     @user = FactoryGirl.create(:user)

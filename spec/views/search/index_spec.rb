@@ -30,7 +30,7 @@ describe "search/index" do
     assign(:documents, Document.find_all_by_solr_query(solr_query))
   end
   
-  context 'when no search is performed' do
+  context 'when no search is performed', :vcr => { :cassette_name => 'solr_default' } do
     before(:each) do
       do_solr_query
     end
@@ -91,7 +91,7 @@ describe "search/index" do
       end
     end
     
-    context 'when logged in' do
+    context 'when logged in', :vcr => { :cassette_name => 'solr_default' } do
       before(:each) do
         @csl_style = CslStyle.find_by_name('Chicago Manual of Style (Author-Date format)')
         @user = FactoryGirl.create(:user, :csl_style_id => @csl_style.id)
@@ -112,10 +112,10 @@ describe "search/index" do
     end
   end
   
-  context 'when a search with no results is performed' do
+  context 'when a search with no results is performed', :vcr => { :cassette_name => 'search_view_fail' } do
     before(:each) do
-      do_solr_query('shatner')
-      render      
+      do_solr_query('fail')
+      render
     end
     
     it 'displays that no articles are found' do
@@ -123,7 +123,7 @@ describe "search/index" do
     end
     
     it 'puts the search text in the search box' do
-      rendered.should have_selector('input[value=shatner]')
+      rendered.should have_selector('input[value=fail]')
     end
     
     it "doesn't have any pagination links" do
@@ -131,18 +131,18 @@ describe "search/index" do
     end
   end
   
-  context 'when an advanced search is performed' do
+  context 'when an advanced search is performed', :vcr => { :cassette_name => 'search_view_year_2009' } do
     before(:each) do
       do_solr_query(nil, nil, true, :year => 2009)
       render
-    end
+    end 
     
     it 'displays the advanced search placeholder in the search box' do
       rendered.should have_selector("input[value='(advanced search)']")
     end
   end
   
-  describe 'year facet parsing' do
+  describe 'year facet parsing', :vcr => { :cassette_name => 'solr_default' } do
     context 'when parsing 2010-*' do
       before(:each) do
         do_solr_query
@@ -173,7 +173,7 @@ describe "search/index" do
   #   end
   end
   
-  context 'when displaying facets' do
+  context 'when displaying facets', :vcr => { :cassette_name => 'search_view_with_facets' } do
     before(:each) do
       do_solr_query(nil, [ 'authors_facet:"Amanda M. Koltz"', 'journal_facet:"Ethology"' ])
       render

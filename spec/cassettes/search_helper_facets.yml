@@ -1,0 +1,35 @@
+--- 
+http_interactions: 
+- request: 
+    method: get
+    uri: http://localhost:8983/select?fq=year:%5B2010%20TO%20*%5D&q=*:*&qt=precise&wt=ruby
+    body: 
+      encoding: US-ASCII
+      string: ""
+    headers: {}
+
+  response: 
+    status: 
+      code: 200
+      message: OK
+    headers: 
+      Server: 
+      - Winstone Servlet Engine v0.9.10
+      Last-Modified: 
+      - Tue, 05 Mar 2013 02:26:59 GMT
+      Etag: 
+      - "\"YmVlMzM2ZjY5YzgwMDAwMFNvbHI=\""
+      Content-Type: 
+      - text/plain;charset=UTF-8
+      Connection: 
+      - Close
+      Date: 
+      - Tue, 05 Mar 2013 03:07:10 GMT
+      X-Powered-By: 
+      - Servlet/2.5 (Winstone/0.9.10)
+    body: 
+      encoding: ASCII-8BIT
+      string: "{'responseHeader'=>{'status'=>0,'QTime'=>15,'params'=>{'wt'=>'ruby','fq'=>['authors_facet:\"Elisa Lobato\"','year:[2010 TO *]'],'q'=>'*:*','qt'=>'precise'}},'response'=>{'numFound'=>1,'start'=>0,'docs'=>[{'license'=>'\xC2\xA9 Blackwell Verlag GmbH','shasum'=>'008896a5c58241b65088d931e02f3bea02fc3bf0','doi'=>'10.1111/j.1439-0310.2009.01716.x','authors'=>'Juan Moreno, Juan-Gabriel Mart\xC3\xADnez, Judith Morales, Elisa Lobato, Santiago Merino, Gustavo Tom\xC3\xA1s, Rodrigo A. V\xC3\xA1squez, Erich M\xC3\xB6stl, Jos\xC3\xA9 L. Osorno','title'=>'Paternity Loss in Relation to Male Age, Territorial Behaviour and Stress in the Pied Flycatcher','journal'=>'Ethology','year'=>'2010','volume'=>'116','pages'=>'76-84'}]},'facet_counts'=>{'facet_queries'=>{'year:[* TO 1799]'=>0,'year:[1800 TO 1809]'=>0,'year:[1810 TO 1819]'=>0,'year:[1820 TO 1829]'=>0,'year:[1830 TO 1839]'=>0,'year:[1840 TO 1849]'=>0,'year:[1850 TO 1859]'=>0,'year:[1860 TO 1869]'=>0,'year:[1870 TO 1879]'=>0,'year:[1880 TO 1889]'=>0,'year:[1890 TO 1899]'=>0,'year:[1900 TO 1909]'=>0,'year:[1910 TO 1919]'=>0,'year:[1920 TO 1929]'=>0,'year:[1930 TO 1939]'=>0,'year:[1940 TO 1949]'=>0,'year:[1950 TO 1959]'=>0,'year:[1960 TO 1969]'=>0,'year:[1970 TO 1979]'=>0,'year:[1980 TO 1989]'=>0,'year:[1990 TO 1999]'=>0,'year:[2000 TO 2009]'=>0,'year:[2010 TO *]'=>1},'facet_fields'=>{'authors_facet'=>['Elisa Lobato',1,'Erich M\xC3\xB6stl',1,'Gustavo Tom\xC3\xA1s',1,'Jos\xC3\xA9 L. Osorno',1,'Juan Moreno',1,'Juan-Gabriel Mart\xC3\xADnez',1,'Judith Morales',1,'Rodrigo A. V\xC3\xA1squez',1,'Santiago Merino',1,'. N. Mouton',0],'journal_facet'=>['Ethology',1,'Genes, Brain and Behavior',0]},'facet_dates'=>{}}}"
+    http_version: 
+  recorded_at: Tue, 05 Mar 2013 03:07:10 GMT
+recorded_with: VCR 2.4.0

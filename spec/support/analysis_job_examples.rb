@@ -3,8 +3,8 @@ require 'spec_helper'
 
 shared_context "create job with params" do
   before(:each) do
-    @user = FactoryGirl.create(:user)
-    @dataset = FactoryGirl.create(:full_dataset,
+    @user ||= FactoryGirl.create(:user)
+    @dataset ||= FactoryGirl.create(:full_dataset,
                                   { :user => @user,
                                     :working => true,
                                     :entries_count => 10 }.merge(dataset_params))

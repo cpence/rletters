@@ -24,7 +24,7 @@ describe Jobs::Analysis::ExportCitations do
     end
   end
   
-  context "when the format is a string" do
+  context "when the format is a string", :vcr => { :cassette_name => 'solr_single' } do
     it "works anyway" do
       expect {
         Jobs::Analysis::ExportCitations.new(:user_id => @user.to_param,
@@ -34,7 +34,7 @@ describe Jobs::Analysis::ExportCitations do
     end
   end
   
-  context "when all parameters are valid" do
+  context "when all parameters are valid", :vcr => { :cassette_name => 'solr_single' } do
     before(:each) do
       Jobs::Analysis::ExportCitations.new(:user_id => @user.to_param,
                                           :dataset_id => @dataset.to_param,
