@@ -156,7 +156,7 @@ describe DatasetsController do
   end
 
   describe '#add' do
-    context 'when an invalid document is passed', :vcr => { :cassette_name => 'solr_fail',  :serialize_with => :syck } do
+    context 'when an invalid document is passed', :vcr => { :cassette_name => 'solr_fail' } do
       it 'raises an exception' do
         expect {
           get :add, :dataset_id => @dataset.to_param, :shasum => 'fail'
