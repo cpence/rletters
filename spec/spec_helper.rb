@@ -2,8 +2,10 @@
 require 'rubygems'
 
 # Coverage setup
-require 'coveralls'
-Coveralls.wear!
+if ENV['TRAVIS']
+  require 'coveralls'
+  Coveralls.wear!
+end
 
 # Standard setup for RSpec
 ENV["RAILS_ENV"] ||= 'test'

@@ -40,7 +40,7 @@ describe Jobs::Analysis::SingleTermVectors do
     end
     
     it 'creates good YAML' do
-      tv = YAML.safe_load_file(@dataset.analysis_tasks[0].result_file.filename)
+      tv = YAML.load_file(@dataset.analysis_tasks[0].result_file.filename).with_indifferent_access
       tv.should be_a(Hash)
     end
   end

@@ -4,7 +4,7 @@
 .verticalpad
 
 %div.center
-  - dates = YAML.safe_load_file(@task.result_file.filename)
+  - dates = YAML.load_file(@task.result_file.filename)
   %div.plot_dates_graph= dates.to_s
   
   .verticalpad

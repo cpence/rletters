@@ -1,4 +1,4 @@
-- term_vectors = YAML.safe_load_file(@task.result_file.filename)
+- term_vectors = YAML.load_file(@task.result_file.filename).with_indifferent_access
 
 %h1== #{@dataset.name}
 %h2== Term frequency information

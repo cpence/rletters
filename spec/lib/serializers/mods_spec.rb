@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
+require 'nokogiri'
 
 describe Serializers::MODS do
   

@@ -1,4 +1,4 @@
-- dates = YAML.safe_load_file(@task.result_file.filename)
+- dates = YAML.load_file(@task.result_file.filename)
 = CSV.generate do |csv|
   - csv << [ 'Year', 'Number of Documents' ]
   - dates.each do |d|
