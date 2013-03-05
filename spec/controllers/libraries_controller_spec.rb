@@ -124,17 +124,15 @@ describe LibrariesController do
   end
   
   describe '#query' do
-    context 'when no libraries are returned' do
+    context 'when no libraries are returned', :vcr => { :cassette_name => 'libraries_query_empty' } do
       it 'assigns no libraries' do
-        stub_request(:any, /worldcatlibraries.org\/registry\/lookup.*/).to_return(File.new(Rails.root.join('spec', 'support', 'webmock', 'worldcat_response_empty.txt')))
         get :query
         assigns(:libraries).should have(0).items
       end
     end
     
-    context 'when libraries are returned' do
+    context 'when libraries are returned', :vcr => { :cassette_name => 'libraries_query_notredame' } do
       it 'assigns the libraries' do
-        stub_request(:any, /worldcatlibraries.org\/registry\/lookup.*/).to_return(File.new(Rails.root.join('spec', 'support', 'webmock', 'worldcat_response_nd.txt')))
         get :query
         assigns(:libraries).should have(1).item
       end
