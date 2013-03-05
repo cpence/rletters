@@ -6,8 +6,7 @@
   %p= document.authors
 %p
   - unless document.journal.blank?
-    %em><
-      = "#{document.journal}, "
+    %em= "#{document.journal}, "
   - unless document.volume.blank?
     = t(:'search.cite.volume_abbr', :volume => document.volume) + ','
   - unless document.number.blank?

@@ -15,7 +15,7 @@
     - @dataset.analysis_tasks.finished.each do |task|
       %li
         - if task.job_class.download?
-        = link_to t('.task_header', :name => task.name), { :controller => 'datasets', :action => 'task_download', :id => @dataset.to_param, :task_id => task.to_param }, 'rel' => 'external'
+          = link_to t('.task_header', :name => task.name), { :controller => 'datasets', :action => 'task_download', :id => @dataset.to_param, :task_id => task.to_param }, 'rel' => 'external'
         - else
           = link_to t('.task_header', :name => task.name), { :controller => 'datasets', :action => 'task_view', :id => @dataset.to_param, :task_id => task.to_param, :view => 'results' }
         = link_to t('.delete_task'), { :controller => 'datasets', :action => 'task_destroy', :id => @dataset.to_param, :task_id => task.to_param }
