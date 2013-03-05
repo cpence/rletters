@@ -23,6 +23,8 @@ end
 
 # VCR setup
 require 'vcr'
+require 'webmock/rspec'
+
 VCR.configure do |c|
   c.configure_rspec_metadata!
   c.cassette_library_dir = 'spec/cassettes'
@@ -35,7 +37,6 @@ ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'rspec/autorun'
-require 'webmock/rspec'
   
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
