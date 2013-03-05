@@ -62,6 +62,13 @@ describe Document do
         expect { Document.find("fail") }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
+
+    context "when Solr times out" do
+      it "raises an exception" do
+        stub_request(:any, /127\.0\.0\.1/).to_timeout
+        expect { Document.find("fail") }.to raise_error(ActiveRecord::StatementInvalid)
+      end
+    end
   end
   
   describe ".find_with_fulltext" do
@@ -80,6 +87,13 @@ describe Document do
         expect { Document.find_with_fulltext("fail") }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
+    
+    context "when Solr times out" do
+      it "raises an exception" do
+        stub_request(:any, /127\.0\.0\.1/).to_timeout
+        expect { Document.find_with_fulltext("fail") }.to raise_error(ActiveRecord::StatementInvalid)
+      end
+    end
   end
   
   describe ".find_all_by_solr_query" do
@@ -96,6 +110,13 @@ describe Document do
     context "when no documents are returned", :vcr => { :cassette_name => 'solr_fail' } do
       it "returns an empty array" do
         Document.find_all_by_solr_query({ :q => 'shasum:fail', :qt => "precise" }).should have(0).items
+      end
+    end
+    
+    context "when Solr times out" do
+      it "returns an empty array" do
+        stub_request(:any, /127\.0\.0\.1/).to_timeout
+        expect { Document.find_all_by_solr_query({ :q => 'shasum:fail', :qt => "precise" }) }.to raise_error(ActiveRecord::StatementInvalid)
       end
     end
   end

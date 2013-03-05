@@ -68,10 +68,6 @@ RSpec.configure do |config|
   end
   
   config.before(:each) do
-    # Disable net connections outbound
-    WebMock.enable!
-    WebMock.disable_net_connect!(:allow_localhost => true)
-    
     # Reset the locale and timezone to defaults on each new test
     I18n.locale = I18n.default_locale
     Time.zone = 'Eastern Time (US & Canada)'
