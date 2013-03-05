@@ -50,8 +50,8 @@ group :assets do
   
   gem 'coffee-rails'
   
-  gem 'jquery-rails', '= 2.1.3'
-  gem 'jquery_mobile_rails', '= 1.2.0'
+  gem 'jquery-rails', '= 2.2.1'
+  gem 'jquery_mobile_rails', '= 1.3.0'
 
   unless ENV['TRAVIS']
     gem 'uglifier'
