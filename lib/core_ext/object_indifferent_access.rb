@@ -8,13 +8,10 @@ class Object
   #
   # @return [Object] object with indifferent hashes
   def with_indifferent_access
-    case self
-    when Hash
-      return self.with_indifferent_access
-    when Array
-      return self.with_indifferent_access
+    if self.duplicable?
+      return self.dup
+    else
+      return self
     end
-
-    self.dup
   end
 end
