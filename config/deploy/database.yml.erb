@@ -4,7 +4,7 @@ base: &base
   encoding: unicode
   pool: 5
   min_messages: WARNING
-  username: <%= Capistrano::CLI.password_prompt("Enter PostgreSQL username: ") %>
+  username: <%= Capistrano::CLI.ui.ask("Enter PostgreSQL username: ") %>
   password: <%= Capistrano::CLI.password_prompt("Enter PostgreSQL password: ") %>
 
 development:
