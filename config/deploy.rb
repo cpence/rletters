@@ -20,6 +20,7 @@ after "deploy:start", "delayed_job:start"
 require 'capistrano_database'
 require 'downloads_dir'
 require 'secret_token_replacer'
+require 'seed'
 
 # Standard configuration options for fetching RLetters from GitHub
 set :scm, :git

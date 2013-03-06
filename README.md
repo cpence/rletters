@@ -94,6 +94,8 @@ See our detailed [installation and deployment](https://github.com/cpence/rletter
         $EDITOR /etc/apache2/apache2.conf
         # Add appropriate stanza for DEPLOYMENT_PATH
         exit
+    cap deploy:migrate
+    cap deploy:seed
     cap deploy:start
     # Open up a web browser to http://YOUR_SITE/admin/
     # Log in with admin@example.com / password
