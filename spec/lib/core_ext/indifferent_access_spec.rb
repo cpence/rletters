@@ -29,9 +29,15 @@ end
 describe Object do
   
   describe '#with_indifferent_access' do
-    context 'when self is not an Array or Hash' do
+    context 'when self is not duplicable' do
       it "calls successfully but doesn't change anything" do
         1.with_indifferent_access.should eq(1)
+      end
+    end
+    
+    context 'when self is duplicable' do
+      it "calls successfully but doesn't change anything" do
+        'asdf'.with_indifferent_access.should eq('asdf')
       end
     end
   end
