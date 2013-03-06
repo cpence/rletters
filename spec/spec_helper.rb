@@ -8,6 +8,7 @@ if ENV['TRAVIS']
 
   SimpleCov.formatter = Coveralls::SimpleCov::Formatter
   SimpleCov.start do
+    add_filter '/app/admin/'
     add_filter '/spec/'
     add_filter '/config/'
     add_filter '/db/'
