@@ -1,12 +1,11 @@
 
 base: &base
-  adapter: mysql2
-  encoding: utf8
-  reconnect: false
+  adapter: postgresql
+  encoding: unicode
   pool: 5
-  username: root
-  password: <%= Capistrano::CLI.password_prompt("Enter MySQL database root password: ") %>
-  socket: /var/run/mysqld/mysqld.sock
+  min_messages: WARNING
+  username: <%= Capistrano::CLI.password_prompt("Enter PostgreSQL username: ") %>
+  password: <%= Capistrano::CLI.password_prompt("Enter PostgreSQL password: ") %>
 
 development:
   database: <%= application %>_development
@@ -16,9 +15,7 @@ production:
   database: <%= application %>_production
   <<: *base
 
-test: &test
-  adapter: sqlite3
-  database: ":memory:"
-  verbosity: quiet
-  timeout: 5000
+test:
+  database: <%= application %>_test
+  <<: *base
 
