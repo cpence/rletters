@@ -48,6 +48,7 @@ gem 'haml-rails'
 gem 'kramdown'
 
 group :assets do
+  gem 'coffee-rails'
   gem 'sass-rails'
   
   gem 'jquery-rails', '= 2.2.1'
