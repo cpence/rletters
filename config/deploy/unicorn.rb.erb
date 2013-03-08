@@ -8,6 +8,6 @@
 
 listen 2007 # by default Unicorn listens on port 8080
 worker_processes 2 # this should be >= nr_cpus
-pid "<%= deploy_to %>/tmp/pids/unicorn.pid"
-stderr_path "<%= deploy_to %>/log/unicorn.log"
-stdout_path "<%= deploy_to %>/log/unicorn.log"
+pid "<%= deploy_to %>/current/tmp/pids/unicorn.pid"
+stderr_path "<%= deploy_to %>/current/log/unicorn.log"
+stdout_path "<%= deploy_to %>/current/log/unicorn.log"
