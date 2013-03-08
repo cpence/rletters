@@ -35,4 +35,5 @@ function createPlotDatesGraph() {
   graphContainer.trigger('updatelayout');
 }
 
-$('div[data-role=page]').live('pageshow', function (event, data) { createPlotDatesGraph(); });
+$('body').on('pageshow', 'div[data-role=page]',
+  function (event, data) { createPlotDatesGraph(); });

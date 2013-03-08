@@ -24,4 +24,5 @@ function checkLibraryList() {
   });
 }
 
-$('div[data-role=page]').live('pageshow', function (event, ui) { checkLibraryList(); });
+$('body').on('pageshow', 'div[data-role=page]',
+  function (event, ui) { checkLibraryList(); });
