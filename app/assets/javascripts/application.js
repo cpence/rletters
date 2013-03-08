@@ -9,8 +9,13 @@
 //= require word_frequency
 
 // Configure defaults for jQuery Mobile on all pages
-//$(document).bind("mobileinit", function(){
-//});
+$(document).bind("mobileinit", function(){
+  bindDatasetsEvents();
+  bindPlotDatesEvents();
+  bindSearchEvents();
+  bindUserEvents();
+  bindWordFrequencyEvents();
+});
 
 // Load up the Google Visualization API
 google.load('visualization', '1.0', {'packages':['corechart']});

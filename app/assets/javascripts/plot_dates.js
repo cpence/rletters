@@ -35,5 +35,7 @@ function createPlotDatesGraph() {
   graphContainer.trigger('updatelayout');
 }
 
-$('body').on('pageshow', 'div[data-role=page]',
-  function (event, data) { createPlotDatesGraph(); });
+function bindPlotDatesEvents() {
+  $('body').on('pageshow', 'div[data-role=page]',
+    function (event, data) { createPlotDatesGraph(); });
+}

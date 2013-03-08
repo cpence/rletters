@@ -51,12 +51,14 @@ function updateTaskList() {
     });
 }
 
-$('body').on('pageshow', 'div[data-role=page]',
-  function (event, data) { updateDatasetList(); });
-$('body').on('pageshow', 'div[data-role=page]',
-  function (event, data) { updateTaskList(); });
+function bindDatasetsEvents() {
+  $('body').on('pageshow', 'div[data-role=page]',
+    function (event, data) { updateDatasetList(); });
+  $('body').on('pageshow', 'div[data-role=page]',
+    function (event, data) { updateTaskList(); });
 
-$('body').on('pagehide', 'div[data-role=page]',
-  function (event, data) { killDatasetTimer(); });
-$('body').on('pagehide', 'div[data-role=page]',
-  function (event, data) { killTaskTimer(); });
+  $('body').on('pagehide', 'div[data-role=page]',
+    function (event, data) { killDatasetTimer(); });
+  $('body').on('pagehide', 'div[data-role=page]',
+    function (event, data) { killTaskTimer(); });
+}
