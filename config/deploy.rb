@@ -18,6 +18,7 @@ after "deploy:start", "delayed_job:start"
 
 # Local recipes
 require 'capistrano_database'
+require 'unicorn_config'
 require 'downloads_dir'
 require 'secret_token_replacer'
 require 'seed'
