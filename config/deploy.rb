@@ -22,6 +22,8 @@ require 'unicorn_config'
 require 'downloads_dir'
 require 'secret_token_replacer'
 require 'seed'
+require 'passenger'
+require 'unicorn_restart'
 
 # Standard configuration options for fetching RLetters from GitHub
 set :scm, :git
@@ -34,4 +36,3 @@ ssh_options[:forward_agent] = true
 
 # Your local application configuration
 require 'deploy_config'
-require 'passenger'
