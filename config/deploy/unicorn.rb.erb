@@ -8,6 +8,19 @@
 
 listen 2007 # by default Unicorn listens on port 8080
 worker_processes 2 # this should be >= nr_cpus
+
 pid "<%= deploy_to %>/current/tmp/pids/unicorn.pid"
 stderr_path "<%= deploy_to %>/current/log/unicorn.log"
 stdout_path "<%= deploy_to %>/current/log/unicorn.log"
+
+preload_app true
+GC.respond_to?(:copy_on_write_friendly=) and
+  GC.copy_on_write_friendly = true
+
+before_fork do |server, worker|
+  ActiveRecord::Base.connection.disconnect!
+end
+
+after_fork do |server, worker|
+  ActiveRecord::Base.establish_connection
+end
