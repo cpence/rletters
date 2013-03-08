@@ -3,10 +3,10 @@
 
 function createCollapsibleList() {
   var leftColumn = $.mobile.activePage.find('div.leftcolumn');
-  var toolsList = $.mobile.activePage.find('ul.toolslist')
+  var toolsList = $.mobile.activePage.find('ul.toolslist');
   var facetList = $.mobile.activePage.find('ul.facetlist');
   
-  if (leftColumn.length == 0) {
+  if (leftColumn.length === 0) {
     return;
   }
   
@@ -30,13 +30,14 @@ function destroyCollapsibleList() {
   var toolsCollapse = $.mobile.activePage.find('div.toolscollapse');
   var facetCollapse = $.mobile.activePage.find('div.facetcollapse');
   
+  var parent;
   if (toolsCollapse.length) {
-    var parent = toolsCollapse.parent();
+    parent = toolsCollapse.parent();
     toolsCollapse.remove();
     parent.trigger('updatelayout');
   }
   if (facetCollapse.length) {
-    var parent = facetCollapse.parent();
+    parent = facetCollapse.parent();
     facetCollapse.remove();
     parent.trigger('updatelayout');
   }
@@ -47,7 +48,7 @@ function checkCollapsibleList() {
   var toolsCollapse = $.mobile.activePage.find('div.toolscollapse');
   var facetCollapse = $.mobile.activePage.find('div.facetcollapse');
   
-  if (width <= 768 && (facetCollapse.length == 0 && toolsCollapse.length == 0))
+  if (width <= 768 && (facetCollapse.length === 0 && toolsCollapse.length === 0))
     createCollapsibleList();
   else if (width > 768)
     destroyCollapsibleList();
@@ -57,6 +58,6 @@ function bindSearchEvents() {
   // We need to look for page resizes on both window-resize, and on any time
   // a new page is shown
   $(window).resize( function() { checkCollapsibleList(); });
-  $('body').on('pageshow', 'div[data-role=page]',
+  $(document).on('pageshow', 'div[data-role=page]',
     function (event, ui) { checkCollapsibleList(); });
 }

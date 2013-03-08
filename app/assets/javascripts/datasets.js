@@ -3,10 +3,10 @@
 
 function killDatasetTimer() {
   var datasetList = $.mobile.activePage.find('div.dataset_list');
-  if (datasetList.length == 0)
+  if (datasetList.length === 0)
     return;
   
-  timer = datasetList.data('timeout')
+  timer = datasetList.data('timeout');
   if (typeof(timer) != 'undefined') {
     window.clearTimeout(timer);
   }
@@ -14,7 +14,7 @@ function killDatasetTimer() {
 
 function updateDatasetList() {
   var datasetList = $.mobile.activePage.find('div.dataset_list');
-  if (datasetList.length == 0)
+  if (datasetList.length === 0)
     return;
   
   var ajax_url = datasetList.attr('data-fetch-url');
@@ -28,10 +28,10 @@ function updateDatasetList() {
 
 function killTaskTimer() {
   var datasetList = $.mobile.activePage.find('div.dataset_list');
-  if (datasetList.length == 0)
+  if (datasetList.length === 0)
     return;
   
-  timer = datasetList.data('timeout')
+  timer = datasetList.data('timeout');
   if (typeof(timer) != 'undefined') {
     window.clearTimeout(timer);
   }
@@ -39,7 +39,7 @@ function killTaskTimer() {
 
 function updateTaskList() {
   var taskList = $.mobile.activePage.find('div.dataset_task_list');
-  if (taskList.length == 0)
+  if (taskList.length === 0)
     return;
   
   var ajax_url = taskList.attr('data-fetch-url');
@@ -52,13 +52,13 @@ function updateTaskList() {
 }
 
 function bindDatasetsEvents() {
-  $('body').on('pageshow', 'div[data-role=page]',
+  $(document).on('pageshow', 'div[data-role=page]',
     function (event, data) { updateDatasetList(); });
-  $('body').on('pageshow', 'div[data-role=page]',
+  $(document).on('pageshow', 'div[data-role=page]',
     function (event, data) { updateTaskList(); });
 
-  $('body').on('pagehide', 'div[data-role=page]',
+  $(document).on('pagehide', 'div[data-role=page]',
     function (event, data) { killDatasetTimer(); });
-  $('body').on('pagehide', 'div[data-role=page]',
+  $(document).on('pagehide', 'div[data-role=page]',
     function (event, data) { killTaskTimer(); });
 }

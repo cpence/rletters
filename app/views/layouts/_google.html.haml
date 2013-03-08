@@ -3,7 +3,6 @@
   _gaq.push(['_setAccount', '#{Settings.google_analytics_key}']);
   _gaq.push(['_trackPageview']);
   
-  // Load the GA object
   (function() {
     var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
     ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
@@ -11,7 +10,7 @@
   })();
   
   // Add a page view on every jQM page load
-  $( document ).bind( "pageload", function(event, data){
+  $(document).on("pageload", function(event, data){
     url = '/';
     if (data.dataUrl) { url = data.dataUrl; }
     _gaq.push(['_trackPageview', url]);

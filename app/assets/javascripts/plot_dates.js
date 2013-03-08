@@ -3,7 +3,7 @@
 
 function createPlotDatesGraph() {
   var graphContainer = $.mobile.activePage.find('div.plot_dates_graph');
-  if (graphContainer.length == 0)
+  if (graphContainer.length === 0)
     return;
   
   graphContainer.show();
@@ -27,7 +27,8 @@ function createPlotDatesGraph() {
 
   var options = { width: w, height: h,
                   legend: { position: 'none' },
-                  hAxis: { format: '####', }, pointSize: 3 };
+                  hAxis: { format: '####' },
+                  pointSize: 3 };
       
   var chart = new google.visualization.LineChart(graphContainer[0]);
   chart.draw(data, options);
@@ -36,6 +37,6 @@ function createPlotDatesGraph() {
 }
 
 function bindPlotDatesEvents() {
-  $('body').on('pageshow', 'div[data-role=page]',
+  $(document).on('pageshow', 'div[data-role=page]',
     function (event, data) { createPlotDatesGraph(); });
 }
