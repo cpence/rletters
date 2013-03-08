@@ -17,9 +17,9 @@ Capistrano::Configuration.instance.load do
     task :start do ; end
     task :stop do ; end
     task :restart, :roles => :app, :except => { :no_release => true } do
-      if remote_file_exists?("#{shared_path}/pids/unicorn.pid")
-        run "cd #{shared_path}/pids && kill -s USR2 `cat unicorn.pid`"
-      end
+      #if remote_file_exists?("#{shared_path}/pids/unicorn.pid")
+      #  run "cd #{shared_path}/pids && kill -s USR2 `cat unicorn.pid`"
+      #end
     end
   end
 
