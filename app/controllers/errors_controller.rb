@@ -11,22 +11,27 @@ class ErrorsController < ApplicationController
   # @api public
   # @return [undefined]
   def not_found
-    render :template => 'errors/404', :layout => false
+    render :template => 'errors/404', :layout => false, :formats => [ :html ], :status => 404
   end
 
   # Render a 422 error page
   #
+  # This isn't tested, as I can't figure out a way to programmatically generate
+  # a 422 error in an RSpec request spec.
+  #
   # @api public
   # @return [undefined]
+  # :nocov:
   def unprocessable
-    render :template => 'errors/422', :layout => false
+    render :template => 'errors/422', :layout => false, :formats => [ :html ], :status => 422
   end
+  # :nocov:
 
   # Render a 500 error page
   #
   # @api public
   # @return [undefined]
   def internal_error
-    render :template => 'errors/500', :layout => false
+    render :template => 'errors/500', :layout => false, :formats => [ :html ], :status => 500
   end
 end
