@@ -7,12 +7,13 @@ branches:
   only:
     - master
 
+before_install: gem update --system
+
 bundler_args: --without production development
 
 before_script:
   - cp config/database.yml.travis config/database.yml
   - psql -c 'create database rletters_test;' -U postgres
-  - gem update --system
   - bundle exec rake db:migrate
   - mkdir downloads
 
