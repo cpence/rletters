@@ -21,7 +21,3 @@ before_script:
 
 script:
   - bundle exec rake spec
-
-matrix:
-  allow_failures:
-    - rvm: 2.0
