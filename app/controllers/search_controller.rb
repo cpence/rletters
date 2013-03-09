@@ -79,7 +79,8 @@ class SearchController < ApplicationController
         return
       }
       format.any {
-        render :template => 'errors/404', :layout => false, :formats => [ :html ], :status => 406
+        render :template => 'errors/404', :layout => false,
+          :formats => [ :html ], :status => 406
         return
       }
     end

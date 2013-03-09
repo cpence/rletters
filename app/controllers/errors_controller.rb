@@ -11,7 +11,8 @@ class ErrorsController < ApplicationController
   # @api public
   # @return [undefined]
   def not_found
-    render :template => 'errors/404', :layout => false, :formats => [ :html ], :status => 404
+    render :template => 'errors/404', :layout => false,
+      :formats => [ :html ], :status => 404
   end
 
   # Render a 422 error page
@@ -23,7 +24,8 @@ class ErrorsController < ApplicationController
   # @return [undefined]
   # :nocov:
   def unprocessable
-    render :template => 'errors/422', :layout => false, :formats => [ :html ], :status => 422
+    render :template => 'errors/422', :layout => false,
+      :formats => [ :html ], :status => 422
   end
   # :nocov:
 
@@ -32,6 +34,7 @@ class ErrorsController < ApplicationController
   # @api public
   # @return [undefined]
   def internal_error
-    render :template => 'errors/500', :layout => false, :formats => [ :html ], :status => 500
+    render :template => 'errors/500', :layout => false,
+      :formats => [ :html ], :status => 500
   end
 end
