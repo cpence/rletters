@@ -30,20 +30,13 @@ describe Download do
       @page = FactoryGirl.create(:markdown_page)
     end
     
-    context 'when there is no translation specified' do
-      it 'returns the plain name' do
-        @page.friendly_name.should eq(@page.name)
-      end
-    end
-    
-    context 'when there is a translation specified' do
-      before(:each) do
-        I18n.backend.store_translations :en, :markdown_pages => { @page.name.to_sym => 'The Friendly Name' }
-      end
+    it 'returns the plain name with no translation, friendly name with translation' do
+      # There's no way to *delete* a translation from the I18n backend, so
+      # we have to do this in one test to make sure they're in order
+      @page.friendly_name.should eq(@page.name)
       
-      it 'returns the translated friendly name' do
-        @page.friendly_name.should eq('The Friendly Name')
-      end
+      I18n.backend.store_translations :en, :markdown_pages => { @page.name.to_sym => 'The Friendly Name' }
+      @page.friendly_name.should eq('The Friendly Name')      
     end
   end
   
