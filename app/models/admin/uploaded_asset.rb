@@ -7,11 +7,15 @@
 # administrator.
 #
 # @!attribute name
+#   @raise [RecordInvalid] if the name is missing (validates :presence)
 #   @return [String] Name of this asset (an internal key)
 # @!attribute file
 #   @return [Paperclip::Attachment] The asset itself
 class UploadedAsset < ActiveRecord::Base
+  validates :name, :presence => true
+
   attr_accessible :name, :file
+  
   has_attached_file :file, {
     # This isn't meant to enforce any kind of secrecy, it just makes for URLs
     # that are easier to read, don't expose internal server details, and should
@@ -22,7 +26,9 @@ class UploadedAsset < ActiveRecord::Base
   
   # @return [String] Friendly name of this asset (looked up in locale)
   def friendly_name
-    I18n.t("uploaded_assets.#{name}")
+    ret = I18n.t("uploaded_assets.#{name}", :default => '')
+    return name if ret == ''
+    ret
   end
   
   # @param [String] name The asset to look up

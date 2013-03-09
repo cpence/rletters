@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe Download do
+describe MarkdownPage do
 
   describe '#valid?' do
     context 'when no name spcified' do

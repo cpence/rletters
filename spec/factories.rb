@@ -119,7 +119,12 @@ FactoryGirl.define do
     name 'test_page'
     content '# Header'
   end
-
+  
+  factory :uploaded_asset do
+    name 'test_asset'
+    file { File.new(Rails.root.join('spec', 'spec_helper.rb')) }
+  end
+  
   factory :user do
     name "John Doe"
     sequence(:email) {|n| "person#{n}@example.com" }
