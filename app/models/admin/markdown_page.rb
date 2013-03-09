@@ -12,15 +12,20 @@
 # time of the call will be available (such as the +Settings+ hash).
 #
 # @!attribute name
+#   @raise [RecordInvalid] if the name is missing (validates :presence)
 #   @return [String] Name of this page (an internal ID)
 # @!attribute content
 #   @return [String] Markdown content for this page
 class MarkdownPage < ActiveRecord::Base
+  validates :name, :presence => true
+
   attr_accessible :name, :content
   
   # @return [String] Friendly name of this page (looked up in locale)
   def friendly_name
-    I18n.t("markdown_pages.#{name}")
+    ret = I18n.t("markdown_pages.#{name}", :default => '')
+    return name if ret == ''
+    ret
   end
   
   # Render the Markdown page for a particular name.  This will do nothing if
@@ -33,7 +38,7 @@ class MarkdownPage < ActiveRecord::Base
   #   <%= MarkdownPage.render('faq') %>
   def self.render(name)
     page = MarkdownPage.find_by_name(name) rescue nil
-    return unless page
+    return '' unless page
     
     Kramdown::Document.new(ERB.new(page.content).result(binding)).to_html.html_safe
   end

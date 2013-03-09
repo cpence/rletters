@@ -114,6 +114,11 @@ FactoryGirl.define do
     sequence(:url) {|n| "http://sfx.hul.harvard#{n}.edu/sfx_local?" }
     user
   end
+  
+  factory :markdown_page do
+    name 'test_page'
+    content '# Header'
+  end
 
   factory :user do
     name "John Doe"
