@@ -52,10 +52,7 @@ module Solr
         @value = parts[1]
         
         # Strip quotes from the value if present
-        value_chars = @value.scan(/./mu)
-        if value_chars[0] = '"' && value_chars[-1] == '"'
-          @value = value_chars[1..-2].join
-        end
+        @value = @value[1..-2] if @value[0] == '"' && @value[-1] == '"'
                 
         # Format the label according to the field type -- for now, the only
         # argument type is year, so raise an error otherwise
@@ -73,10 +70,7 @@ module Solr
       @value = options[:value]
       
       # Strip quotes from the value if present
-      value_chars = @value.scan(/./mu)
-      if value_chars[0] = '"' && value_chars[-1] == '"'
-        @value = value_chars[1..-2].join
-      end
+      @value = @value[1..-2] if @value[0] == '"' && @value[-1] == '"'
       
       raise ArgumentError unless options[:hits]
       @hits = Integer(options[:hits])
@@ -119,8 +113,7 @@ module Solr
     
     def format_year_label
       # We need to parse the decade out of "[X TO Y]"
-      value_chars = @value.scan(/./mu)
-      value_without_brackets = value_chars[1..-2].join
+      value_without_brackets = @value[1..-2]
       
       parts = value_without_brackets.split
       raise ArgumentError unless parts.count == 3

@@ -5,10 +5,10 @@ RSpec::Matchers.define :be_lucene_query do |expected|
   end
   
   def query_to_array(str)
-    unless str.scan(/./mu)[0] == '('
-      return [ str.scan(/./mu)[1..-2].join ]
+    unless str[0] == '('
+      return [ str[1..-2] ]
     end
-    str.scan(/./mu)[1..-2].join.split(' OR ').map { |n| n.scan(/./mu)[1..-2].join }
+    str[1..-2].split(' OR ').map { |n| n[1..-2] }
   end
   
   failure_message_for_should do |actual|

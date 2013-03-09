@@ -37,7 +37,7 @@ module NameHelpers
     first_names.map! do |n|
       if n == n.upcase
         # All uppercase, so assume it's initials
-        n.scan(/./mu)
+        n.chars.to_a
       else
         n
       end
@@ -94,9 +94,8 @@ module NameHelpers
         first_name_forms << [ "#{f}*" ]
       else
         # A name, search it as itself and as an initial, but without
-        # a wildcard.  Be careful here on how to split on characters, for
-        # compatibility with Ruby 1.8!
-        first_name_forms << [ f, f.scan(/./mu)[0] ]
+        # a wildcard.
+        first_name_forms << [ f, f[0] ]
       end
     end
     
