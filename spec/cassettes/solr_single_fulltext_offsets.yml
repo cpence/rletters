@@ -1,0 +1,38 @@
+--- 
+http_interactions: 
+- request: 
+    method: get
+    uri: http://localhost:8983/select?q=shasum:00972c5123877961056b21aea4177d0dc69c7318&qt=fulltext&wt=ruby
+    body: 
+      encoding: US-ASCII
+      string: ""
+    headers: {}
+
+  response: 
+    status: 
+      code: 200
+      message: OK
+    headers: 
+      Server: 
+      - Winstone Servlet Engine v0.9.10
+      Last-Modified: 
+      - Mon, 11 Mar 2013 22:15:34 GMT
+      Etag: 
+      - "\"YmVlMzM2ZjY5YzgwMDAwMFNvbHI=\""
+      Content-Type: 
+      - text/plain;charset=UTF-8
+      Connection: 
+      - Close
+      Date: 
+      - Mon, 11 Mar 2013 22:23:51 GMT
+      X-Powered-By: 
+      - Servlet/2.5 (Winstone/0.9.10)
+    body: 
+      encoding: ASCII-8BIT
+      string: "{'responseHeader'=>{'status'=>0,'QTime'=>9,'params'=>{'wt'=>'ruby','q'=>'shasum:00972c5123877961056b21aea4177d0dc69c7318','qt'=>'fulltext'}},'response'=>{'numFound'=>1,'start'=>0,'docs'=>[{'license'=>'\xC2\xA9 Blackwell Verlag GmbH','shasum'=>'00972c5123877961056b21aea4177d0dc69c7318','doi'=>'10.1111/j.1439-0310.2008.01576.x','authors'=>'Carlos A. Botero, Andrew E. Mudge, Amanda M. Koltz, Wesley M. Hochachka, Sandra L. Vehrencamp','title'=>'How Reliable are the Methods for Estimating Repertoire Size?','journal'=>'Ethology','year'=>'2008','volume'=>'114','pages'=>'1227-1238','fulltext'=>'Ethology\n\
+        How Reliable are the Methods for Estimating Repertoire Size?\n\
+        Carlos A. Botero*,f,$, Andrew E. Mudgef, Amanda M. Koltz\xC2\xA7, Wesley M. Hochachkaf & Sandra L. Vehrencampf,-\n\
+        * Center for Ecological '}]},'termVectors'=>['doc-4',['uniqueKey','00972c5123877961056b21aea4177d0dc69c7318','fulltext',['a',['tf',1,'offsets',['start',77,'end',78],'positions',['position',11],'df',246,'tf-idf',0.0040650406504065045],'amanda',['tf',1,'offsets',['start',111,'end',117],'positions',['position',17],'df',3,'tf-idf',0.3333333333333333],'andrew',['tf',1,'offsets',['start',93,'end',99],'positions',['position',14],'df',15,'tf-idf',0.06666666666666667],'are',['tf',1,'offsets',['start',22,'end',25],'positions',['position',3],'df',18,'tf-idf',0.05555555555555555],'botero',['tf',1,'offsets',['start',80,'end',86],'positions',['position',12],'df',1,'tf-idf',1.0],'carlos',['tf',1,'offsets',['start',70,'end',76],'positions',['position',10],'df',5,'tf-idf',0.2],'center',['tf',1,'offsets',['start',178,'end',184],'positions',['position',26],'df',13,'tf-idf',0.07692307692307693],'e',['tf',1,'offsets',['start',100,'end',101],'positions',['position',15],'df',46,'tf-idf',0.021739130434782608],'ecological',['tf',1,'offsets',['start',189,'end',199],'positions',['position',28],'df',9,'tf-idf',0.1111111111111111],'estimating',['tf',1,'offsets',['start',42,'end',52],'positions',['position',7],'df',1,'tf-idf',1.0],'ethology',['tf',1,'offsets',['start',0,'end',8],'positions',['position',0],'df',579,'tf-idf',0.0017271157167530224],'f',['tf',1,'offsets',['start',88,'end',89],'positions',['position',13],'df',74,'tf-idf',0.013513513513513514],'for',['tf',2,'offsets',['start',38,'end',41,'start',185,'end',188],'positions',['position',6,'position',27],'df',92,'tf-idf',0.021739130434782608],'hochachkaf',['tf',1,'offsets',['start',139,'end',149],'positions',['position',22],'df',1,'tf-idf',1.0],'how',['tf',1,'offsets',['start',9,'end',12],'positions',['position',1],'df',10,'tf-idf',0.1],'koltz',['tf',1,'offsets',['start',121,'end',126],'positions',['position',19],'df',1,'tf-idf',1.0],'l',['tf',1,'offsets',['start',159,'end',160],'positions',['position',24],'df',68,'tf-idf',0.014705882352941176],'m',['tf',2,'offsets',['start',118,'end',119,'start',136,'end',137],'positions',['position',18,'position',21],'df',119,'tf-idf',0.01680672268907563],'methods',['tf',1,'offsets',['start',30,'end',37],'positions',['position',5],'df',3,'tf-idf',0.3333333333333333],'mudgef',['tf',1,'offsets',['start',103,'end',109],'positions',['position',16],'df',1,'tf-idf',1.0],'reliable',['tf',1,'offsets',['start',13,'end',21],'positions',['position',2],'df',1,'tf-idf',1.0],'repertoire',['tf',1,'offsets',['start',53,'end',63],'positions',['position',8],'df',2,'tf-idf',0.5],'sandra',['tf',1,'offsets',['start',152,'end',158],'positions',['position',23],'df',1,'tf-idf',1.0],'size',['tf',1,'offsets',['start',64,'end',68],'positions',['position',9],'df',26,'tf-idf',0.038461538461538464],'the',['tf',1,'offsets',['start',26,'end',29],'positions',['position',4],'df',625,'tf-idf',0.0016],'vehrencampf',['tf',1,'offsets',['start',162,'end',173],'positions',['position',25],'df',1,'tf-idf',1.0],'wesley',['tf',1,'offsets',['start',129,'end',135],'positions',['position',20],'df',1,'tf-idf',1.0]]],'uniqueKeyFieldName','shasum']}"
+    http_version: 
+  recorded_at: Mon, 11 Mar 2013 22:23:51 GMT
+recorded_with: VCR 2.4.0
