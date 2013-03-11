@@ -36,7 +36,7 @@ module RLetters
     config.i18n.default_locale = :'en-US'
 
     # Configure the default encoding used in templates.
-    config.encoding = "utf-8"
+    config.encoding = Encoding::UTF_8
     
     # Bounce exceptions to the routing system
     config.exceptions_app = self.routes

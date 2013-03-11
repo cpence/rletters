@@ -295,7 +295,7 @@ class Document
     documents = solr_response["response"]["docs"].map do |doc|
       doc.each do |k, v|
         if v.is_a? String
-          doc[k] = v.force_encoding("UTF-8")
+          doc[k] = v.force_encoding(Encoding::UTF_8)
         end
       end
     end

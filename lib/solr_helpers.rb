@@ -32,7 +32,7 @@ module SolrHelpers
     
     (0...tvec_array.length).step(2) do |i|
       term = tvec_array[i]
-      term.force_encoding("UTF-8")
+      term.force_encoding(Encoding::UTF_8)
       attr_array = tvec_array[i+1]
       hash = {}
       

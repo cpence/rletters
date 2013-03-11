@@ -47,7 +47,7 @@ module Jobs
 
           solr_response['response']['docs'].each do |doc|
             year = doc["year"]
-            year.force_encoding("UTF-8")
+            year.force_encoding(Encoding::UTF_8)
 
             # Support Y-M-D or Y/M/D dates
             parts = year.split(/[-\/]/)
