@@ -60,8 +60,17 @@ case "$1" in
   restart)
     echo -n "Restarting $DESC: "
     cd $RAILS_ROOT
-    [ -e $PID_FILE ] && bundle exec god quit
+    [ -e $PID_FILE ] && bundle exec god terminate
     bundle exec god -c $CONFIG_FILE -P $PID_FILE -l $LOG_FILE
+    RETVAL=$?
+    echo "$NAME."
+    ;;
+  reload)
+    echo -n "Reloading $DESC services: "
+    cd $RAILS_ROOT
+    bundle exec god -c $CONFIG_FILE -P $PID_FILE -l $LOG_FILE restart clockwork
+    bundle exec god -c $CONFIG_FILE -P $PID_FILE -l $LOG_FILE restart delayed_job
+    bundle exec god -c $CONFIG_FILE -P $PID_FILE -l $LOG_FILE restart unicorn
     RETVAL=$?
     echo "$NAME."
     ;;

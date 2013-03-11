@@ -32,9 +32,18 @@ Capistrano::Configuration.instance.load do
       end
     end
     
+    desc "reload God services"
+    task :reload do
+      if remote_file_exists? "/etc/init.d/god-#{application}"
+        run "sudo /etc/init.d/god-#{application} reload"
+      else
+        logger.log Capistrano::Logger::IMPORTANT, "Init script for God not found on server; see config/god/init_script*"
+      end
+    end
+    
     after "deploy:start", "god:start"
     after "deploy:stop", "god:stop"
-    after "deploy:restart", "god:restart"
+    after "deploy:restart", "god:reload"
     
   end
 

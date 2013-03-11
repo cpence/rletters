@@ -58,7 +58,7 @@ stop_god() {
     echo -n "already stopped" && warning
   else
     cd $RAILS_ROOT
-    bundle exec god quit >/dev/null
+    bundle exec god terminate >/dev/null
     retval=$?
   fi
   echo
@@ -68,6 +68,23 @@ stop_god() {
 restart_god() {
   stop_god
   start_god
+}
+
+reload_god() {
+  echo -n $"Reloading $prog services: "
+  retval=0
+  if ! status_god_quiet ; then
+    echo -n "not running" && warning && echo && exit 1
+  fi
+  
+  cd $RAILS_ROOT
+  bundle exec god -c $CONFIG_FILE -P $PID_FILE -l $LOG_FILE restart clockwork
+  bundle exec god -c $CONFIG_FILE -P $PID_FILE -l $LOG_FILE restart delayed_job
+  bundle exec god -c $CONFIG_FILE -P $PID_FILE -l $LOG_FILE restart unicorn
+  retval=$?
+  
+  echo
+  return retval
 }
 
 status_god() {
@@ -88,11 +105,14 @@ case "$1" in
   restart)
     restart_god
     ;;
+  reload)
+    reload_god
+    ;;
   status)
     status_god
     ;;
   *)
-    echo $"Usage: $0 {start|stop|status|restart}"
+    echo $"Usage: $0 {start|stop|status|reload|restart}"
     exit 2
 esac
 
