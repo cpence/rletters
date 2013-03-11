@@ -34,7 +34,9 @@ DESC=god
 
 set -e
 
-GOD_CONFIG=$RAILS_ROOT/config/god/config
+CONFIG_FILE=$RAILS_ROOT/config/god/config
+LOG_FILE=$RAILS_ROOT/log/god.log
+PID_FILE=$RAILS_ROOT/tmp/pids/god.pid
 
 . /lib/lsb/init-functions
 
@@ -44,7 +46,7 @@ case "$1" in
   start)
     echo -n "Starting $DESC: "
     cd $RAILS_ROOT
-    bundle exec god -c $GOD_CONFIG -P $RAILS_ROOT/tmp/pids/god.pid -l $RAILS_ROOT/log/god.log
+    bundle exec god -c $CONFIG_FILE -P $PID_FILE -l $LOG_FILE
     RETVAL=$?
     echo "$NAME."
     ;;
@@ -58,8 +60,8 @@ case "$1" in
   restart)
     echo -n "Restarting $DESC: "
     cd $RAILS_ROOT
-    bundle exec god quit
-    bundle exec god -c $GOD_CONFIG -P $RAILS_ROOT/tmp/pids/god.pid -l $RAILS_ROOT/log/god.log
+    [ -e $PID_FILE ] && bundle exec god quit
+    bundle exec god -c $CONFIG_FILE -P $PID_FILE -l $LOG_FILE
     RETVAL=$?
     echo "$NAME."
     ;;
