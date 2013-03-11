@@ -31,10 +31,11 @@ Capistrano::Configuration.instance.load do
         logger.log Capistrano::Logger::IMPORTANT, "Init script for God not found on server; see config/god/init_script*"
       end
     end
+    
+    after "deploy:start", "god:start"
+    after "deploy:stop", "god:stop"
+    after "deploy:restart", "god:restart"
+    
   end
 
 end
-
-after "deploy:start", "god:start"
-after "deploy:stop", "god:stop"
-after "deploy:restart", "god:restart"
