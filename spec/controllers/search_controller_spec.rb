@@ -83,16 +83,42 @@ describe SearchController do
     end
 
     context 'with offset and limit parameters' do
-      before(:each) do
+      it 'successfully parses those parameters' do
         default_sq = { :q => "*:*", :qt => "precise" }
         options = { :sort => "year_sort desc", :offset => 20, :limit => 20 }
         Document.should_receive(:find_all_by_solr_query).with(default_sq, options).and_return([])
-
+        
         get :index, { :page => "1", :per_page => "20" }
+
+        assigns(:documents).should have(0).items
+      end
+      
+      it "doesn't throw an exception on non-integral page values" do
+        default_sq = { :q => "*:*", :qt => "precise" }
+        options = { :sort => "year_sort desc", :offset => 0, :limit => 20 }
+        Document.should_receive(:find_all_by_solr_query).with(default_sq, options).and_return([])
+        
+        expect {
+          get :index, { :page => "zzyzzy", :per_page => "20" }
+        }.to_not raise_error
       end
 
-      it 'successfully parses those parameters' do
-        assigns(:documents).should have(0).items
+      it "doesn't throw an exception on non-integral per_page values" do
+        default_sq = { :q => "*:*", :qt => "precise" }
+        options = { :sort => "year_sort desc", :offset => 10, :limit => 10 }
+        Document.should_receive(:find_all_by_solr_query).with(default_sq, options).and_return([])
+        
+        expect {
+          get :index, { :page => "1", :per_page => "zzyzzy" }
+        }.to_not raise_error
+      end
+      
+      it "doesn't let the user specify zero items per page" do
+        default_sq = { :q => "*:*", :qt => "precise" }
+        options = { :sort => "year_sort desc", :offset => 1, :limit => 1 }
+        Document.should_receive(:find_all_by_solr_query).with(default_sq, options).and_return([])
+        
+        get :index, { :page => "1", :per_page => "0" }
       end
     end
   end

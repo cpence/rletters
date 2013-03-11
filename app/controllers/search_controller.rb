@@ -23,13 +23,17 @@ class SearchController < ApplicationController
   def index
     # Treat 'page' and 'per_page' separately
     @page = 0
-    @page = Integer(params[:page]) if params.has_key? :page
+    if params.has_key? :page
+      @page = Integer(params[:page]) rescue 0
+    end
     @page = 0 if @page < 0
 
     @per_page = 10
     @per_page = current_user.per_page if current_user
-    @per_page = Integer(params[:per_page]) if params.has_key? :per_page
-    @per_page = 0 if @per_page < 0
+    if params.has_key? :per_page
+      @per_page = Integer(params[:per_page]) rescue 10
+    end
+    @per_page = 1 if @per_page <= 0
     @per_page = 100 if @per_page > 100
     
     offset = @page * @per_page
