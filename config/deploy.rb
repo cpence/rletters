@@ -21,7 +21,6 @@ require 'passenger'
 require 'secret_token_replacer'
 require 'seed'
 require 'unicorn_config'
-require 'unicorn_restart'
 
 # Standard configuration options for fetching RLetters from GitHub
 set :scm, :git
