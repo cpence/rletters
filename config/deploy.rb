@@ -16,7 +16,7 @@ require "whenever/capistrano"
 # Local recipes
 require 'capistrano_database'
 require 'downloads_dir'
-require 'god_restart'
+require 'god'
 require 'passenger'
 require 'secret_token_replacer'
 require 'seed'
