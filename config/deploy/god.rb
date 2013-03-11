@@ -7,7 +7,7 @@ Capistrano::Configuration.instance.load do
   namespace :god do
     desc "start God"
     task :start do
-      if remote_file_exists "/etc/init.d/god-#{application}"
+      if remote_file_exists? "/etc/init.d/god-#{application}"
         run "sudo /etc/init.d/god-#{application} start"
       else
         logger.log Capistrano::Logger::IMPORTANT, "Init script for God not found on server; see config/god/init_script*"
@@ -16,7 +16,7 @@ Capistrano::Configuration.instance.load do
     
     desc "stop God"
     task :stop do
-      if remote_file_exists "/etc/init.d/god-#{application}"
+      if remote_file_exists? "/etc/init.d/god-#{application}"
         run "sudo /etc/init.d/god-#{application} stop"
       else
         logger.log Capistrano::Logger::IMPORTANT, "Init script for God not found on server; see config/god/init_script*"
@@ -25,7 +25,7 @@ Capistrano::Configuration.instance.load do
     
     desc "restart God"
     task :restart do
-      if remote_file_exists "/etc/init.d/god-#{application}"
+      if remote_file_exists? "/etc/init.d/god-#{application}"
         run "sudo /etc/init.d/god-#{application} restart"
       else
         logger.log Capistrano::Logger::IMPORTANT, "Init script for God not found on server; see config/god/init_script*"
