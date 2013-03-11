@@ -27,10 +27,10 @@ RLetters::Application.routes.draw do
     member do
       get 'task_list'
       get 'delete'
-      get 'task/:class/start' => 'datasets#task_start', :constraints => { :class => /[A-Z][A-Za-z]+/u }
-      get 'task/:task_id/view/:view' => 'datasets#task_view', :constraints => { :task_id => /[0-9]+/u }
-      get 'task/:task_id/destroy' => 'datasets#task_destroy', :constraints => { :task_id => /[0-9]+/u }
-      get 'task/:task_id/download' => 'datasets#task_download', :constraints => { :task_id => /[0-9]+/u }
+      get 'task/:class/start' => 'datasets#task_start', :constraints => { :class => /[A-Z][A-Za-z]+/ }
+      get 'task/:task_id/view/:view' => 'datasets#task_view', :constraints => { :task_id => /[0-9]+/ }
+      get 'task/:task_id/destroy' => 'datasets#task_destroy', :constraints => { :task_id => /[0-9]+/ }
+      get 'task/:task_id/download' => 'datasets#task_download', :constraints => { :task_id => /[0-9]+/ }
     end
   end
 

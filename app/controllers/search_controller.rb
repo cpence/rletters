@@ -207,19 +207,19 @@ class SearchController < ApplicationController
       # Handle the year separately, for range support
       unless params[:year_ranges].blank?
         # Strip whitespace, split on commas
-        ranges = params[:year_ranges].gsub(/\s/u, '').split(',')
+        ranges = params[:year_ranges].gsub(/\s/, '').split(',')
         year_queries = []
         
         ranges.each do |r|
           if r.include? '-'
             range_years = r.split('-')
             next unless range_years.count == 2
-            next if range_years[0].match(/\A\d+\z/u) == nil
-            next if range_years[1].match(/\A\d+\z/u) == nil
+            next if range_years[0].match(/\A\d+\z/) == nil
+            next if range_years[1].match(/\A\d+\z/) == nil
             
             year_queries << "[#{range_years[0]} TO #{range_years[1]}]"
           else
-            next if r.match(/\A\d+\z/u) == nil
+            next if r.match(/\A\d+\z/) == nil
             
             year_queries << r
           end

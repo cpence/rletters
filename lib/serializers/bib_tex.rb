@@ -23,7 +23,7 @@ module Serializers
       if formatted_author_list.nil? || formatted_author_list.count == 0
         first_author = 'Anon'
       else
-        first_author = formatted_author_list[0].last.gsub(' ','').gsub(/[^A-za-z0-9_]/u, '')
+        first_author = formatted_author_list[0].last.gsub(' ','').gsub(/[^A-za-z0-9_]/, '')
       end
       cite_key = "#{first_author}#{year}"
       

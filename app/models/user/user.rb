@@ -50,7 +50,7 @@ class User < ActiveRecord::Base
   validates :per_page, :numericality => { :only_integer => true }
   validates :per_page, :inclusion => { :in => 1..9999999999 }
   validates :language, :presence => true
-  validates :language, :format => { :with => /\A[a-z]{2,3}(-[A-Z]{2})?\Z/u }
+  validates :language, :format => { :with => /\A[a-z]{2,3}(-[A-Z]{2})?\Z/ }
   validates :timezone, :presence => true
 
   has_many :datasets, :dependent => :delete_all

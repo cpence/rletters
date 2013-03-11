@@ -357,7 +357,7 @@ class Document
   # The shasum attribute is the only required one
   validates :shasum, :presence => true
   validates :shasum, :length => { :is => 40 }
-  validates :shasum, :format => { :with => /\A[a-fA-F\d]+\z/u }
+  validates :shasum, :format => { :with => /\A[a-fA-F\d]+\z/ }
 
   # Set all attributes and create author lists
   #
