@@ -12,8 +12,8 @@ rails_root = ENV['RAILS_ROOT'] || "/var/webapps/rletters"
     w.restart_grace = 30.seconds
     
     script     = "cd #{rails_root}; /usr/bin/env RAILS_ENV=production bundle exec script/delayed_job --pid-dir=#{rails_root}/tmp/pids -i #{num}"
-    w.start    = "/bin/bash -c '#{script}' start"
-    w.stop     = "/bin/bash -c '#{script}' stop"
+    w.start    = "/bin/bash -c '#{script} start'"
+    w.stop     = "/bin/bash -c '#{script} stop'"
     
     w.log      = "#{rails_root}/log/god_delayed_job.#{num}.log"
     
