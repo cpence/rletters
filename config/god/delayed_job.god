@@ -16,6 +16,7 @@ rails_root = ENV['RAILS_ROOT'] || "/var/webapps/rletters"
     w.stop     = "/bin/bash -c '#{script} stop'"
     
     w.log      = "#{rails_root}/log/god_delayed_job.#{num}.log"
+    w.pid_file = "#{rails_root}/tmp/pids/delayed_job.#{num}.pid"
     
     w.behavior(:clean_pid_file)
  
