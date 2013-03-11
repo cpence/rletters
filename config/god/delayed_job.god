@@ -1,8 +1,7 @@
 rails_root = ENV['RAILS_ROOT'] || "/var/webapps/rletters"
+delayed_job_queues = [ 'maintenance', 'ui', 'analysis' ]
 
-# FIXME: We should probably be tweaking this value, and probably have multiple
-# queues as well.
-2.times do |num|
+3.times do |num|
   God.watch do |w|
     w.name     = "delayed_job.#{num}"
     w.group    = 'delayed_job'
@@ -11,7 +10,7 @@ rails_root = ENV['RAILS_ROOT'] || "/var/webapps/rletters"
     w.start_grace = 30.seconds
     w.restart_grace = 30.seconds
     
-    script     = "cd #{rails_root}; /usr/bin/env RAILS_ENV=production bundle exec script/delayed_job --pid-dir=#{rails_root}/tmp/pids -i #{num}"
+    script     = "cd #{rails_root}; /usr/bin/env RAILS_ENV=production bundle exec script/delayed_job --pid-dir=#{rails_root}/tmp/pids -i #{num} --queue=#{delayed_job_queues[num]}"
     w.start    = "/bin/bash -c '#{script} start'"
     w.stop     = "/bin/bash -c '#{script} stop'"
     

@@ -5,4 +5,4 @@ require 'clockwork'
 
 include Clockwork
 
-every(1.hours, 'Queueing download expiration job') { Delayed::Job.enqueue Jobs::ExpireDownloads.new }
+every(1.hours, 'Queueing download expiration job') { Delayed::Job.enqueue Jobs::ExpireDownloads.new, :queue => 'maintenance' }

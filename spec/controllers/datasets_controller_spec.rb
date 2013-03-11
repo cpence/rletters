@@ -64,7 +64,8 @@ describe DatasetsController do
         :q => '*:*',
         :fq => nil,
         :qt => 'precise')
-      Delayed::Job.should_receive(:enqueue).with(expected_job).once
+      Delayed::Job.should_receive(:enqueue).with(expected_job,
+        :queue => 'ui').once
       
       post :create, { :dataset => { :name => 'Test Dataset' }, 
         :q => '*:*', :fq => nil, :qt => 'precise' }
@@ -131,7 +132,8 @@ describe DatasetsController do
         expected_job = Jobs::DestroyDataset.new(
           :user_id => @user.to_param,
           :dataset_id => @dataset.to_param)
-        Delayed::Job.should_receive(:enqueue).with(expected_job).once
+        Delayed::Job.should_receive(:enqueue).with(expected_job,
+          :queue => 'ui').once
 
         delete :destroy, :id => @dataset.to_param
       end
@@ -207,7 +209,8 @@ describe DatasetsController do
           :user_id => @user.to_param,
           :dataset_id => @dataset.to_param,
           :format => 'bibtex')
-        Delayed::Job.should_receive(:enqueue).with(expected_job).once
+        Delayed::Job.should_receive(:enqueue).with(expected_job,
+          :queue => 'analysis').once
         
         get :task_start, :id => @dataset.to_param, :class => 'ExportCitations', :job_params => { :format => 'bibtex' }
       end

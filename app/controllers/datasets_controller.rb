@@ -72,7 +72,7 @@ class DatasetsController < ApplicationController
       :name => params[:dataset][:name],
       :q => params[:q],
       :fq => params[:fq],
-      :qt => params[:qt])
+      :qt => params[:qt]), :queue => 'ui'
     
     redirect_to datasets_path, :notice => I18n.t('datasets.create.building')
   end
@@ -87,7 +87,7 @@ class DatasetsController < ApplicationController
 
     Delayed::Job.enqueue Jobs::DestroyDataset.new(
       :user_id => current_user.to_param,
-      :dataset_id => params[:id])
+      :dataset_id => params[:id]), :queue => 'ui'
 
     redirect_to datasets_path
   end
@@ -144,7 +144,7 @@ class DatasetsController < ApplicationController
     job_params[:dataset_id] = dataset.to_param
     
     # Enqueue the job
-    Delayed::Job.enqueue klass.new(job_params)
+    Delayed::Job.enqueue klass.new(job_params), :queue => 'analysis'
     redirect_to dataset_path(dataset)
   end
   
