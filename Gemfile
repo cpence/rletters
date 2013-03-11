@@ -9,14 +9,13 @@ gem 'capistrano', :require => false
 gem 'capistrano-maintenance', :require => false
 
 gem 'god', :require => false
-
 gem 'unicorn', :require => false
 
+gem 'daemons', :require => false
+gem 'clockwork', :require => false
 gem 'delayed_job', '~> 3.0', '>= 3.0.1'
 gem 'delayed_job_active_record'
-gem 'daemons', :require => false
 
-gem 'whenever', :require => false
 gem 'airbrake', :require => false
 
 # Database and related tools

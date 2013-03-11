@@ -6,12 +6,9 @@ def remote_file_exists?(full_path)
   'true' ==  capture("if [ -e #{full_path} ]; then echo 'true'; fi").strip
 end
 
-# Gem recipes (Bundler, whenever, delayed_job)
+# Gem recipes
 require 'capistrano/maintenance'
 require 'bundler/capistrano'
-
-set :whenever_command, "bundle exec whenever"
-require "whenever/capistrano"
 
 # Local recipes
 require 'capistrano_database'

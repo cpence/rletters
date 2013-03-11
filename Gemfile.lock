@@ -69,12 +69,13 @@ GEM
       net-ssh-gateway (>= 1.1.0)
     capistrano-maintenance (0.0.2)
       capistrano (>= 2.0.0)
-    chronic (0.8.0)
     citeproc-ruby (0.0.6)
       logging (~> 1.5)
       nokogiri (~> 1.5)
     climate_control (0.0.3)
       activesupport (>= 3.0)
+    clockwork (0.5.0)
+      tzinfo (~> 0.3.35)
     cocaine (0.5.1)
       climate_control (>= 0.0.3, < 1.0)
     coffee-rails (3.2.2)
@@ -308,9 +309,6 @@ GEM
       nokogiri (>= 1.2.0)
       rack (>= 1.0)
       rack-test (>= 0.5.3)
-    whenever (0.8.0)
-      activesupport (>= 2.3.4)
-      chronic (>= 0.6.3)
     yard (0.8.5.2)
 
 PLATFORMS
@@ -325,6 +323,7 @@ DEPENDENCIES
   capistrano
   capistrano-maintenance
   citeproc-ruby (>= 0.0.4)
+  clockwork
   coffee-rails
   coveralls
   daemons
@@ -369,5 +368,4 @@ DEPENDENCIES
   vcr
   webmock
   webrat
-  whenever
   yard
