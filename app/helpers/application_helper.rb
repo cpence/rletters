@@ -14,17 +14,9 @@ module ApplicationHelper
   # @example Parse the translation for +error.not_found+ as Markdown
   #   <%= t_md(:"error.not_found") %>
   def t_md(key)
-    key_trans = key
-
-    # This was borrowed from ActionView::Helpers::TranslationHelper#scope_key_by_partial
-    if key.to_s.first == "."
-      if @virtual_path
-        key_trans = @virtual_path.gsub(/[\/_?]/, ".") + key.to_s
-      else
-        raise "Cannot use t(#{key.inspect}) shortcut because path is not available"
-      end
-    end
-    
+    # This method is private, but it's what maps the ".not_found" shortcut
+    # style keys to their full equivalents
+    key_trans = self.send(:scope_key_by_partial, key)
     Kramdown::Document.new(I18n.t(key_trans)).to_html.html_safe
   end
 end
