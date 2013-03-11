@@ -3,7 +3,7 @@
 module Jobs
 
   # Expire any sessions older than two days.
-  class ExpireDownloads < Jobs::Base
+  class ExpireSessions < Jobs::Base
     
     # Expire old sessions
     #
