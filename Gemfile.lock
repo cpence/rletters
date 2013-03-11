@@ -120,6 +120,7 @@ GEM
       rspec (~> 2.0)
       rspec-instafail (~> 0.2.0)
       ruby-progressbar (~> 1.0.0)
+    god (0.13.2)
     haml (4.0.0)
       tilt
     haml-rails (0.4)
@@ -334,6 +335,7 @@ DEPENDENCIES
   execjs
   factory_girl_rails
   fuubar
+  god
   haml
   haml-rails
   jquery-rails (= 2.2.1)

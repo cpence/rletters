@@ -1,6 +1,10 @@
 # -*- encoding : utf-8 -*-
 $LOAD_PATH.unshift File.join(File.dirname(__FILE__), 'deploy')
 
+# Utility for several recipes below
+def remote_file_exists?(full_path)
+  'true' ==  capture("if [ -e #{full_path} ]; then echo 'true'; fi").strip
+end
 
 # Gem recipes (Bundler, whenever, delayed_job)
 require 'capistrano/maintenance'
@@ -9,20 +13,14 @@ require 'bundler/capistrano'
 set :whenever_command, "bundle exec whenever"
 require "whenever/capistrano"
 
-require "delayed/recipes"
-before "deploy:restart", "delayed_job:stop"
-after "deploy:restart", "delayed_job:start"
-
-after "deploy:stop", "delayed_job:stop"
-after "deploy:start", "delayed_job:start"
-
 # Local recipes
 require 'capistrano_database'
-require 'unicorn_config'
 require 'downloads_dir'
+require 'god_restart'
+require 'passenger'
 require 'secret_token_replacer'
 require 'seed'
-require 'passenger'
+require 'unicorn_config'
 require 'unicorn_restart'
 
 # Standard configuration options for fetching RLetters from GitHub

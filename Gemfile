@@ -5,12 +5,17 @@ gem 'rails', '~> 3.0'
 gem 'rails-i18n', '= 0.7.2'
 
 # Deployment and server tools
-gem 'unicorn', :require => false
 gem 'capistrano', :require => false
 gem 'capistrano-maintenance', :require => false
+
+gem 'god', :require => false
+
+gem 'unicorn', :require => false
+
 gem 'delayed_job', '~> 3.0', '>= 3.0.1'
 gem 'delayed_job_active_record'
 gem 'daemons', :require => false
+
 gem 'whenever', :require => false
 gem 'airbrake', :require => false
 

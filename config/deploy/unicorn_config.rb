@@ -47,7 +47,7 @@ Capistrano::Configuration.instance.load do
       end
 
       desc <<-DESC
-        [internal] Updates the symlink for database.yml file to the just deployed release.
+        [internal] Updates the symlink for unicorn.rb file to the just deployed release.
       DESC
       task :symlink, :except => { :no_release => true } do
         run "ln -nfs #{shared_path}/config/unicorn.rb #{release_path}/config/unicorn.rb" 

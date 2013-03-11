@@ -6,8 +6,3 @@ every 1.hours do
   rake "db:sessions:expire"
   rake "db:downloads:expire"
 end
-
-every :reboot do
-  script "delayed_job restart"
-end
-
