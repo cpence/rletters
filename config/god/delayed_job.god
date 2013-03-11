@@ -22,7 +22,7 @@ rails_root = ENV['RAILS_ROOT'] || "/var/webapps/rletters"
     w.start_if do |start|
       start.condition(:process_running) do |c|
         c.interval = 5.seconds
-        c.running = true
+        c.running = false
       end
     end
     

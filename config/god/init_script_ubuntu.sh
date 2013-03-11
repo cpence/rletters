@@ -13,6 +13,11 @@ export RAILS_ROOT=/path/to/application/current
 # the following line:
 # thedeployinguser ALL=(root) NOPASSWD: /etc/init.d/god-(application)
 
+# On Ubuntu, you may also need to add the line
+# Defauls       !secure_path
+# to prevent sudo from wiping the path to your custom Ruby installation out
+# of the $PATH variable when `sudo /etc/init.d/god...` is called.
+
 # Modified from http://tinyurl.com/6w6wzae; thanks to Tim Riley.
 
 ### BEGIN INIT INFO
