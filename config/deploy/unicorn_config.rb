@@ -32,9 +32,9 @@ Capistrano::Configuration.instance.load do
         default_template = <<-EOF
         listen 2007 # by default Unicorn listens on port 8080
         worker_processes 2 # this should be >= nr_cpus
-        pid "<%= deploy_to %>/tmp/pids/unicorn.pid"
-        stderr_path "<%= deploy_to %>/log/unicorn.log"
-        stdout_path "<%= deploy_to %>/log/unicorn.log"
+        pid "<%= deploy_to %>/shared/pids/unicorn.pid"
+        stderr_path "<%= deploy_to %>/shared/log/unicorn.log"
+        stdout_path "<%= deploy_to %>/shared/log/unicorn.log"
         EOF
 
         location = fetch(:template_dir, "config/deploy") + '/unicorn.rb.erb'
