@@ -156,6 +156,16 @@ describe WordFrequencyAnalyzer, :vcr => { :cassette_name => 'solr_single_fulltex
         @analyzer.block_stats[0][:tokens].should eq(@analyzer.num_dataset_tokens)
       end
     end
+    
+    context "with num_words negative" do
+      before(:each) do
+        @analyzer = WordFrequencyAnalyzer.new(@dataset, :num_words => -1)
+      end
+      
+      it "acts like it wasn't set at all" do
+        @analyzer.block_stats[0][:types].should eq(@analyzer.blocks[0].count)
+      end
+    end
 
     context "with num_words set to 10" do
       before(:each) do
@@ -220,12 +230,26 @@ describe WordFrequencyAnalyzer, :vcr => { :cassette_name => 'solr_single_fulltex
   end
 
   describe "#num_corpus_documents" do
-    before(:each) do
-      @analyzer = WordFrequencyAnalyzer.new(@dataset)
+    context "when Solr works" do
+      before(:each) do
+        @analyzer = WordFrequencyAnalyzer.new(@dataset)
+      end
+    
+      it "works" do
+        @analyzer.num_corpus_documents.should eq(1042)
+      end
     end
     
-    it "works" do
-      @analyzer.num_corpus_documents.should eq(1042)
+    context "when the Solr connection fails" do
+      before(:each) do
+        @analyzer = WordFrequencyAnalyzer.new(@dataset)
+      end
+      
+      it "throws an exception" do
+        Solr::Connection.should_receive(:find).with({ :q => '*:*',
+          :qt => 'precise', :rows => 1, :start => 0 }).and_return({})
+        expect { @analyzer.num_corpus_documents }.to raise_error(ActiveRecord::StatementInvalid)
+      end
     end
   end
 end

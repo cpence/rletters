@@ -36,25 +36,28 @@ class WordFrequencyAnalyzer
   # the Solr database.
   #
   # @api private
+  # @raise [ActiveRecord::StatementInvalid] if the Solr connection fails
   # @return [Integer] Size of the Solr database, in documents
   def num_corpus_documents
-    @corpus_size ||= begin
-                       solr_query = {}
-                       solr_query[:q] = '*:*'
-                       solr_query[:qt] = 'precise'
-                       solr_query[:rows] = 1
-                       solr_query[:start] = 0
-                       
-                       solr_response = Solr::Connection.find solr_query
-                       
-                       if solr_response["response"] &&
-                           solr_response["response"]["numFound"]
-                         solr_response["response"]["numFound"]
-                       else
-                         # FIXME: Should we raise an error here?
-                         1
-                       end
-                     end
+    if @corpus_size.nil?
+      solr_query = {}
+      solr_query[:q] = '*:*'
+      solr_query[:qt] = 'precise'
+      solr_query[:rows] = 1
+      solr_query[:start] = 0
+      
+      solr_response = Solr::Connection.find solr_query
+      
+      # An exception thrown here percolates, usually, out of
+      # a delayed job, which is a not-uncommon exception case.
+      raise ActiveRecord::StatementInvalid unless
+        solr_response["response"] &&
+        solr_response["response"]["numFound"]
+      
+      @corpus_size = solr_response["response"]["numFound"]
+    end
+    
+    @corpus_size
   end
 
 
