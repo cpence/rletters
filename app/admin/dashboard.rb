@@ -14,7 +14,7 @@ ActiveAdmin.register_page "Dashboard" do
               link_to dataset.name, [:admin, dataset]
             end
             column :user do |dataset|
-              link_to dataset.user.name, [:admin, user]
+              link_to dataset.user.name, [:admin, dataset.user]
             end
             column :created_at
           end
