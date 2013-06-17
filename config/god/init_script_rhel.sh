@@ -52,7 +52,7 @@ start_god() {
   if [ -z "$DEPLOY_USER" ]; then
     bundle exec god -c $CONFIG_FILE -l $LOG_FILE -P $PID_FILE >/dev/null
   else
-    su $DEPLOY_USER -c "bundle exec god -c $CONFIG_FILE -l $LOG_FILE -P $PID_FILE" >/dev/null
+    sudo -u $DEPLOY_USER RAILS_ROOT="$RAILS_ROOT" bundle exec god -c $CONFIG_FILE -l $LOG_FILE -P $PID_FILE >/dev/null
   fi
   retval=$?
   echo
@@ -69,7 +69,7 @@ stop_god() {
     if [ -z "$DEPLOY_USER" ]; then
       bundle exec god terminate >/dev/null
     else
-      su $DEPLOY_USER -c "bundle exec god terminate" >/dev/null
+      sudo -u $DEPLOY_USER RAILS_ROOT="$RAILS_ROOT" bundle exec god terminate >/dev/null
     fi
     retval=$?
   fi
@@ -91,14 +91,14 @@ reload_god() {
   
   cd $RAILS_ROOT
   if [ -z "$DEPLOY_USER" ]; then
-    su bundle exec god -c $CONFIG_FILE -P $PID_FILE -l $LOG_FILE restart clockwork
+    bundle exec god -c $CONFIG_FILE -P $PID_FILE -l $LOG_FILE restart clockwork
     bundle exec god -c $CONFIG_FILE -P $PID_FILE -l $LOG_FILE restart delayed_job
     bundle exec god -c $CONFIG_FILE -P $PID_FILE -l $LOG_FILE restart unicorn
     retval=$?
   else
-    su $DEPLOY_USER -c "bundle exec god -c $CONFIG_FILE -P $PID_FILE -l $LOG_FILE restart clockwork"
-    su $DEPLOY_USER -c "bundle exec god -c $CONFIG_FILE -P $PID_FILE -l $LOG_FILE restart delayed_job"
-    su $DEPLOY_USER -c "bundle exec god -c $CONFIG_FILE -P $PID_FILE -l $LOG_FILE restart unicorn"
+    sudo -u $DEPLOY_USER RAILS_ROOT="$RAILS_ROOT" bundle exec god -c $CONFIG_FILE -P $PID_FILE -l $LOG_FILE restart clockwork
+    sudo -u $DEPLOY_USER RAILS_ROOT="$RAILS_ROOT" bundle exec god -c $CONFIG_FILE -P $PID_FILE -l $LOG_FILE restart delayed_job
+    sudo -u $DEPLOY_USER RAILS_ROOT="$RAILS_ROOT" bundle exec god -c $CONFIG_FILE -P $PID_FILE -l $LOG_FILE restart unicorn
     retval=$?
   fi
   

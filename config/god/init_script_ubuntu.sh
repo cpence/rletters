@@ -54,7 +54,7 @@ case "$1" in
       bundle exec god -c $CONFIG_FILE -P $PID_FILE -l $LOG_FILE
       RETVAL=$?
     else
-      su $DEPLOY_USER -c "bundle exec god -c $CONFIG_FILE -P $PID_FILE -l $LOG_FILE"
+      sudo -u $DEPLOY_USER RAILS_ROOT="$RAILS_ROOT" bundle exec god -c $CONFIG_FILE -P $PID_FILE -l $LOG_FILE
       RETVAL=$?
     fi
     echo "$NAME."
@@ -66,7 +66,7 @@ case "$1" in
       bundle exec god quit
       RETVAL=$?
     else
-      su $DEPLOY_USER -c "bundle exec god quit"
+      sudo -u $DEPLOY_USER RAILS_ROOT="$RAILS_ROOT" bundle exec god quit
       RETVAL=$?
     fi
     echo "$NAME."
@@ -78,14 +78,14 @@ case "$1" in
       if [ -z "$DEPLOY_USER" ]; then
         bundle exec god terminate
       else
-        su $DEPLOY_USER -c "bundle exec god terminate"
+        sudo -u $DEPLOY_USER RAILS_ROOT="$RAILS_ROOT" bundle exec god terminate
       fi
     fi
     if [ -z "$DEPLOY_USER" ]; then
       bundle exec god -c $CONFIG_FILE -P $PID_FILE -l $LOG_FILE
       RETVAL=$?
     else
-      su $DEPLOY_USER -c "bundle exec god -c $CONFIG_FILE -P $PID_FILE -l $LOG_FILE"
+      sudu -u $DEPLOY_USER bundle exec god -c $CONFIG_FILE -P $PID_FILE -l $LOG_FILE
       RETVAL=$?
     fi
     echo "$NAME."
@@ -99,9 +99,9 @@ case "$1" in
       bundle exec god -c $CONFIG_FILE -P $PID_FILE -l $LOG_FILE restart unicorn
       RETVAL=$?
     else
-      su $DEPLOY_USER -c "bundle exec god -c $CONFIG_FILE -P $PID_FILE -l $LOG_FILE restart clockwork"
-      su $DEPLOY_USER -c "bundle exec god -c $CONFIG_FILE -P $PID_FILE -l $LOG_FILE restart delayed_job"
-      su $DEPLOY_USER -c "bundle exec god -c $CONFIG_FILE -P $PID_FILE -l $LOG_FILE restart unicorn"
+      sudo -u $DEPLOY_USER RAILS_ROOT="$RAILS_ROOT" bundle exec god -c $CONFIG_FILE -P $PID_FILE -l $LOG_FILE restart clockwork
+      sudo -u $DEPLOY_USER RAILS_ROOT="$RAILS_ROOT" bundle exec god -c $CONFIG_FILE -P $PID_FILE -l $LOG_FILE restart delayed_job
+      sudo -u $DEPLOY_USER RAILS_ROOT="$RAILS_ROOT" bundle exec god -c $CONFIG_FILE -P $PID_FILE -l $LOG_FILE restart unicorn
       RETVAL=$?
     fi
     echo "$NAME."
@@ -112,7 +112,7 @@ case "$1" in
       bundle exec god status
       RETVAL=$?
     else
-      su $DEPLOY_USER -c "bundle exec god status"
+      sudo -u $DEPLOY_USER RAILS_ROOT="$RAILS_ROOT" bundle exec god status
       RETVAL=$?
     fi
     ;;
