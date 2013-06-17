@@ -16,9 +16,13 @@ export RAILS_ROOT=/path/to/application/current
 # sudo chkconfig --add god-(application)
 # sudo chkconfig --level 345 god-(application) on
 
-# To give the deploying user sudo powers over this init script (so that God
-# can be restarted when we deploy a new version), you should run visudo and add
-# the following line:
+# If your deploy configuration is set to :use_sudo (i.e., root performs
+# deploys), you're done.  If a non-root user is deploying, then uncomment
+# the next line and set that username here:
+# export DEPLOY_USER=thedeployinguser
+
+# Then run visudo and add the following line, to give the deploying user
+# permissions to restart God when a new version is deployed:
 # thedeployinguser ALL=(root) NOPASSWD: /etc/init.d/god-(application)
 
 ### BEGIN INIT INFO
@@ -45,7 +49,11 @@ start_god() {
   echo -n $"Starting $prog: "
   status_god_quiet && echo -n "already running" && warning && echo && exit 0
   cd $RAILS_ROOT
-  bundle exec god -c $CONFIG_FILE -l $LOG_FILE -P $PID_FILE >/dev/null
+  if [ -z "$DEPLOY_USER" ]; then
+    bundle exec god -c $CONFIG_FILE -l $LOG_FILE -P $PID_FILE >/dev/null
+  else
+    su $DEPLOY_USER -c "bundle exec god -c $CONFIG_FILE -l $LOG_FILE -P $PID_FILE" >/dev/null
+  fi
   retval=$?
   echo
   return $retval
@@ -58,7 +66,11 @@ stop_god() {
     echo -n "already stopped" && warning
   else
     cd $RAILS_ROOT
-    bundle exec god terminate >/dev/null
+    if [ -z "$DEPLOY_USER" ]; then
+      bundle exec god terminate >/dev/null
+    else
+      su $DEPLOY_USER -c "bundle exec god terminate" >/dev/null
+    fi
     retval=$?
   fi
   echo
@@ -78,10 +90,17 @@ reload_god() {
   fi
   
   cd $RAILS_ROOT
-  bundle exec god -c $CONFIG_FILE -P $PID_FILE -l $LOG_FILE restart clockwork
-  bundle exec god -c $CONFIG_FILE -P $PID_FILE -l $LOG_FILE restart delayed_job
-  bundle exec god -c $CONFIG_FILE -P $PID_FILE -l $LOG_FILE restart unicorn
-  retval=$?
+  if [ -z "$DEPLOY_USER" ]; then
+    su bundle exec god -c $CONFIG_FILE -P $PID_FILE -l $LOG_FILE restart clockwork
+    bundle exec god -c $CONFIG_FILE -P $PID_FILE -l $LOG_FILE restart delayed_job
+    bundle exec god -c $CONFIG_FILE -P $PID_FILE -l $LOG_FILE restart unicorn
+    retval=$?
+  else
+    su $DEPLOY_USER -c "bundle exec god -c $CONFIG_FILE -P $PID_FILE -l $LOG_FILE restart clockwork"
+    su $DEPLOY_USER -c "bundle exec god -c $CONFIG_FILE -P $PID_FILE -l $LOG_FILE restart delayed_job"
+    su $DEPLOY_USER -c "bundle exec god -c $CONFIG_FILE -P $PID_FILE -l $LOG_FILE restart unicorn"
+    retval=$?
+  fi
   
   echo
   return retval

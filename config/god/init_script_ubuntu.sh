@@ -8,9 +8,13 @@ export RAILS_ROOT=/path/to/application/current
 # and run:
 # sudo update-rc.d god-(application) defaults
 
-# To give the deploying user sudo powers over this init script (so that God
-# can be restarted when we deploy a new version), you should run visudo and add
-# the following line:
+# If your deploy configuration is set to :use_sudo (i.e., root performs
+# deploys), you're done.  If a non-root user is deploying, then uncomment
+# the next line and set that username here:
+# export DEPLOY_USER=thedeployinguser
+
+# Then run visudo and add the following line, to give the deploying user
+# permissions to restart God when a new version is deployed:
 # thedeployinguser ALL=(root) NOPASSWD: /etc/init.d/god-(application)
 
 # On Ubuntu, you may also need to add the line
@@ -46,38 +50,71 @@ case "$1" in
   start)
     echo -n "Starting $DESC: "
     cd $RAILS_ROOT
-    bundle exec god -c $CONFIG_FILE -P $PID_FILE -l $LOG_FILE
-    RETVAL=$?
+    if [ -z "$DEPLOY_USER" ]; then
+      bundle exec god -c $CONFIG_FILE -P $PID_FILE -l $LOG_FILE
+      RETVAL=$?
+    else
+      su $DEPLOY_USER -c "bundle exec god -c $CONFIG_FILE -P $PID_FILE -l $LOG_FILE"
+      RETVAL=$?
+    fi
     echo "$NAME."
     ;;
   stop)
     echo -n "Stopping $DESC: "
     cd $RAILS_ROOT
-    bundle exec god quit
-    RETVAL=$?
+    if [ -z "$DEPLOY_USER" ]; then
+      bundle exec god quit
+      RETVAL=$?
+    else
+      su $DEPLOY_USER -c "bundle exec god quit"
+      RETVAL=$?
+    fi
     echo "$NAME."
     ;;
   restart)
     echo -n "Restarting $DESC: "
     cd $RAILS_ROOT
-    [ -e $PID_FILE ] && bundle exec god terminate
-    bundle exec god -c $CONFIG_FILE -P $PID_FILE -l $LOG_FILE
-    RETVAL=$?
+    if [ -e $PID_FILE ]; then
+      if [ -z "$DEPLOY_USER" ]; then
+        bundle exec god terminate
+      else
+        su $DEPLOY_USER -c "bundle exec god terminate"
+      fi
+    fi
+    if [ -z "$DEPLOY_USER" ]; then
+      bundle exec god -c $CONFIG_FILE -P $PID_FILE -l $LOG_FILE
+      RETVAL=$?
+    else
+      su $DEPLOY_USER -c "bundle exec god -c $CONFIG_FILE -P $PID_FILE -l $LOG_FILE"
+      RETVAL=$?
+    fi
     echo "$NAME."
     ;;
   reload)
     echo -n "Reloading $DESC services: "
     cd $RAILS_ROOT
-    bundle exec god -c $CONFIG_FILE -P $PID_FILE -l $LOG_FILE restart clockwork
-    bundle exec god -c $CONFIG_FILE -P $PID_FILE -l $LOG_FILE restart delayed_job
-    bundle exec god -c $CONFIG_FILE -P $PID_FILE -l $LOG_FILE restart unicorn
-    RETVAL=$?
+    if [ -z "$DEPLOY_USER" ]; then
+      bundle exec god -c $CONFIG_FILE -P $PID_FILE -l $LOG_FILE restart clockwork
+      bundle exec god -c $CONFIG_FILE -P $PID_FILE -l $LOG_FILE restart delayed_job
+      bundle exec god -c $CONFIG_FILE -P $PID_FILE -l $LOG_FILE restart unicorn
+      RETVAL=$?
+    else
+      su $DEPLOY_USER -c "bundle exec god -c $CONFIG_FILE -P $PID_FILE -l $LOG_FILE restart clockwork"
+      su $DEPLOY_USER -c "bundle exec god -c $CONFIG_FILE -P $PID_FILE -l $LOG_FILE restart delayed_job"
+      su $DEPLOY_USER -c "bundle exec god -c $CONFIG_FILE -P $PID_FILE -l $LOG_FILE restart unicorn"
+      RETVAL=$?
+    fi
     echo "$NAME."
     ;;
   status)
     cd $RAILS_ROOT
-    bundle exec god status
-    RETVAL=$?
+    if [ -z "$DEPLOY_USER" ]; then
+      bundle exec god status
+      RETVAL=$?
+    else
+      su $DEPLOY_USER -c "bundle exec god status"
+      RETVAL=$?
+    fi
     ;;
   *)
     echo "Usage: god {start|stop|restart|status}"
