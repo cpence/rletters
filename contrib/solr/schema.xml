@@ -5,6 +5,7 @@
 <schema name="rletters" version="1.2">
   <types>
     <fieldType name="string" class="solr.StrField" sortMissingLast="true" omitNorms="true"/>
+    <fieldType name="long" class="solr.TrieLongField" precisionStep="0" omitNorms="true" positionIncrementGap="0" />
 
     <!-- Don't even tokenize (for certain kinds of faceting) -->
     <fieldType name="text_noTokens" class="solr.TextField" positionIncrementGap="20">
@@ -109,6 +110,9 @@
 
 
  <fields>
+   <!-- Required by Solr internals in version 4 -->
+   <field name="_version_" type="long" indexed="true"  stored="true"/>
+   
    <!-- SHA-1 sum and DOI are stored verbatim -->
    <field name="shasum" type="string" indexed="true" stored="true" required="true" omitNorms="true" />
    <field name="doi" type="string" indexed="true" stored="true" omitNorms="true" />
