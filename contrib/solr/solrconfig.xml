@@ -3,6 +3,12 @@
 
 <?xml version="1.0" encoding="UTF-8" ?>
 <config>
+  <!-- In Solr versions greater than 3.6, make sure that handleSelect is
+       set to "true". -->
+  <requestDispatcher handleSelect="true" >
+    <!-- ... -->
+  </requestDispatcher>
+  
   <indexDefaults>
     <!-- Note that Solr's default maxFieldLength is much too small for 
          journal article fulltext searching!  This parameter was removed in
