@@ -13,7 +13,6 @@ before_script:
   - cp config/database.yml.travis config/database.yml
   - psql -c 'create database rletters_test;' -U postgres
   - bundle exec rake db:migrate
-  - mkdir downloads
 
 script:
   - bundle exec rake spec
