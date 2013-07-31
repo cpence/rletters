@@ -1,19 +1,21 @@
 source 'https://rubygems.org'
 
 # Rails
-gem 'rails', '~> 3.0'
+gem 'rails', '~> 4.0'
 gem 'rails-i18n', '= 0.7.2'
+
+### FIXME: Temporary migration assistance
+gem 'protected_attributes'
 
 # Deployment and server tools
 gem 'capistrano', :require => false
-gem 'capistrano-maintenance', :require => false
 
 gem 'god', :require => false
 gem 'unicorn', :require => false
 
 gem 'daemons', :require => false
 gem 'clockwork', :require => false
-gem 'delayed_job', '~> 3.0', '>= 3.0.1'
+gem 'delayed_job', '~> 4.0'
 gem 'delayed_job_active_record'
 
 gem 'airbrake', :require => false
@@ -21,13 +23,16 @@ gem 'airbrake', :require => false
 # Database and related tools
 gem 'pg'
 gem 'activerecord-import'
-gem 'seed-fu', '>= 2.1.0'
+gem 'seed-fu', github: 'mbleigh/seed-fu'
 gem 'rails-settings-cached', '0.2.4' # 0.3.0 for Rails 4
 
 # User authentication and administration
 gem 'devise'
 gem 'devise-i18n'
-gem 'activeadmin'
+gem 'activeadmin', github: 'gregbell/active_admin', branch: 'rails4'
+gem 'responders', github: 'plataformatec/responders' # FIXME: only for AA
+##gem 'inherited_resources', '>= 1.4.1' # FIXME: only for AA
+gem "ransack", github: "ernie/ransack", branch: "rails-4" # FIXME: only for AA
 
 # Support for file attachments and exporting
 gem 'paperclip', '~> 3.0'
@@ -46,29 +51,18 @@ gem 'latex-decode', '>= 0.0.11'
 gem 'bibtex-ruby', '~> 2.0', :require => 'bibtex'
 gem 'citeproc-ruby', '>= 0.0.4'
 
-# Some templating engines that are required even when we're not
-# building the assets
+# Asset tools and template generators
 gem 'haml'
 gem 'haml-rails'
 gem 'kramdown'
+gem 'coffee-rails'
+gem 'sass-rails'
 
-group :assets do
-  gem 'coffee-rails'
-  gem 'sass-rails'
-  
-  gem 'jquery-rails', '= 2.2.1'
-  gem 'jquery_mobile_rails', '= 1.3.0'
+gem 'jquery-rails', '= 3.0.4'
+gem 'jquery_mobile_rails', '= 1.3.2'
 
-  unless ENV['TRAVIS']
-    gem 'uglifier'
-  
-    # Uglifier needs an ExecJS runtime, but we don't need to
-    # require it everywhere.
-    gem 'execjs', :require => false
-    gem 'therubyracer', '>= 0.11.0beta5', :require => false
-    gem 'libv8', '>= 3.11.8', :require => false
-  end
-end
+gem 'uglifier', '>= 1.3.0'
+gem 'yui-compressor'
 
 group :test, :development do
   gem 'rspec-rails'
