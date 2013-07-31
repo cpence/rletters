@@ -50,7 +50,7 @@ class WordFrequencyAnalyzer
       
       # An exception thrown here percolates, usually, out of
       # a delayed job, which is a not-uncommon exception case.
-      raise ActiveRecord::StatementInvalid unless
+      raise ActiveRecord::StatementInvalid.new('Solr did not respond to a query of the entire document set') unless
         solr_response["response"] &&
         solr_response["response"]["numFound"]
       

@@ -59,14 +59,21 @@ class User < ActiveRecord::Base
   validates_associated :datasets
   validates_associated :libraries
 
-  # Attributes from Devise
-  attr_accessible :email, :password, :password_confirmation, :remember_me
-
   # Attributes that can be edited by the user (in the user options form) 
-  # should be whitelisted here.  Programmatic-access things (like datasets)
-  # do *not* need to occur here.
-  attr_accessible :name, :per_page, :language, :csl_style_id, :libraries, :timezone
-  
+  # should be whitelisted here.  This should be kept in sync with the views
+  # in users/registrations/{edit,new}.html.
+  class ParameterSanitizer < Devise::ParameterSanitizer
+    def sign_up
+      devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:name, :email,
+        :password, :password_confirmation, :language, :timezone) }
+    end
+    def account_update
+      devise_parameter_sanitizer.for(:account_update) { |u| u.permit(:name,
+        :email, :password, :password_confirmation, :current_password,
+        :language, :timezone, :per_page, :csl_style_id) }
+    end
+  end
+
   # Convert the +csl_style_id+ to a CslStyle (or nil)
   #
   # @api public

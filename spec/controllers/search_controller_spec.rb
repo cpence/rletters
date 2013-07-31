@@ -204,11 +204,11 @@ describe SearchController do
   describe '#to_mendeley', :vcr => { :cassette_name => 'search_mendeley' } do
     context 'when request succeeds' do
       before(:all) do
-        Settings.mendeley_key = '5ba3606d28aa1be94e9c58502b90a49c04dc17289'
+        Setting.mendeley_key = '5ba3606d28aa1be94e9c58502b90a49c04dc17289'
       end
       
       after(:all) do
-        Settings.mendeley_key = ''
+        Setting.mendeley_key = ''
       end
       
       it 'redirects to Mendeley' do
@@ -219,11 +219,11 @@ describe SearchController do
     
     context 'when request times out' do
       before(:all) do
-        Settings.mendeley_key = '5ba3606d28aa1be94e9c58502b90a49c04dc17289'
+        Setting.mendeley_key = '5ba3606d28aa1be94e9c58502b90a49c04dc17289'
       end
       
       after(:all) do
-        Settings.mendeley_key = ''
+        Setting.mendeley_key = ''
       end
       
       before(:each) do

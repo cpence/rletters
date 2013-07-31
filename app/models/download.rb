@@ -19,10 +19,6 @@ class Download < ActiveRecord::Base
   
   belongs_to :analysis_task
   
-  # This is not a documented attribute, as we will override its getter method
-  # down below.
-  attr_accessible :filename
-  
   before_destroy :delete_file
   
   # Creates a download object and file, then passes the file to the block

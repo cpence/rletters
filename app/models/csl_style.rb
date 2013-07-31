@@ -11,5 +11,4 @@
 # @!attribute style
 #   @return [String] XML source for this CSL style
 class CslStyle < ActiveRecord::Base
-  attr_accessible :name, :style
 end

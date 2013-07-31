@@ -82,7 +82,7 @@ module Jobs
     # @return [undefined]
     # :nocov:
     def error(job, exception)
-      unless Settings.airbrake_key.blank?
+      unless Setting.airbrake_key.blank?
         Airbrake.notify(exception)
       end
     end

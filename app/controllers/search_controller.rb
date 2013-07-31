@@ -106,13 +106,13 @@ class SearchController < ApplicationController
   # @api public
   # @return [undefined]
   def to_mendeley
-    raise ActiveRecord::RecordNotFound if Settings.mendeley_key.blank?
+    raise ActiveRecord::RecordNotFound if Setting.mendeley_key.blank?
     
     @document = Document.find(params[:id])
     
     begin
       res = Net::HTTP.start("api.mendeley.com") { |http| 
-        http.get("/oapi/documents/search/title%3A#{CGI::escape(@document.title)}/?consumer_key=#{Settings.mendeley_key}") 
+        http.get("/oapi/documents/search/title%3A#{CGI::escape(@document.title)}/?consumer_key=#{Setting.mendeley_key}") 
       }
       json = res.body
       result = JSON.parse(json)

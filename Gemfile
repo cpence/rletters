@@ -4,9 +4,6 @@ source 'https://rubygems.org'
 gem 'rails', '~> 4.0'
 gem 'rails-i18n', '= 0.7.2'
 
-### FIXME: Temporary migration assistance
-gem 'protected_attributes'
-
 # Deployment and server tools
 gem 'capistrano', :require => false
 
@@ -24,14 +21,13 @@ gem 'airbrake', :require => false
 gem 'pg'
 gem 'activerecord-import'
 gem 'seed-fu', github: 'mbleigh/seed-fu'
-gem 'rails-settings-cached', '0.2.4' # 0.3.0 for Rails 4
+gem 'druthers'
 
 # User authentication and administration
 gem 'devise'
 gem 'devise-i18n'
 gem 'activeadmin', github: 'gregbell/active_admin', branch: 'rails4'
 gem 'responders', github: 'plataformatec/responders' # FIXME: only for AA
-##gem 'inherited_resources', '>= 1.4.1' # FIXME: only for AA
 gem "ransack", github: "ernie/ransack", branch: "rails-4" # FIXME: only for AA
 
 # Support for file attachments and exporting

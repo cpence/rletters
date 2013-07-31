@@ -51,7 +51,7 @@ class LibrariesController < ApplicationController
   # @api public
   # @return [undefined]
   def create
-    @library = Library.new(params[:library])
+    @library = Library.new(library_params)
     @library.user = current_user
 
     if @library.save
@@ -69,7 +69,7 @@ class LibrariesController < ApplicationController
     @library = current_user.libraries.find(params[:id])
     raise ActiveRecord::RecordNotFound unless @library
     
-    if @library.update_attributes(params[:library])
+    if @library.update_attributes(library_params)
       current_user.libraries.reload
       redirect_to edit_user_registration_path, :notice => I18n.t('libraries.update.success')
     else
@@ -118,5 +118,11 @@ class LibrariesController < ApplicationController
     end
     
     render :layout => 'dialog'
+  end
+  
+  private
+  
+  def library_params
+    params.require(:library).permit(:name, :url)
   end
 end

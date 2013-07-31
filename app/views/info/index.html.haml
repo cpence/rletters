@@ -1,10 +1,10 @@
 %ul{ 'data-role' => 'listview', 'data-theme' => 'd', 'data-divider-theme' => 'b' }
-  %li{ 'data-role' => 'list-divider' }= t('.head', :app_name => Settings.app_name)
+  %li{ 'data-role' => 'list-divider' }= t('.head', :app_name => Setting.app_name)
   - if current_user.nil?
     %li
       = link_to info_tutorial_path do
         %h3= t('.tutorial_header')
-        %p= t('.tutorial_text', :app_name => Settings.app_name)
+        %p= t('.tutorial_text', :app_name => Setting.app_name)
     %li{ 'data-theme' => 'e' }
       = link_to new_user_session_path do
         %h3= t('.login')
@@ -25,7 +25,7 @@
     %li
       = link_to edit_user_registration_path do
         %h3= t('.account_header')
-        %p= t('.account_text', :app_name => Settings.app_name)
+        %p= t('.account_text', :app_name => Setting.app_name)
     %li{ 'data-role' => 'list-divider' }= t('.dbinfo')
     %li= t('.dbsize', :count => @database_size)
     %li= t('.all_datasets', :count => Dataset.count)
@@ -33,8 +33,8 @@
     %li
       = link_to info_tutorial_path do
         %h3= t('.tutorial_header')
-        %p= t('.tutorial_text', :app_name => Settings.app_name)
+        %p= t('.tutorial_text', :app_name => Setting.app_name)
     %li
       = link_to info_faq_path do
         %h3= t('.faq_header')
-        %p= t('.faq_text', :app_name => Settings.app_name)
+        %p= t('.faq_text', :app_name => Setting.app_name)

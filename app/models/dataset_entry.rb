@@ -22,6 +22,4 @@ class DatasetEntry < ActiveRecord::Base
   # validation will fail, as the dataset hasn't yet been saved.
 
   belongs_to :dataset
-  
-  attr_accessible :shasum
 end

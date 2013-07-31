@@ -285,9 +285,9 @@ class Document
     @@num_results = 0
     @@num_results = solr_response.total if solr_response.ok?
 
-    raise ActiveRecord::StatementInvalid unless solr_response.ok?
+    raise ActiveRecord::StatementInvalid.new('Solr server did not respond') unless solr_response.ok?
     return [] if solr_response.total == 0
-    raise ActiveRecord::StatementInvalid unless solr_response.docs && solr_response.docs.count
+    raise ActiveRecord::StatementInvalid.new('Solr server claimed to have documents, but returned an empty array') unless solr_response.docs && solr_response.docs.count
     
     # Grab all of the document-attributes that Solr returned, forcing
     # everything into UTF-8 encoding, which is how all Solr's data

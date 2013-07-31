@@ -13,8 +13,6 @@
 #   @return [Paperclip::Attachment] The asset itself
 class UploadedAsset < ActiveRecord::Base
   validates :name, :presence => true
-
-  attr_accessible :name, :file
   
   has_attached_file :file, {
     # This isn't meant to enforce any kind of secrecy, it just makes for URLs

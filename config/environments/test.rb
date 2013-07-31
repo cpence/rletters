@@ -7,13 +7,11 @@ RLetters::Application.configure do
   # your test database is "scratch space" for the test suite and is wiped
   # and recreated between test runs.  Don't rely on the data there!
   config.cache_classes = true
+  config.eager_load = false
 
   # Configure static asset server for tests with Cache-Control for performance
   config.serve_static_assets = true
   config.static_cache_control = "public, max-age=3600"
-
-  # Log error messages when you accidentally call methods on nil
-  config.whiny_nils = true
 
   # Let the proper 404/422/500 pages produce errors
   config.consider_all_requests_local = false
@@ -34,9 +32,6 @@ RLetters::Application.configure do
   # the I18n.default_locale when a translation can not be found)
   config.i18n.fallbacks = true
 
-  # Raise exception on mass assignment protection for Active Record models
-  config.active_record.mass_assignment_sanitizer = :strict
-  
   # Print deprecation notices to the stderr
   config.active_support.deprecation = :stderr
 end

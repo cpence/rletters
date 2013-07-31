@@ -31,12 +31,10 @@ class AnalysisTask < ActiveRecord::Base
   belongs_to :dataset
   has_one :result_file, :class_name => 'Download', :dependent => :destroy
   
-  attr_accessible :name, :dataset, :job_type
-  
-  scope :finished, where('finished_at IS NOT NULL')
-  scope :not_finished, where('finished_at IS NULL')
-  scope :active, not_finished.where(:failed => false)
-  scope :failed, not_finished.where(:failed => true)
+  scope :finished, -> { where('finished_at IS NOT NULL') }
+  scope :not_finished, -> { where('finished_at IS NULL') }
+  scope :active, -> { not_finished.where(:failed => false) }
+  scope :failed, -> { not_finished.where(:failed => true) }
   
   # Convert class_name to a class object
   #

@@ -94,8 +94,6 @@ GEM
       net-sftp (>= 2.0.0)
       net-ssh (>= 2.0.14)
       net-ssh-gateway (>= 1.1.0)
-    capistrano-maintenance (0.0.4)
-      capistrano (>= 2.0.0)
     citeproc-ruby (0.0.6)
       logging (~> 1.5)
       nokogiri (~> 1.5)
@@ -135,6 +133,8 @@ GEM
       warden (~> 1.2.3)
     devise-i18n (0.8.6)
     diff-lcs (1.2.4)
+    druthers (0.0.2)
+      activerecord (>= 3.0)
     erubis (2.7.0)
     execjs (1.4.0)
       multi_json (~> 1.0)
@@ -216,8 +216,6 @@ GEM
     polyamorous (0.6.3)
       activerecord (>= 3.0)
     polyglot (0.3.3)
-    protected_attributes (1.0.3)
-      activemodel (>= 4.0.0, < 5.0)
     rack (1.5.2)
     rack-test (0.6.2)
       rack (>= 1.0)
@@ -231,8 +229,6 @@ GEM
       sprockets-rails (~> 2.0.0)
     rails-i18n (0.7.2)
       i18n (~> 0.5)
-    rails-settings-cached (0.2.4)
-      rails (>= 3.0.0)
     railties (4.0.0)
       actionpack (= 4.0.0)
       activesupport (= 4.0.0)
@@ -333,7 +329,6 @@ DEPENDENCIES
   airbrake
   bibtex-ruby (~> 2.0)
   capistrano
-  capistrano-maintenance
   citeproc-ruby (>= 0.0.4)
   clockwork
   coffee-rails
@@ -343,6 +338,7 @@ DEPENDENCIES
   delayed_job_active_record
   devise
   devise-i18n
+  druthers
   factory_girl_rails
   fuubar
   god
@@ -358,10 +354,8 @@ DEPENDENCIES
   paperclip (~> 3.0)
   paperclip-meta
   pg
-  protected_attributes
   rails (~> 4.0)
   rails-i18n (= 0.7.2)
-  rails-settings-cached (= 0.2.4)
   ransack!
   rdf (>= 0.3.5)
   rdf-n3

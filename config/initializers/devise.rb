@@ -5,8 +5,8 @@ Devise.setup do |config|
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class with default "from" parameter.
-  if ActiveRecord::Base.connection.tables.include?('settings')
-    config.mailer_sender = "noreply@#{Settings.app_domain}"
+  if ActiveRecord::Base.connection.tables.include?('setting')
+    config.mailer_sender = "noreply@#{Setting.app_domain}"
   end
 
   # Configure the class responsible to send e-mails.

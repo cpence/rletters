@@ -25,6 +25,4 @@ class Dataset < ActiveRecord::Base
   has_many :analysis_tasks, :dependent => :destroy
   
   validates_associated :entries
-  
-  attr_accessible :name
 end

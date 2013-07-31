@@ -1,6 +1,10 @@
 # -*- encoding : utf-8 -*-
-class CreateSettings < ActiveRecord::Migration
+class DropOldSettings < ActiveRecord::Migration
   def self.up
+    drop_table :settings
+  end
+  
+  def self.down
     create_table :settings do |t|
       t.string :var, :null => false
       t.text   :value, :null => true
@@ -10,9 +14,5 @@ class CreateSettings < ActiveRecord::Migration
     end
     
     add_index :settings, [ :thing_type, :thing_id, :var ], :unique => true
-  end
-
-  def self.down
-    drop_table :settings
   end
 end

@@ -4,11 +4,11 @@ require 'spec_helper'
 describe "search/show", :vcr => { :cassette_name => 'solr_single' } do
   
   before(:all) do
-    Settings.mendeley_key = 'asdf'
+    Setting.mendeley_key = 'asdf'
   end
   
   after(:all) do
-    Settings.mendeley_key = ''
+    Setting.mendeley_key = ''
   end
   
   before(:each) do

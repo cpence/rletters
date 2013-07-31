@@ -19,8 +19,6 @@
 class MarkdownPage < ActiveRecord::Base
   validates :name, :presence => true
 
-  attr_accessible :name, :content
-  
   # @return [String] Friendly name of this page (looked up in locale)
   def friendly_name
     ret = I18n.t("markdown_pages.#{name}", :default => '')

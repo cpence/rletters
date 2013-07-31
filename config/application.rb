@@ -10,9 +10,6 @@ module RLetters
   class Application < Rails::Application
     # Custom directories with classes and modules you want to be autoloadable.
     config.autoload_paths << "#{config.root}/lib"
-    config.autoload_paths << "#{config.root}/app/models/admin"
-    config.autoload_paths << "#{config.root}/app/models/dataset"
-    config.autoload_paths << "#{config.root}/app/models/user"
 
     # Only load the plugins named here, in the order given (default is alphabetical).
     # :all can be used as a placeholder for all plugins not explicitly named.
@@ -21,9 +18,6 @@ module RLetters
     # Activate observers that should always be running.
     # config.active_record.observers = :cacher, :garbage_collector, :forum_observer
 
-    # Require attributes to be whitelisted to be available for mass assignment
-    config.active_record.whitelist_attributes = true
-    
     # Generate all URLs with trailing slashes
     config.action_controller.default_url_options = { :trailing_slash => true }
         

@@ -69,7 +69,7 @@ class DatasetsController < ApplicationController
   def create
     Delayed::Job.enqueue Jobs::CreateDataset.new(
       :user_id => current_user.to_param,
-      :name => params[:dataset][:name],
+      :name => dataset_params[:name],
       :q => params[:q],
       :fq => params[:fq],
       :qt => params[:qt]), :queue => 'ui'
@@ -202,5 +202,11 @@ class DatasetsController < ApplicationController
     raise ActiveRecord::RecordNotFound unless File.exists?(task.result_file.filename)
     
     task.result_file.send_file(self)
+  end
+  
+  private
+  
+  def dataset_params
+    params.require(:dataset).permit(:name)
   end
 end

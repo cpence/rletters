@@ -1,12 +1,12 @@
 %head
   %meta{ :charset => 'utf-8' }/
   
-  %title= Settings.app_name
+  %title= Setting.app_name
   
   = stylesheet_link_tag 'application'
-  - unless Settings.jquery_mobile_theme_blob.blank?
+  - unless Setting.jquery_mobile_theme_blob.blank?
     %style{ :type => 'text/css' }
-      = Settings.jquery_mobile_theme_blob
+      = Setting.jquery_mobile_theme_blob
   = javascript_include_tag "https://www.google.com/jsapi"
   = javascript_include_tag 'application'
   = csrf_meta_tags
@@ -29,7 +29,7 @@
   %link{ :href => UploadedAsset.url_for('favicon'), :rel => "shortcut icon" }/
   
   -# Load Google analytics (if enabled)
-  - unless Settings.google_analytics_key.blank?
+  - unless Setting.google_analytics_key.blank?
     = render :partial => 'layouts/google'
   
   = content_for :head_tags
