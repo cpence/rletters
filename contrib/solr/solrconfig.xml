@@ -8,9 +8,9 @@
   <requestDispatcher handleSelect="true" >
     <!-- ... -->
   </requestDispatcher>
-  
+
   <indexDefaults>
-    <!-- Note that Solr's default maxFieldLength is much too small for 
+    <!-- Note that Solr's default maxFieldLength is much too small for
          journal article fulltext searching!  This parameter was removed in
          Solr 4.0, and so will not be required for newer versions of Solr. -->
     <maxFieldLength>1000000</maxFieldLength>
@@ -32,13 +32,13 @@
            title_stem^8.0 fulltext_stem^5.0 journal_stem
         </str>
         <str name="q.alt">*:*</str>
-        
+
         <!-- Enable faceting for authors and journals -->
         <bool name="facet">true</bool>
         <int name="facet.limit">10</int>
         <str name="facet.field">authors_facet</str>
         <str name="facet.field">journal_facet</str>
-        
+
         <str name="facet.query">year:[* TO 1799]</str>
         <str name="facet.query">year:[1800 TO 1809]</str>
         <str name="facet.query">year:[1810 TO 1819]</str>
@@ -71,7 +71,7 @@
      <lst name="defaults">
         <str name="echoParams">explicit</str>
         <str name="fl">shasum,doi,license,license_url,authors,title,journal,year,volume,number,pages</str>
-        
+
         <bool name="facet">true</bool>
         <int name="facet.limit">10</int>
         <str name="facet.field">authors_facet</str>
@@ -132,7 +132,7 @@
        component.  On Solr 4, this component name is just
        'solr.TermVectorComponent'. -->
   <searchComponent name="tvComponent" class="org.apache.solr.handler.component.TermVectorComponent"/>
-  
+
   <requestHandler name="fulltext" class="solr.SearchHandler">
      <lst name="defaults">
         <str name="echoParams">explicit</str>

@@ -10,7 +10,7 @@
         = search_field_tag :q, (params[:precise] ? t('.adv_search_placeholder') : params[:q]), :placeholder => t('.placeholder')
     - @documents.each do |d|
       %li.searchlist= link_to document_bibliography_entry(d), search_show_path(:id => d.shasum)
-  
+
   %div.verticalpad
   %p.pagination= render_pagination
   %div.verticalpad

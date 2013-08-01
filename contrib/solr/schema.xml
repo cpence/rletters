@@ -63,7 +63,7 @@
                 pattern="^(\p{P}*)(.*?)(\p{P}*)$"
                 replacement="$2"/>
       </analyzer>
-    </fieldType>    
+    </fieldType>
 
     <!-- All the processing of the previous filter, plus removing of stop
          words -->
@@ -79,7 +79,7 @@
                 words="stopwords.txt"
                 enablePositionIncrements="true"/>
       </analyzer>
-    </fieldType>    
+    </fieldType>
 
     <!-- All the processing of the previous filter, plus:
            - Add WordDelimiterFilter to split on case-change, al-num boundaries,
@@ -90,7 +90,7 @@
       <analyzer>
         <tokenizer class="solr.StandardTokenizerFactory"/>
         <filter class="solr.StandardFilterFactory"/>
-        <filter class="solr.WordDelimiterFilterFactory" 
+        <filter class="solr.WordDelimiterFilterFactory"
                 generateWordParts="1" generateNumberParts="1"
                 catenateWords="1" catenateNumbers="1" catenateAll="0"
                 splitOnCaseChange="1"/>
@@ -112,16 +112,16 @@
  <fields>
    <!-- Required by Solr internals in version 4 -->
    <field name="_version_" type="long" indexed="true"  stored="true"/>
-   
+
    <!-- SHA-1 sum and DOI are stored verbatim -->
    <field name="shasum" type="string" indexed="true" stored="true" required="true" omitNorms="true" />
    <field name="doi" type="string" indexed="true" stored="true" omitNorms="true" />
-   
+
    <!-- The license type and URL are stored verbatim -->
    <field name="license" type="string" indexed="true" stored="true" omitNorms="true" />
    <field name="license_url" type="string" indexed="true" stored="true" omitNorms="true" />
-   
-   <!-- The original bibliographic data: search it, but don't delete stopwords -->   
+
+   <!-- The original bibliographic data: search it, but don't delete stopwords -->
    <field name="authors" type="text_splitLower" indexed="true" stored="true" omitNorms="true" />
    <field name="title" type="text_splitLower" indexed="true" stored="true" omitNorms="true" />
    <field name="journal" type="text_splitLower" indexed="true" stored="true" omitNorms="true" />
@@ -145,7 +145,7 @@
         journals aren't tokenized whatsoever) -->
    <field name="authors_facet" type="text_commaDelimited" indexed="true" stored="false" omitNorms="true" />
    <field name="journal_facet" type="text_noTokens" indexed="true" stored="false" omitNorms="true" />
-   
+
    <!-- Sorting requires fields that aren't tokenized at all -->
    <field name="authors_sort" type="text_noTokens" indexed="true" stored="false" omitNorms="true" />
    <field name="title_sort" type="text_noTokens" indexed="true" stored="false" omitNorms="true" />
@@ -153,7 +153,7 @@
    <field name="year_sort" type="text_noTokens" indexed="true" stored="false" omitNorms="true" />
  </fields>
 
- <!-- Field to use to determine and enforce document uniqueness. 
+ <!-- Field to use to determine and enforce document uniqueness.
       Unless this field is marked with required="false", it will be a required field
    -->
  <uniqueKey>shasum</uniqueKey>

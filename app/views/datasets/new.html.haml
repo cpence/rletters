@@ -11,13 +11,13 @@
   %div{ 'data-role' => 'fieldcontain' }
     = f.label :name, Dataset.human_attribute_name('name')
     = f.text_field :name
-  
+
   = hidden_field_tag :q, params[:q]
   = hidden_field_tag :qt, params[:qt]
   - if params[:fq]
     - params[:fq].each do |fq|
       = hidden_field_tag :'fq[]', fq
-  
+
   = f.submit t('.submit_label')
 
 = link_to t('.cancel'), datasets_path, 'data-role' => 'button'

@@ -19,7 +19,7 @@ GC.respond_to?(:copy_on_write_friendly=) and
 
 before_fork do |server, worker|
   ActiveRecord::Base.connection.disconnect!
-  
+
   old_pid = "<%= deploy_to %>/shared/pids/unicorn.pid.oldbin"
   if File.exists?(old_pid) && server.pid != old_pid
     begin

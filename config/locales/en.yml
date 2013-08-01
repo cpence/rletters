@@ -6,7 +6,7 @@ en:
         login_warning: "You must be logged in to view this page."
     activemodel:
         models:
-            document: 
+            document:
                 one: Document
                 other: Documents
         attributes:
@@ -177,9 +177,9 @@ en:
             intro_markdown: >
                 This page lets you perform an advanced search of the article
                 database.  You may choose either to utilize our guided search
-                form, or to construct a query directly in [Solr's query 
-                syntax](http://wiki.apache.org/solr/SolrQuerySyntax), 
-                which is itself a superset of [Lucene query 
+                form, or to construct a query directly in [Solr's query
+                syntax](http://wiki.apache.org/solr/SolrQuerySyntax),
+                which is itself a superset of [Lucene query
                     syntax](http://lucene.apache.org/java/2_9_1/queryparsersyntax.html).
                 These custom searches are extremely powerful.
             search_header: "Guided search form"
@@ -247,9 +247,9 @@ en:
             instructions_header: "Log in to %{app_name}"
             instructions_one: >
                 If you want to perform any analysis on a set of search results,
-                you'll have to register for a user account.  This lets us save 
-                your search results as a dataset, perform analysis on them in 
-                the background, and send you an e-mail when the analysis is 
+                you'll have to register for a user account.  This lets us save
+                your search results as a dataset, perform analysis on them in
+                the background, and send you an e-mail when the analysis is
                 complete.
     libraries:
         delete:
@@ -313,11 +313,11 @@ en:
             help: "More information and help"
             faq_header: "Frequently asked questions"
             faq_text: >
-                See a list of commonly asked questions about and problems 
+                See a list of commonly asked questions about and problems
                 with %{app_name}
             account_header: "Your user account and settings"
             account_text: >
-                Visit this page to configure your user account and personal 
+                Visit this page to configure your user account and personal
                 settings.
             privacy_header: "Privacy policy"
             privacy_text: "How we use the information we collect from you."
@@ -343,7 +343,7 @@ en:
                 one: "You have one analysis task pending..."
                 other: "You have %{count} analysis tasks pending..."
         new:
-            head: "Create a new dataset"      
+            head: "Create a new dataset"
             errors:
                 one: "1 error kept you from creating this dataset:"
                 other: "%{count} errors kept you from creating this dataset:"

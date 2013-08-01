@@ -1,8 +1,8 @@
 %head
   %meta{ :charset => 'utf-8' }/
-  
+
   %title= Setting.app_name
-  
+
   = stylesheet_link_tag 'application'
   - unless Setting.jquery_mobile_theme_blob.blank?
     %style{ :type => 'text/css' }
@@ -10,26 +10,26 @@
   = javascript_include_tag "https://www.google.com/jsapi"
   = javascript_include_tag 'application'
   = csrf_meta_tags
-  
+
   -# Mobile optimized meta tags for various browsers
   %meta{ :name => 'HandheldFriendly', :content => 'True' }/
   %meta{ :name => 'MobileOptimized', :content => 320 }/
   %meta{ :name => 'viewport', :content => "width=device-width, initial-scale=1.0, maximum-scale=1.0" }/
   %meta{ 'http-equiv' => 'cleartype', :content => 'on' }/
-  
+
   -# Act like a web app on iOS
   %meta{ :name => 'apple-mobile-web-app-capable', :content => 'yes' }/
   %meta{ :name => 'apple-mobile-web-app-status-bar-style', :content => 'black' }/
   %link{ :href => UploadedAsset.url_for('splash-low'), :rel => 'apple-touch-startup-image' }/
-  
+
   -# Home screen icons (Retina iPhone, iPad, all others/Android)
   %link{ :href => UploadedAsset.url_for('apple-touch-icon-high'), :rel => "apple-touch-icon-precomposed", :sizes => "114x114" }/
   %link{ :href => UploadedAsset.url_for('apple-touch-icon-med'), :rel => "apple-touch-icon-precomposed", :sizes => "72x72" }/
   %link{ :href => UploadedAsset.url_for('apple-touch-icon-low'), :rel => "apple-touch-icon-precomposed" }/
   %link{ :href => UploadedAsset.url_for('favicon'), :rel => "shortcut icon" }/
-  
+
   -# Load Google analytics (if enabled)
   - unless Setting.google_analytics_key.blank?
     = render :partial => 'layouts/google'
-  
+
   = content_for :head_tags

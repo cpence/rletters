@@ -6,9 +6,9 @@
 %div.center
   - dates = YAML.load_file(@task.result_file.filename)
   %div.plot_dates_graph= dates.to_s
-  
+
   .verticalpad
-  
+
   %table
     %thead
       %tr

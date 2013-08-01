@@ -1,35 +1,35 @@
---- 
-http_interactions: 
-- request: 
+---
+http_interactions:
+- request:
     method: get
     uri: http://localhost:8983/select?q=shasum:fail&qt=fulltext&wt=ruby
-    body: 
+    body:
       encoding: US-ASCII
       string: ""
     headers: {}
 
-  response: 
-    status: 
+  response:
+    status:
       code: 200
       message: OK
-    headers: 
-      Server: 
+    headers:
+      Server:
       - Winstone Servlet Engine v0.9.10
-      Last-Modified: 
+      Last-Modified:
       - Tue, 05 Mar 2013 02:26:59 GMT
-      Etag: 
+      Etag:
       - "\"YmVlMzM2ZjY5YzgwMDAwMFNvbHI=\""
-      Content-Type: 
+      Content-Type:
       - text/plain;charset=UTF-8
-      Connection: 
+      Connection:
       - Close
-      Date: 
+      Date:
       - Tue, 05 Mar 2013 03:55:11 GMT
-      X-Powered-By: 
+      X-Powered-By:
       - Servlet/2.5 (Winstone/0.9.10)
-    body: 
+    body:
       encoding: US-ASCII
       string: "{'responseHeader'=>{'status'=>0,'QTime'=>1,'params'=>{'wt'=>'ruby','q'=>'shasum:fail','qt'=>'fulltext'}},'response'=>{'numFound'=>0,'start'=>0,'docs'=>[]},'termVectors'=>['uniqueKeyFieldName','shasum']}"
-    http_version: 
+    http_version:
   recorded_at: Tue, 05 Mar 2013 03:55:11 GMT
 recorded_with: VCR 2.4.0

@@ -59,7 +59,7 @@
 		  <label form="short" prefix=", " text-case="capitalize-first" suffix=""/>
 		  <substitute>
 			<names variable="editor"/>
-		  </substitute>            
+		  </substitute>
 		</names>
 	  </if>
 	</choose>
@@ -245,7 +245,7 @@
 		<group prefix=" (" suffix=").">
 		  <text  term="no date" form="short"/>
 		  <text variable="year-suffix" prefix="-"/>
-		</group>    
+		</group>
 	  </else>
 	</choose>
   </macro>

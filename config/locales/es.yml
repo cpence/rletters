@@ -1,10 +1,10 @@
---- 
-es: 
-  activerecord: 
-    attributes: 
-      dataset: 
+---
+es:
+  activerecord:
+    attributes:
+      dataset:
         name: Nombre
-      document: 
+      document:
         authors: Autores
         doi: DOI
         fulltext: "Texto completo"
@@ -16,67 +16,67 @@ es:
         title: Título
         volume: Volumen
         year: Año
-      user: 
+      user:
         email: Email
         identifier: Identificador
         language: "Idioma preferido"
         name: Nombre
         per_page: "Número de resultados por página"
-    errors: 
-      models: 
-        document: 
-          shasum: 
+    errors:
+      models:
+        document:
+          shasum:
             blank: "SHA-1 checksum no se ha especificado (error interno)"
             invalid: "SHA-1 checksum contiene caracteres no válidos (error interno)"
             wrong_length: "SHA-1 checksum no es de 20 caracteres (error interno)"
-        user: 
-          email: 
+        user:
+          email:
             blank: "Debe especificar un email"
             invalid: "%{value} no es una dirección válida de correo electrónico"
             taken: "Una cuenta con esta dirección de correo electrónico ya existe"
-          identifier: 
+          identifier:
             blank: "Identificador no se ha especificado (error interno)"
             invalid: "Identificador debe ser una URL (error interno)"
             taken: "Una cuenta usando esta cuenta externa ya existe (error interno)"
-          language: 
+          language:
             blank: "Idioma preferido se debe especificar (error interno)"
             invalid: "Idioma preferido debe ser un código de localización válida (error interno)"
-          name: 
+          name:
             blank: "Debe especificar un nombre"
-          per_page: 
+          per_page:
             blank: "Número de resultados por página debe ser especificado (error interno)"
             inclusion: "Número de resultados de búsqueda debe ser mayor que cero"
             not_a_number: "Número de resultados por página debe ser un entero"
-    models: 
+    models:
       dataset: Dataset
       document: Documento
       user: Usuario
-  all: 
+  all:
     datasets_button: Datasets
     help_account_button: "Ayuda / Cuenta"
     login_warning: "Usted debe estar registrado para ver esta página."
     search_button: "Buscar / Navegar"
-  datasets: 
-    create: 
+  datasets:
+    create:
       failure: "No se pudo guardar dataset!"
       success: "Dataset se ha creado con éxito."
-    index: 
-      num_datasets_found: 
+    index:
+      num_datasets_found:
         one: "1 dataset encontrado"
         other: "%{count} datasets encontrados"
         zero: "no se encontraron datasets"
-  info: 
-    index: 
+  info:
+    index:
       account_header: "Su cuenta de usuario y opciones"
       account_text: "Visite esta página para configurar su cuenta de usuario y opciones personales."
       head: "Información sobre %{app_name}"
       intro: "¿Necesitas ayuda con %{app_name}?  ¿Quieres saber más sobre lo que se trata todo esto?  Estás en el lugar correcto."
       privacy_header: "Política de privacidad"
       privacy_text: "Cómo utilizamos la información que obtenemos de usted."
-    privacy: 
+    privacy:
       head: "Política de Privacidad"
-  search: 
-    index: 
+  search:
+    index:
       active_filters: "Filtros activos"
       adv_search_placeholder: "(búsqueda avanzada)"
       analyze: "Analizar los resultados"
@@ -87,11 +87,11 @@ es:
       journal_facet: Revista
       journal_facet_short: Revista
       login_prompt: "Entrar a analizar los resultados!"
-      num_results_database: 
+      num_results_database:
         one: "1 artículo en la base de datos"
         other: "%{count} artículos en la base de datos"
         zero: "no hay artículos en la base de datos"
-      num_results_found: 
+      num_results_found:
         one: "1 artículo encontrado"
         other: "%{count} artículos encontrados"
         zero: "No se encontraron artículos"
@@ -99,9 +99,9 @@ es:
       remove_all: "Eliminar todos"
       year_facet: "Fecha de publicación"
       year_facet_short: Año
-  users: 
-    index: 
-      errors: 
+  users:
+    index:
+      errors:
         one: "1 error impidió que estas opciones se guarden:"
         other: "%{count} errores impidió que estas opciones se guarden:"
       head: "Su cuenta de usuario"
@@ -109,15 +109,15 @@ es:
       options: "Opciones del usuario"
       submit_label: "Guardar opciones de usuario"
       user_id: "Estás conectado como %{name} (%{email})"
-    login: 
+    login:
       head: "Inicia sesión para continuar"
       instructions_header: "Iniciar sesión en %{app_name}"
       instructions_one: "Si desea realizar cualquier análisis de un conjunto de resultados de búsqueda, usted tendrá que registrar una cuenta de usuario. Esto nos permite guardar los resultados de búsqueda como un dataset, realizar análisis sobre ellos en el fondo, y le enviaremos un e-mail cuando se complete el análisis."
       instructions_two: "Usted puede utilizar su cuenta con Google, Facebook, Yahoo, Flickr, myOpenID, o cualquier otro OpenID."
       privacy_header: "¿Preocupado por su privacidad?"
       privacy_text: "Si usted está preocupado por entrar con su cuenta de terceros, no se! Es imposible que %{app_name} a filtrar detalles de su cuenta: nunca vemos su tercero contraseña. Para más información, haga clic para leer nuestra política de privacidad."
-    new: 
-      errors: 
+    new:
+      errors:
         one: "1 error impide la creación de su cuenta:"
         other: "%{count} errores impedido la creación de su cuenta:"
       head: ¡Bienvenidos!

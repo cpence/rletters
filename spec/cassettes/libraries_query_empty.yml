@@ -1,29 +1,29 @@
---- 
-http_interactions: 
-- request: 
+---
+http_interactions:
+- request:
     method: get
     uri: http://worldcatlibraries.org/registry/lookup?IP=0.0.0.0
-    body: 
+    body:
       encoding: US-ASCII
       string: ""
     headers: {}
 
-  response: 
-    status: 
+  response:
+    status:
       code: 200
       message: OK
-    headers: 
-      Server: 
+    headers:
+      Server:
       - Apache
-      Content-Type: 
+      Content-Type:
       - text/xml;charset=UTF-8
-      Connection: 
+      Connection:
       - Close
-      Date: 
+      Date:
       - Wed, 19 Oct 2011 00:03:43 GMT
-    body: 
+    body:
       encoding: ASCII-8BIT
       string: '<?xml version="1.0" encoding="UTF-8"?><records xmlns="http://worldcatlibraries.org/registry" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://worldcatlibraries.org/registry http://worldcatlibraries.org/registry/resolver/ResolverRecords.xsd"></records>'
-    http_version: 
+    http_version:
   recorded_at: Tue, 05 Mar 2013 02:10:38 GMT
 recorded_with: VCR 2.4.0

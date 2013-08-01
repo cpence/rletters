@@ -1,5 +1,5 @@
-rm: 
-  territories: 
+rm:
+  territories:
     001: mund
     002: Africa
     003: "America dal Nord"

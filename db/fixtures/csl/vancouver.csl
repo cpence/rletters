@@ -40,13 +40,13 @@
       </names>
    </macro>
    <macro name="publisher">
-     <choose>      
+     <choose>
        <if type="thesis">
 	 <text variable="publisher-place" prefix="[" suffix="]: "/>
        </if>
        <else>
 	 <text variable="publisher-place" suffix=": "/>
-       </else>      
+       </else>
      </choose>
      <text variable="publisher" suffix="; "/>
       <group suffix=". ">

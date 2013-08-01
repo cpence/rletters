@@ -5,5 +5,5 @@ $(document).on("mobileinit", function() {
   bindPlotDatesEvents();
   bindSearchEvents();
   bindUserEvents();
-  bindWordFrequencyEvents();  
+  bindWordFrequencyEvents();
 });

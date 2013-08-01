@@ -5,11 +5,11 @@
     %div{ 'data-role' => 'page', 'data-add-back-btn' => 'true', 'data-url' => "#{url_for(params)}" }
       %div{ 'data-role' => 'header', 'data-id' => 'rlheader', 'data-position' => 'fixed', 'data-tap-toggle' => 'false' }
         %h1= Setting.app_name
-      
+
       %div{ 'data-role' => 'content' }
         = render :partial => 'layouts/flashes'
         = yield
-      
+
       %div.rlfooter{ 'data-id' => 'rlfooter', 'data-position' => 'fixed', 'data-role' => 'footer', 'data-tap-toggle' => 'false' }
         %div{ 'data-role' => 'navbar' }
           %ul
