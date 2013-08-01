@@ -64,13 +64,12 @@ class User < ActiveRecord::Base
   # in users/registrations/{edit,new}.html.
   class ParameterSanitizer < Devise::ParameterSanitizer
     def sign_up
-      devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:name, :email,
-        :password, :password_confirmation, :language, :timezone) }
+      default_params.permit(:name, :email, :password, :password_confirmation,
+        :language, :timezone)
     end
     def account_update
-      devise_parameter_sanitizer.for(:account_update) { |u| u.permit(:name,
-        :email, :password, :password_confirmation, :current_password,
-        :language, :timezone, :per_page, :csl_style_id) }
+      default_params.permit(:name, :email, :password, :password_confirmation,
+        :current_password, :language, :timezone, :per_page, :csl_style_id)
     end
   end
 

@@ -67,6 +67,8 @@ class ApplicationController < ActionController::Base
     request.env['REQUEST_URI'].match(/[^\?]+/).to_s.last == '/'
   end
   
+  protected
+  
   # Send the right parameter sanitizers to Devise
   def devise_parameter_sanitizer
     if resource_class == User
