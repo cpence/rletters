@@ -5,11 +5,9 @@ SimpleCov.command_name 'spec:helpers' if defined?(SimpleCov)
 
 describe ApplicationHelper do
 
-  describe '#render_footer_list' do
-    # FIXME: Can't decide whether or not we want to test this.
-  end
-
-  describe '#t_md' do
+  # Note that these tests are also testing our extension
+  # I18n.translate_markdown, in lib/core_ext.
+  describe '#translate_markdown' do
     context "without a shortcut" do
       it "should render Markdown in translations" do
         I18n.backend.store_translations :en, test_markdown: '# Testing #'

@@ -71,8 +71,7 @@ RSpec.configure do |config|
     # Seed the DB.  I know that people object to this sort of thing, but I want
     # things like the standard package of CSL styles to be available without
     # my having to write giant XML CSL-style factories.
-    SeedFu.quiet = true
-    SeedFu.seed
+    load Rails.root.join('db', 'seeds.rb')
   end
 
   config.after(:suite) do

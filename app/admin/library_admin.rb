@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 
 ActiveAdmin.register Library do
-  menu parent: "Users"
+  menu parent: 'users'
   actions :index, :show
 
   filter :name

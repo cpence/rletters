@@ -20,7 +20,6 @@ gem 'airbrake', require: false
 # Database and related tools
 gem 'pg'
 gem 'activerecord-import', '>= 0.4.0'
-gem 'seed-fu', github: 'mbleigh/seed-fu'
 gem 'druthers'
 
 # User authentication and administration

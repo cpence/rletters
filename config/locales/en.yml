@@ -402,3 +402,29 @@ en:
         apple-touch-icon-low: App Icon (57x57)
         apple-touch-icon-med: App Icon (72x72)
         apple-touch-icon-high: App Icon (114x114)
+    admin:
+        admin_user:
+            admin_details: Administrator Details
+        dashboard:
+            new_datasets: Newest Datasets
+            new_analysis_tasks: Newest Analysis Tasks
+            recent_users: Recently Seen Users
+            backend: Backend Information
+            database: Database
+            db_size: "Database size: %{count} items"
+            connection_failed: Cannot connect to Solr!  Configure the Solr URL on the Settings tab.
+            latency: "Local database latency: %{count} ms"
+            solr: Solr Server
+            solr_version: "Solr version %{solr_ver}, Lucene version %{lucene_ver}"
+            java_version: "Java version %{java_ver}"
+            memory_info: "Memory: %{used} used, with %{free} free of %{total}; %{max} max"
+        markdown_page:
+            markdown_info_markdown: >
+                Custom pages may be formatted using the Markdown syntax.  Visit the
+                [Kramdown syntax guide](http://kramdown.rubyforge.org/syntax.html)
+                for information on the permitted syntax.
+            page_header: "Page: %{name}"
+        uploaded_asset:
+            image_details: "%{width}x%{height} (%{size} bytes)"
+            file_details: "%{size} bytes"
+            asset_header: "Asset: %{name}"

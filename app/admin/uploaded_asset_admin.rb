@@ -2,7 +2,7 @@
 
 ActiveAdmin.register UploadedAsset do
   actions :index, :update, :edit, :show
-  menu parent: "Settings"
+  menu parent: 'settings'
   filter :name
 
   index do
@@ -14,7 +14,7 @@ ActiveAdmin.register UploadedAsset do
     attributes_table do
       row :id
       row :friendly_name
-      if asset.file_content_type.start_with? "image/"
+      if asset.file_content_type.start_with? 'image/'
         row :preview do
           image_tag asset.file
         end
@@ -24,20 +24,24 @@ ActiveAdmin.register UploadedAsset do
       end
       row :size do
         if asset.file.width && asset.file.height
-          "#{asset.file.width}x#{asset.file.height} (#{asset.file_file_size} bytes)"
+          I18n.t('admin.uploaded_asset.image_details',
+                 width: asset.file.width,
+                 height: asset.file.height,
+                 size: asset.file_file_size)
         else
-          "#{asset.file_file_size} bytes"
+          I18n.t('admin.uploaded_asset.file_details',
+                 size: asset.file_file_size)
         end
       end
       row :content_type do
         asset.file_content_type
       end
     end
-    active_admin_comments
   end
 
   form do |f|
-    f.inputs "Asset: #{uploaded_asset.friendly_name}" do
+    f.inputs I18n.t('admin.uploaded_asset.asset_header',
+                    name: uploaded_asset.friendly_name) do
       f.input :file
     end
     f.buttons

@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 
 ActiveAdmin.register AdminUser do
-  menu parent: "Users"
+  menu parent: 'users'
 
   index do
     column :email
@@ -14,7 +14,7 @@ ActiveAdmin.register AdminUser do
   filter :email
 
   form do |f|
-    f.inputs "Admin Details" do
+    f.inputs I18n.t('admin.admin_user.admin_details') do
       f.input :email
       f.input :password
       f.input :password_confirmation
