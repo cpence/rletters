@@ -15,10 +15,10 @@
 # - Analysis jobs should derive from +Jobs::AnalysisJob+ to get some common
 #   attributes.
 module Jobs
-  
+
   # Base class for all delayed jobs
   class Base
-    
+
     # Initialize the job from a hash of attributes in a generic way
     #
     # This constructor will simply set all of the passed +args+ as attribute
@@ -36,12 +36,12 @@ module Jobs
     #   # => 'Testing'
     def initialize(args = { })
       @state_vars = args.keys
-      
+
       args.each_pair do |key, value|
         self.send("#{key}=", value) if self.respond_to?("#{key}=")
       end
     end
-    
+
     # Get a hash of attributes from the state variables
     #
     # @api semipublic
@@ -58,10 +58,10 @@ module Jobs
     #   # construction
     def attributes
       ret = {}
-      @state_vars.each { |k| ret[k] = instance_variable_get("@#{k.to_s}") }      
+      @state_vars.each { |k| ret[k] = instance_variable_get("@#{k.to_s}") }
       ret
     end
-    
+
     # Compare objects for equality based on their attributes
     #
     # @api public
@@ -70,7 +70,7 @@ module Jobs
       attributes == other.attributes
     end
     alias :eql? :==
-    
+
     # Report any exceptions to Airbrake, if it's enabled
     #
     # This method is a callback that is invoked by Delayed::Job.  No tests, as
@@ -87,7 +87,7 @@ module Jobs
       end
     end
     # :nocov:
-    
+
     # Don't restart jobs on error
     #
     # Restarting isn't going to help resolve any errors that are presented, so
@@ -100,7 +100,7 @@ module Jobs
       1
     end
     # :nocov:
-    
+
   end
-  
+
 end

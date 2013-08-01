@@ -16,8 +16,8 @@ module SearchHelper
       I18n.t 'search.index.num_results_database', :count => Document.num_results
     end
   end
-  
-  
+
+
   # Make a link to a page for the pagination widget
   #
   # @api public
@@ -86,8 +86,8 @@ module SearchHelper
       content
     end
   end
-  
-  
+
+
   # Return an array of all sort methods
   #
   # @api public
@@ -108,7 +108,7 @@ module SearchHelper
       'year_sort desc'
     ]
   end
-  
+
   # Get the given sort method as a string
   #
   # This function converts a sort method ('relevance', 'title', 'author',
@@ -124,10 +124,10 @@ module SearchHelper
   def sort_to_string(sort)
     parts = sort.split(' ')
     return I18n.t('search.index.sort_unknown') unless parts.count == 2
-    
-    method = parts[0]    
+
+    method = parts[0]
     dir = I18n.t("search.index.sort_#{parts[1]}")
-    
+
     method_spec = case method
     when 'score'
       I18n.t('search.index.sort_score')
@@ -140,7 +140,7 @@ module SearchHelper
     when 'year_sort'
       "#{Document.human_attribute_name('year')} #{dir}"
     end
-    
+
     "#{I18n.t('search.index.sort_prefix')} #{method_spec}"
   end
 
@@ -191,7 +191,7 @@ module SearchHelper
   #   # "<li><a href='...'>Johnson <span class='ui-li-count'>2</a></li>..."
   def list_links_for_facet(field, header, active_facets)
     return ''.html_safe unless Document.facets
-    
+
     # Get the facets for this field
     facets = Document.facets.sorted_for_field(field).reject { |f| active_facets.include? f }.take(5)
 
@@ -227,7 +227,7 @@ module SearchHelper
   def facet_link_list
     # Make sure there are facets
     return ''.html_safe unless Document.facets
-    
+
     # Convert the active facet queries to facets
     active_facets = []
     if params[:fq]
@@ -261,8 +261,8 @@ module SearchHelper
 
   # Get the short, formatted representation of a document
   #
-  # This function returns the short bibliographic entry for a document that 
-  # will appear in the search results list.  The formatting here depends on 
+  # This function returns the short bibliographic entry for a document that
+  # will appear in the search results list.  The formatting here depends on
   # the current user's settings.  By default, we use a jQuery Mobile-formatted
   # partial with an H3 and some P's.  The user can set, however, to format the
   # bibliographic entries using their favorite CSL style.
@@ -277,7 +277,7 @@ module SearchHelper
     if user_signed_in? && current_user.csl_style
       return doc.to_csl_entry(current_user.csl_style)
     end
-    
+
     render :partial => 'document', :locals => { :document => doc }
   end
 end

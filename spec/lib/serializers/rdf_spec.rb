@@ -2,13 +2,13 @@
 require 'spec_helper'
 
 describe Serializers::RDF do
-  
+
   context "when serializing a single document" do
     before(:each) do
       @doc = FactoryGirl.build(:full_document)
       @graph = @doc.to_rdf
     end
-    
+
     it "creates a good RDF graph" do
       rdf_docs = RDF::Query.execute(@graph, {
         :doc => {
@@ -20,7 +20,7 @@ describe Serializers::RDF do
         }
       })
       rdf_docs.should have(1).item
-      
+
       rdf_docs[0].journal.to_s.should eq('Ethology')
       rdf_docs[0].year.to_s.should eq('2008')
       rdf_docs[0].title.to_s.should eq('How Reliable are the Methods for Estimating Repertoire Size?')
@@ -32,7 +32,7 @@ describe Serializers::RDF do
           RDF::DC.creator => :author
         }
       })
-      
+
       rdf_authors.should have(5).items
 
       expected = [ 'Botero, Carlos A.', 'Mudge, Andrew E.', 'Koltz, Amanda M.',
@@ -61,7 +61,7 @@ describe Serializers::RDF do
         "&rft.spage=1227&rft.epage=1238&rft.aufirst=Carlos+A." \
         "&rft.aulast=Botero&rft.au=Andrew+E.+Mudge" \
         "&rft.au=Amanda+M.+Koltz&rft.au=Wesley+M.+Hochachka" \
-        "&rft.au=Sandra+L.+Vehrencamp", 
+        "&rft.au=Sandra+L.+Vehrencamp",
         "Ethology 114, 1227-1238. (2008)" ]
       actual = []
       rdf_citations.each do |d|
@@ -70,5 +70,5 @@ describe Serializers::RDF do
       actual.should =~ expected
     end
   end
-  
+
 end

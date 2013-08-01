@@ -1,10 +1,10 @@
 # -*- encoding : utf-8 -*-
 
 module Jobs
-  
+
   # Module containing all analysis jobs
   module Analysis
-    
+
     # Base class for all analysis jobs
     #
     # All jobs act on a dataset with a user ID, so those are common to all
@@ -18,7 +18,7 @@ module Jobs
     #   item.  Commonly, it will contain (i) a single list item for
     #   starting the job, (ii) multiple <li> tags for different ways of
     #   starting the job, or (iii) a nested <ul> that contains different
-    #   ways of starting the job (which will be handled gracefully by 
+    #   ways of starting the job (which will be handled gracefully by
     #   jQuery Mobile).  Note that this should have at least one link to the
     #   appropriate invocation of +datasets#task_start+ to be useful.
     # - +results.html.haml+ (optional): Tasks may report their results in two
@@ -37,7 +37,7 @@ module Jobs
     #   @return [String] the dataset to export
     class Base < Jobs::Base
       attr_accessor :user_id, :dataset_id
-      
+
       # True if this job produces a download
       #
       # If true (default), then links to results of tasks will produce links to
@@ -53,13 +53,13 @@ module Jobs
       #       :id => dataset.to_param, :task_id => task.to_param
       #   else
       #     link_to '', :controller => 'datasets', :action => 'task_view',
-      #       :id => dataset.to_param, :task_id => task.to_param, 
+      #       :id => dataset.to_param, :task_id => task.to_param,
       #       :view => 'results'
       #   end
       def self.download?
         true
       end
-      
+
       # Get a list of all classes that are analysis jobs
       #
       # This method looks up all the defined job classes in +lib/jobs/analysis+
@@ -83,10 +83,10 @@ module Jobs
         classes.each do |c|
           return [] unless c.is_a?(Class)
         end
-        
+
         classes
       end
-    
+
       # Get the path to a job-view template for this job
       #
       # We let analysis jobs ship their own job view templates. This
@@ -106,7 +106,7 @@ module Jobs
         class_path = self.name.underscore.sub(str, rep)
         File.join(class_path, view)
       end
-      
+
       # Set the analysis task fail bit on error
       #
       # Analysis tasks carry a +failed+ attribute that reports that the
@@ -125,6 +125,6 @@ module Jobs
         super
       end
     end
-  
+
   end
 end

@@ -14,7 +14,7 @@ end
 
 class Array
   alias_method :old_to_yaml, :to_yaml
-  
+
   # Convert any HashWithIndifferentAccess elements to plain hash and write to
   # YAML
   #
@@ -25,7 +25,7 @@ class Array
     # get caught in an infinite loop
     file, line, meth = *caller(1).first.split(':')
     return if file =~ /\/psych\//
-    
+
     self.without_indifferent_access.old_to_yaml(opts)
   end
 end

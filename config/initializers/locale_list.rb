@@ -11,7 +11,7 @@ RLetters::Application.config.i18n.available_locales = ['en']
 #
 # Exclude any languages that have a Rails translation but are not recognized
 # by the CLDR, as we *require* the CLDR data files (at least 'languages.yml',
-# 'plurals.rb' (if available), and 'territories.yml').  Currently this 
+# 'plurals.rb' (if available), and 'territories.yml').  Currently this
 # excludes the following languages:
 # - csb (Kashubian, not in CLDR at all)
 # - dsb (Lower Sorbian, not in CLDR at all)

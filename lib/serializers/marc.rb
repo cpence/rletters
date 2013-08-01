@@ -1,10 +1,10 @@
 # -*- encoding : utf-8 -*-
 
 module Serializers
-  
+
   # Convert a document to a MARC record
   module MARC
-    
+
     # Register this serializer in the Document list
     def self.included(base)
       base.register_serializer(:marc, 'MARC', lambda { |doc| doc.to_marc },
@@ -15,11 +15,11 @@ module Serializers
             xml.write(ret, 2)
             ret },
         'http://www.loc.gov/standards/marcxml/')
-      base.register_serializer(:json, 'MARC-in-JSON', 
-        lambda { |doc| doc.to_marc_json }, 
+      base.register_serializer(:json, 'MARC-in-JSON',
+        lambda { |doc| doc.to_marc_json },
         'http://www.oclc.org/developer/content/marc-json-draft-2010-03-11')
     end
-    
+
     # Returns this document as a MARC::Record object
     #
     # Support for individual-article MARC records is spotty at best -- this is
@@ -33,7 +33,7 @@ module Serializers
     #
     # In cases where significant parts of a document record are missing (i.e.,
     # no author, no title, no year), it is possible that the MARC generated
-    # by this method will be invalid.  We're currently not going out of our 
+    # by this method will be invalid.  We're currently not going out of our
     # way to patch up records for these edge cases.
     #
     # @api public
@@ -48,14 +48,14 @@ module Serializers
       record.append(::MARC::ControlField.new('001', shasum))
       record.append(::MARC::ControlField.new('003', "PDFSHASUM"))
       record.append(::MARC::ControlField.new('005', Time.now.strftime("%Y%m%d%H%M%S.0")))
-      
+
       if year.blank?
         year_control = '0000'
       else
         year_control = sprintf '%04d', year
       end
       record.append(::MARC::ControlField.new('008', "110501s#{year_control}       ||||fo     ||0 0|eng d"))
-      
+
       record.append(::MARC::DataField.new('040', ' ', ' ',
         ['a', 'RLetters'], ['b', 'eng'], ['c', 'RLetters']))
 
@@ -105,7 +105,7 @@ module Serializers
       marc_enumeration << "<#{start_page}" unless start_page.blank?
 
       record.append(::MARC::DataField.new('773', '0', ' ',
-        ['t', journal], ['g', marc_free], 
+        ['t', journal], ['g', marc_free],
         ['q', marc_enumeration], ['7', 'nnas']))
 
       subfields = []
@@ -121,8 +121,8 @@ module Serializers
 
       record
     end
-    
-    
+
+
     # Returns this document in MARC21 transmission format
     #
     # @note No tests for this method, as it is implemented by the MARC gem.
@@ -135,7 +135,7 @@ module Serializers
       to_marc.to_marc
     end
     # :nocov:
-    
+
     # Returns this document in MARC JSON format
     #
     # MARC in JSON is the newest and shiniest way to transmit MARC records.
@@ -150,12 +150,12 @@ module Serializers
       to_marc.to_hash.to_json
     end
     # :nocov
-    
+
     # Returns this document as MARC-XML
     #
     # This method will include the XML namespace declarations in the root
     # element by default, making this document suitable to be saved
-    # standalone.  Pass +false+ to get a plain root element, suitable for 
+    # standalone.  Pass +false+ to get a plain root element, suitable for
     # inclusion in a MARC collection.
     #
     # @note No tests for this method, as it is implemented by the MARC gem.
@@ -174,9 +174,9 @@ module Serializers
       doc
     end
     # :nocov:
-    
+
     private
-    
+
     # Convert the given author (from +formatted_author_list+) to MARC's format
     # @api private
     # @param [Hash] a author from +formatted_author_list+
@@ -199,7 +199,7 @@ class Array
   # raise an ArgumentError otherwise.
   #
   # @api public
-  # @note No tests for this method, as it's a very unofficial extension to 
+  # @note No tests for this method, as it's a very unofficial extension to
   #   the MARC-in-JSON standard.
   # @return [String] array of documents as MARC-JSON collection
   # @example Save an array of documents in MARC-JSON format to stdout
@@ -210,11 +210,11 @@ class Array
     self.each do |x|
       raise ArgumentError, 'No to_marc method for array element' unless x.respond_to? :to_marc
     end
-    
+
     self.map { |x| x.to_marc.to_hash }.to_json
   end
   # :nocov:
-  
+
   # Convert this array (of Document objects) to a MARCXML collection
   #
   # Only will work on arrays that consist entirely of Document objects, will
@@ -229,16 +229,16 @@ class Array
     self.each do |x|
       raise ArgumentError, 'No to_marc method for array element' unless x.respond_to? :to_marc
     end
-    
+
     coll = REXML::Element.new 'collection'
     coll.add_namespace("http://www.loc.gov/MARC21/slim")
-    
+
     self.map { |d| coll.add(d.to_marc_xml(false).root) }
-    
+
     ret = REXML::Document.new
     ret << REXML::XMLDecl.new
     ret << coll
-    
+
     ret
   end
 end

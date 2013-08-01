@@ -8,9 +8,9 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
   private
-  
+
   before_filter :set_locale, :set_timezone, :ensure_trailing_slash
-  
+
   # Set the locale if the user is logged in
   #
   # This function is called as a +before_filter+ in all controllers, you do
@@ -26,7 +26,7 @@ class ApplicationController < ActionController::Base
       I18n.locale = I18n.default_locale
     end
   end
-  
+
   # Set the timezone if the user is logged in
   #
   # This function is called as a +before_filter+ in all controllers, you do
@@ -42,7 +42,7 @@ class ApplicationController < ActionController::Base
       Time.zone = 'Eastern Time (US & Canada)'
     end
   end
-  
+
   # Make sure there's a trailing slash on the URL
   #
   # jQuery Mobile really wants us always to have a trailing slash on our
@@ -63,12 +63,12 @@ class ApplicationController < ActionController::Base
     # If fullpath isn't defined (e.g., in testing), then just return true
     # so we don't do unnecessary redirects.
     return true if request.env['REQUEST_URI'].blank?
-    
+
     request.env['REQUEST_URI'].match(/[^\?]+/).to_s.last == '/'
   end
-  
+
   protected
-  
+
   # Send the right parameter sanitizers to Devise
   #
   # Devise in Rails 4 uses this hook in the application controller in order

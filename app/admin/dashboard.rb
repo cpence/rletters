@@ -5,7 +5,7 @@ ActiveAdmin.register_page "Dashboard" do
   menu :priority => 1, :label => proc{ I18n.t("active_admin.dashboard") }
 
   content :title => proc{ I18n.t("active_admin.dashboard") } do
-    
+
     columns do
       column do
         panel "Newest Datasets" do
@@ -19,47 +19,47 @@ ActiveAdmin.register_page "Dashboard" do
             column :created_at
           end
         end
-        
+
         panel "Backend Information" do
           h4 "Database"
-          
+
           ul do
             solr_query = {}
             solr_query[:q] = '*:*'
             solr_query[:qt] = 'precise'
             solr_query[:rows] = 5
             solr_query[:start] = 0
-    
+
             solr_response = Solr::Connection.find solr_query
-            
+
             if solr_response['response'] &&
                solr_response['response']['numFound']
               li "Database size: #{solr_response['response']['numFound']} items"
             else
               li "Cannot connect to Solr!  Configure the Solr URL on the #{link_to "settings page.", list_admin_settings_path}".html_safe
             end
-            
+
             if solr_response['responseHeader'] &&
                solr_response['responseHeader']['QTime']
                li "Local database latency: #{solr_response['responseHeader']['QTime']} ms"
              end
           end
-          
+
           solr_info = Solr::Connection.info
-          
+
           if solr_info['lucene'] && solr_info['jvm']
             h4 "Solr Server"
 
-            ul do            
+            ul do
               li "Solr #{solr_info['lucene']['solr-spec-version']}, Lucene #{solr_info['lucene']['lucene-spec-version']}"
               li "Java #{solr_info['jvm']['version']}"
-            
+
               li "Memory: #{solr_info['jvm']['memory']['used']} used, with #{solr_info['jvm']['memory']['free']} free of #{solr_info['jvm']['memory']['total']}; #{solr_info['jvm']['memory']['max']} max"
             end
           end
         end
       end
-      
+
       column do
         panel "Newest Analysis Tasks" do
           table_for AnalysisTask.order("created_at desc").limit(10) do
@@ -73,7 +73,7 @@ ActiveAdmin.register_page "Dashboard" do
             column :failed
           end
         end
-        
+
         panel "Recently Seen Users" do
           table_for User.order("last_sign_in_at desc").limit(5) do
             column :name do |user|

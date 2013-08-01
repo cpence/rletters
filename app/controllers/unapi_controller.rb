@@ -6,7 +6,7 @@
 # records using the unAPI interface, used most prominently by Zotero (as well
 # as other web-based bibliography managers).
 class UnapiController < ApplicationController
-  
+
   # Implement all of unAPI
   #
   # If an id is set, return either a list of formats customized for a
@@ -32,11 +32,11 @@ class UnapiController < ApplicationController
             :formats => [ :html ], :status => 406
         end
       else
-        render :template => 'unapi/formats', :formats => [ :xml ], 
+        render :template => 'unapi/formats', :formats => [ :xml ],
           :handlers => [ :builder ], :layout => false, :status => 300
       end
     else
-      render :template => 'unapi/formats', :formats => [ :xml ], 
+      render :template => 'unapi/formats', :formats => [ :xml ],
         :handlers => [ :builder ], :layout => false
     end
   end

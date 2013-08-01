@@ -30,12 +30,12 @@ class AnalysisTask < ActiveRecord::Base
 
   belongs_to :dataset
   has_one :result_file, :class_name => 'Download', :dependent => :destroy
-  
+
   scope :finished, -> { where('finished_at IS NOT NULL') }
   scope :not_finished, -> { where('finished_at IS NULL') }
   scope :active, -> { not_finished.where(:failed => false) }
   scope :failed, -> { not_finished.where(:failed => true) }
-  
+
   # Convert class_name to a class object
   #
   # @api public
@@ -47,17 +47,17 @@ class AnalysisTask < ActiveRecord::Base
     # Never let the 'Base' class match
     class_name = 'Jobs::Analysis::' + class_name
     raise ArgumentError if class_name == 'Jobs::Analysis::Base'
-    
+
     begin
       klass = class_name.constantize
       raise ArgumentError unless klass.is_a?(Class)
     rescue NameError
       raise ArgumentError
     end
-    
+
     klass
   end
-  
+
   # Convert #job_type into a class object
   #
   # @api public

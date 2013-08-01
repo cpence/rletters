@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 
 module Serializers
-  
+
   # Convert a document to an OpenURL query
   module OpenURL
     # Returns the URL parameters for an OpenURL query for this document

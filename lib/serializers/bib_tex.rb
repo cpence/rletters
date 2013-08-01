@@ -1,16 +1,16 @@
 # -*- encoding : utf-8 -*-
 
 module Serializers
-  
+
   # Convert a document to a BibTeX record
   module BibTex
-    
+
     # Register this serializer in the Document list
     def self.included(base)
       base.register_serializer(:bibtex, 'BibTeX', lambda { |doc| doc.to_bibtex },
         'http://mirrors.ctan.org/biblio/bibtex/contrib/doc/btxdoc.pdf')
     end
-    
+
     # Returns this document as a BibTeX record
     #
     # @api public
@@ -26,7 +26,7 @@ module Serializers
         first_author = formatted_author_list[0].last.gsub(' ','').gsub(/[^A-za-z0-9_]/, '')
       end
       cite_key = "#{first_author}#{year}"
-      
+
       ret  = "@article{#{cite_key},\n"
       unless author_list.nil? || author_list.count == 0
         ret << "    author = {#{author_list.join(' and ')}},\n"
@@ -39,7 +39,7 @@ module Serializers
       ret << "    doi = {#{doi}},\n" unless doi.blank?
       ret << "    year = {#{year}}\n" unless year.blank?
       ret << "}\n"
-      
+
       ret
     end
   end
@@ -49,7 +49,7 @@ end
 #
 # Array indexing starts at 0, as in C or Java. A negative index is assumed
 # to be relative to the end of the array—that is, an index of -1 indicates
-# the last element of the array, -2 is the next to last element in the 
+# the last element of the array, -2 is the next to last element in the
 # array, and so on.
 class Array
   # Convert this array (of Document objects) to a BibTeX collection
@@ -66,7 +66,7 @@ class Array
     self.each do |x|
       raise ArgumentError, 'No to_bibtex method for array element' unless x.respond_to? :to_bibtex
     end
-    
+
     self.map { |x| x.to_bibtex }.join
   end
 end

@@ -23,7 +23,7 @@ module Solr
   #   @return [String] +field+ in human-readable form
   class Facet
     attr_accessor :query, :field, :value, :hits, :label, :field_label
-    
+
     # Create a new facet
     #
     # We can either get a string-format query, or (from RSolr::Ext) a facet
@@ -40,20 +40,20 @@ module Solr
       if options[:query]
         # We already have a query here, so go ahead and save the query
         @query = options[:query]
-        
+
         raise ArgumentError unless options[:hits]
         @hits = Integer(options[:hits])
-        
+
         # Basic format: "field:QUERY"
         parts = @query.split(':')
         raise ArgumentError unless parts.count == 2
-        
+
         @field = parts[0].to_sym
         @value = parts[1]
-        
+
         # Strip quotes from the value if present
         @value = @value[1..-2] if @value[0] == '"' && @value[-1] == '"'
-                
+
         # Format the label according to the field type -- for now, the only
         # argument type is year, so raise an error otherwise
         raise ArgumentError unless @field == :year
@@ -61,23 +61,23 @@ module Solr
 
         return
       end
-      
+
       # We need to have name, value, and hits
       raise ArgumentError unless options[:name]
       @field = options[:name].to_sym
-      
+
       raise ArgumentError unless options[:value]
       @value = options[:value]
-      
+
       # Strip quotes from the value if present
       @value = @value[1..-2] if @value[0] == '"' && @value[-1] == '"'
-      
+
       raise ArgumentError unless options[:hits]
       @hits = Integer(options[:hits])
-      
+
       # Construct the query
       @query = "#{field.to_s}:\"#{value}\""
-      
+
       # Format the label
       case @field
       when :authors_facet
@@ -92,9 +92,9 @@ module Solr
         @field_label = @field.to_s
       end
     end
-    
+
     include Comparable
-    
+
     # Compare facet objects appropriately given their field
     #
     # In general, this sorts first by count and then by value.
@@ -103,18 +103,18 @@ module Solr
     # @return [Integer] -1, 0, or 1, appropriately
     def <=>(other)
       return -(@hits <=> other.hits) if hits != other.hits
-      
+
       # We want years to sort inverse, while we want others normal.
       return -(@value <=> other.value) if field == :year
       (@value <=> other.value)
     end
-    
+
     private
-    
+
     def format_year_label
       # We need to parse the decade out of "[X TO Y]"
       value_without_brackets = @value[1..-2]
-      
+
       parts = value_without_brackets.split
       raise ArgumentError unless parts.count == 3
 
@@ -131,7 +131,7 @@ module Solr
       else
         @label = "#{decade}–#{decade + 9}"
       end
-      
+
       @field_label = I18n.t('search.index.year_facet_short')
     end
   end

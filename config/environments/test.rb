@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 RLetters::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
-  
+
   # The test environment is used exclusively to run your application's
   # test suite.  You never need to work with it otherwise.  Remember that
   # your test database is "scratch space" for the test suite and is wiped
@@ -16,7 +16,7 @@ RLetters::Application.configure do
   # Let the proper 404/422/500 pages produce errors
   config.consider_all_requests_local = false
   config.action_dispatch.show_exceptions = true
-  
+
   # Don't cache anything in the controllers
   config.action_controller.perform_caching = false
 
@@ -27,7 +27,7 @@ RLetters::Application.configure do
   # The :test delivery method accumulates sent emails in the
   # ActionMailer::Base.deliveries array.
   config.action_mailer.delivery_method = :test
-  
+
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation can not be found)
   config.i18n.fallbacks = true

@@ -24,29 +24,29 @@ shared_examples_for 'an analysis job' do
   def dataset_params
     {}
   end
-  
+
   context "when the wrong user is specified" do
     it "raises an exception" do
       expect {
-        described_class.new(job_params.merge({ :user_id => FactoryGirl.create(:user).to_param, 
+        described_class.new(job_params.merge({ :user_id => FactoryGirl.create(:user).to_param,
                                                :dataset_id => @dataset.to_param })).perform
       }.to raise_error(ActiveRecord::RecordNotFound)
     end
   end
-  
+
   context "when an invalid user is specified" do
     it "raises an exception" do
       expect {
-        described_class.new(job_params.merge({ :user_id => '12345678', 
+        described_class.new(job_params.merge({ :user_id => '12345678',
                                                :dataset_id => @dataset.to_param })).perform
       }.to raise_error(ActiveRecord::RecordNotFound)
     end
   end
-  
+
   context "when an invalid dataset is specified" do
     it "raises an exception" do
       expect {
-        described_class.new(job_params.merge({ :user_id => @user.to_param, 
+        described_class.new(job_params.merge({ :user_id => @user.to_param,
                                                :dataset_id => '12345678' })).perform
       }.to raise_error(ActiveRecord::RecordNotFound)
     end
@@ -54,7 +54,7 @@ shared_examples_for 'an analysis job' do
 
   context "when all parameters are valid" do
     include_context "create job with params"
-    
+
     it "creates an analysis task" do
       @dataset.analysis_tasks.should have(1).items
       @dataset.analysis_tasks[0].should be
@@ -67,11 +67,11 @@ shared_examples_for 'an analysis job with a file' do
 
   context "when a file is made" do
     include_context "create job with params"
-    
+
     it "makes a file for the task" do
       @dataset.analysis_tasks[0].result_file.should be
     end
-    
+
     it "creates the file on disk" do
       File.exists?(@dataset.analysis_tasks[0].result_file.filename).should be_true
     end

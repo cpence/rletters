@@ -2,13 +2,13 @@
 require 'spec_helper'
 
 describe Serializers::RIS do
-  
+
   context "when serializing a single document" do
     before(:each) do
       @doc = FactoryGirl.build(:full_document)
       @str = @doc.to_ris
     end
-    
+
     it "creates good RIS" do
       @str.should be_start_with("TY  - JOUR\n")
       @str.should include("AU  - Botero,Carlos A.")
@@ -25,18 +25,18 @@ describe Serializers::RIS do
       @str.should be_end_with("ER  - \n")
     end
   end
-  
+
   context "when serializing an array of documents" do
     before(:each) do
       doc = FactoryGirl.build(:full_document)
       @docs = [doc, doc]
       @str = @docs.to_ris
     end
-    
+
     it "creates good RIS" do
       @str.should be_start_with("TY  - JOUR\n")
       @str.should include("ER  - \nTY  - JOUR\n")
     end
   end
-  
+
 end

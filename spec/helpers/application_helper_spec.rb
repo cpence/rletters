@@ -4,16 +4,16 @@ require 'spec_helper'
 SimpleCov.command_name 'spec:helpers' if defined?(SimpleCov)
 
 describe ApplicationHelper do
-  
+
   describe '#render_footer_list' do
     # FIXME: Can't decide whether or not we want to test this.
   end
-  
+
   describe '#t_md' do
     context "without a shortcut" do
       it "should render Markdown in translations" do
         I18n.backend.store_translations :en, :test_markdown => '# Testing #'
-        
+
         html = helper.t_md(:test_markdown)
         html.should be
         html.should have_tag('h1', :text => 'Testing')
@@ -40,5 +40,5 @@ describe ApplicationHelper do
       end
     end
   end
-  
+
 end

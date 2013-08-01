@@ -9,22 +9,22 @@ namespace :secret do
     secret_token   = SecureRandom.hex(64)
     pattern_base   = /(\.secret_key_base *= *')\w+(')/
     secret_base    = SecureRandom.hex(64)
-    
+
     filepath = "#{Rails.root}/config/initializers/secret_token.rb"
     content  = File.read(filepath)
-    
+
     unless pattern_token && pattern_base
       STDERR.puts "secret tokens not found in #{filepath}"
       exit 1
     end
-    
+
     # replace the secret token
     content.gsub!(pattern_token, "\\1#{secret_token}\\2")
     content.gsub!(pattern_base, "\\1#{secret_base}\\2")
-    
+
     # write the new configuration
     File.open(filepath, 'w') {|f| f.write(content) }
-    
+
     puts "Secret token successfully replaced"
   end
 end

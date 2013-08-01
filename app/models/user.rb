@@ -69,11 +69,11 @@ class User < ActiveRecord::Base
   def csl_style
     CslStyle.find(self.csl_style_id) rescue nil
   end
-  
-  
+
+
   # Parameter sanitizer class for regular users
   #
-  # Attributes that can be edited by the user (in the user options form) 
+  # Attributes that can be edited by the user (in the user options form)
   # should be whitelisted here.  This should be kept in sync with the views
   # in users/registrations/{edit,new}.html.
   #
@@ -85,7 +85,7 @@ class User < ActiveRecord::Base
       default_params.permit(:name, :email, :password, :password_confirmation,
         :language, :timezone)
     end
-    
+
     # Permit the parameters used in the user edit form
     # @return [ActionController::Parameters] permitted parameters
     def account_update

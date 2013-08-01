@@ -2,7 +2,7 @@
 
 # Markup generators common to all of RLetters
 module ApplicationHelper
-  
+
   # Fetch a translation and run it through a Markdown parser
   #
   # Some translations are stored in the translation database as Markdown

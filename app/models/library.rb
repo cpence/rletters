@@ -14,7 +14,7 @@
 #   @return [User] The user this library entry belongs to
 class Library < ActiveRecord::Base
   belongs_to :user
-  
+
   validates :name, :presence => true
   validates :url, :presence => true
   # http://daringfireball.net/2010/07/improved_regex_for_matching_urls
@@ -22,7 +22,7 @@ class Library < ActiveRecord::Base
   validates :user_id, :presence => true
 
   protected
-  
+
   after_validation do |library|
     unless library.url.blank?
       library.url = "http://" + url unless library.url.start_with? "http"

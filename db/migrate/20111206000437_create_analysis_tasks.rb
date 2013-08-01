@@ -9,7 +9,7 @@ class CreateAnalysisTasks < ActiveRecord::Migration
       t.timestamps
     end
     add_index :analysis_tasks, :dataset_id
-    
+
     change_table :downloads do |t|
       t.references :analysis_task
     end

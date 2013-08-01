@@ -13,7 +13,7 @@ if ENV['TRAVIS']
     add_filter '/config/'
     add_filter '/db/'
     add_filter '/vendor/bundle/'
-    
+
     add_group 'Models', '/app/models/'
     add_group 'Controllers', '/app/controllers/'
     add_group 'Mailers', '/app/mailers/'
@@ -30,7 +30,7 @@ VCR.configure do |c|
   c.configure_rspec_metadata!
   c.cassette_library_dir = 'spec/cassettes'
   c.hook_into :webmock
-  
+
   # Psych serializes cassette data as binary, which makes them not human-
   # readable.  When recording new cassettes, fire up Ruby 1.9 and uncomment
   # this line.
@@ -43,7 +43,7 @@ require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'rspec/autorun'
 require 'fileutils'
-  
+
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
 RSpec.configure do |config|
@@ -51,7 +51,7 @@ RSpec.configure do |config|
   config.tty = true
   config.formatter = 'documentation'
   config.order = 'random'
-  
+
   config.mock_with :rspec
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
   config.use_transactional_fixtures = true
@@ -64,7 +64,7 @@ RSpec.configure do |config|
       FileUtils.mkdir "#{::Rails.root}/downloads"
       $destroy_downloads = true
     end
-    
+
     # Speed up testing by deferring garbage collection
     DeferredGarbageCollection.start
 
@@ -74,17 +74,17 @@ RSpec.configure do |config|
     SeedFu.quiet = true
     SeedFu.seed
   end
-  
+
   config.after(:suite) do
     # Clean up GC
     DeferredGarbageCollection.reconsider
-    
+
     # Destroy downloads directory
     if $destroy_downloads
       FileUtils.rm_rf "#{::Rails.root}/downloads"
     end
   end
-  
+
   config.before(:each) do
     # Reset the locale and timezone to defaults on each new test
     I18n.locale = I18n.default_locale

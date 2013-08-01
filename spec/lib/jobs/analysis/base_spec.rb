@@ -15,7 +15,7 @@ module Jobs
         user = User.find(user_id)
         dataset = user.datasets.find(dataset_id)
         @task = dataset.analysis_tasks.create(:name => "This job always fails", :job_type => 'FailingJob')
-        
+
         raise ArgumentError
       end
     end
@@ -32,7 +32,7 @@ describe Jobs::Analysis::Base do
   end
 
   describe '.error' do
-    
+
     before(:each) do
       Delayed::Worker.delay_jobs = false
 
@@ -60,5 +60,5 @@ describe Jobs::Analysis::Base do
       @dataset.analysis_tasks[0].failed.should be_true
     end
   end
-  
+
 end

@@ -13,7 +13,7 @@ describe ApplicationController do
     context 'with no user' do
       before(:each) do
         sign_out :user
-        
+
         get :index
       end
 
@@ -46,7 +46,7 @@ describe ApplicationController do
     context 'with no user' do
       before(:each) do
         sign_out :user
-        
+
         get :index
       end
 
@@ -59,7 +59,7 @@ describe ApplicationController do
       before(:each) do
         @user = FactoryGirl.create(:user, :timezone => 'Mexico City')
         sign_in @user
-        
+
         get :index
       end
 

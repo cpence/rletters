@@ -4,7 +4,7 @@ module Jobs
 
   # Expire any downloads older than two weeks.
   class ExpireDownloads < Jobs::Base
-    
+
     # Expire old downloads
     #
     # @api public

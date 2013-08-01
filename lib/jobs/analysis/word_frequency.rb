@@ -3,7 +3,7 @@ require 'csv'
 
 module Jobs
   module Analysis
-    
+
     # Produce a parallel word frequency list for a dataset
     #
     # @!attribute block_size
@@ -42,7 +42,7 @@ module Jobs
         # Fetch the user based on ID
         user = User.find(user_id)
         raise ArgumentError, 'User ID is not valid' unless user
-      
+
         # Fetch the dataset based on ID
         dataset = user.datasets.find(dataset_id)
         raise ArgumentError, 'Dataset ID is not valid' unless dataset
@@ -78,14 +78,14 @@ module Jobs
             @split_across = false
           end
         end
-        
+
         # Perform the analysis
         analyzer = WordFrequencyAnalyzer.new(dataset,
                                              :block_size => @block_size,
                                              :num_blocks => @num_blocks,
                                              :num_words => @num_words,
                                              :split_across => @split_across)
-        
+
         # Create some CSV
         csv_string = CSV.generate do |csv|
           csv << ["Word frequency information for dataset #{dataset.name}"]
@@ -104,7 +104,7 @@ module Jobs
             types_row = ["Number of types"]
             tokens_row = ["Number of tokens"]
             ttr_row = ["Type/token ratio"]
-            
+
             analyzer.blocks.each_with_index do |b, i|
               s = analyzer.block_stats[i]
 
@@ -154,12 +154,12 @@ module Jobs
           csv << ["Type/token ratio", (analyzer.num_dataset_types.to_f / analyzer.num_dataset_tokens.to_f).to_s]
           csv << [""]
         end
-        
+
         @task.result_file = Download.create_file('frequency.csv') do |file|
           file.write(csv_string)
           file.close
         end
-        
+
         # Make sure the task is saved, setting 'finished_at'
         @task.finished_at = DateTime.current
         @task.save

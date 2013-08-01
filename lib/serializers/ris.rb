@@ -1,16 +1,16 @@
 # -*- encoding : utf-8 -*-
 
 module Serializers
-  
+
   # Convert a document to a RIS record
   module RIS
-    
+
     # Register this serializer in the Document list
     def self.included(base)
       base.register_serializer(:ris, 'RefMan/RIS', lambda { |doc| doc.to_ris },
         'http://www.refman.com/support/risformat_intro.asp')
     end
-    
+
     # Returns this document as a RIS record
     #
     # @api public
@@ -56,7 +56,7 @@ class Array
     self.each do |x|
       raise ArgumentError, 'No to_ris method for array element' unless x.respond_to? :to_ris
     end
-    
+
     self.map { |x| x.to_ris }.join
   end
 end

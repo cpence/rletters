@@ -1,8 +1,8 @@
 # -*- encoding : utf-8 -*-
-# 
+#
 # = Capistrano unicorn.rb task
 #
-# Provides a couple of tasks for creating the unicorn.rb 
+# Provides a couple of tasks for creating the unicorn.rb
 # configuration file dynamically when deploy:setup is run.
 #
 
@@ -42,7 +42,7 @@ Capistrano::Configuration.instance.load do
 
         config = ERB.new(template)
 
-        run "mkdir -p #{shared_path}/config" 
+        run "mkdir -p #{shared_path}/config"
         put config.result(binding), "#{shared_path}/config/unicorn.rb"
       end
 
@@ -50,7 +50,7 @@ Capistrano::Configuration.instance.load do
         [internal] Updates the symlink for unicorn.rb file to the just deployed release.
       DESC
       task :symlink, :except => { :no_release => true } do
-        run "ln -nfs #{shared_path}/config/unicorn.rb #{release_path}/config/unicorn.rb" 
+        run "ln -nfs #{shared_path}/config/unicorn.rb #{release_path}/config/unicorn.rb"
       end
 
     end

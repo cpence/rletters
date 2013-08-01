@@ -2,13 +2,13 @@
 require 'spec_helper'
 
 describe Serializers::MARC do
-  
+
   context "when serializing a single document" do
     before(:each) do
       @doc = FactoryGirl.build(:full_document)
       @record = @doc.to_marc
     end
-    
+
     it "creates a good MARC::Record" do
       # Control fields
       @record['001'].value.should eq('00972c5123877961056b21aea4177d0dc69c7318')
@@ -83,27 +83,27 @@ describe Serializers::MARC do
       @record['362']['a'].should eq('2008.')
     end
   end
-  
+
   context "when serializing a document with no year" do
     before(:each) do
       @doc = FactoryGirl.build(:full_document, :year => nil)
       @record = @doc.to_marc
     end
-    
+
     it "handles no-year documents correctly" do
       @record['008'].value.should eq('110501s0000       ||||fo     ||0 0|eng d')
     end
   end
-  
+
   context "when serializing an array of documents" do
     before(:each) do
       doc = FactoryGirl.build(:full_document)
       @docs = [doc, doc]
     end
-    
+
     it "creates MARCXML collections of the right size" do
       @docs.to_marc_xml.elements['collection'].elements.should have(2).items
     end
   end
-  
+
 end

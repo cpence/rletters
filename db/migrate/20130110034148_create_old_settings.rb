@@ -8,7 +8,7 @@ class CreateOldSettings < ActiveRecord::Migration
       t.string :thing_type, :limit => 30, :null => true
       t.timestamps
     end
-    
+
     add_index :settings, [ :thing_type, :thing_id, :var ], :unique => true
   end
 

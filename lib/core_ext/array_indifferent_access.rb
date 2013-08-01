@@ -22,7 +22,7 @@ class Array
       end
     end
   end
-  
+
   # Return a copy of self with any HashWithIndifferentAccess in the array
   # converted to plain hashes.
   #

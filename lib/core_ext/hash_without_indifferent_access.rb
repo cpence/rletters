@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 
 class Hash
-  
+
   # Return a copy of self, with self and all elements converted to plain hashes
   #
   # This function will recursively convert any HashWithIndifferentAccess classes

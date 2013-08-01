@@ -29,7 +29,7 @@ FactoryGirl.define do
     ignore do
       working false
     end
-    
+
     name "Dataset"
     user
 
@@ -52,7 +52,7 @@ FactoryGirl.define do
     ignore do
       working false
     end
-    
+
     sequence(:shasum) do |n|
       if working
         FactoryGirl.generate(:working_shasum)
@@ -60,7 +60,7 @@ FactoryGirl.define do
         "#{1111111111111111111111111111111111111111 + n}"
       end
     end
-    
+
     dataset
   end
 
@@ -97,7 +97,7 @@ FactoryGirl.define do
     end
 
     initialize_with {
-      Document.new(:shasum => shasum, :doi => doi, :license => license, 
+      Document.new(:shasum => shasum, :doi => doi, :license => license,
                    :license_url => license_url, :authors => authors, :title => title,
                    :journal => journal, :year => year, :volume => volume, :number => number,
                    :pages => pages, :fulltext => fulltext)
@@ -114,17 +114,17 @@ FactoryGirl.define do
     sequence(:url) {|n| "http://sfx.hul.harvard#{n}.edu/sfx_local?" }
     user
   end
-  
+
   factory :markdown_page do
     name 'test_page'
     content '# Header'
   end
-  
+
   factory :uploaded_asset do
     name 'test_asset'
     file { File.new(Rails.root.join('spec', 'spec_helper.rb')) }
   end
-  
+
   factory :user do
     name "John Doe"
     sequence(:email) {|n| "person#{n}@example.com" }
@@ -135,5 +135,5 @@ FactoryGirl.define do
     language 'en-US'
     timezone 'Eastern Time (US & Canada)'
   end
-  
+
 end

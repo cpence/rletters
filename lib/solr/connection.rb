@@ -1,10 +1,10 @@
 # -*- encoding : utf-8 -*-
 
 module Solr
-  
+
   # Methods for managing the singleton connection to the Solr server
   module Connection
-    
+
     # Get a response from Solr
     #
     # This method breaks out the retrieval of a Solr response in order to
@@ -22,7 +22,7 @@ module Solr
         RSolr::Ext::Response::Base.new({ 'response' => { 'docs' => [] } }, 'select', params)
       end
     end
-    
+
     # Get the info/statistics hash from Solr
     #
     # This method retrieves information about the Solr server, including the
@@ -39,9 +39,9 @@ module Solr
         {}
       end
     end
-    
+
     private
-    
+
     # Retrieve the Solr connection object
     #
     # Since the Solr connection URL can be updated on the fly using the
@@ -60,11 +60,11 @@ module Solr
       @@url ||= Setting.solr_server_url
       if @@url != Setting.solr_server_url
         @@url = Setting.solr_server_url
-        
+
         @@solr = RSolr::Ext.connect(:url => Setting.solr_server_url,
                                     :read_timeout => Setting.solr_timeout.to_i,
                                     :open_timeout => Setting.solr_timeout.to_i)
       end
     end
-  end  
+  end
 end

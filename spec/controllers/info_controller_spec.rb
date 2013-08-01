@@ -17,7 +17,7 @@ describe InfoController do
       response.should_not be_redirect
     end
   end
-  
+
   describe '#index' do
     context 'given Solr results', :vcr => { :cassette_name => 'info_query' } do
       it 'loads successfully' do
@@ -25,7 +25,7 @@ describe InfoController do
         response.should be_success
       end
     end
-    
+
     context 'when Solr fails', :vcr => { :cassette_name => 'info_query_error' } do
       it 'loads successfully' do
         get :index
@@ -33,7 +33,7 @@ describe InfoController do
       end
     end
   end
-  
+
   describe '#faq' do
     it 'loads successfully' do
       get :faq
@@ -61,5 +61,5 @@ describe InfoController do
       response.should be_success
     end
   end
-  
+
 end

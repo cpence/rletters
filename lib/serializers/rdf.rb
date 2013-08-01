@@ -4,10 +4,10 @@ require 'rdf/n3'
 require 'rdf/rdfxml'
 
 module Serializers
-  
+
   # Convert a document to an RDF record
   module RDF
-    
+
     # Register this serializer in the Document list
     def self.included(base)
       base.register_serializer(:rdf, 'RDF/XML', lambda { |doc| doc.to_rdf_xml },
@@ -15,13 +15,13 @@ module Serializers
       base.register_serializer(:n3, 'RDF/N3', lambda { |doc| doc.to_rdf_n3 },
         'http://www.w3.org/DesignIssues/Notation3.html')
     end
-    
+
     # Returns this document as a RDF::Graph object
     #
     # For the moment, we provide only metadata items for the basic Dublin
-    # Core elements, and for the Dublin Core 
+    # Core elements, and for the Dublin Core
     # {"bibliographicCitation" element.}[http://dublincore.org/documents/dc-citation-guidelines/]
-    # We also encode an OpenURL reference (using the standard OpenURL 
+    # We also encode an OpenURL reference (using the standard OpenURL
     # namespace), in a second bibliographicCitation element.  The precise way
     # to encode journal articles in DC is in serious flux, but this should
     # provide a reasonable solution.
@@ -35,7 +35,7 @@ module Serializers
     def to_rdf
       graph = ::RDF::Graph.new
       doc = ::RDF::Node.new
-      
+
       unless formatted_author_list.nil?
         formatted_author_list.each do |a|
           name = ''
@@ -66,7 +66,7 @@ module Serializers
 
       graph
     end
-    
+
     # Returns this document as RDF+N3
     #
     # @note No tests for this method, as it is implemented by the RDF gem.
@@ -81,7 +81,7 @@ module Serializers
       end
     end
     # :nocov:
-    
+
     # Returns this document as RDF+XML
     #
     # @note No tests for this method, as it is implemented by the RDF gem.
@@ -96,7 +96,7 @@ module Serializers
       end
     end
     # :nocov:
-    
+
   end
 end
 
@@ -117,7 +117,7 @@ class Array
     self.each do |x|
       raise ArgumentError, 'No to_rdf method for array element' unless x.respond_to? :to_rdf
     end
-    
+
     ::RDF::Writer.for(:n3).buffer do |writer|
       self.each do |x|
         writer << x.to_rdf
@@ -125,7 +125,7 @@ class Array
     end
   end
   # :nocov:
-  
+
   # Convert this array (of Document objects) to an RDF+XML collection
   #
   # Only will work on arrays that consist entirely of Document objects, will
@@ -142,7 +142,7 @@ class Array
     self.each do |x|
       raise ArgumentError, 'No to_rdf method for array element' unless x.respond_to? :to_rdf
     end
-    
+
     ::RDF::Writer.for(:rdf).buffer do |writer|
       self.each do |x|
         writer << x.to_rdf

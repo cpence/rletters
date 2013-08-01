@@ -19,10 +19,10 @@
 class Dataset < ActiveRecord::Base
   validates :name, :presence => true
   validates :user_id, :presence => true
-  
+
   belongs_to :user
   has_many :entries, :class_name => 'DatasetEntry', :dependent => :delete_all
   has_many :analysis_tasks, :dependent => :destroy
-  
+
   validates_associated :entries
 end

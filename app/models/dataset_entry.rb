@@ -16,7 +16,7 @@ class DatasetEntry < ActiveRecord::Base
   validates :shasum, :presence => true
   validates :shasum, :length => { :is => 40 }
   validates :shasum, :format => { :with => /\A[a-fA-F\d]+\z/ }
-  
+
   # Do *not* validate the dataset association here.  Since datasets and
   # their associated entries are always created at the same time, the
   # validation will fail, as the dataset hasn't yet been saved.

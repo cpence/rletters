@@ -2,7 +2,7 @@
 
 Dir.glob(Rails.root.join('db', 'fixtures', 'csl', '*.csl')) do |csl|
   name = ''
-  
+
   File.open(csl) do |f|
     doc = REXML::Document.new(f)
     elt = doc.elements.each('style/info/title') do |elt|
@@ -10,7 +10,7 @@ Dir.glob(Rails.root.join('db', 'fixtures', 'csl', '*.csl')) do |csl|
       break
     end
   end
-  
+
   unless name == ''
     csl_string = IO.read(csl)
 

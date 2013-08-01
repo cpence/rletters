@@ -18,11 +18,11 @@ class AddDeviseToUsers < ActiveRecord::Migration
       t.datetime :last_sign_in_at
       t.string   :current_sign_in_ip
       t.string   :last_sign_in_ip
-      
+
       ## Clear out old stuff
       t.remove :identifier
     end
-    
+
     ## Change email column
     change_column :users, :email, :string, :null => false, :default => ""
 
@@ -34,24 +34,24 @@ class AddDeviseToUsers < ActiveRecord::Migration
     change_table(:users) do |t|
       ## Remove new stuff
       t.remove :encrypted_password
-      
+
       t.remove :reset_password_token
       t.remove :reset_password_sent_at
-      
+
       t.remove :remember_created_at
-      
+
       t.remove :sign_in_count
       t.remove :current_sign_in_at
       t.remove :last_sign_in_at
       t.remove :current_sign_in_ip
       t.remove :last_sign_in_ip
-      
+
       ## Put back old stuff
       t.string :identifier
       t.remove :email
       t.string :email
     end
-    
+
     # Reset email options
     change_column :users, :email, :string, :null => true, :default => nil
   end

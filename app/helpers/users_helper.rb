@@ -60,7 +60,7 @@ module UsersHelper
       I18n.default_locale.to_s
     end
   end
-  
+
   # Create a list of all timezones
   #
   # This function returns a set of option tags for every timezone (similar

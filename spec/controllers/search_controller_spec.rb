@@ -87,17 +87,17 @@ describe SearchController do
         default_sq = { :q => "*:*", :qt => "precise" }
         options = { :sort => "year_sort desc", :offset => 20, :limit => 20 }
         Document.should_receive(:find_all_by_solr_query).with(default_sq, options).and_return([])
-        
+
         get :index, { :page => "1", :per_page => "20" }
 
         assigns(:documents).should have(0).items
       end
-      
+
       it "doesn't throw an exception on non-integral page values" do
         default_sq = { :q => "*:*", :qt => "precise" }
         options = { :sort => "year_sort desc", :offset => 0, :limit => 20 }
         Document.should_receive(:find_all_by_solr_query).with(default_sq, options).and_return([])
-        
+
         expect {
           get :index, { :page => "zzyzzy", :per_page => "20" }
         }.to_not raise_error
@@ -107,35 +107,35 @@ describe SearchController do
         default_sq = { :q => "*:*", :qt => "precise" }
         options = { :sort => "year_sort desc", :offset => 10, :limit => 10 }
         Document.should_receive(:find_all_by_solr_query).with(default_sq, options).and_return([])
-        
+
         expect {
           get :index, { :page => "1", :per_page => "zzyzzy" }
         }.to_not raise_error
       end
-      
+
       it "doesn't let the user specify zero items per page" do
         default_sq = { :q => "*:*", :qt => "precise" }
         options = { :sort => "year_sort desc", :offset => 1, :limit => 1 }
         Document.should_receive(:find_all_by_solr_query).with(default_sq, options).and_return([])
-        
+
         get :index, { :page => "1", :per_page => "0" }
       end
     end
   end
-  
+
   describe '#show', :vcr => { :cassette_name => 'solr_single' } do
     context 'when displaying as HTML' do
       it 'loads successfully' do
         get :show, { :id => FactoryGirl.generate(:working_shasum) }
         response.should be_success
       end
-    
+
       it 'assigns document' do
         get :show, { :id => FactoryGirl.generate(:working_shasum) }
         assigns(:document).should be
       end
     end
-    
+
     context 'when exporting in other formats' do
       it "exports in MARC format" do
         get :show, { :id => FactoryGirl.generate(:working_shasum), :format => 'marc' }
@@ -194,42 +194,42 @@ describe SearchController do
       @user = FactoryGirl.create(:user)
       sign_in @user
     end
-    
+
     it 'loads successfully' do
       get :add, { :id => FactoryGirl.generate(:working_shasum) }
       response.should be_success
     end
   end
-  
+
   describe '#to_mendeley', :vcr => { :cassette_name => 'search_mendeley' } do
     context 'when request succeeds' do
       before(:all) do
         Setting.mendeley_key = '5ba3606d28aa1be94e9c58502b90a49c04dc17289'
       end
-      
+
       after(:all) do
         Setting.mendeley_key = ''
       end
-      
+
       it 'redirects to Mendeley' do
         get :to_mendeley, { :id => '00972c5123877961056b21aea4177d0dc69c7318' }
         response.should redirect_to('http://www.mendeley.com/research/reliable-methods-estimating-repertoire-size-1/')
       end
     end
-    
+
     context 'when request times out' do
       before(:all) do
         Setting.mendeley_key = '5ba3606d28aa1be94e9c58502b90a49c04dc17289'
       end
-      
+
       after(:all) do
         Setting.mendeley_key = ''
       end
-      
+
       before(:each) do
         stub_request(:any, /api\.mendeley\.com\/oapi\/documents\/search\/title.*/).to_timeout
       end
-      
+
       it 'raises an exception' do
         expect {
           get :to_mendeley, { :id => '00972c5123877961056b21aea4177d0dc69c7318' }
@@ -237,7 +237,7 @@ describe SearchController do
       end
     end
   end
-  
+
   describe '#to_citeulike', :vcr => { :cassette_name => 'search_citeulike' } do
     context 'when request succeeds' do
       it 'redirects to citeulike' do
@@ -245,12 +245,12 @@ describe SearchController do
         response.should redirect_to('http://www.citeulike.org/article/3509563')
       end
     end
-    
+
     context 'when request times out' do
       before(:each) do
         stub_request(:any, /www\.citeulike\.org\/json\/search\/all\?.*/).to_timeout
       end
-      
+
       it 'raises an exception' do
         expect {
           get :to_citeulike, { :id => '00972c5123877961056b21aea4177d0dc69c7318' }
@@ -258,12 +258,12 @@ describe SearchController do
       end
     end
   end
-  
+
   describe '#advanced' do
     it 'loads successfully' do
       get :advanced
       response.should be_success
     end
   end
-  
+
 end

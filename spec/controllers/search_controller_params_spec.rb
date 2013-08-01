@@ -2,7 +2,7 @@
 require 'spec_helper'
 
 describe SearchController do
-  
+
   describe '#search_params_to_solr_query' do
     it "correctly eliminates blank params" do
       params = { :q => '', :precise => '' }
@@ -30,7 +30,7 @@ describe SearchController do
       ret = controller.send(:search_params_to_solr_query, params)
       ret[:q].should eq('test')
     end
-    
+
     it "combines the search terms with AND" do
       params = { :precise => 'true', :volume => '30', :number => '5' }
       ret = controller.send(:search_params_to_solr_query, params)
@@ -38,7 +38,7 @@ describe SearchController do
     end
 
     it "mixes in verbatim search parameters correctly" do
-      params = { :precise => 'true', :authors => 'W. Shatner', 
+      params = { :precise => 'true', :authors => 'W. Shatner',
         :volume => '30', :number => '5', :pages => '300-301' }
       ret = controller.send(:search_params_to_solr_query, params)
       ret[:q].should include('authors:(("W* Shatner"))')
@@ -132,5 +132,5 @@ describe SearchController do
       ret[:qt].should eq('standard')
     end
   end
-  
+
 end

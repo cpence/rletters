@@ -15,6 +15,6 @@
 # @!attribute remember_me
 #   @return [Boolean] Whether to keep user logged in (from Devise)
 class AdminUser < ActiveRecord::Base
-  devise :database_authenticatable, 
+  devise :database_authenticatable,
          :recoverable, :rememberable, :trackable, :validatable
 end

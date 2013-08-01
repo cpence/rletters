@@ -1,10 +1,10 @@
 # -*- encoding : utf-8 -*-
 
 ActiveAdmin.register MarkdownPage do
-  actions :index, :update, :edit, :show 
+  actions :index, :update, :edit, :show
   menu :parent => "Settings"
   filter :name
-  
+
   sidebar :markdown, :only => :edit do
     str = <<-EOT
       Custom pages may be formatted using the Markdown syntax.  Visit the
@@ -13,12 +13,12 @@ ActiveAdmin.register MarkdownPage do
     EOT
     para str.html_safe
   end
-  
+
   index do
     column :friendly_name
     default_actions
   end
-  
+
   show :title => :friendly_name do |page|
     attributes_table do
       row :id
@@ -33,7 +33,7 @@ ActiveAdmin.register MarkdownPage do
     end
     active_admin_comments
   end
-  
+
   form do |f|
     f.inputs "Page: #{markdown_page.friendly_name}" do
       f.input :content, :input_html => { :rows => 30 }

@@ -2,13 +2,13 @@
 require 'spec_helper'
 
 describe Serializers::OpenURL do
-  
+
   context "when getting OpenURL link for a single document" do
     before(:each) do
       @doc = FactoryGirl.build(:full_document)
       @params = @doc.to_openurl_params
     end
-    
+
     it "creates good OpenURL params" do
       # FIXME: This is really an awful test, but how can we do it any better?
       @params.should eq("ctx_ver=Z39.88-2004&rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3A" \
@@ -23,5 +23,5 @@ describe Serializers::OpenURL do
         "&rft.au=Sandra+L.+Vehrencamp")
     end
   end
-  
+
 end

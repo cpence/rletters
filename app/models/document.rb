@@ -45,8 +45,8 @@
 # @!attribute [r] term_vectors
 #   Term vectors for this document
 #
-#   The Solr server returns a list of information for each term in every 
-#   document.  The following data is provided (based on Solr server 
+#   The Solr server returns a list of information for each term in every
+#   document.  The following data is provided (based on Solr server
 #   configuration):
 #
 #   - +:tf+, term frequency: the number of times this term appears in
@@ -93,8 +93,8 @@
 #
 #   Faceted browsing information that was returned by the last search
 #
-#   For the purposes of faceted browsing, the Solr server (as configured by 
-#   default in RLetters) returns the number of items within the current search 
+#   For the purposes of faceted browsing, the Solr server (as configured by
+#   default in RLetters) returns the number of items within the current search
 #   with each author, journal, or publication decade.
 #
 #   @api public
@@ -115,7 +115,7 @@
 #
 #   Number of documents returned by the last search
 #
-#   Since the search results (i.e., the size of the +@documents+ variable 
+#   Since the search results (i.e., the size of the +@documents+ variable
 #   for a given view) are almost always limited by the per-page count,
 #   this variable returns the full number of documents that were returned by
 #   the last search.
@@ -167,7 +167,7 @@ class Document
   #
   # @see Document.register_serializer
   @@serializers = {}
-  
+
   # Access the serializer registry
   #
   # @api public
@@ -175,7 +175,7 @@ class Document
   # @example See if there is a serializer loaded for JSON
   #   Document.serializers.has_key? :json
   def self.serializers; @@serializers; end
-  
+
   # Register a serializer
   #
   # @api public
@@ -183,7 +183,7 @@ class Document
   # @param [Symbol] key the MIME type key for this serializer, as defined
   #   in config/initializers/mime_types.rb
   # @param [String] name the human-readable name of this serializer format
-  # @param [Proc] method a method which accepts a Document object as a 
+  # @param [Proc] method a method which accepts a Document object as a
   #   parameter and returns the serialized document as a String
   # @param [String] docs a URL pointing to documentation for this method
   # @example Register a serializer for JSON
@@ -239,7 +239,7 @@ class Document
 
   # Find a set of documents using a direct Solr query
   #
-  # With the exception of processing the +:offset+ and +:limit+ options, 
+  # With the exception of processing the +:offset+ and +:limit+ options,
   # the +params+ array will be passed directly to Solr.
   #
   # @api public
@@ -263,7 +263,7 @@ class Document
   # @option options [Integer] :limit maximum number of results to return
   # @option options [String] :sort sorting string ('method direction')
   #
-  # @return [Array<Document>] set of documents matching query.  An empty 
+  # @return [Array<Document>] set of documents matching query.  An empty
   #   array will be returned if no documents match.
   #
   # @example Return all documents in the collection (bad idea!)
@@ -280,7 +280,7 @@ class Document
 
     # Do the Solr query
     solr_response = Solr::Connection.find params
-    
+
     # Set the num_results count (before possibly bailing!)
     @@num_results = 0
     @@num_results = solr_response.total if solr_response.ok?
@@ -288,7 +288,7 @@ class Document
     raise ActiveRecord::StatementInvalid.new('Solr server did not respond') unless solr_response.ok?
     return [] if solr_response.total == 0
     raise ActiveRecord::StatementInvalid.new('Solr server claimed to have documents, but returned an empty array') unless solr_response.docs && solr_response.docs.count
-    
+
     # Grab all of the document-attributes that Solr returned, forcing
     # everything into UTF-8 encoding, which is how all Solr's data
     # comes back.
@@ -305,7 +305,7 @@ class Document
       (0...solr_response["termVectors"].length).step(2) do |i|
         doc_shasum = solr_response["termVectors"][i + 1][1]
         doc_tvec_array = solr_response["termVectors"][i + 1][3]
-        
+
         idx = documents.find_index { |doc| doc['shasum'] == doc_shasum }
         unless idx.nil?
           documents[idx]["term_vectors"] = parse_term_vectors(doc_tvec_array)
@@ -326,22 +326,22 @@ class Document
   attr_reader :shasum, :doi, :license, :license_url, :authors,
               :author_list, :formatted_author_list, :title, :journal,
               :year, :volume, :number, :pages, :fulltext, :term_vectors
-  
+
   # @return [String] the starting page of this document, if it can be parsed
   def start_page
     return '' if pages.blank?
     pages.split('-')[0]
   end
-  
+
   # @return [String] the ending page of this document, if it can be parsed
   def end_page
     return '' if pages.blank?
     parts = pages.split('-')
     return '' if parts.length <= 1
-    
+
     spage = parts[0]
     epage = parts[-1]
-    
+
     # Check for range strings like "1442-7"
     if spage.length > epage.length
       ret = spage
@@ -351,7 +351,7 @@ class Document
     end
     ret
   end
-  
+
   cattr_reader :facets, :num_results
 
   # The shasum attribute is the only required one

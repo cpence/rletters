@@ -2,7 +2,7 @@
 require 'spec_helper'
 
 describe Jobs::Analysis::WordFrequency, :vcr => { :cassette_name => 'solr_single_fulltext' } do
-  
+
   it_should_behave_like 'an analysis job'
 
   before(:each) do
@@ -14,10 +14,10 @@ describe Jobs::Analysis::WordFrequency, :vcr => { :cassette_name => 'solr_single
   after(:each) do
     @dataset.analysis_tasks[0].destroy unless @dataset.analysis_tasks[0].nil?
   end
-  
+
   describe "#valid?" do
     context "when all parameters are valid" do
-      before(:each) do        
+      before(:each) do
         Jobs::Analysis::WordFrequency.new(:user_id => @user.to_param,
                                           :dataset_id => @dataset.to_param,
                                           :block_size => 100,
@@ -26,11 +26,11 @@ describe Jobs::Analysis::WordFrequency, :vcr => { :cassette_name => 'solr_single
 
         @output = CSV.read(@dataset.analysis_tasks[0].result_file.filename)
       end
-      
+
       it 'names the task correctly' do
         @dataset.analysis_tasks[0].name.should eq("Word frequency list")
       end
-      
+
       it 'creates good CSV' do
         @output.should be_an(Array)
       end

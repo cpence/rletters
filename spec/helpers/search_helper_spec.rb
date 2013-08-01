@@ -28,7 +28,7 @@ describe SearchHelper do
       end
     end
   end
-  
+
   describe '#render_pagination' do
     context 'when we only have one page of results' do
       before(:each) do
@@ -36,7 +36,7 @@ describe SearchHelper do
         @per_page = 10
         @page = 0
       end
-      
+
       it 'returns no links' do
         helper.render_pagination.should_not have_tag("a")
       end
@@ -76,7 +76,7 @@ describe SearchHelper do
           @ret.should have_tag('a[href="/search/?page=4"][data-icon=arrow-l]', :text => "Previous")
           @ret.should have_tag('a[href="/search/"][data-icon=back]', :text => "First")
         end
-        
+
         it 'returns forward buttons' do
           @ret.should have_tag('a[href="/search/?page=6"][data-icon=arrow-r][data-iconpos=right]', :text => "Next")
           @ret.should have_tag('a[href="/search/?page=9"][data-icon=forward][data-iconpos=right]', :text => "Last")
@@ -116,7 +116,7 @@ describe SearchHelper do
       helper.sort_to_string('year_sort asc').should eq("Sort: Year (ascending)")
     end
   end
-  
+
   describe '#list_links_for_facet', :vcr => { :cassette_name => 'solr_default' } do
     before(:each) do
       @docs = Document.find_all_by_solr_query({ :q => "*:*", :qt => "precise" })
@@ -134,7 +134,7 @@ describe SearchHelper do
       it 'includes a link to add a facet' do
         url = "/search/?" + CGI::escape('fq[]=authors_facet:"J. C. Crabbe"').gsub("%26", "&").gsub("%3D", "=")
         @ret.should have_tag("a[href=\"#{url}\"]", :text => "J. C. Crabbe")
-      end 
+      end
     end
 
     context 'with an active facet' do
@@ -152,13 +152,13 @@ describe SearchHelper do
       end
     end
   end
-  
+
   describe '#facet_link_list' do
     context 'when no facets present' do
       before(:each) do
         Document.stub(:facets).and_return(nil)
       end
-      
+
       it "returns an empty string" do
         helper.facet_link_list.should eq('')
       end
@@ -204,19 +204,19 @@ describe SearchHelper do
       it "includes a link to remove all facets" do
         @ret.should have_tag('a[href="/search/"]', :text => "Remove All")
       end
-      
+
       it "includes a link to remove an individual facet" do
         url = "/search/?" + CGI::escape('fq[]=year:[2010 TO *]').gsub("%26", "&").gsub("%3D", "=")
         @ret.should have_tag("a[href=\"#{url}\"]", :text => "Authors: Elisa Lobato")
       end
     end
   end
-  
+
   describe '#document_bibliography_entry', :vcr => { :cassette_name => 'solr_single' } do
     before(:each) do
       @doc = Document.find(FactoryGirl.generate(:working_shasum))
     end
-    
+
     context 'when no user is logged in' do
       before(:each) do
         helper.stub(:current_user) { nil }
@@ -228,7 +228,7 @@ describe SearchHelper do
         helper.document_bibliography_entry(@doc)
       end
     end
-    
+
     context 'when the user has no CSL style set' do
       before(:each) do
         @user = FactoryGirl.create(:user)
@@ -256,5 +256,5 @@ describe SearchHelper do
       end
     end
   end
-  
+
 end

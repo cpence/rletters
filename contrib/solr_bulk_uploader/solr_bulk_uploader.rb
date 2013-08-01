@@ -25,7 +25,7 @@ if ARGV.include?('-j') || ARGV.include?('--javabin')
 end
 
 index = ARGV.index { |a| a == '-u' || a == '--url' }
-unless index.nil?  
+unless index.nil?
   url = ARGV[index + 1]
   bad_args = true if url.nil?
 

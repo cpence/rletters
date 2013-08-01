@@ -2,7 +2,7 @@
 require 'spec_helper'
 
 describe "jobs/single_term_vectors/results" do
-  
+
   before(:each) do
     # RSpec isn't smart enough to read our routes for us, so set
     # things manually here.
@@ -18,14 +18,14 @@ describe "jobs/single_term_vectors/results" do
     end
     @task.save
   end
-  
+
   after(:each) do
     @task.destroy
   end
-  
+
   it 'shows the term and values in a table row' do
     render
-    
+
     rendered.should have_tag('tbody tr') do
       with_tag('td', :text => 'test')
       with_tag('td', :text => '3')
@@ -33,14 +33,14 @@ describe "jobs/single_term_vectors/results" do
       with_tag('td', :text => '2.5')
     end
   end
-  
+
   it "has a link to download the results as CSV" do
     render
-    
-    expected = url_for(:controller => 'datasets', :action => 'task_view', 
-      :id => @dataset.to_param, :task_id => @task.to_param, 
+
+    expected = url_for(:controller => 'datasets', :action => 'task_view',
+      :id => @dataset.to_param, :task_id => @task.to_param,
       :view => 'download', :format => 'csv')
     rendered.should have_tag("a[href='#{expected}']")
   end
-  
+
 end

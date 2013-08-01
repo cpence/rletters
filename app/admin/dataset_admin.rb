@@ -2,7 +2,7 @@
 
 ActiveAdmin.register Dataset do
   actions :index, :show
-  
+
   index do
     column :name
     column :user
@@ -14,7 +14,7 @@ ActiveAdmin.register Dataset do
     end
     default_actions
   end
-  
+
   filter :user
   filter :name
 end

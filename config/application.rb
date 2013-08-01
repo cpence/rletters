@@ -20,14 +20,14 @@ module RLetters
 
     # Generate all URLs with trailing slashes
     config.action_controller.default_url_options = { :trailing_slash => true }
-        
+
     # Add vendor locales (for CLDR files)
     config.i18n.load_path += Dir[Rails.root.join('vendor', 'locales', '**', '*.{rb,yml}').to_s]
     config.i18n.default_locale = :'en-US'
 
     # Configure the default encoding used in templates.
     config.encoding = Encoding::UTF_8
-    
+
     # Bounce exceptions to the routing system
     config.exceptions_app = self.routes
 

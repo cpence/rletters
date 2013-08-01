@@ -6,7 +6,7 @@ describe Serializers::CSL do
   before(:each) do
     @doc = FactoryGirl.build(:full_document)
   end
-  
+
   context "when fetching a single document" do
     before(:each) do
       @csl = @doc.to_csl
@@ -24,7 +24,7 @@ describe Serializers::CSL do
       @csl['page'].should eq('1227-1238')
     end
   end
-  
+
   context "when formatting CSL citations" do
     it "formats with all the CSL style files" do
       @doc.to_csl_entry(CslStyle.find_by_name("American Psychological Association 6th Edition")).should eq("Botero, C. A., Mudge, A. E., Koltz, A. M., Hochachka, W. M., &#38; Vehrencamp, S. L. (2008). How Reliable are the Methods for Estimating Repertoire Size?. <i>Ethology</i>, <i>114</i>, 1227-1238.")
@@ -40,11 +40,11 @@ describe Serializers::CSL do
       @doc.to_csl_entry(CslStyle.find_by_name('National Library of Medicine')).should eq("Botero CA, Mudge AE, Koltz AM, Hochachka WM, Vehrencamp SL. How Reliable are the Methods for Estimating Repertoire Size?. Ethology 2008;114:1227-1238.")
       @doc.to_csl_entry(CslStyle.find_by_name('Vancouver')).should eq("Botero CA, Mudge AE, Koltz AM, Hochachka WM, Vehrencamp SL. How Reliable are the Methods for Estimating Repertoire Size?. Ethology. 2008;114:1227–38.")
     end
-    
+
     it "fetches CSL styles over HTTP", :vcr => { :cassette_name => 'csl_from_github' } do
       entry = @doc.to_csl_entry('https://raw.github.com/citation-style-language/styles/master/science.csl')
       entry.to_s.should eq("C. A. Botero, A. E. Mudge, A. M. Koltz, W. M. Hochachka, S. L. Vehrencamp, How Reliable are the Methods for Estimating Repertoire Size?, <i>Ethology</i> <b>114</b>, 1227-1238 (2008).")
     end
   end
-  
+
 end
