@@ -12,14 +12,14 @@ describe "jobs/single_term_vectors/start" do
 
   context "when dataset has one document" do
     before(:each) do
-      @dataset = FactoryGirl.create(:full_dataset, :entries_count => 1)
+      @dataset = FactoryGirl.create(:full_dataset, entries_count: 1)
     end
 
     it 'has a link to start the task' do
       render
 
-      link = url_for(:controller => 'datasets', :action => 'task_start',
-        :class => 'SingleTermVectors', :id => @dataset.to_param)
+      link = url_for(controller: 'datasets', action: 'task_start',
+        class: 'SingleTermVectors', id: @dataset.to_param)
       rendered.should have_tag("a[href='#{link}']")
     end
   end

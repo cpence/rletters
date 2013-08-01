@@ -4,9 +4,9 @@ require 'spec_helper'
 describe SearchController do
 
   describe '#index' do
-    context 'with empty search results', :vcr => { :cassette_name => 'search_controller_fail' } do
+    context 'with empty search results', vcr: { cassette_name: 'search_controller_fail' } do
       before(:each) do
-        get :index, { :q => 'fail' }
+        get :index, { q: 'fail' }
       end
 
       it 'loads successfully' do
@@ -14,7 +14,7 @@ describe SearchController do
       end
     end
 
-    context 'with precise search results', :vcr => { :cassette_name => 'search_controller_default' } do
+    context 'with precise search results', vcr: { cassette_name: 'search_controller_default' } do
       before(:each) do
         get :index
       end
@@ -47,7 +47,7 @@ describe SearchController do
     context 'with faceted search results' do
       before(:each) do
         Document.should_receive(:find_all_by_solr_query).and_return([])
-        get :index, { :fq => [ 'journal_facet:"Journal of Nothing"' ] }
+        get :index, { fq: [ 'journal_facet:"Journal of Nothing"' ] }
       end
 
       it 'assigns solr_fq' do
@@ -62,7 +62,7 @@ describe SearchController do
     context 'with a dismax search' do
       before(:each) do
         Document.should_receive(:find_all_by_solr_query).and_return([])
-        get :index, { :q => 'testing' }
+        get :index, { q: 'testing' }
       end
 
       it 'assigns solr_q' do
@@ -84,124 +84,124 @@ describe SearchController do
 
     context 'with offset and limit parameters' do
       it 'successfully parses those parameters' do
-        default_sq = { :q => "*:*", :qt => "precise" }
-        options = { :sort => "year_sort desc", :offset => 20, :limit => 20 }
+        default_sq = { q: "*:*", qt: "precise" }
+        options = { sort: "year_sort desc", offset: 20, limit: 20 }
         Document.should_receive(:find_all_by_solr_query).with(default_sq, options).and_return([])
 
-        get :index, { :page => "1", :per_page => "20" }
+        get :index, { page: "1", per_page: "20" }
 
         assigns(:documents).should have(0).items
       end
 
       it "doesn't throw an exception on non-integral page values" do
-        default_sq = { :q => "*:*", :qt => "precise" }
-        options = { :sort => "year_sort desc", :offset => 0, :limit => 20 }
+        default_sq = { q: "*:*", qt: "precise" }
+        options = { sort: "year_sort desc", offset: 0, limit: 20 }
         Document.should_receive(:find_all_by_solr_query).with(default_sq, options).and_return([])
 
         expect {
-          get :index, { :page => "zzyzzy", :per_page => "20" }
+          get :index, { page: "zzyzzy", per_page: "20" }
         }.to_not raise_error
       end
 
       it "doesn't throw an exception on non-integral per_page values" do
-        default_sq = { :q => "*:*", :qt => "precise" }
-        options = { :sort => "year_sort desc", :offset => 10, :limit => 10 }
+        default_sq = { q: "*:*", qt: "precise" }
+        options = { sort: "year_sort desc", offset: 10, limit: 10 }
         Document.should_receive(:find_all_by_solr_query).with(default_sq, options).and_return([])
 
         expect {
-          get :index, { :page => "1", :per_page => "zzyzzy" }
+          get :index, { page: "1", per_page: "zzyzzy" }
         }.to_not raise_error
       end
 
       it "doesn't let the user specify zero items per page" do
-        default_sq = { :q => "*:*", :qt => "precise" }
-        options = { :sort => "year_sort desc", :offset => 1, :limit => 1 }
+        default_sq = { q: "*:*", qt: "precise" }
+        options = { sort: "year_sort desc", offset: 1, limit: 1 }
         Document.should_receive(:find_all_by_solr_query).with(default_sq, options).and_return([])
 
-        get :index, { :page => "1", :per_page => "0" }
+        get :index, { page: "1", per_page: "0" }
       end
     end
   end
 
-  describe '#show', :vcr => { :cassette_name => 'solr_single' } do
+  describe '#show', vcr: { cassette_name: 'solr_single' } do
     context 'when displaying as HTML' do
       it 'loads successfully' do
-        get :show, { :id => FactoryGirl.generate(:working_shasum) }
+        get :show, { id: FactoryGirl.generate(:working_shasum) }
         response.should be_success
       end
 
       it 'assigns document' do
-        get :show, { :id => FactoryGirl.generate(:working_shasum) }
+        get :show, { id: FactoryGirl.generate(:working_shasum) }
         assigns(:document).should be
       end
     end
 
     context 'when exporting in other formats' do
       it "exports in MARC format" do
-        get :show, { :id => FactoryGirl.generate(:working_shasum), :format => 'marc' }
+        get :show, { id: FactoryGirl.generate(:working_shasum), format: 'marc' }
         response.should be_valid_download('application/marc')
       end
 
       it "exports in MARC-JSON format" do
-        get :show, { :id => FactoryGirl.generate(:working_shasum), :format => 'json' }
+        get :show, { id: FactoryGirl.generate(:working_shasum), format: 'json' }
         response.should be_valid_download('application/json')
       end
 
       it "exports in MARC-XML format" do
-        get :show, { :id => FactoryGirl.generate(:working_shasum), :format => 'marcxml' }
+        get :show, { id: FactoryGirl.generate(:working_shasum), format: 'marcxml' }
         response.should be_valid_download('application/marcxml+xml')
       end
 
       it "exports in BibTeX format" do
-        get :show, { :id => FactoryGirl.generate(:working_shasum), :format => 'bibtex' }
+        get :show, { id: FactoryGirl.generate(:working_shasum), format: 'bibtex' }
         response.should be_valid_download('application/x-bibtex')
       end
 
       it "exports in EndNote format" do
-        get :show, { :id =>  FactoryGirl.generate(:working_shasum), :format => 'endnote' }
+        get :show, { id:  FactoryGirl.generate(:working_shasum), format: 'endnote' }
         response.should be_valid_download('application/x-endnote-refer')
       end
 
       it "exports in RIS format" do
-        get :show, { :id =>  FactoryGirl.generate(:working_shasum), :format => 'ris' }
+        get :show, { id:  FactoryGirl.generate(:working_shasum), format: 'ris' }
         response.should be_valid_download('application/x-research-info-systems')
       end
 
       it "exports in MODS format" do
-        get :show, { :id =>  FactoryGirl.generate(:working_shasum), :format => 'mods' }
+        get :show, { id:  FactoryGirl.generate(:working_shasum), format: 'mods' }
         response.should be_valid_download('application/mods+xml')
       end
 
       it "exports in RDF/XML format" do
-        get :show, { :id =>  FactoryGirl.generate(:working_shasum), :format => 'rdf' }
+        get :show, { id:  FactoryGirl.generate(:working_shasum), format: 'rdf' }
         response.should be_valid_download('application/rdf+xml')
       end
 
       it "exports in RDF/N3 format" do
-        get :show, { :id => FactoryGirl.generate(:working_shasum), :format => 'n3' }
+        get :show, { id: FactoryGirl.generate(:working_shasum), format: 'n3' }
         response.should be_valid_download('text/rdf+n3')
       end
 
       it "fails to export an invalid format" do
-        get :show, { :id => FactoryGirl.generate(:working_shasum), :format => 'csv' }
+        get :show, { id: FactoryGirl.generate(:working_shasum), format: 'csv' }
         controller.response.response_code.should eq(406)
       end
     end
   end
 
-  describe '#add', :vcr => { :cassette_name => 'solr_single' } do
+  describe '#add', vcr: { cassette_name: 'solr_single' } do
     before(:each) do
       @user = FactoryGirl.create(:user)
       sign_in @user
     end
 
     it 'loads successfully' do
-      get :add, { :id => FactoryGirl.generate(:working_shasum) }
+      get :add, { id: FactoryGirl.generate(:working_shasum) }
       response.should be_success
     end
   end
 
-  describe '#to_mendeley', :vcr => { :cassette_name => 'search_mendeley' } do
+  describe '#to_mendeley', vcr: { cassette_name: 'search_mendeley' } do
     context 'when request succeeds' do
       before(:all) do
         Setting.mendeley_key = '5ba3606d28aa1be94e9c58502b90a49c04dc17289'
@@ -212,7 +212,7 @@ describe SearchController do
       end
 
       it 'redirects to Mendeley' do
-        get :to_mendeley, { :id => '00972c5123877961056b21aea4177d0dc69c7318' }
+        get :to_mendeley, { id: '00972c5123877961056b21aea4177d0dc69c7318' }
         response.should redirect_to('http://www.mendeley.com/research/reliable-methods-estimating-repertoire-size-1/')
       end
     end
@@ -232,16 +232,16 @@ describe SearchController do
 
       it 'raises an exception' do
         expect {
-          get :to_mendeley, { :id => '00972c5123877961056b21aea4177d0dc69c7318' }
+          get :to_mendeley, { id: '00972c5123877961056b21aea4177d0dc69c7318' }
         }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
   end
 
-  describe '#to_citeulike', :vcr => { :cassette_name => 'search_citeulike' } do
+  describe '#to_citeulike', vcr: { cassette_name: 'search_citeulike' } do
     context 'when request succeeds' do
       it 'redirects to citeulike' do
-        get :to_citeulike, { :id => '00972c5123877961056b21aea4177d0dc69c7318' }
+        get :to_citeulike, { id: '00972c5123877961056b21aea4177d0dc69c7318' }
         response.should redirect_to('http://www.citeulike.org/article/3509563')
       end
     end
@@ -253,7 +253,7 @@ describe SearchController do
 
       it 'raises an exception' do
         expect {
-          get :to_citeulike, { :id => '00972c5123877961056b21aea4177d0dc69c7318' }
+          get :to_citeulike, { id: '00972c5123877961056b21aea4177d0dc69c7318' }
         }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end

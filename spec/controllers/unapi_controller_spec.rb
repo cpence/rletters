@@ -10,7 +10,7 @@ describe UnapiController do
   def get_unapi(with_id = false, format = nil)
     if with_id
       @id = FactoryGirl.generate(:working_shasum)
-      get :index, { :id => @id, :format => format }
+      get :index, { id: @id, format: format }
     else
       get :index
     end
@@ -95,10 +95,10 @@ describe UnapiController do
       get_unapi true, f.attributes['name']
 
       response.should redirect_to(
-        :controller => 'search',
-        :action => 'show',
-        :id => @id,
-        :format => f.attributes['name'].to_s)
+        controller: 'search',
+        action: 'show',
+        id: @id,
+        format: f.attributes['name'].to_s)
     end
   end
 

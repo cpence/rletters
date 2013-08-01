@@ -12,25 +12,25 @@ RLetters::Application.routes.draw do
   # Search/Browse page
   get 'search' => 'search#index'
   get 'search/advanced' => 'search#advanced'
-  get 'search/document/:id' => 'search#show', :as => 'search_show'
-  get 'search/document/:id/add' => 'search#add', :as => 'search_add'
-  get 'search/document/:id/mendeley' => 'search#to_mendeley', :as => 'mendeley_redirect'
-  get 'search/document/:id/citeulike' => 'search#to_citeulike', :as => 'citeulike_redirect'
+  get 'search/document/:id' => 'search#show', as: 'search_show'
+  get 'search/document/:id/add' => 'search#add', as: 'search_add'
+  get 'search/document/:id/mendeley' => 'search#to_mendeley', as: 'mendeley_redirect'
+  get 'search/document/:id/citeulike' => 'search#to_citeulike', as: 'citeulike_redirect'
 
   # Datasets (per-user)
-  resources :datasets, :except => [ :edit, :update ] do
+  resources :datasets, except: [ :edit, :update ] do
     collection do
       get 'dataset_list'
-      get 'add' => 'datasets#add', :as => 'add_to'
+      get 'add' => 'datasets#add', as: 'add_to'
     end
 
     member do
       get 'task_list'
       get 'delete'
-      get 'task/:class/start' => 'datasets#task_start', :constraints => { :class => /[A-Z][A-Za-z]+/ }
-      get 'task/:task_id/view/:view' => 'datasets#task_view', :constraints => { :task_id => /[0-9]+/ }
-      get 'task/:task_id/destroy' => 'datasets#task_destroy', :constraints => { :task_id => /[0-9]+/ }
-      get 'task/:task_id/download' => 'datasets#task_download', :constraints => { :task_id => /[0-9]+/ }
+      get 'task/:class/start' => 'datasets#task_start', constraints: { class: /[A-Z][A-Za-z]+/ }
+      get 'task/:task_id/view/:view' => 'datasets#task_view', constraints: { task_id: /[0-9]+/ }
+      get 'task/:task_id/destroy' => 'datasets#task_destroy', constraints: { task_id: /[0-9]+/ }
+      get 'task/:task_id/download' => 'datasets#task_download', constraints: { task_id: /[0-9]+/ }
     end
   end
 
@@ -39,12 +39,12 @@ RLetters::Application.routes.draw do
 
   # Redirect to the main user page after a successful user edit
   devise_scope :user do
-    get 'users' => 'info#index', :as => :user_root
+    get 'users' => 'info#index', as: :user_root
   end
 
   scope '/users' do
     # Libraries, nested under users
-    resources :libraries, :except => :show do
+    resources :libraries, except: :show do
       member do
         get 'delete'
       end
@@ -62,7 +62,7 @@ RLetters::Application.routes.draw do
   get 'unapi' => 'unapi#index'
 
   # Start off on the info/home page
-  root :to => 'info#index'
+  root to: 'info#index'
 
   # Error pages
   get "/404" => "errors#not_found"

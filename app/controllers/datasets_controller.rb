@@ -26,7 +26,7 @@ class DatasetsController < ApplicationController
   # @return [undefined]
   def dataset_list
     @datasets = current_user.datasets
-    render :layout => false
+    render layout: false
   end
 
   # Show information about the requested dataset
@@ -51,7 +51,7 @@ class DatasetsController < ApplicationController
   # @return [undefined]
   def new
     @dataset = current_user.datasets.build
-    render :layout => 'dialog'
+    render layout: 'dialog'
   end
 
   # Show a confirmation box for deleting a dataset
@@ -60,7 +60,7 @@ class DatasetsController < ApplicationController
   def delete
     @dataset = current_user.datasets.find(params[:id])
     raise ActiveRecord::RecordNotFound unless @dataset
-    render :layout => 'dialog'
+    render layout: 'dialog'
   end
 
   # Create a new dataset in the database
@@ -68,13 +68,13 @@ class DatasetsController < ApplicationController
   # @return [undefined]
   def create
     Delayed::Job.enqueue Jobs::CreateDataset.new(
-      :user_id => current_user.to_param,
-      :name => dataset_params[:name],
-      :q => params[:q],
-      :fq => params[:fq],
-      :qt => params[:qt]), :queue => 'ui'
+      user_id: current_user.to_param,
+      name: dataset_params[:name],
+      q: params[:q],
+      fq: params[:fq],
+      qt: params[:qt]), queue: 'ui'
 
-    redirect_to datasets_path, :notice => I18n.t('datasets.create.building')
+    redirect_to datasets_path, notice: I18n.t('datasets.create.building')
   end
 
   # Delete a dataset from the database
@@ -86,8 +86,8 @@ class DatasetsController < ApplicationController
     redirect_to @dataset and return if params[:cancel]
 
     Delayed::Job.enqueue Jobs::DestroyDataset.new(
-      :user_id => current_user.to_param,
-      :dataset_id => params[:id]), :queue => 'ui'
+      user_id: current_user.to_param,
+      dataset_id: params[:id]), queue: 'ui'
 
     redirect_to datasets_path
   end
@@ -104,7 +104,7 @@ class DatasetsController < ApplicationController
     raise ActiveRecord::RecordNotFound unless @document
 
     # No reason for this to be a delayed job, just do the create
-    @dataset.entries.create({ :shasum => params[:shasum] })
+    @dataset.entries.create({ shasum: params[:shasum] })
     redirect_to dataset_path(@dataset)
   end
 
@@ -119,7 +119,7 @@ class DatasetsController < ApplicationController
     @dataset = current_user.datasets.find(params[:id])
     raise ActiveRecord::RecordNotFound unless @dataset
 
-    render :layout => false
+    render layout: false
   end
 
   # Start an analysis task for this dataset
@@ -144,7 +144,7 @@ class DatasetsController < ApplicationController
     job_params[:dataset_id] = dataset.to_param
 
     # Enqueue the job
-    Delayed::Job.enqueue klass.new(job_params), :queue => 'analysis'
+    Delayed::Job.enqueue klass.new(job_params), queue: 'analysis'
     redirect_to dataset_path(dataset)
   end
 
@@ -165,7 +165,7 @@ class DatasetsController < ApplicationController
     raise ActiveRecord::RecordNotFound unless params[:view]
 
     klass = @task.job_class
-    render :template => klass.view_path(params[:view])
+    render template: klass.view_path(params[:view])
   end
 
   # Delete an analysis task

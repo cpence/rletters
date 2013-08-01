@@ -1,14 +1,14 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe Jobs::Analysis::WordFrequency, :vcr => { :cassette_name => 'solr_single_fulltext' } do
+describe Jobs::Analysis::WordFrequency, vcr: { cassette_name: 'solr_single_fulltext' } do
 
   it_should_behave_like 'an analysis job'
 
   before(:each) do
     @user = FactoryGirl.create(:user)
-    @dataset = FactoryGirl.create(:full_dataset, :entries_count => 10,
-                                  :working => true, :user => @user)
+    @dataset = FactoryGirl.create(:full_dataset, entries_count: 10,
+                                  working: true, user: @user)
   end
 
   after(:each) do
@@ -18,11 +18,11 @@ describe Jobs::Analysis::WordFrequency, :vcr => { :cassette_name => 'solr_single
   describe "#valid?" do
     context "when all parameters are valid" do
       before(:each) do
-        Jobs::Analysis::WordFrequency.new(:user_id => @user.to_param,
-                                          :dataset_id => @dataset.to_param,
-                                          :block_size => 100,
-                                          :split_across => true,
-                                          :num_words => 0).perform
+        Jobs::Analysis::WordFrequency.new(user_id: @user.to_param,
+                                          dataset_id: @dataset.to_param,
+                                          block_size: 100,
+                                          split_across: true,
+                                          num_words: 0).perform
 
         @output = CSV.read(@dataset.analysis_tasks[0].result_file.filename)
       end

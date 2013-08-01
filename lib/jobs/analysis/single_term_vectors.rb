@@ -15,8 +15,8 @@ module Jobs
       # @return [undefined]
       # @example Start a job for exporting term vectors
       #   Delayed::Job.enqueue Jobs::Analysis::SingleTermVectors.new(
-      #     :user_id => current_user.to_param,
-      #     :dataset_id => dataset.to_param)
+      #     user_id: current_user.to_param,
+      #     dataset_id: dataset.to_param)
       def perform
         # Fetch the user based on ID
         user = User.find(user_id)
@@ -31,7 +31,7 @@ module Jobs
         raise ArgumentError, 'Dataset has too many entries' unless dataset.entries.count == 1
 
         # Make a new analysis task
-        @task = dataset.analysis_tasks.create(:name => "Term frequency information", :job_type => 'SingleTermVectors')
+        @task = dataset.analysis_tasks.create(name: "Term frequency information", job_type: 'SingleTermVectors')
 
         # Get the document
         doc = Document.find_with_fulltext dataset.entries[0].shasum

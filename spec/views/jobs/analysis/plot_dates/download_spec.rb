@@ -10,8 +10,8 @@ describe "jobs/plot_dates/download" do
     controller.request.path_parameters[:controller] = "datasets"
 
     @dataset = FactoryGirl.create(:full_dataset)
-    @task = FactoryGirl.create(:analysis_task, :name => "Plot dataset by date",
-                               :job_type => 'PlotDates', :dataset => @dataset)
+    @task = FactoryGirl.create(:analysis_task, name: "Plot dataset by date",
+                               job_type: 'PlotDates', dataset: @dataset)
     @task.result_file = Download.create_file('temp.yml') do |file|
       file.write([ [ 2003, 13 ] ].to_yaml)
       file.close

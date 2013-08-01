@@ -6,7 +6,7 @@ describe Serializers::MODS do
 
   context "when serializing a single document" do
     before(:each) do
-      @doc = FactoryGirl.build(:full_document, :number => '12')
+      @doc = FactoryGirl.build(:full_document, number: '12')
       @xml = @doc.to_mods
     end
 
@@ -41,7 +41,7 @@ describe Serializers::MODS do
   context "when serializing an array of documents" do
     before(:each) do
       doc = FactoryGirl.build(:full_document)
-      doc2 = FactoryGirl.build(:full_document, :shasum => 'wut')
+      doc2 = FactoryGirl.build(:full_document, shasum: 'wut')
 
       @docs = [doc, doc2]
       @xml = @docs.to_mods

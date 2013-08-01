@@ -6,7 +6,7 @@ describe Dataset do
   describe '#valid?' do
     context 'when name is not specified' do
       before(:each) do
-        @dataset = FactoryGirl.build(:dataset, :name => nil)
+        @dataset = FactoryGirl.build(:dataset, name: nil)
       end
 
       it "isn't valid" do
@@ -16,7 +16,7 @@ describe Dataset do
 
     context 'when user is not specified' do
       before(:each) do
-        @dataset = FactoryGirl.build(:dataset, :user => nil)
+        @dataset = FactoryGirl.build(:dataset, user: nil)
       end
 
       it "isn't valid" do
@@ -39,7 +39,7 @@ describe Dataset do
     context 'when an analysis task is created' do
       before(:each) do
         @dataset = FactoryGirl.create(:dataset)
-        @task = FactoryGirl.create(:analysis_task, :dataset => @dataset, :name => 'test')
+        @task = FactoryGirl.create(:analysis_task, dataset: @dataset, name: 'test')
       end
 
       after(:each) do
@@ -61,7 +61,7 @@ describe Dataset do
     context 'when creating a new dataset' do
       before(:each) do
         @user = FactoryGirl.create(:user)
-        @dataset = FactoryGirl.create(:full_dataset, :user => @user, :entries_count => 2)
+        @dataset = FactoryGirl.create(:full_dataset, user: @user, entries_count: 2)
       end
 
       it "is connected to the user" do

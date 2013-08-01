@@ -34,7 +34,7 @@ VCR.configure do |c|
   # Psych serializes cassette data as binary, which makes them not human-
   # readable.  When recording new cassettes, fire up Ruby 1.9 and uncomment
   # this line.
-  #c.default_cassette_options = { :serialize_with => :syck }
+  #c.default_cassette_options = { serialize_with: :syck }
 end
 
 # Standard setup for RSpec
@@ -92,5 +92,5 @@ RSpec.configure do |config|
   end
 
   # Add helpers for Devise
-  config.include Devise::TestHelpers, :type => :controller
+  config.include Devise::TestHelpers, type: :controller
 end

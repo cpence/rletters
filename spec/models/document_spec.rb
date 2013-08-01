@@ -7,7 +7,7 @@ describe Document do
   describe '#valid' do
     context "when no shasum is specified" do
       before(:each) do
-        @doc = FactoryGirl.build(:document, :shasum => nil)
+        @doc = FactoryGirl.build(:document, shasum: nil)
       end
 
       it "isn't valid" do
@@ -17,7 +17,7 @@ describe Document do
 
     context "when a short shasum is specified" do
       before(:each) do
-        @doc = FactoryGirl.build(:document, :shasum => "notanshasum")
+        @doc = FactoryGirl.build(:document, shasum: "notanshasum")
       end
 
       it "isn't valid" do
@@ -27,7 +27,7 @@ describe Document do
 
     context "when a bad shasum is specified" do
       before(:each) do
-        @doc = FactoryGirl.build(:document, :shasum => "1234567890thisisbad!")
+        @doc = FactoryGirl.build(:document, shasum: "1234567890thisisbad!")
       end
 
       it "isn't valid" do
@@ -47,7 +47,7 @@ describe Document do
   end
 
   describe ".find" do
-    context "when loading one document", :vcr => { :cassette_name => 'solr_single' } do
+    context "when loading one document", vcr: { cassette_name: 'solr_single' } do
       before(:each) do
         @doc = Document.find('00972c5123877961056b21aea4177d0dc69c7318')
       end
@@ -57,7 +57,7 @@ describe Document do
       end
     end
 
-    context "when no documents are returned", :vcr => { :cassette_name => 'solr_fail' } do
+    context "when no documents are returned", vcr: { cassette_name: 'solr_fail' } do
       it "raises an exception" do
         expect { Document.find("fail") }.to raise_error(ActiveRecord::RecordNotFound)
       end
@@ -72,7 +72,7 @@ describe Document do
   end
 
   describe ".find_with_fulltext" do
-    context "when loading one document with fulltext", :vcr => { :cassette_name => 'solr_single_fulltext' } do
+    context "when loading one document with fulltext", vcr: { cassette_name: 'solr_single_fulltext' } do
       before(:each) do
         @doc = Document.find_with_fulltext('00972c5123877961056b21aea4177d0dc69c7318')
       end
@@ -82,7 +82,7 @@ describe Document do
       end
     end
 
-    context "when no documents are returned", :vcr => { :cassette_name => 'solr_fail_fulltext' } do
+    context "when no documents are returned", vcr: { cassette_name: 'solr_fail_fulltext' } do
       it "raises an exception" do
         expect { Document.find_with_fulltext("fail") }.to raise_error(ActiveRecord::RecordNotFound)
       end
@@ -97,9 +97,9 @@ describe Document do
   end
 
   describe ".find_all_by_solr_query" do
-    context "when loading a set of documents", :vcr => { :cassette_name => 'solr_default' } do
+    context "when loading a set of documents", vcr: { cassette_name: 'solr_default' } do
       before(:each) do
-        @docs = Document.find_all_by_solr_query({ :q => "*:*", :qt => "precise" })
+        @docs = Document.find_all_by_solr_query({ q: "*:*", qt: "precise" })
       end
 
       it "loads all of the documents" do
@@ -107,22 +107,22 @@ describe Document do
       end
     end
 
-    context "when no documents are returned", :vcr => { :cassette_name => 'solr_fail' } do
+    context "when no documents are returned", vcr: { cassette_name: 'solr_fail' } do
       it "returns an empty array" do
-        Document.find_all_by_solr_query({ :q => 'shasum:fail', :qt => "precise" }).should have(0).items
+        Document.find_all_by_solr_query({ q: 'shasum:fail', qt: "precise" }).should have(0).items
       end
     end
 
     context "when Solr times out" do
       it "returns an empty array" do
         stub_request(:any, /127\.0\.0\.1/).to_timeout
-        expect { Document.find_all_by_solr_query({ :q => 'shasum:fail', :qt => "precise" }) }.to raise_error(ActiveRecord::StatementInvalid)
+        expect { Document.find_all_by_solr_query({ q: 'shasum:fail', qt: "precise" }) }.to raise_error(ActiveRecord::StatementInvalid)
       end
     end
   end
 
   describe ".num_results" do
-    context "when loading one document", :vcr => { :cassette_name => 'solr_single' } do
+    context "when loading one document", vcr: { cassette_name: 'solr_single' } do
       before(:each) do
         @doc = Document.find('00972c5123877961056b21aea4177d0dc69c7318')
       end
@@ -132,9 +132,9 @@ describe Document do
       end
     end
 
-    context "when loading a set of documents", :vcr => { :cassette_name => 'solr_default' } do
+    context "when loading a set of documents", vcr: { cassette_name: 'solr_default' } do
       before(:each) do
-        @docs = Document.find_all_by_solr_query({ :q => "*:*", :qt => "precise" })
+        @docs = Document.find_all_by_solr_query({ q: "*:*", qt: "precise" })
       end
 
       it "sets num_results" do
@@ -144,7 +144,7 @@ describe Document do
   end
 
   describe ".facets" do
-    context "when loading one document with fulltext", :vcr => { :cassette_name => 'solr_single_fulltext' } do
+    context "when loading one document with fulltext", vcr: { cassette_name: 'solr_single_fulltext' } do
       before(:each) do
         @doc = Document.find_with_fulltext('00972c5123877961056b21aea4177d0dc69c7318')
       end
@@ -155,9 +155,9 @@ describe Document do
       end
     end
 
-    context "when loading a set of documents", :vcr => { :cassette_name => 'solr_default' } do
+    context "when loading a set of documents", vcr: { cassette_name: 'solr_default' } do
       before(:each) do
-        @docs = Document.find_all_by_solr_query({ :q => "*:*", :qt => "precise" })
+        @docs = Document.find_all_by_solr_query({ q: "*:*", qt: "precise" })
       end
 
       it "sets the facets" do
@@ -214,7 +214,7 @@ describe Document do
   # All of these attributes are loaded in the same loop, so they can be
   # tested at the same time
   describe "attributes" do
-    context "when loading one document", :vcr => { :cassette_name => 'solr_single' } do
+    context "when loading one document", vcr: { cassette_name: 'solr_single' } do
       before(:each) do
         @doc = Document.find('00972c5123877961056b21aea4177d0dc69c7318')
       end
@@ -228,7 +228,7 @@ describe Document do
       end
     end
 
-    context "when loading one document with fulltext", :vcr => { :cassette_name => 'solr_single_fulltext' } do
+    context "when loading one document with fulltext", vcr: { cassette_name: 'solr_single_fulltext' } do
       before(:each) do
         @doc = Document.find_with_fulltext('00972c5123877961056b21aea4177d0dc69c7318')
       end
@@ -242,9 +242,9 @@ describe Document do
       end
     end
 
-    context "when loading a set of documents", :vcr => { :cassette_name => 'solr_default' } do
+    context "when loading a set of documents", vcr: { cassette_name: 'solr_default' } do
       before(:each) do
-        @docs = Document.find_all_by_solr_query({ :q => "*:*", :qt => "precise" })
+        @docs = Document.find_all_by_solr_query({ q: "*:*", qt: "precise" })
       end
 
       it "sets the shasum" do
@@ -294,7 +294,7 @@ describe Document do
   end
 
   describe "#author_list" do
-    context "when loading one document", :vcr => { :cassette_name => 'solr_single' } do
+    context "when loading one document", vcr: { cassette_name: 'solr_single' } do
       before(:each) do
         @doc = Document.find('00972c5123877961056b21aea4177d0dc69c7318')
       end
@@ -314,7 +314,7 @@ describe Document do
   end
 
   describe "#formatted_author_list" do
-    context "when loading one document", :vcr => { :cassette_name => 'solr_single' } do
+    context "when loading one document", vcr: { cassette_name: 'solr_single' } do
       before(:each) do
         @doc = Document.find('00972c5123877961056b21aea4177d0dc69c7318')
       end
@@ -334,7 +334,7 @@ describe Document do
   end
 
   describe '#start_page and #end_page' do
-    context "when loading one document", :vcr => { :cassette_name => 'solr_single' } do
+    context "when loading one document", vcr: { cassette_name: 'solr_single' } do
       before(:each) do
         @doc = Document.find('00972c5123877961056b21aea4177d0dc69c7318')
       end
@@ -350,7 +350,7 @@ describe Document do
 
     context "when loading a document with funny page ranges" do
       before(:each) do
-        @doc = FactoryGirl.build(:document, :pages => "1483-92")
+        @doc = FactoryGirl.build(:document, pages: "1483-92")
       end
 
       it "parses start_page correctly" do
@@ -364,7 +364,7 @@ describe Document do
   end
 
   describe '#term_vectors' do
-    context "when loading one document", :vcr => { :cassette_name => 'solr_single' } do
+    context "when loading one document", vcr: { cassette_name: 'solr_single' } do
       before(:each) do
         @doc = Document.find('00972c5123877961056b21aea4177d0dc69c7318')
       end
@@ -374,7 +374,7 @@ describe Document do
       end
     end
 
-    context "when loading one document with fulltext", :vcr => { :cassette_name => 'solr_single_fulltext' } do
+    context "when loading one document with fulltext", vcr: { cassette_name: 'solr_single_fulltext' } do
       before(:each) do
         @doc = Document.find_with_fulltext('00972c5123877961056b21aea4177d0dc69c7318')
       end
@@ -387,7 +387,7 @@ describe Document do
         @doc.term_vectors["m"][:tf].should eq(2)
       end
 
-      it "sets offsets", :vcr => { :cassette_name => 'solr_single_fulltext_offsets' } do
+      it "sets offsets", vcr: { cassette_name: 'solr_single_fulltext_offsets' } do
         @doc.term_vectors["vehrencampf"][:offsets][0].should eq(162...173)
       end
 

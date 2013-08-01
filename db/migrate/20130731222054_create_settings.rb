@@ -7,6 +7,6 @@ class CreateSettings < ActiveRecord::Migration
 
       t.timestamps
     end
-    add_index :settings, [:key], :unique => true, :name => 'key_udx'
+    add_index :settings, [:key], unique: true, name: 'key_udx'
   end
 end

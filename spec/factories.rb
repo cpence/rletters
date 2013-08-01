@@ -41,8 +41,8 @@ FactoryGirl.define do
 
       after(:create) do |dataset, evaluator|
         dataset.entries = evaluator.entries_count.times.map do
-          FactoryGirl.create(:dataset_entry, :dataset => dataset,
-                             :working => evaluator.working)
+          FactoryGirl.create(:dataset_entry, dataset: dataset,
+                             working: evaluator.working)
         end
       end
     end
@@ -97,10 +97,10 @@ FactoryGirl.define do
     end
 
     initialize_with {
-      Document.new(:shasum => shasum, :doi => doi, :license => license,
-                   :license_url => license_url, :authors => authors, :title => title,
-                   :journal => journal, :year => year, :volume => volume, :number => number,
-                   :pages => pages, :fulltext => fulltext)
+      Document.new(shasum: shasum, doi: doi, license: license,
+                   license_url: license_url, authors: authors, title: title,
+                   journal: journal, year: year, volume: volume, number: number,
+                   pages: pages, fulltext: fulltext)
     }
   end
 

@@ -24,17 +24,17 @@
 # @!attribute result_file
 #   @return [Download] The results of this analysis task, if available
 class AnalysisTask < ActiveRecord::Base
-  validates :name, :presence => true
-  validates :dataset_id, :presence => true
-  validates :job_type, :presence => true
+  validates :name, presence: true
+  validates :dataset_id, presence: true
+  validates :job_type, presence: true
 
   belongs_to :dataset
-  has_one :result_file, :class_name => 'Download', :dependent => :destroy
+  has_one :result_file, class_name: 'Download', dependent: :destroy
 
   scope :finished, -> { where('finished_at IS NOT NULL') }
   scope :not_finished, -> { where('finished_at IS NULL') }
-  scope :active, -> { not_finished.where(:failed => false) }
-  scope :failed, -> { not_finished.where(:failed => true) }
+  scope :active, -> { not_finished.where(failed: false) }
+  scope :failed, -> { not_finished.where(failed: true) }
 
   # Convert class_name to a class object
   #

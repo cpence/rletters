@@ -27,7 +27,7 @@ class Setting < ActiveRecord::Base
 
   # @return [String] Friendly name of this asset (looked up in locale)
   def friendly_name
-    ret = I18n.t("settings.#{key}", :default => '')
+    ret = I18n.t("settings.#{key}", default: '')
     return key.to_s if ret == ''
     ret
   end

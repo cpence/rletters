@@ -190,7 +190,7 @@ class Document
   #   Document.register_serializer :json, 'JSON', lambda { |doc| doc.to_json },
   #     'http://www.json.org/'
   def self.register_serializer(key, name, method, docs)
-    @@serializers[key] = { :name => name, :method => method, :docs => docs }
+    @@serializers[key] = { name: name, method: method, docs: docs }
   end
 
   # Serialization methods
@@ -215,7 +215,7 @@ class Document
   # @example Look up the document with ID "1234567890abcdef1234"
   #   doc = Document.find("1234567890abcdef1234")
   def self.find(shasum, options = {})
-    set = find_all_by_solr_query({ :q => "shasum:#{shasum}", :qt => "precise" }, options)
+    set = find_all_by_solr_query({ q: "shasum:#{shasum}", qt: "precise" }, options)
     raise ActiveRecord::RecordNotFound if set.empty?
     set[0]
   end
@@ -232,7 +232,7 @@ class Document
   # @example Get the full tet of the document with ID "1234567890abcdef1234"
   #   text = Document.find_with_fulltext("1234567890abcdef1234").fulltext
   def self.find_with_fulltext(shasum, options = {})
-    set = find_all_by_solr_query({ :q => "shasum:#{shasum}", :qt => "fulltext" }, options)
+    set = find_all_by_solr_query({ q: "shasum:#{shasum}", qt: "fulltext" }, options)
     raise ActiveRecord::RecordNotFound if set.empty?
     set[0]
   end
@@ -267,11 +267,11 @@ class Document
   #   array will be returned if no documents match.
   #
   # @example Return all documents in the collection (bad idea!)
-  #  collection = Document.find_all_by_solr_query({ :q => "*:*", :qt => "precise" })
+  #  collection = Document.find_all_by_solr_query({ q: "*:*", qt: "precise" })
   # @example Return all documents which (fuzzily) match "general"
-  #  results = Document.find_all_by_solr_query({ :q => "general", :qt => "standard" })
+  #  results = Document.find_all_by_solr_query({ q: "general", qt: "standard" })
   # @example Return all documents published in 1983
-  #  results = Document.find_all_by_solr_query({ :q => "year:1983", :qt => "precise" })
+  #  results = Document.find_all_by_solr_query({ q: "year:1983", qt: "precise" })
   def self.find_all_by_solr_query(params, options = {})
     # Map from common Rails options to Solr options
     params[:start] = options[:offset] if options[:offset]
@@ -355,9 +355,9 @@ class Document
   cattr_reader :facets, :num_results
 
   # The shasum attribute is the only required one
-  validates :shasum, :presence => true
-  validates :shasum, :length => { :is => 40 }
-  validates :shasum, :format => { :with => /\A[a-fA-F\d]+\z/ }
+  validates :shasum, presence: true
+  validates :shasum, length: { is: 40 }
+  validates :shasum, format: { with: /\A[a-fA-F\d]+\z/ }
 
   # Set all attributes and create author lists
   #

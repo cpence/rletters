@@ -1,11 +1,11 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe Jobs::Analysis::PlotDates, :vcr => { :cassette_name => 'plot_dates' } do
+describe Jobs::Analysis::PlotDates, vcr: { cassette_name: 'plot_dates' } do
 
   before(:each) do
     @user = FactoryGirl.create(:user)
-    @dataset = FactoryGirl.create(:dataset, :user => @user)
+    @dataset = FactoryGirl.create(:dataset, user: @user)
     ['00040b66948f49c3a6c6c0977530e2014899abf9',
      '001954306c066a8a4cff3da02f7e9dda8e0fb634',
      '00496e7961871ad05013e1388aaa6650507b2638',
@@ -16,7 +16,7 @@ describe Jobs::Analysis::PlotDates, :vcr => { :cassette_name => 'plot_dates' } d
      '00a004096479b9332b153e91053f09df8003ef74',
      '00cdb0f945c1e1d7b7789cd8178f3232a57fee34',
      '00dbffbfff2d18a74ed5f8895fa9f515bf38bf5f'].each do |shasum|
-      FactoryGirl.create(:dataset_entry, :dataset => @dataset, :shasum => shasum)
+      FactoryGirl.create(:dataset_entry, dataset: @dataset, shasum: shasum)
     end
   end
 
@@ -25,8 +25,8 @@ describe Jobs::Analysis::PlotDates, :vcr => { :cassette_name => 'plot_dates' } d
   context "when all parameters are valid" do
 
     before(:each) do
-      Jobs::Analysis::PlotDates.new(:user_id => @user.to_param,
-                                    :dataset_id => @dataset.to_param).perform
+      Jobs::Analysis::PlotDates.new(user_id: @user.to_param,
+                                    dataset_id: @dataset.to_param).perform
     end
 
     after(:each) do

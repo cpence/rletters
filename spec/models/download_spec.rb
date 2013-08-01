@@ -6,7 +6,7 @@ describe Download do
   describe '#valid?' do
     context 'when no filename specified' do
       before(:each) do
-        @dl = FactoryGirl.build(:download, :filename => nil)
+        @dl = FactoryGirl.build(:download, filename: nil)
       end
 
       it "isn't valid" do
@@ -16,7 +16,7 @@ describe Download do
 
     context "when filename with path specified" do
       before(:each) do
-        @dl = FactoryGirl.build(:download, :filename => '../../../hax/lol.wut')
+        @dl = FactoryGirl.build(:download, filename: '../../../hax/lol.wut')
       end
 
       it "isn't valid" do
@@ -36,7 +36,7 @@ describe Download do
 
     context "when filename has dashes and underscores" do
       before(:each) do
-        @dl = FactoryGirl.build(:download, :filename => 'a-b_c.wut')
+        @dl = FactoryGirl.build(:download, filename: 'a-b_c.wut')
       end
 
       it "is valid" do

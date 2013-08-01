@@ -12,7 +12,7 @@ Capistrano::Configuration.instance.load do
   # Your application servers
   role :web, "rletters.not.a.site"
   role :app, "rletters.not.a.site"
-  role :db,  "rletters.not.a.site", :primary => true
+  role :db,  "rletters.not.a.site", primary: true
 
   # Deployment path and users
   set :deploy_to, "/var/webapps/rletters"

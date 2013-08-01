@@ -11,9 +11,9 @@ module SearchHelper
   #   = num_results_string
   def num_results_string
     if params[:precise] or params[:q] or params[:fq]
-      I18n.t 'search.index.num_results_found', :count => Document.num_results
+      I18n.t 'search.index.num_results_found', count: Document.num_results
     else
-      I18n.t 'search.index.num_results_database', :count => Document.num_results
+      I18n.t 'search.index.num_results_database', count: Document.num_results
     end
   end
 
@@ -60,24 +60,24 @@ module SearchHelper
     num_pages = Integer(num_pages.ceil)
     return '' if num_pages == 0
 
-    content_tag :div, :class => 'ui-grid-c' do
-      content = content_tag(:div, :class => 'ui-block-a') do
+    content_tag :div, class: 'ui-grid-c' do
+      content = content_tag(:div, class: 'ui-block-a') do
         if @page != 0
           page_link(I18n.t(:'search.index.first_button'), 0, 'back')
         end
       end
-      content << content_tag(:div, :class => 'ui-block-b') do
+      content << content_tag(:div, class: 'ui-block-b') do
         if @page != 0
           page_link(I18n.t(:'search.index.previous_button'), @page - 1, 'arrow-l')
         end
       end
 
-      content << content_tag(:div, :class => 'ui-block-c') do
+      content << content_tag(:div, class: 'ui-block-c') do
         if @page != (num_pages - 1)
           page_link(I18n.t(:'search.index.next_button'), @page + 1, 'arrow-r', true)
         end
       end
-      content << content_tag(:div, :class => 'ui-block-d') do
+      content << content_tag(:div, class: 'ui-block-d') do
         if @page != (num_pages - 1)
           page_link(I18n.t(:'search.index.last_button'), num_pages - 1, 'forward', true)
         end
@@ -161,7 +161,7 @@ module SearchHelper
   #   # => link_to "Remove all facets", search_path
   # @example Get a link to a given set of facets
   #   facet_link("Some facets", [...])
-  #   # => link_to "Some facets", search_path({ :fq => [ ... ] })
+  #   # => link_to "Some facets", search_path({ fq: [ ... ] })
   def facet_link(text, facets)
     new_params = params.dup
 
@@ -205,7 +205,7 @@ module SearchHelper
       ret << content_tag(:li) do
         # Link to whatever the current facets are, plus the new one
         link = facet_link f.label, active_facets + [f]
-        count = content_tag :span, f.hits.to_s, :class => 'ui-li-count'
+        count = content_tag :span, f.hits.to_s, class: 'ui-li-count'
         link + count
       end
     end
@@ -271,13 +271,13 @@ module SearchHelper
   # @param [Document] doc document for which bibliographic entry is desired
   # @return [String] bibliographic entry for document
   # @example Get the entry for a given document
-  #   document_bibliography_entry(Document.new(:authors => 'W. Johnson', :year => '2000'))
+  #   document_bibliography_entry(Document.new(authors: 'W. Johnson', year: '2000'))
   #   # "Johnson, W. 2000. ..."
   def document_bibliography_entry(doc)
     if user_signed_in? && current_user.csl_style
       return doc.to_csl_entry(current_user.csl_style)
     end
 
-    render :partial => 'document', :locals => { :document => doc }
+    render partial: 'document', locals: { document: doc }
   end
 end

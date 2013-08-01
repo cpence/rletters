@@ -63,7 +63,7 @@ describe "search/advanced" do
   end
 
   it 'has two forms that submit to the right place' do
-    rendered.should have_tag("form[action='#{search_path}'][method=get]", :count => 2)
+    rendered.should have_tag("form[action='#{search_path}'][method=get]", count: 2)
   end
 
 end

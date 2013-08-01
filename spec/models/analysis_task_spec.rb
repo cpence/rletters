@@ -6,7 +6,7 @@ describe AnalysisTask do
   describe "#valid?" do
     context "when no name is specified" do
       before(:each) do
-        @task = FactoryGirl.build(:analysis_task, :name => nil)
+        @task = FactoryGirl.build(:analysis_task, name: nil)
       end
 
       it "isn't valid" do
@@ -16,7 +16,7 @@ describe AnalysisTask do
 
     context "when no dataset is specified" do
       before(:each) do
-        @task = FactoryGirl.build(:analysis_task, :dataset => nil)
+        @task = FactoryGirl.build(:analysis_task, dataset: nil)
       end
 
       it "isn't valid" do
@@ -26,7 +26,7 @@ describe AnalysisTask do
 
     context "when no type is specified" do
       before(:each) do
-        @task = FactoryGirl.build(:analysis_task, :job_type => nil)
+        @task = FactoryGirl.build(:analysis_task, job_type: nil)
       end
 
       it "isn't valid" do

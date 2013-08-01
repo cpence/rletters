@@ -15,8 +15,8 @@ module Jobs
       # @return [undefined]
       # @example Start a job for plotting a dataset by year
       #   Delayed::Job.enqueue Jobs::Analysis::PlotDates.new(
-      #     :user_id => current_user.to_param,
-      #     :dataset_id => dataset.to_param)
+      #     user_id: current_user.to_param,
+      #     dataset_id: dataset.to_param)
       def perform
         # Fetch the user based on ID
         user = User.find(user_id)
@@ -27,7 +27,7 @@ module Jobs
         raise ArgumentError, 'Dataset ID is not valid' unless dataset
 
         # Make a new analysis task
-        @task = dataset.analysis_tasks.create(:name => "Plot dataset by date", :job_type => 'PlotDates')
+        @task = dataset.analysis_tasks.create(name: "Plot dataset by date", job_type: 'PlotDates')
 
         # Write out the dates to an array
         dates = []

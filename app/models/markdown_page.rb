@@ -17,11 +17,11 @@
 # @!attribute content
 #   @return [String] Markdown content for this page
 class MarkdownPage < ActiveRecord::Base
-  validates :name, :presence => true
+  validates :name, presence: true
 
   # @return [String] Friendly name of this page (looked up in locale)
   def friendly_name
-    ret = I18n.t("markdown_pages.#{name}", :default => '')
+    ret = I18n.t("markdown_pages.#{name}", default: '')
     return name if ret == ''
     ret
   end

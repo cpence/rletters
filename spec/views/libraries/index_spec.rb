@@ -8,7 +8,7 @@ describe "libraries/index" do
     view.stub(:current_user) { @user }
     view.stub(:user_signed_in?) { true }
 
-    @library = FactoryGirl.create(:library, :user => @user)
+    @library = FactoryGirl.create(:library, user: @user)
     @user.libraries.reload
 
     assign(:libraries, @user.libraries)
@@ -16,7 +16,7 @@ describe "libraries/index" do
   end
 
   it 'has a link to edit the library' do
-    rendered.should have_tag("a[href='#{edit_library_path(@library)}']", :text => @library.name)
+    rendered.should have_tag("a[href='#{edit_library_path(@library)}']", text: @library.name)
   end
 
   it 'has a link to delete the library' do

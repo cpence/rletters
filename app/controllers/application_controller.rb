@@ -53,7 +53,7 @@ class ApplicationController < ActionController::Base
   # @api private
   # @return [undefined]
   def ensure_trailing_slash
-    redirect_to url_for(params.merge(:trailing_slash => true)), :status => 301 unless trailing_slash?
+    redirect_to url_for(params.merge(trailing_slash: true)), status: 301 unless trailing_slash?
   end
 
   # Does the URL end with a trailing slash?

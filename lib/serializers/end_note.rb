@@ -16,7 +16,7 @@ module Serializers
     # @api public
     # @return [String] document in EndNote format
     # @example Download this document as a enw file
-    #   controller.send_data doc.to_endnote, :filename => 'export.enw', :disposition => 'attachment'
+    #   controller.send_data doc.to_endnote, filename: 'export.enw', disposition: 'attachment'
     def to_endnote
       ret  = "%0 Journal Article\n"
       if formatted_author_list && formatted_author_list.count

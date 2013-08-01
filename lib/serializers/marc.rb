@@ -129,7 +129,7 @@ module Serializers
     # @api public
     # @return [String] document in MARC21 transmission format
     # @example Download this document as a marc file
-    #   controller.send_data doc.to_marc21, :filename => 'export.marc', :disposition => 'attachment'
+    #   controller.send_data doc.to_marc21, filename: 'export.marc', disposition: 'attachment'
     # :nocov:
     def to_marc21
       to_marc.to_marc
@@ -144,7 +144,7 @@ module Serializers
     # @api public
     # @return [String] document in MARC JSON format
     # @example Download this document as a MARC-JSON file
-    #   controller.send_data doc.to_marc_json, :filename => 'export.json', :disposition => 'attachment'
+    #   controller.send_data doc.to_marc_json, filename: 'export.json', disposition: 'attachment'
     # :nocov
     def to_marc_json
       to_marc.to_hash.to_json
@@ -170,7 +170,7 @@ module Serializers
     def to_marc_xml(include_namespace = false)
       doc = REXML::Document.new
       doc << REXML::XMLDecl.new
-      doc << ::MARC::XMLWriter.encode(to_marc, :include_namespace => include_namespace)
+      doc << ::MARC::XMLWriter.encode(to_marc, include_namespace: include_namespace)
       doc
     end
     # :nocov:

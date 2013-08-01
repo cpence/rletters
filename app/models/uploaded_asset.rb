@@ -12,19 +12,19 @@
 # @!attribute file
 #   @return [Paperclip::Attachment] The asset itself
 class UploadedAsset < ActiveRecord::Base
-  validates :name, :presence => true
+  validates :name, presence: true
 
   has_attached_file :file, {
     # This isn't meant to enforce any kind of secrecy, it just makes for URLs
     # that are easier to read, don't expose internal server details, and should
     # cache nicely.
-    :url => "/system/:hash.:extension",
-    :hash_secret => "baebb86ffdab9a513daebd0d5ba9fba60b3e5339c32387444f7bf15b06ae18412376e2e8737019b6ff4c68c4863c711f97826f500ddead5c7ab78a3f5f05485b"
+    url: "/system/:hash.:extension",
+    hash_secret: "baebb86ffdab9a513daebd0d5ba9fba60b3e5339c32387444f7bf15b06ae18412376e2e8737019b6ff4c68c4863c711f97826f500ddead5c7ab78a3f5f05485b"
   }
 
   # @return [String] Friendly name of this asset (looked up in locale)
   def friendly_name
-    ret = I18n.t("uploaded_assets.#{name}", :default => '')
+    ret = I18n.t("uploaded_assets.#{name}", default: '')
     return name if ret == ''
     ret
   end

@@ -11,7 +11,7 @@ describe Serializers::RDF do
 
     it "creates a good RDF graph" do
       rdf_docs = RDF::Query.execute(@graph, {
-        :doc => {
+        doc: {
           RDF::DC.type => 'Journal Article',
           RDF::DC.issued => :year,
           RDF::DC.relation => :journal,
@@ -27,7 +27,7 @@ describe Serializers::RDF do
       rdf_docs[0].doistr.to_s.should eq('info:doi/10.1111/j.1439-0310.2008.01576.x')
 
       rdf_authors = RDF::Query.execute(@graph, {
-        :doc => {
+        doc: {
           RDF::DC.type => 'Journal Article',
           RDF::DC.creator => :author
         }
@@ -44,7 +44,7 @@ describe Serializers::RDF do
       actual.should =~ expected
 
       rdf_citations = RDF::Query.execute(@graph, {
-        :doc => {
+        doc: {
           RDF::DC.type => 'Journal Article',
           RDF::DC.bibliographicCitation => :citation
         }

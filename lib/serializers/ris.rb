@@ -16,7 +16,7 @@ module Serializers
     # @api public
     # @return [String] document in RIS format
     # @example Download this document as a ris file
-    #   controller.send_data doc.to_ris, :filename => 'export.ris', :disposition => 'attachment'
+    #   controller.send_data doc.to_ris, filename: 'export.ris', disposition: 'attachment'
     def to_ris
       ret  = "TY  - JOUR\n"
       unless formatted_author_list.nil?

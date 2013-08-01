@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 
 ActiveAdmin.register AnalysisTask do
-  menu :parent => "Datasets"
+  menu parent: "Datasets"
   actions :index, :show
 
   index do

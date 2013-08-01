@@ -2,8 +2,8 @@
   %li{ 'data-role' => 'list-divider' }= t('.head')
   %li
     %h3= @dataset.name
-    %p= t('.num_entries', :count => @dataset.entries.size)
-    %p= t('.created_at', :date => @dataset.created_at.to_formatted_s(:long))
+    %p= t('.num_entries', count: @dataset.entries.size)
+    %p= t('.created_at', date: @dataset.created_at.to_formatted_s(:long))
 
 %div.verticalpad
 
@@ -18,6 +18,6 @@
   -# Show the markup for starting all the various background jobs
   %li{ 'data-role' => 'list-divider' }= t('.new_task')
   - Jobs::Analysis::Base.job_list.each do |klass|
-    = render :template => klass.view_path('start')
+    = render template: klass.view_path('start')
 
   %li{ 'data-icon' => 'delete' }= link_to t('.delete'), delete_dataset_path(@dataset), 'data-rel' => 'dialog'

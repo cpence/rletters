@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 
 ActiveAdmin.register AdminUser do
-  menu :parent => "Users"
+  menu parent: "Users"
 
   index do
     column :email

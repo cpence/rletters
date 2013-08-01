@@ -2,7 +2,7 @@
 
 ActiveAdmin.register UploadedAsset do
   actions :index, :update, :edit, :show
-  menu :parent => "Settings"
+  menu parent: "Settings"
   filter :name
 
   index do
@@ -10,7 +10,7 @@ ActiveAdmin.register UploadedAsset do
     default_actions
   end
 
-  show :title => :friendly_name do |asset|
+  show title: :friendly_name do |asset|
     attributes_table do
       row :id
       row :friendly_name

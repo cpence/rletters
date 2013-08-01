@@ -55,7 +55,7 @@ class SearchController < ApplicationController
 
     # Get the documents
     @documents = Document.find_all_by_solr_query(solr_query,
-      :sort => @sort, :offset => offset, :limit => limit)
+      sort: @sort, offset: offset, limit: limit)
   end
 
   # Show the advanced search page
@@ -83,8 +83,8 @@ class SearchController < ApplicationController
         return
       }
       format.any {
-        render :template => 'errors/404', :layout => false,
-          :formats => [ :html ], :status => 406
+        render template: 'errors/404', layout: false,
+          formats: [ :html ], status: 406
         return
       }
     end
@@ -99,7 +99,7 @@ class SearchController < ApplicationController
     @document = Document.find(params[:id])
     @datasets = current_user.datasets
 
-    render :layout => 'dialog'
+    render layout: 'dialog'
   end
 
   # Redirect to the Mendeley page for a document
@@ -159,8 +159,8 @@ class SearchController < ApplicationController
   # @param [Hash] params the Rails params object
   # @return [Hash] Solr-format query parameters
   # @example Convert an advanced search to Solr format
-  #   search_params_to_solr_query({ :precise => 'true', :title => 'test' })
-  #   # { :qt => 'precise', :q => 'title:(test)' }
+  #   search_params_to_solr_query({ precise: 'true', title: 'test' })
+  #   # => { :qt => 'precise', :q => 'title:(test)' }
   def search_params_to_solr_query(params)
     # Remove any blank values (you get these on form submissions, for
     # example)
@@ -264,6 +264,6 @@ class SearchController < ApplicationController
   def send_file(str, filename, mime)
     headers["Cache-Control"] = 'no-cache, must-revalidate, post-check=0, pre-check=0'
     headers["Expires"] = "0"
-    send_data str, :filename => filename, :type => mime, :disposition => 'attachment'
+    send_data str, filename: filename, type: mime, disposition: 'attachment'
   end
 end

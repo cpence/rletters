@@ -18,7 +18,7 @@ class LibrariesController < ApplicationController
   # @return [undefined]
   def index
     @libraries = current_user.libraries
-    render :layout => false
+    render layout: false
   end
 
   # Show the form for creating a new library link
@@ -26,7 +26,7 @@ class LibrariesController < ApplicationController
   # @return [undefined]
   def new
     @library = current_user.libraries.build
-    render :layout => 'dialog'
+    render layout: 'dialog'
   end
 
   # Show the form for editing a library link
@@ -35,7 +35,7 @@ class LibrariesController < ApplicationController
   def edit
     @library = current_user.libraries.find(params[:id])
     raise ActiveRecord::RecordNotFound unless @library
-    render :layout => 'dialog'
+    render layout: 'dialog'
   end
 
   # Show a confirmation form for deleting a library link
@@ -44,7 +44,7 @@ class LibrariesController < ApplicationController
   def delete
     @library = current_user.libraries.find(params[:id])
     raise ActiveRecord::RecordNotFound unless @library
-    render :layout => 'dialog'
+    render layout: 'dialog'
   end
 
   # Create a new library link in the database
@@ -56,9 +56,9 @@ class LibrariesController < ApplicationController
 
     if @library.save
       current_user.libraries.reload
-      redirect_to edit_user_registration_path, :notice => I18n.t('libraries.create.success')
+      redirect_to edit_user_registration_path, notice: I18n.t('libraries.create.success')
     else
-      render :action => 'new', :layout => 'dialog'
+      render action: 'new', layout: 'dialog'
     end
   end
 
@@ -71,9 +71,9 @@ class LibrariesController < ApplicationController
 
     if @library.update_attributes(library_params)
       current_user.libraries.reload
-      redirect_to edit_user_registration_path, :notice => I18n.t('libraries.update.success')
+      redirect_to edit_user_registration_path, notice: I18n.t('libraries.update.success')
     else
-      render :action => 'edit', :layout => 'dialog'
+      render action: 'edit', layout: 'dialog'
     end
   end
 
@@ -111,13 +111,13 @@ class LibrariesController < ApplicationController
         name = entry.elements['institutionName'].text
         url = entry.elements['resolver/baseURL'].text
 
-        @libraries << { :name => name, :url => url }
+        @libraries << { name: name, url: url }
       end
     rescue StandardError, Timeout::Error
       @libraries = []
     end
 
-    render :layout => 'dialog'
+    render layout: 'dialog'
   end
 
   private

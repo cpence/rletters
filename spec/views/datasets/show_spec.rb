@@ -8,7 +8,7 @@ describe "datasets/show" do
     view.stub(:current_user) { @user }
     view.stub(:user_signed_in?) { true }
 
-    @dataset = FactoryGirl.create(:full_dataset, :entries_count => 10)
+    @dataset = FactoryGirl.create(:full_dataset, entries_count: 10)
     assign(:dataset, @dataset)
     params[:id] = @dataset.to_param
   end
@@ -25,7 +25,7 @@ describe "datasets/show" do
 
   it "has a reference somewhere to the task list" do
     # Need to render the layout in order to get the page-JS
-    render :template => 'datasets/show', :layout => 'layouts/application'
+    render template: 'datasets/show', layout: 'layouts/application'
     rendered.should include(task_list_dataset_path(@dataset))
   end
 

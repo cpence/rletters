@@ -1,5 +1,5 @@
 - content_for :title do
   = t('.head')
-= form_for(@dataset, :html => { :method => 'delete' }) do |f|
+= form_for(@dataset, html: { method: 'delete' }) do |f|
   = f.submit t('.yes')
-  = f.submit t('.no'), :name => 'cancel'
+  = f.submit t('.no'), name: 'cancel'

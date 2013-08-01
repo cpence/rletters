@@ -17,12 +17,12 @@
 # @!attribute analysis_tasks
 #   @return [Array<AnalysisTask>] The analysis tasks run on this dataset (+has_many+)
 class Dataset < ActiveRecord::Base
-  validates :name, :presence => true
-  validates :user_id, :presence => true
+  validates :name, presence: true
+  validates :user_id, presence: true
 
   belongs_to :user
-  has_many :entries, :class_name => 'DatasetEntry', :dependent => :delete_all
-  has_many :analysis_tasks, :dependent => :destroy
+  has_many :entries, class_name: 'DatasetEntry', dependent: :delete_all
+  has_many :analysis_tasks, dependent: :destroy
 
   validates_associated :entries
 end

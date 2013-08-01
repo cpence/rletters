@@ -11,11 +11,11 @@
 # without passing through the RLetters's authentication. This folder is
 # expected to be symlinked over from +shared+ during a Capistrano deployment.
 class Download < ActiveRecord::Base
-  validates :filename, :presence => true
+  validates :filename, presence: true
   # :filename_before_type_cast gives you the value of the filename attribute
   # without passing it through our custom accessor, which turns the relative
   # database path into an absolute filesystem path.
-  validates :filename_before_type_cast, :format => { :with => /\A[A-Za-z0-9.\-_]+\z/ }
+  validates :filename_before_type_cast, format: { with: /\A[A-Za-z0-9.\-_]+\z/ }
 
   belongs_to :analysis_task
 
@@ -53,7 +53,7 @@ class Download < ActiveRecord::Base
     f.close unless f.closed?
 
     # Build a Download object and return it
-    Download.create({ :filename => fn })
+    Download.create({ filename: fn })
   end
 
   # Get the filename for this download
@@ -97,8 +97,8 @@ class Download < ActiveRecord::Base
     content_type ||= 'text/plain'
 
     controller.send_file(filename,
-      :x_sendfile => true,
-      :type => content_type)
+      x_sendfile: true,
+      type: content_type)
   end
 
   private

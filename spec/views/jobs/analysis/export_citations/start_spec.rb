@@ -16,9 +16,9 @@ describe "jobs/export_citations/start" do
     render
 
     Document.serializers.each do |k, v|
-      link = url_for(:controller => 'datasets', :action => 'task_start',
-        :class => 'ExportCitations', :job_params => { :format => k },
-        :id => @dataset.to_param)
+      link = url_for(controller: 'datasets', action: 'task_start',
+        class: 'ExportCitations', job_params: { format: k },
+        id: @dataset.to_param)
 
       rendered.should have_tag("a[href='#{link}']")
     end

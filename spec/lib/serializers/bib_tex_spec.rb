@@ -36,7 +36,7 @@ describe Serializers::BibTex do
 
   context "when serializing an anonymous document" do
     before(:each) do
-      @doc = FactoryGirl.build(:full_document, :authors => nil)
+      @doc = FactoryGirl.build(:full_document, authors: nil)
       @str = @doc.to_bibtex
     end
 

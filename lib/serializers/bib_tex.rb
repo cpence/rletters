@@ -16,7 +16,7 @@ module Serializers
     # @api public
     # @return [String] document in BibTeX format
     # @example Download this document as a bib file
-    #   controller.send_data doc.to_bibtex, :filename => 'export.bib', :disposition => 'attachment'
+    #   controller.send_data doc.to_bibtex, filename: 'export.bib', disposition: 'attachment'
     def to_bibtex
       # We don't have a concept of cite keys, so we're forced to just use
       # AuthorYear and hope it doesn't collide

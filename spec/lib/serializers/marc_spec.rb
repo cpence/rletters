@@ -86,7 +86,7 @@ describe Serializers::MARC do
 
   context "when serializing a document with no year" do
     before(:each) do
-      @doc = FactoryGirl.build(:full_document, :year => nil)
+      @doc = FactoryGirl.build(:full_document, year: nil)
       @record = @doc.to_marc
     end
 

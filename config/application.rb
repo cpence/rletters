@@ -19,7 +19,7 @@ module RLetters
     # config.active_record.observers = :cacher, :garbage_collector, :forum_observer
 
     # Generate all URLs with trailing slashes
-    config.action_controller.default_url_options = { :trailing_slash => true }
+    config.action_controller.default_url_options = { trailing_slash: true }
 
     # Add vendor locales (for CLDR files)
     config.i18n.load_path += Dir[Rails.root.join('vendor', 'locales', '**', '*.{rb,yml}').to_s]
@@ -46,8 +46,8 @@ module RLetters
       generator.orm :active_record
       generator.template_engine :haml
       generator.test_framework :rspec,
-        :view_specs => false, :routing_specs => false
-      generator.fixture_replacement :factory_girl, :dir => 'spec/factories'
+        view_specs: false, routing_specs: false
+      generator.fixture_replacement :factory_girl, dir: 'spec/factories'
     end
   end
 end

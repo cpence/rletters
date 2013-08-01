@@ -11,8 +11,8 @@ describe "libraries/query" do
 
   context 'when libraries are assigned' do
     before(:each) do
-      assign(:libraries, [ { :name => 'University of Notre Dame',
-        :url => 'http://findtext.library.nd.edu:8889/ndu_local?' } ])
+      assign(:libraries, [ { name: 'University of Notre Dame',
+        url: 'http://findtext.library.nd.edu:8889/ndu_local?' } ])
       render
     end
 

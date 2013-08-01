@@ -31,7 +31,7 @@ module Jobs
     #   class TestJob < Jobs::Base
     #     attr_accessor :name
     #   end
-    #   job = TestJob.new(:name => 'Testing')
+    #   job = TestJob.new(name: 'Testing')
     #   job.name
     #   # => 'Testing'
     def initialize(args = { })
@@ -50,7 +50,7 @@ module Jobs
     #   class TestJob < Jobs::Base
     #     attr_accessor :name, :test
     #   end
-    #   job = TestJob.new(:name => 'Testing')
+    #   job = TestJob.new(name: 'Testing')
     #   job.test = 'woo'
     #   job.attributes
     #   # => { :name => 'Testing' }

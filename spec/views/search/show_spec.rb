@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe "search/show", :vcr => { :cassette_name => 'solr_single' } do
+describe "search/show", vcr: { cassette_name: 'solr_single' } do
 
   before(:all) do
     Setting.mendeley_key = 'asdf'
@@ -22,12 +22,12 @@ describe "search/show", :vcr => { :cassette_name => 'solr_single' } do
 
   context 'when not logged in' do
     before(:each) do
-      render :template => "search/show", :layout => "layouts/application"
+      render template: "search/show", layout: "layouts/application"
     end
 
     it 'shows the document details' do
       rendered.should =~ /Document details/
-      rendered.should have_tag('h3', :text => 'How Reliable are the Methods for Estimating Repertoire Size?')
+      rendered.should have_tag('h3', text: 'How Reliable are the Methods for Estimating Repertoire Size?')
     end
 
     it 'has a link to the DOI' do
@@ -35,11 +35,11 @@ describe "search/show", :vcr => { :cassette_name => 'solr_single' } do
     end
 
     it 'has a link to Mendeley' do
-      rendered.should have_tag("a[href='#{mendeley_redirect_path(:id => '00972c5123877961056b21aea4177d0dc69c7318')}']")
+      rendered.should have_tag("a[href='#{mendeley_redirect_path(id: '00972c5123877961056b21aea4177d0dc69c7318')}']")
     end
 
     it 'has a link to citeulike' do
-      rendered.should have_tag("a[href='#{citeulike_redirect_path(:id => '00972c5123877961056b21aea4177d0dc69c7318')}']")
+      rendered.should have_tag("a[href='#{citeulike_redirect_path(id: '00972c5123877961056b21aea4177d0dc69c7318')}']")
     end
 
     it 'links to the unAPI server' do
@@ -61,7 +61,7 @@ describe "search/show", :vcr => { :cassette_name => 'solr_single' } do
       view.stub(:current_user) { @user }
       view.stub(:user_signed_in?) { true }
 
-      @library = FactoryGirl.create(:library, :user => @user)
+      @library = FactoryGirl.create(:library, user: @user)
       @user.libraries.reload
 
       assign(:user, @user)
@@ -69,12 +69,12 @@ describe "search/show", :vcr => { :cassette_name => 'solr_single' } do
     end
 
     it "has a link to create a dataset from this document" do
-      expected = new_dataset_path(:q => "shasum:00972c5123877961056b21aea4177d0dc69c7318", :qt => 'precise', :fq => nil)
+      expected = new_dataset_path(q: "shasum:00972c5123877961056b21aea4177d0dc69c7318", qt: 'precise', fq: nil)
       rendered.should have_tag("a[href='#{expected}']")
     end
 
     it 'has a link to add this document to a dataset' do
-      rendered.should have_tag("a[href='#{search_add_path(:id => '00972c5123877961056b21aea4177d0dc69c7318')}']")
+      rendered.should have_tag("a[href='#{search_add_path(id: '00972c5123877961056b21aea4177d0dc69c7318')}']")
     end
 
     it "has a link to the user's local library" do

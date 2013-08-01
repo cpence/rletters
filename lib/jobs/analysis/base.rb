@@ -49,12 +49,12 @@ module Jobs
       # @return [Boolean] true if task produces a download, false otherwise
       # @example Get a link to the results of a task
       #   if task.job_class.download?
-      #     link_to '', :controller => 'datasets', :action => 'task_download',
-      #       :id => dataset.to_param, :task_id => task.to_param
+      #     link_to '', controller: 'datasets', action: 'task_download',
+      #       id: dataset.to_param, task_id: task.to_param
       #   else
-      #     link_to '', :controller => 'datasets', :action => 'task_view',
-      #       :id => dataset.to_param, :task_id => task.to_param,
-      #       :view => 'results'
+      #     link_to '', controller: 'datasets', action: 'task_view',
+      #       id: dataset.to_param, task_id: task.to_param,
+      #       view: 'results'
       #   end
       def self.download?
         true
@@ -70,7 +70,7 @@ module Jobs
       # @return [Array<Class>] array of class objects
       # @example Render the 'start' view for all jobs
       #   Jobs::Analysis::Base.job_list.each do |klass|
-      #     render :template => klass.view_path('start'), ...
+      #     render template: klass.view_path('start'), ...
       #   end
       def self.job_list
         # Get all the classes defined in the Jobs::Analysis module

@@ -8,7 +8,7 @@ describe "datasets/new" do
     view.stub(:current_user) { @user }
     view.stub(:user_signed_in?) { true }
 
-    assign(:dataset, FactoryGirl.build(:dataset, :user => @user))
+    assign(:dataset, FactoryGirl.build(:dataset, user: @user))
   end
 
   shared_examples_for "all new forms" do

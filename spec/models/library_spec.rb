@@ -6,7 +6,7 @@ describe Library do
   describe '#valid?' do
     context 'when no name spcified' do
       before(:each) do
-        @library = FactoryGirl.build(:library, :name => nil)
+        @library = FactoryGirl.build(:library, name: nil)
       end
 
       it "isn't valid" do
@@ -16,7 +16,7 @@ describe Library do
 
     context 'when no user specified' do
       before(:each) do
-        @library = FactoryGirl.build(:library, :user => nil)
+        @library = FactoryGirl.build(:library, user: nil)
       end
 
       it "isn't valid" do
@@ -26,7 +26,7 @@ describe Library do
 
     context 'when no URL specified' do
       before(:each) do
-        @library = FactoryGirl.build(:library, :url => nil)
+        @library = FactoryGirl.build(:library, url: nil)
       end
 
       it "isn't valid" do
@@ -36,7 +36,7 @@ describe Library do
 
     context 'with a complete URL' do
       before(:each) do
-        @library = FactoryGirl.create(:library, :url => "http://google.com/wut?")
+        @library = FactoryGirl.create(:library, url: "http://google.com/wut?")
       end
 
       it "is valid" do
@@ -48,7 +48,7 @@ describe Library do
   describe "URL parsing" do
     context 'when given a URL without protocol' do
       before(:each) do
-        @library = FactoryGirl.create(:library, :url => "google.com/wut?")
+        @library = FactoryGirl.create(:library, url: "google.com/wut?")
       end
 
       it "is valid" do
@@ -63,7 +63,7 @@ describe Library do
 
     context 'when given a URL with no trailing question mark' do
       before(:each) do
-        @library = FactoryGirl.create(:library, :url => "http://google.com")
+        @library = FactoryGirl.create(:library, url: "http://google.com")
       end
 
       it "is valid" do

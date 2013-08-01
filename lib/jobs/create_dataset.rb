@@ -26,18 +26,18 @@ module Jobs
     # @return [undefined]
     # @example Start a job for creating a dataset
     #   Delayed::Job.enqueue Jobs::CreateDataset.new(
-    #     :user_id => users(:john).to_param,
-    #     :name => 'Test Dataset',
-    #     :q => '*:*'
-    #     :fq => ['authors_facet:"Shatner"'],
-    #     :qt => 'precise')
+    #     user_id: users(:john).to_param,
+    #     name: 'Test Dataset',
+    #     q: '*:*'
+    #     fq: ['authors_facet:"Shatner"'],
+    #     qt: 'precise')
     def perform
       # Fetch the user based on ID
       user = User.find(user_id)
       raise ArgumentError, 'User ID is not valid' unless user
 
       # Create a dataset and save it, to fix its ID
-      dataset = user.datasets.build(:name => name)
+      dataset = user.datasets.build(name: name)
       raise StandardError, 'Cannot create dataset for user' unless dataset
       raise StandardError, 'Cannot save dataset' unless dataset.save
 
@@ -75,7 +75,7 @@ module Jobs
                               solr_response["response"]["docs"].map { |d|
                                 [ d["shasum"], dataset_id ]
                               },
-                              :validate => false)
+                              validate: false)
 
           # Update counters and execute another query if required
           docs_to_fetch = docs_to_fetch - docs_fetched

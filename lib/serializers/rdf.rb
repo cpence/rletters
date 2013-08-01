@@ -56,7 +56,7 @@ module Serializers
       citation << ". (#{year})" unless year.blank?
       graph << [doc, ::RDF::DC.bibliographicCitation, citation]
 
-      ourl = ::RDF::Literal.new("&" + to_openurl_params, :datatype => ::RDF::URI.new("info:ofi/fmt:kev:mtx:ctx"))
+      ourl = ::RDF::Literal.new("&" + to_openurl_params, datatype: ::RDF::URI.new("info:ofi/fmt:kev:mtx:ctx"))
       graph << [doc, ::RDF::DC.bibliographicCitation, ourl]
 
       graph << [doc, ::RDF::DC.relation, journal] unless journal.blank?
@@ -73,7 +73,7 @@ module Serializers
     # @api public
     # @return [String] document in RDF+N3 format
     # @example Download this document as a n3 file
-    #   controller.send_data doc.to_rdf_turtle, :filename => 'export.n3', :disposition => 'attachment'
+    #   controller.send_data doc.to_rdf_turtle, filename: 'export.n3', disposition: 'attachment'
     # :nocov:
     def to_rdf_n3
       ::RDF::Writer.for(:n3).buffer do |writer|
@@ -88,7 +88,7 @@ module Serializers
     # @api public
     # @return [String] document in RDF+XML format
     # @example Download this document as an XML file
-    #   controller.send_data doc.to_rdf_xml, :filename => 'export.xml', :disposition => 'attachment'
+    #   controller.send_data doc.to_rdf_xml, filename: 'export.xml', disposition: 'attachment'
     # :nocov:
     def to_rdf_xml
       ::RDF::Writer.for(:rdfxml).buffer do |writer|

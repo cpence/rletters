@@ -27,7 +27,7 @@ Capistrano::Configuration.instance.load do
         to be invoked after deploy:setup. You can skip this task setting \
         the variable :skip_unicorn_setup to true.
       DESC
-      task :setup, :except => { :no_release => true } do
+      task :setup, except: { no_release: true } do
 
         default_template = <<-EOF
         listen 2007 # by default Unicorn listens on port 8080
@@ -49,7 +49,7 @@ Capistrano::Configuration.instance.load do
       desc <<-DESC
         [internal] Updates the symlink for unicorn.rb file to the just deployed release.
       DESC
-      task :symlink, :except => { :no_release => true } do
+      task :symlink, except: { no_release: true } do
         run "ln -nfs #{shared_path}/config/unicorn.rb #{release_path}/config/unicorn.rb"
       end
 

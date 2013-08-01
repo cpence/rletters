@@ -10,7 +10,7 @@ ActiveAdmin.register Setting do
       # Force copies of all the settings into the database, if we have to, so
       # that ActiveAdmin has something to work with
       Setting.valid_keys.each do |k|
-        Setting.where(:key => k).first_or_create(:value => Setting.send(k))
+        Setting.where(key: k).first_or_create(value: Setting.send(k))
       end
 
       p Setting.all

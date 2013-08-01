@@ -14,7 +14,7 @@ module Jobs
       def perform
         user = User.find(user_id)
         dataset = user.datasets.find(dataset_id)
-        @task = dataset.analysis_tasks.create(:name => "This job always fails", :job_type => 'FailingJob')
+        @task = dataset.analysis_tasks.create(name: "This job always fails", job_type: 'FailingJob')
 
         raise ArgumentError
       end
@@ -37,9 +37,9 @@ describe Jobs::Analysis::Base do
       Delayed::Worker.delay_jobs = false
 
       @user = FactoryGirl.create(:user)
-      @dataset = FactoryGirl.create(:full_dataset, :user => @user)
-      @job = Jobs::Analysis::FailingJob.new(:user_id => @user.to_param,
-                                            :dataset_id => @dataset.to_param)
+      @dataset = FactoryGirl.create(:full_dataset, user: @user)
+      @job = Jobs::Analysis::FailingJob.new(user_id: @user.to_param,
+                                            dataset_id: @dataset.to_param)
 
       # Yes, I know this raises an error, that is indeed
       # the point

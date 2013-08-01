@@ -8,23 +8,23 @@ describe "datasets/task_list" do
     view.stub(:current_user) { @user }
     view.stub(:user_signed_in?) { true }
 
-    @dataset = FactoryGirl.create(:full_dataset, :user => @user)
+    @dataset = FactoryGirl.create(:full_dataset, user: @user)
     assign(:dataset, @dataset)
     params[:id] = @dataset.to_param
   end
 
   it 'shows pending analysis tasks' do
-    task = FactoryGirl.create(:analysis_task, :dataset => @dataset)
+    task = FactoryGirl.create(:analysis_task, dataset: @dataset)
     render
 
-    rendered.should have_tag("li[data-theme=e]", :text => '1 analysis task pending for this dataset...')
+    rendered.should have_tag("li[data-theme=e]", text: '1 analysis task pending for this dataset...')
   end
 
   context 'with completed analysis tasks' do
     before(:each) do
       # This needs to be a real job type, since we're making URLs
-      @task = FactoryGirl.create(:analysis_task, :name => 'test', :dataset => @dataset,
-                                 :job_type => "ExportCitations", :finished_at => 5.minutes.ago)
+      @task = FactoryGirl.create(:analysis_task, name: 'test', dataset: @dataset,
+                                 job_type: "ExportCitations", finished_at: 5.minutes.ago)
       render
     end
 
@@ -33,21 +33,21 @@ describe "datasets/task_list" do
     end
 
     it 'shows a link to download the results' do
-      expected = url_for(:controller => 'datasets', :action => 'task_download',
-        :id => @dataset.to_param, :task_id => @task.to_param)
+      expected = url_for(controller: 'datasets', action: 'task_download',
+        id: @dataset.to_param, task_id: @task.to_param)
       rendered.should have_tag("a[href='#{expected}']")
     end
 
     it 'shows a link to delete the task' do
-      expected = url_for(:controller => 'datasets', :action => 'task_destroy',
-        :id => @dataset.to_param, :task_id => @task.to_param)
+      expected = url_for(controller: 'datasets', action: 'task_destroy',
+        id: @dataset.to_param, task_id: @task.to_param)
       rendered.should have_tag("a[href='#{expected}']")
     end
   end
 
   context 'with failed analysis tasks' do
     before(:each) do
-      @task = FactoryGirl.create(:analysis_task, :dataset => @dataset, :failed => true)
+      @task = FactoryGirl.create(:analysis_task, dataset: @dataset, failed: true)
       render
     end
 
@@ -56,7 +56,7 @@ describe "datasets/task_list" do
     end
 
     it 'shows a link to clear failed analysis tasks' do
-      rendered.should have_tag("a[href='#{dataset_path(@dataset, :clear_failed => true)}']")
+      rendered.should have_tag("a[href='#{dataset_path(@dataset, clear_failed: true)}']")
     end
   end
 

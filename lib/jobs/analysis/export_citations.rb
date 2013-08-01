@@ -20,9 +20,9 @@ module Jobs
       # @return [undefined]
       # @example Start a job for exporting a datset as JSON
       #   Delayed::Job.enqueue Jobs::Analysis::ExportCitations.new(
-      #     :user_id => current_user.to_param,
-      #     :dataset_id => dataset.to_param,
-      #     :format => :json)
+      #     user_id: current_user.to_param,
+      #     dataset_id: dataset.to_param,
+      #     format: :json)
       def perform
         # Fetch the user based on ID
         user = User.find(user_id)
@@ -33,7 +33,7 @@ module Jobs
         raise ArgumentError, 'Dataset ID is not valid' unless dataset
 
         # Make a new analysis task (early, to catch errors)
-        @task = dataset.analysis_tasks.create(:name => "Export", :job_type => 'ExportCitations')
+        @task = dataset.analysis_tasks.create(name: "Export", job_type: 'ExportCitations')
 
         # Check that the format is valid
         raise ArgumentError, 'Format is not specified' if format.nil?

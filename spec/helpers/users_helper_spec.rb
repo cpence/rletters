@@ -5,11 +5,11 @@ describe UsersHelper do
 
   describe '#options_from_locales' do
     it 'includes options for locales without country codes' do
-      helper.options_from_locales.should have_tag('option[value=az]', :text => "Azeri")
+      helper.options_from_locales.should have_tag('option[value=az]', text: "Azeri")
     end
 
     it 'includes options for locales with country codes' do
-      helper.options_from_locales.should have_tag('option[value=es-MX]', :text => "Spanish (Mexico)")
+      helper.options_from_locales.should have_tag('option[value=es-MX]', text: "Spanish (Mexico)")
     end
   end
 
@@ -32,8 +32,8 @@ describe UsersHelper do
   describe '#options_from_timezones' do
     it 'includes an option for some common time zones' do
       ret = helper.options_from_timezones
-      ret.should have_tag('option[value="Mountain Time (US & Canada)"]', :text => "(GMT-07:00) Mountain Time (US & Canada)")
-      ret.should have_tag('option[value="West Central Africa"]', :text => "(GMT+01:00) West Central Africa")
+      ret.should have_tag('option[value="Mountain Time (US & Canada)"]', text: "(GMT-07:00) Mountain Time (US & Canada)")
+      ret.should have_tag('option[value="West Central Africa"]', text: "(GMT+01:00) West Central Africa")
     end
   end
 

@@ -3,8 +3,8 @@
 
 = form_for(@dataset) do |f|
   - if @dataset.errors.any?
-    %ul{ 'data-role' => 'listview', 'data-theme' => 'e', 'data-divider-theme' => 'e', 'style' => 'margin-bottom: 30px;' }
-      %li= t('.errors', :count => @dataset.errors.count)
+    %ul{ 'data-role' => 'listview', 'data-theme' => 'e', 'data-divider-theme' => 'e', style: 'margin-bottom: 30px;' }
+      %li= t('.errors', count: @dataset.errors.count)
       - @dataset.errors.full_messages.each do |msg|
         %li= msg
 

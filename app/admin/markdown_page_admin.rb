@@ -2,10 +2,10 @@
 
 ActiveAdmin.register MarkdownPage do
   actions :index, :update, :edit, :show
-  menu :parent => "Settings"
+  menu parent: "Settings"
   filter :name
 
-  sidebar :markdown, :only => :edit do
+  sidebar :markdown, only: :edit do
     str = <<-EOT
       Custom pages may be formatted using the Markdown syntax.  Visit the
       #{link_to 'Kramdown syntax guide', 'http://kramdown.rubyforge.org/syntax.html'}
@@ -19,7 +19,7 @@ ActiveAdmin.register MarkdownPage do
     default_actions
   end
 
-  show :title => :friendly_name do |page|
+  show title: :friendly_name do |page|
     attributes_table do
       row :id
       row :friendly_name
@@ -36,7 +36,7 @@ ActiveAdmin.register MarkdownPage do
 
   form do |f|
     f.inputs "Page: #{markdown_page.friendly_name}" do
-      f.input :content, :input_html => { :rows => 30 }
+      f.input :content, input_html: { rows: 30 }
     end
     f.buttons
   end

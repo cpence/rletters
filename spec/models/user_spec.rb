@@ -8,7 +8,7 @@ describe User do
   describe '#valid' do
     context 'when no name is specified' do
       before(:each) do
-        @user = FactoryGirl.build(:user, :name => nil)
+        @user = FactoryGirl.build(:user, name: nil)
       end
 
       it "isn't valid" do
@@ -18,7 +18,7 @@ describe User do
 
     context 'when no email is specified' do
       before(:each) do
-        @user = FactoryGirl.build(:user, :email => nil)
+        @user = FactoryGirl.build(:user, email: nil)
       end
 
       it "isn't valid" do
@@ -29,7 +29,7 @@ describe User do
     context 'when a duplicate email is specified' do
       before(:each) do
         @dupe = FactoryGirl.create(:user)
-        @user = FactoryGirl.build(:user, :email => @dupe.email)
+        @user = FactoryGirl.build(:user, email: @dupe.email)
       end
 
       it "isn't valid" do
@@ -39,7 +39,7 @@ describe User do
 
     context 'when a bad email is specified' do
       before(:each) do
-        @user = FactoryGirl.build(:user, :email => 'asdf-not-an-email.com')
+        @user = FactoryGirl.build(:user, email: 'asdf-not-an-email.com')
       end
 
       it "isn't valid" do
@@ -49,7 +49,7 @@ describe User do
 
     context 'when a non-numeric per_page is specified' do
       before(:each) do
-        @user = FactoryGirl.build(:user, :per_page => 'asdfasdf')
+        @user = FactoryGirl.build(:user, per_page: 'asdfasdf')
       end
 
       it "isn't valid" do
@@ -59,7 +59,7 @@ describe User do
 
     context 'when a non-integer per_page is specified' do
       before(:each) do
-        @user = FactoryGirl.build(:user, :per_page => 3.14159)
+        @user = FactoryGirl.build(:user, per_page: 3.14159)
       end
 
       it "isn't valid" do
@@ -69,7 +69,7 @@ describe User do
 
     context 'when a negative per_page is specified' do
       before(:each) do
-        @user = FactoryGirl.build(:user, :per_page => -20)
+        @user = FactoryGirl.build(:user, per_page: -20)
       end
 
       it "isn't valid" do
@@ -79,7 +79,7 @@ describe User do
 
     context 'when per_page is zero' do
       before(:each) do
-        @user = FactoryGirl.build(:user, :per_page => 0)
+        @user = FactoryGirl.build(:user, per_page: 0)
       end
 
       it "isn't valid" do
@@ -89,7 +89,7 @@ describe User do
 
     context 'when language is invalid' do
       before(:each) do
-        @user = FactoryGirl.build(:user, :language => 'notalocaleCODE123')
+        @user = FactoryGirl.build(:user, language: 'notalocaleCODE123')
       end
 
       it "isn't valid" do

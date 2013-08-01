@@ -10,18 +10,18 @@ describe Jobs::CreateDataset do
   context "when user is invalid" do
     it "raises an exception" do
       expect {
-        Jobs::CreateDataset.new(:user_id => '12345678',
-          :name => 'Test Dataset', :q => '*:*', :fq => nil,
-          :qt => 'precise').perform
+        Jobs::CreateDataset.new(user_id: '12345678',
+          name: 'Test Dataset', q: '*:*', fq: nil,
+          qt: 'precise').perform
       }.to raise_error(ActiveRecord::RecordNotFound)
     end
   end
 
-  context "given a standard search", :vcr => { :cassette_name => 'create_dataset_standard' } do
+  context "given a standard search", vcr: { cassette_name: 'create_dataset_standard' } do
     before(:each) do
-      Jobs::CreateDataset.new(:user_id => @user.to_param,
-        :name => 'Short Test Dataset', :q => 'test', :fq => nil,
-        :qt => 'standard').perform
+      Jobs::CreateDataset.new(user_id: @user.to_param,
+        name: 'Short Test Dataset', q: 'test', fq: nil,
+        qt: 'standard').perform
 
       @user.datasets.reload
     end
@@ -36,11 +36,11 @@ describe Jobs::CreateDataset do
     end
   end
 
-  context "given large Solr dataset", :vcr => { :cassette_name => 'create_dataset_large' } do
+  context "given large Solr dataset", vcr: { cassette_name: 'create_dataset_large' } do
     before(:each) do
-      Jobs::CreateDataset.new(:user_id => @user.to_param,
-        :name => 'Long Dataset', :q => '*:*', :fq => nil,
-        :qt => 'precise').perform
+      Jobs::CreateDataset.new(user_id: @user.to_param,
+        name: 'Long Dataset', q: '*:*', fq: nil,
+        qt: 'precise').perform
 
       @user.datasets.reload
     end

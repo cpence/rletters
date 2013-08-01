@@ -7,7 +7,7 @@ describe Solr::Connection do
   # the entire source base.
 
   describe '.info' do
-    context 'when connection succeeds', :vcr => { :cassette_name => 'info_connection_success' } do
+    context 'when connection succeeds', vcr: { cassette_name: 'info_connection_success' } do
       it 'gets the relevant data' do
         info = Solr::Connection.info
 

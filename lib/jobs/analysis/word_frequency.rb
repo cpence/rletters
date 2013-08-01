@@ -48,7 +48,7 @@ module Jobs
         raise ArgumentError, 'Dataset ID is not valid' unless dataset
 
         # Make a new analysis task
-        @task = dataset.analysis_tasks.create(:name => "Word frequency list", :job_type => 'WordFrequency')
+        @task = dataset.analysis_tasks.create(name: "Word frequency list", job_type: 'WordFrequency')
 
         # Cast all the values
         if @block_size.blank?
@@ -81,10 +81,10 @@ module Jobs
 
         # Perform the analysis
         analyzer = WordFrequencyAnalyzer.new(dataset,
-                                             :block_size => @block_size,
-                                             :num_blocks => @num_blocks,
-                                             :num_words => @num_words,
-                                             :split_across => @split_across)
+                                             block_size: @block_size,
+                                             num_blocks: @num_blocks,
+                                             num_words: @num_words,
+                                             split_across: @split_across)
 
         # Create some CSV
         csv_string = CSV.generate do |csv|

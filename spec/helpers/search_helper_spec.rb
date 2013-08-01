@@ -53,8 +53,8 @@ describe SearchHelper do
         end
 
         it 'returns forward buttons' do
-          @ret.should have_tag('a[href="/search/?page=1"][data-icon=arrow-r][data-iconpos=right]', :text => "Next")
-          @ret.should have_tag('a[href="/search/?page=9"][data-icon=forward][data-iconpos=right]', :text => "Last")
+          @ret.should have_tag('a[href="/search/?page=1"][data-icon=arrow-r][data-iconpos=right]', text: "Next")
+          @ret.should have_tag('a[href="/search/?page=9"][data-icon=forward][data-iconpos=right]', text: "Last")
         end
 
         it 'does not return back buttons' do
@@ -73,13 +73,13 @@ describe SearchHelper do
         end
 
         it 'returns back buttons' do
-          @ret.should have_tag('a[href="/search/?page=4"][data-icon=arrow-l]', :text => "Previous")
-          @ret.should have_tag('a[href="/search/"][data-icon=back]', :text => "First")
+          @ret.should have_tag('a[href="/search/?page=4"][data-icon=arrow-l]', text: "Previous")
+          @ret.should have_tag('a[href="/search/"][data-icon=back]', text: "First")
         end
 
         it 'returns forward buttons' do
-          @ret.should have_tag('a[href="/search/?page=6"][data-icon=arrow-r][data-iconpos=right]', :text => "Next")
-          @ret.should have_tag('a[href="/search/?page=9"][data-icon=forward][data-iconpos=right]', :text => "Last")
+          @ret.should have_tag('a[href="/search/?page=6"][data-icon=arrow-r][data-iconpos=right]', text: "Next")
+          @ret.should have_tag('a[href="/search/?page=9"][data-icon=forward][data-iconpos=right]', text: "Last")
         end
       end
 
@@ -93,8 +93,8 @@ describe SearchHelper do
         end
 
         it 'returns back buttons' do
-          @ret.should have_tag('a[href="/search/?page=8"][data-icon=arrow-l]', :text => "Previous")
-          @ret.should have_tag('a[href="/search/"][data-icon=back]', :text => "First")
+          @ret.should have_tag('a[href="/search/?page=8"][data-icon=arrow-l]', text: "Previous")
+          @ret.should have_tag('a[href="/search/"][data-icon=back]', text: "First")
         end
 
         it 'does not return forward buttons' do
@@ -117,9 +117,9 @@ describe SearchHelper do
     end
   end
 
-  describe '#list_links_for_facet', :vcr => { :cassette_name => 'solr_default' } do
+  describe '#list_links_for_facet', vcr: { cassette_name: 'solr_default' } do
     before(:each) do
-      @docs = Document.find_all_by_solr_query({ :q => "*:*", :qt => "precise" })
+      @docs = Document.find_all_by_solr_query({ q: "*:*", qt: "precise" })
     end
 
     context 'with no active facets' do
@@ -128,12 +128,12 @@ describe SearchHelper do
       end
 
       it 'includes a header' do
-        @ret.should have_tag("li[data-role=list-divider]", :text => "Authors")
+        @ret.should have_tag("li[data-role=list-divider]", text: "Authors")
       end
 
       it 'includes a link to add a facet' do
         url = "/search/?" + CGI::escape('fq[]=authors_facet:"J. C. Crabbe"').gsub("%26", "&").gsub("%3D", "=")
-        @ret.should have_tag("a[href=\"#{url}\"]", :text => "J. C. Crabbe")
+        @ret.should have_tag("a[href=\"#{url}\"]", text: "J. C. Crabbe")
       end
     end
 
@@ -143,12 +143,12 @@ describe SearchHelper do
       end
 
       it 'does not include the active facet in the list' do
-        @ret.should_not have_tag('li', :text => "J. C. Crabbe9")
+        @ret.should_not have_tag('li', text: "J. C. Crabbe9")
       end
 
       it 'does include the sixth facet in the list' do
         url = "/search/?" + CGI::escape('fq[]=authors_facet:"J. C. Crabbe"&fq[]=authors_facet:"J. N. Crawley"').gsub("%26", "&").gsub("%3D", "=")
-        @ret.should have_tag("a[href=\"#{url}\"]", :text => "J. N. Crawley")
+        @ret.should have_tag("a[href=\"#{url}\"]", text: "J. N. Crawley")
       end
     end
   end
@@ -164,55 +164,55 @@ describe SearchHelper do
       end
     end
 
-    context 'with no active facets', :vcr => { :cassette_name => 'solr_default' } do
+    context 'with no active facets', vcr: { cassette_name: 'solr_default' } do
       before(:each) do
-        @docs = Document.find_all_by_solr_query({ :q => "*:*", :qt => "precise" })
+        @docs = Document.find_all_by_solr_query({ q: "*:*", qt: "precise" })
         @ret = helper.facet_link_list
       end
 
       it "includes the headers" do
-        @ret.should have_tag("li[data-role=list-divider]", :text => "Authors")
-        @ret.should have_tag("li[data-role=list-divider]", :text => "Journal")
-        @ret.should have_tag("li[data-role=list-divider]", :text => "Publication Date")
+        @ret.should have_tag("li[data-role=list-divider]", text: "Authors")
+        @ret.should have_tag("li[data-role=list-divider]", text: "Journal")
+        @ret.should have_tag("li[data-role=list-divider]", text: "Publication Date")
       end
 
       it "includes a link to add an author facet" do
         url = "/search/?" + CGI::escape('fq[]=authors_facet:"J. C. Crabbe"').gsub("%26", "&").gsub("%3D", "=")
-        @ret.should have_tag("a[href=\"#{url}\"]", :text => "J. C. Crabbe")
+        @ret.should have_tag("a[href=\"#{url}\"]", text: "J. C. Crabbe")
       end
 
       it "includes a link to add a journal facet" do
         url = "/search/?" + CGI::escape('fq[]=journal_facet:"Ethology"').gsub("%26", "&").gsub("%3D", "=")
-        @ret.should have_tag("a[href=\"#{url}\"]", :text => "Ethology")
+        @ret.should have_tag("a[href=\"#{url}\"]", text: "Ethology")
       end
 
       it "includes a link to add a year facet" do
         url = "/search/?" + CGI::escape('fq[]=year:[2000 TO 2009]').gsub("%26", "&").gsub("%3D", "=")
-        @ret.should have_tag("a[href=\"#{url}\"]", :text => "2000–2009")
+        @ret.should have_tag("a[href=\"#{url}\"]", text: "2000–2009")
       end
     end
 
-    context 'with active facets', :vcr => { :cassette_name => 'search_helper_facets' } do
+    context 'with active facets', vcr: { cassette_name: 'search_helper_facets' } do
       before(:each) do
-        @docs = Document.find_all_by_solr_query({ :q => "*:*", :qt => "precise",
-                                                  :fq => ["authors_facet:\"Elisa Lobato\"", "year:[2010 TO *]"] })
+        @docs = Document.find_all_by_solr_query({ q: "*:*", qt: "precise",
+                                                  fq: ["authors_facet:\"Elisa Lobato\"", "year:[2010 TO *]"] })
 
         params[:fq] = ["authors_facet:\"Elisa Lobato\"", "year:[2010 TO *]"]
         @ret = helper.facet_link_list
       end
 
       it "includes a link to remove all facets" do
-        @ret.should have_tag('a[href="/search/"]', :text => "Remove All")
+        @ret.should have_tag('a[href="/search/"]', text: "Remove All")
       end
 
       it "includes a link to remove an individual facet" do
         url = "/search/?" + CGI::escape('fq[]=year:[2010 TO *]').gsub("%26", "&").gsub("%3D", "=")
-        @ret.should have_tag("a[href=\"#{url}\"]", :text => "Authors: Elisa Lobato")
+        @ret.should have_tag("a[href=\"#{url}\"]", text: "Authors: Elisa Lobato")
       end
     end
   end
 
-  describe '#document_bibliography_entry', :vcr => { :cassette_name => 'solr_single' } do
+  describe '#document_bibliography_entry', vcr: { cassette_name: 'solr_single' } do
     before(:each) do
       @doc = Document.find(FactoryGirl.generate(:working_shasum))
     end
@@ -224,7 +224,7 @@ describe SearchHelper do
       end
 
       it "renders the default template" do
-        helper.should_receive(:render).with({ :partial => 'document', :locals => { :document => @doc } })
+        helper.should_receive(:render).with({ partial: 'document', locals: { document: @doc } })
         helper.document_bibliography_entry(@doc)
       end
     end
@@ -237,7 +237,7 @@ describe SearchHelper do
       end
 
       it "renders the default template" do
-        helper.should_receive(:render).with({ :partial => 'document', :locals => { :document => @doc } })
+        helper.should_receive(:render).with({ partial: 'document', locals: { document: @doc } })
         helper.document_bibliography_entry(@doc)
       end
     end
@@ -245,7 +245,7 @@ describe SearchHelper do
     context 'when the user has a CSL style set' do
       before(:each) do
         @csl_style = CslStyle.find_by_name('American Psychological Association 6th Edition')
-        @user = FactoryGirl.create(:user, :csl_style_id => @csl_style.id)
+        @user = FactoryGirl.create(:user, csl_style_id: @csl_style.id)
         helper.stub(:current_user) { @user }
         helper.stub(:user_signed_in?) { true }
       end

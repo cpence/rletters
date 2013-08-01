@@ -25,19 +25,19 @@ class UnapiController < ApplicationController
       unless params[:format].blank?
         format = params[:format].to_s.to_sym
         if Document.serializers.has_key? format
-          redirect_to :controller => 'search', :action => 'show',
-            :id => params[:id], :format => format
+          redirect_to controller: 'search', action: 'show',
+            id: params[:id], format: format
         else
-          render :template => 'errors/404', :layout => false,
-            :formats => [ :html ], :status => 406
+          render template: 'errors/404', layout: false,
+            formats: [ :html ], status: 406
         end
       else
-        render :template => 'unapi/formats', :formats => [ :xml ],
-          :handlers => [ :builder ], :layout => false, :status => 300
+        render template: 'unapi/formats', formats: [ :xml ],
+          handlers: [ :builder ], layout: false, status: 300
       end
     else
-      render :template => 'unapi/formats', :formats => [ :xml ],
-        :handlers => [ :builder ], :layout => false
+      render template: 'unapi/formats', formats: [ :xml ],
+        handlers: [ :builder ], layout: false
     end
   end
 end

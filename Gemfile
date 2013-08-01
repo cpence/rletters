@@ -5,17 +5,17 @@ gem 'rails', '~> 4.0'
 gem 'rails-i18n', '= 0.7.2'
 
 # Deployment and server tools
-gem 'capistrano', :require => false
+gem 'capistrano', require: false
 
-gem 'god', :require => false
-gem 'unicorn', :require => false
+gem 'god', require: false
+gem 'unicorn', require: false
 
-gem 'daemons', :require => false
-gem 'clockwork', :require => false
+gem 'daemons', require: false
+gem 'clockwork', require: false
 gem 'delayed_job', '~> 4.0'
 gem 'delayed_job_active_record'
 
-gem 'airbrake', :require => false
+gem 'airbrake', require: false
 
 # Database and related tools
 gem 'pg'
@@ -44,7 +44,7 @@ gem 'rdf-n3'
 # Support for citation processing
 gem 'unicode', '>= 0.4.3.1.pre1'
 gem 'latex-decode', '>= 0.0.11'
-gem 'bibtex-ruby', '~> 2.0', :require => 'bibtex'
+gem 'bibtex-ruby', '~> 2.0', require: 'bibtex'
 gem 'citeproc-ruby', '>= 0.0.4'
 
 # Asset tools and template generators
@@ -62,18 +62,18 @@ gem 'yui-compressor'
 
 group :test, :development do
   gem 'rspec-rails'
-  gem 'coveralls', :require => false
+  gem 'coveralls', require: false
 end
 
 group :test do
   gem 'factory_girl_rails'
   gem 'rspec-html-matchers'
-  gem 'vcr', :require => false
-  gem 'webmock', :require => false
-  gem 'nokogiri', :require => false
+  gem 'vcr', require: false
+  gem 'webmock', require: false
+  gem 'nokogiri', require: false
 end
 
 group :development do
-  gem 'yard', :require => false
-  gem 'magic_encoding', :require => false
+  gem 'yard', require: false
+  gem 'magic_encoding', require: false
 end

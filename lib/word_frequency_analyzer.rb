@@ -306,8 +306,8 @@ class WordFrequencyAnalyzer
     if add
       @block_num += 1
 
-      @block_stats << { :name => block_name, :types => @block_types,
-        :tokens => @block_tokens }
+      @block_stats << { name: block_name, types: @block_types,
+        tokens: @block_tokens }
       @blocks << @block.dup
     end
 

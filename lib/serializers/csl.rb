@@ -62,7 +62,7 @@ module Serializers
         raise ArgumentError, "Argument must be CslStyle or String"
       end
 
-      CiteProc.process(to_csl, :format => :html, :style => style).strip.html_safe
+      CiteProc.process(to_csl, format: :html, style: style).strip.html_safe
     end
   end
 end
