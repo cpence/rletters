@@ -1,5 +1,5 @@
-%ul{ 'data-role' => 'listview', 'data-theme' => 'd', 'data-divider-theme' => 'b' }
-  %li{ 'data-role' => 'list-divider' }= t('.head')
+%ul{ :'data-role' => 'listview', :'data-theme' => 'd', :'data-divider-theme' => 'b' }
+  %li{ :'data-role' => 'list-divider' }= t('.head')
   %li.longlist
     %h3= t('.intro_header')
     = t_md('.intro_markdown')
@@ -8,59 +8,59 @@
 
 = form_tag search_path, { method: "get" } do
   = hidden_field_tag :precise, true
-  %ul{ 'data-role' => 'listview', 'data-theme' => 'd', 'data-divider-theme' => 'c' }
-    %li{ 'data-role' => 'list-divider' }= t('.search_header')
+  %ul{ :'data-role' => 'listview', :'data-theme' => 'd', :'data-divider-theme' => 'c' }
+    %li{ :'data-role' => 'list-divider' }= t('.search_header')
     %li
-      %div{ 'data-role' => 'fieldcontain' }
+      %div{ :'data-role' => 'fieldcontain' }
         = label_tag(:fulltext, Document.human_attribute_name('fulltext'))
         = text_field_tag(:fulltext)
-      %div{ 'data-role' => 'fieldcontain' }
-        = field_set_tag t(:'.fulltext_type_label'), 'data-role' => 'controlgroup', 'data-type' => 'horizontal' do
+      %div{ :'data-role' => 'fieldcontain' }
+        = field_set_tag t(:'.fulltext_type_label'), :'data-role' => 'controlgroup', :'data-type' => 'horizontal' do
           = radio_button_tag(:fulltext_type, "fuzzy", true)
           = label_tag(:fulltext_type_fuzzy, t(:'.type_fuzzy'))
           = radio_button_tag(:fulltext_type, "exact", false)
           = label_tag(:fulltext_type_exact, t(:'.type_exact'))
-      %div{ 'data-role' => 'fieldcontain' }
+      %div{ :'data-role' => 'fieldcontain' }
         = label_tag :authors, Document.human_attribute_name('authors')
         = text_field_tag :authors, nil, placeholder: t('.authors_placeholder')
-      %div{ 'data-role' => 'fieldcontain' }
+      %div{ :'data-role' => 'fieldcontain' }
         = label_tag :title, Document.human_attribute_name('title')
         = text_field_tag :title
-      %div{ 'data-role' => 'fieldcontain' }
-        = field_set_tag t(:'.title_type_label'), 'data-role' => 'controlgroup', 'data-type' => 'horizontal' do
+      %div{ :'data-role' => 'fieldcontain' }
+        = field_set_tag t(:'.title_type_label'), :'data-role' => 'controlgroup', :'data-type' => 'horizontal' do
           = radio_button_tag(:title_type, "fuzzy", true, id: :title_type_fuzzy)
           = label_tag(:title_type_fuzzy, t(:'.type_fuzzy'))
           = radio_button_tag(:title_type, "exact", false, id: :title_type_exact)
           = label_tag(:title_type_exact, t(:'.type_exact'))
-      %div{ 'data-role' => 'fieldcontain' }
+      %div{ :'data-role' => 'fieldcontain' }
         = label_tag :journal, Document.human_attribute_name('journal')
         = text_field_tag(:journal)
-      %div{ 'data-role' => 'fieldcontain' }
-        = field_set_tag t(:'.journal_type_label'), 'data-role' => 'controlgroup', 'data-type' => 'horizontal' do
+      %div{ :'data-role' => 'fieldcontain' }
+        = field_set_tag t(:'.journal_type_label'), :'data-role' => 'controlgroup', :'data-type' => 'horizontal' do
           = radio_button_tag(:journal_type, "fuzzy", true, id: :journal_type_fuzzy)
           = label_tag(:journal_type_fuzzy, t(:'.type_fuzzy'))
           = radio_button_tag(:journal_type, "exact", false, id: :journal_type_exact)
           = label_tag(:journal_type_exact, t(:'.type_exact'))
-      %div{ 'data-role' => 'fieldcontain' }
+      %div{ :'data-role' => 'fieldcontain' }
         = label_tag :year_ranges, t('.year_ranges')
         = text_field_tag(:year_ranges, nil, placeholder: t('.year_ranges_placeholder'))
-      %div{ 'data-role' => 'fieldcontain' }
+      %div{ :'data-role' => 'fieldcontain' }
         = label_tag :volume, Document.human_attribute_name('volume')
         = text_field_tag(:volume)
-      %div{ 'data-role' => 'fieldcontain' }
+      %div{ :'data-role' => 'fieldcontain' }
         = label_tag :number, Document.human_attribute_name('number')
         = text_field_tag(:number)
-      %div{ 'data-role' => 'fieldcontain' }
+      %div{ :'data-role' => 'fieldcontain' }
         = label_tag :pages, Document.human_attribute_name('pages')
         = text_field_tag(:pages, nil, placeholder: t('.pages_placeholder'))
       = submit_tag t(:'.search_button')
-    %li{ 'data-role' => 'list-divider' }= t('.solr_header')
+    %li{ :'data-role' => 'list-divider' }= t('.solr_header')
 
 %div.verticalpad
 
 = form_tag search_path, { method: "get" } do
   = hidden_field_tag :precise, true
-  %ul{ 'data-role' => 'listview', 'data-theme' => 'd', 'data-divider-theme' => 'b' }
+  %ul{ :'data-role' => 'listview', :'data-theme' => 'd', :'data-divider-theme' => 'b' }
     %li
       = label_tag :q, t('.solr_label')
       = text_area_tag(:q, nil, { escape: false })

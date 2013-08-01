@@ -3,27 +3,27 @@
 
 %abbr{ class: 'unapi-id', title: @document.shasum }= ''
 
-%ul{ 'data-role' => 'listview', 'data-theme' => 'd', 'data-divider-theme' => 'b' }
-  %li{ 'data-role' => 'list-divider' }= t('.details')
+%ul{ :'data-role' => 'listview', :'data-theme' => 'd', :'data-divider-theme' => 'b' }
+  %li{ :'data-role' => 'list-divider' }= t('.details')
   %li
     = document_bibliography_entry(@document)
 
 %div.doublepad
 
-%ul{ 'data-role' => 'listview', 'data-inset' => 'true', 'data-theme' => 'd', 'data-divider-theme' => 'c' }
+%ul{ :'data-role' => 'listview', :'data-inset' => 'true', :'data-theme' => 'd', :'data-divider-theme' => 'c' }
   - if current_user
-    %li= link_to t('.single_dataset'), new_dataset_path(q: "shasum:#{@document.shasum}", qt: 'precise', fq: nil), 'data-rel' => 'dialog'
-    %li= link_to t('.add_to_dataset'), search_add_path(id: @document.shasum), 'data-rel' => 'dialog'
-  %li{ 'data-role' => 'list-divider' }= t('.get')
+    %li= link_to t('.single_dataset'), new_dataset_path(q: "shasum:#{@document.shasum}", qt: 'precise', fq: nil), :'data-rel' => 'dialog'
+    %li= link_to t('.add_to_dataset'), search_add_path(id: @document.shasum), :'data-rel' => 'dialog'
+  %li{ :'data-role' => 'list-divider' }= t('.get')
   - unless @document.doi.blank?
     %li= link_to t('.publisher', doi: @document.doi), "http://dx.doi.org/#{@document.doi}"
-  %li{ 'data-role' => 'list-divider' }= t('.library')
+  %li{ :'data-role' => 'list-divider' }= t('.library')
   - if current_user
     - current_user.libraries.each do |library|
       %li= link_to t('.yours') + ' ' + library.name, "#{library.url}#{@document.to_openurl_params}"
   %li= link_to t('.worldcat'), "http://worldcatlibraries.org/registry/gateway?#{@document.to_openurl_params}"
   %li= link_to t('.uk_openurl'), "http://openurl.ac.uk/?#{@document.to_openurl_params}"
-  %li{ 'data-role' => 'list-divider' }= t('.online')
+  %li{ :'data-role' => 'list-divider' }= t('.online')
   %li= link_to t('.google'), "http://scholar.google.com/scholar?q=#{CGI::escape(@document.title)}"
   - unless Setting.mendeley_key.blank?
     %li= link_to t('.mendeley'), mendeley_redirect_path(id: @document.shasum), rel: "external"

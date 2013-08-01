@@ -36,9 +36,9 @@ module SearchHelper
       new_params[:page] = num
     end
 
-    style = { 'data-transition' => :none, 'data-role' => :button }
-    style['data-icon'] = icon unless icon.empty?
-    style['data-iconpos'] = 'right' if right
+    style = { :'data-transition' => :none, :'data-role' => :button }
+    style[:'data-icon'] = icon unless icon.empty?
+    style[:'data-iconpos'] = 'right' if right
 
     link_to text, search_path(new_params), style
   end
@@ -167,12 +167,12 @@ module SearchHelper
 
     if facets.empty?
       new_params[:fq] = nil
-      return link_to text, search_path(new_params), 'data-transition' => 'none'
+      return link_to text, search_path(new_params), :'data-transition' => 'none'
     end
 
     new_params[:fq] = []
     facets.each { |f| new_params[:fq] << f.query }
-    link_to text, search_path(new_params), 'data-transition' => 'none'
+    link_to text, search_path(new_params), :'data-transition' => 'none'
   end
 
   # Get the list of facet links for one particular field
@@ -200,7 +200,7 @@ module SearchHelper
     return ret if facets.empty?
 
     # Build the return value
-    ret << content_tag(:li, header, 'data-role' => 'list-divider')
+    ret << content_tag(:li, header, :'data-role' => 'list-divider')
     facets.each do |f|
       ret << content_tag(:li) do
         # Link to whatever the current facets are, plus the new one
@@ -240,12 +240,12 @@ module SearchHelper
     # Start with the active facets
     ret = ''.html_safe
     unless active_facets.empty?
-      ret << content_tag(:li, I18n.t('search.index.active_filters'), 'data-role' => 'list-divider')
-      ret << content_tag(:li, 'data-icon' => 'delete') do
+      ret << content_tag(:li, I18n.t('search.index.active_filters'), :'data-role' => 'list-divider')
+      ret << content_tag(:li, :'data-icon' => 'delete') do
         facet_link I18n.t('search.index.remove_all'), []
       end
       active_facets.each do |f|
-        ret << content_tag(:li, 'data-icon' => 'delete') do
+        ret << content_tag(:li, :'data-icon' => 'delete') do
           facet_link "#{f.field_label}: #{f.label}", active_facets.reject { |x| x == f }
         end
       end

@@ -1,5 +1,5 @@
-%ul{ 'data-role' => 'listview', 'data-theme' => 'd', 'data-divider-theme' => 'b', 'data-split-icon' => 'delete', 'data-split-theme' => 'a' }
-  %li{ 'data-role' => 'list-divider' }= t('.head')
+%ul{ :'data-role' => 'listview', :'data-theme' => 'd', :'data-divider-theme' => 'b', :'data-split-icon' => 'delete', :'data-split-theme' => 'a' }
+  %li{ :'data-role' => 'list-divider' }= t('.head')
   %li
     %h3= @dataset.name
     %p= t('.num_entries', count: @dataset.entries.size)
@@ -8,16 +8,16 @@
 %div.verticalpad
 
 %div.dataset_task_list{ :'data-fetch-url' => task_list_dataset_path(@dataset) }
-  %ul{ 'data-role' => 'listview', 'data-theme' => 'd' }
+  %ul{ :'data-role' => 'listview', :'data-theme' => 'd' }
     %li= t('.loading_tasks')
 
 %div.verticalpad
 
-%ul{ 'data-role' => 'listview', 'data-theme' => 'd', 'data-divider-theme' => 'b', 'data-split-icon' => 'delete', 'data-split-theme' => 'a' }
+%ul{ :'data-role' => 'listview', :'data-theme' => 'd', :'data-divider-theme' => 'b', :'data-split-icon' => 'delete', :'data-split-theme' => 'a' }
 
   -# Show the markup for starting all the various background jobs
-  %li{ 'data-role' => 'list-divider' }= t('.new_task')
+  %li{ :'data-role' => 'list-divider' }= t('.new_task')
   - Jobs::Analysis::Base.job_list.each do |klass|
     = render template: klass.view_path('start')
 
-  %li{ 'data-icon' => 'delete' }= link_to t('.delete'), delete_dataset_path(@dataset), 'data-rel' => 'dialog'
+  %li{ :'data-icon' => 'delete' }= link_to t('.delete'), delete_dataset_path(@dataset), :'data-rel' => 'dialog'
