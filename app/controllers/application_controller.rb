@@ -70,6 +70,15 @@ class ApplicationController < ActionController::Base
   protected
   
   # Send the right parameter sanitizers to Devise
+  #
+  # Devise in Rails 4 uses this hook in the application controller in order
+  # to determine which parameters are accepted across the various account
+  # management forms.  When a regular user logs in, delegate to that parameter
+  # sanitizer.  Otherwise (e.g., for admin logins in the backend), just use
+  # the defaults.
+  #
+  # @api private
+  # @return [Devise::ParameterSanitizer] sanitizer to be used
   def devise_parameter_sanitizer
     if resource_class == User
       User::ParameterSanitizer.new(User, :user, params)

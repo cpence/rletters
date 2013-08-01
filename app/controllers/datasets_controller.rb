@@ -206,6 +206,10 @@ class DatasetsController < ApplicationController
   
   private
   
+  # Whitelist acceptable dataset parameters
+  #
+  # @return [ActionController::Parameters] acceptable parameters for
+  #   mass-assignment
   def dataset_params
     params.require(:dataset).permit(:name)
   end

@@ -59,20 +59,6 @@ class User < ActiveRecord::Base
   validates_associated :datasets
   validates_associated :libraries
 
-  # Attributes that can be edited by the user (in the user options form) 
-  # should be whitelisted here.  This should be kept in sync with the views
-  # in users/registrations/{edit,new}.html.
-  class ParameterSanitizer < Devise::ParameterSanitizer
-    def sign_up
-      default_params.permit(:name, :email, :password, :password_confirmation,
-        :language, :timezone)
-    end
-    def account_update
-      default_params.permit(:name, :email, :password, :password_confirmation,
-        :current_password, :language, :timezone, :per_page, :csl_style_id)
-    end
-  end
-
   # Convert the +csl_style_id+ to a CslStyle (or nil)
   #
   # @api public
@@ -82,5 +68,29 @@ class User < ActiveRecord::Base
   #   # Note: Do *not* call to_csl_entry with @user.csl_style_id, it will fail!
   def csl_style
     CslStyle.find(self.csl_style_id) rescue nil
+  end
+  
+  
+  # Parameter sanitizer class for regular users
+  #
+  # Attributes that can be edited by the user (in the user options form) 
+  # should be whitelisted here.  This should be kept in sync with the views
+  # in users/registrations/{edit,new}.html.
+  #
+  # @see ApplicationController::devise_parameter_sanitizer
+  class ParameterSanitizer < Devise::ParameterSanitizer
+    # Permit the parameters used in the sign up form
+    # @return [ActionController::Parameters] permitted parameters
+    def sign_up
+      default_params.permit(:name, :email, :password, :password_confirmation,
+        :language, :timezone)
+    end
+    
+    # Permit the parameters used in the user edit form
+    # @return [ActionController::Parameters] permitted parameters
+    def account_update
+      default_params.permit(:name, :email, :password, :password_confirmation,
+        :current_password, :language, :timezone, :per_page, :csl_style_id)
+    end
   end
 end

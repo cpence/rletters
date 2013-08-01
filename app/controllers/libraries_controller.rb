@@ -122,6 +122,10 @@ class LibrariesController < ApplicationController
   
   private
   
+  # Whitelist acceptable library parameters
+  #
+  # @return [ActionController::Parameters] acceptable parameters for 
+  #   mass-assignment
   def library_params
     params.require(:library).permit(:name, :url)
   end
