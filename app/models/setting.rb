@@ -12,9 +12,12 @@
 class Setting < ActiveRecord::Base
   serialize :value
   
-  def_druthers :app_name, :app_email, :app_domain, :solr_server_url,
+  VALID_KEYS = [ :app_name, :app_email, :app_domain, :solr_server_url,
     :solr_timeout, :mendeley_key, :airbrake_key, :google_analytics_key,
-    :jquery_mobile_theme_blob
+    :jquery_mobile_theme_blob ]
+  def self.valid_keys; VALID_KEYS; end
+  
+  def_druthers *VALID_KEYS
 
   def self.default_app_name; 'RLetters'; end
   def self.default_app_email; 'not@an.email.com'; end
@@ -24,8 +27,8 @@ class Setting < ActiveRecord::Base
   
   # @return [String] Friendly name of this asset (looked up in locale)
   def friendly_name
-    ret = I18n.t("settings.#{name}", :default => '')
-    return name if ret == ''
+    ret = I18n.t("settings.#{key}", :default => '')
+    return key.to_s if ret == ''
     ret
   end
 end
