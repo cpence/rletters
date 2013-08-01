@@ -1,4 +1,4 @@
-# encoding: UTF-8
+# -*- encoding : utf-8 -*-
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -22,14 +22,14 @@ ActiveRecord::Schema.define(version: 20130801021934) do
     t.integer  "author_id"
     t.string   "author_type"
     t.text     "body"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "namespace"
   end
 
   add_index "active_admin_comments", ["author_type", "author_id"], name: "index_active_admin_comments_on_author_type_and_author_id", using: :btree
   add_index "active_admin_comments", ["namespace"], name: "index_active_admin_comments_on_namespace", using: :btree
-  add_index "active_admin_comments", ["resource_type", "resource_id"], name: "index_admin_notes_on_resource_type_and_resource_id", using: :btree
+  add_index "active_admin_comments", ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id", using: :btree
 
   create_table "admin_users", force: true do |t|
     t.string   "email",                  default: "", null: false
@@ -42,8 +42,8 @@ ActiveRecord::Schema.define(version: 20130801021934) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "admin_users", ["email"], name: "index_admin_users_on_email", unique: true, using: :btree
@@ -53,8 +53,8 @@ ActiveRecord::Schema.define(version: 20130801021934) do
     t.string   "name"
     t.datetime "finished_at"
     t.integer  "dataset_id"
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.boolean  "failed",      default: false
     t.string   "job_type"
   end
@@ -64,15 +64,15 @@ ActiveRecord::Schema.define(version: 20130801021934) do
   create_table "csl_styles", force: true do |t|
     t.string   "name"
     t.text     "style"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "dataset_entries", force: true do |t|
     t.string   "shasum"
     t.integer  "dataset_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "dataset_entries", ["dataset_id"], name: "index_dataset_entries_on_dataset_id", using: :btree
@@ -80,8 +80,8 @@ ActiveRecord::Schema.define(version: 20130801021934) do
   create_table "datasets", force: true do |t|
     t.string   "name"
     t.integer  "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "datasets", ["user_id"], name: "index_datasets_on_user_id", using: :btree
@@ -95,8 +95,8 @@ ActiveRecord::Schema.define(version: 20130801021934) do
     t.datetime "locked_at"
     t.datetime "failed_at"
     t.string   "locked_by"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "queue"
   end
 
@@ -104,8 +104,8 @@ ActiveRecord::Schema.define(version: 20130801021934) do
 
   create_table "downloads", force: true do |t|
     t.string   "filename"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.integer  "analysis_task_id"
   end
 
@@ -115,8 +115,8 @@ ActiveRecord::Schema.define(version: 20130801021934) do
     t.string   "name"
     t.string   "url"
     t.integer  "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "libraries", ["user_id"], name: "index_libraries_on_user_id", using: :btree
@@ -124,8 +124,8 @@ ActiveRecord::Schema.define(version: 20130801021934) do
   create_table "markdown_pages", force: true do |t|
     t.string   "name"
     t.text     "content"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "settings", force: true do |t|
@@ -144,15 +144,15 @@ ActiveRecord::Schema.define(version: 20130801021934) do
     t.integer  "file_file_size"
     t.datetime "file_updated_at"
     t.string   "file_fingerprint"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "",                           null: false
     t.string   "name"
-    t.datetime "created_at",                                                    null: false
-    t.datetime "updated_at",                                                    null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.integer  "per_page",               default: 10
     t.string   "language",               default: "en-US"
     t.string   "timezone",               default: "Eastern Time (US & Canada)"
