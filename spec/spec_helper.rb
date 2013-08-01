@@ -24,6 +24,7 @@ end
 
 # VCR setup
 require 'vcr'
+require 'webmock/rspec'
 
 VCR.configure do |c|
   c.configure_rspec_metadata!
