@@ -62,7 +62,7 @@ describe UnapiController do
   
   it "responds with 300 for id without format" do
     get_unapi true
-    controller.should respond_with(300)
+    controller.response.response_code.should eq(300)
   end
   
   it "returns formats for request for id without format" do
@@ -86,7 +86,7 @@ describe UnapiController do
   
   it "responds with 406 for request w/ bad format" do
     get_unapi true, 'css'
-    controller.should respond_with(406)
+    controller.response.response_code.should eq(406)
   end
   
   it "succeeds when requesting id and format for all formats" do

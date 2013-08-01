@@ -14,11 +14,11 @@ describe "libraries/edit" do
   end
   
   it 'has a filled-in name field' do
-    rendered.should have_selector("input[name='library[name]'][value=#{@library.name}]")
+    rendered.should have_tag("input[name='library[name]'][value=#{@library.name}]")
   end
   
   it 'has a filled-in URL field' do
-    rendered.should have_selector("input[name='library[url]'][value='#{@library.url}']")
+    rendered.should have_tag("input[name='library[url]'][value='#{@library.url}']")
   end
   
 end

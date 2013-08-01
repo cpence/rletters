@@ -26,9 +26,9 @@ describe "jobs/plot_dates/results" do
   it 'shows the year and count in a table row' do
     render
     
-    rendered.should have_selector('tbody tr') do |row|
-      row.should have_selector('td', :content => '2003')
-      row.should have_selector('td', :content => '13')
+    rendered.should have_tag('tbody tr') do
+      with_tag('td', :text => '2003')
+      with_tag('td', :text => '13')
     end
   end
   
@@ -38,7 +38,7 @@ describe "jobs/plot_dates/results" do
     expected = url_for(:controller => 'datasets', :action => 'task_view', 
       :id => @dataset.to_param, :task_id => @task.to_param, 
       :view => 'download', :format => 'csv')
-    rendered.should have_selector("a[href='#{expected}']")
+    rendered.should have_tag("a[href='#{expected}']")
   end
   
 end

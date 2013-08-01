@@ -13,15 +13,15 @@ describe "datasets/new" do
   
   shared_examples_for "all new forms" do
     it 'has a name field' do
-      rendered.should have_selector("input[name='dataset[name]']")
+      rendered.should have_tag("input[name='dataset[name]']")
     end
 
     it 'has a filled-in query field' do
-      rendered.should have_selector("input[name=q][value='*:*']")
+      rendered.should have_tag("input[name=q][value='*:*']")
     end
     
     it 'has a filled-in query type field' do
-      rendered.should have_selector("input[name=qt][value=precise]")
+      rendered.should have_tag("input[name=qt][value=precise]")
     end
   end
   
@@ -37,7 +37,7 @@ describe "datasets/new" do
     it_should_behave_like "all new forms"
 
     it 'has no facet query fields' do
-      rendered.should_not have_selector("input[name='fq[]']")
+      rendered.should_not have_tag("input[name='fq[]']")
     end
   end
   
@@ -53,7 +53,7 @@ describe "datasets/new" do
     it_should_behave_like "all new forms"
 
     it 'has facet query fields' do
-      rendered.should have_selector("input[name='fq[]'][value='authors_facet:Test']")
+      rendered.should have_tag("input[name='fq[]'][value='authors_facet:Test']")
     end
   end
   

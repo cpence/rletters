@@ -184,7 +184,7 @@ describe SearchController do
 
       it "fails to export an invalid format" do
         get :show, { :id => FactoryGirl.generate(:working_shasum), :format => 'csv' }
-        controller.should respond_with(406)
+        controller.response.response_code.should eq(406)
       end
     end
   end

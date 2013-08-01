@@ -16,19 +16,19 @@ describe "libraries/index" do
   end
   
   it 'has a link to edit the library' do
-    rendered.should have_selector("a[href='#{edit_library_path(@library)}']", :content => @library.name)
+    rendered.should have_tag("a[href='#{edit_library_path(@library)}']", :text => @library.name)
   end
   
   it 'has a link to delete the library' do
-    rendered.should have_selector("a[href='#{delete_library_path(@library)}']")
+    rendered.should have_tag("a[href='#{delete_library_path(@library)}']")
   end
   
   it 'has a link to add a new library' do
-    rendered.should have_selector("a[href='#{new_library_path}']")
+    rendered.should have_tag("a[href='#{new_library_path}']")
   end
   
   it 'has a link to query local libraries' do
-    rendered.should have_selector("a[href='#{query_libraries_path}']")
+    rendered.should have_tag("a[href='#{query_libraries_path}']")
   end
   
 end

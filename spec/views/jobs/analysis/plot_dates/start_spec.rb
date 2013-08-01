@@ -18,7 +18,7 @@ describe "jobs/plot_dates/start" do
     link = url_for(:controller => 'datasets', :action => 'task_start', 
       :class => 'PlotDates', :id => @dataset.to_param)
       
-    rendered.should have_selector("a[href='#{link}']")
+    rendered.should have_tag("a[href='#{link}']")
   end
   
 end

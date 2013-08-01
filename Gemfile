@@ -19,7 +19,7 @@ gem 'airbrake', :require => false
 
 # Database and related tools
 gem 'pg'
-gem 'activerecord-import'
+gem 'activerecord-import', '>= 0.4.0'
 gem 'seed-fu', github: 'mbleigh/seed-fu'
 gem 'druthers'
 
@@ -32,7 +32,6 @@ gem "ransack", github: "ernie/ransack", branch: "rails-4" # FIXME: only for AA
 
 # Support for file attachments and exporting
 gem 'paperclip', '~> 3.0'
-gem 'paperclip-meta'
 gem 'rubyzip'
 gem 'rsolr', '>= 1.0.7'
 gem 'rsolr-ext'
@@ -66,10 +65,8 @@ group :test, :development do
 end
 
 group :test do
-  gem 'fuubar'
   gem 'factory_girl_rails'
-  gem 'shoulda-matchers'
-  gem 'webrat'
+  gem 'rspec-html-matchers'
   gem 'vcr', :require => false
   gem 'webmock', :require => false
   gem 'nokogiri', :require => false

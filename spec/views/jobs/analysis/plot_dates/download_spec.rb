@@ -25,11 +25,11 @@ describe "jobs/plot_dates/download" do
   
   it "shows a header column" do
     render
-    rendered.should contain("Year,Number of Documents")
+    rendered.should =~ /Year,Number of Documents/
   end
   
   it 'shows the year and count in a CSV row' do
     render
-    rendered.should contain("2003,13")
+    rendered.should =~ /2003,13/
   end
 end

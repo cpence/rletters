@@ -20,7 +20,7 @@ describe "jobs/single_term_vectors/start" do
     
       link = url_for(:controller => 'datasets', :action => 'task_start', 
         :class => 'SingleTermVectors', :id => @dataset.to_param)
-      rendered.should have_selector("a[href='#{link}']")
+      rendered.should have_tag("a[href='#{link}']")
     end
   end
   
@@ -31,7 +31,7 @@ describe "jobs/single_term_vectors/start" do
     
     it 'does not have a link to start the task' do
       render
-      rendered.should_not have_selector("a")
+      rendered.should_not have_tag("a")
     end
   end
   

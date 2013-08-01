@@ -25,11 +25,11 @@ describe "jobs/single_term_vectors/download" do
   
   it "shows a header column" do
     render
-    rendered.should contain("Term,tf,df,tf*idf")
+    rendered.should =~ /Term,tf,df,tf\*idf/
   end
   
   it 'shows the data in a CSV row' do
     render
-    rendered.should contain("test,3,1,2.5")
+    rendered.should =~ /test,3,1,2\.5/
   end
 end

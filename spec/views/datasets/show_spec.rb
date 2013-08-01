@@ -15,12 +15,12 @@ describe "datasets/show" do
   
   it 'shows the number of dataset entries' do
     render
-    rendered.should contain('Number of documents: 10')
+    rendered.should =~ /Number of documents: 10/
   end
   
   it 'shows the create-task markup' do
     render
-    rendered.should contain('Export dataset as citations')
+    rendered.should =~ /Export dataset as citations/
   end
   
   it "has a reference somewhere to the task list" do

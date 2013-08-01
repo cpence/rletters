@@ -38,7 +38,7 @@ describe SearchHelper do
       end
       
       it 'returns no links' do
-        helper.render_pagination.should_not have_selector("a")
+        helper.render_pagination.should_not have_tag("a")
       end
     end
 
@@ -53,13 +53,13 @@ describe SearchHelper do
         end
 
         it 'returns forward buttons' do
-          @ret.should have_selector('a[href="/search/?page=1"][data-icon=arrow-r][data-iconpos=right]', :content => "Next")
-          @ret.should have_selector('a[href="/search/?page=9"][data-icon=forward][data-iconpos=right]', :content => "Last")
+          @ret.should have_tag('a[href="/search/?page=1"][data-icon=arrow-r][data-iconpos=right]', :text => "Next")
+          @ret.should have_tag('a[href="/search/?page=9"][data-icon=forward][data-iconpos=right]', :text => "Last")
         end
 
         it 'does not return back buttons' do
-          @ret.should_not have_selector('a[data-icon=arrow-l]')
-          @ret.should_not have_selector('a[data-icon=back]')
+          @ret.should_not have_tag('a[data-icon=arrow-l]')
+          @ret.should_not have_tag('a[data-icon=back]')
         end
       end
 
@@ -73,13 +73,13 @@ describe SearchHelper do
         end
 
         it 'returns back buttons' do
-          @ret.should have_selector('a[href="/search/?page=4"][data-icon=arrow-l]', :content => "Previous")
-          @ret.should have_selector('a[href="/search/"][data-icon=back]', :content => "First")
+          @ret.should have_tag('a[href="/search/?page=4"][data-icon=arrow-l]', :text => "Previous")
+          @ret.should have_tag('a[href="/search/"][data-icon=back]', :text => "First")
         end
         
         it 'returns forward buttons' do
-          @ret.should have_selector('a[href="/search/?page=6"][data-icon=arrow-r][data-iconpos=right]', :content => "Next")
-          @ret.should have_selector('a[href="/search/?page=9"][data-icon=forward][data-iconpos=right]', :content => "Last")
+          @ret.should have_tag('a[href="/search/?page=6"][data-icon=arrow-r][data-iconpos=right]', :text => "Next")
+          @ret.should have_tag('a[href="/search/?page=9"][data-icon=forward][data-iconpos=right]', :text => "Last")
         end
       end
 
@@ -93,13 +93,13 @@ describe SearchHelper do
         end
 
         it 'returns back buttons' do
-          @ret.should have_selector('a[href="/search/?page=8"][data-icon=arrow-l]', :content => "Previous")
-          @ret.should have_selector('a[href="/search/"][data-icon=back]', :content => "First")
+          @ret.should have_tag('a[href="/search/?page=8"][data-icon=arrow-l]', :text => "Previous")
+          @ret.should have_tag('a[href="/search/"][data-icon=back]', :text => "First")
         end
 
         it 'does not return forward buttons' do
-          @ret.should_not have_selector('a[data-icon=arrow-r]')
-          @ret.should_not have_selector('a[data-icon=forward]')
+          @ret.should_not have_tag('a[data-icon=arrow-r]')
+          @ret.should_not have_tag('a[data-icon=forward]')
         end
       end
     end
@@ -128,12 +128,12 @@ describe SearchHelper do
       end
 
       it 'includes a header' do
-        @ret.should have_selector("li[data-role=list-divider]", :content => "Authors")
+        @ret.should have_tag("li[data-role=list-divider]", :text => "Authors")
       end
 
       it 'includes a link to add a facet' do
         url = "/search/?" + CGI::escape('fq[]=authors_facet:"J. C. Crabbe"').gsub("%26", "&").gsub("%3D", "=")
-        @ret.should have_selector("a[href=\"#{url}\"]", :content => "J. C. Crabbe")
+        @ret.should have_tag("a[href=\"#{url}\"]", :text => "J. C. Crabbe")
       end 
     end
 
@@ -143,12 +143,12 @@ describe SearchHelper do
       end
 
       it 'does not include the active facet in the list' do
-        @ret.should_not have_selector('li', :content => "J. C. Crabbe9")
+        @ret.should_not have_tag('li', :text => "J. C. Crabbe9")
       end
 
       it 'does include the sixth facet in the list' do
         url = "/search/?" + CGI::escape('fq[]=authors_facet:"J. C. Crabbe"&fq[]=authors_facet:"J. N. Crawley"').gsub("%26", "&").gsub("%3D", "=")
-        @ret.should have_selector("a[href=\"#{url}\"]", :content => "J. N. Crawley")
+        @ret.should have_tag("a[href=\"#{url}\"]", :text => "J. N. Crawley")
       end
     end
   end
@@ -171,24 +171,24 @@ describe SearchHelper do
       end
 
       it "includes the headers" do
-        @ret.should have_selector("li[data-role=list-divider]", :content => "Authors")
-        @ret.should have_selector("li[data-role=list-divider]", :content => "Journal")
-        @ret.should have_selector("li[data-role=list-divider]", :content => "Publication Date")
+        @ret.should have_tag("li[data-role=list-divider]", :text => "Authors")
+        @ret.should have_tag("li[data-role=list-divider]", :text => "Journal")
+        @ret.should have_tag("li[data-role=list-divider]", :text => "Publication Date")
       end
 
       it "includes a link to add an author facet" do
         url = "/search/?" + CGI::escape('fq[]=authors_facet:"J. C. Crabbe"').gsub("%26", "&").gsub("%3D", "=")
-        @ret.should have_selector("a[href=\"#{url}\"]", :content => "J. C. Crabbe")
+        @ret.should have_tag("a[href=\"#{url}\"]", :text => "J. C. Crabbe")
       end
 
       it "includes a link to add a journal facet" do
         url = "/search/?" + CGI::escape('fq[]=journal_facet:"Ethology"').gsub("%26", "&").gsub("%3D", "=")
-        @ret.should have_selector("a[href=\"#{url}\"]", :content => "Ethology")
+        @ret.should have_tag("a[href=\"#{url}\"]", :text => "Ethology")
       end
 
       it "includes a link to add a year facet" do
         url = "/search/?" + CGI::escape('fq[]=year:[2000 TO 2009]').gsub("%26", "&").gsub("%3D", "=")
-        @ret.should have_selector("a[href=\"#{url}\"]", :content => "2000–2009")
+        @ret.should have_tag("a[href=\"#{url}\"]", :text => "2000–2009")
       end
     end
 
@@ -202,12 +202,12 @@ describe SearchHelper do
       end
 
       it "includes a link to remove all facets" do
-        @ret.should have_selector('a[href="/search/"]', :content => "Remove All")
+        @ret.should have_tag('a[href="/search/"]', :text => "Remove All")
       end
       
       it "includes a link to remove an individual facet" do
         url = "/search/?" + CGI::escape('fq[]=year:[2010 TO *]').gsub("%26", "&").gsub("%3D", "=")
-        @ret.should have_selector("a[href=\"#{url}\"]", :content => "Authors: Elisa Lobato")
+        @ret.should have_tag("a[href=\"#{url}\"]", :text => "Authors: Elisa Lobato")
       end
     end
   end

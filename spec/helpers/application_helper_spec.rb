@@ -16,7 +16,7 @@ describe ApplicationHelper do
         
         html = helper.t_md(:test_markdown)
         html.should be
-        html.should have_selector('h1', :content => 'Testing')
+        html.should have_tag('h1', :text => 'Testing')
       end
     end
 
@@ -36,7 +36,7 @@ describe ApplicationHelper do
 
       it "should render Markdown in translations" do
         render :template => 'info/spectest'
-        rendered.should have_selector('h1', :content => 'Testing')
+        rendered.should have_tag('h1', :text => 'Testing')
       end
     end
   end

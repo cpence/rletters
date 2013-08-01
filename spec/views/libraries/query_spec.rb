@@ -17,15 +17,15 @@ describe "libraries/query" do
     end
     
     it 'has a form for adding the library' do
-      rendered.should have_selector('form')
+      rendered.should have_tag('form')
     end
     
     it 'has an input field for the library name' do
-      rendered.should have_selector("input[value='University of Notre Dame']")
+      rendered.should have_tag("input[value='University of Notre Dame']")
     end
     
     it 'has an input field for the library URL' do
-      rendered.should have_selector("input[value='http://findtext.library.nd.edu:8889/ndu_local?']")
+      rendered.should have_tag("input[value='http://findtext.library.nd.edu:8889/ndu_local?']")
     end
   end
   
@@ -36,7 +36,7 @@ describe "libraries/query" do
     end
     
     it 'has no library forms' do
-      rendered.should_not have_selector('form')
+      rendered.should_not have_tag('form')
     end
   end
   

@@ -26,11 +26,11 @@ describe "jobs/single_term_vectors/results" do
   it 'shows the term and values in a table row' do
     render
     
-    rendered.should have_selector('tbody tr') do |row|
-      row.should have_selector('td', :content => 'test')
-      row.should have_selector('td', :content => '3')
-      row.should have_selector('td', :content => '1')
-      row.should have_selector('td', :content => '2.5')
+    rendered.should have_tag('tbody tr') do
+      with_tag('td', :text => 'test')
+      with_tag('td', :text => '3')
+      with_tag('td', :text => '1')
+      with_tag('td', :text => '2.5')
     end
   end
   
@@ -40,7 +40,7 @@ describe "jobs/single_term_vectors/results" do
     expected = url_for(:controller => 'datasets', :action => 'task_view', 
       :id => @dataset.to_param, :task_id => @task.to_param, 
       :view => 'download', :format => 'csv')
-    rendered.should have_selector("a[href='#{expected}']")
+    rendered.should have_tag("a[href='#{expected}']")
   end
   
 end

@@ -41,52 +41,52 @@ describe "search/index" do
       end
       
       it 'displays the number of documents in the database' do
-        rendered.should have_selector('li', :content => '1042 articles in database')
+        rendered.should have_tag('li', :text => '1042 articles in database')
       end
 
       it 'displays the details of a document' do
-        rendered.should have_selector('h3', :content => 'Parental and Mating Effort: Is There Necessarily a Trade-Off?')
-        rendered.should contain('Kelly A. Stiver, Suzanne H. Alonzo')
-        rendered.should contain("Ethology, Vol. 115, (2009), pp. 1101-1126")
+        rendered.should have_tag('h3', :text => 'Parental and Mating Effort: Is There Necessarily a Trade-Off?')
+        rendered.should =~ /Kelly A\. Stiver, Suzanne H\. Alonzo/
+        rendered.should have_tag('li', :text => /Ethology,\s+Vol\.\s+115,\s+\(2009\),\s+pp\.\s+1101-1126/)
       end
       
       it 'shows the login prompt' do
-        rendered.should have_selector('li[data-theme=e]', :content => 'Log in to analyze results!')
+        rendered.should have_tag('li[data-theme=e]', :text => 'Log in to analyze results!')
       end
       
       it "shows a link to sort by score" do
         expected = url_for(params.merge({ :sort => 'score desc' }))
-        rendered.should have_selector("a[href='#{expected}']")
+        rendered.should have_tag("a[href='#{expected}']")
       end
       
       it "shows a link to sort ascending by journal" do
         expected = url_for(params.merge({ :sort => 'journal_sort asc' }))
-        rendered.should have_selector("a[href='#{expected}']")
+        rendered.should have_tag("a[href='#{expected}']")
       end
       
       it 'shows the advanced search link' do
-        rendered.should have_selector('li', :content => 'Advanced search')
-        rendered.should have_selector("a[href='#{search_advanced_path}']")
+        rendered.should have_tag('li', :text => 'Advanced search')
+        rendered.should have_tag("a[href='#{search_advanced_path}']")
       end
       
       it 'shows author facets' do
-        rendered.should have_selector('li', :content => 'J. C. Crabbe9') do |items|
-          items[0].should have_selector("a[href='#{search_path(:fq => [ 'authors_facet:"J. C. Crabbe"' ])}']")
-          items[0].should have_selector('span.ui-li-count', :content => '9')
+        rendered.should have_tag('li', :text => 'J. C. Crabbe9') do
+          with_tag("a[href='#{search_path(:fq => [ 'authors_facet:"J. C. Crabbe"' ])}']")
+          with_tag('span.ui-li-count', :text => '9')
         end
       end
       
       it 'shows journal facets' do
-        rendered.should have_selector('li', :content => 'Ethology594') do |items|
-          items[0].should have_selector("a[href='#{search_path(:fq => [ 'journal_facet:"Ethology"' ])}']")
-          items[0].should have_selector('span.ui-li-count', :content => '594')
+        rendered.should have_tag('li', :text => 'Ethology594') do
+          with_tag("a[href='#{search_path(:fq => [ 'journal_facet:"Ethology"' ])}']")
+          with_tag('span.ui-li-count', :text => '594')
         end
       end
       
       it 'shows year facets' do
-        rendered.should have_selector('li', :content => '1990–199994') do |items|
-          items[0].should have_selector("a[href='#{search_path(:fq => [ 'year:[1990 TO 1999]' ])}']")
-          items[0].should have_selector('span.ui-li-count', :content => '94')
+        rendered.should have_tag('li', :text => '1990–199994') do
+          with_tag("a[href='#{search_path(:fq => [ 'year:[1990 TO 1999]' ])}']")
+          with_tag('span.ui-li-count', :text => '94')
         end
       end
     end
@@ -102,12 +102,12 @@ describe "search/index" do
       end
       
       it 'uses CSL styles when needed' do
-        rendered.should contain("Botero, Carlos A., Andrew E. Mudge, Amanda M. Koltz, Wesley M. Hochachka, and Sandra L. Vehrencamp. 2008. “How Reliable are the Methods for Estimating Repertoire Size?”. Ethology 114: 1227-1238.")
+        rendered.should have_tag('li:contains("Botero, Carlos A., Andrew E. Mudge, Amanda M. Koltz, Wesley M. Hochachka, and Sandra L. Vehrencamp. 2008. “How Reliable are the Methods for Estimating Repertoire Size?”. Ethology 114: 1227-1238.")')
       end
       
       it 'shows the create dataset prompt' do
-        rendered.should have_selector('li', :content => 'Create dataset from search')
-        rendered.should have_selector("a[href='#{new_dataset_path(:q => '*:*', :qt => 'precise', :fq => nil)}']")
+        rendered.should have_tag('li', :text => 'Create dataset from search')
+        rendered.should have_tag("a[href='#{new_dataset_path(:q => '*:*', :qt => 'precise', :fq => nil)}']")
       end
     end
   end
@@ -119,15 +119,15 @@ describe "search/index" do
     end
     
     it 'displays that no articles are found' do
-      rendered.should contain('no articles found')
+      rendered.should =~ /no articles found/
     end
     
     it 'puts the search text in the search box' do
-      rendered.should have_selector('input[value=fail]')
+      rendered.should have_tag('input[value=fail]')
     end
     
     it "doesn't have any pagination links" do
-      rendered.should_not have_selector('p.pagination a')
+      rendered.should_not have_tag('p.pagination a')
     end
   end
   
@@ -138,7 +138,7 @@ describe "search/index" do
     end 
     
     it 'displays the advanced search placeholder in the search box' do
-      rendered.should have_selector("input[value='(advanced search)']")
+      rendered.should have_tag("input[value='(advanced search)']")
     end
   end
   
@@ -150,9 +150,9 @@ describe "search/index" do
       end
       
       it 'parses this facet correctly' do
-        rendered.should have_selector('li', :content => '2010 and later160') do |items|
-          items[0].should have_selector("a[href='#{search_path(:fq => [ 'year:[2010 TO *]' ])}']")
-          items[0].should have_selector('span.ui-li-count', :content => '160')
+        rendered.should have_tag('li', :text => '2010 and later160') do
+          with_tag("a[href='#{search_path(:fq => [ 'year:[2010 TO *]' ])}']")
+          with_tag('span.ui-li-count', :text => '160')
         end
       end
     end
@@ -165,9 +165,9 @@ describe "search/index" do
   #     end
       
   #     it 'parses this facet correctly' do
-  #       rendered.should have_selector('li', :content => 'Before 18001') do |items|
-  #         items[0].should have_selector("a[href='#{search_path(:fq => [ 'year:[* TO 1799]' ])}']")
-  #         items[0].should have_selector('span.ui-li-count', :content => '1')
+  #       rendered.should have_tag('li', :text => 'Before 18001') do |items|
+  #         items[0].should have_tag("a[href='#{search_path(:fq => [ 'year:[* TO 1799]' ])}']")
+  #         items[0].should have_tag('span.ui-li-count', :text => '1')
   #       end
   #     end
   #   end
@@ -180,14 +180,14 @@ describe "search/index" do
     end
     
     it 'displays a remove all link' do
-      rendered.should have_selector('ul.facetlist li', :content => 'Remove All') do |items|
-        items[0].should have_selector("a[href='#{search_path}']")
+      rendered.should have_tag('ul.facetlist li', :text => 'Remove All') do
+        with_tag("a[href='#{search_path}']")
       end
     end
     
     it 'displays a specific remove-facet link' do
-      rendered.should have_selector('ul.facetlist li', :content => 'Authors: Amanda M. Koltz') do |items|
-        items[0].should have_selector("a[href='#{search_path(:fq => [ 'journal_facet:"Ethology"' ])}']")
+      rendered.should have_tag('ul.facetlist li', :text => 'Authors: Amanda M. Koltz') do
+        with_tag("a[href='#{search_path(:fq => [ 'journal_facet:"Ethology"' ])}']")
       end
     end
   end

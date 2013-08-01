@@ -7,7 +7,7 @@ describe "Error pages" do
     get_via_redirect "/asdf/notapage"
 
     response.code.to_i.should eq(404)
-    response.should render_template('404')
+    response.should have_rendered('404')
   end
   
   it "renders the 500 template" do
@@ -15,7 +15,7 @@ describe "Error pages" do
     get_via_redirect "/search/"
     
     response.code.to_i.should eq(500)
-    response.should render_template('500')
+    response.should have_rendered('500')
   end
   
 end

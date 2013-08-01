@@ -14,21 +14,21 @@ describe "datasets/dataset_list" do
 
   it 'lists the dataset' do
     render
-    rendered.should contain("#{@dataset.name} #{@dataset.entries.count}")
+    rendered.should have_tag('li', :text => /#{@dataset.name}\s+#{@dataset.entries.count}/)
   end
   
   it 'lists pending analysis tasks' do
     @task = FactoryGirl.create(:analysis_task, :dataset => @dataset)
     render
     
-    rendered.should have_selector("li[data-theme=e]", :content => 'You have one analysis task pending...')
+    rendered.should have_tag("li[data-theme=e]", :text => 'You have one analysis task pending...')
   end
   
   it 'does not list completed analysis tasks' do
     @task = FactoryGirl.create(:analysis_task, :dataset => @dataset, :finished_at => 5.minutes.ago)
     render
     
-    rendered.should_not have_selector("li[data-theme=e]")
+    rendered.should_not have_tag("li[data-theme=e]")
   end
   
 end

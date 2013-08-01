@@ -20,7 +20,7 @@ describe "jobs/export_citations/start" do
         :class => 'ExportCitations', :job_params => { :format => k }, 
         :id => @dataset.to_param)
       
-      rendered.should have_selector("a[href='#{link}']")
+      rendered.should have_tag("a[href='#{link}']")
     end
   end
   
