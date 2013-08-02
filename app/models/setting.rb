@@ -12,18 +12,36 @@
 class Setting < ActiveRecord::Base
   serialize :value
 
-  VALID_KEYS = [ :app_name, :app_email, :app_domain, :solr_server_url,
+  # The list of setting keys that can be used
+  VALID_KEYS = [:app_name, :app_email, :app_domain, :solr_server_url,
     :solr_timeout, :mendeley_key, :airbrake_key, :google_analytics_key,
-    :jquery_mobile_theme_blob ]
-  def self.valid_keys; VALID_KEYS; end
+    :jquery_mobile_theme_blob]
 
-  def_druthers *VALID_KEYS
+  # The list of setting keys that can be used
+  #
+  # @api public
+  # @return [Array<String>] valid setting keys
+  def self.valid_keys
+    VALID_KEYS
+  end
 
-  def self.default_app_name; 'RLetters'; end
-  def self.default_app_email; 'not@an.email.com'; end
-  def self.default_app_domain; 'not.a.web.site.com'; end
-  def self.default_solr_server_url; 'http://localhost:8983/'; end
-  def self.default_solr_timeout; 120; end
+  def_druthers(*VALID_KEYS)
+
+  def self.default_app_name
+    'RLetters'
+  end
+  def self.default_app_email
+    'not@an.email.com'
+  end
+  def self.default_app_domain
+    'not.a.web.site.com'
+  end
+  def self.default_solr_server_url
+    'http://localhost:8983/'
+  end
+  def self.default_solr_timeout
+    120
+  end
 
   # @return [String] Friendly name of this asset (looked up in locale)
   def friendly_name

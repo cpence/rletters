@@ -18,8 +18,8 @@ class UploadedAsset < ActiveRecord::Base
     # This isn't meant to enforce any kind of secrecy, it just makes for URLs
     # that are easier to read, don't expose internal server details, and should
     # cache nicely.
-    url: "/system/:hash.:extension",
-    hash_secret: "baebb86ffdab9a513daebd0d5ba9fba60b3e5339c32387444f7bf15b06ae18412376e2e8737019b6ff4c68c4863c711f97826f500ddead5c7ab78a3f5f05485b"
+    url: '/system/:hash.:extension',
+    hash_secret: 'baebb86ffdab9a513daebd0d5ba9fba60b3e5339c32387444f7bf15b06ae18412376e2e8737019b6ff4c68c4863c711f97826f500ddead5c7ab78a3f5f05485b'
   }
 
   # @return [String] Friendly name of this asset (looked up in locale)
@@ -32,8 +32,13 @@ class UploadedAsset < ActiveRecord::Base
   # @param [String] name The asset to look up
   # @return [String] The URL for the given asset name (or blank)
   def self.url_for(name)
-    asset = UploadedAsset.find_by_name(name) rescue nil
-    return "" unless asset
+    begin
+      asset = UploadedAsset.find_by_name(name)
+    rescue ActiveRecord::RecordNotFound
+      asset = nil
+    end
+    return '' unless asset
+
     asset.file.url
   end
 end

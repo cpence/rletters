@@ -21,13 +21,13 @@ class Library < ActiveRecord::Base
   validates :user_id, presence: true
 
   protected
-  
+
   before_validation do |library|
     unless library.url.blank?
       library.url = 'http://' + url unless library.url.start_with? 'http'
     end
   end
-  
+
   after_validation do |library|
     unless library.url.blank?
       library.url = library.url + '?' unless library.url.end_with? '?'

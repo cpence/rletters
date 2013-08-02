@@ -30,14 +30,20 @@ class MarkdownPage < ActiveRecord::Base
   # an invalid name is passed.
   #
   # @api public
-  # @param [String] name The internal ID of the page to render (*not* the friendly name)
+  # @param [String] name The internal ID of the page to render (*not* the
+  #   friendly name)
   # @return [String] HTML output of rendering this page to Markdown
   # @example Render the 'faq' page
   #   <%= MarkdownPage.render('faq') %>
   def self.render(name)
-    page = MarkdownPage.find_by_name(name) rescue nil
+    begin
+      page = MarkdownPage.find_by_name(name)
+    rescue ActiveRecord::RecordNotFound
+      page = nil
+    end
     return '' unless page
 
-    Kramdown::Document.new(ERB.new(page.content).result(binding)).to_html.html_safe
+    erb_page = ERB.new(page.content).result(binding)
+    Kramdown::Document.new(erb_page).to_html.html_safe
   end
 end

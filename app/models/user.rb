@@ -19,24 +19,29 @@
 #
 # @!attribute per_page
 #   @raise [RecordInvalid] if per_page is missing (validates :presence)
-#   @raise [RecordInvalid] if per_page is not an integer (validates :numericality)
+#   @raise [RecordInvalid] if per_page is not an integer (validates
+#     :numericality)
 #   @raise [RecordInvalid] if per_page is negative (validates :inclusion)
 #   @return [Integer] Number of search results to display per page
 # @!attribute language
 #   @raise [RecordInvalid] if the language is missing (validates :presence)
-#   @raise [RecordInvalid] if the language is not a valid language code (validates :format)
+#   @raise [RecordInvalid] if the language is not a valid language code
+#     (validates :format)
 #   @return [String] Locale code of user's preferred language
 # @!attribute timezone
 #   @raise [RecordInvalid] if the timezone is missing (validates :presence)
 #   @return [String] User's timezone, in Rails' format
 # @!attribute csl_style_id
-#   @return [Integer] User's preferred citation style (id of a CslStyle in database)
+#   @return [Integer] User's preferred citation style (id of a CslStyle in
+#     database)
 #
 # @!attribute datasets
-#   @raise [RecordInvalid] if any of the datasets are invalid (validates_associated)
+#   @raise [RecordInvalid] if any of the datasets are invalid
+#     (validates_associated)
 #   @return [Array<Dataset>] All datasets created by the user (+has_many+)
 # @!attribute libraries
-#   @raise [RecordInvalid] if any of the libraries are invalid (validates_associated)
+#   @raise [RecordInvalid] if any of the libraries are invalid
+#     (validates_associated)
 #   @return [Array<Library>] All library links added by the user (+has_many+)
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
@@ -48,7 +53,7 @@ class User < ActiveRecord::Base
   validates :name, presence: true
   validates :per_page, presence: true
   validates :per_page, numericality: { only_integer: true }
-  validates :per_page, inclusion: { in: 1..9999999999 }
+  validates :per_page, inclusion: { in: 1..999_999_999 }
   validates :language, presence: true
   validates :language, format: { with: /\A[a-z]{2,3}(-[A-Z]{2})?\Z/ }
   validates :timezone, presence: true
@@ -67,9 +72,8 @@ class User < ActiveRecord::Base
   #   @document.to_csl_entry(@user.csl_style)
   #   # Note: Do *not* call to_csl_entry with @user.csl_style_id, it will fail!
   def csl_style
-    CslStyle.find(self.csl_style_id) rescue nil
+    CslStyle.find(csl_style_id) rescue nil
   end
-
 
   # Parameter sanitizer class for regular users
   #
@@ -83,14 +87,15 @@ class User < ActiveRecord::Base
     # @return [ActionController::Parameters] permitted parameters
     def sign_up
       default_params.permit(:name, :email, :password, :password_confirmation,
-        :language, :timezone)
+                            :language, :timezone)
     end
 
     # Permit the parameters used in the user edit form
     # @return [ActionController::Parameters] permitted parameters
     def account_update
       default_params.permit(:name, :email, :password, :password_confirmation,
-        :current_password, :language, :timezone, :per_page, :csl_style_id)
+                            :current_password, :language, :timezone, :per_page,
+                            :csl_style_id)
     end
   end
 end
