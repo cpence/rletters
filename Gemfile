@@ -18,7 +18,12 @@ gem 'delayed_job_active_record'
 gem 'airbrake', require: false
 
 # Database and related tools
-gem 'pg'
+group :production, :development do
+  gem 'pg'
+end
+group :test do
+  gem 'sqlite3'
+end
 gem 'activerecord-import', '>= 0.4.0'
 gem 'druthers'
 
