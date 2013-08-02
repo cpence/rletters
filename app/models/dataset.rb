@@ -12,10 +12,13 @@
 #   @raise [RecordInvalid] if the user is missing (validates :presence)
 #   @return [User] The user that owns this dataset
 # @!attribute entries
-#   @raise [RecordInvalid] if any of the entries are invalid (validates_associated)
-#   @return [Array<DatasetEntry>] The documents contained in this dataset (+has_many+)
+#   @raise [RecordInvalid] if any of the entries are invalid
+#     (validates_associated)
+#   @return [Array<DatasetEntry>] The documents contained in this dataset
+#     (+has_many+)
 # @!attribute analysis_tasks
-#   @return [Array<AnalysisTask>] The analysis tasks run on this dataset (+has_many+)
+#   @return [Array<AnalysisTask>] The analysis tasks run on this dataset
+#     (+has_many+)
 class Dataset < ActiveRecord::Base
   validates :name, presence: true
   validates :user_id, presence: true

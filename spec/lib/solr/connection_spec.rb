@@ -30,12 +30,12 @@ describe Solr::Connection do
       old_url = Setting.solr_server_url
 
       Solr::Connection.send(:get_solr)
-      solr = Solr::Connection.class_variable_get(:@@solr)
+      solr = Solr::Connection.solr
       solr.uri.should eq(URI.parse(old_url))
 
       Setting.solr_server_url = 'http://1.2.3.4/solr/'
       Solr::Connection.send(:get_solr)
-      solr = Solr::Connection.class_variable_get(:@@solr)
+      solr = Solr::Connection.solr
       solr.uri.should eq(URI.parse('http://1.2.3.4/solr/'))
 
       Setting.solr_server_url = old_url

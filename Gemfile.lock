@@ -324,6 +324,7 @@ PLATFORMS
 DEPENDENCIES
   activeadmin!
   activerecord-import (>= 0.4.0)
+  addressable
   airbrake
   bibtex-ruby (~> 2.0)
   capistrano

@@ -15,7 +15,8 @@ class Download < ActiveRecord::Base
   # :filename_before_type_cast gives you the value of the filename attribute
   # without passing it through our custom accessor, which turns the relative
   # database path into an absolute filesystem path.
-  validates :filename_before_type_cast, format: { with: /\A[A-Za-z0-9.\-_]+\z/ }
+  validates :filename_before_type_cast,
+            format: { with: /\A[A-Za-z0-9.\-_]+\z/ }
 
   belongs_to :analysis_task
 
@@ -47,7 +48,7 @@ class Download < ActiveRecord::Base
     fn = unique_filename basename
 
     # Yield out to the block
-    f = File.new(filename_to_path(fn), "w")
+    f = File.new(filename_to_path(fn), 'w')
     yield f
 
     f.close unless f.closed?
@@ -64,7 +65,8 @@ class Download < ActiveRecord::Base
   # path.
   #
   # @raise [RecordInvalid] if the filename is missing (validates :presence)
-  # @raise [RecordInvalid] if the filename has invalid characters (validates :format, only [A-Za-z.-_] permitted)
+  # @raise [RecordInvalid] if the filename has invalid characters (validates
+  #   :format, only [A-Za-z.-_] permitted)
   #
   # @api public
   # @return [String] this download's filename
@@ -97,10 +99,10 @@ class Download < ActiveRecord::Base
     content_type ||= 'text/plain'
 
     controller.send_file(filename,
-      x_sendfile: true,
-      type: content_type)
+                         x_sendfile: true,
+                         type: content_type)
   end
-  
+
   # @api public
   # @return [Boolean] true if the file exists on disk
   def exists?
@@ -134,7 +136,7 @@ class Download < ActiveRecord::Base
       fn = filename_to_path(ret)
 
       # Runaway loop counter (DoS?)
-      raise StandardError, "Cannot find a filename for download" if i == 100
+      raise StandardError, 'Cannot find a filename for download' if i == 100
     end
 
     ret
@@ -156,6 +158,6 @@ class Download < ActiveRecord::Base
   # @api private
   # @return [undefined]
   def delete_file
-    File::delete(filename) rescue nil
+    File.delete(filename) rescue nil
   end
 end

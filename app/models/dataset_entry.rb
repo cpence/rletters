@@ -6,9 +6,12 @@
 # in a separate database table.
 #
 # @!attribute shasum
-#   @raise [RecordInvalid] if the SHA-1 checksum is missing (validates :presence)
-#   @raise [RecordInvalid] if the SHA-1 checksum is not 40 characters (validates :length)
-#   @raise [RecordInvalid] if the SHA-1 checksum contains invalid characters (validates :format)
+#   @raise [RecordInvalid] if the SHA-1 checksum is missing (validates
+#     :presence)
+#   @raise [RecordInvalid] if the SHA-1 checksum is not 40 characters
+#     (validates :length)
+#   @raise [RecordInvalid] if the SHA-1 checksum contains invalid characters
+#     (validates :format)
 #   @return [String] The SHA-1 checksum of the document represented here
 # @!attribute dataset
 #   @return [Dataset] The dataset this entry belongs to

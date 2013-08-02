@@ -4,6 +4,18 @@ module Solr
 
   # Methods for managing the singleton connection to the Solr server
   module Connection
+    
+    class << self
+      # Cache the connection to solr
+      #
+      # @return [RSolr::Client] the cached Solr connection object
+      attr_accessor :solr
+      
+      # Cache the URL to Solr, to detect changes in the configuration panel
+      #
+      # @return [String] the URL for connecting to Solr
+      attr_accessor :url
+    end
 
     # Get a response from Solr
     #
@@ -16,7 +28,7 @@ module Solr
     def self.find(params)
       begin
         get_solr
-        ret = @@solr.find params
+        ret = Connection.solr.find params
       rescue Exception => e
         Rails.logger.warn "Connection to Solr failed: #{e.inspect}"
         RSolr::Ext::Response::Base.new({ 'response' => { 'docs' => [] } }, 'select', params)
@@ -33,7 +45,7 @@ module Solr
     def self.info
       begin
         get_solr
-        ret = @@solr.get 'admin/system'
+        ret = Connection.solr.get 'admin/system'
       rescue Exception => e
         Rails.logger.warn "Connection to Solr failed: #{e.inspect}"
         {}
@@ -51,19 +63,23 @@ module Solr
     # @api private
     # @return [RSolr::Client] Solr connection object
     def self.get_solr
-      @@solr ||= RSolr::Ext.connect(url: Setting.solr_server_url,
-                                    read_timeout: Setting.solr_timeout.to_i,
-                                    open_timeout: Setting.solr_timeout.to_i)
+      Connection.solr ||= RSolr::Ext.connect(
+        url: Setting.solr_server_url,
+        read_timeout: Setting.solr_timeout.to_i,
+        open_timeout: Setting.solr_timeout.to_i
+      )
 
       # Make sure that we update the Solr connection when we change the
       # Solr URL, since it can be dynamically modified in the admin panel
-      @@url ||= Setting.solr_server_url
-      if @@url != Setting.solr_server_url
-        @@url = Setting.solr_server_url
+      Connection.url ||= Setting.solr_server_url
+      if Connection.url != Setting.solr_server_url
+        Connection.url = Setting.solr_server_url
 
-        @@solr = RSolr::Ext.connect(url: Setting.solr_server_url,
-                                    read_timeout: Setting.solr_timeout.to_i,
-                                    open_timeout: Setting.solr_timeout.to_i)
+        Connection.solr = RSolr::Ext.connect(
+          url: Setting.solr_server_url,
+          read_timeout: Setting.solr_timeout.to_i,
+          open_timeout: Setting.solr_timeout.to_i
+        )
       end
     end
   end

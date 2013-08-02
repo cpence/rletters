@@ -1,14 +1,16 @@
 AllCops:
-    Includes:
-        - '**/*.rake'
-        - '**/*.god'
-        - 'Gemfile'
-    Excludes:
-        - 'vendor/**'
+  Includes:
+    - '**/*.rake'
+    - '**/*.god'
+    - 'Gemfile'
+  Excludes:
+    - 'vendor/**'
 
-CollectionMethods:
-    PreferredMethods:
-        collect:  'map'
-        inject:   'reduce'
-        find:     'detect'
-        find_all: 'select'
+# We have to have UTF-8 in several of our comments, because we're returning
+# UTF-8 data.  It's fine.
+AsciiComments:
+  Enabled: false
+
+# FIXME: This one's bad.
+MethodLength:
+  Max: 100

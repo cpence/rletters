@@ -26,6 +26,7 @@ group :test do
 end
 gem 'activerecord-import', '>= 0.4.0'
 gem 'druthers'
+gem 'addressable'
 
 # User authentication and administration
 gem 'devise'

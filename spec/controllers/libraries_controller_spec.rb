@@ -41,12 +41,12 @@ describe LibrariesController do
     context 'when library is invalid' do
       it "doesn't create a library" do
         expect {
-          post :create, library: FactoryGirl.attributes_for(:library, url: 'not##::aurl.asdfwut', user: @user)
+          post :create, library: FactoryGirl.attributes_for(:library, url: 'what:nope', user: @user)
         }.to_not change{@user.libraries.count}
       end
 
       it "renders the new form" do
-        post :create, library: FactoryGirl.attributes_for(:library, url: 'not##::aurl.asdfwut', user: @user)
+        post :create, library: FactoryGirl.attributes_for(:library, url: 'what:nope', user: @user)
         response.should_not redirect_to(edit_user_registration_path)
       end
     end
@@ -75,14 +75,14 @@ describe LibrariesController do
 
     context 'when library is invalid' do
       it "doesn't edit the library" do
-        put :update, id: @library.to_param, library: { url: '1234%%#$' }
+        put :update, id: @library.to_param, library: { url: 'what:nope' }
 
         @library.reload
         @library.url.should_not eq('1234%%#$')
       end
 
       it 'renders the edit form' do
-        put :update, id: @library.to_param, library: { url: '1234%%#$' }
+        put :update, id: @library.to_param, library: { url: 'what:nope' }
         response.should_not redirect_to(edit_user_registration_path)
       end
     end
