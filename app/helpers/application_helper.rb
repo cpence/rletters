@@ -16,8 +16,8 @@ module ApplicationHelper
   def translate_markdown(key)
     # This method is private, but it's what maps the ".not_found" shortcut
     # style keys to their full equivalents
-    key_trans = self.send(:scope_key_by_partial, key)
+    key_trans = send(:scope_key_by_partial, key)
     I18n.translate_markdown(key_trans).html_safe
   end
-  alias :t_md :translate_markdown
+  alias_method :t_md, :translate_markdown
 end

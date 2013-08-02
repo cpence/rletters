@@ -18,7 +18,7 @@ module I18n
     def translate_markdown(key)
       Kramdown::Document.new(I18n.t(key)).to_html.html_safe
     end
-    alias :t_md :translate_markdown
+    alias_method :t_md, :translate_markdown
   })
 
 end
