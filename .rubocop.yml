@@ -1,0 +1,14 @@
+AllCops:
+    Includes:
+        - '**/*.rake'
+        - '**/*.god'
+        - 'Gemfile'
+    Excludes:
+        - 'vendor/**'
+
+CollectionMethods:
+    PreferredMethods:
+        collect:  'map'
+        inject:   'reduce'
+        find:     'detect'
+        find_all: 'select'

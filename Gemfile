@@ -79,5 +79,8 @@ end
 
 group :development do
   gem 'yard', require: false
+
   gem 'magic_encoding', require: false
+  gem 'yardstick'
+  gem 'rubocop'
 end
