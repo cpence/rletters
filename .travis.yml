@@ -7,13 +7,11 @@ bundler_args: --without production development
 
 before_script:
   - cp config/database.yml.travis config/database.yml
-  - psql -c 'create database rletters_test;' -U postgres
-  - bundle exec rake db:migrate
   - git clone "https://github.com/cpence/rletters-solr-example.git" solr
   - 'cd solr && ./start && cd ..'
 
 script:
-  - bundle exec rake spec
+  - bundle exec rspec
 
 after_script:
   - 'cd solr && ./stop && cd ..'
