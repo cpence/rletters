@@ -1,8 +1,8 @@
 %div.leftcolumn
-  %ul{ :'data-role' => 'listview', :'data-theme' => 'd', :'data-divider-theme' => 'b' }
-    %li{ :'data-role' => 'list-divider' }= num_results_string
+  %ul{ data: { role: 'listview', theme: 'd', divider_theme: 'b' } }
+    %li{ data: { role: 'list-divider' } }= num_results_string
     %li.search
-      = form_tag(search_path, method: :get, :'data-transition' => 'none') do
+      = form_tag(search_path, method: :get, data: { transition: 'none' }) do
         - if params[:fq]
           - params[:fq].each do |p|
             = hidden_field_tag "fq[]", p
@@ -16,24 +16,24 @@
   %div.verticalpad
 
 %div.rightcolumn
-  %ul{ :'data-role' => 'listview', :'data-theme' => 'd', :'data-divider-theme' => 'b' }
-    %li.toolsheader{ :'data-role' => 'list-divider' }= t('.tools')
+  %ul{ data: { role: 'listview', theme: 'd', divider_theme: 'b' } }
+    %li.toolsheader{ data: { role: 'list-divider' } }= t('.tools')
   %div.verticalpad
-  %ul.toolslist{ :'data-role' => 'listview', :'data-theme' => 'd', :'data-divider-theme' => 'c' }
-    %li{ :'data-icon' => 'forward' }
+  %ul.toolslist{ data: { role: 'listview', theme: 'd', divider_theme: 'c' } }
+    %li{ data: { icon: 'forward' } }
       = sort_to_string(@sort)
       %ul
         - sort_methods.each do |s|
-          %li= link_to sort_to_string(s), search_path(params.merge({ sort: s })), :'data-transition' => 'none'
+          %li= link_to sort_to_string(s), search_path(params.merge({ sort: s })), data: { transition: 'none' }
     - if current_user.nil?
-      %li{ :'data-theme' => 'e' }= link_to t('.login_prompt'), new_user_session_path
+      %li{ data: { theme: 'e' } }= link_to t('.login_prompt'), new_user_session_path
     - else
-      %li{ :'data-icon' => 'plus' }= link_to t('.create_dataset'), new_dataset_path(q: @solr_q, qt: @solr_qt, fq: @solr_fq), :'data-rel' => 'dialog'
-    %li{ :'data-icon' => 'search' }= link_to t('.advanced_search'), search_advanced_path
+      %li{ data: { icon: 'plus' } }= link_to t('.create_dataset'), new_dataset_path(q: @solr_q, qt: @solr_qt, fq: @solr_fq), data: { rel: 'dialog' }
+    %li{ data: { icon: 'search' } }= link_to t('.advanced_search'), search_advanced_path
   %div.verticalpad
 
-  %ul{ :'data-role' => 'listview', :'data-theme' => 'd', :'data-divider-theme' => 'b' }
-    %li.filterheader{ :'data-role' => :'list-divider' }= t('.filters')
+  %ul{ data: { role: 'listview', theme: 'd', divider_theme: 'b' } }
+    %li.filterheader{ data: { role: 'list-divider' } }= t('.filters')
   %div.verticalpad
-  %ul.facetlist{ :'data-role' => 'listview', :'data-theme' => 'd', :'data-divider-theme' => 'c' }
+  %ul.facetlist{ data: { role: 'listview', theme: 'd', divider_theme: 'c' } }
     = facet_link_list

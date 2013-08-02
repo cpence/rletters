@@ -1,7 +1,7 @@
-%ul{ :'data-role' => 'listview', :'data-split-icon' => 'delete', :'data-split-theme' => 'a' }
+%ul{ data: { role: 'listview', split_icon: 'delete', split_theme: 'a' } }
   - @libraries.each do |library|
     %li
-      = link_to library.name, edit_library_path(library), :'data-rel' => 'dialog'
-      = link_to t('.delete'), delete_library_path(library), :'data-rel' => 'dialog'
-  %li= link_to t('.query'), query_libraries_path, :'data-rel' => 'dialog'
-  %li= link_to t('.add_new'), new_library_path, :'data-rel' => 'dialog'
+      = link_to library.name, edit_library_path(library), data: { rel: 'dialog' }
+      = link_to t('.delete'), delete_library_path(library), data: { rel: 'dialog' }
+  %li= link_to t('.query'), query_libraries_path, data: { rel: 'dialog' }
+  %li= link_to t('.add_new'), new_library_path, data: { rel: 'dialog' }

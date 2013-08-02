@@ -3,12 +3,12 @@
 
 = form_for(@dataset) do |f|
   - if @dataset.errors.any?
-    %ul{ :'data-role' => 'listview', :'data-theme' => 'e', :'data-divider-theme' => 'e', style: 'margin-bottom: 30px;' }
+    %ul{ data: { role: 'listview', theme: 'e', divider_theme: 'e' }, style: 'margin-bottom: 30px;' }
       %li= t('.errors', count: @dataset.errors.count)
       - @dataset.errors.full_messages.each do |msg|
         %li= msg
 
-  %div{ :'data-role' => 'fieldcontain' }
+  %div{ data: { role: 'fieldcontain' } }
     = f.label :name, Dataset.human_attribute_name('name')
     = f.text_field :name
 
@@ -16,8 +16,8 @@
   = hidden_field_tag :qt, params[:qt]
   - if params[:fq]
     - params[:fq].each do |fq|
-      = hidden_field_tag :'fq[]', fq
+      = hidden_field_tag 'fq[]', fq
 
   = f.submit t('.submit_label')
 
-= link_to t('.cancel'), datasets_path, :'data-role' => 'button'
+= link_to t('.cancel'), datasets_path, data: { role: 'button' }

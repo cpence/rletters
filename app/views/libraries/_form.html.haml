@@ -1,14 +1,14 @@
 = form_for(@library, url: url) do |f|
   - if @library.errors.any?
-    %ul{ :'data-role' => 'listview', :'data-theme' => 'e', :'data-divider-theme' => 'e', style: 'margin-bottom: 30px;' }
+    %ul{ data: { role: 'listview', theme: 'e', divider_theme: 'e' }, style: 'margin-bottom: 30px;' }
       %li= t('libraries.form.errors', count: @library.errors.count)
       - @library.errors.full_messages.each do |msg|
         %li= msg
 
-  %div{ :'data-role' => 'fieldcontain' }
+  %div{ data: { role: 'fieldcontain' } }
     = f.label :name, Library.human_attribute_name('name')
     = f.text_field :name
-  %div{ :'data-role' => 'fieldcontain' }
+  %div{ data: { role: 'fieldcontain' } }
     = f.label :url, Library.human_attribute_name('url')
     = f.text_field :url
 

@@ -1,17 +1,17 @@
-%ul{ :'data-role' => 'listview', :'data-theme' => 'd', :'data-divider-theme' => 'b', :'data-split-icon' => 'delete', :'data-split-theme' => 'a' }
+%ul{ data: { role: 'listview', theme: 'd', divider_theme: 'b', split_icon: 'delete', split_theme: 'a' } }
 
   -# Unfinished (active/failed) analysis tasks
   - if @dataset.analysis_tasks.not_finished.count > 0
-    %li{ :'data-role' => 'list-divider' }= t('.active_tasks')
+    %li{ data: { role: 'list-divider' } }= t('.active_tasks')
     - if @dataset.analysis_tasks.active.count > 0
-      %li{ :'data-theme' => 'e' }= t('.pending', count: @dataset.analysis_tasks.active.count)
+      %li{ data: { theme: 'e' } }= t('.pending', count: @dataset.analysis_tasks.active.count)
     - if @dataset.analysis_tasks.failed.count > 0
-      %li{ :'data-theme' => 'e' }= t('.failed', count: @dataset.analysis_tasks.failed.count)
-      %li{ :'data-theme' => 'e' }= link_to t('.clear_failed'), dataset_path(@dataset, clear_failed: true)
+      %li{ data: { theme: 'e' } }= t('.failed', count: @dataset.analysis_tasks.failed.count)
+      %li{ data: { theme: 'e' } }= link_to t('.clear_failed'), dataset_path(@dataset, clear_failed: true)
 
   -# Finished analysis tasks: link to download results and to delete
   - if @dataset.analysis_tasks.finished.count > 0
-    %li{ :'data-role' => 'list-divider' }= t('.finished_tasks')
+    %li{ data: { role: 'list-divider' } }= t('.finished_tasks')
     - @dataset.analysis_tasks.finished.each do |task|
       %li
         - if task.job_class.download?

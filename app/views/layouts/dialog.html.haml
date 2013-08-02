@@ -2,8 +2,8 @@
 %html
   = render partial: 'layouts/head'
   %body
-    %div{ :'data-role' => 'page' }
-      %div{ :'data-role' => 'header', :'data-theme' => 'd' }
+    %div{ data: { role: 'page' } }
+      %div{ data: { role: 'header', theme: 'd' } }
         %h1= content_for :title
-      %div{ :'data-role' => 'content', :'data-theme' => 'c' }
+      %div{ data: { role: 'content', theme: 'c' } }
         = yield

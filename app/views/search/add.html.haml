@@ -2,12 +2,12 @@
   = t('.title')
 
 - unless @datasets.count
-  %ul{ :'data-role' => 'listview' }
-    %li{ :'data-theme' => 'e' }= t('.no_datasets')
+  %ul{ data: { role: 'listview' } }
+    %li{ data: { theme: 'e' } }= t('.no_datasets')
 - else
   = form_tag add_to_datasets_path, method: :get do
     = hidden_field_tag :shasum, @document.shasum
     = select_tag :dataset_id, options_from_collection_for_select(@datasets, 'to_param', 'name')
-    = submit_tag t('.submit'), :'data-icon' => 'plus', :'data-iconpos' => 'right'
+    = submit_tag t('.submit'), data: { icon: 'plus', iconpos: 'right' }
 
-= link_to t('.cancel'), search_show_path(@document), :'data-rel' => 'back', :'data-role' => 'button', :'data-icon' => 'arrow-l', :'data-iconpos' => 'right'
+= link_to t('.cancel'), search_show_path(@document), data: { rel: 'back', role: 'button', icon: 'arrow-l', iconpos: 'right' }
