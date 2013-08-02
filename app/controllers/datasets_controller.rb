@@ -68,11 +68,12 @@ class DatasetsController < ApplicationController
   # @return [undefined]
   def create
     Delayed::Job.enqueue Jobs::CreateDataset.new(
-      user_id: current_user.to_param,
-      name: dataset_params[:name],
-      q: params[:q],
-      fq: params[:fq],
-      qt: params[:qt]), queue: 'ui'
+                           user_id: current_user.to_param,
+                           name: dataset_params[:name],
+                           q: params[:q],
+                           fq: params[:fq],
+                           qt: params[:qt]),
+                         queue: 'ui'
 
     redirect_to datasets_path, notice: I18n.t('datasets.create.building')
   end
@@ -83,11 +84,16 @@ class DatasetsController < ApplicationController
   def destroy
     @dataset = current_user.datasets.find(params[:id])
     raise ActiveRecord::RecordNotFound unless @dataset
-    redirect_to @dataset and return if params[:cancel]
+
+    if params[:cancel]
+      redirect_to @dataset
+      return
+    end
 
     Delayed::Job.enqueue Jobs::DestroyDataset.new(
-      user_id: current_user.to_param,
-      dataset_id: params[:id]), queue: 'ui'
+                           user_id: current_user.to_param,
+                           dataset_id: params[:id]),
+                         queue: 'ui'
 
     redirect_to datasets_path
   end
@@ -136,10 +142,8 @@ class DatasetsController < ApplicationController
 
     # Put the job parameters together out of the job hash
     job_params = {}
-    if params[:job_params]
-      job_params = params[:job_params].to_hash
-      job_params.symbolize_keys!
-    end
+    job_params = params[:job_params].to_hash if params[:job_params]
+    job_params.symbolize_keys!
     job_params[:user_id] = current_user.to_param
     job_params[:dataset_id] = dataset.to_param
 
@@ -177,7 +181,11 @@ class DatasetsController < ApplicationController
   def task_destroy
     dataset = current_user.datasets.find(params[:id])
     raise ActiveRecord::RecordNotFound unless dataset
-    redirect_to dataset and return if params[:cancel]
+
+    if params[:cancel]
+      redirect_to dataset
+      return
+    end
 
     task = dataset.analysis_tasks.find(params[:task_id])
     raise ActiveRecord::RecordNotFound unless task
@@ -199,7 +207,7 @@ class DatasetsController < ApplicationController
     task = dataset.analysis_tasks.find(params[:task_id])
     raise ActiveRecord::RecordNotFound unless task
     raise ActiveRecord::RecordNotFound unless task.result_file
-    raise ActiveRecord::RecordNotFound unless File.exists?(task.result_file.filename)
+    raise ActiveRecord::RecordNotFound unless task.result_file.exists?
 
     task.result_file.send_file(self)
   end

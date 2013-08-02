@@ -100,6 +100,12 @@ class Download < ActiveRecord::Base
       x_sendfile: true,
       type: content_type)
   end
+  
+  # @api public
+  # @return [Boolean] true if the file exists on disk
+  def exists?
+    File.exists? filename
+  end
 
   private
 

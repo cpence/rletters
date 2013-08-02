@@ -115,7 +115,7 @@ describe SearchController do
 
       it "doesn't let the user specify zero items per page" do
         default_sq = { q: "*:*", qt: "precise" }
-        options = { sort: "year_sort desc", offset: 1, limit: 1 }
+        options = { sort: "year_sort desc", offset: 10, limit: 10 }
         Document.should_receive(:find_all_by_solr_query).with(default_sq, options).and_return([])
 
         get :index, { page: "1", per_page: "0" }

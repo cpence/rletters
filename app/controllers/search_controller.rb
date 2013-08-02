@@ -23,24 +23,20 @@ class SearchController < ApplicationController
   def index
     # Treat 'page' and 'per_page' separately
     @page = 0
-    if params.has_key? :page
-      @page = Integer(params[:page]) rescue 0
-    end
+    @page = params[:page].to_i if params[:page]
     @page = 0 if @page < 0
 
     @per_page = 10
     @per_page = current_user.per_page if current_user
-    if params.has_key? :per_page
-      @per_page = Integer(params[:per_page]) rescue 10
-    end
-    @per_page = 1 if @per_page <= 0
+    @per_page = params[:per_page].to_i if params[:per_page]
+    @per_page = 10 if @per_page <= 0
     @per_page = 100 if @per_page > 100
 
     offset = @page * @per_page
     limit = @per_page
 
     # Default sort to relevance if there's a search, otherwise title
-    if params[:precise] or params[:q]
+    if params[:precise] || params[:q]
       @sort = 'score desc'
     else
       @sort = 'year_sort desc'
@@ -55,7 +51,9 @@ class SearchController < ApplicationController
 
     # Get the documents
     @documents = Document.find_all_by_solr_query(solr_query,
-      sort: @sort, offset: offset, limit: limit)
+                                                 sort: @sort,
+                                                 offset: offset,
+                                                 limit: limit)
   end
 
   # Show the advanced search page
@@ -77,16 +75,20 @@ class SearchController < ApplicationController
 
     respond_to do |format|
       format.html { render }
-      format.any(*Document.serializers.keys) {
+      format.any(*Document.serializers.keys) do
         f = Document.serializers[request.format.to_sym]
-        send_file f[:method].call(@document), "export.#{request.format.to_sym.to_s}", request.format.to_s
+        send_file f[:method].call(@document),
+                  "export.#{request.format.to_sym.to_s}",
+                  request.format.to_s
         return
-      }
-      format.any {
-        render template: 'errors/404', layout: false,
-          formats: [ :html ], status: 406
+      end
+      format.any do
+        render template: 'errors/404',
+               layout: false,
+               formats: [:html],
+               status: 406
         return
-      }
+      end
     end
   end
 
@@ -111,16 +113,16 @@ class SearchController < ApplicationController
     @document = Document.find(params[:id])
 
     begin
-      res = Net::HTTP.start("api.mendeley.com") { |http|
-        http.get("/oapi/documents/search/title%3A#{CGI::escape(@document.title)}/?consumer_key=#{Setting.mendeley_key}")
-      }
+      res = Net::HTTP.start('api.mendeley.com') do |http|
+        http.get("/oapi/documents/search/title%3A#{CGI.escape(@document.title)}/?consumer_key=#{Setting.mendeley_key}")
+      end
       json = res.body
       result = JSON.parse(json)
 
-      mendeley_docs = result["documents"]
+      mendeley_docs = result['documents']
       raise ActiveRecord::RecordNotFound unless mendeley_docs.size
 
-      redirect_to mendeley_docs[0]["mendeley_url"]
+      redirect_to mendeley_docs[0]['mendeley_url']
     rescue StandardError, Timeout::Error
       raise ActiveRecord::RecordNotFound
     end
@@ -133,15 +135,15 @@ class SearchController < ApplicationController
     @document = Document.find(params[:id])
 
     begin
-      res = Net::HTTP.start("www.citeulike.org") { |http|
-        http.get("/json/search/all?per_page=1&page=1&q=title%3A%28#{CGI::escape(@document.title)}%29")
-      }
+      res = Net::HTTP.start('www.citeulike.org') do |http|
+        http.get("/json/search/all?per_page=1&page=1&q=title%3A%28#{CGI.escape(@document.title)}%29")
+      end
       json = res.body
       cul_docs = JSON.parse(json)
 
       raise ActiveRecord::RecordNotFound unless cul_docs.size
 
-      redirect_to cul_docs[0]["href"]
+      redirect_to cul_docs[0]['href']
     rescue StandardError, Timeout::Error
       raise ActiveRecord::RecordNotFound
     end
@@ -184,17 +186,22 @@ class SearchController < ApplicationController
 
       # Verbatim or fuzzy search fields
       %W(title journal).each do |f|
-        field = f
-        field += "_stem" if params[(f + "_type").to_sym] and params[(f + "_type").to_sym] == "fuzzy"
-        q_array << "#{field}:(#{params[f.to_sym]})" unless params[f.to_sym].blank?
+        unless params[f.to_sym].blank?
+          field = f
+
+          param = params[(f + '_type').to_sym]
+          field += '_stem' if param && param == 'fuzzy'
+
+          q_array << "#{field}:(#{params[f.to_sym]})"
+        end
       end
 
       # Fulltext is different, because of fulltext_search
       unless params[:fulltext].blank?
-        if params[:fulltext_type] and params[:fulltext_type] == "fuzzy"
-          field = "fulltext_stem"
+        if params[:fulltext_type] && params[:fulltext_type] == 'fuzzy'
+          field = 'fulltext_stem'
         else
-          field = "fulltext_search"
+          field = 'fulltext_search'
         end
         q_array << "#{field}:(#{params[:fulltext]})"
       end
@@ -202,8 +209,10 @@ class SearchController < ApplicationController
       # Handle the authors separately, for splitting support (authors search
       # is an AND search, not an OR search)
       unless params[:authors].blank?
-        authors = params[:authors].split(',').map { |a| "#{NameHelpers.name_to_lucene(a.strip)}" }
-        authors_str = authors.join(" AND ")
+        authors = params[:authors].split(',').map do |a|
+          NameHelpers.name_to_lucene(a.strip)
+        end
+        authors_str = authors.join(' AND ')
 
         q_array << "authors:(#{authors_str})"
       end
@@ -236,18 +245,18 @@ class SearchController < ApplicationController
 
       # If there's no query after that, add the all-documents operator
       if q_array.empty?
-        query_params[:q] = "*:*"
+        query_params[:q] = '*:*'
       else
-        query_params[:q] = q_array.join(" AND ")
+        query_params[:q] = q_array.join(' AND ')
       end
     else
       # Simple search
-      unless params.has_key? :q
-        query_params[:q] = "*:*"
-        query_params[:qt] = "precise"
-      else
+      if params[:q]
         query_params[:q] = params[:q]
-        query_params[:qt] = "standard"
+        query_params[:qt] = 'standard'
+      else
+        query_params[:q] = '*:*'
+        query_params[:qt] = 'precise'
       end
     end
 
@@ -262,8 +271,8 @@ class SearchController < ApplicationController
   # @param [String] mime MIME type for the content
   # @return [undefined]
   def send_file(str, filename, mime)
-    headers["Cache-Control"] = 'no-cache, must-revalidate, post-check=0, pre-check=0'
-    headers["Expires"] = "0"
+    headers['Cache-Control'] = 'no-cache, must-revalidate, post-check=0, pre-check=0'
+    headers['Expires'] = '0'
     send_data str, filename: filename, type: mime, disposition: 'attachment'
   end
 end

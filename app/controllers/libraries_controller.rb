@@ -56,7 +56,8 @@ class LibrariesController < ApplicationController
 
     if @library.save
       current_user.libraries.reload
-      redirect_to edit_user_registration_path, notice: I18n.t('libraries.create.success')
+      redirect_to edit_user_registration_path,
+                  notice: I18n.t('libraries.create.success')
     else
       render action: 'new', layout: 'dialog'
     end
@@ -71,7 +72,8 @@ class LibrariesController < ApplicationController
 
     if @library.update_attributes(library_params)
       current_user.libraries.reload
-      redirect_to edit_user_registration_path, notice: I18n.t('libraries.update.success')
+      redirect_to edit_user_registration_path,
+                  notice: I18n.t('libraries.update.success')
     else
       render action: 'edit', layout: 'dialog'
     end
@@ -84,7 +86,10 @@ class LibrariesController < ApplicationController
     @library = current_user.libraries.find(params[:id])
     raise ActiveRecord::RecordNotFound unless @library
 
-    redirect_to edit_user_registration_path and return if params[:cancel]
+    if params[:cancel]
+      redirect_to edit_user_registration_path
+      return
+    end
 
     @library.destroy
     current_user.libraries.reload
@@ -103,15 +108,13 @@ class LibrariesController < ApplicationController
     @libraries = []
 
     begin
-      res = Net::HTTP.start("worldcatlibraries.org") { |http|
+      res = Net::HTTP.start('worldcatlibraries.org') do |http|
         http.get("/registry/lookup?IP=#{request.remote_ip}")
-      }
-      doc = REXML::Document.new res.body
-      doc.elements.each('records/resolverRegistryEntry') do |entry|
-        name = entry.elements['institutionName'].text
-        url = entry.elements['resolver/baseURL'].text
-
-        @libraries << { name: name, url: url }
+      end
+      doc = Nokogiri::XML::Document.parse(res.body).remove_namespaces!
+      @libraries = doc.root.css('resolverRegistryEntry').map do |entry|
+        { name: entry.at_css('institutionName').content,
+          url: entry.at_css('resolver baseURL').content }
       end
     rescue StandardError, Timeout::Error
       @libraries = []
