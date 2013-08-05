@@ -1,4 +1,5 @@
 # -*- encoding : utf-8 -*-
+# rubocop:disable AvoidGlobalVars
 require 'rubygems'
 
 # Coverage setup
@@ -34,17 +35,17 @@ VCR.configure do |c|
   # Psych serializes cassette data as binary, which makes them not human-
   # readable.  When recording new cassettes, fire up Ruby 1.9 and uncomment
   # this line.
-  #c.default_cassette_options = { serialize_with: :syck }
+  # c.default_cassette_options = { serialize_with: :syck }
 end
 
 # Standard setup for RSpec
-ENV["RAILS_ENV"] ||= 'test'
-require File.expand_path("../../config/environment", __FILE__)
+ENV['RAILS_ENV'] ||= 'test'
+require File.expand_path('../../config/environment', __FILE__)
 require 'rspec/rails'
 require 'rspec/autorun'
 require 'fileutils'
 
-Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
+Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 
 RSpec.configure do |config|
   config.color_enabled = true
@@ -82,9 +83,7 @@ RSpec.configure do |config|
     DeferredGarbageCollection.reconsider
 
     # Destroy downloads directory
-    if $destroy_downloads
-      FileUtils.rm_rf "#{::Rails.root}/downloads"
-    end
+    FileUtils.rm_rf "#{::Rails.root}/downloads" if $destroy_downloads
   end
 
   config.before(:each) do

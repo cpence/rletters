@@ -4,7 +4,8 @@ require 'spec_helper'
 describe SearchController do
 
   describe '#index' do
-    context 'with empty search results', vcr: { cassette_name: 'search_controller_fail' } do
+    context 'with empty search results',
+            vcr: { cassette_name: 'search_controller_fail' } do
       before(:each) do
         get :index, { q: 'fail' }
       end
@@ -14,7 +15,8 @@ describe SearchController do
       end
     end
 
-    context 'with precise search results', vcr: { cassette_name: 'search_controller_default' } do
+    context 'with precise search results',
+            vcr: { cassette_name: 'search_controller_default' } do
       before(:each) do
         get :index
       end
@@ -47,7 +49,7 @@ describe SearchController do
     context 'with faceted search results' do
       before(:each) do
         Document.should_receive(:find_all_by_solr_query).and_return([])
-        get :index, { fq: [ 'journal_facet:"Journal of Nothing"' ] }
+        get :index, { fq: ['journal_facet:"Journal of Nothing"'] }
       end
 
       it 'assigns solr_fq' do
@@ -84,41 +86,41 @@ describe SearchController do
 
     context 'with offset and limit parameters' do
       it 'successfully parses those parameters' do
-        default_sq = { q: "*:*", qt: "precise" }
-        options = { sort: "year_sort desc", offset: 20, limit: 20 }
+        default_sq = { q: '*:*', qt: 'precise' }
+        options = { sort: 'year_sort desc', offset: 20, limit: 20 }
         Document.should_receive(:find_all_by_solr_query).with(default_sq, options).and_return([])
 
-        get :index, { page: "1", per_page: "20" }
+        get :index, { page: '1', per_page: '20' }
 
         assigns(:documents).should have(0).items
       end
 
       it "doesn't throw an exception on non-integral page values" do
-        default_sq = { q: "*:*", qt: "precise" }
-        options = { sort: "year_sort desc", offset: 0, limit: 20 }
+        default_sq = { q: '*:*', qt: 'precise' }
+        options = { sort: 'year_sort desc', offset: 0, limit: 20 }
         Document.should_receive(:find_all_by_solr_query).with(default_sq, options).and_return([])
 
         expect {
-          get :index, { page: "zzyzzy", per_page: "20" }
+          get :index, { page: 'zzyzzy', per_page: '20' }
         }.to_not raise_error
       end
 
       it "doesn't throw an exception on non-integral per_page values" do
-        default_sq = { q: "*:*", qt: "precise" }
-        options = { sort: "year_sort desc", offset: 10, limit: 10 }
+        default_sq = { q: '*:*', qt: 'precise' }
+        options = { sort: 'year_sort desc', offset: 10, limit: 10 }
         Document.should_receive(:find_all_by_solr_query).with(default_sq, options).and_return([])
 
         expect {
-          get :index, { page: "1", per_page: "zzyzzy" }
+          get :index, { page: '1', per_page: 'zzyzzy' }
         }.to_not raise_error
       end
 
       it "doesn't let the user specify zero items per page" do
-        default_sq = { q: "*:*", qt: "precise" }
-        options = { sort: "year_sort desc", offset: 10, limit: 10 }
+        default_sq = { q: '*:*', qt: 'precise' }
+        options = { sort: 'year_sort desc', offset: 10, limit: 10 }
         Document.should_receive(:find_all_by_solr_query).with(default_sq, options).and_return([])
 
-        get :index, { page: "1", per_page: "0" }
+        get :index, { page: '1', per_page: '0' }
       end
     end
   end
@@ -137,53 +139,63 @@ describe SearchController do
     end
 
     context 'when exporting in other formats' do
-      it "exports in MARC format" do
-        get :show, { id: FactoryGirl.generate(:working_shasum), format: 'marc' }
+      it 'exports in MARC format' do
+        get :show, { id: FactoryGirl.generate(:working_shasum),
+                     format: 'marc' }
         response.should be_valid_download('application/marc')
       end
 
-      it "exports in MARC-JSON format" do
-        get :show, { id: FactoryGirl.generate(:working_shasum), format: 'json' }
+      it 'exports in MARC-JSON format' do
+        get :show, { id: FactoryGirl.generate(:working_shasum),
+                     format: 'json' }
         response.should be_valid_download('application/json')
       end
 
-      it "exports in MARC-XML format" do
-        get :show, { id: FactoryGirl.generate(:working_shasum), format: 'marcxml' }
+      it 'exports in MARC-XML format' do
+        get :show, { id: FactoryGirl.generate(:working_shasum),
+                     format: 'marcxml' }
         response.should be_valid_download('application/marcxml+xml')
       end
 
-      it "exports in BibTeX format" do
-        get :show, { id: FactoryGirl.generate(:working_shasum), format: 'bibtex' }
+      it 'exports in BibTeX format' do
+        get :show, { id: FactoryGirl.generate(:working_shasum),
+                     format: 'bibtex' }
         response.should be_valid_download('application/x-bibtex')
       end
 
-      it "exports in EndNote format" do
-        get :show, { id:  FactoryGirl.generate(:working_shasum), format: 'endnote' }
+      it 'exports in EndNote format' do
+        get :show, { id:  FactoryGirl.generate(:working_shasum),
+                     format: 'endnote' }
         response.should be_valid_download('application/x-endnote-refer')
       end
 
-      it "exports in RIS format" do
-        get :show, { id:  FactoryGirl.generate(:working_shasum), format: 'ris' }
+      it 'exports in RIS format' do
+        get :show, { id:  FactoryGirl.generate(:working_shasum),
+                     format: 'ris' }
         response.should be_valid_download('application/x-research-info-systems')
       end
 
-      it "exports in MODS format" do
-        get :show, { id:  FactoryGirl.generate(:working_shasum), format: 'mods' }
+      it 'exports in MODS format' do
+        get :show, { id:  FactoryGirl.generate(:working_shasum),
+                     format: 'mods' }
         response.should be_valid_download('application/mods+xml')
       end
 
-      it "exports in RDF/XML format" do
-        get :show, { id:  FactoryGirl.generate(:working_shasum), format: 'rdf' }
+      it 'exports in RDF/XML format' do
+        get :show, { id:  FactoryGirl.generate(:working_shasum),
+                     format: 'rdf' }
         response.should be_valid_download('application/rdf+xml')
       end
 
-      it "exports in RDF/N3 format" do
-        get :show, { id: FactoryGirl.generate(:working_shasum), format: 'n3' }
+      it 'exports in RDF/N3 format' do
+        get :show, { id: FactoryGirl.generate(:working_shasum),
+                     format: 'n3' }
         response.should be_valid_download('text/rdf+n3')
       end
 
-      it "fails to export an invalid format" do
-        get :show, { id: FactoryGirl.generate(:working_shasum), format: 'csv' }
+      it 'fails to export an invalid format' do
+        get :show, { id: FactoryGirl.generate(:working_shasum),
+                     format: 'csv' }
         controller.response.response_code.should eq(406)
       end
     end
@@ -227,7 +239,7 @@ describe SearchController do
       end
 
       before(:each) do
-        stub_request(:any, /api\.mendeley\.com\/oapi\/documents\/search\/title.*/).to_timeout
+        stub_request(:any, /api\.mendeley\.com\/.*/).to_timeout
       end
 
       it 'raises an exception' do
@@ -248,7 +260,7 @@ describe SearchController do
 
     context 'when request times out' do
       before(:each) do
-        stub_request(:any, /www\.citeulike\.org\/json\/search\/all\?.*/).to_timeout
+        stub_request(:any, %r{www\.citeulike\.org/json/.*}).to_timeout
       end
 
       it 'raises an exception' do

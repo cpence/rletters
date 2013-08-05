@@ -102,7 +102,7 @@ describe User do
         @user = FactoryGirl.create(:user)
       end
 
-      it "is valid" do
+      it 'is valid' do
         @user.should be_valid
       end
     end

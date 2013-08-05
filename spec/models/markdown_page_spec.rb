@@ -35,7 +35,8 @@ describe MarkdownPage do
       # we have to do this in one test to make sure they're in order
       @page.friendly_name.should eq(@page.name)
 
-      I18n.backend.store_translations :en, markdown_pages: { @page.name.to_sym => 'The Friendly Name' }
+      I18n.backend.store_translations :en, markdown_pages:
+        { @page.name.to_sym => 'The Friendly Name' }
       @page.friendly_name.should eq('The Friendly Name')
     end
   end

@@ -14,8 +14,8 @@ describe Array do
     end
 
     context 'with an array with hashes' do
-      it "converts the hashes" do
-        arr = [ 1, 3, { 'test' => 'test2' }, [ 2, 4, 6, { 'test3' => 'test4' } ] ]
+      it 'converts the hashes' do
+        arr = [1, 3, { 'test' => 'test2' }, [2, 4, 6, { 'test3' => 'test4' }]]
         arr2 = arr.with_indifferent_access
 
         arr2[2][:test].should eq('test2')

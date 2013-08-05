@@ -29,7 +29,7 @@ describe Dataset do
         @dataset = FactoryGirl.create(:dataset)
       end
 
-      it "is valid" do
+      it 'is valid' do
         @dataset.should be_valid
       end
     end
@@ -47,11 +47,11 @@ describe Dataset do
         @dataset.destroy
       end
 
-      it "has one analysis task" do
+      it 'has one analysis task' do
         @dataset.analysis_tasks.should have(1).items
       end
 
-      it "points to the right analysis task" do
+      it 'points to the right analysis task' do
         @dataset.analysis_tasks[0].name.should eq('test')
       end
     end
@@ -64,12 +64,12 @@ describe Dataset do
         @dataset = FactoryGirl.create(:full_dataset, user: @user, entries_count: 2)
       end
 
-      it "is connected to the user" do
+      it 'is connected to the user' do
         @user.datasets.reload
         @user.datasets.should have(1).items
       end
 
-      it "has the right number of entries" do
+      it 'has the right number of entries' do
         @dataset.entries.should have(2).items
       end
     end

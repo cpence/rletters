@@ -1,8 +1,7 @@
 # -*- encoding : utf-8 -*-
 RSpec::Matchers.define :be_valid_download do |mime|
   match do |actual|
-    actual.success? == true && actual.content_type == mime && \
-    actual.body.length != 0
+    actual.success? == true && actual.content_type == mime && actual.body.length != 0
   end
 
   failure_message_for_should do |actual|

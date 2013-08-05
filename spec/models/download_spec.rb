@@ -14,7 +14,7 @@ describe Download do
       end
     end
 
-    context "when filename with path specified" do
+    context 'when filename with path specified' do
       before(:each) do
         @dl = FactoryGirl.build(:download, filename: '../../../hax/lol.wut')
       end
@@ -29,17 +29,17 @@ describe Download do
         @dl = FactoryGirl.build(:download)
       end
 
-      it "is valid" do
+      it 'is valid' do
         @dl.should be_valid
       end
     end
 
-    context "when filename has dashes and underscores" do
+    context 'when filename has dashes and underscores' do
       before(:each) do
         @dl = FactoryGirl.build(:download, filename: 'a-b_c.wut')
       end
 
-      it "is valid" do
+      it 'is valid' do
         @dl.should be_valid
       end
     end
@@ -57,21 +57,21 @@ describe Download do
         @dl.destroy
       end
 
-      it "is successful" do
+      it 'is successful' do
         @dl.should be
       end
 
-      it "creates the file" do
+      it 'creates the file' do
         File.exists?(@dl.filename).should be_true
       end
 
-      it "has the right contents" do
+      it 'has the right contents' do
         IO.read(@dl.filename).should eq('1234567890')
       end
     end
 
     context 'when destroyed' do
-      it "deletes the file" do
+      it 'deletes the file' do
         filename = @dl.filename
         @dl.destroy
 
@@ -80,10 +80,10 @@ describe Download do
     end
 
     context 'when many are created simultaneously' do
-      it "successfully creates unique filenames" do
+      it 'successfully creates unique filenames' do
         files = (1..25).map do
           Download.create_file 'test.txt' do |f|
-            f.write("asdf")
+            f.write('asdf')
           end
         end
         filenames = files.map { |f| f.filename }

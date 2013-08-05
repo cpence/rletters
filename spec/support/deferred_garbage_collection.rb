@@ -1,4 +1,5 @@
 # -*- encoding : utf-8 -*-
+# rubocop:disable AvoidGlobalVars
 
 class DeferredGarbageCollection
 

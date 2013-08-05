@@ -33,7 +33,7 @@ describe Array do
   describe '#without_indifferent_access' do
     context 'with no hashes' do
       it 'should leave the array alone' do
-        arr = [ 1, 3, 5 ]
+        arr = [1, 3, 5]
         arr2 = arr.without_indifferent_access
 
         arr2.should eq(arr)
@@ -42,7 +42,7 @@ describe Array do
 
     context 'with non-indifferent hashes' do
       it 'should leave the hashes alone' do
-        arr = [ 1, 3, { 'test' => 'test2' } ]
+        arr = [1, 3, { 'test' => 'test2' }]
         arr2 = arr.without_indifferent_access
 
         arr2[2].should eq({ 'test' => 'test2' })
@@ -52,7 +52,7 @@ describe Array do
 
     context 'with indifferent hashes' do
       it 'should convert them to regular Hashes' do
-        arr = [ 1, 3, { 'test' => 'test2' }.with_indifferent_access ]
+        arr = [1, 3, { 'test' => 'test2' }.with_indifferent_access]
         arr2 = arr.without_indifferent_access
 
         arr2[2].should eq({ 'test' => 'test2' })

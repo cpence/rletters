@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe "search/advanced" do
+describe 'search/advanced' do
 
   before(:each) do
     render

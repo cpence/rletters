@@ -1,0 +1,11 @@
+inherit_from: ../.rubocop.yml
+
+# RSpec code uses lots of multi-line chained expect { }.to ... constructs,
+# and those are going to make Rubocop very angry.
+Blocks:
+  Enabled: false
+
+# Checking lots of very long string literals is pretty common in specs, as
+# well.
+LineLength:
+  Enabled: false

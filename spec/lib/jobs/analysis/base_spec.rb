@@ -10,11 +10,13 @@ end
 
 module Jobs
   module Analysis
+    # A job that fails whenever it is called
     class FailingJob < Jobs::Analysis::Base
       def perform
         user = User.find(user_id)
         dataset = user.datasets.find(dataset_id)
-        @task = dataset.analysis_tasks.create(name: "This job always fails", job_type: 'FailingJob')
+        @task = dataset.analysis_tasks.create(name: 'This job always fails',
+                                              job_type: 'FailingJob')
 
         raise ArgumentError
       end
@@ -45,7 +47,8 @@ describe Jobs::Analysis::Base do
       # the point
       begin
         Delayed::Job.enqueue @job
-      rescue ArgumentError; end
+      rescue ArgumentError # rubocop:disable HandleExceptions
+      end
     end
 
     after(:each) do

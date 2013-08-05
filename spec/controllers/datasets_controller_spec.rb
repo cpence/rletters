@@ -11,19 +11,19 @@ describe DatasetsController do
   end
 
   describe '#index' do
-    context "when not logged in" do
+    context 'when not logged in' do
       before(:each) do
         sign_out :user
       end
 
-      it "redirects to the login page" do
+      it 'redirects to the login page' do
         get :index
         response.should redirect_to(new_user_session_path)
       end
     end
 
-    context "when logged in" do
-      it "loads successfully" do
+    context 'when logged in' do
+      it 'loads successfully' do
         get :index
         response.should be_success
       end
@@ -31,15 +31,15 @@ describe DatasetsController do
   end
 
   describe '#dataset_list' do
-    context "when logged in" do
-      it "loads successfully" do
+    context 'when logged in' do
+      it 'loads successfully' do
         get :dataset_list
         response.should be_success
       end
 
-      it "assigns the list of datsets" do
+      it 'assigns the list of datsets' do
         get :dataset_list
-        assigns(:datasets).should eq([ @dataset ])
+        assigns(:datasets).should eq([@dataset])
       end
     end
   end
@@ -64,7 +64,8 @@ describe DatasetsController do
         q: '*:*',
         fq: nil,
         qt: 'precise')
-      Delayed::Job.should_receive(:enqueue).with(expected_job,
+      Delayed::Job.should_receive(:enqueue).with(
+        expected_job,
         queue: 'ui').once
 
       post :create, { dataset: { name: 'Test Dataset' },
@@ -132,7 +133,8 @@ describe DatasetsController do
         expected_job = Jobs::DestroyDataset.new(
           user_id: @user.to_param,
           dataset_id: @dataset.to_param)
-        Delayed::Job.should_receive(:enqueue).with(expected_job,
+        Delayed::Job.should_receive(:enqueue).with(
+          expected_job,
           queue: 'ui').once
 
         delete :destroy, id: @dataset.to_param
@@ -158,7 +160,8 @@ describe DatasetsController do
   end
 
   describe '#add' do
-    context 'when an invalid document is passed', vcr: { cassette_name: 'solr_fail' } do
+    context 'when an invalid document is passed',
+            vcr: { cassette_name: 'solr_fail' } do
       it 'raises an exception' do
         expect {
           get :add, dataset_id: @dataset.to_param, shasum: 'fail'
@@ -166,15 +169,19 @@ describe DatasetsController do
       end
     end
 
-    context 'when all parameters are valid', vcr: { cassette_name: 'solr_single' } do
+    context 'when all parameters are valid',
+            vcr: { cassette_name: 'solr_single' } do
       it 'adds to the dataset' do
         expect {
-          get :add, dataset_id: @dataset.to_param, shasum: FactoryGirl.generate(:working_shasum)
-        }.to change{@dataset.entries.count}.by(1)
+          get :add, dataset_id: @dataset.to_param,
+              shasum: FactoryGirl.generate(:working_shasum)
+        }.to change { @dataset.entries.count }.by(1)
       end
 
-      it 'redirects to the dataset page', vcr: { cassette_name: 'solr_single' } do
-        get :add, dataset_id: @dataset.to_param, shasum: FactoryGirl.generate(:working_shasum)
+      it 'redirects to the dataset page',
+         vcr: { cassette_name: 'solr_single' } do
+        get :add, dataset_id: @dataset.to_param,
+            shasum: FactoryGirl.generate(:working_shasum)
         response.should redirect_to(dataset_path(@dataset))
       end
     end
@@ -200,7 +207,8 @@ describe DatasetsController do
     context 'when a valid class is passed' do
       it 'does not raise an exception' do
         expect {
-          get :task_start, id: @dataset.to_param, class: 'ExportCitations', job_params: { format: 'bibtex' }
+          get :task_start, id: @dataset.to_param, class: 'ExportCitations',
+              job_params: { format: 'bibtex' }
         }.to_not raise_error
       end
 
@@ -209,14 +217,17 @@ describe DatasetsController do
           user_id: @user.to_param,
           dataset_id: @dataset.to_param,
           format: 'bibtex')
-        Delayed::Job.should_receive(:enqueue).with(expected_job,
+        Delayed::Job.should_receive(:enqueue).with(
+          expected_job,
           queue: 'analysis').once
 
-        get :task_start, id: @dataset.to_param, class: 'ExportCitations', job_params: { format: 'bibtex' }
+        get :task_start, id: @dataset.to_param, class: 'ExportCitations',
+            job_params: { format: 'bibtex' }
       end
 
       it 'redirects to the dataset page' do
-        get :task_start, id: @dataset.to_param, class: 'ExportCitations', job_params: { format: 'bibtex' }
+        get :task_start, id: @dataset.to_param, class: 'ExportCitations',
+            job_params: { format: 'bibtex' }
         response.should redirect_to(dataset_path(@dataset))
       end
     end
@@ -226,14 +237,16 @@ describe DatasetsController do
     context 'when an invalid task ID is passed' do
       it 'raises an exception' do
         expect {
-          get :task_view, id: @dataset.to_param, task_id: '12345678', view: 'test'
+          get :task_view, id: @dataset.to_param,
+              task_id: '12345678', view: 'test'
         }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
 
     context 'when a valid task ID is passed' do
       before(:each) do
-        @task = FactoryGirl.create(:analysis_task, dataset: @dataset, job_type: 'ExportCitations')
+        @task = FactoryGirl.create(:analysis_task, dataset: @dataset,
+                                   job_type: 'ExportCitations')
       end
 
       after(:each) do
@@ -242,7 +255,8 @@ describe DatasetsController do
 
       it 'does not raise an exception' do
         expect {
-          get :task_view, id: @dataset.to_param, task_id: @task.to_param, view: 'start'
+          get :task_view, id: @dataset.to_param,
+              task_id: @task.to_param, view: 'start'
         }.to_not raise_error
       end
     end
@@ -254,7 +268,8 @@ describe DatasetsController do
       Jobs::Analysis::ExportCitations.new(
         user_id: @user.to_param,
         dataset_id: @dataset.to_param,
-        format: :bibtex).perform
+        format: :bibtex
+      ).perform
 
       # Double-check that the task is created
       @dataset.analysis_tasks.should have(1).item
@@ -283,7 +298,7 @@ describe DatasetsController do
     end
   end
 
-  describe "#task_destroy" do
+  describe '#task_destroy' do
     context 'when an invalid task ID is passed' do
       it 'raises an exception' do
         expect {
@@ -294,7 +309,8 @@ describe DatasetsController do
 
     context 'when cancel is pressed' do
       before(:each) do
-        @task = FactoryGirl.create(:analysis_task, dataset: @dataset, job_type: 'ExportCitations')
+        @task = FactoryGirl.create(:analysis_task, dataset: @dataset,
+                                   job_type: 'ExportCitations')
       end
 
       after(:each) do
@@ -303,25 +319,28 @@ describe DatasetsController do
 
       it "doesn't delete the task" do
         expect {
-          get :task_destroy, id: @dataset.to_param, task_id: @task.to_param, cancel: true
-        }.to_not change{@dataset.analysis_tasks.count}
+          get :task_destroy, id: @dataset.to_param,
+              task_id: @task.to_param, cancel: true
+        }.to_not change { @dataset.analysis_tasks.count }
       end
 
       it 'redirects to the dataset page' do
-        get :task_destroy, id: @dataset.to_param, task_id: @task.to_param, cancel: true
+        get :task_destroy, id: @dataset.to_param,
+            task_id: @task.to_param, cancel: true
         response.should redirect_to(dataset_path(@dataset))
       end
     end
 
-    context "when cancel is not pressed" do
+    context 'when cancel is not pressed' do
       before(:each) do
-        @task = FactoryGirl.create(:analysis_task, dataset: @dataset, job_type: 'ExportCitations')
+        @task = FactoryGirl.create(:analysis_task, dataset: @dataset,
+                                   job_type: 'ExportCitations')
       end
 
-      it "deletes the task" do
+      it 'deletes the task' do
         expect {
           get :task_destroy, id: @dataset.to_param, task_id: @task.to_param
-        }.to change{@dataset.analysis_tasks.count}.by(-1)
+        }.to change { @dataset.analysis_tasks.count }.by(-1)
       end
 
       it 'redirects to the dataset page' do

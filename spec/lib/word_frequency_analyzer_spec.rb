@@ -1,7 +1,8 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe WordFrequencyAnalyzer, vcr: { cassette_name: 'solr_single_fulltext' } do
+describe WordFrequencyAnalyzer,
+         vcr: { cassette_name: 'solr_single_fulltext' } do
 
   before(:each) do
     @user = FactoryGirl.create(:user)
@@ -9,8 +10,8 @@ describe WordFrequencyAnalyzer, vcr: { cassette_name: 'solr_single_fulltext' } d
                                   working: true, user: @user)
   end
 
-  describe "#initialize" do
-    context "with both num_blocks and block_size set" do
+  describe '#initialize' do
+    context 'with both num_blocks and block_size set' do
       before(:each) do
         @analyzer = WordFrequencyAnalyzer.new(@dataset,
                                               block_size: 10,
@@ -27,7 +28,7 @@ describe WordFrequencyAnalyzer, vcr: { cassette_name: 'solr_single_fulltext' } d
       end
     end
 
-    context "with neither num_blocks nor block_size set" do
+    context 'with neither num_blocks nor block_size set' do
       before(:each) do
         @analyzer = WordFrequencyAnalyzer.new(@dataset,
                                               split_across: true,
@@ -40,8 +41,8 @@ describe WordFrequencyAnalyzer, vcr: { cassette_name: 'solr_single_fulltext' } d
     end
   end
 
-  describe "#block_size" do
-    context "with 10-word blocks, split across" do
+  describe '#block_size' do
+    context 'with 10-word blocks, split across' do
       before(:each) do
         @analyzer = WordFrequencyAnalyzer.new(@dataset,
                                               block_size: 10,
@@ -78,10 +79,10 @@ describe WordFrequencyAnalyzer, vcr: { cassette_name: 'solr_single_fulltext' } d
       end
     end
 
-    context "with 100k-word blocks, not split across" do
+    context 'with 100k-word blocks, not split across' do
       before(:each) do
         @analyzer = WordFrequencyAnalyzer.new(@dataset,
-                                              block_size: 100000,
+                                              block_size: 100_000,
                                               split_across: false)
       end
 
@@ -91,8 +92,8 @@ describe WordFrequencyAnalyzer, vcr: { cassette_name: 'solr_single_fulltext' } d
     end
   end
 
-  describe "#num_blocks" do
-    context "with 10 blocks, split across" do
+  describe '#num_blocks' do
+    context 'with 10 blocks, split across' do
       before(:each) do
         @analyzer = WordFrequencyAnalyzer.new(@dataset,
                                               num_blocks: 10,
@@ -112,7 +113,7 @@ describe WordFrequencyAnalyzer, vcr: { cassette_name: 'solr_single_fulltext' } d
       end
     end
 
-    context "with 3 blocks per document, not split across" do
+    context 'with 3 blocks per document, not split across' do
       before(:each) do
         @analyzer = WordFrequencyAnalyzer.new(@dataset,
                                               num_blocks: 3,
@@ -141,8 +142,8 @@ describe WordFrequencyAnalyzer, vcr: { cassette_name: 'solr_single_fulltext' } d
     end
   end
 
-  describe "#num_words" do
-    context "without num_words set" do
+  describe '#num_words' do
+    context 'without num_words set' do
       before(:each) do
         @analyzer = WordFrequencyAnalyzer.new(@dataset)
       end
@@ -157,7 +158,7 @@ describe WordFrequencyAnalyzer, vcr: { cassette_name: 'solr_single_fulltext' } d
       end
     end
 
-    context "with num_words negative" do
+    context 'with num_words negative' do
       before(:each) do
         @analyzer = WordFrequencyAnalyzer.new(@dataset, num_words: -1)
       end
@@ -167,7 +168,7 @@ describe WordFrequencyAnalyzer, vcr: { cassette_name: 'solr_single_fulltext' } d
       end
     end
 
-    context "with num_words set to 10" do
+    context 'with num_words set to 10' do
       before(:each) do
         @analyzer = WordFrequencyAnalyzer.new(@dataset,
                                               split_across: true,
@@ -182,7 +183,7 @@ describe WordFrequencyAnalyzer, vcr: { cassette_name: 'solr_single_fulltext' } d
     end
   end
 
-  describe "#block_stats" do
+  describe '#block_stats' do
     before(:each) do
       @analyzer = WordFrequencyAnalyzer.new(@dataset)
     end
@@ -194,60 +195,61 @@ describe WordFrequencyAnalyzer, vcr: { cassette_name: 'solr_single_fulltext' } d
     end
   end
 
-  describe "#word_list" do
+  describe '#word_list' do
     before(:each) do
       @analyzer = WordFrequencyAnalyzer.new(@dataset,
                                             num_words: 10)
     end
 
-    it "only includes the requested number of words" do
+    it 'only includes  the requested number of words' do
       @analyzer.word_list.should have(10).words
     end
 
-    it "analyzes those words in the blocks" do
+    it 'analyzes those words in the blocks' do
       @analyzer.word_list.each do |w|
         @analyzer.blocks[0][w].should be
       end
     end
   end
 
-  describe "#tf_in_dataset" do
+  describe '#tf_in_dataset' do
     before(:each) do
       @analyzer = WordFrequencyAnalyzer.new(@dataset)
     end
 
-    it "includes (at least) all the words in the list" do
+    it 'includes (at least) all the words in the list' do
       @analyzer.word_list.each do |w|
         @analyzer.tf_in_dataset[w].should be
       end
     end
 
-    it "returns the same values as a single-block analysis" do
+    it 'returns the same values as a single-block analysis' do
       @analyzer.word_list.each do |w|
         @analyzer.blocks[0][w].should eq(@analyzer.tf_in_dataset[w])
       end
     end
   end
 
-  describe "#num_corpus_documents" do
-    context "when Solr works" do
+  describe '#num_corpus_documents' do
+    context 'when Solr works' do
       before(:each) do
         @analyzer = WordFrequencyAnalyzer.new(@dataset)
       end
 
-      it "works" do
+      it 'works' do
         @analyzer.num_corpus_documents.should eq(1042)
       end
     end
 
-    context "when the Solr connection fails" do
+    context 'when the Solr connection fails' do
       before(:each) do
         @analyzer = WordFrequencyAnalyzer.new(@dataset)
       end
 
-      it "throws an exception" do
-        Solr::Connection.should_receive(:find).with({ q: '*:*',
-          qt: 'precise', rows: 1, start: 0 }).and_return({})
+      it 'throws an exception' do
+        Solr::Connection.should_receive(:find).with(
+          { q: '*:*', qt: 'precise', rows: 1, start: 0 }
+        ).and_return({})
         expect { @analyzer.num_corpus_documents }.to raise_error(ActiveRecord::StatementInvalid)
       end
     end

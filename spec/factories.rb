@@ -20,9 +20,9 @@ FactoryGirl.define do
   end
 
   factory :analysis_task do
-    name "Analysis Task"
+    name 'Analysis Task'
     dataset
-    job_type "FakeJob"
+    job_type 'FakeJob'
   end
 
   factory :dataset do
@@ -30,7 +30,7 @@ FactoryGirl.define do
       working false
     end
 
-    name "Dataset"
+    name 'Dataset'
     user
 
     factory :full_dataset do
@@ -57,7 +57,7 @@ FactoryGirl.define do
       if working
         FactoryGirl.generate(:working_shasum)
       else
-        "#{1111111111111111111111111111111111111111 + n}"
+        "#{1_234_567_890_123_456_789_012_345_678_901_234_567_890 + n}"
       end
     end
 
@@ -66,7 +66,7 @@ FactoryGirl.define do
 
   factory :document do
     ignore do
-      shasum "1111111111111111111111111111111111111111"
+      shasum '1111111111111111111111111111111111111111'
       doi nil
       license nil
       license_url nil
@@ -96,22 +96,22 @@ FactoryGirl.define do
       end
     end
 
-    initialize_with {
+    initialize_with do
       Document.new(shasum: shasum, doi: doi, license: license,
                    license_url: license_url, authors: authors, title: title,
-                   journal: journal, year: year, volume: volume, number: number,
-                   pages: pages, fulltext: fulltext)
-    }
+                   journal: journal, year: year, volume: volume,
+                   number: number, pages: pages, fulltext: fulltext)
+    end
   end
 
   factory :download do
-    filename "test.txt"
+    filename 'test.txt'
     analysis_task
   end
 
   factory :library do
     name 'Harvard'
-    sequence(:url) {|n| "http://sfx.hul.harvard#{n}.edu/sfx_local?" }
+    sequence(:url) { |n| "http://sfx.hul.harvard#{n}.edu/sfx_local?" }
     user
   end
 
@@ -126,8 +126,8 @@ FactoryGirl.define do
   end
 
   factory :user do
-    name "John Doe"
-    sequence(:email) {|n| "person#{n}@example.com" }
+    name 'John Doe'
+    sequence(:email) { |n| "person#{n}@example.com" }
     password 'password'
     password_confirmation 'password'
     remember_me false

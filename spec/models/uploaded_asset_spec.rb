@@ -35,7 +35,8 @@ describe UploadedAsset do
       # we have to do this in one test to make sure they're in order
       @asset.friendly_name.should eq(@asset.name)
 
-      I18n.backend.store_translations :en, uploaded_assets: { @asset.name.to_sym => 'The Friendly Name' }
+      I18n.backend.store_translations :en, uploaded_assets:
+        { @asset.name.to_sym => 'The Friendly Name' }
       @asset.friendly_name.should eq('The Friendly Name')
     end
   end

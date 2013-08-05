@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe "libraries/edit" do
+describe 'libraries/edit' do
 
   before(:each) do
     @user = FactoryGirl.create(:user)

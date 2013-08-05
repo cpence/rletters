@@ -3,13 +3,13 @@ require 'spec_helper'
 
 describe Serializers::MARC do
 
-  context "when serializing a single document" do
+  context 'when serializing a single document' do
     before(:each) do
       @doc = FactoryGirl.build(:full_document)
       @record = @doc.to_marc
     end
 
-    it "creates a good MARC::Record" do
+    it 'creates a good MARC::Record' do
       # Control fields
       @record['001'].value.should eq('00972c5123877961056b21aea4177d0dc69c7318')
       @record['003'].value.should eq('PDFSHASUM')
@@ -30,10 +30,10 @@ describe Serializers::MARC do
       @record['100']['a'].should eq('Botero, Carlos A.')
 
       # All author fields
-      expected = [ 'Botero, Carlos A.', 'Mudge, Andrew E.', 'Koltz, Amanda M.',
-        'Hochachka, Wesley M.', 'Vehrencamp, Sandra L.' ]
+      expected = ['Botero, Carlos A.', 'Mudge, Andrew E.', 'Koltz, Amanda M.',
+        'Hochachka, Wesley M.', 'Vehrencamp, Sandra L.']
       actual = []
-      @record.find_all {|field| field.tag == '700' }.each do |f|
+      @record.select { |field| field.tag == '700' }.each do |f|
         # Name is in Last, First format
         f.indicator1.should eq('1')
         actual << f['a']
@@ -84,24 +84,24 @@ describe Serializers::MARC do
     end
   end
 
-  context "when serializing a document with no year" do
+  context 'when serializing a document with no year' do
     before(:each) do
       @doc = FactoryGirl.build(:full_document, year: nil)
       @record = @doc.to_marc
     end
 
-    it "handles no-year documents correctly" do
+    it 'handles no-year documents correctly' do
       @record['008'].value.should eq('110501s0000       ||||fo     ||0 0|eng d')
     end
   end
 
-  context "when serializing an array of documents" do
+  context 'when serializing an array of documents' do
     before(:each) do
       doc = FactoryGirl.build(:full_document)
       @docs = [doc, doc]
     end
 
-    it "creates MARCXML collections of the right size" do
+    it 'creates MARCXML collections of the right size' do
       @docs.to_marc_xml.elements['collection'].elements.should have(2).items
     end
   end

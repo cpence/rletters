@@ -24,7 +24,7 @@
   %li= link_to t('.worldcat'), "http://worldcatlibraries.org/registry/gateway?#{@document.to_openurl_params}"
   %li= link_to t('.uk_openurl'), "http://openurl.ac.uk/?#{@document.to_openurl_params}"
   %li{ data: { role: 'list-divider' } }= t('.online')
-  %li= link_to t('.google'), "http://scholar.google.com/scholar?q=#{CGI::escape(@document.title)}"
+  %li= link_to t('.google'), "http://scholar.google.com/scholar?q=#{CGI.escape(@document.title)}"
   - unless Setting.mendeley_key.blank?
     %li= link_to t('.mendeley'), mendeley_redirect_path(id: @document.shasum), rel: "external"
   %li= link_to t('.citeulike'), citeulike_redirect_path(id: @document.shasum), rel: "external"

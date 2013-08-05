@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe "search/show", vcr: { cassette_name: 'solr_single' } do
+describe 'search/show', vcr: { cassette_name: 'solr_single' } do
 
   before(:all) do
     Setting.mendeley_key = 'asdf'
@@ -22,7 +22,7 @@ describe "search/show", vcr: { cassette_name: 'solr_single' } do
 
   context 'when not logged in' do
     before(:each) do
-      render template: "search/show", layout: "layouts/application"
+      render template: 'search/show', layout: 'layouts/application'
     end
 
     it 'shows the document details' do
@@ -31,7 +31,7 @@ describe "search/show", vcr: { cassette_name: 'solr_single' } do
     end
 
     it 'has a link to the DOI' do
-      rendered.should have_tag("a[href='http://dx.doi.org/10.1111/j.1439-0310.2008.01576.x']")
+      rendered.should have_tag('a[href="http://dx.doi.org/10.1111/j.1439-0310.2008.01576.x"]')
     end
 
     it 'has a link to Mendeley' do
@@ -47,7 +47,7 @@ describe "search/show", vcr: { cassette_name: 'solr_single' } do
     end
 
     it 'sets the unAPI ID' do
-      rendered.should have_tag(".unapi-id")
+      rendered.should have_tag('.unapi-id')
     end
 
     it "doesn't have a link to create a dataset" do
@@ -68,8 +68,8 @@ describe "search/show", vcr: { cassette_name: 'solr_single' } do
       render
     end
 
-    it "has a link to create a dataset from this document" do
-      expected = new_dataset_path(q: "shasum:00972c5123877961056b21aea4177d0dc69c7318", qt: 'precise', fq: nil)
+    it 'has a link to create a dataset from this document' do
+      expected = new_dataset_path(q: 'shasum:00972c5123877961056b21aea4177d0dc69c7318', qt: 'precise', fq: nil)
       rendered.should have_tag("a[href='#{expected}']")
     end
 

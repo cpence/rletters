@@ -28,12 +28,14 @@ describe LibrariesController do
     context 'when library is valid' do
       it 'creates a library' do
         expect {
-          post :create, library: FactoryGirl.attributes_for(:library, user: @user)
-        }.to change{@user.libraries.count}.by(1)
+          post :create,
+               library: FactoryGirl.attributes_for(:library, user: @user)
+        }.to change { @user.libraries.count }.by(1)
       end
 
       it 'redirects to the user page' do
-        post :create, library: FactoryGirl.attributes_for(:library, user: @user)
+        post :create,
+             library: FactoryGirl.attributes_for(:library, user: @user)
         response.should redirect_to(edit_user_registration_path)
       end
     end
@@ -41,12 +43,18 @@ describe LibrariesController do
     context 'when library is invalid' do
       it "doesn't create a library" do
         expect {
-          post :create, library: FactoryGirl.attributes_for(:library, url: 'what:nope', user: @user)
-        }.to_not change{@user.libraries.count}
+          post :create,
+               library: FactoryGirl.attributes_for(:library,
+                                                   url: 'what:nope',
+                                                   user: @user)
+        }.to_not change { @user.libraries.count }
       end
 
-      it "renders the new form" do
-        post :create, library: FactoryGirl.attributes_for(:library, url: 'what:nope', user: @user)
+      it 'renders the new form' do
+        post :create,
+             library: FactoryGirl.attributes_for(:library,
+                                                 url: 'what:nope',
+                                                 user: @user)
         response.should_not redirect_to(edit_user_registration_path)
       end
     end
@@ -100,7 +108,7 @@ describe LibrariesController do
       it 'does not delete the library' do
         expect {
           delete :destroy, id: @library.to_param, cancel: true
-        }.to_not change{@user.libraries.count}
+        }.to_not change { @user.libraries.count }
       end
 
       it 'redirects to the user page' do
@@ -113,7 +121,7 @@ describe LibrariesController do
       it 'deletes the library' do
         expect {
           delete :destroy, id: @library.to_param
-        }.to change{@user.libraries.count}.by(-1)
+        }.to change { @user.libraries.count }.by(-1)
       end
 
       it 'redirects to the user page' do
@@ -124,14 +132,16 @@ describe LibrariesController do
   end
 
   describe '#query' do
-    context 'when no libraries are returned', vcr: { cassette_name: 'libraries_query_empty' } do
+    context 'when no libraries are returned',
+            vcr: { cassette_name: 'libraries_query_empty' } do
       it 'assigns no libraries' do
         get :query
         assigns(:libraries).should have(0).items
       end
     end
 
-    context 'when libraries are returned', vcr: { cassette_name: 'libraries_query_notredame' } do
+    context 'when libraries are returned',
+            vcr: { cassette_name: 'libraries_query_notredame' } do
       it 'assigns the libraries' do
         get :query
         assigns(:libraries).should have(1).item
@@ -140,7 +150,8 @@ describe LibrariesController do
 
     context 'when WorldCat times out' do
       it 'assigns no libraries' do
-        stub_request(:any, /worldcatlibraries.org\/registry\/lookup.*/).to_timeout
+        stub_request(:any,
+                     %r{worldcatlibraries.org/registry/lookup.*}).to_timeout
         get :query
         assigns(:libraries).should have(0).items
       end

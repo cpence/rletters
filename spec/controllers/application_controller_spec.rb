@@ -31,7 +31,7 @@ describe ApplicationController do
       end
 
       it "sets locale to the user's language" do
-        I18n.locale.should eq(:'es-MX')
+        I18n.locale.should eq(:'es-MX') # rubocop:disable SymbolName
       end
     end
   end

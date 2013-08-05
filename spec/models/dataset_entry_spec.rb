@@ -14,7 +14,7 @@ describe DatasetEntry do
       end
     end
 
-    context "when a short shasum is specified" do
+    context 'when a short shasum is specified' do
       before(:each) do
         @entry = FactoryGirl.build(:dataset_entry, shasum: 'notanshasum')
       end
@@ -24,7 +24,7 @@ describe DatasetEntry do
       end
     end
 
-    context "when an invalid shasum is specified" do
+    context 'when an invalid shasum is specified' do
       before(:each) do
         @entry = FactoryGirl.build(:dataset_entry, shasum: '1234567890thisisbad!')
       end
@@ -34,12 +34,12 @@ describe DatasetEntry do
       end
     end
 
-    context "when a good shasum is specified" do
+    context 'when a good shasum is specified' do
       before(:each) do
         @entry = FactoryGirl.create(:dataset_entry)
       end
 
-      it "is valid" do
+      it 'is valid' do
         @entry.should be_valid
       end
     end

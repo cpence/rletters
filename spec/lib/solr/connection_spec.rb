@@ -26,7 +26,7 @@ describe Solr::Connection do
   end
 
   describe '.get_solr' do
-    it "successfully responds to changes in cached Solr URL" do
+    it 'successfully responds to changes in cached Solr URL' do
       old_url = Setting.solr_server_url
 
       Solr::Connection.send(:get_solr)

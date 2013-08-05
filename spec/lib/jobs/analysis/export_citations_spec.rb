@@ -14,8 +14,8 @@ describe Jobs::Analysis::ExportCitations do
                                   working: true, user: @user)
   end
 
-  context "when an invalid format is specified" do
-    it "raises an exception" do
+  context 'when an invalid format is specified' do
+    it 'raises an exception' do
       expect {
         Jobs::Analysis::ExportCitations.new(user_id: @user.to_param,
                                             dataset_id: @dataset.to_param,
@@ -24,8 +24,9 @@ describe Jobs::Analysis::ExportCitations do
     end
   end
 
-  context "when the format is a string", vcr: { cassette_name: 'solr_single' } do
-    it "works anyway" do
+  context 'when the format is a string',
+          vcr: { cassette_name: 'solr_single' } do
+    it 'works anyway' do
       expect {
         Jobs::Analysis::ExportCitations.new(user_id: @user.to_param,
                                             dataset_id: @dataset.to_param,
@@ -34,7 +35,8 @@ describe Jobs::Analysis::ExportCitations do
     end
   end
 
-  context "when all parameters are valid", vcr: { cassette_name: 'solr_single' } do
+  context 'when all parameters are valid',
+          vcr: { cassette_name: 'solr_single' } do
     before(:each) do
       Jobs::Analysis::ExportCitations.new(user_id: @user.to_param,
                                           dataset_id: @dataset.to_param,
@@ -45,11 +47,11 @@ describe Jobs::Analysis::ExportCitations do
       @dataset.analysis_tasks[0].destroy
     end
 
-    it "names the task correctly" do
-      @dataset.analysis_tasks[0].name.should eq("Export as BibTeX")
+    it 'names the task correctly' do
+      @dataset.analysis_tasks[0].name.should eq('Export as BibTeX')
     end
 
-    it "creates a proper ZIP file" do
+    it 'creates a proper ZIP file' do
       Zip::ZipFile.open(@dataset.analysis_tasks[0].result_file.filename) do |zf|
         zf.should have(10).entry
       end

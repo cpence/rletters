@@ -5,9 +5,7 @@ RSpec::Matchers.define :be_lucene_query do |expected|
   end
 
   def query_to_array(str)
-    unless str[0] == '('
-      return [ str[1..-2] ]
-    end
+    return [str[1..-2]] unless str[0] == '('
     str[1..-2].split(' OR ').map { |n| n[1..-2] }
   end
 

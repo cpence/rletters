@@ -3,7 +3,7 @@ require 'spec_helper'
 
 SimpleCov.command_name 'spec:views' if defined?(SimpleCov)
 
-describe "search/index" do
+describe 'search/index' do
 
   before(:each) do
     # Default to no signed-in user
@@ -30,7 +30,8 @@ describe "search/index" do
     assign(:documents, Document.find_all_by_solr_query(solr_query))
   end
 
-  context 'when no search is performed', vcr: { cassette_name: 'solr_default' } do
+  context 'when no search is performed',
+          vcr: { cassette_name: 'solr_default' } do
     before(:each) do
       do_solr_query
     end
@@ -54,12 +55,12 @@ describe "search/index" do
         rendered.should have_tag('li[data-theme=e]', text: 'Log in to analyze results!')
       end
 
-      it "shows a link to sort by score" do
+      it 'shows a link to sort by score' do
         expected = url_for(params.merge({ sort: 'score desc' }))
         rendered.should have_tag("a[href='#{expected}']")
       end
 
-      it "shows a link to sort ascending by journal" do
+      it 'shows a link to sort ascending by journal' do
         expected = url_for(params.merge({ sort: 'journal_sort asc' }))
         rendered.should have_tag("a[href='#{expected}']")
       end
@@ -71,21 +72,21 @@ describe "search/index" do
 
       it 'shows author facets' do
         rendered.should have_tag('li', text: 'J. C. Crabbe9') do
-          with_tag("a[href='#{search_path(fq: [ 'authors_facet:"J. C. Crabbe"' ])}']")
+          with_tag("a[href='#{search_path(fq: ['authors_facet:"J. C. Crabbe"'])}']")
           with_tag('span.ui-li-count', text: '9')
         end
       end
 
       it 'shows journal facets' do
         rendered.should have_tag('li', text: 'Ethology594') do
-          with_tag("a[href='#{search_path(fq: [ 'journal_facet:"Ethology"' ])}']")
+          with_tag("a[href='#{search_path(fq: ['journal_facet:"Ethology"'])}']")
           with_tag('span.ui-li-count', text: '594')
         end
       end
 
       it 'shows year facets' do
         rendered.should have_tag('li', text: '1990–199994') do
-          with_tag("a[href='#{search_path(fq: [ 'year:[1990 TO 1999]' ])}']")
+          with_tag("a[href='#{search_path(fq: ['year:[1990 TO 1999]'])}']")
           with_tag('span.ui-li-count', text: '94')
         end
       end
@@ -151,13 +152,13 @@ describe "search/index" do
 
       it 'parses this facet correctly' do
         rendered.should have_tag('li', text: '2010 and later160') do
-          with_tag("a[href='#{search_path(fq: [ 'year:[2010 TO *]' ])}']")
+          with_tag("a[href='#{search_path(fq: ['year:[2010 TO *]'])}']")
           with_tag('span.ui-li-count', text: '160')
         end
       end
     end
 
-  #FIXME
+  #   FIXME
   #   context 'when parsing *-1790' do
   #     before(:each) do
   #       do_solr_query
@@ -173,9 +174,10 @@ describe "search/index" do
   #   end
   end
 
-  context 'when displaying facets', vcr: { cassette_name: 'search_view_with_facets' } do
+  context 'when displaying facets',
+          vcr: { cassette_name: 'search_view_with_facets' } do
     before(:each) do
-      do_solr_query(nil, [ 'authors_facet:"Amanda M. Koltz"', 'journal_facet:"Ethology"' ])
+      do_solr_query(nil, ['authors_facet:"Amanda M. Koltz"', 'journal_facet:"Ethology"'])
       render
     end
 
@@ -187,7 +189,7 @@ describe "search/index" do
 
     it 'displays a specific remove-facet link' do
       rendered.should have_tag('ul.facetlist li', text: 'Authors: Amanda M. Koltz') do
-        with_tag("a[href='#{search_path(fq: [ 'journal_facet:"Ethology"' ])}']")
+        with_tag("a[href='#{search_path(fq: ['journal_facet:"Ethology"'])}']")
       end
     end
   end

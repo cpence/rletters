@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe "datasets/show" do
+describe 'datasets/show' do
 
   before(:each) do
     @user = FactoryGirl.create(:user)
@@ -23,7 +23,7 @@ describe "datasets/show" do
     rendered.should =~ /Export dataset as citations/
   end
 
-  it "has a reference somewhere to the task list" do
+  it 'has a reference somewhere to the task list' do
     # Need to render the layout in order to get the page-JS
     render template: 'datasets/show', layout: 'layouts/application'
     rendered.should include(task_list_dataset_path(@dataset))

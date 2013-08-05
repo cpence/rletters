@@ -9,7 +9,7 @@ describe InfoController do
     it 'adds a trailing slash when there is none' do
       request.env['REQUEST_URI'] = '/info'
       get :index, trailing_slash: false
-      response.should redirect_to("/info/")
+      response.should redirect_to('/info/')
     end
 
     it "doesn't redirect when there is a trailing slash" do

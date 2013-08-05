@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe "datasets/task_list" do
+describe 'datasets/task_list' do
 
   before(:each) do
     @user = FactoryGirl.create(:user)
@@ -14,17 +14,20 @@ describe "datasets/task_list" do
   end
 
   it 'shows pending analysis tasks' do
-    task = FactoryGirl.create(:analysis_task, dataset: @dataset)
+    FactoryGirl.create(:analysis_task, dataset: @dataset)
     render
 
-    rendered.should have_tag("li[data-theme=e]", text: '1 analysis task pending for this dataset...')
+    rendered.should have_tag('li[data-theme=e]', text: '1 analysis task pending for this dataset...')
   end
 
   context 'with completed analysis tasks' do
     before(:each) do
       # This needs to be a real job type, since we're making URLs
-      @task = FactoryGirl.create(:analysis_task, name: 'test', dataset: @dataset,
-                                 job_type: "ExportCitations", finished_at: 5.minutes.ago)
+      @task = FactoryGirl.create(:analysis_task,
+                                 name: 'test',
+                                 dataset: @dataset,
+                                 job_type: 'ExportCitations',
+                                 finished_at: 5.minutes.ago)
       render
     end
 
@@ -33,14 +36,18 @@ describe "datasets/task_list" do
     end
 
     it 'shows a link to download the results' do
-      expected = url_for(controller: 'datasets', action: 'task_download',
-        id: @dataset.to_param, task_id: @task.to_param)
+      expected = url_for(controller: 'datasets',
+                         action: 'task_download',
+                         id: @dataset.to_param,
+                         task_id: @task.to_param)
       rendered.should have_tag("a[href='#{expected}']")
     end
 
     it 'shows a link to delete the task' do
-      expected = url_for(controller: 'datasets', action: 'task_destroy',
-        id: @dataset.to_param, task_id: @task.to_param)
+      expected = url_for(controller: 'datasets',
+                         action: 'task_destroy',
+                         id: @dataset.to_param,
+                         task_id: @task.to_param)
       rendered.should have_tag("a[href='#{expected}']")
     end
   end

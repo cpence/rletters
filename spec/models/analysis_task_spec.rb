@@ -3,8 +3,8 @@ require 'spec_helper'
 
 describe AnalysisTask do
 
-  describe "#valid?" do
-    context "when no name is specified" do
+  describe '#valid?' do
+    context 'when no name is specified' do
       before(:each) do
         @task = FactoryGirl.build(:analysis_task, name: nil)
       end
@@ -14,7 +14,7 @@ describe AnalysisTask do
       end
     end
 
-    context "when no dataset is specified" do
+    context 'when no dataset is specified' do
       before(:each) do
         @task = FactoryGirl.build(:analysis_task, dataset: nil)
       end
@@ -24,7 +24,7 @@ describe AnalysisTask do
       end
     end
 
-    context "when no type is specified" do
+    context 'when no type is specified' do
       before(:each) do
         @task = FactoryGirl.build(:analysis_task, job_type: nil)
       end
@@ -34,19 +34,19 @@ describe AnalysisTask do
       end
     end
 
-    context "when dataset, type, and name are specified" do
+    context 'when dataset, type, and name are specified' do
       before(:each) do
         @task = FactoryGirl.create(:analysis_task)
       end
 
-      it "is valid" do
+      it 'is valid' do
         @task.should be_valid
       end
     end
   end
 
   describe '#finished_at' do
-    context "when newly created" do
+    context 'when newly created' do
       before(:each) do
         @task = FactoryGirl.create(:analysis_task)
       end
@@ -58,12 +58,12 @@ describe AnalysisTask do
   end
 
   describe '#failed' do
-    context "when newly created" do
+    context 'when newly created' do
       before(:each) do
         @task = FactoryGirl.create(:analysis_task)
       end
 
-      it "is false" do
+      it 'is false' do
         @task.finished_at.should be_false
       end
     end
@@ -79,8 +79,8 @@ describe AnalysisTask do
     @filename = @task.result_file.filename
   end
 
-  describe "#result_file" do
-    context "when a file is created" do
+  describe '#result_file' do
+    context 'when a file is created' do
       before(:each) do
         create_task_with_file
       end
@@ -89,24 +89,24 @@ describe AnalysisTask do
         @task.destroy
       end
 
-      it "creates the file" do
+      it 'creates the file' do
         File.exists?(@filename).should be_true
       end
 
-      it "points to the right file" do
+      it 'points to the right file' do
         IO.read(@filename).should eq('test')
       end
     end
   end
 
-  describe "#destroy" do
-    context "when there is an associated file" do
+  describe '#destroy' do
+    context 'when there is an associated file' do
       before(:each) do
         create_task_with_file
         @task.destroy
       end
 
-      it "deletes the file" do
+      it 'deletes the file' do
         File.exists?(@filename).should be_false
       end
     end
