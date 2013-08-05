@@ -13,8 +13,8 @@ Dir.glob(Rails.root.join('db', 'seeds', 'csl', '*.csl')) do |csl|
 
   File.open(csl) do |f|
     doc = REXML::Document.new(f)
-    elt = doc.elements.each('style/info/title') do |elt|
-      name = elt.get_text.value
+    doc.elements.each('style/info/title') do |e|
+      name = e.get_text.value
       break
     end
   end
@@ -27,7 +27,7 @@ end
 
 # Markdown pages
 Dir.glob(Rails.root.join('db', 'seeds', 'markdown', '*.md')) do |md|
-  name = File.basename(md, '.md')  
+  name = File.basename(md, '.md')
   MarkdownPage.where(name: name).first_or_create(content: IO.read(md))
 end
 
