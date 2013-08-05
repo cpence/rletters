@@ -16,8 +16,8 @@ describe UnapiController do
     end
 
     unless format
-      @doc = REXML::Document.new response.body
-      @formats = @doc.root.elements.to_a('format')
+      @doc = Nokogiri::XML::Document.parse(response.body)
+      @formats = @doc.root.css('format').to_a
     end
   end
 
@@ -44,14 +44,14 @@ describe UnapiController do
   it 'gives each format a type' do
     get_unapi
     @formats.each do |f|
-      f.attributes.should include('type')
+      f.attributes.keys.should include('type')
     end
   end
 
   it 'gives each format a name' do
     get_unapi
     @formats.each do |f|
-      f.attributes.should include('name')
+      f.attributes.keys.should include('name')
     end
   end
 
@@ -73,14 +73,14 @@ describe UnapiController do
   it 'each format (w/ id) has a type' do
     get_unapi true
     @formats.each do |f|
-      f.attributes.should include('type')
+      f.attributes.keys.should include('type')
     end
   end
 
   it 'each format (w/ id) has a name' do
     get_unapi true
     @formats.each do |f|
-      f.attributes.should include('name')
+      f.attributes.keys.should include('name')
     end
   end
 

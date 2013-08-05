@@ -14,12 +14,7 @@ module Serializers
       )
       base.register_serializer(
         :marcxml, 'MARCXML',
-        lambda do |doc|
-          xml = doc.to_marc_xml
-          ret = ''
-          xml.write(ret, 2)
-          ret
-        end,
+        ->(doc) { doc.to_marc_xml.to_xml(indent: 2) },
         'http://www.loc.gov/standards/marcxml/'
       )
       base.register_serializer(
@@ -196,17 +191,23 @@ module Serializers
     # @api public
     # @param [Boolean] include_namespace if false, put no namespace in the
     #   root element
-    # @return [REXML::Document] the document as a MARC-XML document
+    # @return [Nokogiri::XML::Document] the document as a MARC-XML document
     # @example Output the document as MARC-XML in a string
     #   ret = ''
-    #   doc.to_marc_xml.write(ret, 2)
+    #   doc.to_marc_xml.to_xml(indent: 2, encoding: 'UTF-8')
     # :nocov:
-    def to_marc_xml(include_namespace = false)
-      doc = REXML::Document.new
-      doc << REXML::XMLDecl.new
-      doc << ::MARC::XMLWriter.encode(to_marc,
-                                      include_namespace: include_namespace)
-      doc
+    def to_marc_xml(include_namespace = true)
+      # This uses REXML, and there's nothing for it but to write it out and
+      # convert it back to Nokogiri
+      rexml_element = ::MARC::XMLWriter.encode(
+        to_marc,
+        include_namespace: include_namespace
+      )
+      xml = String.new
+      formatter = REXML::Formatters::Default.new
+      formatter.write(rexml_element, xml)
+
+      Nokogiri::XML::Document.parse(xml)
     end
     # :nocov:
 
@@ -257,24 +258,23 @@ class Array
   # raise an ArgumentError otherwise.
   #
   # @api public
-  # @return [REXML::Document] array of documents as MARCXML collection document
+  # @return [Nokogiri::XML::Document] array of documents as MARCXML collection
+  #   document
   # @example Save an array of documents in MARCXML format to stdout
   #   doc_array = Document.find_all_by_solr_query(...)
-  #   doc_array.to_marc_xml.write($stdout, 2)
+  #   doc_array.to_marc_xml.to_xml(indent: 2, encoding: 'UTF-8')
   def to_marc_xml
     each do |x|
-      raise ArgumentError, 'No to_marc method for array element' unless x.respond_to? :to_marc
+      raise ArgumentError, 'No to_marc_xml method for array element' unless x.respond_to? :to_marc_xml
     end
 
-    coll = REXML::Element.new 'collection'
-    coll.add_namespace('http://www.loc.gov/MARC21/slim')
+    doc = Nokogiri::XML::Document.new
+    node = Nokogiri::XML::Node.new('collection', doc)
+    node.add_namespace_definition(nil, 'http://www.loc.gov/MARC21/slim')
+    doc.root = node
 
-    map { |d| coll.add(d.to_marc_xml(false).root) }
+    map { |d| node.add_child(d.to_marc_xml(false).root) }
 
-    ret = REXML::Document.new
-    ret << REXML::XMLDecl.new
-    ret << coll
-
-    ret
+    doc
   end
 end

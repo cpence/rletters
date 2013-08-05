@@ -111,8 +111,12 @@ class LibrariesController < ApplicationController
       res = Net::HTTP.start('worldcatlibraries.org') do |http|
         http.get("/registry/lookup?IP=#{request.remote_ip}")
       end
+
+      # We have to strip the namespaces from this XML, because the markup we
+      # get from WorldCat often includes anonymous, unprefixed namespaces
+      # on child elements, which drives Nokogiri absolutely crazy.
       doc = Nokogiri::XML::Document.parse(res.body).remove_namespaces!
-      @libraries = doc.root.css('resolverRegistryEntry').map do |entry|
+      @libraries = doc.css('resolverRegistryEntry').map do |entry|
         { name: entry.at_css('institutionName').content,
           url: entry.at_css('resolver baseURL').content }
       end
