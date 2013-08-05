@@ -48,6 +48,6 @@ http_interactions:
         '',''uptime''=>''17:21  up  2:41, 1 user, load averages: 1.13 0.88 0.63
 
         ''}}'
-    http_version: 
+    http_version:
   recorded_at: Wed, 06 Mar 2013 22:21:52 GMT
 recorded_with: VCR 2.4.0

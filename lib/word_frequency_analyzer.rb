@@ -7,18 +7,21 @@
 # @!attribute [r] block_stats
 #   Information about each block.
 #
-#   Each hash in this array (one per block) has :name, :types, and :tokens 
+#   Each hash in this array (one per block) has :name, :types, and :tokens
 #   keys.
 #
 #   @return [Array<Hash>] Block information
 # @!attribute [r] word_list
 #   @return [Array<String>] The list of words analyzed
 # @!attribute [r] tf_in_dataset
-#   @return [Hash<String, Integer>] For each word, how many times that word occurs in the dataset
+#   @return [Hash<String, Integer>] For each word, how many times that word
+#     occurs in the dataset
 # @!attribute [r] df_in_dataset
-#   @return [Hash<String, Integer>] For each word, the number of documents in the dataset in which that word appears
+#   @return [Hash<String, Integer>] For each word, the number of documents in
+#     the dataset in which that word appears
 # @!attribute [r] df_in_corpus
-#   @return [Hash<String, Integer>] For each word, the number of documents in the entire Solr corpus in which that word appears
+#   @return [Hash<String, Integer>] For each word, the number of documents in
+#     the entire Solr corpus in which that word appears
 # @!attribute [r] num_dataset_tokens
 #   @return [Integer] The number of tokens in the dataset
 # @!attribute [r] num_dataset_types
@@ -45,21 +48,20 @@ class WordFrequencyAnalyzer
       solr_query[:qt] = 'precise'
       solr_query[:rows] = 1
       solr_query[:start] = 0
-      
+
       solr_response = Solr::Connection.find solr_query
-      
+
       # An exception thrown here percolates, usually, out of
       # a delayed job, which is a not-uncommon exception case.
-      raise ActiveRecord::StatementInvalid unless
-        solr_response["response"] &&
-        solr_response["response"]["numFound"]
-      
-      @corpus_size = solr_response["response"]["numFound"]
+      raise ActiveRecord::StatementInvalid.new('Solr did not respond to a query of the entire document set') unless
+        solr_response['response'] &&
+        solr_response['response']['numFound']
+
+      @corpus_size = solr_response['response']['numFound']
     end
-    
+
     @corpus_size
   end
-
 
   # Create a new word frequency analyzer and analyze
   #
@@ -89,7 +91,7 @@ class WordFrequencyAnalyzer
     # Prep the data containers
     @blocks = []
     @block_stats = []
-    
+
     # If we're split_across, we can now compute block_size from num_blocks
     # and vice versa
     if @split_across
@@ -99,7 +101,7 @@ class WordFrequencyAnalyzer
     # Set up the initial block
     @block_num = 0
     clear_block(false)
-    
+
     # Process all of the documents
     @dataset.entries.each do |e|
       @current_doc = Document.find_with_fulltext e.shasum
@@ -110,33 +112,33 @@ class WordFrequencyAnalyzer
       # compute how many/how big the blocks should be for this document
       unless @split_across
         @block_num = 0
-        compute_block_size(tv.values.map { |x| x["tf"] }.reduce(:+))
+        compute_block_size(tv.values.map { |x| x['tf'] }.reduce(:+))
       end
-      
+
       # Create a single array that has the words in the document sorted
       # by position
       sorted_words = []
       tv.each do |word, hash|
         next unless @word_list.include? word
-        
+
         hash[:positions].each do |p|
-          sorted_words << [ word, p ]
+          sorted_words << [word, p]
         end
       end
       sorted_words.sort! { |a, b| a[1] <=> b[1] }
       sorted_words.map! { |x| x[0] }
-      
+
       # Do the processing for this document
       sorted_words.each do |word|
         @block[word] += 1
         @block_tokens += 1
-        
+
         if @block[word] == 1
           @block_types += 1
         end
-        
+
         @block_counter += 1
-        
+
         # If the block size doesn't divide evenly into the number of blocks
         # that we want, we want to consume the remainder one at a time over
         # the course of all the blocks, and *not* leave it until the end, or
@@ -146,20 +148,20 @@ class WordFrequencyAnalyzer
         if @num_remainder_blocks != 0
           check_size = @block_size + 1
         end
-        
+
         if @block_counter >= check_size
           @num_remainder_blocks -= 1 if @num_remainder_blocks != 0
           clear_block
         end
       end
-      
+
       # If we're not splitting across, we need to make sure the last block
       # for this doc, if there's anything in it, has been added to the list.
       if !@split_across && @block_counter != 0
         clear_block
       end
     end
-    
+
     # If we are splitting across, we need to put the last block into the
     # list
     if @split_across && @block_counter != 0
@@ -168,7 +170,7 @@ class WordFrequencyAnalyzer
   end
 
   private
-  
+
   # Set the options from the options hash and normalize their values
   #
   # @api private
@@ -213,7 +215,6 @@ class WordFrequencyAnalyzer
     end
   end
 
-
   # Compute the df and tf for all the words in the dataset
   #
   # This function computes and sets @df_in_dataset, @tf_in_dataset,
@@ -224,8 +225,8 @@ class WordFrequencyAnalyzer
   # All three of these variables are hashes, with the words as String keys
   # and the tf/df values as Integer values.
   #
-  # Finally, this function also sets +num_dataset_types and @num_dataset_tokens,
-  # as we can compute them easily here.
+  # Finally, this function also sets +num_dataset_types and
+  # @num_dataset_tokens, as we can compute them easily here.
   #
   # Note that there is no such thing as +tf_in_corpus+, as this would be
   # incredibly, prohibitively expensive and is not provided by Solr.
@@ -235,18 +236,18 @@ class WordFrequencyAnalyzer
     @df_in_dataset = {}
     @tf_in_dataset = {}
     @df_in_corpus = {}
-    
+
     @dataset.entries.each do |e|
       doc = Document.find_with_fulltext e.shasum
       tv = doc.term_vectors
-      
+
       tv.each do |word, hash|
         # Oddly enough, you'll get weird bogus values for words that don't
         # appear in your document back from Solr.  Not sure what's up with
         # that.
         @df_in_corpus[word] = hash[:df] unless hash[:df] == 0
         next if hash[:tf] == 0
-        
+
         @tf_in_dataset[word] ||= 0
         @tf_in_dataset[word] += hash[:tf]
 
@@ -259,21 +260,20 @@ class WordFrequencyAnalyzer
     @num_dataset_tokens ||= @tf_in_dataset.values.reduce(:+)
   end
 
-
   # Determine which words we'll analyze
   #
   # This function takes the @num_words most (FIXME: or least) frequent words
   # from the @tf_in_dataset list and sets the array @word_list.
   #
   # @api private
-  def pick_words    
+  def pick_words
     if @num_words == 0
       @word_list = @tf_in_dataset.keys
     else
-      @word_list = @tf_in_dataset.to_a.sort { |a, b| b[1] <=> a[1] }.take(@num_words).map { |a| a[0] }
+      sorted_pairs = @tf_in_dataset.to_a.sort { |a, b| b[1] <=> a[1] }
+      @word_list = sorted_pairs.take(@num_words).map { |a| a[0] }
     end
   end
-
 
   # Get the name of this block
   #
@@ -294,7 +294,6 @@ class WordFrequencyAnalyzer
     end
   end
 
-
   # Reset all the current block information
   #
   # This clears all the block-related variables and sets us up for a new
@@ -305,23 +304,22 @@ class WordFrequencyAnalyzer
   def clear_block(add = true)
     if add
       @block_num += 1
-      
-      @block_stats << { :name => block_name, :types => @block_types,
-        :tokens => @block_tokens }
+
+      @block_stats << { name: block_name, types: @block_types,
+        tokens: @block_tokens }
       @blocks << @block.dup
     end
-    
+
     @block_counter = 0
     @block_types = 0
     @block_tokens = 0
-    
+
     # Set up an empty block
     @block = {}
     @word_list.each do |w|
       @block[w] = 0
     end
   end
-
 
   # Compute the block size parameters from the number of tokens
   #
@@ -346,6 +344,6 @@ class WordFrequencyAnalyzer
       @num_remainder_blocks = 0
     end
   end
-  
+
 end
 

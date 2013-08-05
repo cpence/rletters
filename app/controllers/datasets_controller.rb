@@ -10,13 +10,13 @@
 # @see Dataset
 class DatasetsController < ApplicationController
   before_filter :authenticate_user!
-  
+
   # Show all of the current user's datasets
   # @api public
   # @return [undefined]
   def index
   end
-  
+
   # Show the list of datasets for this user
   #
   # This list needs to be updated live, as the datasets are being created
@@ -26,7 +26,7 @@ class DatasetsController < ApplicationController
   # @return [undefined]
   def dataset_list
     @datasets = current_user.datasets
-    render :layout => false
+    render layout: false
   end
 
   # Show information about the requested dataset
@@ -39,7 +39,7 @@ class DatasetsController < ApplicationController
   def show
     @dataset = current_user.datasets.find(params[:id])
     raise ActiveRecord::RecordNotFound unless @dataset
-    
+
     if params[:clear_failed] && @dataset.analysis_tasks.failed.count > 0
       @dataset.analysis_tasks.failed.destroy_all
       flash[:notice] = t('datasets.show.deleted')
@@ -51,30 +51,31 @@ class DatasetsController < ApplicationController
   # @return [undefined]
   def new
     @dataset = current_user.datasets.build
-    render :layout => 'dialog'
+    render layout: 'dialog'
   end
-  
+
   # Show a confirmation box for deleting a dataset
   # @api public
   # @return [undefined]
   def delete
     @dataset = current_user.datasets.find(params[:id])
     raise ActiveRecord::RecordNotFound unless @dataset
-    render :layout => 'dialog'
+    render layout: 'dialog'
   end
-  
+
   # Create a new dataset in the database
   # @api public
   # @return [undefined]
   def create
     Delayed::Job.enqueue Jobs::CreateDataset.new(
-      :user_id => current_user.to_param,
-      :name => params[:dataset][:name],
-      :q => params[:q],
-      :fq => params[:fq],
-      :qt => params[:qt]), :queue => 'ui'
-    
-    redirect_to datasets_path, :notice => I18n.t('datasets.create.building')
+                           user_id: current_user.to_param,
+                           name: dataset_params[:name],
+                           q: params[:q],
+                           fq: params[:fq],
+                           qt: params[:qt]),
+                         queue: 'ui'
+
+    redirect_to datasets_path, notice: I18n.t('datasets.create.building')
   end
 
   # Delete a dataset from the database
@@ -83,11 +84,16 @@ class DatasetsController < ApplicationController
   def destroy
     @dataset = current_user.datasets.find(params[:id])
     raise ActiveRecord::RecordNotFound unless @dataset
-    redirect_to @dataset and return if params[:cancel]
+
+    if params[:cancel]
+      redirect_to @dataset
+      return
+    end
 
     Delayed::Job.enqueue Jobs::DestroyDataset.new(
-      :user_id => current_user.to_param,
-      :dataset_id => params[:id]), :queue => 'ui'
+                           user_id: current_user.to_param,
+                           dataset_id: params[:id]),
+                         queue: 'ui'
 
     redirect_to datasets_path
   end
@@ -104,10 +110,10 @@ class DatasetsController < ApplicationController
     raise ActiveRecord::RecordNotFound unless @document
 
     # No reason for this to be a delayed job, just do the create
-    @dataset.entries.create({ :shasum => params[:shasum] })
+    @dataset.entries.create({ shasum: params[:shasum] })
     redirect_to dataset_path(@dataset)
   end
-  
+
   # Show the list of analysis tasks for this dataset
   #
   # This list needs to be updated live, as the tasks are running in the
@@ -118,10 +124,10 @@ class DatasetsController < ApplicationController
   def task_list
     @dataset = current_user.datasets.find(params[:id])
     raise ActiveRecord::RecordNotFound unless @dataset
-    
-    render :layout => false
+
+    render layout: false
   end
-  
+
   # Start an analysis task for this dataset
   #
   # This method dynamically determines the appropriate background job to start
@@ -133,21 +139,19 @@ class DatasetsController < ApplicationController
     dataset = current_user.datasets.find(params[:id])
     raise ActiveRecord::RecordNotFound unless dataset
     klass = AnalysisTask.job_class(params[:class])
-    
+
     # Put the job parameters together out of the job hash
     job_params = {}
-    if params[:job_params]
-      job_params = params[:job_params].to_hash
-      job_params.symbolize_keys!
-    end
+    job_params = params[:job_params].to_hash if params[:job_params]
+    job_params.symbolize_keys!
     job_params[:user_id] = current_user.to_param
     job_params[:dataset_id] = dataset.to_param
-    
+
     # Enqueue the job
-    Delayed::Job.enqueue klass.new(job_params), :queue => 'analysis'
+    Delayed::Job.enqueue klass.new(job_params), queue: 'analysis'
     redirect_to dataset_path(dataset)
   end
-  
+
   # Show a view from an analysis task
   #
   # Background jobs are packaged with some of their own views.  This controller
@@ -158,34 +162,38 @@ class DatasetsController < ApplicationController
   def task_view
     @dataset = current_user.datasets.find(params[:id])
     raise ActiveRecord::RecordNotFound unless @dataset
-    
+
     @task = @dataset.analysis_tasks.find(params[:task_id])
     raise ActiveRecord::RecordNotFound unless @task
-    
+
     raise ActiveRecord::RecordNotFound unless params[:view]
-    
+
     klass = @task.job_class
-    render :template => klass.view_path(params[:view])
+    render template: klass.view_path(params[:view])
   end
-  
+
   # Delete an analysis task
   #
   # This action deletes a given analysis task and its associated files.
   #
   # @api public
   # @return [undefined]
-  def task_destroy    
+  def task_destroy
     dataset = current_user.datasets.find(params[:id])
     raise ActiveRecord::RecordNotFound unless dataset
-    redirect_to dataset and return if params[:cancel]
-    
+
+    if params[:cancel]
+      redirect_to dataset
+      return
+    end
+
     task = dataset.analysis_tasks.find(params[:task_id])
     raise ActiveRecord::RecordNotFound unless task
-    
+
     task.destroy
     redirect_to dataset_path
   end
-  
+
   # Download a file from an analysis task
   #
   # This method sends a user a result file from an analysis task.  It requires
@@ -199,8 +207,18 @@ class DatasetsController < ApplicationController
     task = dataset.analysis_tasks.find(params[:task_id])
     raise ActiveRecord::RecordNotFound unless task
     raise ActiveRecord::RecordNotFound unless task.result_file
-    raise ActiveRecord::RecordNotFound unless File.exists?(task.result_file.filename)
-    
+    raise ActiveRecord::RecordNotFound unless task.result_file.exists?
+
     task.result_file.send_file(self)
+  end
+
+  private
+
+  # Whitelist acceptable dataset parameters
+  #
+  # @return [ActionController::Parameters] acceptable parameters for
+  #   mass-assignment
+  def dataset_params
+    params.require(:dataset).permit(:name)
   end
 end

@@ -1,15 +1,15 @@
 # -*- encoding : utf-8 -*-
 
-ActiveAdmin.register_page "Dashboard" do
+ActiveAdmin.register_page 'Dashboard' do
 
-  menu :priority => 1, :label => proc{ I18n.t("active_admin.dashboard") }
+  menu priority: 1, label: proc { I18n.t('active_admin.dashboard') }
 
-  content :title => proc{ I18n.t("active_admin.dashboard") } do
-    
+  content title: proc { I18n.t('active_admin.dashboard') } do
+
     columns do
       column do
-        panel "Newest Datasets" do
-          table_for Dataset.order("created_at desc").limit(5) do
+        panel I18n.t('admin.dashboard.new_datasets') do
+          table_for Dataset.order('created_at desc').limit(5) do
             column :name do |dataset|
               link_to dataset.name, [:admin, dataset]
             end
@@ -19,50 +19,59 @@ ActiveAdmin.register_page "Dashboard" do
             column :created_at
           end
         end
-        
-        panel "Backend Information" do
-          h4 "Database"
-          
+
+        panel I18n.t('admin.dashboard.backend') do
+          h4 I18n.t('admin.dashboard.database')
+
           ul do
             solr_query = {}
             solr_query[:q] = '*:*'
             solr_query[:qt] = 'precise'
             solr_query[:rows] = 5
             solr_query[:start] = 0
-    
+
             solr_response = Solr::Connection.find solr_query
-            
+
             if solr_response['response'] &&
                solr_response['response']['numFound']
-              li "Database size: #{solr_response['response']['numFound']} items"
+              li I18n.t('admin.dashboard.db_size',
+                        count: solr_response['response']['numFound'])
             else
-              li "Cannot connect to Solr!  Configure the Solr URL on the #{link_to "settings page.", list_admin_settings_path}".html_safe
+              li I18n.t('admin.dashboard.connection_failed')
             end
-            
+
             if solr_response['responseHeader'] &&
                solr_response['responseHeader']['QTime']
-               li "Local database latency: #{solr_response['responseHeader']['QTime']} ms"
-             end
+               li I18n.t('admin.dashboard.latency',
+                         count: solr_response['responseHeader']['QTime'])
+            end
           end
-          
-          solr_info = Solr::Connection.info
-          
-          if solr_info['lucene'] && solr_info['jvm']
-            h4 "Solr Server"
 
-            ul do            
-              li "Solr #{solr_info['lucene']['solr-spec-version']}, Lucene #{solr_info['lucene']['lucene-spec-version']}"
-              li "Java #{solr_info['jvm']['version']}"
-            
-              li "Memory: #{solr_info['jvm']['memory']['used']} used, with #{solr_info['jvm']['memory']['free']} free of #{solr_info['jvm']['memory']['total']}; #{solr_info['jvm']['memory']['max']} max"
+          solr_info = Solr::Connection.info
+
+          if solr_info['lucene'] && solr_info['jvm']
+            h4 I18n.t('admin.dashboard.solr')
+
+            ul do
+              li I18n.t('admin.dashboard.solr_version',
+                        solr_ver: solr_info['lucene']['solr-spec-version'],
+                        lucene_ver: solr_info['lucene']['lucene-spec-version'])
+              li I18n.t('admin.dashboard.java_version',
+                        java_ver: solr_info['jvm']['version'])
+
+              li I18n.t('admin.dashboard.memory_info',
+                        used: solr_info['jvm']['memory']['used'],
+                        free: solr_info['jvm']['memory']['free'],
+                        total: solr_info['jvm']['memory']['total'],
+                        max: solr_info['jvm']['memory']['max'])
             end
           end
         end
       end
-      
+
       column do
-        panel "Newest Analysis Tasks" do
-          table_for AnalysisTask.order("created_at desc").limit(10) do
+        panel I18n.t('admin.dashboard.new_analysis_tasks') do
+          table_for AnalysisTask.order('created_at desc').limit(10) do
             column :name do |task|
               link_to task.name, [:admin, task]
             end
@@ -73,9 +82,9 @@ ActiveAdmin.register_page "Dashboard" do
             column :failed
           end
         end
-        
-        panel "Recently Seen Users" do
-          table_for User.order("last_sign_in_at desc").limit(5) do
+
+        panel I18n.t('admin.dashboard.recent_users') do
+          table_for User.order('last_sign_in_at desc').limit(5) do
             column :name do |user|
               link_to user.name, [:admin, user]
             end

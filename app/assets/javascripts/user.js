@@ -3,14 +3,14 @@
 
 function checkLibraryList() {
   var libraryList = $.mobile.activePage.find('div.librarylist');
-  
+
   // If there's a library list at all, we want to refresh its contents (e.g.,
   // after the user closes the "add new library" dialog box)
   if (libraryList.length === 0)
     return;
-  
+
   var ajax_url = libraryList.attr('data-fetch-url');
-  
+
   $.ajax({
     url: ajax_url,
     type: 'get',

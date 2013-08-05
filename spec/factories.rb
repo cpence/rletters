@@ -20,17 +20,17 @@ FactoryGirl.define do
   end
 
   factory :analysis_task do
-    name "Analysis Task"
+    name 'Analysis Task'
     dataset
-    job_type "FakeJob"
+    job_type 'FakeJob'
   end
 
   factory :dataset do
     ignore do
       working false
     end
-    
-    name "Dataset"
+
+    name 'Dataset'
     user
 
     factory :full_dataset do
@@ -41,8 +41,8 @@ FactoryGirl.define do
 
       after(:create) do |dataset, evaluator|
         dataset.entries = evaluator.entries_count.times.map do
-          FactoryGirl.create(:dataset_entry, :dataset => dataset,
-                             :working => evaluator.working)
+          FactoryGirl.create(:dataset_entry, dataset: dataset,
+                             working: evaluator.working)
         end
       end
     end
@@ -52,21 +52,21 @@ FactoryGirl.define do
     ignore do
       working false
     end
-    
+
     sequence(:shasum) do |n|
       if working
         FactoryGirl.generate(:working_shasum)
       else
-        "#{1111111111111111111111111111111111111111 + n}"
+        "#{1_234_567_890_123_456_789_012_345_678_901_234_567_890 + n}"
       end
     end
-    
+
     dataset
   end
 
   factory :document do
     ignore do
-      shasum "1111111111111111111111111111111111111111"
+      shasum '1111111111111111111111111111111111111111'
       doi nil
       license nil
       license_url nil
@@ -96,38 +96,38 @@ FactoryGirl.define do
       end
     end
 
-    initialize_with {
-      Document.new(:shasum => shasum, :doi => doi, :license => license, 
-                   :license_url => license_url, :authors => authors, :title => title,
-                   :journal => journal, :year => year, :volume => volume, :number => number,
-                   :pages => pages, :fulltext => fulltext)
-    }
+    initialize_with do
+      Document.new(shasum: shasum, doi: doi, license: license,
+                   license_url: license_url, authors: authors, title: title,
+                   journal: journal, year: year, volume: volume,
+                   number: number, pages: pages, fulltext: fulltext)
+    end
   end
 
   factory :download do
-    filename "test.txt"
+    filename 'test.txt'
     analysis_task
   end
 
   factory :library do
     name 'Harvard'
-    sequence(:url) {|n| "http://sfx.hul.harvard#{n}.edu/sfx_local?" }
+    sequence(:url) { |n| "http://sfx.hul.harvard#{n}.edu/sfx_local?" }
     user
   end
-  
+
   factory :markdown_page do
     name 'test_page'
     content '# Header'
   end
-  
+
   factory :uploaded_asset do
     name 'test_asset'
     file { File.new(Rails.root.join('spec', 'spec_helper.rb')) }
   end
-  
+
   factory :user do
-    name "John Doe"
-    sequence(:email) {|n| "person#{n}@example.com" }
+    name 'John Doe'
+    sequence(:email) { |n| "person#{n}@example.com" }
     password 'password'
     password_confirmation 'password'
     remember_me false
@@ -135,5 +135,5 @@ FactoryGirl.define do
     language 'en-US'
     timezone 'Eastern Time (US & Canada)'
   end
-  
+
 end

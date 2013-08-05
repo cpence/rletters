@@ -3,9 +3,32 @@
 require File.expand_path('../config/application', __FILE__)
 RLetters::Application.load_tasks
 
-# Start and stop the Solr server around running the built-in Rails server
-task :server => :environment do
-  Rake::Task['solr:start'].invoke
-  system 'rails server'
-  Rake::Task['solr:stop'].invoke
+require 'rubocop/rake_task'
+Rubocop::RakeTask.new do |t|
+  t.patterns = ['--format', 'emacs', '--out', 'metrics/rubocop.txt', '--rails']
+  t.fail_on_error = false
 end
+
+require 'yardstick/rake/measurement'
+Yardstick::Rake::Measurement.new(:yardstick) do |t|
+  t.output = 'metrics/yardstick.txt'
+end
+
+# This task is broken at the moment on Brakeman 2.1.0; pending
+# https://github.com/presidentbeef/brakeman/issues/373
+require 'brakeman'
+desc 'Run Brakeman'
+task :brakeman do |t|
+  Brakeman.run(app_path: '.', output_file: 'metrics/brakeman.html',
+               print_report: true)
+end
+
+require 'simplabs/excellent/rake'
+Simplabs::Excellent::Rake::ExcellentTask.new(:excellent) do |t|
+  t.html = 'metrics/excellent.html'
+  t.paths = %w{app lib}
+end
+
+
+desc "Run all available code metrics"
+task :metrics => [:rubocop, :yardstick, :excellent]

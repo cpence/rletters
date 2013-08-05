@@ -10,8 +10,8 @@ class ChangeCslStyleToId < ActiveRecord::Migration
   def down
     change_table :users do |t|
       t.remove :csl_style_id
-      t.string :csl_style, :default => ""
+      t.string :csl_style, default: ''
     end
-    User.update_all ["csl_style = ?", ""]
+    User.update_all ['csl_style = ?', '']
   end
 end

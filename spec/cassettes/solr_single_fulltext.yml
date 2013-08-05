@@ -1,172 +1,172 @@
---- 
-http_interactions: 
-- request: 
+---
+http_interactions:
+- request:
     method: get
     uri: http://localhost:8983/select?q=shasum:00040b66948f49c3a6c6c0977530e2014899abf9&qt=fulltext&wt=ruby
-    body: 
+    body:
       encoding: US-ASCII
       string: ""
     headers: {}
 
-  response: 
-    status: 
+  response:
+    status:
       code: 200
       message: OK
-    headers: 
-      Server: 
+    headers:
+      Server:
       - Winstone Servlet Engine v0.9.10
-      Last-Modified: 
+      Last-Modified:
       - Tue, 05 Mar 2013 02:26:59 GMT
-      Etag: 
+      Etag:
       - "\"YmVlMzM2ZjY5YzgwMDAwMFNvbHI=\""
-      Content-Type: 
+      Content-Type:
       - text/plain;charset=UTF-8
-      Connection: 
+      Connection:
       - Close
-      Date: 
+      Date:
       - Tue, 05 Mar 2013 03:19:26 GMT
-      X-Powered-By: 
+      X-Powered-By:
       - Servlet/2.5 (Winstone/0.9.10)
-    body: 
+    body:
       encoding: ASCII-8BIT
       string: "{'responseHeader'=>{'status'=>0,'QTime'=>4,'params'=>{'wt'=>'ruby','q'=>'shasum:00040b66948f49c3a6c6c0977530e2014899abf9','qt'=>'fulltext'}},'response'=>{'numFound'=>1,'start'=>0,'docs'=>[{'license'=>'\xC2\xA9 Blackwell Verlag GmbH','shasum'=>'00040b66948f49c3a6c6c0977530e2014899abf9','doi'=>'10.1111/j.1439-0310.2009.01707.x','authors'=>'Kelly A. Stiver, Suzanne H. Alonzo','title'=>'Parental and Mating Effort: Is There Necessarily a Trade-Off?','journal'=>'Ethology','year'=>'2009','volume'=>'115','pages'=>'1101-1126','fulltext'=>'Ethology\n\
         CURRENT ISSUES - PERSPECTIVES AND REVIEWS\n\
         Parental and Mating Effort: Is There Necessarily a Trade-Off?\n\
         Kelly A. Stiver & Suzanne H. Alonzo\n\
         Department of Ecology and Evolutionary Biology, Yal'}]},'termVectors'=>['doc-0',['uniqueKey','00040b66948f49c3a6c6c0977530e2014899abf9','fulltext',['a',['tf',2,'positions',['position',13,'position',17],'df',246,'tf-idf',0.008130081300813009],'alonzo',['tf',1,'positions',['position',21],'df',1,'tf-idf',1.0],'and',['tf',3,'positions',['position',4,'position',7,'position',25],'df',747,'tf-idf',0.004016064257028112],'biology',['tf',1,'positions',['position',27],'df',131,'tf-idf',0.007633587786259542],'current',['tf',1,'positions',['position',1],'df',5,'tf-idf',0.2],'department',['tf',1,'positions',['position',22],'df',179,'tf-idf',0.00558659217877095],'ecology',['tf',1,'positions',['position',24],'df',39,'tf-idf',0.02564102564102564],'effort',['tf',1,'positions',['position',9],'df',4,'tf-idf',0.25],'ethology',['tf',1,'positions',['position',0],'df',579,'tf-idf',0.0017271157167530224],'evolutionary',['tf',1,'positions',['position',26],'df',11,'tf-idf',0.09090909090909091],'h',['tf',1,'positions',['position',20],'df',43,'tf-idf',0.023255813953488372],'is',['tf',1,'positions',['position',10],'df',25,'tf-idf',0.04],'issues',['tf',1,'positions',['position',2],'df',5,'tf-idf',0.2],'kelly',['tf',1,'positions',['position',16],'df',2,'tf-idf',0.5],'mating',['tf',1,'positions',['position',8],'df',30,'tf-idf',0.03333333333333333],'necessarily',['tf',1,'positions',['position',12],'df',1,'tf-idf',1.0],'of',['tf',1,'positions',['position',23],'df',765,'tf-idf',0.00130718954248366],'off',['tf',1,'positions',['position',15],'df',3,'tf-idf',0.3333333333333333],'parental',['tf',1,'positions',['position',6],'df',8,'tf-idf',0.125],'perspectives',['tf',1,'positions',['position',3],'df',9,'tf-idf',0.1111111111111111],'reviews',['tf',1,'positions',['position',5],'df',28,'tf-idf',0.03571428571428571],'stiver',['tf',1,'positions',['position',18],'df',1,'tf-idf',1.0],'suzanne',['tf',1,'positions',['position',19],'df',1,'tf-idf',1.0],'there',['tf',1,'positions',['position',11],'df',2,'tf-idf',0.5],'trade',['tf',1,'positions',['position',14],'df',4,'tf-idf',0.25],'yal',['tf',1,'positions',['position',28],'df',1,'tf-idf',1.0]]],'uniqueKeyFieldName','shasum']}"
-    http_version: 
+    http_version:
   recorded_at: Tue, 05 Mar 2013 03:19:26 GMT
-- request: 
+- request:
     method: get
     uri: http://localhost:8983/select?q=shasum:00dbffbfff2d18a74ed5f8895fa9f515bf38bf5f&qt=fulltext&wt=ruby
-    body: 
+    body:
       encoding: US-ASCII
       string: ""
     headers: {}
 
-  response: 
-    status: 
+  response:
+    status:
       code: 200
       message: OK
-    headers: 
-      Server: 
+    headers:
+      Server:
       - Winstone Servlet Engine v0.9.10
-      Last-Modified: 
+      Last-Modified:
       - Tue, 05 Mar 2013 02:26:59 GMT
-      Etag: 
+      Etag:
       - "\"YmVlMzM2ZjY5YzgwMDAwMFNvbHI=\""
-      Content-Type: 
+      Content-Type:
       - text/plain;charset=UTF-8
-      Connection: 
+      Connection:
       - Close
-      Date: 
+      Date:
       - Tue, 05 Mar 2013 03:19:26 GMT
-      X-Powered-By: 
+      X-Powered-By:
       - Servlet/2.5 (Winstone/0.9.10)
-    body: 
+    body:
       encoding: ASCII-8BIT
       string: "{'responseHeader'=>{'status'=>0,'QTime'=>6,'params'=>{'wt'=>'ruby','q'=>'shasum:00dbffbfff2d18a74ed5f8895fa9f515bf38bf5f','qt'=>'fulltext'}},'response'=>{'numFound'=>1,'start'=>0,'docs'=>[{'license'=>'\xC2\xA9 Blackwell Verlag GmbH','shasum'=>'00dbffbfff2d18a74ed5f8895fa9f515bf38bf5f','doi'=>'10.1111/j.1439-0310.2007.01421.x','authors'=>'Troy G. Murphy','title'=>'Display of an Inedible Prop as a Signal of Aggression? Adaptive Significance of Leaf-Display by the Turquoise-Browed Motmot, Eumomota superciliosa','journal'=>'Ethology','year'=>'2008','volume'=>'114','pages'=>'16-21','fulltext'=>'Ethology\n\
         Display of an Inedible Prop as a Signal of Aggression? Adaptive Significance of Leaf-Display by the Turquoise-Browed Motmot, Eumomota superciliosa\n\
         Troy G. Murphy\n\
         Department of Neurobiology an'}]},'termVectors'=>['doc-9',['uniqueKey','00dbffbfff2d18a74ed5f8895fa9f515bf38bf5f','fulltext',['a',['tf',1,'positions',['position',7],'df',246,'tf-idf',0.0040650406504065045],'adaptive',['tf',1,'positions',['position',11],'df',3,'tf-idf',0.3333333333333333],'aggression',['tf',1,'positions',['position',10],'df',11,'tf-idf',0.09090909090909091],'an',['tf',2,'positions',['position',3,'position',29],'df',34,'tf-idf',0.058823529411764705],'as',['tf',1,'positions',['position',6],'df',23,'tf-idf',0.043478260869565216],'browed',['tf',1,'positions',['position',19],'df',1,'tf-idf',1.0],'by',['tf',1,'positions',['position',16],'df',53,'tf-idf',0.018867924528301886],'department',['tf',1,'positions',['position',26],'df',179,'tf-idf',0.00558659217877095],'display',['tf',2,'positions',['position',1,'position',15],'df',8,'tf-idf',0.25],'ethology',['tf',1,'positions',['position',0],'df',579,'tf-idf',0.0017271157167530224],'eumomota',['tf',1,'positions',['position',21],'df',1,'tf-idf',1.0],'g',['tf',1,'positions',['position',24],'df',47,'tf-idf',0.02127659574468085],'inedible',['tf',1,'positions',['position',4],'df',1,'tf-idf',1.0],'leaf',['tf',1,'positions',['position',14],'df',3,'tf-idf',0.3333333333333333],'motmot',['tf',1,'positions',['position',20],'df',1,'tf-idf',1.0],'murphy',['tf',1,'positions',['position',25],'df',2,'tf-idf',0.5],'neurobiology',['tf',1,'positions',['position',28],'df',13,'tf-idf',0.07692307692307693],'of',['tf',4,'positions',['position',2,'position',9,'position',13,'position',27],'df',765,'tf-idf',0.00522875816993464],'prop',['tf',1,'positions',['position',5],'df',1,'tf-idf',1.0],'signal',['tf',1,'positions',['position',8],'df',9,'tf-idf',0.1111111111111111],'significance',['tf',1,'positions',['position',12],'df',2,'tf-idf',0.5],'superciliosa',['tf',1,'positions',['position',22],'df',1,'tf-idf',1.0],'the',['tf',1,'positions',['position',17],'df',625,'tf-idf',0.0016],'troy',['tf',1,'positions',['position',23],'df',2,'tf-idf',0.5],'turquoise',['tf',1,'positions',['position',18],'df',1,'tf-idf',1.0]]],'uniqueKeyFieldName','shasum']}"
-    http_version: 
+    http_version:
   recorded_at: Tue, 05 Mar 2013 03:19:26 GMT
-- request: 
+- request:
     method: get
     uri: http://localhost:8983/select?q=shasum:00cdb0f945c1e1d7b7789cd8178f3232a57fee34&qt=fulltext&wt=ruby
-    body: 
+    body:
       encoding: US-ASCII
       string: ""
     headers: {}
 
-  response: 
-    status: 
+  response:
+    status:
       code: 200
       message: OK
-    headers: 
-      Server: 
+    headers:
+      Server:
       - Winstone Servlet Engine v0.9.10
-      Last-Modified: 
+      Last-Modified:
       - Tue, 05 Mar 2013 02:26:59 GMT
-      Etag: 
+      Etag:
       - "\"YmVlMzM2ZjY5YzgwMDAwMFNvbHI=\""
-      Content-Type: 
+      Content-Type:
       - text/plain;charset=UTF-8
-      Connection: 
+      Connection:
       - Close
-      Date: 
+      Date:
       - Tue, 05 Mar 2013 03:19:27 GMT
-      X-Powered-By: 
+      X-Powered-By:
       - Servlet/2.5 (Winstone/0.9.10)
-    body: 
+    body:
       encoding: ASCII-8BIT
       string: "{'responseHeader'=>{'status'=>0,'QTime'=>5,'params'=>{'wt'=>'ruby','q'=>'shasum:00cdb0f945c1e1d7b7789cd8178f3232a57fee34','qt'=>'fulltext'}},'response'=>{'numFound'=>1,'start'=>0,'docs'=>[{'license'=>'\xC2\xA9 Blackwell Verlag GmbH','shasum'=>'00cdb0f945c1e1d7b7789cd8178f3232a57fee34','doi'=>'10.1111/j.1439-0310.2006.01139.x','authors'=>'Jennifer L. Snekser, Scott P. McRobert, Caleb E. Murphy, Ethan D. Clotfelter','title'=>'Aggregation Behavior in Wildtype and Transgenic Zebrafish','journal'=>'Ethology','year'=>'2006','volume'=>'112','pages'=>'181-187','fulltext'=>'Ethology\n\
         Aggregation Behavior in Wildtype and Transgenic Zebrafish\n\
         Jennifer L. Snekser*, Scott P. McRobert*, Caleb E. Murphyf & Ethan D. Clotfelterf\n\
         Recent advances in the development and availability'}]},'termVectors'=>['doc-8',['uniqueKey','00cdb0f945c1e1d7b7789cd8178f3232a57fee34','fulltext',['advances',['tf',1,'positions',['position',21],'df',2,'tf-idf',0.5],'aggregation',['tf',1,'positions',['position',1],'df',3,'tf-idf',0.3333333333333333],'and',['tf',2,'positions',['position',5,'position',25],'df',747,'tf-idf',0.002677376171352075],'availability',['tf',1,'positions',['position',26],'df',1,'tf-idf',1.0],'behavior',['tf',1,'positions',['position',2],'df',490,'tf-idf',0.0020408163265306124],'caleb',['tf',1,'positions',['position',14],'df',1,'tf-idf',1.0],'clotfelterf',['tf',1,'positions',['position',19],'df',1,'tf-idf',1.0],'d',['tf',1,'positions',['position',18],'df',64,'tf-idf',0.015625],'development',['tf',1,'positions',['position',24],'df',12,'tf-idf',0.08333333333333333],'e',['tf',1,'positions',['position',15],'df',46,'tf-idf',0.021739130434782608],'ethan',['tf',1,'positions',['position',17],'df',1,'tf-idf',1.0],'ethology',['tf',1,'positions',['position',0],'df',579,'tf-idf',0.0017271157167530224],'in',['tf',2,'positions',['position',3,'position',22],'df',498,'tf-idf',0.004016064257028112],'jennifer',['tf',1,'positions',['position',8],'df',5,'tf-idf',0.2],'l',['tf',1,'positions',['position',9],'df',68,'tf-idf',0.014705882352941176],'mcrobert',['tf',1,'positions',['position',13],'df',1,'tf-idf',1.0],'murphyf',['tf',1,'positions',['position',16],'df',1,'tf-idf',1.0],'p',['tf',1,'positions',['position',12],'df',50,'tf-idf',0.02],'recent',['tf',1,'positions',['position',20],'df',3,'tf-idf',0.3333333333333333],'scott',['tf',1,'positions',['position',11],'df',4,'tf-idf',0.25],'snekser',['tf',1,'positions',['position',10],'df',1,'tf-idf',1.0],'the',['tf',1,'positions',['position',23],'df',625,'tf-idf',0.0016],'transgenic',['tf',1,'positions',['position',6],'df',9,'tf-idf',0.1111111111111111],'wildtype',['tf',1,'positions',['position',4],'df',1,'tf-idf',1.0],'zebrafish',['tf',1,'positions',['position',7],'df',3,'tf-idf',0.3333333333333333]]],'uniqueKeyFieldName','shasum']}"
-    http_version: 
+    http_version:
   recorded_at: Tue, 05 Mar 2013 03:19:27 GMT
-- request: 
+- request:
     method: get
     uri: http://localhost:8983/select?q=shasum:00a004096479b9332b153e91053f09df8003ef74&qt=fulltext&wt=ruby
-    body: 
+    body:
       encoding: US-ASCII
       string: ""
     headers: {}
 
-  response: 
-    status: 
+  response:
+    status:
       code: 200
       message: OK
-    headers: 
-      Server: 
+    headers:
+      Server:
       - Winstone Servlet Engine v0.9.10
-      Last-Modified: 
+      Last-Modified:
       - Tue, 05 Mar 2013 02:26:59 GMT
-      Etag: 
+      Etag:
       - "\"YmVlMzM2ZjY5YzgwMDAwMFNvbHI=\""
-      Content-Type: 
+      Content-Type:
       - text/plain;charset=UTF-8
-      Connection: 
+      Connection:
       - Close
-      Date: 
+      Date:
       - Tue, 05 Mar 2013 03:19:27 GMT
-      X-Powered-By: 
+      X-Powered-By:
       - Servlet/2.5 (Winstone/0.9.10)
-    body: 
+    body:
       encoding: ASCII-8BIT
       string: "{'responseHeader'=>{'status'=>0,'QTime'=>4,'params'=>{'wt'=>'ruby','q'=>'shasum:00a004096479b9332b153e91053f09df8003ef74','qt'=>'fulltext'}},'response'=>{'numFound'=>1,'start'=>0,'docs'=>[{'license'=>'\xC2\xA9 Blackwell Verlag GmbH','shasum'=>'00a004096479b9332b153e91053f09df8003ef74','doi'=>'10.1111/j.1439-0310.1998.tb00103.x','authors'=>'R. I. M. Dunbar, Julian Bever','title'=>'Neocortex Size Predicts Group Size in Carnivores and Some Insectivores','journal'=>'Ethology','year'=>'1998','volume'=>'104','pages'=>'695-708','fulltext'=>'Ethology 104, 695\xE2\x80\x94708 (1998) \xC2\xA9 1998 Blackwell Wissenschafts-Verlag, Berlin ISSN 0179-1613\n\
         School of Biological Sciences, Nicholson Building, University of Liverpool and Department of Anthropology, Uni'}]},'termVectors'=>['doc-7',['uniqueKey','00a004096479b9332b153e91053f09df8003ef74','fulltext',['0179-1613',['tf',1,'positions',['position',11],'df',266,'tf-idf',0.0037593984962406013],'104',['tf',1,'positions',['position',1],'df',32,'tf-idf',0.03125],'1998',['tf',2,'positions',['position',4,'position',5],'df',35,'tf-idf',0.05714285714285714],'695',['tf',1,'positions',['position',2],'df',1,'tf-idf',1.0],'708',['tf',1,'positions',['position',3],'df',1,'tf-idf',1.0],'and',['tf',1,'positions',['position',21],'df',747,'tf-idf',0.0013386880856760374],'anthropology',['tf',1,'positions',['position',24],'df',4,'tf-idf',0.25],'berlin',['tf',1,'positions',['position',9],'df',293,'tf-idf',0.0034129692832764505],'biological',['tf',1,'positions',['position',14],'df',35,'tf-idf',0.02857142857142857],'blackwell',['tf',1,'positions',['position',6],'df',573,'tf-idf',0.0017452006980802793],'building',['tf',1,'positions',['position',17],'df',1,'tf-idf',1.0],'department',['tf',1,'positions',['position',22],'df',179,'tf-idf',0.00558659217877095],'ethology',['tf',1,'positions',['position',0],'df',579,'tf-idf',0.0017271157167530224],'issn',['tf',1,'positions',['position',10],'df',308,'tf-idf',0.003246753246753247],'liverpool',['tf',1,'positions',['position',20],'df',1,'tf-idf',1.0],'nicholson',['tf',1,'positions',['position',16],'df',1,'tf-idf',1.0],'of',['tf',3,'positions',['position',13,'position',19,'position',23],'df',765,'tf-idf',0.00392156862745098],'school',['tf',1,'positions',['position',12],'df',23,'tf-idf',0.043478260869565216],'sciences',['tf',1,'positions',['position',15],'df',36,'tf-idf',0.027777777777777776],'uni',['tf',1,'positions',['position',25],'df',3,'tf-idf',0.3333333333333333],'university',['tf',1,'positions',['position',18],'df',167,'tf-idf',0.005988023952095809],'verlag',['tf',1,'positions',['position',8],'df',293,'tf-idf',0.0034129692832764505],'wissenschafts',['tf',1,'positions',['position',7],'df',167,'tf-idf',0.005988023952095809]]],'uniqueKeyFieldName','shasum']}"
-    http_version: 
+    http_version:
   recorded_at: Tue, 05 Mar 2013 03:19:27 GMT
-- request: 
+- request:
     method: get
     uri: http://localhost:8983/select?q=shasum:0097e0f4029fef57b8158970112ab32c1e692cff&qt=fulltext&wt=ruby
-    body: 
+    body:
       encoding: US-ASCII
       string: ""
     headers: {}
 
-  response: 
-    status: 
+  response:
+    status:
       code: 200
       message: OK
-    headers: 
-      Server: 
+    headers:
+      Server:
       - Winstone Servlet Engine v0.9.10
-      Last-Modified: 
+      Last-Modified:
       - Tue, 05 Mar 2013 02:26:59 GMT
-      Etag: 
+      Etag:
       - "\"YmVlMzM2ZjY5YzgwMDAwMFNvbHI=\""
-      Content-Type: 
+      Content-Type:
       - text/plain;charset=UTF-8
-      Connection: 
+      Connection:
       - Close
-      Date: 
+      Date:
       - Tue, 05 Mar 2013 03:19:27 GMT
-      X-Powered-By: 
+      X-Powered-By:
       - Servlet/2.5 (Winstone/0.9.10)
-    body: 
+    body:
       encoding: ASCII-8BIT
       string: "{'responseHeader'=>{'status'=>0,'QTime'=>8,'params'=>{'wt'=>'ruby','q'=>'shasum:0097e0f4029fef57b8158970112ab32c1e692cff','qt'=>'fulltext'}},'response'=>{'numFound'=>1,'start'=>0,'docs'=>[{'license'=>'\xC2\xA9 Blackwell Verlag GmbH','shasum'=>'0097e0f4029fef57b8158970112ab32c1e692cff','doi'=>'10.1111/j.1439-0310.2011.01898.x','authors'=>'Pavol Prokop, Michael R. Maxwell','title'=>'Sexual Conflict Over Spermatophore Attachment in a Nuptially Feeding Cricket','journal'=>'Ethology','year'=>'2011','volume'=>'117','pages'=>'520-528','fulltext'=>'ethology\n\
         international journal of behavioural biology\tM?:*\n\
@@ -174,346 +174,346 @@ http_interactions:
         Sexual Conflict Over Spermatophore Attachment in a Nuptially Feeding Cricket\n\
         Pavol Prokop*f & Michael R. Maxwell}\n\
         * Department of Bi'}]},'termVectors'=>['doc-6',['uniqueKey','0097e0f4029fef57b8158970112ab32c1e692cff','fulltext',['a',['tf',1,'positions',['position',14],'df',246,'tf-idf',0.0040650406504065045],'attachment',['tf',1,'positions',['position',12],'df',3,'tf-idf',0.3333333333333333],'behavioural',['tf',1,'positions',['position',4],'df',254,'tf-idf',0.003937007874015748],'bi',['tf',1,'positions',['position',26],'df',2,'tf-idf',0.5],'biology',['tf',1,'positions',['position',5],'df',131,'tf-idf',0.007633587786259542],'conflict',['tf',1,'positions',['position',9],'df',10,'tf-idf',0.1],'cricket',['tf',1,'positions',['position',17],'df',6,'tf-idf',0.16666666666666666],'department',['tf',1,'positions',['position',24],'df',179,'tf-idf',0.00558659217877095],'ethology',['tf',2,'positions',['position',0,'position',7],'df',579,'tf-idf',0.0034542314335060447],'f',['tf',1,'positions',['position',20],'df',74,'tf-idf',0.013513513513513514],'feeding',['tf',1,'positions',['position',16],'df',11,'tf-idf',0.09090909090909091],'in',['tf',1,'positions',['position',13],'df',498,'tf-idf',0.002008032128514056],'international',['tf',1,'positions',['position',1],'df',228,'tf-idf',0.0043859649122807015],'journal',['tf',1,'positions',['position',2],'df',285,'tf-idf',0.0035087719298245615],'m',['tf',1,'positions',['position',6],'df',119,'tf-idf',0.008403361344537815],'maxwell',['tf',1,'positions',['position',23],'df',1,'tf-idf',1.0],'michael',['tf',1,'positions',['position',21],'df',14,'tf-idf',0.07142857142857142],'nuptially',['tf',1,'positions',['position',15],'df',1,'tf-idf',1.0],'of',['tf',2,'positions',['position',3,'position',25],'df',765,'tf-idf',0.00261437908496732],'over',['tf',1,'positions',['position',10],'df',7,'tf-idf',0.14285714285714285],'pavol',['tf',1,'positions',['position',18],'df',3,'tf-idf',0.3333333333333333],'prokop',['tf',1,'positions',['position',19],'df',2,'tf-idf',0.5],'r',['tf',1,'positions',['position',22],'df',49,'tf-idf',0.02040816326530612],'sexual',['tf',1,'positions',['position',8],'df',22,'tf-idf',0.045454545454545456],'spermatophore',['tf',1,'positions',['position',11],'df',2,'tf-idf',0.5]]],'uniqueKeyFieldName','shasum']}"
-    http_version: 
+    http_version:
   recorded_at: Tue, 05 Mar 2013 03:19:27 GMT
-- request: 
+- request:
     method: get
     uri: http://localhost:8983/select?q=shasum:0097c3434054c25e1ace6243a1ac54b71f35bc28&qt=fulltext&wt=ruby
-    body: 
+    body:
       encoding: US-ASCII
       string: ""
     headers: {}
 
-  response: 
-    status: 
+  response:
+    status:
       code: 200
       message: OK
-    headers: 
-      Server: 
+    headers:
+      Server:
       - Winstone Servlet Engine v0.9.10
-      Last-Modified: 
+      Last-Modified:
       - Tue, 05 Mar 2013 02:26:59 GMT
-      Etag: 
+      Etag:
       - "\"YmVlMzM2ZjY5YzgwMDAwMFNvbHI=\""
-      Content-Type: 
+      Content-Type:
       - text/plain;charset=UTF-8
-      Connection: 
+      Connection:
       - Close
-      Date: 
+      Date:
       - Tue, 05 Mar 2013 03:19:27 GMT
-      X-Powered-By: 
+      X-Powered-By:
       - Servlet/2.5 (Winstone/0.9.10)
-    body: 
+    body:
       encoding: ASCII-8BIT
       string: "{'responseHeader'=>{'status'=>0,'QTime'=>6,'params'=>{'wt'=>'ruby','q'=>'shasum:0097c3434054c25e1ace6243a1ac54b71f35bc28','qt'=>'fulltext'}},'response'=>{'numFound'=>1,'start'=>0,'docs'=>[{'license'=>'\xC2\xA9 Blackwell Verlag GmbH','shasum'=>'0097c3434054c25e1ace6243a1ac54b71f35bc28','doi'=>'10.1046/j.1439-0310.2001.00723.x','authors'=>'Susan Bartmann, Gabriele Gerlach','title'=>'Multiple Paternity and Similar Variance in Reproductive Success of Male and Female Wood Mice (Apodemus sylvaticus) Housed in an Enclosure','journal'=>'Ethology','year'=>'2001','volume'=>'107','pages'=>'889-899','fulltext'=>'Ethology 107, 889\xE2\x80\x94899 (2001) \xC2\xA9 2001 Blackwell Wissenschafts-Verlag, Berlin ISSN 0179-1613\n\
         Fak. Biologie, Universit\xC3\xA4t Konstanz, Konstanz\n\
         Multiple Paternity and Similar Variance in Reproductive Success '}]},'termVectors'=>['doc-5',['uniqueKey','0097c3434054c25e1ace6243a1ac54b71f35bc28','fulltext',['0179-1613',['tf',1,'positions',['position',11],'df',266,'tf-idf',0.0037593984962406013],'107',['tf',1,'positions',['position',1],'df',35,'tf-idf',0.02857142857142857],'2001',['tf',2,'positions',['position',4,'position',5],'df',39,'tf-idf',0.05128205128205128],'889',['tf',1,'positions',['position',2],'df',1,'tf-idf',1.0],'899',['tf',1,'positions',['position',3],'df',1,'tf-idf',1.0],'and',['tf',1,'positions',['position',19],'df',747,'tf-idf',0.0013386880856760374],'berlin',['tf',1,'positions',['position',9],'df',293,'tf-idf',0.0034129692832764505],'biologie',['tf',1,'positions',['position',13],'df',6,'tf-idf',0.16666666666666666],'blackwell',['tf',1,'positions',['position',6],'df',573,'tf-idf',0.0017452006980802793],'ethology',['tf',1,'positions',['position',0],'df',579,'tf-idf',0.0017271157167530224],'fak',['tf',1,'positions',['position',12],'df',1,'tf-idf',1.0],'in',['tf',1,'positions',['position',22],'df',498,'tf-idf',0.002008032128514056],'issn',['tf',1,'positions',['position',10],'df',308,'tf-idf',0.003246753246753247],'konstanz',['tf',2,'positions',['position',15,'position',16],'df',1,'tf-idf',2.0],'multiple',['tf',1,'positions',['position',17],'df',13,'tf-idf',0.07692307692307693],'paternity',['tf',1,'positions',['position',18],'df',3,'tf-idf',0.3333333333333333],'reproductive',['tf',1,'positions',['position',23],'df',24,'tf-idf',0.041666666666666664],'similar',['tf',1,'positions',['position',20],'df',1,'tf-idf',1.0],'success',['tf',1,'positions',['position',24],'df',11,'tf-idf',0.09090909090909091],'universit\xC3\xA4t',['tf',1,'positions',['position',14],'df',12,'tf-idf',0.08333333333333333],'variance',['tf',1,'positions',['position',21],'df',3,'tf-idf',0.3333333333333333],'verlag',['tf',1,'positions',['position',8],'df',293,'tf-idf',0.0034129692832764505],'wissenschafts',['tf',1,'positions',['position',7],'df',167,'tf-idf',0.005988023952095809]]],'uniqueKeyFieldName','shasum']}"
-    http_version: 
+    http_version:
   recorded_at: Tue, 05 Mar 2013 03:19:27 GMT
-- request: 
+- request:
     method: get
     uri: http://localhost:8983/select?q=shasum:00972c5123877961056b21aea4177d0dc69c7318&qt=fulltext&wt=ruby
-    body: 
+    body:
       encoding: US-ASCII
       string: ""
     headers: {}
 
-  response: 
-    status: 
+  response:
+    status:
       code: 200
       message: OK
-    headers: 
-      Server: 
+    headers:
+      Server:
       - Winstone Servlet Engine v0.9.10
-      Last-Modified: 
+      Last-Modified:
       - Tue, 05 Mar 2013 02:26:59 GMT
-      Etag: 
+      Etag:
       - "\"YmVlMzM2ZjY5YzgwMDAwMFNvbHI=\""
-      Content-Type: 
+      Content-Type:
       - text/plain;charset=UTF-8
-      Connection: 
+      Connection:
       - Close
-      Date: 
+      Date:
       - Tue, 05 Mar 2013 03:19:27 GMT
-      X-Powered-By: 
+      X-Powered-By:
       - Servlet/2.5 (Winstone/0.9.10)
-    body: 
+    body:
       encoding: ASCII-8BIT
       string: "{'responseHeader'=>{'status'=>0,'QTime'=>3,'params'=>{'wt'=>'ruby','q'=>'shasum:00972c5123877961056b21aea4177d0dc69c7318','qt'=>'fulltext'}},'response'=>{'numFound'=>1,'start'=>0,'docs'=>[{'license'=>'\xC2\xA9 Blackwell Verlag GmbH','shasum'=>'00972c5123877961056b21aea4177d0dc69c7318','doi'=>'10.1111/j.1439-0310.2008.01576.x','authors'=>'Carlos A. Botero, Andrew E. Mudge, Amanda M. Koltz, Wesley M. Hochachka, Sandra L. Vehrencamp','title'=>'How Reliable are the Methods for Estimating Repertoire Size?','journal'=>'Ethology','year'=>'2008','volume'=>'114','pages'=>'1227-1238','fulltext'=>'Ethology\n\
         How Reliable are the Methods for Estimating Repertoire Size?\n\
         Carlos A. Botero*,f,$, Andrew E. Mudgef, Amanda M. Koltz\xC2\xA7, Wesley M. Hochachkaf & Sandra L. Vehrencampf,-\n\
         * Center for Ecological '}]},'termVectors'=>['doc-4',['uniqueKey','00972c5123877961056b21aea4177d0dc69c7318','fulltext',['a',['tf',1,'positions',['position',11],'df',246,'tf-idf',0.0040650406504065045],'amanda',['tf',1,'positions',['position',17],'df',3,'tf-idf',0.3333333333333333],'andrew',['tf',1,'positions',['position',14],'df',15,'tf-idf',0.06666666666666667],'are',['tf',1,'positions',['position',3],'df',18,'tf-idf',0.05555555555555555],'botero',['tf',1,'positions',['position',12],'df',1,'tf-idf',1.0],'carlos',['tf',1,'positions',['position',10],'df',5,'tf-idf',0.2],'center',['tf',1,'positions',['position',26],'df',13,'tf-idf',0.07692307692307693],'e',['tf',1,'positions',['position',15],'df',46,'tf-idf',0.021739130434782608],'ecological',['tf',1,'positions',['position',28],'df',9,'tf-idf',0.1111111111111111],'estimating',['tf',1,'positions',['position',7],'df',1,'tf-idf',1.0],'ethology',['tf',1,'positions',['position',0],'df',579,'tf-idf',0.0017271157167530224],'f',['tf',1,'positions',['position',13],'df',74,'tf-idf',0.013513513513513514],'for',['tf',2,'positions',['position',6,'position',27],'df',92,'tf-idf',0.021739130434782608],'hochachkaf',['tf',1,'positions',['position',22],'df',1,'tf-idf',1.0],'how',['tf',1,'positions',['position',1],'df',10,'tf-idf',0.1],'koltz',['tf',1,'positions',['position',19],'df',1,'tf-idf',1.0],'l',['tf',1,'positions',['position',24],'df',68,'tf-idf',0.014705882352941176],'m',['tf',2,'positions',['position',18,'position',21],'df',119,'tf-idf',0.01680672268907563],'methods',['tf',1,'positions',['position',5],'df',3,'tf-idf',0.3333333333333333],'mudgef',['tf',1,'positions',['position',16],'df',1,'tf-idf',1.0],'reliable',['tf',1,'positions',['position',2],'df',1,'tf-idf',1.0],'repertoire',['tf',1,'positions',['position',8],'df',2,'tf-idf',0.5],'sandra',['tf',1,'positions',['position',23],'df',1,'tf-idf',1.0],'size',['tf',1,'positions',['position',9],'df',26,'tf-idf',0.038461538461538464],'the',['tf',1,'positions',['position',4],'df',625,'tf-idf',0.0016],'vehrencampf',['tf',1,'positions',['position',25],'df',1,'tf-idf',1.0],'wesley',['tf',1,'positions',['position',20],'df',1,'tf-idf',1.0]]],'uniqueKeyFieldName','shasum']}"
-    http_version: 
+    http_version:
   recorded_at: Tue, 05 Mar 2013 03:19:27 GMT
-- request: 
+- request:
     method: get
     uri: http://localhost:8983/select?q=shasum:008896a5c58241b65088d931e02f3bea02fc3bf0&qt=fulltext&wt=ruby
-    body: 
+    body:
       encoding: US-ASCII
       string: ""
     headers: {}
 
-  response: 
-    status: 
+  response:
+    status:
       code: 200
       message: OK
-    headers: 
-      Server: 
+    headers:
+      Server:
       - Winstone Servlet Engine v0.9.10
-      Last-Modified: 
+      Last-Modified:
       - Tue, 05 Mar 2013 02:26:59 GMT
-      Etag: 
+      Etag:
       - "\"YmVlMzM2ZjY5YzgwMDAwMFNvbHI=\""
-      Content-Type: 
+      Content-Type:
       - text/plain;charset=UTF-8
-      Connection: 
+      Connection:
       - Close
-      Date: 
+      Date:
       - Tue, 05 Mar 2013 03:19:27 GMT
-      X-Powered-By: 
+      X-Powered-By:
       - Servlet/2.5 (Winstone/0.9.10)
-    body: 
+    body:
       encoding: ASCII-8BIT
       string: "{'responseHeader'=>{'status'=>0,'QTime'=>3,'params'=>{'wt'=>'ruby','q'=>'shasum:008896a5c58241b65088d931e02f3bea02fc3bf0','qt'=>'fulltext'}},'response'=>{'numFound'=>1,'start'=>0,'docs'=>[{'license'=>'\xC2\xA9 Blackwell Verlag GmbH','shasum'=>'008896a5c58241b65088d931e02f3bea02fc3bf0','doi'=>'10.1111/j.1439-0310.2009.01716.x','authors'=>'Juan Moreno, Juan-Gabriel Mart\xC3\xADnez, Judith Morales, Elisa Lobato, Santiago Merino, Gustavo Tom\xC3\xA1s, Rodrigo A. V\xC3\xA1squez, Erich M\xC3\xB6stl, Jos\xC3\xA9 L. Osorno','title'=>'Paternity Loss in Relation to Male Age, Territorial Behaviour and Stress in the Pied Flycatcher','journal'=>'Ethology','year'=>'2010','volume'=>'116','pages'=>'76-84','fulltext'=>'Ethology\n\
         Paternity Loss in Relation to Male Age, Territorial Behaviour and Stress in the Pied Flycatcher\n\
         Juan Moreno*, Juan-Gabriel Mart\xC3\xADnez!, Judith Morales*, Elisa Lobato*, Santiago Merino*, Gustavo'}]},'termVectors'=>['doc-3',['uniqueKey','008896a5c58241b65088d931e02f3bea02fc3bf0','fulltext',['age',['tf',1,'positions',['position',7],'df',13,'tf-idf',0.07692307692307693],'and',['tf',1,'positions',['position',10],'df',747,'tf-idf',0.0013386880856760374],'behaviour',['tf',1,'positions',['position',9],'df',34,'tf-idf',0.029411764705882353],'elisa',['tf',1,'positions',['position',23],'df',1,'tf-idf',1.0],'ethology',['tf',1,'positions',['position',0],'df',579,'tf-idf',0.0017271157167530224],'flycatcher',['tf',1,'positions',['position',15],'df',2,'tf-idf',0.5],'gabriel',['tf',1,'positions',['position',19],'df',1,'tf-idf',1.0],'gustavo',['tf',1,'positions',['position',27],'df',2,'tf-idf',0.5],'in',['tf',2,'positions',['position',3,'position',12],'df',498,'tf-idf',0.004016064257028112],'juan',['tf',2,'positions',['position',16,'position',18],'df',3,'tf-idf',0.6666666666666666],'judith',['tf',1,'positions',['position',21],'df',1,'tf-idf',1.0],'lobato',['tf',1,'positions',['position',24],'df',1,'tf-idf',1.0],'loss',['tf',1,'positions',['position',2],'df',3,'tf-idf',0.3333333333333333],'male',['tf',1,'positions',['position',6],'df',71,'tf-idf',0.014084507042253521],'mart\xC3\xADnez',['tf',1,'positions',['position',20],'df',2,'tf-idf',0.5],'merino',['tf',1,'positions',['position',26],'df',1,'tf-idf',1.0],'morales',['tf',1,'positions',['position',22],'df',1,'tf-idf',1.0],'moreno',['tf',1,'positions',['position',17],'df',1,'tf-idf',1.0],'paternity',['tf',1,'positions',['position',1],'df',3,'tf-idf',0.3333333333333333],'pied',['tf',1,'positions',['position',14],'df',2,'tf-idf',0.5],'relation',['tf',1,'positions',['position',4],'df',7,'tf-idf',0.14285714285714285],'santiago',['tf',1,'positions',['position',25],'df',1,'tf-idf',1.0],'stress',['tf',1,'positions',['position',11],'df',6,'tf-idf',0.16666666666666666],'territorial',['tf',1,'positions',['position',8],'df',8,'tf-idf',0.125],'the',['tf',1,'positions',['position',13],'df',625,'tf-idf',0.0016],'to',['tf',1,'positions',['position',5],'df',119,'tf-idf',0.008403361344537815]]],'uniqueKeyFieldName','shasum']}"
-    http_version: 
+    http_version:
   recorded_at: Tue, 05 Mar 2013 03:19:27 GMT
-- request: 
+- request:
     method: get
     uri: http://localhost:8983/select?q=shasum:00496e7961871ad05013e1388aaa6650507b2638&qt=fulltext&wt=ruby
-    body: 
+    body:
       encoding: US-ASCII
       string: ""
     headers: {}
 
-  response: 
-    status: 
+  response:
+    status:
       code: 200
       message: OK
-    headers: 
-      Server: 
+    headers:
+      Server:
       - Winstone Servlet Engine v0.9.10
-      Last-Modified: 
+      Last-Modified:
       - Tue, 05 Mar 2013 02:26:59 GMT
-      Etag: 
+      Etag:
       - "\"YmVlMzM2ZjY5YzgwMDAwMFNvbHI=\""
-      Content-Type: 
+      Content-Type:
       - text/plain;charset=UTF-8
-      Connection: 
+      Connection:
       - Close
-      Date: 
+      Date:
       - Tue, 05 Mar 2013 03:19:27 GMT
-      X-Powered-By: 
+      X-Powered-By:
       - Servlet/2.5 (Winstone/0.9.10)
-    body: 
+    body:
       encoding: ASCII-8BIT
       string: "{'responseHeader'=>{'status'=>0,'QTime'=>2,'params'=>{'wt'=>'ruby','q'=>'shasum:00496e7961871ad05013e1388aaa6650507b2638','qt'=>'fulltext'}},'response'=>{'numFound'=>1,'start'=>0,'docs'=>[{'license'=>'\xC2\xA9 Blackwell Verlag GmbH','shasum'=>'00496e7961871ad05013e1388aaa6650507b2638','doi'=>'10.1046/j.1439-0310.2000.00539.x','title'=>'New Books','journal'=>'Ethology','year'=>'2000','volume'=>'106','pages'=>'283-286','fulltext'=>'Ethology 106, 283-286 (2000) \xC2\xA9 2000 Blackwell Wissenschafts-Verlag, Berlin ISSN 0179-1613\n\
         New Books\n\
         Ziegler, T. & B\xC3\xB6hme, W. 1997: Genitalstrukturen und Paarungsbiologie bei squa-maten Reptilien, spezi'}]},'termVectors'=>['doc-2',['uniqueKey','00496e7961871ad05013e1388aaa6650507b2638','fulltext',['0179-1613',['tf',1,'positions',['position',10],'df',266,'tf-idf',0.0037593984962406013],'106',['tf',1,'positions',['position',1],'df',30,'tf-idf',0.03333333333333333],'1997',['tf',1,'positions',['position',17],'df',38,'tf-idf',0.02631578947368421],'2000',['tf',2,'positions',['position',3,'position',4],'df',33,'tf-idf',0.06060606060606061],'283-286',['tf',1,'positions',['position',2],'df',1,'tf-idf',1.0],'bei',['tf',1,'positions',['position',21],'df',1,'tf-idf',1.0],'berlin',['tf',1,'positions',['position',8],'df',293,'tf-idf',0.0034129692832764505],'blackwell',['tf',1,'positions',['position',5],'df',573,'tf-idf',0.0017452006980802793],'books',['tf',1,'positions',['position',12],'df',14,'tf-idf',0.07142857142857142],'b\xC3\xB6hme',['tf',1,'positions',['position',15],'df',1,'tf-idf',1.0],'ethology',['tf',1,'positions',['position',0],'df',579,'tf-idf',0.0017271157167530224],'genitalstrukturen',['tf',1,'positions',['position',18],'df',1,'tf-idf',1.0],'issn',['tf',1,'positions',['position',9],'df',308,'tf-idf',0.003246753246753247],'maten',['tf',1,'positions',['position',23],'df',1,'tf-idf',1.0],'new',['tf',1,'positions',['position',11],'df',36,'tf-idf',0.027777777777777776],'paarungsbiologie',['tf',1,'positions',['position',20],'df',1,'tf-idf',1.0],'reptilien',['tf',1,'positions',['position',24],'df',1,'tf-idf',1.0],'spezi',['tf',1,'positions',['position',25],'df',1,'tf-idf',1.0],'squa',['tf',1,'positions',['position',22],'df',1,'tf-idf',1.0],'t',['tf',1,'positions',['position',14],'df',46,'tf-idf',0.021739130434782608],'und',['tf',1,'positions',['position',19],'df',4,'tf-idf',0.25],'verlag',['tf',1,'positions',['position',7],'df',293,'tf-idf',0.0034129692832764505],'w',['tf',1,'positions',['position',16],'df',22,'tf-idf',0.045454545454545456],'wissenschafts',['tf',1,'positions',['position',6],'df',167,'tf-idf',0.005988023952095809],'ziegler',['tf',1,'positions',['position',13],'df',1,'tf-idf',1.0]]],'uniqueKeyFieldName','shasum']}"
-    http_version: 
+    http_version:
   recorded_at: Tue, 05 Mar 2013 03:19:27 GMT
-- request: 
+- request:
     method: get
     uri: http://localhost:8983/select?q=shasum:001954306c066a8a4cff3da02f7e9dda8e0fb634&qt=fulltext&wt=ruby
-    body: 
+    body:
       encoding: US-ASCII
       string: ""
     headers: {}
 
-  response: 
-    status: 
+  response:
+    status:
       code: 200
       message: OK
-    headers: 
-      Server: 
+    headers:
+      Server:
       - Winstone Servlet Engine v0.9.10
-      Last-Modified: 
+      Last-Modified:
       - Tue, 05 Mar 2013 02:26:59 GMT
-      Etag: 
+      Etag:
       - "\"YmVlMzM2ZjY5YzgwMDAwMFNvbHI=\""
-      Content-Type: 
+      Content-Type:
       - text/plain;charset=UTF-8
-      Connection: 
+      Connection:
       - Close
-      Date: 
+      Date:
       - Tue, 05 Mar 2013 03:19:27 GMT
-      X-Powered-By: 
+      X-Powered-By:
       - Servlet/2.5 (Winstone/0.9.10)
-    body: 
+    body:
       encoding: ASCII-8BIT
       string: "{'responseHeader'=>{'status'=>0,'QTime'=>3,'params'=>{'wt'=>'ruby','q'=>'shasum:001954306c066a8a4cff3da02f7e9dda8e0fb634','qt'=>'fulltext'}},'response'=>{'numFound'=>1,'start'=>0,'docs'=>[{'license'=>'\xC2\xA9 Blackwell Verlag GmbH','shasum'=>'001954306c066a8a4cff3da02f7e9dda8e0fb634','doi'=>'10.1046/j.0179-1613.2003.00929.x','authors'=>'Susan G. Brown, Karen Crowell, Patricia Keene','title'=>'Oviposition Behavior and Offspring Emergence Patterns in Succinea thaanumi, an Endemic Hawaiian Land Snail','journal'=>'Ethology','year'=>'2003','volume'=>'109','pages'=>'905-910','fulltext'=>'Ethology 109, 905\xE2\x80\x94910 (2003) \xC2\xA9 2003 Blackwell Verlag, Berlin ISSN 0179-1613\n\
         Oviposition Behavior and Offspring Emergence Patterns in Succinea thaanumi, an Endemic Hawaiian Land Snail\n\
         Susan G. Brown, K'}]},'termVectors'=>['doc-1',['uniqueKey','001954306c066a8a4cff3da02f7e9dda8e0fb634','fulltext',['0179-1613',['tf',1,'positions',['position',10],'df',266,'tf-idf',0.0037593984962406013],'109',['tf',1,'positions',['position',1],'df',34,'tf-idf',0.029411764705882353],'2003',['tf',2,'positions',['position',4,'position',5],'df',73,'tf-idf',0.0273972602739726],'905',['tf',1,'positions',['position',2],'df',1,'tf-idf',1.0],'910',['tf',1,'positions',['position',3],'df',1,'tf-idf',1.0],'an',['tf',1,'positions',['position',20],'df',34,'tf-idf',0.029411764705882353],'and',['tf',1,'positions',['position',13],'df',747,'tf-idf',0.0013386880856760374],'behavior',['tf',1,'positions',['position',12],'df',490,'tf-idf',0.0020408163265306124],'berlin',['tf',1,'positions',['position',8],'df',293,'tf-idf',0.0034129692832764505],'blackwell',['tf',1,'positions',['position',6],'df',573,'tf-idf',0.0017452006980802793],'brown',['tf',1,'positions',['position',27],'df',9,'tf-idf',0.1111111111111111],'emergence',['tf',1,'positions',['position',15],'df',2,'tf-idf',0.5],'endemic',['tf',1,'positions',['position',21],'df',2,'tf-idf',0.5],'ethology',['tf',1,'positions',['position',0],'df',579,'tf-idf',0.0017271157167530224],'g',['tf',1,'positions',['position',26],'df',47,'tf-idf',0.02127659574468085],'hawaiian',['tf',1,'positions',['position',22],'df',3,'tf-idf',0.3333333333333333],'in',['tf',1,'positions',['position',17],'df',498,'tf-idf',0.002008032128514056],'issn',['tf',1,'positions',['position',9],'df',308,'tf-idf',0.003246753246753247],'k',['tf',1,'positions',['position',28],'df',30,'tf-idf',0.03333333333333333],'land',['tf',1,'positions',['position',23],'df',2,'tf-idf',0.5],'offspring',['tf',1,'positions',['position',14],'df',7,'tf-idf',0.14285714285714285],'oviposition',['tf',1,'positions',['position',11],'df',3,'tf-idf',0.3333333333333333],'patterns',['tf',1,'positions',['position',16],'df',7,'tf-idf',0.14285714285714285],'snail',['tf',1,'positions',['position',24],'df',1,'tf-idf',1.0],'succinea',['tf',1,'positions',['position',18],'df',1,'tf-idf',1.0],'susan',['tf',1,'positions',['position',25],'df',7,'tf-idf',0.14285714285714285],'thaanumi',['tf',1,'positions',['position',19],'df',1,'tf-idf',1.0],'verlag',['tf',1,'positions',['position',7],'df',293,'tf-idf',0.0034129692832764505]]],'uniqueKeyFieldName','shasum']}"
-    http_version: 
+    http_version:
   recorded_at: Tue, 05 Mar 2013 03:19:27 GMT
-- request: 
+- request:
     method: get
     uri: http://localhost:8983/select?q=shasum:00040b66948f49c3a6c6c0977530e2014899abf9&qt=fulltext&wt=ruby
-    body: 
+    body:
       encoding: US-ASCII
       string: ""
     headers: {}
 
-  response: 
-    status: 
+  response:
+    status:
       code: 200
       message: OK
-    headers: 
-      Server: 
+    headers:
+      Server:
       - Winstone Servlet Engine v0.9.10
-      Last-Modified: 
+      Last-Modified:
       - Tue, 05 Mar 2013 02:26:59 GMT
-      Etag: 
+      Etag:
       - "\"YmVlMzM2ZjY5YzgwMDAwMFNvbHI=\""
-      Content-Type: 
+      Content-Type:
       - text/plain;charset=UTF-8
-      Connection: 
+      Connection:
       - Close
-      Date: 
+      Date:
       - Tue, 05 Mar 2013 03:19:27 GMT
-      X-Powered-By: 
+      X-Powered-By:
       - Servlet/2.5 (Winstone/0.9.10)
-    body: 
+    body:
       encoding: ASCII-8BIT
       string: "{'responseHeader'=>{'status'=>0,'QTime'=>3,'params'=>{'wt'=>'ruby','q'=>'shasum:00040b66948f49c3a6c6c0977530e2014899abf9','qt'=>'fulltext'}},'response'=>{'numFound'=>1,'start'=>0,'docs'=>[{'license'=>'\xC2\xA9 Blackwell Verlag GmbH','shasum'=>'00040b66948f49c3a6c6c0977530e2014899abf9','doi'=>'10.1111/j.1439-0310.2009.01707.x','authors'=>'Kelly A. Stiver, Suzanne H. Alonzo','title'=>'Parental and Mating Effort: Is There Necessarily a Trade-Off?','journal'=>'Ethology','year'=>'2009','volume'=>'115','pages'=>'1101-1126','fulltext'=>'Ethology\n\
         CURRENT ISSUES - PERSPECTIVES AND REVIEWS\n\
         Parental and Mating Effort: Is There Necessarily a Trade-Off?\n\
         Kelly A. Stiver & Suzanne H. Alonzo\n\
         Department of Ecology and Evolutionary Biology, Yal'}]},'termVectors'=>['doc-0',['uniqueKey','00040b66948f49c3a6c6c0977530e2014899abf9','fulltext',['a',['tf',2,'positions',['position',13,'position',17],'df',246,'tf-idf',0.008130081300813009],'alonzo',['tf',1,'positions',['position',21],'df',1,'tf-idf',1.0],'and',['tf',3,'positions',['position',4,'position',7,'position',25],'df',747,'tf-idf',0.004016064257028112],'biology',['tf',1,'positions',['position',27],'df',131,'tf-idf',0.007633587786259542],'current',['tf',1,'positions',['position',1],'df',5,'tf-idf',0.2],'department',['tf',1,'positions',['position',22],'df',179,'tf-idf',0.00558659217877095],'ecology',['tf',1,'positions',['position',24],'df',39,'tf-idf',0.02564102564102564],'effort',['tf',1,'positions',['position',9],'df',4,'tf-idf',0.25],'ethology',['tf',1,'positions',['position',0],'df',579,'tf-idf',0.0017271157167530224],'evolutionary',['tf',1,'positions',['position',26],'df',11,'tf-idf',0.09090909090909091],'h',['tf',1,'positions',['position',20],'df',43,'tf-idf',0.023255813953488372],'is',['tf',1,'positions',['position',10],'df',25,'tf-idf',0.04],'issues',['tf',1,'positions',['position',2],'df',5,'tf-idf',0.2],'kelly',['tf',1,'positions',['position',16],'df',2,'tf-idf',0.5],'mating',['tf',1,'positions',['position',8],'df',30,'tf-idf',0.03333333333333333],'necessarily',['tf',1,'positions',['position',12],'df',1,'tf-idf',1.0],'of',['tf',1,'positions',['position',23],'df',765,'tf-idf',0.00130718954248366],'off',['tf',1,'positions',['position',15],'df',3,'tf-idf',0.3333333333333333],'parental',['tf',1,'positions',['position',6],'df',8,'tf-idf',0.125],'perspectives',['tf',1,'positions',['position',3],'df',9,'tf-idf',0.1111111111111111],'reviews',['tf',1,'positions',['position',5],'df',28,'tf-idf',0.03571428571428571],'stiver',['tf',1,'positions',['position',18],'df',1,'tf-idf',1.0],'suzanne',['tf',1,'positions',['position',19],'df',1,'tf-idf',1.0],'there',['tf',1,'positions',['position',11],'df',2,'tf-idf',0.5],'trade',['tf',1,'positions',['position',14],'df',4,'tf-idf',0.25],'yal',['tf',1,'positions',['position',28],'df',1,'tf-idf',1.0]]],'uniqueKeyFieldName','shasum']}"
-    http_version: 
+    http_version:
   recorded_at: Tue, 05 Mar 2013 03:19:27 GMT
-- request: 
+- request:
     method: get
     uri: http://localhost:8983/select?q=shasum:00dbffbfff2d18a74ed5f8895fa9f515bf38bf5f&qt=fulltext&wt=ruby
-    body: 
+    body:
       encoding: US-ASCII
       string: ""
     headers: {}
 
-  response: 
-    status: 
+  response:
+    status:
       code: 200
       message: OK
-    headers: 
-      Server: 
+    headers:
+      Server:
       - Winstone Servlet Engine v0.9.10
-      Last-Modified: 
+      Last-Modified:
       - Tue, 05 Mar 2013 02:26:59 GMT
-      Etag: 
+      Etag:
       - "\"YmVlMzM2ZjY5YzgwMDAwMFNvbHI=\""
-      Content-Type: 
+      Content-Type:
       - text/plain;charset=UTF-8
-      Connection: 
+      Connection:
       - Close
-      Date: 
+      Date:
       - Tue, 05 Mar 2013 03:19:27 GMT
-      X-Powered-By: 
+      X-Powered-By:
       - Servlet/2.5 (Winstone/0.9.10)
-    body: 
+    body:
       encoding: ASCII-8BIT
       string: "{'responseHeader'=>{'status'=>0,'QTime'=>3,'params'=>{'wt'=>'ruby','q'=>'shasum:00dbffbfff2d18a74ed5f8895fa9f515bf38bf5f','qt'=>'fulltext'}},'response'=>{'numFound'=>1,'start'=>0,'docs'=>[{'license'=>'\xC2\xA9 Blackwell Verlag GmbH','shasum'=>'00dbffbfff2d18a74ed5f8895fa9f515bf38bf5f','doi'=>'10.1111/j.1439-0310.2007.01421.x','authors'=>'Troy G. Murphy','title'=>'Display of an Inedible Prop as a Signal of Aggression? Adaptive Significance of Leaf-Display by the Turquoise-Browed Motmot, Eumomota superciliosa','journal'=>'Ethology','year'=>'2008','volume'=>'114','pages'=>'16-21','fulltext'=>'Ethology\n\
         Display of an Inedible Prop as a Signal of Aggression? Adaptive Significance of Leaf-Display by the Turquoise-Browed Motmot, Eumomota superciliosa\n\
         Troy G. Murphy\n\
         Department of Neurobiology an'}]},'termVectors'=>['doc-9',['uniqueKey','00dbffbfff2d18a74ed5f8895fa9f515bf38bf5f','fulltext',['a',['tf',1,'positions',['position',7],'df',246,'tf-idf',0.0040650406504065045],'adaptive',['tf',1,'positions',['position',11],'df',3,'tf-idf',0.3333333333333333],'aggression',['tf',1,'positions',['position',10],'df',11,'tf-idf',0.09090909090909091],'an',['tf',2,'positions',['position',3,'position',29],'df',34,'tf-idf',0.058823529411764705],'as',['tf',1,'positions',['position',6],'df',23,'tf-idf',0.043478260869565216],'browed',['tf',1,'positions',['position',19],'df',1,'tf-idf',1.0],'by',['tf',1,'positions',['position',16],'df',53,'tf-idf',0.018867924528301886],'department',['tf',1,'positions',['position',26],'df',179,'tf-idf',0.00558659217877095],'display',['tf',2,'positions',['position',1,'position',15],'df',8,'tf-idf',0.25],'ethology',['tf',1,'positions',['position',0],'df',579,'tf-idf',0.0017271157167530224],'eumomota',['tf',1,'positions',['position',21],'df',1,'tf-idf',1.0],'g',['tf',1,'positions',['position',24],'df',47,'tf-idf',0.02127659574468085],'inedible',['tf',1,'positions',['position',4],'df',1,'tf-idf',1.0],'leaf',['tf',1,'positions',['position',14],'df',3,'tf-idf',0.3333333333333333],'motmot',['tf',1,'positions',['position',20],'df',1,'tf-idf',1.0],'murphy',['tf',1,'positions',['position',25],'df',2,'tf-idf',0.5],'neurobiology',['tf',1,'positions',['position',28],'df',13,'tf-idf',0.07692307692307693],'of',['tf',4,'positions',['position',2,'position',9,'position',13,'position',27],'df',765,'tf-idf',0.00522875816993464],'prop',['tf',1,'positions',['position',5],'df',1,'tf-idf',1.0],'signal',['tf',1,'positions',['position',8],'df',9,'tf-idf',0.1111111111111111],'significance',['tf',1,'positions',['position',12],'df',2,'tf-idf',0.5],'superciliosa',['tf',1,'positions',['position',22],'df',1,'tf-idf',1.0],'the',['tf',1,'positions',['position',17],'df',625,'tf-idf',0.0016],'troy',['tf',1,'positions',['position',23],'df',2,'tf-idf',0.5],'turquoise',['tf',1,'positions',['position',18],'df',1,'tf-idf',1.0]]],'uniqueKeyFieldName','shasum']}"
-    http_version: 
+    http_version:
   recorded_at: Tue, 05 Mar 2013 03:19:27 GMT
-- request: 
+- request:
     method: get
     uri: http://localhost:8983/select?q=shasum:00cdb0f945c1e1d7b7789cd8178f3232a57fee34&qt=fulltext&wt=ruby
-    body: 
+    body:
       encoding: US-ASCII
       string: ""
     headers: {}
 
-  response: 
-    status: 
+  response:
+    status:
       code: 200
       message: OK
-    headers: 
-      Server: 
+    headers:
+      Server:
       - Winstone Servlet Engine v0.9.10
-      Last-Modified: 
+      Last-Modified:
       - Tue, 05 Mar 2013 02:26:59 GMT
-      Etag: 
+      Etag:
       - "\"YmVlMzM2ZjY5YzgwMDAwMFNvbHI=\""
-      Content-Type: 
+      Content-Type:
       - text/plain;charset=UTF-8
-      Connection: 
+      Connection:
       - Close
-      Date: 
+      Date:
       - Tue, 05 Mar 2013 03:19:27 GMT
-      X-Powered-By: 
+      X-Powered-By:
       - Servlet/2.5 (Winstone/0.9.10)
-    body: 
+    body:
       encoding: ASCII-8BIT
       string: "{'responseHeader'=>{'status'=>0,'QTime'=>3,'params'=>{'wt'=>'ruby','q'=>'shasum:00cdb0f945c1e1d7b7789cd8178f3232a57fee34','qt'=>'fulltext'}},'response'=>{'numFound'=>1,'start'=>0,'docs'=>[{'license'=>'\xC2\xA9 Blackwell Verlag GmbH','shasum'=>'00cdb0f945c1e1d7b7789cd8178f3232a57fee34','doi'=>'10.1111/j.1439-0310.2006.01139.x','authors'=>'Jennifer L. Snekser, Scott P. McRobert, Caleb E. Murphy, Ethan D. Clotfelter','title'=>'Aggregation Behavior in Wildtype and Transgenic Zebrafish','journal'=>'Ethology','year'=>'2006','volume'=>'112','pages'=>'181-187','fulltext'=>'Ethology\n\
         Aggregation Behavior in Wildtype and Transgenic Zebrafish\n\
         Jennifer L. Snekser*, Scott P. McRobert*, Caleb E. Murphyf & Ethan D. Clotfelterf\n\
         Recent advances in the development and availability'}]},'termVectors'=>['doc-8',['uniqueKey','00cdb0f945c1e1d7b7789cd8178f3232a57fee34','fulltext',['advances',['tf',1,'positions',['position',21],'df',2,'tf-idf',0.5],'aggregation',['tf',1,'positions',['position',1],'df',3,'tf-idf',0.3333333333333333],'and',['tf',2,'positions',['position',5,'position',25],'df',747,'tf-idf',0.002677376171352075],'availability',['tf',1,'positions',['position',26],'df',1,'tf-idf',1.0],'behavior',['tf',1,'positions',['position',2],'df',490,'tf-idf',0.0020408163265306124],'caleb',['tf',1,'positions',['position',14],'df',1,'tf-idf',1.0],'clotfelterf',['tf',1,'positions',['position',19],'df',1,'tf-idf',1.0],'d',['tf',1,'positions',['position',18],'df',64,'tf-idf',0.015625],'development',['tf',1,'positions',['position',24],'df',12,'tf-idf',0.08333333333333333],'e',['tf',1,'positions',['position',15],'df',46,'tf-idf',0.021739130434782608],'ethan',['tf',1,'positions',['position',17],'df',1,'tf-idf',1.0],'ethology',['tf',1,'positions',['position',0],'df',579,'tf-idf',0.0017271157167530224],'in',['tf',2,'positions',['position',3,'position',22],'df',498,'tf-idf',0.004016064257028112],'jennifer',['tf',1,'positions',['position',8],'df',5,'tf-idf',0.2],'l',['tf',1,'positions',['position',9],'df',68,'tf-idf',0.014705882352941176],'mcrobert',['tf',1,'positions',['position',13],'df',1,'tf-idf',1.0],'murphyf',['tf',1,'positions',['position',16],'df',1,'tf-idf',1.0],'p',['tf',1,'positions',['position',12],'df',50,'tf-idf',0.02],'recent',['tf',1,'positions',['position',20],'df',3,'tf-idf',0.3333333333333333],'scott',['tf',1,'positions',['position',11],'df',4,'tf-idf',0.25],'snekser',['tf',1,'positions',['position',10],'df',1,'tf-idf',1.0],'the',['tf',1,'positions',['position',23],'df',625,'tf-idf',0.0016],'transgenic',['tf',1,'positions',['position',6],'df',9,'tf-idf',0.1111111111111111],'wildtype',['tf',1,'positions',['position',4],'df',1,'tf-idf',1.0],'zebrafish',['tf',1,'positions',['position',7],'df',3,'tf-idf',0.3333333333333333]]],'uniqueKeyFieldName','shasum']}"
-    http_version: 
+    http_version:
   recorded_at: Tue, 05 Mar 2013 03:19:27 GMT
-- request: 
+- request:
     method: get
     uri: http://localhost:8983/select?q=shasum:00a004096479b9332b153e91053f09df8003ef74&qt=fulltext&wt=ruby
-    body: 
+    body:
       encoding: US-ASCII
       string: ""
     headers: {}
 
-  response: 
-    status: 
+  response:
+    status:
       code: 200
       message: OK
-    headers: 
-      Server: 
+    headers:
+      Server:
       - Winstone Servlet Engine v0.9.10
-      Last-Modified: 
+      Last-Modified:
       - Tue, 05 Mar 2013 02:26:59 GMT
-      Etag: 
+      Etag:
       - "\"YmVlMzM2ZjY5YzgwMDAwMFNvbHI=\""
-      Content-Type: 
+      Content-Type:
       - text/plain;charset=UTF-8
-      Connection: 
+      Connection:
       - Close
-      Date: 
+      Date:
       - Tue, 05 Mar 2013 03:19:27 GMT
-      X-Powered-By: 
+      X-Powered-By:
       - Servlet/2.5 (Winstone/0.9.10)
-    body: 
+    body:
       encoding: ASCII-8BIT
       string: "{'responseHeader'=>{'status'=>0,'QTime'=>3,'params'=>{'wt'=>'ruby','q'=>'shasum:00a004096479b9332b153e91053f09df8003ef74','qt'=>'fulltext'}},'response'=>{'numFound'=>1,'start'=>0,'docs'=>[{'license'=>'\xC2\xA9 Blackwell Verlag GmbH','shasum'=>'00a004096479b9332b153e91053f09df8003ef74','doi'=>'10.1111/j.1439-0310.1998.tb00103.x','authors'=>'R. I. M. Dunbar, Julian Bever','title'=>'Neocortex Size Predicts Group Size in Carnivores and Some Insectivores','journal'=>'Ethology','year'=>'1998','volume'=>'104','pages'=>'695-708','fulltext'=>'Ethology 104, 695\xE2\x80\x94708 (1998) \xC2\xA9 1998 Blackwell Wissenschafts-Verlag, Berlin ISSN 0179-1613\n\
         School of Biological Sciences, Nicholson Building, University of Liverpool and Department of Anthropology, Uni'}]},'termVectors'=>['doc-7',['uniqueKey','00a004096479b9332b153e91053f09df8003ef74','fulltext',['0179-1613',['tf',1,'positions',['position',11],'df',266,'tf-idf',0.0037593984962406013],'104',['tf',1,'positions',['position',1],'df',32,'tf-idf',0.03125],'1998',['tf',2,'positions',['position',4,'position',5],'df',35,'tf-idf',0.05714285714285714],'695',['tf',1,'positions',['position',2],'df',1,'tf-idf',1.0],'708',['tf',1,'positions',['position',3],'df',1,'tf-idf',1.0],'and',['tf',1,'positions',['position',21],'df',747,'tf-idf',0.0013386880856760374],'anthropology',['tf',1,'positions',['position',24],'df',4,'tf-idf',0.25],'berlin',['tf',1,'positions',['position',9],'df',293,'tf-idf',0.0034129692832764505],'biological',['tf',1,'positions',['position',14],'df',35,'tf-idf',0.02857142857142857],'blackwell',['tf',1,'positions',['position',6],'df',573,'tf-idf',0.0017452006980802793],'building',['tf',1,'positions',['position',17],'df',1,'tf-idf',1.0],'department',['tf',1,'positions',['position',22],'df',179,'tf-idf',0.00558659217877095],'ethology',['tf',1,'positions',['position',0],'df',579,'tf-idf',0.0017271157167530224],'issn',['tf',1,'positions',['position',10],'df',308,'tf-idf',0.003246753246753247],'liverpool',['tf',1,'positions',['position',20],'df',1,'tf-idf',1.0],'nicholson',['tf',1,'positions',['position',16],'df',1,'tf-idf',1.0],'of',['tf',3,'positions',['position',13,'position',19,'position',23],'df',765,'tf-idf',0.00392156862745098],'school',['tf',1,'positions',['position',12],'df',23,'tf-idf',0.043478260869565216],'sciences',['tf',1,'positions',['position',15],'df',36,'tf-idf',0.027777777777777776],'uni',['tf',1,'positions',['position',25],'df',3,'tf-idf',0.3333333333333333],'university',['tf',1,'positions',['position',18],'df',167,'tf-idf',0.005988023952095809],'verlag',['tf',1,'positions',['position',8],'df',293,'tf-idf',0.0034129692832764505],'wissenschafts',['tf',1,'positions',['position',7],'df',167,'tf-idf',0.005988023952095809]]],'uniqueKeyFieldName','shasum']}"
-    http_version: 
+    http_version:
   recorded_at: Tue, 05 Mar 2013 03:19:27 GMT
-- request: 
+- request:
     method: get
     uri: http://localhost:8983/select?q=shasum:0097e0f4029fef57b8158970112ab32c1e692cff&qt=fulltext&wt=ruby
-    body: 
+    body:
       encoding: US-ASCII
       string: ""
     headers: {}
 
-  response: 
-    status: 
+  response:
+    status:
       code: 200
       message: OK
-    headers: 
-      Server: 
+    headers:
+      Server:
       - Winstone Servlet Engine v0.9.10
-      Last-Modified: 
+      Last-Modified:
       - Tue, 05 Mar 2013 02:26:59 GMT
-      Etag: 
+      Etag:
       - "\"YmVlMzM2ZjY5YzgwMDAwMFNvbHI=\""
-      Content-Type: 
+      Content-Type:
       - text/plain;charset=UTF-8
-      Connection: 
+      Connection:
       - Close
-      Date: 
+      Date:
       - Tue, 05 Mar 2013 03:19:27 GMT
-      X-Powered-By: 
+      X-Powered-By:
       - Servlet/2.5 (Winstone/0.9.10)
-    body: 
+    body:
       encoding: ASCII-8BIT
       string: "{'responseHeader'=>{'status'=>0,'QTime'=>3,'params'=>{'wt'=>'ruby','q'=>'shasum:0097e0f4029fef57b8158970112ab32c1e692cff','qt'=>'fulltext'}},'response'=>{'numFound'=>1,'start'=>0,'docs'=>[{'license'=>'\xC2\xA9 Blackwell Verlag GmbH','shasum'=>'0097e0f4029fef57b8158970112ab32c1e692cff','doi'=>'10.1111/j.1439-0310.2011.01898.x','authors'=>'Pavol Prokop, Michael R. Maxwell','title'=>'Sexual Conflict Over Spermatophore Attachment in a Nuptially Feeding Cricket','journal'=>'Ethology','year'=>'2011','volume'=>'117','pages'=>'520-528','fulltext'=>'ethology\n\
         international journal of behavioural biology\tM?:*\n\
@@ -521,209 +521,209 @@ http_interactions:
         Sexual Conflict Over Spermatophore Attachment in a Nuptially Feeding Cricket\n\
         Pavol Prokop*f & Michael R. Maxwell}\n\
         * Department of Bi'}]},'termVectors'=>['doc-6',['uniqueKey','0097e0f4029fef57b8158970112ab32c1e692cff','fulltext',['a',['tf',1,'positions',['position',14],'df',246,'tf-idf',0.0040650406504065045],'attachment',['tf',1,'positions',['position',12],'df',3,'tf-idf',0.3333333333333333],'behavioural',['tf',1,'positions',['position',4],'df',254,'tf-idf',0.003937007874015748],'bi',['tf',1,'positions',['position',26],'df',2,'tf-idf',0.5],'biology',['tf',1,'positions',['position',5],'df',131,'tf-idf',0.007633587786259542],'conflict',['tf',1,'positions',['position',9],'df',10,'tf-idf',0.1],'cricket',['tf',1,'positions',['position',17],'df',6,'tf-idf',0.16666666666666666],'department',['tf',1,'positions',['position',24],'df',179,'tf-idf',0.00558659217877095],'ethology',['tf',2,'positions',['position',0,'position',7],'df',579,'tf-idf',0.0034542314335060447],'f',['tf',1,'positions',['position',20],'df',74,'tf-idf',0.013513513513513514],'feeding',['tf',1,'positions',['position',16],'df',11,'tf-idf',0.09090909090909091],'in',['tf',1,'positions',['position',13],'df',498,'tf-idf',0.002008032128514056],'international',['tf',1,'positions',['position',1],'df',228,'tf-idf',0.0043859649122807015],'journal',['tf',1,'positions',['position',2],'df',285,'tf-idf',0.0035087719298245615],'m',['tf',1,'positions',['position',6],'df',119,'tf-idf',0.008403361344537815],'maxwell',['tf',1,'positions',['position',23],'df',1,'tf-idf',1.0],'michael',['tf',1,'positions',['position',21],'df',14,'tf-idf',0.07142857142857142],'nuptially',['tf',1,'positions',['position',15],'df',1,'tf-idf',1.0],'of',['tf',2,'positions',['position',3,'position',25],'df',765,'tf-idf',0.00261437908496732],'over',['tf',1,'positions',['position',10],'df',7,'tf-idf',0.14285714285714285],'pavol',['tf',1,'positions',['position',18],'df',3,'tf-idf',0.3333333333333333],'prokop',['tf',1,'positions',['position',19],'df',2,'tf-idf',0.5],'r',['tf',1,'positions',['position',22],'df',49,'tf-idf',0.02040816326530612],'sexual',['tf',1,'positions',['position',8],'df',22,'tf-idf',0.045454545454545456],'spermatophore',['tf',1,'positions',['position',11],'df',2,'tf-idf',0.5]]],'uniqueKeyFieldName','shasum']}"
-    http_version: 
+    http_version:
   recorded_at: Tue, 05 Mar 2013 03:19:27 GMT
-- request: 
+- request:
     method: get
     uri: http://localhost:8983/select?q=shasum:0097c3434054c25e1ace6243a1ac54b71f35bc28&qt=fulltext&wt=ruby
-    body: 
+    body:
       encoding: US-ASCII
       string: ""
     headers: {}
 
-  response: 
-    status: 
+  response:
+    status:
       code: 200
       message: OK
-    headers: 
-      Server: 
+    headers:
+      Server:
       - Winstone Servlet Engine v0.9.10
-      Last-Modified: 
+      Last-Modified:
       - Tue, 05 Mar 2013 02:26:59 GMT
-      Etag: 
+      Etag:
       - "\"YmVlMzM2ZjY5YzgwMDAwMFNvbHI=\""
-      Content-Type: 
+      Content-Type:
       - text/plain;charset=UTF-8
-      Connection: 
+      Connection:
       - Close
-      Date: 
+      Date:
       - Tue, 05 Mar 2013 03:19:27 GMT
-      X-Powered-By: 
+      X-Powered-By:
       - Servlet/2.5 (Winstone/0.9.10)
-    body: 
+    body:
       encoding: ASCII-8BIT
       string: "{'responseHeader'=>{'status'=>0,'QTime'=>2,'params'=>{'wt'=>'ruby','q'=>'shasum:0097c3434054c25e1ace6243a1ac54b71f35bc28','qt'=>'fulltext'}},'response'=>{'numFound'=>1,'start'=>0,'docs'=>[{'license'=>'\xC2\xA9 Blackwell Verlag GmbH','shasum'=>'0097c3434054c25e1ace6243a1ac54b71f35bc28','doi'=>'10.1046/j.1439-0310.2001.00723.x','authors'=>'Susan Bartmann, Gabriele Gerlach','title'=>'Multiple Paternity and Similar Variance in Reproductive Success of Male and Female Wood Mice (Apodemus sylvaticus) Housed in an Enclosure','journal'=>'Ethology','year'=>'2001','volume'=>'107','pages'=>'889-899','fulltext'=>'Ethology 107, 889\xE2\x80\x94899 (2001) \xC2\xA9 2001 Blackwell Wissenschafts-Verlag, Berlin ISSN 0179-1613\n\
         Fak. Biologie, Universit\xC3\xA4t Konstanz, Konstanz\n\
         Multiple Paternity and Similar Variance in Reproductive Success '}]},'termVectors'=>['doc-5',['uniqueKey','0097c3434054c25e1ace6243a1ac54b71f35bc28','fulltext',['0179-1613',['tf',1,'positions',['position',11],'df',266,'tf-idf',0.0037593984962406013],'107',['tf',1,'positions',['position',1],'df',35,'tf-idf',0.02857142857142857],'2001',['tf',2,'positions',['position',4,'position',5],'df',39,'tf-idf',0.05128205128205128],'889',['tf',1,'positions',['position',2],'df',1,'tf-idf',1.0],'899',['tf',1,'positions',['position',3],'df',1,'tf-idf',1.0],'and',['tf',1,'positions',['position',19],'df',747,'tf-idf',0.0013386880856760374],'berlin',['tf',1,'positions',['position',9],'df',293,'tf-idf',0.0034129692832764505],'biologie',['tf',1,'positions',['position',13],'df',6,'tf-idf',0.16666666666666666],'blackwell',['tf',1,'positions',['position',6],'df',573,'tf-idf',0.0017452006980802793],'ethology',['tf',1,'positions',['position',0],'df',579,'tf-idf',0.0017271157167530224],'fak',['tf',1,'positions',['position',12],'df',1,'tf-idf',1.0],'in',['tf',1,'positions',['position',22],'df',498,'tf-idf',0.002008032128514056],'issn',['tf',1,'positions',['position',10],'df',308,'tf-idf',0.003246753246753247],'konstanz',['tf',2,'positions',['position',15,'position',16],'df',1,'tf-idf',2.0],'multiple',['tf',1,'positions',['position',17],'df',13,'tf-idf',0.07692307692307693],'paternity',['tf',1,'positions',['position',18],'df',3,'tf-idf',0.3333333333333333],'reproductive',['tf',1,'positions',['position',23],'df',24,'tf-idf',0.041666666666666664],'similar',['tf',1,'positions',['position',20],'df',1,'tf-idf',1.0],'success',['tf',1,'positions',['position',24],'df',11,'tf-idf',0.09090909090909091],'universit\xC3\xA4t',['tf',1,'positions',['position',14],'df',12,'tf-idf',0.08333333333333333],'variance',['tf',1,'positions',['position',21],'df',3,'tf-idf',0.3333333333333333],'verlag',['tf',1,'positions',['position',8],'df',293,'tf-idf',0.0034129692832764505],'wissenschafts',['tf',1,'positions',['position',7],'df',167,'tf-idf',0.005988023952095809]]],'uniqueKeyFieldName','shasum']}"
-    http_version: 
+    http_version:
   recorded_at: Tue, 05 Mar 2013 03:19:27 GMT
-- request: 
+- request:
     method: get
     uri: http://localhost:8983/select?q=shasum:00972c5123877961056b21aea4177d0dc69c7318&qt=fulltext&wt=ruby
-    body: 
+    body:
       encoding: US-ASCII
       string: ""
     headers: {}
 
-  response: 
-    status: 
+  response:
+    status:
       code: 200
       message: OK
-    headers: 
-      Server: 
+    headers:
+      Server:
       - Winstone Servlet Engine v0.9.10
-      Last-Modified: 
+      Last-Modified:
       - Tue, 05 Mar 2013 02:26:59 GMT
-      Etag: 
+      Etag:
       - "\"YmVlMzM2ZjY5YzgwMDAwMFNvbHI=\""
-      Content-Type: 
+      Content-Type:
       - text/plain;charset=UTF-8
-      Connection: 
+      Connection:
       - Close
-      Date: 
+      Date:
       - Tue, 05 Mar 2013 03:19:27 GMT
-      X-Powered-By: 
+      X-Powered-By:
       - Servlet/2.5 (Winstone/0.9.10)
-    body: 
+    body:
       encoding: ASCII-8BIT
       string: "{'responseHeader'=>{'status'=>0,'QTime'=>3,'params'=>{'wt'=>'ruby','q'=>'shasum:00972c5123877961056b21aea4177d0dc69c7318','qt'=>'fulltext'}},'response'=>{'numFound'=>1,'start'=>0,'docs'=>[{'license'=>'\xC2\xA9 Blackwell Verlag GmbH','shasum'=>'00972c5123877961056b21aea4177d0dc69c7318','doi'=>'10.1111/j.1439-0310.2008.01576.x','authors'=>'Carlos A. Botero, Andrew E. Mudge, Amanda M. Koltz, Wesley M. Hochachka, Sandra L. Vehrencamp','title'=>'How Reliable are the Methods for Estimating Repertoire Size?','journal'=>'Ethology','year'=>'2008','volume'=>'114','pages'=>'1227-1238','fulltext'=>'Ethology\n\
         How Reliable are the Methods for Estimating Repertoire Size?\n\
         Carlos A. Botero*,f,$, Andrew E. Mudgef, Amanda M. Koltz\xC2\xA7, Wesley M. Hochachkaf & Sandra L. Vehrencampf,-\n\
         * Center for Ecological '}]},'termVectors'=>['doc-4',['uniqueKey','00972c5123877961056b21aea4177d0dc69c7318','fulltext',['a',['tf',1,'positions',['position',11],'df',246,'tf-idf',0.0040650406504065045],'amanda',['tf',1,'positions',['position',17],'df',3,'tf-idf',0.3333333333333333],'andrew',['tf',1,'positions',['position',14],'df',15,'tf-idf',0.06666666666666667],'are',['tf',1,'positions',['position',3],'df',18,'tf-idf',0.05555555555555555],'botero',['tf',1,'positions',['position',12],'df',1,'tf-idf',1.0],'carlos',['tf',1,'positions',['position',10],'df',5,'tf-idf',0.2],'center',['tf',1,'positions',['position',26],'df',13,'tf-idf',0.07692307692307693],'e',['tf',1,'positions',['position',15],'df',46,'tf-idf',0.021739130434782608],'ecological',['tf',1,'positions',['position',28],'df',9,'tf-idf',0.1111111111111111],'estimating',['tf',1,'positions',['position',7],'df',1,'tf-idf',1.0],'ethology',['tf',1,'positions',['position',0],'df',579,'tf-idf',0.0017271157167530224],'f',['tf',1,'positions',['position',13],'df',74,'tf-idf',0.013513513513513514],'for',['tf',2,'positions',['position',6,'position',27],'df',92,'tf-idf',0.021739130434782608],'hochachkaf',['tf',1,'positions',['position',22],'df',1,'tf-idf',1.0],'how',['tf',1,'positions',['position',1],'df',10,'tf-idf',0.1],'koltz',['tf',1,'positions',['position',19],'df',1,'tf-idf',1.0],'l',['tf',1,'positions',['position',24],'df',68,'tf-idf',0.014705882352941176],'m',['tf',2,'positions',['position',18,'position',21],'df',119,'tf-idf',0.01680672268907563],'methods',['tf',1,'positions',['position',5],'df',3,'tf-idf',0.3333333333333333],'mudgef',['tf',1,'positions',['position',16],'df',1,'tf-idf',1.0],'reliable',['tf',1,'positions',['position',2],'df',1,'tf-idf',1.0],'repertoire',['tf',1,'positions',['position',8],'df',2,'tf-idf',0.5],'sandra',['tf',1,'positions',['position',23],'df',1,'tf-idf',1.0],'size',['tf',1,'positions',['position',9],'df',26,'tf-idf',0.038461538461538464],'the',['tf',1,'positions',['position',4],'df',625,'tf-idf',0.0016],'vehrencampf',['tf',1,'positions',['position',25],'df',1,'tf-idf',1.0],'wesley',['tf',1,'positions',['position',20],'df',1,'tf-idf',1.0]]],'uniqueKeyFieldName','shasum']}"
-    http_version: 
+    http_version:
   recorded_at: Tue, 05 Mar 2013 03:19:27 GMT
-- request: 
+- request:
     method: get
     uri: http://localhost:8983/select?q=shasum:008896a5c58241b65088d931e02f3bea02fc3bf0&qt=fulltext&wt=ruby
-    body: 
+    body:
       encoding: US-ASCII
       string: ""
     headers: {}
 
-  response: 
-    status: 
+  response:
+    status:
       code: 200
       message: OK
-    headers: 
-      Server: 
+    headers:
+      Server:
       - Winstone Servlet Engine v0.9.10
-      Last-Modified: 
+      Last-Modified:
       - Tue, 05 Mar 2013 02:26:59 GMT
-      Etag: 
+      Etag:
       - "\"YmVlMzM2ZjY5YzgwMDAwMFNvbHI=\""
-      Content-Type: 
+      Content-Type:
       - text/plain;charset=UTF-8
-      Connection: 
+      Connection:
       - Close
-      Date: 
+      Date:
       - Tue, 05 Mar 2013 03:19:27 GMT
-      X-Powered-By: 
+      X-Powered-By:
       - Servlet/2.5 (Winstone/0.9.10)
-    body: 
+    body:
       encoding: ASCII-8BIT
       string: "{'responseHeader'=>{'status'=>0,'QTime'=>3,'params'=>{'wt'=>'ruby','q'=>'shasum:008896a5c58241b65088d931e02f3bea02fc3bf0','qt'=>'fulltext'}},'response'=>{'numFound'=>1,'start'=>0,'docs'=>[{'license'=>'\xC2\xA9 Blackwell Verlag GmbH','shasum'=>'008896a5c58241b65088d931e02f3bea02fc3bf0','doi'=>'10.1111/j.1439-0310.2009.01716.x','authors'=>'Juan Moreno, Juan-Gabriel Mart\xC3\xADnez, Judith Morales, Elisa Lobato, Santiago Merino, Gustavo Tom\xC3\xA1s, Rodrigo A. V\xC3\xA1squez, Erich M\xC3\xB6stl, Jos\xC3\xA9 L. Osorno','title'=>'Paternity Loss in Relation to Male Age, Territorial Behaviour and Stress in the Pied Flycatcher','journal'=>'Ethology','year'=>'2010','volume'=>'116','pages'=>'76-84','fulltext'=>'Ethology\n\
         Paternity Loss in Relation to Male Age, Territorial Behaviour and Stress in the Pied Flycatcher\n\
         Juan Moreno*, Juan-Gabriel Mart\xC3\xADnez!, Judith Morales*, Elisa Lobato*, Santiago Merino*, Gustavo'}]},'termVectors'=>['doc-3',['uniqueKey','008896a5c58241b65088d931e02f3bea02fc3bf0','fulltext',['age',['tf',1,'positions',['position',7],'df',13,'tf-idf',0.07692307692307693],'and',['tf',1,'positions',['position',10],'df',747,'tf-idf',0.0013386880856760374],'behaviour',['tf',1,'positions',['position',9],'df',34,'tf-idf',0.029411764705882353],'elisa',['tf',1,'positions',['position',23],'df',1,'tf-idf',1.0],'ethology',['tf',1,'positions',['position',0],'df',579,'tf-idf',0.0017271157167530224],'flycatcher',['tf',1,'positions',['position',15],'df',2,'tf-idf',0.5],'gabriel',['tf',1,'positions',['position',19],'df',1,'tf-idf',1.0],'gustavo',['tf',1,'positions',['position',27],'df',2,'tf-idf',0.5],'in',['tf',2,'positions',['position',3,'position',12],'df',498,'tf-idf',0.004016064257028112],'juan',['tf',2,'positions',['position',16,'position',18],'df',3,'tf-idf',0.6666666666666666],'judith',['tf',1,'positions',['position',21],'df',1,'tf-idf',1.0],'lobato',['tf',1,'positions',['position',24],'df',1,'tf-idf',1.0],'loss',['tf',1,'positions',['position',2],'df',3,'tf-idf',0.3333333333333333],'male',['tf',1,'positions',['position',6],'df',71,'tf-idf',0.014084507042253521],'mart\xC3\xADnez',['tf',1,'positions',['position',20],'df',2,'tf-idf',0.5],'merino',['tf',1,'positions',['position',26],'df',1,'tf-idf',1.0],'morales',['tf',1,'positions',['position',22],'df',1,'tf-idf',1.0],'moreno',['tf',1,'positions',['position',17],'df',1,'tf-idf',1.0],'paternity',['tf',1,'positions',['position',1],'df',3,'tf-idf',0.3333333333333333],'pied',['tf',1,'positions',['position',14],'df',2,'tf-idf',0.5],'relation',['tf',1,'positions',['position',4],'df',7,'tf-idf',0.14285714285714285],'santiago',['tf',1,'positions',['position',25],'df',1,'tf-idf',1.0],'stress',['tf',1,'positions',['position',11],'df',6,'tf-idf',0.16666666666666666],'territorial',['tf',1,'positions',['position',8],'df',8,'tf-idf',0.125],'the',['tf',1,'positions',['position',13],'df',625,'tf-idf',0.0016],'to',['tf',1,'positions',['position',5],'df',119,'tf-idf',0.008403361344537815]]],'uniqueKeyFieldName','shasum']}"
-    http_version: 
+    http_version:
   recorded_at: Tue, 05 Mar 2013 03:19:27 GMT
-- request: 
+- request:
     method: get
     uri: http://localhost:8983/select?q=shasum:00496e7961871ad05013e1388aaa6650507b2638&qt=fulltext&wt=ruby
-    body: 
+    body:
       encoding: US-ASCII
       string: ""
     headers: {}
 
-  response: 
-    status: 
+  response:
+    status:
       code: 200
       message: OK
-    headers: 
-      Server: 
+    headers:
+      Server:
       - Winstone Servlet Engine v0.9.10
-      Last-Modified: 
+      Last-Modified:
       - Tue, 05 Mar 2013 02:26:59 GMT
-      Etag: 
+      Etag:
       - "\"YmVlMzM2ZjY5YzgwMDAwMFNvbHI=\""
-      Content-Type: 
+      Content-Type:
       - text/plain;charset=UTF-8
-      Connection: 
+      Connection:
       - Close
-      Date: 
+      Date:
       - Tue, 05 Mar 2013 03:19:27 GMT
-      X-Powered-By: 
+      X-Powered-By:
       - Servlet/2.5 (Winstone/0.9.10)
-    body: 
+    body:
       encoding: ASCII-8BIT
       string: "{'responseHeader'=>{'status'=>0,'QTime'=>3,'params'=>{'wt'=>'ruby','q'=>'shasum:00496e7961871ad05013e1388aaa6650507b2638','qt'=>'fulltext'}},'response'=>{'numFound'=>1,'start'=>0,'docs'=>[{'license'=>'\xC2\xA9 Blackwell Verlag GmbH','shasum'=>'00496e7961871ad05013e1388aaa6650507b2638','doi'=>'10.1046/j.1439-0310.2000.00539.x','title'=>'New Books','journal'=>'Ethology','year'=>'2000','volume'=>'106','pages'=>'283-286','fulltext'=>'Ethology 106, 283-286 (2000) \xC2\xA9 2000 Blackwell Wissenschafts-Verlag, Berlin ISSN 0179-1613\n\
         New Books\n\
         Ziegler, T. & B\xC3\xB6hme, W. 1997: Genitalstrukturen und Paarungsbiologie bei squa-maten Reptilien, spezi'}]},'termVectors'=>['doc-2',['uniqueKey','00496e7961871ad05013e1388aaa6650507b2638','fulltext',['0179-1613',['tf',1,'positions',['position',10],'df',266,'tf-idf',0.0037593984962406013],'106',['tf',1,'positions',['position',1],'df',30,'tf-idf',0.03333333333333333],'1997',['tf',1,'positions',['position',17],'df',38,'tf-idf',0.02631578947368421],'2000',['tf',2,'positions',['position',3,'position',4],'df',33,'tf-idf',0.06060606060606061],'283-286',['tf',1,'positions',['position',2],'df',1,'tf-idf',1.0],'bei',['tf',1,'positions',['position',21],'df',1,'tf-idf',1.0],'berlin',['tf',1,'positions',['position',8],'df',293,'tf-idf',0.0034129692832764505],'blackwell',['tf',1,'positions',['position',5],'df',573,'tf-idf',0.0017452006980802793],'books',['tf',1,'positions',['position',12],'df',14,'tf-idf',0.07142857142857142],'b\xC3\xB6hme',['tf',1,'positions',['position',15],'df',1,'tf-idf',1.0],'ethology',['tf',1,'positions',['position',0],'df',579,'tf-idf',0.0017271157167530224],'genitalstrukturen',['tf',1,'positions',['position',18],'df',1,'tf-idf',1.0],'issn',['tf',1,'positions',['position',9],'df',308,'tf-idf',0.003246753246753247],'maten',['tf',1,'positions',['position',23],'df',1,'tf-idf',1.0],'new',['tf',1,'positions',['position',11],'df',36,'tf-idf',0.027777777777777776],'paarungsbiologie',['tf',1,'positions',['position',20],'df',1,'tf-idf',1.0],'reptilien',['tf',1,'positions',['position',24],'df',1,'tf-idf',1.0],'spezi',['tf',1,'positions',['position',25],'df',1,'tf-idf',1.0],'squa',['tf',1,'positions',['position',22],'df',1,'tf-idf',1.0],'t',['tf',1,'positions',['position',14],'df',46,'tf-idf',0.021739130434782608],'und',['tf',1,'positions',['position',19],'df',4,'tf-idf',0.25],'verlag',['tf',1,'positions',['position',7],'df',293,'tf-idf',0.0034129692832764505],'w',['tf',1,'positions',['position',16],'df',22,'tf-idf',0.045454545454545456],'wissenschafts',['tf',1,'positions',['position',6],'df',167,'tf-idf',0.005988023952095809],'ziegler',['tf',1,'positions',['position',13],'df',1,'tf-idf',1.0]]],'uniqueKeyFieldName','shasum']}"
-    http_version: 
+    http_version:
   recorded_at: Tue, 05 Mar 2013 03:19:27 GMT
-- request: 
+- request:
     method: get
     uri: http://localhost:8983/select?q=shasum:001954306c066a8a4cff3da02f7e9dda8e0fb634&qt=fulltext&wt=ruby
-    body: 
+    body:
       encoding: US-ASCII
       string: ""
     headers: {}
 
-  response: 
-    status: 
+  response:
+    status:
       code: 200
       message: OK
-    headers: 
-      Server: 
+    headers:
+      Server:
       - Winstone Servlet Engine v0.9.10
-      Last-Modified: 
+      Last-Modified:
       - Tue, 05 Mar 2013 02:26:59 GMT
-      Etag: 
+      Etag:
       - "\"YmVlMzM2ZjY5YzgwMDAwMFNvbHI=\""
-      Content-Type: 
+      Content-Type:
       - text/plain;charset=UTF-8
-      Connection: 
+      Connection:
       - Close
-      Date: 
+      Date:
       - Tue, 05 Mar 2013 03:19:27 GMT
-      X-Powered-By: 
+      X-Powered-By:
       - Servlet/2.5 (Winstone/0.9.10)
-    body: 
+    body:
       encoding: ASCII-8BIT
       string: "{'responseHeader'=>{'status'=>0,'QTime'=>3,'params'=>{'wt'=>'ruby','q'=>'shasum:001954306c066a8a4cff3da02f7e9dda8e0fb634','qt'=>'fulltext'}},'response'=>{'numFound'=>1,'start'=>0,'docs'=>[{'license'=>'\xC2\xA9 Blackwell Verlag GmbH','shasum'=>'001954306c066a8a4cff3da02f7e9dda8e0fb634','doi'=>'10.1046/j.0179-1613.2003.00929.x','authors'=>'Susan G. Brown, Karen Crowell, Patricia Keene','title'=>'Oviposition Behavior and Offspring Emergence Patterns in Succinea thaanumi, an Endemic Hawaiian Land Snail','journal'=>'Ethology','year'=>'2003','volume'=>'109','pages'=>'905-910','fulltext'=>'Ethology 109, 905\xE2\x80\x94910 (2003) \xC2\xA9 2003 Blackwell Verlag, Berlin ISSN 0179-1613\n\
         Oviposition Behavior and Offspring Emergence Patterns in Succinea thaanumi, an Endemic Hawaiian Land Snail\n\
         Susan G. Brown, K'}]},'termVectors'=>['doc-1',['uniqueKey','001954306c066a8a4cff3da02f7e9dda8e0fb634','fulltext',['0179-1613',['tf',1,'positions',['position',10],'df',266,'tf-idf',0.0037593984962406013],'109',['tf',1,'positions',['position',1],'df',34,'tf-idf',0.029411764705882353],'2003',['tf',2,'positions',['position',4,'position',5],'df',73,'tf-idf',0.0273972602739726],'905',['tf',1,'positions',['position',2],'df',1,'tf-idf',1.0],'910',['tf',1,'positions',['position',3],'df',1,'tf-idf',1.0],'an',['tf',1,'positions',['position',20],'df',34,'tf-idf',0.029411764705882353],'and',['tf',1,'positions',['position',13],'df',747,'tf-idf',0.0013386880856760374],'behavior',['tf',1,'positions',['position',12],'df',490,'tf-idf',0.0020408163265306124],'berlin',['tf',1,'positions',['position',8],'df',293,'tf-idf',0.0034129692832764505],'blackwell',['tf',1,'positions',['position',6],'df',573,'tf-idf',0.0017452006980802793],'brown',['tf',1,'positions',['position',27],'df',9,'tf-idf',0.1111111111111111],'emergence',['tf',1,'positions',['position',15],'df',2,'tf-idf',0.5],'endemic',['tf',1,'positions',['position',21],'df',2,'tf-idf',0.5],'ethology',['tf',1,'positions',['position',0],'df',579,'tf-idf',0.0017271157167530224],'g',['tf',1,'positions',['position',26],'df',47,'tf-idf',0.02127659574468085],'hawaiian',['tf',1,'positions',['position',22],'df',3,'tf-idf',0.3333333333333333],'in',['tf',1,'positions',['position',17],'df',498,'tf-idf',0.002008032128514056],'issn',['tf',1,'positions',['position',9],'df',308,'tf-idf',0.003246753246753247],'k',['tf',1,'positions',['position',28],'df',30,'tf-idf',0.03333333333333333],'land',['tf',1,'positions',['position',23],'df',2,'tf-idf',0.5],'offspring',['tf',1,'positions',['position',14],'df',7,'tf-idf',0.14285714285714285],'oviposition',['tf',1,'positions',['position',11],'df',3,'tf-idf',0.3333333333333333],'patterns',['tf',1,'positions',['position',16],'df',7,'tf-idf',0.14285714285714285],'snail',['tf',1,'positions',['position',24],'df',1,'tf-idf',1.0],'succinea',['tf',1,'positions',['position',18],'df',1,'tf-idf',1.0],'susan',['tf',1,'positions',['position',25],'df',7,'tf-idf',0.14285714285714285],'thaanumi',['tf',1,'positions',['position',19],'df',1,'tf-idf',1.0],'verlag',['tf',1,'positions',['position',7],'df',293,'tf-idf',0.0034129692832764505]]],'uniqueKeyFieldName','shasum']}"
-    http_version: 
+    http_version:
   recorded_at: Tue, 05 Mar 2013 03:19:27 GMT
-- request: 
+- request:
     method: get
     uri: http://localhost:8983/select?q=*:*&qt=precise&rows=1&start=0&wt=ruby
-    body: 
+    body:
       encoding: US-ASCII
       string: ""
     headers: {}
 
-  response: 
-    status: 
+  response:
+    status:
       code: 200
       message: OK
-    headers: 
-      Server: 
+    headers:
+      Server:
       - Winstone Servlet Engine v0.9.10
-      Last-Modified: 
+      Last-Modified:
       - Tue, 05 Mar 2013 02:26:59 GMT
-      Etag: 
+      Etag:
       - "\"YmVlMzM2ZjY5YzgwMDAwMFNvbHI=\""
-      Content-Type: 
+      Content-Type:
       - text/plain;charset=UTF-8
-      Connection: 
+      Connection:
       - Close
-      Date: 
+      Date:
       - Tue, 05 Mar 2013 03:19:27 GMT
-      X-Powered-By: 
+      X-Powered-By:
       - Servlet/2.5 (Winstone/0.9.10)
-    body: 
+    body:
       encoding: ASCII-8BIT
       string: "{'responseHeader'=>{'status'=>0,'QTime'=>6,'params'=>{'wt'=>'ruby','rows'=>'1','q'=>'*:*','qt'=>'precise','start'=>'0'}},'response'=>{'numFound'=>1042,'start'=>0,'docs'=>[{'license'=>'\xC2\xA9 Blackwell Verlag GmbH','shasum'=>'00040b66948f49c3a6c6c0977530e2014899abf9','doi'=>'10.1111/j.1439-0310.2009.01707.x','authors'=>'Kelly A. Stiver, Suzanne H. Alonzo','title'=>'Parental and Mating Effort: Is There Necessarily a Trade-Off?','journal'=>'Ethology','year'=>'2009','volume'=>'115','pages'=>'1101-1126'}]},'facet_counts'=>{'facet_queries'=>{'year:[* TO 1799]'=>0,'year:[1800 TO 1809]'=>0,'year:[1810 TO 1819]'=>0,'year:[1820 TO 1829]'=>0,'year:[1830 TO 1839]'=>0,'year:[1840 TO 1849]'=>0,'year:[1850 TO 1859]'=>0,'year:[1860 TO 1869]'=>0,'year:[1870 TO 1879]'=>0,'year:[1880 TO 1889]'=>0,'year:[1890 TO 1899]'=>0,'year:[1900 TO 1909]'=>0,'year:[1910 TO 1919]'=>0,'year:[1920 TO 1929]'=>0,'year:[1930 TO 1939]'=>0,'year:[1940 TO 1949]'=>0,'year:[1950 TO 1959]'=>0,'year:[1960 TO 1969]'=>0,'year:[1970 TO 1979]'=>0,'year:[1980 TO 1989]'=>0,'year:[1990 TO 1999]'=>94,'year:[2000 TO 2009]'=>788,'year:[2010 TO *]'=>160},'facet_fields'=>{'authors_facet'=>['J. C. Crabbe',9,'Michael H. Ferkin',9,'Douglas P. Chivers',8,'A. V. Kulikov',7,'Daniel T. Blumstein',7,'J. N. Crawley',6,'N. K. Popova',6,'A. A. Palmer',5,'D. I. Boomsma',5,'D. Wahlsten',5],'journal_facet'=>['Ethology',594,'Genes, Brain and Behavior',448]},'facet_dates'=>{}}}"
-    http_version: 
+    http_version:
   recorded_at: Tue, 05 Mar 2013 03:19:27 GMT
 recorded_with: VCR 2.4.0

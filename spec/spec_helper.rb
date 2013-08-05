@@ -1,4 +1,5 @@
 # -*- encoding : utf-8 -*-
+# rubocop:disable AvoidGlobalVars
 require 'rubygems'
 
 # Coverage setup
@@ -13,7 +14,7 @@ if ENV['TRAVIS']
     add_filter '/config/'
     add_filter '/db/'
     add_filter '/vendor/bundle/'
-    
+
     add_group 'Models', '/app/models/'
     add_group 'Controllers', '/app/controllers/'
     add_group 'Mailers', '/app/mailers/'
@@ -30,28 +31,28 @@ VCR.configure do |c|
   c.configure_rspec_metadata!
   c.cassette_library_dir = 'spec/cassettes'
   c.hook_into :webmock
-  
+
   # Psych serializes cassette data as binary, which makes them not human-
   # readable.  When recording new cassettes, fire up Ruby 1.9 and uncomment
   # this line.
-  #c.default_cassette_options = { :serialize_with => :syck }
+  # c.default_cassette_options = { serialize_with: :syck }
 end
 
 # Standard setup for RSpec
-ENV["RAILS_ENV"] ||= 'test'
-require File.expand_path("../../config/environment", __FILE__)
+ENV['RAILS_ENV'] ||= 'test'
+require File.expand_path('../../config/environment', __FILE__)
 require 'rspec/rails'
 require 'rspec/autorun'
 require 'fileutils'
-  
-Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
+
+Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 
 RSpec.configure do |config|
   config.color_enabled = true
   config.tty = true
-  config.formatter = 'Fuubar'
+  config.formatter = 'documentation'
   config.order = 'random'
-  
+
   config.mock_with :rspec
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
   config.use_transactional_fixtures = true
@@ -64,27 +65,27 @@ RSpec.configure do |config|
       FileUtils.mkdir "#{::Rails.root}/downloads"
       $destroy_downloads = true
     end
-    
+
     # Speed up testing by deferring garbage collection
     DeferredGarbageCollection.start
+
+    # Load the DB schema, since we're using in-memory SQLite
+    load Rails.root.join('db', 'schema.rb')
 
     # Seed the DB.  I know that people object to this sort of thing, but I want
     # things like the standard package of CSL styles to be available without
     # my having to write giant XML CSL-style factories.
-    SeedFu.quiet = true
-    SeedFu.seed
+    load Rails.root.join('db', 'seeds.rb')
   end
-  
+
   config.after(:suite) do
     # Clean up GC
     DeferredGarbageCollection.reconsider
-    
+
     # Destroy downloads directory
-    if $destroy_downloads
-      FileUtils.rm_rf "#{::Rails.root}/downloads"
-    end
+    FileUtils.rm_rf "#{::Rails.root}/downloads" if $destroy_downloads
   end
-  
+
   config.before(:each) do
     # Reset the locale and timezone to defaults on each new test
     I18n.locale = I18n.default_locale
@@ -92,5 +93,5 @@ RSpec.configure do |config|
   end
 
   # Add helpers for Devise
-  config.include Devise::TestHelpers, :type => :controller
+  config.include Devise::TestHelpers, type: :controller
 end

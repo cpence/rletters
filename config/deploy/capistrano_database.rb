@@ -1,8 +1,8 @@
 # -*- encoding : utf-8 -*-
-# 
+#
 # = Capistrano database.yml task
 #
-# Provides a couple of tasks for creating the database.yml 
+# Provides a couple of tasks for creating the database.yml
 # configuration file dynamically when deploy:setup is run.
 #
 # Category::    Capistrano
@@ -16,10 +16,10 @@
 #
 # == Requirements
 #
-# This extension requires the original <tt>config/database.yml</tt> to be excluded
-# from source code checkout. You can easily accomplish this by renaming
-# the file (for example to database.example.yml) and appending <tt>database.yml</tt>
-# value to your SCM ignore list.
+# This extension requires the original +config/database.yml+ to be
+# excluded from source code checkout. You can easily accomplish this by
+# renaming the file (for example to database.example.yml) and appending
+# +database.yml+ value to your SCM ignore list.
 #
 #   # Example for Subversion
 #
@@ -29,36 +29,37 @@
 #   # Example for Git
 #
 #   $ git mv config/database.yml config/database.example.yml
-#   $ echo 'config/database.yml' >> .gitignore 
+#   $ echo 'config/database.yml' >> .gitignore
 #
-# 
+#
 # == Usage
-# 
+#
 # Include this file in your <tt>deploy.rb</tt> configuration file.
 # Assuming you saved this recipe as capistrano_database_yml.rb:
-# 
+#
 #   require "capistrano_database_yml"
-# 
+#
 # Now, when <tt>deploy:setup</tt> is called, this script will automatically
 # create the <tt>database.yml</tt> file in the shared folder.
 # Each time you run a deploy, this script will also create a symlink
-# from your application <tt>config/database.yml</tt> pointing to the shared configuration file. 
-# 
+# from your application <tt>config/database.yml</tt> pointing to the shared
+# configuration file.
+#
 # == Custom template
-# 
+#
 # By default, this script creates an exact copy of the default
-# <tt>database.yml</tt> file shipped with a new Rails 2.x application.
-# If you want to overwrite the default template, simply create a custom Erb template
-# called <tt>database.yml.erb</tt> and save it into <tt>config/deploy</tt> folder.
-# 
-# Although the name of the file can't be changed, you can customize the directory
-# where it is stored defining a variable called <tt>:template_dir</tt>.
-# 
+# +database.yml+ file shipped with a new Rails 2.x application.
+# If you want to overwrite the default template, simply create a custom Erb
+# template called +database.yml.erb+ and save it into +config/deploy+ folder.
+#
+# Although the name of the file can't be changed, you can customize the
+# directory where it is stored defining a variable called +:template_dir+.
+#
 #   # store your custom template at foo/bar/database.yml.erb
 #   set :template_dir, "foo/bar"
-# 
+#
 #   # example of database template
-#   
+#
 #   base: &base
 #     adapter: sqlite3
 #     timeout: 5000
@@ -79,7 +80,8 @@
 # Because this is an Erb template, you can place variables and Ruby scripts
 # within the file.
 # For instance, the template above takes advantage of Capistrano CLI
-# to ask for a MySQL database password instead of hard coding it into the template.
+# to ask for a MySQL database password instead of hard coding it into the
+# template.
 #
 # === Password prompt
 #
@@ -91,7 +93,7 @@
 #
 
 unless Capistrano::Configuration.respond_to?(:instance)
-  abort "This extension requires Capistrano 2"
+  abort 'This extension requires Capistrano 2'
 end
 
 Capistrano::Configuration.instance.load do
@@ -110,12 +112,12 @@ Capistrano::Configuration.instance.load do
 
         When this recipe is loaded, db:setup is automatically configured \
         to be invoked after deploy:setup. You can skip this task setting \
-        the variable :skip_db_setup to true. This is especially useful \ 
+        the variable :skip_db_setup to true. This is especially useful \
         if you are using this recipe in combination with \
-        capistrano-ext/multistaging to avoid multiple db:setup calls \ 
+        capistrano-ext/multistaging to avoid multiple db:setup calls \
         when running deploy:setup for all stages one by one.
       DESC
-      task :setup, :except => { :no_release => true } do
+      task :setup, except: { no_release: true } do
 
         default_template = <<-EOF
         base: &base
@@ -132,26 +134,27 @@ Capistrano::Configuration.instance.load do
           <<: *base
         EOF
 
-        location = fetch(:template_dir, "config/deploy") + '/database.yml.erb'
-        template = File.file?(location) ? File.read(location) : default_template
+        location = File.join(fetch(:template_dir, 'config/deploy'),
+                             'database.yml.erb')
+        template = File.file?(location) ? IO.read(location) : default_template
 
         config = ERB.new(template)
 
-        run "mkdir -p #{shared_path}/config" 
+        run "mkdir -p #{shared_path}/config"
         put config.result(binding), "#{shared_path}/config/database.yml"
       end
 
       desc <<-DESC
         [internal] Updates the symlink for database.yml file to the just deployed release.
       DESC
-      task :symlink, :except => { :no_release => true } do
-        run "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml" 
+      task :symlink, except: { no_release: true } do
+        run "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml"
       end
 
     end
 
-    after "deploy:setup", "deploy:db:setup"   unless fetch(:skip_db_setup, false)
-    after "deploy:assets:symlink", "deploy:db:symlink"
+    after 'deploy:setup', 'deploy:db:setup' unless fetch(:skip_db_setup, false)
+    after 'deploy:assets:symlink', 'deploy:db:symlink'
 
   end
 

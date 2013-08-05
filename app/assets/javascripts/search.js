@@ -5,11 +5,11 @@ function createCollapsibleList() {
   var leftColumn = $.mobile.activePage.find('div.leftcolumn');
   var toolsList = $.mobile.activePage.find('ul.toolslist');
   var facetList = $.mobile.activePage.find('ul.facetlist');
-  
+
   if (leftColumn.length === 0) {
     return;
   }
-  
+
   if (toolsList.length) {
     var toolsButtonText = $.mobile.activePage.find('li.toolsheader').text();
     var toolsCollapse = $(document.createElement('div')).attr('class', 'toolscollapse').append($(document.createElement('h3')).text(toolsButtonText));
@@ -17,7 +17,7 @@ function createCollapsibleList() {
     toolsCollapse.appendTo(leftColumn);
     toolsCollapse.collapsible({theme:'c',refresh:true,collapsed:false}).trigger('updatelayout');
   }
-  
+
   if (facetList.length) {
     var facetButtonText = $.mobile.activePage.find('li.filterheader').text();
     var facetCollapse = $(document.createElement('div')).attr('class', 'facetcollapse').append($(document.createElement('h3')).text(facetButtonText));
@@ -29,7 +29,7 @@ function createCollapsibleList() {
 function destroyCollapsibleList() {
   var toolsCollapse = $.mobile.activePage.find('div.toolscollapse');
   var facetCollapse = $.mobile.activePage.find('div.facetcollapse');
-  
+
   var parent;
   if (toolsCollapse.length) {
     parent = toolsCollapse.parent();
@@ -47,7 +47,7 @@ function checkCollapsibleList() {
   var width = $(window).width();
   var toolsCollapse = $.mobile.activePage.find('div.toolscollapse');
   var facetCollapse = $.mobile.activePage.find('div.facetcollapse');
-  
+
   if (width <= 768 && (facetCollapse.length === 0 && toolsCollapse.length === 0))
     createCollapsibleList();
   else if (width > 768)

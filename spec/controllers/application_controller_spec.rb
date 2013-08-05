@@ -6,14 +6,14 @@ describe ApplicationController do
   describe '#set_locale' do
     controller(ApplicationController) do
       def index
-        render :nothing => true
+        render nothing: true
       end
     end
 
     context 'with no user' do
       before(:each) do
         sign_out :user
-        
+
         get :index
       end
 
@@ -24,14 +24,14 @@ describe ApplicationController do
 
     context 'with a user' do
       before(:each) do
-        @user = FactoryGirl.create(:user, :language => 'es-MX')
+        @user = FactoryGirl.create(:user, language: 'es-MX')
         sign_in @user
 
         get :index
       end
 
       it "sets locale to the user's language" do
-        I18n.locale.should eq(:'es-MX')
+        I18n.locale.should eq(:'es-MX') # rubocop:disable SymbolName
       end
     end
   end
@@ -39,14 +39,14 @@ describe ApplicationController do
   describe '#set_timezone' do
     controller(ApplicationController) do
       def index
-        render :nothing => true
+        render nothing: true
       end
     end
 
     context 'with no user' do
       before(:each) do
         sign_out :user
-        
+
         get :index
       end
 
@@ -57,9 +57,9 @@ describe ApplicationController do
 
     context 'with a user' do
       before(:each) do
-        @user = FactoryGirl.create(:user, :timezone => 'Mexico City')
+        @user = FactoryGirl.create(:user, timezone: 'Mexico City')
         sign_in @user
-        
+
         get :index
       end
 

@@ -10,6 +10,7 @@ contrib/solr/example/work
 doc
 downloads
 log/*.log
+metrics
 public/assets
 public/system
 tmp/*

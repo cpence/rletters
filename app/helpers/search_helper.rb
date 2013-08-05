@@ -10,14 +10,13 @@ module SearchHelper
   # @example Print the number of documents in the last search (in HAML)
   #   = num_results_string
   def num_results_string
-    if params[:precise] or params[:q] or params[:fq]
-      I18n.t 'search.index.num_results_found', :count => Document.num_results
+    if params[:precise] || params[:q] || params[:fq]
+      I18n.t 'search.index.num_results_found', count: Document.num_results
     else
-      I18n.t 'search.index.num_results_database', :count => Document.num_results
+      I18n.t 'search.index.num_results_database', count: Document.num_results
     end
   end
-  
-  
+
   # Make a link to a page for the pagination widget
   #
   # @api public
@@ -26,7 +25,7 @@ module SearchHelper
   # @param [String] icon icon for the button, if desired
   # @param [Boolean] right if true, put icon on the right side of the button
   # @return [String] the requested link
-  # @example Get a link to the 3rd page of results, with an arrow icon on the right
+  # @example Get a link to the 3rd page of results, with a right-arrow icon
   #   page_link('Page 3!', 2, 'arrow-r', true)
   def page_link(text, num, icon = '', right = false)
     new_params = params.dup
@@ -36,11 +35,11 @@ module SearchHelper
       new_params[:page] = num
     end
 
-    style = { 'data-transition' => :none, 'data-role' => :button }
-    style['data-icon'] = icon unless icon.empty?
-    style['data-iconpos'] = 'right' if right
+    data = { transition: :none, role: :button }
+    data[:icon] = icon unless icon.empty?
+    data[:iconpos] = 'right' if right
 
-    link_to text, search_path(new_params), style
+    link_to text, search_path(new_params), data: data
   end
 
   # Render the pagination links
@@ -60,34 +59,43 @@ module SearchHelper
     num_pages = Integer(num_pages.ceil)
     return '' if num_pages == 0
 
-    content_tag :div, :class => 'ui-grid-c' do
-      content = content_tag(:div, :class => 'ui-block-a') do
+    content_tag :div, class: 'ui-grid-c' do
+      content = content_tag(:div, class: 'ui-block-a') do
         if @page != 0
-          page_link(I18n.t(:'search.index.first_button'), 0, 'back')
+          page_link(I18n.t('search.index.first_button'),
+                    0,
+                    'back')
         end
       end
-      content << content_tag(:div, :class => 'ui-block-b') do
+      content << content_tag(:div, class: 'ui-block-b') do
         if @page != 0
-          page_link(I18n.t(:'search.index.previous_button'), @page - 1, 'arrow-l')
+          page_link(I18n.t('search.index.previous_button'),
+                    @page - 1,
+                    'arrow-l')
         end
       end
 
-      content << content_tag(:div, :class => 'ui-block-c') do
+      content << content_tag(:div, class: 'ui-block-c') do
         if @page != (num_pages - 1)
-          page_link(I18n.t(:'search.index.next_button'), @page + 1, 'arrow-r', true)
+          page_link(I18n.t('search.index.next_button'),
+                    @page + 1,
+                    'arrow-r',
+                    true)
         end
       end
-      content << content_tag(:div, :class => 'ui-block-d') do
-        if @page != (num_pages - 1)
-          page_link(I18n.t(:'search.index.last_button'), num_pages - 1, 'forward', true)
+      content << content_tag(:div, class: 'ui-block-d') do
+        if @page != num_pages - 1
+          page_link(I18n.t('search.index.last_button'),
+                    num_pages - 1,
+                    'forward',
+                    true)
         end
       end
 
       content
     end
   end
-  
-  
+
   # Return an array of all sort methods
   #
   # @api public
@@ -108,7 +116,7 @@ module SearchHelper
       'year_sort desc'
     ]
   end
-  
+
   # Get the given sort method as a string
   #
   # This function converts a sort method ('relevance', 'title', 'author',
@@ -124,26 +132,25 @@ module SearchHelper
   def sort_to_string(sort)
     parts = sort.split(' ')
     return I18n.t('search.index.sort_unknown') unless parts.count == 2
-    
-    method = parts[0]    
+
+    method = parts[0]
     dir = I18n.t("search.index.sort_#{parts[1]}")
-    
+
     method_spec = case method
-    when 'score'
-      I18n.t('search.index.sort_score')
-    when 'title_sort'
-      "#{Document.human_attribute_name('title')} #{dir}"
-    when 'authors_sort'
-      "#{Document.human_attribute_name('authors')} #{dir}"
-    when 'journal_sort'
-      "#{Document.human_attribute_name('journal')} #{dir}"
-    when 'year_sort'
-      "#{Document.human_attribute_name('year')} #{dir}"
-    end
-    
+                  when 'score'
+                    I18n.t('search.index.sort_score')
+                  when 'title_sort'
+                    "#{Document.human_attribute_name('title')} #{dir}"
+                  when 'authors_sort'
+                    "#{Document.human_attribute_name('authors')} #{dir}"
+                  when 'journal_sort'
+                    "#{Document.human_attribute_name('journal')} #{dir}"
+                  when 'year_sort'
+                    "#{Document.human_attribute_name('year')} #{dir}"
+                  end
+
     "#{I18n.t('search.index.sort_prefix')} #{method_spec}"
   end
-
 
   # Create a link to the given set of facets
   #
@@ -161,18 +168,22 @@ module SearchHelper
   #   # => link_to "Remove all facets", search_path
   # @example Get a link to a given set of facets
   #   facet_link("Some facets", [...])
-  #   # => link_to "Some facets", search_path({ :fq => [ ... ] })
+  #   # => link_to "Some facets", search_path({ fq: [ ... ] })
   def facet_link(text, facets)
     new_params = params.dup
 
     if facets.empty?
       new_params[:fq] = nil
-      return link_to text, search_path(new_params), 'data-transition' => 'none'
+      return link_to text,
+                     search_path(new_params),
+                     data: { transition: 'none' }
     end
 
     new_params[:fq] = []
     facets.each { |f| new_params[:fq] << f.query }
-    link_to text, search_path(new_params), 'data-transition' => 'none'
+    link_to text,
+            search_path(new_params),
+            data: { transition: 'none' }
   end
 
   # Get the list of facet links for one particular field
@@ -191,21 +202,21 @@ module SearchHelper
   #   # "<li><a href='...'>Johnson <span class='ui-li-count'>2</a></li>..."
   def list_links_for_facet(field, header, active_facets)
     return ''.html_safe unless Document.facets
-    
+
     # Get the facets for this field
-    facets = Document.facets.sorted_for_field(field).reject { |f| active_facets.include? f }.take(5)
+    facets = (Document.facets.sorted_for_field(field) - active_facets).take(5)
 
     # Bail if there's no facets
     ret = ''.html_safe
     return ret if facets.empty?
 
     # Build the return value
-    ret << content_tag(:li, header, 'data-role' => 'list-divider')
+    ret << content_tag(:li, header, data: { role: 'list-divider' })
     facets.each do |f|
       ret << content_tag(:li) do
         # Link to whatever the current facets are, plus the new one
         link = facet_link f.label, active_facets + [f]
-        count = content_tag :span, f.hits.to_s, :class => 'ui-li-count'
+        count = content_tag :span, f.hits.to_s, class: 'ui-li-count'
         link + count
       end
     end
@@ -223,11 +234,12 @@ module SearchHelper
   # @return [String] set of list items for faceted browsing
   # @example Get all of the links for faceted browsing
   #   facet_link_list
-  #   # "<li>Active Filters</li>...<li>Authors</li><li><a href='...'>Johnson</a></li>..."
+  #   # "<li>Active Filters</li>...<li>Authors</li><li>"
+  #     "<a href='...'>Johnson</a></li>..."
   def facet_link_list
     # Make sure there are facets
     return ''.html_safe unless Document.facets
-    
+
     # Convert the active facet queries to facets
     active_facets = []
     if params[:fq]
@@ -240,29 +252,37 @@ module SearchHelper
     # Start with the active facets
     ret = ''.html_safe
     unless active_facets.empty?
-      ret << content_tag(:li, I18n.t('search.index.active_filters'), 'data-role' => 'list-divider')
-      ret << content_tag(:li, 'data-icon' => 'delete') do
+      ret << content_tag(:li,
+                         I18n.t('search.index.active_filters'),
+                         data: { role: 'list-divider' })
+      ret << content_tag(:li, data: { icon: 'delete' }) do
         facet_link I18n.t('search.index.remove_all'), []
       end
       active_facets.each do |f|
-        ret << content_tag(:li, 'data-icon' => 'delete') do
-          facet_link "#{f.field_label}: #{f.label}", active_facets.reject { |x| x == f }
+        ret << content_tag(:li, data: { icon: 'delete' }) do
+          other_facets = active_facets.reject { |x| x == f }
+          facet_link "#{f.field_label}: #{f.label}", other_facets
         end
       end
     end
 
     # Run the facet-list code for all three facet fields
-    ret << list_links_for_facet(:authors_facet, I18n.t('search.index.authors_facet'), active_facets)
-    ret << list_links_for_facet(:journal_facet, I18n.t('search.index.journal_facet'), active_facets)
-    ret << list_links_for_facet(:year, I18n.t('search.index.year_facet'), active_facets)
+    ret << list_links_for_facet(:authors_facet,
+                                I18n.t('search.index.authors_facet'),
+                                active_facets)
+    ret << list_links_for_facet(:journal_facet,
+                                I18n.t('search.index.journal_facet'),
+                                active_facets)
+    ret << list_links_for_facet(:year,
+                                I18n.t('search.index.year_facet'),
+                                active_facets)
     ret
   end
 
-
   # Get the short, formatted representation of a document
   #
-  # This function returns the short bibliographic entry for a document that 
-  # will appear in the search results list.  The formatting here depends on 
+  # This function returns the short bibliographic entry for a document that
+  # will appear in the search results list.  The formatting here depends on
   # the current user's settings.  By default, we use a jQuery Mobile-formatted
   # partial with an H3 and some P's.  The user can set, however, to format the
   # bibliographic entries using their favorite CSL style.
@@ -271,13 +291,14 @@ module SearchHelper
   # @param [Document] doc document for which bibliographic entry is desired
   # @return [String] bibliographic entry for document
   # @example Get the entry for a given document
-  #   document_bibliography_entry(Document.new(:authors => 'W. Johnson', :year => '2000'))
+  #   document_bibliography_entry(Document.new(authors: 'W. Johnson',
+  #                                            year: '2000'))
   #   # "Johnson, W. 2000. ..."
   def document_bibliography_entry(doc)
     if user_signed_in? && current_user.csl_style
       return doc.to_csl_entry(current_user.csl_style)
     end
-    
-    render :partial => 'document', :locals => { :document => doc }
+
+    render partial: 'document', locals: { document: doc }
   end
 end

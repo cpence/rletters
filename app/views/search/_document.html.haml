@@ -8,10 +8,10 @@
   - unless document.journal.blank?
     %em= "#{document.journal}, "
   - unless document.volume.blank?
-    = t(:'search.cite.volume_abbr', :volume => document.volume) + ','
+    = t('search.cite.volume_abbr', volume: document.volume) + ','
   - unless document.number.blank?
-    = t(:'search.cite.number_abbr', :number => document.number)
+    = t('search.cite.number_abbr', number: document.number)
   - unless document.year.blank?
     = "(#{document.year}),"
   - unless document.pages.blank?
-    = t(:'search.cite.pages_abbr', :pages => document.pages)
+    = t('search.cite.pages_abbr', pages: document.pages)

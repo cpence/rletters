@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 
 module Jobs
-  
+
   # Create a dataset from a Solr query for a given user
   #
   # This job fetches results from the Solr server and spools them into the
@@ -19,28 +19,28 @@ module Jobs
   #  @return [String] query type of this search
   class CreateDataset < Jobs::Base
     attr_accessor :user_id, :name, :q, :fq, :qt
-    
+
     # Create a dataset for the user
     #
     # @api public
     # @return [undefined]
     # @example Start a job for creating a dataset
     #   Delayed::Job.enqueue Jobs::CreateDataset.new(
-    #     :user_id => users(:john).to_param, 
-    #     :name => 'Test Dataset', 
-    #     :q => '*:*'
-    #     :fq => ['authors_facet:"Shatner"'],
-    #     :qt => 'precise')
+    #     user_id: users(:john).to_param,
+    #     name: 'Test Dataset',
+    #     q: '*:*'
+    #     fq: ['authors_facet:"Shatner"'],
+    #     qt: 'precise')
     def perform
       # Fetch the user based on ID
       user = User.find(user_id)
       raise ArgumentError, 'User ID is not valid' unless user
-      
+
       # Create a dataset and save it, to fix its ID
-      dataset = user.datasets.build(:name => name)
+      dataset = user.datasets.build(name: name)
       raise StandardError, 'Cannot create dataset for user' unless dataset
       raise StandardError, 'Cannot save dataset' unless dataset.save
-      
+
       # Build a Solr query to fetch the results, 1000 at a time
       solr_query = {}
       solr_query[:start] = 0
@@ -52,7 +52,7 @@ module Jobs
       # Only get shasum, no facets
       solr_query[:fl] = 'shasum'
       solr_query[:facet] = false
-      
+
       # We trap all of this so that if we get exceptions we can clean them
       # up and delete any and all fledgling dataset parts
       begin
@@ -60,23 +60,23 @@ module Jobs
         solr_response = Solr::Connection.find solr_query
 
         raise StandardError, 'Unknown error in Solr response' unless solr_response.ok?
-        raise StandardError, 'Attempted to save empty query' unless solr_response["response"]["numFound"] > 0
-        
+        raise StandardError, 'Attempted to save empty query' unless solr_response['response']['numFound'] > 0
+
         # Get our parameters
-        docs_to_fetch = solr_response["response"]["numFound"]
+        docs_to_fetch = solr_response['response']['numFound']
         dataset_id = dataset.to_param
-      
+
         while docs_to_fetch > 0
           # What did we get this time?
-          docs_fetched = solr_response["response"]["docs"].count
+          docs_fetched = solr_response['response']['docs'].count
 
           # Send them all in with activerecord-import
-          DatasetEntry.import([ :shasum, :dataset_id ],
-                              solr_response["response"]["docs"].map { |d|
-                                [ d["shasum"], dataset_id ]
-                              },
-                              :validate => false)
-        
+          DatasetEntry.import([:shasum, :dataset_id],
+                              solr_response['response']['docs'].map do |d|
+                                [d['shasum'], dataset_id]
+                              end,
+                              validate: false)
+
           # Update counters and execute another query if required
           docs_to_fetch = docs_to_fetch - docs_fetched
           if docs_to_fetch > 0
@@ -84,14 +84,14 @@ module Jobs
             solr_response = Solr::Connection.find solr_query
 
             raise StandardError, 'Unknown error in Solr response' unless solr_response.ok?
-            raise StandardError, 'Attempted to save empty query' unless solr_response["response"]["numFound"] > 0
+            raise StandardError, 'Attempted to save empty query' unless solr_response['response']['numFound'] > 0
           end
         end
-      rescue StandardError => e
+      rescue StandardError
         # Destroy the dataset to clean up
         dataset.destroy
         raise
       end
     end
-  end  
+  end
 end

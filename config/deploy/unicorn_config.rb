@@ -1,13 +1,13 @@
 # -*- encoding : utf-8 -*-
-# 
+#
 # = Capistrano unicorn.rb task
 #
-# Provides a couple of tasks for creating the unicorn.rb 
+# Provides a couple of tasks for creating the unicorn.rb
 # configuration file dynamically when deploy:setup is run.
 #
 
 unless Capistrano::Configuration.respond_to?(:instance)
-  abort "This extension requires Capistrano 2"
+  abort 'This extension requires Capistrano 2'
 end
 
 Capistrano::Configuration.instance.load do
@@ -27,7 +27,7 @@ Capistrano::Configuration.instance.load do
         to be invoked after deploy:setup. You can skip this task setting \
         the variable :skip_unicorn_setup to true.
       DESC
-      task :setup, :except => { :no_release => true } do
+      task :setup, except: { no_release: true } do
 
         default_template = <<-EOF
         listen 2007 # by default Unicorn listens on port 8080
@@ -37,26 +37,27 @@ Capistrano::Configuration.instance.load do
         stdout_path "<%= deploy_to %>/shared/log/unicorn.log"
         EOF
 
-        location = fetch(:template_dir, "config/deploy") + '/unicorn.rb.erb'
+        location = File.join(fetch(:template_dir, 'config/deploy'),
+                             'unicorn.rb.erb')
         template = File.file?(location) ? File.read(location) : default_template
 
         config = ERB.new(template)
 
-        run "mkdir -p #{shared_path}/config" 
+        run "mkdir -p #{shared_path}/config"
         put config.result(binding), "#{shared_path}/config/unicorn.rb"
       end
 
       desc <<-DESC
         [internal] Updates the symlink for unicorn.rb file to the just deployed release.
       DESC
-      task :symlink, :except => { :no_release => true } do
-        run "ln -nfs #{shared_path}/config/unicorn.rb #{release_path}/config/unicorn.rb" 
+      task :symlink, except: { no_release: true } do
+        run "ln -nfs #{shared_path}/config/unicorn.rb #{release_path}/config/unicorn.rb"
       end
 
     end
 
-    after "deploy:setup", "deploy:unicorn:setup"   unless fetch(:skip_unicorn_setup, false)
-    after "deploy:assets:symlink", "deploy:unicorn:symlink"
+    after 'deploy:setup', 'deploy:unicorn:setup' unless fetch(:skip_unicorn_setup, false)
+    after 'deploy:assets:symlink', 'deploy:unicorn:symlink'
 
   end
 

@@ -1,3 +1,3 @@
 -# This task will only run on datasets with one entry
 - if @dataset.entries.count == 1
-  %li= link_to('View term frequency information', :controller => 'datasets', :action => 'task_start', :id => @dataset.to_param, :class => 'SingleTermVectors')
+  %li= link_to('View term frequency information', controller: 'datasets', action: 'task_start', id: @dataset.to_param, class: 'SingleTermVectors')

@@ -6,7 +6,7 @@ en:
         login_warning: "You must be logged in to view this page."
     activemodel:
         models:
-            document: 
+            document:
                 one: Document
                 other: Documents
         attributes:
@@ -177,9 +177,9 @@ en:
             intro_markdown: >
                 This page lets you perform an advanced search of the article
                 database.  You may choose either to utilize our guided search
-                form, or to construct a query directly in [Solr's query 
-                syntax](http://wiki.apache.org/solr/SolrQuerySyntax), 
-                which is itself a superset of [Lucene query 
+                form, or to construct a query directly in [Solr's query
+                syntax](http://wiki.apache.org/solr/SolrQuerySyntax),
+                which is itself a superset of [Lucene query
                     syntax](http://lucene.apache.org/java/2_9_1/queryparsersyntax.html).
                 These custom searches are extremely powerful.
             search_header: "Guided search form"
@@ -247,9 +247,9 @@ en:
             instructions_header: "Log in to %{app_name}"
             instructions_one: >
                 If you want to perform any analysis on a set of search results,
-                you'll have to register for a user account.  This lets us save 
-                your search results as a dataset, perform analysis on them in 
-                the background, and send you an e-mail when the analysis is 
+                you'll have to register for a user account.  This lets us save
+                your search results as a dataset, perform analysis on them in
+                the background, and send you an e-mail when the analysis is
                 complete.
     libraries:
         delete:
@@ -313,11 +313,11 @@ en:
             help: "More information and help"
             faq_header: "Frequently asked questions"
             faq_text: >
-                See a list of commonly asked questions about and problems 
+                See a list of commonly asked questions about and problems
                 with %{app_name}
             account_header: "Your user account and settings"
             account_text: >
-                Visit this page to configure your user account and personal 
+                Visit this page to configure your user account and personal
                 settings.
             privacy_header: "Privacy policy"
             privacy_text: "How we use the information we collect from you."
@@ -343,7 +343,7 @@ en:
                 one: "You have one analysis task pending..."
                 other: "You have %{count} analysis tasks pending..."
         new:
-            head: "Create a new dataset"      
+            head: "Create a new dataset"
             errors:
                 one: "1 error kept you from creating this dataset:"
                 other: "%{count} errors kept you from creating this dataset:"
@@ -402,3 +402,29 @@ en:
         apple-touch-icon-low: App Icon (57x57)
         apple-touch-icon-med: App Icon (72x72)
         apple-touch-icon-high: App Icon (114x114)
+    admin:
+        admin_user:
+            admin_details: Administrator Details
+        dashboard:
+            new_datasets: Newest Datasets
+            new_analysis_tasks: Newest Analysis Tasks
+            recent_users: Recently Seen Users
+            backend: Backend Information
+            database: Database
+            db_size: "Database size: %{count} items"
+            connection_failed: Cannot connect to Solr!  Configure the Solr URL on the Settings tab.
+            latency: "Local database latency: %{count} ms"
+            solr: Solr Server
+            solr_version: "Solr version %{solr_ver}, Lucene version %{lucene_ver}"
+            java_version: "Java version %{java_ver}"
+            memory_info: "Memory: %{used} used, with %{free} free of %{total}; %{max} max"
+        markdown_page:
+            markdown_info_markdown: >
+                Custom pages may be formatted using the Markdown syntax.  Visit the
+                [Kramdown syntax guide](http://kramdown.rubyforge.org/syntax.html)
+                for information on the permitted syntax.
+            page_header: "Page: %{name}"
+        uploaded_asset:
+            image_details: "%{width}x%{height} (%{size} bytes)"
+            file_details: "%{size} bytes"
+            asset_header: "Asset: %{name}"

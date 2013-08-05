@@ -9,21 +9,21 @@
 listen 2007 # by default Unicorn listens on port 8080
 worker_processes 2 # this should be >= nr_cpus
 
-pid "<%= deploy_to %>/shared/pids/unicorn.pid"
-stderr_path "<%= deploy_to %>/shared/log/unicorn.log"
-stdout_path "<%= deploy_to %>/shared/log/unicorn.log"
+pid '<%= deploy_to %>/shared/pids/unicorn.pid'
+stderr_path '<%= deploy_to %>/shared/log/unicorn.log'
+stdout_path '<%= deploy_to %>/shared/log/unicorn.log'
 
 preload_app true
-GC.respond_to?(:copy_on_write_friendly=) and
+GC.respond_to?(:copy_on_write_friendly=) &&
   GC.copy_on_write_friendly = true
 
 before_fork do |server, worker|
   ActiveRecord::Base.connection.disconnect!
-  
-  old_pid = "<%= deploy_to %>/shared/pids/unicorn.pid.oldbin"
+
+  old_pid = '<%= deploy_to %>/shared/pids/unicorn.pid.oldbin'
   if File.exists?(old_pid) && server.pid != old_pid
     begin
-      Process.kill("QUIT", File.read(old_pid).to_i)
+      Process.kill('QUIT', File.read(old_pid).to_i)
     rescue Errno::ENOENT, Errno::ESRCH
       # someone else did our job for us
     end

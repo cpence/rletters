@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 
+# Ruby's standard Math module
 module Math
 
   # Extend the Math module with a few useful functions.

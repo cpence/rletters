@@ -27,9 +27,9 @@ module UsersHelper
       elsif parts.count == 2
         # A language and a territory
         entry = I18n.t("languages.#{parts[0]}")
-        entry += " ("
+        entry += ' ('
         entry += I18n.t("territories.#{parts[1]}")
-        entry += ")"
+        entry += ')'
       end
 
       list << [entry, loc]
@@ -60,7 +60,7 @@ module UsersHelper
       I18n.default_locale.to_s
     end
   end
-  
+
   # Create a list of all timezones
   #
   # This function returns a set of option tags for every timezone (similar
@@ -71,9 +71,14 @@ module UsersHelper
   # @param [String] current the currently selected timezone
   # @return [String] set of timezone option tags
   # @example Create a select box for the timezone
-  #   <select name='timezone'><%= options_from_timezones(user.timezone) %></select>
+  #   <select name='timezone'>
+  #     <%= options_from_timezones(user.timezone) %>
+  #   </select>
   def options_from_timezones(current = '')
-    options_for_select(ActiveSupport::TimeZone.all.map { |tz| [tz.to_s, tz.name]}, current)
+    timezone_options = ActiveSupport::TimeZone.all.map do |tz|
+      [tz.to_s, tz.name]
+    end
+    options_for_select(timezone_options, current)
   end
 end
 

@@ -6,7 +6,7 @@
 # records using the unAPI interface, used most prominently by Zotero (as well
 # as other web-based bibliography managers).
 class UnapiController < ApplicationController
-  
+
   # Implement all of unAPI
   #
   # If an id is set, return either a list of formats customized for a
@@ -21,23 +21,35 @@ class UnapiController < ApplicationController
   # @api public
   # @return [undefined]
   def index
-    unless params[:id].blank?
-      unless params[:format].blank?
-        format = params[:format].to_s.to_sym
-        if Document.serializers.has_key? format
-          redirect_to :controller => 'search', :action => 'show',
-            :id => params[:id], :format => format
-        else
-          render :template => 'errors/404', :layout => false,
-            :formats => [ :html ], :status => 406
-        end
-      else
-        render :template => 'unapi/formats', :formats => [ :xml ], 
-          :handlers => [ :builder ], :layout => false, :status => 300
-      end
+    if params[:id].blank?
+      render template: 'unapi/formats',
+             formats: [:xml],
+             handlers: [:builder],
+             layout: false
+      return
+    end
+
+    if params[:format].blank?
+      render template: 'unapi/formats',
+             formats: [:xml],
+             handlers: [:builder],
+             layout: false,
+             status: 300
+      return
+    end
+
+    format = params[:format].to_s.to_sym
+    if Document.serializers.has_key? format
+      redirect_to controller: 'search',
+                  action: 'show',
+                  id: params[:id],
+                  format: format
     else
-      render :template => 'unapi/formats', :formats => [ :xml ], 
-        :handlers => [ :builder ], :layout => false
+      render template: 'errors/404',
+             layout: false,
+             formats: [:html],
+             status: 406
     end
   end
+
 end

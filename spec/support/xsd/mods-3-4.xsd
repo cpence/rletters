@@ -4,10 +4,10 @@
 	<!-- -->
 	<xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
 	<xs:import namespace="http://www.w3.org/1999/xlink" schemaLocation="xlink.xsd"/>
-	<!-- 
+	<!--
                                                                     ****************************************************************
-                                                                    *                                                                              * 
-                                                                    *                            MODS 3.4                                   * 
+                                                                    *                                                                              *
+                                                                    *                            MODS 3.4                                   *
                                                                     *                          June 10, 2010                                *
                                                                     *                                                                              *
                                                                     *****************************************************************
@@ -15,50 +15,50 @@
 MODS: Metadata Object Description Schema. See http://www.loc.gov/standards/mods/
 
 Modified:
--  June 17, 2010. attribute altRepGroup added to accessCondition. This had been omitted in error. 
+-  June 17, 2010. attribute altRepGroup added to accessCondition. This had been omitted in error.
 -  July 27, August 3. minor typos corrected.
 ******************************************************************************************************************************************************************
 
                                                          *************************************
-                                                             Changes from version 3.3  
+                                                             Changes from version 3.3
                                                          *************************************
 
-1.   <form> as sublement of <location><holdingsSimple><copyInformation> is changed to conform to the <form> element defined for the MODS namespace.  The effect of this change is attribute ID is now allowed for <form>. Since it is optional this will not affect existing instances.  
+1.   <form> as sublement of <location><holdingsSimple><copyInformation> is changed to conform to the <form> element defined for the MODS namespace.  The effect of this change is attribute ID is now allowed for <form>. Since it is optional this will not affect existing instances.
 
-2. The attribute 'displayLabel' has been added to the definitions of several top level elements, so that all top level elements now have this attribute. Specifically 'displayLabel' has been added to the definitions of: <extension>, <genre>, <location>, <language>, <name>, <originInfo>, <part>, <physicalDescription>, <recordInfo>, <subject>, <targetAudience>, <typeOfResource>.   
+2. The attribute 'displayLabel' has been added to the definitions of several top level elements, so that all top level elements now have this attribute. Specifically 'displayLabel' has been added to the definitions of: <extension>, <genre>, <location>, <language>, <name>, <originInfo>, <part>, <physicalDescription>, <recordInfo>, <subject>, <targetAudience>, <typeOfResource>.
 
-3. Element <scriptTerm> is defined, a subelement of <language>, with attributes type (code or text) and authority. 
+3. Element <scriptTerm> is defined, a subelement of <language>, with attributes type (code or text) and authority.
 
-4. The languageAttributeGroup (lang, xml:lang, script and transliteration) now applies to every text element.  This is accomplished by use of the newly defined  "xsString" type, replacing the assignment of "xs:string" wherever applicable, that is, everywhere xs:string was previously used except to define an attribute or as the base of an extension for a definition with enumerated values.     In addition it has been added to top level elements <language>, <location>, and <part>; all other top level element already had these attributes in version 3.3 so now all top level elements have them. 
+4. The languageAttributeGroup (lang, xml:lang, script and transliteration) now applies to every text element.  This is accomplished by use of the newly defined  "xsString" type, replacing the assignment of "xs:string" wherever applicable, that is, everywhere xs:string was previously used except to define an attribute or as the base of an extension for a definition with enumerated values.     In addition it has been added to top level elements <language>, <location>, and <part>; all other top level element already had these attributes in version 3.3 so now all top level elements have them.
 
-5. Values  "references"  and  "reviewOf" are added to attribute "type" of  <relatedItem>.   
+5. Values  "references"  and  "reviewOf" are added to attribute "type" of  <relatedItem>.
 
-6. The values "single unit", "multipart monograph", "serial", "integrating resource" are added to <originInfo><issuance>.  
+6. The values "single unit", "multipart monograph", "serial", "integrating resource" are added to <originInfo><issuance>.
 
-7. Attribute ""shareable" is defined and added to <tableOfContents> and <abstract>.  It has a single value: "no" . 
+7. Attribute ""shareable" is defined and added to <tableOfContents> and <abstract>.  It has a single value: "no" .
 
-8. Attribute ""supplied" is defined and added to  <originInfo><edition>, <originInfo><place>, <originInfo><publisher>, <physicalDescription><extent>, and <titleInfo>.  It has a single value: "yes" . 
+8. Attribute ""supplied" is defined and added to  <originInfo><edition>, <originInfo><place>, <originInfo><publisher>, <physicalDescription><extent>, and <titleInfo>.  It has a single value: "yes" .
 
-9. For dates, "edtf" and "temper" are added to the list values that may be used for the "encoding" attribute. 
+9. For dates, "edtf" and "temper" are added to the list values that may be used for the "encoding" attribute.
 
-10. The version attribute now enumerates all 3.x versions (3.0, 3.1, 3.2, 3.3, and 3.4). In earlier versions of the schema, only the latest version was allowed. (E.g. in version 3.3, the only allowable value for the version attribute was "3.3".) 
+10. The version attribute now enumerates all 3.x versions (3.0, 3.1, 3.2, 3.3, and 3.4). In earlier versions of the schema, only the latest version was allowed. (E.g. in version 3.3, the only allowable value for the version attribute was "3.3".)
 
-11. For the type attribute for <name>, the value "family" is added to the list of possible values. 
+11. For the type attribute for <name>, the value "family" is added to the list of possible values.
 
 12. New attributes authorityURI and valueURI are defined, type xs:anyURI, identifying a controlled vocabulary and a value from that vocabulary, respectively.    These two attributes are applied to:
-        (a) any element that already had an authority attribute in 3.3: 
+        (a) any element that already had an authority attribute in 3.3:
               descriptionStandard, frequency, recordContentSource, roleTerm,  classification, Form, targetAudience, genre,
-              physicalLocation, name, subject, titleInfo, geographicCode, placeTerm, languageTerm.   
+              physicalLocation, name, subject, titleInfo, geographicCode, placeTerm, languageTerm.
          (b) new elements that have an authority attribute:  scriptTerm
          (c) all subelements of <subject>.
 
-13. New attribute altRepGroup added to all MODS top level elements, except relatedItem.  This is to support encoding of translations and transliterations of the same content. Thus identical values of this attribute occuring on different instances of the same top level element indicates that they contain the same content in a different language or transliteration.  
+13. New attribute altRepGroup added to all MODS top level elements, except relatedItem.  This is to support encoding of translations and transliterations of the same content. Thus identical values of this attribute occuring on different instances of the same top level element indicates that they contain the same content in a different language or transliteration.
 
-14. New attribute 'nameTitleGroup' defined for <titleInfo> and <name>. When the value of 'nameTitleGroup' for a specific instance of <titleInfo> equals the value of 'nameTitleGroup' for a specific instance of <name> then those instances are considered to be in the same name/title group. 
+14. New attribute 'nameTitleGroup' defined for <titleInfo> and <name>. When the value of 'nameTitleGroup' for a specific instance of <titleInfo> equals the value of 'nameTitleGroup' for a specific instance of <name> then those instances are considered to be in the same name/title group.
 
-15. The 'usage' attribute, which had applied only to <url> (of <location>) in 3.3, now applies also to <titleInfo>, <name>, <typeOfResource>, <language>, <subject>, <classification>,  and <genre> in 3.4.  Previously, it had a single value, "primary display", for <url>. Now, when used with these new elements, there is a single value, "primary".  For <url>, both "primary display" and "primary" are allowed but "primary display" is depricated. 
+15. The 'usage' attribute, which had applied only to <url> (of <location>) in 3.3, now applies also to <titleInfo>, <name>, <typeOfResource>, <language>, <subject>, <classification>,  and <genre> in 3.4.  Previously, it had a single value, "primary display", for <url>. Now, when used with these new elements, there is a single value, "primary".  For <url>, both "primary display" and "primary" are allowed but "primary display" is depricated.
 
-16. The schema is rewritten in namespace-normalized form, and the definitions and sections are reorganized.  
+16. The schema is rewritten in namespace-normalized form, and the definitions and sections are reorganized.
 
 ******************************************************************************************************************************************************************
                                                         *************************************
@@ -66,7 +66,7 @@ Modified:
                                                          *************************************
 The schema has four sections:
 
-1.   Preliminary declarations and definitions 
+1.   Preliminary declarations and definitions
 2.   Type definitions
 3.   Element declarations
 4.  Auxiliary Definitions for Attributes
@@ -76,38 +76,38 @@ The MODS namespace consists of  type names and element names:  (2) and (3)
 *********************************************************************************************************************************************************************
 
                                              ***********************************************************************
-                                                       Part 1:    Preliminary Declarations and Definitions 
+                                                       Part 1:    Preliminary Declarations and Definitions
                                              ***********************************************************************
 
-- Definition of a single MODS record  and a MODS collection   
+- Definition of a single MODS record  and a MODS collection
 - modsGroup, listing the top level MODS elements
 
-                                  
-                                  	
+
+
 *****************************************************************************************
 *****************************************************************************************
 
-Declaration of a single MODS record:  
+Declaration of a single MODS record:
 
 	 -->
 	<xs:element name="mods" type="modsDefinition"/>
-	<!--  
+	<!--
 
-Declaration of a MODS collection: 
+Declaration of a MODS collection:
 
  -->
 	<xs:element name="modsCollection" type="modsCollectionDefinition"/>
-	<!--  
+	<!--
 
 
-******* Group definition. 
+******* Group definition.
 
 This forms the basis of the mods record definition, and also relatedItem. The difference between a MODS record and a relatedItem (as they pertain to their usage of the group definition) is that mods requires at least one element and relatedItem does not. The group definition is used by both, where relatedItem says minOccurs="0" and for the mods record definition minOccurs="1" (default).
 
 -->
 	<xs:group name="modsGroup">
 		<xs:choice>
-			<!-- 
+			<!--
 ***********************************************************************
 **        These are the "top level" MODS elements               **
 **********************************************************************
@@ -132,12 +132,12 @@ This forms the basis of the mods record definition, and also relatedItem. The di
 			<xs:element ref="targetAudience"/>
 			<xs:element ref="titleInfo"/>
 			<xs:element ref="typeOfResource"/>
-			<!-- 
-End list of "top level" MODS elements 
+			<!--
+End list of "top level" MODS elements
 -->
 		</xs:choice>
 	</xs:group>
-	<!-- 
+	<!--
 ***********************************************************************
 **      Definition of a single MODS record                           **
 **********************************************************************
@@ -147,7 +147,7 @@ End list of "top level" MODS elements
 		<xs:attribute name="ID" type="xs:ID"/>
 		<xs:attribute name="version" type="modsVersionAttributeDefinition"/>
 	</xs:complexType>
-	<!-- 
+	<!--
 ***********************************************************************
 **      Definition of a MODS collection                                **
 **********************************************************************
@@ -157,33 +157,33 @@ End list of "top level" MODS elements
 			<xs:element ref="mods" maxOccurs="unbounded"/>
 		</xs:sequence>
 	</xs:complexType>
-	<!--	
+	<!--
 *****************************************************************************************
 *****************************************************************************************
 
                                              ********************************************************
                                                        Part 2:  Type Definitions
                                              ********************************************************
-                              
 
-  -   Data type definitions for top level elements                                 
-  -   subordinate type definitions  
-                                	
+
+  -   Data type definitions for top level elements
+  -   subordinate type definitions
+
 *****************************************************************************************
 *****************************************************************************************
 
-All type names are part of the MODS namespace                                  	
+All type names are part of the MODS namespace
 
 ***********************************************************************
 **       Data type definitions for top level elements              **
 ***********************************************************************
 -->
-	<!--   
+	<!--
 *********************************************
 *   Top Level Element <abstract>       *
 *********************************************
 
-********** abstractDefinition   **********              
+********** abstractDefinition   **********
  -->
 	<xs:complexType name="abstractDefinition">
 		<xs:simpleContent>
@@ -201,7 +201,7 @@ All type names are part of the MODS namespace
 *   Top Level Element <accessCondition>       *
 *****************************************************
 
-********** accessConditionDefinition   **********           
+********** accessConditionDefinition   **********
  -->
 	<xs:complexType name="accessConditionDefinition">
 		<xs:complexContent>
@@ -211,7 +211,7 @@ All type names are part of the MODS namespace
 				<!-- attribute "displayLabel" was here in 3.3, removed in 3.4 because it has been added to the <extension> definition. -->
 				<xs:attribute name="type" type="xs:string"/>
 				<xs:attribute name="altRepGroup" type="xs:string"/>
-				<!--  altRepGroup new in 3.4 
+				<!--  altRepGroup new in 3.4
                                 ***** added June 17, 2010. This had been omitted in error ****
 -->
 			</xs:extension>
@@ -222,7 +222,7 @@ All type names are part of the MODS namespace
 *   Top Level Element <classification>          *
 *****************************************************
 
-**********   classificationDefinition  **********  	 
+**********   classificationDefinition  **********
 -->
 	<xs:complexType name="classificationDefinition">
 		<xs:simpleContent>
@@ -241,8 +241,8 @@ All type names are part of the MODS namespace
 ****************************************************
 *   Top Level Element <extension>              *
 *****************************************************
- 
-********** extensionDefinition  **********  
+
+********** extensionDefinition  **********
 -->
 	<xs:complexType name="extensionDefinition" mixed="true">
 		<xs:sequence>
@@ -251,13 +251,13 @@ All type names are part of the MODS namespace
 		<xs:attribute name="displayLabel" type="xs:string"/>
 		<!-- displayLabel added  to <extension> in 3.4. -->
 	</xs:complexType>
-	<!--  
+	<!--
 
 ****************************************************
 *   Top Level Element <genre>                    *
 *****************************************************
 
-********** genreDefinition **********  	
+********** genreDefinition **********
 -->
 	<xs:complexType name="genreDefinition">
 		<xs:simpleContent>
@@ -276,7 +276,7 @@ All type names are part of the MODS namespace
 *   Top Level Element <identifier>                  *
 *****************************************************
 
-********** identifierDefinition   **********  	                     	
+********** identifierDefinition   **********
 -->
 	<xs:complexType name="identifierDefinition">
 		<xs:simpleContent>
@@ -289,18 +289,18 @@ All type names are part of the MODS namespace
 			</xs:extension>
 		</xs:simpleContent>
 	</xs:complexType>
-	<!--  
+	<!--
 
 ****************************************************
 *   Top Level Element <language>                *
 *****************************************************
 
-********** languageDefinition   **********  	                      	
-                ***************** <scriptTerm> is introduced into <language> in  3.4.  
-                ***************** In 3.3 <language> consists solely of <languageTerm> 
+********** languageDefinition   **********
+                ***************** <scriptTerm> is introduced into <language> in  3.4.
+                ***************** In 3.3 <language> consists solely of <languageTerm>
                 *****************  so if <language> is present then there must be at least one instance
-                ***************** of <languageTerm> and there may be more than one. 
-                ***************** Now, in 3.4,  if <language> is present, still there must be 
+                ***************** of <languageTerm> and there may be more than one.
+                ***************** Now, in 3.4,  if <language> is present, still there must be
                 ****************  at least one  <languageTerm> element, and there may be more than one;
                 ***************** and there may be  any number of <scriptTerm> elements, including zero.
 -->
@@ -322,9 +322,9 @@ All type names are part of the MODS namespace
 
 ****************************************************
 *   Top Level Element <location>                 *
-*****************************************************         
+*****************************************************
 
-********** locationDefinition   **********     
+********** locationDefinition   **********
  -->
 	<xs:complexType name="locationDefinition">
 		<xs:sequence>
@@ -339,18 +339,18 @@ All type names are part of the MODS namespace
 		<xs:attribute name="altRepGroup" type="xs:string"/>
 		<!--  altRepGroup new in 3.4 -->
 	</xs:complexType>
-	<!-- 
+	<!--
 
 ****************************************************
 *   Top Level Element <name>                 *
-*****************************************************         
+*****************************************************
 
- **********  nameDefinition    **********   		
+ **********  nameDefinition    **********
 
-          ****** the bulk of this definition is in nameBaseDefinition, which was 
+          ****** the bulk of this definition is in nameBaseDefinition, which was
           ****** split out from this definition in version 3.4 in order to support different
           ****** name definitions for name at top level and subject/name. The latter
-          ****** does not have the three new attributes below.  
+          ****** does not have the three new attributes below.
 -->
 	<xs:complexType name="nameDefinition">
 		<xs:complexContent>
@@ -364,15 +364,15 @@ All type names are part of the MODS namespace
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
-	<!--   
+	<!--
 
 ****************************************************
 *   Top Level Element <note>                      *
-*****************************************************         
+*****************************************************
 
-********** noteDefinition   **********        
-                   ******************  Definition revised in 3.4. Part of it split off to noteBaseDefinition.     
-                   ****************** <note> as top-level element cannot have same defintion as <note> at lower levels 
+********** noteDefinition   **********
+                   ******************  Definition revised in 3.4. Part of it split off to noteBaseDefinition.
+                   ****************** <note> as top-level element cannot have same defintion as <note> at lower levels
                    ****************** because it must have attribute altRepGroup at top level which lower level elements
                    ******************  may not have.   -->
 	<xs:complexType name="noteDefinition">
@@ -383,13 +383,13 @@ All type names are part of the MODS namespace
 			</xs:extension>
 		</xs:simpleContent>
 	</xs:complexType>
-	<!--  
+	<!--
 
 ****************************************************
 *   Top Level Element <originInfo>                 *
-*****************************************************         
+*****************************************************
 
- ********** originInfoDefinition   ********** 
+ ********** originInfoDefinition   **********
 -->
 	<xs:complexType name="originInfoDefinition">
 		<xs:choice maxOccurs="unbounded">
@@ -415,9 +415,9 @@ All type names are part of the MODS namespace
 
 ****************************************************
 *   Top Level Element <part>                       *
-*****************************************************         
+*****************************************************
 
-********** partDefinition  **********  
+********** partDefinition  **********
 -->
 	<xs:complexType name="partDefinition">
 		<xs:choice minOccurs="0" maxOccurs="unbounded">
@@ -436,13 +436,13 @@ All type names are part of the MODS namespace
 		<xs:attribute name="altRepGroup" type="xs:string"/>
 		<!--  altRepGroup new in 3.4 -->
 	</xs:complexType>
-	<!-- 
+	<!--
 
 ****************************************************
 *   Top Level Element <physicalDescription> *
-*****************************************************         
+*****************************************************
 
-********** physicalDescriptionDefinition  **********  		 		
+********** physicalDescriptionDefinition  **********
  -->
 	<xs:complexType name="physicalDescriptionDefinition">
 		<xs:choice maxOccurs="unbounded">
@@ -452,10 +452,10 @@ All type names are part of the MODS namespace
 			<xs:element ref="extent"/>
 			<xs:element ref="digitalOrigin"/>
 			<xs:element name="note" type="noteBaseDefinition"/>
-			<!-- 
+			<!--
                  ********** <note> as a subelement of <physicalDescription> is not part of the
                  ********** MODS namespace, because it needs a different definition than <note>
-                 ********** as a top-level element, because of the introduction in 3.4 of the new 
+                 ********** as a top-level element, because of the introduction in 3.4 of the new
                  ********** attribute altRepGroup to apply only to top-level elements
 -->
 		</xs:choice>
@@ -464,13 +464,13 @@ All type names are part of the MODS namespace
 		<xs:attribute name="altRepGroup" type="xs:string"/>
 		<!--  altRepGroup new in 3.4 -->
 	</xs:complexType>
-	<!--  
+	<!--
 
 ****************************************************
 *   Top Level Element <recordInfo>              *
-*****************************************************         
+*****************************************************
 
-**********  recordInfoDefinition  **********   
+**********  recordInfoDefinition  **********
 -->
 	<xs:complexType name="recordInfoDefinition">
 		<xs:choice maxOccurs="unbounded">
@@ -487,13 +487,13 @@ All type names are part of the MODS namespace
 		<xs:attribute name="altRepGroup" type="xs:string"/>
 		<!--  altRepGroup new in 3.4 -->
 	</xs:complexType>
-	<!-- 
+	<!--
 
 ****************************************************
 *   Top Level Element <relatedItem>             *
-*****************************************************         
+*****************************************************
 
-**********   relatedItemDefinition  **********  
+**********   relatedItemDefinition  **********
 -->
 	<xs:complexType name="relatedItemDefinition">
 		<xs:group ref="modsGroup" minOccurs="0" maxOccurs="unbounded"/>
@@ -502,13 +502,13 @@ All type names are part of the MODS namespace
 		<xs:attribute name="ID" type="xs:ID"/>
 		<xs:attributeGroup ref="xlink:simpleLink"/>
 	</xs:complexType>
-	<!--  
+	<!--
 
 ****************************************************
 *   Top Level Element <subject>                  *
-*****************************************************         
+*****************************************************
 
- ********** subjectDefinition   **********  	 	
+ ********** subjectDefinition   **********
 -->
 	<xs:complexType name="subjectDefinition">
 		<xs:choice minOccurs="0" maxOccurs="unbounded">
@@ -532,13 +532,13 @@ All type names are part of the MODS namespace
 		<xs:attribute name="usage" type="usageAttributeDefinition"/>
 		<!--  usage added to <subject>  in 3.4 -->
 	</xs:complexType>
-	<!-- 
+	<!--
 
 ****************************************************
 *   Top Level Element <tableOfContents>     *
-*****************************************************           
+*****************************************************
 
-********** tableOfContentsDefinition   **********              
+********** tableOfContentsDefinition   **********
  -->
 	<xs:complexType name="tableOfContentsDefinition">
 		<xs:simpleContent>
@@ -550,13 +550,13 @@ All type names are part of the MODS namespace
 			</xs:extension>
 		</xs:simpleContent>
 	</xs:complexType>
-	<!-- 
+	<!--
 
 ****************************************************
 *   Top Level Element <targetAudience>       *
-*****************************************************           
+*****************************************************
 
-********** targetAudienceDefinition   **********              
+********** targetAudienceDefinition   **********
  -->
 	<xs:complexType name="targetAudienceDefinition">
 		<xs:simpleContent>
@@ -573,14 +573,14 @@ All type names are part of the MODS namespace
 ****************************************************
 *   Top Level Element <titleInfo>                   *
 *****************************************************
-         
+
  ********** titleInfoDefinition  **********
  -->
 	<xs:complexType name="titleInfoDefinition">
 		<xs:complexContent>
 			<xs:extension base="titleInfoBaseDefinition">
-			<!-- 
-                  titleInfoBaseDefinition is split out from titleInfoDefinition so that it can be 
+			<!--
+                  titleInfoBaseDefinition is split out from titleInfoDefinition so that it can be
                   used as a base for subjectTitleInfoDefinition, for which the following attributes
                   do not apply.
 -->
@@ -600,9 +600,9 @@ All type names are part of the MODS namespace
 
 ****************************************************
 *   Top Level Element <typeOfResource>     *
-*****************************************************         
+*****************************************************
 
-********** typeOfResourceDefinition   **********   	  
+********** typeOfResourceDefinition   **********
  -->
 	<xs:complexType name="typeOfResourceDefinition">
 		<xs:simpleContent>
@@ -618,9 +618,9 @@ All type names are part of the MODS namespace
 			</xs:extension>
 		</xs:simpleContent>
 	</xs:complexType>
-	<!--  
-***** End  data type definitions for top level elements.  
- 
+	<!--
+***** End  data type definitions for top level elements.
+
 ***********************************************************************
 ***********************************************************************
 
@@ -629,9 +629,9 @@ All type names are part of the MODS namespace
 ***********************************************************************
 ***********************************************************************
 -->
-	<!--  
- ********** cartographicsDefinition **********  
-               **************** subelement of subject	 	
+	<!--
+ ********** cartographicsDefinition **********
+               **************** subelement of subject
 -->
 	<xs:complexType name="cartographicsDefinition">
 		<xs:sequence>
@@ -643,15 +643,15 @@ All type names are part of the MODS namespace
 		<!--  authority attribute group added to <cartographics>  in 3.4 -->
 	</xs:complexType>
 	<!--
-**********copyInformationDefinition  **********     
-             **************** <copyInformation> is a subelement of <holdingSimple>, which is a subelement of <location>  
+**********copyInformationDefinition  **********
+             **************** <copyInformation> is a subelement of <holdingSimple>, which is a subelement of <location>
 
-                         *************************  subelements <form> and <note> are changed in 3.4 to conform to the 
-                         *************************  <form> and <note> elements defined for the MODS namespace.  
-                         *************************  The effect of these change are: 
+                         *************************  subelements <form> and <note> are changed in 3.4 to conform to the
+                         *************************  <form> and <note> elements defined for the MODS namespace.
+                         *************************  The effect of these change are:
                          *************************        (1) attribute ID is now allowed for <form>; and
-                         *************************        (2) attributes xlink, language, and ID are now allowed for <note>. 
-                         *************************  Since they are optional this will not affect existing instances.   
+                         *************************        (2) attributes xlink, language, and ID are now allowed for <note>.
+                         *************************  Since they are optional this will not affect existing instances.
  -->
 	<xs:complexType name="copyInformationDefinition">
 		<xs:sequence>
@@ -660,17 +660,17 @@ All type names are part of the MODS namespace
 			<xs:element ref="shelfLocator" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element ref="electronicLocator" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="note" type="noteBaseDefinition" minOccurs="0" maxOccurs="unbounded"/>
-			<!-- 
+			<!--
                  ********** <note> as a subelement of <copyInformation> is not part of the
                  ********** MODS namespace, because it needs a different definition than <note>
-                 ********** as a top-level element, because of the introduction in 3.4 of the new 
+                 ********** as a top-level element, because of the introduction in 3.4 of the new
                  ********** attribute altRepGroup to apply only to top-level elements
 -->
 			<xs:element ref="enumerationAndChronology" minOccurs="0" maxOccurs="unbounded"/>
 		</xs:sequence>
 	</xs:complexType>
-	<!--  
-********** dateDefinition  **********  
+	<!--
+********** dateDefinition  **********
 -->
 	<xs:complexType name="dateDefinition">
 		<xs:simpleContent>
@@ -679,8 +679,8 @@ All type names are part of the MODS namespace
 			</xs:extension>
 		</xs:simpleContent>
 	</xs:complexType>
-	<!--  
-********** dateBaseDefinition   **********  
+	<!--
+********** dateBaseDefinition   **********
                      ***************** Referenced by partDefinition (as well as dateDefinition)
 -->
 	<xs:complexType name="dateBaseDefinition">
@@ -692,8 +692,8 @@ All type names are part of the MODS namespace
 			</xs:extension>
 		</xs:simpleContent>
 	</xs:complexType>
-	<!--  
-********** dateOtherDefinition  **********  
+	<!--
+********** dateOtherDefinition  **********
                      ***************** <dateOther> is a subelement of <originInfo>
 -->
 	<xs:complexType name="dateOtherDefinition">
@@ -703,8 +703,8 @@ All type names are part of the MODS namespace
 			</xs:extension>
 		</xs:simpleContent>
 	</xs:complexType>
-	<!-- 
-********** detailDefinition  **********  
+	<!--
+********** detailDefinition  **********
                      ***************** <detail>  is a subelement of <part>
 -->
 	<xs:complexType name="detailDefinition">
@@ -717,7 +717,7 @@ All type names are part of the MODS namespace
 		<xs:attribute name="level" type="xs:positiveInteger"/>
 	</xs:complexType>
 	<!--
-********** digitalOriginDefinition **********  	
+********** digitalOriginDefinition **********
                      *****************  <digitalOrigin> is a subelement of <physicalDescription>
  -->
 	<xs:simpleType name="digitalOriginDefinition">
@@ -728,10 +728,10 @@ All type names are part of the MODS namespace
 			<xs:enumeration value="digitized other analog"/>
 		</xs:restriction>
 	</xs:simpleType>
-	<!--  
-**********enumerationAndChronologyDefinition  **********     
-                     ***************** <enumerationAndChronology> is a subelement of <copyInformation, 
-                     ******************  which is a subelement of <holdingSimple>, 
+	<!--
+**********enumerationAndChronologyDefinition  **********
+                     ***************** <enumerationAndChronology> is a subelement of <copyInformation,
+                     ******************  which is a subelement of <holdingSimple>,
                      *****************  which is a subelement of <location
  -->
 	<xs:complexType name="enumerationAndChronologyDefinition">
@@ -742,7 +742,7 @@ All type names are part of the MODS namespace
 		</xs:simpleContent>
 	</xs:complexType>
 	<!--
-***************** extentDefinition *** 
+***************** extentDefinition ***
                      ***************** <extent> is a subelement of <part>
 -->
 	<xs:complexType name="extentDefinition">
@@ -754,8 +754,8 @@ All type names are part of the MODS namespace
 		</xs:sequence>
 		<xs:attribute name="unit" type="xs:string"/>
 	</xs:complexType>
-	<!--  
- ********** geographicCodeDefinition **********  	 	
+	<!--
+ ********** geographicCodeDefinition **********
                      ***************** <geographicCode> is a subelement of <subject>
 -->
 	<xs:complexType name="geographicCodeDefinition">
@@ -765,9 +765,9 @@ All type names are part of the MODS namespace
 			</xs:extension>
 		</xs:simpleContent>
 	</xs:complexType>
-	<!--  
+	<!--
 
- ********** hierarchicalGeographicDefinition **********  	 
+ ********** hierarchicalGeographicDefinition **********
                      ***************** <hierarchicalGeographic> is a subelement of <subject>
 -->
 	<xs:complexType name="hierarchicalGeographicDefinition">
@@ -788,9 +788,9 @@ All type names are part of the MODS namespace
 		<xs:attributeGroup ref="authorityAttributeGroup"/>
 		<!--  authority attribute group added to <hierarchicalGeographic> in 3.4 -->
 	</xs:complexType>
-	<!--  
+	<!--
 
-********** holdingSimpleDefinition   **********      
+********** holdingSimpleDefinition   **********
                      ***************** <holdingSimple> is a subelement of <location>
  -->
 	<xs:complexType name="holdingSimpleDefinition">
@@ -798,8 +798,8 @@ All type names are part of the MODS namespace
 			<xs:element ref="copyInformation" maxOccurs="unbounded"/>
 		</xs:sequence>
 	</xs:complexType>
-	<!--  
-********** issuanceDefinition **********  	
+	<!--
+********** issuanceDefinition **********
                      ***************** <issuance> is a subelement of <originInfo>
 -->
 	<xs:simpleType name="issuanceDefinition">
@@ -813,7 +813,7 @@ All type names are part of the MODS namespace
 			<xs:enumeration value="integrating resource"/>
 		</xs:restriction>
 	</xs:simpleType>
-	<!-- 
+	<!--
 ***languageTermDefinition ***
                      ***************** <languageTerm> is a subelement of <language>
 -->
@@ -825,8 +825,8 @@ All type names are part of the MODS namespace
 			</xs:extension>
 		</xs:simpleContent>
 	</xs:complexType>
-	<!-- 
- **********  nameBaseDefinition    **********   		
+	<!--
+ **********  nameBaseDefinition    **********
            ************* This definition is new in 3.4. It is split out from the 3.3 nameDefinition
            ************* in order to allow different name definitions for top level name and subject/name.
 -->
@@ -842,7 +842,7 @@ All type names are part of the MODS namespace
 		<xs:attributeGroup ref="idAuthorityXlinkLanguageDisplayLabelAttributeGroup"/>
 		<!--displayLabel added to <name>  3.4. -->
 	</xs:complexType>
-	<!--   
+	<!--
 **namePartDefinition
                      ***************** <namePart> is a subelement of <name>
 -->
@@ -853,16 +853,16 @@ All type names are part of the MODS namespace
 			</xs:extension>
 		</xs:simpleContent>
 	</xs:complexType>
-	<!--   
-********** noteBaseDefinition   **********   
+	<!--
+********** noteBaseDefinition   **********
                     ******************* This definition new in 3.4.
-                    ****************** base definition for top-level element, <note>, also used as definition for <note> 
-                    ****************** as subelement of  <physicalDescription>, and also  <copyInformation> which is  a 
+                    ****************** base definition for top-level element, <note>, also used as definition for <note>
+                    ****************** as subelement of  <physicalDescription>, and also  <copyInformation> which is  a
                     ******************   subelement of <holdingSimple>, which is a subelement of <location>.
 
-                   ****************** <note> as top-level element cannot have same defintion as <note> at lower levels 
+                   ****************** <note> as top-level element cannot have same defintion as <note> at lower levels
                    ****************** because it must have attribute altRepGroup at top level which lower level elements
-                   ******************  may not have.  
+                   ******************  may not have.
  -->
 	<xs:complexType name="noteBaseDefinition">
 		<xs:simpleContent>
@@ -871,7 +871,7 @@ All type names are part of the MODS namespace
 			</xs:extension>
 		</xs:simpleContent>
 	</xs:complexType>
-	<!-- 
+	<!--
 *** placeDefinition ***
                      ***************** <place> is a subelement of <originInfo>
 -->
@@ -882,7 +882,7 @@ All type names are part of the MODS namespace
 		<xs:attribute name="supplied" type="yesDefinition"/>
 		<!-- attribute "supplied" new in 3.4 -->
 	</xs:complexType>
-	<!-- 
+	<!--
 *** placeTermDefinition ***
                      ***************** <placeTerm> is a subelement of <place>
                      ***************** which is a subelement of <originInfo>
@@ -895,9 +895,9 @@ All type names are part of the MODS namespace
 			</xs:extension>
 		</xs:simpleContent>
 	</xs:complexType>
-	<!--	  
-********** physicalLocationDefinition    **********         
-                     ***************** <physicalLocation> is a subelement of <location>     
+	<!--
+********** physicalLocationDefinition    **********
+                     ***************** <physicalLocation> is a subelement of <location>
  -->
 	<xs:complexType name="physicalLocationDefinition">
 		<xs:simpleContent>
@@ -905,8 +905,8 @@ All type names are part of the MODS namespace
 		</xs:simpleContent>
 	</xs:complexType>
 	<!--
-********** recordIdentifierDefinition  
-                     ***************** <recordIdentifier> is a subelement of <recordInfo> 
+********** recordIdentifierDefinition
+                     ***************** <recordIdentifier> is a subelement of <recordInfo>
 -->
 	<xs:complexType name="recordIdentifierDefinition">
 		<xs:simpleContent>
@@ -915,9 +915,9 @@ All type names are part of the MODS namespace
 			</xs:extension>
 		</xs:simpleContent>
 	</xs:complexType>
-	<!-- 
-**********reformattingQualityDefinition **********  		 
-                     ***************** <reformattingQuality> is a subelement of <physicalDescription> 		
+	<!--
+**********reformattingQualityDefinition **********
+                     ***************** <reformattingQuality> is a subelement of <physicalDescription>
  -->
 	<xs:simpleType name="reformattingQualityDefinition">
 		<xs:restriction base="xs:string">
@@ -926,9 +926,9 @@ All type names are part of the MODS namespace
 			<xs:enumeration value="replacement"/>
 		</xs:restriction>
 	</xs:simpleType>
-	<!-- 
- ******* resourceTypeDefinition  ********    
-                     ***************** referenced by typeOfResourceDefinition	   
+	<!--
+ ******* resourceTypeDefinition  ********
+                     ***************** referenced by typeOfResourceDefinition
 -->
 	<xs:simpleType name="resourceTypeDefinition">
 		<xs:restriction base="xs:string">
@@ -946,19 +946,19 @@ All type names are part of the MODS namespace
 			<xs:enumeration value=""/>
 		</xs:restriction>
 	</xs:simpleType>
-	<!--  
+	<!--
 ******** roleDefinition *********************
-                     ***************** <role> is a subelement of <name> 
+                     ***************** <role> is a subelement of <name>
 -->
 	<xs:complexType name="roleDefinition">
 		<xs:sequence maxOccurs="unbounded">
 			<xs:element ref="roleTerm"/>
 		</xs:sequence>
 	</xs:complexType>
-	<!--  
-***************roleTermDefinition *********************** 
-                    ***************** <roleTerm> is a subelement of <role> 
-                   ***************** which is a subelement of <name> 
+	<!--
+***************roleTermDefinition ***********************
+                    ***************** <roleTerm> is a subelement of <role>
+                   ***************** which is a subelement of <name>
 -->
 	<xs:complexType name="roleTermDefinition">
 		<xs:simpleContent>
@@ -967,9 +967,9 @@ All type names are part of the MODS namespace
 			</xs:extension>
 		</xs:simpleContent>
 	</xs:complexType>
-	<!-- 
+	<!--
 *****************scriptTermDefinition ************************
-                    ***************** <scriptTerm> is a subelement of <language> 
+                    ***************** <scriptTerm> is a subelement of <language>
 ********************** new in 3.4 ******************************************
 -->
 	<xs:complexType name="scriptTermDefinition">
@@ -979,30 +979,30 @@ All type names are part of the MODS namespace
 			</xs:extension>
 		</xs:simpleContent>
 	</xs:complexType>
-	<!-- 
+	<!--
 *****************subjectNameDefinition ************************
-       ********************* New in 3.4 
+       ********************* New in 3.4
 *** this is the definition used by (local) element <name> subelement of <subject>.
 *** It is different from <name> when used as a top-level element, because <name>
 *** has three new attributes, introduced in 3.4, which are not applicable when <name>
-*** is used as subelement of <subject>.  Thus <name> as subelement of <subject> is 
-*** not part of the MODS namespace. This definition, "subjectNameDefinition", however, 
-*** is part of the MODS namespace. 
+*** is used as subelement of <subject>.  Thus <name> as subelement of <subject> is
+*** not part of the MODS namespace. This definition, "subjectNameDefinition", however,
+*** is part of the MODS namespace.
 -->
 	<xs:complexType name="subjectNameDefinition">
 		<xs:complexContent>
 			<xs:extension base="nameBaseDefinition"/>
 		</xs:complexContent>
 	</xs:complexType>
-	<!-- 
+	<!--
 *****************subjectTitleInfoDefinition ************************
-       ********************* New in 3.4 
+       ********************* New in 3.4
 *** this is the definition used by (local) element <titleInfo> subelement of <subject>.
 *** It is different from <titleInfo> when used as a top-level element, because <titleInfo>
 *** has three new attributes, introduced in 3.4, which are not applicable when <titleInfo>
-*** is used as subelement of <subject>.  Thus <titleInfo> as subelement of <subject> is 
-*** not part of the MODS namespace. This definition, "subjectTitleDefinition", however, 
-*** is part of the MODS namespace. 
+*** is used as subelement of <subject>.  Thus <titleInfo> as subelement of <subject> is
+*** not part of the MODS namespace. This definition, "subjectTitleDefinition", however,
+*** is part of the MODS namespace.
 -->
 	<xs:complexType name="subjectTitleInfoDefinition">
 		<xs:complexContent>
@@ -1011,9 +1011,9 @@ All type names are part of the MODS namespace
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
-	<!-- 
+	<!--
 *****************temporalDefinition  ************************
-                    ***************** <temporal> is a subelement of <subject> 
+                    ***************** <temporal> is a subelement of <subject>
 -->
 	<xs:complexType name="temporalDefinition">
 		<xs:simpleContent>
@@ -1024,8 +1024,8 @@ All type names are part of the MODS namespace
 		</xs:simpleContent>
 	</xs:complexType>
 	<!--
- 
-********** titleInfoBaseDefinition  **********  
+
+********** titleInfoBaseDefinition  **********
                     ***************** titleInfoBaseDefinition is referenced by titleInfoDefinition and subjectTitleInfoDefinition
 -->
 	<xs:complexType name="titleInfoBaseDefinition">
@@ -1039,9 +1039,9 @@ All type names are part of the MODS namespace
 		<xs:attributeGroup ref="idAuthorityXlinkLanguageDisplayLabelAttributeGroup"/>
 	</xs:complexType>
 	<!--
-********** unstructuredTextDefinition ********** 
+********** unstructuredTextDefinition **********
                     ***************** unstructuredTextDefinition is the base definition for a number of elements that are simply
-                    *****************  strings plus several attributes: these elements include <abstract>, <note>, <title>, 
+                    *****************  strings plus several attributes: these elements include <abstract>, <note>, <title>,
                     *****************  <tableOfContents>, as well as <text> subelement of <part>
 -->
 	<xs:complexType name="unstructuredTextDefinition">
@@ -1054,9 +1054,9 @@ All type names are part of the MODS namespace
 		</xs:simpleContent>
 	</xs:complexType>
 	<!--
- 
-********** urlDefinition   **********        
-                    ***************** <url> is a subelement of <location>      
+
+********** urlDefinition   **********
+                    ***************** <url> is a subelement of <location>
  -->
 	<xs:complexType name="urlDefinition">
 		<xs:simpleContent>
@@ -1066,8 +1066,8 @@ All type names are part of the MODS namespace
 				<xs:attribute name="note" type="xs:string"/>
 				<xs:attribute name="access" type="urlAccessAttributeDefinition"/>
 				<xs:attribute name="usage" type="urlUsageAttributeDefinition"/>
-				<!-- 
-                       ****************** this definition is broadened in 3.4. In 3.3, the value  
+				<!--
+                       ****************** this definition is broadened in 3.4. In 3.3, the value
                        ****************** "primary display" only was allowed. In 3.4, the value
                        ****************** "display" is also allowed. And in addition the definition is
                        ******************* generalized in 3.4 to apply to additional elements beyond <url>.
@@ -1086,8 +1086,8 @@ There are a few more supporting definitions later; in part 4.
                                              ********************************************************
                                                      Part 3:    Element Declarations
                                              ********************************************************
-      
-Following are the element of the MODS 3.x namespace, as of version 3.4, declared in alphabetical order. 
+
+Following are the element of the MODS 3.x namespace, as of version 3.4, declared in alphabetical order.
 
 *****************************************************************************************
 *****************************************************************************************
@@ -1150,19 +1150,19 @@ Following are the element of the MODS 3.x namespace, as of version 3.4, declared
 	<!--************************* <edition> is a subelement of <originInfo>
                                             ****************** attribute "supplied" new  in 3.4-->
 	<xs:element name="electronicLocator" type="xsString"/>
-	<!--************************* <electronicLocator> is a subelement of <copyInformation>, 
+	<!--************************* <electronicLocator> is a subelement of <copyInformation>,
                                           a subelement of <holdingSimple>, a subelement of <location>  -->
 	<xs:element name="end" type="xsString"/>
 	<!--************************* <end> is a subelement of <extent>, a subelement of <part> -->
 	<xs:element name="enumerationAndChronology" type="enumerationAndChronologyDefinition"/>
-	<!--************************* <enumerationAndChronology> is a subelement of <copyInformation, 
+	<!--************************* <enumerationAndChronology> is a subelement of <copyInformation,
                                      which is a subelement of <holdingSimple>,  which is a subelement of <location> -->
 	<xs:element name="extension" type="extensionDefinition"/>
 	<!--************************* <extension> is a "top-level" element, i.e. a subelement of <mods>.
                                                                     In addition, "extensionDefintion" is the basis for
                                      the definition of <accessCondition> and  <holdingsExternal>-->
 	<xs:element name="extent" type="stringPlusSupplied"/>
-	<!--************************* <extent> is a subelement of <physicalDescription> 
+	<!--************************* <extent> is a subelement of <physicalDescription>
                                                   ****************** attribute "supplied" new  in 3.4 -->
 	<xs:element name="extraterrestrialArea" type="xsString"/>
 	<!--************************* <extraterrestrialArea> is a subelement of <hierarchicalGeographic>,  a subelement of <subject> -->
@@ -1209,7 +1209,7 @@ Following are the element of the MODS 3.x namespace, as of version 3.4, declared
 	<!--************************* <nonSort> is a subelement of <titleInfo> -->
 	<xs:element name="note" type="noteDefinition"/>
 	<!--************************* <note> is a "top-level" element, i.e. a subelement of <mods>.
-                                  ****************** in addition to being a top-level element, <note> is also a subelement of   <physicalDescription>,   
+                                  ****************** in addition to being a top-level element, <note> is also a subelement of   <physicalDescription>,
                                   ****************** and also  <copyInformation> which is  a subelement of <holdingSimple>, a subelement of <location>.-->
 	<xs:element name="number" type="xsString"/>
 	<!--************************* <number> is a subelement of <detail>, a subelement of <part> -->
@@ -1236,7 +1236,7 @@ Following are the element of the MODS 3.x namespace, as of version 3.4, declared
 	<xs:element name="province" type="xsString"/>
 	<!--************************* <province> is a subelement of <hierarchicalGeographic>,  a subelement of <subject> -->
 	<xs:element name="publisher" type="stringPlusSupplied"/>
-	<!--************************* <publisher> is a subelement <originInfo> 
+	<!--************************* <publisher> is a subelement <originInfo>
                                                   ****************** attribute "supplied" new  in 3.4 -->
 	<xs:element name="recordChangeDate" type="dateDefinition"/>
 	<!--************************* <recordChangeDate> is a subelement <recordInfo> -->
@@ -1300,7 +1300,7 @@ Following are the element of the MODS 3.x namespace, as of version 3.4, declared
 	<!--************************* <typeOfResource> is a "top-level" element, i.e. a subelement of <mods> -->
 	<xs:element name="url" type="urlDefinition"/>
 	<!--************************* <url> is a subelement of <location> -->
-	<!-- 
+	<!--
 ******************** end of element declarations
 
 *****************************************************************************************
@@ -1310,7 +1310,7 @@ Following are the element of the MODS 3.x namespace, as of version 3.4, declared
                                                 Part 4:    Auxiliary Definitions for Attributes
                                              ********************************************************
                      -  Auxiliary types for attribute combinations
-                     - Attribute Group Definitions 
+                     - Attribute Group Definitions
                      - Attribute definitions (simpleTypes)
 -->
 	<!--
@@ -1319,14 +1319,14 @@ Following are the element of the MODS 3.x namespace, as of version 3.4, declared
 
 *****************************************************
 -->
-	<!--                     
-************************* stringPlusAuthority  *************************     	
+	<!--
+************************* stringPlusAuthority  *************************
 
-            ******** stringPlusAuthority in 3.3 was simply xs:string with an authority attribute. 
+            ******** stringPlusAuthority in 3.3 was simply xs:string with an authority attribute.
             ********  in 3.4 there are two changes:
-            ********    (1) the  base is changed from xs:string to xsString. 
+            ********    (1) the  base is changed from xs:string to xsString.
             ********           This combines xs:string with the languageAttributeGroup:
-            ********            lang, xml:lang, script and transliteration. 
+            ********            lang, xml:lang, script and transliteration.
             ********    (2) the  "authority", which was a single authority, is now an authorityGroup;
                                 see "authorityAttributeGroup".
             ********  stringPlusAuthority is the base for a number of types defined in this schema (that immediately follow)
@@ -1340,11 +1340,11 @@ Following are the element of the MODS 3.x namespace, as of version 3.4, declared
 			</xs:extension>
 		</xs:simpleContent>
 	</xs:complexType>
-	<!--                     
-************************* stringPlusSupplied  *************************     	 
+	<!--
+************************* stringPlusSupplied  *************************
 
-            ******** stringPlusSupplied, new in 3.4, is the type for <edition>, <publisher>, and <extent>. In 3.4 for these three  
-             ******* elements the attribute "supplied" is added with the single value "yes". 
+            ******** stringPlusSupplied, new in 3.4, is the type for <edition>, <publisher>, and <extent>. In 3.4 for these three
+             ******* elements the attribute "supplied" is added with the single value "yes".
  -->
 	<xs:complexType name="stringPlusSupplied">
 		<xs:simpleContent>
@@ -1353,8 +1353,8 @@ Following are the element of the MODS 3.x namespace, as of version 3.4, declared
 			</xs:extension>
 		</xs:simpleContent>
 	</xs:complexType>
-	<!--                     
-************************* stringPlusAuthorityPlusType  *************************     	
+	<!--
+************************* stringPlusAuthorityPlusType  *************************
 
            *******  stringPlusAuthorityPlusType is the base for a number of definitions (see following) as well as the type for element <form>
  -->
@@ -1365,10 +1365,10 @@ Following are the element of the MODS 3.x namespace, as of version 3.4, declared
 			</xs:extension>
 		</xs:simpleContent>
 	</xs:complexType>
-	<!--                     
-************************* stringPlusAuthorityPlusTypePlusDisplayLabel  *************************     	  
+	<!--
+************************* stringPlusAuthorityPlusTypePlusDisplayLabel  *************************
 
-           *******  stringPlusAuthorityPlusTypePlusDisplayLabel is the base for the next definition (see following) 
+           *******  stringPlusAuthorityPlusTypePlusDisplayLabel is the base for the next definition (see following)
            *******  as well as the type for element <genre>
  -->
 	<xs:complexType name="stringPlusAuthorityPlusTypePlusDisplayLabel">
@@ -1378,8 +1378,8 @@ Following are the element of the MODS 3.x namespace, as of version 3.4, declared
 			</xs:extension>
 		</xs:simpleContent>
 	</xs:complexType>
-	<!--                     
-************************* stringPlusAuthorityPlusTypePlusDisplayLabelPlusXlink  *************************     	  
+	<!--
+************************* stringPlusAuthorityPlusTypePlusDisplayLabelPlusXlink  *************************
 
            *******  stringPlusAuthorityPlusTypePlusDisplayLabelPlusXlink is the type for element <physicalLocation>
  -->
@@ -1390,14 +1390,14 @@ Following are the element of the MODS 3.x namespace, as of version 3.4, declared
 			</xs:extension>
 		</xs:simpleContent>
 	</xs:complexType>
-	<!-- 
-  
-********** xsString  
+	<!--
 
-           ************* xsString is new in version 3.4. The languageAttributeGroup 
-           *************  (lang, xml:lang, script and transliteration) applies now to every text element.  
+********** xsString
+
+           ************* xsString is new in version 3.4. The languageAttributeGroup
+           *************  (lang, xml:lang, script and transliteration) applies now to every text element.
            *************  This is accomplished by changing "xs:string"  to xsString wherever applicable,
-           *************  essentially, everywhere, that xs:string occurred in 3.3 except for attributes, 
+           *************  essentially, everywhere, that xs:string occurred in 3.3 except for attributes,
            *************   extensions and restrictions.
    -->
 	<xs:complexType name="xsString">
@@ -1407,46 +1407,46 @@ Following are the element of the MODS 3.x namespace, as of version 3.4, declared
 			</xs:extension>
 		</xs:simpleContent>
 	</xs:complexType>
-	<!-- 
+	<!--
 *************************************************************
-            Attribute Group Definitions 
+            Attribute Group Definitions
 *************************************************************
 -->
-	<!--   
- ********** authorityAttributeGroup   **********  	                       	  
+	<!--
+ ********** authorityAttributeGroup   **********
    -->
 	<xs:attributeGroup name="authorityAttributeGroup">
 		<!-- new in 3.4 -->
 		<xs:attribute name="authority" type="xs:string"/>
 		<xs:attributeGroup ref="authorityAndValueURIAttributeGroup"/>
 	</xs:attributeGroup>
-	<!--   
- ********** authorityAndValueURIAttributeGroup**********  	                       	  
+	<!--
+ ********** authorityAndValueURIAttributeGroup**********
    -->
 	<xs:attributeGroup name="authorityAndValueURIAttributeGroup">
 		<xs:attribute name="authorityURI" type="xs:anyURI"/>
 		<xs:attribute name="valueURI" type="xs:anyURI"/>
 		<!-- 	New authorityURI attribute identifies a controlled vocabulary.  New valueURI attribute identifies the specific value or term within the controlled vocabulary -->
 	</xs:attributeGroup>
-	<!--   
- ********** placeAuthorityAttributeGroup **********  	                       	  
+	<!--
+ ********** placeAuthorityAttributeGroup **********
    -->
 	<xs:attributeGroup name="placeAuthorityAttributeGroup">
 		<!-- new in 3.4 -->
 		<xs:attributeGroup ref="authorityAndValueURIAttributeGroup"/>
 		<xs:attribute name="authority" type="placeAuthorityAttributeDefinition"/>
 	</xs:attributeGroup>
-	<!--   
- ********** languageAuthorityAttributeGroup **********  	                       	  
+	<!--
+ ********** languageAuthorityAttributeGroup **********
    -->
 	<xs:attributeGroup name="languageAuthorityAttributeGroup">
 		<!-- new in 3.4 -->
 		<xs:attributeGroup ref="authorityAndValueURIAttributeGroup"/>
 		<xs:attribute name="authority" type="languageAuthorityAttributeDefinition"/>
 	</xs:attributeGroup>
-	<!--   
- ********** idAuthorityXlinkLanguageDisplayLabelAttributeGroup   **********  	 
-                    ****** used by <name>, <subject>, and <titleInfo>                      	  
+	<!--
+ ********** idAuthorityXlinkLanguageDisplayLabelAttributeGroup   **********
+                    ****** used by <name>, <subject>, and <titleInfo>
    -->
 	<xs:attributeGroup name="idAuthorityXlinkLanguageDisplayLabelAttributeGroup">
 		<xs:attribute name="ID" type="xs:ID"/>
@@ -1455,8 +1455,8 @@ Following are the element of the MODS 3.x namespace, as of version 3.4, declared
 		<xs:attributeGroup ref="languageAttributeGroup"/>
 		<xs:attribute name="displayLabel" type="xs:string"/>
 	</xs:attributeGroup>
-	<!--  
- ********** languageAttributeGroup   **********  	                       	  
+	<!--
+ ********** languageAttributeGroup   **********
 -->
 	<xs:attributeGroup name="languageAttributeGroup">
 		<xs:attribute name="lang" type="xs:string"/>
@@ -1464,8 +1464,8 @@ Following are the element of the MODS 3.x namespace, as of version 3.4, declared
 		<xs:attribute name="script" type="xs:string"/>
 		<xs:attribute name="transliteration" type="xs:string"/>
 	</xs:attributeGroup>
-	<!--  
- ********** languagePlusDisplayLabelAttributeGroup   **********  	                       	  
+	<!--
+ ********** languagePlusDisplayLabelAttributeGroup   **********
 -->
 	<xs:attributeGroup name="languagePlusDisplayLabelAttributeGroup">
 		<xs:attributeGroup ref="languageAttributeGroup"/>
@@ -1476,8 +1476,8 @@ Following are the element of the MODS 3.x namespace, as of version 3.4, declared
   - Attribute definitions (simpleTypes)
 *****************************************************
 -->
-	<!--  
-   ********** codeOrTextDefinition 
+	<!--
+   ********** codeOrTextDefinition
                   ******** used by type attribute  for elements that distinguish code from text:
                   ******** <languageTerm>, <placeTerm>, <roleTerm>, <scriptTerm>
  -->
@@ -1487,15 +1487,15 @@ Following are the element of the MODS 3.x namespace, as of version 3.4, declared
 			<xs:enumeration value="text"/>
 		</xs:restriction>
 	</xs:simpleType>
-	<!-- 
+	<!--
 ************************************************************************************
 -->
 	<!--
-Following three -  dateEncodingAttributeDefinition,  datePointAttributeDefinition,  dateQualifierAttributeDefinition -  
+Following three -  dateEncodingAttributeDefinition,  datePointAttributeDefinition,  dateQualifierAttributeDefinition -
 are for the three attributes -  "encoding", "qualifier", and "point", for dateBaseDefinition.
 -->
-	<!-- 
-********** dateEncodingAttributeDefinition  
+	<!--
+********** dateEncodingAttributeDefinition
 -->
 	<xs:simpleType name="dateEncodingAttributeDefinition">
 		<xs:restriction base="xs:string">
@@ -1507,8 +1507,8 @@ are for the three attributes -  "encoding", "qualifier", and "point", for dateBa
 			<xs:enumeration value="edtf"/>
 		</xs:restriction>
 	</xs:simpleType>
-	<!-- 
-********** datePointAttributeDefinition 
+	<!--
+********** datePointAttributeDefinition
 -->
 	<xs:simpleType name="datePointAttributeDefinition">
 		<xs:restriction base="xs:string">
@@ -1516,7 +1516,7 @@ are for the three attributes -  "encoding", "qualifier", and "point", for dateBa
 			<xs:enumeration value="end"/>
 		</xs:restriction>
 	</xs:simpleType>
-	<!-- 
+	<!--
 ********** dateQualifierAttributeDefinition
 -->
 	<xs:simpleType name="dateQualifierAttributeDefinition">
@@ -1526,10 +1526,10 @@ are for the three attributes -  "encoding", "qualifier", and "point", for dateBa
 			<xs:enumeration value="questionable"/>
 		</xs:restriction>
 	</xs:simpleType>
-	<!-- 
+	<!--
 ************************************************************************************
 -->
-	<!--  
+	<!--
     ********** enumerationAndChronologyUnitTypeAttributeDefinition
                     ******************* "unitType" attribute for <enumerationAndChronology>
  -->
@@ -1540,8 +1540,8 @@ are for the three attributes -  "encoding", "qualifier", and "point", for dateBa
 			<xs:enumeration value="3"/>
 		</xs:restriction>
 	</xs:simpleType>
-	<!--                     
-************************* languageAuthorityAttributeDefinition  
+	<!--
+************************* languageAuthorityAttributeDefinition
  -->
 	<xs:simpleType name="languageAuthorityAttributeDefinition">
 		<xs:restriction base="xs:string">
@@ -1554,13 +1554,13 @@ are for the three attributes -  "encoding", "qualifier", and "point", for dateBa
 	<!--
 	 **********modsVersionAttributeDefinition
 
-************** "version" attribute of <mods>   
+************** "version" attribute of <mods>
 
-                   ********  The version attribute, now, in 3.4, enumerates all 3.x versions. 
-                   ******** In earlier versions only the current  (latest) version was allowed. 
+                   ********  The version attribute, now, in 3.4, enumerates all 3.x versions.
+                   ******** In earlier versions only the current  (latest) version was allowed.
                    ********  E.g. in version 3.3, the only allowable value for the version attribute was "3.3".
                    ******** Henceforth for any version x.y, all values x.z where z is less than or
-                   ******** equal to y will be enumerated. 
+                   ******** equal to y will be enumerated.
  -->
 	<xs:simpleType name="modsVersionAttributeDefinition">
 		<xs:restriction base="xs:string">
@@ -1571,7 +1571,7 @@ are for the three attributes -  "encoding", "qualifier", and "point", for dateBa
 			<xs:enumeration value="3.0"/>
 		</xs:restriction>
 	</xs:simpleType>
-	<!--  
+	<!--
     ********** namePartTypeAttributeDefinition
                     *******  "type" attribute of <namePart>
  -->
@@ -1583,7 +1583,7 @@ are for the three attributes -  "encoding", "qualifier", and "point", for dateBa
 			<xs:enumeration value="termsOfAddress"/>
 		</xs:restriction>
 	</xs:simpleType>
-	<!--  
+	<!--
     ********** nameTypeAttributeDefinition
                     ******** type attribute of <name>
        -->
@@ -1596,8 +1596,8 @@ are for the three attributes -  "encoding", "qualifier", and "point", for dateBa
 			<!-- "family" is new in 3.4 -->
 		</xs:restriction>
 	</xs:simpleType>
-	<!--  
-   ********** noDefinition 
+	<!--
+   ********** noDefinition
                   ************used by various attributes whose only values may be "no":
                   ************ attribute "shareable" of <abstract>, <tableOfContents>
  -->
@@ -1606,9 +1606,9 @@ are for the three attributes -  "encoding", "qualifier", and "point", for dateBa
 			<xs:enumeration value="no"/>
 		</xs:restriction>
 	</xs:simpleType>
-	<!--  
+	<!--
     ********** placeAuthorityAttributeDefinition
- used by authority attribute for placeDefinition and geographic  **********  	                       	  
+ used by authority attribute for placeDefinition and geographic  **********
  -->
 	<xs:simpleType name="placeAuthorityAttributeDefinition">
 		<xs:restriction base="xs:string">
@@ -1617,9 +1617,9 @@ are for the three attributes -  "encoding", "qualifier", and "point", for dateBa
 			<xs:enumeration value="iso3166"/>
 		</xs:restriction>
 	</xs:simpleType>
-	<!--                     
-************* relatedItemTypeAttributeDefinition  
-                   	  
+	<!--
+************* relatedItemTypeAttributeDefinition
+
  -->
 	<xs:simpleType name="relatedItemTypeAttributeDefinition">
 		<xs:restriction base="xs:string">
@@ -1637,7 +1637,7 @@ are for the three attributes -  "encoding", "qualifier", and "point", for dateBa
 			<xs:enumeration value="reviewOf"/>
 		</xs:restriction>
 	</xs:simpleType>
-	<!--  
+	<!--
 ***************titleInfoTypeAttributeDefinition ***********************
 -->
 	<xs:simpleType name="titleInfoTypeAttributeDefinition">
@@ -1648,8 +1648,8 @@ are for the three attributes -  "encoding", "qualifier", and "point", for dateBa
 			<xs:enumeration value="uniform"/>
 		</xs:restriction>
 	</xs:simpleType>
-	<!--   
-********** urlAccessAttributeDefinition"**********  	
+	<!--
+********** urlAccessAttributeDefinition"**********
    -->
 	<xs:simpleType name="urlAccessAttributeDefinition">
 		<xs:restriction base="xs:string">
@@ -1658,20 +1658,20 @@ are for the three attributes -  "encoding", "qualifier", and "point", for dateBa
 			<xs:enumeration value="object in context"/>
 		</xs:restriction>
 	</xs:simpleType>
-		<!--   
-********** urlUsageAttributeDefinition"**********  	
+		<!--
+********** urlUsageAttributeDefinition"**********
 
 ******************** This definition is for the usage attribute as used by <url> (subelement of <location>)
 
 ******************** this note pertains both to this  (urlUsageAttributeDefinition) and the following ( usageAttributeDefinition) definitions.
 
-In earlier versions the usage attribute applied to element <url> (of <location>) only, and defined the single value "primary display".  
-In this version, 3.4, the usage attribute applies additionally to elements <classification>, <genre>, <language>, <subject>, <name>,<titleInfo>, 
-and <typeOfResource>.  
+In earlier versions the usage attribute applied to element <url> (of <location>) only, and defined the single value "primary display".
+In this version, 3.4, the usage attribute applies additionally to elements <classification>, <genre>, <language>, <subject>, <name>,<titleInfo>,
+and <typeOfResource>.
 
-However the value "primary display" is generalized to "primary", for these latter elements. 
+However the value "primary display" is generalized to "primary", for these latter elements.
 
-<url> retains the value "primary display" (for compatibility with earlier versions) although its use is depricated. So it has both values, "primary" and "primary display". For the other elements, only the value "primary" is valid. 
+<url> retains the value "primary display" (for compatibility with earlier versions) although its use is depricated. So it has both values, "primary" and "primary display". For the other elements, only the value "primary" is valid.
 
 Therefore, two definitions are needed for the usage attribute, one for <url> ("urlUsageAttributeDefinition") and one for the other elements ("usageAttributeDefinition")
    -->
@@ -1681,8 +1681,8 @@ Therefore, two definitions are needed for the usage attribute, one for <url> ("u
 			<xs:enumeration value="primary"/>
 		</xs:restriction>
 	</xs:simpleType>
-	<!--   
-********** usageAttributeDefinition"**********  	
+	<!--
+********** usageAttributeDefinition"**********
 
 ********************  See note above with urlUsageAttributeDefinition.
 ******************** This definition is for the usage attribute as used by <classification>, <genre>, <language>, <subject>, <name>,<titleInfo>, <typeOfResource>
@@ -1692,9 +1692,9 @@ Therefore, two definitions are needed for the usage attribute, one for <url> ("u
 			<xs:enumeration value="primary"/>
 		</xs:restriction>
 	</xs:simpleType>
-	<!--   
+	<!--
 
-********** yesDefinition 
+********** yesDefinition
 
             ******************* yesDefinition used by various attributes whose only values may be "yes":
                                                   "invalid" for <identifier>

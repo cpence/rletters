@@ -2,7 +2,7 @@
 
 module Jobs
   module Analysis
-    
+
     # Plot a dataset's members by year
     class PlotDates < Jobs::Analysis::Base
       # Export the date format data
@@ -15,20 +15,21 @@ module Jobs
       # @return [undefined]
       # @example Start a job for plotting a dataset by year
       #   Delayed::Job.enqueue Jobs::Analysis::PlotDates.new(
-      #     :user_id => current_user.to_param, 
-      #     :dataset_id => dataset.to_param)
-      def perform        
+      #     user_id: current_user.to_param,
+      #     dataset_id: dataset.to_param)
+      def perform
         # Fetch the user based on ID
         user = User.find(user_id)
         raise ArgumentError, 'User ID is not valid' unless user
-      
+
         # Fetch the dataset based on ID
         dataset = user.datasets.find(dataset_id)
         raise ArgumentError, 'Dataset ID is not valid' unless dataset
-        
+
         # Make a new analysis task
-        @task = dataset.analysis_tasks.create(:name => "Plot dataset by date", :job_type => 'PlotDates')
-        
+        @task = dataset.analysis_tasks.create(name: 'Plot dataset by date',
+                                              job_type: 'PlotDates')
+
         # Write out the dates to an array
         dates = []
         dataset.entries.find_in_batches do |group|
@@ -42,11 +43,11 @@ module Jobs
           solr_query[:facet] = false
 
           solr_response = Solr::Connection.find solr_query
-          raise StandardError, "Unknown error in Solr response" unless solr_response.ok?
-          raise StandardError, "Failed to get batch of results in PlotDates" unless solr_response["response"]["docs"].count == group.count
+          raise StandardError, 'Unknown error in Solr response' unless solr_response.ok?
+          raise StandardError, 'Failed to get batch of results in PlotDates' unless solr_response['response']['docs'].count == group.count
 
           solr_response['response']['docs'].each do |doc|
-            year = doc["year"]
+            year = doc['year']
             year.force_encoding(Encoding::UTF_8)
 
             # Support Y-M-D or Y/M/D dates
@@ -57,28 +58,30 @@ module Jobs
             if year_array
               year_array[1] = year_array[1] + 1
             else
-              dates << [ year, 1 ]
+              dates << [year, 1]
             end
           end
         end
-        
+
         # Sort by date
         dates = dates.sort_by { |y| y[0] }
-        
+
         # Serialize out to YAML
         @task.result_file = Download.create_file('dates.yml') do |file|
           file.write(dates.to_yaml)
           file.close
         end
-        
+
         # Make sure the task is saved, setting 'finished_at'
         @task.finished_at = DateTime.current
         @task.save
       end
-      
+
       # We don't want users to download the YAML file
-      def self.download?; false; end
+      def self.download?
+        false
+      end
     end
-    
+
   end
 end

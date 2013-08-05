@@ -15,10 +15,10 @@
 # - Analysis jobs should derive from +Jobs::AnalysisJob+ to get some common
 #   attributes.
 module Jobs
-  
+
   # Base class for all delayed jobs
   class Base
-    
+
     # Initialize the job from a hash of attributes in a generic way
     #
     # This constructor will simply set all of the passed +args+ as attribute
@@ -31,17 +31,17 @@ module Jobs
     #   class TestJob < Jobs::Base
     #     attr_accessor :name
     #   end
-    #   job = TestJob.new(:name => 'Testing')
+    #   job = TestJob.new(name: 'Testing')
     #   job.name
     #   # => 'Testing'
     def initialize(args = { })
       @state_vars = args.keys
-      
+
       args.each_pair do |key, value|
-        self.send("#{key}=", value) if self.respond_to?("#{key}=")
+        send("#{key}=", value) if respond_to?("#{key}=")
       end
     end
-    
+
     # Get a hash of attributes from the state variables
     #
     # @api semipublic
@@ -50,7 +50,7 @@ module Jobs
     #   class TestJob < Jobs::Base
     #     attr_accessor :name, :test
     #   end
-    #   job = TestJob.new(:name => 'Testing')
+    #   job = TestJob.new(name: 'Testing')
     #   job.test = 'woo'
     #   job.attributes
     #   # => { :name => 'Testing' }
@@ -58,10 +58,10 @@ module Jobs
     #   # construction
     def attributes
       ret = {}
-      @state_vars.each { |k| ret[k] = instance_variable_get("@#{k.to_s}") }      
+      @state_vars.each { |k| ret[k] = instance_variable_get("@#{k.to_s}") }
       ret
     end
-    
+
     # Compare objects for equality based on their attributes
     #
     # @api public
@@ -69,8 +69,8 @@ module Jobs
     def ==(other)
       attributes == other.attributes
     end
-    alias :eql? :==
-    
+    alias_method :eql?, :==
+
     # Report any exceptions to Airbrake, if it's enabled
     #
     # This method is a callback that is invoked by Delayed::Job.  No tests, as
@@ -82,12 +82,12 @@ module Jobs
     # @return [undefined]
     # :nocov:
     def error(job, exception)
-      unless Settings.airbrake_key.blank?
+      unless Setting.airbrake_key.blank?
         Airbrake.notify(exception)
       end
     end
     # :nocov:
-    
+
     # Don't restart jobs on error
     #
     # Restarting isn't going to help resolve any errors that are presented, so
@@ -100,7 +100,7 @@ module Jobs
       1
     end
     # :nocov:
-    
+
   end
-  
+
 end

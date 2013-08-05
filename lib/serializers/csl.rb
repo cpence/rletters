@@ -7,7 +7,7 @@ require 'citeproc'
 # model, which allow the document to be converted to any one of a number of
 # export formats.
 module Serializers
-  
+
   # Serialization code to Citation Style Language
   #
   # The Citation Style Language (http://citationstyles.org) is a language
@@ -30,10 +30,10 @@ module Serializers
       if formatted_author_list && formatted_author_list.count
         ret['author'] = formatted_author_list.map { |a| a.to_citeproc }
       end
-      
+
       ret['title'] = title unless title.blank?
       ret['container-title'] = journal unless journal.blank?
-      ret['issued'] = { 'date-parts' => [[ Integer(year) ]] } unless year.blank?
+      ret['issued'] = { 'date-parts' => [[Integer(year)]] } unless year.blank?
       ret['volume'] = volume unless volume.blank?
       ret['issue'] = number unless number.blank?
       ret['page'] = pages unless pages.blank?
@@ -59,10 +59,10 @@ module Serializers
       elsif style_or_url.is_a? String
         style = style_or_url
       else
-        raise ArgumentError, "Argument must be CslStyle or String"
-      end        
-      
-      CiteProc.process(to_csl, :format => :html, :style => style).strip.html_safe
+        raise ArgumentError, 'Argument must be CslStyle or String'
+      end
+
+      CiteProc.process(to_csl, format: :html, style: style).strip.html_safe
     end
   end
 end

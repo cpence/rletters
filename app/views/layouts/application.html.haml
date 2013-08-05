@@ -1,18 +1,18 @@
 !!! 5
-%html{ :lang => I18n.locale }
-  = render :partial => 'layouts/head'
+%html{ lang: I18n.locale }
+  = render partial: 'layouts/head'
   %body
-    %div{ 'data-role' => 'page', 'data-add-back-btn' => 'true', 'data-url' => "#{url_for(params)}" }
-      %div{ 'data-role' => 'header', 'data-id' => 'rlheader', 'data-position' => 'fixed', 'data-tap-toggle' => 'false' }
-        %h1= Settings.app_name
-      
-      %div{ 'data-role' => 'content' }
-        = render :partial => 'layouts/flashes'
+    %div{ data: { role: 'page', add_back_btn: 'true', url: url_for(params) } }
+      %div{ data: { role: 'header', id: 'rlheader', position: 'fixed', tap_toggle: 'false' } }
+        %h1= Setting.app_name
+
+      %div{ data: { role: 'content' } }
+        = render partial: 'layouts/flashes'
         = yield
-      
-      %div.rlfooter{ 'data-id' => 'rlfooter', 'data-position' => 'fixed', 'data-role' => 'footer', 'data-tap-toggle' => 'false' }
-        %div{ 'data-role' => 'navbar' }
+
+      %div.rlfooter{ data: { role: 'footer', id: 'rlfooter', position: 'fixed', tap_toggle: 'false' } }
+        %div{ data: { role: 'navbar' } }
           %ul
-            %li= link_to t('all.home_button'), info_path, 'data-icon' => 'home', :class => (params[:controller] == 'info' ? 'ui-btn-active' : nil)
-            %li= link_to t('all.search_button'), search_path, 'data-icon' => 'search', :class => (params[:controller] == 'search' ? 'ui-btn-active' : nil)
-            %li= link_to t('all.datasets_button'), datasets_path, 'data-icon' => 'grid', :class => (params[:controller] == 'datasets' ? 'ui-btn-active' : nil)
+            %li= link_to t('all.home_button'), info_path, data: { icon: 'home' }, class: (params[:controller] == 'info' ? 'ui-btn-active' : nil)
+            %li= link_to t('all.search_button'), search_path, data: { icon: 'search' }, class: (params[:controller] == 'search' ? 'ui-btn-active' : nil)
+            %li= link_to t('all.datasets_button'), datasets_path, data: { icon: 'grid' }, class: (params[:controller] == 'datasets' ? 'ui-btn-active' : nil)

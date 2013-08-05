@@ -9,10 +9,10 @@
   %table
     %thead
       %tr
-        %th{ :scope => 'col' } Term
-        %th{ :scope => 'col' } Frequency in Document (tf)
-        %th{ :scope => 'col' } Frequency in Corpus (df)
-        %th{ :scope => 'col' } tf*idf
+        %th{ scope: 'col' } Term
+        %th{ scope: 'col' } Frequency in Document (tf)
+        %th{ scope: 'col' } Frequency in Corpus (df)
+        %th{ scope: 'col' } tf*idf
     %tbody
       - term_vectors.each do |term, v|
         %tr
@@ -21,4 +21,4 @@
           %td= v[:df]
           %td= v[:tfidf]
       %tr
-        %td{ :colspan => '4' }= link_to 'Download this data as CSV', { :controller => 'datasets', :action => 'task_view', :id => @dataset.to_param, :task_id => @task.to_param, :view => 'download', :format => 'csv' }, :rel => 'external'
+        %td{ colspan: '4' }= link_to 'Download this data as CSV', { controller: 'datasets', action: 'task_view', id: @dataset.to_param, task_id: @task.to_param, view: 'download', format: 'csv' }, rel: 'external'

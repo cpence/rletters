@@ -8,9 +8,9 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
   private
-  
+
   before_filter :set_locale, :set_timezone, :ensure_trailing_slash
-  
+
   # Set the locale if the user is logged in
   #
   # This function is called as a +before_filter+ in all controllers, you do
@@ -26,7 +26,7 @@ class ApplicationController < ActionController::Base
       I18n.locale = I18n.default_locale
     end
   end
-  
+
   # Set the timezone if the user is logged in
   #
   # This function is called as a +before_filter+ in all controllers, you do
@@ -42,7 +42,7 @@ class ApplicationController < ActionController::Base
       Time.zone = 'Eastern Time (US & Canada)'
     end
   end
-  
+
   # Make sure there's a trailing slash on the URL
   #
   # jQuery Mobile really wants us always to have a trailing slash on our
@@ -53,7 +53,8 @@ class ApplicationController < ActionController::Base
   # @api private
   # @return [undefined]
   def ensure_trailing_slash
-    redirect_to url_for(params.merge(:trailing_slash => true)), :status => 301 unless trailing_slash?
+    redirect_to url_for(params.merge(trailing_slash: true)),
+                status: 301 unless trailing_slash?
   end
 
   # Does the URL end with a trailing slash?
@@ -63,7 +64,27 @@ class ApplicationController < ActionController::Base
     # If fullpath isn't defined (e.g., in testing), then just return true
     # so we don't do unnecessary redirects.
     return true if request.env['REQUEST_URI'].blank?
-    
+
     request.env['REQUEST_URI'].match(/[^\?]+/).to_s.last == '/'
+  end
+
+  protected
+
+  # Send the right parameter sanitizers to Devise
+  #
+  # Devise in Rails 4 uses this hook in the application controller in order
+  # to determine which parameters are accepted across the various account
+  # management forms.  When a regular user logs in, delegate to that parameter
+  # sanitizer.  Otherwise (e.g., for admin logins in the backend), just use
+  # the defaults.
+  #
+  # @api private
+  # @return [Devise::ParameterSanitizer] sanitizer to be used
+  def devise_parameter_sanitizer
+    if resource_class == User
+      User::ParameterSanitizer.new(User, :user, params)
+    else
+      super
+    end
   end
 end

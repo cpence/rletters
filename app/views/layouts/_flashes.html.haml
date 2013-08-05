@@ -1,6 +1,6 @@
 - unless flash.empty?
-  %ul{ 'data-role' => 'listview', 'data-theme' => 'd', 'data-divider-theme' => 'e' }
+  %ul{ data: { role: 'listview', theme: 'd', divider_theme: 'e' } }
     - flash.each do |k, v|
-      %li{ 'data-role' => 'list-divider' }= v
+      %li{ data: { role: 'list-divider' } }= v
   %div.verticalpad
 

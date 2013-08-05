@@ -13,5 +13,5 @@ production:
   <<: *base
 
 test:
-  database: rletters_test
-  <<: *base
+  adapter: sqlite3
+  database: ':memory:'

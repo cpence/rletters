@@ -88,7 +88,7 @@ reload_god() {
   if ! status_god_quiet ; then
     echo -n "not running" && warning && echo && exit 1
   fi
-  
+
   cd $RAILS_ROOT
   if [ -z "$DEPLOY_USER" ]; then
     bundle exec god -c $CONFIG_FILE -P $PID_FILE -l $LOG_FILE restart clockwork
@@ -101,7 +101,7 @@ reload_god() {
     sudo -u $DEPLOY_USER RAILS_ROOT="$RAILS_ROOT" bundle exec god -c $CONFIG_FILE -P $PID_FILE -l $LOG_FILE restart unicorn
     retval=$?
   fi
-  
+
   echo
   return retval
 }
@@ -113,7 +113,7 @@ status_god() {
 status_god_quiet() {
   status_god >/dev/null 2>&1
 }
- 
+
 case "$1" in
   start)
     start_god

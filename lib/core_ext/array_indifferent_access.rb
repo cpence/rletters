@@ -1,6 +1,7 @@
 # -*- encoding : utf-8 -*-
 require Rails.root.join('lib', 'core_ext', 'hash_without_indifferent_access')
 
+# Ruby's standard Array class
 class Array
   # Return a copy of self with any hashes in the array converted to
   # HashWithIndifferentAccess.
@@ -22,7 +23,7 @@ class Array
       end
     end
   end
-  
+
   # Return a copy of self with any HashWithIndifferentAccess in the array
   # converted to plain hashes.
   #

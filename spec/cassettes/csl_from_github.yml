@@ -1,65 +1,65 @@
---- 
-http_interactions: 
-- request: 
+---
+http_interactions:
+- request:
     method: get
     uri: https://raw.github.com/citation-style-language/styles/master/science.csl
-    body: 
+    body:
       encoding: US-ASCII
       string: ""
-    headers: 
-      Accept: 
+    headers:
+      Accept:
       - "*/*"
-      User-Agent: 
+      User-Agent:
       - Ruby
-  response: 
-    status: 
+  response:
+    status:
       code: 200
       message: OK
-    headers: 
-      Date: 
+    headers:
+      Date:
       - Tue, 05 Mar 2013 13:50:51 GMT
-      Server: 
+      Server:
       - GitHub.com
-      Content-Type: 
+      Content-Type:
       - text/plain; charset=utf-8
-      Status: 
+      Status:
       - 200 OK
-      X-Ratelimit-Limit: 
+      X-Ratelimit-Limit:
       - "100"
-      X-Ratelimit-Remaining: 
+      X-Ratelimit-Remaining:
       - "100"
-      X-Frame-Options: 
+      X-Frame-Options:
       - deny
-      X-Content-Type-Options: 
+      X-Content-Type-Options:
       - nosniff
-      Content-Disposition: 
+      Content-Disposition:
       - inline
-      Content-Transfer-Encoding: 
+      Content-Transfer-Encoding:
       - binary
-      X-Runtime: 
+      X-Runtime:
       - "10"
-      Etag: 
+      Etag:
       - "\"0309b998f5e1e5fa749b1afa7649ebf6\""
-      Via: 
+      Via:
       - 1.1 varnish
       - 1.1 varnish
-      Content-Length: 
+      Content-Length:
       - "6286"
-      Accept-Ranges: 
+      Accept-Ranges:
       - bytes
-      Age: 
+      Age:
       - "0"
-      X-Served-By: 
+      X-Served-By:
       - cache-d20-DAL
-      X-Cache: 
+      X-Cache:
       - MISS
-      X-Cache-Hits: 
+      X-Cache-Hits:
       - "0"
-      Vary: 
+      Vary:
       - Accept-Encoding
-      Cache-Control: 
+      Cache-Control:
       - private
-    body: 
+    body:
       encoding: US-ASCII
       string: |
         <?xml version="1.0" encoding="utf-8"?>
@@ -241,6 +241,6 @@ http_interactions:
           </bibliography>
         </style>
 
-    http_version: 
+    http_version:
   recorded_at: Tue, 05 Mar 2013 13:50:51 GMT
 recorded_with: VCR 2.4.0

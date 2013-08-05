@@ -4,9 +4,9 @@
   %p= t('.no_libraries')
 - else
   - @libraries.each do |library|
-    = form_tag(libraries_path, :method => :post) do
+    = form_tag(libraries_path, method: :post) do
       = hidden_field_tag 'library[name]', library[:name]
       = hidden_field_tag 'library[url]', library[:url]
       = submit_tag library[:name]
 
-%p= link_to t('.cancel'), edit_user_registration_path, 'data-role' => 'button'
+%p= link_to t('.cancel'), edit_user_registration_path, data: { role: 'button' }

@@ -1,5 +1,5 @@
-rm: 
-  languages: 
+rm:
+  languages:
     aa: afar
     ab: abchasian
     ace: aceh

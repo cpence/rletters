@@ -6,18 +6,18 @@
 %div.center
   - dates = YAML.load_file(@task.result_file.filename)
   %div.plot_dates_graph= dates.to_s
-  
+
   .verticalpad
-  
+
   %table
     %thead
       %tr
-        %th{ :scope => 'col' } Year
-        %th{ :scope => 'col' } Number of Documents
+        %th{ scope: 'col' } Year
+        %th{ scope: 'col' } Number of Documents
     %tbody
       - dates.each do |year|
         %tr
           %td= year[0].to_s
           %td= year[1].to_s
       %tr
-        %td{ :colspan => '2' }= link_to 'Download this data as CSV', { :controller => 'datasets', :action => 'task_view', :id => @dataset.to_param, :task_id => @task.to_param, :view => 'download', :format => 'csv' }, :rel => 'external'
+        %td{ colspan: '2' }= link_to 'Download this data as CSV', { controller: 'datasets', action: 'task_view', id: @dataset.to_param, task_id: @task.to_param, view: 'download', format: 'csv' }, rel: 'external'
