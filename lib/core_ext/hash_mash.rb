@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 
+# Ruby's standard Hash class
 class Hash
   # Convert to a HashWithIndifferentAccess.
   #
@@ -8,12 +9,10 @@ class Hash
   #
   # @return [HashWithIndifferentAccess] self with indifferent access
   def to_mash
-    self.with_indifferent_access
+    with_indifferent_access
   end
 end
 
 # Redefine the Mash class and replace it with HashWithIndifferentAccess
-if Object.constants.include?(:Mash)
-  Object.send(:remove_const, :Mash)
-end
+Object.send(:remove_const, :Mash) if Object.constants.include?(:Mash)
 Mash = HashWithIndifferentAccess

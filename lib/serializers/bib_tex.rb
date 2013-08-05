@@ -7,8 +7,11 @@ module Serializers
 
     # Register this serializer in the Document list
     def self.included(base)
-      base.register_serializer(:bibtex, 'BibTeX', lambda { |doc| doc.to_bibtex },
-        'http://mirrors.ctan.org/biblio/bibtex/contrib/doc/btxdoc.pdf')
+      base.register_serializer(
+        :bibtex,
+        'BibTeX', ->(doc) { doc.to_bibtex },
+        'http://mirrors.ctan.org/biblio/bibtex/contrib/doc/btxdoc.pdf'
+      )
     end
 
     # Returns this document as a BibTeX record
@@ -16,14 +19,15 @@ module Serializers
     # @api public
     # @return [String] document in BibTeX format
     # @example Download this document as a bib file
-    #   controller.send_data doc.to_bibtex, filename: 'export.bib', disposition: 'attachment'
+    #   controller.send_data doc.to_bibtex, filename: 'export.bib',
+    #                        disposition: 'attachment'
     def to_bibtex
       # We don't have a concept of cite keys, so we're forced to just use
       # AuthorYear and hope it doesn't collide
       if formatted_author_list.nil? || formatted_author_list.count == 0
         first_author = 'Anon'
       else
-        first_author = formatted_author_list[0].last.gsub(' ','').gsub(/[^A-za-z0-9_]/, '')
+        first_author = formatted_author_list[0].last.gsub(' ', '').gsub(/[^A-za-z0-9_]/, '')
       end
       cite_key = "#{first_author}#{year}"
 
@@ -45,12 +49,7 @@ module Serializers
   end
 end
 
-# Arrays are ordered, integer-indexed collections of any object.
-#
-# Array indexing starts at 0, as in C or Java. A negative index is assumed
-# to be relative to the end of the array—that is, an index of -1 indicates
-# the last element of the array, -2 is the next to last element in the
-# array, and so on.
+# Ruby's standard Array class
 class Array
   # Convert this array (of Document objects) to a BibTeX collection
   #
@@ -63,10 +62,10 @@ class Array
   #   doc_array = Document.find_all_by_solr_query(...)
   #   $stdout.write(doc_array.to_bibtex)
   def to_bibtex
-    self.each do |x|
+    each do |x|
       raise ArgumentError, 'No to_bibtex method for array element' unless x.respond_to? :to_bibtex
     end
 
-    self.map { |x| x.to_bibtex }.join
+    map { |x| x.to_bibtex }.join
   end
 end

@@ -33,7 +33,7 @@ module Serializers
 
       ret['title'] = title unless title.blank?
       ret['container-title'] = journal unless journal.blank?
-      ret['issued'] = { 'date-parts' => [[ Integer(year) ]] } unless year.blank?
+      ret['issued'] = { 'date-parts' => [[Integer(year)]] } unless year.blank?
       ret['volume'] = volume unless volume.blank?
       ret['issue'] = number unless number.blank?
       ret['page'] = pages unless pages.blank?
@@ -59,7 +59,7 @@ module Serializers
       elsif style_or_url.is_a? String
         style = style_or_url
       else
-        raise ArgumentError, "Argument must be CslStyle or String"
+        raise ArgumentError, 'Argument must be CslStyle or String'
       end
 
       CiteProc.process(to_csl, format: :html, style: style).strip.html_safe

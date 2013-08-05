@@ -14,7 +14,7 @@ module Jobs
     def perform
       # Note: This *must* be destroy_all, because we want to make sure to call
       # the +Download#delete_file+ callback in +before_destroy.+
-      Download.destroy_all ["created_at < ?", 2.weeks.ago]
+      Download.destroy_all ['created_at < ?', 2.weeks.ago]
     end
   end
 end

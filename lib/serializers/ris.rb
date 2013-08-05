@@ -7,8 +7,11 @@ module Serializers
 
     # Register this serializer in the Document list
     def self.included(base)
-      base.register_serializer(:ris, 'RefMan/RIS', lambda { |doc| doc.to_ris },
-        'http://www.refman.com/support/risformat_intro.asp')
+      base.register_serializer(
+        :ris, 'RefMan/RIS',
+        ->(doc) { doc.to_ris },
+        'http://www.refman.com/support/risformat_intro.asp'
+      )
     end
 
     # Returns this document as a RIS record
@@ -16,12 +19,13 @@ module Serializers
     # @api public
     # @return [String] document in RIS format
     # @example Download this document as a ris file
-    #   controller.send_data doc.to_ris, filename: 'export.ris', disposition: 'attachment'
+    #   controller.send_data doc.to_ris, filename: 'export.ris', disposition:
+    #                        'attachment'
     def to_ris
       ret  = "TY  - JOUR\n"
       unless formatted_author_list.nil?
         formatted_author_list.each do |a|
-          ret << "AU  - "
+          ret << 'AU  - '
           ret << "#{a.von} " unless a.von.blank?
           ret << "#{a.last},#{a.first}"
           ret << ",#{a.suffix}" unless a.suffix.blank?
@@ -41,6 +45,7 @@ module Serializers
   end
 end
 
+# Ruby's standard Array class
 class Array
   # Convert this array (of Document objects) to a RIS collection
   #
@@ -53,10 +58,10 @@ class Array
   #   doc_array = Document.find_all_by_solr_query(...)
   #   $stdout.write(doc_array.to_ris)
   def to_ris
-    self.each do |x|
+    each do |x|
       raise ArgumentError, 'No to_ris method for array element' unless x.respond_to? :to_ris
     end
 
-    self.map { |x| x.to_ris }.join
+    map { |x| x.to_ris }.join
   end
 end

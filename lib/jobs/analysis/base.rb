@@ -74,10 +74,19 @@ module Jobs
       #   end
       def self.job_list
         # Get all the classes defined in the Jobs::Analysis module
-        classes = Dir[Rails.root.join('lib', 'jobs', 'analysis', '*.rb')].map { |f|
+        analysis_files = Dir[Rails.root.join('lib',
+                                             'jobs',
+                                             'analysis',
+                                             '*.rb')]
+        classes = analysis_files.map do |f|
           next if File.basename(f) == 'base.rb'
-          ('Jobs::Analysis::' + File.basename(f, '.*').camelize).constantize rescue nil
-        }.compact
+          begin
+            ('Jobs::Analysis::' + File.basename(f, '.*').camelize).constantize
+          rescue NameError
+            nil
+          end
+        end
+        classes.compact!
 
         # Make sure that worked
         classes.each do |c|
@@ -103,7 +112,7 @@ module Jobs
         # so we need to remove 'analysis'
         str = File::SEPARATOR + 'analysis' + File::SEPARATOR
         rep = File::SEPARATOR
-        class_path = self.name.underscore.sub(str, rep)
+        class_path = name.underscore.sub(str, rep)
         File.join(class_path, view)
       end
 
@@ -115,7 +124,8 @@ module Jobs
       #
       # @api private
       # @param [Delayed::Job] job The job currently being run
-      # @param [StandardError] exception The exception raised to cause the error
+      # @param [StandardError] exception The exception raised to cause the
+      #   error
       # @return [undefined]
       def error(job, exception)
         if instance_variable_defined?(:@task) && @task

@@ -30,7 +30,7 @@ module Solr
     # @param [String] query the query to search for
     # @return [Solr::Facet] the facet for this query
     def for_query(query)
-      all.detect { |f| f.query == query }
+      all.find { |f| f.query == query }
     end
 
     # Return true if there are no facets

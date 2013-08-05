@@ -4,13 +4,13 @@ module Solr
 
   # Methods for managing the singleton connection to the Solr server
   module Connection
-    
+
     class << self
       # Cache the connection to solr
       #
       # @return [RSolr::Client] the cached Solr connection object
       attr_accessor :solr
-      
+
       # Cache the URL to Solr, to detect changes in the configuration panel
       #
       # @return [String] the URL for connecting to Solr
@@ -26,13 +26,12 @@ module Solr
     # @param [Hash] params
     # @return [RSolr::Ext.response] Solr search result
     def self.find(params)
-      begin
-        get_solr
-        ret = Connection.solr.find params
-      rescue Exception => e
-        Rails.logger.warn "Connection to Solr failed: #{e.inspect}"
-        RSolr::Ext::Response::Base.new({ 'response' => { 'docs' => [] } }, 'select', params)
-      end
+      get_solr
+      Connection.solr.find params
+    rescue StandardError => e
+      Rails.logger.warn "Connection to Solr failed: #{e.inspect}"
+      RSolr::Ext::Response::Base.new({ 'response' => { 'docs' => [] } },
+                                     'select', params)
     end
 
     # Get the info/statistics hash from Solr
@@ -43,13 +42,11 @@ module Solr
     # @api private
     # @return [Hash] Unprocessed Solr response
     def self.info
-      begin
-        get_solr
-        ret = Connection.solr.get 'admin/system'
-      rescue Exception => e
-        Rails.logger.warn "Connection to Solr failed: #{e.inspect}"
-        {}
-      end
+      get_solr
+      Connection.solr.get 'admin/system'
+    rescue StandardError => e
+      Rails.logger.warn "Connection to Solr failed: #{e.inspect}"
+      {}
     end
 
     private

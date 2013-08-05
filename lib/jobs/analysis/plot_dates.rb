@@ -27,7 +27,8 @@ module Jobs
         raise ArgumentError, 'Dataset ID is not valid' unless dataset
 
         # Make a new analysis task
-        @task = dataset.analysis_tasks.create(name: "Plot dataset by date", job_type: 'PlotDates')
+        @task = dataset.analysis_tasks.create(name: 'Plot dataset by date',
+                                              job_type: 'PlotDates')
 
         # Write out the dates to an array
         dates = []
@@ -42,11 +43,11 @@ module Jobs
           solr_query[:facet] = false
 
           solr_response = Solr::Connection.find solr_query
-          raise StandardError, "Unknown error in Solr response" unless solr_response.ok?
-          raise StandardError, "Failed to get batch of results in PlotDates" unless solr_response["response"]["docs"].count == group.count
+          raise StandardError, 'Unknown error in Solr response' unless solr_response.ok?
+          raise StandardError, 'Failed to get batch of results in PlotDates' unless solr_response['response']['docs'].count == group.count
 
           solr_response['response']['docs'].each do |doc|
-            year = doc["year"]
+            year = doc['year']
             year.force_encoding(Encoding::UTF_8)
 
             # Support Y-M-D or Y/M/D dates
@@ -57,7 +58,7 @@ module Jobs
             if year_array
               year_array[1] = year_array[1] + 1
             else
-              dates << [ year, 1 ]
+              dates << [year, 1]
             end
           end
         end
@@ -77,7 +78,9 @@ module Jobs
       end
 
       # We don't want users to download the YAML file
-      def self.download?; false; end
+      def self.download?
+        false
+      end
     end
 
   end

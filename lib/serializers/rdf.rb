@@ -10,17 +10,24 @@ module Serializers
 
     # Register this serializer in the Document list
     def self.included(base)
-      base.register_serializer(:rdf, 'RDF/XML', lambda { |doc| doc.to_rdf_xml },
-        'http://www.w3.org/TR/rdf-syntax-grammar/')
-      base.register_serializer(:n3, 'RDF/N3', lambda { |doc| doc.to_rdf_n3 },
-        'http://www.w3.org/DesignIssues/Notation3.html')
+      base.register_serializer(
+        :rdf, 'RDF/XML',
+        ->(doc) { doc.to_rdf_xml },
+        'http://www.w3.org/TR/rdf-syntax-grammar/'
+      )
+      base.register_serializer(
+        :n3, 'RDF/N3',
+        ->(doc) { doc.to_rdf_n3 },
+        'http://www.w3.org/DesignIssues/Notation3.html'
+      )
     end
 
     # Returns this document as a RDF::Graph object
     #
     # For the moment, we provide only metadata items for the basic Dublin
     # Core elements, and for the Dublin Core
-    # {"bibliographicCitation" element.}[http://dublincore.org/documents/dc-citation-guidelines/]
+    # {"bibliographicCitation"
+    # element.}[http://dublincore.org/documents/dc-citation-guidelines/]
     # We also encode an OpenURL reference (using the standard OpenURL
     # namespace), in a second bibliographicCitation element.  The precise way
     # to encode journal articles in DC is in serious flux, but this should
@@ -56,7 +63,10 @@ module Serializers
       citation << ". (#{year})" unless year.blank?
       graph << [doc, ::RDF::DC.bibliographicCitation, citation]
 
-      ourl = ::RDF::Literal.new("&" + to_openurl_params, datatype: ::RDF::URI.new("info:ofi/fmt:kev:mtx:ctx"))
+      ourl = ::RDF::Literal.new(
+        '&' + to_openurl_params,
+        datatype: ::RDF::URI.new('info:ofi/fmt:kev:mtx:ctx')
+      )
       graph << [doc, ::RDF::DC.bibliographicCitation, ourl]
 
       graph << [doc, ::RDF::DC.relation, journal] unless journal.blank?
@@ -73,7 +83,8 @@ module Serializers
     # @api public
     # @return [String] document in RDF+N3 format
     # @example Download this document as a n3 file
-    #   controller.send_data doc.to_rdf_turtle, filename: 'export.n3', disposition: 'attachment'
+    #   controller.send_data doc.to_rdf_turtle, filename: 'export.n3',
+    #                        disposition: 'attachment'
     # :nocov:
     def to_rdf_n3
       ::RDF::Writer.for(:n3).buffer do |writer|
@@ -88,7 +99,8 @@ module Serializers
     # @api public
     # @return [String] document in RDF+XML format
     # @example Download this document as an XML file
-    #   controller.send_data doc.to_rdf_xml, filename: 'export.xml', disposition: 'attachment'
+    #   controller.send_data doc.to_rdf_xml, filename: 'export.xml',
+    #                        disposition: 'attachment'
     # :nocov:
     def to_rdf_xml
       ::RDF::Writer.for(:rdfxml).buffer do |writer|
@@ -100,6 +112,7 @@ module Serializers
   end
 end
 
+# Ruby's standard Array class
 class Array
   # Convert this array (of Document objects) to an RDF+N3 collection
   #
@@ -114,12 +127,12 @@ class Array
   #   $stdout.write(doc_array.to_rdf_n3)
   # :nocov:
   def to_rdf_n3
-    self.each do |x|
+    each do |x|
       raise ArgumentError, 'No to_rdf method for array element' unless x.respond_to? :to_rdf
     end
 
     ::RDF::Writer.for(:n3).buffer do |writer|
-      self.each do |x|
+      each do |x|
         writer << x.to_rdf
       end
     end
@@ -139,12 +152,12 @@ class Array
   #   $stdout.write(doc_array.to_rdf_xml)
   # :nocov:
   def to_rdf_xml
-    self.each do |x|
+    each do |x|
       raise ArgumentError, 'No to_rdf method for array element' unless x.respond_to? :to_rdf
     end
 
     ::RDF::Writer.for(:rdf).buffer do |writer|
-      self.each do |x|
+      each do |x|
         writer << x.to_rdf
       end
     end

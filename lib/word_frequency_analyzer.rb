@@ -14,11 +14,14 @@
 # @!attribute [r] word_list
 #   @return [Array<String>] The list of words analyzed
 # @!attribute [r] tf_in_dataset
-#   @return [Hash<String, Integer>] For each word, how many times that word occurs in the dataset
+#   @return [Hash<String, Integer>] For each word, how many times that word
+#     occurs in the dataset
 # @!attribute [r] df_in_dataset
-#   @return [Hash<String, Integer>] For each word, the number of documents in the dataset in which that word appears
+#   @return [Hash<String, Integer>] For each word, the number of documents in
+#     the dataset in which that word appears
 # @!attribute [r] df_in_corpus
-#   @return [Hash<String, Integer>] For each word, the number of documents in the entire Solr corpus in which that word appears
+#   @return [Hash<String, Integer>] For each word, the number of documents in
+#     the entire Solr corpus in which that word appears
 # @!attribute [r] num_dataset_tokens
 #   @return [Integer] The number of tokens in the dataset
 # @!attribute [r] num_dataset_types
@@ -51,15 +54,14 @@ class WordFrequencyAnalyzer
       # An exception thrown here percolates, usually, out of
       # a delayed job, which is a not-uncommon exception case.
       raise ActiveRecord::StatementInvalid.new('Solr did not respond to a query of the entire document set') unless
-        solr_response["response"] &&
-        solr_response["response"]["numFound"]
+        solr_response['response'] &&
+        solr_response['response']['numFound']
 
-      @corpus_size = solr_response["response"]["numFound"]
+      @corpus_size = solr_response['response']['numFound']
     end
 
     @corpus_size
   end
-
 
   # Create a new word frequency analyzer and analyze
   #
@@ -110,7 +112,7 @@ class WordFrequencyAnalyzer
       # compute how many/how big the blocks should be for this document
       unless @split_across
         @block_num = 0
-        compute_block_size(tv.values.map { |x| x["tf"] }.reduce(:+))
+        compute_block_size(tv.values.map { |x| x['tf'] }.reduce(:+))
       end
 
       # Create a single array that has the words in the document sorted
@@ -120,7 +122,7 @@ class WordFrequencyAnalyzer
         next unless @word_list.include? word
 
         hash[:positions].each do |p|
-          sorted_words << [ word, p ]
+          sorted_words << [word, p]
         end
       end
       sorted_words.sort! { |a, b| a[1] <=> b[1] }
@@ -213,7 +215,6 @@ class WordFrequencyAnalyzer
     end
   end
 
-
   # Compute the df and tf for all the words in the dataset
   #
   # This function computes and sets @df_in_dataset, @tf_in_dataset,
@@ -224,8 +225,8 @@ class WordFrequencyAnalyzer
   # All three of these variables are hashes, with the words as String keys
   # and the tf/df values as Integer values.
   #
-  # Finally, this function also sets +num_dataset_types and @num_dataset_tokens,
-  # as we can compute them easily here.
+  # Finally, this function also sets +num_dataset_types and
+  # @num_dataset_tokens, as we can compute them easily here.
   #
   # Note that there is no such thing as +tf_in_corpus+, as this would be
   # incredibly, prohibitively expensive and is not provided by Solr.
@@ -259,7 +260,6 @@ class WordFrequencyAnalyzer
     @num_dataset_tokens ||= @tf_in_dataset.values.reduce(:+)
   end
 
-
   # Determine which words we'll analyze
   #
   # This function takes the @num_words most (FIXME: or least) frequent words
@@ -270,10 +270,10 @@ class WordFrequencyAnalyzer
     if @num_words == 0
       @word_list = @tf_in_dataset.keys
     else
-      @word_list = @tf_in_dataset.to_a.sort { |a, b| b[1] <=> a[1] }.take(@num_words).map { |a| a[0] }
+      sorted_pairs = @tf_in_dataset.to_a.sort { |a, b| b[1] <=> a[1] }
+      @word_list = sorted_pairs.take(@num_words).map { |a| a[0] }
     end
   end
-
 
   # Get the name of this block
   #
@@ -293,7 +293,6 @@ class WordFrequencyAnalyzer
       end
     end
   end
-
 
   # Reset all the current block information
   #
@@ -321,7 +320,6 @@ class WordFrequencyAnalyzer
       @block[w] = 0
     end
   end
-
 
   # Compute the block size parameters from the number of tokens
   #

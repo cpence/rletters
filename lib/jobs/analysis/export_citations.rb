@@ -33,7 +33,8 @@ module Jobs
         raise ArgumentError, 'Dataset ID is not valid' unless dataset
 
         # Make a new analysis task (early, to catch errors)
-        @task = dataset.analysis_tasks.create(name: "Export", job_type: 'ExportCitations')
+        @task = dataset.analysis_tasks.create(name: 'Export',
+                                              job_type: 'ExportCitations')
 
         # Check that the format is valid
         raise ArgumentError, 'Format is not specified' if format.nil?
@@ -51,7 +52,12 @@ module Jobs
             Zip::ZipOutputStream.open(file.path) do |zos|
               # find_each will take care of batching logic for us
               dataset.entries.find_each do |e|
-                doc = Document.find e.shasum rescue nil
+                begin
+                  doc = Document.find e.shasum
+                rescue
+                  doc = nil
+                end
+
                 if doc
                   zos.put_next_entry "#{doc.shasum}.#{format.to_s}"
                   zos.print serializer[:method].call(doc)

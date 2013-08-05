@@ -31,7 +31,8 @@ module Jobs
         raise ArgumentError, 'Dataset has too many entries' unless dataset.entries.count == 1
 
         # Make a new analysis task
-        @task = dataset.analysis_tasks.create(name: "Term frequency information", job_type: 'SingleTermVectors')
+        @task = dataset.analysis_tasks.create(name: 'Term frequency information',
+                                              job_type: 'SingleTermVectors')
 
         # Get the document
         doc = Document.find_with_fulltext dataset.entries[0].shasum
@@ -52,7 +53,9 @@ module Jobs
       end
 
       # We don't want users to download the YAML file
-      def self.download?; false ; end
+      def self.download?
+        false
+      end
     end
 
   end

@@ -38,7 +38,7 @@ module Jobs
       @state_vars = args.keys
 
       args.each_pair do |key, value|
-        self.send("#{key}=", value) if self.respond_to?("#{key}=")
+        send("#{key}=", value) if respond_to?("#{key}=")
       end
     end
 
@@ -69,7 +69,7 @@ module Jobs
     def ==(other)
       attributes == other.attributes
     end
-    alias :eql? :==
+    alias_method :eql?, :==
 
     # Report any exceptions to Airbrake, if it's enabled
     #

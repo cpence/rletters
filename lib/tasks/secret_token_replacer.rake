@@ -1,6 +1,7 @@
 # -*- encoding : utf-8 -*-
 #
-# Rake Task for replacing the secret-token in config/initializers/secret_token.rb
+# Rake Task for replacing the secret-token in
+# config/initializers/secret_token.rb
 #
 namespace :secret do
   desc 'Replace the secure secret key in your secret_token.rb'
@@ -23,8 +24,8 @@ namespace :secret do
     content.gsub!(pattern_base, "\\1#{secret_base}\\2")
 
     # write the new configuration
-    File.open(filepath, 'w') {|f| f.write(content) }
+    File.open(filepath, 'w') { |f| f.write(content) }
 
-    puts "Secret token successfully replaced"
+    puts 'Secret token successfully replaced'
   end
 end

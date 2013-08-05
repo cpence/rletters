@@ -7,8 +7,11 @@ module Serializers
 
     # Register this serializer in the Document list
     def self.included(base)
-      base.register_serializer(:endnote, 'EndNote', lambda { |doc| doc.to_endnote },
-        'http://auditorymodels.org/jba/bibs/NetBib/Tools/bp-0.2.97/doc/endnote.html')
+      base.register_serializer(
+        :endnote, 'EndNote',
+        ->(doc) { doc.to_endnote },
+        'http://auditorymodels.org/jba/bibs/NetBib/Tools/bp-0.2.97/doc/endnote.html'
+      )
     end
 
     # Returns this document as an EndNote record
@@ -16,7 +19,8 @@ module Serializers
     # @api public
     # @return [String] document in EndNote format
     # @example Download this document as a enw file
-    #   controller.send_data doc.to_endnote, filename: 'export.enw', disposition: 'attachment'
+    #   controller.send_data doc.to_endnote, filename: 'export.enw',
+    #                        disposition: 'attachment'
     def to_endnote
       ret  = "%0 Journal Article\n"
       if formatted_author_list && formatted_author_list.count
@@ -40,6 +44,7 @@ module Serializers
   end
 end
 
+# Ruby's standard Array class
 class Array
   # Convert this array (of Document objects) to an EndNote collection
   #
@@ -52,10 +57,10 @@ class Array
   #   doc_array = Document.find_all_by_solr_query(...)
   #   $stdout.write(doc_array.to_endnote)
   def to_endnote
-    self.each do |x|
+    each do |x|
       raise ArgumentError, 'No to_endnote method for array element' unless x.respond_to? :to_endnote
     end
 
-    self.map { |x| x.to_endnote }.join
+    map { |x| x.to_endnote }.join
   end
 end

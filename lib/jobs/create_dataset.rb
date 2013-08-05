@@ -60,21 +60,21 @@ module Jobs
         solr_response = Solr::Connection.find solr_query
 
         raise StandardError, 'Unknown error in Solr response' unless solr_response.ok?
-        raise StandardError, 'Attempted to save empty query' unless solr_response["response"]["numFound"] > 0
+        raise StandardError, 'Attempted to save empty query' unless solr_response['response']['numFound'] > 0
 
         # Get our parameters
-        docs_to_fetch = solr_response["response"]["numFound"]
+        docs_to_fetch = solr_response['response']['numFound']
         dataset_id = dataset.to_param
 
         while docs_to_fetch > 0
           # What did we get this time?
-          docs_fetched = solr_response["response"]["docs"].count
+          docs_fetched = solr_response['response']['docs'].count
 
           # Send them all in with activerecord-import
-          DatasetEntry.import([ :shasum, :dataset_id ],
-                              solr_response["response"]["docs"].map { |d|
-                                [ d["shasum"], dataset_id ]
-                              },
+          DatasetEntry.import([:shasum, :dataset_id],
+                              solr_response['response']['docs'].map do |d|
+                                [d['shasum'], dataset_id]
+                              end,
                               validate: false)
 
           # Update counters and execute another query if required
@@ -84,10 +84,10 @@ module Jobs
             solr_response = Solr::Connection.find solr_query
 
             raise StandardError, 'Unknown error in Solr response' unless solr_response.ok?
-            raise StandardError, 'Attempted to save empty query' unless solr_response["response"]["numFound"] > 0
+            raise StandardError, 'Attempted to save empty query' unless solr_response['response']['numFound'] > 0
           end
         end
-      rescue StandardError => e
+      rescue StandardError
         # Destroy the dataset to clean up
         dataset.destroy
         raise

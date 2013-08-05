@@ -33,12 +33,12 @@ module SolrHelpers
     (0...tvec_array.length).step(2) do |i|
       term = tvec_array[i]
       term.force_encoding(Encoding::UTF_8)
-      attr_array = tvec_array[i+1]
+      attr_array = tvec_array[i + 1]
       hash = {}
 
       (0...attr_array.length).step(2) do |j|
         key = attr_array[j]
-        val = attr_array[j+1]
+        val = attr_array[j + 1]
 
         case key
         when 'tf'
@@ -46,14 +46,14 @@ module SolrHelpers
         when 'offsets'
           hash[:offsets] = []
           (0...val.length).step(4) do |k|
-            s = Integer(val[k+1])
-            e = Integer(val[k+3])
+            s = Integer(val[k + 1])
+            e = Integer(val[k + 3])
             hash[:offsets] << (s...e)
           end
         when 'positions'
           hash[:positions] = []
           (0...val.length).step(2) do |k|
-            p = Integer(val[k+1])
+            p = Integer(val[k + 1])
             hash[:positions] << p
           end
         when 'df'

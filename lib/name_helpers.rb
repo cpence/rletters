@@ -46,7 +46,7 @@ module NameHelpers
 
     # Now, construct queries for "First Last" and "First (all middles) Last"
     queries = []
-    queries.concat(NameHelpers.query_for_names([ first_names[0] ], last))
+    queries.concat(NameHelpers.query_for_names([first_names[0]], last))
     if first_names.count > 1
       queries.concat(NameHelpers.query_for_names(first_names, last))
     end
@@ -91,11 +91,11 @@ module NameHelpers
     first.each do |f|
       if f.length == 1
         # Just an initial, search it with a wildcard
-        first_name_forms << [ "#{f}*" ]
+        first_name_forms << ["#{f}*"]
       else
         # A name, search it as itself and as an initial, but without
         # a wildcard.
-        first_name_forms << [ f, f[0] ]
+        first_name_forms << [f, f[0]]
       end
     end
 
@@ -118,7 +118,7 @@ module NameHelpers
           next unless portion.all? { |x| x.length == 1 }
 
           # Create a new name with this portion merged
-          new_names << [ name[0...i], "#{portion.join}", name[i+n..-1] ].flatten
+          new_names << [name[0...i], portion.join, name[(i + n)..-1]].flatten
         end
       end
     end

@@ -48,7 +48,8 @@ module Jobs
         raise ArgumentError, 'Dataset ID is not valid' unless dataset
 
         # Make a new analysis task
-        @task = dataset.analysis_tasks.create(name: "Word frequency list", job_type: 'WordFrequency')
+        @task = dataset.analysis_tasks.create(name: 'Word frequency list',
+                                              job_type: 'WordFrequency')
 
         # Cast all the values
         if @block_size.blank?
@@ -72,7 +73,7 @@ module Jobs
         if @split_across.blank?
           @split_across = nil
         else
-          if @split_across == "true"
+          if @split_across == 'true'
             @split_across = true
           else
             @split_across = false
@@ -89,27 +90,30 @@ module Jobs
         # Create some CSV
         csv_string = CSV.generate do |csv|
           csv << ["Word frequency information for dataset #{dataset.name}"]
-          csv << [""]
+          csv << ['']
 
           # Output the block data
           if analyzer.blocks.count > 1
-            csv << ["Each block of document:"]
+            csv << ['Each block of document:']
 
-            name_row = [ "" ]
-            header_row = [ "" ]
+            name_row = ['']
+            header_row = ['']
             word_rows = []
             analyzer.word_list.each do |w|
-              word_rows << [ w ]
+              word_rows << [w]
             end
-            types_row = ["Number of types"]
-            tokens_row = ["Number of tokens"]
-            ttr_row = ["Type/token ratio"]
+            types_row = ['Number of types']
+            tokens_row = ['Number of tokens']
+            ttr_row = ['Type/token ratio']
 
             analyzer.blocks.each_with_index do |b, i|
               s = analyzer.block_stats[i]
 
-              name_row << s[:name] << "" << "" << ""
-              header_row << "Frequency" << "Proportion" << "TF/IDF (vs. dataset)" << "TF/IDF (vs. corpus)"
+              name_row << s[:name] << '' << '' << ''
+              header_row << 'Frequency' \
+                         << 'Proportion' \
+                         << 'TF/IDF (vs. dataset)' \
+                         << 'TF/IDF (vs. corpus)'
 
               word_rows.each do |r|
                 word = r[0]
@@ -117,15 +121,17 @@ module Jobs
                 r << (b[word].to_f / s[:tokens].to_f).to_s
 
                 r << Math.tfidf(b[word].to_f / s[:tokens].to_f,
-                                analyzer.df_in_dataset[word], dataset.entries.count)
+                                analyzer.df_in_dataset[word],
+                                dataset.entries.count)
                 r << Math.tfidf(b[word].to_f / s[:tokens].to_f,
-                                analyzer.df_in_corpus[word], analyzer.num_corpus_documents)
+                                analyzer.df_in_corpus[word],
+                                analyzer.num_corpus_documents)
               end
 
               # Output the block stats at the end
-              types_row << s[:types].to_s << "" << "" << ""
-              tokens_row << s[:tokens].to_s << "" << "" << ""
-              ttr_row << (s[:types].to_f / s[:tokens].to_f).to_s << "" << "" << ""
+              types_row << s[:types].to_s << '' << '' << ''
+              tokens_row << s[:tokens].to_s << '' << '' << ''
+              ttr_row << (s[:types].to_f / s[:tokens].to_f).to_s << '' << '' << ''
             end
 
             csv << name_row
@@ -139,9 +145,9 @@ module Jobs
           end
 
           # Output the dataset data
-          csv << [""]
-          csv << ["For the entire dataset:"]
-          csv << ["", "Frequency", "Proportion", "TF/IDF (dataset vs. corpus)"]
+          csv << ['']
+          csv << ['For the entire dataset:']
+          csv << ['', 'Frequency', 'Proportion', 'TF/IDF (dataset vs. corpus)']
           analyzer.word_list.each do |w|
             tf_in_dataset = analyzer.tf_in_dataset[w]
             csv << [w,
@@ -149,10 +155,10 @@ module Jobs
                     (tf_in_dataset.to_f / analyzer.num_dataset_tokens.to_f).to_s,
                     Math.tfidf(tf_in_dataset, analyzer.df_in_corpus[w], analyzer.num_corpus_documents)]
           end
-          csv << ["Number of types", analyzer.num_dataset_types.to_s]
-          csv << ["Number of tokens", analyzer.num_dataset_tokens.to_s]
-          csv << ["Type/token ratio", (analyzer.num_dataset_types.to_f / analyzer.num_dataset_tokens.to_f).to_s]
-          csv << [""]
+          csv << ['Number of types', analyzer.num_dataset_types.to_s]
+          csv << ['Number of tokens', analyzer.num_dataset_tokens.to_s]
+          csv << ['Type/token ratio', (analyzer.num_dataset_types.to_f / analyzer.num_dataset_tokens.to_f).to_s]
+          csv << ['']
         end
 
         @task.result_file = Download.create_file('frequency.csv') do |file|
