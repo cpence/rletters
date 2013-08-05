@@ -82,6 +82,8 @@ group :development do
   gem 'yard', require: false
 
   gem 'magic_encoding', require: false
-  gem 'yardstick'
-  gem 'rubocop'
+  gem 'yardstick', require: false
+  gem 'rubocop', require: false
+  gem 'brakeman', require: false
+  gem 'excellent', require: false
 end
