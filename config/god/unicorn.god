@@ -1,10 +1,10 @@
 # http://unicorn.bogomips.org/SIGNALS.html
 # Thanks to https://github.com/blog/519-unicorn-god
 
-rails_root = ENV['RAILS_ROOT'] || "/var/webapps/rletters"
+rails_root = ENV['RAILS_ROOT'] || '/var/webapps/rletters'
 
 God.watch do |w|
-  w.name = "unicorn"
+  w.name = 'unicorn'
 
   w.interval = 30.seconds
   w.start_grace = 10.seconds

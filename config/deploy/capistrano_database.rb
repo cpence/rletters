@@ -16,10 +16,10 @@
 #
 # == Requirements
 #
-# This extension requires the original <tt>config/database.yml</tt> to be excluded
-# from source code checkout. You can easily accomplish this by renaming
-# the file (for example to database.example.yml) and appending <tt>database.yml</tt>
-# value to your SCM ignore list.
+# This extension requires the original +config/database.yml+ to be
+# excluded from source code checkout. You can easily accomplish this by
+# renaming the file (for example to database.example.yml) and appending
+# +database.yml+ value to your SCM ignore list.
 #
 #   # Example for Subversion
 #
@@ -42,17 +42,18 @@
 # Now, when <tt>deploy:setup</tt> is called, this script will automatically
 # create the <tt>database.yml</tt> file in the shared folder.
 # Each time you run a deploy, this script will also create a symlink
-# from your application <tt>config/database.yml</tt> pointing to the shared configuration file.
+# from your application <tt>config/database.yml</tt> pointing to the shared
+# configuration file.
 #
 # == Custom template
 #
 # By default, this script creates an exact copy of the default
-# <tt>database.yml</tt> file shipped with a new Rails 2.x application.
-# If you want to overwrite the default template, simply create a custom Erb template
-# called <tt>database.yml.erb</tt> and save it into <tt>config/deploy</tt> folder.
+# +database.yml+ file shipped with a new Rails 2.x application.
+# If you want to overwrite the default template, simply create a custom Erb
+# template called +database.yml.erb+ and save it into +config/deploy+ folder.
 #
-# Although the name of the file can't be changed, you can customize the directory
-# where it is stored defining a variable called <tt>:template_dir</tt>.
+# Although the name of the file can't be changed, you can customize the
+# directory where it is stored defining a variable called +:template_dir+.
 #
 #   # store your custom template at foo/bar/database.yml.erb
 #   set :template_dir, "foo/bar"
@@ -79,7 +80,8 @@
 # Because this is an Erb template, you can place variables and Ruby scripts
 # within the file.
 # For instance, the template above takes advantage of Capistrano CLI
-# to ask for a MySQL database password instead of hard coding it into the template.
+# to ask for a MySQL database password instead of hard coding it into the
+# template.
 #
 # === Password prompt
 #
@@ -91,7 +93,7 @@
 #
 
 unless Capistrano::Configuration.respond_to?(:instance)
-  abort "This extension requires Capistrano 2"
+  abort 'This extension requires Capistrano 2'
 end
 
 Capistrano::Configuration.instance.load do
@@ -132,8 +134,9 @@ Capistrano::Configuration.instance.load do
           <<: *base
         EOF
 
-        location = fetch(:template_dir, "config/deploy") + '/database.yml.erb'
-        template = File.file?(location) ? File.read(location) : default_template
+        location = File.join(fetch(:template_dir, 'config/deploy'),
+                             'database.yml.erb')
+        template = File.file?(location) ? IO.read(location) : default_template
 
         config = ERB.new(template)
 
@@ -150,8 +153,8 @@ Capistrano::Configuration.instance.load do
 
     end
 
-    after "deploy:setup", "deploy:db:setup"   unless fetch(:skip_db_setup, false)
-    after "deploy:assets:symlink", "deploy:db:symlink"
+    after 'deploy:setup', 'deploy:db:setup' unless fetch(:skip_db_setup, false)
+    after 'deploy:assets:symlink', 'deploy:db:symlink'
 
   end
 

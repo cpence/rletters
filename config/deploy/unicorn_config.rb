@@ -7,7 +7,7 @@
 #
 
 unless Capistrano::Configuration.respond_to?(:instance)
-  abort "This extension requires Capistrano 2"
+  abort 'This extension requires Capistrano 2'
 end
 
 Capistrano::Configuration.instance.load do
@@ -37,7 +37,8 @@ Capistrano::Configuration.instance.load do
         stdout_path "<%= deploy_to %>/shared/log/unicorn.log"
         EOF
 
-        location = fetch(:template_dir, "config/deploy") + '/unicorn.rb.erb'
+        location = File.join(fetch(:template_dir, 'config/deploy'),
+                             'unicorn.rb.erb')
         template = File.file?(location) ? File.read(location) : default_template
 
         config = ERB.new(template)
@@ -55,8 +56,8 @@ Capistrano::Configuration.instance.load do
 
     end
 
-    after "deploy:setup", "deploy:unicorn:setup"   unless fetch(:skip_unicorn_setup, false)
-    after "deploy:assets:symlink", "deploy:unicorn:symlink"
+    after 'deploy:setup', 'deploy:unicorn:setup' unless fetch(:skip_unicorn_setup, false)
+    after 'deploy:assets:symlink', 'deploy:unicorn:symlink'
 
   end
 

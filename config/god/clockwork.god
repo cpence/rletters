@@ -1,4 +1,4 @@
-rails_root = ENV['RAILS_ROOT'] || "/var/webapps/rletters"
+rails_root = ENV['RAILS_ROOT'] || '/var/webapps/rletters'
 
 God.watch do |w|
   w.name     = 'clockwork'

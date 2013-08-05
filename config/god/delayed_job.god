@@ -1,5 +1,5 @@
-rails_root = ENV['RAILS_ROOT'] || "/var/webapps/rletters"
-delayed_job_queues = [ 'maintenance', 'ui', 'analysis' ]
+rails_root = ENV['RAILS_ROOT'] || '/var/webapps/rletters'
+delayed_job_queues = %w(maintenance ui analysis)
 
 3.times do |num|
   God.watch do |w|

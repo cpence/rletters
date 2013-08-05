@@ -21,8 +21,8 @@ require 'unicorn_config'
 
 # Standard configuration options for fetching RLetters from GitHub
 set :scm, :git
-set :repository, "git@github.com:cpence/rletters.git"
-set :branch, "master"
+set :repository, 'git@github.com:cpence/rletters.git'
+set :branch, 'master'
 set :deploy_via, :remote_cache
 
 default_run_options[:pty] = true

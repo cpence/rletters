@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 
 unless Capistrano::Configuration.respond_to?(:instance)
-  abort "This extension requires Capistrano 2"
+  abort 'This extension requires Capistrano 2'
 end
 
 Capistrano::Configuration.instance.load do
@@ -19,7 +19,7 @@ Capistrano::Configuration.instance.load do
       run "ln -s #{shared_path}/downloads #{release_path}"
     end
 
-    after "deploy:assets:symlink", "rletters:symlink_downloads"
+    after 'deploy:assets:symlink', 'rletters:symlink_downloads'
 
   end
 
