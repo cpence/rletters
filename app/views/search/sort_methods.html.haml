@@ -1,0 +1,3 @@
+%ul{ data: { role: 'listview' } }
+  - sort_methods.each do |s|
+    %li= link_to sort_to_string(s), search_path(params.merge({ sort: s }))

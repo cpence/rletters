@@ -62,6 +62,12 @@ class SearchController < ApplicationController
   # @return [undefined]
   def advanced; end
 
+  # Show the sort-methods page
+  #
+  # @api public
+  # @return [undefined]
+  def sort_methods; end
+
   # Show or export an individual document
   #
   # This action is content-negotiated: if you request the page for a document

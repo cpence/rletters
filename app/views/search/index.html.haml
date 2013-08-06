@@ -20,11 +20,7 @@
     %li.toolsheader{ data: { role: 'list-divider' } }= t('.tools')
   %div.verticalpad
   %ul.toolslist{ data: { role: 'listview', theme: 'd', divider_theme: 'c' } }
-    %li{ data: { icon: 'forward' } }
-      = sort_to_string(@sort)
-      %ul
-        - sort_methods.each do |s|
-          %li= link_to sort_to_string(s), search_path(params.merge({ sort: s })), data: { transition: 'none' }
+    %li{ data: { icon: 'forward' } }= link_to(sort_to_string(@sort), search_sort_methods_path(params), data: { rel: 'dialog' })
     - if current_user.nil?
       %li{ data: { theme: 'e' } }= link_to t('.login_prompt'), new_user_session_path
     - else

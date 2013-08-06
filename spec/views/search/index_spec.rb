@@ -55,13 +55,9 @@ describe 'search/index' do
         rendered.should have_tag('li[data-theme=e]', text: 'Log in to analyze results!')
       end
 
-      it 'shows a link to sort by score' do
-        expected = url_for(params.merge({ sort: 'score desc' }))
-        rendered.should have_tag("a[href='#{expected}']")
-      end
-
-      it 'shows a link to sort ascending by journal' do
-        expected = url_for(params.merge({ sort: 'journal_sort asc' }))
+      it 'shows a link to the sort page' do
+        expected = url_for(params.merge({ controller: 'search',
+                                          action: 'sort_methods' }))
         rendered.should have_tag("a[href='#{expected}']")
       end
 

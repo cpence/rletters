@@ -11,6 +11,7 @@ RLetters::Application.routes.draw do
 
   # Search/Browse page
   get 'search' => 'search#index'
+  get 'search/sort_methods' => 'search#sort_methods'
   get 'search/advanced' => 'search#advanced'
   get 'search/document/:id' => 'search#show',
       as: 'search_show'
