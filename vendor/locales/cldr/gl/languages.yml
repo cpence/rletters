@@ -59,7 +59,7 @@ gl:
     eu: éuscaro
     fa: persa
     fi: finés
-    fil: filipino
+    tl: filipino
     fiu: "lingua finno-úgrica"
     fj: fixiano
     fo: faroés
@@ -206,7 +206,7 @@ gl:
     yi: Yiddish
     yo: ioruba
     zh: chinés
-    zh-Hans: "chinés simplificado"
-    zh-Hant: "chinés tradicional"
+    zh-CN: "chinés simplificado"
+    zh-TW: "chinés tradicional"
     zu: zulú
     zxx: "sen contido lingüístico"

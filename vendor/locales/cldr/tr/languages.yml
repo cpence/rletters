@@ -160,7 +160,7 @@ tr:
     fat: Fanti
     ff: Fulah
     fi: Fince
-    fil: Filipince
+    tl: Filipince
     fiu: "Finno - Ugrik Diller"
     fj: "Fiji Dili"
     fo: "Faroe Dili"
@@ -566,8 +566,8 @@ tr:
     zbl: "Blis Sembolleri"
     zen: Zenaga
     zh: Çince
-    zh-Hans: "Basitleştirilmiş Çince"
-    zh-Hant: "Geleneksel Çince"
+    zh-CN: "Basitleştirilmiş Çince"
+    zh-TW: "Geleneksel Çince"
     znd: Zande
     zu: Zuluca
     zun: Zuni

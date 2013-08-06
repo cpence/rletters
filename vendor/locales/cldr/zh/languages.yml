@@ -160,7 +160,7 @@ zh:
     fat: 芳蒂文
     ff: 夫拉文
     fi: 芬兰文
-    fil: 菲律宾文
+    tl: 菲律宾文
     fiu: 其他芬兰乌戈尔语系
     fj: 斐济文
     fo: 法罗文
@@ -566,8 +566,8 @@ zh:
     zbl: 布利斯符号
     zen: 泽纳加文
     zh: 中文
-    zh-Hans: 简体中文
-    zh-Hant: 繁体中文
+    zh-CN: 简体中文
+    zh-TW: 繁体中文
     znd: 赞德文
     zu: 祖鲁文
     zun: 祖尼文

@@ -133,7 +133,7 @@ bs:
     fat: fanti
     ff: fulah
     fi: finski
-    fil: filipinski
+    tl: filipinski
     fiu: "ugro-finski jezik"
     fj: fidžijski
     fo: farski
@@ -488,8 +488,8 @@ bs:
     zbl: blisimboli
     zen: zenaga
     zh: kineski
-    zh-Hans: "kineski (pojednostavljen)"
-    zh-Hant: "kineski (tradicionalni)"
+    zh-CN: "kineski (pojednostavljen)"
+    zh-TW: "kineski (tradicionalni)"
     znd: zande
     zu: zulu
     zun: zuni

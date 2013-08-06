@@ -160,7 +160,7 @@ lt:
     fat: fanti
     ff: fulahų
     fi: suomių
-    fil: tagalų
+    tl: tagalų
     fiu: "finougrų kalba"
     fj: fidžių
     fo: farerų
@@ -566,8 +566,8 @@ lt:
     zbl: "„Bliss“ simbolių"
     zen: zenaga
     zh: kinų
-    zh-Hans: "supaprastina kinų"
-    zh-Hant: "tradicinė kinų"
+    zh-CN: "supaprastina kinų"
+    zh-TW: "tradicinė kinų"
     znd: zande
     zu: zulų
     zun: zuni

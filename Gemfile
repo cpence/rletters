@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 # Rails
 gem 'rails', '~> 4.0'
-gem 'rails-i18n', '= 0.7.2'
+gem 'rails-i18n', '= 4.0.0.pre'
 
 # Deployment and server tools
 gem 'capistrano', require: false
@@ -82,6 +82,7 @@ group :development do
   gem 'yard', require: false
 
   gem 'magic_encoding', require: false
+  gem 'hash_syntax', require: false
   gem 'yardstick', require: false
   gem 'rubocop', require: false
   gem 'brakeman', require: false

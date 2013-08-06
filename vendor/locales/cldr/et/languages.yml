@@ -156,7 +156,7 @@ et:
     fat: fanti
     ff: fulbe
     fi: soome
-    fil: filipino
+    tl: filipino
     fiu: "soomeugri keel"
     fj: fidži
     fo: fääri
@@ -559,8 +559,8 @@ et:
     zbl: blissümbolid
     zen: zenaga
     zh: hiina
-    zh-Hans: "hiina keel - lihtsustatud"
-    zh-Hant: "hiina keel - traditsiooniline"
+    zh-CN: "hiina keel - lihtsustatud"
+    zh-TW: "hiina keel - traditsiooniline"
     znd: zande
     zu: suulu
     zun: sunji

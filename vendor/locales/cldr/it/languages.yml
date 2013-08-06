@@ -160,7 +160,7 @@ it:
     fat: fanti
     ff: fulah
     fi: finlandese
-    fil: filippino
+    tl: filippino
     fiu: "lingua ungrofinnica"
     fj: figiano
     fo: faroese
@@ -566,8 +566,8 @@ it:
     zbl: blissymbol
     zen: zenaga
     zh: cinese
-    zh-Hans: "cinese semplificato"
-    zh-Hant: "cinese tradizionale"
+    zh-CN: "cinese semplificato"
+    zh-TW: "cinese tradizionale"
     znd: zande
     zu: zulu
     zun: zuni

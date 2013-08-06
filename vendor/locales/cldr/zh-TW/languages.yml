@@ -1,4 +1,4 @@
-zh-Hant:
+zh-TW:
   languages:
     aa: 阿法文
     ab: 阿布哈茲文
@@ -160,7 +160,7 @@ zh-Hant:
     fat: 芳蒂文
     ff: 富拉文
     fi: 芬蘭文
-    fil: 菲律賓文
+    tl: 菲律賓文
     fiu: 芬烏諸語言
     fj: 斐濟文
     fo: 法羅文
@@ -566,8 +566,8 @@ zh-Hant:
     zbl: 布列斯符號
     zen: 澤納加文
     zh: 中文
-    zh-Hans: 簡體中文
-    zh-Hant: 繁體中文
+    zh-CN: 簡體中文
+    zh-TW: 繁體中文
     znd: 贊德文
     zu: 祖魯文
     zun: 祖尼文

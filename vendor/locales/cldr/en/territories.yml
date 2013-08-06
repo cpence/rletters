@@ -112,7 +112,7 @@ en:
     FO: "Faroe Islands"
     FR: France
     GA: Gabon
-    GB: "United Kingdom"
+    GB: U.K.
     GD: Grenada
     GE: Georgia
     GF: "French Guiana"
@@ -219,7 +219,7 @@ en:
     PM: "Saint Pierre and Miquelon"
     PN: "Pitcairn Islands"
     PR: "Puerto Rico"
-    PS: "Palestinian Territories"
+    PS: Palestine
     PT: Portugal
     PW: Palau
     PY: Paraguay
@@ -271,7 +271,7 @@ en:
     UA: Ukraine
     UG: Uganda
     UM: "U.S. Outlying Islands"
-    US: "United States"
+    US: U.S.
     UY: Uruguay
     UZ: Uzbekistan
     VA: "Vatican City"
@@ -283,6 +283,7 @@ en:
     VU: Vanuatu
     WF: "Wallis and Futuna"
     WS: Samoa
+    XK: Kosovo
     YE: Yemen
     YT: Mayotte
     ZA: "South Africa"

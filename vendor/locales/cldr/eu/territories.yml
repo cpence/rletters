@@ -219,7 +219,7 @@ eu:
     PM: "Saint-Pierre eta Mikelune"
     PN: "Pitcairn uharteak"
     PR: "Puerto Rico"
-    PS: "Palestinako Lurraldeak"
+    PS: Palestina
     PT: Portugal
     PW: Palau
     PY: Paraguai
@@ -283,6 +283,7 @@ eu:
     VU: Vanuatu
     WF: "Wallis eta Futuna"
     WS: Samoa
+    XK: Kosovo
     YE: Yemen
     YT: Mayotte
     ZA: Hegoafrika

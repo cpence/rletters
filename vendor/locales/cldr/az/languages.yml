@@ -140,7 +140,7 @@ az:
     fat: "fanti dili"
     ff: "fula dili"
     fi: fincə
-    fil: taqaloqca
+    tl: taqaloqca
     fiu: "fin-uğri dili"
     fj: "fiji dili"
     fo: "farer dili"
@@ -492,8 +492,8 @@ az:
     zbl: "blisimbols dili"
     zen: "zenaqa dili"
     zh: çincə
-    zh-Hans: "adi çincə"
-    zh-Hant: "gələnəksəl çincə"
+    zh-CN: "adi çincə"
+    zh-TW: "gələnəksəl çincə"
     znd: "zande dili"
     zu: "zulu dili"
     zun: "zuni dili"

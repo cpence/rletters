@@ -2,7 +2,7 @@ sk:
   territories:
     001: Svet
     002: Afrika
-    003: "Severná Amerika [003]"
+    003: "Severná Amerika"
     005: "Južná Amerika"
     009: Oceánia
     011: "Západná Afrika"
@@ -10,9 +10,9 @@ sk:
     014: "Východná Afrika"
     015: "Severná Afrika"
     017: "Stredná Afrika"
-    018: "Južná Afrika [018]"
+    018: "južné územia Afriky"
     019: "Americký kontinent"
-    021: "Severná Amerika"
+    021: "severné územia Ameriky"
     029: Karibik
     030: "Východná Ázia"
     034: "Južná Ázia"
@@ -219,7 +219,7 @@ sk:
     PM: "Saint Pierre a Miquelon"
     PN: "Pitcairnove ostrovy"
     PR: Portoriko
-    PS: "Palestínske územie"
+    PS: Palestína
     PT: Portugalsko
     PW: Palau
     PY: Paraguaj
@@ -283,6 +283,7 @@ sk:
     VU: Vanuatu
     WF: "Wallis a Futuna"
     WS: Samoa
+    XK: Kosovo
     YE: Jemen
     YT: Mayotte
     ZA: "Južná Afrika"

@@ -140,7 +140,7 @@ rm:
     fat: fanti
     ff: fulah
     fi: finlandais
-    fil: filippino
+    tl: filippino
     fiu: "lingua ungrofinnica"
     fj: fidschian
     fo: ferrais
@@ -497,8 +497,8 @@ rm:
     zbl: "simbols da Bliss"
     zen: zenaga
     zh: chinais
-    zh-Hans: "chinais simplifitgà"
-    zh-Hant: "chinais tradiziunal"
+    zh-CN: "chinais simplifitgà"
+    zh-TW: "chinais tradiziunal"
     znd: zande
     zu: zulu
     zun: zuni

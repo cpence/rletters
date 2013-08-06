@@ -160,7 +160,7 @@ lv:
     fat: fantu
     ff: fulu
     fi: somu
-    fil: filipīniešu
+    tl: filipīniešu
     fiu: "somugru valodas"
     fj: fidžiešu
     fo: fēru
@@ -566,8 +566,8 @@ lv:
     zbl: blissimbolika
     zen: zenagu
     zh: ķīniešu
-    zh-Hans: "ķīniešu vienkāršotā"
-    zh-Hant: "ķīniešu tradicionālā"
+    zh-CN: "ķīniešu vienkāršotā"
+    zh-TW: "ķīniešu tradicionālā"
     znd: zandē
     zu: zulu
     zun: zunju

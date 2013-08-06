@@ -143,7 +143,7 @@ de:
     fat: Fanti-Sprache
     ff: Ful
     fi: Finnisch
-    fil: Filipino
+    tl: Filipino
     fiu: Finnougrisch
     fj: Fidschianisch
     fo: Färöisch
@@ -506,8 +506,8 @@ de:
     zbl: Bliss-Symbole
     zen: Zenaga
     zh: Chinesisch
-    zh-Hans: "Chinesisch (vereinfacht)"
-    zh-Hant: "Chinesisch (traditionell)"
+    zh-CN: "Chinesisch (vereinfacht)"
+    zh-TW: "Chinesisch (traditionell)"
     znd: Zande-Sprache
     zu: Zulu
     zun: Zuni-Sprache

@@ -13,19 +13,24 @@ RLetters::Application.config.i18n.available_locales = ['en']
 # by the CLDR, as we *require* the CLDR data files (at least 'languages.yml',
 # 'plurals.rb' (if available), and 'territories.yml').  Currently this
 # excludes the following languages:
-# - csb (Kashubian, not in CLDR at all)
-# - dsb (Lower Sorbian, not in CLDR at all)
-# - fur (Friulian, CLDR is missing languages and territories, still in draft)
-# - hsb (Upper Sorbian, not in CLDR at all)
-# - mn (or mon, Mongolian, not in CLDR at all)
-# - scr (obsolete for Serbo-Croatian, not in CLDR at all)
-# - tl (or tgl, Tagalog, not in CLDR at all)
 # - wo (or wol, Wolof, not in CLDR at all)
-"ar, az, bg, bn-IN, bs, ca, cs, cy, da, de, de-AT, de-CH, el, en-AU, en-CA, " \
-"en-GB, en-IN, en-US, eo, es, es-AR, es-CL, es-CO, es-419, es-MX, es-PE, " \
-"es-VE, et, eu, fa, fi, fr, fr-CA, fr-CH, gl-ES, gsw-CH, he, hi, hi-IN, hr, " \
-"hu, id, is, it, ja, kn, ko, lo, lt, lv, mk, nb, ne, nl, nn, pl, pt-BR, " \
-"pt-PT, rm, ro, ru, sk, sl, sr, sv-SE, sw, th, tr, uk, uz, vi, zh-CN, " \
-"zh-TW".split(',').each do |loc|
+#
+# Some languages in the CLDR have different codes in the CLDR:
+# - tl (Tagalog) in Rails is fil (Filipino) in the CLDR
+# - zh-CN (Chinese-China) in Rails is zh-Hans (Chinese-Simplified) in the CLDR
+# - zh-TW (Chinese-Taiwan) in Rails is zh-Hant (Chinese-Traditional) in the
+#   CLDR
+# - zh-HK (Chinese-Hong Kong) in Rails is zh-Hant-HK (Chinese-Traditional-Hong
+#   Kong) in the CLDR
+#
+# For the moment, I've decided to manually process these languages and rename
+# them in the CLDR vendored data files.  There is a Rake task for this purpose
+# in lib/tasks/locales.rake.
+"af, ar, az, bg, bn, bs, ca, cs, cy, da, de, de-AT, de-CH, el, en-AU, " \
+"en-CA, en-GB, en-IN, en-NZ, en-IE, eo, es, es-419, es-AR, es-CL, es-CO, " \
+"es-MX, es-PE, es-VE, et, eu, fa, fi, fr, fr-CA, fr-CH, gl, he, hi, hi-IN, " \
+"hr, hu, id, is, it, it-CH, ja, kn, ko, lo, lt, lv, mk, mn, nb, ne, nl, nn, " \
+"or, pl, pt, pt-BR, rm, ro, ru, sk, sl, sr, sv, sw, th, tr, uk, uz, vi, " \
+"zh-CN, zh-HK, zh-TW".split(',').each do |loc|
   RLetters::Application.config.i18n.available_locales << loc.strip
 end

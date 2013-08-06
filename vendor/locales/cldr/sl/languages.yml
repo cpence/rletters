@@ -141,7 +141,7 @@ sl:
     fat: fantijščina
     ff: fulščina
     fi: finščina
-    fil: filipinščina
+    tl: filipinščina
     fiu: "ugrofinski jezik"
     fj: fidžijščina
     fo: ferščina
@@ -486,8 +486,8 @@ sl:
     zbl: "znakovni jezik Bliss"
     zen: zenaščina
     zh: kitajščina
-    zh-Hans: "poenostavljena kitajščina"
-    zh-Hant: "tradicionalna kitajščina"
+    zh-CN: "poenostavljena kitajščina"
+    zh-TW: "tradicionalna kitajščina"
     znd: zandejščina
     zu: zulujščina
     zun: zunijščina

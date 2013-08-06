@@ -160,7 +160,7 @@ fi:
     fat: fanti
     ff: fulani
     fi: suomi
-    fil: filipino
+    tl: filipino
     fiu: "suomalais-ugrilainen kieli"
     fj: fidži
     fo: fääri
@@ -566,8 +566,8 @@ fi:
     zbl: blisskieli
     zen: zenaga
     zh: kiina
-    zh-Hans: "yksinkertaistettu kiina"
-    zh-Hant: "perinteinen kiina"
+    zh-CN: "yksinkertaistettu kiina"
+    zh-TW: "perinteinen kiina"
     znd: zandekieli
     zu: zulu
     zun: zuni

@@ -21,7 +21,7 @@ module RLetters
                                                  'locales',
                                                  '**',
                                                  '*.{rb,yml}').to_s]
-    config.i18n.default_locale = :'en-US'
+    config.i18n.default_locale = :en
 
     # Configure the default encoding used in templates.
     config.encoding = Encoding::UTF_8

@@ -166,6 +166,9 @@ GEM
     has_scope (0.6.0.rc)
       actionpack (>= 3.2, < 5)
       activesupport (>= 3.2, < 5)
+    hash_syntax (1.0.0)
+      object_regex (~> 1.0.1)
+      trollop (~> 1.16.2)
     hashr (0.0.22)
     highline (1.6.19)
     hike (1.2.3)
@@ -211,6 +214,7 @@ GEM
       net-ssh (>= 2.6.5)
     nokogiri (1.6.0)
       mini_portile (~> 0.5.0)
+    object_regex (1.0.1)
     orm_adapter (0.4.0)
     paperclip (3.5.1)
       activemodel (>= 3.0.0)
@@ -236,7 +240,7 @@ GEM
       bundler (>= 1.3.0, < 2.0)
       railties (= 4.0.0)
       sprockets-rails (~> 2.0.0)
-    rails-i18n (0.7.2)
+    rails-i18n (4.0.0.pre)
       i18n (~> 0.5)
     railties (4.0.0)
       actionpack (= 4.0.0)
@@ -325,6 +329,7 @@ GEM
     treetop (1.4.14)
       polyglot
       polyglot (>= 0.3.1)
+    trollop (1.16.2)
     tzinfo (0.3.37)
     uglifier (2.1.2)
       execjs (>= 0.3.0)
@@ -373,6 +378,7 @@ DEPENDENCIES
   god
   haml
   haml-rails
+  hash_syntax
   jquery-rails (= 3.0.4)
   jquery_mobile_rails (= 1.3.2)
   kramdown
@@ -383,7 +389,7 @@ DEPENDENCIES
   paperclip (~> 3.0)
   pg
   rails (~> 4.0)
-  rails-i18n (= 0.7.2)
+  rails-i18n (= 4.0.0.pre)
   ransack!
   rdf (>= 0.3.5)
   rdf-n3

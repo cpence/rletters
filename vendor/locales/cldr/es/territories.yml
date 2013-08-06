@@ -20,7 +20,7 @@ es:
     039: "Europa meridional"
     053: Australasia
     054: Melanesia
-    057: "Micronesia [057]"
+    057: "Región de Micronesia"
     061: Polinesia
     142: Asia
     143: "Asia central"
@@ -219,7 +219,7 @@ es:
     PM: "San Pedro y Miquelón"
     PN: "Islas Pitcairn"
     PR: "Puerto Rico"
-    PS: "Territorios Palestinos"
+    PS: Palestina
     PT: Portugal
     PW: Palau
     PY: Paraguay
@@ -271,7 +271,7 @@ es:
     UA: Ucrania
     UG: Uganda
     UM: "Islas menores alejadas de los Estados Unidos"
-    US: "Estados Unidos"
+    US: "EE. UU."
     UY: Uruguay
     UZ: Uzbekistán
     VA: "Ciudad del Vaticano"
@@ -283,6 +283,7 @@ es:
     VU: Vanuatu
     WF: "Wallis y Futuna"
     WS: Samoa
+    XK: Kosovo
     YE: Yemen
     YT: Mayotte
     ZA: Sudáfrica

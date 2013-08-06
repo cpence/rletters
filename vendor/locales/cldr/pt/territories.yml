@@ -219,7 +219,7 @@ pt:
     PM: "Saint Pierre e Miquelon"
     PN: "Ilhas Pitcairn"
     PR: "Porto Rico"
-    PS: "Territórios palestinos"
+    PS: Palestina
     PT: Portugal
     PW: Palau
     PY: Paraguai
@@ -283,6 +283,7 @@ pt:
     VU: Vanuatu
     WF: "Wallis e Futuna"
     WS: Samoa
+    XK: Kosovo
     YE: Iêmen
     YT: Mayotte
     ZA: "África do Sul"

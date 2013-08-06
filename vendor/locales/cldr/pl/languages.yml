@@ -142,7 +142,7 @@ pl:
     fat: fanti
     ff: fulani
     fi: fiński
-    fil: filipino
+    tl: filipino
     fiu: ugrofiński
     fj: fidżijski
     fo: farerski
@@ -502,8 +502,8 @@ pl:
     zbl: bliss
     zen: zenaga
     zh: chiński
-    zh-Hans: "chiński (uproszczony)"
-    zh-Hant: "chiński (tradycyjny)"
+    zh-CN: "chiński (uproszczony)"
+    zh-TW: "chiński (tradycyjny)"
     znd: azande
     zu: zulu
     zun: zuni

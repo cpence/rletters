@@ -161,7 +161,7 @@ en:
     fat: Fanti
     ff: Fulah
     fi: Finnish
-    fil: Filipino
+    tl: Filipino
     fiu: "Finno-Ugrian Language"
     fj: Fijian
     fo: Faroese
@@ -296,6 +296,7 @@ en:
     lez: Lezghian
     lg: Ganda
     li: Limburgish
+    lkt: Lakota
     ln: Lingala
     lo: Lao
     lol: Mongo
@@ -532,7 +533,7 @@ en:
     tyv: Tuvinian
     tzm: "Central Atlas Tamazight"
     udm: Udmurt
-    ug: Uyghur
+    ug: Uighur
     uga: Ugaritic
     uk: Ukrainian
     umb: Umbundu
@@ -569,8 +570,8 @@ en:
     zbl: Blissymbols
     zen: Zenaga
     zh: Chinese
-    zh-Hans: "Simplified Chinese"
-    zh-Hant: "Traditional Chinese"
+    zh-CN: "Simplified Chinese"
+    zh-TW: "Traditional Chinese"
     znd: Zande
     zu: Zulu
     zun: Zuni

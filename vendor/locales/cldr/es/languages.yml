@@ -160,7 +160,7 @@ es:
     fat: fanti
     ff: fula
     fi: finés
-    fil: filipino
+    tl: filipino
     fiu: "lengua finoúgria"
     fj: fidjiano
     fo: feroés
@@ -566,8 +566,8 @@ es:
     zbl: "símbolos Bliss"
     zen: zenaga
     zh: chino
-    zh-Hans: "chino simplificado"
-    zh-Hant: "chino tradicional"
+    zh-CN: "chino simplificado"
+    zh-TW: "chino tradicional"
     znd: zande
     zu: zulú
     zun: zuni

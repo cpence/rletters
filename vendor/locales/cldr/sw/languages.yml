@@ -45,7 +45,7 @@ sw:
     eu: Kibasque
     fa: Kiajemi
     fi: Kifinlandi
-    fil: Kifilipino
+    tl: Kifilipino
     fj: Kifiji
     fo: Kifaroe
     fr: Kifaransa
@@ -172,7 +172,7 @@ sw:
     yi: Kiyidi
     yo: Kiyoruba
     zh: Kichina
-    zh-Hans: "Kichina Rahisi"
-    zh-Hant: "Kichina cha Jadi"
+    zh-CN: "Kichina Rahisi"
+    zh-TW: "Kichina cha Jadi"
     zu: Kizulu
     zxx: "Hakuna maudhui ya lugha"

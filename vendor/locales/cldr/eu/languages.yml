@@ -41,7 +41,7 @@ eu:
     eu: euskara
     fa: pertsiera
     fi: finlandiera
-    fil: tagalo
+    tl: tagalo
     fj: fijiera
     fo: faroera
     fr: frantsesa
@@ -171,7 +171,7 @@ eu:
     yi: Jiddisha
     yo: yorubera
     zh: txinera
-    zh-Hans: "txinera (soildua)"
-    zh-Hant: "txinera (tradizionala)"
+    zh-CN: "txinera (soildua)"
+    zh-TW: "txinera (tradizionala)"
     zu: zuluera
     zxx: "ez dago eduki linguistikorik"

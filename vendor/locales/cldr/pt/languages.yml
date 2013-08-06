@@ -145,7 +145,7 @@ pt:
     fat: fanti
     ff: fula
     fi: finlandês
-    fil: filipino
+    tl: filipino
     fiu: "idioma fino-úgrico"
     fj: fijiano
     fo: feroês
@@ -509,8 +509,8 @@ pt:
     zbl: "símbolos blis"
     zen: zenaga
     zh: chinês
-    zh-Hans: "chinês simplificado"
-    zh-Hant: "chinês tradicional"
+    zh-CN: "chinês simplificado"
+    zh-TW: "chinês tradicional"
     znd: zande
     zu: zulu
     zun: zunhi

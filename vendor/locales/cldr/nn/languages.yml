@@ -148,7 +148,7 @@ nn:
     fat: fanti
     ff: fulani
     fi: finsk
-    fil: filippinsk
+    tl: filippinsk
     fiu: "finsk-ugrisk språk"
     fj: fijiansk
     fo: færøysk
@@ -518,8 +518,8 @@ nn:
     zbl: blissymbol
     zen: zenaga
     zh: kinesisk
-    zh-Hans: "forenkla kinesisk"
-    zh-Hant: "tradisjonell kinesisk"
+    zh-CN: "forenkla kinesisk"
+    zh-TW: "tradisjonell kinesisk"
     znd: zande
     zu: zulu
     zun: zuni

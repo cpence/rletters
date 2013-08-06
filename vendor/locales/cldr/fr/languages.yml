@@ -150,7 +150,7 @@ fr:
     fat: fanti
     ff: peul
     fi: finnois
-    fil: filipino
+    tl: filipino
     fiu: "langue finno-ougrienne"
     fj: fidjien
     fo: féroïen
@@ -536,8 +536,8 @@ fr:
     zbl: "symboles Bliss"
     zen: zenaga
     zh: chinois
-    zh-Hans: "chinois simplifié"
-    zh-Hant: "chinois traditionnel"
+    zh-CN: "chinois simplifié"
+    zh-TW: "chinois traditionnel"
     znd: zandé
     zu: zoulou
     zun: zuni

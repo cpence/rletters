@@ -154,7 +154,7 @@ cs:
     fat: fantština
     ff: fulahština
     fi: finština
-    fil: filipínština
+    tl: filipínština
     fiu: "ugrofinské jazyky"
     fj: fidžijština
     fo: faerština
@@ -545,7 +545,7 @@ cs:
     zbl: "bliss systém"
     zen: zenaga
     zh: čínština
-    zh-Hans: "čínština (zjednodušená)"
+    zh-CN: "čínština (zjednodušená)"
     znd: zandština
     zu: zuluština
     zun: zunijština

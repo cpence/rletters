@@ -160,7 +160,7 @@ ca:
     fat: fanti
     ff: ful
     fi: finès
-    fil: filipí
+    tl: filipí
     fiu: "llengua finoúgrica"
     fj: fijià
     fo: feroès
@@ -566,8 +566,8 @@ ca:
     zbl: "símbols Bliss"
     zen: zenaga
     zh: xinès
-    zh-Hans: "xinès simplificat"
-    zh-Hant: "xinès tradicional"
+    zh-CN: "xinès simplificat"
+    zh-TW: "xinès tradicional"
     znd: zande
     zu: zulu
     zun: zuni

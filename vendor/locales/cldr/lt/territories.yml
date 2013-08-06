@@ -10,7 +10,7 @@ lt:
     014: "Rytų Afrika"
     015: "Šiaurės Afrika"
     017: "Vidurio Afrika"
-    018: "Pietų Afrika [018]"
+    018: "Pietinė Afrika"
     019: Amerika
     021: "Šiaurinė Amerika"
     029: Karibai
@@ -219,7 +219,7 @@ lt:
     PM: "Sen Pjeras ir Mikelonas"
     PN: "Pitkerno Salos"
     PR: "Puerto Rikas"
-    PS: "Palestinos teritorija"
+    PS: Palestina
     PT: Portugalija
     PW: Palau
     PY: Paragvajus
@@ -283,6 +283,7 @@ lt:
     VU: Vanuatu
     WF: "Wallisas ir Futuna"
     WS: Samoa
+    XK: Kosovas
     YE: Jemenas
     YT: Majotas
     ZA: "Pietų Afrika"

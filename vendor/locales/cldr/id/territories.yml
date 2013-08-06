@@ -219,7 +219,7 @@ id:
     PM: "Saint Pierre dan Miquelon"
     PN: "Kepulauan Pitcairn"
     PR: "Puerto Riko"
-    PS: "Otoritas Palestina"
+    PS: Palestina
     PT: Portugal
     PW: Palau
     PY: Paraguay
@@ -283,6 +283,7 @@ id:
     VU: Vanuatu
     WF: "Kepulauan Wallis dan Futuna"
     WS: Samoa
+    XK: Kosovo
     YE: Yaman
     YT: Mayotte
     ZA: "Afrika Selatan"

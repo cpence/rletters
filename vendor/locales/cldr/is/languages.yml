@@ -137,7 +137,7 @@ is:
     fat: fantí
     ff: fúla
     fi: finnska
-    fil: filipínska
+    tl: filipínska
     fiu: "finnskúgrísk mál (önnur)"
     fj: fídjeyska
     fo: færeyska
@@ -486,8 +486,8 @@ is:
     zbl: blisstákn
     zen: senaga
     zh: kínverska
-    zh-Hans: "kínverska (einfölduð)"
-    zh-Hant: "kínverska (hefðbundin)"
+    zh-CN: "kínverska (einfölduð)"
+    zh-TW: "kínverska (hefðbundin)"
     znd: sande
     zu: súlú
     zun: súní

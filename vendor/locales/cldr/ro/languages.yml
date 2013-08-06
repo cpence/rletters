@@ -160,7 +160,7 @@ ro:
     fat: fanti
     ff: fulah
     fi: finlandeză
-    fil: filipineză
+    tl: filipineză
     fiu: "limbă fino-ugrică"
     fj: fijiană
     fo: faroeză
@@ -566,8 +566,8 @@ ro:
     zbl: "simboluri Bilss"
     zen: zenaga
     zh: chineză
-    zh-Hans: "chineză simplificată"
-    zh-Hant: "chineză tradițională"
+    zh-CN: "chineză simplificată"
+    zh-TW: "chineză tradițională"
     znd: zande
     zu: zulu
     zun: zuni

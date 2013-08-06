@@ -160,7 +160,7 @@ nl:
     fat: Fanti
     ff: Fulah
     fi: Fins
-    fil: Filipijns
+    tl: Filipijns
     fiu: "Fins-Oegrische taal"
     fj: Fijisch
     fo: Faeröers
@@ -566,8 +566,8 @@ nl:
     zbl: Blissymbolen
     zen: Zenaga
     zh: Chinees
-    zh-Hans: "Vereenvoudigd Chinees"
-    zh-Hant: "Traditioneel Chinees"
+    zh-CN: "Vereenvoudigd Chinees"
+    zh-TW: "Traditioneel Chinees"
     znd: Zande
     zu: Zulu
     zun: Zuni

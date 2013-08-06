@@ -219,7 +219,7 @@ tr:
     PM: "Saint Pierre ve Miquelon"
     PN: "Pitcairn Adaları"
     PR: "Porto Riko"
-    PS: "Filistin Bölgeleri"
+    PS: Filistin
     PT: Portekiz
     PW: Palau
     PY: Paraguay
@@ -283,6 +283,7 @@ tr:
     VU: Vanuatu
     WF: "Wallis ve Futuna Adaları"
     WS: Samoa
+    XK: Kosova
     YE: Yemen
     YT: Mayotte
     ZA: "Güney Afrika"

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130801202821) do
+ActiveRecord::Schema.define(version: 20130806005057) do
 
   create_table "admin_users", force: true do |t|
     t.string   "email",                  default: "", null: false
@@ -136,7 +136,7 @@ ActiveRecord::Schema.define(version: 20130801202821) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "per_page",               default: 10
-    t.string   "language",               default: "en-US"
+    t.string   "language",               default: "en"
     t.string   "timezone",               default: "Eastern Time (US & Canada)"
     t.string   "encrypted_password",     default: "",                           null: false
     t.string   "reset_password_token"

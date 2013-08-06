@@ -160,7 +160,7 @@ hu:
     fat: fanti
     ff: fulani
     fi: finn
-    fil: filippínó
+    tl: filippínó
     fiu: "finnugor nyelv"
     fj: fidzsi
     fo: feröeri
@@ -566,8 +566,8 @@ hu:
     zbl: "Bliss jelképrendszer"
     zen: zenaga
     zh: kínai
-    zh-Hans: "egyszerűsített kínai"
-    zh-Hant: "hagyományos kínai"
+    zh-CN: "egyszerűsített kínai"
+    zh-TW: "hagyományos kínai"
     znd: zande
     zu: zulu
     zun: zuni
