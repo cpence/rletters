@@ -1,6 +1,0 @@
-api_key: 8065991866
-en.yml:
-  path: config/locales/en.yml
-  type: yml
-  translations:
-    es: config/locales/es.yml

@@ -1,0 +1,4 @@
+# -*- encoding : utf-8 -*-
+
+# Configure sensitive parameters which will be filtered from the log file.
+Rails.application.config.filter_parameters += [:password, :password_confirmation]

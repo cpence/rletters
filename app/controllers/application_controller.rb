@@ -5,7 +5,7 @@
 # This controller implements functionality shared throughout the entire
 # RLetters site.
 class ApplicationController < ActionController::Base
-  protect_from_forgery
+  protect_from_forgery with: :exception
 
   private
 

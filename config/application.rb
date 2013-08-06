@@ -3,7 +3,8 @@ require File.expand_path('../boot', __FILE__)
 
 require 'rails/all'
 
-# Require the relevant set of gems
+# Require the gems listed in Gemfile, including any gems
+# you've limited to :test, :development, or :production.
 Bundler.require(:default, Rails.env)
 
 module RLetters
@@ -23,21 +24,8 @@ module RLetters
                                                  '*.{rb,yml}').to_s]
     config.i18n.default_locale = :en
 
-    # Configure the default encoding used in templates.
-    config.encoding = Encoding::UTF_8
-
     # Bounce exceptions to the routing system
     config.exceptions_app = routes
-
-    # Configure sensitive parameters which will be filtered from the log file.
-    config.filter_parameters += [:password, :password_confirmation]
-
-    # Enable the asset pipeline
-    config.assets.enabled = true
-    config.assets.precompile += [/active_admin.(css|js)$/]
-
-    # Version of your assets, change this if you want to expire all your assets
-    config.assets.version = '1.0'
 
     # Generator configuration
     config.generators do |generator|
@@ -50,4 +38,5 @@ module RLetters
                                     dir: 'spec/factories'
     end
   end
+
 end

@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
-ActiveAdmin.setup do |config|
 
+ActiveAdmin.setup do |config|
   config.site_title = 'RLetters Backend'
 
   config.authentication_method = :authenticate_admin_user!
@@ -9,5 +9,7 @@ ActiveAdmin.setup do |config|
 
   config.batch_actions = true
   config.allow_comments = false
-
 end
+
+# Precompile the ActiveAdmin CSS and JS files
+Rails.application.config.assets.precompile += [/active_admin.(css|js)$/]
