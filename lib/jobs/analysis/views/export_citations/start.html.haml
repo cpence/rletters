@@ -1,5 +1,1 @@
-%li
-  Export dataset as citations
-  %ul
-    - Document.serializers.each do |k, v|
-      %li= link_to("Export as #{v[:name]}", controller: 'datasets', action: 'task_start', id: @dataset.to_param, class: 'ExportCitations', job_params: { format: k })
+%li= link_to('Export dataset as citations', { controller: 'datasets', action: 'task_view', id: @dataset.to_param, class: 'ExportCitations', view: 'params' })

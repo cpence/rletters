@@ -12,18 +12,15 @@ describe 'jobs/export_citations/start' do
     @dataset = FactoryGirl.create(:dataset)
   end
 
-  it 'has links to all the document formats' do
+  it 'has a link to the parameters page' do
     render
 
-    Document.serializers.each do |k, v|
-      link = url_for(controller: 'datasets',
-                     action: 'task_start',
-                     class: 'ExportCitations',
-                     job_params: { format: k },
-                     id: @dataset.to_param)
-
-      rendered.should have_tag("a[href='#{link}']")
-    end
+    link = url_for(controller: 'datasets',
+                   action: 'task_view',
+                   class: 'ExportCitations',
+                   id: @dataset.to_param,
+                   view: 'params')
+    rendered.should have_tag("a[href='#{link}']")
   end
 
 end

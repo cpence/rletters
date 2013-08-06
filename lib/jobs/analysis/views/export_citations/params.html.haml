@@ -1,0 +1,3 @@
+%ul{ data: { role: 'listview', theme: 'd', divider_theme: 'b' } }
+  - Document.serializers.each do |k, v|
+    %li= link_to("Export as #{v[:name]}", controller: 'datasets', action: 'task_start', id: @dataset.to_param, class: 'ExportCitations', job_params: { format: k })

@@ -19,7 +19,20 @@ describe DatasetsController do
       get('/datasets/1/task/asdf/start').should_not be_routable
     end
 
-    it 'routes to #task_view' do
+    it 'routes to #task_view (with a class)' do
+      get('/datasets/1/task/Task/view/show').should route_to(
+        'datasets#task_view',
+        id: '1',
+        class: 'Task',
+        view: 'show'
+      )
+    end
+
+    it "doesn't route invalid classes to show (with a class)" do
+      get('/datasets/1/task/asdf/view/show').should_not be_routable
+    end
+
+    it 'routes to #task_view (with an id)' do
       get('/datasets/1/task/2/view/show').should route_to(
         'datasets#task_view',
         id: '1',
@@ -28,8 +41,8 @@ describe DatasetsController do
       )
     end
 
-    it "doesn't route invalid task IDs to show" do
-      get('/datasets/1/task/NotID/view/show').should_not be_routable
+    it "doesn't route invalid task IDs to show (with an id)" do
+      get('/datasets/1/task/12asdf/view/show').should_not be_routable
     end
 
     it 'routes with formats to #task_view' do

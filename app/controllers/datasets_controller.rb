@@ -163,12 +163,17 @@ class DatasetsController < ApplicationController
     @dataset = current_user.datasets.find(params[:id])
     raise ActiveRecord::RecordNotFound unless @dataset
 
-    @task = @dataset.analysis_tasks.find(params[:task_id])
-    raise ActiveRecord::RecordNotFound unless @task
-
     raise ActiveRecord::RecordNotFound unless params[:view]
 
-    klass = @task.job_class
+    if params[:class]
+      klass = AnalysisTask.job_class(params[:class])
+    else
+      @task = @dataset.analysis_tasks.find(params[:task_id])
+      raise ActiveRecord::RecordNotFound unless @task
+
+      klass = @task.job_class
+    end
+
     render template: klass.view_path(params[:view])
   end
 

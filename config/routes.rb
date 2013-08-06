@@ -33,6 +33,8 @@ RLetters::Application.routes.draw do
       get 'delete'
       get 'task/:class/start' => 'datasets#task_start',
           constraints: { class: /[A-Z][A-Za-z]+/ }
+      get 'task/:class/view/:view' => 'datasets#task_view',
+          constraints: { class: /[A-Z][A-Za-z]+/ }
       get 'task/:task_id/view/:view' => 'datasets#task_view',
           constraints: { task_id: /[0-9]+/ }
       get 'task/:task_id/destroy' => 'datasets#task_destroy',
