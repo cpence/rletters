@@ -75,6 +75,16 @@ describe Library do
         @library.url.should eq('http://google.com?')
       end
     end
+
+    context 'when given a URL with a bad protocol' do
+      before(:each) do
+        @library = FactoryGirl.build(:library, url: 'file:///usr/share/pwned')
+      end
+
+      it "isn't valid" do
+        @library.should_not be_valid
+      end
+    end
   end
 
 end

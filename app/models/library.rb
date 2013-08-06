@@ -24,7 +24,7 @@ class Library < ActiveRecord::Base
 
   before_validation do |library|
     unless library.url.blank?
-      library.url = 'http://' + url unless library.url.start_with? 'http'
+      library.url = 'http://' + url unless library.url.include? '://'
     end
   end
 
