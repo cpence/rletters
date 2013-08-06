@@ -4,6 +4,7 @@ require 'nokogiri'
 require 'fileutils'
 
 namespace :metrics do
+  desc 'Generate a fancy report of all the code metrics run so far'
   task :generate do
     # Get all the source against which we'll run any metrics
     ruby_files = Dir['{app,config,db,lib,spec}/**/*.{rb,rake,god}']
@@ -224,5 +225,18 @@ eos
 eos
       )
     end
+  end
+
+  desc 'Copy the metrics to the gh-pages folder'
+  task :publish, :path do |t, args|
+    path = args[:path] || File.join('..', 'gh-pages')
+    unless Dir.exist? File.join(path, '.git')
+      abort 'ERROR: You must specify the path to a checkout of the gh-pages repository (default: ../gh-pages/)'
+    end
+
+    FileUtils.rm_rf(File.join(path, 'metrics'))
+    FileUtils.cp_r(File.join('doc', 'metrics'), path)
+
+    puts 'Finished! Now commit/push the changes to the gh-pages repository.'
   end
 end
