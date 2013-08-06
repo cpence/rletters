@@ -97,44 +97,17 @@
 #     doc.term_vectors['general'][:tf]
 class Document
   # Make this class act like an ActiveRecord model, though it's not backed by
-  # the database (it's in Solr)
-  include ActiveModel::Validations
-  include ActiveModel::Conversion
-  include ActiveModel::Serialization
-  extend ActiveModel::Naming
-  extend ActiveModel::Translation
+  # the database (it's in Solr).
+  include ActiveModel::Model
 
-  # Objects of this class are not persisted in the database
-  # @api private
-  # @return [Boolean] false
-  def persisted?
-    false
-  end
-  # Objects of this class are always read-only
-  # @api private
-  # @return [Boolean] false
-  def readonly?
-    true
-  end
+  attr_accessor :shasum, :doi, :license, :license_url, :authors,
+                :author_list, :formatted_author_list, :title, :journal,
+                :year, :volume, :number, :pages, :fulltext, :term_vectors
 
-  # Throw an exception if +destroy+ is called on this object
-  # @api private
-  # @return [undefined] always throws
-  def before_destroy
-    raise ActiveRecord::ReadOnlyRecord
-  end
-  # Throw an exception if +Document.delete_all+ is called
-  # @api private
-  # @return [undefined] always throws
-  def self.delete_all
-    raise ActiveRecord::ReadOnlyRecord
-  end
-  # Throw an exception if +delete+ is called on this object
-  # @api private
-  # @return [undefined] always throws
-  def delete
-    lraise ActiveRecord::ReadOnlyRecord
-  end
+  # The shasum attribute is the only required one
+  validates :shasum, presence: true
+  validates :shasum, length: { is: 40 }
+  validates :shasum, format: { with: /\A[a-fA-F\d]+\z/ }
 
   # Bring in some helpers for dealing with Solr
   extend SolrHelpers
@@ -343,10 +316,6 @@ class Document
     documents.map { |attrs| Document.new(attrs) }
   end
 
-  attr_reader :shasum, :doi, :license, :license_url, :authors,
-              :author_list, :formatted_author_list, :title, :journal,
-              :year, :volume, :number, :pages, :fulltext, :term_vectors
-
   # @return [String] the starting page of this document, if it can be parsed
   def start_page
     return '' if pages.blank?
@@ -372,11 +341,6 @@ class Document
     ret
   end
 
-  # The shasum attribute is the only required one
-  validates :shasum, presence: true
-  validates :shasum, length: { is: 40 }
-  validates :shasum, format: { with: /\A[a-fA-F\d]+\z/ }
-
   # Set all attributes and create author lists
   #
   # This constructor copies in all attributes, as well as splitting the
@@ -385,14 +349,12 @@ class Document
   # @api public
   # @param [Hash] attributes attributes for this document
   def initialize(attributes = {})
-    attributes.each do |name, value|
-      instance_variable_set(:"@#{name}", value)
-    end
+    super
 
     # Split out the author list and format it
-    @author_list = @authors.split(',').map { |a| a.strip } unless @authors.nil?
-    unless @author_list.nil?
-      @formatted_author_list = @author_list.map do |a|
+    self.author_list = authors.split(',').map { |a| a.strip } unless authors.nil?
+    unless author_list.nil?
+      self.formatted_author_list = author_list.map do |a|
         BibTeX::Names.parse(a)[0]
       end
     end
