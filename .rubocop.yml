@@ -8,8 +8,7 @@ AllCops:
     - 'public/**'
     - 'downloads/**'
     - 'db/schema.rb'
-    - 'script/rails'
-    - 'script/delayed_job'
+    - 'bin/**'
 
 # We have to have UTF-8 in several of our comments, because we're returning
 # UTF-8 data.  It's fine.

@@ -81,10 +81,16 @@ end
 group :development do
   gem 'yard', require: false
 
+  # Development tools
   gem 'magic_encoding', require: false
   gem 'hash_syntax', require: false
+
+  # Metrics
   gem 'yardstick', require: false
   gem 'rubocop', require: false
   gem 'brakeman', require: false
   gem 'excellent', require: false
+
+  # Metrics formatting
+  gem 'rouge', require: false
 end

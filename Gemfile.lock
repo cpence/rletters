@@ -262,6 +262,8 @@ GEM
       rdf (>= 0.3.4)
     rest-client (1.6.7)
       mime-types (>= 1.16)
+    rouge (0.3.10)
+      thor
     rsolr (1.0.9)
       builder (>= 2.1.2)
     rsolr-ext (1.0.3)
@@ -395,6 +397,7 @@ DEPENDENCIES
   rdf-n3
   rdf-rdfxml
   responders!
+  rouge
   rsolr (>= 1.0.7)
   rsolr-ext
   rspec-html-matchers
