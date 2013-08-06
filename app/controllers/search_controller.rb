@@ -66,7 +66,9 @@ class SearchController < ApplicationController
   #
   # @api public
   # @return [undefined]
-  def sort_methods; end
+  def sort_methods
+    render layout: 'dialog'
+  end
 
   # Show or export an individual document
   #
