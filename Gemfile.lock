@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/ernie/ransack.git
-  revision: 39da31f8ac8f8a9852a217bebc494548f9bb89c3
+  revision: 8db7a3c1f4242305488a541267dd87c5397f5707
   branch: rails-4
   specs:
     ransack (0.7.3)
@@ -72,7 +72,7 @@ GEM
       activesupport (>= 3.0.0)
     arel (4.0.0)
     ast (1.1.0)
-    atomic (1.1.10)
+    atomic (1.1.12)
     backports (3.3.3)
     bcrypt-ruby (3.1.1)
     bibtex-ruby (2.3.3)
@@ -104,7 +104,7 @@ GEM
       nokogiri (~> 1.5)
     climate_control (0.0.3)
       activesupport (>= 3.0)
-    clockwork (0.5.4)
+    clockwork (0.5.5)
       activesupport
       tzinfo (~> 0.3.35)
     cocaine (0.5.1)
@@ -131,7 +131,7 @@ GEM
     delayed_job_active_record (4.0.0)
       activerecord (>= 3.0, < 4.1)
       delayed_job (>= 3.0, < 4.1)
-    devise (3.0.0)
+    devise (3.0.1)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.1)
       railties (>= 3.2.6, < 5)
@@ -204,7 +204,7 @@ GEM
     mime-types (1.23)
     mini_portile (0.5.1)
     minitest (4.7.5)
-    multi_json (1.7.7)
+    multi_json (1.7.8)
     net-scp (1.1.2)
       net-ssh (>= 2.6.5)
     net-sftp (2.1.2)
