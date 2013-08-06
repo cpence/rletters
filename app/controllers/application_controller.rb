@@ -78,8 +78,12 @@ class ApplicationController < ActionController::Base
   # sanitizer.  Otherwise (e.g., for admin logins in the backend), just use
   # the defaults.
   #
+  # This method is not tested, as it's only ever called from within the
+  # internals of Devise.
+  #
   # @api private
   # @return [Devise::ParameterSanitizer] sanitizer to be used
+  # :nocov:
   def devise_parameter_sanitizer
     if resource_class == User
       User::ParameterSanitizer.new(User, :user, params)
@@ -87,4 +91,5 @@ class ApplicationController < ActionController::Base
       super
     end
   end
+  # :nocov:
 end

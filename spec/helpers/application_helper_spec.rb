@@ -12,6 +12,14 @@ describe ApplicationHelper do
       it 'should render Markdown in translations' do
         I18n.backend.store_translations :en, test_markdown: '# Testing #'
 
+        html = helper.translate_markdown(:test_markdown)
+        html.should be
+        html.should have_tag('h1', text: 'Testing')
+      end
+
+      it 'works when called as t_md' do
+        I18n.backend.store_translations :en, test_markdown: '# Testing #'
+
         html = helper.t_md(:test_markdown)
         html.should be
         html.should have_tag('h1', text: 'Testing')
@@ -27,7 +35,7 @@ describe ApplicationHelper do
 
         @custom_filename = Rails.root.join('app', 'views', 'info', 'spectest.html.haml')
         File.open(@custom_filename, 'w') do |f|
-          f.write('= t_md(".testing")')
+          f.write('= translate_markdown(".testing")')
         end
       end
 

@@ -14,8 +14,7 @@ class DatasetsController < ApplicationController
   # Show all of the current user's datasets
   # @api public
   # @return [undefined]
-  def index
-  end
+  def index; end
 
   # Show the list of datasets for this user
   #

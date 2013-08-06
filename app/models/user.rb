@@ -81,7 +81,11 @@ class User < ActiveRecord::Base
   # should be whitelisted here.  This should be kept in sync with the views
   # in users/registrations/{edit,new}.html.
   #
+  # This class is not tested, as it's only ever called from within the
+  # internals of Devise.
+  #
   # @see ApplicationController::devise_parameter_sanitizer
+  # :nocov:
   class ParameterSanitizer < Devise::ParameterSanitizer
     # Permit the parameters used in the sign up form
     # @return [ActionController::Parameters] permitted parameters
@@ -98,4 +102,5 @@ class User < ActiveRecord::Base
                             :csl_style_id)
     end
   end
+  # :nocov:
 end

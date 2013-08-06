@@ -243,6 +243,15 @@ describe DatasetsController do
       end
     end
 
+    context 'when an invalid task class is passed' do
+      it 'raises an exception' do
+        expect {
+          get :task_view, id: @dataset.to_param, class: 'NotClass',
+          view: 'test'
+        }.to raise_error(ArgumentError)
+      end
+    end
+
     context 'when a valid task ID is passed' do
       before(:each) do
         @task = FactoryGirl.create(:analysis_task, dataset: @dataset,
@@ -257,6 +266,15 @@ describe DatasetsController do
         expect {
           get :task_view, id: @dataset.to_param,
               task_id: @task.to_param, view: 'start'
+        }.to_not raise_error
+      end
+    end
+
+    context 'when a valid task class is passed' do
+      it 'does not raise an exception' do
+        expect {
+          get :task_view, id: @dataset.to_param, class: 'ExportCitations',
+              view: 'start'
         }.to_not raise_error
       end
     end

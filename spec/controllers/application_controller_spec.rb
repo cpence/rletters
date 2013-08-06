@@ -68,4 +68,7 @@ describe ApplicationController do
       end
     end
   end
+
+  # N.B.: ApplicationController#ensure_trailing_slash is tested in the
+  # spec for InfoController, as it requires a real controller.
 end

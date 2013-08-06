@@ -3,7 +3,7 @@
 require 'rubygems'
 
 # Coverage setup
-if ENV['TRAVIS']
+if ENV['TRAVIS'] && ENV['TRAVIS_RUBY_VERSION'] == '2.0'
   require 'simplecov'
   require 'coveralls'
 
