@@ -90,6 +90,7 @@ group :development do
   gem 'rubocop', require: false
   gem 'brakeman', require: false
   gem 'excellent', require: false
+  gem 'rails_best_practices', require: false
 
   # Metrics formatting
   gem 'rouge', require: false

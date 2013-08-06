@@ -78,7 +78,7 @@ eos
 
         metric_data[matches[1]] ||= { }
         metric_data[matches[1]][Integer(matches[2])] ||= []
-        metric_data[matches[1]][Integer(matches[2])] << matches[3]
+        metric_data[matches[1]][Integer(matches[2])] << '<strong>RuboCop: </strong>' + matches[3]
       end
     end
 
@@ -89,7 +89,7 @@ eos
 
         metric_data[matches[1]] ||= { }
         metric_data[matches[1]][Integer(matches[2])] ||= []
-        metric_data[matches[1]][Integer(matches[2])] << matches[3]
+        metric_data[matches[1]][Integer(matches[2])] << '<strong>Yardstick: </strong>' + matches[3]
       end
     end
 
@@ -106,8 +106,22 @@ eos
 
           metric_data[filename] ||= { }
           metric_data[filename][line] ||= []
-          metric_data[filename][line] << problem
+          metric_data[filename][line] << '<strong>Excellent: </strong>' + problem
         end
+      end
+    end
+
+    if File.exist? File.join('doc', 'metrics', 'railsbp.html')
+      railsbp_file = File.open(File.join('doc', 'metrics', 'railsbp.html'))
+      railsbp_doc = Nokogiri::HTML::Document.parse(railsbp_file)
+      railsbp_doc.css('table.result tbody tr').each do |row|
+        filename = row.at_css('td.filename').content.strip
+        line = Integer(row.at_css('td.line').content.strip)
+        problem = row.at_css('td.message a').content.strip
+
+        metric_data[filename] ||= { }
+        metric_data[filename][line] ||= []
+        metric_data[filename][line] << '<strong>rails_best_practices: </strong>' + problem
       end
     end
 

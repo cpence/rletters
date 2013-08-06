@@ -30,14 +30,27 @@ namespace :metrics do
     t.paths = %w{app lib}
   end
 
+  require 'rails_best_practices'
+  desc "Run rails_best_practices"
+  task :rails_best_practices do
+    analyzer = RailsBestPractices::Analyzer.new(
+      '.',
+      { 'format' => 'html',
+        'output-file' => 'doc/metrics/railsbp.html' })
+    analyzer.analyze
+    analyzer.output
+  end
+
   desc "Clean up metric products"
   task :clean do
     FileUtils.rm_f File.join('doc', 'metrics', 'rubocop.txt')
     FileUtils.rm_f File.join('doc', 'metrics', 'yardstick.txt')
     FileUtils.rm_f File.join('doc', 'metrics', 'brakeman.html')
     FileUtils.rm_f File.join('doc', 'metrics', 'excellent.html')
+    FileUtils.rm_f File.join('doc', 'metrics', 'railsbp.html')
   end
 
   desc "Run all available code metrics"
-  task all: ['metrics:rubocop', 'metrics:yardstick', 'metrics:excellent']
+  task all: ['metrics:rubocop', 'metrics:yardstick', 'metrics:excellent',
+             'metrics:rails_best_practices']
 end

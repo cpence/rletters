@@ -73,6 +73,7 @@ GEM
     arel (4.0.0)
     ast (1.1.0)
     atomic (1.1.12)
+    awesome_print (1.1.0)
     backports (3.3.3)
     bcrypt-ruby (3.1.1)
     bibtex-ruby (2.3.3)
@@ -109,6 +110,8 @@ GEM
       tzinfo (~> 0.3.35)
     cocaine (0.5.1)
       climate_control (>= 0.0.3, < 1.0)
+    code_analyzer (0.3.2)
+      sexp_processor
     coffee-rails (4.0.0)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0.beta, < 5.0)
@@ -116,6 +119,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.6.3)
+    colored (1.2)
     colorize (0.5.8)
     coveralls (0.6.7)
       colorize
@@ -242,6 +246,15 @@ GEM
       sprockets-rails (~> 2.0.0)
     rails-i18n (4.0.0.pre)
       i18n (~> 0.5)
+    rails_best_practices (1.14.0)
+      activesupport
+      awesome_print
+      code_analyzer
+      colored
+      erubis
+      i18n
+      require_all
+      ruby-progressbar
     railties (4.0.0)
       actionpack (= 4.0.0)
       activesupport (= 4.0.0)
@@ -260,6 +273,7 @@ GEM
     rdf-xsd (1.0.2.1)
       nokogiri (>= 1.5.0)
       rdf (>= 0.3.4)
+    require_all (1.2.1)
     rest-client (1.6.7)
       mime-types (>= 1.16)
     rouge (0.3.10)
@@ -291,6 +305,7 @@ GEM
       parser (= 2.0.0.pre2)
       powerpack (= 0.0.1)
       rainbow (>= 1.1.4)
+    ruby-progressbar (1.1.1)
     ruby2ruby (2.0.6)
       ruby_parser (~> 3.1)
       sexp_processor (~> 4.0)
@@ -392,6 +407,7 @@ DEPENDENCIES
   pg
   rails (~> 4.0)
   rails-i18n (= 4.0.0.pre)
+  rails_best_practices
   ransack!
   rdf (>= 0.3.5)
   rdf-n3
