@@ -114,7 +114,7 @@ https://github.com/cpence/rletters/contributors
 
 Also, several features of RLetters wouldn't be possible without the excellent work of other Ruby programmers.  Thanks in particular to those behind [RSolr](https://github.com/mwmitchell/rsolr) and [RSolr::Ext](https://github.com/mwmitchell/rsolr-ext), [citeproc-ruby](https://github.com/inukshuk/citeproc-ruby), and [bibtex-ruby](https://github.com/inukshuk/bibtex-ruby).
 
-Charles Pence and Grant Ramsey were supported in the development of RLetters by the [National Evolutionary Synthesis Center (NESCent,)](http://www.nescent.org) NSF #EF-0905606.
+Charles Pence and Grant Ramsey were supported in the development of RLetters by the [National Evolutionary Synthesis Center (NESCent),](http://www.nescent.org) NSF #EF-0905606.
 
 ## Copyright ##
 
