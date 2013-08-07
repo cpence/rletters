@@ -151,6 +151,8 @@ describe Document do
     end
   end
 
+  # N.B.: This also serves as a test for Solr::Facets, which is the type
+  # returned by Document.facets.
   describe '.facets' do
     context 'when loading one document with fulltext',
             vcr: { cassette_name: 'solr_single_fulltext' } do
@@ -160,7 +162,7 @@ describe Document do
 
       it 'does not load facets if there are none' do
         Document.facets.all.should have(0).facets
-        Document.facets.empty?.should be_true
+        Document.facets.should be_empty
       end
     end
 
@@ -172,13 +174,22 @@ describe Document do
 
       it 'sets the facets' do
         Document.facets.all.should have_at_least(1).facet
-        Document.facets.empty?.should be_false
+        Document.facets.should_not be_empty
       end
 
       it 'has the right facet hash keys' do
         Document.facets.for_field(:authors_facet).should have_at_least(1).facet
         Document.facets.for_field(:journal_facet).should have_at_least(1).facet
         Document.facets.for_field(:year).should have_at_least(1).facet
+      end
+
+      it 'sorts them appropriately when asked' do
+        Document.facets.sorted_for_field(:year).first.label.should eq('2000–2009')
+      end
+
+      it 'can pick out facets by query' do
+        Document.facets.for_query('year:[2000 TO 2009]').should be
+        Document.facets.for_query('authors_facet:"J. C. Crabbe"').should be
       end
 
       it 'parses authors_facet correctly' do
