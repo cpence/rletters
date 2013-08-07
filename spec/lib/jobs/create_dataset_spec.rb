@@ -57,4 +57,26 @@ describe Jobs::CreateDataset do
     end
   end
 
+  context 'when Solr fails',
+          vcr: { cassette_name: 'solr_fail' } do
+    it 'does not create a dataset' do
+      expect {
+        begin
+          Jobs::CreateDataset.new(user_id: @user.to_param,
+            name: 'Failure Test Dataset', q: 'test', fq: nil,
+            qt: 'standard').perform
+        rescue StandardError
+        end
+      }.to_not change { Dataset.count }
+    end
+
+    it 'raises an exception' do
+      expect {
+        Jobs::CreateDataset.new(user_id: @user.to_param,
+          name: 'Failure Test Dataset', q: 'test', fq: nil,
+          qt: 'standard').perform
+      }.to raise_error(StandardError)
+    end
+  end
+
 end
