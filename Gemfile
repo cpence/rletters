@@ -5,17 +5,17 @@ gem 'rails', '~> 4.0'
 gem 'rails-i18n', '= 4.0.0.pre'
 
 # Deployment and server tools
-gem 'capistrano', require: false
+group :production do
+  gem 'capistrano', require: false
 
-gem 'god', require: false
-gem 'unicorn', require: false
+  gem 'god', require: false
+  gem 'unicorn', require: false
+  gem 'clockwork', require: false
 
-gem 'daemons', require: false
-gem 'clockwork', require: false
-gem 'delayed_job', '~> 4.0'
-gem 'delayed_job_active_record'
+  gem 'daemons', require: false
 
-gem 'airbrake', require: false
+  gem 'airbrake', require: false
+end
 
 # Database and related tools
 group :production, :development do
@@ -26,7 +26,13 @@ group :test do
 end
 gem 'activerecord-import', '>= 0.4.0'
 gem 'druthers'
+gem 'delayed_job', '~> 4.0'
+gem 'delayed_job_active_record'
+
 gem 'addressable'
+
+gem 'rsolr', '>= 1.0.7'
+gem 'rsolr-ext'
 
 # User authentication and administration
 gem 'devise'
@@ -34,13 +40,11 @@ gem 'devise-i18n'
 gem 'activeadmin', github: 'gregbell/active_admin', branch: 'rails4'
 gem 'formtastic', '>= 2.3.0.rc' # FIXME: only for AA
 gem 'responders', github: 'plataformatec/responders' # FIXME: only for AA
-gem "ransack", github: "ernie/ransack", branch: "rails-4" # FIXME: only for AA
+gem 'ransack', github: 'ernie/ransack', branch: 'rails-4' # FIXME: only for AA
 
 # Support for file attachments and exporting
 gem 'paperclip', '~> 3.0'
 gem 'rubyzip'
-gem 'rsolr', '>= 1.0.7'
-gem 'rsolr-ext'
 gem 'marc'
 gem 'rdf', '>= 0.3.5'
 gem 'rdf-rdfxml'
@@ -65,6 +69,7 @@ gem 'jquery_mobile_rails', '= 1.3.2'
 gem 'uglifier', '>= 1.3.0'
 gem 'yui-compressor'
 
+# Testing
 group :test, :development do
   gem 'rspec-rails'
   gem 'coveralls', require: false
