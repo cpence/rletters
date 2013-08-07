@@ -90,7 +90,7 @@ describe 'search/index' do
 
     context 'when logged in', vcr: { cassette_name: 'solr_default' } do
       before(:each) do
-        @csl_style = CslStyle.find_by_name('Chicago Manual of Style (Author-Date format)')
+        @csl_style = CslStyle.find_by!(name: 'Chicago Manual of Style (Author-Date format)')
         @user = FactoryGirl.create(:user, csl_style_id: @csl_style.id)
         view.stub(:current_user) { @user }
         view.stub(:user_signed_in?) { true }

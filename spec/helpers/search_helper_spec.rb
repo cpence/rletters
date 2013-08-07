@@ -248,7 +248,7 @@ describe SearchHelper do
 
     context 'when the user has a CSL style set' do
       before(:each) do
-        @csl_style = CslStyle.find_by_name('American Psychological Association 6th Edition')
+        @csl_style = CslStyle.find_by!(name: 'American Psychological Association 6th Edition')
         @user = FactoryGirl.create(:user, csl_style_id: @csl_style.id)
         helper.stub(:current_user) { @user }
         helper.stub(:user_signed_in?) { true }

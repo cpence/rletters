@@ -14,6 +14,12 @@ describe UsersHelper do
   end
 
   describe '#get_user_language' do
+    context 'with no ACCEPT_LANGUAGE' do
+      it 'returns the default locale' do
+        helper.get_user_language.should eq('en')
+      end
+    end
+
     context 'when ACCEPT_LANGUAGE has a country code' do
       it 'parses correctly' do
         controller.request.stub(:env) { { 'HTTP_ACCEPT_LANGUAGE' => 'es-mx,es;q=0.5' } }

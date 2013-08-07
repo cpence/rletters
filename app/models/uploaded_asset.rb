@@ -32,11 +32,7 @@ class UploadedAsset < ActiveRecord::Base
   # @param [String] name The asset to look up
   # @return [String] The URL for the given asset name (or blank)
   def self.url_for(name)
-    begin
-      asset = UploadedAsset.find_by_name(name)
-    rescue ActiveRecord::RecordNotFound
-      asset = nil
-    end
+    asset = UploadedAsset.find_by(name: name)
     return '' unless asset
 
     asset.file.url

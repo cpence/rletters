@@ -28,7 +28,7 @@ describe Admin::MarkdownPagesController do
 
   describe '#show' do
     before(:each) do
-      @page = MarkdownPage.find_by_name('faq')
+      @page = MarkdownPage.find_by!(name: 'faq')
       get :show, id: @page.to_param
     end
 
@@ -43,7 +43,7 @@ describe Admin::MarkdownPagesController do
 
   describe '#edit' do
     before(:each) do
-      @page = MarkdownPage.find_by_name('faq')
+      @page = MarkdownPage.find_by!(name: 'faq')
       get :edit, id: @page.to_param
     end
 

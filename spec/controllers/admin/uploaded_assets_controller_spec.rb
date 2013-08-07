@@ -28,7 +28,7 @@ describe Admin::UploadedAssetsController do
 
   describe '#show' do
     before(:each) do
-      @asset = UploadedAsset.find_by_name('apple-touch-icon-precomposed-low')
+      @asset = UploadedAsset.find_by!(name: 'apple-touch-icon-precomposed-low')
       get :show, id: @asset.to_param
     end
 
@@ -43,7 +43,7 @@ describe Admin::UploadedAssetsController do
 
   describe '#edit' do
     before(:each) do
-      @asset = UploadedAsset.find_by_name('apple-touch-icon-precomposed-low')
+      @asset = UploadedAsset.find_by!(name: 'apple-touch-icon-precomposed-low')
       get :edit, id: @asset.to_param
     end
 

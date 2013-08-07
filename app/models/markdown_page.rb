@@ -36,11 +36,7 @@ class MarkdownPage < ActiveRecord::Base
   # @example Render the 'faq' page
   #   <%= MarkdownPage.render('faq') %>
   def self.render(name)
-    begin
-      page = MarkdownPage.find_by_name(name)
-    rescue ActiveRecord::RecordNotFound
-      page = nil
-    end
+    page = MarkdownPage.find_by(name: name)
     return '' unless page
 
     erb_page = ERB.new(page.content).result(binding)
