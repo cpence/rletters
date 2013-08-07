@@ -90,7 +90,6 @@ RSpec.configure do |config|
     Time.zone = 'Eastern Time (US & Canada)'
   end
 
-  # Add helpers for Devise, VCR
+  # Add helpers for Devise
   config.include Devise::TestHelpers, type: :controller
-  config.extend VCR::RSpec::Macros
 end
