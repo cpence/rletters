@@ -27,6 +27,6 @@ ActiveAdmin.register Setting do
     f.inputs "Setting: #{setting.friendly_name}" do
       f.input :value
     end
-    f.buttons
+    f.actions
   end
 end

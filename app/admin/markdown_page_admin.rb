@@ -34,6 +34,6 @@ ActiveAdmin.register MarkdownPage do
                     name: markdown_page.friendly_name) do
       f.input :content, input_html: { rows: 30 }
     end
-    f.buttons
+    f.actions
   end
 end

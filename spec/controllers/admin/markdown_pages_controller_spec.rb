@@ -41,4 +41,19 @@ describe Admin::MarkdownPagesController do
     end
   end
 
+  describe '#edit' do
+    before(:each) do
+      @page = MarkdownPage.find_by_name('faq')
+      get :edit, id: @page.to_param
+    end
+
+    it 'loads successfully' do
+      response.should be_success
+    end
+
+    it 'has a textarea field for the content' do
+      response.body.should have_tag('textarea[name="markdown_page[content]"]')
+    end
+  end
+
 end

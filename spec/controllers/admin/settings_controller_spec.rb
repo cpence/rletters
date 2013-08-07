@@ -39,4 +39,19 @@ describe Admin::SettingsController do
     end
   end
 
+  describe '#edit' do
+    before(:each) do
+      @setting = Setting.where(key: :app_name).first_or_create(value: Setting.send(:app_name))
+      get :edit, id: @setting.to_param
+    end
+
+    it 'loads successfully' do
+      response.should be_success
+    end
+
+    it 'has a textarea field for the value' do
+      response.body.should have_tag('textarea[name="setting[value]"]')
+    end
+  end
+
 end

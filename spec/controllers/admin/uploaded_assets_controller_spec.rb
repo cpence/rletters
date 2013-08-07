@@ -41,4 +41,19 @@ describe Admin::UploadedAssetsController do
     end
   end
 
+  describe '#edit' do
+    before(:each) do
+      @asset = UploadedAsset.find_by_name('apple-touch-icon-precomposed-low')
+      get :edit, id: @asset.to_param
+    end
+
+    it 'loads successfully' do
+      response.should be_success
+    end
+
+    it 'has an upload button for the asset' do
+      response.body.should have_tag('input[name="uploaded_asset[file]"]')
+    end
+  end
+
 end

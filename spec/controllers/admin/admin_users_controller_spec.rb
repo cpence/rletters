@@ -25,4 +25,18 @@ describe Admin::AdminUsersController do
     end
   end
 
+  describe '#edit' do
+    before(:each) do
+      get :edit, id: @admin_user.to_param
+    end
+
+    it 'loads successfully' do
+      response.should be_success
+    end
+
+    it 'has an edit field for the e-mail' do
+      response.body.should have_tag('input[name="admin_user[email]"]')
+    end
+  end
+
 end

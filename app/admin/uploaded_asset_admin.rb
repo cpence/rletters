@@ -37,6 +37,6 @@ ActiveAdmin.register UploadedAsset do
                     name: uploaded_asset.friendly_name) do
       f.input :file
     end
-    f.buttons
+    f.actions
   end
 end
