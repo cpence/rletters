@@ -87,9 +87,7 @@ module Solr
         @label = @value
         @field_label = I18n.t('search.index.journal_facet_short')
       else
-        @label = @value
-        # Bad fallback, but it will do
-        @field_label = @field.to_s
+        raise ArgumentError
       end
     end
 
@@ -111,6 +109,11 @@ module Solr
 
     private
 
+    # Format a label suitable for displaying a year facet
+    #
+    # Requires @value to be set, and will set @label and @field_label.
+    #
+    # @api private
     def format_year_label
       # We need to parse the decade out of "[X TO Y]"
       value_without_brackets = @value[1..-2]
