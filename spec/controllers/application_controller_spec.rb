@@ -30,7 +30,7 @@ describe ApplicationController do
         get :index
       end
 
-      it "sets locale to the user's language" do
+      it 'sets locale to the stored language' do
         I18n.locale.should eq(:'es-MX') # rubocop:disable SymbolName
       end
     end
@@ -63,7 +63,7 @@ describe ApplicationController do
         get :index
       end
 
-      it "sets timezone to the user's timezone" do
+      it 'sets timezone to the stored timezone' do
         Time.zone.name.should eq('Mexico City')
       end
     end

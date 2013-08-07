@@ -41,7 +41,7 @@ describe LibrariesController do
     end
 
     context 'when library is invalid' do
-      it "doesn't create a library" do
+      it 'does not create a library' do
         expect {
           post :create,
                library: FactoryGirl.attributes_for(:library,
@@ -82,7 +82,7 @@ describe LibrariesController do
     end
 
     context 'when library is invalid' do
-      it "doesn't edit the library" do
+      it 'does not edit the library' do
         put :update, id: @library.to_param, library: { url: 'what:nope' }
 
         @library.reload

@@ -5,7 +5,7 @@ describe Array do
 
   describe '#with_indifferent_access' do
     context 'with an array without hashes' do
-      it "doesn't convert anything" do
+      it 'does not convert anything' do
         arr = [1, 2, 3, 4]
         arr2 = arr.with_indifferent_access
 
@@ -30,13 +30,13 @@ describe Object do
 
   describe '#with_indifferent_access' do
     context 'when self is not duplicable' do
-      it "calls successfully but doesn't change anything" do
+      it 'calls successfully but does not change anything' do
         1.with_indifferent_access.should eq(1)
       end
     end
 
     context 'when self is duplicable' do
-      it "calls successfully but doesn't change anything" do
+      it 'calls successfully but does not change anything' do
         'asdf'.with_indifferent_access.should eq('asdf')
       end
     end

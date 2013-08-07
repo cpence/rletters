@@ -50,7 +50,7 @@ describe 'search/show', vcr: { cassette_name: 'solr_single' } do
       rendered.should have_tag('.unapi-id')
     end
 
-    it "doesn't have a link to create a dataset" do
+    it 'does not have a link to create a dataset' do
       rendered.should_not =~ /Create a dataset from only this document/
     end
   end
@@ -77,7 +77,7 @@ describe 'search/show', vcr: { cassette_name: 'solr_single' } do
       rendered.should have_tag("a[href='#{search_add_path(id: '00972c5123877961056b21aea4177d0dc69c7318')}']")
     end
 
-    it "has a link to the user's local library" do
+    it 'has a link to the stored library' do
       rendered.should have_tag("a[href='#{@library.url}ctx_ver=Z39.88-2004&rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&rft.genre=article&rft_id=info:doi%2F10.1111%2Fj.1439-0310.2008.01576.x&rft.atitle=How+Reliable+are+the+Methods+for+Estimating+Repertoire+Size%3F&rft.title=Ethology&rft.date=2008&rft.volume=114&rft.spage=1227&rft.epage=1238&rft.aufirst=Carlos+A.&rft.aulast=Botero&rft.au=Andrew+E.+Mudge&rft.au=Amanda+M.+Koltz&rft.au=Wesley+M.+Hochachka&rft.au=Sandra+L.+Vehrencamp']")
     end
   end

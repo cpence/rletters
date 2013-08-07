@@ -123,7 +123,7 @@ describe 'search/index' do
       rendered.should have_tag('input[value=fail]')
     end
 
-    it "doesn't have any pagination links" do
+    it 'does not have any pagination links' do
       rendered.should_not have_tag('p.pagination a')
     end
   end

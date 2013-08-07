@@ -9,7 +9,7 @@ describe AnalysisTask do
         @task = FactoryGirl.build(:analysis_task, name: nil)
       end
 
-      it "isn't valid" do
+      it 'is not valid' do
         @task.should_not be_valid
       end
     end
@@ -19,7 +19,7 @@ describe AnalysisTask do
         @task = FactoryGirl.build(:analysis_task, dataset: nil)
       end
 
-      it "isn't valid" do
+      it 'is not valid' do
         @task.should_not be_valid
       end
     end
@@ -29,7 +29,7 @@ describe AnalysisTask do
         @task = FactoryGirl.build(:analysis_task, job_type: nil)
       end
 
-      it "isn't valid" do
+      it 'is not valid' do
         @task.should_not be_valid
       end
     end
@@ -51,7 +51,7 @@ describe AnalysisTask do
         @task = FactoryGirl.create(:analysis_task)
       end
 
-      it "isn't set" do
+      it 'is not set' do
         @task.finished_at.should be_nil
       end
     end

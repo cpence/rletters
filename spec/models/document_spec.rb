@@ -10,7 +10,7 @@ describe Document do
         @doc = FactoryGirl.build(:document, shasum: nil)
       end
 
-      it "isn't valid" do
+      it 'is not valid' do
         @doc.should_not be_valid
       end
     end
@@ -20,7 +20,7 @@ describe Document do
         @doc = FactoryGirl.build(:document, shasum: 'notanshasum')
       end
 
-      it "isn't valid" do
+      it 'is not valid' do
         @doc.should_not be_valid
       end
     end
@@ -30,7 +30,7 @@ describe Document do
         @doc = FactoryGirl.build(:document, shasum: '1234567890thisisbad!')
       end
 
-      it "isn't valid" do
+      it 'is not valid' do
         @doc.should_not be_valid
       end
     end
@@ -158,7 +158,7 @@ describe Document do
         @doc = Document.find_with_fulltext('00972c5123877961056b21aea4177d0dc69c7318')
       end
 
-      it "doesn't load facets if there aren't any" do
+      it 'does not load facets if there are none' do
         Document.facets.all.should have(0).facets
         Document.facets.empty?.should be_true
       end
@@ -234,7 +234,7 @@ describe Document do
         @doc.shasum.should eq('00972c5123877961056b21aea4177d0dc69c7318')
       end
 
-      it "doesn't have any fulltext" do
+      it 'does not have any fulltext' do
         @doc.fulltext.should be_nil
       end
     end
@@ -272,7 +272,7 @@ describe Document do
         @docs[0].license.should eq('© Blackwell Verlag GmbH')
       end
 
-      it "doesn't set the license URL (none specified)" do
+      it 'does not set the license URL (none specified)' do
         @docs[2].license_url.should_not be
       end
 
@@ -386,7 +386,7 @@ describe Document do
         @doc = Document.find('00972c5123877961056b21aea4177d0dc69c7318')
       end
 
-      it "doesn't set any term vectors" do
+      it 'does not set any term vectors' do
         @doc.term_vectors.should be_nil
       end
     end
@@ -422,7 +422,7 @@ describe Document do
         @doc.term_vectors['andrew'][:tfidf].should be_within(0.001).of(0.06666)
       end
 
-      it "doesn't set anything for terms that don't appear" do
+      it 'does not set anything for terms that do not appear' do
         @doc.term_vectors['zuzax'].should_not be
       end
     end

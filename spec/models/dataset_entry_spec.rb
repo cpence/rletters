@@ -9,7 +9,7 @@ describe DatasetEntry do
         @entry = FactoryGirl.build(:dataset_entry, shasum: nil)
       end
 
-      it "isn't valid" do
+      it 'is not valid' do
         @entry.should_not be_valid
       end
     end
@@ -19,7 +19,7 @@ describe DatasetEntry do
         @entry = FactoryGirl.build(:dataset_entry, shasum: 'notanshasum')
       end
 
-      it "isn't valid" do
+      it 'is not valid' do
         @entry.should_not be_valid
       end
     end
@@ -29,7 +29,7 @@ describe DatasetEntry do
         @entry = FactoryGirl.build(:dataset_entry, shasum: '1234567890thisisbad!')
       end
 
-      it "isn't valid" do
+      it 'is not valid' do
         @entry.should_not be_valid
       end
     end

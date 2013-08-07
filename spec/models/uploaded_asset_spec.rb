@@ -9,7 +9,7 @@ describe UploadedAsset do
         @asset = FactoryGirl.build(:uploaded_asset, name: nil)
       end
 
-      it "isn't valid" do
+      it 'is not valid' do
         @asset.should_not be_valid
       end
     end

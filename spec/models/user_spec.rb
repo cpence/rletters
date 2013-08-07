@@ -11,7 +11,7 @@ describe User do
         @user = FactoryGirl.build(:user, name: nil)
       end
 
-      it "isn't valid" do
+      it 'is not valid' do
         @user.should_not be_valid
       end
     end
@@ -21,7 +21,7 @@ describe User do
         @user = FactoryGirl.build(:user, email: nil)
       end
 
-      it "isn't valid" do
+      it 'is not valid' do
         @user.should_not be_valid
       end
     end
@@ -32,7 +32,7 @@ describe User do
         @user = FactoryGirl.build(:user, email: @dupe.email)
       end
 
-      it "isn't valid" do
+      it 'is not valid' do
         @user.should_not be_valid
       end
     end
@@ -42,7 +42,7 @@ describe User do
         @user = FactoryGirl.build(:user, email: 'asdf-not-an-email.com')
       end
 
-      it "isn't valid" do
+      it 'is not valid' do
         @user.should_not be_valid
       end
     end
@@ -52,7 +52,7 @@ describe User do
         @user = FactoryGirl.build(:user, per_page: 'asdfasdf')
       end
 
-      it "isn't valid" do
+      it 'is not valid' do
         @user.should_not be_valid
       end
     end
@@ -62,7 +62,7 @@ describe User do
         @user = FactoryGirl.build(:user, per_page: 3.14159)
       end
 
-      it "isn't valid" do
+      it 'is not valid' do
         @user.should_not be_valid
       end
     end
@@ -72,7 +72,7 @@ describe User do
         @user = FactoryGirl.build(:user, per_page: -20)
       end
 
-      it "isn't valid" do
+      it 'is not valid' do
         @user.should_not be_valid
       end
     end
@@ -82,7 +82,7 @@ describe User do
         @user = FactoryGirl.build(:user, per_page: 0)
       end
 
-      it "isn't valid" do
+      it 'is not valid' do
         @user.should_not be_valid
       end
     end
@@ -92,7 +92,7 @@ describe User do
         @user = FactoryGirl.build(:user, language: 'notalocaleCODE123')
       end
 
-      it "isn't valid" do
+      it 'is not valid' do
         @user.should_not be_valid
       end
     end

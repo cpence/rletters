@@ -9,7 +9,7 @@ describe Dataset do
         @dataset = FactoryGirl.build(:dataset, name: nil)
       end
 
-      it "isn't valid" do
+      it 'is not valid' do
         @dataset.should_not be_valid
       end
     end
@@ -19,7 +19,7 @@ describe Dataset do
         @dataset = FactoryGirl.build(:dataset, user: nil)
       end
 
-      it "isn't valid" do
+      it 'is not valid' do
         @dataset.should_not be_valid
       end
     end

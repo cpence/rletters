@@ -9,7 +9,7 @@ describe MarkdownPage do
         @page = FactoryGirl.build(:markdown_page, name: nil)
       end
 
-      it "isn't valid" do
+      it 'is not valid' do
         @page.should_not be_valid
       end
     end

@@ -213,7 +213,7 @@ eos
         else
           link_color = COLORS[2]
         end
-        
+
         f.write("<li><a href='#{rb}.html' target='main' style='color: #{link_color}'>#{rb}</a></li>")
       end
 

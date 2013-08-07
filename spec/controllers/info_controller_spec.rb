@@ -12,7 +12,7 @@ describe InfoController do
       response.should redirect_to('/info/')
     end
 
-    it "doesn't redirect when there is a trailing slash" do
+    it 'does not redirect when there is a trailing slash' do
       get :index, trailing_slash: true
       response.should_not be_redirect
     end

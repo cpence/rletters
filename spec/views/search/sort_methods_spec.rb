@@ -42,5 +42,5 @@ describe 'search/sort_methods', vcr: { cassette_name: 'solr_default' } do
     expected = url_for(params.merge({ action: 'index', sort: 'journal_sort asc' }))
     rendered.should have_tag("a[href='#{expected}']")
   end
-  
+
 end

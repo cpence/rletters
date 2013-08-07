@@ -15,7 +15,7 @@ describe DatasetsController do
       )
     end
 
-    it "doesn't route invalid classes to start" do
+    it 'does not route invalid classes to start' do
       get('/datasets/1/task/asdf/start').should_not be_routable
     end
 
@@ -28,7 +28,7 @@ describe DatasetsController do
       )
     end
 
-    it "doesn't route invalid classes to show (with a class)" do
+    it 'does not route invalid classes to show (with a class)' do
       get('/datasets/1/task/asdf/view/show').should_not be_routable
     end
 
@@ -41,7 +41,7 @@ describe DatasetsController do
       )
     end
 
-    it "doesn't route invalid task IDs to show (with an id)" do
+    it 'does not route invalid task IDs to show (with an id)' do
       get('/datasets/1/task/12asdf/view/show').should_not be_routable
     end
 
@@ -63,7 +63,7 @@ describe DatasetsController do
       )
     end
 
-    it "doesn't route invalid task IDs to destroy" do
+    it 'does not route invalid task IDs to destroy' do
       get('/datasets/1/task/wut/destroy').should_not be_routable
     end
 
@@ -75,7 +75,7 @@ describe DatasetsController do
       )
     end
 
-    it "doesn't route invalid task IDs to download" do
+    it 'does not route invalid task IDs to download' do
       get('/datasets/1/task/wut/download').should_not be_routable
     end
   end

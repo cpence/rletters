@@ -9,7 +9,7 @@ describe Download do
         @dl = FactoryGirl.build(:download, filename: nil)
       end
 
-      it "isn't valid" do
+      it 'is not valid' do
         @dl.should_not be_valid
       end
     end
@@ -19,7 +19,7 @@ describe Download do
         @dl = FactoryGirl.build(:download, filename: '../../../hax/lol.wut')
       end
 
-      it "isn't valid" do
+      it 'is not valid' do
         @dl.should_not be_valid
       end
     end

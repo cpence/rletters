@@ -335,7 +335,7 @@ describe DatasetsController do
         @task.destroy
       end
 
-      it "doesn't delete the task" do
+      it 'does not delete the task' do
         expect {
           get :task_destroy, id: @dataset.to_param,
               task_id: @task.to_param, cancel: true

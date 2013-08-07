@@ -163,7 +163,7 @@ describe WordFrequencyAnalyzer,
         @analyzer = WordFrequencyAnalyzer.new(@dataset, num_words: -1)
       end
 
-      it "acts like it wasn't set at all" do
+      it 'acts like it was not set at all' do
         @analyzer.block_stats[0][:types].should eq(@analyzer.blocks[0].count)
       end
     end

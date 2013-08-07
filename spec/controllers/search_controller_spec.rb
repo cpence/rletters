@@ -95,7 +95,7 @@ describe SearchController do
         assigns(:documents).should have(0).items
       end
 
-      it "doesn't throw an exception on non-integral page values" do
+      it 'does not throw an exception on non-integral page values' do
         default_sq = { q: '*:*', qt: 'precise' }
         options = { sort: 'year_sort desc', offset: 0, limit: 20 }
         Document.should_receive(:find_all_by_solr_query).with(default_sq, options).and_return([])
@@ -105,7 +105,7 @@ describe SearchController do
         }.to_not raise_error
       end
 
-      it "doesn't throw an exception on non-integral per_page values" do
+      it 'does not throw an exception on non-integral per_page values' do
         default_sq = { q: '*:*', qt: 'precise' }
         options = { sort: 'year_sort desc', offset: 10, limit: 10 }
         Document.should_receive(:find_all_by_solr_query).with(default_sq, options).and_return([])
@@ -115,7 +115,7 @@ describe SearchController do
         }.to_not raise_error
       end
 
-      it "doesn't let the user specify zero items per page" do
+      it 'does not let the user specify zero items per page' do
         default_sq = { q: '*:*', qt: 'precise' }
         options = { sort: 'year_sort desc', offset: 10, limit: 10 }
         Document.should_receive(:find_all_by_solr_query).with(default_sq, options).and_return([])
