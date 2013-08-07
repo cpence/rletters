@@ -20,6 +20,11 @@ describe 'datasets/task_list' do
     rendered.should have_tag('li[data-theme=e]', text: '1 analysis task pending for this dataset...')
   end
 
+  it 'is not a full document' do
+    render
+    rendered.should_not include('</html>')
+  end
+
   context 'with completed analysis tasks' do
     before(:each) do
       # This needs to be a real job type, since we're making URLs

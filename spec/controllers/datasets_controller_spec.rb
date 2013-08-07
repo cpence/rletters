@@ -368,4 +368,26 @@ describe DatasetsController do
     end
   end
 
+  describe '#task_list' do
+    context 'with a valid dataset' do
+      it 'loads successfully' do
+        get :task_list, id: @dataset.to_param
+        response.should be_success
+      end
+
+      it 'assigns dataset' do
+        get :show, id: @dataset.to_param
+        assigns(:dataset).should eq(@dataset)
+      end
+    end
+
+    context 'with an invalid dataset' do
+      it 'raises an error' do
+        expect {
+          get :task_list, id: 'asdf'
+        }.to raise_error(ActiveRecord::RecordNotFound)
+      end
+    end
+  end
+
 end
