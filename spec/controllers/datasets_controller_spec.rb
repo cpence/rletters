@@ -376,7 +376,7 @@ describe DatasetsController do
       end
 
       it 'assigns dataset' do
-        get :show, id: @dataset.to_param
+        get :task_list, id: @dataset.to_param
         assigns(:dataset).should eq(@dataset)
       end
     end
