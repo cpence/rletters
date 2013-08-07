@@ -112,4 +112,40 @@ describe AnalysisTask do
     end
   end
 
+  describe '.job_class' do
+    context 'with a good class' do
+      it 'returns the class' do
+        klass = AnalysisTask.job_class('ExportCitations')
+        klass.should eq(Jobs::Analysis::ExportCitations)
+      end
+    end
+
+    context 'with a bad class' do
+      it 'raises an error' do
+        expect {
+          AnalysisTask.job_class('NotClass')
+        }.to raise_error(ArgumentError)
+      end
+    end
+  end
+
+  describe '#job_class' do
+    context 'with a good job_type' do
+      it 'returns the class' do
+        task = FactoryGirl.create(:analysis_task, job_type: 'ExportCitations')
+        klass = task.job_class
+        klass.should eq(Jobs::Analysis::ExportCitations)
+      end
+    end
+
+    context 'with a bad class' do
+      it 'raises an error' do
+        task = FactoryGirl.create(:analysis_task)
+        expect {
+          task.job_class
+        }.to raise_error(ArgumentError)
+      end
+    end
+  end
+
 end

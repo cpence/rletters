@@ -19,6 +19,13 @@ FactoryGirl.define do
     WORKING_SHASUMS[n % WORKING_SHASUMS.count]
   end
 
+  factory :admin_user do
+    sequence(:email) { |n| "admin#{n}@example.com" }
+    password 'password'
+    password_confirmation 'password'
+    remember_me false
+  end
+
   factory :analysis_task do
     name 'Analysis Task'
     dataset
@@ -134,13 +141,6 @@ FactoryGirl.define do
     per_page 10
     language 'en'
     timezone 'Eastern Time (US & Canada)'
-  end
-
-  factory :admin_user do
-    sequence(:email) { |n| "admin#{n}@example.com" }
-    password 'password'
-    password_confirmation 'password'
-    remember_me false
   end
 
 end
