@@ -105,7 +105,7 @@ GEM
       nokogiri (~> 1.5)
     climate_control (0.0.3)
       activesupport (>= 3.0)
-    clockwork (0.5.5)
+    clockwork (0.6.0)
       activesupport
       tzinfo (~> 0.3.35)
     cocaine (0.5.1)
@@ -312,7 +312,7 @@ GEM
     ruby_parser (3.2.2)
       sexp_processor (~> 4.1)
     rubyzip (0.9.9)
-    safe_yaml (0.9.4)
+    safe_yaml (0.9.5)
     sass (3.2.10)
     sass-rails (4.0.0)
       railties (>= 4.0.0.beta, < 5.0)
