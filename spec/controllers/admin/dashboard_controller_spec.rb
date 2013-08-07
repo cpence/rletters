@@ -9,6 +9,12 @@ describe Admin::DashboardController do
   before(:each) do
     @admin_user = FactoryGirl.create(:admin_user)
     sign_in :admin_user, @admin_user
+
+    @user = FactoryGirl.create(:user)
+    sign_in :user, @user
+
+    @dataset = FactoryGirl.create(:dataset, user: @user)
+    @analysis_task = FactoryGirl.create(:analysis_task, dataset: @dataset)
   end
 
   after(:each) do
@@ -25,8 +31,20 @@ describe Admin::DashboardController do
         response.should be_success
       end
 
-        it 'includes an error message' do
+      it 'includes an error message' do
         response.body.should include('Cannot connect to Solr!')
+      end
+
+      it 'links to the dataset' do
+        response.body.should have_tag('a', text: @dataset.name)
+      end
+
+      it 'links to the user' do
+        response.body.should have_tag('a', text: @user.name)
+      end
+
+      it 'links to the analysis task' do
+        response.body.should have_tag('a', text: @analysis_task.name)
       end
     end
 
