@@ -53,8 +53,6 @@ RSpec.configure do |config|
   config.formatter = 'documentation'
   config.order = 'random'
 
-  config.mock_with :rspec
-  config.fixture_path = "#{::Rails.root}/spec/fixtures"
   config.use_transactional_fixtures = true
   config.infer_base_class_for_anonymous_controllers = true
   config.treat_symbols_as_metadata_keys_with_true_values = true
@@ -92,6 +90,7 @@ RSpec.configure do |config|
     Time.zone = 'Eastern Time (US & Canada)'
   end
 
-  # Add helpers for Devise
+  # Add helpers for Devise, VCR
   config.include Devise::TestHelpers, type: :controller
+  config.extend VCR::RSpec::Macros
 end
