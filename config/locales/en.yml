@@ -425,6 +425,5 @@ en:
                 for information on the permitted syntax.
             page_header: "Page: %{name}"
         uploaded_asset:
-            image_details: "%{width}x%{height} (%{size} bytes)"
             file_details: "%{size} bytes"
             asset_header: "Asset: %{name}"

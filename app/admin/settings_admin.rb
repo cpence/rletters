@@ -13,7 +13,6 @@ ActiveAdmin.register Setting do
         Setting.where(key: k).first_or_create(value: Setting.send(k))
       end
 
-      p Setting.all
       Setting.all
     end
   end

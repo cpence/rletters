@@ -136,4 +136,11 @@ FactoryGirl.define do
     timezone 'Eastern Time (US & Canada)'
   end
 
+  factory :admin_user do
+    sequence(:email) { |n| "admin#{n}@example.com" }
+    password 'password'
+    password_confirmation 'password'
+    remember_me false
+  end
+
 end

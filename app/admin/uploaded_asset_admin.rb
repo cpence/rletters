@@ -23,15 +23,8 @@ ActiveAdmin.register UploadedAsset do
         asset.file_file_name
       end
       row :size do
-        if asset.file.width && asset.file.height
-          I18n.t('admin.uploaded_asset.image_details',
-                 width: asset.file.width,
-                 height: asset.file.height,
-                 size: asset.file_file_size)
-        else
-          I18n.t('admin.uploaded_asset.file_details',
-                 size: asset.file_file_size)
-        end
+        I18n.t('admin.uploaded_asset.file_details',
+               size: asset.file_file_size)
       end
       row :content_type do
         asset.file_content_type

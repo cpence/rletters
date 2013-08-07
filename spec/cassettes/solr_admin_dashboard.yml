@@ -1,0 +1,140 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://localhost:8983/select?q=*:*&qt=precise&rows=5&start=0&wt=ruby
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers: {}
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - Winstone Servlet Engine v0.9.10
+      Content-Type:
+      - text/plain;charset=UTF-8
+      Connection:
+      - Close
+      Date:
+      - Wed, 07 Aug 2013 13:32:24 GMT
+      X-Powered-By:
+      - Servlet/2.5 (Winstone/0.9.10)
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        eydyZXNwb25zZUhlYWRlcic9Pnsnc3RhdHVzJz0+MCwnUVRpbWUnPT44LCdw
+        YXJhbXMnPT57J3N0YXJ0Jz0+JzAnLCdxJz0+Jyo6KicsJ3F0Jz0+J3ByZWNp
+        c2UnLCd3dCc9PidydWJ5Jywncm93cyc9Pic1J319LCdyZXNwb25zZSc9Pnsn
+        bnVtRm91bmQnPT4xMDQyLCdzdGFydCc9PjAsJ2RvY3MnPT5beydsaWNlbnNl
+        Jz0+J8KpIEJsYWNrd2VsbCBWZXJsYWcgR21iSCcsJ3NoYXN1bSc9PicyYWVk
+        NDJkY2RmNGQ5OGVlNDk5YTFkMTliNGEwZDYxM2I1Mzc3YWQwJywnZG9pJz0+
+        JzEwLjExMTEvai4xNDM5LTAzMTAuMjAwNi4wMTI0My54JywnYXV0aG9ycyc9
+        PidKYW4gS29tZGV1cicsJ3RpdGxlJz0+J1ZhcmlhdGlvbiBpbiBJbmRpdmlk
+        dWFsIEludmVzdG1lbnQgU3RyYXRlZ2llcyBhbW9uZyBTb2NpYWwgQW5pbWFs
+        cycsJ2pvdXJuYWwnPT4nRXRob2xvZ3knLCd5ZWFyJz0+JzIwMDYnLCd2b2x1
+        bWUnPT4nMTEyJywncGFnZXMnPT4nNzI5LTc0Nyd9LHsnbGljZW5zZSc9PifC
+        qSBCbGFja3dlbGwgVmVybGFnIEdtYkgnLCdzaGFzdW0nPT4nMmFmNTliZjZj
+        NWM4ZWZhNWIyNGViOTM3YWMzYzczY2NjMTVkMTI3OCcsJ2RvaSc9PicxMC4x
+        MTExL2ouMTQzOS0wMzEwLjIwMDQuMDEwMzUueCcsJ2F1dGhvcnMnPT4nRS4g
+        UGFsYWdpLCBHLiBDb3Jkb25pLCBTLiBNLiBCb3Jnb2duaW5pIFRhcmxpJywn
+        dGl0bGUnPT4nCiAgICAgICAgICAgICAgSW1tZWRpYXRlIGFuZCBEZWxheWVk
+        IEJlbmVmaXRzIG9mIFBsYXkgQmVoYXZpb3VyOiBOZXcgRXZpZGVuY2UgZnJv
+        bSBDaGltcGFuemVlcyAoCiAgICAgICAgICAgICAgUGFuIHRyb2dsb2R5dGVz
+        CiAgICAgICAgICAgICAgKQogICAgICAgICAgICAnLCdqb3VybmFsJz0+J0V0
+        aG9sb2d5JywneWVhcic9PicyMDA0Jywndm9sdW1lJz0+JzExMCcsJ3BhZ2Vz
+        Jz0+Jzk0OS05NjInfSx7J2xpY2Vuc2UnPT4nwqkgQmxhY2t3ZWxsIFB1Ymxp
+        c2hpbmcgTHRkL0ludGVybmF0aW9uYWwgQmVoYXZpb3VyYWwgYW5kIE5ldXJh
+        bCBHZW5ldGljcyBTb2NpZXR5Jywnc2hhc3VtJz0+JzJiMTBiMmZlYjE2NTIx
+        OWZiNzU1ZjUyNmNkOWExYjk2NjI5Mzg1YjYnLCdkb2knPT4nMTAuMTExMS9q
+        LjE2MDEtMTgzWC4yMDA1LjAwMTIyLngnLCdhdXRob3JzJz0+J0guIE0uIEhv
+        b2QsIFAuIE1ldHRlbiwgSi4gQy4gQ3JhYmJlLCBLLiBKLiBCdWNrJywndGl0
+        bGUnPT4nRmluZSBtYXBwaW5nIG9mIGEgc2VkYXRpdmUtaHlwbm90aWMgZHJ1
+        ZyB3aXRoZHJhd2FsIGxvY3VzIG9uIG1vdXNlIGNocm9tb3NvbWUgMTEnLCdq
+        b3VybmFsJz0+J0dlbmVzLCBCcmFpbiBhbmQgQmVoYXZpb3InLCd5ZWFyJz0+
+        JzIwMDYnLCd2b2x1bWUnPT4nNScsJ3BhZ2VzJz0+JzEtMTAnfSx7J2xpY2Vu
+        c2UnPT4nwqkgQmxhY2t3ZWxsIFZlcmxhZyBHbWJIJywnc2hhc3VtJz0+JzJi
+        YWJiNzBmMTNjMDE0ZGI0MjZlNGUxNmRlODYyYzMxYzhlY2Y3ZTEnLCdkb2kn
+        PT4nMTAuMTExMS9qLjE0MzktMDMxMC4yMDA2LjAxMTU2LngnLCdhdXRob3Jz
+        Jz0+J0tlaXRoIFcuIFBlY29yLCBCcmlhbiBBLiBIYXpsZXR0JywndGl0bGUn
+        PT4nQSBUZXN0IG9mIFRlbXBvcmFsIFZhcmlhdGlvbiBpbiBSaXNrIGFuZCBG
+        b29kIFN0aW11bGkgb24gQmVoYXZpb3JhbCBUcmFkZW9mZnMgaW4gdGhlIFJ1
+        c3R5IENyYXlmaXNoLCBPcmNvbmVjdGVzIHJ1c3RpY3VzOiBSaXNrIEFsbG9j
+        YXRpb24gYW5kIFN0aW11bHVzIERlZ3JhZGF0aW9uLicsJ2pvdXJuYWwnPT4n
+        RXRob2xvZ3knLCd5ZWFyJz0+JzIwMDYnLCd2b2x1bWUnPT4nMTEyJywncGFn
+        ZXMnPT4nMjMwLTIzNyd9LHsnbGljZW5zZSc9PifCqSBCbGFja3dlbGwgVmVy
+        bGFnIEdtYkgnLCdzaGFzdW0nPT4nMmJiY2I2M2Y0NGRlYWM3NzJmYWM2ZmQw
+        OTA5YWQwODdkNDRhNjMxNycsJ2RvaSc9PicxMC4xMDQ2L2ouMTQzOS0wMzEw
+        LjIwMDIuMDA3NTUueCcsJ2F1dGhvcnMnPT4nRGF2aWQgSi4gV2hpdGUsIEFu
+        ZHJldyBQLiBLaW5nLCBBbWFuZGEgQ29sZSwgTWVyZWRpdGggSi4gV2VzdCcs
+        J3RpdGxlJz0+J09wZW5pbmcgdGhlIFNvY2lhbCBHYXRld2F5OiBFYXJseSBW
+        b2NhbCBhbmQgU29jaWFsIFNlbnNpdGl2aXRpZXMgaW4gQnJvd24tSGVhZGVk
+        IENvd2JpcmRzIChNb2xvdGhydXMgYXRlciknLCdqb3VybmFsJz0+J0V0aG9s
+        b2d5JywneWVhcic9PicyMDAyJywndm9sdW1lJz0+JzEwOCcsJ3BhZ2VzJz0+
+        JzIzLTM3J31dfSwnZmFjZXRfY291bnRzJz0+eydmYWNldF9xdWVyaWVzJz0+
+        eyd5ZWFyOlsqIFRPIDE3OTldJz0+MCwneWVhcjpbMTgwMCBUTyAxODA5XSc9
+        PjAsJ3llYXI6WzE4MTAgVE8gMTgxOV0nPT4wLCd5ZWFyOlsxODIwIFRPIDE4
+        MjldJz0+MCwneWVhcjpbMTgzMCBUTyAxODM5XSc9PjAsJ3llYXI6WzE4NDAg
+        VE8gMTg0OV0nPT4wLCd5ZWFyOlsxODUwIFRPIDE4NTldJz0+MCwneWVhcjpb
+        MTg2MCBUTyAxODY5XSc9PjAsJ3llYXI6WzE4NzAgVE8gMTg3OV0nPT4wLCd5
+        ZWFyOlsxODgwIFRPIDE4ODldJz0+MCwneWVhcjpbMTg5MCBUTyAxODk5XSc9
+        PjAsJ3llYXI6WzE5MDAgVE8gMTkwOV0nPT4wLCd5ZWFyOlsxOTEwIFRPIDE5
+        MTldJz0+MCwneWVhcjpbMTkyMCBUTyAxOTI5XSc9PjAsJ3llYXI6WzE5MzAg
+        VE8gMTkzOV0nPT4wLCd5ZWFyOlsxOTQwIFRPIDE5NDldJz0+MCwneWVhcjpb
+        MTk1MCBUTyAxOTU5XSc9PjAsJ3llYXI6WzE5NjAgVE8gMTk2OV0nPT4wLCd5
+        ZWFyOlsxOTcwIFRPIDE5NzldJz0+MCwneWVhcjpbMTk4MCBUTyAxOTg5XSc9
+        PjAsJ3llYXI6WzE5OTAgVE8gMTk5OV0nPT45NCwneWVhcjpbMjAwMCBUTyAy
+        MDA5XSc9Pjc4OCwneWVhcjpbMjAxMCBUTyAqXSc9PjE2MH0sJ2ZhY2V0X2Zp
+        ZWxkcyc9PnsnYXV0aG9yc19mYWNldCc9PlsnSi4gQy4gQ3JhYmJlJyw5LCdN
+        aWNoYWVsIEguIEZlcmtpbicsOSwnRG91Z2xhcyBQLiBDaGl2ZXJzJyw4LCdB
+        LiBWLiBLdWxpa292Jyw3LCdEYW5pZWwgVC4gQmx1bXN0ZWluJyw3LCdKLiBO
+        LiBDcmF3bGV5Jyw2LCdOLiBLLiBQb3BvdmEnLDYsJ0EuIEEuIFBhbG1lcics
+        NSwnRC4gSS4gQm9vbXNtYScsNSwnRC4gV2FobHN0ZW4nLDVdLCdqb3VybmFs
+        X2ZhY2V0Jz0+WydFdGhvbG9neScsNTk0LCdHZW5lcywgQnJhaW4gYW5kIEJl
+        aGF2aW9yJyw0NDhdfSwnZmFjZXRfZGF0ZXMnPT57fSwnZmFjZXRfcmFuZ2Vz
+        Jz0+e319fQo=
+    http_version: 
+  recorded_at: Wed, 07 Aug 2013 13:32:24 GMT
+- request:
+    method: get
+    uri: http://localhost:8983/admin/system?wt=ruby
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers: {}
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - Winstone Servlet Engine v0.9.10
+      Cache-Control:
+      - no-cache, no-store
+      Pragma:
+      - no-cache
+      Expires:
+      - Sat, 01 Jan 2000 01:00:00 GMT
+      Last-Modified:
+      - Wed, 07 Aug 2013 13:32:24 GMT
+      Etag:
+      - '"14058fa787d"'
+      Content-Type:
+      - text/plain;charset=UTF-8
+      Connection:
+      - Close
+      Date:
+      - Wed, 07 Aug 2013 13:32:24 GMT
+      X-Powered-By:
+      - Servlet/2.5 (Winstone/0.9.10)
+    body:
+      encoding: UTF-8
+      string: |
+        {'responseHeader'=>{'status'=>0,'QTime'=>63},'core'=>{'schema'=>'example','host'=>'10.180.17.66','now'=>'2013-08-07T13:32:24.508Z','start'=>'2013-08-07T13:30:24.156Z','directory'=>{'cwd'=>'/Users/cpence/Development/rletters/solr','instance'=>'/Users/cpence/Development/rletters/solr/solr/collection1','data'=>'/Users/cpence/Development/rletters/solr/solr/collection1/data','dirimpl'=>'org.apache.solr.core.NRTCachingDirectoryFactory','index'=>'/Users/cpence/Development/rletters/solr/solr/collection1/data/index'}},'mode'=>'std','lucene'=>{'solr-spec-version'=>'4.3.1','solr-impl-version'=>'4.3.1 1491148 - shalinmangar - 2013-06-09 12:15:33','lucene-spec-version'=>'4.3.1','lucene-impl-version'=>'4.3.1 1491148 - shalinmangar - 2013-06-09 12:07:58'},'jvm'=>{'version'=>'1.7.0_13 23.7-b01','name'=>'Oracle Corporation Java HotSpot(TM) 64-Bit Server VM','spec'=>{'vendor'=>'Oracle Corporation','name'=>'Java Platform API Specification','version'=>'1.7'},'jre'=>{'vendor'=>'Oracle Corporation','version'=>'1.7.0_13'},'vm'=>{'vendor'=>'Oracle Corporation','name'=>'Java HotSpot(TM) 64-Bit Server VM','version'=>'23.7-b01'},'processors'=>2,'memory'=>{'free'=>'56 MB','total'=>'107.5 MB','max'=>'1.2 GB','used'=>'51.5 MB (%4.1)','raw'=>{'free'=>58769384,'total'=>112721920,'max'=>1327300608,'used'=>53952536,'used%'=>4.064831709924147}},'jmx'=>{'bootclasspath'=>'/Library/Java/JavaVirtualMachines/jdk1.7.0_13.jdk/Contents/Home/jre/lib/resources.jar:/Library/Java/JavaVirtualMachines/jdk1.7.0_13.jdk/Contents/Home/jre/lib/rt.jar:/Library/Java/JavaVirtualMachines/jdk1.7.0_13.jdk/Contents/Home/jre/lib/sunrsasign.jar:/Library/Java/JavaVirtualMachines/jdk1.7.0_13.jdk/Contents/Home/jre/lib/jsse.jar:/Library/Java/JavaVirtualMachines/jdk1.7.0_13.jdk/Contents/Home/jre/lib/jce.jar:/Library/Java/JavaVirtualMachines/jdk1.7.0_13.jdk/Contents/Home/jre/lib/charsets.jar:/Library/Java/JavaVirtualMachines/jdk1.7.0_13.jdk/Contents/Home/jre/lib/jfr.jar:/Library/Java/JavaVirtualMachines/jdk1.7.0_13.jdk/Contents/Home/jre/lib/JObjC.jar:/Library/Java/JavaVirtualMachines/jdk1.7.0_13.jdk/Contents/Home/jre/classes','classpath'=>'winstone.jar','commandLineArgs'=>[],'startTime'=>'2013-08-07T13:30:04.61Z','upTimeMS'=>139899}},'system'=>{'name'=>'Mac OS X','version'=>'10.8.4','arch'=>'x86_64','systemLoadAverage'=>0.97265625,'committedVirtualMemorySize'=>4266078208,'freePhysicalMemorySize'=>1053790208,'freeSwapSpaceSize'=>268115968,'processCpuTime'=>5394499000,'totalPhysicalMemorySize'=>4294967296,'totalSwapSpaceSize'=>268435456,'openFileDescriptorCount'=>75,'maxFileDescriptorCount'=>10240,'uname'=>'Darwin bertrand.local 12.4.0 Darwin Kernel Version 12.4.0: Wed May  1 17:57:12 PDT 2013; root:xnu-2050.24.15~1/RELEASE_X86_64 x86_64
+        ','uptime'=>' 9:32  up 42 mins, 1 user, load averages: 0.97 0.75 0.67
+        '}}
+    http_version: 
+  recorded_at: Wed, 07 Aug 2013 13:32:24 GMT
+recorded_with: VCR 2.5.0

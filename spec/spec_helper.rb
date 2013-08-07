@@ -9,7 +9,6 @@ if ENV['TRAVIS'] && ENV['TRAVIS_RUBY_VERSION'] == '2.0'
 
   SimpleCov.formatter = Coveralls::SimpleCov::Formatter
   SimpleCov.start do
-    add_filter '/app/admin/'
     add_filter '/spec/'
     add_filter '/config/'
     add_filter '/db/'
@@ -19,6 +18,7 @@ if ENV['TRAVIS'] && ENV['TRAVIS_RUBY_VERSION'] == '2.0'
     add_group 'Controllers', '/app/controllers/'
     add_group 'Mailers', '/app/mailers/'
     add_group 'Helpers', '/app/helpers/'
+    add_group 'Administration', '/app/admin/'
     add_group 'Libraries', '/lib/'
   end
 end
