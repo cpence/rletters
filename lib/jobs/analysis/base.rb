@@ -80,13 +80,12 @@ module Jobs
                                              '*.rb')]
         classes = analysis_files.map do |f|
           next if File.basename(f) == 'base.rb'
-          begin
-            ('Jobs::Analysis::' + File.basename(f, '.*').camelize).constantize
-          rescue NameError
-            nil
-          end
+
+          # This will raise a NameError if the class doesn't exist, but we want
+          # that, because that means there's a file in lib/jobs/analysis that
+          # doesn't respect Rails' naming conventions.
+          ('Jobs::Analysis::' + File.basename(f, '.*').camelize).constantize
         end
-        classes.compact!
 
         # Make sure that worked
         classes.each do |c|
