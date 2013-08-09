@@ -33,6 +33,20 @@ describe Jobs::Analysis::Base do
     end
   end
 
+  describe '.job_list' do
+    before(:each) do
+      @jobs = Jobs::Analysis::Base.job_list
+    end
+
+    it 'returns a non-empty array' do
+      expect(@jobs).not_to be_empty
+    end
+
+    it 'contains a class we know exists' do
+      expect(@jobs).to include(Jobs::Analysis::ExportCitations)
+    end
+  end
+
   describe '.error' do
 
     before(:each) do

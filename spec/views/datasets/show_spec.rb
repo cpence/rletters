@@ -18,9 +18,11 @@ describe 'datasets/show' do
     rendered.should =~ /Number of documents: 10/
   end
 
-  it 'shows the create-task markup' do
+  it 'shows the create-task placeholder' do
+    # The list of tasks to create is brought in by AJAX, so it won't be there
+    # in the test environment.
     render
-    rendered.should =~ /Export dataset as citations/
+    rendered.should =~ /Loading analysis tasks/
   end
 
   it 'has a reference somewhere to the task list' do
