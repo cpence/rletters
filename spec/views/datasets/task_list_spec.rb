@@ -72,4 +72,26 @@ describe 'datasets/task_list' do
     end
   end
 
+  context 'with all of the possible analysis task types' do
+    AVAILABLE_CLASSES = ['ExportCitations', 'PlotDates', 'SingleTermVectors',
+                         'WordFrequency']
+
+    it 'successfully renders' do
+      # This is mostly just to make sure that the internals of the job classes
+      # (methods like download?) work correctly
+      AVAILABLE_CLASSES.each do |c|
+        FactoryGirl.create(:analysis_task,
+                           name: "test#{c}",
+                           dataset: @dataset,
+                           job_type: c,
+                           finished_at: 5.minutes.ago)
+      end
+      render
+
+      AVAILABLE_CLASSES.each do |c|
+        rendered.should =~ /“test#{c}” Complete/
+      end
+    end
+  end
+
 end
