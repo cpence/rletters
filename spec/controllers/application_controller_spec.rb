@@ -18,7 +18,7 @@ describe ApplicationController do
       end
 
       it 'leaves locale at default' do
-        I18n.locale.should eq(I18n.default_locale)
+        expect(I18n.locale).to eq(I18n.default_locale)
       end
     end
 
@@ -31,7 +31,7 @@ describe ApplicationController do
       end
 
       it 'sets locale to the stored language' do
-        I18n.locale.should eq(:'es-MX') # rubocop:disable SymbolName
+        expect(I18n.locale).to eq(:'es-MX') # rubocop:disable SymbolName
       end
     end
   end
@@ -51,7 +51,7 @@ describe ApplicationController do
       end
 
       it 'leaves timezone at default' do
-        Time.zone.name.should eq('Eastern Time (US & Canada)')
+        expect(Time.zone.name).to eq('Eastern Time (US & Canada)')
       end
     end
 
@@ -64,7 +64,7 @@ describe ApplicationController do
       end
 
       it 'sets timezone to the stored timezone' do
-        Time.zone.name.should eq('Mexico City')
+        expect(Time.zone.name).to eq('Mexico City')
       end
     end
   end

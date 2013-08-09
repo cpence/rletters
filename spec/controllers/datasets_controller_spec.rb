@@ -18,14 +18,14 @@ describe DatasetsController do
 
       it 'redirects to the login page' do
         get :index
-        response.should redirect_to(new_user_session_path)
+        expect(response).to redirect_to(new_user_session_path)
       end
     end
 
     context 'when logged in' do
       it 'loads successfully' do
         get :index
-        response.should be_success
+        expect(response).to be_success
       end
     end
   end
@@ -34,12 +34,12 @@ describe DatasetsController do
     context 'when logged in' do
       it 'loads successfully' do
         get :dataset_list
-        response.should be_success
+        expect(response).to be_success
       end
 
       it 'assigns the list of datsets' do
         get :dataset_list
-        assigns(:datasets).should eq([@dataset])
+        expect(assigns(:datasets)).to eq([@dataset])
       end
     end
   end
@@ -47,12 +47,12 @@ describe DatasetsController do
   describe '#new' do
     it 'loads successfully' do
       get :new
-      response.should be_success
+      expect(response).to be_success
     end
 
     it 'assigns dataset' do
       get :new
-      assigns(:dataset).should be_new_record
+      expect(assigns(:dataset)).to be_new_record
     end
   end
 
@@ -64,9 +64,10 @@ describe DatasetsController do
         q: '*:*',
         fq: nil,
         qt: 'precise')
-      Delayed::Job.should_receive(:enqueue).with(
+      expect(Delayed::Job).to receive(:enqueue).with(
         expected_job,
-        queue: 'ui').once
+        queue: 'ui'
+      ).once
 
       post :create, { dataset: { name: 'Test Dataset' },
         q: '*:*', fq: nil, qt: 'precise' }
@@ -75,7 +76,7 @@ describe DatasetsController do
     it 'redirects to index when done' do
       post :create, { dataset: { name: 'Test Dataset' },
         q: '*:*', fq: nil, qt: 'precise' }
-      response.should redirect_to(datasets_path)
+      expect(response).to redirect_to(datasets_path)
     end
   end
 
@@ -83,12 +84,12 @@ describe DatasetsController do
     context 'without clear_failed' do
       it 'loads successfully' do
         get :show, id: @dataset.to_param
-        response.should be_success
+        expect(response).to be_success
       end
 
       it 'assigns dataset' do
         get :show, id: @dataset.to_param
-        assigns(:dataset).should eq(@dataset)
+        expect(assigns(:dataset)).to eq(@dataset)
       end
     end
 
@@ -96,21 +97,21 @@ describe DatasetsController do
       before(:each) do
         task = FactoryGirl.build(:analysis_task, dataset: @dataset)
         task.failed = true
-        task.save.should be_true
+        expect(task.save).to be_true
 
         get :show, id: @dataset.to_param, clear_failed: true
       end
 
       it 'loads successfully' do
-        response.should be_success
+        expect(response).to be_success
       end
 
       it 'deletes the failed task' do
-        @dataset.analysis_tasks.failed.count.should eq(0)
+        expect(@dataset.analysis_tasks.failed.count).to eq(0)
       end
 
       it 'sets the flash' do
-        flash[:notice].should_not be_nil
+        expect(flash[:notice]).not_to be_nil
       end
     end
   end
@@ -118,12 +119,12 @@ describe DatasetsController do
   describe '#delete' do
     it 'loads successfully' do
       get :delete, id: @dataset.to_param
-      response.should be_success
+      expect(response).to be_success
     end
 
     it 'assigns dataset' do
       get :delete, id: @dataset.to_param
-      assigns(:dataset).should eq(@dataset)
+      expect(assigns(:dataset)).to eq(@dataset)
     end
   end
 
@@ -133,28 +134,29 @@ describe DatasetsController do
         expected_job = Jobs::DestroyDataset.new(
           user_id: @user.to_param,
           dataset_id: @dataset.to_param)
-        Delayed::Job.should_receive(:enqueue).with(
+        expect(Delayed::Job).to receive(:enqueue).with(
           expected_job,
-          queue: 'ui').once
+          queue: 'ui'
+        ).once
 
         delete :destroy, id: @dataset.to_param
       end
 
       it 'redirects to index when done' do
         delete :destroy, id: @dataset.to_param
-        response.should redirect_to(datasets_path)
+        expect(response).to redirect_to(datasets_path)
       end
     end
 
     context 'when cancel is passed' do
       it 'does not create a delayed job' do
-        Delayed::Job.should_not_receive(:enqueue)
+        expect(Delayed::Job).not_to receive(:enqueue)
         delete :destroy, id: @dataset.to_param, cancel: true
       end
 
       it 'redirects to the dataset page' do
         delete :destroy, id: @dataset.to_param, cancel: true
-        response.should redirect_to(@dataset)
+        expect(response).to redirect_to(@dataset)
       end
     end
   end
@@ -182,7 +184,7 @@ describe DatasetsController do
          vcr: { cassette_name: 'solr_single' } do
         get :add, dataset_id: @dataset.to_param,
             shasum: FactoryGirl.generate(:working_shasum)
-        response.should redirect_to(dataset_path(@dataset))
+        expect(response).to redirect_to(dataset_path(@dataset))
       end
     end
   end
@@ -217,9 +219,10 @@ describe DatasetsController do
           user_id: @user.to_param,
           dataset_id: @dataset.to_param,
           format: 'bibtex')
-        Delayed::Job.should_receive(:enqueue).with(
+        expect(Delayed::Job).to receive(:enqueue).with(
           expected_job,
-          queue: 'analysis').once
+          queue: 'analysis'
+        ).once
 
         get :task_start, id: @dataset.to_param, class: 'ExportCitations',
             job_params: { format: 'bibtex' }
@@ -228,7 +231,7 @@ describe DatasetsController do
       it 'redirects to the dataset page' do
         get :task_start, id: @dataset.to_param, class: 'ExportCitations',
             job_params: { format: 'bibtex' }
-        response.should redirect_to(dataset_path(@dataset))
+        expect(response).to redirect_to(dataset_path(@dataset))
       end
     end
   end
@@ -290,8 +293,8 @@ describe DatasetsController do
       ).perform
 
       # Double-check that the task is created
-      @dataset.analysis_tasks.should have(1).item
-      @dataset.analysis_tasks[0].should be
+      expect(@dataset.analysis_tasks).to have(1).item
+      expect(@dataset.analysis_tasks[0]).to be
 
       @task = @dataset.analysis_tasks[0]
     end
@@ -302,17 +305,17 @@ describe DatasetsController do
 
     it 'loads successfully' do
       get :task_download, id: @dataset.to_param, task_id: @task.to_param
-      response.should be_success
+      expect(response).to be_success
     end
 
     it 'has the right MIME type' do
       get :task_download, id: @dataset.to_param, task_id: @task.to_param
-      response.content_type.should eq('application/zip')
+      expect(response.content_type).to eq('application/zip')
     end
 
     it 'sends some data' do
       get :task_download, id: @dataset.to_param, task_id: @task.to_param
-      response.body.length.should be > 0
+      expect(response.body.length).to be > 0
     end
   end
 
@@ -345,7 +348,7 @@ describe DatasetsController do
       it 'redirects to the dataset page' do
         get :task_destroy, id: @dataset.to_param,
             task_id: @task.to_param, cancel: true
-        response.should redirect_to(dataset_path(@dataset))
+        expect(response).to redirect_to(dataset_path(@dataset))
       end
     end
 
@@ -363,7 +366,7 @@ describe DatasetsController do
 
       it 'redirects to the dataset page' do
         get :task_destroy, id: @dataset.to_param, task_id: @task.to_param
-        response.should redirect_to(dataset_path(@dataset))
+        expect(response).to redirect_to(dataset_path(@dataset))
       end
     end
   end
@@ -372,12 +375,12 @@ describe DatasetsController do
     context 'with a valid dataset' do
       it 'loads successfully' do
         get :task_list, id: @dataset.to_param
-        response.should be_success
+        expect(response).to be_success
       end
 
       it 'assigns dataset' do
         get :task_list, id: @dataset.to_param
-        assigns(:dataset).should eq(@dataset)
+        expect(assigns(:dataset)).to eq(@dataset)
       end
     end
 
