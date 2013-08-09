@@ -84,8 +84,9 @@ module Jobs
           # This will raise a NameError if the class doesn't exist, but we want
           # that, because that means there's a file in lib/jobs/analysis that
           # doesn't respect Rails' naming conventions.
-          ('Jobs::Analysis::' + File.basename(f, '.*').camelize).constantize
+          ('Jobs::Analysis::' + File.basename(f, '.rb').camelize).constantize
         end
+        classes.compact!
 
         # Make sure that worked
         classes.each do |c|
