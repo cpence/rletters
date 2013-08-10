@@ -12,7 +12,7 @@ describe User do
       end
 
       it 'is not valid' do
-        @user.should_not be_valid
+        expect(@user).not_to be_valid
       end
     end
 
@@ -22,7 +22,7 @@ describe User do
       end
 
       it 'is not valid' do
-        @user.should_not be_valid
+        expect(@user).not_to be_valid
       end
     end
 
@@ -33,7 +33,7 @@ describe User do
       end
 
       it 'is not valid' do
-        @user.should_not be_valid
+        expect(@user).not_to be_valid
       end
     end
 
@@ -43,7 +43,7 @@ describe User do
       end
 
       it 'is not valid' do
-        @user.should_not be_valid
+        expect(@user).not_to be_valid
       end
     end
 
@@ -53,7 +53,7 @@ describe User do
       end
 
       it 'is not valid' do
-        @user.should_not be_valid
+        expect(@user).not_to be_valid
       end
     end
 
@@ -63,7 +63,7 @@ describe User do
       end
 
       it 'is not valid' do
-        @user.should_not be_valid
+        expect(@user).not_to be_valid
       end
     end
 
@@ -73,7 +73,7 @@ describe User do
       end
 
       it 'is not valid' do
-        @user.should_not be_valid
+        expect(@user).not_to be_valid
       end
     end
 
@@ -83,7 +83,7 @@ describe User do
       end
 
       it 'is not valid' do
-        @user.should_not be_valid
+        expect(@user).not_to be_valid
       end
     end
 
@@ -93,7 +93,7 @@ describe User do
       end
 
       it 'is not valid' do
-        @user.should_not be_valid
+        expect(@user).not_to be_valid
       end
     end
 
@@ -103,7 +103,7 @@ describe User do
       end
 
       it 'is valid' do
-        @user.should be_valid
+        expect(@user).to be_valid
       end
     end
   end

@@ -27,11 +27,11 @@ describe 'jobs/plot_dates/download' do
 
   it 'shows a header column' do
     render
-    rendered.should =~ /Year,Number of Documents/
+    expect(rendered).to match(/Year,Number of Documents/)
   end
 
   it 'shows the year and count in a CSV row' do
     render
-    rendered.should =~ /2003,13/
+    expect(rendered).to match(/2003,13/)
   end
 end

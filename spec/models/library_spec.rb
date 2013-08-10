@@ -10,7 +10,7 @@ describe Library do
       end
 
       it 'is not valid' do
-        @library.should_not be_valid
+        expect(@library).not_to be_valid
       end
     end
 
@@ -20,7 +20,7 @@ describe Library do
       end
 
       it 'is not valid' do
-        @library.should_not be_valid
+        expect(@library).not_to be_valid
       end
     end
 
@@ -30,7 +30,7 @@ describe Library do
       end
 
       it 'is not valid' do
-        @library.should_not be_valid
+        expect(@library).not_to be_valid
       end
     end
 
@@ -40,7 +40,7 @@ describe Library do
       end
 
       it 'is valid' do
-        @library.should be_valid
+        expect(@library).to be_valid
       end
     end
   end
@@ -52,12 +52,12 @@ describe Library do
       end
 
       it 'is valid' do
-        @library.should be_valid
+        expect(@library).to be_valid
       end
 
       it 'adds the protocol' do
         @library.valid?
-        @library.url.should eq('http://google.com/wut?')
+        expect(@library.url).to eq('http://google.com/wut?')
       end
     end
 
@@ -67,12 +67,12 @@ describe Library do
       end
 
       it 'is valid' do
-        @library.should be_valid
+        expect(@library).to be_valid
       end
 
       it 'adds the question mark' do
         @library.valid?
-        @library.url.should eq('http://google.com?')
+        expect(@library.url).to eq('http://google.com?')
       end
     end
 
@@ -82,7 +82,7 @@ describe Library do
       end
 
       it 'is not valid' do
-        @library.should_not be_valid
+        expect(@library).not_to be_valid
       end
     end
   end

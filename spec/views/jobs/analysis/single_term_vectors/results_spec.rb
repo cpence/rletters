@@ -28,7 +28,7 @@ describe 'jobs/single_term_vectors/results' do
   it 'shows the term and values in a table row' do
     render
 
-    rendered.should have_tag('tbody tr') do
+    expect(rendered).to have_tag('tbody tr') do
       with_tag('td', text: 'test')
       with_tag('td', text: '3')
       with_tag('td', text: '1')
@@ -45,7 +45,7 @@ describe 'jobs/single_term_vectors/results' do
                        task_id: @task.to_param,
                        view: 'download',
                        format: 'csv')
-    rendered.should have_tag("a[href='#{expected}']")
+    expect(rendered).to have_tag("a[href='#{expected}']")
   end
 
 end

@@ -11,16 +11,16 @@ describe Solr::Connection do
       it 'gets the relevant data' do
         info = Solr::Connection.info
 
-        info['responseHeader']['status'].should eq(0)
-        info['lucene'].should include('solr-spec-version')
-        info['system'].should include('name')
+        expect(info['responseHeader']['status']).to eq(0)
+        expect(info['lucene']).to include('solr-spec-version')
+        expect(info['system']).to include('name')
       end
     end
 
     context 'when connection fails' do
       it 'returns an empty hash' do
         stub_request(:any, /127\.0\.0\.1/).to_timeout
-        Solr::Connection.info.should eq({ })
+        expect(Solr::Connection.info).to eq({ })
       end
     end
   end
@@ -31,12 +31,12 @@ describe Solr::Connection do
 
       Solr::Connection.send(:get_solr)
       solr = Solr::Connection.solr
-      solr.uri.should eq(URI.parse(old_url))
+      expect(solr.uri).to eq(URI.parse(old_url))
 
       Setting.solr_server_url = 'http://1.2.3.4/solr/'
       Solr::Connection.send(:get_solr)
       solr = Solr::Connection.solr
-      solr.uri.should eq(URI.parse('http://1.2.3.4/solr/'))
+      expect(solr.uri).to eq(URI.parse('http://1.2.3.4/solr/'))
 
       Setting.solr_server_url = old_url
     end

@@ -5,8 +5,8 @@ describe 'datasets/task_list' do
 
   before(:each) do
     @user = FactoryGirl.create(:user)
-    view.stub(:current_user) { @user }
-    view.stub(:user_signed_in?) { true }
+    allow(view).to receive(:current_user).and_return(@user)
+    allow(view).to receive(:user_signed_in?).and_return(true)
 
     @dataset = FactoryGirl.create(:full_dataset, user: @user)
     assign(:dataset, @dataset)
@@ -17,12 +17,12 @@ describe 'datasets/task_list' do
     FactoryGirl.create(:analysis_task, dataset: @dataset)
     render
 
-    rendered.should have_tag('li[data-theme=e]', text: '1 analysis task pending for this dataset...')
+    expect(rendered).to have_tag('li[data-theme=e]', text: '1 analysis task pending for this dataset...')
   end
 
   it 'is not a full document' do
     render
-    rendered.should_not include('</html>')
+    expect(rendered).not_to include('</html>')
   end
 
   context 'with completed analysis tasks' do
@@ -37,7 +37,7 @@ describe 'datasets/task_list' do
     end
 
     it 'shows the name of the job' do
-      rendered.should =~ /“test” Complete/
+      expect(rendered).to match(/“test” Complete/)
     end
 
     it 'shows a link to download the results' do
@@ -45,7 +45,7 @@ describe 'datasets/task_list' do
                          action: 'task_download',
                          id: @dataset.to_param,
                          task_id: @task.to_param)
-      rendered.should have_tag("a[href='#{expected}']")
+      expect(rendered).to have_tag("a[href='#{expected}']")
     end
 
     it 'shows a link to delete the task' do
@@ -53,7 +53,7 @@ describe 'datasets/task_list' do
                          action: 'task_destroy',
                          id: @dataset.to_param,
                          task_id: @task.to_param)
-      rendered.should have_tag("a[href='#{expected}']")
+      expect(rendered).to have_tag("a[href='#{expected}']")
     end
   end
 
@@ -64,11 +64,11 @@ describe 'datasets/task_list' do
     end
 
     it 'shows failed analysis tasks' do
-      rendered.should =~ /1 analysis task failed for this dataset!/
+      expect(rendered).to match(/1 analysis task failed for this dataset!/)
     end
 
     it 'shows a link to clear failed analysis tasks' do
-      rendered.should have_tag("a[href='#{dataset_path(@dataset, clear_failed: true)}']")
+      expect(rendered).to have_tag("a[href='#{dataset_path(@dataset, clear_failed: true)}']")
     end
   end
 
@@ -89,7 +89,7 @@ describe 'datasets/task_list' do
       render
 
       AVAILABLE_CLASSES.each do |c|
-        rendered.should =~ /“test#{c}” Complete/
+        expect(rendered).to match(/“test#{c}” Complete/)
       end
     end
   end

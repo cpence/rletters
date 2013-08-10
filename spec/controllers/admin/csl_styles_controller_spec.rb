@@ -17,12 +17,12 @@ describe Admin::CslStylesController do
     end
 
     it 'loads successfully' do
-      response.should be_success
+      expect(response).to be_success
     end
 
     it 'includes some standard CSL styles' do
-      response.body.should include('American Sociological Association')
-      response.body.should include('Harvard Reference format 1 (Author-Date)')
+      expect(response.body).to include('American Sociological Association')
+      expect(response.body).to include('Harvard Reference format 1 (Author-Date)')
     end
   end
 

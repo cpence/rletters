@@ -5,8 +5,8 @@ describe 'libraries/index' do
 
   before(:each) do
     @user = FactoryGirl.create(:user)
-    view.stub(:current_user) { @user }
-    view.stub(:user_signed_in?) { true }
+    allow(view).to receive(:current_user).and_return(@user)
+    allow(view).to receive(:user_signed_in?).and_return(true)
 
     @library = FactoryGirl.create(:library, user: @user)
     @user.libraries.reload
@@ -16,19 +16,19 @@ describe 'libraries/index' do
   end
 
   it 'has a link to edit the library' do
-    rendered.should have_tag("a[href='#{edit_library_path(@library)}']", text: @library.name)
+    expect(rendered).to have_tag("a[href='#{edit_library_path(@library)}']", text: @library.name)
   end
 
   it 'has a link to delete the library' do
-    rendered.should have_tag("a[href='#{delete_library_path(@library)}']")
+    expect(rendered).to have_tag("a[href='#{delete_library_path(@library)}']")
   end
 
   it 'has a link to add a new library' do
-    rendered.should have_tag("a[href='#{new_library_path}']")
+    expect(rendered).to have_tag("a[href='#{new_library_path}']")
   end
 
   it 'has a link to query local libraries' do
-    rendered.should have_tag("a[href='#{query_libraries_path}']")
+    expect(rendered).to have_tag("a[href='#{query_libraries_path}']")
   end
 
 end

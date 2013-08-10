@@ -10,7 +10,7 @@ describe UploadedAsset do
       end
 
       it 'is not valid' do
-        @asset.should_not be_valid
+        expect(@asset).not_to be_valid
       end
     end
 
@@ -20,7 +20,7 @@ describe UploadedAsset do
       end
 
       it 'is valid' do
-        @asset.should be_valid
+        expect(@asset).to be_valid
       end
     end
   end
@@ -33,11 +33,11 @@ describe UploadedAsset do
     it 'returns the plain name with no translation, friendly name with translation' do
       # There's no way to *delete* a translation from the I18n backend, so
       # we have to do this in one test to make sure they're in order
-      @asset.friendly_name.should eq(@asset.name)
+      expect(@asset.friendly_name).to eq(@asset.name)
 
       I18n.backend.store_translations :en, uploaded_assets:
         { @asset.name.to_sym => 'The Friendly Name' }
-      @asset.friendly_name.should eq('The Friendly Name')
+      expect(@asset.friendly_name).to eq('The Friendly Name')
     end
   end
 
@@ -48,15 +48,15 @@ describe UploadedAsset do
 
     context 'when a non-existent asset is specified' do
       it 'returns an empty string' do
-        UploadedAsset.url_for('not_an_asset_id').should eq('')
+        expect(UploadedAsset.url_for('not_an_asset_id')).to eq('')
       end
     end
 
     context 'when an extant asset is specified' do
       it 'returns a URL' do
         url = UploadedAsset.url_for(@asset.name)
-        url.should start_with('/system/')
-        url.should include('.rb?')
+        expect(url).to start_with('/system/')
+        expect(url).to include('.rb?')
       end
     end
   end

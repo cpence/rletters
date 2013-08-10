@@ -22,7 +22,7 @@ describe 'jobs/single_term_vectors/start' do
                      action: 'task_start',
                      class: 'SingleTermVectors',
                      id: @dataset.to_param)
-      rendered.should have_tag("a[href='#{link}']")
+      expect(rendered).to have_tag("a[href='#{link}']")
     end
   end
 
@@ -33,7 +33,7 @@ describe 'jobs/single_term_vectors/start' do
 
     it 'does not have a link to start the task' do
       render
-      rendered.should_not have_tag('a')
+      expect(rendered).not_to have_tag('a')
     end
   end
 

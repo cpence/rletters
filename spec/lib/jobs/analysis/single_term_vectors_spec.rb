@@ -36,12 +36,12 @@ describe Jobs::Analysis::SingleTermVectors, vcr: { cassette_name: 'solr_single_f
     end
 
     it 'names the task correctly' do
-      @dataset.analysis_tasks[0].name.should eq('Term frequency information')
+      expect(@dataset.analysis_tasks[0].name).to eq('Term frequency information')
     end
 
     it 'creates good YAML' do
       tv = YAML.load_file(@dataset.analysis_tasks[0].result_file.filename).with_indifferent_access
-      tv.should be_a(Hash)
+      expect(tv).to be_a(Hash)
     end
   end
 end

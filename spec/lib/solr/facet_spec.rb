@@ -34,24 +34,24 @@ describe Solr::Facet do
       end
 
       it 'leaves the query alone' do
-        @facet.query.should eq('year:[1960 TO 1969]')
+        expect(@facet.query).to eq('year:[1960 TO 1969]')
       end
 
       it 'sets the user-friendly label' do
-        @facet.label.should eq('1960–1969')
-        @facet.field_label.should eq('Year')
+        expect(@facet.label).to eq('1960–1969')
+        expect(@facet.field_label).to eq('Year')
       end
     end
 
     context 'for the strange year values' do
       it 'sets the before value correctly' do
         facet = Solr::Facet.new(query: 'year:[* TO 1800]', hits: 10)
-        facet.label.should eq('Before 1800')
+        expect(facet.label).to eq('Before 1800')
       end
 
       it 'sets the after value correctly' do
         facet = Solr::Facet.new(query: 'year:[2010 TO *]', hits: 10)
-        facet.label.should eq('2010 and later')
+        expect(facet.label).to eq('2010 and later')
       end
     end
 
@@ -93,16 +93,16 @@ describe Solr::Facet do
       end
 
       it 'strips quotes from values' do
-        @facet.value.should eq('W. Shatner')
+        expect(@facet.value).to eq('W. Shatner')
       end
 
       it 'builds the right query' do
-        @facet.query.should eq('authors_facet:"W. Shatner"')
+        expect(@facet.query).to eq('authors_facet:"W. Shatner"')
       end
 
       it 'sets the user-friendly labels' do
-        @facet.label.should eq('W. Shatner')
-        @facet.field_label.should eq('Authors')
+        expect(@facet.label).to eq('W. Shatner')
+        expect(@facet.field_label).to eq('Authors')
       end
     end
   end
@@ -113,7 +113,7 @@ describe Solr::Facet do
         f1 = Solr::Facet.new(name: 'authors_facet', value: '"W. Shatner"', hits: 30)
         f2 = Solr::Facet.new(name: 'authors_facet', value: '"P. Stewart"', hits: 10)
 
-        f1.should be < f2
+        expect(f1).to be < f2
       end
     end
 
@@ -122,14 +122,14 @@ describe Solr::Facet do
         f1 = Solr::Facet.new(name: 'authors_facet', value: '"W. Shatner"', hits: 10)
         f2 = Solr::Facet.new(name: 'authors_facet', value: '"P. Stewart"', hits: 10)
 
-        f1.should be > f2
+        expect(f1).to be > f2
       end
 
       it 'sort years by year, newest first' do
         f1 = Solr::Facet.new(query: 'year:[1850 TO 1860]', hits: 10)
         f2 = Solr::Facet.new(query: 'year:[1950 TO 1960]', hits: 10)
 
-        f2.should be < f1
+        expect(f2).to be < f1
       end
     end
   end

@@ -23,7 +23,7 @@ describe WordFrequencyAnalyzer,
       it 'acts like only block_size was set' do
         num = @analyzer.block_stats.count - 1
         @analyzer.block_stats.take(num).each do |s|
-          s[:tokens].should eq(10)
+          expect(s[:tokens]).to eq(10)
         end
       end
     end
@@ -36,7 +36,7 @@ describe WordFrequencyAnalyzer,
       end
 
       it 'just makes one block, splitting across' do
-        @analyzer.block_stats.count.should eq(1)
+        expect(@analyzer.block_stats.count).to eq(1)
       end
     end
   end
@@ -51,30 +51,30 @@ describe WordFrequencyAnalyzer,
       end
 
       it 'saves blocks and stats' do
-        @analyzer.blocks.should be_an(Array)
-        @analyzer.blocks[0].should be_a(Hash)
+        expect(@analyzer.blocks).to be_an(Array)
+        expect(@analyzer.blocks[0]).to be_a(Hash)
 
-        @analyzer.block_stats.should be_an(Array)
-        @analyzer.block_stats[0].should be_a(Hash)
-        @analyzer.block_stats[0][:name].should be
-        @analyzer.block_stats[0][:types].should be
-        @analyzer.block_stats[0][:tokens].should be
+        expect(@analyzer.block_stats).to be_an(Array)
+        expect(@analyzer.block_stats[0]).to be_a(Hash)
+        expect(@analyzer.block_stats[0][:name]).to be
+        expect(@analyzer.block_stats[0][:types]).to be
+        expect(@analyzer.block_stats[0][:tokens]).to be
 
-        @analyzer.num_dataset_types.should be
-        @analyzer.num_dataset_tokens.should be
+        expect(@analyzer.num_dataset_types).to be
+        expect(@analyzer.num_dataset_tokens).to be
       end
 
       it 'creates 10 word blocks, except maybe the last one' do
         num = @analyzer.block_stats.count - 1
         @analyzer.block_stats.take(num).each do |s|
-          s[:tokens].should eq(10)
+          expect(s[:tokens]).to eq(10)
         end
       end
 
       it 'creates a parallel list (same words in all blocks)' do
         words = @analyzer.blocks[0].keys
         @analyzer.blocks.each do |b|
-          b.keys.should eq(words)
+          expect(b.keys).to eq(words)
         end
       end
     end
@@ -87,7 +87,7 @@ describe WordFrequencyAnalyzer,
       end
 
       it 'makes 10 blocks (the size of the dataset)' do
-        @analyzer.blocks.should have(10).blocks
+        expect(@analyzer.blocks).to have(10).blocks
       end
     end
   end
@@ -102,13 +102,13 @@ describe WordFrequencyAnalyzer,
       end
 
       it 'creates 10 blocks' do
-        @analyzer.blocks.count.should eq(10)
+        expect(@analyzer.blocks.count).to eq(10)
       end
 
       it 'creates all blocks nearly the same size' do
         size = @analyzer.block_stats[0][:tokens]
         @analyzer.block_stats.each do |s|
-          s[:tokens].should be_within(1).of(size)
+          expect(s[:tokens]).to be_within(1).of(size)
         end
       end
     end
@@ -122,7 +122,7 @@ describe WordFrequencyAnalyzer,
       end
 
       it 'creates at least 30 blocks' do
-        @analyzer.blocks.should have_at_least(30).blocks
+        expect(@analyzer.blocks).to have_at_least(30).blocks
       end
 
       it 'creates all blocks nearly the same size for each document' do
@@ -136,7 +136,7 @@ describe WordFrequencyAnalyzer,
             doc = this_doc
           end
 
-          s[:tokens].should be_within(1).of(size)
+          expect(s[:tokens]).to be_within(1).of(size)
         end
       end
     end
@@ -149,12 +149,12 @@ describe WordFrequencyAnalyzer,
       end
 
       it 'includes all words' do
-        @analyzer.block_stats[0][:types].should eq(@analyzer.blocks[0].count)
+        expect(@analyzer.block_stats[0][:types]).to eq(@analyzer.blocks[0].count)
       end
 
       it 'is the same as the dataset stats' do
-        @analyzer.block_stats[0][:types].should eq(@analyzer.num_dataset_types)
-        @analyzer.block_stats[0][:tokens].should eq(@analyzer.num_dataset_tokens)
+        expect(@analyzer.block_stats[0][:types]).to eq(@analyzer.num_dataset_types)
+        expect(@analyzer.block_stats[0][:tokens]).to eq(@analyzer.num_dataset_tokens)
       end
     end
 
@@ -164,7 +164,7 @@ describe WordFrequencyAnalyzer,
       end
 
       it 'acts like it was not set at all' do
-        @analyzer.block_stats[0][:types].should eq(@analyzer.blocks[0].count)
+        expect(@analyzer.block_stats[0][:types]).to eq(@analyzer.blocks[0].count)
       end
     end
 
@@ -177,7 +177,7 @@ describe WordFrequencyAnalyzer,
 
       it 'only includes ten words' do
         @analyzer.blocks.each do |b|
-          b.count.should eq(10)
+          expect(b.count).to eq(10)
         end
       end
     end
@@ -189,9 +189,9 @@ describe WordFrequencyAnalyzer,
     end
 
     it 'includes name, types, and tokens' do
-      @analyzer.block_stats[0][:name].should be
-      @analyzer.block_stats[0][:types].should be
-      @analyzer.block_stats[0][:tokens].should be
+      expect(@analyzer.block_stats[0][:name]).to be
+      expect(@analyzer.block_stats[0][:types]).to be
+      expect(@analyzer.block_stats[0][:tokens]).to be
     end
   end
 
@@ -202,12 +202,12 @@ describe WordFrequencyAnalyzer,
     end
 
     it 'only includes  the requested number of words' do
-      @analyzer.word_list.should have(10).words
+      expect(@analyzer.word_list).to have(10).words
     end
 
     it 'analyzes those words in the blocks' do
       @analyzer.word_list.each do |w|
-        @analyzer.blocks[0][w].should be
+        expect(@analyzer.blocks[0][w]).to be
       end
     end
   end
@@ -219,13 +219,13 @@ describe WordFrequencyAnalyzer,
 
     it 'includes (at least) all the words in the list' do
       @analyzer.word_list.each do |w|
-        @analyzer.tf_in_dataset[w].should be
+        expect(@analyzer.tf_in_dataset[w]).to be
       end
     end
 
     it 'returns the same values as a single-block analysis' do
       @analyzer.word_list.each do |w|
-        @analyzer.blocks[0][w].should eq(@analyzer.tf_in_dataset[w])
+        expect(@analyzer.blocks[0][w]).to eq(@analyzer.tf_in_dataset[w])
       end
     end
   end
@@ -237,7 +237,7 @@ describe WordFrequencyAnalyzer,
       end
 
       it 'works' do
-        @analyzer.num_corpus_documents.should eq(1042)
+        expect(@analyzer.num_corpus_documents).to eq(1042)
       end
     end
 
@@ -247,7 +247,7 @@ describe WordFrequencyAnalyzer,
       end
 
       it 'throws an exception' do
-        Solr::Connection.should_receive(:find).with(
+        expect(Solr::Connection).to receive(:find).with(
           { q: '*:*', qt: 'precise', rows: 1, start: 0 }
         ).and_return({})
         expect { @analyzer.num_corpus_documents }.to raise_error(ActiveRecord::StatementInvalid)

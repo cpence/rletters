@@ -9,12 +9,12 @@ describe InfoController do
     it 'adds a trailing slash when there is none' do
       request.env['REQUEST_URI'] = '/info'
       get :index, trailing_slash: false
-      response.should redirect_to('/info/')
+      expect(response).to redirect_to('/info/')
     end
 
     it 'does not redirect when there is a trailing slash' do
       get :index, trailing_slash: true
-      response.should_not be_redirect
+      expect(response).not_to be_redirect
     end
   end
 
@@ -22,14 +22,14 @@ describe InfoController do
     context 'given Solr results', vcr: { cassette_name: 'info_query' } do
       it 'loads successfully' do
         get :index
-        response.should be_success
+        expect(response).to be_success
       end
     end
 
     context 'when Solr fails', vcr: { cassette_name: 'info_query_error' } do
       it 'loads successfully' do
         get :index
-        response.should be_success
+        expect(response).to be_success
       end
     end
   end
@@ -37,28 +37,28 @@ describe InfoController do
   describe '#faq' do
     it 'loads successfully' do
       get :faq
-      response.should be_success
+      expect(response).to be_success
     end
   end
 
   describe '#about' do
     it 'loads successfully' do
       get :about
-      response.should be_success
+      expect(response).to be_success
     end
   end
 
   describe '#privacy' do
     it 'loads successfully' do
       get :privacy
-      response.should be_success
+      expect(response).to be_success
     end
   end
 
   describe '#tutorial' do
     it 'loads successfully' do
       get :tutorial
-      response.should be_success
+      expect(response).to be_success
     end
   end
 

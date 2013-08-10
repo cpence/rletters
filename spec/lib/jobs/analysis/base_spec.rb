@@ -29,7 +29,7 @@ describe Jobs::Analysis::Base do
   describe '.view_path' do
     it 'returns the right value' do
       expected = File.join('jobs', 'mock_job', 'test')
-      Jobs::Analysis::MockJob.view_path('test').should eq(expected)
+      expect(Jobs::Analysis::MockJob.view_path('test')).to eq(expected)
     end
   end
 
@@ -70,11 +70,11 @@ describe Jobs::Analysis::Base do
     end
 
     it 'creates an analysis task' do
-      @dataset.analysis_tasks[0].should be
+      expect(@dataset.analysis_tasks[0]).to be
     end
 
     it 'sets the failed bit on the task' do
-      @dataset.analysis_tasks[0].failed.should be_true
+      expect(@dataset.analysis_tasks[0].failed).to be_true
     end
   end
 

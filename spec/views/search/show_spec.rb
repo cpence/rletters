@@ -13,8 +13,8 @@ describe 'search/show', vcr: { cassette_name: 'solr_single' } do
 
   before(:each) do
     # Default to no signed-in user
-    view.stub(:current_user) { nil }
-    view.stub(:user_signed_in?) { false }
+    allow(view).to receive(:current_user).and_return(nil)
+    allow(view).to receive(:user_signed_in?).and_return(false)
 
     params[:id] = '00972c5123877961056b21aea4177d0dc69c7318'
     assign(:document, Document.find(params[:id]))
@@ -26,40 +26,40 @@ describe 'search/show', vcr: { cassette_name: 'solr_single' } do
     end
 
     it 'shows the document details' do
-      rendered.should =~ /Document details/
-      rendered.should have_tag('h3', text: 'How Reliable are the Methods for Estimating Repertoire Size?')
+      expect(rendered).to match(/Document details/)
+      expect(rendered).to have_tag('h3', text: 'How Reliable are the Methods for Estimating Repertoire Size?')
     end
 
     it 'has a link to the DOI' do
-      rendered.should have_tag('a[href="http://dx.doi.org/10.1111/j.1439-0310.2008.01576.x"]')
+      expect(rendered).to have_tag('a[href="http://dx.doi.org/10.1111/j.1439-0310.2008.01576.x"]')
     end
 
     it 'has a link to Mendeley' do
-      rendered.should have_tag("a[href='#{mendeley_redirect_path(id: '00972c5123877961056b21aea4177d0dc69c7318')}']")
+      expect(rendered).to have_tag("a[href='#{mendeley_redirect_path(id: '00972c5123877961056b21aea4177d0dc69c7318')}']")
     end
 
     it 'has a link to citeulike' do
-      rendered.should have_tag("a[href='#{citeulike_redirect_path(id: '00972c5123877961056b21aea4177d0dc69c7318')}']")
+      expect(rendered).to have_tag("a[href='#{citeulike_redirect_path(id: '00972c5123877961056b21aea4177d0dc69c7318')}']")
     end
 
     it 'links to the unAPI server' do
-      rendered.should have_tag("link[href='#{unapi_url}'][rel=unapi-server][type='application/xml']")
+      expect(rendered).to have_tag("link[href='#{unapi_url}'][rel=unapi-server][type='application/xml']")
     end
 
     it 'sets the unAPI ID' do
-      rendered.should have_tag('.unapi-id')
+      expect(rendered).to have_tag('.unapi-id')
     end
 
     it 'does not have a link to create a dataset' do
-      rendered.should_not =~ /Create a dataset from only this document/
+      expect(rendered).not_to match(/Create a dataset from only this document/)
     end
   end
 
   context 'when logged in' do
     before(:each) do
       @user = FactoryGirl.create(:user)
-      view.stub(:current_user) { @user }
-      view.stub(:user_signed_in?) { true }
+      allow(view).to receive(:current_user).and_return(@user)
+      allow(view).to receive(:user_signed_in?).and_return(true)
 
       @library = FactoryGirl.create(:library, user: @user)
       @user.libraries.reload
@@ -70,15 +70,15 @@ describe 'search/show', vcr: { cassette_name: 'solr_single' } do
 
     it 'has a link to create a dataset from this document' do
       expected = new_dataset_path(q: 'shasum:00972c5123877961056b21aea4177d0dc69c7318', qt: 'precise', fq: nil)
-      rendered.should have_tag("a[href='#{expected}']")
+      expect(rendered).to have_tag("a[href='#{expected}']")
     end
 
     it 'has a link to add this document to a dataset' do
-      rendered.should have_tag("a[href='#{search_add_path(id: '00972c5123877961056b21aea4177d0dc69c7318')}']")
+      expect(rendered).to have_tag("a[href='#{search_add_path(id: '00972c5123877961056b21aea4177d0dc69c7318')}']")
     end
 
     it 'has a link to the stored library' do
-      rendered.should have_tag("a[href='#{@library.url}ctx_ver=Z39.88-2004&rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&rft.genre=article&rft_id=info:doi%2F10.1111%2Fj.1439-0310.2008.01576.x&rft.atitle=How+Reliable+are+the+Methods+for+Estimating+Repertoire+Size%3F&rft.title=Ethology&rft.date=2008&rft.volume=114&rft.spage=1227&rft.epage=1238&rft.aufirst=Carlos+A.&rft.aulast=Botero&rft.au=Andrew+E.+Mudge&rft.au=Amanda+M.+Koltz&rft.au=Wesley+M.+Hochachka&rft.au=Sandra+L.+Vehrencamp']")
+      expect(rendered).to have_tag("a[href='#{@library.url}ctx_ver=Z39.88-2004&rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&rft.genre=article&rft_id=info:doi%2F10.1111%2Fj.1439-0310.2008.01576.x&rft.atitle=How+Reliable+are+the+Methods+for+Estimating+Repertoire+Size%3F&rft.title=Ethology&rft.date=2008&rft.volume=114&rft.spage=1227&rft.epage=1238&rft.aufirst=Carlos+A.&rft.aulast=Botero&rft.au=Andrew+E.+Mudge&rft.au=Amanda+M.+Koltz&rft.au=Wesley+M.+Hochachka&rft.au=Sandra+L.+Vehrencamp']")
     end
   end
 

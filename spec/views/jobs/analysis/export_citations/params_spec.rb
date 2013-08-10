@@ -22,7 +22,7 @@ describe 'jobs/export_citations/params' do
                      job_params: { format: k },
                      id: @dataset.to_param)
 
-      rendered.should have_tag("a[href='#{link}']")
+      expect(rendered).to have_tag("a[href='#{link}']")
     end
   end
 

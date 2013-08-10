@@ -9,7 +9,7 @@ describe Array do
         arr = [1, 2, 3, 4]
         arr2 = arr.with_indifferent_access
 
-        arr.should eq(arr2)
+        expect(arr).to eq(arr2)
       end
     end
 
@@ -18,8 +18,8 @@ describe Array do
         arr = [1, 3, { 'test' => 'test2' }, [2, 4, 6, { 'test3' => 'test4' }]]
         arr2 = arr.with_indifferent_access
 
-        arr2[2][:test].should eq('test2')
-        arr2[3][3][:test3].should eq('test4')
+        expect(arr2[2][:test]).to eq('test2')
+        expect(arr2[3][3][:test3]).to eq('test4')
       end
     end
   end
@@ -31,13 +31,13 @@ describe Object do
   describe '#with_indifferent_access' do
     context 'when self is not duplicable' do
       it 'calls successfully but does not change anything' do
-        1.with_indifferent_access.should eq(1)
+        expect(1.with_indifferent_access).to eq(1)
       end
     end
 
     context 'when self is duplicable' do
       it 'calls successfully but does not change anything' do
-        'asdf'.with_indifferent_access.should eq('asdf')
+        expect('asdf'.with_indifferent_access).to eq('asdf')
       end
     end
   end

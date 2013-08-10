@@ -5,19 +5,19 @@ describe 'libraries/new' do
 
   before(:each) do
     @user = FactoryGirl.create(:user)
-    view.stub(:current_user) { @user }
-    view.stub(:user_signed_in?) { true }
+    allow(view).to receive(:current_user).and_return(@user)
+    allow(view).to receive(:user_signed_in?).and_return(true)
 
     assign(:library, @user.libraries.build)
     render
   end
 
   it 'has a form field for name' do
-    rendered.should have_tag('input[name="library[name]"]')
+    expect(rendered).to have_tag('input[name="library[name]"]')
   end
 
   it 'has a form field for URL' do
-    rendered.should have_tag('input[name="library[url]"]')
+    expect(rendered).to have_tag('input[name="library[url]"]')
   end
 
 end

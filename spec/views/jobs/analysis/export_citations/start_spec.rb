@@ -20,7 +20,7 @@ describe 'jobs/export_citations/start' do
                    class: 'ExportCitations',
                    id: @dataset.to_param,
                    view: 'params')
-    rendered.should have_tag("a[href='#{link}']")
+    expect(rendered).to have_tag("a[href='#{link}']")
   end
 
 end

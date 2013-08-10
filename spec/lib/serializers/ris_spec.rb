@@ -10,19 +10,19 @@ describe Serializers::RIS do
     end
 
     it 'creates good RIS' do
-      @str.should be_start_with("TY  - JOUR\n")
-      @str.should include('AU  - Botero,Carlos A.')
-      @str.should include('AU  - Mudge,Andrew E.')
-      @str.should include('AU  - Koltz,Amanda M.')
-      @str.should include('AU  - Hochachka,Wesley M.')
-      @str.should include('AU  - Vehrencamp,Sandra L.')
-      @str.should include('TI  - How Reliable are the Methods for Estimating Repertoire Size?')
-      @str.should include('JO  - Ethology')
-      @str.should include('VL  - 114')
-      @str.should include('SP  - 1227')
-      @str.should include('EP  - 1238')
-      @str.should include('PY  - 2008')
-      @str.should be_end_with("ER  - \n")
+      expect(@str).to be_start_with("TY  - JOUR\n")
+      expect(@str).to include('AU  - Botero,Carlos A.')
+      expect(@str).to include('AU  - Mudge,Andrew E.')
+      expect(@str).to include('AU  - Koltz,Amanda M.')
+      expect(@str).to include('AU  - Hochachka,Wesley M.')
+      expect(@str).to include('AU  - Vehrencamp,Sandra L.')
+      expect(@str).to include('TI  - How Reliable are the Methods for Estimating Repertoire Size?')
+      expect(@str).to include('JO  - Ethology')
+      expect(@str).to include('VL  - 114')
+      expect(@str).to include('SP  - 1227')
+      expect(@str).to include('EP  - 1238')
+      expect(@str).to include('PY  - 2008')
+      expect(@str).to be_end_with("ER  - \n")
     end
   end
 
@@ -34,8 +34,8 @@ describe Serializers::RIS do
     end
 
     it 'creates good RIS' do
-      @str.should be_start_with("TY  - JOUR\n")
-      @str.should include("ER  - \nTY  - JOUR\n")
+      expect(@str).to be_start_with("TY  - JOUR\n")
+      expect(@str).to include("ER  - \nTY  - JOUR\n")
     end
   end
 

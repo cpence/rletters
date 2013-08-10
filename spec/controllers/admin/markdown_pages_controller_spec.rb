@@ -17,12 +17,12 @@ describe Admin::MarkdownPagesController do
     end
 
     it 'loads successfully' do
-      response.should be_success
+      expect(response).to be_success
     end
 
     it 'includes some of the markdown pages' do
-      response.body.should include('Tutorial')
-      response.body.should include('Privacy Notice (full)')
+      expect(response.body).to include('Tutorial')
+      expect(response.body).to include('Privacy Notice (full)')
     end
   end
 
@@ -33,11 +33,11 @@ describe Admin::MarkdownPagesController do
     end
 
     it 'loads successfully' do
-      response.should be_success
+      expect(response).to be_success
     end
 
     it 'renders the page Markdown to HTML' do
-      response.body.should include('<a href="https://github.com/cpence/rletters/wiki/Contributing-Translations">')
+      expect(response.body).to include('<a href="https://github.com/cpence/rletters/wiki/Contributing-Translations">')
     end
   end
 
@@ -48,11 +48,11 @@ describe Admin::MarkdownPagesController do
     end
 
     it 'loads successfully' do
-      response.should be_success
+      expect(response).to be_success
     end
 
     it 'has a textarea field for the content' do
-      response.body.should have_tag('textarea[name="markdown_page[content]"]')
+      expect(response.body).to have_tag('textarea[name="markdown_page[content]"]')
     end
   end
 

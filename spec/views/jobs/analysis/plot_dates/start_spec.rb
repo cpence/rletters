@@ -20,7 +20,7 @@ describe 'jobs/plot_dates/start' do
                    class: 'PlotDates',
                    id: @dataset.to_param)
 
-    rendered.should have_tag("a[href='#{link}']")
+    expect(rendered).to have_tag("a[href='#{link}']")
   end
 
 end

@@ -13,14 +13,14 @@ describe LibrariesController do
   describe '#index' do
     it 'loads successfully' do
       get :index
-      response.should be_success
+      expect(response).to be_success
     end
   end
 
   describe '#new' do
     it 'loads successfully' do
       get :new
-      response.should be_success
+      expect(response).to be_success
     end
   end
 
@@ -36,7 +36,7 @@ describe LibrariesController do
       it 'redirects to the user page' do
         post :create,
              library: FactoryGirl.attributes_for(:library, user: @user)
-        response.should redirect_to(edit_user_registration_path)
+        expect(response).to redirect_to(edit_user_registration_path)
       end
     end
 
@@ -55,7 +55,7 @@ describe LibrariesController do
              library: FactoryGirl.attributes_for(:library,
                                                  url: 'what:nope',
                                                  user: @user)
-        response.should_not redirect_to(edit_user_registration_path)
+        expect(response).not_to redirect_to(edit_user_registration_path)
       end
     end
   end
@@ -63,7 +63,7 @@ describe LibrariesController do
   describe '#edit' do
     it 'loads successfully' do
       get :edit, id: @library.to_param
-      response.should be_success
+      expect(response).to be_success
     end
   end
 
@@ -72,12 +72,12 @@ describe LibrariesController do
       it 'edits the library' do
         put :update, id: @library.to_param, library: { name: 'Woo' }
         @library.reload
-        @library.name.should eq('Woo')
+        expect(@library.name).to eq('Woo')
       end
 
       it 'redirects to the user page' do
         put :update, id: @library.to_param, library: { name: 'Woo' }
-        response.should redirect_to(edit_user_registration_path)
+        expect(response).to redirect_to(edit_user_registration_path)
       end
     end
 
@@ -86,12 +86,12 @@ describe LibrariesController do
         put :update, id: @library.to_param, library: { url: 'what:nope' }
 
         @library.reload
-        @library.url.should_not eq('1234%%#$')
+        expect(@library.url).not_to eq('1234%%#$')
       end
 
       it 'renders the edit form' do
         put :update, id: @library.to_param, library: { url: 'what:nope' }
-        response.should_not redirect_to(edit_user_registration_path)
+        expect(response).not_to redirect_to(edit_user_registration_path)
       end
     end
   end
@@ -99,7 +99,7 @@ describe LibrariesController do
   describe '#delete' do
     it 'loads successfully' do
       get :delete, id: @library.to_param
-      response.should be_success
+      expect(response).to be_success
     end
   end
 
@@ -113,7 +113,7 @@ describe LibrariesController do
 
       it 'redirects to the user page' do
         delete :destroy, id: @library.to_param, cancel: true
-        response.should redirect_to(edit_user_registration_path)
+        expect(response).to redirect_to(edit_user_registration_path)
       end
     end
 
@@ -126,7 +126,7 @@ describe LibrariesController do
 
       it 'redirects to the user page' do
         delete :destroy, id: @library.to_param, cancel: true
-        response.should redirect_to(edit_user_registration_path)
+        expect(response).to redirect_to(edit_user_registration_path)
       end
     end
   end
@@ -136,7 +136,7 @@ describe LibrariesController do
             vcr: { cassette_name: 'libraries_query_empty' } do
       it 'assigns no libraries' do
         get :query
-        assigns(:libraries).should have(0).items
+        expect(assigns(:libraries)).to have(0).items
       end
     end
 
@@ -144,7 +144,7 @@ describe LibrariesController do
             vcr: { cassette_name: 'libraries_query_notredame' } do
       it 'assigns the libraries' do
         get :query
-        assigns(:libraries).should have(1).item
+        expect(assigns(:libraries)).to have(1).item
       end
     end
 
@@ -153,7 +153,7 @@ describe LibrariesController do
         stub_request(:any,
                      %r{worldcatlibraries.org/registry/lookup.*}).to_timeout
         get :query
-        assigns(:libraries).should have(0).items
+        expect(assigns(:libraries)).to have(0).items
       end
     end
   end

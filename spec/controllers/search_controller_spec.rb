@@ -11,7 +11,7 @@ describe SearchController do
       end
 
       it 'loads successfully' do
-        response.should be_success
+        expect(response).to be_success
       end
     end
 
@@ -22,65 +22,65 @@ describe SearchController do
       end
 
       it 'assigns the documents variable' do
-        assigns(:documents).should be
+        expect(assigns(:documents)).to be
       end
 
       it 'assigns the right number of documents' do
-        assigns(:documents).should have(10).items
+        expect(assigns(:documents)).to have(10).items
       end
 
       it 'assigns solr_q' do
-        assigns(:solr_q).should eq('*:*')
+        expect(assigns(:solr_q)).to eq('*:*')
       end
 
       it 'assigns solr_qt' do
-        assigns(:solr_qt).should eq('precise')
+        expect(assigns(:solr_qt)).to eq('precise')
       end
 
       it 'does not assign solr_fq' do
-        assigns(:solr_fq).should be_nil
+        expect(assigns(:solr_fq)).to be_nil
       end
 
       it 'sorts by year, descending' do
-        assigns(:sort).should eq('year_sort desc')
+        expect(assigns(:sort)).to eq('year_sort desc')
       end
     end
 
     context 'with faceted search results' do
       before(:each) do
-        Document.should_receive(:find_all_by_solr_query).and_return([])
+        expect(Document).to receive(:find_all_by_solr_query).and_return([])
         get :index, { fq: ['journal_facet:"Journal of Nothing"'] }
       end
 
       it 'assigns solr_fq' do
-        assigns(:solr_fq).should be
+        expect(assigns(:solr_fq)).to be
       end
 
       it 'sorts by year, descending' do
-        assigns(:sort).should eq('year_sort desc')
+        expect(assigns(:sort)).to eq('year_sort desc')
       end
     end
 
     context 'with a dismax search' do
       before(:each) do
-        Document.should_receive(:find_all_by_solr_query).and_return([])
+        expect(Document).to receive(:find_all_by_solr_query).and_return([])
         get :index, { q: 'testing' }
       end
 
       it 'assigns solr_q' do
-        assigns(:solr_q).should eq('testing')
+        expect(assigns(:solr_q)).to eq('testing')
       end
 
       it 'assigns solr_qt' do
-        assigns(:solr_qt).should eq('standard')
+        expect(assigns(:solr_qt)).to eq('standard')
       end
 
       it 'does not assign solr_fq' do
-        assigns(:solr_fq).should be_nil
+        expect(assigns(:solr_fq)).to be_nil
       end
 
       it 'sorts by score, descending' do
-        assigns(:sort).should eq('score desc')
+        expect(assigns(:sort)).to eq('score desc')
       end
     end
 
@@ -88,17 +88,17 @@ describe SearchController do
       it 'successfully parses those parameters' do
         default_sq = { q: '*:*', qt: 'precise' }
         options = { sort: 'year_sort desc', offset: 20, limit: 20 }
-        Document.should_receive(:find_all_by_solr_query).with(default_sq, options).and_return([])
+        expect(Document).to receive(:find_all_by_solr_query).with(default_sq, options).and_return([])
 
         get :index, { page: '1', per_page: '20' }
 
-        assigns(:documents).should have(0).items
+        expect(assigns(:documents)).to have(0).items
       end
 
       it 'does not throw an exception on non-integral page values' do
         default_sq = { q: '*:*', qt: 'precise' }
         options = { sort: 'year_sort desc', offset: 0, limit: 20 }
-        Document.should_receive(:find_all_by_solr_query).with(default_sq, options).and_return([])
+        expect(Document).to receive(:find_all_by_solr_query).with(default_sq, options).and_return([])
 
         expect {
           get :index, { page: 'zzyzzy', per_page: '20' }
@@ -108,7 +108,7 @@ describe SearchController do
       it 'does not throw an exception on non-integral per_page values' do
         default_sq = { q: '*:*', qt: 'precise' }
         options = { sort: 'year_sort desc', offset: 10, limit: 10 }
-        Document.should_receive(:find_all_by_solr_query).with(default_sq, options).and_return([])
+        expect(Document).to receive(:find_all_by_solr_query).with(default_sq, options).and_return([])
 
         expect {
           get :index, { page: '1', per_page: 'zzyzzy' }
@@ -118,7 +118,7 @@ describe SearchController do
       it 'does not let the user specify zero items per page' do
         default_sq = { q: '*:*', qt: 'precise' }
         options = { sort: 'year_sort desc', offset: 10, limit: 10 }
-        Document.should_receive(:find_all_by_solr_query).with(default_sq, options).and_return([])
+        expect(Document).to receive(:find_all_by_solr_query).with(default_sq, options).and_return([])
 
         get :index, { page: '1', per_page: '0' }
       end
@@ -129,12 +129,12 @@ describe SearchController do
     context 'when displaying as HTML' do
       it 'loads successfully' do
         get :show, { id: FactoryGirl.generate(:working_shasum) }
-        response.should be_success
+        expect(response).to be_success
       end
 
       it 'assigns document' do
         get :show, { id: FactoryGirl.generate(:working_shasum) }
-        assigns(:document).should be
+        expect(assigns(:document)).to be
       end
     end
 
@@ -142,61 +142,61 @@ describe SearchController do
       it 'exports in MARC format' do
         get :show, { id: FactoryGirl.generate(:working_shasum),
                      format: 'marc' }
-        response.should be_valid_download('application/marc')
+        expect(response).to be_valid_download('application/marc')
       end
 
       it 'exports in MARC-JSON format' do
         get :show, { id: FactoryGirl.generate(:working_shasum),
                      format: 'json' }
-        response.should be_valid_download('application/json')
+        expect(response).to be_valid_download('application/json')
       end
 
       it 'exports in MARC-XML format' do
         get :show, { id: FactoryGirl.generate(:working_shasum),
                      format: 'marcxml' }
-        response.should be_valid_download('application/marcxml+xml')
+        expect(response).to be_valid_download('application/marcxml+xml')
       end
 
       it 'exports in BibTeX format' do
         get :show, { id: FactoryGirl.generate(:working_shasum),
                      format: 'bibtex' }
-        response.should be_valid_download('application/x-bibtex')
+        expect(response).to be_valid_download('application/x-bibtex')
       end
 
       it 'exports in EndNote format' do
         get :show, { id:  FactoryGirl.generate(:working_shasum),
                      format: 'endnote' }
-        response.should be_valid_download('application/x-endnote-refer')
+        expect(response).to be_valid_download('application/x-endnote-refer')
       end
 
       it 'exports in RIS format' do
         get :show, { id:  FactoryGirl.generate(:working_shasum),
                      format: 'ris' }
-        response.should be_valid_download('application/x-research-info-systems')
+        expect(response).to be_valid_download('application/x-research-info-systems')
       end
 
       it 'exports in MODS format' do
         get :show, { id:  FactoryGirl.generate(:working_shasum),
                      format: 'mods' }
-        response.should be_valid_download('application/mods+xml')
+        expect(response).to be_valid_download('application/mods+xml')
       end
 
       it 'exports in RDF/XML format' do
         get :show, { id:  FactoryGirl.generate(:working_shasum),
                      format: 'rdf' }
-        response.should be_valid_download('application/rdf+xml')
+        expect(response).to be_valid_download('application/rdf+xml')
       end
 
       it 'exports in RDF/N3 format' do
         get :show, { id: FactoryGirl.generate(:working_shasum),
                      format: 'n3' }
-        response.should be_valid_download('text/rdf+n3')
+        expect(response).to be_valid_download('text/rdf+n3')
       end
 
       it 'fails to export an invalid format' do
         get :show, { id: FactoryGirl.generate(:working_shasum),
                      format: 'csv' }
-        controller.response.response_code.should eq(406)
+        expect(controller.response.response_code).to eq(406)
       end
     end
   end
@@ -209,7 +209,7 @@ describe SearchController do
 
     it 'loads successfully' do
       get :add, { id: FactoryGirl.generate(:working_shasum) }
-      response.should be_success
+      expect(response).to be_success
     end
   end
 
@@ -225,7 +225,7 @@ describe SearchController do
 
       it 'redirects to Mendeley' do
         get :to_mendeley, { id: '00972c5123877961056b21aea4177d0dc69c7318' }
-        response.should redirect_to('http://www.mendeley.com/research/reliable-methods-estimating-repertoire-size-1/')
+        expect(response).to redirect_to('http://www.mendeley.com/research/reliable-methods-estimating-repertoire-size-1/')
       end
     end
 
@@ -254,7 +254,7 @@ describe SearchController do
     context 'when request succeeds' do
       it 'redirects to citeulike' do
         get :to_citeulike, { id: '00972c5123877961056b21aea4177d0dc69c7318' }
-        response.should redirect_to('http://www.citeulike.org/article/3509563')
+        expect(response).to redirect_to('http://www.citeulike.org/article/3509563')
       end
     end
 
@@ -274,14 +274,14 @@ describe SearchController do
   describe '#advanced' do
     it 'loads successfully' do
       get :advanced
-      response.should be_success
+      expect(response).to be_success
     end
   end
 
   describe '#sort_methods' do
     it 'loads successfully' do
       get :sort_methods
-      response.should be_success
+      expect(response).to be_success
     end
   end
 

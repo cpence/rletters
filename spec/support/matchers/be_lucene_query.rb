@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 RSpec::Matchers.define :be_lucene_query do |expected|
   match do |actual|
-    query_to_array(actual).should =~ expected
+    expect(query_to_array(actual)).to match_array(expected)
   end
 
   def query_to_array(str)

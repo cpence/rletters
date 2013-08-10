@@ -59,11 +59,11 @@ describe Jobs::Analysis::WordFrequency,
       end
 
       it 'names the task correctly' do
-        @dataset.analysis_tasks[0].name.should eq('Word frequency list')
+        expect(@dataset.analysis_tasks[0].name).to eq('Word frequency list')
       end
 
       it 'creates good CSV' do
-        @output.should be_an(Array)
+        expect(@output).to be_an(Array)
       end
     end
   end

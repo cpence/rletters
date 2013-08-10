@@ -10,7 +10,7 @@ describe DatasetEntry do
       end
 
       it 'is not valid' do
-        @entry.should_not be_valid
+        expect(@entry).not_to be_valid
       end
     end
 
@@ -20,7 +20,7 @@ describe DatasetEntry do
       end
 
       it 'is not valid' do
-        @entry.should_not be_valid
+        expect(@entry).not_to be_valid
       end
     end
 
@@ -30,7 +30,7 @@ describe DatasetEntry do
       end
 
       it 'is not valid' do
-        @entry.should_not be_valid
+        expect(@entry).not_to be_valid
       end
     end
 
@@ -40,7 +40,7 @@ describe DatasetEntry do
       end
 
       it 'is valid' do
-        @entry.should be_valid
+        expect(@entry).to be_valid
       end
     end
   end

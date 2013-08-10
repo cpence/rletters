@@ -10,7 +10,7 @@ describe Download do
       end
 
       it 'is not valid' do
-        @dl.should_not be_valid
+        expect(@dl).not_to be_valid
       end
     end
 
@@ -20,7 +20,7 @@ describe Download do
       end
 
       it 'is not valid' do
-        @dl.should_not be_valid
+        expect(@dl).not_to be_valid
       end
     end
 
@@ -30,7 +30,7 @@ describe Download do
       end
 
       it 'is valid' do
-        @dl.should be_valid
+        expect(@dl).to be_valid
       end
     end
 
@@ -40,7 +40,7 @@ describe Download do
       end
 
       it 'is valid' do
-        @dl.should be_valid
+        expect(@dl).to be_valid
       end
     end
   end
@@ -58,15 +58,15 @@ describe Download do
       end
 
       it 'is successful' do
-        @dl.should be
+        expect(@dl).to be
       end
 
       it 'creates the file' do
-        File.exists?(@dl.filename).should be_true
+        expect(File.exists?(@dl.filename)).to be_true
       end
 
       it 'has the right contents' do
-        IO.read(@dl.filename).should eq('1234567890')
+        expect(IO.read(@dl.filename)).to eq('1234567890')
       end
     end
 
@@ -75,7 +75,7 @@ describe Download do
         filename = @dl.filename
         @dl.destroy
 
-        File.exists?(filename).should be_false
+        expect(File.exists?(filename)).to be_false
       end
     end
 
@@ -87,7 +87,7 @@ describe Download do
           end
         end
         filenames = files.map { |f| f.filename }
-        filenames.uniq!.should be_nil
+        expect(filenames.uniq!).to be_nil
 
         files.each { |f| f.destroy }
       end

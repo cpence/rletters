@@ -11,7 +11,8 @@ describe Serializers::OpenURL do
 
     # rubocop:disable LineContinuation
     it 'creates good OpenURL params' do
-      @params.should eq('ctx_ver=Z39.88-2004&rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3A' \
+      expect(@params).to eq(
+        'ctx_ver=Z39.88-2004&rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3A' \
         'mtx%3Ajournal&rft.genre=article&' \
         'rft_id=info:doi%2F10.1111%2Fj.1439-0310.2008.01576.x' \
         '&rft.atitle=How+Reliable+are+the+Methods+for+' \
@@ -20,7 +21,8 @@ describe Serializers::OpenURL do
         '&rft.spage=1227&rft.epage=1238&rft.aufirst=Carlos+A.' \
         '&rft.aulast=Botero&rft.au=Andrew+E.+Mudge' \
         '&rft.au=Amanda+M.+Koltz&rft.au=Wesley+M.+Hochachka' \
-        '&rft.au=Sandra+L.+Vehrencamp')
+        '&rft.au=Sandra+L.+Vehrencamp'
+      )
     end
     # rubocop:enable LineContinuation
   end

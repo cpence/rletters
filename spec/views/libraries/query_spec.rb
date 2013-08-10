@@ -5,8 +5,8 @@ describe 'libraries/query' do
 
   before(:each) do
     @user = FactoryGirl.create(:user)
-    view.stub(:current_user) { @user }
-    view.stub(:user_signed_in?) { true }
+    allow(view).to receive(:current_user).and_return(@user)
+    allow(view).to receive(:user_signed_in?).and_return(true)
   end
 
   context 'when libraries are assigned' do
@@ -19,15 +19,15 @@ describe 'libraries/query' do
     end
 
     it 'has a form for adding the library' do
-      rendered.should have_tag('form')
+      expect(rendered).to have_tag('form')
     end
 
     it 'has an input field for the library name' do
-      rendered.should have_tag('input[value="University of Notre Dame"]')
+      expect(rendered).to have_tag('input[value="University of Notre Dame"]')
     end
 
     it 'has an input field for the library URL' do
-      rendered.should have_tag('input[value="http://findtext.library.nd.edu:8889/ndu_local?"]')
+      expect(rendered).to have_tag('input[value="http://findtext.library.nd.edu:8889/ndu_local?"]')
     end
   end
 
@@ -38,7 +38,7 @@ describe 'libraries/query' do
     end
 
     it 'has no library forms' do
-      rendered.should_not have_tag('form')
+      expect(rendered).not_to have_tag('form')
     end
   end
 

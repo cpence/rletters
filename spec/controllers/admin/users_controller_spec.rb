@@ -18,12 +18,12 @@ describe Admin::UsersController do
     end
 
     it 'loads successfully' do
-      response.should be_success
+      expect(response).to be_success
     end
 
     it 'includes the user' do
-      response.body.should include(@user.email)
-      response.body.should include(@user.name)
+      expect(response.body).to include(@user.email)
+      expect(response.body).to include(@user.name)
     end
   end
 

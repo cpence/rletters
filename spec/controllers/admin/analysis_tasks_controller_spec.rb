@@ -18,11 +18,11 @@ describe Admin::AnalysisTasksController do
     end
 
     it 'loads successfully' do
-      response.should be_success
+      expect(response).to be_success
     end
 
     it 'includes the analysis task' do
-      response.body.should include(@task.name)
+      expect(response.body).to include(@task.name)
     end
   end
 

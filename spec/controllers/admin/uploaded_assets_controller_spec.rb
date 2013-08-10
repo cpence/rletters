@@ -17,12 +17,12 @@ describe Admin::UploadedAssetsController do
     end
 
     it 'loads successfully' do
-      response.should be_success
+      expect(response).to be_success
     end
 
     it 'includes some of the uploaded assets' do
-      response.body.should include('Splash Screen (320x460)')
-      response.body.should include('App Icon (precomposed, 57x57)')
+      expect(response.body).to include('Splash Screen (320x460)')
+      expect(response.body).to include('App Icon (precomposed, 57x57)')
     end
   end
 
@@ -33,11 +33,11 @@ describe Admin::UploadedAssetsController do
     end
 
     it 'loads successfully' do
-      response.should be_success
+      expect(response).to be_success
     end
 
     it 'shows the asset image on the page' do
-      response.body.should match(/<img[^>]*src="#{Regexp.escape(@asset.file.url)}"[^>]*\/>/)
+      expect(response.body).to match(/<img[^>]*src="#{Regexp.escape(@asset.file.url)}"[^>]*\/>/)
     end
   end
 
@@ -48,11 +48,11 @@ describe Admin::UploadedAssetsController do
     end
 
     it 'loads successfully' do
-      response.should be_success
+      expect(response).to be_success
     end
 
     it 'has an upload button for the asset' do
-      response.body.should have_tag('input[name="uploaded_asset[file]"]')
+      expect(response.body).to have_tag('input[name="uploaded_asset[file]"]')
     end
   end
 

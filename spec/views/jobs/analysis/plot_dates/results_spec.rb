@@ -28,7 +28,7 @@ describe 'jobs/plot_dates/results' do
   it 'shows the year and count in a table row' do
     render
 
-    rendered.should have_tag('tbody tr') do
+    expect(rendered).to have_tag('tbody tr') do
       with_tag('td', text: '2003')
       with_tag('td', text: '13')
     end
@@ -43,7 +43,7 @@ describe 'jobs/plot_dates/results' do
                        task_id: @task.to_param,
                        view: 'download',
                        format: 'csv')
-    rendered.should have_tag("a[href='#{expected}']")
+    expect(rendered).to have_tag("a[href='#{expected}']")
   end
 
 end

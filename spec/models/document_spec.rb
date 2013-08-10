@@ -11,7 +11,7 @@ describe Document do
       end
 
       it 'is not valid' do
-        @doc.should_not be_valid
+        expect(@doc).not_to be_valid
       end
     end
 
@@ -21,7 +21,7 @@ describe Document do
       end
 
       it 'is not valid' do
-        @doc.should_not be_valid
+        expect(@doc).not_to be_valid
       end
     end
 
@@ -31,7 +31,7 @@ describe Document do
       end
 
       it 'is not valid' do
-        @doc.should_not be_valid
+        expect(@doc).not_to be_valid
       end
     end
 
@@ -41,7 +41,7 @@ describe Document do
       end
 
       it 'is valid' do
-        @doc.should be_valid
+        expect(@doc).to be_valid
       end
     end
   end
@@ -54,7 +54,7 @@ describe Document do
       end
 
       it 'loads the document successfully' do
-        @doc.should be
+        expect(@doc).to be
       end
     end
 
@@ -81,7 +81,7 @@ describe Document do
       end
 
       it 'loads the document successfully' do
-        @doc.should be
+        expect(@doc).to be
       end
     end
 
@@ -108,14 +108,14 @@ describe Document do
       end
 
       it 'loads all of the documents' do
-        @docs.should have(10).items
+        expect(@docs).to have(10).items
       end
     end
 
     context 'when no documents are returned',
             vcr: { cassette_name: 'solr_fail' } do
       it 'returns an empty array' do
-        Document.find_all_by_solr_query({ q: 'shasum:fail', qt: 'precise' }).should have(0).items
+        expect(Document.find_all_by_solr_query({ q: 'shasum:fail', qt: 'precise' })).to have(0).items
       end
     end
 
@@ -135,7 +135,7 @@ describe Document do
       end
 
       it 'sets num_results to 1' do
-        Document.num_results.should eq(1)
+        expect(Document.num_results).to eq(1)
       end
     end
 
@@ -146,7 +146,7 @@ describe Document do
       end
 
       it 'sets num_results' do
-        Document.num_results.should eq(1042)
+        expect(Document.num_results).to eq(1042)
       end
     end
   end
@@ -161,8 +161,8 @@ describe Document do
       end
 
       it 'does not load facets if there are none' do
-        Document.facets.all.should have(0).facets
-        Document.facets.should be_empty
+        expect(Document.facets.all).to have(0).facets
+        expect(Document.facets).to be_empty
       end
     end
 
@@ -173,61 +173,61 @@ describe Document do
       end
 
       it 'sets the facets' do
-        Document.facets.all.should have_at_least(1).facet
-        Document.facets.should_not be_empty
+        expect(Document.facets.all).to have_at_least(1).facet
+        expect(Document.facets).not_to be_empty
       end
 
       it 'has the right facet hash keys' do
-        Document.facets.for_field(:authors_facet).should have_at_least(1).facet
-        Document.facets.for_field(:journal_facet).should have_at_least(1).facet
-        Document.facets.for_field(:year).should have_at_least(1).facet
+        expect(Document.facets.for_field(:authors_facet)).to have_at_least(1).facet
+        expect(Document.facets.for_field(:journal_facet)).to have_at_least(1).facet
+        expect(Document.facets.for_field(:year)).to have_at_least(1).facet
       end
 
       it 'sorts them appropriately when asked' do
-        Document.facets.sorted_for_field(:year).first.label.should eq('2000–2009')
+        expect(Document.facets.sorted_for_field(:year).first.label).to eq('2000–2009')
       end
 
       it 'can pick out facets by query' do
-        Document.facets.for_query('year:[2000 TO 2009]').should be
-        Document.facets.for_query('authors_facet:"J. C. Crabbe"').should be
+        expect(Document.facets.for_query('year:[2000 TO 2009]')).to be
+        expect(Document.facets.for_query('authors_facet:"J. C. Crabbe"')).to be
       end
 
       it 'parses authors_facet correctly' do
         f = Document.facets.for_field(:authors_facet).find { |o| o.value == 'J. C. Crabbe' }
-        f.should be
-        f.hits.should eq(9)
+        expect(f).to be
+        expect(f.hits).to eq(9)
       end
 
       it 'does not include authors_facet entries for authors not present' do
         f = Document.facets.for_field(:authors_facet).find { |o| o.value == 'W. Shatner' }
-        f.should_not be
+        expect(f).not_to be
       end
 
       it 'does not include authors_facet entries for authors with no hits' do
         f = Document.facets.for_field(:authors_facet).find { |o| o.value == 'No Hits' }
-        f.should_not be
+        expect(f).not_to be
       end
 
       it 'parses journal_facet correctly' do
         f = Document.facets.for_field(:journal_facet).find { |o| o.value == 'Ethology' }
-        f.should be
-        f.hits.should eq(594)
+        expect(f).to be
+        expect(f.hits).to eq(594)
       end
 
       it 'does not include journal_facet entries for journals not present' do
         f = Document.facets.for_field(:journal_facet).find { |o| o.value == 'Journal of Nothing' }
-        f.should_not be
+        expect(f).not_to be
       end
 
       it 'parses year facet queries correctly' do
         f = Document.facets.for_field(:year).find { |o| o.value == '[2000 TO 2009]' }
-        f.should be
-        f.hits.should eq(788)
+        expect(f).to be
+        expect(f.hits).to eq(788)
       end
 
       it 'does not include year facet queries for non-present years' do
         f = Document.facets.for_field(:year).find { |o| o.value == '[1940 TO 1949]' }
-        f.should_not be
+        expect(f).not_to be
       end
     end
   end
@@ -242,11 +242,11 @@ describe Document do
       end
 
       it 'gets the right shasum' do
-        @doc.shasum.should eq('00972c5123877961056b21aea4177d0dc69c7318')
+        expect(@doc.shasum).to eq('00972c5123877961056b21aea4177d0dc69c7318')
       end
 
       it 'does not have any fulltext' do
-        @doc.fulltext.should be_nil
+        expect(@doc.fulltext).to be_nil
       end
     end
 
@@ -257,11 +257,11 @@ describe Document do
       end
 
       it 'gets the right shasum' do
-        @doc.shasum.should eq('00972c5123877961056b21aea4177d0dc69c7318')
+        expect(@doc.shasum).to eq('00972c5123877961056b21aea4177d0dc69c7318')
       end
 
       it 'loads the fulltext' do
-        @doc.fulltext.should be
+        expect(@doc.fulltext).to be
       end
     end
 
@@ -272,47 +272,47 @@ describe Document do
       end
 
       it 'sets the shasum' do
-        @docs[0].shasum.should eq('00040b66948f49c3a6c6c0977530e2014899abf9')
+        expect(@docs[0].shasum).to eq('00040b66948f49c3a6c6c0977530e2014899abf9')
       end
 
       it 'sets the doi' do
-        @docs[3].doi.should eq('10.1111/j.1439-0310.2009.01716.x')
+        expect(@docs[3].doi).to eq('10.1111/j.1439-0310.2009.01716.x')
       end
 
       it 'sets the license' do
-        @docs[0].license.should eq('© Blackwell Verlag GmbH')
+        expect(@docs[0].license).to eq('© Blackwell Verlag GmbH')
       end
 
       it 'does not set the license URL (none specified)' do
-        @docs[2].license_url.should_not be
+        expect(@docs[2].license_url).not_to be
       end
 
       it 'sets the authors' do
-        @docs[9].authors.should eq('Troy G. Murphy')
+        expect(@docs[9].authors).to eq('Troy G. Murphy')
       end
 
       it 'sets the title' do
-        @docs[2].title.should eq('New Books')
+        expect(@docs[2].title).to eq('New Books')
       end
 
       it 'sets the journal' do
-        @docs[0].journal.should eq('Ethology')
+        expect(@docs[0].journal).to eq('Ethology')
       end
 
       it 'sets the year' do
-        @docs[5].year.should eq('2001')
+        expect(@docs[5].year).to eq('2001')
       end
 
       it 'sets the volume' do
-        @docs[7].volume.should eq('104')
+        expect(@docs[7].volume).to eq('104')
       end
 
       it 'sets the pages' do
-        @docs[8].pages.should eq('181-187')
+        expect(@docs[8].pages).to eq('181-187')
       end
 
       it 'does not set the fulltext' do
-        @docs[1].fulltext.should be_nil
+        expect(@docs[1].fulltext).to be_nil
       end
     end
   end
@@ -325,15 +325,15 @@ describe Document do
       end
 
       it 'gets the right number of authors' do
-        @doc.author_list.should have(5).items
+        expect(@doc.author_list).to have(5).items
       end
 
       it 'gets the right first author' do
-        @doc.author_list[0].should eq('Carlos A. Botero')
+        expect(@doc.author_list[0]).to eq('Carlos A. Botero')
       end
 
       it 'gets the right fourth author' do
-        @doc.author_list[3].should eq('Wesley M. Hochachka')
+        expect(@doc.author_list[3]).to eq('Wesley M. Hochachka')
       end
     end
   end
@@ -346,15 +346,15 @@ describe Document do
       end
 
       it 'gets the right number of authors' do
-        @doc.formatted_author_list.should have(5).items
+        expect(@doc.formatted_author_list).to have(5).items
       end
 
       it 'gets the right second author, first name' do
-        @doc.formatted_author_list[1].first.should eq('Andrew E.')
+        expect(@doc.formatted_author_list[1].first).to eq('Andrew E.')
       end
 
       it 'gets the right fifth author, last name' do
-        @doc.formatted_author_list[4].last.should eq('Vehrencamp')
+        expect(@doc.formatted_author_list[4].last).to eq('Vehrencamp')
       end
     end
   end
@@ -367,11 +367,11 @@ describe Document do
       end
 
       it 'parses start_page correctly' do
-        @doc.start_page.should eq('1227')
+        expect(@doc.start_page).to eq('1227')
       end
 
       it 'parses end_page correctly' do
-        @doc.end_page.should eq('1238')
+        expect(@doc.end_page).to eq('1238')
       end
     end
 
@@ -381,11 +381,11 @@ describe Document do
       end
 
       it 'parses start_page correctly' do
-        @doc.start_page.should eq('1483')
+        expect(@doc.start_page).to eq('1483')
       end
 
       it 'parses end_page correctly' do
-        @doc.end_page.should eq('1492')
+        expect(@doc.end_page).to eq('1492')
       end
     end
   end
@@ -398,7 +398,7 @@ describe Document do
       end
 
       it 'does not set any term vectors' do
-        @doc.term_vectors.should be_nil
+        expect(@doc.term_vectors).to be_nil
       end
     end
 
@@ -409,32 +409,32 @@ describe Document do
       end
 
       it 'sets the term vectors' do
-        @doc.term_vectors.should be
+        expect(@doc.term_vectors).to be
       end
 
       it 'sets tf' do
-        @doc.term_vectors['m'][:tf].should eq(2)
+        expect(@doc.term_vectors['m'][:tf]).to eq(2)
       end
 
       it 'sets offsets',
          vcr: { cassette_name: 'solr_single_fulltext_offsets' } do
-        @doc.term_vectors['vehrencampf'][:offsets][0].should eq(162...173)
+        expect(@doc.term_vectors['vehrencampf'][:offsets][0]).to eq(162...173)
       end
 
       it 'sets positions' do
-        @doc.term_vectors['center'][:positions][0].should eq(26)
+        expect(@doc.term_vectors['center'][:positions][0]).to eq(26)
       end
 
       it 'sets df' do
-        @doc.term_vectors['reliable'][:df].should eq(1.0)
+        expect(@doc.term_vectors['reliable'][:df]).to eq(1.0)
       end
 
       it 'sets tfidf' do
-        @doc.term_vectors['andrew'][:tfidf].should be_within(0.001).of(0.06666)
+        expect(@doc.term_vectors['andrew'][:tfidf]).to be_within(0.001).of(0.06666)
       end
 
       it 'does not set anything for terms that do not appear' do
-        @doc.term_vectors['zuzax'].should_not be
+        expect(@doc.term_vectors['zuzax']).not_to be
       end
     end
   end

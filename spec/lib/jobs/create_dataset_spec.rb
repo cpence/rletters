@@ -28,12 +28,12 @@ describe Jobs::CreateDataset do
     end
 
     it 'creates a dataset' do
-      @user.datasets.should have(1).items
-      @user.datasets[0].should be
+      expect(@user.datasets).to have(1).items
+      expect(@user.datasets[0]).to be
     end
 
     it 'puts the right number of items in the dataset' do
-      @user.datasets[0].entries.should have_at_least(10).items
+      expect(@user.datasets[0].entries).to have_at_least(10).items
     end
   end
 
@@ -48,12 +48,12 @@ describe Jobs::CreateDataset do
     end
 
     it 'creates a dataset' do
-      @user.datasets.should have(1).items
-      @user.datasets[0].should be
+      expect(@user.datasets).to have(1).items
+      expect(@user.datasets[0]).to be
     end
 
     it 'puts the right number of items in the dataset' do
-      @user.datasets[0].entries.should have(1042).items
+      expect(@user.datasets[0].entries).to have(1042).items
     end
   end
 

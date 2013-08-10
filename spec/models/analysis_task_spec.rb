@@ -10,7 +10,7 @@ describe AnalysisTask do
       end
 
       it 'is not valid' do
-        @task.should_not be_valid
+        expect(@task).not_to be_valid
       end
     end
 
@@ -20,7 +20,7 @@ describe AnalysisTask do
       end
 
       it 'is not valid' do
-        @task.should_not be_valid
+        expect(@task).not_to be_valid
       end
     end
 
@@ -30,7 +30,7 @@ describe AnalysisTask do
       end
 
       it 'is not valid' do
-        @task.should_not be_valid
+        expect(@task).not_to be_valid
       end
     end
 
@@ -40,7 +40,7 @@ describe AnalysisTask do
       end
 
       it 'is valid' do
-        @task.should be_valid
+        expect(@task).to be_valid
       end
     end
   end
@@ -52,7 +52,7 @@ describe AnalysisTask do
       end
 
       it 'is not set' do
-        @task.finished_at.should be_nil
+        expect(@task.finished_at).to be_nil
       end
     end
   end
@@ -64,7 +64,7 @@ describe AnalysisTask do
       end
 
       it 'is false' do
-        @task.finished_at.should be_false
+        expect(@task.finished_at).to be_false
       end
     end
   end
@@ -90,11 +90,11 @@ describe AnalysisTask do
       end
 
       it 'creates the file' do
-        File.exists?(@filename).should be_true
+        expect(File.exists?(@filename)).to be_true
       end
 
       it 'points to the right file' do
-        IO.read(@filename).should eq('test')
+        expect(IO.read(@filename)).to eq('test')
       end
     end
   end
@@ -107,7 +107,7 @@ describe AnalysisTask do
       end
 
       it 'deletes the file' do
-        File.exists?(@filename).should be_false
+        expect(File.exists?(@filename)).to be_false
       end
     end
   end
@@ -116,7 +116,7 @@ describe AnalysisTask do
     context 'with a good class' do
       it 'returns the class' do
         klass = AnalysisTask.job_class('ExportCitations')
-        klass.should eq(Jobs::Analysis::ExportCitations)
+        expect(klass).to eq(Jobs::Analysis::ExportCitations)
       end
     end
 
@@ -134,7 +134,7 @@ describe AnalysisTask do
       it 'returns the class' do
         task = FactoryGirl.create(:analysis_task, job_type: 'ExportCitations')
         klass = task.job_class
-        klass.should eq(Jobs::Analysis::ExportCitations)
+        expect(klass).to eq(Jobs::Analysis::ExportCitations)
       end
     end
 

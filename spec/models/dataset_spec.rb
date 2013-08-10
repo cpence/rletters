@@ -10,7 +10,7 @@ describe Dataset do
       end
 
       it 'is not valid' do
-        @dataset.should_not be_valid
+        expect(@dataset).not_to be_valid
       end
     end
 
@@ -20,7 +20,7 @@ describe Dataset do
       end
 
       it 'is not valid' do
-        @dataset.should_not be_valid
+        expect(@dataset).not_to be_valid
       end
     end
 
@@ -30,7 +30,7 @@ describe Dataset do
       end
 
       it 'is valid' do
-        @dataset.should be_valid
+        expect(@dataset).to be_valid
       end
     end
   end
@@ -48,11 +48,11 @@ describe Dataset do
       end
 
       it 'has one analysis task' do
-        @dataset.analysis_tasks.should have(1).items
+        expect(@dataset.analysis_tasks).to have(1).items
       end
 
       it 'points to the right analysis task' do
-        @dataset.analysis_tasks[0].name.should eq('test')
+        expect(@dataset.analysis_tasks[0].name).to eq('test')
       end
     end
   end
@@ -66,11 +66,11 @@ describe Dataset do
 
       it 'is connected to the user' do
         @user.datasets.reload
-        @user.datasets.should have(1).items
+        expect(@user.datasets).to have(1).items
       end
 
       it 'has the right number of entries' do
-        @dataset.entries.should have(2).items
+        expect(@dataset.entries).to have(2).items
       end
     end
   end

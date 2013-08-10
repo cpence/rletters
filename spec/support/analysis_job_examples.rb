@@ -60,8 +60,8 @@ shared_examples_for 'an analysis job' do
     include_context 'create job with params'
 
     it 'creates an analysis task' do
-      @dataset.analysis_tasks.should have(1).items
-      @dataset.analysis_tasks[0].should be
+      expect(@dataset.analysis_tasks).to have(1).items
+      expect(@dataset.analysis_tasks[0]).to be
     end
   end
 end
@@ -73,11 +73,11 @@ shared_examples_for 'an analysis job with a file' do
     include_context 'create job with params'
 
     it 'makes a file for the task' do
-      @dataset.analysis_tasks[0].result_file.should be
+      expect(@dataset.analysis_tasks[0].result_file).to be
     end
 
     it 'creates the file on disk' do
-      File.exists?(@dataset.analysis_tasks[0].result_file.filename).should be_true
+      expect(File.exists?(@dataset.analysis_tasks[0].result_file.filename)).to be_true
     end
   end
 end

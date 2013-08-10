@@ -23,70 +23,70 @@ describe UnapiController do
 
   it 'loads the formats page' do
     get_unapi
-    response.should be_success
+    expect(response).to be_success
   end
 
   it 'returns formats page with MIME type application/xml' do
     get_unapi
-    response.content_type.should eq('application/xml')
+    expect(response.content_type).to eq('application/xml')
   end
 
   it 'has a formats tag as its root' do
     get_unapi
-    @doc.root.name.should eq('formats')
+    expect(@doc.root.name).to eq('formats')
   end
 
   it 'has >0 formats in response' do
     get_unapi
-    @formats.should have_at_least(1).item
+    expect(@formats).to have_at_least(1).item
   end
 
   it 'gives each format a type' do
     get_unapi
     @formats.each do |f|
-      f.attributes.keys.should include('type')
+      expect(f.attributes.keys).to include('type')
     end
   end
 
   it 'gives each format a name' do
     get_unapi
     @formats.each do |f|
-      f.attributes.keys.should include('name')
+      expect(f.attributes.keys).to include('name')
     end
   end
 
   it 'returns MIME type application/xml for id request' do
     get_unapi true
-    response.content_type.should eq('application/xml')
+    expect(response.content_type).to eq('application/xml')
   end
 
   it 'responds with 300 for id without format' do
     get_unapi true
-    controller.response.response_code.should eq(300)
+    expect(controller.response.response_code).to eq(300)
   end
 
   it 'returns formats for request for id without format' do
     get_unapi true
-    @formats.should have_at_least(1).item
+    expect(@formats).to have_at_least(1).item
   end
 
   it 'each format (w/ id) has a type' do
     get_unapi true
     @formats.each do |f|
-      f.attributes.keys.should include('type')
+      expect(f.attributes.keys).to include('type')
     end
   end
 
   it 'each format (w/ id) has a name' do
     get_unapi true
     @formats.each do |f|
-      f.attributes.keys.should include('name')
+      expect(f.attributes.keys).to include('name')
     end
   end
 
   it 'responds with 406 for request w/ bad format' do
     get_unapi true, 'css'
-    controller.response.response_code.should eq(406)
+    expect(controller.response.response_code).to eq(406)
   end
 
   it 'succeeds when requesting id and format for all formats' do
@@ -94,7 +94,7 @@ describe UnapiController do
     @formats.each do |f|
       get_unapi true, f.attributes['name']
 
-      response.should redirect_to(
+      expect(response).to redirect_to(
         controller: 'search',
         action: 'show',
         id: @id,

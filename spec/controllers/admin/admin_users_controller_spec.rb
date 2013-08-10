@@ -17,11 +17,11 @@ describe Admin::AdminUsersController do
     end
 
     it 'loads successfully' do
-      response.should be_success
+      expect(response).to be_success
     end
 
     it 'includes the admin user' do
-      response.body.should include(@admin_user.email)
+      expect(response.body).to include(@admin_user.email)
     end
   end
 
@@ -31,11 +31,11 @@ describe Admin::AdminUsersController do
     end
 
     it 'loads successfully' do
-      response.should be_success
+      expect(response).to be_success
     end
 
     it 'has an edit field for the e-mail' do
-      response.body.should have_tag('input[name="admin_user[email]"]')
+      expect(response.body).to have_tag('input[name="admin_user[email]"]')
     end
   end
 

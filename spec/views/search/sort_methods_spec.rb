@@ -24,8 +24,8 @@ describe 'search/sort_methods', vcr: { cassette_name: 'solr_default' } do
 
   before(:each) do
     # Default to no signed-in user
-    view.stub(:current_user) { nil }
-    view.stub(:user_signed_in?) { false }
+    allow(view).to receive(:current_user).and_return(nil)
+    allow(view).to receive(:user_signed_in?).and_return(false)
 
     # No search, just default
     do_solr_query
@@ -35,12 +35,12 @@ describe 'search/sort_methods', vcr: { cassette_name: 'solr_default' } do
 
   it 'shows a link to sort by score' do
     expected = url_for(params.merge({ action: 'index', sort: 'score desc' }))
-    rendered.should have_tag("a[href='#{expected}']")
+    expect(rendered).to have_tag("a[href='#{expected}']")
   end
 
   it 'shows a link to sort ascending by journal' do
     expected = url_for(params.merge({ action: 'index', sort: 'journal_sort asc' }))
-    rendered.should have_tag("a[href='#{expected}']")
+    expect(rendered).to have_tag("a[href='#{expected}']")
   end
 
 end

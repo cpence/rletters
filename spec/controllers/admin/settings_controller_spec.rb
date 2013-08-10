@@ -17,12 +17,12 @@ describe Admin::SettingsController do
     end
 
     it 'loads successfully' do
-      response.should be_success
+      expect(response).to be_success
     end
 
     it 'includes all of the settings' do
       Setting.valid_keys.each do |k|
-        response.body.should include(I18n.t("settings.#{k}"))
+        expect(response.body).to include(I18n.t("settings.#{k}"))
       end
     end
 
@@ -34,7 +34,7 @@ describe Admin::SettingsController do
         default = Setting.send(method)
         next unless default
 
-        response.body.should include(default.to_s)
+        expect(response.body).to include(default.to_s)
       end
     end
   end
@@ -46,11 +46,11 @@ describe Admin::SettingsController do
     end
 
     it 'loads successfully' do
-      response.should be_success
+      expect(response).to be_success
     end
 
     it 'has a textarea field for the value' do
-      response.body.should have_tag('textarea[name="setting[value]"]')
+      expect(response.body).to have_tag('textarea[name="setting[value]"]')
     end
   end
 

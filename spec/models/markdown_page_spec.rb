@@ -10,7 +10,7 @@ describe MarkdownPage do
       end
 
       it 'is not valid' do
-        @page.should_not be_valid
+        expect(@page).not_to be_valid
       end
     end
 
@@ -20,7 +20,7 @@ describe MarkdownPage do
       end
 
       it 'is valid' do
-        @page.should be_valid
+        expect(@page).to be_valid
       end
     end
   end
@@ -33,11 +33,11 @@ describe MarkdownPage do
     it 'returns the plain name with no translation, friendly name with translation' do
       # There's no way to *delete* a translation from the I18n backend, so
       # we have to do this in one test to make sure they're in order
-      @page.friendly_name.should eq(@page.name)
+      expect(@page.friendly_name).to eq(@page.name)
 
       I18n.backend.store_translations :en, markdown_pages:
         { @page.name.to_sym => 'The Friendly Name' }
-      @page.friendly_name.should eq('The Friendly Name')
+      expect(@page.friendly_name).to eq('The Friendly Name')
     end
   end
 
@@ -48,13 +48,13 @@ describe MarkdownPage do
 
     context 'when a non-existent page is specified' do
       it 'returns an empty string' do
-        MarkdownPage.render('not_a_page_id').should eq('')
+        expect(MarkdownPage.render('not_a_page_id')).to eq('')
       end
     end
 
     context 'when an extant page is specified' do
       it 'renders the page' do
-        MarkdownPage.render(@page.name).should include('<h1 id="header">Header</h1>')
+        expect(MarkdownPage.render(@page.name)).to include('<h1 id="header">Header</h1>')
       end
     end
   end

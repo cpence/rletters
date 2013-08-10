@@ -18,19 +18,19 @@ describe Admin::DatasetsController do
     end
 
     it 'loads successfully' do
-      response.should be_success
+      expect(response).to be_success
     end
 
     it 'includes the dataset' do
-      response.body.should include(@dataset.name)
+      expect(response.body).to include(@dataset.name)
     end
 
     it 'includes the user who created it' do
-      response.body.should include(@dataset.user.name)
+      expect(response.body).to include(@dataset.user.name)
     end
 
     it 'includes the number of entries' do
-      response.body.should include(@dataset.entries.count.to_s)
+      expect(response.body).to include(@dataset.entries.count.to_s)
     end
   end
 

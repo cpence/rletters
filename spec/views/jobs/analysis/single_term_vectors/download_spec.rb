@@ -27,11 +27,11 @@ describe 'jobs/single_term_vectors/download' do
 
   it 'shows a header column' do
     render
-    rendered.should =~ /Term,tf,df,tf\*idf/
+    expect(rendered).to match(/Term,tf,df,tf\*idf/)
   end
 
   it 'shows the data in a CSV row' do
     render
-    rendered.should =~ /test,3,1,2\.5/
+    expect(rendered).to match(/test,3,1,2\.5/)
   end
 end

@@ -5,23 +5,23 @@ describe 'datasets/new' do
 
   before(:each) do
     @user = FactoryGirl.create(:user)
-    view.stub(:current_user) { @user }
-    view.stub(:user_signed_in?) { true }
+    allow(view).to receive(:current_user).and_return(@user)
+    allow(view).to receive(:user_signed_in?).and_return(true)
 
     assign(:dataset, FactoryGirl.build(:dataset, user: @user))
   end
 
   shared_examples_for 'all new forms' do
     it 'has a name field' do
-      rendered.should have_tag('input[name="dataset[name]"]')
+      expect(rendered).to have_tag('input[name="dataset[name]"]')
     end
 
     it 'has a filled-in query field' do
-      rendered.should have_tag('input[name=q][value="*:*"]')
+      expect(rendered).to have_tag('input[name=q][value="*:*"]')
     end
 
     it 'has a filled-in query type field' do
-      rendered.should have_tag('input[name=qt][value=precise]')
+      expect(rendered).to have_tag('input[name=qt][value=precise]')
     end
   end
 
@@ -37,7 +37,7 @@ describe 'datasets/new' do
     it_should_behave_like 'all new forms'
 
     it 'has no facet query fields' do
-      rendered.should_not have_tag('input[name="fq[]"]')
+      expect(rendered).not_to have_tag('input[name="fq[]"]')
     end
   end
 
@@ -53,7 +53,7 @@ describe 'datasets/new' do
     it_should_behave_like 'all new forms'
 
     it 'has facet query fields' do
-      rendered.should have_tag('input[name="fq[]"][value="authors_facet:Test"]')
+      expect(rendered).to have_tag('input[name="fq[]"][value="authors_facet:Test"]')
     end
   end
 

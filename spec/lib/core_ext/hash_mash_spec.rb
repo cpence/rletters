@@ -9,8 +9,8 @@ describe Hash do
       hash = { 'test' => 'test2' }
       hash2 = hash.to_mash
 
-      hash2.class.should eq(HashWithIndifferentAccess)
-      hash2[:test].should eq('test2')
+      expect(hash2.class).to eq(HashWithIndifferentAccess)
+      expect(hash2[:test]).to eq('test2')
     end
   end
 

@@ -19,12 +19,12 @@ describe Serializers::RDF do
           RDF::DC.identifier => :doistr
         }
       })
-      rdf_docs.should have(1).item
+      expect(rdf_docs).to have(1).item
 
-      rdf_docs[0].journal.to_s.should eq('Ethology')
-      rdf_docs[0].year.to_s.should eq('2008')
-      rdf_docs[0].title.to_s.should eq('How Reliable are the Methods for Estimating Repertoire Size?')
-      rdf_docs[0].doistr.to_s.should eq('info:doi/10.1111/j.1439-0310.2008.01576.x')
+      expect(rdf_docs[0].journal.to_s).to eq('Ethology')
+      expect(rdf_docs[0].year.to_s).to eq('2008')
+      expect(rdf_docs[0].title.to_s).to eq('How Reliable are the Methods for Estimating Repertoire Size?')
+      expect(rdf_docs[0].doistr.to_s).to eq('info:doi/10.1111/j.1439-0310.2008.01576.x')
 
       rdf_authors = RDF::Query.execute(@graph, {
         doc: {
@@ -33,7 +33,7 @@ describe Serializers::RDF do
         }
       })
 
-      rdf_authors.should have(5).items
+      expect(rdf_authors).to have(5).items
 
       expected = ['Botero, Carlos A.', 'Mudge, Andrew E.', 'Koltz, Amanda M.',
         'Hochachka, Wesley M.', 'Vehrencamp, Sandra L.']
@@ -41,7 +41,7 @@ describe Serializers::RDF do
       rdf_authors.each do |d|
         actual << d.author.to_s
       end
-      actual.should =~ expected
+      expect(actual).to match_array(expected)
 
       rdf_citations = RDF::Query.execute(@graph, {
         doc: {
@@ -50,7 +50,7 @@ describe Serializers::RDF do
         }
       })
 
-      rdf_citations.should have(2).items
+      expect(rdf_citations).to have(2).items
 
       # rubocop:disable LineContinuation
       expected = ['&ctx_ver=Z39.88-2004&rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3A' \
@@ -70,7 +70,7 @@ describe Serializers::RDF do
       rdf_citations.each do |d|
         actual << d.citation.to_s
       end
-      actual.should =~ expected
+      expect(actual).to match_array(expected)
     end
   end
 

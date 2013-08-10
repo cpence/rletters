@@ -18,15 +18,15 @@ describe Admin::LibrariesController do
     end
 
     it 'loads successfully' do
-      response.should be_success
+      expect(response).to be_success
     end
 
     it 'includes the URL' do
-      response.body.should include(@library.url)
+      expect(response.body).to include(@library.url)
     end
 
     it 'includes the user who created it' do
-      response.body.should include(@library.user.name)
+      expect(response.body).to include(@library.user.name)
     end
   end
 

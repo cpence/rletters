@@ -48,12 +48,12 @@ describe Jobs::Analysis::ExportCitations do
     end
 
     it 'names the task correctly' do
-      @dataset.analysis_tasks[0].name.should eq('Export as BibTeX')
+      expect(@dataset.analysis_tasks[0].name).to eq('Export as BibTeX')
     end
 
     it 'creates a proper ZIP file' do
       Zip::ZipFile.open(@dataset.analysis_tasks[0].result_file.filename) do |zf|
-        zf.should have(10).entry
+        expect(zf).to have(10).entry
       end
     end
   end
