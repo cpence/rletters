@@ -1,30 +1,20 @@
 GIT
-  remote: git://github.com/ernie/ransack.git
-  revision: 8db7a3c1f4242305488a541267dd87c5397f5707
-  branch: rails-4
-  specs:
-    ransack (0.7.3)
-      actionpack (~> 4.0.0)
-      activerecord (~> 4.0.0)
-      polyamorous (~> 0.6.0)
-
-GIT
   remote: git://github.com/gregbell/active_admin.git
-  revision: a9949c1524205928b18597f840e83478ba97c2ef
+  revision: 72a9c30cef47b3f38c38039de021aaa3194c188b
   branch: rails4
   specs:
     activeadmin (0.6.0)
       arbre (>= 1.0.1)
       bourbon (>= 1.0.0)
       coffee-rails (>= 3.2.0)
-      devise (>= 3.0.0.rc)
-      formtastic (>= 2.0.0)
-      inherited_resources (>= 1.3.1)
+      devise (>= 3.0.2)
+      formtastic (>= 2.3.0.rc2)
+      inherited_resources (>= 1.4.1)
       jquery-rails (>= 3.0.0)
       jquery-ui-rails (>= 4.0.0)
       kaminari (>= 0.13.0)
       rails (>= 3.2.0)
-      ransack (>= 0.7.0)
+      ransack (>= 1.0.0)
       sass-rails (>= 3.2.0)
 
 GIT
@@ -135,12 +125,12 @@ GEM
     delayed_job_active_record (4.0.0)
       activerecord (>= 3.0, < 4.1)
       delayed_job (>= 3.0, < 4.1)
-    devise (3.0.1)
+    devise (3.0.2)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.1)
       railties (>= 3.2.6, < 5)
       warden (~> 1.2.3)
-    devise-i18n (0.8.6)
+    devise-i18n (0.9.0)
     diff-lcs (1.2.4)
     druthers (0.0.2)
       activerecord (>= 3.0)
@@ -208,7 +198,7 @@ GEM
     mime-types (1.23)
     mini_portile (0.5.1)
     minitest (4.7.5)
-    multi_json (1.7.8)
+    multi_json (1.7.9)
     net-scp (1.1.2)
       net-ssh (>= 2.6.5)
     net-sftp (2.1.2)
@@ -225,14 +215,14 @@ GEM
       activesupport (>= 3.0.0)
       cocaine (~> 0.5.0)
       mime-types
-    parser (2.0.0.pre2)
+    parser (2.0.0.pre6)
       ast (~> 1.1)
       slop (~> 3.4, >= 3.4.5)
     pg (0.16.0)
     polyamorous (0.6.3)
       activerecord (>= 3.0)
     polyglot (0.3.3)
-    powerpack (0.0.1)
+    powerpack (0.0.3)
     rack (1.5.2)
     rack-test (0.6.2)
       rack (>= 1.0)
@@ -263,6 +253,10 @@ GEM
     rainbow (1.1.4)
     raindrops (0.11.0)
     rake (10.1.0)
+    ransack (1.0.0)
+      actionpack (>= 3.0)
+      activerecord (>= 3.0)
+      polyamorous (~> 0.6.0)
     rdf (1.0.7)
       addressable (>= 2.2)
     rdf-n3 (1.0.2)
@@ -287,12 +281,12 @@ GEM
       rspec-expectations (~> 2.14.0)
       rspec-mocks (~> 2.14.0)
     rspec-core (2.14.4)
-    rspec-expectations (2.14.0)
+    rspec-expectations (2.14.1)
       diff-lcs (>= 1.1.3, < 2.0)
     rspec-html-matchers (0.4.3)
       nokogiri (>= 1.4.4)
       rspec (>= 2.0.0)
-    rspec-mocks (2.14.2)
+    rspec-mocks (2.14.3)
     rspec-rails (2.14.0)
       actionpack (>= 3.0)
       activesupport (>= 3.0)
@@ -300,10 +294,10 @@ GEM
       rspec-core (~> 2.14.0)
       rspec-expectations (~> 2.14.0)
       rspec-mocks (~> 2.14.0)
-    rubocop (0.10.0)
+    rubocop (0.11.1)
       backports (~> 3.3.3)
-      parser (= 2.0.0.pre2)
-      powerpack (= 0.0.1)
+      parser (~> 2.0.0.pre6)
+      powerpack (~> 0.0.3)
       rainbow (>= 1.1.4)
     ruby-progressbar (1.1.1)
     ruby2ruby (2.0.6)
@@ -391,7 +385,6 @@ DEPENDENCIES
   druthers
   excellent
   factory_girl_rails
-  formtastic (>= 2.3.0.rc)
   god
   haml
   haml-rails
@@ -408,7 +401,6 @@ DEPENDENCIES
   rails (~> 4.0)
   rails-i18n (= 4.0.0.pre)
   rails_best_practices
-  ransack!
   rdf (>= 0.3.5)
   rdf-n3
   rdf-rdfxml
