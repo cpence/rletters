@@ -24,6 +24,12 @@ describe InfoController do
         get :index
         expect(response).to be_success
       end
+
+      it 'sets the number of documents' do
+        get :index
+        expect(assigns(:database_size)).to be
+        expect(assigns(:database_size)).to eq(1042)
+      end
     end
 
     context 'when Solr fails', vcr: { cassette_name: 'info_query_error' } do

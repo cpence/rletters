@@ -38,11 +38,6 @@ VCR.configure do |c|
   c.configure_rspec_metadata!
   c.cassette_library_dir = 'spec/cassettes'
   c.hook_into :webmock
-
-  # Psych serializes cassette data as binary, which makes them not human-
-  # readable.  When recording new cassettes, fire up Ruby 1.9 and uncomment
-  # this line.
-  # c.default_cassette_options = { serialize_with: :syck }
 end
 
 # Standard setup for RSpec

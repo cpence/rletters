@@ -2,12 +2,11 @@
 http_interactions:
 - request:
     method: get
-    uri: http://localhost:8983/select?q=*:*&qt=precise&rows=5&start=0&wt=ruby
+    uri: http://localhost:8983/select?q=*:*&qt=precise&rows=1&start=0&wt=ruby
     body:
       encoding: US-ASCII
-      string: ""
+      string: ''
     headers: {}
-
   response:
     status:
       code: 200
@@ -15,21 +14,49 @@ http_interactions:
     headers:
       Server:
       - Winstone Servlet Engine v0.9.10
-      Last-Modified:
-      - Tue, 05 Mar 2013 01:41:29 GMT
-      Etag:
-      - "\"YmVlMzM2ZjY5YzgwMDAwMFNvbHI=\""
       Content-Type:
       - text/plain;charset=UTF-8
       Connection:
       - Close
       Date:
-      - Tue, 05 Mar 2013 02:10:38 GMT
+      - Mon, 12 Aug 2013 19:04:58 GMT
       X-Powered-By:
       - Servlet/2.5 (Winstone/0.9.10)
     body:
       encoding: ASCII-8BIT
-      string: "{'responseHeader'=>{'status'=>0,'QTime'=>11,'params'=>{'wt'=>'ruby','rows'=>'5','q'=>'*:*','qt'=>'precise','start'=>'0'}},'response'=>{'numFound'=>1042,'start'=>0,'docs'=>[{'license'=>'\xC2\xA9 Blackwell Verlag GmbH','shasum'=>'00040b66948f49c3a6c6c0977530e2014899abf9','doi'=>'10.1111/j.1439-0310.2009.01707.x','authors'=>'Kelly A. Stiver, Suzanne H. Alonzo','title'=>'Parental and Mating Effort: Is There Necessarily a Trade-Off?','journal'=>'Ethology','year'=>'2009','volume'=>'115','pages'=>'1101-1126'},{'license'=>'\xC2\xA9 Blackwell Verlag GmbH','shasum'=>'001954306c066a8a4cff3da02f7e9dda8e0fb634','doi'=>'10.1046/j.0179-1613.2003.00929.x','authors'=>'Susan G. Brown, Karen Crowell, Patricia Keene','title'=>'Oviposition Behavior and Offspring Emergence Patterns in Succinea thaanumi, an Endemic Hawaiian Land Snail','journal'=>'Ethology','year'=>'2003','volume'=>'109','pages'=>'905-910'},{'license'=>'\xC2\xA9 Blackwell Verlag GmbH','shasum'=>'00496e7961871ad05013e1388aaa6650507b2638','doi'=>'10.1046/j.1439-0310.2000.00539.x','title'=>'New Books','journal'=>'Ethology','year'=>'2000','volume'=>'106','pages'=>'283-286'},{'license'=>'\xC2\xA9 Blackwell Verlag GmbH','shasum'=>'008896a5c58241b65088d931e02f3bea02fc3bf0','doi'=>'10.1111/j.1439-0310.2009.01716.x','authors'=>'Juan Moreno, Juan-Gabriel Mart\xC3\xADnez, Judith Morales, Elisa Lobato, Santiago Merino, Gustavo Tom\xC3\xA1s, Rodrigo A. V\xC3\xA1squez, Erich M\xC3\xB6stl, Jos\xC3\xA9 L. Osorno','title'=>'Paternity Loss in Relation to Male Age, Territorial Behaviour and Stress in the Pied Flycatcher','journal'=>'Ethology','year'=>'2010','volume'=>'116','pages'=>'76-84'},{'license'=>'\xC2\xA9 Blackwell Verlag GmbH','shasum'=>'00972c5123877961056b21aea4177d0dc69c7318','doi'=>'10.1111/j.1439-0310.2008.01576.x','authors'=>'Carlos A. Botero, Andrew E. Mudge, Amanda M. Koltz, Wesley M. Hochachka, Sandra L. Vehrencamp','title'=>'How Reliable are the Methods for Estimating Repertoire Size?','journal'=>'Ethology','year'=>'2008','volume'=>'114','pages'=>'1227-1238'}]},'facet_counts'=>{'facet_queries'=>{'year:[* TO 1799]'=>0,'year:[1800 TO 1809]'=>0,'year:[1810 TO 1819]'=>0,'year:[1820 TO 1829]'=>0,'year:[1830 TO 1839]'=>0,'year:[1840 TO 1849]'=>0,'year:[1850 TO 1859]'=>0,'year:[1860 TO 1869]'=>0,'year:[1870 TO 1879]'=>0,'year:[1880 TO 1889]'=>0,'year:[1890 TO 1899]'=>0,'year:[1900 TO 1909]'=>0,'year:[1910 TO 1919]'=>0,'year:[1920 TO 1929]'=>0,'year:[1930 TO 1939]'=>0,'year:[1940 TO 1949]'=>0,'year:[1950 TO 1959]'=>0,'year:[1960 TO 1969]'=>0,'year:[1970 TO 1979]'=>0,'year:[1980 TO 1989]'=>0,'year:[1990 TO 1999]'=>94,'year:[2000 TO 2009]'=>788,'year:[2010 TO *]'=>160},'facet_fields'=>{'authors_facet'=>['J. C. Crabbe',9,'Michael H. Ferkin',9,'Douglas P. Chivers',8,'A. V. Kulikov',7,'Daniel T. Blumstein',7,'J. N. Crawley',6,'N. K. Popova',6,'A. A. Palmer',5,'D. I. Boomsma',5,'D. Wahlsten',5],'journal_facet'=>['Ethology',594,'Genes, Brain and Behavior',448]},'facet_dates'=>{}}}"
-    http_version:
-  recorded_at: Tue, 05 Mar 2013 02:10:38 GMT
-recorded_with: VCR 2.4.0
+      string: !binary |-
+        eydyZXNwb25zZUhlYWRlcic9Pnsnc3RhdHVzJz0+MCwnUVRpbWUnPT42LCdw
+        YXJhbXMnPT57J3N0YXJ0Jz0+JzAnLCdxJz0+Jyo6KicsJ3F0Jz0+J3ByZWNp
+        c2UnLCd3dCc9PidydWJ5Jywncm93cyc9PicxJ319LCdyZXNwb25zZSc9Pnsn
+        bnVtRm91bmQnPT4xMDQyLCdzdGFydCc9PjAsJ2RvY3MnPT5beydsaWNlbnNl
+        Jz0+J8KpIEJsYWNrd2VsbCBWZXJsYWcgR21iSCcsJ3NoYXN1bSc9PicyYWVk
+        NDJkY2RmNGQ5OGVlNDk5YTFkMTliNGEwZDYxM2I1Mzc3YWQwJywnZG9pJz0+
+        JzEwLjExMTEvai4xNDM5LTAzMTAuMjAwNi4wMTI0My54JywnYXV0aG9ycyc9
+        PidKYW4gS29tZGV1cicsJ3RpdGxlJz0+J1ZhcmlhdGlvbiBpbiBJbmRpdmlk
+        dWFsIEludmVzdG1lbnQgU3RyYXRlZ2llcyBhbW9uZyBTb2NpYWwgQW5pbWFs
+        cycsJ2pvdXJuYWwnPT4nRXRob2xvZ3knLCd5ZWFyJz0+JzIwMDYnLCd2b2x1
+        bWUnPT4nMTEyJywncGFnZXMnPT4nNzI5LTc0Nyd9XX0sJ2ZhY2V0X2NvdW50
+        cyc9PnsnZmFjZXRfcXVlcmllcyc9PnsneWVhcjpbKiBUTyAxNzk5XSc9PjAs
+        J3llYXI6WzE4MDAgVE8gMTgwOV0nPT4wLCd5ZWFyOlsxODEwIFRPIDE4MTld
+        Jz0+MCwneWVhcjpbMTgyMCBUTyAxODI5XSc9PjAsJ3llYXI6WzE4MzAgVE8g
+        MTgzOV0nPT4wLCd5ZWFyOlsxODQwIFRPIDE4NDldJz0+MCwneWVhcjpbMTg1
+        MCBUTyAxODU5XSc9PjAsJ3llYXI6WzE4NjAgVE8gMTg2OV0nPT4wLCd5ZWFy
+        OlsxODcwIFRPIDE4NzldJz0+MCwneWVhcjpbMTg4MCBUTyAxODg5XSc9PjAs
+        J3llYXI6WzE4OTAgVE8gMTg5OV0nPT4wLCd5ZWFyOlsxOTAwIFRPIDE5MDld
+        Jz0+MCwneWVhcjpbMTkxMCBUTyAxOTE5XSc9PjAsJ3llYXI6WzE5MjAgVE8g
+        MTkyOV0nPT4wLCd5ZWFyOlsxOTMwIFRPIDE5MzldJz0+MCwneWVhcjpbMTk0
+        MCBUTyAxOTQ5XSc9PjAsJ3llYXI6WzE5NTAgVE8gMTk1OV0nPT4wLCd5ZWFy
+        OlsxOTYwIFRPIDE5NjldJz0+MCwneWVhcjpbMTk3MCBUTyAxOTc5XSc9PjAs
+        J3llYXI6WzE5ODAgVE8gMTk4OV0nPT4wLCd5ZWFyOlsxOTkwIFRPIDE5OTld
+        Jz0+OTQsJ3llYXI6WzIwMDAgVE8gMjAwOV0nPT43ODgsJ3llYXI6WzIwMTAg
+        VE8gKl0nPT4xNjB9LCdmYWNldF9maWVsZHMnPT57J2F1dGhvcnNfZmFjZXQn
+        PT5bJ0ouIEMuIENyYWJiZScsOSwnTWljaGFlbCBILiBGZXJraW4nLDksJ0Rv
+        dWdsYXMgUC4gQ2hpdmVycycsOCwnQS4gVi4gS3VsaWtvdicsNywnRGFuaWVs
+        IFQuIEJsdW1zdGVpbicsNywnSi4gTi4gQ3Jhd2xleScsNiwnTi4gSy4gUG9w
+        b3ZhJyw2LCdBLiBBLiBQYWxtZXInLDUsJ0QuIEkuIEJvb21zbWEnLDUsJ0Qu
+        IFdhaGxzdGVuJyw1XSwnam91cm5hbF9mYWNldCc9PlsnRXRob2xvZ3knLDU5
+        NCwnR2VuZXMsIEJyYWluIGFuZCBCZWhhdmlvcicsNDQ4XX0sJ2ZhY2V0X2Rh
+        dGVzJz0+e30sJ2ZhY2V0X3Jhbmdlcyc9Pnt9fX0K
+    http_version: 
+  recorded_at: Mon, 12 Aug 2013 19:04:58 GMT
+recorded_with: VCR 2.5.0
