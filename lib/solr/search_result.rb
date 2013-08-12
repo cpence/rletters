@@ -92,7 +92,7 @@ module Solr
     end
 
     private
-    
+
     # Parse the term vector array format returned by Solr
     #
     # Example of the Solr term vector format:
@@ -119,16 +119,16 @@ module Solr
     #   doc.term_vectors = parse_term_vectors(solr_response['termVectors'][1][3])
     def parse_term_vectors(tvec_array)
       term_vectors = {}
-      
+
       (0...tvec_array.length).step(2) do |i|
         term = tvec_array[i]
         attr_array = tvec_array[i + 1]
         hash = {}
-        
+
         (0...attr_array.length).step(2) do |j|
           key = attr_array[j]
           val = attr_array[j + 1]
-          
+
           case key
           when 'tf'
             hash[:tf] = Integer(val)
@@ -151,13 +151,13 @@ module Solr
             hash[:tfidf] = Float(val)
           end
         end
-        
+
         term_vectors[term] = hash
       end
-      
+
       term_vectors
     end
-    
+
   end
-  
+
 end
