@@ -3,28 +3,28 @@ require 'spec_helper'
 
 describe SearchHelper do
 
-  describe '#num_results_string' do
+  describe '#num_hits_string' do
     before(:each) do
-      @result = double(Solr::SearchResult, num_results: 100)
+      @result = double(Solr::SearchResult, num_hits: 100)
     end
 
     context 'when no search has been performed' do
       it 'returns "in database"' do
-        expect(helper.num_results_string(@result)).to eq('100 articles in database')
+        expect(helper.num_hits_string(@result)).to eq('100 articles in database')
       end
     end
 
     context 'when a search has been performed' do
       it 'returns "found"' do
         params[:q] = 'Test search'
-        expect(helper.num_results_string(@result)).to eq('100 articles found')
+        expect(helper.num_hits_string(@result)).to eq('100 articles found')
       end
     end
 
     context 'when a faceted query has been performed' do
       it 'returns "found"' do
         params[:fq] = ['journal:(Ethology)']
-        expect(helper.num_results_string(@result)).to eq('100 articles found')
+        expect(helper.num_hits_string(@result)).to eq('100 articles found')
       end
     end
   end
@@ -32,7 +32,7 @@ describe SearchHelper do
   describe '#render_pagination' do
     context 'when we only have one page of results' do
       before(:each) do
-        @result = double(Solr::SearchResult, num_results: 1)
+        @result = double(Solr::SearchResult, num_hits: 1)
         @per_page = 10
         @page = 0
       end
@@ -45,7 +45,7 @@ describe SearchHelper do
     context 'when we have more than one page of results' do
       context 'when we are on the first page' do
         before(:each) do
-          @result = double(Solr::SearchResult, num_results: 100)
+          @result = double(Solr::SearchResult, num_hits: 100)
           @per_page = 10
           @page = 0
 
@@ -65,7 +65,7 @@ describe SearchHelper do
 
       context 'when we are in the middle' do
         before(:each) do
-          @result = double(Solr::SearchResult, num_results: 100)
+          @result = double(Solr::SearchResult, num_hits: 100)
           @per_page = 10
           @page = params[:page] = 5
 
@@ -85,7 +85,7 @@ describe SearchHelper do
 
       context 'when we are on the last page' do
         before(:each) do
-          @result = double(Solr::SearchResult, num_results: 100)
+          @result = double(Solr::SearchResult, num_hits: 100)
           @per_page = 10
           @page = params[:page] = 9
 

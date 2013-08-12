@@ -1,6 +1,6 @@
 %div.leftcolumn
   %ul{ data: { role: 'listview', theme: 'd', divider_theme: 'b' } }
-    %li{ data: { role: 'list-divider' } }= num_results_string(@result)
+    %li{ data: { role: 'list-divider' } }= num_hits_string(@result)
     %li.search
       = form_tag(search_path, method: :get, data: { transition: 'none' }) do
         - if params[:fq]

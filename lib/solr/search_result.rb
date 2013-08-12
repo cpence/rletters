@@ -24,7 +24,7 @@ module Solr
   #   @example Get the number of documents published by W. Shatner
   #     shatner_docs = Document.facets[:authors_facet].assoc('W. Shatner')[1]
   #
-  # @!attribute [r] num_results
+  # @!attribute [r] num_hits
   #   Number of documents returned by the last search
   #
   #   Since the search results (i.e., the size of the +@documents+ variable
@@ -35,7 +35,7 @@ module Solr
   #   @api public
   #   @return [Integer] number of documents in the last search
   #   @example Returns true if there are more hits than documents returned
-  #     @documents.count > Document.num_results
+  #     result.documents.count > result.num_hits
   #
   # @!attribute [r] documents
   #   @return [Array<Document>] the documents found by the last search
@@ -43,7 +43,7 @@ module Solr
   #   @return [RSolr::Ext::Response] the raw Solr search response
   class SearchResult
 
-    attr_reader :facets, :num_results, :documents, :solr_response
+    attr_reader :facets, :num_hits, :documents, :solr_response
 
     # Create a search result from a Solr response
     #
@@ -53,8 +53,8 @@ module Solr
       # Initialize all our variables
       @solr_response = response
 
-      @num_results = 0
-      @num_results = response.total if response.ok?
+      @num_hits = 0
+      @num_hits = response.total if response.ok?
 
       @documents = []
       @facets = nil

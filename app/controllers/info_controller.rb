@@ -20,7 +20,7 @@ class InfoController < ApplicationController
                    start: 0 }
     begin
       search_result = Solr::Connection.find solr_query
-      @database_size = search_result.num_results
+      @database_size = search_result.num_hits
     rescue StandardError
       @database_size = 0
     end

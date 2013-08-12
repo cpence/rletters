@@ -165,7 +165,7 @@ class Document
   def self.find(shasum, options = {})
     result = Solr::Connection.find(options.merge({ q: "shasum:#{shasum}",
                                                    qt: 'precise' }))
-    raise ActiveRecord::RecordNotFound if result.num_results != 1
+    raise ActiveRecord::RecordNotFound if result.num_hits != 1
     result.documents[0]
   end
 
@@ -182,7 +182,7 @@ class Document
   def self.find_with_fulltext(shasum, options = {})
     result = Solr::Connection.find(options.merge({ q: "shasum:#{shasum}",
                                                    qt: 'fulltext' }))
-    raise ActiveRecord::RecordNotFound if result.num_results != 1
+    raise ActiveRecord::RecordNotFound if result.num_hits != 1
     result.documents[0]
   end
 

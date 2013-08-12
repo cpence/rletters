@@ -43,7 +43,7 @@ module Jobs
           solr_query[:facet] = false
 
           search_result = Solr::Connection.find solr_query
-          raise StandardError, 'Failed to get batch of results in PlotDates' unless search_result.num_results == group.count
+          raise StandardError, 'Failed to get batch of results in PlotDates' unless search_result.num_hits == group.count
 
           search_result.documents.each do |doc|
             # Support Y-M-D or Y/M/D dates

@@ -139,11 +139,11 @@ en:
         index:
             placeholder: "Search for articles..."
             adv_search_placeholder: "(advanced search)"
-            num_results_found:
+            num_hits_found:
                 zero: "no articles found"
                 one: "1 article found"
                 other: "%{count} articles found"
-            num_results_database:
+            num_documents_database:
                 zero: "no articles in database"
                 one: "1 article in database"
                 other: "%{count} articles in database"

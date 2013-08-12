@@ -60,7 +60,7 @@ module Jobs
         search_result = Solr::Connection.find solr_query
 
         # Get our parameters
-        docs_to_fetch = search_result.num_results
+        docs_to_fetch = search_result.num_hits
         dataset_id = dataset.to_param
 
         while docs_to_fetch > 0

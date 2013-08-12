@@ -3,18 +3,18 @@
 # Markup generators for the search controller
 module SearchHelper
 
-  # Return a formatted version of the number of documents in the last search
+  # Return a formatted version of the number of hits for the last search
   #
   # @api public
   # @param [Solr::SearchResult] result the search result
-  # @return [String] number of documents in the last search
-  # @example Print the number of documents in the last search (in HAML)
-  #   = num_results_string(@result)
-  def num_results_string(result)
+  # @return [String] number of hits for the search
+  # @example Print the number of hits for the search (in HAML)
+  #   = num_hits_string(@result)
+  def num_hits_string(result)
     if params[:precise] || params[:q] || params[:fq]
-      I18n.t 'search.index.num_results_found', count: result.num_results
+      I18n.t 'search.index.num_hits_found', count: result.num_hits
     else
-      I18n.t 'search.index.num_results_database', count: result.num_results
+      I18n.t 'search.index.num_documents_database', count: result.num_hits
     end
   end
 
@@ -57,7 +57,7 @@ module SearchHelper
   # @example Put the current pagination links in a paragraph element
   #   <p><%= render_pagination(@result) %></p>
   def render_pagination(result)
-    num_pages = result.num_results.to_f / @per_page.to_f
+    num_pages = result.num_hits.to_f / @per_page.to_f
     num_pages = Integer(num_pages.ceil)
     return '' if num_pages == 0
 

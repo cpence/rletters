@@ -37,15 +37,15 @@ describe 'Solr::SearchResult' do
     end
   end
 
-  describe '#num_results' do
+  describe '#num_hits' do
     context 'when loading one document',
             vcr: { cassette_name: 'solr_single' } do
       before(:each) do
         @result = Solr::Connection.find({ q: 'shasum:00972c5123877961056b21aea4177d0dc69c7318', qt: 'precise' })
       end
 
-      it 'sets num_results to 1' do
-        expect(@result.num_results).to eq(1)
+      it 'sets num_hits to 1' do
+        expect(@result.num_hits).to eq(1)
       end
     end
 
@@ -55,8 +55,8 @@ describe 'Solr::SearchResult' do
         @result = Solr::Connection.find({ q: '*:*', qt: 'precise' })
       end
 
-      it 'sets num_results' do
-        expect(@result.num_results).to eq(1042)
+      it 'sets num_hits' do
+        expect(@result.num_hits).to eq(1042)
       end
     end
   end

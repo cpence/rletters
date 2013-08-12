@@ -50,7 +50,7 @@ class WordFrequencyAnalyzer
       solr_query[:start] = 0
 
       search_result = Solr::Connection.find(solr_query)
-      @corpus_size = search_result.num_results
+      @corpus_size = search_result.num_hits
     end
 
     @corpus_size

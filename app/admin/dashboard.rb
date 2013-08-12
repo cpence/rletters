@@ -34,7 +34,7 @@ ActiveAdmin.register_page 'Dashboard' do
               search_result = Solr::Connection.find solr_query
 
               li I18n.t('admin.dashboard.db_size',
-                        count: search_result.num_results)
+                        count: search_result.num_hits)
 
               if search_result.solr_response['responseHeader'] &&
                   search_result.solr_response['responseHeader']['QTime']
