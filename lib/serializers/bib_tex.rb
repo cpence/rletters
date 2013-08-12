@@ -63,7 +63,7 @@ class Array
   #   $stdout.write(doc_array.to_bibtex)
   def to_bibtex
     each do |x|
-      raise ArgumentError, 'No to_bibtex method for array element' unless x.respond_to? :to_bibtex
+      fail ArgumentError, 'No to_bibtex method for array element' unless x.respond_to? :to_bibtex
     end
 
     map { |x| x.to_bibtex }.join

@@ -6,10 +6,10 @@
 class UrlValidator < ActiveModel::EachValidator
   def validate_each(record, attribute, value)
     uri = Addressable::URI.parse(value)
-    raise Addressable::URI::InvalidURIError unless uri
+    fail Addressable::URI::InvalidURIError unless uri
 
     unless %w(http https ftp).include?(uri.scheme)
-      raise Addressable::URI::InvalidURIError
+      fail Addressable::URI::InvalidURIError
     end
   rescue Addressable::URI::InvalidURIError
     # FIXME: Where do I put the localization for this?

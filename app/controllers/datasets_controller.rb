@@ -37,7 +37,7 @@ class DatasetsController < ApplicationController
   # @return [undefined]
   def show
     @dataset = current_user.datasets.find(params[:id])
-    raise ActiveRecord::RecordNotFound unless @dataset
+    fail ActiveRecord::RecordNotFound unless @dataset
 
     if params[:clear_failed] && @dataset.analysis_tasks.failed.count > 0
       @dataset.analysis_tasks.failed.destroy_all
@@ -58,7 +58,7 @@ class DatasetsController < ApplicationController
   # @return [undefined]
   def delete
     @dataset = current_user.datasets.find(params[:id])
-    raise ActiveRecord::RecordNotFound unless @dataset
+    fail ActiveRecord::RecordNotFound unless @dataset
     render layout: 'dialog'
   end
 
@@ -82,7 +82,7 @@ class DatasetsController < ApplicationController
   # @return [undefined]
   def destroy
     @dataset = current_user.datasets.find(params[:id])
-    raise ActiveRecord::RecordNotFound unless @dataset
+    fail ActiveRecord::RecordNotFound unless @dataset
 
     if params[:cancel]
       redirect_to @dataset
@@ -104,9 +104,9 @@ class DatasetsController < ApplicationController
     # This isn't a member action, so that it can be called easily from
     # a form.  Get the id from :dataset_id, not :id.
     @dataset = current_user.datasets.find(params[:dataset_id])
-    raise ActiveRecord::RecordNotFound unless @dataset
+    fail ActiveRecord::RecordNotFound unless @dataset
     @document = Document.find(params[:shasum])
-    raise ActiveRecord::RecordNotFound unless @document
+    fail ActiveRecord::RecordNotFound unless @document
 
     # No reason for this to be a delayed job, just do the create
     @dataset.entries.create({ shasum: params[:shasum] })
@@ -122,7 +122,7 @@ class DatasetsController < ApplicationController
   # @return [undefined]
   def task_list
     @dataset = current_user.datasets.find(params[:id])
-    raise ActiveRecord::RecordNotFound unless @dataset
+    fail ActiveRecord::RecordNotFound unless @dataset
 
     render layout: false
   end
@@ -136,7 +136,7 @@ class DatasetsController < ApplicationController
   # @return [undefined]
   def task_start
     dataset = current_user.datasets.find(params[:id])
-    raise ActiveRecord::RecordNotFound unless dataset
+    fail ActiveRecord::RecordNotFound unless dataset
     klass = AnalysisTask.job_class(params[:class])
 
     # Put the job parameters together out of the job hash
@@ -160,15 +160,15 @@ class DatasetsController < ApplicationController
   # @return [undefined]
   def task_view
     @dataset = current_user.datasets.find(params[:id])
-    raise ActiveRecord::RecordNotFound unless @dataset
+    fail ActiveRecord::RecordNotFound unless @dataset
 
-    raise ActiveRecord::RecordNotFound unless params[:view]
+    fail ActiveRecord::RecordNotFound unless params[:view]
 
     if params[:class]
       klass = AnalysisTask.job_class(params[:class])
     else
       @task = @dataset.analysis_tasks.find(params[:task_id])
-      raise ActiveRecord::RecordNotFound unless @task
+      fail ActiveRecord::RecordNotFound unless @task
 
       klass = @task.job_class
     end
@@ -184,7 +184,7 @@ class DatasetsController < ApplicationController
   # @return [undefined]
   def task_destroy
     dataset = current_user.datasets.find(params[:id])
-    raise ActiveRecord::RecordNotFound unless dataset
+    fail ActiveRecord::RecordNotFound unless dataset
 
     if params[:cancel]
       redirect_to dataset
@@ -192,7 +192,7 @@ class DatasetsController < ApplicationController
     end
 
     task = dataset.analysis_tasks.find(params[:task_id])
-    raise ActiveRecord::RecordNotFound unless task
+    fail ActiveRecord::RecordNotFound unless task
 
     task.destroy
     redirect_to dataset_path
@@ -207,11 +207,11 @@ class DatasetsController < ApplicationController
   # @return [undefined]
   def task_download
     dataset = current_user.datasets.find(params[:id])
-    raise ActiveRecord::RecordNotFound unless dataset
+    fail ActiveRecord::RecordNotFound unless dataset
     task = dataset.analysis_tasks.find(params[:task_id])
-    raise ActiveRecord::RecordNotFound unless task
-    raise ActiveRecord::RecordNotFound unless task.result_file
-    raise ActiveRecord::RecordNotFound unless task.result_file.exists?
+    fail ActiveRecord::RecordNotFound unless task
+    fail ActiveRecord::RecordNotFound unless task.result_file
+    fail ActiveRecord::RecordNotFound unless task.result_file.exists?
 
     task.result_file.send_file(self)
   end

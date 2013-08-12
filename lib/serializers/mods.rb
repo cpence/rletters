@@ -208,7 +208,7 @@ class Array
   #   puts doc_array.to_mods.to_xml(indent: 2)
   def to_mods
     each do |x|
-      raise ArgumentError, 'No to_mods method for array element' unless x.respond_to? :to_mods
+      fail ArgumentError, 'No to_mods method for array element' unless x.respond_to? :to_mods
     end
 
     doc = Nokogiri::XML::Document.new

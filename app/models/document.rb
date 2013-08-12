@@ -158,6 +158,7 @@ class Document
   # @param [String] shasum SHA-1 checksum of the document to be retrieved
   # @param [Hash] options see +Solr::Connection.find+ for specification
   # @return [Document] the document requested
+  # @raise [Solr::ConnectionError] thrown if there is an error querying Solr
   # @raise [ActiveRecord::RecordNotFound] thrown if no matching document can
   #   be found
   # @example Look up the document with ID '1234567890abcdef1234'
@@ -165,7 +166,7 @@ class Document
   def self.find(shasum, options = {})
     result = Solr::Connection.find(options.merge({ q: "shasum:#{shasum}",
                                                    qt: 'precise' }))
-    raise ActiveRecord::RecordNotFound if result.num_hits != 1
+    fail ActiveRecord::RecordNotFound if result.num_hits != 1
     result.documents[0]
   end
 
@@ -175,6 +176,7 @@ class Document
   # @param [String] shasum SHA-1 checksum of the document to be retrieved
   # @param [Hash] options see +Solr::Connection.find+ for specification
   # @return [Document] the document requested, including full text
+  # @raise [Solr::ConnectionError] thrown if there is an error querying Solr
   # @raise [ActiveRecord::RecordNotFound] thrown if no matching document can
   #   be found
   # @example Get the full tet of the document with ID '1234567890abcdef1234'
@@ -182,7 +184,7 @@ class Document
   def self.find_with_fulltext(shasum, options = {})
     result = Solr::Connection.find(options.merge({ q: "shasum:#{shasum}",
                                                    qt: 'fulltext' }))
-    raise ActiveRecord::RecordNotFound if result.num_hits != 1
+    fail ActiveRecord::RecordNotFound if result.num_hits != 1
     result.documents[0]
   end
 

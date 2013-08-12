@@ -34,7 +34,7 @@ class LibrariesController < ApplicationController
   # @return [undefined]
   def edit
     @library = current_user.libraries.find(params[:id])
-    raise ActiveRecord::RecordNotFound unless @library
+    fail ActiveRecord::RecordNotFound unless @library
     render layout: 'dialog'
   end
 
@@ -43,7 +43,7 @@ class LibrariesController < ApplicationController
   # @return [undefined]
   def delete
     @library = current_user.libraries.find(params[:id])
-    raise ActiveRecord::RecordNotFound unless @library
+    fail ActiveRecord::RecordNotFound unless @library
     render layout: 'dialog'
   end
 
@@ -68,7 +68,7 @@ class LibrariesController < ApplicationController
   # @return [undefined]
   def update
     @library = current_user.libraries.find(params[:id])
-    raise ActiveRecord::RecordNotFound unless @library
+    fail ActiveRecord::RecordNotFound unless @library
 
     if @library.update_attributes(library_params)
       current_user.libraries.reload
@@ -84,7 +84,7 @@ class LibrariesController < ApplicationController
   # @return [undefined]
   def destroy
     @library = current_user.libraries.find(params[:id])
-    raise ActiveRecord::RecordNotFound unless @library
+    fail ActiveRecord::RecordNotFound unless @library
 
     if params[:cancel]
       redirect_to edit_user_registration_path

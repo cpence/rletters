@@ -48,7 +48,8 @@ module Solr
     # Create a search result from a Solr response
     #
     # @param [RSolr::Ext::Response] response the returned Solr response
-    # @raise [StandardError] if the Solr server returned an invalid response
+    # @raise [Solr::ConnectionError] if the Solr server returned an invalid
+    #   response
     def initialize(response)
       # Initialize all our variables
       @solr_response = response
@@ -60,9 +61,9 @@ module Solr
       @facets = nil
 
       # Raise an error if Solr does not respond
-      raise StandardError.new('Solr server did not respond') unless solr_response.ok?
+      fail Solr::ConnectionError, 'Solr server did not respond' unless solr_response.ok?
       return if solr_response.total == 0
-      raise StandardError.new('Solr server claimed to have documents, but returned an empty array') unless solr_response.docs && solr_response.docs.count
+      fail Solr::ConnectionError, 'Solr server claimed to have documents, but returned an empty array' unless solr_response.docs && solr_response.docs.count
 
       # Make sure that we set the encoding on all the returned Solr strings
       solr_response.to_utf8!

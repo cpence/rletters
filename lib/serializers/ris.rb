@@ -59,7 +59,7 @@ class Array
   #   $stdout.write(doc_array.to_ris)
   def to_ris
     each do |x|
-      raise ArgumentError, 'No to_ris method for array element' unless x.respond_to? :to_ris
+      fail ArgumentError, 'No to_ris method for array element' unless x.respond_to? :to_ris
     end
 
     map { |x| x.to_ris }.join

@@ -39,7 +39,7 @@ class WordFrequencyAnalyzer
   # the Solr database.
   #
   # @api private
-  # @raise [ActiveRecord::StatementInvalid] if the Solr connection fails
+  # @raise [Solr::ConnectionError] if the Solr connection fails
   # @return [Integer] Size of the Solr database, in documents
   def num_corpus_documents
     if @corpus_size.nil?

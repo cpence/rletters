@@ -59,7 +59,7 @@ module Serializers
       elsif style_or_url.is_a? String
         style = style_or_url
       else
-        raise ArgumentError, 'Argument must be CslStyle or String'
+        fail ArgumentError, 'Argument must be CslStyle or String'
       end
 
       CiteProc.process(to_csl, format: :html, style: style).strip.html_safe

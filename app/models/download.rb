@@ -119,6 +119,7 @@ class Download < ActiveRecord::Base
   #
   # @api private
   # @param basename [String] the base name of the file to create
+  # @raise [RuntimeError] thrown if a filename cannot be generated
   # @return [String] the name of the file
   def self.unique_filename(basename)
     ext = File.extname(basename)
@@ -136,7 +137,7 @@ class Download < ActiveRecord::Base
       fn = filename_to_path(ret)
 
       # Runaway loop counter (DoS?)
-      raise StandardError, 'Cannot find a filename for download' if i == 100
+      fail 'Cannot find a filename for download' if i == 100
     end
 
     ret

@@ -128,7 +128,7 @@ class Array
   # :nocov:
   def to_rdf_n3
     each do |x|
-      raise ArgumentError, 'No to_rdf method for array element' unless x.respond_to? :to_rdf
+      fail ArgumentError, 'No to_rdf method for array element' unless x.respond_to? :to_rdf
     end
 
     ::RDF::Writer.for(:n3).buffer do |writer|
@@ -153,7 +153,7 @@ class Array
   # :nocov:
   def to_rdf_xml
     each do |x|
-      raise ArgumentError, 'No to_rdf method for array element' unless x.respond_to? :to_rdf
+      fail ArgumentError, 'No to_rdf method for array element' unless x.respond_to? :to_rdf
     end
 
     ::RDF::Writer.for(:rdf).buffer do |writer|

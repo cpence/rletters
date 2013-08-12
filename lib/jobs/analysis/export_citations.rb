@@ -26,19 +26,19 @@ module Jobs
       def perform
         # Fetch the user based on ID
         user = User.find(user_id)
-        raise ArgumentError, 'User ID is not valid' unless user
+        fail ArgumentError, 'User ID is not valid' unless user
 
         # Fetch the dataset based on ID
         dataset = user.datasets.find(dataset_id)
-        raise ArgumentError, 'Dataset ID is not valid' unless dataset
+        fail ArgumentError, 'Dataset ID is not valid' unless dataset
 
         # Make a new analysis task (early, to catch errors)
         @task = dataset.analysis_tasks.create(name: 'Export',
                                               job_type: 'ExportCitations')
 
         # Check that the format is valid
-        raise ArgumentError, 'Format is not specified' if format.nil?
-        raise ArgumentError, 'Format is not valid' unless Document.serializers.has_key? format.to_sym
+        fail ArgumentError, 'Format is not specified' if format.nil?
+        fail ArgumentError, 'Format is not valid' unless Document.serializers.has_key? format.to_sym
         serializer = Document.serializers[format.to_sym]
 
         # Update the task name

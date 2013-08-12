@@ -41,11 +41,11 @@ module Jobs
       def perform
         # Fetch the user based on ID
         user = User.find(user_id)
-        raise ArgumentError, 'User ID is not valid' unless user
+        fail ArgumentError, 'User ID is not valid' unless user
 
         # Fetch the dataset based on ID
         dataset = user.datasets.find(dataset_id)
-        raise ArgumentError, 'Dataset ID is not valid' unless dataset
+        fail ArgumentError, 'Dataset ID is not valid' unless dataset
 
         # Make a new analysis task
         @task = dataset.analysis_tasks.create(name: 'Word frequency list',

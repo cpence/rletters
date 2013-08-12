@@ -46,13 +46,13 @@ class AnalysisTask < ActiveRecord::Base
   def self.job_class(class_name)
     # Never let the 'Base' class match
     class_name = 'Jobs::Analysis::' + class_name
-    raise ArgumentError if class_name == 'Jobs::Analysis::Base'
+    fail ArgumentError, 'cannot instantiate the Base job' if class_name == 'Jobs::Analysis::Base'
 
     begin
       klass = class_name.constantize
-      raise ArgumentError unless klass.is_a?(Class)
+      fail ArgumentError, "#{class_name} is not a class" unless klass.is_a?(Class)
     rescue NameError
-      raise ArgumentError
+      raise ArgumentError, "#{class_name} is not a valid class"
     end
 
     klass

@@ -245,7 +245,7 @@ class Array
   # :nocov:
   def to_marc_json
     each do |x|
-      raise ArgumentError, 'No to_marc method for array element' unless x.respond_to? :to_marc
+      fail ArgumentError, 'No to_marc method for array element' unless x.respond_to? :to_marc
     end
 
     map { |x| x.to_marc.to_hash }.to_json
@@ -265,7 +265,7 @@ class Array
   #   doc_array.to_marc_xml.to_xml(indent: 2, encoding: 'UTF-8')
   def to_marc_xml
     each do |x|
-      raise ArgumentError, 'No to_marc_xml method for array element' unless x.respond_to? :to_marc_xml
+      fail ArgumentError, 'No to_marc_xml method for array element' unless x.respond_to? :to_marc_xml
     end
 
     doc = Nokogiri::XML::Document.new

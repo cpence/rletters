@@ -34,12 +34,12 @@ module Jobs
     def perform
       # Fetch the user based on ID
       user = User.find(user_id)
-      raise ArgumentError, 'User ID is not valid' unless user
+      fail ArgumentError, 'User ID is not valid' unless user
 
       # Create a dataset and save it, to fix its ID
       dataset = user.datasets.build(name: name)
-      raise StandardError, 'Cannot create dataset for user' unless dataset
-      raise StandardError, 'Cannot save dataset' unless dataset.save
+      fail 'Cannot create dataset for user' unless dataset
+      fail 'Cannot save dataset' unless dataset.save
 
       # Build a Solr query to fetch the results, 1000 at a time
       solr_query = {}
@@ -84,7 +84,7 @@ module Jobs
       rescue StandardError
         # Destroy the dataset to clean up
         dataset.destroy
-        raise
+        fail
       end
     end
   end

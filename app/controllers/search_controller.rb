@@ -101,7 +101,7 @@ class SearchController < ApplicationController
   # @api public
   # @return [undefined]
   def add
-    raise ActiveRecord::RecordNotFound unless user_signed_in?
+    fail ActiveRecord::RecordNotFound unless user_signed_in?
 
     @document = Document.find(params[:id])
     @datasets = current_user.datasets
@@ -113,7 +113,7 @@ class SearchController < ApplicationController
   # @api public
   # @return [undefined]
   def to_mendeley
-    raise ActiveRecord::RecordNotFound if Setting.mendeley_key.blank?
+    fail ActiveRecord::RecordNotFound if Setting.mendeley_key.blank?
 
     @document = Document.find(params[:id])
 
@@ -125,11 +125,11 @@ class SearchController < ApplicationController
       result = JSON.parse(json)
 
       mendeley_docs = result['documents']
-      raise ActiveRecord::RecordNotFound unless mendeley_docs.size
+      fail ActiveRecord::RecordNotFound unless mendeley_docs.size
 
       redirect_to mendeley_docs[0]['mendeley_url']
     rescue StandardError, Timeout::Error
-      raise ActiveRecord::RecordNotFound
+      fail ActiveRecord::RecordNotFound
     end
   end
 
@@ -146,11 +146,11 @@ class SearchController < ApplicationController
       json = res.body
       cul_docs = JSON.parse(json)
 
-      raise ActiveRecord::RecordNotFound unless cul_docs.size
+      fail ActiveRecord::RecordNotFound unless cul_docs.size
 
       redirect_to cul_docs[0]['href']
     rescue StandardError, Timeout::Error
-      raise ActiveRecord::RecordNotFound
+      fail ActiveRecord::RecordNotFound
     end
   end
 

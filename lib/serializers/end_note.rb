@@ -58,7 +58,7 @@ class Array
   #   $stdout.write(doc_array.to_endnote)
   def to_endnote
     each do |x|
-      raise ArgumentError, 'No to_endnote method for array element' unless x.respond_to? :to_endnote
+      fail ArgumentError, 'No to_endnote method for array element' unless x.respond_to? :to_endnote
     end
 
     map { |x| x.to_endnote }.join
