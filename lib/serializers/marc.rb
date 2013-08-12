@@ -203,7 +203,7 @@ module Serializers
         to_marc,
         include_namespace: include_namespace
       )
-      xml = String.new
+      xml = ''
       formatter = REXML::Formatters::Default.new
       formatter.write(rexml_element, xml)
 

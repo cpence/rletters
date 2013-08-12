@@ -129,7 +129,7 @@ class SearchController < ApplicationController
 
       redirect_to mendeley_docs[0]['mendeley_url']
     rescue StandardError, Timeout::Error
-      fail ActiveRecord::RecordNotFound
+      raise ActiveRecord::RecordNotFound
     end
   end
 
@@ -150,7 +150,7 @@ class SearchController < ApplicationController
 
       redirect_to cul_docs[0]['href']
     rescue StandardError, Timeout::Error
-      fail ActiveRecord::RecordNotFound
+      raise ActiveRecord::RecordNotFound
     end
   end
 

@@ -52,7 +52,7 @@ Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 RSpec.configure do |config|
   # Switch to the new RSpec syntax; but not to the expectation syntax yet, as
   # our have_tag matcher gem uses the old syntax.
-  #config.expect_with(:rspec) { |e| e.syntax = :expect }
+  # config.expect_with(:rspec) { |e| e.syntax = :expect }
   config.mock_with(:rspec) { |m| m.syntax = :expect }
 
   config.color_enabled = true

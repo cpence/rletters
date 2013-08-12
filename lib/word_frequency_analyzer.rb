@@ -87,9 +87,7 @@ class WordFrequencyAnalyzer
 
     # If we're split_across, we can now compute block_size from num_blocks
     # and vice versa
-    if @split_across
-      compute_block_size(@num_dataset_tokens)
-    end
+    compute_block_size(@num_dataset_tokens) if @split_across
 
     # Set up the initial block
     @block_num = 0
@@ -125,11 +123,7 @@ class WordFrequencyAnalyzer
       sorted_words.each do |word|
         @block[word] += 1
         @block_tokens += 1
-
-        if @block[word] == 1
-          @block_types += 1
-        end
-
+        @block_types += 1 if @block[word] == 1
         @block_counter += 1
 
         # If the block size doesn't divide evenly into the number of blocks
@@ -138,9 +132,7 @@ class WordFrequencyAnalyzer
         # else we wind up with one block that contains all the remainder,
         # despite the fact that we were trying to divide evenly.
         check_size = @block_size
-        if @num_remainder_blocks != 0
-          check_size = @block_size + 1
-        end
+        check_size = @block_size + 1 if @num_remainder_blocks != 0
 
         if @block_counter >= check_size
           @num_remainder_blocks -= 1 if @num_remainder_blocks != 0
@@ -150,16 +142,12 @@ class WordFrequencyAnalyzer
 
       # If we're not splitting across, we need to make sure the last block
       # for this doc, if there's anything in it, has been added to the list.
-      if !@split_across && @block_counter != 0
-        clear_block
-      end
+      clear_block if !@split_across && @block_counter != 0
     end
 
     # If we are splitting across, we need to put the last block into the
     # list
-    if @split_across && @block_counter != 0
-      clear_block
-    end
+    clear_block if @split_across && @block_counter != 0
   end
 
   private
@@ -188,9 +176,7 @@ class WordFrequencyAnalyzer
     end
 
     # Make sure num_words isn't negative
-    if options[:num_words] < 0
-      options[:num_words] = 0
-    end
+    options[:num_words] = 0 if options[:num_words] < 0
 
     # Copy over the parameters to member variables
     @num_blocks = options[:num_blocks]

@@ -122,9 +122,7 @@ module Solr
       fail ArgumentError, 'year query does not follow correct format' unless parts.count == 3
 
       decade = parts[0]
-      if decade == '*'
-        decade = '1790'
-      end
+      decade = '1790' if decade == '*'
       decade = Integer(decade)
 
       if decade == 1790

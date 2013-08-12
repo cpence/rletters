@@ -41,7 +41,7 @@ ActiveAdmin.register_page 'Dashboard' do
                 li I18n.t('admin.dashboard.latency',
                           count: search_result.solr_response['responseHeader']['QTime'])
               end
-            rescue StandardError => e
+            rescue StandardError
               li I18n.t('admin.dashboard.connection_failed')
             end
           end

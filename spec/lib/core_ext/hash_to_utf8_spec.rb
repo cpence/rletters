@@ -7,7 +7,7 @@ describe Hash do
     before(:each) do
       @hash = {
         one: 'asdf'.encode('iso-8859-1'),
-        two: [ { three: 'ghjk'.encode('iso-8859-1') } ]
+        two: [{ three: 'ghjk'.encode('iso-8859-1') }]
       }
     end
 

@@ -91,7 +91,6 @@ describe SearchController do
     context 'with offset and limit parameters' do
       it 'successfully parses those parameters' do
         default_sq = { q: '*:*', qt: 'precise', sort: 'year_sort desc', start: 20, rows: 20 }
-        options = { sort: 'year_sort desc', offset: 20, limit: 20 }
         expect(Solr::Connection).to receive(:find).with(default_sq).and_return(double(Solr::SearchResult, documents: []))
 
         get :index, { page: '1', per_page: '20' }

@@ -84,7 +84,7 @@ module Jobs
       rescue StandardError
         # Destroy the dataset to clean up
         dataset.destroy
-        fail
+        raise
       end
     end
   end

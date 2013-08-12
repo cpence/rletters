@@ -31,7 +31,7 @@ namespace :metrics do
   end
 
   require 'rails_best_practices'
-  desc "Run rails_best_practices"
+  desc 'Run rails_best_practices'
   task :rails_best_practices do
     analyzer = RailsBestPractices::Analyzer.new(
       '.',
@@ -41,7 +41,7 @@ namespace :metrics do
     analyzer.output
   end
 
-  desc "Clean up metric products"
+  desc 'Clean up metric products'
   task :clean do
     FileUtils.rm_f File.join('doc', 'metrics', 'rubocop.txt')
     FileUtils.rm_f File.join('doc', 'metrics', 'yardstick.txt')
@@ -50,7 +50,7 @@ namespace :metrics do
     FileUtils.rm_f File.join('doc', 'metrics', 'railsbp.html')
   end
 
-  desc "Run all available code metrics"
+  desc 'Run all available code metrics'
   task all: ['metrics:rubocop', 'metrics:yardstick', 'metrics:excellent',
              'metrics:rails_best_practices']
 end

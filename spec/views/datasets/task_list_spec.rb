@@ -73,8 +73,8 @@ describe 'datasets/task_list' do
   end
 
   context 'with all of the possible analysis task types' do
-    AVAILABLE_CLASSES = ['ExportCitations', 'PlotDates', 'SingleTermVectors',
-                         'WordFrequency']
+    AVAILABLE_CLASSES = %w(ExportCitations PlotDates SingleTermVectors
+                           WordFrequency)
 
     it 'successfully renders' do
       # This is mostly just to make sure that the internals of the job classes
