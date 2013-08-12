@@ -16,13 +16,12 @@ class InfoController < ApplicationController
   def index
     solr_query = { q: '*:*',
                    qt: 'precise',
-                   rows: 5,
+                   rows: 1,
                    start: 0 }
-    solr_response = Solr::Connection.find solr_query
-
-    if solr_response['response'] && solr_response['response']['numFound']
-      @database_size = solr_response['response']['numFound']
-    else
+    begin
+      search_result = Solr::Connection.find solr_query
+      @database_size = search_result.num_results
+    rescue StandardError
       @database_size = 0
     end
   end
@@ -51,4 +50,3 @@ class InfoController < ApplicationController
   # @return [undefined]
   def tutorial; end
 end
-

@@ -27,7 +27,9 @@ describe 'search/index' do
 
     assign(:sort, params[:sort] || 'score desc')
 
-    assign(:documents, Document.find_all_by_solr_query(solr_query))
+    result = Solr::Connection.find(solr_query)
+    assign(:result, result)
+    assign(:documents, result.documents)
   end
 
   context 'when no search is performed',

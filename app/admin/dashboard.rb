@@ -30,20 +30,19 @@ ActiveAdmin.register_page 'Dashboard' do
             solr_query[:rows] = 5
             solr_query[:start] = 0
 
-            solr_response = Solr::Connection.find solr_query
+            begin
+              search_result = Solr::Connection.find solr_query
 
-            if solr_response['response'] &&
-               solr_response['response']['numFound']
               li I18n.t('admin.dashboard.db_size',
-                        count: solr_response['response']['numFound'])
-            else
-              li I18n.t('admin.dashboard.connection_failed')
-            end
+                        count: search_result.num_results)
 
-            if solr_response['responseHeader'] &&
-               solr_response['responseHeader']['QTime']
-               li I18n.t('admin.dashboard.latency',
-                         count: solr_response['responseHeader']['QTime'])
+              if search_result.solr_response['responseHeader'] &&
+                  search_result.solr_response['responseHeader']['QTime']
+                li I18n.t('admin.dashboard.latency',
+                          count: search_result.solr_response['responseHeader']['QTime'])
+              end
+            rescue StandardError => e
+              li I18n.t('admin.dashboard.connection_failed')
             end
           end
 

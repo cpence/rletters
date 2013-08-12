@@ -231,28 +231,12 @@ describe WordFrequencyAnalyzer,
   end
 
   describe '#num_corpus_documents' do
-    context 'when Solr works' do
-      before(:each) do
-        @analyzer = WordFrequencyAnalyzer.new(@dataset)
-      end
-
-      it 'works' do
-        expect(@analyzer.num_corpus_documents).to eq(1042)
-      end
+    before(:each) do
+      @analyzer = WordFrequencyAnalyzer.new(@dataset)
     end
 
-    context 'when the Solr connection fails' do
-      before(:each) do
-        @analyzer = WordFrequencyAnalyzer.new(@dataset)
-      end
-
-      it 'throws an exception' do
-        expect(Solr::Connection).to receive(:find).with(
-          { q: '*:*', qt: 'precise', rows: 1, start: 0 }
-        ).and_return({})
-        expect { @analyzer.num_corpus_documents }.to raise_error(ActiveRecord::StatementInvalid)
-      end
+    it 'works' do
+      expect(@analyzer.num_corpus_documents).to eq(1042)
     end
   end
 end
-

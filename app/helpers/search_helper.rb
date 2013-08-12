@@ -6,14 +6,15 @@ module SearchHelper
   # Return a formatted version of the number of documents in the last search
   #
   # @api public
+  # @param [Solr::SearchResult] result the search result
   # @return [String] number of documents in the last search
   # @example Print the number of documents in the last search (in HAML)
-  #   = num_results_string
-  def num_results_string
+  #   = num_results_string(@result)
+  def num_results_string(result)
     if params[:precise] || params[:q] || params[:fq]
-      I18n.t 'search.index.num_results_found', count: Document.num_results
+      I18n.t 'search.index.num_results_found', count: result.num_results
     else
-      I18n.t 'search.index.num_results_database', count: Document.num_results
+      I18n.t 'search.index.num_results_database', count: result.num_results
     end
   end
 
@@ -51,11 +52,12 @@ module SearchHelper
   # devices.  So this is a compromise.
   #
   # @api public
+  # @param [Solr::SearchResult] result the search result
   # @return [String] full set of pagination links for the current page
   # @example Put the current pagination links in a paragraph element
-  #   <p><%= render_pagination %></p>
-  def render_pagination
-    num_pages = Document.num_results.to_f / @per_page.to_f
+  #   <p><%= render_pagination(@result) %></p>
+  def render_pagination(result)
+    num_pages = result.num_results.to_f / @per_page.to_f
     num_pages = Integer(num_pages.ceil)
     return '' if num_pages == 0
 
@@ -193,18 +195,19 @@ module SearchHelper
   # by +facet_link_list+.
   #
   # @api public
+  # @param [Solr::SearchResult] result the search result
   # @param [Symbol] field field we're faceting on
   # @param [String] header content of list item header
   # @param [Array<Solr::Facet>] active_facets array of active facets
   # @return [String] list items for links for the given facet
   # @example Get the links for the authors facet
-  #   list_links_for_facet(:authors_facet, "Authors", [...])
+  #   list_links_for_facet(@result, :authors_facet, "Authors", [...])
   #   # "<li><a href='...'>Johnson <span class='ui-li-count'>2</a></li>..."
-  def list_links_for_facet(field, header, active_facets)
-    return ''.html_safe unless Document.facets
+  def list_links_for_facet(result, field, header, active_facets)
+    return ''.html_safe unless result.facets
 
     # Get the facets for this field
-    facets = (Document.facets.sorted_for_field(field) - active_facets).take(5)
+    facets = (result.facets.sorted_for_field(field) - active_facets).take(5)
 
     # Bail if there's no facets
     ret = ''.html_safe
@@ -231,20 +234,21 @@ module SearchHelper
   # <li> elements (_not_ a <ul>), including list dividers.
   #
   # @api public
+  # @param [Solr::SearchResult] result the search result
   # @return [String] set of list items for faceted browsing
   # @example Get all of the links for faceted browsing
-  #   facet_link_list
+  #   facet_link_list(@result)
   #   # "<li>Active Filters</li>...<li>Authors</li><li>"
   #     "<a href='...'>Johnson</a></li>..."
-  def facet_link_list
+  def facet_link_list(result)
     # Make sure there are facets
-    return ''.html_safe unless Document.facets
+    return ''.html_safe unless result.facets
 
     # Convert the active facet queries to facets
     active_facets = []
     if params[:fq]
       params[:fq].each do |query|
-        active_facets << Document.facets.for_query(query)
+        active_facets << result.facets.for_query(query)
       end
       active_facets.compact!
     end
@@ -267,13 +271,16 @@ module SearchHelper
     end
 
     # Run the facet-list code for all three facet fields
-    ret << list_links_for_facet(:authors_facet,
+    ret << list_links_for_facet(result,
+                                :authors_facet,
                                 I18n.t('search.index.authors_facet'),
                                 active_facets)
-    ret << list_links_for_facet(:journal_facet,
+    ret << list_links_for_facet(result,
+                                :journal_facet,
                                 I18n.t('search.index.journal_facet'),
                                 active_facets)
-    ret << list_links_for_facet(:year,
+    ret << list_links_for_facet(result,
+                                :year,
                                 I18n.t('search.index.year_facet'),
                                 active_facets)
     ret

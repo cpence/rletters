@@ -11,7 +11,7 @@ describe 'Error pages' do
   end
 
   it 'renders the 500 template' do
-    stub_request(:any, /127\.0\.0\.1/).to_timeout
+    stub_request(:any, /(127\.0\.0\.1|localhost)/).to_timeout
     get_via_redirect '/search/'
 
     expect(response.code.to_i).to eq(500)

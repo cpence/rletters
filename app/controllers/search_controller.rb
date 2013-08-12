@@ -6,17 +6,14 @@
 # resulting lists of documents, and also handles the detailed display of
 # information about a single document.  Its main function is to convert the
 # user's provided search criteria into Solr queries for
-# +Document.find_all_by_solr_query+.
-#
-# @see Document
-# @see Document.find_all_by_solr_query
+# +Solr::Connection.find+.
 class SearchController < ApplicationController
 
   # Show the main search index page
   #
   # The controller just passes the search parameters through
   # +search_params_to_solr_query+, then sends this solr query on to the
-  # server using +Document.find_all_by_solr_query+.
+  # server using +Solr::Connection.find+.
   #
   # @api public
   # @return [undefined]
@@ -50,10 +47,10 @@ class SearchController < ApplicationController
     @solr_fq = solr_query[:fq]
 
     # Get the documents
-    @documents = Document.find_all_by_solr_query(solr_query,
-                                                 sort: @sort,
-                                                 offset: offset,
-                                                 limit: limit)
+    @result = Solr::Connection.find(solr_query.merge({ sort: @sort,
+                                                       start: offset,
+                                                       rows: limit }))
+    @documents = @result.documents
   end
 
   # Show the advanced search page

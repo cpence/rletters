@@ -55,7 +55,7 @@ class Array
   # @api public
   # @return [String] array of documents as RIS collection
   # @example Save an array of documents in RIS format to stdout
-  #   doc_array = Document.find_all_by_solr_query(...)
+  #   doc_array = Solr::Connection.find(...).documents
   #   $stdout.write(doc_array.to_ris)
   def to_ris
     each do |x|

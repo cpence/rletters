@@ -19,7 +19,7 @@ describe Solr::Connection do
 
     context 'when connection fails' do
       it 'returns an empty hash' do
-        stub_request(:any, /127\.0\.0\.1/).to_timeout
+        stub_request(:any, /(127\.0\.0\.1|localhost)/).to_timeout
         expect(Solr::Connection.info).to eq({ })
       end
     end

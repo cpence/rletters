@@ -5,26 +5,26 @@ describe SearchHelper do
 
   describe '#num_results_string' do
     before(:each) do
-      Document.num_results = 100
+      @result = mock(Solr::SearchResult, num_results: 100)
     end
 
     context 'when no search has been performed' do
       it 'returns "in database"' do
-        expect(helper.num_results_string).to eq('100 articles in database')
+        expect(helper.num_results_string(@result)).to eq('100 articles in database')
       end
     end
 
     context 'when a search has been performed' do
       it 'returns "found"' do
         params[:q] = 'Test search'
-        expect(helper.num_results_string).to eq('100 articles found')
+        expect(helper.num_results_string(@result)).to eq('100 articles found')
       end
     end
 
     context 'when a faceted query has been performed' do
       it 'returns "found"' do
         params[:fq] = ['journal:(Ethology)']
-        expect(helper.num_results_string).to eq('100 articles found')
+        expect(helper.num_results_string(@result)).to eq('100 articles found')
       end
     end
   end
@@ -32,24 +32,24 @@ describe SearchHelper do
   describe '#render_pagination' do
     context 'when we only have one page of results' do
       before(:each) do
-        Document.num_results = 1
+        @result = mock(Solr::SearchResult, num_results: 1)
         @per_page = 10
         @page = 0
       end
 
       it 'returns no links' do
-        expect(helper.render_pagination).not_to have_tag('a')
+        expect(helper.render_pagination(@result)).not_to have_tag('a')
       end
     end
 
     context 'when we have more than one page of results' do
       context 'when we are on the first page' do
         before(:each) do
-          Document.num_results = 100
+          @result = mock(Solr::SearchResult, num_results: 100)
           @per_page = 10
           @page = 0
 
-          @ret = helper.render_pagination
+          @ret = helper.render_pagination(@result)
         end
 
         it 'returns forward buttons' do
@@ -65,11 +65,11 @@ describe SearchHelper do
 
       context 'when we are in the middle' do
         before(:each) do
-          Document.num_results = 100
+          @result = mock(Solr::SearchResult, num_results: 100)
           @per_page = 10
           @page = params[:page] = 5
 
-          @ret = helper.render_pagination
+          @ret = helper.render_pagination(@result)
         end
 
         it 'returns back buttons' do
@@ -85,11 +85,11 @@ describe SearchHelper do
 
       context 'when we are on the last page' do
         before(:each) do
-          Document.num_results = 100
+          @result = mock(Solr::SearchResult, num_results: 100)
           @per_page = 10
           @page = params[:page] = 9
 
-          @ret = helper.render_pagination
+          @ret = helper.render_pagination(@result)
         end
 
         it 'returns back buttons' do
@@ -119,12 +119,12 @@ describe SearchHelper do
 
   describe '#list_links_for_facet', vcr: { cassette_name: 'solr_default' } do
     before(:each) do
-      @docs = Document.find_all_by_solr_query({ q: '*:*', qt: 'precise' })
+      @result = Solr::Connection.find({ q: '*:*', qt: 'precise' })
     end
 
     context 'with no active facets' do
       before(:each) do
-        @ret = helper.list_links_for_facet(:authors_facet, 'Authors', [])
+        @ret = helper.list_links_for_facet(@result, :authors_facet, 'Authors', [])
       end
 
       it 'includes a header' do
@@ -139,7 +139,7 @@ describe SearchHelper do
 
     context 'with an active facet' do
       before(:each) do
-        @ret = helper.list_links_for_facet(:authors_facet, 'Authors', [Document.facets.for_query('authors_facet:"J. C. Crabbe"')])
+        @ret = helper.list_links_for_facet(@result, :authors_facet, 'Authors', [@result.facets.for_query('authors_facet:"J. C. Crabbe"')])
       end
 
       it 'does not include the active facet in the list' do
@@ -156,18 +156,18 @@ describe SearchHelper do
   describe '#facet_link_list' do
     context 'when no facets present' do
       before(:each) do
-        allow(Document).to receive(:facets).and_return(nil)
+        @result = mock(Solr::SearchResult, facets: nil)
       end
 
       it 'returns an empty string' do
-        expect(helper.facet_link_list).to eq('')
+        expect(helper.facet_link_list(@result)).to eq('')
       end
     end
 
     context 'with no active facets', vcr: { cassette_name: 'solr_default' } do
       before(:each) do
-        @docs = Document.find_all_by_solr_query({ q: '*:*', qt: 'precise' })
-        @ret = helper.facet_link_list
+        @result = Solr::Connection.find({ q: '*:*', qt: 'precise' })
+        @ret = helper.facet_link_list(@result)
       end
 
       it 'includes the headers' do
@@ -195,11 +195,11 @@ describe SearchHelper do
     context 'with active facets',
             vcr: { cassette_name: 'search_helper_facets' } do
       before(:each) do
-        @docs = Document.find_all_by_solr_query({ q: '*:*', qt: 'precise',
-                                                  fq: ['authors_facet:"Elisa Lobato"', 'year:[2010 TO *]'] })
+        @result = Solr::Connection.find({ q: '*:*', qt: 'precise',
+                                          fq: ['authors_facet:"Elisa Lobato"', 'year:[2010 TO *]'] })
 
         params[:fq] = ['authors_facet:"Elisa Lobato"', 'year:[2010 TO *]']
-        @ret = helper.facet_link_list
+        @ret = helper.facet_link_list(@result)
       end
 
       it 'includes a link to remove all facets' do

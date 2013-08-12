@@ -109,43 +109,7 @@ class Document
   validates :shasum, length: { is: 40 }
   validates :shasum, format: { with: /\A[a-fA-F\d]+\z/ }
 
-  # Bring in some helpers for dealing with Solr
-  extend SolrHelpers
-
   class << self
-    # Faceted browsing information that was returned by the last search
-    #
-    # For the purposes of faceted browsing, the Solr server (as configured by
-    # default in RLetters) returns the number of items within the current
-    # search with each author, journal, or publication decade.
-    #
-    # @api public
-    # @return [Hash] facets returned by the last search, +nil+ if none.
-    #   The hash contains the following keys:
-    #     Document.facets[:authors_facet] = Array<Array>
-    #       Document.facets[:authors_facet][0] = ['Some Author', Integer]
-    #     Document.facets[:journal_facet] = Array<Array>
-    #       Document.facets[:journal_facet][0] = ['Some Journal', Integer]
-    #     Document.facets[:year]
-    #       Document.facets[:year][0] = ['1940–1949', Integer]
-    #
-    # @example Get the number of documents published by W. Shatner
-    #   shatner_docs = Document.facets[:authors_facet].assoc('W. Shatner')[1]
-    attr_accessor :facets
-
-    # Number of documents returned by the last search
-    #
-    # Since the search results (i.e., the size of the +@documents+ variable
-    # for a given view) are almost always limited by the per-page count,
-    # this variable returns the full number of documents that were returned by
-    # the last search.
-    #
-    # @api public
-    # @return [Integer] number of documents in the last search
-    # @example Returns true if there are more hits than documents returned
-    #   @documents.count > Document.num_results
-    attr_accessor :num_results
-
     # Registration for all serializers
     #
     # This variable is a hash of hashes.  For its format, see the documentation
@@ -192,128 +156,34 @@ class Document
   #
   # @api public
   # @param [String] shasum SHA-1 checksum of the document to be retrieved
-  # @param [Hash] options see +find_all_by_solr_query+ for specification
+  # @param [Hash] options see +Solr::Connection.find+ for specification
   # @return [Document] the document requested
   # @raise [ActiveRecord::RecordNotFound] thrown if no matching document can
   #   be found
-  # @see find_all_by_solr_query
   # @example Look up the document with ID '1234567890abcdef1234'
   #   doc = Document.find('1234567890abcdef1234')
   def self.find(shasum, options = {})
-    set = find_all_by_solr_query({ q: "shasum:#{shasum}",
-                                   qt: 'precise' },
-                                 options)
-    raise ActiveRecord::RecordNotFound if set.empty?
-    set[0]
+    result = Solr::Connection.find(options.merge({ q: "shasum:#{shasum}",
+                                                   qt: 'precise' }))
+    raise ActiveRecord::RecordNotFound if result.num_results != 1
+    result.documents[0]
   end
 
   # Return a document (bibliographic data and full text) by SHA-1 checksum
   #
   # @api public
   # @param [String] shasum SHA-1 checksum of the document to be retrieved
-  # @param [Hash] options see +find_all_by_solr_query+ for specification
+  # @param [Hash] options see +Solr::Connection.find+ for specification
   # @return [Document] the document requested, including full text
   # @raise [ActiveRecord::RecordNotFound] thrown if no matching document can
   #   be found
-  # @see find_all_by_solr_query
   # @example Get the full tet of the document with ID '1234567890abcdef1234'
   #   text = Document.find_with_fulltext('1234567890abcdef1234').fulltext
   def self.find_with_fulltext(shasum, options = {})
-    set = find_all_by_solr_query({ q: "shasum:#{shasum}",
-                                   qt: 'fulltext' },
-                                 options)
-    raise ActiveRecord::RecordNotFound if set.empty?
-    set[0]
-  end
-
-  # Find a set of documents using a direct Solr query
-  #
-  # With the exception of processing the +:offset+ and +:limit+ options,
-  # the +params+ array will be passed directly to Solr.
-  #
-  # @api public
-  # @param [Hash] params Solr query parameters
-  # @param [Hash] options subset of the options usually passed to
-  #   +ActiveRecord::find+
-  #
-  # @option params [String] :q a Solr query string, typically of the format
-  #   'field:val field:val ...'
-  # @option params [String] :qt the Solr query type.  In the default Solr
-  #   configuration provided with RLetters, valid values here are +standard+
-  #   (for stemmed, Google-like searching), +precise+ (full Solr query syntax,
-  #   returning bibliographic data only), and +fulltext (full Solr query
-  #   syntax, returning both bibliographic data and full document text).
-  # @option params [Integer] :start alternate way to set +:offset+ in +options+
-  # @option params [Integer] :rows alternate way to set +:limit+ in +options+
-  # @option params [String] :sort alternate way to set +:sort+ in +options+
-  #
-  # @option options [Integer] :offset offset within the result set at which to
-  #   begin returning documents
-  # @option options [Integer] :limit maximum number of results to return
-  # @option options [String] :sort sorting string ('method direction')
-  #
-  # @return [Array<Document>] set of documents matching query.  An empty
-  #   array will be returned if no documents match.
-  #
-  # @example Return all documents in the collection (bad idea!)
-  #  collection = Document.find_all_by_solr_query({ q: '*:*',
-  #                                                 qt: 'precise' })
-  # @example Return all documents which (fuzzily) match 'general'
-  #  results = Document.find_all_by_solr_query({ q: 'general',
-  #                                              qt: 'standard' })
-  # @example Return all documents published in 1983
-  #  results = Document.find_all_by_solr_query({ q: 'year:1983',
-  #                                              qt: 'precise' })
-  def self.find_all_by_solr_query(params, options = {})
-    # Map from common Rails options to Solr options
-    params[:start] = options[:offset] if options[:offset]
-    params[:rows] = options[:limit] if options[:limit]
-    params[:sort] = options[:sort] if options[:sort]
-
-    # Do the Solr query
-    solr_response = Solr::Connection.find params
-
-    # Set the num_results count (before possibly bailing!)
-    Document.num_results = 0
-    Document.num_results = solr_response.total if solr_response.ok?
-
-    raise ActiveRecord::StatementInvalid.new('Solr server did not respond') unless solr_response.ok?
-    return [] if solr_response.total == 0
-    raise ActiveRecord::StatementInvalid.new('Solr server claimed to have documents, but returned an empty array') unless solr_response.docs && solr_response.docs.count
-
-    # Grab all of the document-attributes that Solr returned, forcing
-    # everything into UTF-8 encoding, which is how all Solr's data
-    # comes back.
-    documents = solr_response['response']['docs'].map do |doc|
-      doc.each do |k, v|
-        if v.is_a? String
-          doc[k] = v.force_encoding(Encoding::UTF_8)
-        end
-      end
-    end
-
-    # See if the term vectors are available, and add them to the documents
-    if solr_response['termVectors']
-      (0...solr_response['termVectors'].length).step(2) do |i|
-        doc_shasum = solr_response['termVectors'][i + 1][1]
-        doc_tvec_array = solr_response['termVectors'][i + 1][3]
-
-        idx = documents.find_index { |doc| doc['shasum'] == doc_shasum }
-        unless idx.nil?
-          documents[idx]['term_vectors'] = parse_term_vectors(doc_tvec_array)
-        end
-      end
-    end
-
-    # See if the facets are available, and set the class variable if so
-    Document.facets = nil
-    if solr_response.facets || solr_response.facet_queries
-      Document.facets = Solr::Facets.new(solr_response.facets,
-                                         solr_response.facet_queries)
-    end
-
-    # Initialize all the documents and get out of here
-    documents.map { |attrs| Document.new(attrs) }
+    result = Solr::Connection.find(options.merge({ q: "shasum:#{shasum}",
+                                                   qt: 'fulltext' }))
+    raise ActiveRecord::RecordNotFound if result.num_results != 1
+    result.documents[0]
   end
 
   # @return [String] the starting page of this document, if it can be parsed

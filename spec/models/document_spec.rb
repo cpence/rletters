@@ -67,8 +67,8 @@ describe Document do
 
     context 'when Solr times out' do
       it 'raises an exception' do
-        stub_request(:any, /127\.0\.0\.1/).to_timeout
-        expect { Document.find('fail') }.to raise_error(ActiveRecord::StatementInvalid)
+        stub_request(:any, /(127\.0\.0\.1|localhost)/).to_timeout
+        expect { Document.find('fail') }.to raise_error(StandardError)
       end
     end
   end
@@ -88,146 +88,14 @@ describe Document do
     context 'when no documents are returned',
             vcr: { cassette_name: 'solr_fail_fulltext' } do
       it 'raises an exception' do
-        expect { Document.find_with_fulltext('fail') }.to raise_error(ActiveRecord::RecordNotFound)
+        expect { Document.find_with_fulltext('fail') }.to raise_error(StandardError)
       end
     end
 
     context 'when Solr times out' do
       it 'raises an exception' do
-        stub_request(:any, /127\.0\.0\.1/).to_timeout
-        expect { Document.find_with_fulltext('fail') }.to raise_error(ActiveRecord::StatementInvalid)
-      end
-    end
-  end
-
-  describe '.find_all_by_solr_query' do
-    context 'when loading a set of documents',
-            vcr: { cassette_name: 'solr_default' } do
-      before(:each) do
-        @docs = Document.find_all_by_solr_query({ q: '*:*', qt: 'precise' })
-      end
-
-      it 'loads all of the documents' do
-        expect(@docs).to have(10).items
-      end
-    end
-
-    context 'when no documents are returned',
-            vcr: { cassette_name: 'solr_fail' } do
-      it 'returns an empty array' do
-        expect(Document.find_all_by_solr_query({ q: 'shasum:fail', qt: 'precise' })).to have(0).items
-      end
-    end
-
-    context 'when Solr times out' do
-      it 'raises an error' do
-        stub_request(:any, /127\.0\.0\.1/).to_timeout
-        expect { Document.find_all_by_solr_query({ q: 'shasum:fail', qt: 'precise' }) }.to raise_error(ActiveRecord::StatementInvalid)
-      end
-    end
-  end
-
-  describe '.num_results' do
-    context 'when loading one document',
-            vcr: { cassette_name: 'solr_single' } do
-      before(:each) do
-        @doc = Document.find('00972c5123877961056b21aea4177d0dc69c7318')
-      end
-
-      it 'sets num_results to 1' do
-        expect(Document.num_results).to eq(1)
-      end
-    end
-
-    context 'when loading a set of documents',
-            vcr: { cassette_name: 'solr_default' } do
-      before(:each) do
-        @docs = Document.find_all_by_solr_query({ q: '*:*', qt: 'precise' })
-      end
-
-      it 'sets num_results' do
-        expect(Document.num_results).to eq(1042)
-      end
-    end
-  end
-
-  # N.B.: This also serves as a test for Solr::Facets, which is the type
-  # returned by Document.facets.
-  describe '.facets' do
-    context 'when loading one document with fulltext',
-            vcr: { cassette_name: 'solr_single_fulltext' } do
-      before(:each) do
-        @doc = Document.find_with_fulltext('00972c5123877961056b21aea4177d0dc69c7318')
-      end
-
-      it 'does not load facets if there are none' do
-        expect(Document.facets.all).to have(0).facets
-        expect(Document.facets).to be_empty
-      end
-    end
-
-    context 'when loading a set of documents',
-            vcr: { cassette_name: 'solr_default' } do
-      before(:each) do
-        @docs = Document.find_all_by_solr_query({ q: '*:*', qt: 'precise' })
-      end
-
-      it 'sets the facets' do
-        expect(Document.facets.all).to have_at_least(1).facet
-        expect(Document.facets).not_to be_empty
-      end
-
-      it 'has the right facet hash keys' do
-        expect(Document.facets.for_field(:authors_facet)).to have_at_least(1).facet
-        expect(Document.facets.for_field(:journal_facet)).to have_at_least(1).facet
-        expect(Document.facets.for_field(:year)).to have_at_least(1).facet
-      end
-
-      it 'sorts them appropriately when asked' do
-        expect(Document.facets.sorted_for_field(:year).first.label).to eq('2000–2009')
-      end
-
-      it 'can pick out facets by query' do
-        expect(Document.facets.for_query('year:[2000 TO 2009]')).to be
-        expect(Document.facets.for_query('authors_facet:"J. C. Crabbe"')).to be
-      end
-
-      it 'parses authors_facet correctly' do
-        f = Document.facets.for_field(:authors_facet).find { |o| o.value == 'J. C. Crabbe' }
-        expect(f).to be
-        expect(f.hits).to eq(9)
-      end
-
-      it 'does not include authors_facet entries for authors not present' do
-        f = Document.facets.for_field(:authors_facet).find { |o| o.value == 'W. Shatner' }
-        expect(f).not_to be
-      end
-
-      it 'does not include authors_facet entries for authors with no hits' do
-        f = Document.facets.for_field(:authors_facet).find { |o| o.value == 'No Hits' }
-        expect(f).not_to be
-      end
-
-      it 'parses journal_facet correctly' do
-        f = Document.facets.for_field(:journal_facet).find { |o| o.value == 'Ethology' }
-        expect(f).to be
-        expect(f.hits).to eq(594)
-      end
-
-      it 'does not include journal_facet entries for journals not present' do
-        f = Document.facets.for_field(:journal_facet).find { |o| o.value == 'Journal of Nothing' }
-        expect(f).not_to be
-      end
-
-      it 'parses year facet queries correctly' do
-        f = Document.facets.for_field(:year).find { |o| o.value == '[2000 TO 2009]' }
-        expect(f).to be
-        expect(f.hits).to eq(788)
-      end
-
-      it 'does not include year facet queries for non-present years' do
-        f = Document.facets.for_field(:year).find { |o| o.value == '[1940 TO 1949]' }
-        expect(f).not_to be
+        stub_request(:any, /(127\.0\.0\.1|localhost)/).to_timeout
+        expect { Document.find_with_fulltext('fail') }.to raise_error(StandardError)
       end
     end
   end
@@ -268,7 +136,8 @@ describe Document do
     context 'when loading a set of documents',
             vcr: { cassette_name: 'solr_default' } do
       before(:each) do
-        @docs = Document.find_all_by_solr_query({ q: '*:*', qt: 'precise' })
+        @result = Solr::Connection.find({ q: '*:*', qt: 'precise' })
+        @docs = @result.documents
       end
 
       it 'sets the shasum' do

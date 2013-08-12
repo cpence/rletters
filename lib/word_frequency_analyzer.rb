@@ -49,15 +49,8 @@ class WordFrequencyAnalyzer
       solr_query[:rows] = 1
       solr_query[:start] = 0
 
-      solr_response = Solr::Connection.find solr_query
-
-      # An exception thrown here percolates, usually, out of
-      # a delayed job, which is a not-uncommon exception case.
-      raise ActiveRecord::StatementInvalid.new('Solr did not respond to a query of the entire document set') unless
-        solr_response['response'] &&
-        solr_response['response']['numFound']
-
-      @corpus_size = solr_response['response']['numFound']
+      search_result = Solr::Connection.find(solr_query)
+      @corpus_size = search_result.num_results
     end
 
     @corpus_size

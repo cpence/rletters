@@ -1,4 +1,4 @@
-# -*- encoding : utf-8 -*-
+# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -12,6 +12,9 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema.define(version: 20130806005057) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "admin_users", force: true do |t|
     t.string   "email",                  default: "", null: false
@@ -28,8 +31,8 @@ ActiveRecord::Schema.define(version: 20130806005057) do
     t.datetime "updated_at"
   end
 
-  add_index "admin_users", ["email"], name: "index_admin_users_on_email", unique: true
-  add_index "admin_users", ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
+  add_index "admin_users", ["email"], name: "index_admin_users_on_email", unique: true, using: :btree
+  add_index "admin_users", ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true, using: :btree
 
   create_table "analysis_tasks", force: true do |t|
     t.string   "name"
@@ -41,7 +44,7 @@ ActiveRecord::Schema.define(version: 20130806005057) do
     t.string   "job_type"
   end
 
-  add_index "analysis_tasks", ["dataset_id"], name: "index_analysis_tasks_on_dataset_id"
+  add_index "analysis_tasks", ["dataset_id"], name: "index_analysis_tasks_on_dataset_id", using: :btree
 
   create_table "csl_styles", force: true do |t|
     t.string   "name"
@@ -57,7 +60,7 @@ ActiveRecord::Schema.define(version: 20130806005057) do
     t.datetime "updated_at"
   end
 
-  add_index "dataset_entries", ["dataset_id"], name: "index_dataset_entries_on_dataset_id"
+  add_index "dataset_entries", ["dataset_id"], name: "index_dataset_entries_on_dataset_id", using: :btree
 
   create_table "datasets", force: true do |t|
     t.string   "name"
@@ -66,7 +69,7 @@ ActiveRecord::Schema.define(version: 20130806005057) do
     t.datetime "updated_at"
   end
 
-  add_index "datasets", ["user_id"], name: "index_datasets_on_user_id"
+  add_index "datasets", ["user_id"], name: "index_datasets_on_user_id", using: :btree
 
   create_table "delayed_jobs", force: true do |t|
     t.integer  "priority",   default: 0
@@ -82,7 +85,7 @@ ActiveRecord::Schema.define(version: 20130806005057) do
     t.string   "queue"
   end
 
-  add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority"
+  add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
 
   create_table "downloads", force: true do |t|
     t.string   "filename"
@@ -91,7 +94,7 @@ ActiveRecord::Schema.define(version: 20130806005057) do
     t.integer  "analysis_task_id"
   end
 
-  add_index "downloads", ["analysis_task_id"], name: "index_downloads_on_analysis_task_id"
+  add_index "downloads", ["analysis_task_id"], name: "index_downloads_on_analysis_task_id", using: :btree
 
   create_table "libraries", force: true do |t|
     t.string   "name"
@@ -101,7 +104,7 @@ ActiveRecord::Schema.define(version: 20130806005057) do
     t.datetime "updated_at"
   end
 
-  add_index "libraries", ["user_id"], name: "index_libraries_on_user_id"
+  add_index "libraries", ["user_id"], name: "index_libraries_on_user_id", using: :btree
 
   create_table "markdown_pages", force: true do |t|
     t.string   "name"
@@ -117,7 +120,7 @@ ActiveRecord::Schema.define(version: 20130806005057) do
     t.datetime "updated_at"
   end
 
-  add_index "settings", ["key"], name: "key_udx", unique: true
+  add_index "settings", ["key"], name: "key_udx", unique: true, using: :btree
 
   create_table "uploaded_assets", force: true do |t|
     t.string   "name"
@@ -150,7 +153,7 @@ ActiveRecord::Schema.define(version: 20130806005057) do
     t.integer  "csl_style_id"
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
 end

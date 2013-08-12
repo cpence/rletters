@@ -21,6 +21,10 @@ describe SearchController do
         get :index
       end
 
+      it 'assigns the search result' do
+        expect(assigns(:result)).to be
+      end
+
       it 'assigns the documents variable' do
         expect(assigns(:documents)).to be
       end
@@ -48,7 +52,7 @@ describe SearchController do
 
     context 'with faceted search results' do
       before(:each) do
-        expect(Document).to receive(:find_all_by_solr_query).and_return([])
+        expect(Solr::Connection).to receive(:find).and_return(mock(Solr::SearchResult, documents: []))
         get :index, { fq: ['journal_facet:"Journal of Nothing"'] }
       end
 
@@ -63,7 +67,7 @@ describe SearchController do
 
     context 'with a dismax search' do
       before(:each) do
-        expect(Document).to receive(:find_all_by_solr_query).and_return([])
+        expect(Solr::Connection).to receive(:find).and_return(mock(Solr::SearchResult, documents: []))
         get :index, { q: 'testing' }
       end
 
@@ -86,9 +90,9 @@ describe SearchController do
 
     context 'with offset and limit parameters' do
       it 'successfully parses those parameters' do
-        default_sq = { q: '*:*', qt: 'precise' }
+        default_sq = { q: '*:*', qt: 'precise', sort: 'year_sort desc', start: 20, rows: 20 }
         options = { sort: 'year_sort desc', offset: 20, limit: 20 }
-        expect(Document).to receive(:find_all_by_solr_query).with(default_sq, options).and_return([])
+        expect(Solr::Connection).to receive(:find).with(default_sq).and_return(mock(Solr::SearchResult, documents: []))
 
         get :index, { page: '1', per_page: '20' }
 
@@ -96,9 +100,8 @@ describe SearchController do
       end
 
       it 'does not throw an exception on non-integral page values' do
-        default_sq = { q: '*:*', qt: 'precise' }
-        options = { sort: 'year_sort desc', offset: 0, limit: 20 }
-        expect(Document).to receive(:find_all_by_solr_query).with(default_sq, options).and_return([])
+        default_sq = { q: '*:*', qt: 'precise', sort: 'year_sort desc', start: 0, rows: 20 }
+        expect(Solr::Connection).to receive(:find).with(default_sq).and_return(mock(Solr::SearchResult, documents: []))
 
         expect {
           get :index, { page: 'zzyzzy', per_page: '20' }
@@ -106,9 +109,8 @@ describe SearchController do
       end
 
       it 'does not throw an exception on non-integral per_page values' do
-        default_sq = { q: '*:*', qt: 'precise' }
-        options = { sort: 'year_sort desc', offset: 10, limit: 10 }
-        expect(Document).to receive(:find_all_by_solr_query).with(default_sq, options).and_return([])
+        default_sq = { q: '*:*', qt: 'precise', sort: 'year_sort desc', start: 10, rows: 10 }
+        expect(Solr::Connection).to receive(:find).with(default_sq).and_return(mock(Solr::SearchResult, documents: []))
 
         expect {
           get :index, { page: '1', per_page: 'zzyzzy' }
@@ -116,9 +118,8 @@ describe SearchController do
       end
 
       it 'does not let the user specify zero items per page' do
-        default_sq = { q: '*:*', qt: 'precise' }
-        options = { sort: 'year_sort desc', offset: 10, limit: 10 }
-        expect(Document).to receive(:find_all_by_solr_query).with(default_sq, options).and_return([])
+        default_sq = { q: '*:*', qt: 'precise', sort: 'year_sort desc', start: 10, rows: 10 }
+        expect(Solr::Connection).to receive(:find).with(default_sq).and_return(mock(Solr::SearchResult, documents: []))
 
         get :index, { page: '1', per_page: '0' }
       end

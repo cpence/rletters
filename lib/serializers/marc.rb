@@ -240,7 +240,7 @@ class Array
   #   the MARC-in-JSON standard.
   # @return [String] array of documents as MARC-JSON collection
   # @example Save an array of documents in MARC-JSON format to stdout
-  #   doc_array = Document.find_all_by_solr_query(...)
+  #   doc_array = Solr::Connection.find(...).documents
   #   $stdout.write(doc_array.to_marc_json)
   # :nocov:
   def to_marc_json
@@ -261,7 +261,7 @@ class Array
   # @return [Nokogiri::XML::Document] array of documents as MARCXML collection
   #   document
   # @example Save an array of documents in MARCXML format to stdout
-  #   doc_array = Document.find_all_by_solr_query(...)
+  #   doc_array = Solr::Connection.find(...).documents
   #   doc_array.to_marc_xml.to_xml(indent: 2, encoding: 'UTF-8')
   def to_marc_xml
     each do |x|

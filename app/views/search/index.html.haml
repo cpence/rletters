@@ -1,6 +1,6 @@
 %div.leftcolumn
   %ul{ data: { role: 'listview', theme: 'd', divider_theme: 'b' } }
-    %li{ data: { role: 'list-divider' } }= num_results_string
+    %li{ data: { role: 'list-divider' } }= num_results_string(@result)
     %li.search
       = form_tag(search_path, method: :get, data: { transition: 'none' }) do
         - if params[:fq]
@@ -12,7 +12,7 @@
       %li.searchlist= link_to document_bibliography_entry(d), search_show_path(id: d.shasum)
 
   %div.verticalpad
-  %p.pagination= render_pagination
+  %p.pagination= render_pagination(@result)
   %div.verticalpad
 
 %div.rightcolumn
@@ -32,4 +32,4 @@
     %li.filterheader{ data: { role: 'list-divider' } }= t('.filters')
   %div.verticalpad
   %ul.facetlist{ data: { role: 'listview', theme: 'd', divider_theme: 'c' } }
-    = facet_link_list
+    = facet_link_list(@result)

@@ -204,7 +204,7 @@ class Array
   # @return [Nokogiri::XML::Document] array of documents as MODS collection
   #   document
   # @example Save an array of documents in MODS format to stdout
-  #   doc_array = Document.find_all_by_solr_query(...)
+  #   doc_array = Solr::Connection.find(...).documents
   #   puts doc_array.to_mods.to_xml(indent: 2)
   def to_mods
     each do |x|

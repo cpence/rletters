@@ -42,16 +42,12 @@ module Jobs
           solr_query[:fl] = 'year'
           solr_query[:facet] = false
 
-          solr_response = Solr::Connection.find solr_query
-          raise StandardError, 'Unknown error in Solr response' unless solr_response.ok?
-          raise StandardError, 'Failed to get batch of results in PlotDates' unless solr_response['response']['docs'].count == group.count
+          search_result = Solr::Connection.find solr_query
+          raise StandardError, 'Failed to get batch of results in PlotDates' unless search_result.num_results == group.count
 
-          solr_response['response']['docs'].each do |doc|
-            year = doc['year']
-            year.force_encoding(Encoding::UTF_8)
-
+          search_result.documents.each do |doc|
             # Support Y-M-D or Y/M/D dates
-            parts = year.split(/[-\/]/)
+            parts = doc.year.split(/[-\/]/)
             year = Integer(parts[0])
 
             year_array = dates.assoc(year)

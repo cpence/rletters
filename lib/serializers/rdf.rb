@@ -123,7 +123,7 @@ class Array
   # @return [String] array of documents as RDF+N3 collection
   # @note No tests for this method, as it is implemented by the RDF gem.
   # @example Save an array of documents in RDF+N3 format to stdout
-  #   doc_array = Document.find_all_by_solr_query(...)
+  #   doc_array = Solr::Connection.find(...).documents
   #   $stdout.write(doc_array.to_rdf_n3)
   # :nocov:
   def to_rdf_n3
@@ -148,7 +148,7 @@ class Array
   # @return [String] array of documents as RDF+XML collection
   # @note No tests for this method, as it is implemented by the RDF gem.
   # @example Save an array of documents in RDF+XML format to stdout
-  #   doc_array = Document.find_all_by_solr_query(...)
+  #   doc_array = Solr::Connection.find(...).documents
   #   $stdout.write(doc_array.to_rdf_xml)
   # :nocov:
   def to_rdf_xml

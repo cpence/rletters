@@ -22,16 +22,29 @@ module Solr
     # This method breaks out the retrieval of a Solr response in order to
     # provide for easier testing.
     #
-    # @api private
+    # @api public
     # @param [Hash] params
-    # @return [RSolr::Ext.response] Solr search result
+    # @option params [Integer] :start offset within the result set at which
+    #   to begin returning documents
+    # @option params [Integer] :rows maximum number of results to return
+    # @option params [String] :sort sorting string ('<method> <direction>')
+    # @option params [Integer] :offset alternate form for +:start+
+    # @option params [Integer] :limit alternate form for +:rows+
+    #
+    # @return [Solr::SearchResult] Solr search result
     def self.find(params)
       get_solr
-      Connection.solr.find params
+
+      # Map from common Rails options to Solr options
+      params[:start] = params.delete(:offset) if params[:offset]
+      params[:rows] = params.delete(:limit) if params[:limit]
+
+      SearchResult.new(Connection.solr.find params)
     rescue StandardError => e
       Rails.logger.warn "Connection to Solr failed: #{e.inspect}"
-      RSolr::Ext::Response::Base.new({ 'response' => { 'docs' => [] } },
-                                     'select', params)
+      err = RSolr::Ext::Response::Base.new({ 'response' => { 'docs' => [] } },
+                                           'select', params)
+      SearchResult.new(err)
     end
 
     # Get the info/statistics hash from Solr
