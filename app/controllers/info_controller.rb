@@ -15,11 +15,11 @@ class InfoController < ApplicationController
   # @return [undefined]
   def index
     solr_query = { q: '*:*',
-                   qt: 'precise',
+                   defType: 'lucene',
                    rows: 1,
                    start: 0 }
     begin
-      search_result = Solr::Connection.find solr_query
+      search_result = Solr::Connection.search solr_query
       @database_size = search_result.num_hits
     rescue StandardError
       @database_size = 0

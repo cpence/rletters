@@ -24,7 +24,7 @@
     - if current_user.nil?
       %li{ data: { theme: 'e' } }= link_to t('.login_prompt'), new_user_session_path
     - else
-      %li{ data: { icon: 'plus' } }= link_to t('.create_dataset'), new_dataset_path(q: @solr_q, qt: @solr_qt, fq: @solr_fq), data: { rel: 'dialog' }
+      %li{ data: { icon: 'plus' } }= link_to t('.create_dataset'), new_dataset_path(q: @solr_q, defType: @solr_defType, fq: @solr_fq), data: { rel: 'dialog' }
     %li{ data: { icon: 'search' } }= link_to t('.advanced_search'), search_advanced_path
   %div.verticalpad
 

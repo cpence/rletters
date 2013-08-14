@@ -2,7 +2,7 @@
 require 'spec_helper'
 require 'zip/zip'
 
-describe Jobs::Analysis::ExportCitations do
+describe Jobs::Analysis::ExportCitations, vcr: { cassette_name: 'solr_single' } do
 
   it_should_behave_like 'an analysis job with a file' do
     let(:job_params) { { format: :bibtex } }
@@ -35,8 +35,7 @@ describe Jobs::Analysis::ExportCitations do
     end
   end
 
-  context 'when all parameters are valid',
-          vcr: { cassette_name: 'solr_single' } do
+  context 'when all parameters are valid' do
     before(:each) do
       Jobs::Analysis::ExportCitations.new(user_id: @user.to_param,
                                           dataset_id: @dataset.to_param,

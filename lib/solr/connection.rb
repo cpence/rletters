@@ -1,9 +1,16 @@
 # -*- encoding : utf-8 -*-
+require_relative './errors'
 
 module Solr
 
   # Methods for managing the singleton connection to the Solr server
   module Connection
+
+    # The default Solr search fields
+    DEFAULT_FIELDS = 'shasum,doi,license,license_url,authors,title,journal,year,volume,number,pages'
+
+    # The default Solr search fields, with the fulltext added
+    DEFAULT_FIELDS_FULLTEXT = 'shasum,doi,license,license_url,authors,title,journal,year,volume,number,pages,fulltext'
 
     class << self
       # Cache the connection to solr
@@ -28,22 +35,16 @@ module Solr
     #   to begin returning documents
     # @option params [Integer] :rows maximum number of results to return
     # @option params [String] :sort sorting string ('<method> <direction>')
-    # @option params [Integer] :offset alternate form for +:start+
-    # @option params [Integer] :limit alternate form for +:rows+
     #
     # @return [Solr::SearchResult] Solr search result
-    def self.find(params)
+    def self.search(params)
       get_solr
 
-      # Map from common Rails options to Solr options
-      params[:start] = params.delete(:offset) if params[:offset]
-      params[:rows] = params.delete(:limit) if params[:limit]
-
-      SearchResult.new(Connection.solr.find params)
+      SearchResult.new(Connection.solr.find('search', params))
     rescue StandardError => e
       Rails.logger.warn "Connection to Solr failed: #{e.inspect}"
       err = RSolr::Ext::Response::Base.new({ 'response' => { 'docs' => [] } },
-                                           'select', params)
+                                           'search', params)
       SearchResult.new(err)
     end
 

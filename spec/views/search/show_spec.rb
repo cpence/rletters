@@ -69,7 +69,7 @@ describe 'search/show', vcr: { cassette_name: 'solr_single' } do
     end
 
     it 'has a link to create a dataset from this document' do
-      expected = new_dataset_path(q: 'shasum:00972c5123877961056b21aea4177d0dc69c7318', qt: 'precise', fq: nil)
+      expected = new_dataset_path(q: 'shasum:00972c5123877961056b21aea4177d0dc69c7318', defType: 'lucene', fq: nil)
       expect(rendered).to have_tag("a[href='#{expected}']")
     end
 

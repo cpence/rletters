@@ -12,7 +12,7 @@ describe Jobs::CreateDataset do
       expect {
         Jobs::CreateDataset.new(user_id: '12345678',
           name: 'Test Dataset', q: '*:*', fq: nil,
-          qt: 'precise').perform
+          defType: 'lucene').perform
       }.to raise_error(ActiveRecord::RecordNotFound)
     end
   end
@@ -22,7 +22,7 @@ describe Jobs::CreateDataset do
     before(:each) do
       Jobs::CreateDataset.new(user_id: @user.to_param,
         name: 'Short Test Dataset', q: 'test', fq: nil,
-        qt: 'standard').perform
+        defType: nil).perform
 
       @user.datasets.reload
     end
@@ -42,7 +42,7 @@ describe Jobs::CreateDataset do
     before(:each) do
       Jobs::CreateDataset.new(user_id: @user.to_param,
         name: 'Long Dataset', q: '*:*', fq: nil,
-        qt: 'precise').perform
+        defType: 'lucene').perform
 
       @user.datasets.reload
     end
@@ -64,7 +64,7 @@ describe Jobs::CreateDataset do
         begin
           Jobs::CreateDataset.new(user_id: @user.to_param,
             name: 'Failure Test Dataset', q: 'test', fq: nil,
-            qt: 'standard').perform
+            defType: nil).perform
         rescue StandardError
         end
       }.to_not change { Dataset.count }
@@ -74,7 +74,7 @@ describe Jobs::CreateDataset do
       expect {
         Jobs::CreateDataset.new(user_id: @user.to_param,
           name: 'Failure Test Dataset', q: 'test', fq: nil,
-          qt: 'standard').perform
+          defType: nil).perform
       }.to raise_error(StandardError)
     end
   end

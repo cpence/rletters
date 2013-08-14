@@ -6,14 +6,14 @@
 # resulting lists of documents, and also handles the detailed display of
 # information about a single document.  Its main function is to convert the
 # user's provided search criteria into Solr queries for
-# +Solr::Connection.find+.
+# +Solr::Connection.search+.
 class SearchController < ApplicationController
 
   # Show the main search index page
   #
   # The controller just passes the search parameters through
   # +search_params_to_solr_query+, then sends this solr query on to the
-  # server using +Solr::Connection.find+.
+  # server using +Solr::Connection.search+.
   #
   # @api public
   # @return [undefined]
@@ -43,13 +43,13 @@ class SearchController < ApplicationController
     # Expose the precise Solr search so we can use it to create datasets
     solr_query = search_params_to_solr_query(params)
     @solr_q = solr_query[:q]
-    @solr_qt = solr_query[:qt]
+    @solr_defType = solr_query[:defType]
     @solr_fq = solr_query[:fq]
 
     # Get the documents
-    @result = Solr::Connection.find(solr_query.merge({ sort: @sort,
-                                                       start: offset,
-                                                       rows: limit }))
+    @result = Solr::Connection.search(solr_query.merge({ sort: @sort,
+                                                         start: offset,
+                                                         rows: limit }))
     @documents = @result.documents
   end
 
@@ -167,7 +167,7 @@ class SearchController < ApplicationController
   # @return [Hash] Solr-format query parameters
   # @example Convert an advanced search to Solr format
   #   search_params_to_solr_query({ precise: 'true', title: 'test' })
-  #   # => { :qt => 'precise', :q => 'title:(test)' }
+  #   # => { :defType => 'lucene', :q => 'title:(test)' }
   def search_params_to_solr_query(params)
     # Remove any blank values (you get these on form submissions, for
     # example)
@@ -181,7 +181,7 @@ class SearchController < ApplicationController
       q_array = []
 
       # Advanced search, step through the fields
-      query_params[:qt] = 'precise'
+      query_params[:defType] = 'lucene'
       q_array << "#{params[:q]}" unless params[:q].blank?
 
       # Verbatim search fields
@@ -258,10 +258,10 @@ class SearchController < ApplicationController
       # Simple search
       if params[:q]
         query_params[:q] = params[:q]
-        query_params[:qt] = 'standard'
+        query_params[:defType] = 'dismax'
       else
         query_params[:q] = '*:*'
-        query_params[:qt] = 'precise'
+        query_params[:defType] = 'lucene'
       end
     end
 

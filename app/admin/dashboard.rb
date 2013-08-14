@@ -26,12 +26,12 @@ ActiveAdmin.register_page 'Dashboard' do
           ul do
             solr_query = {}
             solr_query[:q] = '*:*'
-            solr_query[:qt] = 'precise'
-            solr_query[:rows] = 5
+            solr_query[:defType] = 'lucene'
+            solr_query[:rows] = 1
             solr_query[:start] = 0
 
             begin
-              search_result = Solr::Connection.find solr_query
+              search_result = Solr::Connection.search solr_query
 
               li I18n.t('admin.dashboard.db_size',
                         count: search_result.num_hits)

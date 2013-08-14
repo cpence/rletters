@@ -119,7 +119,7 @@ describe SearchHelper do
 
   describe '#list_links_for_facet', vcr: { cassette_name: 'solr_default' } do
     before(:each) do
-      @result = Solr::Connection.find({ q: '*:*', qt: 'precise' })
+      @result = Solr::Connection.search({ q: '*:*', defType: 'lucene' })
     end
 
     context 'with no active facets' do
@@ -166,7 +166,7 @@ describe SearchHelper do
 
     context 'with no active facets', vcr: { cassette_name: 'solr_default' } do
       before(:each) do
-        @result = Solr::Connection.find({ q: '*:*', qt: 'precise' })
+        @result = Solr::Connection.search({ q: '*:*', defType: 'lucene' })
         @ret = helper.facet_link_list(@result)
       end
 
@@ -195,8 +195,8 @@ describe SearchHelper do
     context 'with active facets',
             vcr: { cassette_name: 'search_helper_facets' } do
       before(:each) do
-        @result = Solr::Connection.find({ q: '*:*', qt: 'precise',
-                                          fq: ['authors_facet:"Elisa Lobato"', 'year:[2010 TO *]'] })
+        @result = Solr::Connection.search({ q: '*:*', defType: 'lucene',
+                                            fq: ['authors_facet:"Elisa Lobato"', 'year:[2010 TO *]'] })
 
         params[:fq] = ['authors_facet:"Elisa Lobato"', 'year:[2010 TO *]']
         @ret = helper.facet_link_list(@result)

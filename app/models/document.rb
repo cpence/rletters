@@ -156,7 +156,7 @@ class Document
   #
   # @api public
   # @param [String] shasum SHA-1 checksum of the document to be retrieved
-  # @param [Hash] options see +Solr::Connection.find+ for specification
+  # @param [Hash] options see +Solr::Connection.search+ for specification
   # @return [Document] the document requested
   # @raise [Solr::ConnectionError] thrown if there is an error querying Solr
   # @raise [ActiveRecord::RecordNotFound] thrown if no matching document can
@@ -164,8 +164,8 @@ class Document
   # @example Look up the document with ID '1234567890abcdef1234'
   #   doc = Document.find('1234567890abcdef1234')
   def self.find(shasum, options = {})
-    result = Solr::Connection.find(options.merge({ q: "shasum:#{shasum}",
-                                                   qt: 'precise' }))
+    result = Solr::Connection.search(options.merge({ q: "shasum:#{shasum}",
+                                                     defType: 'lucene' }))
     fail ActiveRecord::RecordNotFound if result.num_hits != 1
     result.documents[0]
   end
@@ -174,7 +174,7 @@ class Document
   #
   # @api public
   # @param [String] shasum SHA-1 checksum of the document to be retrieved
-  # @param [Hash] options see +Solr::Connection.find+ for specification
+  # @param [Hash] options see +Solr::Connection.search+ for specification
   # @return [Document] the document requested, including full text
   # @raise [Solr::ConnectionError] thrown if there is an error querying Solr
   # @raise [ActiveRecord::RecordNotFound] thrown if no matching document can
@@ -182,8 +182,10 @@ class Document
   # @example Get the full tet of the document with ID '1234567890abcdef1234'
   #   text = Document.find_with_fulltext('1234567890abcdef1234').fulltext
   def self.find_with_fulltext(shasum, options = {})
-    result = Solr::Connection.find(options.merge({ q: "shasum:#{shasum}",
-                                                   qt: 'fulltext' }))
+    result = Solr::Connection.search(options.merge({ q: "shasum:#{shasum}",
+                                                     defType: 'lucene',
+                                                     tv: 'true',
+                                                     fl: Solr::Connection::DEFAULT_FIELDS_FULLTEXT }))
     fail ActiveRecord::RecordNotFound if result.num_hits != 1
     result.documents[0]
   end

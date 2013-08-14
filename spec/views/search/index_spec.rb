@@ -11,27 +11,6 @@ describe 'search/index' do
     allow(view).to receive(:user_signed_in?).and_return(false)
   end
 
-  def do_solr_query(q = nil, fq = nil, precise = false, other_params = {})
-    assign(:page, 0)
-    assign(:per_page, 10)
-
-    params[:q] = q
-    params[:fq] = fq
-    params[:precise] = precise
-    params.merge!(other_params)
-
-    solr_query = SearchController.new.send(:search_params_to_solr_query, params)
-    assign(:solr_q, solr_query[:q])
-    assign(:solr_qt, solr_query[:qt])
-    assign(:solr_fq, solr_query[:fq])
-
-    assign(:sort, params[:sort] || 'score desc')
-
-    result = Solr::Connection.find(solr_query)
-    assign(:result, result)
-    assign(:documents, result.documents)
-  end
-
   context 'when no search is performed',
           vcr: { cassette_name: 'solr_default' } do
     before(:each) do
@@ -48,9 +27,9 @@ describe 'search/index' do
       end
 
       it 'displays the details of a document' do
-        expect(rendered).to have_tag('h3', text: 'Parental and Mating Effort: Is There Necessarily a Trade-Off?')
-        expect(rendered).to match(/Kelly A\. Stiver, Suzanne H\. Alonzo/)
-        expect(rendered).to have_tag('li', text: /Ethology,\s+Vol\.\s+115,\s+\(2009\),\s+pp\.\s+1101-1126/)
+        expect(rendered).to have_tag('h3', text: 'Fine mapping of a sedative-hypnotic drug withdrawal locus on mouse chromosome 11')
+        expect(rendered).to match(/H\. M\. Hood, P\. Metten, J\. C\. Crabbe, K\. J\. Buck/)
+        expect(rendered).to have_tag('li', text: /Genes, Brain and Behavior,\s+Vol\.\s+5,\s+\(2006\),\s+pp\.\s+1-10/)
       end
 
       it 'shows the login prompt' do
@@ -101,12 +80,12 @@ describe 'search/index' do
       end
 
       it 'uses CSL styles when needed' do
-        expect(rendered).to have_tag('li:contains("Botero, Carlos A., Andrew E. Mudge, Amanda M. Koltz, Wesley M. Hochachka, and Sandra L. Vehrencamp. 2008. “How Reliable are the Methods for Estimating Repertoire Size?”. Ethology 114: 1227-1238.")')
+        expect(rendered).to have_tag('li:contains("Komdeur, Jan. 2006. “Variation in Individual Investment Strategies among Social Animals”. Ethology 112: 729-747.")')
       end
 
       it 'shows the create dataset prompt' do
         expect(rendered).to have_tag('li', text: 'Create dataset from search')
-        expect(rendered).to have_tag("a[href='#{new_dataset_path(q: '*:*', qt: 'precise', fq: nil)}']")
+        expect(rendered).to have_tag("a[href='#{new_dataset_path(q: '*:*', defType: 'lucene', fq: nil)}']")
       end
     end
   end

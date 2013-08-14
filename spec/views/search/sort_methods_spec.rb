@@ -3,27 +3,6 @@ require 'spec_helper'
 
 describe 'search/sort_methods', vcr: { cassette_name: 'solr_default' } do
 
-  def do_solr_query(q = nil, fq = nil, precise = false, other_params = {})
-    assign(:page, 0)
-    assign(:per_page, 10)
-
-    params[:q] = q
-    params[:fq] = fq
-    params[:precise] = precise
-    params.merge!(other_params)
-
-    solr_query = SearchController.new.send(:search_params_to_solr_query, params)
-    assign(:solr_q, solr_query[:q])
-    assign(:solr_qt, solr_query[:qt])
-    assign(:solr_fq, solr_query[:fq])
-
-    assign(:sort, params[:sort] || 'score desc')
-
-    result = Solr::Connection.find(solr_query)
-    assign(:result, result)
-    assign(:documents, result.documents)
-  end
-
   before(:each) do
     # Default to no signed-in user
     allow(view).to receive(:current_user).and_return(nil)

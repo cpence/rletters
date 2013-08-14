@@ -2,12 +2,11 @@
 http_interactions:
 - request:
     method: get
-    uri: http://localhost:8983/select?q=shasum:0097e0f4029fef57b8158970112ab32c1e692cff&qt=precise&wt=ruby
+    uri: http://localhost:8983/search?defType=lucene&q=shasum:00040b66948f49c3a6c6c0977530e2014899abf9&wt=ruby
     body:
       encoding: US-ASCII
-      string: ""
+      string: ''
     headers: {}
-
   response:
     status:
       code: 200
@@ -15,31 +14,58 @@ http_interactions:
     headers:
       Server:
       - Winstone Servlet Engine v0.9.10
-      Last-Modified:
-      - Tue, 05 Mar 2013 01:41:29 GMT
-      Etag:
-      - "\"YmVlMzM2ZjY5YzgwMDAwMFNvbHI=\""
       Content-Type:
       - text/plain;charset=UTF-8
       Connection:
       - Close
       Date:
-      - Tue, 05 Mar 2013 02:05:57 GMT
+      - Wed, 14 Aug 2013 15:29:36 GMT
       X-Powered-By:
       - Servlet/2.5 (Winstone/0.9.10)
     body:
-      encoding: UTF-8
-      string: "{'responseHeader'=>{'status'=>0,'QTime'=>7,'params'=>{'wt'=>'ruby','q'=>'shasum:0097e0f4029fef57b8158970112ab32c1e692cff','qt'=>'precise'}},'response'=>{'numFound'=>1,'start'=>0,'docs'=>[{'license'=>'© Blackwell Verlag GmbH','shasum'=>'0097e0f4029fef57b8158970112ab32c1e692cff','doi'=>'10.1111/j.1439-0310.2011.01898.x','authors'=>'Pavol Prokop, Michael R. Maxwell','title'=>'Sexual Conflict Over Spermatophore Attachment in a Nuptially Feeding Cricket','journal'=>'Ethology','year'=>'2011','volume'=>'117','pages'=>'520-528'}]},'facet_counts'=>{'facet_queries'=>{'year:[* TO 1799]'=>0,'year:[1800 TO 1809]'=>0,'year:[1810 TO 1819]'=>0,'year:[1820 TO 1829]'=>0,'year:[1830 TO 1839]'=>0,'year:[1840 TO 1849]'=>0,'year:[1850 TO 1859]'=>0,'year:[1860 TO 1869]'=>0,'year:[1870 TO 1879]'=>0,'year:[1880 TO 1889]'=>0,'year:[1890 TO 1899]'=>0,'year:[1900 TO 1909]'=>0,'year:[1910 TO 1919]'=>0,'year:[1920 TO 1929]'=>0,'year:[1930 TO 1939]'=>0,'year:[1940 TO 1949]'=>0,'year:[1950 TO 1959]'=>0,'year:[1960 TO 1969]'=>0,'year:[1970 TO 1979]'=>0,'year:[1980 TO 1989]'=>0,'year:[1990 TO 1999]'=>0,'year:[2000 TO 2009]'=>0,'year:[2010 TO *]'=>1},'facet_fields'=>{'authors_facet'=>['Michael R. Maxwell',1,'Pavol Prokop',1,'. N. Mouton',0,'A Guo',0,'A Pickles',0,'A. A. Bailey',0,'A. A. Fienberg',0,'A. A. Palmer',0,'A. A. Tudor-Jones',0,'A. A. Wong',0],'journal_facet'=>['Ethology',1,'Genes, Brain and Behavior',0]},'facet_dates'=>{}}}"
-    http_version:
-  recorded_at: Tue, 05 Mar 2013 02:05:57 GMT
+      encoding: ASCII-8BIT
+      string: !binary |-
+        eydyZXNwb25zZUhlYWRlcic9Pnsnc3RhdHVzJz0+MCwnUVRpbWUnPT40LCdw
+        YXJhbXMnPT57J3EnPT4nc2hhc3VtOjAwMDQwYjY2OTQ4ZjQ5YzNhNmM2YzA5
+        Nzc1MzBlMjAxNDg5OWFiZjknLCd3dCc9PidydWJ5JywnZGVmVHlwZSc9Pids
+        dWNlbmUnfX0sJ3Jlc3BvbnNlJz0+eydudW1Gb3VuZCc9PjEsJ3N0YXJ0Jz0+
+        MCwnZG9jcyc9Plt7J2xpY2Vuc2UnPT4nwqkgQmxhY2t3ZWxsIFZlcmxhZyBH
+        bWJIJywnc2hhc3VtJz0+JzAwMDQwYjY2OTQ4ZjQ5YzNhNmM2YzA5Nzc1MzBl
+        MjAxNDg5OWFiZjknLCdkb2knPT4nMTAuMTExMS9qLjE0MzktMDMxMC4yMDA5
+        LjAxNzA3LngnLCdhdXRob3JzJz0+J0tlbGx5IEEuIFN0aXZlciwgU3V6YW5u
+        ZSBILiBBbG9uem8nLCd0aXRsZSc9PidQYXJlbnRhbCBhbmQgTWF0aW5nIEVm
+        Zm9ydDogSXMgVGhlcmUgTmVjZXNzYXJpbHkgYSBUcmFkZS1PZmY/Jywnam91
+        cm5hbCc9PidFdGhvbG9neScsJ3llYXInPT4nMjAwOScsJ3ZvbHVtZSc9Picx
+        MTUnLCdwYWdlcyc9PicxMTAxLTExMjYnfV19LCdmYWNldF9jb3VudHMnPT57
+        J2ZhY2V0X3F1ZXJpZXMnPT57J3llYXI6WyogVE8gMTc5OV0nPT4wLCd5ZWFy
+        OlsxODAwIFRPIDE4MDldJz0+MCwneWVhcjpbMTgxMCBUTyAxODE5XSc9PjAs
+        J3llYXI6WzE4MjAgVE8gMTgyOV0nPT4wLCd5ZWFyOlsxODMwIFRPIDE4Mzld
+        Jz0+MCwneWVhcjpbMTg0MCBUTyAxODQ5XSc9PjAsJ3llYXI6WzE4NTAgVE8g
+        MTg1OV0nPT4wLCd5ZWFyOlsxODYwIFRPIDE4NjldJz0+MCwneWVhcjpbMTg3
+        MCBUTyAxODc5XSc9PjAsJ3llYXI6WzE4ODAgVE8gMTg4OV0nPT4wLCd5ZWFy
+        OlsxODkwIFRPIDE4OTldJz0+MCwneWVhcjpbMTkwMCBUTyAxOTA5XSc9PjAs
+        J3llYXI6WzE5MTAgVE8gMTkxOV0nPT4wLCd5ZWFyOlsxOTIwIFRPIDE5Mjld
+        Jz0+MCwneWVhcjpbMTkzMCBUTyAxOTM5XSc9PjAsJ3llYXI6WzE5NDAgVE8g
+        MTk0OV0nPT4wLCd5ZWFyOlsxOTUwIFRPIDE5NTldJz0+MCwneWVhcjpbMTk2
+        MCBUTyAxOTY5XSc9PjAsJ3llYXI6WzE5NzAgVE8gMTk3OV0nPT4wLCd5ZWFy
+        OlsxOTgwIFRPIDE5ODldJz0+MCwneWVhcjpbMTk5MCBUTyAxOTk5XSc9PjAs
+        J3llYXI6WzIwMDAgVE8gMjAwOV0nPT4xLCd5ZWFyOlsyMDEwIFRPICpdJz0+
+        MH0sJ2ZhY2V0X2ZpZWxkcyc9PnsnYXV0aG9yc19mYWNldCc9PlsnS2VsbHkg
+        QS4gU3RpdmVyJywxLCdTdXphbm5lIEguIEFsb256bycsMSwnLiBOLiBNb3V0
+        b24nLDAsJ0EgR3VvJywwLCdBIFBpY2tsZXMnLDAsJ0EuIEEuIEJhaWxleScs
+        MCwnQS4gQS4gRmllbmJlcmcnLDAsJ0EuIEEuIFBhbG1lcicsMCwnQS4gQS4g
+        VHVkb3ItSm9uZXMnLDAsJ0EuIEEuIFdvbmcnLDBdLCdqb3VybmFsX2ZhY2V0
+        Jz0+WydFdGhvbG9neScsMSwnR2VuZXMsIEJyYWluIGFuZCBCZWhhdmlvcics
+        MF19LCdmYWNldF9kYXRlcyc9Pnt9LCdmYWNldF9yYW5nZXMnPT57fX19Cg==
+    http_version: 
+  recorded_at: Wed, 14 Aug 2013 15:29:36 GMT
 - request:
     method: get
-    uri: http://localhost:8983/select?q=shasum:00a004096479b9332b153e91053f09df8003ef74&qt=precise&wt=ruby
+    uri: http://localhost:8983/search?defType=lucene&q=shasum:001954306c066a8a4cff3da02f7e9dda8e0fb634&wt=ruby
     body:
       encoding: US-ASCII
-      string: ""
+      string: ''
     headers: {}
-
   response:
     status:
       code: 200
@@ -47,31 +73,60 @@ http_interactions:
     headers:
       Server:
       - Winstone Servlet Engine v0.9.10
-      Last-Modified:
-      - Tue, 05 Mar 2013 01:41:29 GMT
-      Etag:
-      - "\"YmVlMzM2ZjY5YzgwMDAwMFNvbHI=\""
       Content-Type:
       - text/plain;charset=UTF-8
       Connection:
       - Close
       Date:
-      - Tue, 05 Mar 2013 02:05:57 GMT
+      - Wed, 14 Aug 2013 15:29:37 GMT
       X-Powered-By:
       - Servlet/2.5 (Winstone/0.9.10)
     body:
-      encoding: UTF-8
-      string: "{'responseHeader'=>{'status'=>0,'QTime'=>9,'params'=>{'wt'=>'ruby','q'=>'shasum:00a004096479b9332b153e91053f09df8003ef74','qt'=>'precise'}},'response'=>{'numFound'=>1,'start'=>0,'docs'=>[{'license'=>'© Blackwell Verlag GmbH','shasum'=>'00a004096479b9332b153e91053f09df8003ef74','doi'=>'10.1111/j.1439-0310.1998.tb00103.x','authors'=>'R. I. M. Dunbar, Julian Bever','title'=>'Neocortex Size Predicts Group Size in Carnivores and Some Insectivores','journal'=>'Ethology','year'=>'1998','volume'=>'104','pages'=>'695-708'}]},'facet_counts'=>{'facet_queries'=>{'year:[* TO 1799]'=>0,'year:[1800 TO 1809]'=>0,'year:[1810 TO 1819]'=>0,'year:[1820 TO 1829]'=>0,'year:[1830 TO 1839]'=>0,'year:[1840 TO 1849]'=>0,'year:[1850 TO 1859]'=>0,'year:[1860 TO 1869]'=>0,'year:[1870 TO 1879]'=>0,'year:[1880 TO 1889]'=>0,'year:[1890 TO 1899]'=>0,'year:[1900 TO 1909]'=>0,'year:[1910 TO 1919]'=>0,'year:[1920 TO 1929]'=>0,'year:[1930 TO 1939]'=>0,'year:[1940 TO 1949]'=>0,'year:[1950 TO 1959]'=>0,'year:[1960 TO 1969]'=>0,'year:[1970 TO 1979]'=>0,'year:[1980 TO 1989]'=>0,'year:[1990 TO 1999]'=>1,'year:[2000 TO 2009]'=>0,'year:[2010 TO *]'=>0},'facet_fields'=>{'authors_facet'=>['Julian Bever',1,'R. I. M. Dunbar',1,'. N. Mouton',0,'A Guo',0,'A Pickles',0,'A. A. Bailey',0,'A. A. Fienberg',0,'A. A. Palmer',0,'A. A. Tudor-Jones',0,'A. A. Wong',0],'journal_facet'=>['Ethology',1,'Genes, Brain and Behavior',0]},'facet_dates'=>{}}}"
-    http_version:
-  recorded_at: Tue, 05 Mar 2013 02:05:57 GMT
+      encoding: ASCII-8BIT
+      string: !binary |-
+        eydyZXNwb25zZUhlYWRlcic9Pnsnc3RhdHVzJz0+MCwnUVRpbWUnPT4yLCdw
+        YXJhbXMnPT57J3EnPT4nc2hhc3VtOjAwMTk1NDMwNmMwNjZhOGE0Y2ZmM2Rh
+        MDJmN2U5ZGRhOGUwZmI2MzQnLCd3dCc9PidydWJ5JywnZGVmVHlwZSc9Pids
+        dWNlbmUnfX0sJ3Jlc3BvbnNlJz0+eydudW1Gb3VuZCc9PjEsJ3N0YXJ0Jz0+
+        MCwnZG9jcyc9Plt7J2xpY2Vuc2UnPT4nwqkgQmxhY2t3ZWxsIFZlcmxhZyBH
+        bWJIJywnc2hhc3VtJz0+JzAwMTk1NDMwNmMwNjZhOGE0Y2ZmM2RhMDJmN2U5
+        ZGRhOGUwZmI2MzQnLCdkb2knPT4nMTAuMTA0Ni9qLjAxNzktMTYxMy4yMDAz
+        LjAwOTI5LngnLCdhdXRob3JzJz0+J1N1c2FuIEcuIEJyb3duLCBLYXJlbiBD
+        cm93ZWxsLCBQYXRyaWNpYSBLZWVuZScsJ3RpdGxlJz0+J092aXBvc2l0aW9u
+        IEJlaGF2aW9yIGFuZCBPZmZzcHJpbmcgRW1lcmdlbmNlIFBhdHRlcm5zIGlu
+        IFN1Y2NpbmVhIHRoYWFudW1pLCBhbiBFbmRlbWljIEhhd2FpaWFuIExhbmQg
+        U25haWwnLCdqb3VybmFsJz0+J0V0aG9sb2d5JywneWVhcic9PicyMDAzJywn
+        dm9sdW1lJz0+JzEwOScsJ3BhZ2VzJz0+JzkwNS05MTAnfV19LCdmYWNldF9j
+        b3VudHMnPT57J2ZhY2V0X3F1ZXJpZXMnPT57J3llYXI6WyogVE8gMTc5OV0n
+        PT4wLCd5ZWFyOlsxODAwIFRPIDE4MDldJz0+MCwneWVhcjpbMTgxMCBUTyAx
+        ODE5XSc9PjAsJ3llYXI6WzE4MjAgVE8gMTgyOV0nPT4wLCd5ZWFyOlsxODMw
+        IFRPIDE4MzldJz0+MCwneWVhcjpbMTg0MCBUTyAxODQ5XSc9PjAsJ3llYXI6
+        WzE4NTAgVE8gMTg1OV0nPT4wLCd5ZWFyOlsxODYwIFRPIDE4NjldJz0+MCwn
+        eWVhcjpbMTg3MCBUTyAxODc5XSc9PjAsJ3llYXI6WzE4ODAgVE8gMTg4OV0n
+        PT4wLCd5ZWFyOlsxODkwIFRPIDE4OTldJz0+MCwneWVhcjpbMTkwMCBUTyAx
+        OTA5XSc9PjAsJ3llYXI6WzE5MTAgVE8gMTkxOV0nPT4wLCd5ZWFyOlsxOTIw
+        IFRPIDE5MjldJz0+MCwneWVhcjpbMTkzMCBUTyAxOTM5XSc9PjAsJ3llYXI6
+        WzE5NDAgVE8gMTk0OV0nPT4wLCd5ZWFyOlsxOTUwIFRPIDE5NTldJz0+MCwn
+        eWVhcjpbMTk2MCBUTyAxOTY5XSc9PjAsJ3llYXI6WzE5NzAgVE8gMTk3OV0n
+        PT4wLCd5ZWFyOlsxOTgwIFRPIDE5ODldJz0+MCwneWVhcjpbMTk5MCBUTyAx
+        OTk5XSc9PjAsJ3llYXI6WzIwMDAgVE8gMjAwOV0nPT4xLCd5ZWFyOlsyMDEw
+        IFRPICpdJz0+MH0sJ2ZhY2V0X2ZpZWxkcyc9PnsnYXV0aG9yc19mYWNldCc9
+        PlsnS2FyZW4gQ3Jvd2VsbCcsMSwnUGF0cmljaWEgS2VlbmUnLDEsJ1N1c2Fu
+        IEcuIEJyb3duJywxLCcuIE4uIE1vdXRvbicsMCwnQSBHdW8nLDAsJ0EgUGlj
+        a2xlcycsMCwnQS4gQS4gQmFpbGV5JywwLCdBLiBBLiBGaWVuYmVyZycsMCwn
+        QS4gQS4gUGFsbWVyJywwLCdBLiBBLiBUdWRvci1Kb25lcycsMF0sJ2pvdXJu
+        YWxfZmFjZXQnPT5bJ0V0aG9sb2d5JywxLCdHZW5lcywgQnJhaW4gYW5kIEJl
+        aGF2aW9yJywwXX0sJ2ZhY2V0X2RhdGVzJz0+e30sJ2ZhY2V0X3Jhbmdlcyc9
+        Pnt9fX0K
+    http_version: 
+  recorded_at: Wed, 14 Aug 2013 15:29:37 GMT
 - request:
     method: get
-    uri: http://localhost:8983/select?q=shasum:00cdb0f945c1e1d7b7789cd8178f3232a57fee34&qt=precise&wt=ruby
+    uri: http://localhost:8983/search?defType=lucene&q=shasum:00496e7961871ad05013e1388aaa6650507b2638&wt=ruby
     body:
       encoding: US-ASCII
-      string: ""
+      string: ''
     headers: {}
-
   response:
     status:
       code: 200
@@ -79,31 +134,56 @@ http_interactions:
     headers:
       Server:
       - Winstone Servlet Engine v0.9.10
-      Last-Modified:
-      - Tue, 05 Mar 2013 01:41:29 GMT
-      Etag:
-      - "\"YmVlMzM2ZjY5YzgwMDAwMFNvbHI=\""
       Content-Type:
       - text/plain;charset=UTF-8
       Connection:
       - Close
       Date:
-      - Tue, 05 Mar 2013 02:05:57 GMT
+      - Wed, 14 Aug 2013 15:29:37 GMT
       X-Powered-By:
       - Servlet/2.5 (Winstone/0.9.10)
     body:
-      encoding: UTF-8
-      string: "{'responseHeader'=>{'status'=>0,'QTime'=>9,'params'=>{'wt'=>'ruby','q'=>'shasum:00cdb0f945c1e1d7b7789cd8178f3232a57fee34','qt'=>'precise'}},'response'=>{'numFound'=>1,'start'=>0,'docs'=>[{'license'=>'© Blackwell Verlag GmbH','shasum'=>'00cdb0f945c1e1d7b7789cd8178f3232a57fee34','doi'=>'10.1111/j.1439-0310.2006.01139.x','authors'=>'Jennifer L. Snekser, Scott P. McRobert, Caleb E. Murphy, Ethan D. Clotfelter','title'=>'Aggregation Behavior in Wildtype and Transgenic Zebrafish','journal'=>'Ethology','year'=>'2006','volume'=>'112','pages'=>'181-187'}]},'facet_counts'=>{'facet_queries'=>{'year:[* TO 1799]'=>0,'year:[1800 TO 1809]'=>0,'year:[1810 TO 1819]'=>0,'year:[1820 TO 1829]'=>0,'year:[1830 TO 1839]'=>0,'year:[1840 TO 1849]'=>0,'year:[1850 TO 1859]'=>0,'year:[1860 TO 1869]'=>0,'year:[1870 TO 1879]'=>0,'year:[1880 TO 1889]'=>0,'year:[1890 TO 1899]'=>0,'year:[1900 TO 1909]'=>0,'year:[1910 TO 1919]'=>0,'year:[1920 TO 1929]'=>0,'year:[1930 TO 1939]'=>0,'year:[1940 TO 1949]'=>0,'year:[1950 TO 1959]'=>0,'year:[1960 TO 1969]'=>0,'year:[1970 TO 1979]'=>0,'year:[1980 TO 1989]'=>0,'year:[1990 TO 1999]'=>0,'year:[2000 TO 2009]'=>1,'year:[2010 TO *]'=>0},'facet_fields'=>{'authors_facet'=>['Caleb E. Murphy',1,'Ethan D. Clotfelter',1,'Jennifer L. Snekser',1,'Scott P. McRobert',1,'. N. Mouton',0,'A Guo',0,'A Pickles',0,'A. A. Bailey',0,'A. A. Fienberg',0,'A. A. Palmer',0],'journal_facet'=>['Ethology',1,'Genes, Brain and Behavior',0]},'facet_dates'=>{}}}"
-    http_version:
-  recorded_at: Tue, 05 Mar 2013 02:05:57 GMT
+      encoding: ASCII-8BIT
+      string: !binary |-
+        eydyZXNwb25zZUhlYWRlcic9Pnsnc3RhdHVzJz0+MCwnUVRpbWUnPT4zLCdw
+        YXJhbXMnPT57J3EnPT4nc2hhc3VtOjAwNDk2ZTc5NjE4NzFhZDA1MDEzZTEz
+        ODhhYWE2NjUwNTA3YjI2MzgnLCd3dCc9PidydWJ5JywnZGVmVHlwZSc9Pids
+        dWNlbmUnfX0sJ3Jlc3BvbnNlJz0+eydudW1Gb3VuZCc9PjEsJ3N0YXJ0Jz0+
+        MCwnZG9jcyc9Plt7J2xpY2Vuc2UnPT4nwqkgQmxhY2t3ZWxsIFZlcmxhZyBH
+        bWJIJywnc2hhc3VtJz0+JzAwNDk2ZTc5NjE4NzFhZDA1MDEzZTEzODhhYWE2
+        NjUwNTA3YjI2MzgnLCdkb2knPT4nMTAuMTA0Ni9qLjE0MzktMDMxMC4yMDAw
+        LjAwNTM5LngnLCd0aXRsZSc9PidOZXcgQm9va3MnLCdqb3VybmFsJz0+J0V0
+        aG9sb2d5JywneWVhcic9PicyMDAwJywndm9sdW1lJz0+JzEwNicsJ3BhZ2Vz
+        Jz0+JzI4My0yODYnfV19LCdmYWNldF9jb3VudHMnPT57J2ZhY2V0X3F1ZXJp
+        ZXMnPT57J3llYXI6WyogVE8gMTc5OV0nPT4wLCd5ZWFyOlsxODAwIFRPIDE4
+        MDldJz0+MCwneWVhcjpbMTgxMCBUTyAxODE5XSc9PjAsJ3llYXI6WzE4MjAg
+        VE8gMTgyOV0nPT4wLCd5ZWFyOlsxODMwIFRPIDE4MzldJz0+MCwneWVhcjpb
+        MTg0MCBUTyAxODQ5XSc9PjAsJ3llYXI6WzE4NTAgVE8gMTg1OV0nPT4wLCd5
+        ZWFyOlsxODYwIFRPIDE4NjldJz0+MCwneWVhcjpbMTg3MCBUTyAxODc5XSc9
+        PjAsJ3llYXI6WzE4ODAgVE8gMTg4OV0nPT4wLCd5ZWFyOlsxODkwIFRPIDE4
+        OTldJz0+MCwneWVhcjpbMTkwMCBUTyAxOTA5XSc9PjAsJ3llYXI6WzE5MTAg
+        VE8gMTkxOV0nPT4wLCd5ZWFyOlsxOTIwIFRPIDE5MjldJz0+MCwneWVhcjpb
+        MTkzMCBUTyAxOTM5XSc9PjAsJ3llYXI6WzE5NDAgVE8gMTk0OV0nPT4wLCd5
+        ZWFyOlsxOTUwIFRPIDE5NTldJz0+MCwneWVhcjpbMTk2MCBUTyAxOTY5XSc9
+        PjAsJ3llYXI6WzE5NzAgVE8gMTk3OV0nPT4wLCd5ZWFyOlsxOTgwIFRPIDE5
+        ODldJz0+MCwneWVhcjpbMTk5MCBUTyAxOTk5XSc9PjAsJ3llYXI6WzIwMDAg
+        VE8gMjAwOV0nPT4xLCd5ZWFyOlsyMDEwIFRPICpdJz0+MH0sJ2ZhY2V0X2Zp
+        ZWxkcyc9PnsnYXV0aG9yc19mYWNldCc9PlsnLiBOLiBNb3V0b24nLDAsJ0Eg
+        R3VvJywwLCdBIFBpY2tsZXMnLDAsJ0EuIEEuIEJhaWxleScsMCwnQS4gQS4g
+        RmllbmJlcmcnLDAsJ0EuIEEuIFBhbG1lcicsMCwnQS4gQS4gVHVkb3ItSm9u
+        ZXMnLDAsJ0EuIEEuIFdvbmcnLDAsJ0EuIEEuIHZhbiBFbGJ1cmcnLDAsJ0Eu
+        IEFnbW8nLDBdLCdqb3VybmFsX2ZhY2V0Jz0+WydFdGhvbG9neScsMSwnR2Vu
+        ZXMsIEJyYWluIGFuZCBCZWhhdmlvcicsMF19LCdmYWNldF9kYXRlcyc9Pnt9
+        LCdmYWNldF9yYW5nZXMnPT57fX19Cg==
+    http_version: 
+  recorded_at: Wed, 14 Aug 2013 15:29:37 GMT
 - request:
     method: get
-    uri: http://localhost:8983/select?q=shasum:00dbffbfff2d18a74ed5f8895fa9f515bf38bf5f&qt=precise&wt=ruby
+    uri: http://localhost:8983/search?defType=lucene&q=shasum:008896a5c58241b65088d931e02f3bea02fc3bf0&wt=ruby
     body:
       encoding: US-ASCII
-      string: ""
+      string: ''
     headers: {}
-
   response:
     status:
       code: 200
@@ -111,31 +191,62 @@ http_interactions:
     headers:
       Server:
       - Winstone Servlet Engine v0.9.10
-      Last-Modified:
-      - Tue, 05 Mar 2013 01:41:29 GMT
-      Etag:
-      - "\"YmVlMzM2ZjY5YzgwMDAwMFNvbHI=\""
       Content-Type:
       - text/plain;charset=UTF-8
       Connection:
       - Close
       Date:
-      - Tue, 05 Mar 2013 02:05:57 GMT
+      - Wed, 14 Aug 2013 15:29:37 GMT
       X-Powered-By:
       - Servlet/2.5 (Winstone/0.9.10)
     body:
-      encoding: UTF-8
-      string: "{'responseHeader'=>{'status'=>0,'QTime'=>6,'params'=>{'wt'=>'ruby','q'=>'shasum:00dbffbfff2d18a74ed5f8895fa9f515bf38bf5f','qt'=>'precise'}},'response'=>{'numFound'=>1,'start'=>0,'docs'=>[{'license'=>'© Blackwell Verlag GmbH','shasum'=>'00dbffbfff2d18a74ed5f8895fa9f515bf38bf5f','doi'=>'10.1111/j.1439-0310.2007.01421.x','authors'=>'Troy G. Murphy','title'=>'Display of an Inedible Prop as a Signal of Aggression? Adaptive Significance of Leaf-Display by the Turquoise-Browed Motmot, Eumomota superciliosa','journal'=>'Ethology','year'=>'2008','volume'=>'114','pages'=>'16-21'}]},'facet_counts'=>{'facet_queries'=>{'year:[* TO 1799]'=>0,'year:[1800 TO 1809]'=>0,'year:[1810 TO 1819]'=>0,'year:[1820 TO 1829]'=>0,'year:[1830 TO 1839]'=>0,'year:[1840 TO 1849]'=>0,'year:[1850 TO 1859]'=>0,'year:[1860 TO 1869]'=>0,'year:[1870 TO 1879]'=>0,'year:[1880 TO 1889]'=>0,'year:[1890 TO 1899]'=>0,'year:[1900 TO 1909]'=>0,'year:[1910 TO 1919]'=>0,'year:[1920 TO 1929]'=>0,'year:[1930 TO 1939]'=>0,'year:[1940 TO 1949]'=>0,'year:[1950 TO 1959]'=>0,'year:[1960 TO 1969]'=>0,'year:[1970 TO 1979]'=>0,'year:[1980 TO 1989]'=>0,'year:[1990 TO 1999]'=>0,'year:[2000 TO 2009]'=>1,'year:[2010 TO *]'=>0},'facet_fields'=>{'authors_facet'=>['Troy G. Murphy',1,'. N. Mouton',0,'A Guo',0,'A Pickles',0,'A. A. Bailey',0,'A. A. Fienberg',0,'A. A. Palmer',0,'A. A. Tudor-Jones',0,'A. A. Wong',0,'A. A. van Elburg',0],'journal_facet'=>['Ethology',1,'Genes, Brain and Behavior',0]},'facet_dates'=>{}}}"
-    http_version:
-  recorded_at: Tue, 05 Mar 2013 02:05:57 GMT
+      encoding: ASCII-8BIT
+      string: !binary |-
+        eydyZXNwb25zZUhlYWRlcic9Pnsnc3RhdHVzJz0+MCwnUVRpbWUnPT40LCdw
+        YXJhbXMnPT57J3EnPT4nc2hhc3VtOjAwODg5NmE1YzU4MjQxYjY1MDg4ZDkz
+        MWUwMmYzYmVhMDJmYzNiZjAnLCd3dCc9PidydWJ5JywnZGVmVHlwZSc9Pids
+        dWNlbmUnfX0sJ3Jlc3BvbnNlJz0+eydudW1Gb3VuZCc9PjEsJ3N0YXJ0Jz0+
+        MCwnZG9jcyc9Plt7J2xpY2Vuc2UnPT4nwqkgQmxhY2t3ZWxsIFZlcmxhZyBH
+        bWJIJywnc2hhc3VtJz0+JzAwODg5NmE1YzU4MjQxYjY1MDg4ZDkzMWUwMmYz
+        YmVhMDJmYzNiZjAnLCdkb2knPT4nMTAuMTExMS9qLjE0MzktMDMxMC4yMDA5
+        LjAxNzE2LngnLCdhdXRob3JzJz0+J0p1YW4gTW9yZW5vLCBKdWFuLUdhYnJp
+        ZWwgTWFydMOtbmV6LCBKdWRpdGggTW9yYWxlcywgRWxpc2EgTG9iYXRvLCBT
+        YW50aWFnbyBNZXJpbm8sIEd1c3Rhdm8gVG9tw6FzLCBSb2RyaWdvIEEuIFbD
+        oXNxdWV6LCBFcmljaCBNw7ZzdGwsIEpvc8OpIEwuIE9zb3JubycsJ3RpdGxl
+        Jz0+J1BhdGVybml0eSBMb3NzIGluIFJlbGF0aW9uIHRvIE1hbGUgQWdlLCBU
+        ZXJyaXRvcmlhbCBCZWhhdmlvdXIgYW5kIFN0cmVzcyBpbiB0aGUgUGllZCBG
+        bHljYXRjaGVyJywnam91cm5hbCc9PidFdGhvbG9neScsJ3llYXInPT4nMjAx
+        MCcsJ3ZvbHVtZSc9PicxMTYnLCdwYWdlcyc9Pic3Ni04NCd9XX0sJ2ZhY2V0
+        X2NvdW50cyc9PnsnZmFjZXRfcXVlcmllcyc9PnsneWVhcjpbKiBUTyAxNzk5
+        XSc9PjAsJ3llYXI6WzE4MDAgVE8gMTgwOV0nPT4wLCd5ZWFyOlsxODEwIFRP
+        IDE4MTldJz0+MCwneWVhcjpbMTgyMCBUTyAxODI5XSc9PjAsJ3llYXI6WzE4
+        MzAgVE8gMTgzOV0nPT4wLCd5ZWFyOlsxODQwIFRPIDE4NDldJz0+MCwneWVh
+        cjpbMTg1MCBUTyAxODU5XSc9PjAsJ3llYXI6WzE4NjAgVE8gMTg2OV0nPT4w
+        LCd5ZWFyOlsxODcwIFRPIDE4NzldJz0+MCwneWVhcjpbMTg4MCBUTyAxODg5
+        XSc9PjAsJ3llYXI6WzE4OTAgVE8gMTg5OV0nPT4wLCd5ZWFyOlsxOTAwIFRP
+        IDE5MDldJz0+MCwneWVhcjpbMTkxMCBUTyAxOTE5XSc9PjAsJ3llYXI6WzE5
+        MjAgVE8gMTkyOV0nPT4wLCd5ZWFyOlsxOTMwIFRPIDE5MzldJz0+MCwneWVh
+        cjpbMTk0MCBUTyAxOTQ5XSc9PjAsJ3llYXI6WzE5NTAgVE8gMTk1OV0nPT4w
+        LCd5ZWFyOlsxOTYwIFRPIDE5NjldJz0+MCwneWVhcjpbMTk3MCBUTyAxOTc5
+        XSc9PjAsJ3llYXI6WzE5ODAgVE8gMTk4OV0nPT4wLCd5ZWFyOlsxOTkwIFRP
+        IDE5OTldJz0+MCwneWVhcjpbMjAwMCBUTyAyMDA5XSc9PjAsJ3llYXI6WzIw
+        MTAgVE8gKl0nPT4xfSwnZmFjZXRfZmllbGRzJz0+eydhdXRob3JzX2ZhY2V0
+        Jz0+WydFbGlzYSBMb2JhdG8nLDEsJ0VyaWNoIE3DtnN0bCcsMSwnR3VzdGF2
+        byBUb23DoXMnLDEsJ0pvc8OpIEwuIE9zb3JubycsMSwnSnVhbiBNb3Jlbm8n
+        LDEsJ0p1YW4tR2FicmllbCBNYXJ0w61uZXonLDEsJ0p1ZGl0aCBNb3JhbGVz
+        JywxLCdSb2RyaWdvIEEuIFbDoXNxdWV6JywxLCdTYW50aWFnbyBNZXJpbm8n
+        LDEsJy4gTi4gTW91dG9uJywwXSwnam91cm5hbF9mYWNldCc9PlsnRXRob2xv
+        Z3knLDEsJ0dlbmVzLCBCcmFpbiBhbmQgQmVoYXZpb3InLDBdfSwnZmFjZXRf
+        ZGF0ZXMnPT57fSwnZmFjZXRfcmFuZ2VzJz0+e319fQo=
+    http_version: 
+  recorded_at: Wed, 14 Aug 2013 15:29:37 GMT
 - request:
     method: get
-    uri: http://localhost:8983/select?q=shasum:00040b66948f49c3a6c6c0977530e2014899abf9&qt=precise&wt=ruby
+    uri: http://localhost:8983/search?defType=lucene&q=shasum:00972c5123877961056b21aea4177d0dc69c7318&wt=ruby
     body:
       encoding: US-ASCII
-      string: ""
+      string: ''
     headers: {}
-
   response:
     status:
       code: 200
@@ -143,31 +254,60 @@ http_interactions:
     headers:
       Server:
       - Winstone Servlet Engine v0.9.10
-      Last-Modified:
-      - Tue, 05 Mar 2013 01:41:29 GMT
-      Etag:
-      - "\"YmVlMzM2ZjY5YzgwMDAwMFNvbHI=\""
       Content-Type:
       - text/plain;charset=UTF-8
       Connection:
       - Close
       Date:
-      - Tue, 05 Mar 2013 02:05:57 GMT
+      - Wed, 14 Aug 2013 15:29:37 GMT
       X-Powered-By:
       - Servlet/2.5 (Winstone/0.9.10)
     body:
-      encoding: UTF-8
-      string: "{'responseHeader'=>{'status'=>0,'QTime'=>6,'params'=>{'wt'=>'ruby','q'=>'shasum:00040b66948f49c3a6c6c0977530e2014899abf9','qt'=>'precise'}},'response'=>{'numFound'=>1,'start'=>0,'docs'=>[{'license'=>'© Blackwell Verlag GmbH','shasum'=>'00040b66948f49c3a6c6c0977530e2014899abf9','doi'=>'10.1111/j.1439-0310.2009.01707.x','authors'=>'Kelly A. Stiver, Suzanne H. Alonzo','title'=>'Parental and Mating Effort: Is There Necessarily a Trade-Off?','journal'=>'Ethology','year'=>'2009','volume'=>'115','pages'=>'1101-1126'}]},'facet_counts'=>{'facet_queries'=>{'year:[* TO 1799]'=>0,'year:[1800 TO 1809]'=>0,'year:[1810 TO 1819]'=>0,'year:[1820 TO 1829]'=>0,'year:[1830 TO 1839]'=>0,'year:[1840 TO 1849]'=>0,'year:[1850 TO 1859]'=>0,'year:[1860 TO 1869]'=>0,'year:[1870 TO 1879]'=>0,'year:[1880 TO 1889]'=>0,'year:[1890 TO 1899]'=>0,'year:[1900 TO 1909]'=>0,'year:[1910 TO 1919]'=>0,'year:[1920 TO 1929]'=>0,'year:[1930 TO 1939]'=>0,'year:[1940 TO 1949]'=>0,'year:[1950 TO 1959]'=>0,'year:[1960 TO 1969]'=>0,'year:[1970 TO 1979]'=>0,'year:[1980 TO 1989]'=>0,'year:[1990 TO 1999]'=>0,'year:[2000 TO 2009]'=>1,'year:[2010 TO *]'=>0},'facet_fields'=>{'authors_facet'=>['Kelly A. Stiver',1,'Suzanne H. Alonzo',1,'. N. Mouton',0,'A Guo',0,'A Pickles',0,'A. A. Bailey',0,'A. A. Fienberg',0,'A. A. Palmer',0,'A. A. Tudor-Jones',0,'A. A. Wong',0],'journal_facet'=>['Ethology',1,'Genes, Brain and Behavior',0]},'facet_dates'=>{}}}"
-    http_version:
-  recorded_at: Tue, 05 Mar 2013 02:05:57 GMT
+      encoding: ASCII-8BIT
+      string: !binary |-
+        eydyZXNwb25zZUhlYWRlcic9Pnsnc3RhdHVzJz0+MCwnUVRpbWUnPT4yLCdw
+        YXJhbXMnPT57J3EnPT4nc2hhc3VtOjAwOTcyYzUxMjM4Nzc5NjEwNTZiMjFh
+        ZWE0MTc3ZDBkYzY5YzczMTgnLCd3dCc9PidydWJ5JywnZGVmVHlwZSc9Pids
+        dWNlbmUnfX0sJ3Jlc3BvbnNlJz0+eydudW1Gb3VuZCc9PjEsJ3N0YXJ0Jz0+
+        MCwnZG9jcyc9Plt7J2xpY2Vuc2UnPT4nwqkgQmxhY2t3ZWxsIFZlcmxhZyBH
+        bWJIJywnc2hhc3VtJz0+JzAwOTcyYzUxMjM4Nzc5NjEwNTZiMjFhZWE0MTc3
+        ZDBkYzY5YzczMTgnLCdkb2knPT4nMTAuMTExMS9qLjE0MzktMDMxMC4yMDA4
+        LjAxNTc2LngnLCdhdXRob3JzJz0+J0NhcmxvcyBBLiBCb3Rlcm8sIEFuZHJl
+        dyBFLiBNdWRnZSwgQW1hbmRhIE0uIEtvbHR6LCBXZXNsZXkgTS4gSG9jaGFj
+        aGthLCBTYW5kcmEgTC4gVmVocmVuY2FtcCcsJ3RpdGxlJz0+J0hvdyBSZWxp
+        YWJsZSBhcmUgdGhlIE1ldGhvZHMgZm9yIEVzdGltYXRpbmcgUmVwZXJ0b2ly
+        ZSBTaXplPycsJ2pvdXJuYWwnPT4nRXRob2xvZ3knLCd5ZWFyJz0+JzIwMDgn
+        LCd2b2x1bWUnPT4nMTE0JywncGFnZXMnPT4nMTIyNy0xMjM4J31dfSwnZmFj
+        ZXRfY291bnRzJz0+eydmYWNldF9xdWVyaWVzJz0+eyd5ZWFyOlsqIFRPIDE3
+        OTldJz0+MCwneWVhcjpbMTgwMCBUTyAxODA5XSc9PjAsJ3llYXI6WzE4MTAg
+        VE8gMTgxOV0nPT4wLCd5ZWFyOlsxODIwIFRPIDE4MjldJz0+MCwneWVhcjpb
+        MTgzMCBUTyAxODM5XSc9PjAsJ3llYXI6WzE4NDAgVE8gMTg0OV0nPT4wLCd5
+        ZWFyOlsxODUwIFRPIDE4NTldJz0+MCwneWVhcjpbMTg2MCBUTyAxODY5XSc9
+        PjAsJ3llYXI6WzE4NzAgVE8gMTg3OV0nPT4wLCd5ZWFyOlsxODgwIFRPIDE4
+        ODldJz0+MCwneWVhcjpbMTg5MCBUTyAxODk5XSc9PjAsJ3llYXI6WzE5MDAg
+        VE8gMTkwOV0nPT4wLCd5ZWFyOlsxOTEwIFRPIDE5MTldJz0+MCwneWVhcjpb
+        MTkyMCBUTyAxOTI5XSc9PjAsJ3llYXI6WzE5MzAgVE8gMTkzOV0nPT4wLCd5
+        ZWFyOlsxOTQwIFRPIDE5NDldJz0+MCwneWVhcjpbMTk1MCBUTyAxOTU5XSc9
+        PjAsJ3llYXI6WzE5NjAgVE8gMTk2OV0nPT4wLCd5ZWFyOlsxOTcwIFRPIDE5
+        NzldJz0+MCwneWVhcjpbMTk4MCBUTyAxOTg5XSc9PjAsJ3llYXI6WzE5OTAg
+        VE8gMTk5OV0nPT4wLCd5ZWFyOlsyMDAwIFRPIDIwMDldJz0+MSwneWVhcjpb
+        MjAxMCBUTyAqXSc9PjB9LCdmYWNldF9maWVsZHMnPT57J2F1dGhvcnNfZmFj
+        ZXQnPT5bJ0FtYW5kYSBNLiBLb2x0eicsMSwnQW5kcmV3IEUuIE11ZGdlJywx
+        LCdDYXJsb3MgQS4gQm90ZXJvJywxLCdTYW5kcmEgTC4gVmVocmVuY2FtcCcs
+        MSwnV2VzbGV5IE0uIEhvY2hhY2hrYScsMSwnLiBOLiBNb3V0b24nLDAsJ0Eg
+        R3VvJywwLCdBIFBpY2tsZXMnLDAsJ0EuIEEuIEJhaWxleScsMCwnQS4gQS4g
+        RmllbmJlcmcnLDBdLCdqb3VybmFsX2ZhY2V0Jz0+WydFdGhvbG9neScsMSwn
+        R2VuZXMsIEJyYWluIGFuZCBCZWhhdmlvcicsMF19LCdmYWNldF9kYXRlcyc9
+        Pnt9LCdmYWNldF9yYW5nZXMnPT57fX19Cg==
+    http_version: 
+  recorded_at: Wed, 14 Aug 2013 15:29:37 GMT
 - request:
     method: get
-    uri: http://localhost:8983/select?q=shasum:001954306c066a8a4cff3da02f7e9dda8e0fb634&qt=precise&wt=ruby
+    uri: http://localhost:8983/search?defType=lucene&q=shasum:0097c3434054c25e1ace6243a1ac54b71f35bc28&wt=ruby
     body:
       encoding: US-ASCII
-      string: ""
+      string: ''
     headers: {}
-
   response:
     status:
       code: 200
@@ -175,31 +315,60 @@ http_interactions:
     headers:
       Server:
       - Winstone Servlet Engine v0.9.10
-      Last-Modified:
-      - Tue, 05 Mar 2013 01:41:29 GMT
-      Etag:
-      - "\"YmVlMzM2ZjY5YzgwMDAwMFNvbHI=\""
       Content-Type:
       - text/plain;charset=UTF-8
       Connection:
       - Close
       Date:
-      - Tue, 05 Mar 2013 02:05:57 GMT
+      - Wed, 14 Aug 2013 15:29:37 GMT
       X-Powered-By:
       - Servlet/2.5 (Winstone/0.9.10)
     body:
-      encoding: UTF-8
-      string: "{'responseHeader'=>{'status'=>0,'QTime'=>6,'params'=>{'wt'=>'ruby','q'=>'shasum:001954306c066a8a4cff3da02f7e9dda8e0fb634','qt'=>'precise'}},'response'=>{'numFound'=>1,'start'=>0,'docs'=>[{'license'=>'© Blackwell Verlag GmbH','shasum'=>'001954306c066a8a4cff3da02f7e9dda8e0fb634','doi'=>'10.1046/j.0179-1613.2003.00929.x','authors'=>'Susan G. Brown, Karen Crowell, Patricia Keene','title'=>'Oviposition Behavior and Offspring Emergence Patterns in Succinea thaanumi, an Endemic Hawaiian Land Snail','journal'=>'Ethology','year'=>'2003','volume'=>'109','pages'=>'905-910'}]},'facet_counts'=>{'facet_queries'=>{'year:[* TO 1799]'=>0,'year:[1800 TO 1809]'=>0,'year:[1810 TO 1819]'=>0,'year:[1820 TO 1829]'=>0,'year:[1830 TO 1839]'=>0,'year:[1840 TO 1849]'=>0,'year:[1850 TO 1859]'=>0,'year:[1860 TO 1869]'=>0,'year:[1870 TO 1879]'=>0,'year:[1880 TO 1889]'=>0,'year:[1890 TO 1899]'=>0,'year:[1900 TO 1909]'=>0,'year:[1910 TO 1919]'=>0,'year:[1920 TO 1929]'=>0,'year:[1930 TO 1939]'=>0,'year:[1940 TO 1949]'=>0,'year:[1950 TO 1959]'=>0,'year:[1960 TO 1969]'=>0,'year:[1970 TO 1979]'=>0,'year:[1980 TO 1989]'=>0,'year:[1990 TO 1999]'=>0,'year:[2000 TO 2009]'=>1,'year:[2010 TO *]'=>0},'facet_fields'=>{'authors_facet'=>['Karen Crowell',1,'Patricia Keene',1,'Susan G. Brown',1,'. N. Mouton',0,'A Guo',0,'A Pickles',0,'A. A. Bailey',0,'A. A. Fienberg',0,'A. A. Palmer',0,'A. A. Tudor-Jones',0],'journal_facet'=>['Ethology',1,'Genes, Brain and Behavior',0]},'facet_dates'=>{}}}"
-    http_version:
-  recorded_at: Tue, 05 Mar 2013 02:05:57 GMT
+      encoding: ASCII-8BIT
+      string: !binary |-
+        eydyZXNwb25zZUhlYWRlcic9Pnsnc3RhdHVzJz0+MCwnUVRpbWUnPT4yLCdw
+        YXJhbXMnPT57J3EnPT4nc2hhc3VtOjAwOTdjMzQzNDA1NGMyNWUxYWNlNjI0
+        M2ExYWM1NGI3MWYzNWJjMjgnLCd3dCc9PidydWJ5JywnZGVmVHlwZSc9Pids
+        dWNlbmUnfX0sJ3Jlc3BvbnNlJz0+eydudW1Gb3VuZCc9PjEsJ3N0YXJ0Jz0+
+        MCwnZG9jcyc9Plt7J2xpY2Vuc2UnPT4nwqkgQmxhY2t3ZWxsIFZlcmxhZyBH
+        bWJIJywnc2hhc3VtJz0+JzAwOTdjMzQzNDA1NGMyNWUxYWNlNjI0M2ExYWM1
+        NGI3MWYzNWJjMjgnLCdkb2knPT4nMTAuMTA0Ni9qLjE0MzktMDMxMC4yMDAx
+        LjAwNzIzLngnLCdhdXRob3JzJz0+J1N1c2FuIEJhcnRtYW5uLCBHYWJyaWVs
+        ZSBHZXJsYWNoJywndGl0bGUnPT4nTXVsdGlwbGUgUGF0ZXJuaXR5IGFuZCBT
+        aW1pbGFyIFZhcmlhbmNlIGluIFJlcHJvZHVjdGl2ZSBTdWNjZXNzIG9mIE1h
+        bGUgYW5kIEZlbWFsZSBXb29kIE1pY2UgKEFwb2RlbXVzIHN5bHZhdGljdXMp
+        IEhvdXNlZCBpbiBhbiBFbmNsb3N1cmUnLCdqb3VybmFsJz0+J0V0aG9sb2d5
+        JywneWVhcic9PicyMDAxJywndm9sdW1lJz0+JzEwNycsJ3BhZ2VzJz0+Jzg4
+        OS04OTknfV19LCdmYWNldF9jb3VudHMnPT57J2ZhY2V0X3F1ZXJpZXMnPT57
+        J3llYXI6WyogVE8gMTc5OV0nPT4wLCd5ZWFyOlsxODAwIFRPIDE4MDldJz0+
+        MCwneWVhcjpbMTgxMCBUTyAxODE5XSc9PjAsJ3llYXI6WzE4MjAgVE8gMTgy
+        OV0nPT4wLCd5ZWFyOlsxODMwIFRPIDE4MzldJz0+MCwneWVhcjpbMTg0MCBU
+        TyAxODQ5XSc9PjAsJ3llYXI6WzE4NTAgVE8gMTg1OV0nPT4wLCd5ZWFyOlsx
+        ODYwIFRPIDE4NjldJz0+MCwneWVhcjpbMTg3MCBUTyAxODc5XSc9PjAsJ3ll
+        YXI6WzE4ODAgVE8gMTg4OV0nPT4wLCd5ZWFyOlsxODkwIFRPIDE4OTldJz0+
+        MCwneWVhcjpbMTkwMCBUTyAxOTA5XSc9PjAsJ3llYXI6WzE5MTAgVE8gMTkx
+        OV0nPT4wLCd5ZWFyOlsxOTIwIFRPIDE5MjldJz0+MCwneWVhcjpbMTkzMCBU
+        TyAxOTM5XSc9PjAsJ3llYXI6WzE5NDAgVE8gMTk0OV0nPT4wLCd5ZWFyOlsx
+        OTUwIFRPIDE5NTldJz0+MCwneWVhcjpbMTk2MCBUTyAxOTY5XSc9PjAsJ3ll
+        YXI6WzE5NzAgVE8gMTk3OV0nPT4wLCd5ZWFyOlsxOTgwIFRPIDE5ODldJz0+
+        MCwneWVhcjpbMTk5MCBUTyAxOTk5XSc9PjAsJ3llYXI6WzIwMDAgVE8gMjAw
+        OV0nPT4xLCd5ZWFyOlsyMDEwIFRPICpdJz0+MH0sJ2ZhY2V0X2ZpZWxkcyc9
+        PnsnYXV0aG9yc19mYWNldCc9PlsnR2FicmllbGUgR2VybGFjaCcsMSwnU3Vz
+        YW4gQmFydG1hbm4nLDEsJy4gTi4gTW91dG9uJywwLCdBIEd1bycsMCwnQSBQ
+        aWNrbGVzJywwLCdBLiBBLiBCYWlsZXknLDAsJ0EuIEEuIEZpZW5iZXJnJyww
+        LCdBLiBBLiBQYWxtZXInLDAsJ0EuIEEuIFR1ZG9yLUpvbmVzJywwLCdBLiBB
+        LiBXb25nJywwXSwnam91cm5hbF9mYWNldCc9PlsnRXRob2xvZ3knLDEsJ0dl
+        bmVzLCBCcmFpbiBhbmQgQmVoYXZpb3InLDBdfSwnZmFjZXRfZGF0ZXMnPT57
+        fSwnZmFjZXRfcmFuZ2VzJz0+e319fQo=
+    http_version: 
+  recorded_at: Wed, 14 Aug 2013 15:29:37 GMT
 - request:
     method: get
-    uri: http://localhost:8983/select?q=shasum:00496e7961871ad05013e1388aaa6650507b2638&qt=precise&wt=ruby
+    uri: http://localhost:8983/search?defType=lucene&q=shasum:0097e0f4029fef57b8158970112ab32c1e692cff&wt=ruby
     body:
       encoding: US-ASCII
-      string: ""
+      string: ''
     headers: {}
-
   response:
     status:
       code: 200
@@ -207,31 +376,59 @@ http_interactions:
     headers:
       Server:
       - Winstone Servlet Engine v0.9.10
-      Last-Modified:
-      - Tue, 05 Mar 2013 01:41:29 GMT
-      Etag:
-      - "\"YmVlMzM2ZjY5YzgwMDAwMFNvbHI=\""
       Content-Type:
       - text/plain;charset=UTF-8
       Connection:
       - Close
       Date:
-      - Tue, 05 Mar 2013 02:05:57 GMT
+      - Wed, 14 Aug 2013 15:29:37 GMT
       X-Powered-By:
       - Servlet/2.5 (Winstone/0.9.10)
     body:
-      encoding: UTF-8
-      string: "{'responseHeader'=>{'status'=>0,'QTime'=>4,'params'=>{'wt'=>'ruby','q'=>'shasum:00496e7961871ad05013e1388aaa6650507b2638','qt'=>'precise'}},'response'=>{'numFound'=>1,'start'=>0,'docs'=>[{'license'=>'© Blackwell Verlag GmbH','shasum'=>'00496e7961871ad05013e1388aaa6650507b2638','doi'=>'10.1046/j.1439-0310.2000.00539.x','title'=>'New Books','journal'=>'Ethology','year'=>'2000','volume'=>'106','pages'=>'283-286'}]},'facet_counts'=>{'facet_queries'=>{'year:[* TO 1799]'=>0,'year:[1800 TO 1809]'=>0,'year:[1810 TO 1819]'=>0,'year:[1820 TO 1829]'=>0,'year:[1830 TO 1839]'=>0,'year:[1840 TO 1849]'=>0,'year:[1850 TO 1859]'=>0,'year:[1860 TO 1869]'=>0,'year:[1870 TO 1879]'=>0,'year:[1880 TO 1889]'=>0,'year:[1890 TO 1899]'=>0,'year:[1900 TO 1909]'=>0,'year:[1910 TO 1919]'=>0,'year:[1920 TO 1929]'=>0,'year:[1930 TO 1939]'=>0,'year:[1940 TO 1949]'=>0,'year:[1950 TO 1959]'=>0,'year:[1960 TO 1969]'=>0,'year:[1970 TO 1979]'=>0,'year:[1980 TO 1989]'=>0,'year:[1990 TO 1999]'=>0,'year:[2000 TO 2009]'=>1,'year:[2010 TO *]'=>0},'facet_fields'=>{'authors_facet'=>['. N. Mouton',0,'A Guo',0,'A Pickles',0,'A. A. Bailey',0,'A. A. Fienberg',0,'A. A. Palmer',0,'A. A. Tudor-Jones',0,'A. A. Wong',0,'A. A. van Elburg',0,'A. Agmo',0],'journal_facet'=>['Ethology',1,'Genes, Brain and Behavior',0]},'facet_dates'=>{}}}"
-    http_version:
-  recorded_at: Tue, 05 Mar 2013 02:05:57 GMT
+      encoding: ASCII-8BIT
+      string: !binary |-
+        eydyZXNwb25zZUhlYWRlcic9Pnsnc3RhdHVzJz0+MCwnUVRpbWUnPT4yLCdw
+        YXJhbXMnPT57J3EnPT4nc2hhc3VtOjAwOTdlMGY0MDI5ZmVmNTdiODE1ODk3
+        MDExMmFiMzJjMWU2OTJjZmYnLCd3dCc9PidydWJ5JywnZGVmVHlwZSc9Pids
+        dWNlbmUnfX0sJ3Jlc3BvbnNlJz0+eydudW1Gb3VuZCc9PjEsJ3N0YXJ0Jz0+
+        MCwnZG9jcyc9Plt7J2xpY2Vuc2UnPT4nwqkgQmxhY2t3ZWxsIFZlcmxhZyBH
+        bWJIJywnc2hhc3VtJz0+JzAwOTdlMGY0MDI5ZmVmNTdiODE1ODk3MDExMmFi
+        MzJjMWU2OTJjZmYnLCdkb2knPT4nMTAuMTExMS9qLjE0MzktMDMxMC4yMDEx
+        LjAxODk4LngnLCdhdXRob3JzJz0+J1Bhdm9sIFByb2tvcCwgTWljaGFlbCBS
+        LiBNYXh3ZWxsJywndGl0bGUnPT4nU2V4dWFsIENvbmZsaWN0IE92ZXIgU3Bl
+        cm1hdG9waG9yZSBBdHRhY2htZW50IGluIGEgTnVwdGlhbGx5IEZlZWRpbmcg
+        Q3JpY2tldCcsJ2pvdXJuYWwnPT4nRXRob2xvZ3knLCd5ZWFyJz0+JzIwMTEn
+        LCd2b2x1bWUnPT4nMTE3JywncGFnZXMnPT4nNTIwLTUyOCd9XX0sJ2ZhY2V0
+        X2NvdW50cyc9PnsnZmFjZXRfcXVlcmllcyc9PnsneWVhcjpbKiBUTyAxNzk5
+        XSc9PjAsJ3llYXI6WzE4MDAgVE8gMTgwOV0nPT4wLCd5ZWFyOlsxODEwIFRP
+        IDE4MTldJz0+MCwneWVhcjpbMTgyMCBUTyAxODI5XSc9PjAsJ3llYXI6WzE4
+        MzAgVE8gMTgzOV0nPT4wLCd5ZWFyOlsxODQwIFRPIDE4NDldJz0+MCwneWVh
+        cjpbMTg1MCBUTyAxODU5XSc9PjAsJ3llYXI6WzE4NjAgVE8gMTg2OV0nPT4w
+        LCd5ZWFyOlsxODcwIFRPIDE4NzldJz0+MCwneWVhcjpbMTg4MCBUTyAxODg5
+        XSc9PjAsJ3llYXI6WzE4OTAgVE8gMTg5OV0nPT4wLCd5ZWFyOlsxOTAwIFRP
+        IDE5MDldJz0+MCwneWVhcjpbMTkxMCBUTyAxOTE5XSc9PjAsJ3llYXI6WzE5
+        MjAgVE8gMTkyOV0nPT4wLCd5ZWFyOlsxOTMwIFRPIDE5MzldJz0+MCwneWVh
+        cjpbMTk0MCBUTyAxOTQ5XSc9PjAsJ3llYXI6WzE5NTAgVE8gMTk1OV0nPT4w
+        LCd5ZWFyOlsxOTYwIFRPIDE5NjldJz0+MCwneWVhcjpbMTk3MCBUTyAxOTc5
+        XSc9PjAsJ3llYXI6WzE5ODAgVE8gMTk4OV0nPT4wLCd5ZWFyOlsxOTkwIFRP
+        IDE5OTldJz0+MCwneWVhcjpbMjAwMCBUTyAyMDA5XSc9PjAsJ3llYXI6WzIw
+        MTAgVE8gKl0nPT4xfSwnZmFjZXRfZmllbGRzJz0+eydhdXRob3JzX2ZhY2V0
+        Jz0+WydNaWNoYWVsIFIuIE1heHdlbGwnLDEsJ1Bhdm9sIFByb2tvcCcsMSwn
+        LiBOLiBNb3V0b24nLDAsJ0EgR3VvJywwLCdBIFBpY2tsZXMnLDAsJ0EuIEEu
+        IEJhaWxleScsMCwnQS4gQS4gRmllbmJlcmcnLDAsJ0EuIEEuIFBhbG1lcics
+        MCwnQS4gQS4gVHVkb3ItSm9uZXMnLDAsJ0EuIEEuIFdvbmcnLDBdLCdqb3Vy
+        bmFsX2ZhY2V0Jz0+WydFdGhvbG9neScsMSwnR2VuZXMsIEJyYWluIGFuZCBC
+        ZWhhdmlvcicsMF19LCdmYWNldF9kYXRlcyc9Pnt9LCdmYWNldF9yYW5nZXMn
+        PT57fX19Cg==
+    http_version: 
+  recorded_at: Wed, 14 Aug 2013 15:29:37 GMT
 - request:
     method: get
-    uri: http://localhost:8983/select?q=shasum:008896a5c58241b65088d931e02f3bea02fc3bf0&qt=precise&wt=ruby
+    uri: http://localhost:8983/search?defType=lucene&q=shasum:00a004096479b9332b153e91053f09df8003ef74&wt=ruby
     body:
       encoding: US-ASCII
-      string: ""
+      string: ''
     headers: {}
-
   response:
     status:
       code: 200
@@ -239,31 +436,58 @@ http_interactions:
     headers:
       Server:
       - Winstone Servlet Engine v0.9.10
-      Last-Modified:
-      - Tue, 05 Mar 2013 01:41:29 GMT
-      Etag:
-      - "\"YmVlMzM2ZjY5YzgwMDAwMFNvbHI=\""
       Content-Type:
       - text/plain;charset=UTF-8
       Connection:
       - Close
       Date:
-      - Tue, 05 Mar 2013 02:05:57 GMT
+      - Wed, 14 Aug 2013 15:29:37 GMT
       X-Powered-By:
       - Servlet/2.5 (Winstone/0.9.10)
     body:
-      encoding: UTF-8
-      string: "{'responseHeader'=>{'status'=>0,'QTime'=>6,'params'=>{'wt'=>'ruby','q'=>'shasum:008896a5c58241b65088d931e02f3bea02fc3bf0','qt'=>'precise'}},'response'=>{'numFound'=>1,'start'=>0,'docs'=>[{'license'=>'© Blackwell Verlag GmbH','shasum'=>'008896a5c58241b65088d931e02f3bea02fc3bf0','doi'=>'10.1111/j.1439-0310.2009.01716.x','authors'=>'Juan Moreno, Juan-Gabriel Martínez, Judith Morales, Elisa Lobato, Santiago Merino, Gustavo Tomás, Rodrigo A. Vásquez, Erich Möstl, José L. Osorno','title'=>'Paternity Loss in Relation to Male Age, Territorial Behaviour and Stress in the Pied Flycatcher','journal'=>'Ethology','year'=>'2010','volume'=>'116','pages'=>'76-84'}]},'facet_counts'=>{'facet_queries'=>{'year:[* TO 1799]'=>0,'year:[1800 TO 1809]'=>0,'year:[1810 TO 1819]'=>0,'year:[1820 TO 1829]'=>0,'year:[1830 TO 1839]'=>0,'year:[1840 TO 1849]'=>0,'year:[1850 TO 1859]'=>0,'year:[1860 TO 1869]'=>0,'year:[1870 TO 1879]'=>0,'year:[1880 TO 1889]'=>0,'year:[1890 TO 1899]'=>0,'year:[1900 TO 1909]'=>0,'year:[1910 TO 1919]'=>0,'year:[1920 TO 1929]'=>0,'year:[1930 TO 1939]'=>0,'year:[1940 TO 1949]'=>0,'year:[1950 TO 1959]'=>0,'year:[1960 TO 1969]'=>0,'year:[1970 TO 1979]'=>0,'year:[1980 TO 1989]'=>0,'year:[1990 TO 1999]'=>0,'year:[2000 TO 2009]'=>0,'year:[2010 TO *]'=>1},'facet_fields'=>{'authors_facet'=>['Elisa Lobato',1,'Erich Möstl',1,'Gustavo Tomás',1,'José L. Osorno',1,'Juan Moreno',1,'Juan-Gabriel Martínez',1,'Judith Morales',1,'Rodrigo A. Vásquez',1,'Santiago Merino',1,'. N. Mouton',0],'journal_facet'=>['Ethology',1,'Genes, Brain and Behavior',0]},'facet_dates'=>{}}}"
-    http_version:
-  recorded_at: Tue, 05 Mar 2013 02:05:57 GMT
+      encoding: ASCII-8BIT
+      string: !binary |-
+        eydyZXNwb25zZUhlYWRlcic9Pnsnc3RhdHVzJz0+MCwnUVRpbWUnPT4zLCdw
+        YXJhbXMnPT57J3EnPT4nc2hhc3VtOjAwYTAwNDA5NjQ3OWI5MzMyYjE1M2U5
+        MTA1M2YwOWRmODAwM2VmNzQnLCd3dCc9PidydWJ5JywnZGVmVHlwZSc9Pids
+        dWNlbmUnfX0sJ3Jlc3BvbnNlJz0+eydudW1Gb3VuZCc9PjEsJ3N0YXJ0Jz0+
+        MCwnZG9jcyc9Plt7J2xpY2Vuc2UnPT4nwqkgQmxhY2t3ZWxsIFZlcmxhZyBH
+        bWJIJywnc2hhc3VtJz0+JzAwYTAwNDA5NjQ3OWI5MzMyYjE1M2U5MTA1M2Yw
+        OWRmODAwM2VmNzQnLCdkb2knPT4nMTAuMTExMS9qLjE0MzktMDMxMC4xOTk4
+        LnRiMDAxMDMueCcsJ2F1dGhvcnMnPT4nUi4gSS4gTS4gRHVuYmFyLCBKdWxp
+        YW4gQmV2ZXInLCd0aXRsZSc9PidOZW9jb3J0ZXggU2l6ZSBQcmVkaWN0cyBH
+        cm91cCBTaXplIGluIENhcm5pdm9yZXMgYW5kIFNvbWUgSW5zZWN0aXZvcmVz
+        Jywnam91cm5hbCc9PidFdGhvbG9neScsJ3llYXInPT4nMTk5OCcsJ3ZvbHVt
+        ZSc9PicxMDQnLCdwYWdlcyc9Pic2OTUtNzA4J31dfSwnZmFjZXRfY291bnRz
+        Jz0+eydmYWNldF9xdWVyaWVzJz0+eyd5ZWFyOlsqIFRPIDE3OTldJz0+MCwn
+        eWVhcjpbMTgwMCBUTyAxODA5XSc9PjAsJ3llYXI6WzE4MTAgVE8gMTgxOV0n
+        PT4wLCd5ZWFyOlsxODIwIFRPIDE4MjldJz0+MCwneWVhcjpbMTgzMCBUTyAx
+        ODM5XSc9PjAsJ3llYXI6WzE4NDAgVE8gMTg0OV0nPT4wLCd5ZWFyOlsxODUw
+        IFRPIDE4NTldJz0+MCwneWVhcjpbMTg2MCBUTyAxODY5XSc9PjAsJ3llYXI6
+        WzE4NzAgVE8gMTg3OV0nPT4wLCd5ZWFyOlsxODgwIFRPIDE4ODldJz0+MCwn
+        eWVhcjpbMTg5MCBUTyAxODk5XSc9PjAsJ3llYXI6WzE5MDAgVE8gMTkwOV0n
+        PT4wLCd5ZWFyOlsxOTEwIFRPIDE5MTldJz0+MCwneWVhcjpbMTkyMCBUTyAx
+        OTI5XSc9PjAsJ3llYXI6WzE5MzAgVE8gMTkzOV0nPT4wLCd5ZWFyOlsxOTQw
+        IFRPIDE5NDldJz0+MCwneWVhcjpbMTk1MCBUTyAxOTU5XSc9PjAsJ3llYXI6
+        WzE5NjAgVE8gMTk2OV0nPT4wLCd5ZWFyOlsxOTcwIFRPIDE5NzldJz0+MCwn
+        eWVhcjpbMTk4MCBUTyAxOTg5XSc9PjAsJ3llYXI6WzE5OTAgVE8gMTk5OV0n
+        PT4xLCd5ZWFyOlsyMDAwIFRPIDIwMDldJz0+MCwneWVhcjpbMjAxMCBUTyAq
+        XSc9PjB9LCdmYWNldF9maWVsZHMnPT57J2F1dGhvcnNfZmFjZXQnPT5bJ0p1
+        bGlhbiBCZXZlcicsMSwnUi4gSS4gTS4gRHVuYmFyJywxLCcuIE4uIE1vdXRv
+        bicsMCwnQSBHdW8nLDAsJ0EgUGlja2xlcycsMCwnQS4gQS4gQmFpbGV5Jyww
+        LCdBLiBBLiBGaWVuYmVyZycsMCwnQS4gQS4gUGFsbWVyJywwLCdBLiBBLiBU
+        dWRvci1Kb25lcycsMCwnQS4gQS4gV29uZycsMF0sJ2pvdXJuYWxfZmFjZXQn
+        PT5bJ0V0aG9sb2d5JywxLCdHZW5lcywgQnJhaW4gYW5kIEJlaGF2aW9yJyww
+        XX0sJ2ZhY2V0X2RhdGVzJz0+e30sJ2ZhY2V0X3Jhbmdlcyc9Pnt9fX0K
+    http_version: 
+  recorded_at: Wed, 14 Aug 2013 15:29:37 GMT
 - request:
     method: get
-    uri: http://localhost:8983/select?q=shasum:00972c5123877961056b21aea4177d0dc69c7318&qt=precise&wt=ruby
+    uri: http://localhost:8983/search?defType=lucene&q=shasum:00cdb0f945c1e1d7b7789cd8178f3232a57fee34&wt=ruby
     body:
       encoding: US-ASCII
-      string: ""
+      string: ''
     headers: {}
-
   response:
     status:
       code: 200
@@ -271,31 +495,59 @@ http_interactions:
     headers:
       Server:
       - Winstone Servlet Engine v0.9.10
-      Last-Modified:
-      - Tue, 05 Mar 2013 01:41:29 GMT
-      Etag:
-      - "\"YmVlMzM2ZjY5YzgwMDAwMFNvbHI=\""
       Content-Type:
       - text/plain;charset=UTF-8
       Connection:
       - Close
       Date:
-      - Tue, 05 Mar 2013 02:05:57 GMT
+      - Wed, 14 Aug 2013 15:29:37 GMT
       X-Powered-By:
       - Servlet/2.5 (Winstone/0.9.10)
     body:
-      encoding: UTF-8
-      string: "{'responseHeader'=>{'status'=>0,'QTime'=>5,'params'=>{'wt'=>'ruby','q'=>'shasum:00972c5123877961056b21aea4177d0dc69c7318','qt'=>'precise'}},'response'=>{'numFound'=>1,'start'=>0,'docs'=>[{'license'=>'© Blackwell Verlag GmbH','shasum'=>'00972c5123877961056b21aea4177d0dc69c7318','doi'=>'10.1111/j.1439-0310.2008.01576.x','authors'=>'Carlos A. Botero, Andrew E. Mudge, Amanda M. Koltz, Wesley M. Hochachka, Sandra L. Vehrencamp','title'=>'How Reliable are the Methods for Estimating Repertoire Size?','journal'=>'Ethology','year'=>'2008','volume'=>'114','pages'=>'1227-1238'}]},'facet_counts'=>{'facet_queries'=>{'year:[* TO 1799]'=>0,'year:[1800 TO 1809]'=>0,'year:[1810 TO 1819]'=>0,'year:[1820 TO 1829]'=>0,'year:[1830 TO 1839]'=>0,'year:[1840 TO 1849]'=>0,'year:[1850 TO 1859]'=>0,'year:[1860 TO 1869]'=>0,'year:[1870 TO 1879]'=>0,'year:[1880 TO 1889]'=>0,'year:[1890 TO 1899]'=>0,'year:[1900 TO 1909]'=>0,'year:[1910 TO 1919]'=>0,'year:[1920 TO 1929]'=>0,'year:[1930 TO 1939]'=>0,'year:[1940 TO 1949]'=>0,'year:[1950 TO 1959]'=>0,'year:[1960 TO 1969]'=>0,'year:[1970 TO 1979]'=>0,'year:[1980 TO 1989]'=>0,'year:[1990 TO 1999]'=>0,'year:[2000 TO 2009]'=>1,'year:[2010 TO *]'=>0},'facet_fields'=>{'authors_facet'=>['Amanda M. Koltz',1,'Andrew E. Mudge',1,'Carlos A. Botero',1,'Sandra L. Vehrencamp',1,'Wesley M. Hochachka',1,'. N. Mouton',0,'A Guo',0,'A Pickles',0,'A. A. Bailey',0,'A. A. Fienberg',0],'journal_facet'=>['Ethology',1,'Genes, Brain and Behavior',0]},'facet_dates'=>{}}}"
-    http_version:
-  recorded_at: Tue, 05 Mar 2013 02:05:57 GMT
+      encoding: ASCII-8BIT
+      string: !binary |-
+        eydyZXNwb25zZUhlYWRlcic9Pnsnc3RhdHVzJz0+MCwnUVRpbWUnPT4zLCdw
+        YXJhbXMnPT57J3EnPT4nc2hhc3VtOjAwY2RiMGY5NDVjMWUxZDdiNzc4OWNk
+        ODE3OGYzMjMyYTU3ZmVlMzQnLCd3dCc9PidydWJ5JywnZGVmVHlwZSc9Pids
+        dWNlbmUnfX0sJ3Jlc3BvbnNlJz0+eydudW1Gb3VuZCc9PjEsJ3N0YXJ0Jz0+
+        MCwnZG9jcyc9Plt7J2xpY2Vuc2UnPT4nwqkgQmxhY2t3ZWxsIFZlcmxhZyBH
+        bWJIJywnc2hhc3VtJz0+JzAwY2RiMGY5NDVjMWUxZDdiNzc4OWNkODE3OGYz
+        MjMyYTU3ZmVlMzQnLCdkb2knPT4nMTAuMTExMS9qLjE0MzktMDMxMC4yMDA2
+        LjAxMTM5LngnLCdhdXRob3JzJz0+J0plbm5pZmVyIEwuIFNuZWtzZXIsIFNj
+        b3R0IFAuIE1jUm9iZXJ0LCBDYWxlYiBFLiBNdXJwaHksIEV0aGFuIEQuIENs
+        b3RmZWx0ZXInLCd0aXRsZSc9PidBZ2dyZWdhdGlvbiBCZWhhdmlvciBpbiBX
+        aWxkdHlwZSBhbmQgVHJhbnNnZW5pYyBaZWJyYWZpc2gnLCdqb3VybmFsJz0+
+        J0V0aG9sb2d5JywneWVhcic9PicyMDA2Jywndm9sdW1lJz0+JzExMicsJ3Bh
+        Z2VzJz0+JzE4MS0xODcnfV19LCdmYWNldF9jb3VudHMnPT57J2ZhY2V0X3F1
+        ZXJpZXMnPT57J3llYXI6WyogVE8gMTc5OV0nPT4wLCd5ZWFyOlsxODAwIFRP
+        IDE4MDldJz0+MCwneWVhcjpbMTgxMCBUTyAxODE5XSc9PjAsJ3llYXI6WzE4
+        MjAgVE8gMTgyOV0nPT4wLCd5ZWFyOlsxODMwIFRPIDE4MzldJz0+MCwneWVh
+        cjpbMTg0MCBUTyAxODQ5XSc9PjAsJ3llYXI6WzE4NTAgVE8gMTg1OV0nPT4w
+        LCd5ZWFyOlsxODYwIFRPIDE4NjldJz0+MCwneWVhcjpbMTg3MCBUTyAxODc5
+        XSc9PjAsJ3llYXI6WzE4ODAgVE8gMTg4OV0nPT4wLCd5ZWFyOlsxODkwIFRP
+        IDE4OTldJz0+MCwneWVhcjpbMTkwMCBUTyAxOTA5XSc9PjAsJ3llYXI6WzE5
+        MTAgVE8gMTkxOV0nPT4wLCd5ZWFyOlsxOTIwIFRPIDE5MjldJz0+MCwneWVh
+        cjpbMTkzMCBUTyAxOTM5XSc9PjAsJ3llYXI6WzE5NDAgVE8gMTk0OV0nPT4w
+        LCd5ZWFyOlsxOTUwIFRPIDE5NTldJz0+MCwneWVhcjpbMTk2MCBUTyAxOTY5
+        XSc9PjAsJ3llYXI6WzE5NzAgVE8gMTk3OV0nPT4wLCd5ZWFyOlsxOTgwIFRP
+        IDE5ODldJz0+MCwneWVhcjpbMTk5MCBUTyAxOTk5XSc9PjAsJ3llYXI6WzIw
+        MDAgVE8gMjAwOV0nPT4xLCd5ZWFyOlsyMDEwIFRPICpdJz0+MH0sJ2ZhY2V0
+        X2ZpZWxkcyc9PnsnYXV0aG9yc19mYWNldCc9PlsnQ2FsZWIgRS4gTXVycGh5
+        JywxLCdFdGhhbiBELiBDbG90ZmVsdGVyJywxLCdKZW5uaWZlciBMLiBTbmVr
+        c2VyJywxLCdTY290dCBQLiBNY1JvYmVydCcsMSwnLiBOLiBNb3V0b24nLDAs
+        J0EgR3VvJywwLCdBIFBpY2tsZXMnLDAsJ0EuIEEuIEJhaWxleScsMCwnQS4g
+        QS4gRmllbmJlcmcnLDAsJ0EuIEEuIFBhbG1lcicsMF0sJ2pvdXJuYWxfZmFj
+        ZXQnPT5bJ0V0aG9sb2d5JywxLCdHZW5lcywgQnJhaW4gYW5kIEJlaGF2aW9y
+        JywwXX0sJ2ZhY2V0X2RhdGVzJz0+e30sJ2ZhY2V0X3Jhbmdlcyc9Pnt9fX0K
+    http_version: 
+  recorded_at: Wed, 14 Aug 2013 15:29:37 GMT
 - request:
     method: get
-    uri: http://localhost:8983/select?q=shasum:0097c3434054c25e1ace6243a1ac54b71f35bc28&qt=precise&wt=ruby
+    uri: http://localhost:8983/search?defType=lucene&q=shasum:00dbffbfff2d18a74ed5f8895fa9f515bf38bf5f&wt=ruby
     body:
       encoding: US-ASCII
-      string: ""
+      string: ''
     headers: {}
-
   response:
     status:
       code: 200
@@ -303,21 +555,51 @@ http_interactions:
     headers:
       Server:
       - Winstone Servlet Engine v0.9.10
-      Last-Modified:
-      - Tue, 05 Mar 2013 01:41:29 GMT
-      Etag:
-      - "\"YmVlMzM2ZjY5YzgwMDAwMFNvbHI=\""
       Content-Type:
       - text/plain;charset=UTF-8
       Connection:
       - Close
       Date:
-      - Tue, 05 Mar 2013 02:05:57 GMT
+      - Wed, 14 Aug 2013 15:29:37 GMT
       X-Powered-By:
       - Servlet/2.5 (Winstone/0.9.10)
     body:
-      encoding: UTF-8
-      string: "{'responseHeader'=>{'status'=>0,'QTime'=>5,'params'=>{'wt'=>'ruby','q'=>'shasum:0097c3434054c25e1ace6243a1ac54b71f35bc28','qt'=>'precise'}},'response'=>{'numFound'=>1,'start'=>0,'docs'=>[{'license'=>'© Blackwell Verlag GmbH','shasum'=>'0097c3434054c25e1ace6243a1ac54b71f35bc28','doi'=>'10.1046/j.1439-0310.2001.00723.x','authors'=>'Susan Bartmann, Gabriele Gerlach','title'=>'Multiple Paternity and Similar Variance in Reproductive Success of Male and Female Wood Mice (Apodemus sylvaticus) Housed in an Enclosure','journal'=>'Ethology','year'=>'2001','volume'=>'107','pages'=>'889-899'}]},'facet_counts'=>{'facet_queries'=>{'year:[* TO 1799]'=>0,'year:[1800 TO 1809]'=>0,'year:[1810 TO 1819]'=>0,'year:[1820 TO 1829]'=>0,'year:[1830 TO 1839]'=>0,'year:[1840 TO 1849]'=>0,'year:[1850 TO 1859]'=>0,'year:[1860 TO 1869]'=>0,'year:[1870 TO 1879]'=>0,'year:[1880 TO 1889]'=>0,'year:[1890 TO 1899]'=>0,'year:[1900 TO 1909]'=>0,'year:[1910 TO 1919]'=>0,'year:[1920 TO 1929]'=>0,'year:[1930 TO 1939]'=>0,'year:[1940 TO 1949]'=>0,'year:[1950 TO 1959]'=>0,'year:[1960 TO 1969]'=>0,'year:[1970 TO 1979]'=>0,'year:[1980 TO 1989]'=>0,'year:[1990 TO 1999]'=>0,'year:[2000 TO 2009]'=>1,'year:[2010 TO *]'=>0},'facet_fields'=>{'authors_facet'=>['Gabriele Gerlach',1,'Susan Bartmann',1,'. N. Mouton',0,'A Guo',0,'A Pickles',0,'A. A. Bailey',0,'A. A. Fienberg',0,'A. A. Palmer',0,'A. A. Tudor-Jones',0,'A. A. Wong',0],'journal_facet'=>['Ethology',1,'Genes, Brain and Behavior',0]},'facet_dates'=>{}}}"
-    http_version:
-  recorded_at: Tue, 05 Mar 2013 02:05:57 GMT
-recorded_with: VCR 2.4.0
+      encoding: ASCII-8BIT
+      string: !binary |-
+        eydyZXNwb25zZUhlYWRlcic9Pnsnc3RhdHVzJz0+MCwnUVRpbWUnPT4yLCdw
+        YXJhbXMnPT57J3EnPT4nc2hhc3VtOjAwZGJmZmJmZmYyZDE4YTc0ZWQ1Zjg4
+        OTVmYTlmNTE1YmYzOGJmNWYnLCd3dCc9PidydWJ5JywnZGVmVHlwZSc9Pids
+        dWNlbmUnfX0sJ3Jlc3BvbnNlJz0+eydudW1Gb3VuZCc9PjEsJ3N0YXJ0Jz0+
+        MCwnZG9jcyc9Plt7J2xpY2Vuc2UnPT4nwqkgQmxhY2t3ZWxsIFZlcmxhZyBH
+        bWJIJywnc2hhc3VtJz0+JzAwZGJmZmJmZmYyZDE4YTc0ZWQ1Zjg4OTVmYTlm
+        NTE1YmYzOGJmNWYnLCdkb2knPT4nMTAuMTExMS9qLjE0MzktMDMxMC4yMDA3
+        LjAxNDIxLngnLCdhdXRob3JzJz0+J1Ryb3kgRy4gTXVycGh5JywndGl0bGUn
+        PT4nRGlzcGxheSBvZiBhbiBJbmVkaWJsZSBQcm9wIGFzIGEgU2lnbmFsIG9m
+        IEFnZ3Jlc3Npb24/IEFkYXB0aXZlIFNpZ25pZmljYW5jZSBvZiBMZWFmLURp
+        c3BsYXkgYnkgdGhlIFR1cnF1b2lzZS1Ccm93ZWQgTW90bW90LCBFdW1vbW90
+        YSBzdXBlcmNpbGlvc2EnLCdqb3VybmFsJz0+J0V0aG9sb2d5JywneWVhcic9
+        PicyMDA4Jywndm9sdW1lJz0+JzExNCcsJ3BhZ2VzJz0+JzE2LTIxJ31dfSwn
+        ZmFjZXRfY291bnRzJz0+eydmYWNldF9xdWVyaWVzJz0+eyd5ZWFyOlsqIFRP
+        IDE3OTldJz0+MCwneWVhcjpbMTgwMCBUTyAxODA5XSc9PjAsJ3llYXI6WzE4
+        MTAgVE8gMTgxOV0nPT4wLCd5ZWFyOlsxODIwIFRPIDE4MjldJz0+MCwneWVh
+        cjpbMTgzMCBUTyAxODM5XSc9PjAsJ3llYXI6WzE4NDAgVE8gMTg0OV0nPT4w
+        LCd5ZWFyOlsxODUwIFRPIDE4NTldJz0+MCwneWVhcjpbMTg2MCBUTyAxODY5
+        XSc9PjAsJ3llYXI6WzE4NzAgVE8gMTg3OV0nPT4wLCd5ZWFyOlsxODgwIFRP
+        IDE4ODldJz0+MCwneWVhcjpbMTg5MCBUTyAxODk5XSc9PjAsJ3llYXI6WzE5
+        MDAgVE8gMTkwOV0nPT4wLCd5ZWFyOlsxOTEwIFRPIDE5MTldJz0+MCwneWVh
+        cjpbMTkyMCBUTyAxOTI5XSc9PjAsJ3llYXI6WzE5MzAgVE8gMTkzOV0nPT4w
+        LCd5ZWFyOlsxOTQwIFRPIDE5NDldJz0+MCwneWVhcjpbMTk1MCBUTyAxOTU5
+        XSc9PjAsJ3llYXI6WzE5NjAgVE8gMTk2OV0nPT4wLCd5ZWFyOlsxOTcwIFRP
+        IDE5NzldJz0+MCwneWVhcjpbMTk4MCBUTyAxOTg5XSc9PjAsJ3llYXI6WzE5
+        OTAgVE8gMTk5OV0nPT4wLCd5ZWFyOlsyMDAwIFRPIDIwMDldJz0+MSwneWVh
+        cjpbMjAxMCBUTyAqXSc9PjB9LCdmYWNldF9maWVsZHMnPT57J2F1dGhvcnNf
+        ZmFjZXQnPT5bJ1Ryb3kgRy4gTXVycGh5JywxLCcuIE4uIE1vdXRvbicsMCwn
+        QSBHdW8nLDAsJ0EgUGlja2xlcycsMCwnQS4gQS4gQmFpbGV5JywwLCdBLiBB
+        LiBGaWVuYmVyZycsMCwnQS4gQS4gUGFsbWVyJywwLCdBLiBBLiBUdWRvci1K
+        b25lcycsMCwnQS4gQS4gV29uZycsMCwnQS4gQS4gdmFuIEVsYnVyZycsMF0s
+        J2pvdXJuYWxfZmFjZXQnPT5bJ0V0aG9sb2d5JywxLCdHZW5lcywgQnJhaW4g
+        YW5kIEJlaGF2aW9yJywwXX0sJ2ZhY2V0X2RhdGVzJz0+e30sJ2ZhY2V0X3Jh
+        bmdlcyc9Pnt9fX0K
+    http_version: 
+  recorded_at: Wed, 14 Aug 2013 15:29:37 GMT
+recorded_with: VCR 2.5.0

@@ -15,10 +15,10 @@ module Jobs
   #  @return [String] the Solr query for this search
   # @!attribute fq
   #  @return [Array<String>] faceted browsing parameters for this search
-  # @!attribute qt
-  #  @return [String] query type of this search
+  # @!attribute defType
+  #  @return [String] parser type for this search
   class CreateDataset < Jobs::Base
-    attr_accessor :user_id, :name, :q, :fq, :qt
+    attr_accessor :user_id, :name, :q, :fq, :defType
 
     # Create a dataset for the user
     #
@@ -30,7 +30,7 @@ module Jobs
     #     name: 'Test Dataset',
     #     q: '*:*'
     #     fq: ['authors_facet:"Shatner"'],
-    #     qt: 'precise')
+    #     defType: 'lucene')
     def perform
       # Fetch the user based on ID
       user = User.find(user_id)
@@ -47,7 +47,7 @@ module Jobs
       solr_query[:rows] = 1000
       solr_query[:q] = q
       solr_query[:fq] = fq
-      solr_query[:qt] = qt
+      solr_query[:defType] = defType
 
       # Only get shasum, no facets
       solr_query[:fl] = 'shasum'
@@ -57,7 +57,7 @@ module Jobs
       # up and delete any and all fledgling dataset parts
       begin
         # Get the first Solr response
-        search_result = Solr::Connection.find solr_query
+        search_result = Solr::Connection.search solr_query
 
         # Get our parameters
         docs_to_fetch = search_result.num_hits
@@ -78,7 +78,7 @@ module Jobs
           docs_to_fetch = docs_to_fetch - docs_fetched
           if docs_to_fetch > 0
             solr_query[:start] = solr_query[:start] + docs_fetched
-            search_result = Solr::Connection.find solr_query
+            search_result = Solr::Connection.search solr_query
           end
         end
       rescue StandardError

@@ -1,30 +1,24 @@
-<!-- THESE ARE ONLY SNIPPETS!  This is nowhere near a complete solrconfig.xml
-     file, merge this with the settings that make sense for your site. -->
-
 <?xml version="1.0" encoding="UTF-8" ?>
 <config>
-  <!-- In Solr versions greater than 3.6, make sure that handleSelect is
-       set to "true". -->
-  <requestDispatcher handleSelect="true" >
-    <!-- ... -->
-  </requestDispatcher>
 
-  <indexDefaults>
-    <!-- Note that Solr's default maxFieldLength is much too small for
-         journal article fulltext searching!  This parameter was removed in
-         Solr 4.0, and so will not be required for newer versions of Solr. -->
-    <maxFieldLength>1000000</maxFieldLength>
-  </indexDefaults>
+  <!-- THESE ARE ONLY SNIPPETS!  This is nowhere near a complete solrconfig.xml
+     file; merge this with the settings that make sense for your site. -->
+
+  <!-- Return the full-text of the documents, and enable the term-vector
+       component.  On Solr 4, this component name is just
+       'solr.TermVectorComponent'. -->
+  <searchComponent name="tvComponent" class="org.apache.solr.handler.component.TermVectorComponent"/>
 
   <!-- This is the default search, which is a "Google"-style, Dismax
    search, over the fuzzy search fields. -->
-  <requestHandler name="standard" class="solr.SearchHandler" default="true">
+  <requestHandler name="/search" class="solr.SearchHandler" default="true">
      <lst name="defaults">
         <str name="echoParams">explicit</str>
         <!-- We return all of the original fields, not the _search versions -->
+        <!-- NOTE: This parameter should match the value of DEFAULT_FIELDS in
+             lib/solr/connection.rb -->
         <str name="fl">shasum,doi,license,license_url,authors,title,journal,year,volume,number,pages</str>
         <str name="defType">dismax</str>
-        <float name="tie">0.1</float>
         <str name="qf">
            title_stem^8.0 fulltext_stem^5.0 journal_stem
         </str>
@@ -62,84 +56,10 @@
         <str name="facet.query">year:[1990 TO 1999]</str>
         <str name="facet.query">year:[2000 TO 2009]</str>
         <str name="facet.query">year:[2010 TO *]</str>
-     </lst>
-  </requestHandler>
 
-  <!-- This is the "precise" search for the advanced search facility, it accepts
-    queries in Solr query format. -->
-  <requestHandler name="precise" class="solr.SearchHandler">
-     <lst name="defaults">
-        <str name="echoParams">explicit</str>
-        <str name="fl">shasum,doi,license,license_url,authors,title,journal,year,volume,number,pages</str>
-
-        <bool name="facet">true</bool>
-        <int name="facet.limit">10</int>
-        <str name="facet.field">authors_facet</str>
-        <str name="facet.field">journal_facet</str>
-
-        <str name="facet.query">year:[* TO 1799]</str>
-        <str name="facet.query">year:[1800 TO 1809]</str>
-        <str name="facet.query">year:[1810 TO 1819]</str>
-        <str name="facet.query">year:[1820 TO 1829]</str>
-        <str name="facet.query">year:[1830 TO 1839]</str>
-        <str name="facet.query">year:[1840 TO 1849]</str>
-        <str name="facet.query">year:[1850 TO 1859]</str>
-        <str name="facet.query">year:[1860 TO 1869]</str>
-        <str name="facet.query">year:[1870 TO 1879]</str>
-        <str name="facet.query">year:[1880 TO 1889]</str>
-        <str name="facet.query">year:[1890 TO 1899]</str>
-        <str name="facet.query">year:[1900 TO 1909]</str>
-        <str name="facet.query">year:[1910 TO 1919]</str>
-        <str name="facet.query">year:[1920 TO 1929]</str>
-        <str name="facet.query">year:[1930 TO 1939]</str>
-        <str name="facet.query">year:[1940 TO 1949]</str>
-        <str name="facet.query">year:[1950 TO 1959]</str>
-        <str name="facet.query">year:[1960 TO 1969]</str>
-        <str name="facet.query">year:[1970 TO 1979]</str>
-        <str name="facet.query">year:[1980 TO 1989]</str>
-        <str name="facet.query">year:[1990 TO 1999]</str>
-        <str name="facet.query">year:[2000 TO 2009]</str>
-        <str name="facet.query">year:[2010 TO *]</str>
-     </lst>
-  </requestHandler>
-
-  <!-- Return only shasums, for creating datasets. -->
-  <requestHandler name="dataset" class="solr.SearchHandler">
-     <lst name="defaults">
-        <str name="echoParams">explicit</str>
-        <str name="fl">shasum</str>
-        <str name="defType">dismax</str>
-        <float name="tie">0.1</float>
-        <str name="qf">
-           title_stem^8.0 fulltext_stem^5.0 journal_stem
-        </str>
-        <str name="pf">
-           title_stem^8.0 fulltext_stem^5.0 journal_stem
-        </str>
-        <str name="q.alt">*:*</str>
-     </lst>
-  </requestHandler>
-
-  <!-- Return only shasums, for creating datasets, precise search. -->
-  <requestHandler name="dataset_precise" class="solr.SearchHandler">
-     <lst name="defaults">
-        <str name="echoParams">explicit</str>
-        <str name="fl">shasum</str>
-     </lst>
-  </requestHandler>
-
-  <!-- Return the full-text of the documents, and enable the term-vector
-       component.  On Solr 4, this component name is just
-       'solr.TermVectorComponent'. -->
-  <searchComponent name="tvComponent" class="org.apache.solr.handler.component.TermVectorComponent"/>
-
-  <requestHandler name="fulltext" class="solr.SearchHandler">
-     <lst name="defaults">
-        <str name="echoParams">explicit</str>
-        <str name="fl">shasum,doi,license,license_url,authors,title,journal,year,volume,number,pages,fulltext</str>
-
-        <!-- Enable term vectors, against the full text -->
-        <bool name="tv">true</bool>
+        <!-- Enable term vectors, against the full text, but don't switch them
+             on by default. -->
+        <bool name="tv">false</bool>
         <str name="tv.fl">fulltext</str>
         <bool name="tv.tf">true</bool>
         <bool name="tv.df">true</bool>
@@ -151,4 +71,5 @@
         <str>tvComponent</str>
      </arr>
   </requestHandler>
+
 </config>

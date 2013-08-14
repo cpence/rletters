@@ -2,12 +2,11 @@
 http_interactions:
 - request:
     method: get
-    uri: http://localhost:8983/select?q=fail&qt=standard&rows=10&sort=score%20desc&start=0&wt=ruby
+    uri: http://localhost:8983/search?defType=dismax&q=fail&rows=10&sort=score%20desc&start=0&wt=ruby
     body:
       encoding: US-ASCII
-      string: ""
+      string: ''
     headers: {}
-
   response:
     status:
       code: 200
@@ -15,21 +14,18 @@ http_interactions:
     headers:
       Server:
       - Winstone Servlet Engine v0.9.10
-      Last-Modified:
-      - Tue, 05 Mar 2013 02:26:59 GMT
-      Etag:
-      - "\"YmVlMzM2ZjY5YzgwMDAwMFNvbHI=\""
       Content-Type:
       - text/plain;charset=UTF-8
       Connection:
       - Close
       Date:
-      - Tue, 05 Mar 2013 02:40:14 GMT
+      - Wed, 14 Aug 2013 15:40:45 GMT
       X-Powered-By:
       - Servlet/2.5 (Winstone/0.9.10)
     body:
-      encoding: US-ASCII
-      string: "{'responseHeader'=>{'status'=>0,'QTime'=>49,'params'=>{'wt'=>'ruby','sort'=>'score desc','rows'=>'10','q'=>'fail','qt'=>'standard','start'=>'0'}},'response'=>{'numFound'=>0,'start'=>0,'docs'=>[]},'facet_counts'=>{'facet_queries'=>{'year:[* TO 1799]'=>0,'year:[1800 TO 1809]'=>0,'year:[1810 TO 1819]'=>0,'year:[1820 TO 1829]'=>0,'year:[1830 TO 1839]'=>0,'year:[1840 TO 1849]'=>0,'year:[1850 TO 1859]'=>0,'year:[1860 TO 1869]'=>0,'year:[1870 TO 1879]'=>0,'year:[1880 TO 1889]'=>0,'year:[1890 TO 1899]'=>0,'year:[1900 TO 1909]'=>0,'year:[1910 TO 1919]'=>0,'year:[1920 TO 1929]'=>0,'year:[1930 TO 1939]'=>0,'year:[1940 TO 1949]'=>0,'year:[1950 TO 1959]'=>0,'year:[1960 TO 1969]'=>0,'year:[1970 TO 1979]'=>0,'year:[1980 TO 1989]'=>0,'year:[1990 TO 1999]'=>0,'year:[2000 TO 2009]'=>0,'year:[2010 TO *]'=>0},'facet_fields'=>{'authors_facet'=>['. N. Mouton',0,'A Guo',0,'A Pickles',0,'A. A. Bailey',0,'A. A. Fienberg',0,'A. A. Palmer',0,'A. A. Tudor-Jones',0,'A. A. Wong',0,'A. A. van Elburg',0,'A. Agmo',0],'journal_facet'=>['Ethology',0,'Genes, Brain and Behavior',0]},'facet_dates'=>{}}}"
-    http_version:
-  recorded_at: Tue, 05 Mar 2013 02:40:14 GMT
-recorded_with: VCR 2.4.0
+      encoding: UTF-8
+      string: |
+        {'responseHeader'=>{'status'=>0,'QTime'=>4,'params'=>{'sort'=>'score desc','start'=>'0','q'=>'fail','wt'=>'ruby','rows'=>'10','defType'=>'dismax'}},'response'=>{'numFound'=>0,'start'=>0,'docs'=>[]},'facet_counts'=>{'facet_queries'=>{'year:[* TO 1799]'=>0,'year:[1800 TO 1809]'=>0,'year:[1810 TO 1819]'=>0,'year:[1820 TO 1829]'=>0,'year:[1830 TO 1839]'=>0,'year:[1840 TO 1849]'=>0,'year:[1850 TO 1859]'=>0,'year:[1860 TO 1869]'=>0,'year:[1870 TO 1879]'=>0,'year:[1880 TO 1889]'=>0,'year:[1890 TO 1899]'=>0,'year:[1900 TO 1909]'=>0,'year:[1910 TO 1919]'=>0,'year:[1920 TO 1929]'=>0,'year:[1930 TO 1939]'=>0,'year:[1940 TO 1949]'=>0,'year:[1950 TO 1959]'=>0,'year:[1960 TO 1969]'=>0,'year:[1970 TO 1979]'=>0,'year:[1980 TO 1989]'=>0,'year:[1990 TO 1999]'=>0,'year:[2000 TO 2009]'=>0,'year:[2010 TO *]'=>0},'facet_fields'=>{'authors_facet'=>['. N. Mouton',0,'A Guo',0,'A Pickles',0,'A. A. Bailey',0,'A. A. Fienberg',0,'A. A. Palmer',0,'A. A. Tudor-Jones',0,'A. A. Wong',0,'A. A. van Elburg',0,'A. Agmo',0],'journal_facet'=>['Ethology',0,'Genes, Brain and Behavior',0]},'facet_dates'=>{},'facet_ranges'=>{}}}
+    http_version: 
+  recorded_at: Wed, 14 Aug 2013 15:40:45 GMT
+recorded_with: VCR 2.5.0

@@ -37,8 +37,8 @@ describe SearchController do
         expect(assigns(:solr_q)).to eq('*:*')
       end
 
-      it 'assigns solr_qt' do
-        expect(assigns(:solr_qt)).to eq('precise')
+      it 'assigns solr_defType' do
+        expect(assigns(:solr_defType)).to eq('lucene')
       end
 
       it 'does not assign solr_fq' do
@@ -52,7 +52,7 @@ describe SearchController do
 
     context 'with faceted search results' do
       before(:each) do
-        expect(Solr::Connection).to receive(:find).and_return(double(Solr::SearchResult, documents: []))
+        expect(Solr::Connection).to receive(:search).and_return(double(Solr::SearchResult, documents: []))
         get :index, { fq: ['journal_facet:"Journal of Nothing"'] }
       end
 
@@ -67,7 +67,7 @@ describe SearchController do
 
     context 'with a dismax search' do
       before(:each) do
-        expect(Solr::Connection).to receive(:find).and_return(double(Solr::SearchResult, documents: []))
+        expect(Solr::Connection).to receive(:search).and_return(double(Solr::SearchResult, documents: []))
         get :index, { q: 'testing' }
       end
 
@@ -75,8 +75,8 @@ describe SearchController do
         expect(assigns(:solr_q)).to eq('testing')
       end
 
-      it 'assigns solr_qt' do
-        expect(assigns(:solr_qt)).to eq('standard')
+      it 'assigns solr_defType' do
+        expect(assigns(:solr_defType)).to eq('dismax')
       end
 
       it 'does not assign solr_fq' do
@@ -90,8 +90,8 @@ describe SearchController do
 
     context 'with offset and limit parameters' do
       it 'successfully parses those parameters' do
-        default_sq = { q: '*:*', qt: 'precise', sort: 'year_sort desc', start: 20, rows: 20 }
-        expect(Solr::Connection).to receive(:find).with(default_sq).and_return(double(Solr::SearchResult, documents: []))
+        default_sq = { q: '*:*', defType: 'lucene', sort: 'year_sort desc', start: 20, rows: 20 }
+        expect(Solr::Connection).to receive(:search).with(default_sq).and_return(double(Solr::SearchResult, documents: []))
 
         get :index, { page: '1', per_page: '20' }
 
@@ -99,8 +99,8 @@ describe SearchController do
       end
 
       it 'does not throw an exception on non-integral page values' do
-        default_sq = { q: '*:*', qt: 'precise', sort: 'year_sort desc', start: 0, rows: 20 }
-        expect(Solr::Connection).to receive(:find).with(default_sq).and_return(double(Solr::SearchResult, documents: []))
+        default_sq = { q: '*:*', defType: 'lucene', sort: 'year_sort desc', start: 0, rows: 20 }
+        expect(Solr::Connection).to receive(:search).with(default_sq).and_return(double(Solr::SearchResult, documents: []))
 
         expect {
           get :index, { page: 'zzyzzy', per_page: '20' }
@@ -108,8 +108,8 @@ describe SearchController do
       end
 
       it 'does not throw an exception on non-integral per_page values' do
-        default_sq = { q: '*:*', qt: 'precise', sort: 'year_sort desc', start: 10, rows: 10 }
-        expect(Solr::Connection).to receive(:find).with(default_sq).and_return(double(Solr::SearchResult, documents: []))
+        default_sq = { q: '*:*', defType: 'lucene', sort: 'year_sort desc', start: 10, rows: 10 }
+        expect(Solr::Connection).to receive(:search).with(default_sq).and_return(double(Solr::SearchResult, documents: []))
 
         expect {
           get :index, { page: '1', per_page: 'zzyzzy' }
@@ -117,8 +117,8 @@ describe SearchController do
       end
 
       it 'does not let the user specify zero items per page' do
-        default_sq = { q: '*:*', qt: 'precise', sort: 'year_sort desc', start: 10, rows: 10 }
-        expect(Solr::Connection).to receive(:find).with(default_sq).and_return(double(Solr::SearchResult, documents: []))
+        default_sq = { q: '*:*', defType: 'lucene', sort: 'year_sort desc', start: 10, rows: 10 }
+        expect(Solr::Connection).to receive(:search).with(default_sq).and_return(double(Solr::SearchResult, documents: []))
 
         get :index, { page: '1', per_page: '0' }
       end

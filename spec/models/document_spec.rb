@@ -136,16 +136,16 @@ describe Document do
     context 'when loading a set of documents',
             vcr: { cassette_name: 'solr_default' } do
       before(:each) do
-        @result = Solr::Connection.find({ q: '*:*', qt: 'precise' })
+        @result = Solr::Connection.search({ q: '*:*', defType: 'lucene' })
         @docs = @result.documents
       end
 
       it 'sets the shasum' do
-        expect(@docs[0].shasum).to eq('00040b66948f49c3a6c6c0977530e2014899abf9')
+        expect(@docs[0].shasum).to eq('2aed42dcdf4d98ee499a1d19b4a0d613b5377ad0')
       end
 
       it 'sets the doi' do
-        expect(@docs[3].doi).to eq('10.1111/j.1439-0310.2009.01716.x')
+        expect(@docs[3].doi).to eq('10.1111/j.1439-0310.2006.01156.x')
       end
 
       it 'sets the license' do
@@ -157,11 +157,11 @@ describe Document do
       end
 
       it 'sets the authors' do
-        expect(@docs[9].authors).to eq('Troy G. Murphy')
+        expect(@docs[9].authors).to eq('C. Alaux, Y. Le Conte, H. A. Adams, S. Rodriguez-Zas, C. M. Grozinger, S. Sinha, G. E. Robinson')
       end
 
       it 'sets the title' do
-        expect(@docs[2].title).to eq('New Books')
+        expect(@docs[2].title).to eq('Fine mapping of a sedative-hypnotic drug withdrawal locus on mouse chromosome 11')
       end
 
       it 'sets the journal' do
@@ -169,15 +169,15 @@ describe Document do
       end
 
       it 'sets the year' do
-        expect(@docs[5].year).to eq('2001')
+        expect(@docs[5].year).to eq('2009')
       end
 
       it 'sets the volume' do
-        expect(@docs[7].volume).to eq('104')
+        expect(@docs[7].volume).to eq('6')
       end
 
       it 'sets the pages' do
-        expect(@docs[8].pages).to eq('181-187')
+        expect(@docs[8].pages).to eq('581-591')
       end
 
       it 'does not set the fulltext' do
@@ -285,11 +285,6 @@ describe Document do
         expect(@doc.term_vectors['m'][:tf]).to eq(2)
       end
 
-      it 'sets offsets',
-         vcr: { cassette_name: 'solr_single_fulltext_offsets' } do
-        expect(@doc.term_vectors['vehrencampf'][:offsets][0]).to eq(162...173)
-      end
-
       it 'sets positions' do
         expect(@doc.term_vectors['center'][:positions][0]).to eq(26)
       end
@@ -304,6 +299,22 @@ describe Document do
 
       it 'does not set anything for terms that do not appear' do
         expect(@doc.term_vectors['zuzax']).not_to be
+      end
+    end
+
+    context 'when loading one document with offsets',
+            vcr: { cassette_name: 'solr_single_fulltext_offsets' } do
+      before(:each) do
+        @result = Solr::Connection.search(q: 'shasum:00972c5123877961056b21aea4177d0dc69c7318',
+                                          defType: 'lucene',
+                                          fields: Solr::Connection::DEFAULT_FIELDS_FULLTEXT,
+                                          tv: 'true',
+                                          'tv.offsets' => 'true')
+        @doc = @result.documents[0]
+      end
+
+      it 'sets offsets' do
+        expect(@doc.term_vectors['vehrencampf'][:offsets][0]).to eq(162...173)
       end
     end
   end

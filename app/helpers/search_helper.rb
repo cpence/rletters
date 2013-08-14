@@ -241,7 +241,7 @@ module SearchHelper
   #   # "<li>Active Filters</li>...<li>Authors</li><li>"
   #     "<a href='...'>Johnson</a></li>..."
   def facet_link_list(result)
-    # Make sure there are facets
+    # Bail now if there's no facet data (faceted down to one document)
     return ''.html_safe unless result.facets
 
     # Convert the active facet queries to facets

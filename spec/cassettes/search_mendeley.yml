@@ -2,12 +2,11 @@
 http_interactions:
 - request:
     method: get
-    uri: http://localhost:8983/select?q=shasum:00972c5123877961056b21aea4177d0dc69c7318&qt=precise&wt=ruby
+    uri: http://localhost:8983/search?defType=lucene&q=shasum:00972c5123877961056b21aea4177d0dc69c7318&wt=ruby
     body:
       encoding: US-ASCII
-      string: ""
+      string: ''
     headers: {}
-
   response:
     status:
       code: 200
@@ -15,23 +14,53 @@ http_interactions:
     headers:
       Server:
       - Winstone Servlet Engine v0.9.10
-      Last-Modified:
-      - Tue, 05 Mar 2013 02:26:59 GMT
-      Etag:
-      - "\"YmVlMzM2ZjY5YzgwMDAwMFNvbHI=\""
       Content-Type:
       - text/plain;charset=UTF-8
       Connection:
       - Close
       Date:
-      - Tue, 05 Mar 2013 02:42:41 GMT
+      - Wed, 14 Aug 2013 15:40:44 GMT
       X-Powered-By:
       - Servlet/2.5 (Winstone/0.9.10)
     body:
-      encoding: UTF-8
-      string: "{'responseHeader'=>{'status'=>0,'QTime'=>10,'params'=>{'wt'=>'ruby','q'=>'shasum:00972c5123877961056b21aea4177d0dc69c7318','qt'=>'precise'}},'response'=>{'numFound'=>1,'start'=>0,'docs'=>[{'license'=>'\xC2\xA9 Blackwell Verlag GmbH','shasum'=>'00972c5123877961056b21aea4177d0dc69c7318','doi'=>'10.1111/j.1439-0310.2008.01576.x','authors'=>'Carlos A. Botero, Andrew E. Mudge, Amanda M. Koltz, Wesley M. Hochachka, Sandra L. Vehrencamp','title'=>'How Reliable are the Methods for Estimating Repertoire Size?','journal'=>'Ethology','year'=>'2008','volume'=>'114','pages'=>'1227-1238'}]},'facet_counts'=>{'facet_queries'=>{'year:[* TO 1799]'=>0,'year:[1800 TO 1809]'=>0,'year:[1810 TO 1819]'=>0,'year:[1820 TO 1829]'=>0,'year:[1830 TO 1839]'=>0,'year:[1840 TO 1849]'=>0,'year:[1850 TO 1859]'=>0,'year:[1860 TO 1869]'=>0,'year:[1870 TO 1879]'=>0,'year:[1880 TO 1889]'=>0,'year:[1890 TO 1899]'=>0,'year:[1900 TO 1909]'=>0,'year:[1910 TO 1919]'=>0,'year:[1920 TO 1929]'=>0,'year:[1930 TO 1939]'=>0,'year:[1940 TO 1949]'=>0,'year:[1950 TO 1959]'=>0,'year:[1960 TO 1969]'=>0,'year:[1970 TO 1979]'=>0,'year:[1980 TO 1989]'=>0,'year:[1990 TO 1999]'=>0,'year:[2000 TO 2009]'=>1,'year:[2010 TO *]'=>0},'facet_fields'=>{'authors_facet'=>['Amanda M. Koltz',1,'Andrew E. Mudge',1,'Carlos A. Botero',1,'Sandra L. Vehrencamp',1,'Wesley M. Hochachka',1,'. N. Mouton',0,'A Guo',0,'A Pickles',0,'A. A. Bailey',0,'A. A. Fienberg',0],'journal_facet'=>['Ethology',1,'Genes, Brain and Behavior',0]},'facet_dates'=>{}}}"
-    http_version:
-  recorded_at: Tue, 05 Mar 2013 02:42:41 GMT
+      encoding: ASCII-8BIT
+      string: !binary |-
+        eydyZXNwb25zZUhlYWRlcic9Pnsnc3RhdHVzJz0+MCwnUVRpbWUnPT4zLCdw
+        YXJhbXMnPT57J3EnPT4nc2hhc3VtOjAwOTcyYzUxMjM4Nzc5NjEwNTZiMjFh
+        ZWE0MTc3ZDBkYzY5YzczMTgnLCd3dCc9PidydWJ5JywnZGVmVHlwZSc9Pids
+        dWNlbmUnfX0sJ3Jlc3BvbnNlJz0+eydudW1Gb3VuZCc9PjEsJ3N0YXJ0Jz0+
+        MCwnZG9jcyc9Plt7J2xpY2Vuc2UnPT4nwqkgQmxhY2t3ZWxsIFZlcmxhZyBH
+        bWJIJywnc2hhc3VtJz0+JzAwOTcyYzUxMjM4Nzc5NjEwNTZiMjFhZWE0MTc3
+        ZDBkYzY5YzczMTgnLCdkb2knPT4nMTAuMTExMS9qLjE0MzktMDMxMC4yMDA4
+        LjAxNTc2LngnLCdhdXRob3JzJz0+J0NhcmxvcyBBLiBCb3Rlcm8sIEFuZHJl
+        dyBFLiBNdWRnZSwgQW1hbmRhIE0uIEtvbHR6LCBXZXNsZXkgTS4gSG9jaGFj
+        aGthLCBTYW5kcmEgTC4gVmVocmVuY2FtcCcsJ3RpdGxlJz0+J0hvdyBSZWxp
+        YWJsZSBhcmUgdGhlIE1ldGhvZHMgZm9yIEVzdGltYXRpbmcgUmVwZXJ0b2ly
+        ZSBTaXplPycsJ2pvdXJuYWwnPT4nRXRob2xvZ3knLCd5ZWFyJz0+JzIwMDgn
+        LCd2b2x1bWUnPT4nMTE0JywncGFnZXMnPT4nMTIyNy0xMjM4J31dfSwnZmFj
+        ZXRfY291bnRzJz0+eydmYWNldF9xdWVyaWVzJz0+eyd5ZWFyOlsqIFRPIDE3
+        OTldJz0+MCwneWVhcjpbMTgwMCBUTyAxODA5XSc9PjAsJ3llYXI6WzE4MTAg
+        VE8gMTgxOV0nPT4wLCd5ZWFyOlsxODIwIFRPIDE4MjldJz0+MCwneWVhcjpb
+        MTgzMCBUTyAxODM5XSc9PjAsJ3llYXI6WzE4NDAgVE8gMTg0OV0nPT4wLCd5
+        ZWFyOlsxODUwIFRPIDE4NTldJz0+MCwneWVhcjpbMTg2MCBUTyAxODY5XSc9
+        PjAsJ3llYXI6WzE4NzAgVE8gMTg3OV0nPT4wLCd5ZWFyOlsxODgwIFRPIDE4
+        ODldJz0+MCwneWVhcjpbMTg5MCBUTyAxODk5XSc9PjAsJ3llYXI6WzE5MDAg
+        VE8gMTkwOV0nPT4wLCd5ZWFyOlsxOTEwIFRPIDE5MTldJz0+MCwneWVhcjpb
+        MTkyMCBUTyAxOTI5XSc9PjAsJ3llYXI6WzE5MzAgVE8gMTkzOV0nPT4wLCd5
+        ZWFyOlsxOTQwIFRPIDE5NDldJz0+MCwneWVhcjpbMTk1MCBUTyAxOTU5XSc9
+        PjAsJ3llYXI6WzE5NjAgVE8gMTk2OV0nPT4wLCd5ZWFyOlsxOTcwIFRPIDE5
+        NzldJz0+MCwneWVhcjpbMTk4MCBUTyAxOTg5XSc9PjAsJ3llYXI6WzE5OTAg
+        VE8gMTk5OV0nPT4wLCd5ZWFyOlsyMDAwIFRPIDIwMDldJz0+MSwneWVhcjpb
+        MjAxMCBUTyAqXSc9PjB9LCdmYWNldF9maWVsZHMnPT57J2F1dGhvcnNfZmFj
+        ZXQnPT5bJ0FtYW5kYSBNLiBLb2x0eicsMSwnQW5kcmV3IEUuIE11ZGdlJywx
+        LCdDYXJsb3MgQS4gQm90ZXJvJywxLCdTYW5kcmEgTC4gVmVocmVuY2FtcCcs
+        MSwnV2VzbGV5IE0uIEhvY2hhY2hrYScsMSwnLiBOLiBNb3V0b24nLDAsJ0Eg
+        R3VvJywwLCdBIFBpY2tsZXMnLDAsJ0EuIEEuIEJhaWxleScsMCwnQS4gQS4g
+        RmllbmJlcmcnLDBdLCdqb3VybmFsX2ZhY2V0Jz0+WydFdGhvbG9neScsMSwn
+        R2VuZXMsIEJyYWluIGFuZCBCZWhhdmlvcicsMF19LCdmYWNldF9kYXRlcyc9
+        Pnt9LCdmYWNldF9yYW5nZXMnPT57fX19Cg==
+    http_version: 
+  recorded_at: Wed, 14 Aug 2013 15:40:44 GMT
 - request:
     method: get
     uri: http://api.mendeley.com/oapi/documents/search/title:How+Reliable+are+the+Methods+for+Estimating+Repertoire+Size%3F/?consumer_key=5ba3606d28aa1be94e9c58502b90a49c04dc17289
@@ -75,4 +104,4 @@ http_interactions:
       string: "{\"documents\":[{\"uuid\":\"ffc1f600-c78a-11df-b837-0024e8453de6\",\"title\":\"How reliable are the methods for estimating repertoire size?\",\"publication_outlet\":\"Ethology formerly Zeitschrift fur Tierpsychologie\",\"year\":2008,\"mendeley_url\":\"http:\\/\\/www.mendeley.com\\/research\\/reliable-methods-estimating-repertoire-size-1\\/\",\"doi\":\"10.1111\\/j.1439-0310.2008.01576.x\",\"authors\":[{\"forename\":\"Carlos A\",\"surname\":\"Botero\"},{\"forename\":\"Andrew E\",\"surname\":\"Mudge\"},{\"forename\":\"Amanda M\",\"surname\":\"Koltz\"},{\"forename\":\"Wesley M\",\"surname\":\"Hochachka\"},{\"forename\":\"Sandra L\",\"surname\":\"Vehrencamp\"}]},{\"uuid\":\"a1918630-3ac6-11e1-a0e9-0024e8453de6\",\"title\":\"How to understand strategies\",\"publication_outlet\":\"Competitive engineering a handbook for systems engineering requirements engineering and software engineering using planguage\",\"year\":2005,\"mendeley_url\":\"http:\\/\\/www.mendeley.com\\/research\\/understand-strategies\\/\",\"doi\":null,\"authors\":[{\"forename\":\"Impact\",\"surname\":\"Estimate\"},{\"forename\":\"Scale\",\"surname\":\"Impact\"},{\"forename\":\"Scale\",\"surname\":\"Uncertainty\"},{\"forename\":\"Incremental Scale\",\"surname\":\"Impact\"},{\"forename\":\"Percentage\",\"surname\":\"Impact\"},{\"forename\":\"Percentage\",\"surname\":\"Uncertainty\"},{\"forename\":\"Safety\",\"surname\":\"Factor\"},{\"forename\":\"Safety\",\"surname\":\"Margin\"},{\"forename\":\"Safety\",\"surname\":\"Deviation\"},{\"forename\":\"Side\",\"surname\":\"Effect\"}]},{\"uuid\":\"60f7a730-1d35-11e0-a67b-0024e8453de6\",\"title\":\"How to do a Meta-Analysis\",\"publication_outlet\":\"The British journal of mathematical and statistical psychology\",\"year\":2010,\"mendeley_url\":\"http:\\/\\/www.mendeley.com\\/research\\/meta-analysis-21\\/\",\"doi\":\"10.1348\\/000711010X502733\",\"authors\":[{\"forename\":\"Andy P\",\"surname\":\"Field\"},{\"forename\":\"Raphael\",\"surname\":\"Gillett\"}]},{\"uuid\":\"26b1e2c0-ebf2-11e0-9df2-0024e8453de6\",\"title\":\"How many people are malnourished?\",\"publication_outlet\":\"Annual Review of Nutrition\",\"year\":2011,\"mendeley_url\":\"http:\\/\\/www.mendeley.com\\/research\\/people-malnourished\\/\",\"doi\":null,\"authors\":[{\"forename\":\"Peter\",\"surname\":\"Svedberg\"}]},{\"uuid\":\"0ebb3210-5936-11e0-a61a-0024e8453de6\",\"title\":\"How Many Interviews Are Enough?\",\"publication_outlet\":\"Field Methods\",\"year\":2006,\"mendeley_url\":\"http:\\/\\/www.mendeley.com\\/research\\/interviews-enough\\/\",\"doi\":\"10.1177\\/1525822x05279903\",\"authors\":[{\"forename\":\"Greg\",\"surname\":\"Guest\"},{\"forename\":\"Arwen\",\"surname\":\"Bunce\"},{\"forename\":\"Laura\",\"surname\":\"Johnson\"}]},{\"uuid\":\"02b71af0-6d06-11df-a2b2-0026b95e3eb7\",\"title\":\"How to use molecular marker data to measure evolutionary parameters in wild populations.\",\"publication_outlet\":\"Molecular Ecology\",\"year\":2005,\"mendeley_url\":\"http:\\/\\/www.mendeley.com\\/research\\/molecular-marker-data-measure-evolutionary-parameters-wild-populations-2\\/\",\"doi\":null,\"authors\":[{\"forename\":\"Dany\",\"surname\":\"Garant\"},{\"forename\":\"Loeske E B\",\"surname\":\"Kruuk\"}]},{\"uuid\":\"3fbb9c10-56d8-11e1-86d1-0024e8453de6\",\"title\":\"Impact Estimation: How to understand strategies\",\"publication_outlet\":\"Competitive engineering a handbook for systems engineering requirements engineering and software engineering using planguage\",\"year\":2005,\"mendeley_url\":\"http:\\/\\/www.mendeley.com\\/research\\/impact-estimation-understand-strategies\\/\",\"doi\":null,\"authors\":[{\"forename\":\"Tom\",\"surname\":\"Gilb\"}]},{\"uuid\":\"29994570-6d0c-11df-a2b2-0026b95e3eb7\",\"title\":\"How reliable are dung counts for estimating elephant numbers?\",\"publication_outlet\":\"African Journal of Ecology\",\"year\":2001,\"mendeley_url\":\"http:\\/\\/www.mendeley.com\\/research\\/reliable-dung-counts-estimating-elephant-numbers-2\\/\",\"doi\":\"10.1046\\/j.1365-2028.2001.00266.x\",\"authors\":[{\"forename\":\"R F W\",\"surname\":\"Barnes\"}]},{\"uuid\":\"e1f8f0e0-6d00-11df-afb8-0026b95d30b2\",\"title\":\"How reliable is an undetectable viral load?\",\"publication_outlet\":\"HIV Medicine\",\"year\":2009,\"mendeley_url\":\"http:\\/\\/www.mendeley.com\\/research\\/reliable-undetectable-viral-load\\/\",\"doi\":null,\"authors\":[{\"forename\":\"Christophe\",\"surname\":\"Combescure\"},{\"forename\":\"N\",\"surname\":\"Vallier\"},{\"forename\":\"B\",\"surname\":\"Ledergerber\"},{\"forename\":\"M\",\"surname\":\"Cavassini\"},{\"forename\":\"H\",\"surname\":\"Furrer\"},{\"forename\":\"A\",\"surname\":\"Rauch\"},{\"forename\":\"M\",\"surname\":\"Battegay\"},{\"forename\":\"E\",\"surname\":\"Bernasconi\"},{\"forename\":\"P\",\"surname\":\"Vernazza\"},{\"forename\":\"B\",\"surname\":\"Hirschel\"}]},{\"uuid\":\"fddd5b80-6d09-11df-936c-0026b95e484c\",\"title\":\"How many mistakes, how to find them.\",\"publication_outlet\":\"Clinical Chemistry\",\"year\":1997,\"mendeley_url\":\"http:\\/\\/www.mendeley.com\\/research\\/mistakes-find-them\\/\",\"doi\":null,\"authors\":[{\"forename\":\"A B\",\"surname\":\"Blase\"}]},{\"uuid\":\"91819210-c170-11df-833d-0024e8453de6\",\"title\":\"How many birds are there ?\",\"publication_outlet\":\"Population English Edition\",\"year\":1997,\"mendeley_url\":\"http:\\/\\/www.mendeley.com\\/research\\/birds-1\\/\",\"doi\":null,\"authors\":[{\"forename\":\"Kevin J\",\"surname\":\"Gaston\"},{\"forename\":\"T I M M\",\"surname\":\"Blackburn\"}]},{\"uuid\":\"4c152cd0-cc8f-11df-922b-0024e8453de6\",\"title\":\"How to aspirate the pericardium.\",\"publication_outlet\":\"British Journal of Hospital Medicine\",\"year\":1990,\"mendeley_url\":\"http:\\/\\/www.mendeley.com\\/research\\/aspirate-pericardium\\/\",\"doi\":null,\"authors\":[{\"forename\":\"T\",\"surname\":\"Treasure\"},{\"forename\":\"L\",\"surname\":\"Cotter\"}]},{\"uuid\":\"d70e40a0-6cff-11df-a2b2-0026b95e3eb7\",\"title\":\"How to study proteins by circular dichroism\",\"publication_outlet\":\"Biochimica et Biophysica Acta\",\"year\":2005,\"mendeley_url\":\"http:\\/\\/www.mendeley.com\\/research\\/study-proteins-circular-dichroism-1\\/\",\"doi\":null,\"authors\":[{\"forename\":\"Sharon M\",\"surname\":\"Kelly\"},{\"forename\":\"Thomas J\",\"surname\":\"Jess\"},{\"forename\":\"Nicholas C\",\"surname\":\"Price\"}]},{\"uuid\":\"9d5d8f30-6d06-11df-a474-0026b95e3e23\",\"title\":\"Internationalizing the Broselow tape: how reliable is weight estimation in Indian children.\",\"publication_outlet\":\"Academic emergency medicine official journal of the Society for Academic Emergency Medicine\",\"year\":2008,\"mendeley_url\":\"http:\\/\\/www.mendeley.com\\/research\\/internationalizing-broselow-tape-reliable-weight-estimation-indian-children\\/\",\"doi\":null,\"authors\":[{\"forename\":\"Naresh\",\"surname\":\"Ramarajan\"},{\"forename\":\"Rajesh\",\"surname\":\"Krishnamoorthi\"},{\"forename\":\"Matthew\",\"surname\":\"Strehlow\"},{\"forename\":\"James\",\"surname\":\"Quinn\"},{\"forename\":\"Swaminatha V\",\"surname\":\"Mahadevan\"}]},{\"uuid\":\"bf4a7b00-c54c-11df-833d-0024e8453de6\",\"title\":\"How to be less invasive.\",\"publication_outlet\":\"The American Journal of Medicine\",\"year\":1979,\"mendeley_url\":\"http:\\/\\/www.mendeley.com\\/research\\/less-invasive\\/\",\"doi\":null,\"authors\":[{\"forename\":\"A C\",\"surname\":\"Powles\"},{\"forename\":\"E J\",\"surname\":\"Campbell\"}]},{\"uuid\":\"2c55b510-6d06-11df-afb8-0026b95d30b2\",\"title\":\"How interchangeable are different estimators of effect size?\",\"publication_outlet\":\"Journal of Consulting and Clinical Psychology\",\"year\":1996,\"mendeley_url\":\"http:\\/\\/www.mendeley.com\\/research\\/interchangeable-different-estimators-effect-size\\/\",\"doi\":null,\"authors\":[{\"forename\":\"J W\",\"surname\":\"Ray\"},{\"forename\":\"W R\",\"surname\":\"Shadish\"}]},{\"uuid\":\"5b07ad80-6d08-11df-afb8-0026b95d30b2\",\"title\":\"How good is GLASOD?\",\"publication_outlet\":\"Journal of Environmental Management\",\"year\":2009,\"mendeley_url\":\"http:\\/\\/www.mendeley.com\\/research\\/good-glasod\\/\",\"doi\":\"10.1016\\/j.jenvman.2007.09.008\",\"authors\":[{\"forename\":\"B G J S\",\"surname\":\"Sonneveld\"},{\"forename\":\"D L\",\"surname\":\"Dent\"}]},{\"uuid\":\"3a2463b0-6d0d-11df-936c-0026b95e484c\",\"title\":\"How Should We Estimate Public Opinion in The States?\",\"publication_outlet\":\"American Journal of Political Science\",\"year\":2009,\"mendeley_url\":\"http:\\/\\/www.mendeley.com\\/research\\/we-estimate-public-opinion-states\\/\",\"doi\":\"10.1111\\/j.1540-5907.2008.00360.x\",\"authors\":[{\"forename\":\"Jeffrey R\",\"surname\":\"Lax\"},{\"forename\":\"Justin H\",\"surname\":\"Phillips\"}]},{\"uuid\":\"eb826370-6d01-11df-a2b2-0026b95e3eb7\",\"title\":\"How many branchiopod crustacean species are there ? Quantifying the components of underestimation\",\"publication_outlet\":\"Global Ecology and Biogeography\",\"year\":2005,\"mendeley_url\":\"http:\\/\\/www.mendeley.com\\/research\\/how-many-branchiopod-crustacean-species-are-there-quantifying-the-components-of-underestimation\\/\",\"doi\":\"10.1111\\/j.1466-822x.2005.00164.x\",\"authors\":[{\"forename\":\"Sarah J\",\"surname\":\"Adamowicz\"},{\"forename\":\"Andy\",\"surname\":\"Purvis\"}]},{\"uuid\":\"36eeed20-6d0b-11df-936c-0026b95e484c\",\"title\":\"How many membrane proteins are there?\",\"publication_outlet\":\"Protein Science\",\"year\":1998,\"mendeley_url\":\"http:\\/\\/www.mendeley.com\\/research\\/membrane-proteins-2\\/\",\"doi\":null,\"authors\":[{\"forename\":\"D\",\"surname\":\"Boyd\"},{\"forename\":\"C\",\"surname\":\"Schierle\"},{\"forename\":\"J\",\"surname\":\"Beckwith\"}]}],\"total_results\":3968188,\"total_pages\":198410,\"current_page\":0,\"items_per_page\":20}"
     http_version:
   recorded_at: Tue, 05 Mar 2013 02:57:45 GMT
-recorded_with: VCR 2.4.0
+recorded_with: VCR 2.5.0

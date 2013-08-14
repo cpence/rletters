@@ -54,7 +54,7 @@ class Array
   # @api public
   # @return [String] array of documents as EndNote collection
   # @example Save an array of documents in EndNote format to stdout
-  #   doc_array = Solr::Connection.find(...).documents
+  #   doc_array = Solr::Connection.search(...).documents
   #   $stdout.write(doc_array.to_endnote)
   def to_endnote
     each do |x|

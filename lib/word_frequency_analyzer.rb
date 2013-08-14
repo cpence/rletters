@@ -45,11 +45,11 @@ class WordFrequencyAnalyzer
     if @corpus_size.nil?
       solr_query = {}
       solr_query[:q] = '*:*'
-      solr_query[:qt] = 'precise'
+      solr_query[:defType] = 'lucene'
       solr_query[:rows] = 1
       solr_query[:start] = 0
 
-      search_result = Solr::Connection.find(solr_query)
+      search_result = Solr::Connection.search(solr_query)
       @corpus_size = search_result.num_hits
     end
 

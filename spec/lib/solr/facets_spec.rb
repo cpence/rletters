@@ -4,7 +4,7 @@ require 'spec_helper'
 describe 'Solr::Facets', vcr: { cassette_name: 'solr_default' } do
 
   before(:each) do
-    @result = Solr::Connection.find({ q: '*:*', qt: 'precise' })
+    @result = Solr::Connection.search({ q: '*:*', defType: 'lucene' })
     @facets = @result.facets
   end
 

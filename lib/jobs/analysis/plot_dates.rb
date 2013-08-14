@@ -38,11 +38,11 @@ module Jobs
           solr_query[:rows] = group.count
           query_str = group.map { |e| e.shasum }.join(' OR ')
           solr_query[:q] = "shasum:(#{query_str})"
-          solr_query[:qt] = 'precise'
+          solr_query[:defType] = 'lucene'
           solr_query[:fl] = 'year'
           solr_query[:facet] = false
 
-          search_result = Solr::Connection.find solr_query
+          search_result = Solr::Connection.search solr_query
           fail 'Failed to get batch of results in PlotDates' unless search_result.num_hits == group.count
 
           search_result.documents.each do |doc|

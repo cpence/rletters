@@ -2,12 +2,11 @@
 http_interactions:
 - request:
     method: get
-    uri: http://localhost:8983/select?fq=journal_facet:%22Ethology%22&q=*:*&qt=precise&wt=ruby
+    uri: http://localhost:8983/search?defType=lucene&fq=journal_facet:%22Ethology%22&q=*:*&wt=ruby
     body:
       encoding: US-ASCII
-      string: ""
+      string: ''
     headers: {}
-
   response:
     status:
       code: 200
@@ -15,21 +14,52 @@ http_interactions:
     headers:
       Server:
       - Winstone Servlet Engine v0.9.10
-      Last-Modified:
-      - Tue, 05 Mar 2013 02:26:59 GMT
-      Etag:
-      - "\"YmVlMzM2ZjY5YzgwMDAwMFNvbHI=\""
       Content-Type:
       - text/plain;charset=UTF-8
       Connection:
       - Close
       Date:
-      - Tue, 05 Mar 2013 04:21:27 GMT
+      - Wed, 14 Aug 2013 15:41:02 GMT
       X-Powered-By:
       - Servlet/2.5 (Winstone/0.9.10)
     body:
       encoding: ASCII-8BIT
-      string: "{'responseHeader'=>{'status'=>0,'QTime'=>5,'params'=>{'wt'=>'ruby','fq'=>['authors_facet:\"Amanda M. Koltz\"','journal_facet:\"Ethology\"'],'q'=>'*:*','qt'=>'precise'}},'response'=>{'numFound'=>1,'start'=>0,'docs'=>[{'license'=>'\xC2\xA9 Blackwell Verlag GmbH','shasum'=>'00972c5123877961056b21aea4177d0dc69c7318','doi'=>'10.1111/j.1439-0310.2008.01576.x','authors'=>'Carlos A. Botero, Andrew E. Mudge, Amanda M. Koltz, Wesley M. Hochachka, Sandra L. Vehrencamp','title'=>'How Reliable are the Methods for Estimating Repertoire Size?','journal'=>'Ethology','year'=>'2008','volume'=>'114','pages'=>'1227-1238'}]},'facet_counts'=>{'facet_queries'=>{'year:[* TO 1799]'=>0,'year:[1800 TO 1809]'=>0,'year:[1810 TO 1819]'=>0,'year:[1820 TO 1829]'=>0,'year:[1830 TO 1839]'=>0,'year:[1840 TO 1849]'=>0,'year:[1850 TO 1859]'=>0,'year:[1860 TO 1869]'=>0,'year:[1870 TO 1879]'=>0,'year:[1880 TO 1889]'=>0,'year:[1890 TO 1899]'=>0,'year:[1900 TO 1909]'=>0,'year:[1910 TO 1919]'=>0,'year:[1920 TO 1929]'=>0,'year:[1930 TO 1939]'=>0,'year:[1940 TO 1949]'=>0,'year:[1950 TO 1959]'=>0,'year:[1960 TO 1969]'=>0,'year:[1970 TO 1979]'=>0,'year:[1980 TO 1989]'=>0,'year:[1990 TO 1999]'=>0,'year:[2000 TO 2009]'=>1,'year:[2010 TO *]'=>0},'facet_fields'=>{'authors_facet'=>['Amanda M. Koltz',1,'Andrew E. Mudge',1,'Carlos A. Botero',1,'Sandra L. Vehrencamp',1,'Wesley M. Hochachka',1,'. N. Mouton',0,'A Guo',0,'A Pickles',0,'A. A. Bailey',0,'A. A. Fienberg',0],'journal_facet'=>['Ethology',1,'Genes, Brain and Behavior',0]},'facet_dates'=>{}}}"
-    http_version:
-  recorded_at: Tue, 05 Mar 2013 04:21:27 GMT
-recorded_with: VCR 2.4.0
+      string: !binary |-
+        eydyZXNwb25zZUhlYWRlcic9Pnsnc3RhdHVzJz0+MCwnUVRpbWUnPT4zLCdw
+        YXJhbXMnPT57J3EnPT4nKjoqJywnd3QnPT4ncnVieScsJ2ZxJz0+WydhdXRo
+        b3JzX2ZhY2V0OiJBbWFuZGEgTS4gS29sdHoiJywnam91cm5hbF9mYWNldDoi
+        RXRob2xvZ3kiJ10sJ2RlZlR5cGUnPT4nbHVjZW5lJ319LCdyZXNwb25zZSc9
+        PnsnbnVtRm91bmQnPT4xLCdzdGFydCc9PjAsJ2RvY3MnPT5beydsaWNlbnNl
+        Jz0+J8KpIEJsYWNrd2VsbCBWZXJsYWcgR21iSCcsJ3NoYXN1bSc9PicwMDk3
+        MmM1MTIzODc3OTYxMDU2YjIxYWVhNDE3N2QwZGM2OWM3MzE4JywnZG9pJz0+
+        JzEwLjExMTEvai4xNDM5LTAzMTAuMjAwOC4wMTU3Ni54JywnYXV0aG9ycyc9
+        PidDYXJsb3MgQS4gQm90ZXJvLCBBbmRyZXcgRS4gTXVkZ2UsIEFtYW5kYSBN
+        LiBLb2x0eiwgV2VzbGV5IE0uIEhvY2hhY2hrYSwgU2FuZHJhIEwuIFZlaHJl
+        bmNhbXAnLCd0aXRsZSc9PidIb3cgUmVsaWFibGUgYXJlIHRoZSBNZXRob2Rz
+        IGZvciBFc3RpbWF0aW5nIFJlcGVydG9pcmUgU2l6ZT8nLCdqb3VybmFsJz0+
+        J0V0aG9sb2d5JywneWVhcic9PicyMDA4Jywndm9sdW1lJz0+JzExNCcsJ3Bh
+        Z2VzJz0+JzEyMjctMTIzOCd9XX0sJ2ZhY2V0X2NvdW50cyc9PnsnZmFjZXRf
+        cXVlcmllcyc9PnsneWVhcjpbKiBUTyAxNzk5XSc9PjAsJ3llYXI6WzE4MDAg
+        VE8gMTgwOV0nPT4wLCd5ZWFyOlsxODEwIFRPIDE4MTldJz0+MCwneWVhcjpb
+        MTgyMCBUTyAxODI5XSc9PjAsJ3llYXI6WzE4MzAgVE8gMTgzOV0nPT4wLCd5
+        ZWFyOlsxODQwIFRPIDE4NDldJz0+MCwneWVhcjpbMTg1MCBUTyAxODU5XSc9
+        PjAsJ3llYXI6WzE4NjAgVE8gMTg2OV0nPT4wLCd5ZWFyOlsxODcwIFRPIDE4
+        NzldJz0+MCwneWVhcjpbMTg4MCBUTyAxODg5XSc9PjAsJ3llYXI6WzE4OTAg
+        VE8gMTg5OV0nPT4wLCd5ZWFyOlsxOTAwIFRPIDE5MDldJz0+MCwneWVhcjpb
+        MTkxMCBUTyAxOTE5XSc9PjAsJ3llYXI6WzE5MjAgVE8gMTkyOV0nPT4wLCd5
+        ZWFyOlsxOTMwIFRPIDE5MzldJz0+MCwneWVhcjpbMTk0MCBUTyAxOTQ5XSc9
+        PjAsJ3llYXI6WzE5NTAgVE8gMTk1OV0nPT4wLCd5ZWFyOlsxOTYwIFRPIDE5
+        NjldJz0+MCwneWVhcjpbMTk3MCBUTyAxOTc5XSc9PjAsJ3llYXI6WzE5ODAg
+        VE8gMTk4OV0nPT4wLCd5ZWFyOlsxOTkwIFRPIDE5OTldJz0+MCwneWVhcjpb
+        MjAwMCBUTyAyMDA5XSc9PjEsJ3llYXI6WzIwMTAgVE8gKl0nPT4wfSwnZmFj
+        ZXRfZmllbGRzJz0+eydhdXRob3JzX2ZhY2V0Jz0+WydBbWFuZGEgTS4gS29s
+        dHonLDEsJ0FuZHJldyBFLiBNdWRnZScsMSwnQ2FybG9zIEEuIEJvdGVybycs
+        MSwnU2FuZHJhIEwuIFZlaHJlbmNhbXAnLDEsJ1dlc2xleSBNLiBIb2NoYWNo
+        a2EnLDEsJy4gTi4gTW91dG9uJywwLCdBIEd1bycsMCwnQSBQaWNrbGVzJyww
+        LCdBLiBBLiBCYWlsZXknLDAsJ0EuIEEuIEZpZW5iZXJnJywwXSwnam91cm5h
+        bF9mYWNldCc9PlsnRXRob2xvZ3knLDEsJ0dlbmVzLCBCcmFpbiBhbmQgQmVo
+        YXZpb3InLDBdfSwnZmFjZXRfZGF0ZXMnPT57fSwnZmFjZXRfcmFuZ2VzJz0+
+        e319fQo=
+    http_version: 
+  recorded_at: Wed, 14 Aug 2013 15:41:02 GMT
+recorded_with: VCR 2.5.0

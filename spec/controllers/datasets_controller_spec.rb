@@ -63,19 +63,19 @@ describe DatasetsController do
         name: 'Test Dataset',
         q: '*:*',
         fq: nil,
-        qt: 'precise')
+        defType: 'lucene')
       expect(Delayed::Job).to receive(:enqueue).with(
         expected_job,
         queue: 'ui'
       ).once
 
       post :create, { dataset: { name: 'Test Dataset' },
-        q: '*:*', fq: nil, qt: 'precise' }
+        q: '*:*', fq: nil, defType: 'lucene' }
     end
 
     it 'redirects to index when done' do
       post :create, { dataset: { name: 'Test Dataset' },
-        q: '*:*', fq: nil, qt: 'precise' }
+        q: '*:*', fq: nil, defType: 'lucene' }
       expect(response).to redirect_to(datasets_path)
     end
   end
@@ -283,7 +283,7 @@ describe DatasetsController do
     end
   end
 
-  describe '#task_download' do
+  describe '#task_download', vcr: { cassette_name: 'solr_single' } do
     before(:each) do
       # Execute an export job, which should create an AnalysisTask
       Jobs::Analysis::ExportCitations.new(

@@ -3,8 +3,8 @@ require 'spec_helper'
 
 describe Solr::Connection do
 
-  # No need to explicitly test Solr::Connection.find, as it's used by basically
-  # the entire source base.
+  # No need to explicitly test Solr::Connection.search, as it's used by
+  # basically the entire source base.
 
   describe '.info' do
     context 'when connection succeeds', vcr: { cassette_name: 'info_connection_success' } do

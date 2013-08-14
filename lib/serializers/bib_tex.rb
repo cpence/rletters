@@ -59,7 +59,7 @@ class Array
   # @api public
   # @return [String] array of documents as BibTeX collection
   # @example Save an array of documents in BibTeX format to stdout
-  #   doc_array = Solr::Connection.find(...).documents
+  #   doc_array = Solr::Connection.search(...).documents
   #   $stdout.write(doc_array.to_bibtex)
   def to_bibtex
     each do |x|

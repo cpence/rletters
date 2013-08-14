@@ -2,12 +2,11 @@
 http_interactions:
 - request:
     method: get
-    uri: http://localhost:8983/select?q=*:*&qt=precise&rows=10&sort=year_sort%20desc&start=0&wt=ruby
+    uri: http://localhost:8983/search?defType=lucene&q=*:*&rows=10&sort=year_sort%20desc&start=0&wt=ruby
     body:
       encoding: US-ASCII
-      string: ""
+      string: ''
     headers: {}
-
   response:
     status:
       code: 200
@@ -15,21 +14,143 @@ http_interactions:
     headers:
       Server:
       - Winstone Servlet Engine v0.9.10
-      Last-Modified:
-      - Tue, 05 Mar 2013 02:26:59 GMT
-      Etag:
-      - "\"YmVlMzM2ZjY5YzgwMDAwMFNvbHI=\""
       Content-Type:
       - text/plain;charset=UTF-8
       Connection:
       - Close
       Date:
-      - Tue, 05 Mar 2013 02:38:32 GMT
+      - Wed, 14 Aug 2013 15:40:45 GMT
       X-Powered-By:
       - Servlet/2.5 (Winstone/0.9.10)
     body:
       encoding: ASCII-8BIT
-      string: "{'responseHeader'=>{'status'=>0,'QTime'=>271,'params'=>{'wt'=>'ruby','sort'=>'year_sort desc','rows'=>'10','q'=>'*:*','qt'=>'precise','start'=>'0'}},'response'=>{'numFound'=>1042,'start'=>0,'docs'=>[{'license'=>'\xC2\xA9 Blackwell Verlag GmbH','shasum'=>'0097e0f4029fef57b8158970112ab32c1e692cff','doi'=>'10.1111/j.1439-0310.2011.01898.x','authors'=>'Pavol Prokop, Michael R. Maxwell','title'=>'Sexual Conflict Over Spermatophore Attachment in a Nuptially Feeding Cricket','journal'=>'Ethology','year'=>'2011','volume'=>'117','pages'=>'520-528'},{'license'=>'\xC2\xA9 Blackwell Publishing Ltd/International Behavioural and Neural Genetics Society','shasum'=>'01aba6bb5df0e4f3941b17faa740197a32d71edc','doi'=>'10.1111/j.1601-183X.2010.00603.x','authors'=>'G. P. Lahvis, E. Alleva, M. L. Scattoni','title'=>'Translating mouse vocalizations: prosody and frequency modulation1','journal'=>'Genes, Brain and Behavior','year'=>'2011','volume'=>'10','pages'=>'4-16'},{'license'=>'\xC2\xA9 Blackwell Verlag GmbH','shasum'=>'04de62251a7c6d02f890a327b75710287b032a97','doi'=>'10.1111/j.1439-0310.2010.01870.x','authors'=>'Patricia Trubl, Valerie Blackmore, J. Chadwick Johnson','title'=>'Wasteful Killing in Urban Black Widows: Gluttony in Response to Food Abundance','journal'=>'Ethology','year'=>'2011','volume'=>'117','pages'=>'236-245'},{'license'=>'\xC2\xA9 Blackwell Publishing Ltd/International Behavioural and Neural Genetics Society','shasum'=>'0528c7bd3e2e4a7487a488fbd61ede4878b61916','doi'=>'10.1111/j.1601-183X.2010.00661.x','authors'=>'T. Kishi, Y. Fukuo, T. Kitajima, T. Okochi, Y. Yamanouchi, Y. Kinoshita, K. Kawashima, T. Inada, H. Kunugi, T. Kato, T. Yoshikawa, H. Ujike, N. Ozaki, N. Iwata','title'=>'SIRT1 gene, schizophrenia and bipolar disorder in the Japanese population: an association study','journal'=>'Genes, Brain and Behavior','year'=>'2011','volume'=>'10','pages'=>'257-263'},{'license'=>'\xC2\xA9 Blackwell Verlag GmbH','shasum'=>'09a2b37dab51e83128fabb613ff3821c802c57f2','doi'=>'10.1111/j.1439-0310.2010.01869.x','title'=>'A chacma baboon, Papio ursinus, in evening light, Mpumalanga, South Africa. Photo reproduced by permission of Andrew Young -http://www.wildimages.org','journal'=>'Ethology','year'=>'2011','volume'=>'117','pages'=>'i-i'},{'license'=>'\xC2\xA9 Blackwell Verlag GmbH','shasum'=>'0c0359c195af68981e363a9117bc4976d19a2b05','doi'=>'10.1111/j.1439-0310.2010.01842.x','authors'=>'Zachary Durisko, Les Shipp, Reuven Dukas','title'=>'Effects of Experience on Short- and Long-term Foraging Performance in Bumblebees','journal'=>'Ethology','year'=>'2011','volume'=>'117','pages'=>'49-55'},{'license'=>'\xC2\xA9 Blackwell Verlag GmbH','shasum'=>'10cb8a621fbe7e83ebb3836a212ae8f7921c5cd8','doi'=>'10.1111/j.1439-0310.2010.01857.x','authors'=>'Samantha P. Klaus, Lauren P. Fitzsimmons, Trevor E. Pitcher, Susan M. Bertram','title'=>'Song and Sperm in Crickets: A Trade-off between Pre- and Post-copulatory Traits or Phenotype-Linked Fertility?','journal'=>'Ethology','year'=>'2011','volume'=>'117','pages'=>'154-162'},{'license'=>'\xC2\xA9 Blackwell Verlag GmbH','shasum'=>'123066916819292ce0c41eddcd1713f840a803b2','doi'=>'10.1111/j.1439-0310.2010.01860.x','authors'=>'Petra Lantov\xC3\xA1, Kl\xC3\xA1ra \xC5\xA0\xC3\xADchov\xC3\xA1, Franti\xC5\xA1ek Sedl\xC3\xA1\xC4\x8Dek, Vojt\xC4\x9Bch Lanta','title'=>'Determining Behavioural Syndromes in Voles - The Effects of Social Environment','journal'=>'Ethology','year'=>'2011','volume'=>'117','pages'=>'124-132'},{'license'=>'\xC2\xA9 Blackwell Verlag GmbH','shasum'=>'146a667ea176f8da964a66f976972e8693459f4a','doi'=>'10.1111/j.1439-0310.2010.01858.x','authors'=>'Daniel R. Howard, Norman Lee, Carrie L. Hall, Andrew C. Mason','title'=>'Are Centrally Displaying Males Always the Centre of Female Attention? Acoustic Display Position and Female Choice in a Lek Mating Subterranean Insect','journal'=>'Ethology','year'=>'2011','volume'=>'117','pages'=>'199-207'},{'license'=>'\xC2\xA9 Blackwell Verlag GmbH','shasum'=>'1783ab4eec3f5e05f3909d8e8567c1fdab7c74e9','doi'=>'10.1111/j.1439-0310.2010.01866.x','title'=>'Pheromones: Fact or Fantasy?','journal'=>'Ethology','year'=>'2011','volume'=>'117','pages'=>'265-266'}]},'facet_counts'=>{'facet_queries'=>{'year:[* TO 1799]'=>0,'year:[1800 TO 1809]'=>0,'year:[1810 TO 1819]'=>0,'year:[1820 TO 1829]'=>0,'year:[1830 TO 1839]'=>0,'year:[1840 TO 1849]'=>0,'year:[1850 TO 1859]'=>0,'year:[1860 TO 1869]'=>0,'year:[1870 TO 1879]'=>0,'year:[1880 TO 1889]'=>0,'year:[1890 TO 1899]'=>0,'year:[1900 TO 1909]'=>0,'year:[1910 TO 1919]'=>0,'year:[1920 TO 1929]'=>0,'year:[1930 TO 1939]'=>0,'year:[1940 TO 1949]'=>0,'year:[1950 TO 1959]'=>0,'year:[1960 TO 1969]'=>0,'year:[1970 TO 1979]'=>0,'year:[1980 TO 1989]'=>0,'year:[1990 TO 1999]'=>94,'year:[2000 TO 2009]'=>788,'year:[2010 TO *]'=>160},'facet_fields'=>{'authors_facet'=>['J. C. Crabbe',9,'Michael H. Ferkin',9,'Douglas P. Chivers',8,'A. V. Kulikov',7,'Daniel T. Blumstein',7,'J. N. Crawley',6,'N. K. Popova',6,'A. A. Palmer',5,'D. I. Boomsma',5,'D. Wahlsten',5],'journal_facet'=>['Ethology',594,'Genes, Brain and Behavior',448]},'facet_dates'=>{}}}"
-    http_version:
-  recorded_at: Tue, 05 Mar 2013 02:38:32 GMT
-recorded_with: VCR 2.4.0
+      string: !binary |-
+        eydyZXNwb25zZUhlYWRlcic9Pnsnc3RhdHVzJz0+MCwnUVRpbWUnPT43LCdw
+        YXJhbXMnPT57J3NvcnQnPT4neWVhcl9zb3J0IGRlc2MnLCdzdGFydCc9Picw
+        JywncSc9PicqOionLCd3dCc9PidydWJ5Jywncm93cyc9PicxMCcsJ2RlZlR5
+        cGUnPT4nbHVjZW5lJ319LCdyZXNwb25zZSc9PnsnbnVtRm91bmQnPT4xMDQy
+        LCdzdGFydCc9PjAsJ2RvY3MnPT5beydsaWNlbnNlJz0+J8KpIEJsYWNrd2Vs
+        bCBQdWJsaXNoaW5nIEx0ZC9JbnRlcm5hdGlvbmFsIEJlaGF2aW91cmFsIGFu
+        ZCBOZXVyYWwgR2VuZXRpY3MgU29jaWV0eScsJ3NoYXN1bSc9PicyZTMwMzAw
+        ODgzYTNmNzU4OGYzN2MzOTk0YzU4ODk5YzVhOGExMjE5JywnZG9pJz0+JzEw
+        LjExMTEvai4xNjAxLTE4M1guMjAxMC4wMDYyMy54JywnYXV0aG9ycyc9PidN
+        LiBMLiBTY2F0dG9uaSwgTC4gUmljY2VyaSwgSi4gTi4gQ3Jhd2xleScsJ3Rp
+        dGxlJz0+J1VudXN1YWwgcmVwZXJ0b2lyZSBvZiB2b2NhbGl6YXRpb25zIGlu
+        IGFkdWx0IEJUQlIgVCt0Zi9KIG1pY2UgZHVyaW5nIHRocmVlIHR5cGVzIG9m
+        IHNvY2lhbCBlbmNvdW50ZXJzJywnam91cm5hbCc9PidHZW5lcywgQnJhaW4g
+        YW5kIEJlaGF2aW9yJywneWVhcic9PicyMDExJywndm9sdW1lJz0+JzEwJywn
+        cGFnZXMnPT4nNDQtNTYnfSx7J2xpY2Vuc2UnPT4nwqkgQmxhY2t3ZWxsIFB1
+        Ymxpc2hpbmcgTHRkL0ludGVybmF0aW9uYWwgQmVoYXZpb3VyYWwgYW5kIE5l
+        dXJhbCBHZW5ldGljcyBTb2NpZXR5Jywnc2hhc3VtJz0+JzJlNGQ1MjJiNGEy
+        NmFlZGVjZDIxNzBjNTUyNmRlOGQwMThiZTVjN2UnLCdkb2knPT4nMTAuMTEx
+        MS9qLjE2MDEtMTgzWC4yMDEwLjAwNjUxLngnLCdhdXRob3JzJz0+J1MuIFBh
+        cmFjY2hpbmksIFEuIFcuIEFuZywgRi4gSi4gU3RhbmxleSwgQS4gUC4gTW9u
+        YWNvLCBDLiBFLiBQZW5uZWxsLCBBLiBKLiBPLiBXaGl0ZWhvdXNlJywndGl0
+        bGUnPT4nQW5hbHlzaXMgb2YgZHlzbGV4aWEgY2FuZGlkYXRlIGdlbmVzIGlu
+        IHRoZSBSYWluZSBjb2hvcnQgcmVwcmVzZW50aW5nIHRoZSBnZW5lcmFsIEF1
+        c3RyYWxpYW4gcG9wdWxhdGlvbicsJ2pvdXJuYWwnPT4nR2VuZXMsIEJyYWlu
+        IGFuZCBCZWhhdmlvcicsJ3llYXInPT4nMjAxMScsJ3ZvbHVtZSc9PicxMCcs
+        J3BhZ2VzJz0+JzE1OC0xNjUnfSx7J2xpY2Vuc2UnPT4nwqkgQmxhY2t3ZWxs
+        IFB1Ymxpc2hpbmcgTHRkL0ludGVybmF0aW9uYWwgQmVoYXZpb3VyYWwgYW5k
+        IE5ldXJhbCBHZW5ldGljcyBTb2NpZXR5Jywnc2hhc3VtJz0+JzJmZDFjNTlk
+        OGM4YzVjNmY0YWI2MTE3NDViODIxOTkwM2YwZWNmYjUnLCdkb2knPT4nMTAu
+        MTExMS9qLjE2MDEtMTgzWC4yMDEwLjAwNjU5LngnLCdhdXRob3JzJz0+J0Iu
+        IEwuIFBlYXJzb24sIFIuIEwuIEguIFBvYmJlLCBFLiBCLiBEZWZlbnNvciwg
+        TC4gT2FzYXksIFYuIEouIEJvbGl2YXIsIEQuIEMuIEJsYW5jaGFyZCwgUi4g
+        Si4gQmxhbmNoYXJkJywndGl0bGUnPT4nTW90b3IgYW5kIGNvZ25pdGl2ZSBz
+        dGVyZW90eXBpZXMgaW4gdGhlIEJUQlIgVCt0Zi9KIG1vdXNlIG1vZGVsIG9m
+        IGF1dGlzbScsJ2pvdXJuYWwnPT4nR2VuZXMsIEJyYWluIGFuZCBCZWhhdmlv
+        cicsJ3llYXInPT4nMjAxMScsJ3ZvbHVtZSc9PicxMCcsJ3BhZ2VzJz0+JzIy
+        OC0yMzUnfSx7J2xpY2Vuc2UnPT4nwqkgQmxhY2t3ZWxsIFB1Ymxpc2hpbmcg
+        THRkL0ludGVybmF0aW9uYWwgQmVoYXZpb3VyYWwgYW5kIE5ldXJhbCBHZW5l
+        dGljcyBTb2NpZXR5Jywnc2hhc3VtJz0+JzMxYjNjYjc4ZjBmMzlkNzhjNjgx
+        ZjRlMGQ5NDAzY2M2N2ZkYzNiODInLCdkb2knPT4nMTAuMTExMS9qLjE2MDEt
+        MTgzWC4yMDEwLjAwNjY0LngnLCdhdXRob3JzJz0+J1QuIEwuIEZpZGxlciwg
+        QS4gTS4gRGlvbiwgTS4gUy4gUG93ZXJzLCBKLiBKLiBSYW1pcmV6LCBKLiBB
+        LiBNdWxncmV3LCBQLiBKLiBTbWl0YXNpbiwgQS4gVC4gQ3JhbmUsIEMuIEwu
+        IEN1bm5pbmdoYW0nLCd0aXRsZSc9PidJbnRyYWdhc3RyaWMgc2VsZi1pbmZ1
+        c2lvbiBvZiBldGhhbm9sIGluIGhpZ2gtIGFuZCBsb3ctZHJpbmtpbmcgbW91
+        c2UgZ2Vub3R5cGVzIGFmdGVyIHBhc3NpdmUgZXRoYW5vbCBleHBvc3VyZScs
+        J2pvdXJuYWwnPT4nR2VuZXMsIEJyYWluIGFuZCBCZWhhdmlvcicsJ3llYXIn
+        PT4nMjAxMScsJ3ZvbHVtZSc9PicxMCcsJ3BhZ2VzJz0+JzI2NC0yNzUnfSx7
+        J2xpY2Vuc2UnPT4nwqkgQmxhY2t3ZWxsIFB1Ymxpc2hpbmcgTHRkL0ludGVy
+        bmF0aW9uYWwgQmVoYXZpb3VyYWwgYW5kIE5ldXJhbCBHZW5ldGljcyBTb2Np
+        ZXR5Jywnc2hhc3VtJz0+JzMzMmU4YmVhNWMxMjJkODI4MGE1ODIyYjczNDZj
+        YTY5NzQwOTA0OWUnLCdkb2knPT4nMTAuMTExMS9qLjE2MDEtMTgzWC4yMDEw
+        LjAwNjQ2LngnLCdhdXRob3JzJz0+J1MuIE1pY2hhbGFraXMsIFQuIEtsZXBw
+        aXNjaCwgUy4gQS4gUG9sdGEsIEMuIFQuIFdvdGphaywgUy4gS29jaCwgRy4g
+        UmFtbWVzLCBMLiBNYXR0LCBFLiBCZWNpcm92aWMsIE0uIEJpZWwnLCd0aXRs
+        ZSc9PidBbHRlcmVkIHN5bmFwdGljIHBsYXN0aWNpdHkgYW5kIGJlaGF2aW9y
+        YWwgYWJub3JtYWxpdGllcyBpbiBDTkdBMy1kZWZpY2llbnQgbWljZScsJ2pv
+        dXJuYWwnPT4nR2VuZXMsIEJyYWluIGFuZCBCZWhhdmlvcicsJ3llYXInPT4n
+        MjAxMScsJ3ZvbHVtZSc9PicxMCcsJ3BhZ2VzJz0+JzEzNy0xNDgnfSx7J2xp
+        Y2Vuc2UnPT4nwqkgQmxhY2t3ZWxsIFZlcmxhZyBHbWJIJywnc2hhc3VtJz0+
+        JzMzZDI1ZTQ4OGViYjkyMWE5MmVlNDg2MDkyY2JlMDhjMWFkOTVhNzEnLCdk
+        b2knPT4nMTAuMTExMS9qLjE0MzktMDMxMC4yMDExLjAxOTAwLngnLCdhdXRo
+        b3JzJz0+J01hcmNlbCBIb256YSwgUGV0ciBQcm9jaMOhemthLCBLbMOhcmEg
+        TW9yb25nb3bDoSwgTWlyb3NsYXYgxIxhcGVrLCBWw6FjbGF2IEplbMOtbmVr
+        JywndGl0bGUnPT4nRG8gTmVzdCBMaWdodCBDb25kaXRpb25zIEFmZmVjdCBS
+        ZWplY3Rpb24gb2YgUGFyYXNpdGljIEVnZ3M/IEEgVGVzdCBvZiB0aGUgTGln
+        aHQgRW52aXJvbm1lbnQgSHlwb3RoZXNpcycsJ2pvdXJuYWwnPT4nRXRob2xv
+        Z3knLCd5ZWFyJz0+JzIwMTEnLCd2b2x1bWUnPT4nMTE3JywncGFnZXMnPT4n
+        NTM5LTU0Nid9LHsnbGljZW5zZSc9PifCqSBCbGFja3dlbGwgUHVibGlzaGlu
+        ZyBMdGQvSW50ZXJuYXRpb25hbCBCZWhhdmlvdXJhbCBhbmQgTmV1cmFsIEdl
+        bmV0aWNzIFNvY2lldHknLCdzaGFzdW0nPT4nMzcxZTExYTRhZGI2NWUyNTMy
+        ZjM0ZDUwMTE1NmRlZGM1MTVhOGJlYycsJ2RvaSc9PicxMC4xMTExL2ouMTYw
+        MS0xODNYLjIwMTAuMDA1ODIueCcsJ2F1dGhvcnMnPT4nTS4gV8O2aHIsIEYu
+        IEkuIFJvdWxsZXQsIEouIE4uIENyYXdsZXknLCd0aXRsZSc9PidSZWR1Y2Vk
+        IHNjZW50IG1hcmtpbmcgYW5kIHVsdHJhc29uaWMgdm9jYWxpemF0aW9ucyBp
+        biB0aGUgQlRCUiBUK3RmL0ogbW91c2UgbW9kZWwgb2YgYXV0aXNtJywnam91
+        cm5hbCc9PidHZW5lcywgQnJhaW4gYW5kIEJlaGF2aW9yJywneWVhcic9Picy
+        MDExJywndm9sdW1lJz0+JzEwJywncGFnZXMnPT4nMzUtNDMnfSx7J2xpY2Vu
+        c2UnPT4nwqkgQmxhY2t3ZWxsIFZlcmxhZyBHbWJIJywnc2hhc3VtJz0+JzM3
+        MjcxYzdkNGM0ODY1MGU1MzdhZWFkMmNkODc1NGJmNWFhMmMwMWEnLCdkb2kn
+        PT4nMTAuMTExMS9qLjE0MzktMDMxMC4yMDEwLjAxODQ0LngnLCdhdXRob3Jz
+        Jz0+J0NyYWlnIEEuIEJhcm5ldHQsIEphbWVzIFYuIEJyaXNraWUnLCd0aXRs
+        ZSc9PidTdHJhdGVnaWMgUmVndWxhdGlvbiBvZiBCb2R5IE1hc3MgYW5kIFNp
+        bmdpbmcgQmVoYXZpb3IgaW4gTmV3IFplYWxhbmQgUm9iaW5zJywnam91cm5h
+        bCc9PidFdGhvbG9neScsJ3llYXInPT4nMjAxMScsJ3ZvbHVtZSc9PicxMTcn
+        LCdwYWdlcyc9PicyOC0zNid9LHsnbGljZW5zZSc9PifCqSBCbGFja3dlbGwg
+        UHVibGlzaGluZyBMdGQvSW50ZXJuYXRpb25hbCBCZWhhdmlvdXJhbCBhbmQg
+        TmV1cmFsIEdlbmV0aWNzIFNvY2lldHknLCdzaGFzdW0nPT4nMzc3MGE2OTE0
+        ZTgyZThmNjhlOGJmNmQxZGFlOTA0OTdlYjQwYmRlYycsJ2RvaSc9PicxMC4x
+        MTExL2ouMTYwMS0xODNYLjIwMTAuMDA2NjMueCcsJ2F1dGhvcnMnPT4nTS4g
+        SC4gSnVuZywgQi4gTC4gUGFyaywgQi4tQy4gTGVlLCBZLiBSbywgUi4gUGFy
+        aywgSC4gRC4gU2hpbiwgSi4gUy4gQmFlLCBULi1DLiBLYW5nLCBJLi1HLiBD
+        aG9pJywndGl0bGUnPT4nQXNzb2NpYXRpb24gb2YgQ0hSTTIgcG9seW1vcnBo
+        aXNtcyB3aXRoIHNldmVyaXR5IG9mIGFsY29ob2wgZGVwZW5kZW5jZScsJ2pv
+        dXJuYWwnPT4nR2VuZXMsIEJyYWluIGFuZCBCZWhhdmlvcicsJ3llYXInPT4n
+        MjAxMScsJ3ZvbHVtZSc9PicxMCcsJ3BhZ2VzJz0+JzI1My0yNTYnfSx7J2xp
+        Y2Vuc2UnPT4nwqkgQmxhY2t3ZWxsIFB1Ymxpc2hpbmcgTHRkL0ludGVybmF0
+        aW9uYWwgQmVoYXZpb3VyYWwgYW5kIE5ldXJhbCBHZW5ldGljcyBTb2NpZXR5
+        Jywnc2hhc3VtJz0+JzM3ZDQ5ZGJkODRjYjViNTk5YzQxNTgxOTMxNzA2ZGEw
+        Yjc0ZTcyYWUnLCdkb2knPT4nMTAuMTExMS9qLjE2MDEtMTgzWC4yMDEwLjAw
+        NTgwLngnLCdhdXRob3JzJz0+J0suIE4uIFNoZXBhcmQsIFIuIEMuIExpdScs
+        J3RpdGxlJz0+J0V4cGVyaWVuY2UgcmVzdG9yZXMgaW5uYXRlIGZlbWFsZSBw
+        cmVmZXJlbmNlIGZvciBtYWxlIHVsdHJhc29uaWMgdm9jYWxpemF0aW9ucycs
+        J2pvdXJuYWwnPT4nR2VuZXMsIEJyYWluIGFuZCBCZWhhdmlvcicsJ3llYXIn
+        PT4nMjAxMScsJ3ZvbHVtZSc9PicxMCcsJ3BhZ2VzJz0+JzI4LTM0J31dfSwn
+        ZmFjZXRfY291bnRzJz0+eydmYWNldF9xdWVyaWVzJz0+eyd5ZWFyOlsqIFRP
+        IDE3OTldJz0+MCwneWVhcjpbMTgwMCBUTyAxODA5XSc9PjAsJ3llYXI6WzE4
+        MTAgVE8gMTgxOV0nPT4wLCd5ZWFyOlsxODIwIFRPIDE4MjldJz0+MCwneWVh
+        cjpbMTgzMCBUTyAxODM5XSc9PjAsJ3llYXI6WzE4NDAgVE8gMTg0OV0nPT4w
+        LCd5ZWFyOlsxODUwIFRPIDE4NTldJz0+MCwneWVhcjpbMTg2MCBUTyAxODY5
+        XSc9PjAsJ3llYXI6WzE4NzAgVE8gMTg3OV0nPT4wLCd5ZWFyOlsxODgwIFRP
+        IDE4ODldJz0+MCwneWVhcjpbMTg5MCBUTyAxODk5XSc9PjAsJ3llYXI6WzE5
+        MDAgVE8gMTkwOV0nPT4wLCd5ZWFyOlsxOTEwIFRPIDE5MTldJz0+MCwneWVh
+        cjpbMTkyMCBUTyAxOTI5XSc9PjAsJ3llYXI6WzE5MzAgVE8gMTkzOV0nPT4w
+        LCd5ZWFyOlsxOTQwIFRPIDE5NDldJz0+MCwneWVhcjpbMTk1MCBUTyAxOTU5
+        XSc9PjAsJ3llYXI6WzE5NjAgVE8gMTk2OV0nPT4wLCd5ZWFyOlsxOTcwIFRP
+        IDE5NzldJz0+MCwneWVhcjpbMTk4MCBUTyAxOTg5XSc9PjAsJ3llYXI6WzE5
+        OTAgVE8gMTk5OV0nPT45NCwneWVhcjpbMjAwMCBUTyAyMDA5XSc9Pjc4OCwn
+        eWVhcjpbMjAxMCBUTyAqXSc9PjE2MH0sJ2ZhY2V0X2ZpZWxkcyc9PnsnYXV0
+        aG9yc19mYWNldCc9PlsnSi4gQy4gQ3JhYmJlJyw5LCdNaWNoYWVsIEguIEZl
+        cmtpbicsOSwnRG91Z2xhcyBQLiBDaGl2ZXJzJyw4LCdBLiBWLiBLdWxpa292
+        Jyw3LCdEYW5pZWwgVC4gQmx1bXN0ZWluJyw3LCdKLiBOLiBDcmF3bGV5Jyw2
+        LCdOLiBLLiBQb3BvdmEnLDYsJ0EuIEEuIFBhbG1lcicsNSwnRC4gSS4gQm9v
+        bXNtYScsNSwnRC4gV2FobHN0ZW4nLDVdLCdqb3VybmFsX2ZhY2V0Jz0+WydF
+        dGhvbG9neScsNTk0LCdHZW5lcywgQnJhaW4gYW5kIEJlaGF2aW9yJyw0NDhd
+        fSwnZmFjZXRfZGF0ZXMnPT57fSwnZmFjZXRfcmFuZ2VzJz0+e319fQo=
+    http_version: 
+  recorded_at: Wed, 14 Aug 2013 15:40:45 GMT
+recorded_with: VCR 2.5.0

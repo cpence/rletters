@@ -38,6 +38,8 @@ VCR.configure do |c|
   c.configure_rspec_metadata!
   c.cassette_library_dir = 'spec/cassettes'
   c.hook_into :webmock
+
+  c.default_cassette_options = { allow_playback_repeats: true, record: :none }
 end
 
 # Standard setup for RSpec
@@ -99,4 +101,7 @@ RSpec.configure do |config|
 
   # Add helpers for Devise
   config.include Devise::TestHelpers, type: :controller
+
+  # Add helpers for running Solr queries in view specs
+  config.include SearchControllerQuery, type: :view
 end

@@ -2,12 +2,11 @@
 http_interactions:
 - request:
     method: get
-    uri: http://localhost:8983/select?facet=false&fl=shasum&q=test&qt=standard&rows=1000&start=0&wt=ruby
+    uri: http://localhost:8983/search?facet=false&fl=shasum&q=test&rows=1000&start=0&wt=ruby
     body:
       encoding: US-ASCII
-      string: ""
+      string: ''
     headers: {}
-
   response:
     status:
       code: 200
@@ -15,21 +14,18 @@ http_interactions:
     headers:
       Server:
       - Winstone Servlet Engine v0.9.10
-      Last-Modified:
-      - Tue, 05 Mar 2013 02:26:59 GMT
-      Etag:
-      - "\"YmVlMzM2ZjY5YzgwMDAwMFNvbHI=\""
       Content-Type:
       - text/plain;charset=UTF-8
       Connection:
       - Close
       Date:
-      - Tue, 05 Mar 2013 03:33:24 GMT
+      - Wed, 14 Aug 2013 15:11:11 GMT
       X-Powered-By:
       - Servlet/2.5 (Winstone/0.9.10)
     body:
-      encoding: US-ASCII
-      string: "{'responseHeader'=>{'status'=>0,'QTime'=>9,'params'=>{'wt'=>'ruby','rows'=>'1000','q'=>'test','fl'=>'shasum','qt'=>'standard','start'=>'0','facet'=>'false'}},'response'=>{'numFound'=>19,'start'=>0,'docs'=>[{'shasum'=>'09576bbf64ab9cf878bcbcf885dd21a07e7f884a'},{'shasum'=>'2668f540c2a161c810c3cc09e5bafec4c73be545'},{'shasum'=>'28e62478d5d830d4f1ead0c5dbdf1b3b0fbb653e'},{'shasum'=>'2babb70f13c014db426e4e16de862c31c8ecf7e1'},{'shasum'=>'314fc4209e05bc50bedd81ffeeaf16d3c04803c4'},{'shasum'=>'33d25e488ebb921a92ee486092cbe08c1ad95a71'},{'shasum'=>'356cdd794ac04734df178e18ebfd5064f4761c67'},{'shasum'=>'36ab5561ea9ad07f2853db672bb824bb339f11d6'},{'shasum'=>'377510a2003565e897b437758d421c9e6328be27'},{'shasum'=>'512ad9f437e092dccd826c9b536fcb0b823fa246'},{'shasum'=>'53cf4a9fe4e4ab64cdb6e47160b668c69fb3168d'},{'shasum'=>'562af717ca3c8a722322498452ef9cbed27a9863'},{'shasum'=>'5ac78c8b5e1a637eb20fa04feef92e1ef65354c9'},{'shasum'=>'98bc089978374ee70d7d92dbf12e178a41d23ff5'},{'shasum'=>'1a6d86528bb706475ea333ccdaec76337984f33f'},{'shasum'=>'0bed7d97a722ea3ad4761b75e2202b4103e6a3f3'},{'shasum'=>'4e8e15b88848fbd7ae20d8bf7e6d43c821a92d04'},{'shasum'=>'569adc5dc8e751fcb6f1c2d32d03bd6d0fc0b98d'},{'shasum'=>'241a2548b765806ae0ef0ac8c7e75663cb916971'}]}}"
-    http_version:
-  recorded_at: Tue, 05 Mar 2013 03:33:24 GMT
-recorded_with: VCR 2.4.0
+      encoding: UTF-8
+      string: |
+        {'responseHeader'=>{'status'=>0,'QTime'=>11,'params'=>{'facet'=>'false','fl'=>'shasum','start'=>'0','q'=>'test','wt'=>'ruby','rows'=>'1000'}},'response'=>{'numFound'=>19,'start'=>0,'docs'=>[{'shasum'=>'2babb70f13c014db426e4e16de862c31c8ecf7e1'},{'shasum'=>'314fc4209e05bc50bedd81ffeeaf16d3c04803c4'},{'shasum'=>'33d25e488ebb921a92ee486092cbe08c1ad95a71'},{'shasum'=>'356cdd794ac04734df178e18ebfd5064f4761c67'},{'shasum'=>'36ab5561ea9ad07f2853db672bb824bb339f11d6'},{'shasum'=>'377510a2003565e897b437758d421c9e6328be27'},{'shasum'=>'4e8e15b88848fbd7ae20d8bf7e6d43c821a92d04'},{'shasum'=>'512ad9f437e092dccd826c9b536fcb0b823fa246'},{'shasum'=>'53cf4a9fe4e4ab64cdb6e47160b668c69fb3168d'},{'shasum'=>'562af717ca3c8a722322498452ef9cbed27a9863'},{'shasum'=>'2668f540c2a161c810c3cc09e5bafec4c73be545'},{'shasum'=>'28e62478d5d830d4f1ead0c5dbdf1b3b0fbb653e'},{'shasum'=>'1a6d86528bb706475ea333ccdaec76337984f33f'},{'shasum'=>'569adc5dc8e751fcb6f1c2d32d03bd6d0fc0b98d'},{'shasum'=>'5ac78c8b5e1a637eb20fa04feef92e1ef65354c9'},{'shasum'=>'09576bbf64ab9cf878bcbcf885dd21a07e7f884a'},{'shasum'=>'0bed7d97a722ea3ad4761b75e2202b4103e6a3f3'},{'shasum'=>'98bc089978374ee70d7d92dbf12e178a41d23ff5'},{'shasum'=>'241a2548b765806ae0ef0ac8c7e75663cb916971'}]}}
+    http_version: 
+  recorded_at: Wed, 14 Aug 2013 15:11:11 GMT
+recorded_with: VCR 2.5.0

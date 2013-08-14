@@ -13,7 +13,7 @@
     = f.text_field :name
 
   = hidden_field_tag :q, params[:q]
-  = hidden_field_tag :qt, params[:qt]
+  = hidden_field_tag :defType, params[:defType]
   - if params[:fq]
     - params[:fq].each do |fq|
       = hidden_field_tag 'fq[]', fq

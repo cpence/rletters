@@ -2,12 +2,11 @@
 http_interactions:
 - request:
     method: get
-    uri: http://localhost:8983/select?q=shasum:00972c5123877961056b21aea4177d0dc69c7318&qt=fulltext&wt=ruby
+    uri: http://localhost:8983/search?defType=lucene&fields=shasum,doi,license,license_url,authors,title,journal,year,volume,number,pages,fulltext&q=shasum:00972c5123877961056b21aea4177d0dc69c7318&tv=true&tv.offsets=true&wt=ruby
     body:
       encoding: US-ASCII
-      string: ""
+      string: ''
     headers: {}
-
   response:
     status:
       code: 200
@@ -15,24 +14,123 @@ http_interactions:
     headers:
       Server:
       - Winstone Servlet Engine v0.9.10
-      Last-Modified:
-      - Mon, 11 Mar 2013 22:15:34 GMT
-      Etag:
-      - "\"YmVlMzM2ZjY5YzgwMDAwMFNvbHI=\""
       Content-Type:
       - text/plain;charset=UTF-8
       Connection:
       - Close
       Date:
-      - Mon, 11 Mar 2013 22:23:51 GMT
+      - Wed, 14 Aug 2013 15:02:42 GMT
       X-Powered-By:
       - Servlet/2.5 (Winstone/0.9.10)
     body:
       encoding: ASCII-8BIT
-      string: "{'responseHeader'=>{'status'=>0,'QTime'=>9,'params'=>{'wt'=>'ruby','q'=>'shasum:00972c5123877961056b21aea4177d0dc69c7318','qt'=>'fulltext'}},'response'=>{'numFound'=>1,'start'=>0,'docs'=>[{'license'=>'\xC2\xA9 Blackwell Verlag GmbH','shasum'=>'00972c5123877961056b21aea4177d0dc69c7318','doi'=>'10.1111/j.1439-0310.2008.01576.x','authors'=>'Carlos A. Botero, Andrew E. Mudge, Amanda M. Koltz, Wesley M. Hochachka, Sandra L. Vehrencamp','title'=>'How Reliable are the Methods for Estimating Repertoire Size?','journal'=>'Ethology','year'=>'2008','volume'=>'114','pages'=>'1227-1238','fulltext'=>'Ethology\n\
-        How Reliable are the Methods for Estimating Repertoire Size?\n\
-        Carlos A. Botero*,f,$, Andrew E. Mudgef, Amanda M. Koltz\xC2\xA7, Wesley M. Hochachkaf & Sandra L. Vehrencampf,-\n\
-        * Center for Ecological '}]},'termVectors'=>['doc-4',['uniqueKey','00972c5123877961056b21aea4177d0dc69c7318','fulltext',['a',['tf',1,'offsets',['start',77,'end',78],'positions',['position',11],'df',246,'tf-idf',0.0040650406504065045],'amanda',['tf',1,'offsets',['start',111,'end',117],'positions',['position',17],'df',3,'tf-idf',0.3333333333333333],'andrew',['tf',1,'offsets',['start',93,'end',99],'positions',['position',14],'df',15,'tf-idf',0.06666666666666667],'are',['tf',1,'offsets',['start',22,'end',25],'positions',['position',3],'df',18,'tf-idf',0.05555555555555555],'botero',['tf',1,'offsets',['start',80,'end',86],'positions',['position',12],'df',1,'tf-idf',1.0],'carlos',['tf',1,'offsets',['start',70,'end',76],'positions',['position',10],'df',5,'tf-idf',0.2],'center',['tf',1,'offsets',['start',178,'end',184],'positions',['position',26],'df',13,'tf-idf',0.07692307692307693],'e',['tf',1,'offsets',['start',100,'end',101],'positions',['position',15],'df',46,'tf-idf',0.021739130434782608],'ecological',['tf',1,'offsets',['start',189,'end',199],'positions',['position',28],'df',9,'tf-idf',0.1111111111111111],'estimating',['tf',1,'offsets',['start',42,'end',52],'positions',['position',7],'df',1,'tf-idf',1.0],'ethology',['tf',1,'offsets',['start',0,'end',8],'positions',['position',0],'df',579,'tf-idf',0.0017271157167530224],'f',['tf',1,'offsets',['start',88,'end',89],'positions',['position',13],'df',74,'tf-idf',0.013513513513513514],'for',['tf',2,'offsets',['start',38,'end',41,'start',185,'end',188],'positions',['position',6,'position',27],'df',92,'tf-idf',0.021739130434782608],'hochachkaf',['tf',1,'offsets',['start',139,'end',149],'positions',['position',22],'df',1,'tf-idf',1.0],'how',['tf',1,'offsets',['start',9,'end',12],'positions',['position',1],'df',10,'tf-idf',0.1],'koltz',['tf',1,'offsets',['start',121,'end',126],'positions',['position',19],'df',1,'tf-idf',1.0],'l',['tf',1,'offsets',['start',159,'end',160],'positions',['position',24],'df',68,'tf-idf',0.014705882352941176],'m',['tf',2,'offsets',['start',118,'end',119,'start',136,'end',137],'positions',['position',18,'position',21],'df',119,'tf-idf',0.01680672268907563],'methods',['tf',1,'offsets',['start',30,'end',37],'positions',['position',5],'df',3,'tf-idf',0.3333333333333333],'mudgef',['tf',1,'offsets',['start',103,'end',109],'positions',['position',16],'df',1,'tf-idf',1.0],'reliable',['tf',1,'offsets',['start',13,'end',21],'positions',['position',2],'df',1,'tf-idf',1.0],'repertoire',['tf',1,'offsets',['start',53,'end',63],'positions',['position',8],'df',2,'tf-idf',0.5],'sandra',['tf',1,'offsets',['start',152,'end',158],'positions',['position',23],'df',1,'tf-idf',1.0],'size',['tf',1,'offsets',['start',64,'end',68],'positions',['position',9],'df',26,'tf-idf',0.038461538461538464],'the',['tf',1,'offsets',['start',26,'end',29],'positions',['position',4],'df',625,'tf-idf',0.0016],'vehrencampf',['tf',1,'offsets',['start',162,'end',173],'positions',['position',25],'df',1,'tf-idf',1.0],'wesley',['tf',1,'offsets',['start',129,'end',135],'positions',['position',20],'df',1,'tf-idf',1.0]]],'uniqueKeyFieldName','shasum']}"
-    http_version:
-  recorded_at: Mon, 11 Mar 2013 22:23:51 GMT
-recorded_with: VCR 2.4.0
+      string: !binary |-
+        eydyZXNwb25zZUhlYWRlcic9Pnsnc3RhdHVzJz0+MCwnUVRpbWUnPT44LCdw
+        YXJhbXMnPT57J3EnPT4nc2hhc3VtOjAwOTcyYzUxMjM4Nzc5NjEwNTZiMjFh
+        ZWE0MTc3ZDBkYzY5YzczMTgnLCd0di5vZmZzZXRzJz0+J3RydWUnLCd0dic9
+        Pid0cnVlJywnd3QnPT4ncnVieScsJ2ZpZWxkcyc9PidzaGFzdW0sZG9pLGxp
+        Y2Vuc2UsbGljZW5zZV91cmwsYXV0aG9ycyx0aXRsZSxqb3VybmFsLHllYXIs
+        dm9sdW1lLG51bWJlcixwYWdlcyxmdWxsdGV4dCcsJ2RlZlR5cGUnPT4nbHVj
+        ZW5lJ319LCdyZXNwb25zZSc9PnsnbnVtRm91bmQnPT4xLCdzdGFydCc9PjAs
+        J2RvY3MnPT5beydsaWNlbnNlJz0+J8KpIEJsYWNrd2VsbCBWZXJsYWcgR21i
+        SCcsJ3NoYXN1bSc9PicwMDk3MmM1MTIzODc3OTYxMDU2YjIxYWVhNDE3N2Qw
+        ZGM2OWM3MzE4JywnZG9pJz0+JzEwLjExMTEvai4xNDM5LTAzMTAuMjAwOC4w
+        MTU3Ni54JywnYXV0aG9ycyc9PidDYXJsb3MgQS4gQm90ZXJvLCBBbmRyZXcg
+        RS4gTXVkZ2UsIEFtYW5kYSBNLiBLb2x0eiwgV2VzbGV5IE0uIEhvY2hhY2hr
+        YSwgU2FuZHJhIEwuIFZlaHJlbmNhbXAnLCd0aXRsZSc9PidIb3cgUmVsaWFi
+        bGUgYXJlIHRoZSBNZXRob2RzIGZvciBFc3RpbWF0aW5nIFJlcGVydG9pcmUg
+        U2l6ZT8nLCdqb3VybmFsJz0+J0V0aG9sb2d5JywneWVhcic9PicyMDA4Jywn
+        dm9sdW1lJz0+JzExNCcsJ3BhZ2VzJz0+JzEyMjctMTIzOCd9XX0sJ2ZhY2V0
+        X2NvdW50cyc9PnsnZmFjZXRfcXVlcmllcyc9PnsneWVhcjpbKiBUTyAxNzk5
+        XSc9PjAsJ3llYXI6WzE4MDAgVE8gMTgwOV0nPT4wLCd5ZWFyOlsxODEwIFRP
+        IDE4MTldJz0+MCwneWVhcjpbMTgyMCBUTyAxODI5XSc9PjAsJ3llYXI6WzE4
+        MzAgVE8gMTgzOV0nPT4wLCd5ZWFyOlsxODQwIFRPIDE4NDldJz0+MCwneWVh
+        cjpbMTg1MCBUTyAxODU5XSc9PjAsJ3llYXI6WzE4NjAgVE8gMTg2OV0nPT4w
+        LCd5ZWFyOlsxODcwIFRPIDE4NzldJz0+MCwneWVhcjpbMTg4MCBUTyAxODg5
+        XSc9PjAsJ3llYXI6WzE4OTAgVE8gMTg5OV0nPT4wLCd5ZWFyOlsxOTAwIFRP
+        IDE5MDldJz0+MCwneWVhcjpbMTkxMCBUTyAxOTE5XSc9PjAsJ3llYXI6WzE5
+        MjAgVE8gMTkyOV0nPT4wLCd5ZWFyOlsxOTMwIFRPIDE5MzldJz0+MCwneWVh
+        cjpbMTk0MCBUTyAxOTQ5XSc9PjAsJ3llYXI6WzE5NTAgVE8gMTk1OV0nPT4w
+        LCd5ZWFyOlsxOTYwIFRPIDE5NjldJz0+MCwneWVhcjpbMTk3MCBUTyAxOTc5
+        XSc9PjAsJ3llYXI6WzE5ODAgVE8gMTk4OV0nPT4wLCd5ZWFyOlsxOTkwIFRP
+        IDE5OTldJz0+MCwneWVhcjpbMjAwMCBUTyAyMDA5XSc9PjEsJ3llYXI6WzIw
+        MTAgVE8gKl0nPT4wfSwnZmFjZXRfZmllbGRzJz0+eydhdXRob3JzX2ZhY2V0
+        Jz0+WydBbWFuZGEgTS4gS29sdHonLDEsJ0FuZHJldyBFLiBNdWRnZScsMSwn
+        Q2FybG9zIEEuIEJvdGVybycsMSwnU2FuZHJhIEwuIFZlaHJlbmNhbXAnLDEs
+        J1dlc2xleSBNLiBIb2NoYWNoa2EnLDEsJy4gTi4gTW91dG9uJywwLCdBIEd1
+        bycsMCwnQSBQaWNrbGVzJywwLCdBLiBBLiBCYWlsZXknLDAsJ0EuIEEuIEZp
+        ZW5iZXJnJywwXSwnam91cm5hbF9mYWNldCc9PlsnRXRob2xvZ3knLDEsJ0dl
+        bmVzLCBCcmFpbiBhbmQgQmVoYXZpb3InLDBdfSwnZmFjZXRfZGF0ZXMnPT57
+        fSwnZmFjZXRfcmFuZ2VzJz0+e319LCd0ZXJtVmVjdG9ycyc9PlsndW5pcXVl
+        S2V5RmllbGROYW1lJywnc2hhc3VtJywnMDA5NzJjNTEyMzg3Nzk2MTA1NmIy
+        MWFlYTQxNzdkMGRjNjljNzMxOCcsWyd1bmlxdWVLZXknLCcwMDk3MmM1MTIz
+        ODc3OTYxMDU2YjIxYWVhNDE3N2QwZGM2OWM3MzE4JywnZnVsbHRleHQnLFsn
+        YScsWyd0ZicsMSwncG9zaXRpb25zJyxbJ3Bvc2l0aW9uJywxMV0sJ29mZnNl
+        dHMnLFsnc3RhcnQnLDc3LCdlbmQnLDc4XSwnZGYnLDI0NiwndGYtaWRmJyww
+        LjAwNDA2NTA0MDY1MDQwNjUwNDVdLCdhbWFuZGEnLFsndGYnLDEsJ3Bvc2l0
+        aW9ucycsWydwb3NpdGlvbicsMTddLCdvZmZzZXRzJyxbJ3N0YXJ0JywxMTEs
+        J2VuZCcsMTE3XSwnZGYnLDMsJ3RmLWlkZicsMC4zMzMzMzMzMzMzMzMzMzMz
+        XSwnYW5kcmV3JyxbJ3RmJywxLCdwb3NpdGlvbnMnLFsncG9zaXRpb24nLDE0
+        XSwnb2Zmc2V0cycsWydzdGFydCcsOTMsJ2VuZCcsOTldLCdkZicsMTUsJ3Rm
+        LWlkZicsMC4wNjY2NjY2NjY2NjY2NjY2N10sJ2FyZScsWyd0ZicsMSwncG9z
+        aXRpb25zJyxbJ3Bvc2l0aW9uJywzXSwnb2Zmc2V0cycsWydzdGFydCcsMjIs
+        J2VuZCcsMjVdLCdkZicsMTgsJ3RmLWlkZicsMC4wNTU1NTU1NTU1NTU1NTU1
+        NV0sJ2JvdGVybycsWyd0ZicsMSwncG9zaXRpb25zJyxbJ3Bvc2l0aW9uJywx
+        Ml0sJ29mZnNldHMnLFsnc3RhcnQnLDgwLCdlbmQnLDg2XSwnZGYnLDEsJ3Rm
+        LWlkZicsMS4wXSwnY2FybG9zJyxbJ3RmJywxLCdwb3NpdGlvbnMnLFsncG9z
+        aXRpb24nLDEwXSwnb2Zmc2V0cycsWydzdGFydCcsNzAsJ2VuZCcsNzZdLCdk
+        ZicsNSwndGYtaWRmJywwLjJdLCdjZW50ZXInLFsndGYnLDEsJ3Bvc2l0aW9u
+        cycsWydwb3NpdGlvbicsMjZdLCdvZmZzZXRzJyxbJ3N0YXJ0JywxNzgsJ2Vu
+        ZCcsMTg0XSwnZGYnLDEzLCd0Zi1pZGYnLDAuMDc2OTIzMDc2OTIzMDc2OTNd
+        LCdlJyxbJ3RmJywxLCdwb3NpdGlvbnMnLFsncG9zaXRpb24nLDE1XSwnb2Zm
+        c2V0cycsWydzdGFydCcsMTAwLCdlbmQnLDEwMV0sJ2RmJyw0NiwndGYtaWRm
+        JywwLjAyMTczOTEzMDQzNDc4MjYwOF0sJ2Vjb2xvZ2ljYWwnLFsndGYnLDEs
+        J3Bvc2l0aW9ucycsWydwb3NpdGlvbicsMjhdLCdvZmZzZXRzJyxbJ3N0YXJ0
+        JywxODksJ2VuZCcsMTk5XSwnZGYnLDksJ3RmLWlkZicsMC4xMTExMTExMTEx
+        MTExMTExXSwnZXN0aW1hdGluZycsWyd0ZicsMSwncG9zaXRpb25zJyxbJ3Bv
+        c2l0aW9uJyw3XSwnb2Zmc2V0cycsWydzdGFydCcsNDIsJ2VuZCcsNTJdLCdk
+        ZicsMSwndGYtaWRmJywxLjBdLCdldGhvbG9neScsWyd0ZicsMSwncG9zaXRp
+        b25zJyxbJ3Bvc2l0aW9uJywwXSwnb2Zmc2V0cycsWydzdGFydCcsMCwnZW5k
+        Jyw4XSwnZGYnLDU3OSwndGYtaWRmJywwLjAwMTcyNzExNTcxNjc1MzAyMjRd
+        LCdmJyxbJ3RmJywxLCdwb3NpdGlvbnMnLFsncG9zaXRpb24nLDEzXSwnb2Zm
+        c2V0cycsWydzdGFydCcsODgsJ2VuZCcsODldLCdkZicsNzQsJ3RmLWlkZics
+        MC4wMTM1MTM1MTM1MTM1MTM1MTRdLCdmb3InLFsndGYnLDIsJ3Bvc2l0aW9u
+        cycsWydwb3NpdGlvbicsNiwncG9zaXRpb24nLDI3XSwnb2Zmc2V0cycsWydz
+        dGFydCcsMzgsJ2VuZCcsNDEsJ3N0YXJ0JywxODUsJ2VuZCcsMTg4XSwnZGYn
+        LDkyLCd0Zi1pZGYnLDAuMDIxNzM5MTMwNDM0NzgyNjA4XSwnaG9jaGFjaGth
+        ZicsWyd0ZicsMSwncG9zaXRpb25zJyxbJ3Bvc2l0aW9uJywyMl0sJ29mZnNl
+        dHMnLFsnc3RhcnQnLDEzOSwnZW5kJywxNDldLCdkZicsMSwndGYtaWRmJywx
+        LjBdLCdob3cnLFsndGYnLDEsJ3Bvc2l0aW9ucycsWydwb3NpdGlvbicsMV0s
+        J29mZnNldHMnLFsnc3RhcnQnLDksJ2VuZCcsMTJdLCdkZicsMTAsJ3RmLWlk
+        ZicsMC4xXSwna29sdHonLFsndGYnLDEsJ3Bvc2l0aW9ucycsWydwb3NpdGlv
+        bicsMTldLCdvZmZzZXRzJyxbJ3N0YXJ0JywxMjEsJ2VuZCcsMTI2XSwnZGYn
+        LDEsJ3RmLWlkZicsMS4wXSwnbCcsWyd0ZicsMSwncG9zaXRpb25zJyxbJ3Bv
+        c2l0aW9uJywyNF0sJ29mZnNldHMnLFsnc3RhcnQnLDE1OSwnZW5kJywxNjBd
+        LCdkZicsNjgsJ3RmLWlkZicsMC4wMTQ3MDU4ODIzNTI5NDExNzZdLCdtJyxb
+        J3RmJywyLCdwb3NpdGlvbnMnLFsncG9zaXRpb24nLDE4LCdwb3NpdGlvbics
+        MjFdLCdvZmZzZXRzJyxbJ3N0YXJ0JywxMTgsJ2VuZCcsMTE5LCdzdGFydCcs
+        MTM2LCdlbmQnLDEzN10sJ2RmJywxMTksJ3RmLWlkZicsMC4wMTY4MDY3MjI2
+        ODkwNzU2M10sJ21ldGhvZHMnLFsndGYnLDEsJ3Bvc2l0aW9ucycsWydwb3Np
+        dGlvbicsNV0sJ29mZnNldHMnLFsnc3RhcnQnLDMwLCdlbmQnLDM3XSwnZGYn
+        LDMsJ3RmLWlkZicsMC4zMzMzMzMzMzMzMzMzMzMzXSwnbXVkZ2VmJyxbJ3Rm
+        JywxLCdwb3NpdGlvbnMnLFsncG9zaXRpb24nLDE2XSwnb2Zmc2V0cycsWydz
+        dGFydCcsMTAzLCdlbmQnLDEwOV0sJ2RmJywxLCd0Zi1pZGYnLDEuMF0sJ3Jl
+        bGlhYmxlJyxbJ3RmJywxLCdwb3NpdGlvbnMnLFsncG9zaXRpb24nLDJdLCdv
+        ZmZzZXRzJyxbJ3N0YXJ0JywxMywnZW5kJywyMV0sJ2RmJywxLCd0Zi1pZGYn
+        LDEuMF0sJ3JlcGVydG9pcmUnLFsndGYnLDEsJ3Bvc2l0aW9ucycsWydwb3Np
+        dGlvbicsOF0sJ29mZnNldHMnLFsnc3RhcnQnLDUzLCdlbmQnLDYzXSwnZGYn
+        LDIsJ3RmLWlkZicsMC41XSwnc2FuZHJhJyxbJ3RmJywxLCdwb3NpdGlvbnMn
+        LFsncG9zaXRpb24nLDIzXSwnb2Zmc2V0cycsWydzdGFydCcsMTUyLCdlbmQn
+        LDE1OF0sJ2RmJywxLCd0Zi1pZGYnLDEuMF0sJ3NpemUnLFsndGYnLDEsJ3Bv
+        c2l0aW9ucycsWydwb3NpdGlvbicsOV0sJ29mZnNldHMnLFsnc3RhcnQnLDY0
+        LCdlbmQnLDY4XSwnZGYnLDI2LCd0Zi1pZGYnLDAuMDM4NDYxNTM4NDYxNTM4
+        NDY0XSwndGhlJyxbJ3RmJywxLCdwb3NpdGlvbnMnLFsncG9zaXRpb24nLDRd
+        LCdvZmZzZXRzJyxbJ3N0YXJ0JywyNiwnZW5kJywyOV0sJ2RmJyw2MjUsJ3Rm
+        LWlkZicsMC4wMDE2XSwndmVocmVuY2FtcGYnLFsndGYnLDEsJ3Bvc2l0aW9u
+        cycsWydwb3NpdGlvbicsMjVdLCdvZmZzZXRzJyxbJ3N0YXJ0JywxNjIsJ2Vu
+        ZCcsMTczXSwnZGYnLDEsJ3RmLWlkZicsMS4wXSwnd2VzbGV5JyxbJ3RmJywx
+        LCdwb3NpdGlvbnMnLFsncG9zaXRpb24nLDIwXSwnb2Zmc2V0cycsWydzdGFy
+        dCcsMTI5LCdlbmQnLDEzNV0sJ2RmJywxLCd0Zi1pZGYnLDEuMF1dXV19Cg==
+    http_version: 
+  recorded_at: Wed, 14 Aug 2013 15:02:42 GMT
+recorded_with: VCR 2.5.0

@@ -21,7 +21,7 @@ describe 'datasets/new' do
     end
 
     it 'has a filled-in query type field' do
-      expect(rendered).to have_tag('input[name=qt][value=precise]')
+      expect(rendered).to have_tag('input[name=defType][value=lucene]')
     end
   end
 
@@ -29,7 +29,7 @@ describe 'datasets/new' do
     before(:each) do
       params[:q] = '*:*'
       params[:fq] = nil
-      params[:qt] = 'precise'
+      params[:defType] = 'lucene'
 
       render
     end
@@ -45,7 +45,7 @@ describe 'datasets/new' do
     before(:each) do
       params[:q] = '*:*'
       params[:fq] = ['authors_facet:Test']
-      params[:qt] = 'precise'
+      params[:defType] = 'lucene'
 
       render
     end

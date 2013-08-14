@@ -8,7 +8,7 @@ describe SearchController do
       params = { q: '', precise: '' }
       ret = controller.send(:search_params_to_solr_query, params)
       expect(ret[:q]).to eq('*:*')
-      expect(ret[:qt]).to eq('precise')
+      expect(ret[:defType]).to eq('lucene')
     end
 
     it 'copies over faceted browsing paramters' do
@@ -23,7 +23,7 @@ describe SearchController do
       params = { q: '', precise: 'true' }
       ret = controller.send(:search_params_to_solr_query, params)
       expect(ret[:q]).to eq('*:*')
-      expect(ret[:qt]).to eq('precise')
+      expect(ret[:defType]).to eq('lucene')
     end
 
     it 'copies generic precise search content correctly' do
@@ -130,7 +130,7 @@ describe SearchController do
       params = { q: 'test' }
       ret = controller.send(:search_params_to_solr_query, params)
       expect(ret[:q]).to eq('test')
-      expect(ret[:qt]).to eq('standard')
+      expect(ret[:defType]).to eq('dismax')
     end
   end
 

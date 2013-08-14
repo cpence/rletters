@@ -71,7 +71,7 @@ class DatasetsController < ApplicationController
                            name: dataset_params[:name],
                            q: params[:q],
                            fq: params[:fq],
-                           qt: params[:qt]),
+                           defType: params[:defType]),
                          queue: 'ui'
 
     redirect_to datasets_path, notice: I18n.t('datasets.create.building')
