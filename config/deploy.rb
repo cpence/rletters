@@ -7,7 +7,6 @@ def remote_file_exists?(full_path)
 end
 
 # Gem recipes
-require 'capistrano/maintenance'
 require 'bundler/capistrano'
 
 # Local recipes

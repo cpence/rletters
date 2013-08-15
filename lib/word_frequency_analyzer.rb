@@ -325,4 +325,3 @@ class WordFrequencyAnalyzer
   end
 
 end
-

@@ -1,11 +1,12 @@
 # -*- encoding : utf-8 -*-
-require 'rouge'
 require 'nokogiri'
 require 'fileutils'
 
 namespace :metrics do
   desc 'Generate a fancy report of all the code metrics run so far'
   task :generate do
+    require 'rouge'
+
     # Get all the source against which we'll run any metrics
     ruby_files = Dir['{app,config,db,lib,spec}/**/*.{rb,rake,god}']
     ruby_files.delete('db/schema.rb')
