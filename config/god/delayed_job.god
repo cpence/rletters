@@ -10,7 +10,7 @@ delayed_job_queues = %w(maintenance ui analysis)
     w.start_grace = 30.seconds
     w.restart_grace = 30.seconds
 
-    script     = "cd #{rails_root}; /usr/bin/env RAILS_ENV=production bundle exec script/delayed_job --pid-dir=#{rails_root}/tmp/pids -i #{num} --queue=#{delayed_job_queues[num]}"
+    script     = "cd #{rails_root}; /usr/bin/env RAILS_ENV=production bundle exec bin/delayed_job --pid-dir=#{rails_root}/tmp/pids -i #{num} --queue=#{delayed_job_queues[num]}"
     w.start    = "/bin/bash -c '#{script} start'"
     w.stop     = "/bin/bash -c '#{script} stop'"
 
