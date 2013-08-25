@@ -9,6 +9,11 @@ ActiveAdmin.setup do |config|
 
   config.batch_actions = true
   config.allow_comments = false
+
+  # Permit all parameters on all models in the administration interface
+  config.before_filter do
+    params.permit!
+  end
 end
 
 # Precompile the ActiveAdmin CSS and JS files
