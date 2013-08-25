@@ -2,7 +2,7 @@
      schema.xml that can be plugged into Solr. -->
 
 <?xml version="1.0" encoding="UTF-8" ?>
-<schema name="rletters" version="1.2">
+<schema name="rletters" version="1.5">
   <types>
     <fieldType name="string" class="solr.StrField" sortMissingLast="true" omitNorms="true"/>
     <fieldType name="long" class="solr.TrieLongField" precisionStep="0" omitNorms="true" positionIncrementGap="0" />
