@@ -10,4 +10,4 @@
     = select_tag :dataset_id, options_from_collection_for_select(@datasets, 'to_param', 'name')
     = submit_tag t('.submit'), data: { icon: 'plus', iconpos: 'right' }
 
-= link_to t('.cancel'), search_show_path(@document), data: { rel: 'back', role: 'button', icon: 'arrow-l', iconpos: 'right' }
+= link_to t('.cancel'), search_show_path(id: @document.shasum), data: { rel: 'back', role: 'button', icon: 'arrow-l', iconpos: 'right' }
