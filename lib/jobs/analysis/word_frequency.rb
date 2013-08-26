@@ -147,12 +147,13 @@ module Jobs
           # Output the dataset data
           csv << ['']
           csv << ['For the entire dataset:']
-          csv << ['', 'Frequency', 'Proportion', 'TF/IDF (dataset vs. corpus)']
+          csv << ['', 'Frequency', 'Proportion', 'DF (in corpus)', 'TF/IDF (dataset vs. corpus)']
           analyzer.word_list.each do |w|
             tf_in_dataset = analyzer.tf_in_dataset[w]
             csv << [w,
                     tf_in_dataset.to_s,
                     (tf_in_dataset.to_f / analyzer.num_dataset_tokens.to_f).to_s,
+                    analyzer.df_in_corpus[w].to_s,
                     Math.tfidf(tf_in_dataset, analyzer.df_in_corpus[w], analyzer.num_corpus_documents)]
           end
           csv << ['Number of types', analyzer.num_dataset_types.to_s]
