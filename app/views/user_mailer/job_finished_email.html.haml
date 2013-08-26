@@ -1,0 +1,14 @@
+!!! 5
+%html
+  %head
+    %meta{ content: 'text/html; charset=UTF-8', http_equiv: 'Content-Type' }
+  %body
+    %h2 Analysis job complete!
+    %p
+      Your analysis task (#{@task.name}, analyzing dataset #{@task.dataset.name}) has finished.
+    %p
+      You may see the results of the analysis by visiting the
+      %a{ href: dataset_url(@task.dataset) } page for your dataset
+      and clicking on the link in the task list.
+    %p
+      Analysis task results are only kept for 14 days after job completion; please visit #{Setting.app_name} and download your files before then.

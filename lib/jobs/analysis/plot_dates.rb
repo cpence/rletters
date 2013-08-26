@@ -68,9 +68,8 @@ module Jobs
           file.close
         end
 
-        # Make sure the task is saved, setting 'finished_at'
-        @task.finished_at = DateTime.current
-        @task.save
+        # We're done here
+        @task.finish!
       end
 
       # We don't want users to download the YAML file

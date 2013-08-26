@@ -70,9 +70,8 @@ module Jobs
           end
         end
 
-        # Make sure the task is saved, setting 'finished_at'
-        @task.finished_at = DateTime.current
-        @task.save
+        # We're done here
+        @task.finish!
       end
     end
 

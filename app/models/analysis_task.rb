@@ -67,4 +67,20 @@ class AnalysisTask < ActiveRecord::Base
   def job_class
     self.class.job_class(job_type)
   end
+
+  # Hook to be called whenever a job finishes
+  #
+  # This hook will set the finished attribute on the job and send a
+  # notification e-mail to the user.
+  #
+  # @api private
+  # @return [undefined]
+  def finish!
+    # Make sure the task is saved, setting 'finished_at'
+    self.finished_at = DateTime.current
+    save
+
+    # Send the user an e-mail
+    UserMailer.job_finished_email(dataset.user, self).deliver
+  end
 end
