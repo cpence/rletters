@@ -2,10 +2,8 @@
 require 'spec_helper'
 
 describe 'errors/404' do
-  it 'renders' do
-    expect {
-      render
-    }.to_not raise_error
+  before(:each) do
+    render
   end
 
   it 'includes the error image' do
