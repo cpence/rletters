@@ -1,0 +1,15 @@
+# There are three groups of servers for the Ansible configuration: web,
+# database, and Solr.
+#
+# Note that the playbooks have built-in support for detecting that more than
+# one of these roles is instantiated on the same server, so there's no problem
+# with running the entire stack on a single machine.
+
+[webservers]
+mysite.com
+
+[dbservers]
+db.mysite.com
+
+[solrservers]
+mysite.com

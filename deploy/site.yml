@@ -1,0 +1,9 @@
+---
+# Deploy a complete RLetters stack (including web, DB, and Solr)
+
+- name: apply common configuration to all nodes
+  hosts: all
+  sudo: yes
+
+  roles:
+    - common
