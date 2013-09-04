@@ -1,0 +1,5 @@
+---
+# Handlers for common notifications
+
+- name: restart iptables
+  service: name=iptables state=restarted

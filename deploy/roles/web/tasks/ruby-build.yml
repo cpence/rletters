@@ -1,0 +1,36 @@
+---
+# Build Ruby from source and install it in /usr/local.
+
+- name: Install Ruby build dependencies
+  action: yum name={{ item }} state=present
+  with_items:
+    - gcc
+    - gcc-c++
+    - zlib
+    - zlib-devel
+    - openssl
+    - openssl-devel
+    - readline
+    - readline-devel
+    - sqlite-devel
+    - postgresql-devel
+    - make
+    - git
+
+- name: Create a temporary directory for building Ruby
+  file: state=directory path=/tmp/ruby-build
+
+- name: Download Ruby
+  get_url: url={{ ruby_url }} dest=/tmp/ruby-build/{{ ruby_filename }}.tar.gz
+
+- name: Extract Ruby
+  command: tar -xf {{ ruby_filename }}.tar.gz chdir=/tmp/ruby-build creates=/tmp/ruby-build/{{ ruby_filename }}
+
+- name: Configure Ruby
+  command: ./configure chdir=/tmp/ruby-build/{{ ruby_filename }} creates=/tmp/ruby-build/{{ ruby_filename }}/Makefile
+
+- name: Compile Ruby
+  command: make chdir=/tmp/ruby-build/{{ ruby_filename }} creates=/tmp/ruby-build/{{ ruby_filename }}/ruby
+
+- name: Install Ruby to /usr/local/
+  command: make install chdir=/tmp/ruby-build/{{ ruby_filename }} creates=/usr/local/bin/ruby

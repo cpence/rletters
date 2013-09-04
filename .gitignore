@@ -1,6 +1,7 @@
 .bundle
 .DS_Store
 .sass-cache
+.vagrant
 .yardoc
 
 config/database.yml

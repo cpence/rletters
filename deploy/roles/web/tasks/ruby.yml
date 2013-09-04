@@ -1,0 +1,27 @@
+---
+# Make sure we have the latest version of Ruby available
+
+- name: Get the current Ruby version
+  shell: ruby --version | sed 's@^\(ruby.*\) (.*@\1@'
+  register: installed_ruby_version
+
+# This will compile Ruby (if necessary)
+- include: ruby-build.yml
+  when: installed_ruby_version.stdout != ruby_version
+
+
+- name: Disable secure path in sudo so that we can get local paths
+  lineinfile: dest=/etc/sudoers regexp="^(Defaults\s+secure_path\s+=\s+).*" backrefs=yes line='\1/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin'
+
+- name: Install profile snippet to put Ruby in the path
+  copy: src=ruby.sh dest=/etc/profile.d/ruby.sh
+
+
+- name: Get installed Bundler path
+  shell: gem which bundler 2>&1
+  ignore_errors: yes
+  register: installed_bundler
+
+- name: Install Bundler
+  command: gem install bundler
+  when: installed_bundler.stdout.find('bundler.rb') == -1

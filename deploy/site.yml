@@ -7,3 +7,10 @@
 
   roles:
     - common
+
+- name: confgure and deploy the web servers
+  hosts: webservers
+  sudo: yes
+
+  roles:
+    - web
