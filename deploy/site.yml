@@ -8,12 +8,19 @@
   roles:
     - common
 
-- name: confgure and deploy the database servers
-  hosts: dbservers
+- name: confgure and deploy the database server
+  hosts: dbserver
   sudo: yes
 
   roles:
     - db
+
+- name: configure and deploy the Solr server
+  hosts: solrserver
+  sudo: yes
+
+  roles:
+    - solr
 
 - name: confgure and deploy the web servers
   hosts: webservers

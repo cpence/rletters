@@ -10,8 +10,8 @@
 [webservers]
 mysite.com
 
-[dbservers]
+[dbserver]
 db.mysite.com
 
-[solrservers]
+[solrserver]
 mysite.com
