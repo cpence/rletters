@@ -4,6 +4,8 @@
 # Note that the playbooks have built-in support for detecting that more than
 # one of these roles is instantiated on the same server, so there's no problem
 # with running the entire stack on a single machine.
+#
+# You cannot have more than one database server, nor more than one Solr server.
 
 [webservers]
 mysite.com

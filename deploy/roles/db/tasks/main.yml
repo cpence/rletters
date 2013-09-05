@@ -1,0 +1,55 @@
+---
+# Install and configure PostgreSQL
+
+- name: Install PostgreSQL
+  action: yum name={{ item }} state=present
+  with_items:
+    - python-psycopg2
+    - postgresql-server
+    - postgresql
+
+- name: Initialize the PostgreSQL database
+  command: service postgresql initdb creates=/var/lib/pgsql/data/postgresql.conf
+
+- name: Start the PostgreSQL server
+  service: name=postgresql enabled=yes state=started
+
+# If there's only one web server and it's the same as the DB server, then only
+# listen on localhost
+- name: Configure PostgreSQL to listen on localhost
+  lineinfile: dest=/var/lib/pgsql/data/postgresql.conf regexp='^#?listen_addresses\s*=' line="listen_addresses = '127.0.0.1'" state=present
+  notify: restart postgresql
+  when: groups['webservers']|count == 1 and groups['webservers'][0] == groups['dbservers'][0]
+
+# If there's more than one web server, or if the web and db servers aren't
+# the same host, then open up to external hosts, including via iptables
+- name: Configure PostgreSQL to listen for external hosts
+  lineinfile: dest=/var/lib/pgsql/data/postgresql.conf regexp='^#?listen_addresses\s*=' line="listen_addresses = '*'" state=present
+  notify: restart postgresql
+  when: groups['webservers']|count > 1 or groups['webservers'][0] != groups['dbservers'][0]
+
+- name: Open iptables firewall for PostgreSQL
+  lineinfile: dest=/etc/sysconfig/iptables state=present regexp="5432"
+              insertafter="^:OUTPUT " line="-A INPUT -p tcp  --dport 5432 -j  ACCEPT"
+  notify: restart iptables
+  when: groups['webservers']|count > 1 or groups['webservers'][0] != groups['dbservers'][0]
+
+- name: Enable MD5 authentication for PostgreSQL even on localhost
+  lineinfile: dest=/var/lib/pgsql/data/pg_hba.conf regexp='host\s+all\s+all\s+127.0.0.1/32\s+md5' line='host all all 127.0.0.1/32 md5' insertbefore=BOF
+  notify: restart postgresql
+
+- name: Create the RLetters PostgreSQL database
+  sudo_user: postgres
+  sudo: yes
+  postgresql_db: db=rletters_production
+
+- name: Create a user with access to the PostgreSQL database
+  sudo_user: postgres
+  sudo: yes
+  postgresql_user: db=rletters_production user=rletters_postgresql priv=ALL password={{ item }}
+  with_password: ./db_{{ inventory_hostname }}_pass length=30
+
+- name: Tighten privileges on PostgreSQL user
+  sudo_user: postgres
+  sudo: yes
+  postgresql_user: db=rletters_production user=rletters_postgresql role_attr_flags=NOSUPERUSER,NOCREATEDB

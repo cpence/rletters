@@ -8,6 +8,13 @@
   roles:
     - common
 
+- name: confgure and deploy the database servers
+  hosts: dbservers
+  sudo: yes
+
+  roles:
+    - db
+
 - name: confgure and deploy the web servers
   hosts: webservers
   sudo: yes

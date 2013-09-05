@@ -5,9 +5,7 @@
 .yardoc
 
 config/database.yml
-config/deploy/deploy_config.rb
-contrib/solr/example/logs/*
-contrib/solr/example/work
+deploy/roles/db/files/*_pass
 doc
 downloads
 log/*.log
