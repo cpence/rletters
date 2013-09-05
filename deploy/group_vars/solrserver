@@ -3,5 +3,8 @@
 # want to change any of these from their defaults, but they are available if
 # you would like.
 
-tomcat_url: http://apache.petsads.us/tomcat/tomcat-7/v7.0.42/bin/apache-tomcat-7.0.42.tar.gz
+tomcat_url: http://apache.mirrors.pair.com/tomcat/tomcat-7/v7.0.42/bin/apache-tomcat-7.0.42.tar.gz
 tomcat_filename: apache-tomcat-7.0.42
+
+solr_url: http://apache.mirrors.pair.com/lucene/solr/4.4.0/solr-4.4.0.tgz
+solr_filename: solr-4.4.0

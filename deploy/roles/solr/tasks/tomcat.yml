@@ -44,7 +44,10 @@
   tags: tomcat
 
 - name: Start Tomcat
-  service: name=tomcat state=started enabled=yes
+  # For some reason, state=started will often report that the service is
+  # already running, even though it hasn't been started yet (since it was
+  # just created).  Use state=restarted as a workaround.
+  service: name=tomcat state=restarted enabled=yes
   tags: tomcat
 
 # If there's more than one web server, or if the Solr and web servers are
@@ -54,4 +57,8 @@
               insertafter="^:OUTPUT " line="-A INPUT -p tcp  --dport 8080 -j  ACCEPT"
   notify: restart iptables
   when: groups['webservers']|count > 1 or groups['webservers'][0] != groups['solrserver'][0]
+  tags: tomcat
+
+- name: Wait for Tomcat to start
+  wait_for: port=8080
   tags: tomcat

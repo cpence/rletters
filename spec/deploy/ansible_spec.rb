@@ -4,7 +4,7 @@ require 'spec_helper'
 describe 'Ansible provisioning', :deploy do
   before(:all) do
     system("cd #{Rails.root} && rake vagrant:up")
-    system("cd #{Rails.root.join('deploy')} && ansible-playbook -i hosts.testing site.yml")
+    system("cd #{Rails.root.join('deploy')} && ansible-playbook -v -i hosts.testing site.yml")
   end
 
   after(:all) do
@@ -88,6 +88,22 @@ describe 'Ansible provisioning', :deploy do
         # scripts should *not* open port 8080 through iptables.
         vagrant_check_port_closed(8080)
       end
+    end
+
+    describe 'solr.yml' do
+      it 'makes Solr functional' do
+        expect(vagrant_ssh('wget -q -O- http://localhost:8080/solr/search?q=test')).to include('<lst name="responseHeader">')
+      end
+
+      it 'installs the Solr configuration' do
+        # If the result contains one of our facet queries for years, then we
+        # know that the configuration has been installed correctly
+        expect(vagrant_ssh('wget -q -O- http://localhost:8080/solr/search?q=test')).to include('<int name="year:[1940 TO 1949]">')
+      end
+
+      # We can't do any further tests without there being some documents, which
+      # we can't guarantee, so this will have to do.  (We can't, e.g., check
+      # that we're operting on the right schema.)
     end
   end
 
