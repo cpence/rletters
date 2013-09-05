@@ -38,6 +38,10 @@
   lineinfile: dest=/var/lib/pgsql/data/pg_hba.conf regexp='host\s+all\s+all\s+127.0.0.1/32\s+md5' line='host all all 127.0.0.1/32 md5' insertbefore=BOF
   notify: restart postgresql
 
+- name: Enable MD5 authentication to the local PostgreSQL socket
+  lineinfile: dest=/var/lib/pgsql/data/pg_hba.conf regexp='local\s+all\s+all\s+md5' line='local all all md5' insertbefore=BOF
+  notify: restart postgresql
+
 - name: Create the RLetters PostgreSQL database
   sudo_user: postgres
   sudo: yes
@@ -47,7 +51,7 @@
   sudo_user: postgres
   sudo: yes
   postgresql_user: db=rletters_production user=rletters_postgresql priv=ALL password={{ item }}
-  with_password: ./db_{{ inventory_hostname }}_pass length=30
+  with_password: db_{{ inventory_hostname }}_pass length=30
 
 - name: Tighten privileges on PostgreSQL user
   sudo_user: postgres

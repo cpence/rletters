@@ -27,6 +27,40 @@ describe 'Ansible provisioning', :deploy do
     end
   end
 
+  describe 'db role' do
+    describe 'main.yml' do
+      it 'successfully installs postgresql' do
+        expect(vagrant_ssh('which psql')).to eq("/usr/bin/psql\n")
+      end
+
+      it 'creates the database password file' do
+        file_path = Rails.root.join('deploy', 'roles', 'db', 'files', 'db_192.168.111.222_pass')
+        expect(File.exist?(file_path)).to be_true
+      end
+
+      it 'creates the database and user' do
+        file_path = Rails.root.join('deploy', 'roles', 'db', 'files', 'db_192.168.111.222_pass')
+        db_password = IO.read(file_path)
+
+        # Set the password on the server for passwordless authentication
+        vagrant_ssh("echo '*:*:*:*:#{db_password}' > ~/.pgpass")
+        vagrant_ssh('chmod 0600 ~/.pgpass')
+
+        # Make sure the database exists and the user can connect
+        expect(vagrant_ssh('psql -d rletters_production -U rletters_postgresql -c \\\\\\\\list')).to match(/ rletters_production /)
+
+        # Clean up the authentication file
+        vagrant_ssh('rm ~/.pgpass')
+      end
+
+      it 'does not make the PostgreSQL server publically accessible' do
+        # Since the web server and DB server are both on the same host, the
+        # scripts should *not* open port 5432 through iptables.
+        vagrant_check_port_closed(5432)
+      end
+    end
+  end
+
   describe 'web role' do
     describe 'ruby.yml' do
       it 'successfully installs ruby' do
