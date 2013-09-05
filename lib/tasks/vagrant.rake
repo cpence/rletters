@@ -16,5 +16,9 @@ namespace :vagrant do
   task :down do
     system('vagrant halt')
     system('vagrant destroy -f')
+
+    # Remove all the password files
+    File.unlink Rails.root.join('deploy', 'roles', 'db', 'files', 'db_192.168.111.222_pass')
+    File.unlink Rails.root.join('deploy', 'roles', 'solr', 'files', 'tomcat_192.168.111.222_pass')
   end
 end

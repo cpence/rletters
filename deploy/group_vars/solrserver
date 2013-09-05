@@ -1,0 +1,7 @@
+---
+# Variables applicable to web servers only.  In all likelihood, you will not
+# want to change any of these from their defaults, but they are available if
+# you would like.
+
+tomcat_url: http://apache.petsads.us/tomcat/tomcat-7/v7.0.42/bin/apache-tomcat-7.0.42.tar.gz
+tomcat_filename: apache-tomcat-7.0.42
