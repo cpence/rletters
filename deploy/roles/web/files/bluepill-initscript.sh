@@ -28,7 +28,7 @@ check() {
 
 start() {
   check
-  checkpid `cat $PIDFILE` && return 0
+  [ -e $PIDFILE ] && checkpid `cat $PIDFILE` && return 0
 
   echo -n $"Starting bluepill for rletters: "
   daemon $BLUEPILL_BIN load $BLUEPILL_CONFIG
@@ -81,7 +81,7 @@ case "$1" in
     restart
     ;;
   condrestart)
-    checkpid `cat $PIDFILE` && restart
+    [ -e $PIDFILE ] && checkpid `cat $PIDFILE` && restart
     ;;
   status)
     status -p $PIDFILE bluepilld
