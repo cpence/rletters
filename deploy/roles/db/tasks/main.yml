@@ -5,22 +5,22 @@
   action: yum name={{ item }} state=present
   with_items:
     - python-psycopg2
-    - postgresql-server
-    - postgresql
+    - postgresql92-server
+    - postgresql92
   tags: postgresql
 
 - name: Initialize the PostgreSQL database
-  command: service postgresql initdb creates=/var/lib/pgsql/data/postgresql.conf
+  command: service postgresql-9.2 initdb creates=/var/lib/pgsql/9.2/data/postgresql.conf
   tags: postgresql
 
 - name: Start the PostgreSQL server
-  service: name=postgresql enabled=yes state=started
+  service: name=postgresql-9.2 enabled=yes state=started
   tags: postgresql
 
 # If there's only one web server and it's the same as the DB server, then only
 # listen on localhost
 - name: Configure PostgreSQL to listen on localhost
-  lineinfile: dest=/var/lib/pgsql/data/postgresql.conf regexp='^#?listen_addresses\s*=' line="listen_addresses = '127.0.0.1'" state=present
+  lineinfile: dest=/var/lib/pgsql/9.2/data/postgresql.conf regexp='^#?listen_addresses\s*=' line="listen_addresses = '127.0.0.1'" state=present
   notify: restart postgresql
   when: groups['webservers']|count == 1 and groups['webservers'][0] == groups['dbserver'][0]
   tags: postgresql
@@ -28,7 +28,7 @@
 # If there's more than one web server, or if the web and db servers aren't
 # the same host, then open up to external hosts, including via iptables
 - name: Configure PostgreSQL to listen for external hosts
-  lineinfile: dest=/var/lib/pgsql/data/postgresql.conf regexp='^#?listen_addresses\s*=' line="listen_addresses = '*'" state=present
+  lineinfile: dest=/var/lib/pgsql/9.2/data/postgresql.conf regexp='^#?listen_addresses\s*=' line="listen_addresses = '*'" state=present
   notify: restart postgresql
   when: groups['webservers']|count > 1 or groups['webservers'][0] != groups['dbserver'][0]
   tags: postgresql
@@ -40,31 +40,26 @@
   when: groups['webservers']|count > 1 or groups['webservers'][0] != groups['dbserver'][0]
   tags: postgresql
 
-- name: Enable MD5 authentication for PostgreSQL even on localhost
-  lineinfile: dest=/var/lib/pgsql/data/pg_hba.conf regexp='host\s+all\s+all\s+127.0.0.1/32\s+md5' line='host all all 127.0.0.1/32 md5' insertbefore=BOF
-  notify: restart postgresql
-  tags: postgresql
-
-- name: Enable MD5 authentication to the local PostgreSQL socket
-  lineinfile: dest=/var/lib/pgsql/data/pg_hba.conf regexp='local\s+all\s+all\s+md5' line='local all all md5' insertbefore=BOF
-  notify: restart postgresql
-  tags: postgresql
-
 - name: Create the RLetters PostgreSQL database
   sudo_user: postgres
   sudo: yes
   postgresql_db: db=rletters_production
-  tags: database
+  tags: postgresql
 
 - name: Create a user with access to the PostgreSQL database
   sudo_user: postgres
   sudo: yes
   postgresql_user: db=rletters_production user=rletters_postgresql priv=ALL password={{ item }}
   with_password: db_{{ inventory_hostname }}_pass length=30
-  tags: database
+  tags: postgresql
 
 - name: Tighten privileges on PostgreSQL user
   sudo_user: postgres
   sudo: yes
   postgresql_user: db=rletters_production user=rletters_postgresql role_attr_flags=NOSUPERUSER,NOCREATEDB
-  tags: database
+  tags: postgresql
+
+- name: Enable MD5 authentication for PostgreSQL over TCP even from localhost
+  lineinfile: dest=/var/lib/pgsql/9.2/data/pg_hba.conf regexp='host\s+all\s+all\s+127.0.0.1/32\s+md5' line='host all all 127.0.0.1/32 md5' insertbefore=BOF
+  notify: restart postgresql
+  tags: postgresql

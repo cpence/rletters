@@ -30,3 +30,7 @@
   command: gem install bundler
   when: installed_bundler.stdout.find('bundler.rb') == -1
   tags: ruby
+
+- name: Tell Bundler where the PostgreSQL installation is
+  command: bundle config build.pg --with-pg-config=/usr/pgsql-9.2/bin/pg_config
+  tags: ruby

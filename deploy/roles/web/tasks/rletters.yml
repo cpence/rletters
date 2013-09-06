@@ -1,0 +1,111 @@
+---
+# Copy and deploy the application code
+
+- name: Install Bluepill
+  command: gem install bluepill
+  tags: rletters
+
+- name: Create Bluepill run directory
+  file: path=/var/run/bluepill state=directory
+  tags: rletters
+
+- name: Create Bluepill log configuration
+  lineinfile: dest=/etc/rsyslog.conf regexp='^local6' line='local6.*    /var/log/bluepill.log' state=present
+  notify: restart rsyslogd
+  tags: rletters
+
+- name: Create Bluepill log rotation configuration
+  lineinfile: dest=/etc/logrotate.d/syslog regexp='^/var/log/bluepill\.log' line='/var/log/bluepill.log' state=present insertbefore=BOF
+  tags: rletters
+
+- name: Install Bluepill init script
+  copy: src=bluepill-initscript.sh dest=/etc/init.d/bluepill mode=0755
+  tags: rletters
+
+- name: Install NodeJS as an ExecJS runtime
+  yum: name=nodejs state=present
+  tags: rletters
+
+- name: Create RLetters directory
+  file: path=/opt/rletters state=directory
+  tags: rletters
+
+- name: Create RLetters state directory
+  file: path=/opt/rletters/state state=directory
+  tags: rletters
+
+- name: Install git
+  yum: name=git state=present
+  tags: rletters
+
+- name: Check out RLetters via git
+  git: repo=git://github.com/cpence/rletters.git dest=/opt/rletters/root version=new-deploy
+  tags: rletters
+
+- name: Create bundle directory
+  file: path=/opt/rletters/state/bundle state=directory
+  tags: rletters
+
+- name: Symlink bundle directory
+  file: src=/opt/rletters/state/bundle path=/opt/rletters/root/vendor/bundle state=link
+  tags: rletters
+
+- name: Install bundle to vendor/bundle
+  command: chdir=/opt/rletters/root/ bundle install --deployment --without development test
+  tags: rletters
+
+- name: Create database.yml file
+  template: src=database.yml.j2 dest=/opt/rletters/state/database.yml
+  tags: rletters
+
+- name: Symlink database.yml file
+  file: src=/opt/rletters/state/database.yml path=/opt/rletters/root/config/database.yml state=link
+  tags: rletters
+
+- name: Create downloads directory
+  file: path=/opt/rletters/state/downloads state=directory
+  tags: rletters
+
+- name: Symlink downloads directory
+  file: src=/opt/rletters/state/downloads path=/opt/rletters/root/downloads state=link
+  tags: rletters
+
+- name: Create the sockets directory
+  file: path=/opt/rletters/root/tmp/sockets state=directory
+  tags: rletters
+
+- name: Create the Rails secret tokens
+  template: src=secret_token.rb.j2 dest=/opt/rletters/state/secret_token.rb
+  tags: rletters
+
+- name: Symlink the Rails secret tokens
+  file: src=/opt/rletters/state/secret_token.rb path=/opt/rletters/root/config/initializers/secret_token.rb state=link force=yes
+  tags: rletters
+
+- name: Create the Unicorn configuration
+  copy: src=unicorn.rb dest=/opt/rletters/state/unicorn.rb
+  tags: rletters
+
+- name: Symlink the Unicorn configuration
+  file: src=/opt/rletters/state/unicorn.rb path=/opt/rletters/root/config/unicorn.rb state=link
+  tags: rletters
+
+# This shouldn't cause damage, but we don't put the rletters tag on it, just to
+# be safe.
+- name: Migrate the database
+  shell: chdir=/opt/rletters/root/ bundle exec rake db:migrate RAILS_ENV=production
+  tags: rletters_migrate
+
+# This should only seed the database once, but just to be safe, we don't put
+# the rletters tag on this.
+- name: Seed the database
+  shell: chdir=/opt/rletters/root/ creates=/opt/rletters/state/database_seeded bundle exec rake db:seed RAILS_ENV=production && touch /opt/rletters/state/database_seeded
+  tags: rletters_seed
+
+- name: Set the ownership for the RLetters directory
+  file: path=/opt/rletters owner=rletters_deploy group=rletters_deploy state=directory recurse=yes
+  tags: rletters
+
+#- name: Start Bluepill
+#  service: name=bluepill state=restarted
+#  tags: rletters

@@ -1,0 +1,11 @@
+---
+# Create a deployment user and group
+
+- name: Create deployment group
+  group: name=rletters_deploy
+  tags: user
+
+- name: Create deployment user
+  user: name=rletters_deploy group=rletters_deploy home=/opt/rletters password={{ item }}
+  with_password: deploy_{{ inventory_hostname }}_pass length=30
+  tags: user

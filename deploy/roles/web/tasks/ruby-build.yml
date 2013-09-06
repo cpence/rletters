@@ -13,7 +13,7 @@
     - readline
     - readline-devel
     - sqlite-devel
-    - postgresql-devel
+    - postgresql92-devel
     - make
     - git
   tags: ruby

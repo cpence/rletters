@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 # Tasks for dealing with our deployment testing via Vagrant
+require 'fileutils'
 
 namespace :vagrant do
   desc 'Download the required Vagrant image (warning: takes a while)'
@@ -18,7 +19,8 @@ namespace :vagrant do
     system('vagrant destroy -f')
 
     # Remove all the password files
-    File.unlink Rails.root.join('deploy', 'roles', 'db', 'files', 'db_192.168.111.222_pass')
-    File.unlink Rails.root.join('deploy', 'roles', 'solr', 'files', 'tomcat_192.168.111.222_pass')
+    FileUtils.rm_f Rails.root.join('deploy', 'roles', 'db', 'files', 'db_192.168.111.222_pass')
+    FileUtils.rm_f Rails.root.join('deploy', 'roles', 'solr', 'files', 'tomcat_192.168.111.222_pass')
+    FileUtils.rm_f Rails.root.join('deploy', 'roles', 'web', 'files', 'deploy_192.168.111.222_pass')
   end
 end

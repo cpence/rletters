@@ -5,4 +5,4 @@
   service: name=iptables state=restarted
 
 - name: restart postgresql
-  service: name=postgresql state=restarted
+  service: name=postgresql-9.2 state=restarted
