@@ -42,7 +42,7 @@ Bluepill.application('rletters') do |app|
   delayed_job_queues = %w(maintenance ui analysis)
 
   3.times do |num|
-    app.process("delayed_job-#{i}") do |proc|
+    app.process("delayed_job-#{num}") do |proc|
       dj_args = "--pid-dir=/opt/rletters/root/tmp/pids -i #{num} --queue=#{delayed_job_queues[num]}"
 
       proc.start_command = "bundle exec bin/delayed_job #{dj_args} start"
