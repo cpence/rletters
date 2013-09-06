@@ -110,10 +110,12 @@
 
 - name: Make sure Bluepill is started
   service: name=bluepill state=started enabled=yes
+  register: bluepill_start
   tags: rletters
 
-- name: Reload Bluepill
-  service: name=bluepill state=reloaded enabled=yes
+- name: Reload Bluepill if needed
+  service: name=bluepill state=reloaded
+  when: not bluepill_start.changed
   tags: rletters
 
 - name: Wait for Bluepill to bring up the Unicorns

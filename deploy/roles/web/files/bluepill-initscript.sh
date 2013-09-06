@@ -10,6 +10,8 @@
 
 . /etc/rc.d/init.d/functions
 
+# All our Ruby scripts are in /usr/local/bin; put that in the PATH
+export PATH=/usr/local/bin:$PATH
 BLUEPILL_BIN=/usr/local/bin/bluepill
 BLUEPILL_CONFIG=/opt/rletters/root/config/bluepill.rb
 
