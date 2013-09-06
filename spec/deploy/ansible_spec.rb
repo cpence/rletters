@@ -47,7 +47,7 @@ describe 'Ansible provisioning', :deploy do
         vagrant_ssh('chmod 0600 ~/.pgpass')
 
         # Make sure the database exists and the user can connect
-        expect(vagrant_ssh('psql -d rletters_production -U rletters_postgresql -c \\\\\\\\list')).to match(/ rletters_production /)
+        expect(vagrant_ssh('psql -h 127.0.0.1 -d rletters_production -U rletters_postgresql -c \\\\\\\\list')).to match(/ rletters_production /)
 
         # Clean up the authentication file
         vagrant_ssh('rm ~/.pgpass')
@@ -119,6 +119,50 @@ describe 'Ansible provisioning', :deploy do
 
       it 'successfully installs bundler' do
         expect(vagrant_ssh('which bundle')).to eq("/usr/local/bin/bundle\n")
+      end
+    end
+
+    describe 'user.yml' do
+      it 'successfully creates the rletters_deploy user' do
+        expect(vagrant_ssh('cat /etc/passwd | grep rletters_deploy')).to_not be_empty
+      end
+
+      it 'assigns /opt/rletters to that user' do
+        expect(vagrant_ssh('ls -ld /opt/rletters')).to include(' rletters_deploy ')
+      end
+    end
+
+    describe 'rletters.yml' do
+      it 'installs Bluepill globally' do
+        expect(vagrant_ssh('which bluepill')).to eq("/usr/local/bin/bluepill\n")
+      end
+
+      it 'checks out RLetters' do
+        expect(vagrant_ssh('sudo ls /opt/rletters/root/Gemfile')).to eq("/opt/rletters/root/Gemfile\n")
+      end
+
+      it 'installs the bundle in the state directory' do
+        expect(vagrant_ssh('sudo ls /opt/rletters/state/bundle')).to eq("ruby\n")
+      end
+
+      it 'creates the database.yml file pointing at localhost' do
+        expect(vagrant_ssh('sudo cat /opt/rletters/root/config/database.yml')).to include("host: '127.0.0.1'")
+      end
+
+      it 'creates the downloads directory' do
+        expect(vagrant_ssh('sudo ls -d /opt/rletters/state/downloads')).to eq("/opt/rletters/state/downloads\n")
+      end
+
+      it 'creates the secret tokens' do
+        expect(vagrant_ssh('sudo ls /opt/rletters/state/secret_token.rb')).to eq("/opt/rletters/state/secret_token.rb\n")
+      end
+
+      it 'replaces the secret tokens' do
+        expect(vagrant_ssh('sudo cat /opt/rletters/root/config/initializers/secret_token.rb')).to include('Randomly generated')
+      end
+
+      it 'creates the Unicorn configuration' do
+        expect(vagrant_ssh('sudo ls /opt/rletters/root/config/unicorn.rb')).to eq("/opt/rletters/root/config/unicorn.rb\n")
       end
     end
   end
