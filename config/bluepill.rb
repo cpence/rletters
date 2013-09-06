@@ -12,9 +12,9 @@ Bluepill.application('rletters') do |app|
     proc.pid_file = '/opt/rletters/root/tmp/pids/unicorn.pid'
     proc.working_dir = '/opt/rletters/root'
 
-    proc.start_grace_time = 1.minute
-    proc.stop_grace_time = 1.minute
-    proc.restart_grace_time = 3.minutes
+    proc.start_grace_time = 60
+    proc.stop_grace_time = 60
+    proc.restart_grace_time = 180
 
     proc.monitor_children do |child_process|
       child_process.stop_command = 'kill -QUIT {{PID}}'
@@ -34,9 +34,9 @@ Bluepill.application('rletters') do |app|
     proc.pid_file = '/opt/rletters/root/tmp/pids/clockworkd.0.pid'
     proc.working_dir = '/opt/rletters/root'
 
-    proc.start_grace_time = 1.minute
-    proc.stop_grace_time = 1.minute
-    proc.restart_grace_time = 1.minute
+    proc.start_grace_time = 60
+    proc.stop_grace_time = 60
+    proc.restart_grace_time = 60
   end
 
   delayed_job_queues = %w(maintenance ui analysis)
@@ -52,9 +52,9 @@ Bluepill.application('rletters') do |app|
       proc.pid_file = "/opt/rletters/root/tmp/pids/delayed_job.#{num}.pid"
       proc.working_dir = '/opt/rletters/root'
 
-      proc.start_grace_time = 3.minutes
-      proc.stop_grace_time = 3.minutes
-      proc.restart_grace_time = 5.minutes
+      proc.start_grace_time = 180
+      proc.stop_grace_time = 180
+      proc.restart_grace_time = 300
     end
   end
 
