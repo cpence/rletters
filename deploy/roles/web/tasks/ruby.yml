@@ -20,15 +20,8 @@
   tags: ruby
 
 
-- name: Get installed Bundler path
-  shell: gem which bundler 2>&1
-  ignore_errors: yes
-  register: installed_bundler
-  tags: ruby
-
 - name: Install Bundler
-  command: gem install bundler
-  when: installed_bundler.stdout.find('bundler.rb') == -1
+  gem: name=bundler state=present user_install=no
   tags: ruby
 
 - name: Tell Bundler where the PostgreSQL installation is

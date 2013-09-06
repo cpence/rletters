@@ -2,7 +2,7 @@
 # Copy and deploy the application code
 
 - name: Install Bluepill
-  command: gem install bluepill
+  gem: name=bluepill state=present user_install=no
   tags: rletters
 
 - name: Create Bluepill run directory
@@ -94,6 +94,8 @@
 # be safe.
 - name: Migrate the database
   shell: chdir=/opt/rletters/root/ bundle exec rake db:migrate RAILS_ENV=production
+  register: migrate_result
+  changed_when: migrate_result.stdout != ''
   tags: rletters_migrate
 
 # This should only seed the database once, but just to be safe, we don't put
@@ -106,6 +108,10 @@
   file: path=/opt/rletters owner=rletters_deploy group=rletters_deploy state=directory recurse=yes
   tags: rletters
 
-#- name: Start Bluepill
-#  service: name=bluepill state=restarted
-#  tags: rletters
+- name: Reload Bluepill
+  service: name=bluepill state=reloaded enabled=yes
+  tags: rletters
+
+- name: Wait for Bluepill to bring up the Unicorns
+  script: bluepill-wait.sh
+  tags: rletters
