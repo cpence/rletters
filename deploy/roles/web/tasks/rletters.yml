@@ -108,6 +108,10 @@
   file: path=/opt/rletters owner=rletters_deploy group=rletters_deploy state=directory recurse=yes
   tags: rletters
 
+- name: Make sure Bluepill is started
+  service: name=bluepill state=started enabled=yes
+  tags: rletters
+
 - name: Reload Bluepill
   service: name=bluepill state=reloaded enabled=yes
   tags: rletters
