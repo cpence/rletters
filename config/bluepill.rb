@@ -1,6 +1,6 @@
 ENV['RAILS_ENV'] = 'production'
 
-Bluepill.application('rletters', :log_file => Rails.root.join('log', 'bluepill.log')) do |app|
+Bluepill.application('rletters') do |app|
 
   app.uid = app.gid = 'rletters_deploy'
 
