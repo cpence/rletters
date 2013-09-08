@@ -5,6 +5,7 @@
 .yardoc
 
 config/database.yml
+deploy/hosts
 deploy/roles/db/files/*_pass
 deploy/roles/solr/files/*_pass
 deploy/roles/web/files/*_pass
