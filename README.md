@@ -81,6 +81,7 @@ See our detailed [installation and deployment](https://github.com/cpence/rletter
     git clone git://github.com/cpence/rletters.git
 
     cd rletters/deploy
+    cp hosts.example hosts
     $EDITOR hosts
       # Point all these paths at your server
     ansible-playbook -i hosts site.yml
