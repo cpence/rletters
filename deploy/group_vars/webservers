@@ -1,0 +1,8 @@
+---
+# Variables applicable to web servers only.  In all likelihood, you will not
+# want to change any of these from their defaults, but they are available if
+# you would like.
+
+ruby_url: https://ftp.ruby-lang.org/pub/ruby/2.0/ruby-2.0.0-p247.tar.gz
+ruby_filename: ruby-2.0.0-p247
+ruby_version: ruby 2.0.0p247

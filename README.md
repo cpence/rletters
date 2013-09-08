@@ -65,7 +65,7 @@ And you can export bibliographic data in the following standard formats:
 
 RLetters doesn't leave your developers out in the cold, either.  We've got support for the following features that make development, deployment, maintenance, and monitoring easier:
 
--   All deployment (and even much of the configuration) handled automatically by [Capistrano](https://github.com/capistrano/capistrano/)
+-   Server provisioning entirely handled [by Ansible](http://www.ansibleworks.com)
 -   Track page views with [Google Analytics](http://google.com/analytics)
 -   Source well-documented using [Yard](http://yardoc.org)
 -   Continuous integration support with [Travis](http://travis-ci.org/)
@@ -76,43 +76,38 @@ RLetters doesn't leave your developers out in the cold, either.  We've got suppo
 
 See our detailed [installation and deployment](https://github.com/cpence/rletters/wiki/Installation-and-Deployment) guide for instructions.  For the extremely impatient:
 
-    ssh SERVER_URL
-        # Install Solr, Ruby 1.9/2.0, Apache, Passenger
-        exit
+    # Install Ansible 1.3+ from your local package manager
+    # Establish passwordless SSH with passwordless sudo to your server running RHEL/CentOS 6
     git clone git://github.com/cpence/rletters.git
-    cd rletters
-    cp config/deploy/deploy_config.rb.dist config/deploy/deploy_config.rb
-    $EDITOR config/deploy/deploy_config.rb
-    # Set server URLs, deployment path
-    cap deploy:setup
-    # Answer all the questions
-    cap deploy:check
-    cap deploy:update
-    ssh SERVER_URL
-        cd DEPLOYMENT_PATH
-        rake RAILS_ENV=production db:schema:load
-        $EDITOR /etc/apache2/apache2.conf
-        # Add appropriate stanza for DEPLOYMENT_PATH
-        exit
-    cap deploy:migrate
-    cap deploy:seed
-    cap deploy:start
+
+    cd rletters/deploy
+    cp hosts.example hosts
+    $EDITOR hosts
+      # Point all these paths at your server
+    ansible-playbook -i hosts site.yml
+
     # Open up a web browser to http://YOUR_SITE/admin/
-    # Log in with admin@example.com / password
-    # CHANGE THOSE DEFAULT CREDENTIALS
-    # Set up all the administration settings, including the path to the Solr
-    #   server, custom text and images, etc.
+      # Log in with admin@example.com / password
+      # CHANGE THOSE DEFAULT CREDENTIALS
+      # Configure any other settings that strike your fancy
 
 ## Contributors / Support ##
 
 Special thanks to all contributors for submitting patches. A full list of
-contributors including their patches can be found at: 
+contributors including their patches can be found at:
 
 https://github.com/cpence/rletters/contributors
 
-Also, several features of RLetters wouldn't be possible without the excellent work of other Ruby programmers.  Thanks in particular to those behind [RSolr](https://github.com/mwmitchell/rsolr) and [RSolr::Ext](https://github.com/mwmitchell/rsolr-ext), [citeproc-ruby](https://github.com/inukshuk/citeproc-ruby), and [bibtex-ruby](https://github.com/inukshuk/bibtex-ruby).
+Also, several features of RLetters wouldn't be possible without the excellent work of other Ruby programmers.  Thanks in particular to those behind [Ansible,](http://www.ansibleworks.com/) [RSolr](https://github.com/mwmitchell/rsolr) and [RSolr::Ext](https://github.com/mwmitchell/rsolr-ext), [citeproc-ruby](https://github.com/inukshuk/citeproc-ruby), and [bibtex-ruby](https://github.com/inukshuk/bibtex-ruby).
 
 Charles Pence and Grant Ramsey were supported in the development of RLetters by the [National Evolutionary Synthesis Center (NESCent),](http://www.nescent.org) NSF #EF-0905606.
+
+[![National Science Foundation][nsf_img]][nsf] [![National Evolutionary Synthesis Ceter][nescent_img]][nescent]
+
+[nsf]: http://www.nsf.gov
+[nsf_img]: http://charlespence.net/rletters/images/nsf.gif
+[nescent]: http://nescent.org
+[nescent_img]: http://charlespence.net/rletters/images/nescent.png
 
 ## Copyright ##
 

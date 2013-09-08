@@ -1,0 +1,10 @@
+
+production:
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+  min_messages: WARNING
+  host: '{% if groups['webservers']|count == 1 and groups['webservers'][0] == groups['dbserver'][0] %}127.0.0.1{% else %}{{ hostvars[groups['dbserver'][0]]['ansible_eth0']['ipv4']['address'] }}{% endif %}'
+  database: rletters_production
+  username: rletters_postgresql
+  password: '{{ lookup('file', 'roles/db/files/db_' + groups['dbserver'][0] + '_pass') }}'

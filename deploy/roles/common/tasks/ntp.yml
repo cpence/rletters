@@ -1,0 +1,15 @@
+---
+# Configure NTP on all nodes
+
+- name: Install ntp
+  yum: name=ntp state=present
+  tags: ntp
+
+- name: Configure ntp file
+  template: src=ntp.conf.j2 dest=/etc/ntp.conf
+  notify: restart ntp
+  tags: ntp
+
+- name: Start the ntp service
+  service: name=ntpd state=started enabled=true
+  tags: ntp

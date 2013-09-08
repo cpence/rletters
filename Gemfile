@@ -6,9 +6,6 @@ gem 'rails-i18n', '= 4.0.0.pre'
 
 # Deployment and server tools
 group :production do
-  gem 'capistrano', require: false
-
-  gem 'god', require: false
   gem 'unicorn', require: false
   gem 'clockwork', require: false
 

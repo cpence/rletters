@@ -1,0 +1,17 @@
+---
+# Configure the EPEL repo
+- name: Copy the EPEL repository definition
+  copy: src=epel.repo dest=/etc/yum.repos.d/epel.repo
+  tags: yum
+
+- name: Copy the EPEL GPG key
+  copy: src=RPM-GPG-KEY-EPEL-6 dest=/etc/pki/rpm-gpg
+  tags: yum
+
+- name: Copy the PostgreSQL repository definition
+  copy: src=pgdg-92-redhat.repo dest=/etc/yum.repos.d/pgdg-92-redhat.repo
+  tags: yum
+
+- name: Copy the PostgreSQL GPG key
+  copy: src=RPM-GPG-KEY-PGDG-92 dest=/etc/pki/rpm-gpg
+  tags: yum

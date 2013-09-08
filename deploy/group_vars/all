@@ -1,0 +1,6 @@
+---
+# Variables applicable to all host groups.  In all likelihood, you will not
+# want to change any of these from their defaults, but they are available if
+# you would like.
+
+ntpserver: 0.pool.ntp.org

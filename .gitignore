@@ -1,12 +1,14 @@
 .bundle
 .DS_Store
 .sass-cache
+.vagrant
 .yardoc
 
 config/database.yml
-config/deploy/deploy_config.rb
-contrib/solr/example/logs/*
-contrib/solr/example/work
+deploy/hosts
+deploy/roles/db/files/*_pass
+deploy/roles/solr/files/*_pass
+deploy/roles/web/files/*_pass
 doc
 downloads
 log/*.log

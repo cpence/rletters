@@ -1,0 +1,64 @@
+---
+# Download Tomcat and Solr, installing them in /opt/
+
+- name: Install Java 1.7
+  yum: name=java-1.7.0-openjdk state=present
+  tags: tomcat
+
+- name: Download Tomcat
+  get_url: url={{ tomcat_url }} dest=/tmp/{{ tomcat_filename }}.tar.gz
+  tags: tomcat
+
+- name: Extract Tomcat archive
+  command: chdir=/opt tar xvf /tmp/{{ tomcat_filename }}.tar.gz -C /opt creates=/opt/tomcat
+  tags: tomcat
+
+- name: Create symlink for Tomcat
+  file: src=/opt/{{ tomcat_filename }} path=/opt/tomcat state=link
+  tags: tomcat
+
+- name: Add group for Tomcat
+  group: name=tomcat
+  tags: tomcat
+
+- name: Add user for Tomcat
+  user: name=tomcat group=tomcat home=/opt/tomcat
+  tags: tomcat
+
+- name: Change ownership of Tomcat installation
+  file: path=/opt/{{ tomcat_filename }} owner=tomcat group=tomcat state=directory recurse=yes
+  tags: tomcat
+
+- name: Create Tomcat server configuration
+  copy: src=server.xml dest=/opt/tomcat/conf/server.xml
+  notify: restart tomcat
+  tags: tomcat
+
+- name: Create Tomcat user configuration
+  template: src=tomcat-users.xml.j2 dest=/opt/tomcat/conf/tomcat-users.xml
+  notify: restart tomcat
+  tags: tomcat
+
+- name: Install Tomcat init script
+  copy: src=tomcat-initscript.sh dest=/etc/init.d/tomcat mode=0755
+  tags: tomcat
+
+- name: Start Tomcat
+  # For some reason, state=started will often report that the service is
+  # already running, even though it hasn't been started yet (since it was
+  # just created).  Use state=restarted as a workaround.
+  service: name=tomcat state=restarted enabled=yes
+  tags: tomcat
+
+# If there's more than one web server, or if the Solr and web servers are
+# separate, then open up the port for Tomcat.
+- name: Open iptables firewall for Tomcat
+  lineinfile: dest=/etc/sysconfig/iptables state=present regexp="--dport 8080 "
+              insertafter="^:OUTPUT " line="-A INPUT -p tcp  --dport 8080 -j  ACCEPT"
+  notify: restart iptables
+  when: groups['webservers']|count > 1 or groups['webservers'][0] != groups['solrserver'][0]
+  tags: tomcat
+
+- name: Wait for Tomcat to start
+  wait_for: port=8080
+  tags: tomcat
