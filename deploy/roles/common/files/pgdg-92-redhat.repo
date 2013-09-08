@@ -1,0 +1,15 @@
+[pgdg92]
+name=PostgreSQL 9.2 $releasever - $basearch
+baseurl=http://yum.postgresql.org/9.2/redhat/rhel-$releasever-$basearch
+enabled=1
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-PGDG-92
+
+[pgdg92-source]
+name=PostgreSQL 9.2 $releasever - $basearch - Source
+failovermethod=priority
+baseurl=http://yum.postgresql.org/srpms/9.2/redhat/rhel-$releasever-$basearch
+enabled=0
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-PGDG-92
+

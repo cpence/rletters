@@ -1,0 +1,82 @@
+---
+# Install the Solr package from the Apache website
+
+- name: Download Solr
+  get_url: url={{ solr_url }} dest=/tmp/{{ solr_filename }}.tar.gz
+  tags: solr
+
+- name: Extract Solr archive
+  command: chdir=/opt tar xvf /tmp/{{ solr_filename }}.tar.gz -C /opt creates=/opt/{{ solr_filename }}
+  tags: solr
+
+- name: Create symlink for Solr
+  file: src=/opt/{{ solr_filename }} path=/opt/solr state=link
+  tags: solr
+
+- name: Create directory for RLetters Solr instance
+  file: path=/opt/solr/rletters state=directory
+  tags: solr
+
+- name: Copy relevant parts of Solr example to RLetters instance
+  shell: cp -R /opt/solr/example/{{ item }} /opt/solr/rletters/ creates=/opt/solr/rletters/{{ item }}
+  with_items:
+    - etc
+    - lib
+    - logs
+    - resources
+    - solr
+    - solr-webapp
+    - webapps
+  tags: solr
+
+- name: Copy Solr logging jars to Tomcat lib directory
+  shell: cp /opt/solr/rletters/lib/ext/*.jar /opt/tomcat/lib/
+  tags: solr
+
+- name: Copy Solr logging properties to Tomcat lib directory
+  shell: cp /opt/solr/rletters/resources/log4j.properties /opt/tomcat/lib/ creates=/opt/tomcat/lib/log4j.properties
+  tags: solr
+
+- name: Set Solr server configuration
+  copy: src=solrconfig.xml dest=/opt/solr/rletters/solr/collection1/conf/solrconfig.xml
+  tags: solr
+
+- name: Set Solr server schema
+  copy: src=schema.xml dest=/opt/solr/rletters/solr/collection1/conf/schema.xml
+  tags: solr
+
+- name: Create Tomcat configuration directory
+  file: path=/opt/tomcat/conf/Catalina/localhost state=directory
+  tags: solr
+
+- name: Install Solr configuration for Tomcat
+  copy: src=solr-tomcat.xml dest=/opt/tomcat/conf/Catalina/localhost/solr.xml
+  tags: solr
+
+- name: Change ownership of Solr installation
+  file: path=/opt/{{ solr_filename }} owner=tomcat group=tomcat state=directory recurse=yes
+  tags: solr
+
+- name: Reset ownership of Tomcat installation
+  file: path=/opt/{{ tomcat_filename }} owner=tomcat group=tomcat state=directory recurse=yes
+  tags: solr
+
+- name: Stop Tomcat
+  service: name=tomcat state=stopped
+  tags: solr
+
+- name: Start Tomcat
+  service: name=tomcat state=restarted
+  tags: solr
+
+- name: Wait for Tomcat port to come up
+  wait_for: port=8080
+  tags: solr
+
+- name: Wait for Tomcat to serve a page
+  shell: wget -q -O- http://localhost:8080
+  tags: solr
+
+- name: Fetch a Solr query to warm up the application
+  command: wget -q -O- http://localhost:8080/solr/search?q=warm
+  tags: solr

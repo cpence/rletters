@@ -1,0 +1,29 @@
+---
+# Make sure we have the latest version of Ruby available
+
+- name: Get the current Ruby version
+  shell: ruby --version | sed 's@^\(ruby.*\) (.*@\1@'
+  register: installed_ruby_version
+  tags: ruby
+
+# This will compile Ruby (if necessary)
+- include: ruby-build.yml
+  when: installed_ruby_version.stdout != ruby_version
+
+
+- name: Disable secure path in sudo so that we can get local paths
+  lineinfile: dest=/etc/sudoers regexp="^(Defaults\s+secure_path\s+=\s+).*" backrefs=yes line='\1/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin'
+  tags: ruby
+
+- name: Install profile snippet to put Ruby in the path
+  copy: src=ruby.sh dest=/etc/profile.d/ruby.sh
+  tags: ruby
+
+
+- name: Install Bundler
+  gem: name=bundler state=present user_install=no
+  tags: ruby
+
+- name: Tell Bundler where the PostgreSQL installation is
+  command: bundle config build.pg --with-pg-config=/usr/pgsql-9.2/bin/pg_config
+  tags: ruby

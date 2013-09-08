@@ -1,0 +1,48 @@
+user rletters_deploy rletters_deploy;
+worker_processes 5;
+
+error_log /var/log/nginx/error.log;
+pid /var/run/nginx.pid;
+
+events {
+  worker_connections 1024;
+}
+
+http {
+  include mime.types;
+  default_type application/octet-stream;
+
+  log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+                    '$status $body_bytes_sent "$http_referer" '
+                    '"$http_user_agent" "$http_x_forwarded_for"';
+  access_log /var/log/nginx/access.log main;
+
+  sendfile on;
+
+  keepalive_timeout 65;
+
+  # Path to Unicorn
+  upstream rletters_unicorn {
+    server unix:/opt/rletters/root/tmp/sockets/unicorn.sock;
+  }
+
+  server {
+    listen 80 default_server;
+    server_name {{ inventory_hostname }};
+    root /opt/rletters/root/public;
+
+    location / {
+      proxy_set_header X-Real-IP $remote_addr;
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      proxy_set_header X-Forwarded-Proto https;
+      proxy_set_header Host $http_host;
+      proxy_redirect off;
+
+      # Pass request to Unicorn
+      if (!-f $request_filename) {
+        proxy_pass http://rletters_unicorn;
+        break;
+      }
+    }
+  }
+}

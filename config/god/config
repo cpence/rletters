@@ -1,5 +1,0 @@
-# Load all the God configuration files in the current directory
-path = File.expand_path(File.dirname(__FILE__))
-
-God.pid_file_directory = File.expand_path(File.join(path, '..', '..', 'tmp', 'pids'))
-God.load "#{path}/*.god"

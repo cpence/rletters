@@ -1,0 +1,11 @@
+---
+# Handlers for common notifications
+
+- name: restart iptables
+  service: name=iptables state=restarted
+
+- name: restart nginx
+  service: name=nginx state=restarted
+
+- name: restart rsyslogd
+  service: name=rsyslog state=restarted
