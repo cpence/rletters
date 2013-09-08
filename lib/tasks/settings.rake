@@ -2,9 +2,9 @@
 
 namespace :setting do
   desc 'Set the value of a setting in the database'
-  task :save, [:setting, :value] => :environment do |t, args|
+  task :set, [:setting, :value] => :environment do |t, args|
     unless args[:setting] && args[:value]
-      abort 'Must specify both setting and value to save in the database'
+      abort 'Must specify both setting and value to set in the database'
     end
 
     key = args[:setting].to_sym
