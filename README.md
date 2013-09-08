@@ -101,7 +101,7 @@ Also, several features of RLetters wouldn't be possible without the excellent wo
 
 Charles Pence and Grant Ramsey were supported in the development of RLetters by the [National Evolutionary Synthesis Center (NESCent),](http://www.nescent.org) NSF #EF-0905606.
 
-<div text-align="right">
+<div style="text-align: right;">
   <a href="http://www.nsf.gov/"><img src="http://charlespence.net/rletters/images/nsf.gif" width="64" height="65" alt="National Science Foundation Logo" /></a>
   <a href="http://nescent.org/"><img src="http://charlespence.net/rletters/images/nescent.png" width="68" height="64" alt="National Evolutionary Synthesis Center Logo" /></a>
 </div>
