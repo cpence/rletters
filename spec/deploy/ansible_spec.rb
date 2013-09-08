@@ -1,13 +1,18 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
+require 'net/http'
 
 describe 'Ansible provisioning', :deploy do
   before(:all) do
     system("cd #{Rails.root} && rake vagrant:up")
     system("cd #{Rails.root.join('deploy')} && ansible-playbook -v -i hosts.testing site.yml")
+
+    WebMock.allow_net_connect!
   end
 
   after(:all) do
+    WebMock.disable_net_connect!
+
     system("cd #{Rails.root} && rake vagrant:down")
   end
 
@@ -41,6 +46,8 @@ describe 'Ansible provisioning', :deploy do
       it 'creates the database and user' do
         file_path = Rails.root.join('deploy', 'roles', 'db', 'files', 'db_192.168.111.222_pass')
         db_password = IO.read(file_path)
+        db_password.gsub!('\\', '\\\\')
+        db_password.gsub!(':', '\:')
 
         # Set the password on the server for passwordless authentication
         vagrant_ssh("echo '*:*:*:*:#{db_password}' > ~/.pgpass")
@@ -163,6 +170,44 @@ describe 'Ansible provisioning', :deploy do
 
       it 'creates the Unicorn configuration' do
         expect(vagrant_ssh('sudo ls /opt/rletters/root/config/unicorn.rb')).to eq("/opt/rletters/root/config/unicorn.rb\n")
+      end
+    end
+
+    describe 'nginx.yml' do
+      it 'opens port 80' do
+        vagrant_check_port_open(80)
+      end
+
+      it 'serves the index page locally' do
+        expect(vagrant_ssh('wget -q -O- http://localhost')).to include('<!DOCTYPE html>')
+      end
+
+      it 'serves the index page remotely' do
+        VCR.turned_off do
+          Net::HTTP.start('192.168.111.222', 80) do |http|
+            request = Net::HTTP::Get.new(URI('http://182.168.111.222/'))
+            response = http.request request
+
+            expect(response.body).to include('<!DOCTYPE html>')
+            expect {
+              response.value
+            }.to_not raise_error
+          end
+        end
+      end
+
+      it 'serves one of the application pages remotely' do
+        VCR.turned_off do
+          Net::HTTP.start('192.168.111.222', 80) do |http|
+            request = Net::HTTP::Get.new(URI('http://182.168.111.222/search/'))
+            response = http.request request
+
+            expect(response.body).to include('<!DOCTYPE html>')
+            expect {
+              response.value
+            }.to_not raise_error
+          end
+        end
       end
     end
   end

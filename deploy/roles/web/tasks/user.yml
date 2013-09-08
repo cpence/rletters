@@ -6,6 +6,8 @@
   tags: user
 
 - name: Create deployment user
-  user: name=rletters_deploy group=rletters_deploy home=/opt/rletters password="{{ item }}"
+  # If there are colons in the user password, Ansible's user module goes
+  # crazy, so replace those here.
+  user: name=rletters_deploy group=rletters_deploy home=/opt/rletters password="{{ item|replace(":", "_") }}"
   with_password: deploy_{{ inventory_hostname }}_pass length=30
   tags: user

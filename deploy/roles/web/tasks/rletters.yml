@@ -114,6 +114,16 @@
   file: path=/opt/rletters owner=rletters_deploy group=rletters_deploy state=directory recurse=yes
   tags: rletters
 
+- name: Set the setting to point RLetters at the local Solr server
+  command: chdir=/opt/rletters/root rake setting:set[solr_server_url,http://localhost:8080/solr/]
+  when: inventory_hostname == groups['solrserver'][0]
+  tags: rletters
+
+- name: Set the setting to point RLetters at the external Solr server
+  command: chdir=/opt/rletters/root rake setting:set[solr_server_url,{{ hostvars[groups['solrserver'][0]]['ansible_eth0']['ipv4']['address'] }}]
+  when: inventory_hostname != groups['solrserver'][0]
+  tags: rletters
+
 - name: Make sure Bluepill is started
   service: name=bluepill state=started enabled=yes
   register: bluepill_start

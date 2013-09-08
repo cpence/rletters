@@ -6,7 +6,7 @@
   tags: nginx
 
 - name: Copy nginx configuration file
-  template: src=default.conf.j2 dest=/etc/nginx/conf.d/default.conf
+  template: src=nginx.conf.j2 dest=/etc/nginx/nginx.conf
   notify: restart nginx
   tags: nginx
 
@@ -14,4 +14,8 @@
   lineinfile: dest=/etc/sysconfig/iptables state=present regexp="--dport 80 "
               insertafter="^:OUTPUT " line="-A INPUT -p tcp  --dport 80 -j  ACCEPT"
   notify: restart iptables
+  tags: nginx
+
+- name: Start nginx
+  service: name=nginx state=started enabled=yes
   tags: nginx
