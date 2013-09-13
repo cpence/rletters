@@ -7,6 +7,7 @@ describe 'datasets/show' do
     @user = FactoryGirl.create(:user)
     allow(view).to receive(:current_user).and_return(@user)
     allow(view).to receive(:user_signed_in?).and_return(true)
+    allow(view).to receive(:render_job_view)
 
     @dataset = FactoryGirl.create(:full_dataset, entries_count: 10)
     assign(:dataset, @dataset)

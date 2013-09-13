@@ -110,4 +110,7 @@ RSpec.configure do |config|
 
   # Add helpers for dealing with Vagrant to deployment specs
   config.include VagrantSshHelper, deploy: true
+
+  # Add helpers for dealing with analysis job views
+  config.include JobViewHelper, type: :view
 end

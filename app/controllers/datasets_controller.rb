@@ -161,7 +161,6 @@ class DatasetsController < ApplicationController
   def task_view
     @dataset = current_user.datasets.find(params[:id])
     fail ActiveRecord::RecordNotFound unless @dataset
-
     fail ActiveRecord::RecordNotFound unless params[:view]
 
     if params[:class]
@@ -173,7 +172,7 @@ class DatasetsController < ApplicationController
       klass = @task.job_class
     end
 
-    render template: klass.view_path(params[:view])
+    render_job_view(klass, params[:view])
   end
 
   # Delete an analysis task
@@ -217,6 +216,21 @@ class DatasetsController < ApplicationController
   end
 
   private
+
+  # Render a job view, given the class name and view name
+  #
+  # @param [Class] klass the job class
+  # @param [String] view the view to render
+  # @return [undefined]
+  def render_job_view(klass, view)
+    # Add the view path for this analysis job class to the search path
+    class_name = klass.name.demodulize.underscore
+    prepend_view_path Rails.root.join('lib', 'jobs', 'analysis',
+                                      'views', class_name)
+
+    render template: view
+  end
+  helper_method :render_job_view
 
   # Whitelist acceptable dataset parameters
   #

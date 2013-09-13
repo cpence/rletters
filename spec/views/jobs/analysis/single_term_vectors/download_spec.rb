@@ -1,13 +1,10 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe 'jobs/single_term_vectors/download' do
+describe 'single_term_vectors/download' do
 
   before(:each) do
-    # RSpec isn't smart enough to read our routes for us, so set
-    # things manually here.
-    controller.controller_path = 'datasets'
-    controller.request.path_parameters[:controller] = 'datasets'
+    register_job_view_path
 
     @dataset = FactoryGirl.create(:dataset)
     @task = FactoryGirl.create(:analysis_task,

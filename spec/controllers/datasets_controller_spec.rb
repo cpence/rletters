@@ -256,6 +256,10 @@ describe DatasetsController do
     end
 
     context 'when a valid task ID is passed' do
+      # We want to let it render views, to make sure that the search path
+      # addition is working properly
+      render_views
+
       before(:each) do
         @task = FactoryGirl.create(:analysis_task, dataset: @dataset,
                                    job_type: 'ExportCitations')
@@ -270,6 +274,12 @@ describe DatasetsController do
           get :task_view, id: @dataset.to_param,
               task_id: @task.to_param, view: 'start'
         }.to_not raise_error
+      end
+
+      it 'renders the right view' do
+        get :task_view, id: @dataset.to_param,
+            task_id: @task.to_param, view: 'start'
+        expect(response.body).to include('<li>')
       end
     end
 
