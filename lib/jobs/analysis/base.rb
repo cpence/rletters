@@ -96,6 +96,37 @@ module Jobs
         classes
       end
 
+      # Add a concern to this job class
+      #
+      # Concerns are bundles of job code and views that can be mixed into
+      # different analysis job tasks.  This is intended to support pieces of
+      # functionality that will be shared across many different job types.
+      #
+      # @api public
+      # @param [String] concern the concern to mix in
+      # @return [undefined]
+      # @example Mix the 'Normalization' concern into this job class
+      #   class MyJob < Jobs::Analysis::Base
+      #     add_concern 'Normalization'
+      #     # ...
+      #   end
+      def self.add_concern(concern)
+        # Protect against calling this more than once, though that would be
+        # really daft
+        if concerns && concerns.include?(concern)
+          fail ArgumentError, "#{concern} has already been included in #{name}"
+        end
+
+        # We want this to throw a NameError if it doesn't work; this would be
+        # a programmer's mistake
+        klass = ('Jobs::Analysis::Concerns::' + concern).constantize
+        include klass
+
+        # Add it to the tracking list so that we'll pick up its views
+        self.concerns ||= []
+        self.concerns << concern
+      end
+
       # Get the list of paths for this class's job views
       #
       # We let analysis jobs ship their own job view templates. This function
@@ -115,7 +146,12 @@ module Jobs
         class_name = name.demodulize.underscore
         ret = [Rails.root.join('lib', 'jobs', 'analysis', 'views', class_name)]
 
-        # FIXME: add concerns right here
+        if @concerns
+          @concerns.each do |c|
+            ret << Rails.root.join('lib', 'jobs', 'analysis', 'concerns',
+                                   'views', c.underscore)
+          end
+        end
 
         ret
       end
@@ -137,6 +173,13 @@ module Jobs
           @task.save!
         end
         super
+      end
+
+      private
+
+      class << self
+        # @return [Array<String>] the concerns mixed into this job class
+        attr_accessor :concerns
       end
     end
 

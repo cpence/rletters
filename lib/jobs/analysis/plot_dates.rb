@@ -31,33 +31,8 @@ module Jobs
                                               job_type: 'PlotDates')
 
         # Write out the dates to an array
-        dates = []
-        dataset.entries.find_in_batches do |group|
-          # Build a Solr query to fetch only the year for this group
-          solr_query = {}
-          solr_query[:rows] = group.count
-          query_str = group.map { |e| e.shasum }.join(' OR ')
-          solr_query[:q] = "shasum:(#{query_str})"
-          solr_query[:defType] = 'lucene'
-          solr_query[:fl] = 'year'
-          solr_query[:facet] = false
-
-          search_result = Solr::Connection.search solr_query
-          fail 'Failed to get batch of results in PlotDates' unless search_result.num_hits == group.count
-
-          search_result.documents.each do |doc|
-            # Support Y-M-D or Y/M/D dates
-            parts = doc.year.split(/[-\/]/)
-            year = Integer(parts[0])
-
-            year_array = dates.assoc(year)
-            if year_array
-              year_array[1] = year_array[1] + 1
-            else
-              dates << [year, 1]
-            end
-          end
-        end
+        dates = Solr::DataHelpers::count_by_field(dataset, :year).to_a
+        dates.each { |d| d[0] = Integer(d[0]) }
 
         # Sort by date
         dates = dates.sort_by { |y| y[0] }

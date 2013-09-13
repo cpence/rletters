@@ -48,6 +48,22 @@ module Solr
       SearchResult.new(err)
     end
 
+    # Get a raw hash response from Solr
+    #
+    # Sometimes we don't want a cleaned up result, so just get the raw hash.
+    #
+    # @api public
+    # @param [Hash] params Solr query parameters
+    # @return [Hash] Solr search result, unprocessed
+    def self.search_raw(params)
+      get_solr
+
+      Connection.solr.get 'search', params: params
+    rescue StandardError => e
+      Rails.logger.warn "Connection to Solr failed: #{e.inspect}"
+      {}
+    end
+
     # Get the info/statistics hash from Solr
     #
     # This method retrieves information about the Solr server, including the

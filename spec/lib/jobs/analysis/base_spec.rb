@@ -26,6 +26,18 @@ end
 
 describe Jobs::Analysis::Base do
 
+  describe '.add_concern' do
+    before(:all) do
+      # Only do this once; doing it twice raises a NameError
+      Jobs::Analysis::MockJob.add_concern 'NormalizeDocumentCounts'
+    end
+
+    it 'adds to the view path' do
+      expected = Rails.root.join('lib', 'jobs', 'analysis', 'concerns', 'views', 'normalize_document_counts')
+      expect(Jobs::Analysis::MockJob.view_paths).to include(expected)
+    end
+  end
+
   describe '.view_paths' do
     it 'returns the base path' do
       expected = Rails.root.join('lib', 'jobs', 'analysis', 'views', 'mock_job')
