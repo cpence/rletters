@@ -26,10 +26,10 @@ end
 
 describe Jobs::Analysis::Base do
 
-  describe '.view_path' do
-    it 'returns the right value' do
-      expected = File.join('jobs', 'mock_job', 'test')
-      expect(Jobs::Analysis::MockJob.view_path('test')).to eq(expected)
+  describe '.view_paths' do
+    it 'returns the base path' do
+      expected = Rails.root.join('lib', 'jobs', 'analysis', 'views', 'mock_job')
+      expect(Jobs::Analysis::MockJob.view_paths).to include(expected)
     end
   end
 

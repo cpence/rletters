@@ -223,11 +223,8 @@ class DatasetsController < ApplicationController
   # @param [String] view the view to render
   # @return [undefined]
   def render_job_view(klass, view)
-    # Add the view path for this analysis job class to the search path
-    class_name = klass.name.demodulize.underscore
-    prepend_view_path Rails.root.join('lib', 'jobs', 'analysis',
-                                      'views', class_name)
-
+    # Add the view paths for this analysis job class to the search path
+    klass.view_paths.each { |p| prepend_view_path p }
     render template: view
   end
   helper_method :render_job_view

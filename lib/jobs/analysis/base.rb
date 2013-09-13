@@ -96,24 +96,28 @@ module Jobs
         classes
       end
 
-      # Get the path to a job-view template for this job
+      # Get the list of paths for this class's job views
       #
-      # We let analysis jobs ship their own job view templates. This
-      # function takes a view name and returns its template path.
+      # We let analysis jobs ship their own job view templates. This function
+      # returns the name of that directory to be prepended into the Rails
+      # view search path.
+      #
+      # When a job mixes in a concern, this method also supports the addition
+      # of concern views.
       #
       # @api public
-      # @param [String] view the view to fetch the path to
-      # @return [String] the path to the template
-      # @example Get the path to the ExportCitations 'start' view
-      #   Jobs::Analysis::ExportCitations.view_path 'start'
-      #   # => 'jobs/export_citations/start'
-      def self.view_path(view)
-        # This will return something like 'jobs/analysis/export_citations',
-        # so we need to remove 'analysis'
-        str = File::SEPARATOR + 'analysis' + File::SEPARATOR
-        rep = File::SEPARATOR
-        class_path = name.underscore.sub(str, rep)
-        File.join(class_path, view)
+      # @return [Array<String>] the template directories to be added
+      # @example Get the path to the ExportCitations views
+      #   Jobs::Analysis::ExportCitations.view_paths
+      #   # => ['#{Rails.root}/lib/jobs/analysis/views/export_citations']
+      def self.view_paths
+        # This turns 'Jobs::Analysis::ExportCitations' into 'export_citations'
+        class_name = name.demodulize.underscore
+        ret = [Rails.root.join('lib', 'jobs', 'analysis', 'views', class_name)]
+
+        # FIXME: add concerns right here
+
+        ret
       end
 
       # Set the analysis task fail bit on error
