@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
 describe 'Solr::Facets', vcr: { cassette_name: 'solr_default' } do

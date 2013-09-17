@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 APP_PATH = "/opt/rletters/root"
 
 # Use at least one worker per core if you're on a dedicated server,

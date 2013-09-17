@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class CreateUploadedAssetFiles < ActiveRecord::Migration
   def self.up
     create_table :uploaded_asset_files do |t|

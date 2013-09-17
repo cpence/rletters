@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 ENV['RAILS_ENV'] = 'production'
 
 Bluepill.application('rletters') do |app|

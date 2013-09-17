@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130806005057) do
+ActiveRecord::Schema.define(version: 20130917195527) do
 
   create_table "admin_users", force: true do |t|
     t.string   "email",                  default: "", null: false
@@ -31,14 +31,24 @@ ActiveRecord::Schema.define(version: 20130806005057) do
   add_index "admin_users", ["email"], name: "index_admin_users_on_email", unique: true
   add_index "admin_users", ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
 
+  create_table "analysis_task_results", force: true do |t|
+    t.integer "analysis_task_id"
+    t.string  "style"
+    t.binary  "file_contents"
+  end
+
   create_table "analysis_tasks", force: true do |t|
     t.string   "name"
     t.datetime "finished_at"
     t.integer  "dataset_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "failed",      default: false
+    t.boolean  "failed",              default: false
     t.string   "job_type"
+    t.string   "result_file_name"
+    t.string   "result_content_type"
+    t.integer  "result_file_size"
+    t.datetime "result_updated_at"
   end
 
   add_index "analysis_tasks", ["dataset_id"], name: "index_analysis_tasks_on_dataset_id"
@@ -68,31 +78,6 @@ ActiveRecord::Schema.define(version: 20130806005057) do
 
   add_index "datasets", ["user_id"], name: "index_datasets_on_user_id"
 
-  create_table "delayed_jobs", force: true do |t|
-    t.integer  "priority",   default: 0
-    t.integer  "attempts",   default: 0
-    t.text     "handler"
-    t.text     "last_error"
-    t.datetime "run_at"
-    t.datetime "locked_at"
-    t.datetime "failed_at"
-    t.string   "locked_by"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "queue"
-  end
-
-  add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority"
-
-  create_table "downloads", force: true do |t|
-    t.string   "filename"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "analysis_task_id"
-  end
-
-  add_index "downloads", ["analysis_task_id"], name: "index_downloads_on_analysis_task_id"
-
   create_table "libraries", force: true do |t|
     t.string   "name"
     t.string   "url"
@@ -118,6 +103,12 @@ ActiveRecord::Schema.define(version: 20130806005057) do
   end
 
   add_index "settings", ["key"], name: "key_udx", unique: true
+
+  create_table "uploaded_asset_files", force: true do |t|
+    t.integer "uploaded_asset_id"
+    t.string  "style"
+    t.binary  "file_contents"
+  end
 
   create_table "uploaded_assets", force: true do |t|
     t.string   "name"
