@@ -39,7 +39,7 @@
   tags: rletters
 
 - name: Check out RLetters via git
-  git: repo=git://github.com/cpence/rletters.git dest=/opt/rletters/root version=new-deploy
+  git: repo=git://github.com/cpence/rletters.git dest=/opt/rletters/root
   tags: rletters
 
 - name: Create bundle directory

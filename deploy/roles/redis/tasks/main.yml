@@ -1,0 +1,29 @@
+---
+# Install and configure Redis
+
+- name: Install Redis
+  action: yum name={{ item }} state=present
+  with_items:
+    - python-redis
+    - redis
+  tags: redis
+
+- name: Start the Redis server
+  service: name=redis enabled=yes state=started
+  tags: redis
+
+# If there's more than one webserver, or if the web server and the Redis
+# server aren't the same, then bind Redis on all interfaces
+- name: Configure Redis to listen for external hosts
+  lineinfile: dest=/etc/redis.conf state=present regexp="^#?bind" line="#bind 127.0.0.1"
+  notify: restart redis
+  when: groups['webservers']|count > 1 or groups['webservers'][0] != groups['redisserver'][0]
+  tags: redis
+
+- name: Open iptables firewall for Redis (only to web servers)
+  lineinfile: dest=/etc/sysconfig/iptables state=present regexp="6379"
+              insertafter="^:OUTPUT " line="-A INPUT -p tcp -s {{ hostvars[item]['ansible_eth0']['ipv4']['address'] }} --dport 6379 -j  ACCEPT"
+  with_items: groups['webservers']
+  notify: restart iptables
+  when: groups['webservers']|count > 1 or groups['webservers'][0] != groups['redisserver'][0]
+  tags: redis

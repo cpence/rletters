@@ -5,7 +5,7 @@
 # one of these roles is instantiated on the same server, so there's no problem
 # with running the entire stack on a single machine.
 #
-# You cannot have more than one database server, nor more than one Solr server.
+# You cannot have more than one database server, Redis server, or Solr server.
 
 [webservers]
 mysite.com
@@ -15,3 +15,6 @@ db.mysite.com
 
 [solrserver]
 mysite.com
+
+[redisserver]
+redis.mysite.com

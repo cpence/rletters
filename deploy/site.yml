@@ -28,3 +28,10 @@
 
   roles:
     - web
+
+- name: configure and deploy the Redis server
+  hosts: redisserver
+  sudo: yes
+
+  roles:
+    - redis

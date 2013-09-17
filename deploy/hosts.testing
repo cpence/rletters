@@ -1,9 +1,14 @@
 # In testing, point all of the hosts at the virtual Vagrant machine
-[webservers]
 192.168.111.222         ansible_ssh_user=vagrant ansible_ssh_pass=vagrant
+
+[webservers]
+192.168.111.222
 
 [dbserver]
-192.168.111.222         ansible_ssh_user=vagrant ansible_ssh_pass=vagrant
+192.168.111.222
 
 [solrserver]
-192.168.111.222         ansible_ssh_user=vagrant ansible_ssh_pass=vagrant
+192.168.111.222
+
+[redisserver]
+192.168.111.222

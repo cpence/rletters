@@ -211,4 +211,20 @@ describe 'Ansible provisioning', :deploy do
       end
     end
   end
+
+  describe 'redis role' do
+    describe 'main.yml' do
+      it 'installs Redis' do
+        expect(vagrant_ssh('which redis-server')).to eq("/usr/sbin/redis-server\n")
+      end
+
+      it 'starts Redis' do
+        expect(vagrant_ssh('redis-cli ping')).to eq("PONG\n")
+      end
+
+      it 'does not make the Redis server publically accessible' do
+        vagrant_check_port_closed(6379)
+      end
+    end
+  end
 end
