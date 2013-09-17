@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe 'export_citations/start' do
+describe 'plot_dates/_start' do
 
   before(:each) do
     register_job_view_path
@@ -14,9 +14,10 @@ describe 'export_citations/start' do
 
     link = url_for(controller: 'datasets',
                    action: 'task_view',
-                   class: 'ExportCitations',
-                   id: @dataset.to_param,
-                   view: 'params')
+                   view: 'params',
+                   class: 'PlotDates',
+                   id: @dataset.to_param)
+
     expect(rendered).to have_tag("a[href='#{link}']")
   end
 

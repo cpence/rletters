@@ -1,4 +1,4 @@
-%ull{ data: { role: 'listview', theme: 'd', divider_theme: 'b' } }
+%ul{ data: { role: 'listview', theme: 'd', divider_theme: 'b' } }
   = form_tag({ controller: 'datasets', action: 'task_start', id: @dataset.to_param, class: 'WordFrequency' }, { method: :get }) do
     %li
       %div{ data: { role: 'fieldcontain' } }

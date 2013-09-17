@@ -18,6 +18,6 @@
   -# Show the markup for starting all the various background jobs
   %li{ data: { role: 'list-divider' } }= t('.new_task')
   - Jobs::Analysis::Base.job_list.each do |klass|
-    - render_job_view(klass, 'start')
+    = render_job_partial(klass, 'start')
 
   %li{ data: { icon: 'delete' } }= link_to t('.delete'), delete_dataset_path(@dataset), data: { rel: 'dialog' }

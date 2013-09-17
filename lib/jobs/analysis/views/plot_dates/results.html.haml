@@ -1,23 +1,24 @@
-%h1== #{@dataset.name}
-%h2== Documents, plotted by year
-
-.verticalpad
+- data = YAML.load_file(@task.result_file.filename)
+- dates = data[:data]
+- percent = data[:percent]
 
 %div.center
-  - dates = YAML.load_file(@task.result_file.filename)
-  %div.plot_dates_graph= dates.to_s
+  %h1= @dataset.name
+
+  - if percent
+    %h2== Percentage of documents in #{data[:normalization_set]} found in the #{@dataset.name} dataset, plotted by year
+  - else
+    %h2 Number of documents, plotted by year
 
   .verticalpad
 
-  %table
-    %thead
-      %tr
-        %th{ scope: 'col' } Year
-        %th{ scope: 'col' } Number of Documents
-    %tbody
-      - dates.each do |year|
-        %tr
-          %td= year[0].to_s
-          %td= year[1].to_s
-      %tr
-        %td{ colspan: '2' }= link_to 'Download this data as CSV', { controller: 'datasets', action: 'task_view', id: @dataset.to_param, task_id: @task.to_param, view: 'download', format: 'csv' }, rel: 'external'
+  %div.plot_dates_data= dates.to_s
+  %div.plot_dates_percent= percent ? 'true' : 'false'
+
+  %div.plot_dates_graph
+
+  .verticalpad
+
+  %div.plot_dates_table
+
+  = link_to 'Download in CSV format', { controller: 'datasets', action: 'task_view', id: @dataset.to_param, task_id: @task.to_param, view: 'download', format: 'csv' }, rel: 'external', data: { role: 'button', icon: 'bars', inline: 'true' }

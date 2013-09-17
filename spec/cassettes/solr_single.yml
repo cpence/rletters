@@ -1,12 +1,14 @@
 ---
 http_interactions:
 - request:
-    method: get
-    uri: http://localhost:8983/search?defType=lucene&q=shasum:00040b66948f49c3a6c6c0977530e2014899abf9&wt=ruby
+    method: post
+    uri: http://localhost:8983/search?wt=ruby
     body:
       encoding: US-ASCII
-      string: ''
-    headers: {}
+      string: q=shasum%3A00972c5123877961056b21aea4177d0dc69c7318&defType=lucene
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=UTF-8
   response:
     status:
       code: 200
@@ -19,13 +21,229 @@ http_interactions:
       Connection:
       - Close
       Date:
-      - Wed, 14 Aug 2013 15:29:36 GMT
+      - Mon, 16 Sep 2013 21:32:44 GMT
+      X-Powered-By:
+      - Servlet/2.5 (Winstone/0.9.10)
+    body:
+      encoding: UTF-8
+      string: |
+        {'responseHeader'=>{'status'=>0,'QTime'=>3,'params'=>{'q'=>'shasum:00972c5123877961056b21aea4177d0dc69c7318','wt'=>'ruby','defType'=>'lucene'}},'response'=>{'numFound'=>1,'start'=>0,'docs'=>[{'license'=>'© Blackwell Verlag GmbH','shasum'=>'00972c5123877961056b21aea4177d0dc69c7318','doi'=>'10.1111/j.1439-0310.2008.01576.x','authors'=>'Carlos A. Botero, Andrew E. Mudge, Amanda M. Koltz, Wesley M. Hochachka, Sandra L. Vehrencamp','title'=>'How Reliable are the Methods for Estimating Repertoire Size?','journal'=>'Ethology','year'=>'2008','volume'=>'114','pages'=>'1227-1238'}]},'facet_counts'=>{'facet_queries'=>{'year:[* TO 1799]'=>0,'year:[1800 TO 1809]'=>0,'year:[1810 TO 1819]'=>0,'year:[1820 TO 1829]'=>0,'year:[1830 TO 1839]'=>0,'year:[1840 TO 1849]'=>0,'year:[1850 TO 1859]'=>0,'year:[1860 TO 1869]'=>0,'year:[1870 TO 1879]'=>0,'year:[1880 TO 1889]'=>0,'year:[1890 TO 1899]'=>0,'year:[1900 TO 1909]'=>0,'year:[1910 TO 1919]'=>0,'year:[1920 TO 1929]'=>0,'year:[1930 TO 1939]'=>0,'year:[1940 TO 1949]'=>0,'year:[1950 TO 1959]'=>0,'year:[1960 TO 1969]'=>0,'year:[1970 TO 1979]'=>0,'year:[1980 TO 1989]'=>0,'year:[1990 TO 1999]'=>0,'year:[2000 TO 2009]'=>1,'year:[2010 TO *]'=>0},'facet_fields'=>{'authors_facet'=>['Amanda M. Koltz',1,'Andrew E. Mudge',1,'Carlos A. Botero',1,'Sandra L. Vehrencamp',1,'Wesley M. Hochachka',1,'. N. Mouton',0,'A Guo',0,'A Pickles',0,'A. A. Bailey',0,'A. A. Fienberg',0],'journal_facet'=>['Ethology',1,'Genes, Brain and Behavior',0]},'facet_dates'=>{},'facet_ranges'=>{}}}
+    http_version: 
+  recorded_at: Mon, 16 Sep 2013 21:32:44 GMT
+- request:
+    method: post
+    uri: http://localhost:8983/search?wt=ruby
+    body:
+      encoding: US-ASCII
+      string: q=shasum%3A00a004096479b9332b153e91053f09df8003ef74&defType=lucene
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=UTF-8
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - Winstone Servlet Engine v0.9.10
+      Content-Type:
+      - text/plain;charset=UTF-8
+      Connection:
+      - Close
+      Date:
+      - Tue, 17 Sep 2013 02:42:47 GMT
       X-Powered-By:
       - Servlet/2.5 (Winstone/0.9.10)
     body:
       encoding: ASCII-8BIT
       string: !binary |-
         eydyZXNwb25zZUhlYWRlcic9Pnsnc3RhdHVzJz0+MCwnUVRpbWUnPT40LCdw
+        YXJhbXMnPT57J3EnPT4nc2hhc3VtOjAwYTAwNDA5NjQ3OWI5MzMyYjE1M2U5
+        MTA1M2YwOWRmODAwM2VmNzQnLCd3dCc9PidydWJ5JywnZGVmVHlwZSc9Pids
+        dWNlbmUnfX0sJ3Jlc3BvbnNlJz0+eydudW1Gb3VuZCc9PjEsJ3N0YXJ0Jz0+
+        MCwnZG9jcyc9Plt7J2xpY2Vuc2UnPT4nwqkgQmxhY2t3ZWxsIFZlcmxhZyBH
+        bWJIJywnc2hhc3VtJz0+JzAwYTAwNDA5NjQ3OWI5MzMyYjE1M2U5MTA1M2Yw
+        OWRmODAwM2VmNzQnLCdkb2knPT4nMTAuMTExMS9qLjE0MzktMDMxMC4xOTk4
+        LnRiMDAxMDMueCcsJ2F1dGhvcnMnPT4nUi4gSS4gTS4gRHVuYmFyLCBKdWxp
+        YW4gQmV2ZXInLCd0aXRsZSc9PidOZW9jb3J0ZXggU2l6ZSBQcmVkaWN0cyBH
+        cm91cCBTaXplIGluIENhcm5pdm9yZXMgYW5kIFNvbWUgSW5zZWN0aXZvcmVz
+        Jywnam91cm5hbCc9PidFdGhvbG9neScsJ3llYXInPT4nMTk5OCcsJ3ZvbHVt
+        ZSc9PicxMDQnLCdwYWdlcyc9Pic2OTUtNzA4J31dfSwnZmFjZXRfY291bnRz
+        Jz0+eydmYWNldF9xdWVyaWVzJz0+eyd5ZWFyOlsqIFRPIDE3OTldJz0+MCwn
+        eWVhcjpbMTgwMCBUTyAxODA5XSc9PjAsJ3llYXI6WzE4MTAgVE8gMTgxOV0n
+        PT4wLCd5ZWFyOlsxODIwIFRPIDE4MjldJz0+MCwneWVhcjpbMTgzMCBUTyAx
+        ODM5XSc9PjAsJ3llYXI6WzE4NDAgVE8gMTg0OV0nPT4wLCd5ZWFyOlsxODUw
+        IFRPIDE4NTldJz0+MCwneWVhcjpbMTg2MCBUTyAxODY5XSc9PjAsJ3llYXI6
+        WzE4NzAgVE8gMTg3OV0nPT4wLCd5ZWFyOlsxODgwIFRPIDE4ODldJz0+MCwn
+        eWVhcjpbMTg5MCBUTyAxODk5XSc9PjAsJ3llYXI6WzE5MDAgVE8gMTkwOV0n
+        PT4wLCd5ZWFyOlsxOTEwIFRPIDE5MTldJz0+MCwneWVhcjpbMTkyMCBUTyAx
+        OTI5XSc9PjAsJ3llYXI6WzE5MzAgVE8gMTkzOV0nPT4wLCd5ZWFyOlsxOTQw
+        IFRPIDE5NDldJz0+MCwneWVhcjpbMTk1MCBUTyAxOTU5XSc9PjAsJ3llYXI6
+        WzE5NjAgVE8gMTk2OV0nPT4wLCd5ZWFyOlsxOTcwIFRPIDE5NzldJz0+MCwn
+        eWVhcjpbMTk4MCBUTyAxOTg5XSc9PjAsJ3llYXI6WzE5OTAgVE8gMTk5OV0n
+        PT4xLCd5ZWFyOlsyMDAwIFRPIDIwMDldJz0+MCwneWVhcjpbMjAxMCBUTyAq
+        XSc9PjB9LCdmYWNldF9maWVsZHMnPT57J2F1dGhvcnNfZmFjZXQnPT5bJ0p1
+        bGlhbiBCZXZlcicsMSwnUi4gSS4gTS4gRHVuYmFyJywxLCcuIE4uIE1vdXRv
+        bicsMCwnQSBHdW8nLDAsJ0EgUGlja2xlcycsMCwnQS4gQS4gQmFpbGV5Jyww
+        LCdBLiBBLiBGaWVuYmVyZycsMCwnQS4gQS4gUGFsbWVyJywwLCdBLiBBLiBU
+        dWRvci1Kb25lcycsMCwnQS4gQS4gV29uZycsMF0sJ2pvdXJuYWxfZmFjZXQn
+        PT5bJ0V0aG9sb2d5JywxLCdHZW5lcywgQnJhaW4gYW5kIEJlaGF2aW9yJyww
+        XX0sJ2ZhY2V0X2RhdGVzJz0+e30sJ2ZhY2V0X3Jhbmdlcyc9Pnt9fX0K
+    http_version: 
+  recorded_at: Tue, 17 Sep 2013 02:42:47 GMT
+- request:
+    method: post
+    uri: http://localhost:8983/search?wt=ruby
+    body:
+      encoding: US-ASCII
+      string: q=shasum%3A00cdb0f945c1e1d7b7789cd8178f3232a57fee34&defType=lucene
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=UTF-8
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - Winstone Servlet Engine v0.9.10
+      Content-Type:
+      - text/plain;charset=UTF-8
+      Connection:
+      - Close
+      Date:
+      - Tue, 17 Sep 2013 02:42:47 GMT
+      X-Powered-By:
+      - Servlet/2.5 (Winstone/0.9.10)
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        eydyZXNwb25zZUhlYWRlcic9Pnsnc3RhdHVzJz0+MCwnUVRpbWUnPT40LCdw
+        YXJhbXMnPT57J3EnPT4nc2hhc3VtOjAwY2RiMGY5NDVjMWUxZDdiNzc4OWNk
+        ODE3OGYzMjMyYTU3ZmVlMzQnLCd3dCc9PidydWJ5JywnZGVmVHlwZSc9Pids
+        dWNlbmUnfX0sJ3Jlc3BvbnNlJz0+eydudW1Gb3VuZCc9PjEsJ3N0YXJ0Jz0+
+        MCwnZG9jcyc9Plt7J2xpY2Vuc2UnPT4nwqkgQmxhY2t3ZWxsIFZlcmxhZyBH
+        bWJIJywnc2hhc3VtJz0+JzAwY2RiMGY5NDVjMWUxZDdiNzc4OWNkODE3OGYz
+        MjMyYTU3ZmVlMzQnLCdkb2knPT4nMTAuMTExMS9qLjE0MzktMDMxMC4yMDA2
+        LjAxMTM5LngnLCdhdXRob3JzJz0+J0plbm5pZmVyIEwuIFNuZWtzZXIsIFNj
+        b3R0IFAuIE1jUm9iZXJ0LCBDYWxlYiBFLiBNdXJwaHksIEV0aGFuIEQuIENs
+        b3RmZWx0ZXInLCd0aXRsZSc9PidBZ2dyZWdhdGlvbiBCZWhhdmlvciBpbiBX
+        aWxkdHlwZSBhbmQgVHJhbnNnZW5pYyBaZWJyYWZpc2gnLCdqb3VybmFsJz0+
+        J0V0aG9sb2d5JywneWVhcic9PicyMDA2Jywndm9sdW1lJz0+JzExMicsJ3Bh
+        Z2VzJz0+JzE4MS0xODcnfV19LCdmYWNldF9jb3VudHMnPT57J2ZhY2V0X3F1
+        ZXJpZXMnPT57J3llYXI6WyogVE8gMTc5OV0nPT4wLCd5ZWFyOlsxODAwIFRP
+        IDE4MDldJz0+MCwneWVhcjpbMTgxMCBUTyAxODE5XSc9PjAsJ3llYXI6WzE4
+        MjAgVE8gMTgyOV0nPT4wLCd5ZWFyOlsxODMwIFRPIDE4MzldJz0+MCwneWVh
+        cjpbMTg0MCBUTyAxODQ5XSc9PjAsJ3llYXI6WzE4NTAgVE8gMTg1OV0nPT4w
+        LCd5ZWFyOlsxODYwIFRPIDE4NjldJz0+MCwneWVhcjpbMTg3MCBUTyAxODc5
+        XSc9PjAsJ3llYXI6WzE4ODAgVE8gMTg4OV0nPT4wLCd5ZWFyOlsxODkwIFRP
+        IDE4OTldJz0+MCwneWVhcjpbMTkwMCBUTyAxOTA5XSc9PjAsJ3llYXI6WzE5
+        MTAgVE8gMTkxOV0nPT4wLCd5ZWFyOlsxOTIwIFRPIDE5MjldJz0+MCwneWVh
+        cjpbMTkzMCBUTyAxOTM5XSc9PjAsJ3llYXI6WzE5NDAgVE8gMTk0OV0nPT4w
+        LCd5ZWFyOlsxOTUwIFRPIDE5NTldJz0+MCwneWVhcjpbMTk2MCBUTyAxOTY5
+        XSc9PjAsJ3llYXI6WzE5NzAgVE8gMTk3OV0nPT4wLCd5ZWFyOlsxOTgwIFRP
+        IDE5ODldJz0+MCwneWVhcjpbMTk5MCBUTyAxOTk5XSc9PjAsJ3llYXI6WzIw
+        MDAgVE8gMjAwOV0nPT4xLCd5ZWFyOlsyMDEwIFRPICpdJz0+MH0sJ2ZhY2V0
+        X2ZpZWxkcyc9PnsnYXV0aG9yc19mYWNldCc9PlsnQ2FsZWIgRS4gTXVycGh5
+        JywxLCdFdGhhbiBELiBDbG90ZmVsdGVyJywxLCdKZW5uaWZlciBMLiBTbmVr
+        c2VyJywxLCdTY290dCBQLiBNY1JvYmVydCcsMSwnLiBOLiBNb3V0b24nLDAs
+        J0EgR3VvJywwLCdBIFBpY2tsZXMnLDAsJ0EuIEEuIEJhaWxleScsMCwnQS4g
+        QS4gRmllbmJlcmcnLDAsJ0EuIEEuIFBhbG1lcicsMF0sJ2pvdXJuYWxfZmFj
+        ZXQnPT5bJ0V0aG9sb2d5JywxLCdHZW5lcywgQnJhaW4gYW5kIEJlaGF2aW9y
+        JywwXX0sJ2ZhY2V0X2RhdGVzJz0+e30sJ2ZhY2V0X3Jhbmdlcyc9Pnt9fX0K
+    http_version: 
+  recorded_at: Tue, 17 Sep 2013 02:42:47 GMT
+- request:
+    method: post
+    uri: http://localhost:8983/search?wt=ruby
+    body:
+      encoding: US-ASCII
+      string: q=shasum%3A00dbffbfff2d18a74ed5f8895fa9f515bf38bf5f&defType=lucene
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=UTF-8
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - Winstone Servlet Engine v0.9.10
+      Content-Type:
+      - text/plain;charset=UTF-8
+      Connection:
+      - Close
+      Date:
+      - Tue, 17 Sep 2013 02:42:47 GMT
+      X-Powered-By:
+      - Servlet/2.5 (Winstone/0.9.10)
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        eydyZXNwb25zZUhlYWRlcic9Pnsnc3RhdHVzJz0+MCwnUVRpbWUnPT4zLCdw
+        YXJhbXMnPT57J3EnPT4nc2hhc3VtOjAwZGJmZmJmZmYyZDE4YTc0ZWQ1Zjg4
+        OTVmYTlmNTE1YmYzOGJmNWYnLCd3dCc9PidydWJ5JywnZGVmVHlwZSc9Pids
+        dWNlbmUnfX0sJ3Jlc3BvbnNlJz0+eydudW1Gb3VuZCc9PjEsJ3N0YXJ0Jz0+
+        MCwnZG9jcyc9Plt7J2xpY2Vuc2UnPT4nwqkgQmxhY2t3ZWxsIFZlcmxhZyBH
+        bWJIJywnc2hhc3VtJz0+JzAwZGJmZmJmZmYyZDE4YTc0ZWQ1Zjg4OTVmYTlm
+        NTE1YmYzOGJmNWYnLCdkb2knPT4nMTAuMTExMS9qLjE0MzktMDMxMC4yMDA3
+        LjAxNDIxLngnLCdhdXRob3JzJz0+J1Ryb3kgRy4gTXVycGh5JywndGl0bGUn
+        PT4nRGlzcGxheSBvZiBhbiBJbmVkaWJsZSBQcm9wIGFzIGEgU2lnbmFsIG9m
+        IEFnZ3Jlc3Npb24/IEFkYXB0aXZlIFNpZ25pZmljYW5jZSBvZiBMZWFmLURp
+        c3BsYXkgYnkgdGhlIFR1cnF1b2lzZS1Ccm93ZWQgTW90bW90LCBFdW1vbW90
+        YSBzdXBlcmNpbGlvc2EnLCdqb3VybmFsJz0+J0V0aG9sb2d5JywneWVhcic9
+        PicyMDA4Jywndm9sdW1lJz0+JzExNCcsJ3BhZ2VzJz0+JzE2LTIxJ31dfSwn
+        ZmFjZXRfY291bnRzJz0+eydmYWNldF9xdWVyaWVzJz0+eyd5ZWFyOlsqIFRP
+        IDE3OTldJz0+MCwneWVhcjpbMTgwMCBUTyAxODA5XSc9PjAsJ3llYXI6WzE4
+        MTAgVE8gMTgxOV0nPT4wLCd5ZWFyOlsxODIwIFRPIDE4MjldJz0+MCwneWVh
+        cjpbMTgzMCBUTyAxODM5XSc9PjAsJ3llYXI6WzE4NDAgVE8gMTg0OV0nPT4w
+        LCd5ZWFyOlsxODUwIFRPIDE4NTldJz0+MCwneWVhcjpbMTg2MCBUTyAxODY5
+        XSc9PjAsJ3llYXI6WzE4NzAgVE8gMTg3OV0nPT4wLCd5ZWFyOlsxODgwIFRP
+        IDE4ODldJz0+MCwneWVhcjpbMTg5MCBUTyAxODk5XSc9PjAsJ3llYXI6WzE5
+        MDAgVE8gMTkwOV0nPT4wLCd5ZWFyOlsxOTEwIFRPIDE5MTldJz0+MCwneWVh
+        cjpbMTkyMCBUTyAxOTI5XSc9PjAsJ3llYXI6WzE5MzAgVE8gMTkzOV0nPT4w
+        LCd5ZWFyOlsxOTQwIFRPIDE5NDldJz0+MCwneWVhcjpbMTk1MCBUTyAxOTU5
+        XSc9PjAsJ3llYXI6WzE5NjAgVE8gMTk2OV0nPT4wLCd5ZWFyOlsxOTcwIFRP
+        IDE5NzldJz0+MCwneWVhcjpbMTk4MCBUTyAxOTg5XSc9PjAsJ3llYXI6WzE5
+        OTAgVE8gMTk5OV0nPT4wLCd5ZWFyOlsyMDAwIFRPIDIwMDldJz0+MSwneWVh
+        cjpbMjAxMCBUTyAqXSc9PjB9LCdmYWNldF9maWVsZHMnPT57J2F1dGhvcnNf
+        ZmFjZXQnPT5bJ1Ryb3kgRy4gTXVycGh5JywxLCcuIE4uIE1vdXRvbicsMCwn
+        QSBHdW8nLDAsJ0EgUGlja2xlcycsMCwnQS4gQS4gQmFpbGV5JywwLCdBLiBB
+        LiBGaWVuYmVyZycsMCwnQS4gQS4gUGFsbWVyJywwLCdBLiBBLiBUdWRvci1K
+        b25lcycsMCwnQS4gQS4gV29uZycsMCwnQS4gQS4gdmFuIEVsYnVyZycsMF0s
+        J2pvdXJuYWxfZmFjZXQnPT5bJ0V0aG9sb2d5JywxLCdHZW5lcywgQnJhaW4g
+        YW5kIEJlaGF2aW9yJywwXX0sJ2ZhY2V0X2RhdGVzJz0+e30sJ2ZhY2V0X3Jh
+        bmdlcyc9Pnt9fX0K
+    http_version: 
+  recorded_at: Tue, 17 Sep 2013 02:42:47 GMT
+- request:
+    method: post
+    uri: http://localhost:8983/search?wt=ruby
+    body:
+      encoding: US-ASCII
+      string: q=shasum%3A00040b66948f49c3a6c6c0977530e2014899abf9&defType=lucene
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=UTF-8
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - Winstone Servlet Engine v0.9.10
+      Content-Type:
+      - text/plain;charset=UTF-8
+      Connection:
+      - Close
+      Date:
+      - Tue, 17 Sep 2013 02:42:47 GMT
+      X-Powered-By:
+      - Servlet/2.5 (Winstone/0.9.10)
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        eydyZXNwb25zZUhlYWRlcic9Pnsnc3RhdHVzJz0+MCwnUVRpbWUnPT4zLCdw
         YXJhbXMnPT57J3EnPT4nc2hhc3VtOjAwMDQwYjY2OTQ4ZjQ5YzNhNmM2YzA5
         Nzc1MzBlMjAxNDg5OWFiZjknLCd3dCc9PidydWJ5JywnZGVmVHlwZSc9Pids
         dWNlbmUnfX0sJ3Jlc3BvbnNlJz0+eydudW1Gb3VuZCc9PjEsJ3N0YXJ0Jz0+
@@ -58,14 +276,16 @@ http_interactions:
         Jz0+WydFdGhvbG9neScsMSwnR2VuZXMsIEJyYWluIGFuZCBCZWhhdmlvcics
         MF19LCdmYWNldF9kYXRlcyc9Pnt9LCdmYWNldF9yYW5nZXMnPT57fX19Cg==
     http_version: 
-  recorded_at: Wed, 14 Aug 2013 15:29:36 GMT
+  recorded_at: Tue, 17 Sep 2013 02:42:47 GMT
 - request:
-    method: get
-    uri: http://localhost:8983/search?defType=lucene&q=shasum:001954306c066a8a4cff3da02f7e9dda8e0fb634&wt=ruby
+    method: post
+    uri: http://localhost:8983/search?wt=ruby
     body:
       encoding: US-ASCII
-      string: ''
-    headers: {}
+      string: q=shasum%3A001954306c066a8a4cff3da02f7e9dda8e0fb634&defType=lucene
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=UTF-8
   response:
     status:
       code: 200
@@ -78,13 +298,13 @@ http_interactions:
       Connection:
       - Close
       Date:
-      - Wed, 14 Aug 2013 15:29:37 GMT
+      - Tue, 17 Sep 2013 02:42:47 GMT
       X-Powered-By:
       - Servlet/2.5 (Winstone/0.9.10)
     body:
       encoding: ASCII-8BIT
       string: !binary |-
-        eydyZXNwb25zZUhlYWRlcic9Pnsnc3RhdHVzJz0+MCwnUVRpbWUnPT4yLCdw
+        eydyZXNwb25zZUhlYWRlcic9Pnsnc3RhdHVzJz0+MCwnUVRpbWUnPT41LCdw
         YXJhbXMnPT57J3EnPT4nc2hhc3VtOjAwMTk1NDMwNmMwNjZhOGE0Y2ZmM2Rh
         MDJmN2U5ZGRhOGUwZmI2MzQnLCd3dCc9PidydWJ5JywnZGVmVHlwZSc9Pids
         dWNlbmUnfX0sJ3Jlc3BvbnNlJz0+eydudW1Gb3VuZCc9PjEsJ3N0YXJ0Jz0+
@@ -119,14 +339,16 @@ http_interactions:
         aGF2aW9yJywwXX0sJ2ZhY2V0X2RhdGVzJz0+e30sJ2ZhY2V0X3Jhbmdlcyc9
         Pnt9fX0K
     http_version: 
-  recorded_at: Wed, 14 Aug 2013 15:29:37 GMT
+  recorded_at: Tue, 17 Sep 2013 02:42:47 GMT
 - request:
-    method: get
-    uri: http://localhost:8983/search?defType=lucene&q=shasum:00496e7961871ad05013e1388aaa6650507b2638&wt=ruby
+    method: post
+    uri: http://localhost:8983/search?wt=ruby
     body:
       encoding: US-ASCII
-      string: ''
-    headers: {}
+      string: q=shasum%3A00496e7961871ad05013e1388aaa6650507b2638&defType=lucene
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=UTF-8
   response:
     status:
       code: 200
@@ -139,13 +361,13 @@ http_interactions:
       Connection:
       - Close
       Date:
-      - Wed, 14 Aug 2013 15:29:37 GMT
+      - Tue, 17 Sep 2013 02:42:47 GMT
       X-Powered-By:
       - Servlet/2.5 (Winstone/0.9.10)
     body:
       encoding: ASCII-8BIT
       string: !binary |-
-        eydyZXNwb25zZUhlYWRlcic9Pnsnc3RhdHVzJz0+MCwnUVRpbWUnPT4zLCdw
+        eydyZXNwb25zZUhlYWRlcic9Pnsnc3RhdHVzJz0+MCwnUVRpbWUnPT40LCdw
         YXJhbXMnPT57J3EnPT4nc2hhc3VtOjAwNDk2ZTc5NjE4NzFhZDA1MDEzZTEz
         ODhhYWE2NjUwNTA3YjI2MzgnLCd3dCc9PidydWJ5JywnZGVmVHlwZSc9Pids
         dWNlbmUnfX0sJ3Jlc3BvbnNlJz0+eydudW1Gb3VuZCc9PjEsJ3N0YXJ0Jz0+
@@ -176,14 +398,16 @@ http_interactions:
         ZXMsIEJyYWluIGFuZCBCZWhhdmlvcicsMF19LCdmYWNldF9kYXRlcyc9Pnt9
         LCdmYWNldF9yYW5nZXMnPT57fX19Cg==
     http_version: 
-  recorded_at: Wed, 14 Aug 2013 15:29:37 GMT
+  recorded_at: Tue, 17 Sep 2013 02:42:47 GMT
 - request:
-    method: get
-    uri: http://localhost:8983/search?defType=lucene&q=shasum:008896a5c58241b65088d931e02f3bea02fc3bf0&wt=ruby
+    method: post
+    uri: http://localhost:8983/search?wt=ruby
     body:
       encoding: US-ASCII
-      string: ''
-    headers: {}
+      string: q=shasum%3A008896a5c58241b65088d931e02f3bea02fc3bf0&defType=lucene
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=UTF-8
   response:
     status:
       code: 200
@@ -196,7 +420,7 @@ http_interactions:
       Connection:
       - Close
       Date:
-      - Wed, 14 Aug 2013 15:29:37 GMT
+      - Tue, 17 Sep 2013 02:42:47 GMT
       X-Powered-By:
       - Servlet/2.5 (Winstone/0.9.10)
     body:
@@ -239,14 +463,16 @@ http_interactions:
         Z3knLDEsJ0dlbmVzLCBCcmFpbiBhbmQgQmVoYXZpb3InLDBdfSwnZmFjZXRf
         ZGF0ZXMnPT57fSwnZmFjZXRfcmFuZ2VzJz0+e319fQo=
     http_version: 
-  recorded_at: Wed, 14 Aug 2013 15:29:37 GMT
+  recorded_at: Tue, 17 Sep 2013 02:42:47 GMT
 - request:
-    method: get
-    uri: http://localhost:8983/search?defType=lucene&q=shasum:00972c5123877961056b21aea4177d0dc69c7318&wt=ruby
+    method: post
+    uri: http://localhost:8983/search?wt=ruby
     body:
       encoding: US-ASCII
-      string: ''
-    headers: {}
+      string: q=shasum%3A0097c3434054c25e1ace6243a1ac54b71f35bc28&defType=lucene
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=UTF-8
   response:
     status:
       code: 200
@@ -259,74 +485,13 @@ http_interactions:
       Connection:
       - Close
       Date:
-      - Wed, 14 Aug 2013 15:29:37 GMT
+      - Tue, 17 Sep 2013 02:42:47 GMT
       X-Powered-By:
       - Servlet/2.5 (Winstone/0.9.10)
     body:
       encoding: ASCII-8BIT
       string: !binary |-
-        eydyZXNwb25zZUhlYWRlcic9Pnsnc3RhdHVzJz0+MCwnUVRpbWUnPT4yLCdw
-        YXJhbXMnPT57J3EnPT4nc2hhc3VtOjAwOTcyYzUxMjM4Nzc5NjEwNTZiMjFh
-        ZWE0MTc3ZDBkYzY5YzczMTgnLCd3dCc9PidydWJ5JywnZGVmVHlwZSc9Pids
-        dWNlbmUnfX0sJ3Jlc3BvbnNlJz0+eydudW1Gb3VuZCc9PjEsJ3N0YXJ0Jz0+
-        MCwnZG9jcyc9Plt7J2xpY2Vuc2UnPT4nwqkgQmxhY2t3ZWxsIFZlcmxhZyBH
-        bWJIJywnc2hhc3VtJz0+JzAwOTcyYzUxMjM4Nzc5NjEwNTZiMjFhZWE0MTc3
-        ZDBkYzY5YzczMTgnLCdkb2knPT4nMTAuMTExMS9qLjE0MzktMDMxMC4yMDA4
-        LjAxNTc2LngnLCdhdXRob3JzJz0+J0NhcmxvcyBBLiBCb3Rlcm8sIEFuZHJl
-        dyBFLiBNdWRnZSwgQW1hbmRhIE0uIEtvbHR6LCBXZXNsZXkgTS4gSG9jaGFj
-        aGthLCBTYW5kcmEgTC4gVmVocmVuY2FtcCcsJ3RpdGxlJz0+J0hvdyBSZWxp
-        YWJsZSBhcmUgdGhlIE1ldGhvZHMgZm9yIEVzdGltYXRpbmcgUmVwZXJ0b2ly
-        ZSBTaXplPycsJ2pvdXJuYWwnPT4nRXRob2xvZ3knLCd5ZWFyJz0+JzIwMDgn
-        LCd2b2x1bWUnPT4nMTE0JywncGFnZXMnPT4nMTIyNy0xMjM4J31dfSwnZmFj
-        ZXRfY291bnRzJz0+eydmYWNldF9xdWVyaWVzJz0+eyd5ZWFyOlsqIFRPIDE3
-        OTldJz0+MCwneWVhcjpbMTgwMCBUTyAxODA5XSc9PjAsJ3llYXI6WzE4MTAg
-        VE8gMTgxOV0nPT4wLCd5ZWFyOlsxODIwIFRPIDE4MjldJz0+MCwneWVhcjpb
-        MTgzMCBUTyAxODM5XSc9PjAsJ3llYXI6WzE4NDAgVE8gMTg0OV0nPT4wLCd5
-        ZWFyOlsxODUwIFRPIDE4NTldJz0+MCwneWVhcjpbMTg2MCBUTyAxODY5XSc9
-        PjAsJ3llYXI6WzE4NzAgVE8gMTg3OV0nPT4wLCd5ZWFyOlsxODgwIFRPIDE4
-        ODldJz0+MCwneWVhcjpbMTg5MCBUTyAxODk5XSc9PjAsJ3llYXI6WzE5MDAg
-        VE8gMTkwOV0nPT4wLCd5ZWFyOlsxOTEwIFRPIDE5MTldJz0+MCwneWVhcjpb
-        MTkyMCBUTyAxOTI5XSc9PjAsJ3llYXI6WzE5MzAgVE8gMTkzOV0nPT4wLCd5
-        ZWFyOlsxOTQwIFRPIDE5NDldJz0+MCwneWVhcjpbMTk1MCBUTyAxOTU5XSc9
-        PjAsJ3llYXI6WzE5NjAgVE8gMTk2OV0nPT4wLCd5ZWFyOlsxOTcwIFRPIDE5
-        NzldJz0+MCwneWVhcjpbMTk4MCBUTyAxOTg5XSc9PjAsJ3llYXI6WzE5OTAg
-        VE8gMTk5OV0nPT4wLCd5ZWFyOlsyMDAwIFRPIDIwMDldJz0+MSwneWVhcjpb
-        MjAxMCBUTyAqXSc9PjB9LCdmYWNldF9maWVsZHMnPT57J2F1dGhvcnNfZmFj
-        ZXQnPT5bJ0FtYW5kYSBNLiBLb2x0eicsMSwnQW5kcmV3IEUuIE11ZGdlJywx
-        LCdDYXJsb3MgQS4gQm90ZXJvJywxLCdTYW5kcmEgTC4gVmVocmVuY2FtcCcs
-        MSwnV2VzbGV5IE0uIEhvY2hhY2hrYScsMSwnLiBOLiBNb3V0b24nLDAsJ0Eg
-        R3VvJywwLCdBIFBpY2tsZXMnLDAsJ0EuIEEuIEJhaWxleScsMCwnQS4gQS4g
-        RmllbmJlcmcnLDBdLCdqb3VybmFsX2ZhY2V0Jz0+WydFdGhvbG9neScsMSwn
-        R2VuZXMsIEJyYWluIGFuZCBCZWhhdmlvcicsMF19LCdmYWNldF9kYXRlcyc9
-        Pnt9LCdmYWNldF9yYW5nZXMnPT57fX19Cg==
-    http_version: 
-  recorded_at: Wed, 14 Aug 2013 15:29:37 GMT
-- request:
-    method: get
-    uri: http://localhost:8983/search?defType=lucene&q=shasum:0097c3434054c25e1ace6243a1ac54b71f35bc28&wt=ruby
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers: {}
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Server:
-      - Winstone Servlet Engine v0.9.10
-      Content-Type:
-      - text/plain;charset=UTF-8
-      Connection:
-      - Close
-      Date:
-      - Wed, 14 Aug 2013 15:29:37 GMT
-      X-Powered-By:
-      - Servlet/2.5 (Winstone/0.9.10)
-    body:
-      encoding: ASCII-8BIT
-      string: !binary |-
-        eydyZXNwb25zZUhlYWRlcic9Pnsnc3RhdHVzJz0+MCwnUVRpbWUnPT4yLCdw
+        eydyZXNwb25zZUhlYWRlcic9Pnsnc3RhdHVzJz0+MCwnUVRpbWUnPT4zLCdw
         YXJhbXMnPT57J3EnPT4nc2hhc3VtOjAwOTdjMzQzNDA1NGMyNWUxYWNlNjI0
         M2ExYWM1NGI3MWYzNWJjMjgnLCd3dCc9PidydWJ5JywnZGVmVHlwZSc9Pids
         dWNlbmUnfX0sJ3Jlc3BvbnNlJz0+eydudW1Gb3VuZCc9PjEsJ3N0YXJ0Jz0+
@@ -361,14 +526,16 @@ http_interactions:
         bmVzLCBCcmFpbiBhbmQgQmVoYXZpb3InLDBdfSwnZmFjZXRfZGF0ZXMnPT57
         fSwnZmFjZXRfcmFuZ2VzJz0+e319fQo=
     http_version: 
-  recorded_at: Wed, 14 Aug 2013 15:29:37 GMT
+  recorded_at: Tue, 17 Sep 2013 02:42:47 GMT
 - request:
-    method: get
-    uri: http://localhost:8983/search?defType=lucene&q=shasum:0097e0f4029fef57b8158970112ab32c1e692cff&wt=ruby
+    method: post
+    uri: http://localhost:8983/search?wt=ruby
     body:
       encoding: US-ASCII
-      string: ''
-    headers: {}
+      string: q=shasum%3A0097e0f4029fef57b8158970112ab32c1e692cff&defType=lucene
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=UTF-8
   response:
     status:
       code: 200
@@ -381,13 +548,13 @@ http_interactions:
       Connection:
       - Close
       Date:
-      - Wed, 14 Aug 2013 15:29:37 GMT
+      - Tue, 17 Sep 2013 02:42:47 GMT
       X-Powered-By:
       - Servlet/2.5 (Winstone/0.9.10)
     body:
       encoding: ASCII-8BIT
       string: !binary |-
-        eydyZXNwb25zZUhlYWRlcic9Pnsnc3RhdHVzJz0+MCwnUVRpbWUnPT4yLCdw
+        eydyZXNwb25zZUhlYWRlcic9Pnsnc3RhdHVzJz0+MCwnUVRpbWUnPT4zLCdw
         YXJhbXMnPT57J3EnPT4nc2hhc3VtOjAwOTdlMGY0MDI5ZmVmNTdiODE1ODk3
         MDExMmFiMzJjMWU2OTJjZmYnLCd3dCc9PidydWJ5JywnZGVmVHlwZSc9Pids
         dWNlbmUnfX0sJ3Jlc3BvbnNlJz0+eydudW1Gb3VuZCc9PjEsJ3N0YXJ0Jz0+
@@ -421,185 +588,5 @@ http_interactions:
         ZWhhdmlvcicsMF19LCdmYWNldF9kYXRlcyc9Pnt9LCdmYWNldF9yYW5nZXMn
         PT57fX19Cg==
     http_version: 
-  recorded_at: Wed, 14 Aug 2013 15:29:37 GMT
-- request:
-    method: get
-    uri: http://localhost:8983/search?defType=lucene&q=shasum:00a004096479b9332b153e91053f09df8003ef74&wt=ruby
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers: {}
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Server:
-      - Winstone Servlet Engine v0.9.10
-      Content-Type:
-      - text/plain;charset=UTF-8
-      Connection:
-      - Close
-      Date:
-      - Wed, 14 Aug 2013 15:29:37 GMT
-      X-Powered-By:
-      - Servlet/2.5 (Winstone/0.9.10)
-    body:
-      encoding: ASCII-8BIT
-      string: !binary |-
-        eydyZXNwb25zZUhlYWRlcic9Pnsnc3RhdHVzJz0+MCwnUVRpbWUnPT4zLCdw
-        YXJhbXMnPT57J3EnPT4nc2hhc3VtOjAwYTAwNDA5NjQ3OWI5MzMyYjE1M2U5
-        MTA1M2YwOWRmODAwM2VmNzQnLCd3dCc9PidydWJ5JywnZGVmVHlwZSc9Pids
-        dWNlbmUnfX0sJ3Jlc3BvbnNlJz0+eydudW1Gb3VuZCc9PjEsJ3N0YXJ0Jz0+
-        MCwnZG9jcyc9Plt7J2xpY2Vuc2UnPT4nwqkgQmxhY2t3ZWxsIFZlcmxhZyBH
-        bWJIJywnc2hhc3VtJz0+JzAwYTAwNDA5NjQ3OWI5MzMyYjE1M2U5MTA1M2Yw
-        OWRmODAwM2VmNzQnLCdkb2knPT4nMTAuMTExMS9qLjE0MzktMDMxMC4xOTk4
-        LnRiMDAxMDMueCcsJ2F1dGhvcnMnPT4nUi4gSS4gTS4gRHVuYmFyLCBKdWxp
-        YW4gQmV2ZXInLCd0aXRsZSc9PidOZW9jb3J0ZXggU2l6ZSBQcmVkaWN0cyBH
-        cm91cCBTaXplIGluIENhcm5pdm9yZXMgYW5kIFNvbWUgSW5zZWN0aXZvcmVz
-        Jywnam91cm5hbCc9PidFdGhvbG9neScsJ3llYXInPT4nMTk5OCcsJ3ZvbHVt
-        ZSc9PicxMDQnLCdwYWdlcyc9Pic2OTUtNzA4J31dfSwnZmFjZXRfY291bnRz
-        Jz0+eydmYWNldF9xdWVyaWVzJz0+eyd5ZWFyOlsqIFRPIDE3OTldJz0+MCwn
-        eWVhcjpbMTgwMCBUTyAxODA5XSc9PjAsJ3llYXI6WzE4MTAgVE8gMTgxOV0n
-        PT4wLCd5ZWFyOlsxODIwIFRPIDE4MjldJz0+MCwneWVhcjpbMTgzMCBUTyAx
-        ODM5XSc9PjAsJ3llYXI6WzE4NDAgVE8gMTg0OV0nPT4wLCd5ZWFyOlsxODUw
-        IFRPIDE4NTldJz0+MCwneWVhcjpbMTg2MCBUTyAxODY5XSc9PjAsJ3llYXI6
-        WzE4NzAgVE8gMTg3OV0nPT4wLCd5ZWFyOlsxODgwIFRPIDE4ODldJz0+MCwn
-        eWVhcjpbMTg5MCBUTyAxODk5XSc9PjAsJ3llYXI6WzE5MDAgVE8gMTkwOV0n
-        PT4wLCd5ZWFyOlsxOTEwIFRPIDE5MTldJz0+MCwneWVhcjpbMTkyMCBUTyAx
-        OTI5XSc9PjAsJ3llYXI6WzE5MzAgVE8gMTkzOV0nPT4wLCd5ZWFyOlsxOTQw
-        IFRPIDE5NDldJz0+MCwneWVhcjpbMTk1MCBUTyAxOTU5XSc9PjAsJ3llYXI6
-        WzE5NjAgVE8gMTk2OV0nPT4wLCd5ZWFyOlsxOTcwIFRPIDE5NzldJz0+MCwn
-        eWVhcjpbMTk4MCBUTyAxOTg5XSc9PjAsJ3llYXI6WzE5OTAgVE8gMTk5OV0n
-        PT4xLCd5ZWFyOlsyMDAwIFRPIDIwMDldJz0+MCwneWVhcjpbMjAxMCBUTyAq
-        XSc9PjB9LCdmYWNldF9maWVsZHMnPT57J2F1dGhvcnNfZmFjZXQnPT5bJ0p1
-        bGlhbiBCZXZlcicsMSwnUi4gSS4gTS4gRHVuYmFyJywxLCcuIE4uIE1vdXRv
-        bicsMCwnQSBHdW8nLDAsJ0EgUGlja2xlcycsMCwnQS4gQS4gQmFpbGV5Jyww
-        LCdBLiBBLiBGaWVuYmVyZycsMCwnQS4gQS4gUGFsbWVyJywwLCdBLiBBLiBU
-        dWRvci1Kb25lcycsMCwnQS4gQS4gV29uZycsMF0sJ2pvdXJuYWxfZmFjZXQn
-        PT5bJ0V0aG9sb2d5JywxLCdHZW5lcywgQnJhaW4gYW5kIEJlaGF2aW9yJyww
-        XX0sJ2ZhY2V0X2RhdGVzJz0+e30sJ2ZhY2V0X3Jhbmdlcyc9Pnt9fX0K
-    http_version: 
-  recorded_at: Wed, 14 Aug 2013 15:29:37 GMT
-- request:
-    method: get
-    uri: http://localhost:8983/search?defType=lucene&q=shasum:00cdb0f945c1e1d7b7789cd8178f3232a57fee34&wt=ruby
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers: {}
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Server:
-      - Winstone Servlet Engine v0.9.10
-      Content-Type:
-      - text/plain;charset=UTF-8
-      Connection:
-      - Close
-      Date:
-      - Wed, 14 Aug 2013 15:29:37 GMT
-      X-Powered-By:
-      - Servlet/2.5 (Winstone/0.9.10)
-    body:
-      encoding: ASCII-8BIT
-      string: !binary |-
-        eydyZXNwb25zZUhlYWRlcic9Pnsnc3RhdHVzJz0+MCwnUVRpbWUnPT4zLCdw
-        YXJhbXMnPT57J3EnPT4nc2hhc3VtOjAwY2RiMGY5NDVjMWUxZDdiNzc4OWNk
-        ODE3OGYzMjMyYTU3ZmVlMzQnLCd3dCc9PidydWJ5JywnZGVmVHlwZSc9Pids
-        dWNlbmUnfX0sJ3Jlc3BvbnNlJz0+eydudW1Gb3VuZCc9PjEsJ3N0YXJ0Jz0+
-        MCwnZG9jcyc9Plt7J2xpY2Vuc2UnPT4nwqkgQmxhY2t3ZWxsIFZlcmxhZyBH
-        bWJIJywnc2hhc3VtJz0+JzAwY2RiMGY5NDVjMWUxZDdiNzc4OWNkODE3OGYz
-        MjMyYTU3ZmVlMzQnLCdkb2knPT4nMTAuMTExMS9qLjE0MzktMDMxMC4yMDA2
-        LjAxMTM5LngnLCdhdXRob3JzJz0+J0plbm5pZmVyIEwuIFNuZWtzZXIsIFNj
-        b3R0IFAuIE1jUm9iZXJ0LCBDYWxlYiBFLiBNdXJwaHksIEV0aGFuIEQuIENs
-        b3RmZWx0ZXInLCd0aXRsZSc9PidBZ2dyZWdhdGlvbiBCZWhhdmlvciBpbiBX
-        aWxkdHlwZSBhbmQgVHJhbnNnZW5pYyBaZWJyYWZpc2gnLCdqb3VybmFsJz0+
-        J0V0aG9sb2d5JywneWVhcic9PicyMDA2Jywndm9sdW1lJz0+JzExMicsJ3Bh
-        Z2VzJz0+JzE4MS0xODcnfV19LCdmYWNldF9jb3VudHMnPT57J2ZhY2V0X3F1
-        ZXJpZXMnPT57J3llYXI6WyogVE8gMTc5OV0nPT4wLCd5ZWFyOlsxODAwIFRP
-        IDE4MDldJz0+MCwneWVhcjpbMTgxMCBUTyAxODE5XSc9PjAsJ3llYXI6WzE4
-        MjAgVE8gMTgyOV0nPT4wLCd5ZWFyOlsxODMwIFRPIDE4MzldJz0+MCwneWVh
-        cjpbMTg0MCBUTyAxODQ5XSc9PjAsJ3llYXI6WzE4NTAgVE8gMTg1OV0nPT4w
-        LCd5ZWFyOlsxODYwIFRPIDE4NjldJz0+MCwneWVhcjpbMTg3MCBUTyAxODc5
-        XSc9PjAsJ3llYXI6WzE4ODAgVE8gMTg4OV0nPT4wLCd5ZWFyOlsxODkwIFRP
-        IDE4OTldJz0+MCwneWVhcjpbMTkwMCBUTyAxOTA5XSc9PjAsJ3llYXI6WzE5
-        MTAgVE8gMTkxOV0nPT4wLCd5ZWFyOlsxOTIwIFRPIDE5MjldJz0+MCwneWVh
-        cjpbMTkzMCBUTyAxOTM5XSc9PjAsJ3llYXI6WzE5NDAgVE8gMTk0OV0nPT4w
-        LCd5ZWFyOlsxOTUwIFRPIDE5NTldJz0+MCwneWVhcjpbMTk2MCBUTyAxOTY5
-        XSc9PjAsJ3llYXI6WzE5NzAgVE8gMTk3OV0nPT4wLCd5ZWFyOlsxOTgwIFRP
-        IDE5ODldJz0+MCwneWVhcjpbMTk5MCBUTyAxOTk5XSc9PjAsJ3llYXI6WzIw
-        MDAgVE8gMjAwOV0nPT4xLCd5ZWFyOlsyMDEwIFRPICpdJz0+MH0sJ2ZhY2V0
-        X2ZpZWxkcyc9PnsnYXV0aG9yc19mYWNldCc9PlsnQ2FsZWIgRS4gTXVycGh5
-        JywxLCdFdGhhbiBELiBDbG90ZmVsdGVyJywxLCdKZW5uaWZlciBMLiBTbmVr
-        c2VyJywxLCdTY290dCBQLiBNY1JvYmVydCcsMSwnLiBOLiBNb3V0b24nLDAs
-        J0EgR3VvJywwLCdBIFBpY2tsZXMnLDAsJ0EuIEEuIEJhaWxleScsMCwnQS4g
-        QS4gRmllbmJlcmcnLDAsJ0EuIEEuIFBhbG1lcicsMF0sJ2pvdXJuYWxfZmFj
-        ZXQnPT5bJ0V0aG9sb2d5JywxLCdHZW5lcywgQnJhaW4gYW5kIEJlaGF2aW9y
-        JywwXX0sJ2ZhY2V0X2RhdGVzJz0+e30sJ2ZhY2V0X3Jhbmdlcyc9Pnt9fX0K
-    http_version: 
-  recorded_at: Wed, 14 Aug 2013 15:29:37 GMT
-- request:
-    method: get
-    uri: http://localhost:8983/search?defType=lucene&q=shasum:00dbffbfff2d18a74ed5f8895fa9f515bf38bf5f&wt=ruby
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers: {}
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Server:
-      - Winstone Servlet Engine v0.9.10
-      Content-Type:
-      - text/plain;charset=UTF-8
-      Connection:
-      - Close
-      Date:
-      - Wed, 14 Aug 2013 15:29:37 GMT
-      X-Powered-By:
-      - Servlet/2.5 (Winstone/0.9.10)
-    body:
-      encoding: ASCII-8BIT
-      string: !binary |-
-        eydyZXNwb25zZUhlYWRlcic9Pnsnc3RhdHVzJz0+MCwnUVRpbWUnPT4yLCdw
-        YXJhbXMnPT57J3EnPT4nc2hhc3VtOjAwZGJmZmJmZmYyZDE4YTc0ZWQ1Zjg4
-        OTVmYTlmNTE1YmYzOGJmNWYnLCd3dCc9PidydWJ5JywnZGVmVHlwZSc9Pids
-        dWNlbmUnfX0sJ3Jlc3BvbnNlJz0+eydudW1Gb3VuZCc9PjEsJ3N0YXJ0Jz0+
-        MCwnZG9jcyc9Plt7J2xpY2Vuc2UnPT4nwqkgQmxhY2t3ZWxsIFZlcmxhZyBH
-        bWJIJywnc2hhc3VtJz0+JzAwZGJmZmJmZmYyZDE4YTc0ZWQ1Zjg4OTVmYTlm
-        NTE1YmYzOGJmNWYnLCdkb2knPT4nMTAuMTExMS9qLjE0MzktMDMxMC4yMDA3
-        LjAxNDIxLngnLCdhdXRob3JzJz0+J1Ryb3kgRy4gTXVycGh5JywndGl0bGUn
-        PT4nRGlzcGxheSBvZiBhbiBJbmVkaWJsZSBQcm9wIGFzIGEgU2lnbmFsIG9m
-        IEFnZ3Jlc3Npb24/IEFkYXB0aXZlIFNpZ25pZmljYW5jZSBvZiBMZWFmLURp
-        c3BsYXkgYnkgdGhlIFR1cnF1b2lzZS1Ccm93ZWQgTW90bW90LCBFdW1vbW90
-        YSBzdXBlcmNpbGlvc2EnLCdqb3VybmFsJz0+J0V0aG9sb2d5JywneWVhcic9
-        PicyMDA4Jywndm9sdW1lJz0+JzExNCcsJ3BhZ2VzJz0+JzE2LTIxJ31dfSwn
-        ZmFjZXRfY291bnRzJz0+eydmYWNldF9xdWVyaWVzJz0+eyd5ZWFyOlsqIFRP
-        IDE3OTldJz0+MCwneWVhcjpbMTgwMCBUTyAxODA5XSc9PjAsJ3llYXI6WzE4
-        MTAgVE8gMTgxOV0nPT4wLCd5ZWFyOlsxODIwIFRPIDE4MjldJz0+MCwneWVh
-        cjpbMTgzMCBUTyAxODM5XSc9PjAsJ3llYXI6WzE4NDAgVE8gMTg0OV0nPT4w
-        LCd5ZWFyOlsxODUwIFRPIDE4NTldJz0+MCwneWVhcjpbMTg2MCBUTyAxODY5
-        XSc9PjAsJ3llYXI6WzE4NzAgVE8gMTg3OV0nPT4wLCd5ZWFyOlsxODgwIFRP
-        IDE4ODldJz0+MCwneWVhcjpbMTg5MCBUTyAxODk5XSc9PjAsJ3llYXI6WzE5
-        MDAgVE8gMTkwOV0nPT4wLCd5ZWFyOlsxOTEwIFRPIDE5MTldJz0+MCwneWVh
-        cjpbMTkyMCBUTyAxOTI5XSc9PjAsJ3llYXI6WzE5MzAgVE8gMTkzOV0nPT4w
-        LCd5ZWFyOlsxOTQwIFRPIDE5NDldJz0+MCwneWVhcjpbMTk1MCBUTyAxOTU5
-        XSc9PjAsJ3llYXI6WzE5NjAgVE8gMTk2OV0nPT4wLCd5ZWFyOlsxOTcwIFRP
-        IDE5NzldJz0+MCwneWVhcjpbMTk4MCBUTyAxOTg5XSc9PjAsJ3llYXI6WzE5
-        OTAgVE8gMTk5OV0nPT4wLCd5ZWFyOlsyMDAwIFRPIDIwMDldJz0+MSwneWVh
-        cjpbMjAxMCBUTyAqXSc9PjB9LCdmYWNldF9maWVsZHMnPT57J2F1dGhvcnNf
-        ZmFjZXQnPT5bJ1Ryb3kgRy4gTXVycGh5JywxLCcuIE4uIE1vdXRvbicsMCwn
-        QSBHdW8nLDAsJ0EgUGlja2xlcycsMCwnQS4gQS4gQmFpbGV5JywwLCdBLiBB
-        LiBGaWVuYmVyZycsMCwnQS4gQS4gUGFsbWVyJywwLCdBLiBBLiBUdWRvci1K
-        b25lcycsMCwnQS4gQS4gV29uZycsMCwnQS4gQS4gdmFuIEVsYnVyZycsMF0s
-        J2pvdXJuYWxfZmFjZXQnPT5bJ0V0aG9sb2d5JywxLCdHZW5lcywgQnJhaW4g
-        YW5kIEJlaGF2aW9yJywwXX0sJ2ZhY2V0X2RhdGVzJz0+e30sJ2ZhY2V0X3Jh
-        bmdlcyc9Pnt9fX0K
-    http_version: 
-  recorded_at: Wed, 14 Aug 2013 15:29:37 GMT
+  recorded_at: Tue, 17 Sep 2013 02:42:47 GMT
 recorded_with: VCR 2.5.0

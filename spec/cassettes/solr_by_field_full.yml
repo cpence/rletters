@@ -1,12 +1,14 @@
 ---
 http_interactions:
 - request:
-    method: get
-    uri: http://localhost:8983/search?defType=lucene&facet=false&fl=shasum&group=true&group.field=year&q=*:*&wt=ruby
+    method: post
+    uri: http://localhost:8983/search?wt=ruby
     body:
       encoding: US-ASCII
-      string: ''
-    headers: {}
+      string: q=%2A%3A%2A&defType=lucene&group=true&group.field=year&fl=shasum&facet=false
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=UTF-8
   response:
     status:
       code: 200
@@ -19,13 +21,13 @@ http_interactions:
       Connection:
       - Close
       Date:
-      - Fri, 13 Sep 2013 18:54:48 GMT
+      - Mon, 16 Sep 2013 21:26:03 GMT
       X-Powered-By:
       - Servlet/2.5 (Winstone/0.9.10)
     body:
       encoding: UTF-8
       string: |
-        {'responseHeader'=>{'status'=>0,'QTime'=>4,'params'=>{'facet'=>'false','fl'=>'shasum','q'=>'*:*','group.field'=>'year','group'=>'true','wt'=>'ruby','defType'=>'lucene'}},'grouped'=>{'year'=>{'matches'=>1042,'groups'=>[{'groupValue'=>'2006','doclist'=>{'numFound'=>119,'start'=>0,'docs'=>[{'shasum'=>'2aed42dcdf4d98ee499a1d19b4a0d613b5377ad0'}]}},{'groupValue'=>'2004','doclist'=>{'numFound'=>73,'start'=>0,'docs'=>[{'shasum'=>'2af59bf6c5c8efa5b24eb937ac3c73ccc15d1278'}]}},{'groupValue'=>'2002','doclist'=>{'numFound'=>50,'start'=>0,'docs'=>[{'shasum'=>'2bbcb63f44deac772fac6fd0909ad087d44a6317'}]}},{'groupValue'=>'2009','doclist'=>{'numFound'=>104,'start'=>0,'docs'=>[{'shasum'=>'2bc0626948aaea992c33e5dc72be10e47ed3ba14'}]}},{'groupValue'=>'2000','doclist'=>{'numFound'=>31,'start'=>0,'docs'=>[{'shasum'=>'2beec90d247062d044ea94184e3509b2c64eebcf'}]}},{'groupValue'=>'2007','doclist'=>{'numFound'=>119,'start'=>0,'docs'=>[{'shasum'=>'2bff9a630025846e5a6707a0159054fd807e3108'}]}},{'groupValue'=>'2008','doclist'=>{'numFound'=>125,'start'=>0,'docs'=>[{'shasum'=>'2cd0e421adc22286e7c5c98201fd0b6609bb3f94'}]}},{'groupValue'=>'1999','doclist'=>{'numFound'=>30,'start'=>0,'docs'=>[{'shasum'=>'2d0e446d29577e07705e13825b69086c1f18188c'}]}},{'groupValue'=>'2010','doclist'=>{'numFound'=>108,'start'=>0,'docs'=>[{'shasum'=>'2d31cb22faf484e81ed17c59cd44270b0eb0f643'}]}},{'groupValue'=>'2005','doclist'=>{'numFound'=>63,'start'=>0,'docs'=>[{'shasum'=>'2d76e879de92e3678b94df0d174bc2c27029d5a5'}]}}]}}}
+        {'responseHeader'=>{'status'=>0,'QTime'=>2,'params'=>{'facet'=>'false','fl'=>'shasum','q'=>'*:*','group.field'=>'year','group'=>'true','wt'=>'ruby','defType'=>'lucene'}},'grouped'=>{'year'=>{'matches'=>1042,'groups'=>[{'groupValue'=>'2006','doclist'=>{'numFound'=>119,'start'=>0,'docs'=>[{'shasum'=>'2aed42dcdf4d98ee499a1d19b4a0d613b5377ad0'}]}},{'groupValue'=>'2004','doclist'=>{'numFound'=>73,'start'=>0,'docs'=>[{'shasum'=>'2af59bf6c5c8efa5b24eb937ac3c73ccc15d1278'}]}},{'groupValue'=>'2002','doclist'=>{'numFound'=>50,'start'=>0,'docs'=>[{'shasum'=>'2bbcb63f44deac772fac6fd0909ad087d44a6317'}]}},{'groupValue'=>'2009','doclist'=>{'numFound'=>104,'start'=>0,'docs'=>[{'shasum'=>'2bc0626948aaea992c33e5dc72be10e47ed3ba14'}]}},{'groupValue'=>'2000','doclist'=>{'numFound'=>31,'start'=>0,'docs'=>[{'shasum'=>'2beec90d247062d044ea94184e3509b2c64eebcf'}]}},{'groupValue'=>'2007','doclist'=>{'numFound'=>119,'start'=>0,'docs'=>[{'shasum'=>'2bff9a630025846e5a6707a0159054fd807e3108'}]}},{'groupValue'=>'2008','doclist'=>{'numFound'=>125,'start'=>0,'docs'=>[{'shasum'=>'2cd0e421adc22286e7c5c98201fd0b6609bb3f94'}]}},{'groupValue'=>'1999','doclist'=>{'numFound'=>30,'start'=>0,'docs'=>[{'shasum'=>'2d0e446d29577e07705e13825b69086c1f18188c'}]}},{'groupValue'=>'2010','doclist'=>{'numFound'=>108,'start'=>0,'docs'=>[{'shasum'=>'2d31cb22faf484e81ed17c59cd44270b0eb0f643'}]}},{'groupValue'=>'2005','doclist'=>{'numFound'=>63,'start'=>0,'docs'=>[{'shasum'=>'2d76e879de92e3678b94df0d174bc2c27029d5a5'}]}}]}}}
     http_version: 
-  recorded_at: Fri, 13 Sep 2013 18:54:48 GMT
+  recorded_at: Mon, 16 Sep 2013 21:26:03 GMT
 recorded_with: VCR 2.5.0

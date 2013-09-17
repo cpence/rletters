@@ -38,7 +38,7 @@ module Solr
           solr_query[:facet] = false
 
           search_result = Solr::Connection.search solr_query
-          fail 'Failed to get batch of results in count_by_field' unless search_result.num_hits == group.count
+          fail "Failed to get batch of results in count_by_field (wanted #{group.count} hits, got #{search_result.num_hits})" unless search_result.num_hits == group.count
 
           search_result.documents.each do |doc|
             key = get_field_for_grouping(doc, field)
@@ -59,6 +59,8 @@ module Solr
         solr_query[:facet] = false
 
         search_result = Solr::Connection.search_raw solr_query
+        fail 'Solr server did not return any grouped results' unless search_result['grouped']
+
         grouped = search_result['grouped'][field.to_s]
         fail 'Solr server did not return grouped results for field' unless grouped && grouped['matches']
         return {} if grouped['matches'] == 0

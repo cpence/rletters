@@ -5,6 +5,8 @@ module Jobs
 
     # Plot a dataset's members by year
     class PlotDates < Jobs::Analysis::Base
+      add_concern 'NormalizeDocumentCounts'
+
       # Export the date format data
       #
       # Like all view/multiexport jobs, this job saves its data out as a YAML
@@ -30,16 +32,25 @@ module Jobs
         @task = dataset.analysis_tasks.create(name: 'Plot dataset by date',
                                               job_type: 'PlotDates')
 
-        # Write out the dates to an array
-        dates = Solr::DataHelpers::count_by_field(dataset, :year).to_a
+        # Get the counts and normalize if requested
+        dates = Solr::DataHelpers::count_by_field(dataset, :year)
+        dates = normalize_document_counts(user, :year, dates)
+
+        dates = dates.to_a
         dates.each { |d| d[0] = Integer(d[0]) }
 
         # Sort by date
         dates = dates.sort_by { |y| y[0] }
 
+        # Save out the percentage value as well
+        output = { data: dates,
+                   percent: (normalize_doc_counts == 'on'),
+                   normalization_set: (@normalization_set ? @normalization_set.name : "Entire Corpus")
+                 }
+
         # Serialize out to YAML
         @task.result_file = Download.create_file('dates.yml') do |file|
-          file.write(dates.to_yaml)
+          file.write(output.to_yaml)
           file.close
         end
 

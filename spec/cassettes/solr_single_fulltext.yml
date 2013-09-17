@@ -1,12 +1,14 @@
 ---
 http_interactions:
 - request:
-    method: get
-    uri: http://localhost:8983/search?defType=lucene&fl=shasum,doi,license,license_url,authors,title,journal,year,volume,number,pages,fulltext&q=shasum:001954306c066a8a4cff3da02f7e9dda8e0fb634&tv=true&wt=ruby
+    method: post
+    uri: http://localhost:8983/search?wt=ruby
     body:
       encoding: US-ASCII
-      string: ''
-    headers: {}
+      string: q=shasum%3A001954306c066a8a4cff3da02f7e9dda8e0fb634&defType=lucene&tv=true&fl=shasum%2Cdoi%2Clicense%2Clicense_url%2Cauthors%2Ctitle%2Cjournal%2Cyear%2Cvolume%2Cnumber%2Cpages%2Cfulltext
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=UTF-8
   response:
     status:
       code: 200
@@ -19,13 +21,13 @@ http_interactions:
       Connection:
       - Close
       Date:
-      - Wed, 14 Aug 2013 15:12:33 GMT
+      - Tue, 17 Sep 2013 02:51:28 GMT
       X-Powered-By:
       - Servlet/2.5 (Winstone/0.9.10)
     body:
       encoding: ASCII-8BIT
       string: !binary |-
-        eydyZXNwb25zZUhlYWRlcic9Pnsnc3RhdHVzJz0+MCwnUVRpbWUnPT44LCdw
+        eydyZXNwb25zZUhlYWRlcic9Pnsnc3RhdHVzJz0+MCwnUVRpbWUnPT43LCdw
         YXJhbXMnPT57J2ZsJz0+J3NoYXN1bSxkb2ksbGljZW5zZSxsaWNlbnNlX3Vy
         bCxhdXRob3JzLHRpdGxlLGpvdXJuYWwseWVhcix2b2x1bWUsbnVtYmVyLHBh
         Z2VzLGZ1bGx0ZXh0JywncSc9PidzaGFzdW06MDAxOTU0MzA2YzA2NmE4YTRj
@@ -118,15 +120,17 @@ http_interactions:
         LFsncG9zaXRpb24nLDE5XSwnZGYnLDEsJ3RmLWlkZicsMS4wXSwndmVybGFn
         JyxbJ3RmJywxLCdwb3NpdGlvbnMnLFsncG9zaXRpb24nLDddLCdkZicsMjkz
         LCd0Zi1pZGYnLDAuMDAzNDEyOTY5MjgzMjc2NDUwNV1dXV19Cg==
-    http_version: 
-  recorded_at: Wed, 14 Aug 2013 15:12:33 GMT
+    http_version:
+  recorded_at: Tue, 17 Sep 2013 02:51:28 GMT
 - request:
-    method: get
-    uri: http://localhost:8983/search?defType=lucene&fl=shasum,doi,license,license_url,authors,title,journal,year,volume,number,pages,fulltext&q=shasum:00496e7961871ad05013e1388aaa6650507b2638&tv=true&wt=ruby
+    method: post
+    uri: http://localhost:8983/search?wt=ruby
     body:
       encoding: US-ASCII
-      string: ''
-    headers: {}
+      string: q=shasum%3A00496e7961871ad05013e1388aaa6650507b2638&defType=lucene&tv=true&fl=shasum%2Cdoi%2Clicense%2Clicense_url%2Cauthors%2Ctitle%2Cjournal%2Cyear%2Cvolume%2Cnumber%2Cpages%2Cfulltext
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=UTF-8
   response:
     status:
       code: 200
@@ -139,301 +143,1058 @@ http_interactions:
       Connection:
       - Close
       Date:
-      - Wed, 14 Aug 2013 15:12:34 GMT
-      X-Powered-By:
-      - Servlet/2.5 (Winstone/0.9.10)
-    body:
-      encoding: UTF-8
-      string: |
-        {'responseHeader'=>{'status'=>0,'QTime'=>10,'params'=>{'fl'=>'shasum,doi,license,license_url,authors,title,journal,year,volume,number,pages,fulltext','q'=>'shasum:00496e7961871ad05013e1388aaa6650507b2638','tv'=>'true','wt'=>'ruby','defType'=>'lucene'}},'response'=>{'numFound'=>1,'start'=>0,'docs'=>[{'license'=>'© Blackwell Verlag GmbH','shasum'=>'00496e7961871ad05013e1388aaa6650507b2638','doi'=>'10.1046/j.1439-0310.2000.00539.x','title'=>'New Books','journal'=>'Ethology','year'=>'2000','volume'=>'106','pages'=>'283-286','fulltext'=>'Ethology 106, 283-286 (2000) © 2000 Blackwell Wissenschafts-Verlag, Berlin ISSN 0179-1613
-        New Books
-        Ziegler, T. & Böhme, W. 1997: Genitalstrukturen und Paarungsbiologie bei squa-maten Reptilien, spezi'}]},'facet_counts'=>{'facet_queries'=>{'year:[* TO 1799]'=>0,'year:[1800 TO 1809]'=>0,'year:[1810 TO 1819]'=>0,'year:[1820 TO 1829]'=>0,'year:[1830 TO 1839]'=>0,'year:[1840 TO 1849]'=>0,'year:[1850 TO 1859]'=>0,'year:[1860 TO 1869]'=>0,'year:[1870 TO 1879]'=>0,'year:[1880 TO 1889]'=>0,'year:[1890 TO 1899]'=>0,'year:[1900 TO 1909]'=>0,'year:[1910 TO 1919]'=>0,'year:[1920 TO 1929]'=>0,'year:[1930 TO 1939]'=>0,'year:[1940 TO 1949]'=>0,'year:[1950 TO 1959]'=>0,'year:[1960 TO 1969]'=>0,'year:[1970 TO 1979]'=>0,'year:[1980 TO 1989]'=>0,'year:[1990 TO 1999]'=>0,'year:[2000 TO 2009]'=>1,'year:[2010 TO *]'=>0},'facet_fields'=>{'authors_facet'=>['. N. Mouton',0,'A Guo',0,'A Pickles',0,'A. A. Bailey',0,'A. A. Fienberg',0,'A. A. Palmer',0,'A. A. Tudor-Jones',0,'A. A. Wong',0,'A. A. van Elburg',0,'A. Agmo',0],'journal_facet'=>['Ethology',1,'Genes, Brain and Behavior',0]},'facet_dates'=>{},'facet_ranges'=>{}},'termVectors'=>['uniqueKeyFieldName','shasum','00496e7961871ad05013e1388aaa6650507b2638',['uniqueKey','00496e7961871ad05013e1388aaa6650507b2638','fulltext',['0179-1613',['tf',1,'positions',['position',10],'df',266,'tf-idf',0.0037593984962406013],'106',['tf',1,'positions',['position',1],'df',30,'tf-idf',0.03333333333333333],'1997',['tf',1,'positions',['position',17],'df',38,'tf-idf',0.02631578947368421],'2000',['tf',2,'positions',['position',3,'position',4],'df',33,'tf-idf',0.06060606060606061],'283-286',['tf',1,'positions',['position',2],'df',1,'tf-idf',1.0],'bei',['tf',1,'positions',['position',21],'df',1,'tf-idf',1.0],'berlin',['tf',1,'positions',['position',8],'df',293,'tf-idf',0.0034129692832764505],'blackwell',['tf',1,'positions',['position',5],'df',573,'tf-idf',0.0017452006980802793],'books',['tf',1,'positions',['position',12],'df',14,'tf-idf',0.07142857142857142],'böhme',['tf',1,'positions',['position',15],'df',1,'tf-idf',1.0],'ethology',['tf',1,'positions',['position',0],'df',579,'tf-idf',0.0017271157167530224],'genitalstrukturen',['tf',1,'positions',['position',18],'df',1,'tf-idf',1.0],'issn',['tf',1,'positions',['position',9],'df',308,'tf-idf',0.003246753246753247],'maten',['tf',1,'positions',['position',23],'df',1,'tf-idf',1.0],'new',['tf',1,'positions',['position',11],'df',36,'tf-idf',0.027777777777777776],'paarungsbiologie',['tf',1,'positions',['position',20],'df',1,'tf-idf',1.0],'reptilien',['tf',1,'positions',['position',24],'df',1,'tf-idf',1.0],'spezi',['tf',1,'positions',['position',25],'df',1,'tf-idf',1.0],'squa',['tf',1,'positions',['position',22],'df',1,'tf-idf',1.0],'t',['tf',1,'positions',['position',14],'df',46,'tf-idf',0.021739130434782608],'und',['tf',1,'positions',['position',19],'df',4,'tf-idf',0.25],'verlag',['tf',1,'positions',['position',7],'df',293,'tf-idf',0.0034129692832764505],'w',['tf',1,'positions',['position',16],'df',22,'tf-idf',0.045454545454545456],'wissenschafts',['tf',1,'positions',['position',6],'df',167,'tf-idf',0.005988023952095809],'ziegler',['tf',1,'positions',['position',13],'df',1,'tf-idf',1.0]]]]}
-    http_version: 
-  recorded_at: Wed, 14 Aug 2013 15:12:34 GMT
-- request:
-    method: get
-    uri: http://localhost:8983/search?defType=lucene&fl=shasum,doi,license,license_url,authors,title,journal,year,volume,number,pages,fulltext&q=shasum:008896a5c58241b65088d931e02f3bea02fc3bf0&tv=true&wt=ruby
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers: {}
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Server:
-      - Winstone Servlet Engine v0.9.10
-      Content-Type:
-      - text/plain;charset=UTF-8
-      Connection:
-      - Close
-      Date:
-      - Wed, 14 Aug 2013 15:12:34 GMT
-      X-Powered-By:
-      - Servlet/2.5 (Winstone/0.9.10)
-    body:
-      encoding: UTF-8
-      string: |
-        {'responseHeader'=>{'status'=>0,'QTime'=>11,'params'=>{'fl'=>'shasum,doi,license,license_url,authors,title,journal,year,volume,number,pages,fulltext','q'=>'shasum:008896a5c58241b65088d931e02f3bea02fc3bf0','tv'=>'true','wt'=>'ruby','defType'=>'lucene'}},'response'=>{'numFound'=>1,'start'=>0,'docs'=>[{'license'=>'© Blackwell Verlag GmbH','shasum'=>'008896a5c58241b65088d931e02f3bea02fc3bf0','doi'=>'10.1111/j.1439-0310.2009.01716.x','authors'=>'Juan Moreno, Juan-Gabriel Martínez, Judith Morales, Elisa Lobato, Santiago Merino, Gustavo Tomás, Rodrigo A. Vásquez, Erich Möstl, José L. Osorno','title'=>'Paternity Loss in Relation to Male Age, Territorial Behaviour and Stress in the Pied Flycatcher','journal'=>'Ethology','year'=>'2010','volume'=>'116','pages'=>'76-84','fulltext'=>'Ethology
-        Paternity Loss in Relation to Male Age, Territorial Behaviour and Stress in the Pied Flycatcher
-        Juan Moreno*, Juan-Gabriel Martínez!, Judith Morales*, Elisa Lobato*, Santiago Merino*, Gustavo'}]},'facet_counts'=>{'facet_queries'=>{'year:[* TO 1799]'=>0,'year:[1800 TO 1809]'=>0,'year:[1810 TO 1819]'=>0,'year:[1820 TO 1829]'=>0,'year:[1830 TO 1839]'=>0,'year:[1840 TO 1849]'=>0,'year:[1850 TO 1859]'=>0,'year:[1860 TO 1869]'=>0,'year:[1870 TO 1879]'=>0,'year:[1880 TO 1889]'=>0,'year:[1890 TO 1899]'=>0,'year:[1900 TO 1909]'=>0,'year:[1910 TO 1919]'=>0,'year:[1920 TO 1929]'=>0,'year:[1930 TO 1939]'=>0,'year:[1940 TO 1949]'=>0,'year:[1950 TO 1959]'=>0,'year:[1960 TO 1969]'=>0,'year:[1970 TO 1979]'=>0,'year:[1980 TO 1989]'=>0,'year:[1990 TO 1999]'=>0,'year:[2000 TO 2009]'=>0,'year:[2010 TO *]'=>1},'facet_fields'=>{'authors_facet'=>['Elisa Lobato',1,'Erich Möstl',1,'Gustavo Tomás',1,'José L. Osorno',1,'Juan Moreno',1,'Juan-Gabriel Martínez',1,'Judith Morales',1,'Rodrigo A. Vásquez',1,'Santiago Merino',1,'. N. Mouton',0],'journal_facet'=>['Ethology',1,'Genes, Brain and Behavior',0]},'facet_dates'=>{},'facet_ranges'=>{}},'termVectors'=>['uniqueKeyFieldName','shasum','008896a5c58241b65088d931e02f3bea02fc3bf0',['uniqueKey','008896a5c58241b65088d931e02f3bea02fc3bf0','fulltext',['age',['tf',1,'positions',['position',7],'df',13,'tf-idf',0.07692307692307693],'and',['tf',1,'positions',['position',10],'df',747,'tf-idf',0.0013386880856760374],'behaviour',['tf',1,'positions',['position',9],'df',34,'tf-idf',0.029411764705882353],'elisa',['tf',1,'positions',['position',23],'df',1,'tf-idf',1.0],'ethology',['tf',1,'positions',['position',0],'df',579,'tf-idf',0.0017271157167530224],'flycatcher',['tf',1,'positions',['position',15],'df',2,'tf-idf',0.5],'gabriel',['tf',1,'positions',['position',19],'df',1,'tf-idf',1.0],'gustavo',['tf',1,'positions',['position',27],'df',2,'tf-idf',0.5],'in',['tf',2,'positions',['position',3,'position',12],'df',498,'tf-idf',0.004016064257028112],'juan',['tf',2,'positions',['position',16,'position',18],'df',3,'tf-idf',0.6666666666666666],'judith',['tf',1,'positions',['position',21],'df',1,'tf-idf',1.0],'lobato',['tf',1,'positions',['position',24],'df',1,'tf-idf',1.0],'loss',['tf',1,'positions',['position',2],'df',3,'tf-idf',0.3333333333333333],'male',['tf',1,'positions',['position',6],'df',71,'tf-idf',0.014084507042253521],'martínez',['tf',1,'positions',['position',20],'df',2,'tf-idf',0.5],'merino',['tf',1,'positions',['position',26],'df',1,'tf-idf',1.0],'morales',['tf',1,'positions',['position',22],'df',1,'tf-idf',1.0],'moreno',['tf',1,'positions',['position',17],'df',1,'tf-idf',1.0],'paternity',['tf',1,'positions',['position',1],'df',3,'tf-idf',0.3333333333333333],'pied',['tf',1,'positions',['position',14],'df',2,'tf-idf',0.5],'relation',['tf',1,'positions',['position',4],'df',7,'tf-idf',0.14285714285714285],'santiago',['tf',1,'positions',['position',25],'df',1,'tf-idf',1.0],'stress',['tf',1,'positions',['position',11],'df',6,'tf-idf',0.16666666666666666],'territorial',['tf',1,'positions',['position',8],'df',8,'tf-idf',0.125],'the',['tf',1,'positions',['position',13],'df',625,'tf-idf',0.0016],'to',['tf',1,'positions',['position',5],'df',119,'tf-idf',0.008403361344537815]]]]}
-    http_version: 
-  recorded_at: Wed, 14 Aug 2013 15:12:34 GMT
-- request:
-    method: get
-    uri: http://localhost:8983/search?defType=lucene&fl=shasum,doi,license,license_url,authors,title,journal,year,volume,number,pages,fulltext&q=shasum:0097c3434054c25e1ace6243a1ac54b71f35bc28&tv=true&wt=ruby
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers: {}
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Server:
-      - Winstone Servlet Engine v0.9.10
-      Content-Type:
-      - text/plain;charset=UTF-8
-      Connection:
-      - Close
-      Date:
-      - Wed, 14 Aug 2013 15:12:34 GMT
-      X-Powered-By:
-      - Servlet/2.5 (Winstone/0.9.10)
-    body:
-      encoding: UTF-8
-      string: |
-        {'responseHeader'=>{'status'=>0,'QTime'=>11,'params'=>{'fl'=>'shasum,doi,license,license_url,authors,title,journal,year,volume,number,pages,fulltext','q'=>'shasum:0097c3434054c25e1ace6243a1ac54b71f35bc28','tv'=>'true','wt'=>'ruby','defType'=>'lucene'}},'response'=>{'numFound'=>1,'start'=>0,'docs'=>[{'license'=>'© Blackwell Verlag GmbH','shasum'=>'0097c3434054c25e1ace6243a1ac54b71f35bc28','doi'=>'10.1046/j.1439-0310.2001.00723.x','authors'=>'Susan Bartmann, Gabriele Gerlach','title'=>'Multiple Paternity and Similar Variance in Reproductive Success of Male and Female Wood Mice (Apodemus sylvaticus) Housed in an Enclosure','journal'=>'Ethology','year'=>'2001','volume'=>'107','pages'=>'889-899','fulltext'=>'Ethology 107, 889—899 (2001) © 2001 Blackwell Wissenschafts-Verlag, Berlin ISSN 0179-1613
-        Fak. Biologie, Universität Konstanz, Konstanz
-        Multiple Paternity and Similar Variance in Reproductive Success '}]},'facet_counts'=>{'facet_queries'=>{'year:[* TO 1799]'=>0,'year:[1800 TO 1809]'=>0,'year:[1810 TO 1819]'=>0,'year:[1820 TO 1829]'=>0,'year:[1830 TO 1839]'=>0,'year:[1840 TO 1849]'=>0,'year:[1850 TO 1859]'=>0,'year:[1860 TO 1869]'=>0,'year:[1870 TO 1879]'=>0,'year:[1880 TO 1889]'=>0,'year:[1890 TO 1899]'=>0,'year:[1900 TO 1909]'=>0,'year:[1910 TO 1919]'=>0,'year:[1920 TO 1929]'=>0,'year:[1930 TO 1939]'=>0,'year:[1940 TO 1949]'=>0,'year:[1950 TO 1959]'=>0,'year:[1960 TO 1969]'=>0,'year:[1970 TO 1979]'=>0,'year:[1980 TO 1989]'=>0,'year:[1990 TO 1999]'=>0,'year:[2000 TO 2009]'=>1,'year:[2010 TO *]'=>0},'facet_fields'=>{'authors_facet'=>['Gabriele Gerlach',1,'Susan Bartmann',1,'. N. Mouton',0,'A Guo',0,'A Pickles',0,'A. A. Bailey',0,'A. A. Fienberg',0,'A. A. Palmer',0,'A. A. Tudor-Jones',0,'A. A. Wong',0],'journal_facet'=>['Ethology',1,'Genes, Brain and Behavior',0]},'facet_dates'=>{},'facet_ranges'=>{}},'termVectors'=>['uniqueKeyFieldName','shasum','0097c3434054c25e1ace6243a1ac54b71f35bc28',['uniqueKey','0097c3434054c25e1ace6243a1ac54b71f35bc28','fulltext',['0179-1613',['tf',1,'positions',['position',11],'df',266,'tf-idf',0.0037593984962406013],'107',['tf',1,'positions',['position',1],'df',35,'tf-idf',0.02857142857142857],'2001',['tf',2,'positions',['position',4,'position',5],'df',39,'tf-idf',0.05128205128205128],'889',['tf',1,'positions',['position',2],'df',1,'tf-idf',1.0],'899',['tf',1,'positions',['position',3],'df',1,'tf-idf',1.0],'and',['tf',1,'positions',['position',19],'df',747,'tf-idf',0.0013386880856760374],'berlin',['tf',1,'positions',['position',9],'df',293,'tf-idf',0.0034129692832764505],'biologie',['tf',1,'positions',['position',13],'df',6,'tf-idf',0.16666666666666666],'blackwell',['tf',1,'positions',['position',6],'df',573,'tf-idf',0.0017452006980802793],'ethology',['tf',1,'positions',['position',0],'df',579,'tf-idf',0.0017271157167530224],'fak',['tf',1,'positions',['position',12],'df',1,'tf-idf',1.0],'in',['tf',1,'positions',['position',22],'df',498,'tf-idf',0.002008032128514056],'issn',['tf',1,'positions',['position',10],'df',308,'tf-idf',0.003246753246753247],'konstanz',['tf',2,'positions',['position',15,'position',16],'df',1,'tf-idf',2.0],'multiple',['tf',1,'positions',['position',17],'df',13,'tf-idf',0.07692307692307693],'paternity',['tf',1,'positions',['position',18],'df',3,'tf-idf',0.3333333333333333],'reproductive',['tf',1,'positions',['position',23],'df',24,'tf-idf',0.041666666666666664],'similar',['tf',1,'positions',['position',20],'df',1,'tf-idf',1.0],'success',['tf',1,'positions',['position',24],'df',11,'tf-idf',0.09090909090909091],'universität',['tf',1,'positions',['position',14],'df',12,'tf-idf',0.08333333333333333],'variance',['tf',1,'positions',['position',21],'df',3,'tf-idf',0.3333333333333333],'verlag',['tf',1,'positions',['position',8],'df',293,'tf-idf',0.0034129692832764505],'wissenschafts',['tf',1,'positions',['position',7],'df',167,'tf-idf',0.005988023952095809]]]]}
-    http_version: 
-  recorded_at: Wed, 14 Aug 2013 15:12:34 GMT
-- request:
-    method: get
-    uri: http://localhost:8983/search?defType=lucene&fl=shasum,doi,license,license_url,authors,title,journal,year,volume,number,pages,fulltext&q=shasum:0097e0f4029fef57b8158970112ab32c1e692cff&tv=true&wt=ruby
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers: {}
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Server:
-      - Winstone Servlet Engine v0.9.10
-      Content-Type:
-      - text/plain;charset=UTF-8
-      Connection:
-      - Close
-      Date:
-      - Wed, 14 Aug 2013 15:12:34 GMT
-      X-Powered-By:
-      - Servlet/2.5 (Winstone/0.9.10)
-    body:
-      encoding: UTF-8
-      string: "{'responseHeader'=>{'status'=>0,'QTime'=>10,'params'=>{'fl'=>'shasum,doi,license,license_url,authors,title,journal,year,volume,number,pages,fulltext','q'=>'shasum:0097e0f4029fef57b8158970112ab32c1e692cff','tv'=>'true','wt'=>'ruby','defType'=>'lucene'}},'response'=>{'numFound'=>1,'start'=>0,'docs'=>[{'license'=>'©
-        Blackwell Verlag GmbH','shasum'=>'0097e0f4029fef57b8158970112ab32c1e692cff','doi'=>'10.1111/j.1439-0310.2011.01898.x','authors'=>'Pavol
-        Prokop, Michael R. Maxwell','title'=>'Sexual Conflict Over Spermatophore Attachment
-        in a Nuptially Feeding Cricket','journal'=>'Ethology','year'=>'2011','volume'=>'117','pages'=>'520-528','fulltext'=>'ethology\ninternational
-        journal of behavioural biology\tM?:*\nEthology\nSexual Conflict Over Spermatophore
-        Attachment in a Nuptially Feeding Cricket\nPavol Prokop*f & Michael R. Maxwell}\n*
-        Department of Bi'}]},'facet_counts'=>{'facet_queries'=>{'year:[* TO 1799]'=>0,'year:[1800
-        TO 1809]'=>0,'year:[1810 TO 1819]'=>0,'year:[1820 TO 1829]'=>0,'year:[1830
-        TO 1839]'=>0,'year:[1840 TO 1849]'=>0,'year:[1850 TO 1859]'=>0,'year:[1860
-        TO 1869]'=>0,'year:[1870 TO 1879]'=>0,'year:[1880 TO 1889]'=>0,'year:[1890
-        TO 1899]'=>0,'year:[1900 TO 1909]'=>0,'year:[1910 TO 1919]'=>0,'year:[1920
-        TO 1929]'=>0,'year:[1930 TO 1939]'=>0,'year:[1940 TO 1949]'=>0,'year:[1950
-        TO 1959]'=>0,'year:[1960 TO 1969]'=>0,'year:[1970 TO 1979]'=>0,'year:[1980
-        TO 1989]'=>0,'year:[1990 TO 1999]'=>0,'year:[2000 TO 2009]'=>0,'year:[2010
-        TO *]'=>1},'facet_fields'=>{'authors_facet'=>['Michael R. Maxwell',1,'Pavol
-        Prokop',1,'. N. Mouton',0,'A Guo',0,'A Pickles',0,'A. A. Bailey',0,'A. A.
-        Fienberg',0,'A. A. Palmer',0,'A. A. Tudor-Jones',0,'A. A. Wong',0],'journal_facet'=>['Ethology',1,'Genes,
-        Brain and Behavior',0]},'facet_dates'=>{},'facet_ranges'=>{}},'termVectors'=>['uniqueKeyFieldName','shasum','0097e0f4029fef57b8158970112ab32c1e692cff',['uniqueKey','0097e0f4029fef57b8158970112ab32c1e692cff','fulltext',['a',['tf',1,'positions',['position',14],'df',246,'tf-idf',0.0040650406504065045],'attachment',['tf',1,'positions',['position',12],'df',3,'tf-idf',0.3333333333333333],'behavioural',['tf',1,'positions',['position',4],'df',254,'tf-idf',0.003937007874015748],'bi',['tf',1,'positions',['position',26],'df',2,'tf-idf',0.5],'biology',['tf',1,'positions',['position',5],'df',131,'tf-idf',0.007633587786259542],'conflict',['tf',1,'positions',['position',9],'df',10,'tf-idf',0.1],'cricket',['tf',1,'positions',['position',17],'df',6,'tf-idf',0.16666666666666666],'department',['tf',1,'positions',['position',24],'df',179,'tf-idf',0.00558659217877095],'ethology',['tf',2,'positions',['position',0,'position',7],'df',579,'tf-idf',0.0034542314335060447],'f',['tf',1,'positions',['position',20],'df',74,'tf-idf',0.013513513513513514],'feeding',['tf',1,'positions',['position',16],'df',11,'tf-idf',0.09090909090909091],'in',['tf',1,'positions',['position',13],'df',498,'tf-idf',0.002008032128514056],'international',['tf',1,'positions',['position',1],'df',228,'tf-idf',0.0043859649122807015],'journal',['tf',1,'positions',['position',2],'df',285,'tf-idf',0.0035087719298245615],'m',['tf',1,'positions',['position',6],'df',119,'tf-idf',0.008403361344537815],'maxwell',['tf',1,'positions',['position',23],'df',1,'tf-idf',1.0],'michael',['tf',1,'positions',['position',21],'df',14,'tf-idf',0.07142857142857142],'nuptially',['tf',1,'positions',['position',15],'df',1,'tf-idf',1.0],'of',['tf',2,'positions',['position',3,'position',25],'df',765,'tf-idf',0.00261437908496732],'over',['tf',1,'positions',['position',10],'df',7,'tf-idf',0.14285714285714285],'pavol',['tf',1,'positions',['position',18],'df',3,'tf-idf',0.3333333333333333],'prokop',['tf',1,'positions',['position',19],'df',2,'tf-idf',0.5],'r',['tf',1,'positions',['position',22],'df',49,'tf-idf',0.02040816326530612],'sexual',['tf',1,'positions',['position',8],'df',22,'tf-idf',0.045454545454545456],'spermatophore',['tf',1,'positions',['position',11],'df',2,'tf-idf',0.5]]]]}\n"
-    http_version: 
-  recorded_at: Wed, 14 Aug 2013 15:12:34 GMT
-- request:
-    method: get
-    uri: http://localhost:8983/search?defType=lucene&fl=shasum,doi,license,license_url,authors,title,journal,year,volume,number,pages,fulltext&q=shasum:00a004096479b9332b153e91053f09df8003ef74&tv=true&wt=ruby
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers: {}
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Server:
-      - Winstone Servlet Engine v0.9.10
-      Content-Type:
-      - text/plain;charset=UTF-8
-      Connection:
-      - Close
-      Date:
-      - Wed, 14 Aug 2013 15:12:34 GMT
-      X-Powered-By:
-      - Servlet/2.5 (Winstone/0.9.10)
-    body:
-      encoding: UTF-8
-      string: |
-        {'responseHeader'=>{'status'=>0,'QTime'=>10,'params'=>{'fl'=>'shasum,doi,license,license_url,authors,title,journal,year,volume,number,pages,fulltext','q'=>'shasum:00a004096479b9332b153e91053f09df8003ef74','tv'=>'true','wt'=>'ruby','defType'=>'lucene'}},'response'=>{'numFound'=>1,'start'=>0,'docs'=>[{'license'=>'© Blackwell Verlag GmbH','shasum'=>'00a004096479b9332b153e91053f09df8003ef74','doi'=>'10.1111/j.1439-0310.1998.tb00103.x','authors'=>'R. I. M. Dunbar, Julian Bever','title'=>'Neocortex Size Predicts Group Size in Carnivores and Some Insectivores','journal'=>'Ethology','year'=>'1998','volume'=>'104','pages'=>'695-708','fulltext'=>'Ethology 104, 695—708 (1998) © 1998 Blackwell Wissenschafts-Verlag, Berlin ISSN 0179-1613
-        School of Biological Sciences, Nicholson Building, University of Liverpool and Department of Anthropology, Uni'}]},'facet_counts'=>{'facet_queries'=>{'year:[* TO 1799]'=>0,'year:[1800 TO 1809]'=>0,'year:[1810 TO 1819]'=>0,'year:[1820 TO 1829]'=>0,'year:[1830 TO 1839]'=>0,'year:[1840 TO 1849]'=>0,'year:[1850 TO 1859]'=>0,'year:[1860 TO 1869]'=>0,'year:[1870 TO 1879]'=>0,'year:[1880 TO 1889]'=>0,'year:[1890 TO 1899]'=>0,'year:[1900 TO 1909]'=>0,'year:[1910 TO 1919]'=>0,'year:[1920 TO 1929]'=>0,'year:[1930 TO 1939]'=>0,'year:[1940 TO 1949]'=>0,'year:[1950 TO 1959]'=>0,'year:[1960 TO 1969]'=>0,'year:[1970 TO 1979]'=>0,'year:[1980 TO 1989]'=>0,'year:[1990 TO 1999]'=>1,'year:[2000 TO 2009]'=>0,'year:[2010 TO *]'=>0},'facet_fields'=>{'authors_facet'=>['Julian Bever',1,'R. I. M. Dunbar',1,'. N. Mouton',0,'A Guo',0,'A Pickles',0,'A. A. Bailey',0,'A. A. Fienberg',0,'A. A. Palmer',0,'A. A. Tudor-Jones',0,'A. A. Wong',0],'journal_facet'=>['Ethology',1,'Genes, Brain and Behavior',0]},'facet_dates'=>{},'facet_ranges'=>{}},'termVectors'=>['uniqueKeyFieldName','shasum','00a004096479b9332b153e91053f09df8003ef74',['uniqueKey','00a004096479b9332b153e91053f09df8003ef74','fulltext',['0179-1613',['tf',1,'positions',['position',11],'df',266,'tf-idf',0.0037593984962406013],'104',['tf',1,'positions',['position',1],'df',32,'tf-idf',0.03125],'1998',['tf',2,'positions',['position',4,'position',5],'df',35,'tf-idf',0.05714285714285714],'695',['tf',1,'positions',['position',2],'df',1,'tf-idf',1.0],'708',['tf',1,'positions',['position',3],'df',1,'tf-idf',1.0],'and',['tf',1,'positions',['position',21],'df',747,'tf-idf',0.0013386880856760374],'anthropology',['tf',1,'positions',['position',24],'df',4,'tf-idf',0.25],'berlin',['tf',1,'positions',['position',9],'df',293,'tf-idf',0.0034129692832764505],'biological',['tf',1,'positions',['position',14],'df',35,'tf-idf',0.02857142857142857],'blackwell',['tf',1,'positions',['position',6],'df',573,'tf-idf',0.0017452006980802793],'building',['tf',1,'positions',['position',17],'df',1,'tf-idf',1.0],'department',['tf',1,'positions',['position',22],'df',179,'tf-idf',0.00558659217877095],'ethology',['tf',1,'positions',['position',0],'df',579,'tf-idf',0.0017271157167530224],'issn',['tf',1,'positions',['position',10],'df',308,'tf-idf',0.003246753246753247],'liverpool',['tf',1,'positions',['position',20],'df',1,'tf-idf',1.0],'nicholson',['tf',1,'positions',['position',16],'df',1,'tf-idf',1.0],'of',['tf',3,'positions',['position',13,'position',19,'position',23],'df',765,'tf-idf',0.00392156862745098],'school',['tf',1,'positions',['position',12],'df',23,'tf-idf',0.043478260869565216],'sciences',['tf',1,'positions',['position',15],'df',36,'tf-idf',0.027777777777777776],'uni',['tf',1,'positions',['position',25],'df',3,'tf-idf',0.3333333333333333],'university',['tf',1,'positions',['position',18],'df',167,'tf-idf',0.005988023952095809],'verlag',['tf',1,'positions',['position',8],'df',293,'tf-idf',0.0034129692832764505],'wissenschafts',['tf',1,'positions',['position',7],'df',167,'tf-idf',0.005988023952095809]]]]}
-    http_version: 
-  recorded_at: Wed, 14 Aug 2013 15:12:34 GMT
-- request:
-    method: get
-    uri: http://localhost:8983/search?defType=lucene&fl=shasum,doi,license,license_url,authors,title,journal,year,volume,number,pages,fulltext&q=shasum:00cdb0f945c1e1d7b7789cd8178f3232a57fee34&tv=true&wt=ruby
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers: {}
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Server:
-      - Winstone Servlet Engine v0.9.10
-      Content-Type:
-      - text/plain;charset=UTF-8
-      Connection:
-      - Close
-      Date:
-      - Wed, 14 Aug 2013 15:12:34 GMT
-      X-Powered-By:
-      - Servlet/2.5 (Winstone/0.9.10)
-    body:
-      encoding: UTF-8
-      string: |
-        {'responseHeader'=>{'status'=>0,'QTime'=>18,'params'=>{'fl'=>'shasum,doi,license,license_url,authors,title,journal,year,volume,number,pages,fulltext','q'=>'shasum:00cdb0f945c1e1d7b7789cd8178f3232a57fee34','tv'=>'true','wt'=>'ruby','defType'=>'lucene'}},'response'=>{'numFound'=>1,'start'=>0,'docs'=>[{'license'=>'© Blackwell Verlag GmbH','shasum'=>'00cdb0f945c1e1d7b7789cd8178f3232a57fee34','doi'=>'10.1111/j.1439-0310.2006.01139.x','authors'=>'Jennifer L. Snekser, Scott P. McRobert, Caleb E. Murphy, Ethan D. Clotfelter','title'=>'Aggregation Behavior in Wildtype and Transgenic Zebrafish','journal'=>'Ethology','year'=>'2006','volume'=>'112','pages'=>'181-187','fulltext'=>'Ethology
-        Aggregation Behavior in Wildtype and Transgenic Zebrafish
-        Jennifer L. Snekser*, Scott P. McRobert*, Caleb E. Murphyf & Ethan D. Clotfelterf
-        Recent advances in the development and availability'}]},'facet_counts'=>{'facet_queries'=>{'year:[* TO 1799]'=>0,'year:[1800 TO 1809]'=>0,'year:[1810 TO 1819]'=>0,'year:[1820 TO 1829]'=>0,'year:[1830 TO 1839]'=>0,'year:[1840 TO 1849]'=>0,'year:[1850 TO 1859]'=>0,'year:[1860 TO 1869]'=>0,'year:[1870 TO 1879]'=>0,'year:[1880 TO 1889]'=>0,'year:[1890 TO 1899]'=>0,'year:[1900 TO 1909]'=>0,'year:[1910 TO 1919]'=>0,'year:[1920 TO 1929]'=>0,'year:[1930 TO 1939]'=>0,'year:[1940 TO 1949]'=>0,'year:[1950 TO 1959]'=>0,'year:[1960 TO 1969]'=>0,'year:[1970 TO 1979]'=>0,'year:[1980 TO 1989]'=>0,'year:[1990 TO 1999]'=>0,'year:[2000 TO 2009]'=>1,'year:[2010 TO *]'=>0},'facet_fields'=>{'authors_facet'=>['Caleb E. Murphy',1,'Ethan D. Clotfelter',1,'Jennifer L. Snekser',1,'Scott P. McRobert',1,'. N. Mouton',0,'A Guo',0,'A Pickles',0,'A. A. Bailey',0,'A. A. Fienberg',0,'A. A. Palmer',0],'journal_facet'=>['Ethology',1,'Genes, Brain and Behavior',0]},'facet_dates'=>{},'facet_ranges'=>{}},'termVectors'=>['uniqueKeyFieldName','shasum','00cdb0f945c1e1d7b7789cd8178f3232a57fee34',['uniqueKey','00cdb0f945c1e1d7b7789cd8178f3232a57fee34','fulltext',['advances',['tf',1,'positions',['position',21],'df',2,'tf-idf',0.5],'aggregation',['tf',1,'positions',['position',1],'df',3,'tf-idf',0.3333333333333333],'and',['tf',2,'positions',['position',5,'position',25],'df',747,'tf-idf',0.002677376171352075],'availability',['tf',1,'positions',['position',26],'df',1,'tf-idf',1.0],'behavior',['tf',1,'positions',['position',2],'df',490,'tf-idf',0.0020408163265306124],'caleb',['tf',1,'positions',['position',14],'df',1,'tf-idf',1.0],'clotfelterf',['tf',1,'positions',['position',19],'df',1,'tf-idf',1.0],'d',['tf',1,'positions',['position',18],'df',64,'tf-idf',0.015625],'development',['tf',1,'positions',['position',24],'df',12,'tf-idf',0.08333333333333333],'e',['tf',1,'positions',['position',15],'df',46,'tf-idf',0.021739130434782608],'ethan',['tf',1,'positions',['position',17],'df',1,'tf-idf',1.0],'ethology',['tf',1,'positions',['position',0],'df',579,'tf-idf',0.0017271157167530224],'in',['tf',2,'positions',['position',3,'position',22],'df',498,'tf-idf',0.004016064257028112],'jennifer',['tf',1,'positions',['position',8],'df',5,'tf-idf',0.2],'l',['tf',1,'positions',['position',9],'df',68,'tf-idf',0.014705882352941176],'mcrobert',['tf',1,'positions',['position',13],'df',1,'tf-idf',1.0],'murphyf',['tf',1,'positions',['position',16],'df',1,'tf-idf',1.0],'p',['tf',1,'positions',['position',12],'df',50,'tf-idf',0.02],'recent',['tf',1,'positions',['position',20],'df',3,'tf-idf',0.3333333333333333],'scott',['tf',1,'positions',['position',11],'df',4,'tf-idf',0.25],'snekser',['tf',1,'positions',['position',10],'df',1,'tf-idf',1.0],'the',['tf',1,'positions',['position',23],'df',625,'tf-idf',0.0016],'transgenic',['tf',1,'positions',['position',6],'df',9,'tf-idf',0.1111111111111111],'wildtype',['tf',1,'positions',['position',4],'df',1,'tf-idf',1.0],'zebrafish',['tf',1,'positions',['position',7],'df',3,'tf-idf',0.3333333333333333]]]]}
-    http_version: 
-  recorded_at: Wed, 14 Aug 2013 15:12:34 GMT
-- request:
-    method: get
-    uri: http://localhost:8983/search?defType=lucene&fl=shasum,doi,license,license_url,authors,title,journal,year,volume,number,pages,fulltext&q=shasum:00dbffbfff2d18a74ed5f8895fa9f515bf38bf5f&tv=true&wt=ruby
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers: {}
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Server:
-      - Winstone Servlet Engine v0.9.10
-      Content-Type:
-      - text/plain;charset=UTF-8
-      Connection:
-      - Close
-      Date:
-      - Wed, 14 Aug 2013 15:12:34 GMT
-      X-Powered-By:
-      - Servlet/2.5 (Winstone/0.9.10)
-    body:
-      encoding: UTF-8
-      string: |
-        {'responseHeader'=>{'status'=>0,'QTime'=>8,'params'=>{'fl'=>'shasum,doi,license,license_url,authors,title,journal,year,volume,number,pages,fulltext','q'=>'shasum:00dbffbfff2d18a74ed5f8895fa9f515bf38bf5f','tv'=>'true','wt'=>'ruby','defType'=>'lucene'}},'response'=>{'numFound'=>1,'start'=>0,'docs'=>[{'license'=>'© Blackwell Verlag GmbH','shasum'=>'00dbffbfff2d18a74ed5f8895fa9f515bf38bf5f','doi'=>'10.1111/j.1439-0310.2007.01421.x','authors'=>'Troy G. Murphy','title'=>'Display of an Inedible Prop as a Signal of Aggression? Adaptive Significance of Leaf-Display by the Turquoise-Browed Motmot, Eumomota superciliosa','journal'=>'Ethology','year'=>'2008','volume'=>'114','pages'=>'16-21','fulltext'=>'Ethology
-        Display of an Inedible Prop as a Signal of Aggression? Adaptive Significance of Leaf-Display by the Turquoise-Browed Motmot, Eumomota superciliosa
-        Troy G. Murphy
-        Department of Neurobiology an'}]},'facet_counts'=>{'facet_queries'=>{'year:[* TO 1799]'=>0,'year:[1800 TO 1809]'=>0,'year:[1810 TO 1819]'=>0,'year:[1820 TO 1829]'=>0,'year:[1830 TO 1839]'=>0,'year:[1840 TO 1849]'=>0,'year:[1850 TO 1859]'=>0,'year:[1860 TO 1869]'=>0,'year:[1870 TO 1879]'=>0,'year:[1880 TO 1889]'=>0,'year:[1890 TO 1899]'=>0,'year:[1900 TO 1909]'=>0,'year:[1910 TO 1919]'=>0,'year:[1920 TO 1929]'=>0,'year:[1930 TO 1939]'=>0,'year:[1940 TO 1949]'=>0,'year:[1950 TO 1959]'=>0,'year:[1960 TO 1969]'=>0,'year:[1970 TO 1979]'=>0,'year:[1980 TO 1989]'=>0,'year:[1990 TO 1999]'=>0,'year:[2000 TO 2009]'=>1,'year:[2010 TO *]'=>0},'facet_fields'=>{'authors_facet'=>['Troy G. Murphy',1,'. N. Mouton',0,'A Guo',0,'A Pickles',0,'A. A. Bailey',0,'A. A. Fienberg',0,'A. A. Palmer',0,'A. A. Tudor-Jones',0,'A. A. Wong',0,'A. A. van Elburg',0],'journal_facet'=>['Ethology',1,'Genes, Brain and Behavior',0]},'facet_dates'=>{},'facet_ranges'=>{}},'termVectors'=>['uniqueKeyFieldName','shasum','00dbffbfff2d18a74ed5f8895fa9f515bf38bf5f',['uniqueKey','00dbffbfff2d18a74ed5f8895fa9f515bf38bf5f','fulltext',['a',['tf',1,'positions',['position',7],'df',246,'tf-idf',0.0040650406504065045],'adaptive',['tf',1,'positions',['position',11],'df',3,'tf-idf',0.3333333333333333],'aggression',['tf',1,'positions',['position',10],'df',11,'tf-idf',0.09090909090909091],'an',['tf',2,'positions',['position',3,'position',29],'df',34,'tf-idf',0.058823529411764705],'as',['tf',1,'positions',['position',6],'df',23,'tf-idf',0.043478260869565216],'browed',['tf',1,'positions',['position',19],'df',1,'tf-idf',1.0],'by',['tf',1,'positions',['position',16],'df',53,'tf-idf',0.018867924528301886],'department',['tf',1,'positions',['position',26],'df',179,'tf-idf',0.00558659217877095],'display',['tf',2,'positions',['position',1,'position',15],'df',8,'tf-idf',0.25],'ethology',['tf',1,'positions',['position',0],'df',579,'tf-idf',0.0017271157167530224],'eumomota',['tf',1,'positions',['position',21],'df',1,'tf-idf',1.0],'g',['tf',1,'positions',['position',24],'df',47,'tf-idf',0.02127659574468085],'inedible',['tf',1,'positions',['position',4],'df',1,'tf-idf',1.0],'leaf',['tf',1,'positions',['position',14],'df',3,'tf-idf',0.3333333333333333],'motmot',['tf',1,'positions',['position',20],'df',1,'tf-idf',1.0],'murphy',['tf',1,'positions',['position',25],'df',2,'tf-idf',0.5],'neurobiology',['tf',1,'positions',['position',28],'df',13,'tf-idf',0.07692307692307693],'of',['tf',4,'positions',['position',2,'position',9,'position',13,'position',27],'df',765,'tf-idf',0.00522875816993464],'prop',['tf',1,'positions',['position',5],'df',1,'tf-idf',1.0],'signal',['tf',1,'positions',['position',8],'df',9,'tf-idf',0.1111111111111111],'significance',['tf',1,'positions',['position',12],'df',2,'tf-idf',0.5],'superciliosa',['tf',1,'positions',['position',22],'df',1,'tf-idf',1.0],'the',['tf',1,'positions',['position',17],'df',625,'tf-idf',0.0016],'troy',['tf',1,'positions',['position',23],'df',2,'tf-idf',0.5],'turquoise',['tf',1,'positions',['position',18],'df',1,'tf-idf',1.0]]]]}
-    http_version: 
-  recorded_at: Wed, 14 Aug 2013 15:12:34 GMT
-- request:
-    method: get
-    uri: http://localhost:8983/search?defType=lucene&fl=shasum,doi,license,license_url,authors,title,journal,year,volume,number,pages,fulltext&q=shasum:00040b66948f49c3a6c6c0977530e2014899abf9&tv=true&wt=ruby
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers: {}
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Server:
-      - Winstone Servlet Engine v0.9.10
-      Content-Type:
-      - text/plain;charset=UTF-8
-      Connection:
-      - Close
-      Date:
-      - Wed, 14 Aug 2013 15:12:34 GMT
-      X-Powered-By:
-      - Servlet/2.5 (Winstone/0.9.10)
-    body:
-      encoding: UTF-8
-      string: |
-        {'responseHeader'=>{'status'=>0,'QTime'=>8,'params'=>{'fl'=>'shasum,doi,license,license_url,authors,title,journal,year,volume,number,pages,fulltext','q'=>'shasum:00040b66948f49c3a6c6c0977530e2014899abf9','tv'=>'true','wt'=>'ruby','defType'=>'lucene'}},'response'=>{'numFound'=>1,'start'=>0,'docs'=>[{'license'=>'© Blackwell Verlag GmbH','shasum'=>'00040b66948f49c3a6c6c0977530e2014899abf9','doi'=>'10.1111/j.1439-0310.2009.01707.x','authors'=>'Kelly A. Stiver, Suzanne H. Alonzo','title'=>'Parental and Mating Effort: Is There Necessarily a Trade-Off?','journal'=>'Ethology','year'=>'2009','volume'=>'115','pages'=>'1101-1126','fulltext'=>'Ethology
-        CURRENT ISSUES - PERSPECTIVES AND REVIEWS
-        Parental and Mating Effort: Is There Necessarily a Trade-Off?
-        Kelly A. Stiver & Suzanne H. Alonzo
-        Department of Ecology and Evolutionary Biology, Yal'}]},'facet_counts'=>{'facet_queries'=>{'year:[* TO 1799]'=>0,'year:[1800 TO 1809]'=>0,'year:[1810 TO 1819]'=>0,'year:[1820 TO 1829]'=>0,'year:[1830 TO 1839]'=>0,'year:[1840 TO 1849]'=>0,'year:[1850 TO 1859]'=>0,'year:[1860 TO 1869]'=>0,'year:[1870 TO 1879]'=>0,'year:[1880 TO 1889]'=>0,'year:[1890 TO 1899]'=>0,'year:[1900 TO 1909]'=>0,'year:[1910 TO 1919]'=>0,'year:[1920 TO 1929]'=>0,'year:[1930 TO 1939]'=>0,'year:[1940 TO 1949]'=>0,'year:[1950 TO 1959]'=>0,'year:[1960 TO 1969]'=>0,'year:[1970 TO 1979]'=>0,'year:[1980 TO 1989]'=>0,'year:[1990 TO 1999]'=>0,'year:[2000 TO 2009]'=>1,'year:[2010 TO *]'=>0},'facet_fields'=>{'authors_facet'=>['Kelly A. Stiver',1,'Suzanne H. Alonzo',1,'. N. Mouton',0,'A Guo',0,'A Pickles',0,'A. A. Bailey',0,'A. A. Fienberg',0,'A. A. Palmer',0,'A. A. Tudor-Jones',0,'A. A. Wong',0],'journal_facet'=>['Ethology',1,'Genes, Brain and Behavior',0]},'facet_dates'=>{},'facet_ranges'=>{}},'termVectors'=>['uniqueKeyFieldName','shasum','00040b66948f49c3a6c6c0977530e2014899abf9',['uniqueKey','00040b66948f49c3a6c6c0977530e2014899abf9','fulltext',['a',['tf',2,'positions',['position',13,'position',17],'df',246,'tf-idf',0.008130081300813009],'alonzo',['tf',1,'positions',['position',21],'df',1,'tf-idf',1.0],'and',['tf',3,'positions',['position',4,'position',7,'position',25],'df',747,'tf-idf',0.004016064257028112],'biology',['tf',1,'positions',['position',27],'df',131,'tf-idf',0.007633587786259542],'current',['tf',1,'positions',['position',1],'df',5,'tf-idf',0.2],'department',['tf',1,'positions',['position',22],'df',179,'tf-idf',0.00558659217877095],'ecology',['tf',1,'positions',['position',24],'df',39,'tf-idf',0.02564102564102564],'effort',['tf',1,'positions',['position',9],'df',4,'tf-idf',0.25],'ethology',['tf',1,'positions',['position',0],'df',579,'tf-idf',0.0017271157167530224],'evolutionary',['tf',1,'positions',['position',26],'df',11,'tf-idf',0.09090909090909091],'h',['tf',1,'positions',['position',20],'df',43,'tf-idf',0.023255813953488372],'is',['tf',1,'positions',['position',10],'df',25,'tf-idf',0.04],'issues',['tf',1,'positions',['position',2],'df',5,'tf-idf',0.2],'kelly',['tf',1,'positions',['position',16],'df',2,'tf-idf',0.5],'mating',['tf',1,'positions',['position',8],'df',30,'tf-idf',0.03333333333333333],'necessarily',['tf',1,'positions',['position',12],'df',1,'tf-idf',1.0],'of',['tf',1,'positions',['position',23],'df',765,'tf-idf',0.00130718954248366],'off',['tf',1,'positions',['position',15],'df',3,'tf-idf',0.3333333333333333],'parental',['tf',1,'positions',['position',6],'df',8,'tf-idf',0.125],'perspectives',['tf',1,'positions',['position',3],'df',9,'tf-idf',0.1111111111111111],'reviews',['tf',1,'positions',['position',5],'df',28,'tf-idf',0.03571428571428571],'stiver',['tf',1,'positions',['position',18],'df',1,'tf-idf',1.0],'suzanne',['tf',1,'positions',['position',19],'df',1,'tf-idf',1.0],'there',['tf',1,'positions',['position',11],'df',2,'tf-idf',0.5],'trade',['tf',1,'positions',['position',14],'df',4,'tf-idf',0.25],'yal',['tf',1,'positions',['position',28],'df',1,'tf-idf',1.0]]]]}
-    http_version: 
-  recorded_at: Wed, 14 Aug 2013 15:12:34 GMT
-- request:
-    method: get
-    uri: http://localhost:8983/search?defType=lucene&fl=shasum,doi,license,license_url,authors,title,journal,year,volume,number,pages,fulltext&q=shasum:00972c5123877961056b21aea4177d0dc69c7318&tv=true&wt=ruby
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers: {}
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Server:
-      - Winstone Servlet Engine v0.9.10
-      Content-Type:
-      - text/plain;charset=UTF-8
-      Connection:
-      - Close
-      Date:
-      - Wed, 14 Aug 2013 15:12:34 GMT
-      X-Powered-By:
-      - Servlet/2.5 (Winstone/0.9.10)
-    body:
-      encoding: UTF-8
-      string: |
-        {'responseHeader'=>{'status'=>0,'QTime'=>6,'params'=>{'fl'=>'shasum,doi,license,license_url,authors,title,journal,year,volume,number,pages,fulltext','q'=>'shasum:00972c5123877961056b21aea4177d0dc69c7318','tv'=>'true','wt'=>'ruby','defType'=>'lucene'}},'response'=>{'numFound'=>1,'start'=>0,'docs'=>[{'license'=>'© Blackwell Verlag GmbH','shasum'=>'00972c5123877961056b21aea4177d0dc69c7318','doi'=>'10.1111/j.1439-0310.2008.01576.x','authors'=>'Carlos A. Botero, Andrew E. Mudge, Amanda M. Koltz, Wesley M. Hochachka, Sandra L. Vehrencamp','title'=>'How Reliable are the Methods for Estimating Repertoire Size?','journal'=>'Ethology','year'=>'2008','volume'=>'114','pages'=>'1227-1238','fulltext'=>'Ethology
-        How Reliable are the Methods for Estimating Repertoire Size?
-        Carlos A. Botero*,f,$, Andrew E. Mudgef, Amanda M. Koltz§, Wesley M. Hochachkaf & Sandra L. Vehrencampf,-
-        * Center for Ecological '}]},'facet_counts'=>{'facet_queries'=>{'year:[* TO 1799]'=>0,'year:[1800 TO 1809]'=>0,'year:[1810 TO 1819]'=>0,'year:[1820 TO 1829]'=>0,'year:[1830 TO 1839]'=>0,'year:[1840 TO 1849]'=>0,'year:[1850 TO 1859]'=>0,'year:[1860 TO 1869]'=>0,'year:[1870 TO 1879]'=>0,'year:[1880 TO 1889]'=>0,'year:[1890 TO 1899]'=>0,'year:[1900 TO 1909]'=>0,'year:[1910 TO 1919]'=>0,'year:[1920 TO 1929]'=>0,'year:[1930 TO 1939]'=>0,'year:[1940 TO 1949]'=>0,'year:[1950 TO 1959]'=>0,'year:[1960 TO 1969]'=>0,'year:[1970 TO 1979]'=>0,'year:[1980 TO 1989]'=>0,'year:[1990 TO 1999]'=>0,'year:[2000 TO 2009]'=>1,'year:[2010 TO *]'=>0},'facet_fields'=>{'authors_facet'=>['Amanda M. Koltz',1,'Andrew E. Mudge',1,'Carlos A. Botero',1,'Sandra L. Vehrencamp',1,'Wesley M. Hochachka',1,'. N. Mouton',0,'A Guo',0,'A Pickles',0,'A. A. Bailey',0,'A. A. Fienberg',0],'journal_facet'=>['Ethology',1,'Genes, Brain and Behavior',0]},'facet_dates'=>{},'facet_ranges'=>{}},'termVectors'=>['uniqueKeyFieldName','shasum','00972c5123877961056b21aea4177d0dc69c7318',['uniqueKey','00972c5123877961056b21aea4177d0dc69c7318','fulltext',['a',['tf',1,'positions',['position',11],'df',246,'tf-idf',0.0040650406504065045],'amanda',['tf',1,'positions',['position',17],'df',3,'tf-idf',0.3333333333333333],'andrew',['tf',1,'positions',['position',14],'df',15,'tf-idf',0.06666666666666667],'are',['tf',1,'positions',['position',3],'df',18,'tf-idf',0.05555555555555555],'botero',['tf',1,'positions',['position',12],'df',1,'tf-idf',1.0],'carlos',['tf',1,'positions',['position',10],'df',5,'tf-idf',0.2],'center',['tf',1,'positions',['position',26],'df',13,'tf-idf',0.07692307692307693],'e',['tf',1,'positions',['position',15],'df',46,'tf-idf',0.021739130434782608],'ecological',['tf',1,'positions',['position',28],'df',9,'tf-idf',0.1111111111111111],'estimating',['tf',1,'positions',['position',7],'df',1,'tf-idf',1.0],'ethology',['tf',1,'positions',['position',0],'df',579,'tf-idf',0.0017271157167530224],'f',['tf',1,'positions',['position',13],'df',74,'tf-idf',0.013513513513513514],'for',['tf',2,'positions',['position',6,'position',27],'df',92,'tf-idf',0.021739130434782608],'hochachkaf',['tf',1,'positions',['position',22],'df',1,'tf-idf',1.0],'how',['tf',1,'positions',['position',1],'df',10,'tf-idf',0.1],'koltz',['tf',1,'positions',['position',19],'df',1,'tf-idf',1.0],'l',['tf',1,'positions',['position',24],'df',68,'tf-idf',0.014705882352941176],'m',['tf',2,'positions',['position',18,'position',21],'df',119,'tf-idf',0.01680672268907563],'methods',['tf',1,'positions',['position',5],'df',3,'tf-idf',0.3333333333333333],'mudgef',['tf',1,'positions',['position',16],'df',1,'tf-idf',1.0],'reliable',['tf',1,'positions',['position',2],'df',1,'tf-idf',1.0],'repertoire',['tf',1,'positions',['position',8],'df',2,'tf-idf',0.5],'sandra',['tf',1,'positions',['position',23],'df',1,'tf-idf',1.0],'size',['tf',1,'positions',['position',9],'df',26,'tf-idf',0.038461538461538464],'the',['tf',1,'positions',['position',4],'df',625,'tf-idf',0.0016],'vehrencampf',['tf',1,'positions',['position',25],'df',1,'tf-idf',1.0],'wesley',['tf',1,'positions',['position',20],'df',1,'tf-idf',1.0]]]]}
-    http_version: 
-  recorded_at: Wed, 14 Aug 2013 15:12:34 GMT
-- request:
-    method: get
-    uri: http://localhost:8983/search?defType=lucene&q=*:*&rows=1&start=0&wt=ruby
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers: {}
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Server:
-      - Winstone Servlet Engine v0.9.10
-      Content-Type:
-      - text/plain;charset=UTF-8
-      Connection:
-      - Close
-      Date:
-      - Wed, 14 Aug 2013 15:11:20 GMT
+      - Tue, 17 Sep 2013 02:51:29 GMT
       X-Powered-By:
       - Servlet/2.5 (Winstone/0.9.10)
     body:
       encoding: ASCII-8BIT
       string: !binary |-
-        eydyZXNwb25zZUhlYWRlcic9Pnsnc3RhdHVzJz0+MCwnUVRpbWUnPT40LCdw
+        eydyZXNwb25zZUhlYWRlcic9Pnsnc3RhdHVzJz0+MCwnUVRpbWUnPT44LCdw
+        YXJhbXMnPT57J2ZsJz0+J3NoYXN1bSxkb2ksbGljZW5zZSxsaWNlbnNlX3Vy
+        bCxhdXRob3JzLHRpdGxlLGpvdXJuYWwseWVhcix2b2x1bWUsbnVtYmVyLHBh
+        Z2VzLGZ1bGx0ZXh0JywncSc9PidzaGFzdW06MDA0OTZlNzk2MTg3MWFkMDUw
+        MTNlMTM4OGFhYTY2NTA1MDdiMjYzOCcsJ3R2Jz0+J3RydWUnLCd3dCc9Pidy
+        dWJ5JywnZGVmVHlwZSc9PidsdWNlbmUnfX0sJ3Jlc3BvbnNlJz0+eydudW1G
+        b3VuZCc9PjEsJ3N0YXJ0Jz0+MCwnZG9jcyc9Plt7J2xpY2Vuc2UnPT4nwqkg
+        QmxhY2t3ZWxsIFZlcmxhZyBHbWJIJywnc2hhc3VtJz0+JzAwNDk2ZTc5NjE4
+        NzFhZDA1MDEzZTEzODhhYWE2NjUwNTA3YjI2MzgnLCdkb2knPT4nMTAuMTA0
+        Ni9qLjE0MzktMDMxMC4yMDAwLjAwNTM5LngnLCd0aXRsZSc9PidOZXcgQm9v
+        a3MnLCdqb3VybmFsJz0+J0V0aG9sb2d5JywneWVhcic9PicyMDAwJywndm9s
+        dW1lJz0+JzEwNicsJ3BhZ2VzJz0+JzI4My0yODYnLCdmdWxsdGV4dCc9PidF
+        dGhvbG9neSAxMDYsIDI4My0yODYgKDIwMDApIMKpIDIwMDAgQmxhY2t3ZWxs
+        IFdpc3NlbnNjaGFmdHMtVmVybGFnLCBCZXJsaW4gSVNTTiAwMTc5LTE2MTMK
+        TmV3IEJvb2tzClppZWdsZXIsIFQuICYgQsO2aG1lLCBXLiAxOTk3OiBHZW5p
+        dGFsc3RydWt0dXJlbiB1bmQgUGFhcnVuZ3NiaW9sb2dpZSBiZWkgc3F1YS1t
+        YXRlbiBSZXB0aWxpZW4sIHNwZXppJ31dfSwnZmFjZXRfY291bnRzJz0+eydm
+        YWNldF9xdWVyaWVzJz0+eyd5ZWFyOlsqIFRPIDE3OTldJz0+MCwneWVhcjpb
+        MTgwMCBUTyAxODA5XSc9PjAsJ3llYXI6WzE4MTAgVE8gMTgxOV0nPT4wLCd5
+        ZWFyOlsxODIwIFRPIDE4MjldJz0+MCwneWVhcjpbMTgzMCBUTyAxODM5XSc9
+        PjAsJ3llYXI6WzE4NDAgVE8gMTg0OV0nPT4wLCd5ZWFyOlsxODUwIFRPIDE4
+        NTldJz0+MCwneWVhcjpbMTg2MCBUTyAxODY5XSc9PjAsJ3llYXI6WzE4NzAg
+        VE8gMTg3OV0nPT4wLCd5ZWFyOlsxODgwIFRPIDE4ODldJz0+MCwneWVhcjpb
+        MTg5MCBUTyAxODk5XSc9PjAsJ3llYXI6WzE5MDAgVE8gMTkwOV0nPT4wLCd5
+        ZWFyOlsxOTEwIFRPIDE5MTldJz0+MCwneWVhcjpbMTkyMCBUTyAxOTI5XSc9
+        PjAsJ3llYXI6WzE5MzAgVE8gMTkzOV0nPT4wLCd5ZWFyOlsxOTQwIFRPIDE5
+        NDldJz0+MCwneWVhcjpbMTk1MCBUTyAxOTU5XSc9PjAsJ3llYXI6WzE5NjAg
+        VE8gMTk2OV0nPT4wLCd5ZWFyOlsxOTcwIFRPIDE5NzldJz0+MCwneWVhcjpb
+        MTk4MCBUTyAxOTg5XSc9PjAsJ3llYXI6WzE5OTAgVE8gMTk5OV0nPT4wLCd5
+        ZWFyOlsyMDAwIFRPIDIwMDldJz0+MSwneWVhcjpbMjAxMCBUTyAqXSc9PjB9
+        LCdmYWNldF9maWVsZHMnPT57J2F1dGhvcnNfZmFjZXQnPT5bJy4gTi4gTW91
+        dG9uJywwLCdBIEd1bycsMCwnQSBQaWNrbGVzJywwLCdBLiBBLiBCYWlsZXkn
+        LDAsJ0EuIEEuIEZpZW5iZXJnJywwLCdBLiBBLiBQYWxtZXInLDAsJ0EuIEEu
+        IFR1ZG9yLUpvbmVzJywwLCdBLiBBLiBXb25nJywwLCdBLiBBLiB2YW4gRWxi
+        dXJnJywwLCdBLiBBZ21vJywwXSwnam91cm5hbF9mYWNldCc9PlsnRXRob2xv
+        Z3knLDEsJ0dlbmVzLCBCcmFpbiBhbmQgQmVoYXZpb3InLDBdfSwnZmFjZXRf
+        ZGF0ZXMnPT57fSwnZmFjZXRfcmFuZ2VzJz0+e319LCd0ZXJtVmVjdG9ycyc9
+        PlsndW5pcXVlS2V5RmllbGROYW1lJywnc2hhc3VtJywnMDA0OTZlNzk2MTg3
+        MWFkMDUwMTNlMTM4OGFhYTY2NTA1MDdiMjYzOCcsWyd1bmlxdWVLZXknLCcw
+        MDQ5NmU3OTYxODcxYWQwNTAxM2UxMzg4YWFhNjY1MDUwN2IyNjM4JywnZnVs
+        bHRleHQnLFsnMDE3OS0xNjEzJyxbJ3RmJywxLCdwb3NpdGlvbnMnLFsncG9z
+        aXRpb24nLDEwXSwnZGYnLDI2NiwndGYtaWRmJywwLjAwMzc1OTM5ODQ5NjI0
+        MDYwMTNdLCcxMDYnLFsndGYnLDEsJ3Bvc2l0aW9ucycsWydwb3NpdGlvbics
+        MV0sJ2RmJywzMCwndGYtaWRmJywwLjAzMzMzMzMzMzMzMzMzMzMzXSwnMTk5
+        NycsWyd0ZicsMSwncG9zaXRpb25zJyxbJ3Bvc2l0aW9uJywxN10sJ2RmJywz
+        OCwndGYtaWRmJywwLjAyNjMxNTc4OTQ3MzY4NDIxXSwnMjAwMCcsWyd0Zics
+        MiwncG9zaXRpb25zJyxbJ3Bvc2l0aW9uJywzLCdwb3NpdGlvbicsNF0sJ2Rm
+        JywzMywndGYtaWRmJywwLjA2MDYwNjA2MDYwNjA2MDYxXSwnMjgzLTI4Nics
+        Wyd0ZicsMSwncG9zaXRpb25zJyxbJ3Bvc2l0aW9uJywyXSwnZGYnLDEsJ3Rm
+        LWlkZicsMS4wXSwnYmVpJyxbJ3RmJywxLCdwb3NpdGlvbnMnLFsncG9zaXRp
+        b24nLDIxXSwnZGYnLDEsJ3RmLWlkZicsMS4wXSwnYmVybGluJyxbJ3RmJywx
+        LCdwb3NpdGlvbnMnLFsncG9zaXRpb24nLDhdLCdkZicsMjkzLCd0Zi1pZGYn
+        LDAuMDAzNDEyOTY5MjgzMjc2NDUwNV0sJ2JsYWNrd2VsbCcsWyd0ZicsMSwn
+        cG9zaXRpb25zJyxbJ3Bvc2l0aW9uJyw1XSwnZGYnLDU3MywndGYtaWRmJyww
+        LjAwMTc0NTIwMDY5ODA4MDI3OTNdLCdib29rcycsWyd0ZicsMSwncG9zaXRp
+        b25zJyxbJ3Bvc2l0aW9uJywxMl0sJ2RmJywxNCwndGYtaWRmJywwLjA3MTQy
+        ODU3MTQyODU3MTQyXSwnYsO2aG1lJyxbJ3RmJywxLCdwb3NpdGlvbnMnLFsn
+        cG9zaXRpb24nLDE1XSwnZGYnLDEsJ3RmLWlkZicsMS4wXSwnZXRob2xvZ3kn
+        LFsndGYnLDEsJ3Bvc2l0aW9ucycsWydwb3NpdGlvbicsMF0sJ2RmJyw1Nzks
+        J3RmLWlkZicsMC4wMDE3MjcxMTU3MTY3NTMwMjI0XSwnZ2VuaXRhbHN0cnVr
+        dHVyZW4nLFsndGYnLDEsJ3Bvc2l0aW9ucycsWydwb3NpdGlvbicsMThdLCdk
+        ZicsMSwndGYtaWRmJywxLjBdLCdpc3NuJyxbJ3RmJywxLCdwb3NpdGlvbnMn
+        LFsncG9zaXRpb24nLDldLCdkZicsMzA4LCd0Zi1pZGYnLDAuMDAzMjQ2NzUz
+        MjQ2NzUzMjQ3XSwnbWF0ZW4nLFsndGYnLDEsJ3Bvc2l0aW9ucycsWydwb3Np
+        dGlvbicsMjNdLCdkZicsMSwndGYtaWRmJywxLjBdLCduZXcnLFsndGYnLDEs
+        J3Bvc2l0aW9ucycsWydwb3NpdGlvbicsMTFdLCdkZicsMzYsJ3RmLWlkZics
+        MC4wMjc3Nzc3Nzc3Nzc3Nzc3NzZdLCdwYWFydW5nc2Jpb2xvZ2llJyxbJ3Rm
+        JywxLCdwb3NpdGlvbnMnLFsncG9zaXRpb24nLDIwXSwnZGYnLDEsJ3RmLWlk
+        ZicsMS4wXSwncmVwdGlsaWVuJyxbJ3RmJywxLCdwb3NpdGlvbnMnLFsncG9z
+        aXRpb24nLDI0XSwnZGYnLDEsJ3RmLWlkZicsMS4wXSwnc3BlemknLFsndGYn
+        LDEsJ3Bvc2l0aW9ucycsWydwb3NpdGlvbicsMjVdLCdkZicsMSwndGYtaWRm
+        JywxLjBdLCdzcXVhJyxbJ3RmJywxLCdwb3NpdGlvbnMnLFsncG9zaXRpb24n
+        LDIyXSwnZGYnLDEsJ3RmLWlkZicsMS4wXSwndCcsWyd0ZicsMSwncG9zaXRp
+        b25zJyxbJ3Bvc2l0aW9uJywxNF0sJ2RmJyw0NiwndGYtaWRmJywwLjAyMTcz
+        OTEzMDQzNDc4MjYwOF0sJ3VuZCcsWyd0ZicsMSwncG9zaXRpb25zJyxbJ3Bv
+        c2l0aW9uJywxOV0sJ2RmJyw0LCd0Zi1pZGYnLDAuMjVdLCd2ZXJsYWcnLFsn
+        dGYnLDEsJ3Bvc2l0aW9ucycsWydwb3NpdGlvbicsN10sJ2RmJywyOTMsJ3Rm
+        LWlkZicsMC4wMDM0MTI5NjkyODMyNzY0NTA1XSwndycsWyd0ZicsMSwncG9z
+        aXRpb25zJyxbJ3Bvc2l0aW9uJywxNl0sJ2RmJywyMiwndGYtaWRmJywwLjA0
+        NTQ1NDU0NTQ1NDU0NTQ1Nl0sJ3dpc3NlbnNjaGFmdHMnLFsndGYnLDEsJ3Bv
+        c2l0aW9ucycsWydwb3NpdGlvbicsNl0sJ2RmJywxNjcsJ3RmLWlkZicsMC4w
+        MDU5ODgwMjM5NTIwOTU4MDldLCd6aWVnbGVyJyxbJ3RmJywxLCdwb3NpdGlv
+        bnMnLFsncG9zaXRpb24nLDEzXSwnZGYnLDEsJ3RmLWlkZicsMS4wXV1dXX0K
+    http_version:
+  recorded_at: Tue, 17 Sep 2013 02:51:29 GMT
+- request:
+    method: post
+    uri: http://localhost:8983/search?wt=ruby
+    body:
+      encoding: US-ASCII
+      string: q=shasum%3A008896a5c58241b65088d931e02f3bea02fc3bf0&defType=lucene&tv=true&fl=shasum%2Cdoi%2Clicense%2Clicense_url%2Cauthors%2Ctitle%2Cjournal%2Cyear%2Cvolume%2Cnumber%2Cpages%2Cfulltext
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=UTF-8
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - Winstone Servlet Engine v0.9.10
+      Content-Type:
+      - text/plain;charset=UTF-8
+      Connection:
+      - Close
+      Date:
+      - Tue, 17 Sep 2013 02:51:29 GMT
+      X-Powered-By:
+      - Servlet/2.5 (Winstone/0.9.10)
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        eydyZXNwb25zZUhlYWRlcic9Pnsnc3RhdHVzJz0+MCwnUVRpbWUnPT42LCdw
+        YXJhbXMnPT57J2ZsJz0+J3NoYXN1bSxkb2ksbGljZW5zZSxsaWNlbnNlX3Vy
+        bCxhdXRob3JzLHRpdGxlLGpvdXJuYWwseWVhcix2b2x1bWUsbnVtYmVyLHBh
+        Z2VzLGZ1bGx0ZXh0JywncSc9PidzaGFzdW06MDA4ODk2YTVjNTgyNDFiNjUw
+        ODhkOTMxZTAyZjNiZWEwMmZjM2JmMCcsJ3R2Jz0+J3RydWUnLCd3dCc9Pidy
+        dWJ5JywnZGVmVHlwZSc9PidsdWNlbmUnfX0sJ3Jlc3BvbnNlJz0+eydudW1G
+        b3VuZCc9PjEsJ3N0YXJ0Jz0+MCwnZG9jcyc9Plt7J2xpY2Vuc2UnPT4nwqkg
+        QmxhY2t3ZWxsIFZlcmxhZyBHbWJIJywnc2hhc3VtJz0+JzAwODg5NmE1YzU4
+        MjQxYjY1MDg4ZDkzMWUwMmYzYmVhMDJmYzNiZjAnLCdkb2knPT4nMTAuMTEx
+        MS9qLjE0MzktMDMxMC4yMDA5LjAxNzE2LngnLCdhdXRob3JzJz0+J0p1YW4g
+        TW9yZW5vLCBKdWFuLUdhYnJpZWwgTWFydMOtbmV6LCBKdWRpdGggTW9yYWxl
+        cywgRWxpc2EgTG9iYXRvLCBTYW50aWFnbyBNZXJpbm8sIEd1c3Rhdm8gVG9t
+        w6FzLCBSb2RyaWdvIEEuIFbDoXNxdWV6LCBFcmljaCBNw7ZzdGwsIEpvc8Op
+        IEwuIE9zb3JubycsJ3RpdGxlJz0+J1BhdGVybml0eSBMb3NzIGluIFJlbGF0
+        aW9uIHRvIE1hbGUgQWdlLCBUZXJyaXRvcmlhbCBCZWhhdmlvdXIgYW5kIFN0
+        cmVzcyBpbiB0aGUgUGllZCBGbHljYXRjaGVyJywnam91cm5hbCc9PidFdGhv
+        bG9neScsJ3llYXInPT4nMjAxMCcsJ3ZvbHVtZSc9PicxMTYnLCdwYWdlcyc9
+        Pic3Ni04NCcsJ2Z1bGx0ZXh0Jz0+J0V0aG9sb2d5ClBhdGVybml0eSBMb3Nz
+        IGluIFJlbGF0aW9uIHRvIE1hbGUgQWdlLCBUZXJyaXRvcmlhbCBCZWhhdmlv
+        dXIgYW5kIFN0cmVzcyBpbiB0aGUgUGllZCBGbHljYXRjaGVyCkp1YW4gTW9y
+        ZW5vKiwgSnVhbi1HYWJyaWVsIE1hcnTDrW5leiEsIEp1ZGl0aCBNb3JhbGVz
+        KiwgRWxpc2EgTG9iYXRvKiwgU2FudGlhZ28gTWVyaW5vKiwgR3VzdGF2byd9
+        XX0sJ2ZhY2V0X2NvdW50cyc9PnsnZmFjZXRfcXVlcmllcyc9PnsneWVhcjpb
+        KiBUTyAxNzk5XSc9PjAsJ3llYXI6WzE4MDAgVE8gMTgwOV0nPT4wLCd5ZWFy
+        OlsxODEwIFRPIDE4MTldJz0+MCwneWVhcjpbMTgyMCBUTyAxODI5XSc9PjAs
+        J3llYXI6WzE4MzAgVE8gMTgzOV0nPT4wLCd5ZWFyOlsxODQwIFRPIDE4NDld
+        Jz0+MCwneWVhcjpbMTg1MCBUTyAxODU5XSc9PjAsJ3llYXI6WzE4NjAgVE8g
+        MTg2OV0nPT4wLCd5ZWFyOlsxODcwIFRPIDE4NzldJz0+MCwneWVhcjpbMTg4
+        MCBUTyAxODg5XSc9PjAsJ3llYXI6WzE4OTAgVE8gMTg5OV0nPT4wLCd5ZWFy
+        OlsxOTAwIFRPIDE5MDldJz0+MCwneWVhcjpbMTkxMCBUTyAxOTE5XSc9PjAs
+        J3llYXI6WzE5MjAgVE8gMTkyOV0nPT4wLCd5ZWFyOlsxOTMwIFRPIDE5Mzld
+        Jz0+MCwneWVhcjpbMTk0MCBUTyAxOTQ5XSc9PjAsJ3llYXI6WzE5NTAgVE8g
+        MTk1OV0nPT4wLCd5ZWFyOlsxOTYwIFRPIDE5NjldJz0+MCwneWVhcjpbMTk3
+        MCBUTyAxOTc5XSc9PjAsJ3llYXI6WzE5ODAgVE8gMTk4OV0nPT4wLCd5ZWFy
+        OlsxOTkwIFRPIDE5OTldJz0+MCwneWVhcjpbMjAwMCBUTyAyMDA5XSc9PjAs
+        J3llYXI6WzIwMTAgVE8gKl0nPT4xfSwnZmFjZXRfZmllbGRzJz0+eydhdXRo
+        b3JzX2ZhY2V0Jz0+WydFbGlzYSBMb2JhdG8nLDEsJ0VyaWNoIE3DtnN0bCcs
+        MSwnR3VzdGF2byBUb23DoXMnLDEsJ0pvc8OpIEwuIE9zb3JubycsMSwnSnVh
+        biBNb3Jlbm8nLDEsJ0p1YW4tR2FicmllbCBNYXJ0w61uZXonLDEsJ0p1ZGl0
+        aCBNb3JhbGVzJywxLCdSb2RyaWdvIEEuIFbDoXNxdWV6JywxLCdTYW50aWFn
+        byBNZXJpbm8nLDEsJy4gTi4gTW91dG9uJywwXSwnam91cm5hbF9mYWNldCc9
+        PlsnRXRob2xvZ3knLDEsJ0dlbmVzLCBCcmFpbiBhbmQgQmVoYXZpb3InLDBd
+        fSwnZmFjZXRfZGF0ZXMnPT57fSwnZmFjZXRfcmFuZ2VzJz0+e319LCd0ZXJt
+        VmVjdG9ycyc9PlsndW5pcXVlS2V5RmllbGROYW1lJywnc2hhc3VtJywnMDA4
+        ODk2YTVjNTgyNDFiNjUwODhkOTMxZTAyZjNiZWEwMmZjM2JmMCcsWyd1bmlx
+        dWVLZXknLCcwMDg4OTZhNWM1ODI0MWI2NTA4OGQ5MzFlMDJmM2JlYTAyZmMz
+        YmYwJywnZnVsbHRleHQnLFsnYWdlJyxbJ3RmJywxLCdwb3NpdGlvbnMnLFsn
+        cG9zaXRpb24nLDddLCdkZicsMTMsJ3RmLWlkZicsMC4wNzY5MjMwNzY5MjMw
+        NzY5M10sJ2FuZCcsWyd0ZicsMSwncG9zaXRpb25zJyxbJ3Bvc2l0aW9uJywx
+        MF0sJ2RmJyw3NDcsJ3RmLWlkZicsMC4wMDEzMzg2ODgwODU2NzYwMzc0XSwn
+        YmVoYXZpb3VyJyxbJ3RmJywxLCdwb3NpdGlvbnMnLFsncG9zaXRpb24nLDld
+        LCdkZicsMzQsJ3RmLWlkZicsMC4wMjk0MTE3NjQ3MDU4ODIzNTNdLCdlbGlz
+        YScsWyd0ZicsMSwncG9zaXRpb25zJyxbJ3Bvc2l0aW9uJywyM10sJ2RmJywx
+        LCd0Zi1pZGYnLDEuMF0sJ2V0aG9sb2d5JyxbJ3RmJywxLCdwb3NpdGlvbnMn
+        LFsncG9zaXRpb24nLDBdLCdkZicsNTc5LCd0Zi1pZGYnLDAuMDAxNzI3MTE1
+        NzE2NzUzMDIyNF0sJ2ZseWNhdGNoZXInLFsndGYnLDEsJ3Bvc2l0aW9ucycs
+        Wydwb3NpdGlvbicsMTVdLCdkZicsMiwndGYtaWRmJywwLjVdLCdnYWJyaWVs
+        JyxbJ3RmJywxLCdwb3NpdGlvbnMnLFsncG9zaXRpb24nLDE5XSwnZGYnLDEs
+        J3RmLWlkZicsMS4wXSwnZ3VzdGF2bycsWyd0ZicsMSwncG9zaXRpb25zJyxb
+        J3Bvc2l0aW9uJywyN10sJ2RmJywyLCd0Zi1pZGYnLDAuNV0sJ2luJyxbJ3Rm
+        JywyLCdwb3NpdGlvbnMnLFsncG9zaXRpb24nLDMsJ3Bvc2l0aW9uJywxMl0s
+        J2RmJyw0OTgsJ3RmLWlkZicsMC4wMDQwMTYwNjQyNTcwMjgxMTJdLCdqdWFu
+        JyxbJ3RmJywyLCdwb3NpdGlvbnMnLFsncG9zaXRpb24nLDE2LCdwb3NpdGlv
+        bicsMThdLCdkZicsMywndGYtaWRmJywwLjY2NjY2NjY2NjY2NjY2NjZdLCdq
+        dWRpdGgnLFsndGYnLDEsJ3Bvc2l0aW9ucycsWydwb3NpdGlvbicsMjFdLCdk
+        ZicsMSwndGYtaWRmJywxLjBdLCdsb2JhdG8nLFsndGYnLDEsJ3Bvc2l0aW9u
+        cycsWydwb3NpdGlvbicsMjRdLCdkZicsMSwndGYtaWRmJywxLjBdLCdsb3Nz
+        JyxbJ3RmJywxLCdwb3NpdGlvbnMnLFsncG9zaXRpb24nLDJdLCdkZicsMywn
+        dGYtaWRmJywwLjMzMzMzMzMzMzMzMzMzMzNdLCdtYWxlJyxbJ3RmJywxLCdw
+        b3NpdGlvbnMnLFsncG9zaXRpb24nLDZdLCdkZicsNzEsJ3RmLWlkZicsMC4w
+        MTQwODQ1MDcwNDIyNTM1MjFdLCdtYXJ0w61uZXonLFsndGYnLDEsJ3Bvc2l0
+        aW9ucycsWydwb3NpdGlvbicsMjBdLCdkZicsMiwndGYtaWRmJywwLjVdLCdt
+        ZXJpbm8nLFsndGYnLDEsJ3Bvc2l0aW9ucycsWydwb3NpdGlvbicsMjZdLCdk
+        ZicsMSwndGYtaWRmJywxLjBdLCdtb3JhbGVzJyxbJ3RmJywxLCdwb3NpdGlv
+        bnMnLFsncG9zaXRpb24nLDIyXSwnZGYnLDEsJ3RmLWlkZicsMS4wXSwnbW9y
+        ZW5vJyxbJ3RmJywxLCdwb3NpdGlvbnMnLFsncG9zaXRpb24nLDE3XSwnZGYn
+        LDEsJ3RmLWlkZicsMS4wXSwncGF0ZXJuaXR5JyxbJ3RmJywxLCdwb3NpdGlv
+        bnMnLFsncG9zaXRpb24nLDFdLCdkZicsMywndGYtaWRmJywwLjMzMzMzMzMz
+        MzMzMzMzMzNdLCdwaWVkJyxbJ3RmJywxLCdwb3NpdGlvbnMnLFsncG9zaXRp
+        b24nLDE0XSwnZGYnLDIsJ3RmLWlkZicsMC41XSwncmVsYXRpb24nLFsndGYn
+        LDEsJ3Bvc2l0aW9ucycsWydwb3NpdGlvbicsNF0sJ2RmJyw3LCd0Zi1pZGYn
+        LDAuMTQyODU3MTQyODU3MTQyODVdLCdzYW50aWFnbycsWyd0ZicsMSwncG9z
+        aXRpb25zJyxbJ3Bvc2l0aW9uJywyNV0sJ2RmJywxLCd0Zi1pZGYnLDEuMF0s
+        J3N0cmVzcycsWyd0ZicsMSwncG9zaXRpb25zJyxbJ3Bvc2l0aW9uJywxMV0s
+        J2RmJyw2LCd0Zi1pZGYnLDAuMTY2NjY2NjY2NjY2NjY2NjZdLCd0ZXJyaXRv
+        cmlhbCcsWyd0ZicsMSwncG9zaXRpb25zJyxbJ3Bvc2l0aW9uJyw4XSwnZGYn
+        LDgsJ3RmLWlkZicsMC4xMjVdLCd0aGUnLFsndGYnLDEsJ3Bvc2l0aW9ucycs
+        Wydwb3NpdGlvbicsMTNdLCdkZicsNjI1LCd0Zi1pZGYnLDAuMDAxNl0sJ3Rv
+        JyxbJ3RmJywxLCdwb3NpdGlvbnMnLFsncG9zaXRpb24nLDVdLCdkZicsMTE5
+        LCd0Zi1pZGYnLDAuMDA4NDAzMzYxMzQ0NTM3ODE1XV1dXX0K
+    http_version:
+  recorded_at: Tue, 17 Sep 2013 02:51:29 GMT
+- request:
+    method: post
+    uri: http://localhost:8983/search?wt=ruby
+    body:
+      encoding: US-ASCII
+      string: q=shasum%3A00972c5123877961056b21aea4177d0dc69c7318&defType=lucene&tv=true&fl=shasum%2Cdoi%2Clicense%2Clicense_url%2Cauthors%2Ctitle%2Cjournal%2Cyear%2Cvolume%2Cnumber%2Cpages%2Cfulltext
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=UTF-8
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - Winstone Servlet Engine v0.9.10
+      Content-Type:
+      - text/plain;charset=UTF-8
+      Connection:
+      - Close
+      Date:
+      - Tue, 17 Sep 2013 02:51:29 GMT
+      X-Powered-By:
+      - Servlet/2.5 (Winstone/0.9.10)
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        eydyZXNwb25zZUhlYWRlcic9Pnsnc3RhdHVzJz0+MCwnUVRpbWUnPT41LCdw
+        YXJhbXMnPT57J2ZsJz0+J3NoYXN1bSxkb2ksbGljZW5zZSxsaWNlbnNlX3Vy
+        bCxhdXRob3JzLHRpdGxlLGpvdXJuYWwseWVhcix2b2x1bWUsbnVtYmVyLHBh
+        Z2VzLGZ1bGx0ZXh0JywncSc9PidzaGFzdW06MDA5NzJjNTEyMzg3Nzk2MTA1
+        NmIyMWFlYTQxNzdkMGRjNjljNzMxOCcsJ3R2Jz0+J3RydWUnLCd3dCc9Pidy
+        dWJ5JywnZGVmVHlwZSc9PidsdWNlbmUnfX0sJ3Jlc3BvbnNlJz0+eydudW1G
+        b3VuZCc9PjEsJ3N0YXJ0Jz0+MCwnZG9jcyc9Plt7J2xpY2Vuc2UnPT4nwqkg
+        QmxhY2t3ZWxsIFZlcmxhZyBHbWJIJywnc2hhc3VtJz0+JzAwOTcyYzUxMjM4
+        Nzc5NjEwNTZiMjFhZWE0MTc3ZDBkYzY5YzczMTgnLCdkb2knPT4nMTAuMTEx
+        MS9qLjE0MzktMDMxMC4yMDA4LjAxNTc2LngnLCdhdXRob3JzJz0+J0Nhcmxv
+        cyBBLiBCb3Rlcm8sIEFuZHJldyBFLiBNdWRnZSwgQW1hbmRhIE0uIEtvbHR6
+        LCBXZXNsZXkgTS4gSG9jaGFjaGthLCBTYW5kcmEgTC4gVmVocmVuY2FtcCcs
+        J3RpdGxlJz0+J0hvdyBSZWxpYWJsZSBhcmUgdGhlIE1ldGhvZHMgZm9yIEVz
+        dGltYXRpbmcgUmVwZXJ0b2lyZSBTaXplPycsJ2pvdXJuYWwnPT4nRXRob2xv
+        Z3knLCd5ZWFyJz0+JzIwMDgnLCd2b2x1bWUnPT4nMTE0JywncGFnZXMnPT4n
+        MTIyNy0xMjM4JywnZnVsbHRleHQnPT4nRXRob2xvZ3kKSG93IFJlbGlhYmxl
+        IGFyZSB0aGUgTWV0aG9kcyBmb3IgRXN0aW1hdGluZyBSZXBlcnRvaXJlIFNp
+        emU/CkNhcmxvcyBBLiBCb3Rlcm8qLGYsJCwgQW5kcmV3IEUuIE11ZGdlZiwg
+        QW1hbmRhIE0uIEtvbHR6wqcsIFdlc2xleSBNLiBIb2NoYWNoa2FmICYgU2Fu
+        ZHJhIEwuIFZlaHJlbmNhbXBmLC0KKiBDZW50ZXIgZm9yIEVjb2xvZ2ljYWwg
+        J31dfSwnZmFjZXRfY291bnRzJz0+eydmYWNldF9xdWVyaWVzJz0+eyd5ZWFy
+        OlsqIFRPIDE3OTldJz0+MCwneWVhcjpbMTgwMCBUTyAxODA5XSc9PjAsJ3ll
+        YXI6WzE4MTAgVE8gMTgxOV0nPT4wLCd5ZWFyOlsxODIwIFRPIDE4MjldJz0+
+        MCwneWVhcjpbMTgzMCBUTyAxODM5XSc9PjAsJ3llYXI6WzE4NDAgVE8gMTg0
+        OV0nPT4wLCd5ZWFyOlsxODUwIFRPIDE4NTldJz0+MCwneWVhcjpbMTg2MCBU
+        TyAxODY5XSc9PjAsJ3llYXI6WzE4NzAgVE8gMTg3OV0nPT4wLCd5ZWFyOlsx
+        ODgwIFRPIDE4ODldJz0+MCwneWVhcjpbMTg5MCBUTyAxODk5XSc9PjAsJ3ll
+        YXI6WzE5MDAgVE8gMTkwOV0nPT4wLCd5ZWFyOlsxOTEwIFRPIDE5MTldJz0+
+        MCwneWVhcjpbMTkyMCBUTyAxOTI5XSc9PjAsJ3llYXI6WzE5MzAgVE8gMTkz
+        OV0nPT4wLCd5ZWFyOlsxOTQwIFRPIDE5NDldJz0+MCwneWVhcjpbMTk1MCBU
+        TyAxOTU5XSc9PjAsJ3llYXI6WzE5NjAgVE8gMTk2OV0nPT4wLCd5ZWFyOlsx
+        OTcwIFRPIDE5NzldJz0+MCwneWVhcjpbMTk4MCBUTyAxOTg5XSc9PjAsJ3ll
+        YXI6WzE5OTAgVE8gMTk5OV0nPT4wLCd5ZWFyOlsyMDAwIFRPIDIwMDldJz0+
+        MSwneWVhcjpbMjAxMCBUTyAqXSc9PjB9LCdmYWNldF9maWVsZHMnPT57J2F1
+        dGhvcnNfZmFjZXQnPT5bJ0FtYW5kYSBNLiBLb2x0eicsMSwnQW5kcmV3IEUu
+        IE11ZGdlJywxLCdDYXJsb3MgQS4gQm90ZXJvJywxLCdTYW5kcmEgTC4gVmVo
+        cmVuY2FtcCcsMSwnV2VzbGV5IE0uIEhvY2hhY2hrYScsMSwnLiBOLiBNb3V0
+        b24nLDAsJ0EgR3VvJywwLCdBIFBpY2tsZXMnLDAsJ0EuIEEuIEJhaWxleScs
+        MCwnQS4gQS4gRmllbmJlcmcnLDBdLCdqb3VybmFsX2ZhY2V0Jz0+WydFdGhv
+        bG9neScsMSwnR2VuZXMsIEJyYWluIGFuZCBCZWhhdmlvcicsMF19LCdmYWNl
+        dF9kYXRlcyc9Pnt9LCdmYWNldF9yYW5nZXMnPT57fX0sJ3Rlcm1WZWN0b3Jz
+        Jz0+Wyd1bmlxdWVLZXlGaWVsZE5hbWUnLCdzaGFzdW0nLCcwMDk3MmM1MTIz
+        ODc3OTYxMDU2YjIxYWVhNDE3N2QwZGM2OWM3MzE4JyxbJ3VuaXF1ZUtleScs
+        JzAwOTcyYzUxMjM4Nzc5NjEwNTZiMjFhZWE0MTc3ZDBkYzY5YzczMTgnLCdm
+        dWxsdGV4dCcsWydhJyxbJ3RmJywxLCdwb3NpdGlvbnMnLFsncG9zaXRpb24n
+        LDExXSwnZGYnLDI0NiwndGYtaWRmJywwLjAwNDA2NTA0MDY1MDQwNjUwNDVd
+        LCdhbWFuZGEnLFsndGYnLDEsJ3Bvc2l0aW9ucycsWydwb3NpdGlvbicsMTdd
+        LCdkZicsMywndGYtaWRmJywwLjMzMzMzMzMzMzMzMzMzMzNdLCdhbmRyZXcn
+        LFsndGYnLDEsJ3Bvc2l0aW9ucycsWydwb3NpdGlvbicsMTRdLCdkZicsMTUs
+        J3RmLWlkZicsMC4wNjY2NjY2NjY2NjY2NjY2N10sJ2FyZScsWyd0ZicsMSwn
+        cG9zaXRpb25zJyxbJ3Bvc2l0aW9uJywzXSwnZGYnLDE4LCd0Zi1pZGYnLDAu
+        MDU1NTU1NTU1NTU1NTU1NTVdLCdib3Rlcm8nLFsndGYnLDEsJ3Bvc2l0aW9u
+        cycsWydwb3NpdGlvbicsMTJdLCdkZicsMSwndGYtaWRmJywxLjBdLCdjYXJs
+        b3MnLFsndGYnLDEsJ3Bvc2l0aW9ucycsWydwb3NpdGlvbicsMTBdLCdkZics
+        NSwndGYtaWRmJywwLjJdLCdjZW50ZXInLFsndGYnLDEsJ3Bvc2l0aW9ucycs
+        Wydwb3NpdGlvbicsMjZdLCdkZicsMTMsJ3RmLWlkZicsMC4wNzY5MjMwNzY5
+        MjMwNzY5M10sJ2UnLFsndGYnLDEsJ3Bvc2l0aW9ucycsWydwb3NpdGlvbics
+        MTVdLCdkZicsNDYsJ3RmLWlkZicsMC4wMjE3MzkxMzA0MzQ3ODI2MDhdLCdl
+        Y29sb2dpY2FsJyxbJ3RmJywxLCdwb3NpdGlvbnMnLFsncG9zaXRpb24nLDI4
+        XSwnZGYnLDksJ3RmLWlkZicsMC4xMTExMTExMTExMTExMTExXSwnZXN0aW1h
+        dGluZycsWyd0ZicsMSwncG9zaXRpb25zJyxbJ3Bvc2l0aW9uJyw3XSwnZGYn
+        LDEsJ3RmLWlkZicsMS4wXSwnZXRob2xvZ3knLFsndGYnLDEsJ3Bvc2l0aW9u
+        cycsWydwb3NpdGlvbicsMF0sJ2RmJyw1NzksJ3RmLWlkZicsMC4wMDE3Mjcx
+        MTU3MTY3NTMwMjI0XSwnZicsWyd0ZicsMSwncG9zaXRpb25zJyxbJ3Bvc2l0
+        aW9uJywxM10sJ2RmJyw3NCwndGYtaWRmJywwLjAxMzUxMzUxMzUxMzUxMzUx
+        NF0sJ2ZvcicsWyd0ZicsMiwncG9zaXRpb25zJyxbJ3Bvc2l0aW9uJyw2LCdw
+        b3NpdGlvbicsMjddLCdkZicsOTIsJ3RmLWlkZicsMC4wMjE3MzkxMzA0MzQ3
+        ODI2MDhdLCdob2NoYWNoa2FmJyxbJ3RmJywxLCdwb3NpdGlvbnMnLFsncG9z
+        aXRpb24nLDIyXSwnZGYnLDEsJ3RmLWlkZicsMS4wXSwnaG93JyxbJ3RmJywx
+        LCdwb3NpdGlvbnMnLFsncG9zaXRpb24nLDFdLCdkZicsMTAsJ3RmLWlkZics
+        MC4xXSwna29sdHonLFsndGYnLDEsJ3Bvc2l0aW9ucycsWydwb3NpdGlvbics
+        MTldLCdkZicsMSwndGYtaWRmJywxLjBdLCdsJyxbJ3RmJywxLCdwb3NpdGlv
+        bnMnLFsncG9zaXRpb24nLDI0XSwnZGYnLDY4LCd0Zi1pZGYnLDAuMDE0NzA1
+        ODgyMzUyOTQxMTc2XSwnbScsWyd0ZicsMiwncG9zaXRpb25zJyxbJ3Bvc2l0
+        aW9uJywxOCwncG9zaXRpb24nLDIxXSwnZGYnLDExOSwndGYtaWRmJywwLjAx
+        NjgwNjcyMjY4OTA3NTYzXSwnbWV0aG9kcycsWyd0ZicsMSwncG9zaXRpb25z
+        JyxbJ3Bvc2l0aW9uJyw1XSwnZGYnLDMsJ3RmLWlkZicsMC4zMzMzMzMzMzMz
+        MzMzMzMzXSwnbXVkZ2VmJyxbJ3RmJywxLCdwb3NpdGlvbnMnLFsncG9zaXRp
+        b24nLDE2XSwnZGYnLDEsJ3RmLWlkZicsMS4wXSwncmVsaWFibGUnLFsndGYn
+        LDEsJ3Bvc2l0aW9ucycsWydwb3NpdGlvbicsMl0sJ2RmJywxLCd0Zi1pZGYn
+        LDEuMF0sJ3JlcGVydG9pcmUnLFsndGYnLDEsJ3Bvc2l0aW9ucycsWydwb3Np
+        dGlvbicsOF0sJ2RmJywyLCd0Zi1pZGYnLDAuNV0sJ3NhbmRyYScsWyd0Zics
+        MSwncG9zaXRpb25zJyxbJ3Bvc2l0aW9uJywyM10sJ2RmJywxLCd0Zi1pZGYn
+        LDEuMF0sJ3NpemUnLFsndGYnLDEsJ3Bvc2l0aW9ucycsWydwb3NpdGlvbics
+        OV0sJ2RmJywyNiwndGYtaWRmJywwLjAzODQ2MTUzODQ2MTUzODQ2NF0sJ3Ro
+        ZScsWyd0ZicsMSwncG9zaXRpb25zJyxbJ3Bvc2l0aW9uJyw0XSwnZGYnLDYy
+        NSwndGYtaWRmJywwLjAwMTZdLCd2ZWhyZW5jYW1wZicsWyd0ZicsMSwncG9z
+        aXRpb25zJyxbJ3Bvc2l0aW9uJywyNV0sJ2RmJywxLCd0Zi1pZGYnLDEuMF0s
+        J3dlc2xleScsWyd0ZicsMSwncG9zaXRpb25zJyxbJ3Bvc2l0aW9uJywyMF0s
+        J2RmJywxLCd0Zi1pZGYnLDEuMF1dXV19Cg==
+    http_version:
+  recorded_at: Tue, 17 Sep 2013 02:51:29 GMT
+- request:
+    method: post
+    uri: http://localhost:8983/search?wt=ruby
+    body:
+      encoding: US-ASCII
+      string: q=shasum%3A0097c3434054c25e1ace6243a1ac54b71f35bc28&defType=lucene&tv=true&fl=shasum%2Cdoi%2Clicense%2Clicense_url%2Cauthors%2Ctitle%2Cjournal%2Cyear%2Cvolume%2Cnumber%2Cpages%2Cfulltext
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=UTF-8
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - Winstone Servlet Engine v0.9.10
+      Content-Type:
+      - text/plain;charset=UTF-8
+      Connection:
+      - Close
+      Date:
+      - Tue, 17 Sep 2013 02:51:29 GMT
+      X-Powered-By:
+      - Servlet/2.5 (Winstone/0.9.10)
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        eydyZXNwb25zZUhlYWRlcic9Pnsnc3RhdHVzJz0+MCwnUVRpbWUnPT43LCdw
+        YXJhbXMnPT57J2ZsJz0+J3NoYXN1bSxkb2ksbGljZW5zZSxsaWNlbnNlX3Vy
+        bCxhdXRob3JzLHRpdGxlLGpvdXJuYWwseWVhcix2b2x1bWUsbnVtYmVyLHBh
+        Z2VzLGZ1bGx0ZXh0JywncSc9PidzaGFzdW06MDA5N2MzNDM0MDU0YzI1ZTFh
+        Y2U2MjQzYTFhYzU0YjcxZjM1YmMyOCcsJ3R2Jz0+J3RydWUnLCd3dCc9Pidy
+        dWJ5JywnZGVmVHlwZSc9PidsdWNlbmUnfX0sJ3Jlc3BvbnNlJz0+eydudW1G
+        b3VuZCc9PjEsJ3N0YXJ0Jz0+MCwnZG9jcyc9Plt7J2xpY2Vuc2UnPT4nwqkg
+        QmxhY2t3ZWxsIFZlcmxhZyBHbWJIJywnc2hhc3VtJz0+JzAwOTdjMzQzNDA1
+        NGMyNWUxYWNlNjI0M2ExYWM1NGI3MWYzNWJjMjgnLCdkb2knPT4nMTAuMTA0
+        Ni9qLjE0MzktMDMxMC4yMDAxLjAwNzIzLngnLCdhdXRob3JzJz0+J1N1c2Fu
+        IEJhcnRtYW5uLCBHYWJyaWVsZSBHZXJsYWNoJywndGl0bGUnPT4nTXVsdGlw
+        bGUgUGF0ZXJuaXR5IGFuZCBTaW1pbGFyIFZhcmlhbmNlIGluIFJlcHJvZHVj
+        dGl2ZSBTdWNjZXNzIG9mIE1hbGUgYW5kIEZlbWFsZSBXb29kIE1pY2UgKEFw
+        b2RlbXVzIHN5bHZhdGljdXMpIEhvdXNlZCBpbiBhbiBFbmNsb3N1cmUnLCdq
+        b3VybmFsJz0+J0V0aG9sb2d5JywneWVhcic9PicyMDAxJywndm9sdW1lJz0+
+        JzEwNycsJ3BhZ2VzJz0+Jzg4OS04OTknLCdmdWxsdGV4dCc9PidFdGhvbG9n
+        eSAxMDcsIDg4OeKAlDg5OSAoMjAwMSkgwqkgMjAwMSBCbGFja3dlbGwgV2lz
+        c2Vuc2NoYWZ0cy1WZXJsYWcsIEJlcmxpbiBJU1NOIDAxNzktMTYxMwpGYWsu
+        IEJpb2xvZ2llLCBVbml2ZXJzaXTDpHQgS29uc3RhbnosIEtvbnN0YW56Ck11
+        bHRpcGxlIFBhdGVybml0eSBhbmQgU2ltaWxhciBWYXJpYW5jZSBpbiBSZXBy
+        b2R1Y3RpdmUgU3VjY2VzcyAnfV19LCdmYWNldF9jb3VudHMnPT57J2ZhY2V0
+        X3F1ZXJpZXMnPT57J3llYXI6WyogVE8gMTc5OV0nPT4wLCd5ZWFyOlsxODAw
+        IFRPIDE4MDldJz0+MCwneWVhcjpbMTgxMCBUTyAxODE5XSc9PjAsJ3llYXI6
+        WzE4MjAgVE8gMTgyOV0nPT4wLCd5ZWFyOlsxODMwIFRPIDE4MzldJz0+MCwn
+        eWVhcjpbMTg0MCBUTyAxODQ5XSc9PjAsJ3llYXI6WzE4NTAgVE8gMTg1OV0n
+        PT4wLCd5ZWFyOlsxODYwIFRPIDE4NjldJz0+MCwneWVhcjpbMTg3MCBUTyAx
+        ODc5XSc9PjAsJ3llYXI6WzE4ODAgVE8gMTg4OV0nPT4wLCd5ZWFyOlsxODkw
+        IFRPIDE4OTldJz0+MCwneWVhcjpbMTkwMCBUTyAxOTA5XSc9PjAsJ3llYXI6
+        WzE5MTAgVE8gMTkxOV0nPT4wLCd5ZWFyOlsxOTIwIFRPIDE5MjldJz0+MCwn
+        eWVhcjpbMTkzMCBUTyAxOTM5XSc9PjAsJ3llYXI6WzE5NDAgVE8gMTk0OV0n
+        PT4wLCd5ZWFyOlsxOTUwIFRPIDE5NTldJz0+MCwneWVhcjpbMTk2MCBUTyAx
+        OTY5XSc9PjAsJ3llYXI6WzE5NzAgVE8gMTk3OV0nPT4wLCd5ZWFyOlsxOTgw
+        IFRPIDE5ODldJz0+MCwneWVhcjpbMTk5MCBUTyAxOTk5XSc9PjAsJ3llYXI6
+        WzIwMDAgVE8gMjAwOV0nPT4xLCd5ZWFyOlsyMDEwIFRPICpdJz0+MH0sJ2Zh
+        Y2V0X2ZpZWxkcyc9PnsnYXV0aG9yc19mYWNldCc9PlsnR2FicmllbGUgR2Vy
+        bGFjaCcsMSwnU3VzYW4gQmFydG1hbm4nLDEsJy4gTi4gTW91dG9uJywwLCdB
+        IEd1bycsMCwnQSBQaWNrbGVzJywwLCdBLiBBLiBCYWlsZXknLDAsJ0EuIEEu
+        IEZpZW5iZXJnJywwLCdBLiBBLiBQYWxtZXInLDAsJ0EuIEEuIFR1ZG9yLUpv
+        bmVzJywwLCdBLiBBLiBXb25nJywwXSwnam91cm5hbF9mYWNldCc9PlsnRXRo
+        b2xvZ3knLDEsJ0dlbmVzLCBCcmFpbiBhbmQgQmVoYXZpb3InLDBdfSwnZmFj
+        ZXRfZGF0ZXMnPT57fSwnZmFjZXRfcmFuZ2VzJz0+e319LCd0ZXJtVmVjdG9y
+        cyc9PlsndW5pcXVlS2V5RmllbGROYW1lJywnc2hhc3VtJywnMDA5N2MzNDM0
+        MDU0YzI1ZTFhY2U2MjQzYTFhYzU0YjcxZjM1YmMyOCcsWyd1bmlxdWVLZXkn
+        LCcwMDk3YzM0MzQwNTRjMjVlMWFjZTYyNDNhMWFjNTRiNzFmMzViYzI4Jywn
+        ZnVsbHRleHQnLFsnMDE3OS0xNjEzJyxbJ3RmJywxLCdwb3NpdGlvbnMnLFsn
+        cG9zaXRpb24nLDExXSwnZGYnLDI2NiwndGYtaWRmJywwLjAwMzc1OTM5ODQ5
+        NjI0MDYwMTNdLCcxMDcnLFsndGYnLDEsJ3Bvc2l0aW9ucycsWydwb3NpdGlv
+        bicsMV0sJ2RmJywzNSwndGYtaWRmJywwLjAyODU3MTQyODU3MTQyODU3XSwn
+        MjAwMScsWyd0ZicsMiwncG9zaXRpb25zJyxbJ3Bvc2l0aW9uJyw0LCdwb3Np
+        dGlvbicsNV0sJ2RmJywzOSwndGYtaWRmJywwLjA1MTI4MjA1MTI4MjA1MTI4
+        XSwnODg5JyxbJ3RmJywxLCdwb3NpdGlvbnMnLFsncG9zaXRpb24nLDJdLCdk
+        ZicsMSwndGYtaWRmJywxLjBdLCc4OTknLFsndGYnLDEsJ3Bvc2l0aW9ucycs
+        Wydwb3NpdGlvbicsM10sJ2RmJywxLCd0Zi1pZGYnLDEuMF0sJ2FuZCcsWyd0
+        ZicsMSwncG9zaXRpb25zJyxbJ3Bvc2l0aW9uJywxOV0sJ2RmJyw3NDcsJ3Rm
+        LWlkZicsMC4wMDEzMzg2ODgwODU2NzYwMzc0XSwnYmVybGluJyxbJ3RmJywx
+        LCdwb3NpdGlvbnMnLFsncG9zaXRpb24nLDldLCdkZicsMjkzLCd0Zi1pZGYn
+        LDAuMDAzNDEyOTY5MjgzMjc2NDUwNV0sJ2Jpb2xvZ2llJyxbJ3RmJywxLCdw
+        b3NpdGlvbnMnLFsncG9zaXRpb24nLDEzXSwnZGYnLDYsJ3RmLWlkZicsMC4x
+        NjY2NjY2NjY2NjY2NjY2Nl0sJ2JsYWNrd2VsbCcsWyd0ZicsMSwncG9zaXRp
+        b25zJyxbJ3Bvc2l0aW9uJyw2XSwnZGYnLDU3MywndGYtaWRmJywwLjAwMTc0
+        NTIwMDY5ODA4MDI3OTNdLCdldGhvbG9neScsWyd0ZicsMSwncG9zaXRpb25z
+        JyxbJ3Bvc2l0aW9uJywwXSwnZGYnLDU3OSwndGYtaWRmJywwLjAwMTcyNzEx
+        NTcxNjc1MzAyMjRdLCdmYWsnLFsndGYnLDEsJ3Bvc2l0aW9ucycsWydwb3Np
+        dGlvbicsMTJdLCdkZicsMSwndGYtaWRmJywxLjBdLCdpbicsWyd0ZicsMSwn
+        cG9zaXRpb25zJyxbJ3Bvc2l0aW9uJywyMl0sJ2RmJyw0OTgsJ3RmLWlkZics
+        MC4wMDIwMDgwMzIxMjg1MTQwNTZdLCdpc3NuJyxbJ3RmJywxLCdwb3NpdGlv
+        bnMnLFsncG9zaXRpb24nLDEwXSwnZGYnLDMwOCwndGYtaWRmJywwLjAwMzI0
+        Njc1MzI0Njc1MzI0N10sJ2tvbnN0YW56JyxbJ3RmJywyLCdwb3NpdGlvbnMn
+        LFsncG9zaXRpb24nLDE1LCdwb3NpdGlvbicsMTZdLCdkZicsMSwndGYtaWRm
+        JywyLjBdLCdtdWx0aXBsZScsWyd0ZicsMSwncG9zaXRpb25zJyxbJ3Bvc2l0
+        aW9uJywxN10sJ2RmJywxMywndGYtaWRmJywwLjA3NjkyMzA3NjkyMzA3Njkz
+        XSwncGF0ZXJuaXR5JyxbJ3RmJywxLCdwb3NpdGlvbnMnLFsncG9zaXRpb24n
+        LDE4XSwnZGYnLDMsJ3RmLWlkZicsMC4zMzMzMzMzMzMzMzMzMzMzXSwncmVw
+        cm9kdWN0aXZlJyxbJ3RmJywxLCdwb3NpdGlvbnMnLFsncG9zaXRpb24nLDIz
+        XSwnZGYnLDI0LCd0Zi1pZGYnLDAuMDQxNjY2NjY2NjY2NjY2NjY0XSwnc2lt
+        aWxhcicsWyd0ZicsMSwncG9zaXRpb25zJyxbJ3Bvc2l0aW9uJywyMF0sJ2Rm
+        JywxLCd0Zi1pZGYnLDEuMF0sJ3N1Y2Nlc3MnLFsndGYnLDEsJ3Bvc2l0aW9u
+        cycsWydwb3NpdGlvbicsMjRdLCdkZicsMTEsJ3RmLWlkZicsMC4wOTA5MDkw
+        OTA5MDkwOTA5MV0sJ3VuaXZlcnNpdMOkdCcsWyd0ZicsMSwncG9zaXRpb25z
+        JyxbJ3Bvc2l0aW9uJywxNF0sJ2RmJywxMiwndGYtaWRmJywwLjA4MzMzMzMz
+        MzMzMzMzMzMzXSwndmFyaWFuY2UnLFsndGYnLDEsJ3Bvc2l0aW9ucycsWydw
+        b3NpdGlvbicsMjFdLCdkZicsMywndGYtaWRmJywwLjMzMzMzMzMzMzMzMzMz
+        MzNdLCd2ZXJsYWcnLFsndGYnLDEsJ3Bvc2l0aW9ucycsWydwb3NpdGlvbics
+        OF0sJ2RmJywyOTMsJ3RmLWlkZicsMC4wMDM0MTI5NjkyODMyNzY0NTA1XSwn
+        d2lzc2Vuc2NoYWZ0cycsWyd0ZicsMSwncG9zaXRpb25zJyxbJ3Bvc2l0aW9u
+        Jyw3XSwnZGYnLDE2NywndGYtaWRmJywwLjAwNTk4ODAyMzk1MjA5NTgwOV1d
+        XV19Cg==
+    http_version:
+  recorded_at: Tue, 17 Sep 2013 02:51:29 GMT
+- request:
+    method: post
+    uri: http://localhost:8983/search?wt=ruby
+    body:
+      encoding: US-ASCII
+      string: q=shasum%3A0097e0f4029fef57b8158970112ab32c1e692cff&defType=lucene&tv=true&fl=shasum%2Cdoi%2Clicense%2Clicense_url%2Cauthors%2Ctitle%2Cjournal%2Cyear%2Cvolume%2Cnumber%2Cpages%2Cfulltext
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=UTF-8
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - Winstone Servlet Engine v0.9.10
+      Content-Type:
+      - text/plain;charset=UTF-8
+      Connection:
+      - Close
+      Date:
+      - Tue, 17 Sep 2013 02:51:29 GMT
+      X-Powered-By:
+      - Servlet/2.5 (Winstone/0.9.10)
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        eydyZXNwb25zZUhlYWRlcic9Pnsnc3RhdHVzJz0+MCwnUVRpbWUnPT44LCdw
+        YXJhbXMnPT57J2ZsJz0+J3NoYXN1bSxkb2ksbGljZW5zZSxsaWNlbnNlX3Vy
+        bCxhdXRob3JzLHRpdGxlLGpvdXJuYWwseWVhcix2b2x1bWUsbnVtYmVyLHBh
+        Z2VzLGZ1bGx0ZXh0JywncSc9PidzaGFzdW06MDA5N2UwZjQwMjlmZWY1N2I4
+        MTU4OTcwMTEyYWIzMmMxZTY5MmNmZicsJ3R2Jz0+J3RydWUnLCd3dCc9Pidy
+        dWJ5JywnZGVmVHlwZSc9PidsdWNlbmUnfX0sJ3Jlc3BvbnNlJz0+eydudW1G
+        b3VuZCc9PjEsJ3N0YXJ0Jz0+MCwnZG9jcyc9Plt7J2xpY2Vuc2UnPT4nwqkg
+        QmxhY2t3ZWxsIFZlcmxhZyBHbWJIJywnc2hhc3VtJz0+JzAwOTdlMGY0MDI5
+        ZmVmNTdiODE1ODk3MDExMmFiMzJjMWU2OTJjZmYnLCdkb2knPT4nMTAuMTEx
+        MS9qLjE0MzktMDMxMC4yMDExLjAxODk4LngnLCdhdXRob3JzJz0+J1Bhdm9s
+        IFByb2tvcCwgTWljaGFlbCBSLiBNYXh3ZWxsJywndGl0bGUnPT4nU2V4dWFs
+        IENvbmZsaWN0IE92ZXIgU3Blcm1hdG9waG9yZSBBdHRhY2htZW50IGluIGEg
+        TnVwdGlhbGx5IEZlZWRpbmcgQ3JpY2tldCcsJ2pvdXJuYWwnPT4nRXRob2xv
+        Z3knLCd5ZWFyJz0+JzIwMTEnLCd2b2x1bWUnPT4nMTE3JywncGFnZXMnPT4n
+        NTIwLTUyOCcsJ2Z1bGx0ZXh0Jz0+J2V0aG9sb2d5CmludGVybmF0aW9uYWwg
+        am91cm5hbCBvZiBiZWhhdmlvdXJhbCBiaW9sb2d5CU0/OioKRXRob2xvZ3kK
+        U2V4dWFsIENvbmZsaWN0IE92ZXIgU3Blcm1hdG9waG9yZSBBdHRhY2htZW50
+        IGluIGEgTnVwdGlhbGx5IEZlZWRpbmcgQ3JpY2tldApQYXZvbCBQcm9rb3Aq
+        ZiAmIE1pY2hhZWwgUi4gTWF4d2VsbH0KKiBEZXBhcnRtZW50IG9mIEJpJ31d
+        fSwnZmFjZXRfY291bnRzJz0+eydmYWNldF9xdWVyaWVzJz0+eyd5ZWFyOlsq
+        IFRPIDE3OTldJz0+MCwneWVhcjpbMTgwMCBUTyAxODA5XSc9PjAsJ3llYXI6
+        WzE4MTAgVE8gMTgxOV0nPT4wLCd5ZWFyOlsxODIwIFRPIDE4MjldJz0+MCwn
+        eWVhcjpbMTgzMCBUTyAxODM5XSc9PjAsJ3llYXI6WzE4NDAgVE8gMTg0OV0n
+        PT4wLCd5ZWFyOlsxODUwIFRPIDE4NTldJz0+MCwneWVhcjpbMTg2MCBUTyAx
+        ODY5XSc9PjAsJ3llYXI6WzE4NzAgVE8gMTg3OV0nPT4wLCd5ZWFyOlsxODgw
+        IFRPIDE4ODldJz0+MCwneWVhcjpbMTg5MCBUTyAxODk5XSc9PjAsJ3llYXI6
+        WzE5MDAgVE8gMTkwOV0nPT4wLCd5ZWFyOlsxOTEwIFRPIDE5MTldJz0+MCwn
+        eWVhcjpbMTkyMCBUTyAxOTI5XSc9PjAsJ3llYXI6WzE5MzAgVE8gMTkzOV0n
+        PT4wLCd5ZWFyOlsxOTQwIFRPIDE5NDldJz0+MCwneWVhcjpbMTk1MCBUTyAx
+        OTU5XSc9PjAsJ3llYXI6WzE5NjAgVE8gMTk2OV0nPT4wLCd5ZWFyOlsxOTcw
+        IFRPIDE5NzldJz0+MCwneWVhcjpbMTk4MCBUTyAxOTg5XSc9PjAsJ3llYXI6
+        WzE5OTAgVE8gMTk5OV0nPT4wLCd5ZWFyOlsyMDAwIFRPIDIwMDldJz0+MCwn
+        eWVhcjpbMjAxMCBUTyAqXSc9PjF9LCdmYWNldF9maWVsZHMnPT57J2F1dGhv
+        cnNfZmFjZXQnPT5bJ01pY2hhZWwgUi4gTWF4d2VsbCcsMSwnUGF2b2wgUHJv
+        a29wJywxLCcuIE4uIE1vdXRvbicsMCwnQSBHdW8nLDAsJ0EgUGlja2xlcycs
+        MCwnQS4gQS4gQmFpbGV5JywwLCdBLiBBLiBGaWVuYmVyZycsMCwnQS4gQS4g
+        UGFsbWVyJywwLCdBLiBBLiBUdWRvci1Kb25lcycsMCwnQS4gQS4gV29uZycs
+        MF0sJ2pvdXJuYWxfZmFjZXQnPT5bJ0V0aG9sb2d5JywxLCdHZW5lcywgQnJh
+        aW4gYW5kIEJlaGF2aW9yJywwXX0sJ2ZhY2V0X2RhdGVzJz0+e30sJ2ZhY2V0
+        X3Jhbmdlcyc9Pnt9fSwndGVybVZlY3RvcnMnPT5bJ3VuaXF1ZUtleUZpZWxk
+        TmFtZScsJ3NoYXN1bScsJzAwOTdlMGY0MDI5ZmVmNTdiODE1ODk3MDExMmFi
+        MzJjMWU2OTJjZmYnLFsndW5pcXVlS2V5JywnMDA5N2UwZjQwMjlmZWY1N2I4
+        MTU4OTcwMTEyYWIzMmMxZTY5MmNmZicsJ2Z1bGx0ZXh0JyxbJ2EnLFsndGYn
+        LDEsJ3Bvc2l0aW9ucycsWydwb3NpdGlvbicsMTRdLCdkZicsMjQ2LCd0Zi1p
+        ZGYnLDAuMDA0MDY1MDQwNjUwNDA2NTA0NV0sJ2F0dGFjaG1lbnQnLFsndGYn
+        LDEsJ3Bvc2l0aW9ucycsWydwb3NpdGlvbicsMTJdLCdkZicsMywndGYtaWRm
+        JywwLjMzMzMzMzMzMzMzMzMzMzNdLCdiZWhhdmlvdXJhbCcsWyd0ZicsMSwn
+        cG9zaXRpb25zJyxbJ3Bvc2l0aW9uJyw0XSwnZGYnLDI1NCwndGYtaWRmJyww
+        LjAwMzkzNzAwNzg3NDAxNTc0OF0sJ2JpJyxbJ3RmJywxLCdwb3NpdGlvbnMn
+        LFsncG9zaXRpb24nLDI2XSwnZGYnLDIsJ3RmLWlkZicsMC41XSwnYmlvbG9n
+        eScsWyd0ZicsMSwncG9zaXRpb25zJyxbJ3Bvc2l0aW9uJyw1XSwnZGYnLDEz
+        MSwndGYtaWRmJywwLjAwNzYzMzU4Nzc4NjI1OTU0Ml0sJ2NvbmZsaWN0Jyxb
+        J3RmJywxLCdwb3NpdGlvbnMnLFsncG9zaXRpb24nLDldLCdkZicsMTAsJ3Rm
+        LWlkZicsMC4xXSwnY3JpY2tldCcsWyd0ZicsMSwncG9zaXRpb25zJyxbJ3Bv
+        c2l0aW9uJywxN10sJ2RmJyw2LCd0Zi1pZGYnLDAuMTY2NjY2NjY2NjY2NjY2
+        NjZdLCdkZXBhcnRtZW50JyxbJ3RmJywxLCdwb3NpdGlvbnMnLFsncG9zaXRp
+        b24nLDI0XSwnZGYnLDE3OSwndGYtaWRmJywwLjAwNTU4NjU5MjE3ODc3MDk1
+        XSwnZXRob2xvZ3knLFsndGYnLDIsJ3Bvc2l0aW9ucycsWydwb3NpdGlvbics
+        MCwncG9zaXRpb24nLDddLCdkZicsNTc5LCd0Zi1pZGYnLDAuMDAzNDU0MjMx
+        NDMzNTA2MDQ0N10sJ2YnLFsndGYnLDEsJ3Bvc2l0aW9ucycsWydwb3NpdGlv
+        bicsMjBdLCdkZicsNzQsJ3RmLWlkZicsMC4wMTM1MTM1MTM1MTM1MTM1MTRd
+        LCdmZWVkaW5nJyxbJ3RmJywxLCdwb3NpdGlvbnMnLFsncG9zaXRpb24nLDE2
+        XSwnZGYnLDExLCd0Zi1pZGYnLDAuMDkwOTA5MDkwOTA5MDkwOTFdLCdpbics
+        Wyd0ZicsMSwncG9zaXRpb25zJyxbJ3Bvc2l0aW9uJywxM10sJ2RmJyw0OTgs
+        J3RmLWlkZicsMC4wMDIwMDgwMzIxMjg1MTQwNTZdLCdpbnRlcm5hdGlvbmFs
+        JyxbJ3RmJywxLCdwb3NpdGlvbnMnLFsncG9zaXRpb24nLDFdLCdkZicsMjI4
+        LCd0Zi1pZGYnLDAuMDA0Mzg1OTY0OTEyMjgwNzAxNV0sJ2pvdXJuYWwnLFsn
+        dGYnLDEsJ3Bvc2l0aW9ucycsWydwb3NpdGlvbicsMl0sJ2RmJywyODUsJ3Rm
+        LWlkZicsMC4wMDM1MDg3NzE5Mjk4MjQ1NjE1XSwnbScsWyd0ZicsMSwncG9z
+        aXRpb25zJyxbJ3Bvc2l0aW9uJyw2XSwnZGYnLDExOSwndGYtaWRmJywwLjAw
+        ODQwMzM2MTM0NDUzNzgxNV0sJ21heHdlbGwnLFsndGYnLDEsJ3Bvc2l0aW9u
+        cycsWydwb3NpdGlvbicsMjNdLCdkZicsMSwndGYtaWRmJywxLjBdLCdtaWNo
+        YWVsJyxbJ3RmJywxLCdwb3NpdGlvbnMnLFsncG9zaXRpb24nLDIxXSwnZGYn
+        LDE0LCd0Zi1pZGYnLDAuMDcxNDI4NTcxNDI4NTcxNDJdLCdudXB0aWFsbHkn
+        LFsndGYnLDEsJ3Bvc2l0aW9ucycsWydwb3NpdGlvbicsMTVdLCdkZicsMSwn
+        dGYtaWRmJywxLjBdLCdvZicsWyd0ZicsMiwncG9zaXRpb25zJyxbJ3Bvc2l0
+        aW9uJywzLCdwb3NpdGlvbicsMjVdLCdkZicsNzY1LCd0Zi1pZGYnLDAuMDAy
+        NjE0Mzc5MDg0OTY3MzJdLCdvdmVyJyxbJ3RmJywxLCdwb3NpdGlvbnMnLFsn
+        cG9zaXRpb24nLDEwXSwnZGYnLDcsJ3RmLWlkZicsMC4xNDI4NTcxNDI4NTcx
+        NDI4NV0sJ3Bhdm9sJyxbJ3RmJywxLCdwb3NpdGlvbnMnLFsncG9zaXRpb24n
+        LDE4XSwnZGYnLDMsJ3RmLWlkZicsMC4zMzMzMzMzMzMzMzMzMzMzXSwncHJv
+        a29wJyxbJ3RmJywxLCdwb3NpdGlvbnMnLFsncG9zaXRpb24nLDE5XSwnZGYn
+        LDIsJ3RmLWlkZicsMC41XSwncicsWyd0ZicsMSwncG9zaXRpb25zJyxbJ3Bv
+        c2l0aW9uJywyMl0sJ2RmJyw0OSwndGYtaWRmJywwLjAyMDQwODE2MzI2NTMw
+        NjEyXSwnc2V4dWFsJyxbJ3RmJywxLCdwb3NpdGlvbnMnLFsncG9zaXRpb24n
+        LDhdLCdkZicsMjIsJ3RmLWlkZicsMC4wNDU0NTQ1NDU0NTQ1NDU0NTZdLCdz
+        cGVybWF0b3Bob3JlJyxbJ3RmJywxLCdwb3NpdGlvbnMnLFsncG9zaXRpb24n
+        LDExXSwnZGYnLDIsJ3RmLWlkZicsMC41XV1dXX0K
+    http_version:
+  recorded_at: Tue, 17 Sep 2013 02:51:29 GMT
+- request:
+    method: post
+    uri: http://localhost:8983/search?wt=ruby
+    body:
+      encoding: US-ASCII
+      string: q=shasum%3A00a004096479b9332b153e91053f09df8003ef74&defType=lucene&tv=true&fl=shasum%2Cdoi%2Clicense%2Clicense_url%2Cauthors%2Ctitle%2Cjournal%2Cyear%2Cvolume%2Cnumber%2Cpages%2Cfulltext
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=UTF-8
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - Winstone Servlet Engine v0.9.10
+      Content-Type:
+      - text/plain;charset=UTF-8
+      Connection:
+      - Close
+      Date:
+      - Tue, 17 Sep 2013 02:51:29 GMT
+      X-Powered-By:
+      - Servlet/2.5 (Winstone/0.9.10)
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        eydyZXNwb25zZUhlYWRlcic9Pnsnc3RhdHVzJz0+MCwnUVRpbWUnPT43LCdw
+        YXJhbXMnPT57J2ZsJz0+J3NoYXN1bSxkb2ksbGljZW5zZSxsaWNlbnNlX3Vy
+        bCxhdXRob3JzLHRpdGxlLGpvdXJuYWwseWVhcix2b2x1bWUsbnVtYmVyLHBh
+        Z2VzLGZ1bGx0ZXh0JywncSc9PidzaGFzdW06MDBhMDA0MDk2NDc5YjkzMzJi
+        MTUzZTkxMDUzZjA5ZGY4MDAzZWY3NCcsJ3R2Jz0+J3RydWUnLCd3dCc9Pidy
+        dWJ5JywnZGVmVHlwZSc9PidsdWNlbmUnfX0sJ3Jlc3BvbnNlJz0+eydudW1G
+        b3VuZCc9PjEsJ3N0YXJ0Jz0+MCwnZG9jcyc9Plt7J2xpY2Vuc2UnPT4nwqkg
+        QmxhY2t3ZWxsIFZlcmxhZyBHbWJIJywnc2hhc3VtJz0+JzAwYTAwNDA5NjQ3
+        OWI5MzMyYjE1M2U5MTA1M2YwOWRmODAwM2VmNzQnLCdkb2knPT4nMTAuMTEx
+        MS9qLjE0MzktMDMxMC4xOTk4LnRiMDAxMDMueCcsJ2F1dGhvcnMnPT4nUi4g
+        SS4gTS4gRHVuYmFyLCBKdWxpYW4gQmV2ZXInLCd0aXRsZSc9PidOZW9jb3J0
+        ZXggU2l6ZSBQcmVkaWN0cyBHcm91cCBTaXplIGluIENhcm5pdm9yZXMgYW5k
+        IFNvbWUgSW5zZWN0aXZvcmVzJywnam91cm5hbCc9PidFdGhvbG9neScsJ3ll
+        YXInPT4nMTk5OCcsJ3ZvbHVtZSc9PicxMDQnLCdwYWdlcyc9Pic2OTUtNzA4
+        JywnZnVsbHRleHQnPT4nRXRob2xvZ3kgMTA0LCA2OTXigJQ3MDggKDE5OTgp
+        IMKpIDE5OTggQmxhY2t3ZWxsIFdpc3NlbnNjaGFmdHMtVmVybGFnLCBCZXJs
+        aW4gSVNTTiAwMTc5LTE2MTMKU2Nob29sIG9mIEJpb2xvZ2ljYWwgU2NpZW5j
+        ZXMsIE5pY2hvbHNvbiBCdWlsZGluZywgVW5pdmVyc2l0eSBvZiBMaXZlcnBv
+        b2wgYW5kIERlcGFydG1lbnQgb2YgQW50aHJvcG9sb2d5LCBVbmknfV19LCdm
+        YWNldF9jb3VudHMnPT57J2ZhY2V0X3F1ZXJpZXMnPT57J3llYXI6WyogVE8g
+        MTc5OV0nPT4wLCd5ZWFyOlsxODAwIFRPIDE4MDldJz0+MCwneWVhcjpbMTgx
+        MCBUTyAxODE5XSc9PjAsJ3llYXI6WzE4MjAgVE8gMTgyOV0nPT4wLCd5ZWFy
+        OlsxODMwIFRPIDE4MzldJz0+MCwneWVhcjpbMTg0MCBUTyAxODQ5XSc9PjAs
+        J3llYXI6WzE4NTAgVE8gMTg1OV0nPT4wLCd5ZWFyOlsxODYwIFRPIDE4Njld
+        Jz0+MCwneWVhcjpbMTg3MCBUTyAxODc5XSc9PjAsJ3llYXI6WzE4ODAgVE8g
+        MTg4OV0nPT4wLCd5ZWFyOlsxODkwIFRPIDE4OTldJz0+MCwneWVhcjpbMTkw
+        MCBUTyAxOTA5XSc9PjAsJ3llYXI6WzE5MTAgVE8gMTkxOV0nPT4wLCd5ZWFy
+        OlsxOTIwIFRPIDE5MjldJz0+MCwneWVhcjpbMTkzMCBUTyAxOTM5XSc9PjAs
+        J3llYXI6WzE5NDAgVE8gMTk0OV0nPT4wLCd5ZWFyOlsxOTUwIFRPIDE5NTld
+        Jz0+MCwneWVhcjpbMTk2MCBUTyAxOTY5XSc9PjAsJ3llYXI6WzE5NzAgVE8g
+        MTk3OV0nPT4wLCd5ZWFyOlsxOTgwIFRPIDE5ODldJz0+MCwneWVhcjpbMTk5
+        MCBUTyAxOTk5XSc9PjEsJ3llYXI6WzIwMDAgVE8gMjAwOV0nPT4wLCd5ZWFy
+        OlsyMDEwIFRPICpdJz0+MH0sJ2ZhY2V0X2ZpZWxkcyc9PnsnYXV0aG9yc19m
+        YWNldCc9PlsnSnVsaWFuIEJldmVyJywxLCdSLiBJLiBNLiBEdW5iYXInLDEs
+        Jy4gTi4gTW91dG9uJywwLCdBIEd1bycsMCwnQSBQaWNrbGVzJywwLCdBLiBB
+        LiBCYWlsZXknLDAsJ0EuIEEuIEZpZW5iZXJnJywwLCdBLiBBLiBQYWxtZXIn
+        LDAsJ0EuIEEuIFR1ZG9yLUpvbmVzJywwLCdBLiBBLiBXb25nJywwXSwnam91
+        cm5hbF9mYWNldCc9PlsnRXRob2xvZ3knLDEsJ0dlbmVzLCBCcmFpbiBhbmQg
+        QmVoYXZpb3InLDBdfSwnZmFjZXRfZGF0ZXMnPT57fSwnZmFjZXRfcmFuZ2Vz
+        Jz0+e319LCd0ZXJtVmVjdG9ycyc9PlsndW5pcXVlS2V5RmllbGROYW1lJywn
+        c2hhc3VtJywnMDBhMDA0MDk2NDc5YjkzMzJiMTUzZTkxMDUzZjA5ZGY4MDAz
+        ZWY3NCcsWyd1bmlxdWVLZXknLCcwMGEwMDQwOTY0NzliOTMzMmIxNTNlOTEw
+        NTNmMDlkZjgwMDNlZjc0JywnZnVsbHRleHQnLFsnMDE3OS0xNjEzJyxbJ3Rm
+        JywxLCdwb3NpdGlvbnMnLFsncG9zaXRpb24nLDExXSwnZGYnLDI2NiwndGYt
+        aWRmJywwLjAwMzc1OTM5ODQ5NjI0MDYwMTNdLCcxMDQnLFsndGYnLDEsJ3Bv
+        c2l0aW9ucycsWydwb3NpdGlvbicsMV0sJ2RmJywzMiwndGYtaWRmJywwLjAz
+        MTI1XSwnMTk5OCcsWyd0ZicsMiwncG9zaXRpb25zJyxbJ3Bvc2l0aW9uJyw0
+        LCdwb3NpdGlvbicsNV0sJ2RmJywzNSwndGYtaWRmJywwLjA1NzE0Mjg1NzE0
+        Mjg1NzE0XSwnNjk1JyxbJ3RmJywxLCdwb3NpdGlvbnMnLFsncG9zaXRpb24n
+        LDJdLCdkZicsMSwndGYtaWRmJywxLjBdLCc3MDgnLFsndGYnLDEsJ3Bvc2l0
+        aW9ucycsWydwb3NpdGlvbicsM10sJ2RmJywxLCd0Zi1pZGYnLDEuMF0sJ2Fu
+        ZCcsWyd0ZicsMSwncG9zaXRpb25zJyxbJ3Bvc2l0aW9uJywyMV0sJ2RmJyw3
+        NDcsJ3RmLWlkZicsMC4wMDEzMzg2ODgwODU2NzYwMzc0XSwnYW50aHJvcG9s
+        b2d5JyxbJ3RmJywxLCdwb3NpdGlvbnMnLFsncG9zaXRpb24nLDI0XSwnZGYn
+        LDQsJ3RmLWlkZicsMC4yNV0sJ2JlcmxpbicsWyd0ZicsMSwncG9zaXRpb25z
+        JyxbJ3Bvc2l0aW9uJyw5XSwnZGYnLDI5MywndGYtaWRmJywwLjAwMzQxMjk2
+        OTI4MzI3NjQ1MDVdLCdiaW9sb2dpY2FsJyxbJ3RmJywxLCdwb3NpdGlvbnMn
+        LFsncG9zaXRpb24nLDE0XSwnZGYnLDM1LCd0Zi1pZGYnLDAuMDI4NTcxNDI4
+        NTcxNDI4NTddLCdibGFja3dlbGwnLFsndGYnLDEsJ3Bvc2l0aW9ucycsWydw
+        b3NpdGlvbicsNl0sJ2RmJyw1NzMsJ3RmLWlkZicsMC4wMDE3NDUyMDA2OTgw
+        ODAyNzkzXSwnYnVpbGRpbmcnLFsndGYnLDEsJ3Bvc2l0aW9ucycsWydwb3Np
+        dGlvbicsMTddLCdkZicsMSwndGYtaWRmJywxLjBdLCdkZXBhcnRtZW50Jyxb
+        J3RmJywxLCdwb3NpdGlvbnMnLFsncG9zaXRpb24nLDIyXSwnZGYnLDE3OSwn
+        dGYtaWRmJywwLjAwNTU4NjU5MjE3ODc3MDk1XSwnZXRob2xvZ3knLFsndGYn
+        LDEsJ3Bvc2l0aW9ucycsWydwb3NpdGlvbicsMF0sJ2RmJyw1NzksJ3RmLWlk
+        ZicsMC4wMDE3MjcxMTU3MTY3NTMwMjI0XSwnaXNzbicsWyd0ZicsMSwncG9z
+        aXRpb25zJyxbJ3Bvc2l0aW9uJywxMF0sJ2RmJywzMDgsJ3RmLWlkZicsMC4w
+        MDMyNDY3NTMyNDY3NTMyNDddLCdsaXZlcnBvb2wnLFsndGYnLDEsJ3Bvc2l0
+        aW9ucycsWydwb3NpdGlvbicsMjBdLCdkZicsMSwndGYtaWRmJywxLjBdLCdu
+        aWNob2xzb24nLFsndGYnLDEsJ3Bvc2l0aW9ucycsWydwb3NpdGlvbicsMTZd
+        LCdkZicsMSwndGYtaWRmJywxLjBdLCdvZicsWyd0ZicsMywncG9zaXRpb25z
+        JyxbJ3Bvc2l0aW9uJywxMywncG9zaXRpb24nLDE5LCdwb3NpdGlvbicsMjNd
+        LCdkZicsNzY1LCd0Zi1pZGYnLDAuMDAzOTIxNTY4NjI3NDUwOThdLCdzY2hv
+        b2wnLFsndGYnLDEsJ3Bvc2l0aW9ucycsWydwb3NpdGlvbicsMTJdLCdkZics
+        MjMsJ3RmLWlkZicsMC4wNDM0NzgyNjA4Njk1NjUyMTZdLCdzY2llbmNlcycs
+        Wyd0ZicsMSwncG9zaXRpb25zJyxbJ3Bvc2l0aW9uJywxNV0sJ2RmJywzNiwn
+        dGYtaWRmJywwLjAyNzc3Nzc3Nzc3Nzc3Nzc3Nl0sJ3VuaScsWyd0ZicsMSwn
+        cG9zaXRpb25zJyxbJ3Bvc2l0aW9uJywyNV0sJ2RmJywzLCd0Zi1pZGYnLDAu
+        MzMzMzMzMzMzMzMzMzMzM10sJ3VuaXZlcnNpdHknLFsndGYnLDEsJ3Bvc2l0
+        aW9ucycsWydwb3NpdGlvbicsMThdLCdkZicsMTY3LCd0Zi1pZGYnLDAuMDA1
+        OTg4MDIzOTUyMDk1ODA5XSwndmVybGFnJyxbJ3RmJywxLCdwb3NpdGlvbnMn
+        LFsncG9zaXRpb24nLDhdLCdkZicsMjkzLCd0Zi1pZGYnLDAuMDAzNDEyOTY5
+        MjgzMjc2NDUwNV0sJ3dpc3NlbnNjaGFmdHMnLFsndGYnLDEsJ3Bvc2l0aW9u
+        cycsWydwb3NpdGlvbicsN10sJ2RmJywxNjcsJ3RmLWlkZicsMC4wMDU5ODgw
+        MjM5NTIwOTU4MDldXV1dfQo=
+    http_version:
+  recorded_at: Tue, 17 Sep 2013 02:51:29 GMT
+- request:
+    method: post
+    uri: http://localhost:8983/search?wt=ruby
+    body:
+      encoding: US-ASCII
+      string: q=shasum%3A00cdb0f945c1e1d7b7789cd8178f3232a57fee34&defType=lucene&tv=true&fl=shasum%2Cdoi%2Clicense%2Clicense_url%2Cauthors%2Ctitle%2Cjournal%2Cyear%2Cvolume%2Cnumber%2Cpages%2Cfulltext
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=UTF-8
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - Winstone Servlet Engine v0.9.10
+      Content-Type:
+      - text/plain;charset=UTF-8
+      Connection:
+      - Close
+      Date:
+      - Tue, 17 Sep 2013 02:51:29 GMT
+      X-Powered-By:
+      - Servlet/2.5 (Winstone/0.9.10)
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        eydyZXNwb25zZUhlYWRlcic9Pnsnc3RhdHVzJz0+MCwnUVRpbWUnPT41LCdw
+        YXJhbXMnPT57J2ZsJz0+J3NoYXN1bSxkb2ksbGljZW5zZSxsaWNlbnNlX3Vy
+        bCxhdXRob3JzLHRpdGxlLGpvdXJuYWwseWVhcix2b2x1bWUsbnVtYmVyLHBh
+        Z2VzLGZ1bGx0ZXh0JywncSc9PidzaGFzdW06MDBjZGIwZjk0NWMxZTFkN2I3
+        Nzg5Y2Q4MTc4ZjMyMzJhNTdmZWUzNCcsJ3R2Jz0+J3RydWUnLCd3dCc9Pidy
+        dWJ5JywnZGVmVHlwZSc9PidsdWNlbmUnfX0sJ3Jlc3BvbnNlJz0+eydudW1G
+        b3VuZCc9PjEsJ3N0YXJ0Jz0+MCwnZG9jcyc9Plt7J2xpY2Vuc2UnPT4nwqkg
+        QmxhY2t3ZWxsIFZlcmxhZyBHbWJIJywnc2hhc3VtJz0+JzAwY2RiMGY5NDVj
+        MWUxZDdiNzc4OWNkODE3OGYzMjMyYTU3ZmVlMzQnLCdkb2knPT4nMTAuMTEx
+        MS9qLjE0MzktMDMxMC4yMDA2LjAxMTM5LngnLCdhdXRob3JzJz0+J0plbm5p
+        ZmVyIEwuIFNuZWtzZXIsIFNjb3R0IFAuIE1jUm9iZXJ0LCBDYWxlYiBFLiBN
+        dXJwaHksIEV0aGFuIEQuIENsb3RmZWx0ZXInLCd0aXRsZSc9PidBZ2dyZWdh
+        dGlvbiBCZWhhdmlvciBpbiBXaWxkdHlwZSBhbmQgVHJhbnNnZW5pYyBaZWJy
+        YWZpc2gnLCdqb3VybmFsJz0+J0V0aG9sb2d5JywneWVhcic9PicyMDA2Jywn
+        dm9sdW1lJz0+JzExMicsJ3BhZ2VzJz0+JzE4MS0xODcnLCdmdWxsdGV4dCc9
+        PidFdGhvbG9neQpBZ2dyZWdhdGlvbiBCZWhhdmlvciBpbiBXaWxkdHlwZSBh
+        bmQgVHJhbnNnZW5pYyBaZWJyYWZpc2gKSmVubmlmZXIgTC4gU25la3Nlcios
+        IFNjb3R0IFAuIE1jUm9iZXJ0KiwgQ2FsZWIgRS4gTXVycGh5ZiAmIEV0aGFu
+        IEQuIENsb3RmZWx0ZXJmClJlY2VudCBhZHZhbmNlcyBpbiB0aGUgZGV2ZWxv
+        cG1lbnQgYW5kIGF2YWlsYWJpbGl0eSd9XX0sJ2ZhY2V0X2NvdW50cyc9Pnsn
+        ZmFjZXRfcXVlcmllcyc9PnsneWVhcjpbKiBUTyAxNzk5XSc9PjAsJ3llYXI6
+        WzE4MDAgVE8gMTgwOV0nPT4wLCd5ZWFyOlsxODEwIFRPIDE4MTldJz0+MCwn
+        eWVhcjpbMTgyMCBUTyAxODI5XSc9PjAsJ3llYXI6WzE4MzAgVE8gMTgzOV0n
+        PT4wLCd5ZWFyOlsxODQwIFRPIDE4NDldJz0+MCwneWVhcjpbMTg1MCBUTyAx
+        ODU5XSc9PjAsJ3llYXI6WzE4NjAgVE8gMTg2OV0nPT4wLCd5ZWFyOlsxODcw
+        IFRPIDE4NzldJz0+MCwneWVhcjpbMTg4MCBUTyAxODg5XSc9PjAsJ3llYXI6
+        WzE4OTAgVE8gMTg5OV0nPT4wLCd5ZWFyOlsxOTAwIFRPIDE5MDldJz0+MCwn
+        eWVhcjpbMTkxMCBUTyAxOTE5XSc9PjAsJ3llYXI6WzE5MjAgVE8gMTkyOV0n
+        PT4wLCd5ZWFyOlsxOTMwIFRPIDE5MzldJz0+MCwneWVhcjpbMTk0MCBUTyAx
+        OTQ5XSc9PjAsJ3llYXI6WzE5NTAgVE8gMTk1OV0nPT4wLCd5ZWFyOlsxOTYw
+        IFRPIDE5NjldJz0+MCwneWVhcjpbMTk3MCBUTyAxOTc5XSc9PjAsJ3llYXI6
+        WzE5ODAgVE8gMTk4OV0nPT4wLCd5ZWFyOlsxOTkwIFRPIDE5OTldJz0+MCwn
+        eWVhcjpbMjAwMCBUTyAyMDA5XSc9PjEsJ3llYXI6WzIwMTAgVE8gKl0nPT4w
+        fSwnZmFjZXRfZmllbGRzJz0+eydhdXRob3JzX2ZhY2V0Jz0+WydDYWxlYiBF
+        LiBNdXJwaHknLDEsJ0V0aGFuIEQuIENsb3RmZWx0ZXInLDEsJ0plbm5pZmVy
+        IEwuIFNuZWtzZXInLDEsJ1Njb3R0IFAuIE1jUm9iZXJ0JywxLCcuIE4uIE1v
+        dXRvbicsMCwnQSBHdW8nLDAsJ0EgUGlja2xlcycsMCwnQS4gQS4gQmFpbGV5
+        JywwLCdBLiBBLiBGaWVuYmVyZycsMCwnQS4gQS4gUGFsbWVyJywwXSwnam91
+        cm5hbF9mYWNldCc9PlsnRXRob2xvZ3knLDEsJ0dlbmVzLCBCcmFpbiBhbmQg
+        QmVoYXZpb3InLDBdfSwnZmFjZXRfZGF0ZXMnPT57fSwnZmFjZXRfcmFuZ2Vz
+        Jz0+e319LCd0ZXJtVmVjdG9ycyc9PlsndW5pcXVlS2V5RmllbGROYW1lJywn
+        c2hhc3VtJywnMDBjZGIwZjk0NWMxZTFkN2I3Nzg5Y2Q4MTc4ZjMyMzJhNTdm
+        ZWUzNCcsWyd1bmlxdWVLZXknLCcwMGNkYjBmOTQ1YzFlMWQ3Yjc3ODljZDgx
+        NzhmMzIzMmE1N2ZlZTM0JywnZnVsbHRleHQnLFsnYWR2YW5jZXMnLFsndGYn
+        LDEsJ3Bvc2l0aW9ucycsWydwb3NpdGlvbicsMjFdLCdkZicsMiwndGYtaWRm
+        JywwLjVdLCdhZ2dyZWdhdGlvbicsWyd0ZicsMSwncG9zaXRpb25zJyxbJ3Bv
+        c2l0aW9uJywxXSwnZGYnLDMsJ3RmLWlkZicsMC4zMzMzMzMzMzMzMzMzMzMz
+        XSwnYW5kJyxbJ3RmJywyLCdwb3NpdGlvbnMnLFsncG9zaXRpb24nLDUsJ3Bv
+        c2l0aW9uJywyNV0sJ2RmJyw3NDcsJ3RmLWlkZicsMC4wMDI2NzczNzYxNzEz
+        NTIwNzVdLCdhdmFpbGFiaWxpdHknLFsndGYnLDEsJ3Bvc2l0aW9ucycsWydw
+        b3NpdGlvbicsMjZdLCdkZicsMSwndGYtaWRmJywxLjBdLCdiZWhhdmlvcics
+        Wyd0ZicsMSwncG9zaXRpb25zJyxbJ3Bvc2l0aW9uJywyXSwnZGYnLDQ5MCwn
+        dGYtaWRmJywwLjAwMjA0MDgxNjMyNjUzMDYxMjRdLCdjYWxlYicsWyd0Zics
+        MSwncG9zaXRpb25zJyxbJ3Bvc2l0aW9uJywxNF0sJ2RmJywxLCd0Zi1pZGYn
+        LDEuMF0sJ2Nsb3RmZWx0ZXJmJyxbJ3RmJywxLCdwb3NpdGlvbnMnLFsncG9z
+        aXRpb24nLDE5XSwnZGYnLDEsJ3RmLWlkZicsMS4wXSwnZCcsWyd0ZicsMSwn
+        cG9zaXRpb25zJyxbJ3Bvc2l0aW9uJywxOF0sJ2RmJyw2NCwndGYtaWRmJyww
+        LjAxNTYyNV0sJ2RldmVsb3BtZW50JyxbJ3RmJywxLCdwb3NpdGlvbnMnLFsn
+        cG9zaXRpb24nLDI0XSwnZGYnLDEyLCd0Zi1pZGYnLDAuMDgzMzMzMzMzMzMz
+        MzMzMzNdLCdlJyxbJ3RmJywxLCdwb3NpdGlvbnMnLFsncG9zaXRpb24nLDE1
+        XSwnZGYnLDQ2LCd0Zi1pZGYnLDAuMDIxNzM5MTMwNDM0NzgyNjA4XSwnZXRo
+        YW4nLFsndGYnLDEsJ3Bvc2l0aW9ucycsWydwb3NpdGlvbicsMTddLCdkZics
+        MSwndGYtaWRmJywxLjBdLCdldGhvbG9neScsWyd0ZicsMSwncG9zaXRpb25z
+        JyxbJ3Bvc2l0aW9uJywwXSwnZGYnLDU3OSwndGYtaWRmJywwLjAwMTcyNzEx
+        NTcxNjc1MzAyMjRdLCdpbicsWyd0ZicsMiwncG9zaXRpb25zJyxbJ3Bvc2l0
+        aW9uJywzLCdwb3NpdGlvbicsMjJdLCdkZicsNDk4LCd0Zi1pZGYnLDAuMDA0
+        MDE2MDY0MjU3MDI4MTEyXSwnamVubmlmZXInLFsndGYnLDEsJ3Bvc2l0aW9u
+        cycsWydwb3NpdGlvbicsOF0sJ2RmJyw1LCd0Zi1pZGYnLDAuMl0sJ2wnLFsn
+        dGYnLDEsJ3Bvc2l0aW9ucycsWydwb3NpdGlvbicsOV0sJ2RmJyw2OCwndGYt
+        aWRmJywwLjAxNDcwNTg4MjM1Mjk0MTE3Nl0sJ21jcm9iZXJ0JyxbJ3RmJywx
+        LCdwb3NpdGlvbnMnLFsncG9zaXRpb24nLDEzXSwnZGYnLDEsJ3RmLWlkZics
+        MS4wXSwnbXVycGh5ZicsWyd0ZicsMSwncG9zaXRpb25zJyxbJ3Bvc2l0aW9u
+        JywxNl0sJ2RmJywxLCd0Zi1pZGYnLDEuMF0sJ3AnLFsndGYnLDEsJ3Bvc2l0
+        aW9ucycsWydwb3NpdGlvbicsMTJdLCdkZicsNTAsJ3RmLWlkZicsMC4wMl0s
+        J3JlY2VudCcsWyd0ZicsMSwncG9zaXRpb25zJyxbJ3Bvc2l0aW9uJywyMF0s
+        J2RmJywzLCd0Zi1pZGYnLDAuMzMzMzMzMzMzMzMzMzMzM10sJ3Njb3R0Jyxb
+        J3RmJywxLCdwb3NpdGlvbnMnLFsncG9zaXRpb24nLDExXSwnZGYnLDQsJ3Rm
+        LWlkZicsMC4yNV0sJ3NuZWtzZXInLFsndGYnLDEsJ3Bvc2l0aW9ucycsWydw
+        b3NpdGlvbicsMTBdLCdkZicsMSwndGYtaWRmJywxLjBdLCd0aGUnLFsndGYn
+        LDEsJ3Bvc2l0aW9ucycsWydwb3NpdGlvbicsMjNdLCdkZicsNjI1LCd0Zi1p
+        ZGYnLDAuMDAxNl0sJ3RyYW5zZ2VuaWMnLFsndGYnLDEsJ3Bvc2l0aW9ucycs
+        Wydwb3NpdGlvbicsNl0sJ2RmJyw5LCd0Zi1pZGYnLDAuMTExMTExMTExMTEx
+        MTExMV0sJ3dpbGR0eXBlJyxbJ3RmJywxLCdwb3NpdGlvbnMnLFsncG9zaXRp
+        b24nLDRdLCdkZicsMSwndGYtaWRmJywxLjBdLCd6ZWJyYWZpc2gnLFsndGYn
+        LDEsJ3Bvc2l0aW9ucycsWydwb3NpdGlvbicsN10sJ2RmJywzLCd0Zi1pZGYn
+        LDAuMzMzMzMzMzMzMzMzMzMzM11dXV19Cg==
+    http_version:
+  recorded_at: Tue, 17 Sep 2013 02:51:29 GMT
+- request:
+    method: post
+    uri: http://localhost:8983/search?wt=ruby
+    body:
+      encoding: US-ASCII
+      string: q=shasum%3A00dbffbfff2d18a74ed5f8895fa9f515bf38bf5f&defType=lucene&tv=true&fl=shasum%2Cdoi%2Clicense%2Clicense_url%2Cauthors%2Ctitle%2Cjournal%2Cyear%2Cvolume%2Cnumber%2Cpages%2Cfulltext
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=UTF-8
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - Winstone Servlet Engine v0.9.10
+      Content-Type:
+      - text/plain;charset=UTF-8
+      Connection:
+      - Close
+      Date:
+      - Tue, 17 Sep 2013 02:51:29 GMT
+      X-Powered-By:
+      - Servlet/2.5 (Winstone/0.9.10)
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        eydyZXNwb25zZUhlYWRlcic9Pnsnc3RhdHVzJz0+MCwnUVRpbWUnPT41LCdw
+        YXJhbXMnPT57J2ZsJz0+J3NoYXN1bSxkb2ksbGljZW5zZSxsaWNlbnNlX3Vy
+        bCxhdXRob3JzLHRpdGxlLGpvdXJuYWwseWVhcix2b2x1bWUsbnVtYmVyLHBh
+        Z2VzLGZ1bGx0ZXh0JywncSc9PidzaGFzdW06MDBkYmZmYmZmZjJkMThhNzRl
+        ZDVmODg5NWZhOWY1MTViZjM4YmY1ZicsJ3R2Jz0+J3RydWUnLCd3dCc9Pidy
+        dWJ5JywnZGVmVHlwZSc9PidsdWNlbmUnfX0sJ3Jlc3BvbnNlJz0+eydudW1G
+        b3VuZCc9PjEsJ3N0YXJ0Jz0+MCwnZG9jcyc9Plt7J2xpY2Vuc2UnPT4nwqkg
+        QmxhY2t3ZWxsIFZlcmxhZyBHbWJIJywnc2hhc3VtJz0+JzAwZGJmZmJmZmYy
+        ZDE4YTc0ZWQ1Zjg4OTVmYTlmNTE1YmYzOGJmNWYnLCdkb2knPT4nMTAuMTEx
+        MS9qLjE0MzktMDMxMC4yMDA3LjAxNDIxLngnLCdhdXRob3JzJz0+J1Ryb3kg
+        Ry4gTXVycGh5JywndGl0bGUnPT4nRGlzcGxheSBvZiBhbiBJbmVkaWJsZSBQ
+        cm9wIGFzIGEgU2lnbmFsIG9mIEFnZ3Jlc3Npb24/IEFkYXB0aXZlIFNpZ25p
+        ZmljYW5jZSBvZiBMZWFmLURpc3BsYXkgYnkgdGhlIFR1cnF1b2lzZS1Ccm93
+        ZWQgTW90bW90LCBFdW1vbW90YSBzdXBlcmNpbGlvc2EnLCdqb3VybmFsJz0+
+        J0V0aG9sb2d5JywneWVhcic9PicyMDA4Jywndm9sdW1lJz0+JzExNCcsJ3Bh
+        Z2VzJz0+JzE2LTIxJywnZnVsbHRleHQnPT4nRXRob2xvZ3kKRGlzcGxheSBv
+        ZiBhbiBJbmVkaWJsZSBQcm9wIGFzIGEgU2lnbmFsIG9mIEFnZ3Jlc3Npb24/
+        IEFkYXB0aXZlIFNpZ25pZmljYW5jZSBvZiBMZWFmLURpc3BsYXkgYnkgdGhl
+        IFR1cnF1b2lzZS1Ccm93ZWQgTW90bW90LCBFdW1vbW90YSBzdXBlcmNpbGlv
+        c2EKVHJveSBHLiBNdXJwaHkKRGVwYXJ0bWVudCBvZiBOZXVyb2Jpb2xvZ3kg
+        YW4nfV19LCdmYWNldF9jb3VudHMnPT57J2ZhY2V0X3F1ZXJpZXMnPT57J3ll
+        YXI6WyogVE8gMTc5OV0nPT4wLCd5ZWFyOlsxODAwIFRPIDE4MDldJz0+MCwn
+        eWVhcjpbMTgxMCBUTyAxODE5XSc9PjAsJ3llYXI6WzE4MjAgVE8gMTgyOV0n
+        PT4wLCd5ZWFyOlsxODMwIFRPIDE4MzldJz0+MCwneWVhcjpbMTg0MCBUTyAx
+        ODQ5XSc9PjAsJ3llYXI6WzE4NTAgVE8gMTg1OV0nPT4wLCd5ZWFyOlsxODYw
+        IFRPIDE4NjldJz0+MCwneWVhcjpbMTg3MCBUTyAxODc5XSc9PjAsJ3llYXI6
+        WzE4ODAgVE8gMTg4OV0nPT4wLCd5ZWFyOlsxODkwIFRPIDE4OTldJz0+MCwn
+        eWVhcjpbMTkwMCBUTyAxOTA5XSc9PjAsJ3llYXI6WzE5MTAgVE8gMTkxOV0n
+        PT4wLCd5ZWFyOlsxOTIwIFRPIDE5MjldJz0+MCwneWVhcjpbMTkzMCBUTyAx
+        OTM5XSc9PjAsJ3llYXI6WzE5NDAgVE8gMTk0OV0nPT4wLCd5ZWFyOlsxOTUw
+        IFRPIDE5NTldJz0+MCwneWVhcjpbMTk2MCBUTyAxOTY5XSc9PjAsJ3llYXI6
+        WzE5NzAgVE8gMTk3OV0nPT4wLCd5ZWFyOlsxOTgwIFRPIDE5ODldJz0+MCwn
+        eWVhcjpbMTk5MCBUTyAxOTk5XSc9PjAsJ3llYXI6WzIwMDAgVE8gMjAwOV0n
+        PT4xLCd5ZWFyOlsyMDEwIFRPICpdJz0+MH0sJ2ZhY2V0X2ZpZWxkcyc9Pnsn
+        YXV0aG9yc19mYWNldCc9PlsnVHJveSBHLiBNdXJwaHknLDEsJy4gTi4gTW91
+        dG9uJywwLCdBIEd1bycsMCwnQSBQaWNrbGVzJywwLCdBLiBBLiBCYWlsZXkn
+        LDAsJ0EuIEEuIEZpZW5iZXJnJywwLCdBLiBBLiBQYWxtZXInLDAsJ0EuIEEu
+        IFR1ZG9yLUpvbmVzJywwLCdBLiBBLiBXb25nJywwLCdBLiBBLiB2YW4gRWxi
+        dXJnJywwXSwnam91cm5hbF9mYWNldCc9PlsnRXRob2xvZ3knLDEsJ0dlbmVz
+        LCBCcmFpbiBhbmQgQmVoYXZpb3InLDBdfSwnZmFjZXRfZGF0ZXMnPT57fSwn
+        ZmFjZXRfcmFuZ2VzJz0+e319LCd0ZXJtVmVjdG9ycyc9PlsndW5pcXVlS2V5
+        RmllbGROYW1lJywnc2hhc3VtJywnMDBkYmZmYmZmZjJkMThhNzRlZDVmODg5
+        NWZhOWY1MTViZjM4YmY1ZicsWyd1bmlxdWVLZXknLCcwMGRiZmZiZmZmMmQx
+        OGE3NGVkNWY4ODk1ZmE5ZjUxNWJmMzhiZjVmJywnZnVsbHRleHQnLFsnYScs
+        Wyd0ZicsMSwncG9zaXRpb25zJyxbJ3Bvc2l0aW9uJyw3XSwnZGYnLDI0Niwn
+        dGYtaWRmJywwLjAwNDA2NTA0MDY1MDQwNjUwNDVdLCdhZGFwdGl2ZScsWyd0
+        ZicsMSwncG9zaXRpb25zJyxbJ3Bvc2l0aW9uJywxMV0sJ2RmJywzLCd0Zi1p
+        ZGYnLDAuMzMzMzMzMzMzMzMzMzMzM10sJ2FnZ3Jlc3Npb24nLFsndGYnLDEs
+        J3Bvc2l0aW9ucycsWydwb3NpdGlvbicsMTBdLCdkZicsMTEsJ3RmLWlkZics
+        MC4wOTA5MDkwOTA5MDkwOTA5MV0sJ2FuJyxbJ3RmJywyLCdwb3NpdGlvbnMn
+        LFsncG9zaXRpb24nLDMsJ3Bvc2l0aW9uJywyOV0sJ2RmJywzNCwndGYtaWRm
+        JywwLjA1ODgyMzUyOTQxMTc2NDcwNV0sJ2FzJyxbJ3RmJywxLCdwb3NpdGlv
+        bnMnLFsncG9zaXRpb24nLDZdLCdkZicsMjMsJ3RmLWlkZicsMC4wNDM0Nzgy
+        NjA4Njk1NjUyMTZdLCdicm93ZWQnLFsndGYnLDEsJ3Bvc2l0aW9ucycsWydw
+        b3NpdGlvbicsMTldLCdkZicsMSwndGYtaWRmJywxLjBdLCdieScsWyd0Zics
+        MSwncG9zaXRpb25zJyxbJ3Bvc2l0aW9uJywxNl0sJ2RmJyw1MywndGYtaWRm
+        JywwLjAxODg2NzkyNDUyODMwMTg4Nl0sJ2RlcGFydG1lbnQnLFsndGYnLDEs
+        J3Bvc2l0aW9ucycsWydwb3NpdGlvbicsMjZdLCdkZicsMTc5LCd0Zi1pZGYn
+        LDAuMDA1NTg2NTkyMTc4NzcwOTVdLCdkaXNwbGF5JyxbJ3RmJywyLCdwb3Np
+        dGlvbnMnLFsncG9zaXRpb24nLDEsJ3Bvc2l0aW9uJywxNV0sJ2RmJyw4LCd0
+        Zi1pZGYnLDAuMjVdLCdldGhvbG9neScsWyd0ZicsMSwncG9zaXRpb25zJyxb
+        J3Bvc2l0aW9uJywwXSwnZGYnLDU3OSwndGYtaWRmJywwLjAwMTcyNzExNTcx
+        Njc1MzAyMjRdLCdldW1vbW90YScsWyd0ZicsMSwncG9zaXRpb25zJyxbJ3Bv
+        c2l0aW9uJywyMV0sJ2RmJywxLCd0Zi1pZGYnLDEuMF0sJ2cnLFsndGYnLDEs
+        J3Bvc2l0aW9ucycsWydwb3NpdGlvbicsMjRdLCdkZicsNDcsJ3RmLWlkZics
+        MC4wMjEyNzY1OTU3NDQ2ODA4NV0sJ2luZWRpYmxlJyxbJ3RmJywxLCdwb3Np
+        dGlvbnMnLFsncG9zaXRpb24nLDRdLCdkZicsMSwndGYtaWRmJywxLjBdLCds
+        ZWFmJyxbJ3RmJywxLCdwb3NpdGlvbnMnLFsncG9zaXRpb24nLDE0XSwnZGYn
+        LDMsJ3RmLWlkZicsMC4zMzMzMzMzMzMzMzMzMzMzXSwnbW90bW90JyxbJ3Rm
+        JywxLCdwb3NpdGlvbnMnLFsncG9zaXRpb24nLDIwXSwnZGYnLDEsJ3RmLWlk
+        ZicsMS4wXSwnbXVycGh5JyxbJ3RmJywxLCdwb3NpdGlvbnMnLFsncG9zaXRp
+        b24nLDI1XSwnZGYnLDIsJ3RmLWlkZicsMC41XSwnbmV1cm9iaW9sb2d5Jyxb
+        J3RmJywxLCdwb3NpdGlvbnMnLFsncG9zaXRpb24nLDI4XSwnZGYnLDEzLCd0
+        Zi1pZGYnLDAuMDc2OTIzMDc2OTIzMDc2OTNdLCdvZicsWyd0ZicsNCwncG9z
+        aXRpb25zJyxbJ3Bvc2l0aW9uJywyLCdwb3NpdGlvbicsOSwncG9zaXRpb24n
+        LDEzLCdwb3NpdGlvbicsMjddLCdkZicsNzY1LCd0Zi1pZGYnLDAuMDA1MjI4
+        NzU4MTY5OTM0NjRdLCdwcm9wJyxbJ3RmJywxLCdwb3NpdGlvbnMnLFsncG9z
+        aXRpb24nLDVdLCdkZicsMSwndGYtaWRmJywxLjBdLCdzaWduYWwnLFsndGYn
+        LDEsJ3Bvc2l0aW9ucycsWydwb3NpdGlvbicsOF0sJ2RmJyw5LCd0Zi1pZGYn
+        LDAuMTExMTExMTExMTExMTExMV0sJ3NpZ25pZmljYW5jZScsWyd0ZicsMSwn
+        cG9zaXRpb25zJyxbJ3Bvc2l0aW9uJywxMl0sJ2RmJywyLCd0Zi1pZGYnLDAu
+        NV0sJ3N1cGVyY2lsaW9zYScsWyd0ZicsMSwncG9zaXRpb25zJyxbJ3Bvc2l0
+        aW9uJywyMl0sJ2RmJywxLCd0Zi1pZGYnLDEuMF0sJ3RoZScsWyd0ZicsMSwn
+        cG9zaXRpb25zJyxbJ3Bvc2l0aW9uJywxN10sJ2RmJyw2MjUsJ3RmLWlkZics
+        MC4wMDE2XSwndHJveScsWyd0ZicsMSwncG9zaXRpb25zJyxbJ3Bvc2l0aW9u
+        JywyM10sJ2RmJywyLCd0Zi1pZGYnLDAuNV0sJ3R1cnF1b2lzZScsWyd0Zics
+        MSwncG9zaXRpb25zJyxbJ3Bvc2l0aW9uJywxOF0sJ2RmJywxLCd0Zi1pZGYn
+        LDEuMF1dXV19Cg==
+    http_version:
+  recorded_at: Tue, 17 Sep 2013 02:51:29 GMT
+- request:
+    method: post
+    uri: http://localhost:8983/search?wt=ruby
+    body:
+      encoding: US-ASCII
+      string: q=shasum%3A00040b66948f49c3a6c6c0977530e2014899abf9&defType=lucene&tv=true&fl=shasum%2Cdoi%2Clicense%2Clicense_url%2Cauthors%2Ctitle%2Cjournal%2Cyear%2Cvolume%2Cnumber%2Cpages%2Cfulltext
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=UTF-8
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - Winstone Servlet Engine v0.9.10
+      Content-Type:
+      - text/plain;charset=UTF-8
+      Connection:
+      - Close
+      Date:
+      - Tue, 17 Sep 2013 02:51:29 GMT
+      X-Powered-By:
+      - Servlet/2.5 (Winstone/0.9.10)
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        eydyZXNwb25zZUhlYWRlcic9Pnsnc3RhdHVzJz0+MCwnUVRpbWUnPT43LCdw
+        YXJhbXMnPT57J2ZsJz0+J3NoYXN1bSxkb2ksbGljZW5zZSxsaWNlbnNlX3Vy
+        bCxhdXRob3JzLHRpdGxlLGpvdXJuYWwseWVhcix2b2x1bWUsbnVtYmVyLHBh
+        Z2VzLGZ1bGx0ZXh0JywncSc9PidzaGFzdW06MDAwNDBiNjY5NDhmNDljM2E2
+        YzZjMDk3NzUzMGUyMDE0ODk5YWJmOScsJ3R2Jz0+J3RydWUnLCd3dCc9Pidy
+        dWJ5JywnZGVmVHlwZSc9PidsdWNlbmUnfX0sJ3Jlc3BvbnNlJz0+eydudW1G
+        b3VuZCc9PjEsJ3N0YXJ0Jz0+MCwnZG9jcyc9Plt7J2xpY2Vuc2UnPT4nwqkg
+        QmxhY2t3ZWxsIFZlcmxhZyBHbWJIJywnc2hhc3VtJz0+JzAwMDQwYjY2OTQ4
+        ZjQ5YzNhNmM2YzA5Nzc1MzBlMjAxNDg5OWFiZjknLCdkb2knPT4nMTAuMTEx
+        MS9qLjE0MzktMDMxMC4yMDA5LjAxNzA3LngnLCdhdXRob3JzJz0+J0tlbGx5
+        IEEuIFN0aXZlciwgU3V6YW5uZSBILiBBbG9uem8nLCd0aXRsZSc9PidQYXJl
+        bnRhbCBhbmQgTWF0aW5nIEVmZm9ydDogSXMgVGhlcmUgTmVjZXNzYXJpbHkg
+        YSBUcmFkZS1PZmY/Jywnam91cm5hbCc9PidFdGhvbG9neScsJ3llYXInPT4n
+        MjAwOScsJ3ZvbHVtZSc9PicxMTUnLCdwYWdlcyc9PicxMTAxLTExMjYnLCdm
+        dWxsdGV4dCc9PidFdGhvbG9neQpDVVJSRU5UIElTU1VFUyAtIFBFUlNQRUNU
+        SVZFUyBBTkQgUkVWSUVXUwpQYXJlbnRhbCBhbmQgTWF0aW5nIEVmZm9ydDog
+        SXMgVGhlcmUgTmVjZXNzYXJpbHkgYSBUcmFkZS1PZmY/CktlbGx5IEEuIFN0
+        aXZlciAmIFN1emFubmUgSC4gQWxvbnpvCkRlcGFydG1lbnQgb2YgRWNvbG9n
+        eSBhbmQgRXZvbHV0aW9uYXJ5IEJpb2xvZ3ksIFlhbCd9XX0sJ2ZhY2V0X2Nv
+        dW50cyc9PnsnZmFjZXRfcXVlcmllcyc9PnsneWVhcjpbKiBUTyAxNzk5XSc9
+        PjAsJ3llYXI6WzE4MDAgVE8gMTgwOV0nPT4wLCd5ZWFyOlsxODEwIFRPIDE4
+        MTldJz0+MCwneWVhcjpbMTgyMCBUTyAxODI5XSc9PjAsJ3llYXI6WzE4MzAg
+        VE8gMTgzOV0nPT4wLCd5ZWFyOlsxODQwIFRPIDE4NDldJz0+MCwneWVhcjpb
+        MTg1MCBUTyAxODU5XSc9PjAsJ3llYXI6WzE4NjAgVE8gMTg2OV0nPT4wLCd5
+        ZWFyOlsxODcwIFRPIDE4NzldJz0+MCwneWVhcjpbMTg4MCBUTyAxODg5XSc9
+        PjAsJ3llYXI6WzE4OTAgVE8gMTg5OV0nPT4wLCd5ZWFyOlsxOTAwIFRPIDE5
+        MDldJz0+MCwneWVhcjpbMTkxMCBUTyAxOTE5XSc9PjAsJ3llYXI6WzE5MjAg
+        VE8gMTkyOV0nPT4wLCd5ZWFyOlsxOTMwIFRPIDE5MzldJz0+MCwneWVhcjpb
+        MTk0MCBUTyAxOTQ5XSc9PjAsJ3llYXI6WzE5NTAgVE8gMTk1OV0nPT4wLCd5
+        ZWFyOlsxOTYwIFRPIDE5NjldJz0+MCwneWVhcjpbMTk3MCBUTyAxOTc5XSc9
+        PjAsJ3llYXI6WzE5ODAgVE8gMTk4OV0nPT4wLCd5ZWFyOlsxOTkwIFRPIDE5
+        OTldJz0+MCwneWVhcjpbMjAwMCBUTyAyMDA5XSc9PjEsJ3llYXI6WzIwMTAg
+        VE8gKl0nPT4wfSwnZmFjZXRfZmllbGRzJz0+eydhdXRob3JzX2ZhY2V0Jz0+
+        WydLZWxseSBBLiBTdGl2ZXInLDEsJ1N1emFubmUgSC4gQWxvbnpvJywxLCcu
+        IE4uIE1vdXRvbicsMCwnQSBHdW8nLDAsJ0EgUGlja2xlcycsMCwnQS4gQS4g
+        QmFpbGV5JywwLCdBLiBBLiBGaWVuYmVyZycsMCwnQS4gQS4gUGFsbWVyJyww
+        LCdBLiBBLiBUdWRvci1Kb25lcycsMCwnQS4gQS4gV29uZycsMF0sJ2pvdXJu
+        YWxfZmFjZXQnPT5bJ0V0aG9sb2d5JywxLCdHZW5lcywgQnJhaW4gYW5kIEJl
+        aGF2aW9yJywwXX0sJ2ZhY2V0X2RhdGVzJz0+e30sJ2ZhY2V0X3Jhbmdlcyc9
+        Pnt9fSwndGVybVZlY3RvcnMnPT5bJ3VuaXF1ZUtleUZpZWxkTmFtZScsJ3No
+        YXN1bScsJzAwMDQwYjY2OTQ4ZjQ5YzNhNmM2YzA5Nzc1MzBlMjAxNDg5OWFi
+        ZjknLFsndW5pcXVlS2V5JywnMDAwNDBiNjY5NDhmNDljM2E2YzZjMDk3NzUz
+        MGUyMDE0ODk5YWJmOScsJ2Z1bGx0ZXh0JyxbJ2EnLFsndGYnLDIsJ3Bvc2l0
+        aW9ucycsWydwb3NpdGlvbicsMTMsJ3Bvc2l0aW9uJywxN10sJ2RmJywyNDYs
+        J3RmLWlkZicsMC4wMDgxMzAwODEzMDA4MTMwMDldLCdhbG9uem8nLFsndGYn
+        LDEsJ3Bvc2l0aW9ucycsWydwb3NpdGlvbicsMjFdLCdkZicsMSwndGYtaWRm
+        JywxLjBdLCdhbmQnLFsndGYnLDMsJ3Bvc2l0aW9ucycsWydwb3NpdGlvbics
+        NCwncG9zaXRpb24nLDcsJ3Bvc2l0aW9uJywyNV0sJ2RmJyw3NDcsJ3RmLWlk
+        ZicsMC4wMDQwMTYwNjQyNTcwMjgxMTJdLCdiaW9sb2d5JyxbJ3RmJywxLCdw
+        b3NpdGlvbnMnLFsncG9zaXRpb24nLDI3XSwnZGYnLDEzMSwndGYtaWRmJyww
+        LjAwNzYzMzU4Nzc4NjI1OTU0Ml0sJ2N1cnJlbnQnLFsndGYnLDEsJ3Bvc2l0
+        aW9ucycsWydwb3NpdGlvbicsMV0sJ2RmJyw1LCd0Zi1pZGYnLDAuMl0sJ2Rl
+        cGFydG1lbnQnLFsndGYnLDEsJ3Bvc2l0aW9ucycsWydwb3NpdGlvbicsMjJd
+        LCdkZicsMTc5LCd0Zi1pZGYnLDAuMDA1NTg2NTkyMTc4NzcwOTVdLCdlY29s
+        b2d5JyxbJ3RmJywxLCdwb3NpdGlvbnMnLFsncG9zaXRpb24nLDI0XSwnZGYn
+        LDM5LCd0Zi1pZGYnLDAuMDI1NjQxMDI1NjQxMDI1NjRdLCdlZmZvcnQnLFsn
+        dGYnLDEsJ3Bvc2l0aW9ucycsWydwb3NpdGlvbicsOV0sJ2RmJyw0LCd0Zi1p
+        ZGYnLDAuMjVdLCdldGhvbG9neScsWyd0ZicsMSwncG9zaXRpb25zJyxbJ3Bv
+        c2l0aW9uJywwXSwnZGYnLDU3OSwndGYtaWRmJywwLjAwMTcyNzExNTcxNjc1
+        MzAyMjRdLCdldm9sdXRpb25hcnknLFsndGYnLDEsJ3Bvc2l0aW9ucycsWydw
+        b3NpdGlvbicsMjZdLCdkZicsMTEsJ3RmLWlkZicsMC4wOTA5MDkwOTA5MDkw
+        OTA5MV0sJ2gnLFsndGYnLDEsJ3Bvc2l0aW9ucycsWydwb3NpdGlvbicsMjBd
+        LCdkZicsNDMsJ3RmLWlkZicsMC4wMjMyNTU4MTM5NTM0ODgzNzJdLCdpcycs
+        Wyd0ZicsMSwncG9zaXRpb25zJyxbJ3Bvc2l0aW9uJywxMF0sJ2RmJywyNSwn
+        dGYtaWRmJywwLjA0XSwnaXNzdWVzJyxbJ3RmJywxLCdwb3NpdGlvbnMnLFsn
+        cG9zaXRpb24nLDJdLCdkZicsNSwndGYtaWRmJywwLjJdLCdrZWxseScsWyd0
+        ZicsMSwncG9zaXRpb25zJyxbJ3Bvc2l0aW9uJywxNl0sJ2RmJywyLCd0Zi1p
+        ZGYnLDAuNV0sJ21hdGluZycsWyd0ZicsMSwncG9zaXRpb25zJyxbJ3Bvc2l0
+        aW9uJyw4XSwnZGYnLDMwLCd0Zi1pZGYnLDAuMDMzMzMzMzMzMzMzMzMzMzNd
+        LCduZWNlc3NhcmlseScsWyd0ZicsMSwncG9zaXRpb25zJyxbJ3Bvc2l0aW9u
+        JywxMl0sJ2RmJywxLCd0Zi1pZGYnLDEuMF0sJ29mJyxbJ3RmJywxLCdwb3Np
+        dGlvbnMnLFsncG9zaXRpb24nLDIzXSwnZGYnLDc2NSwndGYtaWRmJywwLjAw
+        MTMwNzE4OTU0MjQ4MzY2XSwnb2ZmJyxbJ3RmJywxLCdwb3NpdGlvbnMnLFsn
+        cG9zaXRpb24nLDE1XSwnZGYnLDMsJ3RmLWlkZicsMC4zMzMzMzMzMzMzMzMz
+        MzMzXSwncGFyZW50YWwnLFsndGYnLDEsJ3Bvc2l0aW9ucycsWydwb3NpdGlv
+        bicsNl0sJ2RmJyw4LCd0Zi1pZGYnLDAuMTI1XSwncGVyc3BlY3RpdmVzJyxb
+        J3RmJywxLCdwb3NpdGlvbnMnLFsncG9zaXRpb24nLDNdLCdkZicsOSwndGYt
+        aWRmJywwLjExMTExMTExMTExMTExMTFdLCdyZXZpZXdzJyxbJ3RmJywxLCdw
+        b3NpdGlvbnMnLFsncG9zaXRpb24nLDVdLCdkZicsMjgsJ3RmLWlkZicsMC4w
+        MzU3MTQyODU3MTQyODU3MV0sJ3N0aXZlcicsWyd0ZicsMSwncG9zaXRpb25z
+        JyxbJ3Bvc2l0aW9uJywxOF0sJ2RmJywxLCd0Zi1pZGYnLDEuMF0sJ3N1emFu
+        bmUnLFsndGYnLDEsJ3Bvc2l0aW9ucycsWydwb3NpdGlvbicsMTldLCdkZics
+        MSwndGYtaWRmJywxLjBdLCd0aGVyZScsWyd0ZicsMSwncG9zaXRpb25zJyxb
+        J3Bvc2l0aW9uJywxMV0sJ2RmJywyLCd0Zi1pZGYnLDAuNV0sJ3RyYWRlJyxb
+        J3RmJywxLCdwb3NpdGlvbnMnLFsncG9zaXRpb24nLDE0XSwnZGYnLDQsJ3Rm
+        LWlkZicsMC4yNV0sJ3lhbCcsWyd0ZicsMSwncG9zaXRpb25zJyxbJ3Bvc2l0
+        aW9uJywyOF0sJ2RmJywxLCd0Zi1pZGYnLDEuMF1dXV19Cg==
+    http_version:
+  recorded_at: Tue, 17 Sep 2013 02:51:29 GMT
+- request:
+    method: post
+    uri: http://localhost:8983/search?wt=ruby
+    body:
+      encoding: US-ASCII
+      string: q=%2A%3A%2A&defType=lucene&rows=1&start=0
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=UTF-8
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - Winstone Servlet Engine v0.9.10
+      Content-Type:
+      - text/plain;charset=UTF-8
+      Connection:
+      - Close
+      Date:
+      - Tue, 17 Sep 2013 02:51:29 GMT
+      X-Powered-By:
+      - Servlet/2.5 (Winstone/0.9.10)
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        eydyZXNwb25zZUhlYWRlcic9Pnsnc3RhdHVzJz0+MCwnUVRpbWUnPT4zLCdw
         YXJhbXMnPT57J3N0YXJ0Jz0+JzAnLCdxJz0+Jyo6KicsJ3d0Jz0+J3J1Ynkn
         LCdyb3dzJz0+JzEnLCdkZWZUeXBlJz0+J2x1Y2VuZSd9fSwncmVzcG9uc2Un
         PT57J251bUZvdW5kJz0+MTA0Miwnc3RhcnQnPT4wLCdkb2NzJz0+W3snbGlj
@@ -465,6 +1226,6 @@ http_interactions:
         LCdELiBXYWhsc3RlbicsNV0sJ2pvdXJuYWxfZmFjZXQnPT5bJ0V0aG9sb2d5
         Jyw1OTQsJ0dlbmVzLCBCcmFpbiBhbmQgQmVoYXZpb3InLDQ0OF19LCdmYWNl
         dF9kYXRlcyc9Pnt9LCdmYWNldF9yYW5nZXMnPT57fX19Cg==
-    http_version: 
-  recorded_at: Wed, 14 Aug 2013 15:11:20 GMT
+    http_version:
+  recorded_at: Tue, 17 Sep 2013 02:51:29 GMT
 recorded_with: VCR 2.5.0

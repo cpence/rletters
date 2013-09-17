@@ -1,12 +1,14 @@
 ---
 http_interactions:
 - request:
-    method: get
-    uri: http://localhost:8983/search?defType=lucene&q=*:*&rows=10&sort=year_sort%20desc&start=0&wt=ruby
+    method: post
+    uri: http://localhost:8983/search?wt=ruby
     body:
       encoding: US-ASCII
-      string: ''
-    headers: {}
+      string: q=%2A%3A%2A&defType=lucene&sort=year_sort+desc&start=0&rows=10
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=UTF-8
   response:
     status:
       code: 200
@@ -19,13 +21,13 @@ http_interactions:
       Connection:
       - Close
       Date:
-      - Wed, 14 Aug 2013 15:40:45 GMT
+      - Mon, 16 Sep 2013 21:26:18 GMT
       X-Powered-By:
       - Servlet/2.5 (Winstone/0.9.10)
     body:
       encoding: ASCII-8BIT
       string: !binary |-
-        eydyZXNwb25zZUhlYWRlcic9Pnsnc3RhdHVzJz0+MCwnUVRpbWUnPT43LCdw
+        eydyZXNwb25zZUhlYWRlcic9Pnsnc3RhdHVzJz0+MCwnUVRpbWUnPT44LCdw
         YXJhbXMnPT57J3NvcnQnPT4neWVhcl9zb3J0IGRlc2MnLCdzdGFydCc9Picw
         JywncSc9PicqOionLCd3dCc9PidydWJ5Jywncm93cyc9PicxMCcsJ2RlZlR5
         cGUnPT4nbHVjZW5lJ319LCdyZXNwb25zZSc9PnsnbnVtRm91bmQnPT4xMDQy
@@ -152,5 +154,5 @@ http_interactions:
         dGhvbG9neScsNTk0LCdHZW5lcywgQnJhaW4gYW5kIEJlaGF2aW9yJyw0NDhd
         fSwnZmFjZXRfZGF0ZXMnPT57fSwnZmFjZXRfcmFuZ2VzJz0+e319fQo=
     http_version: 
-  recorded_at: Wed, 14 Aug 2013 15:40:45 GMT
+  recorded_at: Mon, 16 Sep 2013 21:26:18 GMT
 recorded_with: VCR 2.5.0

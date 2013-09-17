@@ -1,12 +1,14 @@
 ---
 http_interactions:
 - request:
-    method: get
-    uri: http://localhost:8983/search?defType=lucene&q=*:*&rows=1&start=0&wt=ruby
+    method: post
+    uri: http://localhost:8983/search?wt=ruby
     body:
       encoding: US-ASCII
-      string: ''
-    headers: {}
+      string: q=%2A%3A%2A&defType=lucene&rows=1&start=0
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=UTF-8
   response:
     status:
       code: 200
@@ -19,44 +21,13 @@ http_interactions:
       Connection:
       - Close
       Date:
-      - Wed, 14 Aug 2013 15:11:20 GMT
+      - Mon, 16 Sep 2013 21:26:03 GMT
       X-Powered-By:
       - Servlet/2.5 (Winstone/0.9.10)
     body:
-      encoding: ASCII-8BIT
-      string: !binary |-
-        eydyZXNwb25zZUhlYWRlcic9Pnsnc3RhdHVzJz0+MCwnUVRpbWUnPT45LCdw
-        YXJhbXMnPT57J3N0YXJ0Jz0+JzAnLCdxJz0+Jyo6KicsJ3d0Jz0+J3J1Ynkn
-        LCdyb3dzJz0+JzEnLCdkZWZUeXBlJz0+J2x1Y2VuZSd9fSwncmVzcG9uc2Un
-        PT57J251bUZvdW5kJz0+MTA0Miwnc3RhcnQnPT4wLCdkb2NzJz0+W3snbGlj
-        ZW5zZSc9PifCqSBCbGFja3dlbGwgVmVybGFnIEdtYkgnLCdzaGFzdW0nPT4n
-        MmFlZDQyZGNkZjRkOThlZTQ5OWExZDE5YjRhMGQ2MTNiNTM3N2FkMCcsJ2Rv
-        aSc9PicxMC4xMTExL2ouMTQzOS0wMzEwLjIwMDYuMDEyNDMueCcsJ2F1dGhv
-        cnMnPT4nSmFuIEtvbWRldXInLCd0aXRsZSc9PidWYXJpYXRpb24gaW4gSW5k
-        aXZpZHVhbCBJbnZlc3RtZW50IFN0cmF0ZWdpZXMgYW1vbmcgU29jaWFsIEFu
-        aW1hbHMnLCdqb3VybmFsJz0+J0V0aG9sb2d5JywneWVhcic9PicyMDA2Jywn
-        dm9sdW1lJz0+JzExMicsJ3BhZ2VzJz0+JzcyOS03NDcnfV19LCdmYWNldF9j
-        b3VudHMnPT57J2ZhY2V0X3F1ZXJpZXMnPT57J3llYXI6WyogVE8gMTc5OV0n
-        PT4wLCd5ZWFyOlsxODAwIFRPIDE4MDldJz0+MCwneWVhcjpbMTgxMCBUTyAx
-        ODE5XSc9PjAsJ3llYXI6WzE4MjAgVE8gMTgyOV0nPT4wLCd5ZWFyOlsxODMw
-        IFRPIDE4MzldJz0+MCwneWVhcjpbMTg0MCBUTyAxODQ5XSc9PjAsJ3llYXI6
-        WzE4NTAgVE8gMTg1OV0nPT4wLCd5ZWFyOlsxODYwIFRPIDE4NjldJz0+MCwn
-        eWVhcjpbMTg3MCBUTyAxODc5XSc9PjAsJ3llYXI6WzE4ODAgVE8gMTg4OV0n
-        PT4wLCd5ZWFyOlsxODkwIFRPIDE4OTldJz0+MCwneWVhcjpbMTkwMCBUTyAx
-        OTA5XSc9PjAsJ3llYXI6WzE5MTAgVE8gMTkxOV0nPT4wLCd5ZWFyOlsxOTIw
-        IFRPIDE5MjldJz0+MCwneWVhcjpbMTkzMCBUTyAxOTM5XSc9PjAsJ3llYXI6
-        WzE5NDAgVE8gMTk0OV0nPT4wLCd5ZWFyOlsxOTUwIFRPIDE5NTldJz0+MCwn
-        eWVhcjpbMTk2MCBUTyAxOTY5XSc9PjAsJ3llYXI6WzE5NzAgVE8gMTk3OV0n
-        PT4wLCd5ZWFyOlsxOTgwIFRPIDE5ODldJz0+MCwneWVhcjpbMTk5MCBUTyAx
-        OTk5XSc9Pjk0LCd5ZWFyOlsyMDAwIFRPIDIwMDldJz0+Nzg4LCd5ZWFyOlsy
-        MDEwIFRPICpdJz0+MTYwfSwnZmFjZXRfZmllbGRzJz0+eydhdXRob3JzX2Zh
-        Y2V0Jz0+WydKLiBDLiBDcmFiYmUnLDksJ01pY2hhZWwgSC4gRmVya2luJyw5
-        LCdEb3VnbGFzIFAuIENoaXZlcnMnLDgsJ0EuIFYuIEt1bGlrb3YnLDcsJ0Rh
-        bmllbCBULiBCbHVtc3RlaW4nLDcsJ0ouIE4uIENyYXdsZXknLDYsJ04uIEsu
-        IFBvcG92YScsNiwnQS4gQS4gUGFsbWVyJyw1LCdELiBJLiBCb29tc21hJyw1
-        LCdELiBXYWhsc3RlbicsNV0sJ2pvdXJuYWxfZmFjZXQnPT5bJ0V0aG9sb2d5
-        Jyw1OTQsJ0dlbmVzLCBCcmFpbiBhbmQgQmVoYXZpb3InLDQ0OF19LCdmYWNl
-        dF9kYXRlcyc9Pnt9LCdmYWNldF9yYW5nZXMnPT57fX19Cg==
-    http_version: 
-  recorded_at: Wed, 14 Aug 2013 15:11:20 GMT
+      encoding: UTF-8
+      string: |
+        {'responseHeader'=>{'status'=>0,'QTime'=>3,'params'=>{'q'=>'shasum:fail','wt'=>'ruby','defType'=>'lucene'}},'response'=>{'numFound'=>0,'start'=>0,'docs'=>[]},'facet_counts'=>{'facet_queries'=>{'year:[* TO 1799]'=>0,'year:[1800 TO 1809]'=>0,'year:[1810 TO 1819]'=>0,'year:[1820 TO 1829]'=>0,'year:[1830 TO 1839]'=>0,'year:[1840 TO 1849]'=>0,'year:[1850 TO 1859]'=>0,'year:[1860 TO 1869]'=>0,'year:[1870 TO 1879]'=>0,'year:[1880 TO 1889]'=>0,'year:[1890 TO 1899]'=>0,'year:[1900 TO 1909]'=>0,'year:[1910 TO 1919]'=>0,'year:[1920 TO 1929]'=>0,'year:[1930 TO 1939]'=>0,'year:[1940 TO 1949]'=>0,'year:[1950 TO 1959]'=>0,'year:[1960 TO 1969]'=>0,'year:[1970 TO 1979]'=>0,'year:[1980 TO 1989]'=>0,'year:[1990 TO 1999]'=>0,'year:[2000 TO 2009]'=>0,'year:[2010 TO *]'=>0},'facet_fields'=>{'authors_facet'=>['. N. Mouton',0,'A Guo',0,'A Pickles',0,'A. A. Bailey',0,'A. A. Fienberg',0,'A. A. Palmer',0,'A. A. Tudor-Jones',0,'A. A. Wong',0,'A. A. van Elburg',0,'A. Agmo',0],'journal_facet'=>['Ethology',0,'Genes, Brain and Behavior',0]},'facet_dates'=>{},'facet_ranges'=>{}}}
+    http_version:
+  recorded_at: Mon, 16 Sep 2013 21:26:03 GMT
 recorded_with: VCR 2.5.0

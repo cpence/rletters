@@ -1,0 +1,7 @@
+%div{ data: { role: 'fieldcontain' } }
+  = label_tag('job_params[normalize_doc_counts]', "Normalize document counts to frequencies?")
+  = select_tag('job_params[normalize_doc_counts]', '<option value="off">Off</option><option value="on">On</option>'.html_safe, data: { role: 'slider' })
+= field_set_tag "Normalization parameters:", id: 'normalize_doc_counts_controls', style: 'display: none' do
+  %div{ data: { role: 'fieldcontain' } }
+    = label_tag('job_params[normalize_doc_dataset]', "Document set for normalization", class: 'select')
+    = select_tag('job_params[normalize_doc_dataset]', options_from_collection_for_select(current_user.datasets, 'id', 'name'), prompt: 'Entire corpus')

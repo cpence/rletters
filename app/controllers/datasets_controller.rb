@@ -223,11 +223,16 @@ class DatasetsController < ApplicationController
   # @param [String] view the view to render
   # @return [undefined]
   def render_job_view(klass, view)
-    # Add the view paths for this analysis job class to the search path
-    klass.view_paths.each { |p| prepend_view_path p }
-    render template: view
+    # Find the partial
+    klass.view_paths.each do |p|
+      path = File.join(p, "#{view}.html.haml")
+      if File.exist? path
+        return render file: path
+      end
+    end
+
+    fail "Cannot find job view #{view} for class #{klass}"
   end
-  helper_method :render_job_view
 
   # Whitelist acceptable dataset parameters
   #

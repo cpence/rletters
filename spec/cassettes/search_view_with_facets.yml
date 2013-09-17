@@ -1,12 +1,14 @@
 ---
 http_interactions:
 - request:
-    method: get
-    uri: http://localhost:8983/search?defType=lucene&fq=journal_facet:%22Ethology%22&q=*:*&wt=ruby
+    method: post
+    uri: http://localhost:8983/search?wt=ruby
     body:
       encoding: US-ASCII
-      string: ''
-    headers: {}
+      string: fq=authors_facet%3A%22Amanda+M.+Koltz%22&fq=journal_facet%3A%22Ethology%22&q=%2A%3A%2A&defType=lucene
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=UTF-8
   response:
     status:
       code: 200
@@ -19,7 +21,7 @@ http_interactions:
       Connection:
       - Close
       Date:
-      - Wed, 14 Aug 2013 15:41:02 GMT
+      - Mon, 16 Sep 2013 21:26:01 GMT
       X-Powered-By:
       - Servlet/2.5 (Winstone/0.9.10)
     body:
@@ -61,5 +63,5 @@ http_interactions:
         YXZpb3InLDBdfSwnZmFjZXRfZGF0ZXMnPT57fSwnZmFjZXRfcmFuZ2VzJz0+
         e319fQo=
     http_version: 
-  recorded_at: Wed, 14 Aug 2013 15:41:02 GMT
+  recorded_at: Mon, 16 Sep 2013 21:26:01 GMT
 recorded_with: VCR 2.5.0

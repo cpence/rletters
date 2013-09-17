@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe 'plot_dates/start' do
+describe 'export_citations/_start' do
 
   before(:each) do
     register_job_view_path
@@ -9,14 +9,14 @@ describe 'plot_dates/start' do
     @dataset = FactoryGirl.create(:dataset)
   end
 
-  it 'has a link to start the task' do
+  it 'has a link to the parameters page' do
     render
 
     link = url_for(controller: 'datasets',
-                   action: 'task_start',
-                   class: 'PlotDates',
-                   id: @dataset.to_param)
-
+                   action: 'task_view',
+                   class: 'ExportCitations',
+                   id: @dataset.to_param,
+                   view: 'params')
     expect(rendered).to have_tag("a[href='#{link}']")
   end
 

@@ -1,12 +1,14 @@
 ---
 http_interactions:
 - request:
-    method: get
-    uri: http://localhost:8983/search?defType=lucene&q=shasum:00972c5123877961056b21aea4177d0dc69c7318&wt=ruby
+    method: post
+    uri: http://localhost:8983/search?wt=ruby
     body:
       encoding: US-ASCII
-      string: ''
-    headers: {}
+      string: q=shasum%3A00972c5123877961056b21aea4177d0dc69c7318&defType=lucene
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=UTF-8
   response:
     status:
       code: 200
@@ -19,59 +21,26 @@ http_interactions:
       Connection:
       - Close
       Date:
-      - Wed, 14 Aug 2013 15:40:44 GMT
+      - Mon, 16 Sep 2013 21:26:09 GMT
       X-Powered-By:
       - Servlet/2.5 (Winstone/0.9.10)
     body:
-      encoding: ASCII-8BIT
-      string: !binary |-
-        eydyZXNwb25zZUhlYWRlcic9Pnsnc3RhdHVzJz0+MCwnUVRpbWUnPT4zLCdw
-        YXJhbXMnPT57J3EnPT4nc2hhc3VtOjAwOTcyYzUxMjM4Nzc5NjEwNTZiMjFh
-        ZWE0MTc3ZDBkYzY5YzczMTgnLCd3dCc9PidydWJ5JywnZGVmVHlwZSc9Pids
-        dWNlbmUnfX0sJ3Jlc3BvbnNlJz0+eydudW1Gb3VuZCc9PjEsJ3N0YXJ0Jz0+
-        MCwnZG9jcyc9Plt7J2xpY2Vuc2UnPT4nwqkgQmxhY2t3ZWxsIFZlcmxhZyBH
-        bWJIJywnc2hhc3VtJz0+JzAwOTcyYzUxMjM4Nzc5NjEwNTZiMjFhZWE0MTc3
-        ZDBkYzY5YzczMTgnLCdkb2knPT4nMTAuMTExMS9qLjE0MzktMDMxMC4yMDA4
-        LjAxNTc2LngnLCdhdXRob3JzJz0+J0NhcmxvcyBBLiBCb3Rlcm8sIEFuZHJl
-        dyBFLiBNdWRnZSwgQW1hbmRhIE0uIEtvbHR6LCBXZXNsZXkgTS4gSG9jaGFj
-        aGthLCBTYW5kcmEgTC4gVmVocmVuY2FtcCcsJ3RpdGxlJz0+J0hvdyBSZWxp
-        YWJsZSBhcmUgdGhlIE1ldGhvZHMgZm9yIEVzdGltYXRpbmcgUmVwZXJ0b2ly
-        ZSBTaXplPycsJ2pvdXJuYWwnPT4nRXRob2xvZ3knLCd5ZWFyJz0+JzIwMDgn
-        LCd2b2x1bWUnPT4nMTE0JywncGFnZXMnPT4nMTIyNy0xMjM4J31dfSwnZmFj
-        ZXRfY291bnRzJz0+eydmYWNldF9xdWVyaWVzJz0+eyd5ZWFyOlsqIFRPIDE3
-        OTldJz0+MCwneWVhcjpbMTgwMCBUTyAxODA5XSc9PjAsJ3llYXI6WzE4MTAg
-        VE8gMTgxOV0nPT4wLCd5ZWFyOlsxODIwIFRPIDE4MjldJz0+MCwneWVhcjpb
-        MTgzMCBUTyAxODM5XSc9PjAsJ3llYXI6WzE4NDAgVE8gMTg0OV0nPT4wLCd5
-        ZWFyOlsxODUwIFRPIDE4NTldJz0+MCwneWVhcjpbMTg2MCBUTyAxODY5XSc9
-        PjAsJ3llYXI6WzE4NzAgVE8gMTg3OV0nPT4wLCd5ZWFyOlsxODgwIFRPIDE4
-        ODldJz0+MCwneWVhcjpbMTg5MCBUTyAxODk5XSc9PjAsJ3llYXI6WzE5MDAg
-        VE8gMTkwOV0nPT4wLCd5ZWFyOlsxOTEwIFRPIDE5MTldJz0+MCwneWVhcjpb
-        MTkyMCBUTyAxOTI5XSc9PjAsJ3llYXI6WzE5MzAgVE8gMTkzOV0nPT4wLCd5
-        ZWFyOlsxOTQwIFRPIDE5NDldJz0+MCwneWVhcjpbMTk1MCBUTyAxOTU5XSc9
-        PjAsJ3llYXI6WzE5NjAgVE8gMTk2OV0nPT4wLCd5ZWFyOlsxOTcwIFRPIDE5
-        NzldJz0+MCwneWVhcjpbMTk4MCBUTyAxOTg5XSc9PjAsJ3llYXI6WzE5OTAg
-        VE8gMTk5OV0nPT4wLCd5ZWFyOlsyMDAwIFRPIDIwMDldJz0+MSwneWVhcjpb
-        MjAxMCBUTyAqXSc9PjB9LCdmYWNldF9maWVsZHMnPT57J2F1dGhvcnNfZmFj
-        ZXQnPT5bJ0FtYW5kYSBNLiBLb2x0eicsMSwnQW5kcmV3IEUuIE11ZGdlJywx
-        LCdDYXJsb3MgQS4gQm90ZXJvJywxLCdTYW5kcmEgTC4gVmVocmVuY2FtcCcs
-        MSwnV2VzbGV5IE0uIEhvY2hhY2hrYScsMSwnLiBOLiBNb3V0b24nLDAsJ0Eg
-        R3VvJywwLCdBIFBpY2tsZXMnLDAsJ0EuIEEuIEJhaWxleScsMCwnQS4gQS4g
-        RmllbmJlcmcnLDBdLCdqb3VybmFsX2ZhY2V0Jz0+WydFdGhvbG9neScsMSwn
-        R2VuZXMsIEJyYWluIGFuZCBCZWhhdmlvcicsMF19LCdmYWNldF9kYXRlcyc9
-        Pnt9LCdmYWNldF9yYW5nZXMnPT57fX19Cg==
+      encoding: UTF-8
+      string: |
+        {'responseHeader'=>{'status'=>0,'QTime'=>3,'params'=>{'q'=>'shasum:00972c5123877961056b21aea4177d0dc69c7318','wt'=>'ruby','defType'=>'lucene'}},'response'=>{'numFound'=>1,'start'=>0,'docs'=>[{'license'=>'© Blackwell Verlag GmbH','shasum'=>'00972c5123877961056b21aea4177d0dc69c7318','doi'=>'10.1111/j.1439-0310.2008.01576.x','authors'=>'Carlos A. Botero, Andrew E. Mudge, Amanda M. Koltz, Wesley M. Hochachka, Sandra L. Vehrencamp','title'=>'How Reliable are the Methods for Estimating Repertoire Size?','journal'=>'Ethology','year'=>'2008','volume'=>'114','pages'=>'1227-1238'}]},'facet_counts'=>{'facet_queries'=>{'year:[* TO 1799]'=>0,'year:[1800 TO 1809]'=>0,'year:[1810 TO 1819]'=>0,'year:[1820 TO 1829]'=>0,'year:[1830 TO 1839]'=>0,'year:[1840 TO 1849]'=>0,'year:[1850 TO 1859]'=>0,'year:[1860 TO 1869]'=>0,'year:[1870 TO 1879]'=>0,'year:[1880 TO 1889]'=>0,'year:[1890 TO 1899]'=>0,'year:[1900 TO 1909]'=>0,'year:[1910 TO 1919]'=>0,'year:[1920 TO 1929]'=>0,'year:[1930 TO 1939]'=>0,'year:[1940 TO 1949]'=>0,'year:[1950 TO 1959]'=>0,'year:[1960 TO 1969]'=>0,'year:[1970 TO 1979]'=>0,'year:[1980 TO 1989]'=>0,'year:[1990 TO 1999]'=>0,'year:[2000 TO 2009]'=>1,'year:[2010 TO *]'=>0},'facet_fields'=>{'authors_facet'=>['Amanda M. Koltz',1,'Andrew E. Mudge',1,'Carlos A. Botero',1,'Sandra L. Vehrencamp',1,'Wesley M. Hochachka',1,'. N. Mouton',0,'A Guo',0,'A Pickles',0,'A. A. Bailey',0,'A. A. Fienberg',0],'journal_facet'=>['Ethology',1,'Genes, Brain and Behavior',0]},'facet_dates'=>{},'facet_ranges'=>{}}}
     http_version: 
-  recorded_at: Wed, 14 Aug 2013 15:40:44 GMT
+  recorded_at: Mon, 16 Sep 2013 21:26:09 GMT
 - request:
     method: get
     uri: http://www.citeulike.org/json/search/all?page=1&per_page=1&q=title:(How%20Reliable%20are%20the%20Methods%20for%20Estimating%20Repertoire%20Size?)
     body:
       encoding: US-ASCII
-      string: ""
+      string: ''
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Accept:
-      - "*/*"
+      - '*/*'
       User-Agent:
       - Ruby
   response:
@@ -82,51 +51,38 @@ http_interactions:
       Server:
       - nginx/0.8.31
       Date:
-      - Tue, 29 Nov 2011 15:41:49 GMT
+      - Mon, 16 Sep 2013 21:26:16 GMT
       Content-Type:
       - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
       Connection:
       - keep-alive
       Vary:
       - Accept-Encoding
       Max-Age:
-      - "0"
+      - '0'
       Expires:
-      - "0"
+      - '0'
       Cache-Control:
       - no-cache
       Mime-Version:
-      - "1.0"
+      - '1.0'
     body:
-      encoding: ASCII-8BIT
-      string: |
-          [
-          {
-          "article_id": "3509563",
-          "date": "2008-11-13 18:39:29",
-          "href": "http:\/\/www.citeulike.org\/article\/3509563",
-          "type": "JOUR",
-          "title": "How Reliable are the Methods for Estimating Repertoire Size?",
-          "volume": "114",
-          "issue": "12",
-          "start_page": "1227",
-          "end_page": "1238",
-          "journal": "Ethology",
-          "publisher": "Blackwell Publishing",
-          "issn": "0179-1613",
-          "published": ["2008","12"],
-          "authors": [ " Botero", "A. Carlos", " Mudge", "E. Andrew", " Koltz", "M. Amanda", " Hochachka", "M. Wesley", " Vehrencamp", "L. Sandra"],
-          "linkouts": [
-                {"type": "DOI", "url": "http:\/\/dx.doi.org\/10.1111\/j.1439-0310.2008.01576.x"},
-                {"type": "IngentaConnect", "url": "http:\/\/www.ingentaconnect.com\/content\/bsc\/eth\/2008\/00000114\/00000012\/art00010"}
-          ],
-          "doi": "10.1111\/j.1439-0310.2008.01576.x",
-          "citation": "Ethology, Vol. 114, No. 12. (December 2008), pp. 1227-1238.",
-          "posted_count": 0,
-          "citation_keys": ["citeulike:3509563", "Botero2008How", null]
-          }
-          ]
-
-    http_version:
-  recorded_at: Tue, 05 Mar 2013 02:42:45 GMT
+      encoding: UTF-8
+      string: "[\n{\n\"article_id\": \"3509563\",\n\"date\": \"2008-11-13 18:39:29\",\n\"href\":
+        \"http:\\/\\/www.citeulike.org\\/article\\/3509563\",\n\"type\": \"JOUR\",\n\"title\":
+        \"How Reliable are the Methods for Estimating Repertoire Size?\",\n\"volume\":
+        \"114\",\n\"issue\": \"12\",\n\"start_page\": \"1227\",\n\"end_page\": \"1238\",\n\"journal\":
+        \"Ethology\",\n\"publisher\": \"Blackwell Publishing\",\n\"issn\": \"0179-1613\",\n\"is_unchecked\":
+        \"N\",\n\"published\": [\"2008\",\"12\"],\n\"authors\": [ \" Botero\", \"A.
+        Carlos\", \" Mudge\", \"E. Andrew\", \" Koltz\", \"M. Amanda\", \" Hochachka\",
+        \"M. Wesley\", \" Vehrencamp\", \"L. Sandra\" ],\n\"linkouts\": [\n\t{\"type\":
+        \"DOI\", \"url\": \"http:\\/\\/dx.doi.org\\/10.1111\\/j.1439-0310.2008.01576.x\"},\n\t{\"type\":
+        \"IngentaConnect\", \"url\": \"http:\\/\\/www.ingentaconnect.com\\/content\\/bsc\\/eth\\/2008\\/00000114\\/00000012\\/art00010\"}\n],\n\"doi\":
+        \"10.1111\\/j.1439-0310.2008.01576.x\",\n\"citation\": \"Ethology, Vol. 114,
+        No. 12. (December 2008), pp. 1227-1238, doi:10.1111\\/j.1439-0310.2008.01576.x\",\n\"posted_count\":
+        0,\n\"citation_keys\": [\"citeulike:3509563\", \"Botero2008How\", null]\n}\n]\n"
+    http_version: 
+  recorded_at: Mon, 16 Sep 2013 21:26:17 GMT
 recorded_with: VCR 2.5.0

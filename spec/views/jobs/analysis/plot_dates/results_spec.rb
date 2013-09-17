@@ -12,7 +12,7 @@ describe 'plot_dates/results' do
                                job_type: 'PlotDates',
                                dataset: @dataset)
     @task.result_file = Download.create_file('temp.yml') do |file|
-      file.write([[2003, 13]].to_yaml)
+      file.write({ data: [[2003, 13]], percent: false, normalization_set: nil }.to_yaml)
       file.close
     end
     @task.save
@@ -22,13 +22,11 @@ describe 'plot_dates/results' do
     @task.destroy
   end
 
-  it 'shows the year and count in a table row' do
+  it 'drops the data into the HTML file' do
     render
 
-    expect(rendered).to have_tag('tbody tr') do
-      with_tag('td', text: '2003')
-      with_tag('td', text: '13')
-    end
+    expect(rendered).to have_tag('div.plot_dates_data', text: '[[2003, 13]]')
+    expect(rendered).to have_tag('div.plot_dates_percent', text: 'false')
   end
 
   it 'has a link to download the results as CSV' do

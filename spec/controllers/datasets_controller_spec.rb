@@ -272,13 +272,13 @@ describe DatasetsController do
       it 'does not raise an exception' do
         expect {
           get :task_view, id: @dataset.to_param,
-              task_id: @task.to_param, view: 'start'
+              task_id: @task.to_param, view: 'params'
         }.to_not raise_error
       end
 
       it 'renders the right view' do
         get :task_view, id: @dataset.to_param,
-            task_id: @task.to_param, view: 'start'
+            task_id: @task.to_param, view: 'params'
         expect(response.body).to include('<li>')
       end
     end
@@ -287,7 +287,7 @@ describe DatasetsController do
       it 'does not raise an exception' do
         expect {
           get :task_view, id: @dataset.to_param, class: 'ExportCitations',
-              view: 'start'
+              view: 'params'
         }.to_not raise_error
       end
     end

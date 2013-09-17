@@ -38,14 +38,20 @@ module Solr
     #
     # @return [Solr::SearchResult] Solr search result
     def self.search(params)
-      get_solr
+      # We actually have to do this manually to make POST-parameters work
+      # right, instead of calling rsolr-ext's #find method.
+      raw_response = search_raw(params)
 
-      SearchResult.new(Connection.solr.find('search', params))
-    rescue StandardError => e
-      Rails.logger.warn "Connection to Solr failed: #{e.inspect}"
-      err = RSolr::Ext::Response::Base.new({ 'response' => { 'docs' => [] } },
-                                           'search', params)
-      SearchResult.new(err)
+      # Fix with a reasonable default if broken
+      if raw_response.empty?
+        raw_response = {
+          'response' => {
+            'docs' => []
+          }
+        }
+      end
+
+      SearchResult.new(RSolr::Ext::Response::Base.new(raw_response, 'search', params))
     end
 
     # Get a raw hash response from Solr
@@ -58,9 +64,10 @@ module Solr
     def self.search_raw(params)
       get_solr
 
-      Connection.solr.get 'search', params: params
+      Connection.solr.post 'search', data: params
     rescue StandardError => e
       Rails.logger.warn "Connection to Solr failed: #{e.inspect}"
+      Rails.logger.info "Query parameters for failed connection: #{params.to_s}"
       {}
     end
 
