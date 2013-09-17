@@ -71,34 +71,6 @@ module Jobs
     end
     alias_method :eql?, :==
 
-    # Report any exceptions to Airbrake, if it's enabled
-    #
-    # This method is a callback that is invoked by Delayed::Job.  No tests, as
-    # it's merely a wrapper on the Airbrake gem.
-    #
-    # @api private
-    # @param [Delayed::Job] job The job currently being run
-    # @param [StandardError] exception The exception raised to cause the error
-    # @return [undefined]
-    # :nocov:
-    def error(job, exception)
-      Airbrake.notify(exception) unless Setting.airbrake_key.blank?
-    end
-    # :nocov:
-
-    # Don't restart jobs on error
-    #
-    # Restarting isn't going to help resolve any errors that are presented, so
-    # don't try it.
-    #
-    # @api private
-    # @return [Integer] returns 1
-    # :nocov:
-    def max_attempts
-      1
-    end
-    # :nocov:
-
   end
 
 end
