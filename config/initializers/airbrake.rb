@@ -9,6 +9,12 @@ if ActiveRecord::Base.connection.tables.include?('setting')
       Airbrake.configure do |config|
         config.api_key = Setting.airbrake_key
       end
+
+      # Connect Airbrake to Resque
+      require 'resque/failure/multiple'
+      require 'resque/failure/airbrake'
+      Resque::Failure::Multiple.classes = [Resque::Failure::Redis, Resque::Failure::Airbrake]
+      Resque::Failure.backend = Resque::Failure::Multiple
     rescue LoadError
       puts 'WARNING: Cannot load the Airbrake gem, error reporting disabled'
     end
