@@ -15,7 +15,7 @@ class UploadedAsset < ActiveRecord::Base
   validates :name, presence: true
 
   # Store these assets in the database
-  has_attached_file :file, storage: :database
+  has_attached_file :file
 
   # @return [String] Friendly name of this asset (looked up in locale)
   def friendly_name

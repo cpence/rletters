@@ -6,7 +6,6 @@ AllCops:
   Excludes:
     - 'vendor/**'
     - 'public/**'
-    - 'downloads/**'
     - 'db/schema.rb'
     - 'bin/**'
 

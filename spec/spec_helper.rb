@@ -72,12 +72,6 @@ RSpec.configure do |config|
   config.treat_symbols_as_metadata_keys_with_true_values = true
 
   config.before(:suite) do
-    # If there's no downloads directory, create it now and tear it up later
-    unless File.exist? "#{::Rails.root}/downloads"
-      FileUtils.mkdir "#{::Rails.root}/downloads"
-      $destroy_downloads = true
-    end
-
     # Speed up testing by deferring garbage collection
     DeferredGarbageCollection.start
 
@@ -93,9 +87,6 @@ RSpec.configure do |config|
   config.after(:suite) do
     # Clean up GC
     DeferredGarbageCollection.reconsider
-
-    # Destroy downloads directory
-    FileUtils.rm_rf "#{::Rails.root}/downloads" if $destroy_downloads
   end
 
   config.before(:each) do

@@ -10,7 +10,6 @@ deploy/roles/db/files/*_pass
 deploy/roles/solr/files/*_pass
 deploy/roles/web/files/*_pass
 doc
-downloads
 log/*.log
 public/assets
 public/system

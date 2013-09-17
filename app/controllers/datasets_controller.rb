@@ -209,10 +209,11 @@ class DatasetsController < ApplicationController
     fail ActiveRecord::RecordNotFound unless dataset
     task = dataset.analysis_tasks.find(params[:task_id])
     fail ActiveRecord::RecordNotFound unless task
-    fail ActiveRecord::RecordNotFound unless task.result_file
-    fail ActiveRecord::RecordNotFound unless task.result_file.exists?
+    fail ActiveRecord::RecordNotFound unless task.result_file_length
 
-    task.result_file.send_file(self)
+    send_data(task.result.file_contents,
+              filename: task.result_file_name,
+              type: task.result_file_content_type)
   end
 
   private

@@ -40,9 +40,6 @@ en:
             dataset_entry:
                 one: Dataset Entry
                 other: Dataset Entries
-            download:
-                one: Download
-                other: Downloads
             library:
                 one: Library
                 other: Libraries
@@ -64,8 +61,6 @@ en:
                 name: "Name"
             dataset_entry:
                 shasum: "SHA-1 checksum"
-            download:
-                filename: "Filename"
             library:
                 name: "Name"
                 url: "Base URL"
@@ -103,10 +98,6 @@ en:
                         blank: "SHA-1 checksum was not specified (internal error)"
                         wrong_length: "SHA-1 checksum is not 20 characters (internal error)"
                         invalid: "SHA-1 checksum contains invalid characters (internal error)"
-                download:
-                    filename:
-                        blank: "Download must have a filename specified (internal error)"
-                        invalid: "Download filename contains invalid characters (internal error)"
                 library:
                     name:
                         blank: "You must specify a name for this library entry"

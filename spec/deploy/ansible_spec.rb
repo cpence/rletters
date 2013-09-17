@@ -156,10 +156,6 @@ describe 'Ansible provisioning', :deploy do
         expect(vagrant_ssh('sudo cat /opt/rletters/root/config/database.yml')).to include("host: '127.0.0.1'")
       end
 
-      it 'creates the downloads directory' do
-        expect(vagrant_ssh('sudo ls -d /opt/rletters/state/downloads')).to eq("/opt/rletters/state/downloads\n")
-      end
-
       it 'creates the secret tokens' do
         expect(vagrant_ssh('sudo ls /opt/rletters/state/secret_token.rb')).to eq("/opt/rletters/state/secret_token.rb\n")
       end

@@ -62,14 +62,6 @@
   file: src=/opt/rletters/state/database.yml path=/opt/rletters/root/config/database.yml state=link
   tags: rletters
 
-- name: Create downloads directory
-  file: path=/opt/rletters/state/downloads state=directory
-  tags: rletters
-
-- name: Symlink downloads directory
-  file: src=/opt/rletters/state/downloads path=/opt/rletters/root/downloads state=link
-  tags: rletters
-
 - name: Create the sockets directory
   file: path=/opt/rletters/root/tmp/sockets state=directory
   tags: rletters
