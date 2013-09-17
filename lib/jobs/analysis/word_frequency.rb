@@ -5,38 +5,8 @@ module Jobs
   module Analysis
 
     # Produce a parallel word frequency list for a dataset
-    #
-    # @!attribute block_size
-    #   Block size for this dataset, in words
-    #
-    #   If this attribute is zero, then we will read from +num_blocks+
-    #   instead.  Defaults to zero.
-    #
-    #   @return [Integer] block size for this dataset
-    # @!attribute num_blocks
-    #   Split the dataset into how many blocks?
-    #
-    #   If this attribute is zero, we will read from +block_size+ instead.
-    #   Defaults to zero.
-    #
-    #   @return [Integer] number of blocks for splitting
-    # @!attribute split_across
-    #   Split blocks only within, or across documents?
-    #
-    #   If this is set to true, then we will effectively concatenate all the
-    #   documents before splitting into blocks.  If false, we'll split blocks
-    #   on a per-document basis.  Defaults to true.
-    #
-    #   @return [Boolean] whether to split blocks across documents
-    # @!attribute num_words
-    #   How many words in the list?
-    #
-    #   If greater than the number of types in the dataset (or zero), then
-    #   return all the words.  Defaults to zero.
-    #
-    #   @return [Integer] how many words to keep in the list
     class WordFrequency < Jobs::Analysis::Base
-      attr_accessor :block_size, :num_blocks, :split_across, :num_words
+      add_concern 'ComputeWordFrequencies'
 
       def perform
         # Fetch the user based on ID
@@ -51,41 +21,8 @@ module Jobs
         @task = dataset.analysis_tasks.create(name: 'Word frequency list',
                                               job_type: 'WordFrequency')
 
-        # Cast all the values
-        if @block_size.blank?
-          @block_size = nil
-        else
-          @block_size = Integer(@block_size)
-        end
-
-        if @num_blocks.blank?
-          @num_blocks = nil
-        else
-          @num_blocks = Integer(@num_blocks)
-        end
-
-        if @num_words.blank?
-          @num_words = nil
-        else
-          @num_words = Integer(@num_words)
-        end
-
-        if @split_across.blank?
-          @split_across = nil
-        else
-          if @split_across == 'true'
-            @split_across = true
-          else
-            @split_across = false
-          end
-        end
-
-        # Perform the analysis
-        analyzer = WordFrequencyAnalyzer.new(dataset,
-                                             block_size: @block_size,
-                                             num_blocks: @num_blocks,
-                                             num_words: @num_words,
-                                             split_across: @split_across)
+        # Do the analysis
+        analyzer = compute_word_frequencies(dataset)
 
         # Create some CSV
         csv_string = CSV.generate do |csv|

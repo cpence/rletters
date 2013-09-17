@@ -1,12 +1,12 @@
 //= require jquery
 //= require jquery_ujs
 
+//= require compute_word_frequencies
 //= require datasets
 //= require normalize_document_counts
 //= require plot_dates
 //= require search
 //= require user
-//= require word_frequency
 //= require mobileinit
 
 //= require jquery.mobile
