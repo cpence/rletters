@@ -14,13 +14,8 @@
 class UploadedAsset < ActiveRecord::Base
   validates :name, presence: true
 
-  has_attached_file :file, {
-    # This isn't meant to enforce any kind of secrecy, it just makes for URLs
-    # that are easier to read, don't expose internal server details, and should
-    # cache nicely.
-    url: '/system/:hash.:extension',
-    hash_secret: 'baebb86ffdab9a513daebd0d5ba9fba60b3e5339c32387444f7bf15b06ae18412376e2e8737019b6ff4c68c4863c711f97826f500ddead5c7ab78a3f5f05485b'
-  }
+  # Store these assets in the database
+  has_attached_file :file, storage: :database
 
   # @return [String] Friendly name of this asset (looked up in locale)
   def friendly_name

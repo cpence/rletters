@@ -22,6 +22,7 @@ group :test do
   gem 'sqlite3'
 end
 gem 'activerecord-import', '>= 0.4.0'
+gem 'trim_blobs'
 gem 'druthers'
 gem 'resque'
 
@@ -38,6 +39,7 @@ gem 'responders', '>= 1.0.0.rc' # FIXME: only for AA
 
 # Support for file attachments and exporting
 gem 'paperclip', '~> 3.0'
+gem 'paperclip_database'
 gem 'rubyzip'
 gem 'marc'
 gem 'rdf', '>= 0.3.5'
