@@ -23,8 +23,7 @@ group :test do
 end
 gem 'activerecord-import', '>= 0.4.0'
 gem 'druthers'
-gem 'delayed_job', '~> 4.0'
-gem 'delayed_job_active_record'
+gem 'resque'
 
 gem 'addressable'
 
@@ -35,7 +34,7 @@ gem 'rsolr-ext'
 gem 'devise'
 gem 'devise-i18n'
 gem 'activeadmin', github: 'gregbell/active_admin', branch: 'rails4'
-gem 'responders', github: 'plataformatec/responders' # FIXME: only for AA
+gem 'responders', '>= 1.0.0.rc' # FIXME: only for AA
 
 # Support for file attachments and exporting
 gem 'paperclip', '~> 3.0'
