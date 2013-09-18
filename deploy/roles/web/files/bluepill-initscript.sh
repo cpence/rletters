@@ -63,9 +63,9 @@ reload() {
   # If we reload all of these services at once, they take so long to start that
   # we'll timeout the bluepill daemon, and all hell will break loose.  Do them
   # one at a time.
-  $BLUEPILL_BIN rletters restart delayed_job-0
-  $BLUEPILL_BIN rletters resatrt delayed_job-1
-  $BLUEPILL_BIN rletters restart delayed_job-2
+  $BLUEPILL_BIN rletters restart resque-0
+  $BLUEPILL_BIN rletters restart resque-1
+  $BLUEPILL_BIN rletters restart resque-2
   $BLUEPILL_BIN rletters restart clockwork
   $BLUEPILL_BIN rletters restart unicorn
 
