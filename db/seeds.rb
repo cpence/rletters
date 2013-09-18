@@ -37,6 +37,13 @@ end
 Dir.glob(Rails.root.join('db', 'seeds', 'images', '*')) do |img|
   extension = File.extname(img)
   name = File.basename(img, extension)
-  UploadedAsset.where(name: name).first_or_create(file: File.new(img))
+  asset = UploadedAsset.where(name: name).first_or_create
+
+  f = File.new(img)
+  asset.file = f
+  f.close
+
+  asset.save
+
   puts "Seeded asset:#{name}"
 end

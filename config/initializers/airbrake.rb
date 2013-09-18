@@ -10,11 +10,10 @@ if ActiveRecord::Base.connection.tables.include?('setting')
         config.api_key = Setting.airbrake_key
       end
 
-      # Connect Airbrake to Resque
-      require 'resque/failure/multiple'
+      # Connect Airbrake to Resque.  The 'multiple' backend is already enabled
+      # in core_ext, when we define our custom AnalysisTask error receiver.
       require 'resque/failure/airbrake'
-      Resque::Failure::Multiple.classes = [Resque::Failure::Redis, Resque::Failure::Airbrake]
-      Resque::Failure.backend = Resque::Failure::Multiple
+      Resque::Failure::Multiple.classes << Resque::Failure::Airbrake
     rescue LoadError
       puts 'WARNING: Cannot load the Airbrake gem, error reporting disabled'
     end

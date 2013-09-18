@@ -71,12 +71,16 @@ describe AnalysisTask do
 
   def create_task_with_file
     @task = FactoryGirl.create(:analysis_task)
-    @task.result_file = Download.create_file('test.txt') do |file|
-      file.write 'test'
-    end
-    @task.save
 
-    @filename = @task.result_file.filename
+    ios = StringIO.new
+    ios.write('test')
+    ios.original_filename = 'test.txt'
+    ios.content_type = 'text/plain'
+    ios.rewind
+
+    @task.result = ios
+    ios.close
+    @task.save
   end
 
   describe '#result_file' do
@@ -89,25 +93,16 @@ describe AnalysisTask do
         @task.destroy
       end
 
-      it 'creates the file' do
-        expect(File.exists?(@filename)).to be_true
+      it 'has the right file length' do
+        expect(@task.result_file_size).to eq(4)
       end
 
-      it 'points to the right file' do
-        expect(IO.read(@filename)).to eq('test')
-      end
-    end
-  end
-
-  describe '#destroy' do
-    context 'when there is an associated file' do
-      before(:each) do
-        create_task_with_file
-        @task.destroy
+      it 'has the right contents' do
+        expect(@task.result.file_contents(:original)).to eq('test')
       end
 
-      it 'deletes the file' do
-        expect(File.exists?(@filename)).to be_false
+      it 'has the right mime type' do
+        expect(@task.result_content_type.to_s).to eq('text/plain')
       end
     end
   end

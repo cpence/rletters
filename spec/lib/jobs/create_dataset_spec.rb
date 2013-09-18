@@ -10,9 +10,12 @@ describe Jobs::CreateDataset do
   context 'when user is invalid' do
     it 'raises an exception' do
       expect {
-        Jobs::CreateDataset.new(user_id: '12345678',
-          name: 'Test Dataset', q: '*:*', fq: nil,
-          defType: 'lucene').perform
+        Jobs::CreateDataset.perform(
+          user_id: '12345678',
+          name: 'Test Dataset',
+          q: '*:*',
+          fq: nil,
+          defType: 'lucene')
       }.to raise_error(ActiveRecord::RecordNotFound)
     end
   end
@@ -20,9 +23,12 @@ describe Jobs::CreateDataset do
   context 'given a standard search',
           vcr: { cassette_name: 'create_dataset_standard' } do
     before(:each) do
-      Jobs::CreateDataset.new(user_id: @user.to_param,
-        name: 'Short Test Dataset', q: 'test', fq: nil,
-        defType: nil).perform
+      Jobs::CreateDataset.perform(
+        user_id: @user.to_param,
+        name: 'Short Test Dataset',
+        q: 'test',
+        fq: nil,
+        defType: nil)
 
       @user.datasets.reload
     end
@@ -40,9 +46,12 @@ describe Jobs::CreateDataset do
   context 'given large Solr dataset',
           vcr: { cassette_name: 'create_dataset_large' } do
     before(:each) do
-      Jobs::CreateDataset.new(user_id: @user.to_param,
-        name: 'Long Dataset', q: '*:*', fq: nil,
-        defType: 'lucene').perform
+      Jobs::CreateDataset.perform(
+        user_id: @user.to_param,
+        name: 'Long Dataset',
+        q: '*:*',
+        fq: nil,
+        defType: 'lucene')
 
       @user.datasets.reload
     end
@@ -62,9 +71,12 @@ describe Jobs::CreateDataset do
     it 'does not create a dataset' do
       expect {
         begin
-          Jobs::CreateDataset.new(user_id: @user.to_param,
-            name: 'Failure Test Dataset', q: 'test', fq: nil,
-            defType: nil).perform
+          Jobs::CreateDataset.perform(
+            user_id: @user.to_param,
+            name: 'Failure Test Dataset',
+            q: 'test',
+            fq: nil,
+            defType: nil)
         rescue StandardError
         end
       }.to_not change { Dataset.count }
@@ -72,9 +84,12 @@ describe Jobs::CreateDataset do
 
     it 'raises an exception' do
       expect {
-        Jobs::CreateDataset.new(user_id: @user.to_param,
-          name: 'Failure Test Dataset', q: 'test', fq: nil,
-          defType: nil).perform
+        Jobs::CreateDataset.perform(
+          user_id: @user.to_param,
+          name: 'Failure Test Dataset',
+          q: 'test',
+          fq: nil,
+          defType: nil)
       }.to raise_error(StandardError)
     end
   end

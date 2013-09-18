@@ -13,89 +13,76 @@ module Jobs
         extend ActiveSupport::Concern
 
         included do
-          # Block size for this dataset, in words
+          # Compute word frequency data for a given dataset
           #
-          # If this attribute is zero, then we will read from +num_blocks+
-          # instead.  Defaults to zero.
+          # @param [Dataset] datset the dataset for which to compute frequencies
+          # @param [Hash] args parameters for frequency analysis
+          # @option args [String] block_size block size, in words
           #
-          # @return [Integer] block size for this dataset
-          attr_accessor :block_size
+          #   If this attribute is zero, then we will read from +num_blocks+
+          #   instead.  Defaults to zero.
+          # @option args [String] num_blocks number of blocks for splitting
+          #
+          #   If this attribute is zero, we will read from +block_size+ instead.
+          #   Defaults to zero.
+          # @option args [String] split_across whether to split blocks across
+          #   documents
+          #
+          #   If this is set to true, then we will effectively concatenate all
+          #   the documents before splitting into blocks.  If false, we'll split
+          #   blocks on a per-document basis.  Defaults to true.
+          # @option args [String] num_words how many words to keep in the list
+          #
+          #   If greater than the number of types in the dataset (or zero), then
+          #   return all the words.  Defaults to zero.
+          # @return [WordFrequencyAnalyzer] the computed frequency analyzer
+          def self.compute_word_frequencies(dataset, args = { })
+            convert_args!(args)
 
-          # Split the dataset into how many blocks?
-          #
-          # If this attribute is zero, we will read from +block_size+ instead.
-          # Defaults to zero.
-          #
-          # @return [Integer] number of blocks for splitting
-          attr_accessor :num_blocks
-
-          # Split blocks only within, or across documents?
-          #
-          # If this is set to true, then we will effectively concatenate all
-          # the documents before splitting into blocks.  If false, we'll split
-          # blocks on a per-document basis.  Defaults to true.
-          #
-          # @return [Boolean] whether to split blocks across documents
-          attr_accessor :split_across
-
-          # How many words in the list?
-          #
-          # If greater than the number of types in the dataset (or zero), then
-          # return all the words.  Defaults to zero.
-          #
-          # @return [Integer] how many words to keep in the list
-          attr_accessor :num_words
-        end
-
-        # Compute word frequency data for a given dataset
-        #
-        # @param [Dataset] datset the dataset for which to compute frequencies
-        # @return [WordFrequencyAnalyzer] the computed frequency analyzer
-        def compute_word_frequencies(dataset)
-          convert_params!
-
-          # Perform the analysis and return it
-          WordFrequencyAnalyzer.new(dataset,
-                                    block_size: block_size,
-                                    num_blocks: num_blocks,
-                                    num_words: num_words,
-                                    split_across: split_across)
-        end
-
-        private
-
-        # Convert all of the job parameters from strings to proper types
-        #
-        # Since the params are coming in from a form, they'll all be strings.
-        # We need them as integer or boolean types, so convert them here.
-        def convert_params!
-          if block_size.blank?
-            self.block_size = nil
-          else
-            self.block_size = Integer(block_size)
+            # Perform the analysis and return it
+            WordFrequencyAnalyzer.new(dataset,
+                                      block_size: args[:block_size],
+                                      num_blocks: args[:num_blocks],
+                                      num_words: args[:num_words],
+                                      split_across: args[:split_across])
           end
 
-          if num_blocks.blank?
-            self.num_blocks = nil
-          else
-            self.num_blocks = Integer(num_blocks)
-          end
+          private
 
-          if num_words.blank?
-            self.num_words = nil
-          else
-            self.num_words = Integer(num_words)
-          end
-
-          if split_across.blank?
-            self.split_across = nil
-          else
-            if split_across == 'true'
-              self.split_across = true
+          # Convert all of the job parameters from strings to proper types
+          #
+          # Since the params are coming in from a form, they'll all be strings.
+          # We need them as integer or boolean types, so convert them here.
+          def self.convert_args!(args)
+            if args[:block_size].blank?
+              args[:block_size] = nil
             else
-              self.split_across = false
+              args[:block_size] = Integer(args[:block_size])
+            end
+
+            if args[:num_blocks].blank?
+              args[:num_blocks] = nil
+            else
+              args[:num_blocks] = Integer(args[:num_blocks])
+            end
+
+            if args[:num_words].blank?
+              args[:num_words] = nil
+            else
+              args[:num_words] = Integer(args[:num_words])
+            end
+
+            if args[:split_across].blank?
+              args[:split_across] = nil
+            else
+              if args[:split_across] == 'true'
+                args[:split_across] = true
+              else
+                args[:split_across] = false
+              end
             end
           end
+
         end
       end
 

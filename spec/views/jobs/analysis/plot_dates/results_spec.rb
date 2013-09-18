@@ -11,10 +11,14 @@ describe 'plot_dates/results' do
                                name: 'Plot dataset by date',
                                job_type: 'PlotDates',
                                dataset: @dataset)
-    @task.result_file = Download.create_file('temp.yml') do |file|
-      file.write({ data: [[2003, 13]], percent: false, normalization_set: nil }.to_yaml)
-      file.close
-    end
+    ios = StringIO.new
+    ios.write({ data: [[2003, 13]], percent: false, normalization_set: nil }.to_yaml)
+    ios.original_filename = 'temp.yml'
+    ios.content_type = 'text/x-yaml'
+    ios.rewind
+
+    @task.result = ios
+    ios.close
     @task.save
   end
 

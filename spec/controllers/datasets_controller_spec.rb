@@ -58,19 +58,13 @@ describe DatasetsController do
 
   describe '#create' do
     it 'creates a delayed job' do
-      expected_job = Jobs::CreateDataset.new(
-        user_id: @user.to_param,
-        name: 'Test Dataset',
-        q: '*:*',
-        fq: nil,
-        defType: 'lucene')
-      expect(Delayed::Job).to receive(:enqueue).with(
-        expected_job,
-        queue: 'ui'
-      ).once
-
       post :create, { dataset: { name: 'Test Dataset' },
         q: '*:*', fq: nil, defType: 'lucene' }
+      expect(Jobs::CreateDataset).to have_queued(user_id: @user.to_param,
+                                                 name: 'Test Dataset',
+                                                 q: '*:*',
+                                                 fq: nil,
+                                                 defType: 'lucene')
     end
 
     it 'redirects to index when done' do
@@ -131,15 +125,11 @@ describe DatasetsController do
   describe '#destroy' do
     context 'when cancel is not passed' do
       it 'creates a delayed job' do
-        expected_job = Jobs::DestroyDataset.new(
+        delete :destroy, id: @dataset.to_param
+
+        expect(Jobs::DestroyDataset).to have_queued(
           user_id: @user.to_param,
           dataset_id: @dataset.to_param)
-        expect(Delayed::Job).to receive(:enqueue).with(
-          expected_job,
-          queue: 'ui'
-        ).once
-
-        delete :destroy, id: @dataset.to_param
       end
 
       it 'redirects to index when done' do
@@ -150,8 +140,8 @@ describe DatasetsController do
 
     context 'when cancel is passed' do
       it 'does not create a delayed job' do
-        expect(Delayed::Job).not_to receive(:enqueue)
         delete :destroy, id: @dataset.to_param, cancel: true
+        expect(Jobs::DestroyDataset).to_not have_queued
       end
 
       it 'redirects to the dataset page' do
@@ -215,17 +205,17 @@ describe DatasetsController do
       end
 
       it 'enqueues a job' do
-        expected_job = Jobs::Analysis::ExportCitations.new(
-          user_id: @user.to_param,
-          dataset_id: @dataset.to_param,
-          format: 'bibtex')
-        expect(Delayed::Job).to receive(:enqueue).with(
-          expected_job,
-          queue: 'analysis'
-        ).once
-
         get :task_start, id: @dataset.to_param, class: 'ExportCitations',
             job_params: { format: 'bibtex' }
+
+        @dataset.analysis_tasks.reload
+        task_id = @dataset.analysis_tasks[0].to_param
+
+        expect(Jobs::Analysis::ExportCitations).to have_queued(
+          user_id: @user.to_param,
+          dataset_id: @dataset.to_param,
+          task_id: task_id,
+          format: 'bibtex')
       end
 
       it 'redirects to the dataset page' do
@@ -295,18 +285,13 @@ describe DatasetsController do
 
   describe '#task_download', vcr: { cassette_name: 'solr_single' } do
     before(:each) do
-      # Execute an export job, which should create an AnalysisTask
-      Jobs::Analysis::ExportCitations.new(
+      @task = FactoryGirl.create(:analysis_task, dataset: @dataset)
+      Jobs::Analysis::ExportCitations.perform(
         user_id: @user.to_param,
         dataset_id: @dataset.to_param,
+        task_id: @task.to_param,
         format: :bibtex
-      ).perform
-
-      # Double-check that the task is created
-      expect(@dataset.analysis_tasks).to have(1).item
-      expect(@dataset.analysis_tasks[0]).to be
-
-      @task = @dataset.analysis_tasks[0]
+      )
     end
 
     after(:each) do

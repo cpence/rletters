@@ -1,4 +1,4 @@
-- data = YAML.load_file(@task.result_file.filename)
+- data = YAML.load(@task.result.file_contents(:original))
 - dates = data[:data]
 - percent = data[:percent]
 

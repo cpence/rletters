@@ -1,6 +1,5 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
-require 'zip/zip'
 
 describe Jobs::Analysis::ExportCitations, vcr: { cassette_name: 'solr_single' } do
 
@@ -12,14 +11,21 @@ describe Jobs::Analysis::ExportCitations, vcr: { cassette_name: 'solr_single' } 
     @user = FactoryGirl.create(:user)
     @dataset = FactoryGirl.create(:full_dataset, entries_count: 10,
                                   working: true, user: @user)
+    @task = FactoryGirl.create(:analysis_task, dataset: @dataset)
+  end
+
+  after(:each) do
+    @task.destroy
   end
 
   context 'when an invalid format is specified' do
     it 'raises an exception' do
       expect {
-        Jobs::Analysis::ExportCitations.new(user_id: @user.to_param,
-                                            dataset_id: @dataset.to_param,
-                                            format: :notaformat).perform
+        Jobs::Analysis::ExportCitations.perform(
+          user_id: @user.to_param,
+          dataset_id: @dataset.to_param,
+          task_id: @task.to_param,
+          format: :notaformat)
       }.to raise_error(ArgumentError)
     end
   end
@@ -28,22 +34,22 @@ describe Jobs::Analysis::ExportCitations, vcr: { cassette_name: 'solr_single' } 
           vcr: { cassette_name: 'solr_single' } do
     it 'works anyway' do
       expect {
-        Jobs::Analysis::ExportCitations.new(user_id: @user.to_param,
-                                            dataset_id: @dataset.to_param,
-                                            format: 'bibtex').perform
+        Jobs::Analysis::ExportCitations.perform(
+          user_id: @user.to_param,
+          dataset_id: @dataset.to_param,
+          task_id: @task.to_param,
+          format: 'bibtex')
       }.to_not raise_error
     end
   end
 
   context 'when all parameters are valid' do
     before(:each) do
-      Jobs::Analysis::ExportCitations.new(user_id: @user.to_param,
-                                          dataset_id: @dataset.to_param,
-                                          format: :bibtex).perform
-    end
-
-    after(:each) do
-      @dataset.analysis_tasks[0].destroy
+      Jobs::Analysis::ExportCitations.perform(
+        user_id: @user.to_param,
+        dataset_id: @dataset.to_param,
+        task_id: @task.to_param,
+        format: :bibtex)
     end
 
     it 'names the task correctly' do
@@ -51,10 +57,15 @@ describe Jobs::Analysis::ExportCitations, vcr: { cassette_name: 'solr_single' } 
     end
 
     it 'creates a proper ZIP file' do
-      Zip::ZipFile.open(@dataset.analysis_tasks[0].result_file.filename) do |zf|
-        expect(zf).to have(10).entry
+      data = @dataset.analysis_tasks[0].result.file_contents('original')
+      entries = 0
+      Zip::InputStream.open(StringIO.new(data)) do |zis|
+        while (entry = zis.get_next_entry)
+          entries += 1
+        end
       end
-    end
+      expect(entries).to eq(10)
+     end
   end
 
 end

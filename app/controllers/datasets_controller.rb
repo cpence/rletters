@@ -66,13 +66,12 @@ class DatasetsController < ApplicationController
   # @api public
   # @return [undefined]
   def create
-    Delayed::Job.enqueue Jobs::CreateDataset.new(
-                           user_id: current_user.to_param,
-                           name: dataset_params[:name],
-                           q: params[:q],
-                           fq: params[:fq],
-                           defType: params[:defType]),
-                         queue: 'ui'
+    Resque.enqueue(Jobs::CreateDataset,
+                   user_id: current_user.to_param,
+                   name: dataset_params[:name],
+                   q: params[:q],
+                   fq: params[:fq],
+                   defType: params[:defType])
 
     redirect_to datasets_path, notice: I18n.t('datasets.create.building')
   end
@@ -89,10 +88,9 @@ class DatasetsController < ApplicationController
       return
     end
 
-    Delayed::Job.enqueue Jobs::DestroyDataset.new(
-                           user_id: current_user.to_param,
-                           dataset_id: params[:id]),
-                         queue: 'ui'
+    Resque.enqueue(Jobs::DestroyDataset,
+                   user_id: current_user.to_param,
+                   dataset_id: params[:id])
 
     redirect_to datasets_path
   end
@@ -139,15 +137,20 @@ class DatasetsController < ApplicationController
     fail ActiveRecord::RecordNotFound unless dataset
     klass = AnalysisTask.job_class(params[:class])
 
+    # Create an analysis task
+    task = dataset.analysis_tasks.create(name: params[:class],
+                                         job_type: params[:class])
+
     # Put the job parameters together out of the job hash
     job_params = {}
     job_params = params[:job_params].to_hash if params[:job_params]
     job_params.symbolize_keys!
     job_params[:user_id] = current_user.to_param
     job_params[:dataset_id] = dataset.to_param
+    job_params[:task_id] = task.to_param
 
     # Enqueue the job
-    Delayed::Job.enqueue klass.new(job_params), queue: 'analysis'
+    Resque.enqueue(klass, job_params)
     redirect_to dataset_path(dataset)
   end
 
@@ -209,11 +212,11 @@ class DatasetsController < ApplicationController
     fail ActiveRecord::RecordNotFound unless dataset
     task = dataset.analysis_tasks.find(params[:task_id])
     fail ActiveRecord::RecordNotFound unless task
-    fail ActiveRecord::RecordNotFound unless task.result_file_length
+    fail ActiveRecord::RecordNotFound unless task.result_file_size
 
-    send_data(task.result.file_contents,
+    send_data(task.result.file_contents(:original),
               filename: task.result_file_name,
-              type: task.result_file_content_type)
+              type: task.result_content_type)
   end
 
   private

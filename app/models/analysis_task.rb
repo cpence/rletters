@@ -35,7 +35,7 @@ class AnalysisTask < ActiveRecord::Base
   validates :job_type, presence: true
 
   belongs_to :dataset
-  has_attached_file :result
+  has_attached_file :result, database_table: 'analysis_task_results'
 
   scope :finished, -> { where('finished_at IS NOT NULL') }
   scope :not_finished, -> { where('finished_at IS NULL') }

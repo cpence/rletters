@@ -68,4 +68,35 @@ describe InfoController do
     end
   end
 
+  describe '#image' do
+    context 'with an invalid id' do
+      it 'returns a 404' do
+        expect {
+          get :image, id: '123456789'
+        }.to raise_error(ActiveRecord::RecordNotFound)
+      end
+    end
+
+    context 'with a valid id' do
+      before(:each) do
+        @asset = UploadedAsset.find_by(name: 'splash-low').to_param
+        @id = @asset.to_param
+
+        get :image, id: @id
+      end
+
+      it 'succeeds' do
+        expect(response).to be_success
+      end
+
+      it 'returns a reasonable content type' do
+        expect(response.content_type).to eq('image/png')
+      end
+
+      it 'sends some data' do
+        expect(response.body.length).to be > 0
+      end
+    end
+  end
+
 end

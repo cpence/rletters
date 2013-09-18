@@ -18,19 +18,22 @@ describe Jobs::Analysis::PlotDates, vcr: { cassette_name: 'plot_dates' } do
        00dbffbfff2d18a74ed5f8895fa9f515bf38bf5f).each do |shasum|
       FactoryGirl.create(:dataset_entry, dataset: @dataset, shasum: shasum)
     end
+    @task = FactoryGirl.create(:analysis_task, dataset: @dataset)
+  end
+
+  after(:each) do
+    @task.destroy
   end
 
   it_should_behave_like 'an analysis job with a file'
 
   context 'when not normalizing' do
     before(:each) do
-      Jobs::Analysis::PlotDates.new(user_id: @user.to_param,
-                                    dataset_id: @dataset.to_param,
-                                    normalize_doc_counts: 'off').perform
-    end
-
-    after(:each) do
-      @dataset.analysis_tasks[0].destroy
+      Jobs::Analysis::PlotDates.perform(
+        user_id: @user.to_param,
+        dataset_id: @dataset.to_param,
+        task_id: @task.to_param,
+        normalize_doc_counts: 'off')
     end
 
     it 'names the task correctly' do
@@ -38,12 +41,12 @@ describe Jobs::Analysis::PlotDates, vcr: { cassette_name: 'plot_dates' } do
     end
 
     it 'creates good YAML' do
-      data = YAML.load_file(@dataset.analysis_tasks[0].result_file.filename)
+      data = YAML.load(@dataset.analysis_tasks[0].result.file_contents(:original))
       expect(data).to be_a(Hash)
     end
 
     it 'fills in some values' do
-      arr = YAML.load_file(@dataset.analysis_tasks[0].result_file.filename)[:data]
+      arr = YAML.load(@dataset.analysis_tasks[0].result.file_contents(:original))[:data]
       expect((1990..2012)).to cover(arr[0][0])
       expect((1..5)).to cover(arr[0][1])
     end
@@ -51,14 +54,16 @@ describe Jobs::Analysis::PlotDates, vcr: { cassette_name: 'plot_dates' } do
 
   context 'when normalizing to the corpus', vcr: { cassette_name: 'plot_dates_normalize_full' } do
     before(:each) do
-      Jobs::Analysis::PlotDates.new(user_id: @user.to_param,
-                                    dataset_id: @dataset.to_param,
-                                    normalize_doc_counts: 'on',
-                                    normalize_doc_dataset: '').perform
+      Jobs::Analysis::PlotDates.perform(
+        user_id: @user.to_param,
+        dataset_id: @dataset.to_param,
+        task_id: @task.to_param,
+        normalize_doc_counts: 'on',
+        normalize_doc_dataset: '')
     end
 
     after(:each) do
-      @dataset.analysis_tasks[0].destroy
+      @task
     end
 
     it 'names the task correctly' do
@@ -66,22 +71,22 @@ describe Jobs::Analysis::PlotDates, vcr: { cassette_name: 'plot_dates' } do
     end
 
     it 'creates good YAML' do
-      arr = YAML.load_file(@dataset.analysis_tasks[0].result_file.filename)
+      arr = YAML.load(@dataset.analysis_tasks[0].result.file_contents(:original))
       expect(arr).to be_a(Hash)
     end
 
     it 'sets the normalization set properly' do
-      data = YAML.load_file(@dataset.analysis_tasks[0].result_file.filename)
+      data = YAML.load(@dataset.analysis_tasks[0].result.file_contents(:original))
       expect(data[:normalization_set]).to eq("Entire Corpus")
     end
 
     it 'marks that this was a normalized count' do
-      data = YAML.load_file(@dataset.analysis_tasks[0].result_file.filename)
+      data = YAML.load(@dataset.analysis_tasks[0].result.file_contents(:original))
       expect(data[:percent]).to be_true
     end
 
     it 'fills in some values' do
-      arr = YAML.load_file(@dataset.analysis_tasks[0].result_file.filename)[:data]
+      arr = YAML.load(@dataset.analysis_tasks[0].result.file_contents(:original))[:data]
       expect(arr.assoc(2000)[1]).to be_within(0.01).of(0.0322)
       expect(arr.assoc(2008)[1]).to be_within(0.01).of(0.016)
     end
@@ -123,14 +128,12 @@ describe Jobs::Analysis::PlotDates, vcr: { cassette_name: 'plot_dates' } do
         FactoryGirl.create(:dataset_entry, dataset: @normalization_set, shasum: shasum)
       end
 
-      Jobs::Analysis::PlotDates.new(user_id: @user.to_param,
-                                    dataset_id: @dataset.to_param,
-                                    normalize_doc_counts: 'on',
-                                    normalize_doc_dataset: @normalization_set.id.to_s).perform
-    end
-
-    after(:each) do
-      @dataset.analysis_tasks[0].destroy
+      Jobs::Analysis::PlotDates.perform(
+        user_id: @user.to_param,
+        dataset_id: @dataset.to_param,
+        task_id: @task.to_param,
+        normalize_doc_counts: 'on',
+        normalize_doc_dataset: @normalization_set.id.to_s)
     end
 
     it 'names the task correctly' do
@@ -138,22 +141,22 @@ describe Jobs::Analysis::PlotDates, vcr: { cassette_name: 'plot_dates' } do
     end
 
     it 'creates good YAML' do
-      data = YAML.load_file(@dataset.analysis_tasks[0].result_file.filename)
+      data = YAML.load(@dataset.analysis_tasks[0].result.file_contents(:original))
       expect(data).to be_a(Hash)
     end
 
     it 'sets the normalization set properly' do
-      data = YAML.load_file(@dataset.analysis_tasks[0].result_file.filename)
+      data = YAML.load(@dataset.analysis_tasks[0].result.file_contents(:original))
       expect(data[:normalization_set]).to eq(@normalization_set.name)
     end
 
     it 'marks that this was a normalized count' do
-      data = YAML.load_file(@dataset.analysis_tasks[0].result_file.filename)
+      data = YAML.load(@dataset.analysis_tasks[0].result.file_contents(:original))
       expect(data[:percent]).to be_true
     end
 
     it 'fills in some values' do
-      arr = YAML.load_file(@dataset.analysis_tasks[0].result_file.filename)[:data]
+      arr = YAML.load(@dataset.analysis_tasks[0].result.file_contents(:original))[:data]
       expect(arr.assoc(2006)[1]).to be_within(0.01).of(0.25)
       expect(arr.assoc(2009)[1]).to be_within(0.01).of(0.5)
     end

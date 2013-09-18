@@ -6,38 +6,34 @@ module Jobs
   #
   # This job fetches results from the Solr server and spools them into the
   # database, creating a dataset for a user.
-  #
-  # @!attribute user_id
-  #   @return [String] the user that created this dataset
-  # @!attribute name
-  #   @return [String] the name of the dataset to create
-  # @!attribute q
-  #  @return [String] the Solr query for this search
-  # @!attribute fq
-  #  @return [Array<String>] faceted browsing parameters for this search
-  # @!attribute defType
-  #  @return [String] parser type for this search
-  class CreateDataset < Jobs::Base
-    attr_accessor :user_id, :name, :q, :fq, :defType
+  class CreateDataset
+    @queue = 'ui'
 
     # Create a dataset for the user
     #
     # @api public
+    # @param [Hash] args the arguments for this job
+    # @option args [String] user_id the user that created this dataset
+    # @option args [String] name the name of the dataset to create
+    # @option args [String] q the Solr query for this search
+    # @option args [Array<String>] fq faceted browsing parameters for
+    #   this search
+    # @option args [String] defType parser type for this search
     # @return [undefined]
     # @example Start a job for creating a dataset
-    #   Delayed::Job.enqueue Jobs::CreateDataset.new(
-    #     user_id: users(:john).to_param,
-    #     name: 'Test Dataset',
-    #     q: '*:*'
-    #     fq: ['authors_facet:"Shatner"'],
-    #     defType: 'lucene')
-    def perform
+    #   Resque.enqueue(Jobs::CreateDataset.new,
+    #                  user_id: users(:john).to_param,
+    #                  name: 'Test Dataset',
+    #                  q: '*:*'
+    #                  fq: ['authors_facet:"Shatner"'],
+    #                  defType: 'lucene')
+    def self.perform(args = { })
       # Fetch the user based on ID
-      user = User.find(user_id)
+      user = User.find(args[:user_id])
       fail ArgumentError, 'User ID is not valid' unless user
 
       # Create a dataset and save it, to fix its ID
-      dataset = user.datasets.build(name: name)
+      dataset = user.datasets.build(name: args[:name])
       fail 'Cannot create dataset for user' unless dataset
       fail 'Cannot save dataset' unless dataset.save
 
@@ -45,9 +41,9 @@ module Jobs
       solr_query = {}
       solr_query[:start] = 0
       solr_query[:rows] = 1000
-      solr_query[:q] = q
-      solr_query[:fq] = fq
-      solr_query[:defType] = defType
+      solr_query[:q] = args[:q]
+      solr_query[:fq] = args[:fq]
+      solr_query[:defType] = args[:defType]
 
       # Only get shasum, no facets
       solr_query[:fl] = 'shasum'

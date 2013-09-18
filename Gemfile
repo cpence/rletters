@@ -40,7 +40,9 @@ gem 'responders', '>= 1.0.0.rc' # FIXME: only for AA
 # Support for file attachments and exporting
 gem 'paperclip', '~> 3.0'
 gem 'paperclip_database'
-gem 'rubyzip'
+# This release hasn't been cut yet; waiting on it
+#gem 'rubyzip', '>= 1.1.0'
+gem 'rubyzip', github: 'rubyzip/rubyzip', require: 'zip'
 gem 'marc'
 gem 'rdf', '>= 0.3.5'
 gem 'rdf-rdfxml'
@@ -77,6 +79,7 @@ group :test do
   gem 'vcr', require: false
   gem 'webmock', require: false
   gem 'nokogiri', require: false
+  gem 'resque_spec'
 end
 
 group :development do

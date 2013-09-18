@@ -7,13 +7,10 @@ module Jobs
 
     # Base class for all analysis jobs
     #
-    # All jobs act on a dataset with a user ID, so those are common to all
-    # analysis jobs.  Also, we include some error handling code (via Airbrake).
+    # Analysis jobs are required to implement one partial, and possibly a
+    # second view, located at +lib/jobs/analysis/views/(job)/*.html.haml+:
     #
-    # Analysis jobs are required to implement one view, and possibly a second,
-    # located at +lib/jobs/analysis/views/(job)/*.html.haml+:
-    #
-    # - +start.html.haml+: This contains code for starting a job.  It will be
+    # - +_start.html.haml+: This contains code for starting a job.  It will be
     #   placed inside a <ul> tag, and so should contain at least one list
     #   item.  Commonly, it will contain (i) a single list item for
     #   starting the job, (ii) multiple <li> tags for different ways of
@@ -30,14 +27,7 @@ module Jobs
     #   user the results of the job in HTML form.  The standard way to do this
     #   is to write the job results out as YAML in +AnalysisTask#result_file+,
     #   and then to parse this YAML into HAML in the view.
-    #
-    # @!attribute user_id
-    #   @return [String] the user that created this dataset
-    # @!attribute dataset_id
-    #   @return [String] the dataset to export
-    class Base < Jobs::Base
-      attr_accessor :user_id, :dataset_id
-
+    class Base
       # True if this job produces a download
       #
       # If true (default), then links to results of tasks will produce links to
@@ -154,25 +144,6 @@ module Jobs
         end
 
         ret
-      end
-
-      # Set the analysis task fail bit on error
-      #
-      # Analysis tasks carry a +failed+ attribute that reports that the
-      # underlying delayed job has failed.  That attribute is set in this
-      # error handler.
-      #
-      # @api private
-      # @param [Delayed::Job] job The job currently being run
-      # @param [StandardError] exception The exception raised to cause the
-      #   error
-      # @return [undefined]
-      def error(job, exception)
-        if instance_variable_defined?(:@task) && @task
-          @task.failed = true
-          @task.save!
-        end
-        super
       end
 
       private

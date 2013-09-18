@@ -1,6 +1,8 @@
 - require 'csv'
-- dates = YAML.load_file(@task.result_file.filename)
+- data = YAML.load(@task.result.file_contents(:original))
+- dates = data[:data]
+- percent = data[:percent]
 = CSV.generate do |csv|
-  - csv << [ 'Year', 'Number of Documents' ]
+  - csv << [ 'Year', percent ? 'Fraction of Documents' : 'Number of Documents' ]
   - dates.each do |d|
     - csv << d

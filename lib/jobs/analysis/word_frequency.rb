@@ -7,22 +7,48 @@ module Jobs
     # Produce a parallel word frequency list for a dataset
     class WordFrequency < Jobs::Analysis::Base
       add_concern 'ComputeWordFrequencies'
+      @queue = 'analysis'
 
-      def perform
+      # Export the word frequency data.
+      #
+      # This saves its data out as a CSV file to be downloaded by the user
+      # later.  As of yet, we don't offer display in the browser; I think this
+      # data is so complex that you'll want to pull it up on a spreadsheet.
+      #
+      # Note that there are also parameters to be passed in to the
+      # +ComputeWordFrequencies+ concern; see that concern's documentation for
+      # the specification of those arguments.
+      #
+      # @param [Hash] args parameters for this job
+      # @option args [String] user_id the user whose dataset we are to work on
+      # @option args [String] dataset_id the dataset to operate on
+      # @option args [String] task_id the analysis task we're working from
+      # @see Jobs::Analysis::Concerns::ComputeWordFrequencies
+      # @return [undefined]
+      # @example Start a job for computing a dataset's word frequencies
+      #   Resque.enqueue(Jobs::Analysis::WordFrequency,
+      #                  user_id: current_user.to_param,
+      #                  dataset_id: dataset.to_param,
+      #                  task_id: task.to_param,
+      #                  [word frequency concern arguments])
+      def self.perform(args = { })
         # Fetch the user based on ID
-        user = User.find(user_id)
+        user = User.find(args[:user_id])
         fail ArgumentError, 'User ID is not valid' unless user
 
         # Fetch the dataset based on ID
-        dataset = user.datasets.find(dataset_id)
+        dataset = user.datasets.find(args[:dataset_id])
         fail ArgumentError, 'Dataset ID is not valid' unless dataset
 
         # Make a new analysis task
-        @task = dataset.analysis_tasks.create(name: 'Word frequency list',
-                                              job_type: 'WordFrequency')
+        task = dataset.analysis_tasks.find(args[:task_id])
+        fail ArgumentError, 'Task ID is not valid' unless task
+
+        task.name = 'Calculate word frequencies'
+        task.save
 
         # Do the analysis
-        analyzer = compute_word_frequencies(dataset)
+        analyzer = compute_word_frequencies(dataset, args)
 
         # Create some CSV
         csv_string = CSV.generate do |csv|
@@ -99,13 +125,18 @@ module Jobs
           csv << ['']
         end
 
-        @task.result_file = Download.create_file('frequency.csv') do |file|
-          file.write(csv_string)
-          file.close
-        end
+        # Write it out
+        ios = StringIO.new
+        ios.write(csv_string)
+        ios.original_filename = 'word_frequency.csv'
+        ios.content_type = 'text/csv'
+        ios.rewind
+
+        task.result = ios
+        ios.close
 
         # We're done here
-        @task.finish!
+        task.finish!
       end
     end
   end

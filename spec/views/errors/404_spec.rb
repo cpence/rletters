@@ -8,6 +8,6 @@ describe 'errors/404' do
 
   it 'includes the error image' do
     render
-    expect(rendered).to include(UploadedAsset.url_for('error-watermark'))
+    expect(rendered).to include(CGI.escapeHTML(UploadedAsset.url_for('error-watermark')))
   end
 end

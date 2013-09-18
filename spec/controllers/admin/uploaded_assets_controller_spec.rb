@@ -37,7 +37,7 @@ describe Admin::UploadedAssetsController do
     end
 
     it 'shows the asset image on the page' do
-      expect(response.body).to match(/<img[^>]*src="#{Regexp.escape(@asset.file.url)}"[^>]*\/>/)
+      expect(response.body).to match(%r{<img[^>]*src="/info/image/#{@asset.to_param}\?})
     end
   end
 

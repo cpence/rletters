@@ -49,4 +49,16 @@ class InfoController < ApplicationController
   # @api public
   # @return [undefined]
   def tutorial; end
+
+  # Return one of the uploaded-asset images
+  #
+  # @api public
+  # @return [undefined]
+  def image
+    model = UploadedAsset.find(params[:id])
+    style = params[:style] ? params[:style] : 'original'
+    send_data model.file.file_contents(style),
+              filename: model.file_file_name,
+              content_type: model.file_content_type
+  end
 end
