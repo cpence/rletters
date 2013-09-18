@@ -265,6 +265,10 @@ GEM
       redis-namespace (~> 1.2)
       sinatra (>= 0.9.2)
       vegas (~> 0.1.2)
+    resque-pool (0.3.0)
+      rake
+      resque (~> 1.20)
+      trollop (~> 1.16)
     resque_spec (0.14.2)
       resque (>= 1.19.0)
       rspec-core (>= 2.5.0)
@@ -412,6 +416,7 @@ DEPENDENCIES
   rdf-rdfxml
   responders (>= 1.0.0.rc)
   resque
+  resque-pool
   resque_spec
   rouge
   rsolr (>= 1.0.7)

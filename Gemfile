@@ -25,6 +25,7 @@ gem 'activerecord-import', '>= 0.4.0'
 gem 'trim_blobs'
 gem 'druthers'
 gem 'resque'
+gem 'resque-pool'
 
 gem 'addressable'
 
