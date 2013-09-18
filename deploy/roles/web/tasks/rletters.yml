@@ -102,6 +102,10 @@
   shell: chdir=/opt/rletters/root/ creates=/opt/rletters/state/database_seeded bundle exec rake db:seed RAILS_ENV=production && touch /opt/rletters/state/database_seeded
   tags: rletters_seed
 
+- name: Precompile the assets
+  shell: chdir=/opt/rletters/root/ bundle exec rake assets:precompile RAILS_ENV=production
+  tags: rletters
+
 - name: Set the ownership for the RLetters directory
   file: path=/opt/rletters owner=rletters_deploy group=rletters_deploy state=directory recurse=yes
   tags: rletters
