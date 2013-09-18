@@ -1,4 +1,5 @@
 # -*- encoding : utf-8 -*-
+require 'resque/tasks'
 
 namespace :resque do
   task :setup => :environment do
