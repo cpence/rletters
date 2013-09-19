@@ -98,9 +98,6 @@ RSpec.configure do |config|
   # Add helpers for running Solr queries in view specs
   config.include SearchControllerQuery, type: :view
 
-  # Add helpers for dealing with Vagrant to deployment specs
-  config.include VagrantSshHelper, deploy: true
-
   # Add helpers for dealing with analysis job views
   config.include JobViewHelper, type: :view
 end
