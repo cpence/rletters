@@ -66,20 +66,6 @@
   file: path=/opt/rletters/root/tmp/sockets state=directory
   tags: rletters
 
-- name: Only create the Rails secret tokens once
-  shell: touch /opt/rletters/state/created_secret_tokens creates=/opt/rletters/state/created_secret_tokens
-  register: secret_tokens_flag
-  tags: rletters
-
-- name: Create the Rails secret tokens
-  template: src=secret_token.rb.j2 dest=/opt/rletters/state/secret_token.rb
-  when: secret_tokens_flag.changed
-  tags: rletters
-
-- name: Symlink the Rails secret tokens
-  file: src=/opt/rletters/state/secret_token.rb path=/opt/rletters/root/config/initializers/secret_token.rb state=link force=yes
-  tags: rletters
-
 - name: Create the Unicorn configuration
   copy: src=unicorn.rb dest=/opt/rletters/state/unicorn.rb
   tags: rletters
