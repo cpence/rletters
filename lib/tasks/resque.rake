@@ -2,11 +2,7 @@
 require 'resque/tasks'
 require 'resque/pool/tasks'
 
-task "resque:setup" => :environment do
-  # FIXME: For external job workers, we'll have to fix this.  But not just
-  # yet.
-  Resque.redis = 'localhost:6379'
-end
+task "resque:setup" => :environment
 
 task "resque:pool:setup" do
   ActiveRecord::Base.connection.disconnect!

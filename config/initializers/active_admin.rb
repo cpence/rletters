@@ -14,6 +14,13 @@ ActiveAdmin.setup do |config|
   config.before_filter do
     params.permit!
   end
+
+  # Add a link to the job queue page from the ActiveAdmin menu
+  config.namespace :admin do |admin|
+    admin.build_menu do |menu|
+      menu.add label: 'Job Queue', url: '/admin/jobs', priority: 100
+    end
+  end
 end
 
 # Precompile the ActiveAdmin CSS and JS files

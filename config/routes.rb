@@ -69,6 +69,9 @@ RLetters::Application.routes.draw do
   # Administration pages
   ActiveAdmin.routes(self)
   devise_for :admin_users, ActiveAdmin::Devise.config
+  authenticate :admin_user do
+    mount Resque::Server.new, at: '/admin/jobs'
+  end
 
   # unAPI service
   get 'unapi' => 'unapi#index'
