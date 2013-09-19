@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 
 # Set the Airbrake key and start up Airbrake, if available
-if ActiveRecord::Base.connection.tables.include?('setting')
+if ActiveRecord::Base.connection.tables.include?('settings')
   unless Setting.airbrake_key.blank?
     begin
       require 'airbrake'
