@@ -378,6 +378,8 @@ en:
         airbrake_key: Airbrake API Key
         google_analytics_key: Google Analytics Tracking ID
         jquery_mobile_theme_blob: jQuery Mobile Theme CSS
+        secret_token: Rails Secret Token
+        secret_key_base: Rails Secret Key Base
     markdown_pages:
         tutorial: Tutorial
         privacy_short: Privacy Notice (short)
