@@ -8,7 +8,7 @@ RLetters::Application.routes.draw do
   get 'info/faq' => 'info#faq'
   get 'info/privacy' => 'info#privacy'
   get 'info/tutorial' => 'info#tutorial'
-  get 'info/image/:id' => 'info#image'
+  get 'info/image/:id' => 'info#image', as: 'info_image'
 
   # Search/Browse page
   get 'search' => 'search#index'
