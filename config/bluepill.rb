@@ -1,6 +1,8 @@
 # -*- encoding : utf-8 -*-
 ENV['RAILS_ENV'] = 'production'
 
+# Whenever this file is updated, make sure to update bluepill-initscript.sh!
+
 Bluepill.application('rletters') do |app|
 
   app.uid = app.gid = 'rletters_deploy'
