@@ -1,14 +1,9 @@
 .bundle
 .DS_Store
 .sass-cache
-.vagrant
 .yardoc
 
 config/database.yml
-deploy/hosts
-deploy/roles/db/files/*_pass
-deploy/roles/solr/files/*_pass
-deploy/roles/web/files/*_pass
 doc
 log/*.log
 public/assets
