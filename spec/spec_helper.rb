@@ -59,9 +59,6 @@ RSpec.configure do |config|
   # config.expect_with(:rspec) { |e| e.syntax = :expect }
   config.mock_with(:rspec) { |m| m.syntax = :expect }
 
-  # Do not (!) run the deployment testing by default
-  config.filter_run_excluding :deploy => true
-
   config.color_enabled = true
   config.tty = true
   config.formatter = 'documentation'
