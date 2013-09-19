@@ -28,6 +28,8 @@ module Jobs
     #                  fq: ['authors_facet:"Shatner"'],
     #                  defType: 'lucene')
     def self.perform(args = { })
+      args.symbolize_keys!
+
       # Fetch the user based on ID
       user = User.find(args[:user_id])
       fail ArgumentError, 'User ID is not valid' unless user
