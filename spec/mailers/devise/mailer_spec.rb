@@ -8,7 +8,7 @@ describe Devise::Mailer do
       @user = mock_model(User,
                          email: 'user@user.com',
                          reset_password_token: 'resettoken')
-      @mail = Devise::Mailer::reset_password_instructions(@user)
+      @mail = Devise::Mailer::reset_password_instructions(@user, 'resettoken')
     end
 
     it 'sets the to e-mail' do
