@@ -2,7 +2,7 @@
 require 'spec_helper'
 
 describe NERAnalyzer,
-         vcr: { cassette_name: 'solr_single_fulltext' }, ner: true do
+         vcr: { cassette_name: 'solr_single_fulltext' }, nlp: true do
 
   before(:each) do
     @user = FactoryGirl.create(:user)
