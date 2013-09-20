@@ -1,9 +1,15 @@
 # -*- encoding : utf-8 -*-
 
-StanfordCoreNLP.jar_path = Rails.root.join('vendor', 'nlp')
-StanfordCoreNLP.model_path = Rails.root.join('vendor', 'nlp')
-StanfordCoreNLP.log_file = Rails.root.join('log', 'stanford-nlp.log')
+StanfordCoreNLP.jar_path = Rails.root.join('vendor', 'nlp').to_s + File::SEPARATOR
+StanfordCoreNLP.model_path = Rails.root.join('vendor', 'nlp').to_s + File::SEPARATOR
+StanfordCoreNLP.log_file = Rails.root.join('log', 'stanford-nlp.log').to_s
 
 # See if we have the JARs, and if not, disable the NLP-based jobs with a
 # good old fashioned global variable
-NLP_ENABLED = File.exists?(Rails.root.join('vendor', 'nlp', 'stanford-corenlp.jar'))
+NER_CLASSIFIER_PATH = Rails.root.join('vendor', 'nlp', 'classifiers', 'all.3class.distsim.crf.ser.gz').to_s
+NLP_ENABLED = File.exists?(NER_CLASSIFIER_PATH)
+
+if NLP_ENABLED
+  # Load the java classes now, on initialization
+  StanfordCoreNLP.bind
+end
