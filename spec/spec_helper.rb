@@ -68,6 +68,9 @@ RSpec.configure do |config|
   config.infer_base_class_for_anonymous_controllers = true
   config.treat_symbols_as_metadata_keys_with_true_values = true
 
+  # Don't test the NLP stuff if it's not installed (e.g., on Travis)
+  config.filter_run_excluding nlp: true unless NLP_ENABLED
+
   config.before(:suite) do
     # Speed up testing by deferring garbage collection
     DeferredGarbageCollection.start

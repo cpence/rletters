@@ -11,3 +11,5 @@ spec/coverage
 tmp/*
 !tmp/.gitkeep
 vendor/bundle
+vendor/nlp/*
+!vendor/nlp/.gitkeep

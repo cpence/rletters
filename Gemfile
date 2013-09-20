@@ -38,6 +38,9 @@ gem 'devise-i18n'
 gem 'activeadmin', github: 'gregbell/active_admin', branch: 'rails4'
 gem 'responders', '>= 1.0.0.rc' # FIXME: only for AA
 
+# Textual analysis
+gem 'stanford-core-nlp'
+
 # Support for file attachments and exporting
 gem 'paperclip', '~> 3.0'
 gem 'paperclip_database'
