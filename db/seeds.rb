@@ -37,13 +37,18 @@ end
 Dir.glob(Rails.root.join('db', 'seeds', 'images', '*')) do |img|
   extension = File.extname(img)
   name = File.basename(img, extension)
-  asset = UploadedAsset.where(name: name).first_or_create
-
-  f = File.new(img)
-  asset.file = f
-  f.close
-
-  asset.save
+  UploadedAsset.where(name: name).first_or_create do |asset|
+    f = File.new(img)
+    asset.file = f
+    f.close
+  end
 
   puts "Seeded asset:#{name}"
+end
+
+# Stop lists
+Dir.glob(Rails.root.join('db', 'seeds', 'stoplists', '*.txt')) do |txt|
+  language = File.basename(txt, '.txt')
+  StopList.where(language: language).first_or_create(list: IO.read(txt))
+  puts "Seeded stop_list:#{language}"
 end

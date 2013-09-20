@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130917195527) do
+ActiveRecord::Schema.define(version: 20130920174611) do
 
   create_table "admin_users", force: true do |t|
     t.string   "email",                  default: "", null: false
@@ -103,6 +103,13 @@ ActiveRecord::Schema.define(version: 20130917195527) do
   end
 
   add_index "settings", ["key"], name: "key_udx", unique: true
+
+  create_table "stop_lists", force: true do |t|
+    t.string   "language"
+    t.text     "list"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "uploaded_asset_files", force: true do |t|
     t.integer "uploaded_asset_id"
