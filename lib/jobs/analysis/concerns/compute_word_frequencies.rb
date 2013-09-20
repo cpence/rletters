@@ -44,6 +44,9 @@ module Jobs
           #
           #   If this attribute is set, then we'll only analyze the words that
           #   are specified here (separated by spaces), and no others.
+          # @option args [String] stop_list if set, language of stop list to use
+          # @option args [String] exclusion_list if set, list of words to
+          #   exclude from analysis
           # @return [WordFrequencyAnalyzer] the computed frequency analyzer
           def self.compute_word_frequencies(dataset, args = { })
             convert_args!(args)
@@ -55,7 +58,9 @@ module Jobs
                                       num_words: args[:num_words],
                                       split_across: args[:split_across],
                                       last_block: args[:last_block],
-                                      inclusion_list: args[:inclusion_list])
+                                      inclusion_list: args[:inclusion_list],
+                                      stop_list: args[:stop_list],
+                                      exclusion_list: args[:exclusion_list])
           end
 
           private
@@ -99,7 +104,15 @@ module Jobs
               args[:last_block] = args[:last_block].to_sym
             end
 
+            if args[:stop_list].blank?
+              args[:stop_list] = nil
+            else
+              # Returns nil if the argument isn't found
+              args[:stop_list] = StopList.find_by(language: args[:stop_list])
+            end
+
             args[:inclusion_list] = nil if args[:inclusion_list].blank?
+            args[:exclusion_list] = nil if args[:exclusion_list].blank?
           end
 
         end

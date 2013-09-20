@@ -11,4 +11,9 @@
 # @!attribute list
 #   @return [String] Space-separated list of common words to exclude
 class StopList < ActiveRecord::Base
+  # @return [String] the +language+ parameter, translated into the user's
+  #   selected language
+  def display_language
+    I18n.t("languages.#{language}")
+  end
 end

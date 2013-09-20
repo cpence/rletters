@@ -87,6 +87,12 @@ class WordFrequencyAnalyzer
   # @option options [String] :inclusion_list If specified, then the analyzer
   #   will only compute frequency information for the words that are specified
   #   in this list (which is space-separated).
+  # @option options [String] :exclusion_list If specified, then the analyzer
+  #   will *not* compute frequency information for the words that are specified
+  #   in this list (which is space-separated).
+  # @option options [StopList] :stop_list If specified, then the analyzer will
+  #   *not* compute frequency information for the words that appear within this
+  #   stop list.
   def initialize(dataset, options = {})
     # Save the dataset and options
     @dataset = dataset
@@ -219,6 +225,13 @@ class WordFrequencyAnalyzer
     options[:inclusion_list].strip! if options[:inclusion_list]
     options[:inclusion_list] = nil if options[:inclusion_list].blank?
 
+    # Same for exclusion_list
+    options[:exclusion_list].strip! if options[:exclusion_list]
+    options[:exclusion_list] = nil if options[:exclusion_list].blank?
+
+    # Make sure stop_list is the right type
+    options[:stop_list] = nil unless options[:stop_list].is_a? StopList
+
     # Copy over the parameters to member variables
     @num_blocks = options[:num_blocks]
     @block_size = options[:block_size]
@@ -226,6 +239,8 @@ class WordFrequencyAnalyzer
     @num_words = options[:num_words]
     @last_block = options[:last_block]
     @inclusion_list = options[:inclusion_list]
+    @exclusion_list = options[:exclusion_list]
+    @stop_list = options[:stop_list]
 
     # We will eventually set both @num_blocks and @block_size for our inner
     # loops, so we need to save which of these is the "primary" one, that
@@ -296,10 +311,23 @@ class WordFrequencyAnalyzer
   def pick_words
     if @inclusion_list
       @word_list = @inclusion_list.split
-    elsif @num_words == 0
-      @word_list = @tf_in_dataset.keys
+      return
+    end
+
+    # Exclusion list takes precedence over stop list, if both are somehow
+    # specified
+    excluded = []
+    if @exclusion_list
+      excluded = @exclusion_list.split
+    elsif @stop_list
+      excluded = @stop_list.list.split
+    end
+
+    if @num_words == 0
+      @word_list = @tf_in_dataset.keys - excluded
     else
       sorted_pairs = @tf_in_dataset.to_a.sort { |a, b| b[1] <=> a[1] }
+      sorted_pairs.reject! { |a| excluded.include?(a[0]) }
       @word_list = sorted_pairs.take(@num_words).map { |a| a[0] }
     end
   end

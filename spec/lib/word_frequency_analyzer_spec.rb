@@ -260,6 +260,37 @@ describe WordFrequencyAnalyzer,
     end
   end
 
+  describe '#exclusion_list' do
+    before(:each) do
+      @analyzer = WordFrequencyAnalyzer.new(@dataset, exclusion_list: 'a the')
+    end
+
+    it 'does not include those words' do
+      expect(@analyzer.blocks[0].keys).not_to include('a')
+      expect(@analyzer.blocks[0].keys).not_to include('the')
+    end
+
+    it 'includes some words' do
+      expect(@analyzer.blocks[0].keys).not_to be_empty
+    end
+  end
+
+  describe '#stop_list' do
+    before(:each) do
+      @list = StopList.find_by!(language: 'en')
+      @analyzer = WordFrequencyAnalyzer.new(@dataset, stop_list: @list)
+    end
+
+    it 'does not include "a" and "the"' do
+      expect(@analyzer.blocks[0].keys).not_to include('a')
+      expect(@analyzer.blocks[0].keys).not_to include('the')
+    end
+
+    it 'includes some words' do
+      expect(@analyzer.blocks[0].keys).not_to be_empty
+    end
+  end
+
   describe '#block_stats' do
     before(:each) do
       @analyzer = WordFrequencyAnalyzer.new(@dataset)

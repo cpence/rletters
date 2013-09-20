@@ -7,6 +7,20 @@
 %div{ class: 'num_words_controls', data: { role: 'fieldcontain' } }
   = label_tag('job_params[num_words]', "Number of words to analyze:")
   = number_field_tag('job_params[num_words]')
+%div{ class: 'num_words_controls', data: { role: 'fieldcontain' } }
+  = field_set_tag 'Exclude any words?', data: { role: 'controlgroup' } do
+    = radio_button_tag('exclude_method_switch', 'none', true)
+    = label_tag('exclude_method_switch_none', 'No')
+    = radio_button_tag('exclude_method_switch', 'common', false)
+    = label_tag('exclude_method_switch_common', 'Most common words (stop words)')
+    = radio_button_tag('exclude_method_switch', 'list', false)
+    = label_tag('exclude_method_switch_list', 'Exclude explicit list of words')
+%div{ class: 'exclude_common_controls', data: { role: 'fieldcontain' }, style: 'display: none;' }
+  = label_tag('job_params[stop_list]', 'Language of text:')
+  = select_tag('job_params[stop_list]', options_from_collection_for_select(StopList.all, 'language', 'display_language', 'en'))
+%div{ class: 'exclude_list_controls', data: { role: 'fieldcontain' }, style: 'display: none;' }
+  = label_tag('job_params[exclusion_list]', 'Words to exclude (space-separated):')
+  = text_area_tag('job_params[exclusion_list]', nil, { escape: false })
 %div{ class: 'inclusion_list_controls', data: { role: 'fieldcontain' }, style: 'display: none;' }
   = label_tag('job_params[inclusion_list]', 'Words to analyze (space-separated):')
   = text_area_tag('job_params[inclusion_list]', nil, { escape: false })
