@@ -22,6 +22,8 @@ class NERAnalyzer
   # @api public
   # @param [Dataset] dataset The dataset to analyze
   def initialize(dataset)
+    return unless NLP_ENABLED
+
     classifier = StanfordCoreNLP::CRFClassifier.getClassifierNoExceptions(NER_CLASSIFIER_PATH)
     @entity_references = {}
 
