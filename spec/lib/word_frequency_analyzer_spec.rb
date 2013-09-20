@@ -250,6 +250,16 @@ describe WordFrequencyAnalyzer,
     end
   end
 
+  describe '#inclusion_list' do
+    before(:each) do
+      @analyzer = WordFrequencyAnalyzer.new(@dataset, inclusion_list: 'a the')
+    end
+
+    it 'only includes those words' do
+      expect(@analyzer.blocks[0].keys).to match_array(['a', 'the'])
+    end
+  end
+
   describe '#block_stats' do
     before(:each) do
       @analyzer = WordFrequencyAnalyzer.new(@dataset)

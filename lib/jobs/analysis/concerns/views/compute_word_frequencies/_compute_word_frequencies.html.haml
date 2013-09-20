@@ -1,15 +1,25 @@
 %div{ data: { role: 'fieldcontain' } }
+  = field_set_tag "Word selection method:", data: { role: 'controlgroup' } do
+    = radio_button_tag('word_method_switch', 'count', true)
+    = label_tag('word_method_switch_count', 'Most frequent words')
+    = radio_button_tag('word_method_switch', 'list', false)
+    = label_tag('word_method_switch_list', 'Explicit list of words')
+%div{ class: 'num_words_controls', data: { role: 'fieldcontain' } }
   = label_tag('job_params[num_words]', "Number of words to analyze:")
   = number_field_tag('job_params[num_words]')
+%div{ class: 'inclusion_list_controls', data: { role: 'fieldcontain' }, style: 'display: none;' }
+  = label_tag('job_params[inclusion_list]', 'Words to analyze (space-separated):')
+  = text_area_tag('job_params[inclusion_list]', nil, { escape: false })
 %div{ data: { role: 'fieldcontain' } }
   = field_set_tag "Text block method:", data: { role: 'controlgroup' } do
     = radio_button_tag('block_method_switch', 'count', true)
     = label_tag('block_method_switch_count', "By number of words")
     = radio_button_tag('block_method_switch', 'blocks', false)
     = label_tag('block_method_switch_blocks', "By number of blocks")
-%div{ id: 'count_controls', data: { role: 'fieldcontain' } }
+%div{ class: 'count_controls', data: { role: 'fieldcontain' } }
   = label_tag('job_params[block_size]', 'Number of words per block:')
   = number_field_tag('job_params[block_size]')
+%div{ class: 'count_controls', data: { role: 'fieldcontain' } }
   = field_set_tag "Last block method:", data: { role: 'controlgroup' } do
     = radio_button_tag('job_params[last_block]', 'big_last', true)
     = label_tag('job_params[last_block]_big_last', 'Big last block')
@@ -19,7 +29,7 @@
     = label_tag('job_params[last_block]_truncate_last', 'Truncate leftover words')
     = radio_button_tag('job_params[last_block]', 'truncate_all', false)
     = label_tag('job_params[last_block]_truncate_all', 'Truncate every document to given size')
-%div{ id: 'blocks_controls', data: { role: 'fieldcontain' }, style: 'display: none;' }
+%div{ class: 'blocks_controls', data: { role: 'fieldcontain' }, style: 'display: none;' }
   = label_tag('job_params[num_blocks]', 'Number of blocks:')
   = number_field_tag('job_params[num_blocks]')
 %div{ data: { role: 'fieldcontain' } }

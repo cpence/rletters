@@ -83,7 +83,10 @@ class WordFrequencyAnalyzer
   #     one block per document (or, if +split_across+ is set, only one block
   #     period)
   #
-  #    The default is +:big_last+.
+  #   The default is +:big_last+.
+  # @option options [String] :inclusion_list If specified, then the analyzer
+  #   will only compute frequency information for the words that are specified
+  #   in this list (which is space-separated).
   def initialize(dataset, options = {})
     # Save the dataset and options
     @dataset = dataset
@@ -212,12 +215,17 @@ class WordFrequencyAnalyzer
       options[:last_block] = :big_last
     end
 
+    # Make sure inclusion_list isn't blank
+    options[:inclusion_list].strip! if options[:inclusion_list]
+    options[:inclusion_list] = nil if options[:inclusion_list].blank?
+
     # Copy over the parameters to member variables
     @num_blocks = options[:num_blocks]
     @block_size = options[:block_size]
     @split_across = options[:split_across]
     @num_words = options[:num_words]
     @last_block = options[:last_block]
+    @inclusion_list = options[:inclusion_list]
 
     # We will eventually set both @num_blocks and @block_size for our inner
     # loops, so we need to save which of these is the "primary" one, that
@@ -280,12 +288,15 @@ class WordFrequencyAnalyzer
 
   # Determine which words we'll analyze
   #
-  # This function takes the @num_words most (FIXME: or least) frequent words
-  # from the @tf_in_dataset list and sets the array @word_list.
+  # This function consults @inclusion_list, and either takes the words
+  # specified there, or the @num_words most frequent words from the
+  # @tf_in_dataset list and sets the array @word_list.
   #
   # @api private
   def pick_words
-    if @num_words == 0
+    if @inclusion_list
+      @word_list = @inclusion_list.split
+    elsif @num_words == 0
       @word_list = @tf_in_dataset.keys
     else
       sorted_pairs = @tf_in_dataset.to_a.sort { |a, b| b[1] <=> a[1] }

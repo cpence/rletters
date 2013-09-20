@@ -40,6 +40,10 @@ module Jobs
           #   Can be set to big_last, small_last, truncate_last, or
           #   truncate_all.  See the WordFrequencyAnalyzer for more
           #   information.
+          # @option args [String] inclusion_list if set, list of words to find
+          #
+          #   If this attribute is set, then we'll only analyze the words that
+          #   are specified here (separated by spaces), and no others.
           # @return [WordFrequencyAnalyzer] the computed frequency analyzer
           def self.compute_word_frequencies(dataset, args = { })
             convert_args!(args)
@@ -50,7 +54,8 @@ module Jobs
                                       num_blocks: args[:num_blocks],
                                       num_words: args[:num_words],
                                       split_across: args[:split_across],
-                                      last_block: args[:last_block])
+                                      last_block: args[:last_block],
+                                      inclusion_list: args[:inclusion_list])
           end
 
           private
@@ -93,6 +98,8 @@ module Jobs
             else
               args[:last_block] = args[:last_block].to_sym
             end
+
+            args[:inclusion_list] = nil if args[:inclusion_list].blank?
           end
 
         end
