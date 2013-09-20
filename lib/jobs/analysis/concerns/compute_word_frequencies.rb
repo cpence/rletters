@@ -35,6 +35,11 @@ module Jobs
           #
           #   If greater than the number of types in the dataset (or zero), then
           #   return all the words.  Defaults to zero.
+          # @option args [String] last_block how to treat the last block
+          #
+          #   Can be set to big_last, small_last, truncate_last, or
+          #   truncate_all.  See the WordFrequencyAnalyzer for more
+          #   information.
           # @return [WordFrequencyAnalyzer] the computed frequency analyzer
           def self.compute_word_frequencies(dataset, args = { })
             convert_args!(args)
@@ -44,7 +49,8 @@ module Jobs
                                       block_size: args[:block_size],
                                       num_blocks: args[:num_blocks],
                                       num_words: args[:num_words],
-                                      split_across: args[:split_across])
+                                      split_across: args[:split_across],
+                                      last_block: args[:last_block])
           end
 
           private
@@ -80,6 +86,12 @@ module Jobs
               else
                 args[:split_across] = false
               end
+            end
+
+            if args[:last_block].blank?
+              args[:last_block] = nil
+            else
+              args[:last_block] = args[:last_block].to_sym
             end
           end
 

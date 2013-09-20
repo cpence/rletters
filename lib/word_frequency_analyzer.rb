@@ -70,6 +70,20 @@ class WordFrequencyAnalyzer
   #   blocks only within a document
   # @option options [Integer] :num_words If set, only return frequency data for
   #   this many words; otherwise, return all words
+  # @option options [Symbol] :last_block This parameter changes what will
+  #   happen to the "leftover" words when +block_size+ is set.
+  #
+  #   [+:big_last+]      add them to the last block, making a block larger than
+  #     +block_size+.
+  #   [+:small_last+]    make them into their own block, making a block smaller
+  #     than +block_size+.
+  #   [+:truncate_last+] truncate those leftover words, excluding them from
+  #     frequency computation.
+  #   [+:truncate_all+]  truncate _every_ text to +block_size+, creating only
+  #     one block per document (or, if +split_across+ is set, only one block
+  #     period)
+  #
+  #    The default is +:big_last+.
   def initialize(dataset, options = {})
     # Save the dataset and options
     @dataset = dataset
@@ -121,22 +135,35 @@ class WordFrequencyAnalyzer
 
       # Do the processing for this document
       sorted_words.each do |word|
+        # If we're truncating, then we want to be sure to stop when we hit the
+        # calculated number of blocks
+        if (@last_block == :truncate_last || @last_block == :truncate_all) &&
+           @block_num == @num_blocks
+          break
+        end
+
+        # Add this word to the block
         @block[word] += 1
         @block_tokens += 1
         @block_types += 1 if @block[word] == 1
         @block_counter += 1
 
-        # If the block size doesn't divide evenly into the number of blocks
-        # that we want, we want to consume the remainder one at a time over
-        # the course of all the blocks, and *not* leave it until the end, or
-        # else we wind up with one block that contains all the remainder,
-        # despite the fact that we were trying to divide evenly.
-        check_size = @block_size
-        check_size = @block_size + 1 if @num_remainder_blocks != 0
+        # If we're doing :big_last for the last block, and this is the last
+        # block, then we don't want to stop until we've digested all of the
+        # words.  In that case, don't even check the block size.
+        unless @last_block == :big_last && @block_num == (@num_blocks - 1)
+          # If the block size doesn't divide evenly into the number of blocks
+          # that we want, we want to consume the remainder one at a time over
+          # the course of all the blocks, and *not* leave it until the end, or
+          # else we wind up with one block that contains all the remainder,
+          # despite the fact that we were trying to divide evenly.
+          check_size = @block_size
+          check_size = @block_size + 1 if @num_remainder_blocks != 0
 
-        if @block_counter >= check_size
-          @num_remainder_blocks -= 1 if @num_remainder_blocks != 0
-          clear_block
+          if @block_counter >= check_size
+            @num_remainder_blocks -= 1 if @num_remainder_blocks != 0
+            clear_block
+          end
         end
       end
 
@@ -178,17 +205,29 @@ class WordFrequencyAnalyzer
     # Make sure num_words isn't negative
     options[:num_words] = 0 if options[:num_words] < 0
 
+    # Make sure last_block is a legitimate value
+    allowed_last_block = [:big_last, :small_last,
+                          :truncate_last, :truncate_all]
+    unless allowed_last_block.include? options[:last_block]
+      options[:last_block] = :big_last
+    end
+
     # Copy over the parameters to member variables
     @num_blocks = options[:num_blocks]
     @block_size = options[:block_size]
     @split_across = options[:split_across]
     @num_words = options[:num_words]
+    @last_block = options[:last_block]
 
     # We will eventually set both @num_blocks and @block_size for our inner
     # loops, so we need to save which of these is the "primary" one, that
     # was set by the user
     if @num_blocks > 0
       @block_method = :count
+
+      # We don't want any of the last_block logic if we're splitting by number
+      # of blocks.
+      @last_block = nil
     else
       @block_method = :words
     end
@@ -317,9 +356,14 @@ class WordFrequencyAnalyzer
       @block_size = (num_tokens / @num_blocks.to_f).floor
       @num_remainder_blocks = num_tokens - (@block_size * @num_blocks)
     else
-      # FIXME: Right here is where we'd do BlockBigLast vs. BlockSmallLast for
-      # the by-words block splitting.
-      @num_blocks = (num_tokens / @block_size.to_f).ceil
+      if @last_block == :big_last || @last_block == :truncate_last
+        @num_blocks = (num_tokens / @block_size.to_f).floor
+      elsif @last_block == :small_last
+        @num_blocks = (num_tokens / @block_size.to_f).ceil
+      else # :truncate_all
+        @num_blocks = 1
+      end
+
       @num_remainder_blocks = 0
     end
   end

@@ -3,6 +3,8 @@
 
 ## Version 1.1 (beta, UNRELEASED)
 
+*   The "compute word frequencies" job has new features.
+    *   When creating blocks based on the number of words they contain, you can now choose what to do with the leftover words after the last block of size N.  You can combine them with the last block (to create a block of size >N), make them a block on their own (to create a block of size <N), you can discard them (truncating the document, removing those words from analysis), or you can choose to take *only* the first N words from each document, producing one block per document.
 *   The "plot dataset by date" job has been reworked.  It now graphs its results in a much prettier format, shows its data in a cleaner table, and also supports normalizing the absolute document counts to percentages, by dividing either by the number of documents in the entire corpus, or in another specific dataset.
 *   The "single term vectors" analysis job has been removed, as everything that could reasonably be done by that job (and support for datasets of size larger than 1 document) can now be performed by the "word frequency" job.
 

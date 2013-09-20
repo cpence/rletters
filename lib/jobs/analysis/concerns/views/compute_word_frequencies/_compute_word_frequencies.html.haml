@@ -10,6 +10,15 @@
 %div{ id: 'count_controls', data: { role: 'fieldcontain' } }
   = label_tag('job_params[block_size]', 'Number of words per block:')
   = number_field_tag('job_params[block_size]')
+  = field_set_tag "Last block method:", data: { role: 'controlgroup' } do
+    = radio_button_tag('job_params[last_block]', 'big_last', true)
+    = label_tag('job_params[last_block]_big_last', 'Big last block')
+    = radio_button_tag('job_params[last_block]', 'small_last', false)
+    = label_tag('job_params[last_block]_small_last', 'Small last block')
+    = radio_button_tag('job_params[last_block]', 'truncate_last', false)
+    = label_tag('job_params[last_block]_truncate_last', 'Truncate leftover words')
+    = radio_button_tag('job_params[last_block]', 'truncate_all', false)
+    = label_tag('job_params[last_block]_truncate_all', 'Truncate every document to given size')
 %div{ id: 'blocks_controls', data: { role: 'fieldcontain' }, style: 'display: none;' }
   = label_tag('job_params[num_blocks]', 'Number of blocks:')
   = number_field_tag('job_params[num_blocks]')
