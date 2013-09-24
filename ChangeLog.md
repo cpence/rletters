@@ -1,7 +1,7 @@
 # RLetters ChangeLog
 
 
-## Version 1.1 (beta, UNRELEASED)
+## Version 1.1 (beta, 2013-09-24)
 
 *   A new "extract references to proper names" job has been added, based on the Named Entity Reference annotator offered by the Stanford Natural Language Project.
     *   Currently, there is integrated support for the NER's PERSON, ORGANIZATION, and LOCATION types.  PERSON and ORGANZIATION are expressed as lists of hits that link to a search for that entity on Wikipedia.  Locations can be displayed either as a list or as a map, using Google's geocoding support (which, while less than perfect, is better than nothing).
