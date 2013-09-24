@@ -72,8 +72,8 @@ module Jobs
         # Serialize out to YAML
         ios = StringIO.new
         ios.write(output.to_yaml)
-        ios.original_filename = 'plot_dates.csv'
-        ios.content_type = 'text/csv'
+        ios.original_filename = 'plot_dates.yml'
+        ios.content_type = 'text/yaml'
         ios.rewind
 
         task.result = ios

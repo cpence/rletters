@@ -1,0 +1,2 @@
+- if NLP_ENABLED
+  %li= link_to('Extract named entities', { controller: 'datasets', action: 'task_start', id: @dataset.to_param, class: 'NamedEntities' })

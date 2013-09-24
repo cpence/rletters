@@ -1,0 +1,6 @@
+- data = YAML.load(@task.result.file_contents(:original))
+
+%div.center
+  %h1= @dataset.name
+
+  %div.ner_data= data.to_json

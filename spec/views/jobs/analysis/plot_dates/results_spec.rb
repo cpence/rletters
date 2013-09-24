@@ -29,7 +29,7 @@ describe 'plot_dates/results' do
   it 'drops the data into the HTML file' do
     render
 
-    expect(rendered).to have_tag('div.plot_dates_data', text: '[[2003, 13]]')
+    expect(rendered).to have_tag('div.plot_dates_data', text: '[[2003,13]]')
     expect(rendered).to have_tag('div.plot_dates_percent', text: 'false')
   end
 

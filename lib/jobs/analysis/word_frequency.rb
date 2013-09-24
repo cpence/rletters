@@ -42,7 +42,7 @@ module Jobs
         dataset = user.datasets.find(args[:dataset_id])
         fail ArgumentError, 'Dataset ID is not valid' unless dataset
 
-        # Make a new analysis task
+        # Update the analysis task
         task = dataset.analysis_tasks.find(args[:task_id])
         fail ArgumentError, 'Task ID is not valid' unless task
 
