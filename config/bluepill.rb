@@ -27,14 +27,12 @@ Bluepill.application('rletters') do |app|
     end
   end
 
-  app.process('clockwork') do |proc|
-    clockwork_args = '--pid-dir=/opt/rletters/root/tmp/pids --log-dir=/opt/rletters/root/log --log -i 0 --clock=/opt/rletters/root/config/clock.rb'
+  app.process('resque-scheduler') do |proc|
+    proc.start_command = 'RAILS_ENV=production bundle exec rake resque:scheduler'
+    proc.stop_command = 'kill -QUIT {{PID}}'
 
-    proc.start_command = "bundle exec clockworkd #{clockwork_args} start"
-    proc.stop_command = "bundle exec clockworkd #{clockwork_args} stop"
-    proc.restart_command = "bundle exec clockworkd #{clockwork_args} restart"
-
-    proc.pid_file = '/opt/rletters/root/tmp/pids/clockworkd.0.pid'
+    proc.pid_file = '/opt/rletters/root/tmp/pids/resque-scheduler.pid'
+    proc.daemonize = true
     proc.working_dir = '/opt/rletters/root'
 
     proc.start_grace_time = 60

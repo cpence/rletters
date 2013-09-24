@@ -4,16 +4,6 @@ source 'https://rubygems.org'
 gem 'rails', '~> 4.0'
 gem 'rails-i18n', '= 4.0.0.pre'
 
-# Deployment and server tools
-group :production do
-  gem 'unicorn', require: false
-  gem 'clockwork', require: false
-
-  gem 'daemons', require: false
-
-  gem 'airbrake', require: false
-end
-
 # Database and related tools
 group :production, :development do
   gem 'pg'
@@ -25,7 +15,14 @@ gem 'activerecord-import', '>= 0.4.0'
 gem 'trim_blobs'
 gem 'druthers'
 gem 'resque'
-gem 'resque-pool'
+gem 'resque-scheduler', require: 'resque_scheduler'
+
+# Deployment and server tools
+group :production do
+  gem 'unicorn', require: false
+  gem 'airbrake', require: false
+  gem 'resque-pool', require: false
+end
 
 gem 'addressable'
 
