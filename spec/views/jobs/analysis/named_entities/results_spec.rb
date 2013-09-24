@@ -31,24 +31,44 @@ describe 'named_entities/results', :nlp do
     @task.destroy
   end
 
-  it 'drops the data into the HTML file' do
+  it 'links to the PERSONs on Wikipedia' do
     render
 
-    # This is hard to match for, but this regex should work
-    expected = /&quot;ORGANIZATION&quot;.*&quot;Princeton University&quot/
-    expect(rendered).to match(expected)
+    expected = "https://en.wikipedia.org/w/index.php?title=Special:Search&amp;search=Albert+Einstein&amp;fulltext=Search"
+    expect(rendered).to include(expected)
   end
 
-  # it 'has a link to download the results as CSV' do
-  #   render
+  it 'links to the ORGANIZATIONs on Wikipedia' do
+    render
 
-  #   expected = url_for(controller: 'datasets',
-  #                      action: 'task_view',
-  #                      id: @dataset.to_param,
-  #                      task_id: @task.to_param,
-  #                      view: 'download',
-  #                      format: 'csv')
-  #   expect(rendered).to have_tag("a[href='#{expected}']")
-  # end
+    expected = "https://en.wikipedia.org/w/index.php?title=Special:Search&amp;search=Princeton+University&amp;fulltext=Search"
+    expect(rendered).to include(expected)
+  end
+
+  it 'links to the LOCATIONs on Wikipedia' do
+    render
+
+    expected = "https://en.wikipedia.org/w/index.php?title=Special:Search&amp;search=Austin%2C+Texas&amp;fulltext=Search"
+    expect(rendered).to include(expected)
+  end
+
+  it 'leaves the map data in the HTML' do
+    render
+
+    expected = "[&quot;Austin, Texas&quot;]"
+    expect(rendered).to include(expected)
+  end
+
+  it 'has a link to download the results as CSV' do
+    render
+
+    expected = url_for(controller: 'datasets',
+                       action: 'task_view',
+                       id: @dataset.to_param,
+                       task_id: @task.to_param,
+                       view: 'download',
+                       format: 'csv')
+    expect(rendered).to have_tag("a[href='#{expected}']")
+  end
 
 end

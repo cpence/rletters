@@ -175,7 +175,7 @@ class DatasetsController < ApplicationController
       klass = @task.job_class
     end
 
-    render_job_view(klass, params[:view])
+    render_job_view(klass, params[:view], params[:format] || 'html')
   end
 
   # Delete an analysis task
@@ -226,10 +226,10 @@ class DatasetsController < ApplicationController
   # @param [Class] klass the job class
   # @param [String] view the view to render
   # @return [undefined]
-  def render_job_view(klass, view)
+  def render_job_view(klass, view, format = 'html')
     # Find the partial
     klass.view_paths.each do |p|
-      path = File.join(p, "#{view}.html.haml")
+      path = File.join(p, "#{view}.#{format}.haml")
       if File.exist? path
         return render file: path
       end
