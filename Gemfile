@@ -50,7 +50,6 @@ gem 'haml'
 gem 'haml-rails'
 gem 'kramdown'
 gem 'nokogiri'
-gem 'coffee-rails'
 gem 'sass-rails'
 
 gem 'jquery-rails', '= 3.0.4'

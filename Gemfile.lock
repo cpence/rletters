@@ -322,7 +322,6 @@ DEPENDENCIES
   airbrake
   bibtex-ruby (~> 2.0)
   citeproc-ruby (>= 0.0.4)
-  coffee-rails
   coveralls
   devise
   devise-i18n
