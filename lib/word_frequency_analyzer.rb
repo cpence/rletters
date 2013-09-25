@@ -303,9 +303,10 @@ class WordFrequencyAnalyzer
 
   # Determine which words we'll analyze
   #
-  # This function consults @inclusion_list, and either takes the words
-  # specified there, or the @num_words most frequent words from the
-  # @tf_in_dataset list and sets the array @word_list.
+  # This function consults +inclusion_list+, and either takes the words
+  # specified there, or the +num_words+ most frequent words from the
+  # +tf_in_dataset+ list and sets the array +word_list+.  It also removes any
+  # words specified in +exclusion_list+.
   #
   # @api private
   def pick_words
