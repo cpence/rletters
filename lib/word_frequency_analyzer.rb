@@ -258,16 +258,16 @@ class WordFrequencyAnalyzer
 
   # Compute the df and tf for all the words in the dataset
   #
-  # This function computes and sets @df_in_dataset, @tf_in_dataset,
-  # and @df_in_corpus for all the words in the dataset.  Note that this
-  # function ignores the @num_words parameter, as we need these tf values
+  # This function computes and sets +df_in_dataset+, +tf_in_dataset+,
+  # and +df_in_corpus+ for all the words in the dataset.  Note that this
+  # function ignores the +num_words+ parameter, as we need these tf values
   # to sort in order to obtain the most/least frequent words.
   #
   # All three of these variables are hashes, with the words as String keys
   # and the tf/df values as Integer values.
   #
-  # Finally, this function also sets +num_dataset_types and
-  # @num_dataset_tokens, as we can compute them easily here.
+  # Finally, this function also sets +num_dataset_types+ and
+  # +num_dataset_tokens+, as we can compute them easily here.
   #
   # Note that there is no such thing as +tf_in_corpus+, as this would be
   # incredibly, prohibitively expensive and is not provided by Solr.

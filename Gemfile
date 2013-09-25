@@ -82,7 +82,3 @@ group :test do
   gem 'nokogiri', require: false
   gem 'resque_spec'
 end
-
-group :development do
-  gem 'yard', require: false
-end

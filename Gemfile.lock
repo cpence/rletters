@@ -313,7 +313,6 @@ GEM
     webmock (1.13.0)
       addressable (>= 2.2.7)
       crack (>= 0.3.2)
-    yard (0.8.7)
     yui-compressor (0.11.0)
 
 PLATFORMS
@@ -367,5 +366,4 @@ DEPENDENCIES
   unicorn
   vcr
   webmock
-  yard
   yui-compressor
