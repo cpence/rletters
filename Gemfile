@@ -13,30 +13,26 @@ group :test do
 end
 gem 'activerecord-import', '>= 0.4.0'
 gem 'trim_blobs'
-gem 'druthers'
+gem 'addressable'
+
+# Job scheduling
 gem 'resque'
 gem 'resque-scheduler', require: 'resque_scheduler'
-
-# Deployment and server tools
-group :production do
-  gem 'unicorn', require: false
-  gem 'airbrake', require: false
-  gem 'resque-pool', require: false
-end
-
-gem 'addressable'
-gem 'nokogiri'
-
-gem 'rsolr', '>= 1.0.7'
-gem 'rsolr-ext'
 
 # User authentication and administration
 gem 'devise'
 gem 'devise-i18n'
 gem 'activeadmin', github: 'gregbell/active_admin', branch: 'rails4'
+gem 'druthers'
 
 # Textual analysis
+gem 'rsolr', '>= 1.0.7'
+gem 'rsolr-ext'
 gem 'stanford-core-nlp'
+
+# Citation processing
+gem 'bibtex-ruby', '~> 2.0', require: 'bibtex'
+gem 'citeproc-ruby', '>= 0.0.4'
 
 # Support for file attachments and exporting
 gem 'paperclip', '~> 3.0'
@@ -49,27 +45,22 @@ gem 'rdf', '>= 0.3.5'
 gem 'rdf-rdfxml'
 gem 'rdf-n3'
 
-# Support for citation processing
-gem 'bibtex-ruby', '~> 2.0', require: 'bibtex'
-gem 'citeproc-ruby', '>= 0.0.4'
-
 # Asset tools and template generators
 gem 'haml'
 gem 'haml-rails'
 gem 'kramdown'
+gem 'nokogiri'
 gem 'coffee-rails'
 gem 'sass-rails'
 
 gem 'jquery-rails', '= 3.0.4'
 gem 'jquery_mobile_rails', '= 1.3.2'
 
-gem 'uglifier', '>= 1.3.0'
 gem 'yui-compressor'
 
 # Testing
 group :test, :development do
   gem 'rspec-rails'
-  gem 'coveralls', require: false
 end
 
 group :test do
@@ -78,4 +69,12 @@ group :test do
   gem 'vcr', require: false
   gem 'webmock', require: false
   gem 'resque_spec'
+  gem 'coveralls', require: false
+end
+
+# Deployment and server tools
+group :production do
+  gem 'unicorn', require: false
+  gem 'airbrake', require: false
+  gem 'resque-pool', require: false
 end

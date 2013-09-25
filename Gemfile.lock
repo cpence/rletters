@@ -297,9 +297,6 @@ GEM
       activerecord (>= 3.2.0)
     trollop (1.16.2)
     tzinfo (0.3.37)
-    uglifier (2.1.2)
-      execjs (>= 0.3.0)
-      multi_json (~> 1.0, >= 1.0.2)
     unicode (0.4.4)
     unicorn (4.6.3)
       kgio (~> 2.6)
@@ -359,7 +356,6 @@ DEPENDENCIES
   sqlite3
   stanford-core-nlp
   trim_blobs
-  uglifier (>= 1.3.0)
   unicorn
   vcr
   webmock
