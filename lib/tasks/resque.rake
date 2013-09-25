@@ -4,16 +4,11 @@
 
 begin
   require 'resque/tasks'
+  require 'resque_scheduler'
+  require 'resque_scheduler/tasks'
 
   task "resque:setup" => :environment do
-    begin
-      require 'resque_scheduler'
-      require 'resque_scheduler/tasks'
-
-      Resque.schedule = YAML.load_file(Rails.root.join('config', 'schedule.yml'))
-    rescue LoadError
-      raise if Rails.env.production?
-    end
+    Resque.schedule = YAML.load_file(Rails.root.join('config', 'schedule.yml'))
   end
 rescue LoadError
   raise if Rails.env.production?
