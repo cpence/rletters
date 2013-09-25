@@ -25,6 +25,7 @@ group :production do
 end
 
 gem 'addressable'
+gem 'nokogiri'
 
 gem 'rsolr', '>= 1.0.7'
 gem 'rsolr-ext'
@@ -33,7 +34,6 @@ gem 'rsolr-ext'
 gem 'devise'
 gem 'devise-i18n'
 gem 'activeadmin', github: 'gregbell/active_admin', branch: 'rails4'
-gem 'responders', '>= 1.0.0.rc' # FIXME: only for AA
 
 # Textual analysis
 gem 'stanford-core-nlp'
@@ -50,8 +50,6 @@ gem 'rdf-rdfxml'
 gem 'rdf-n3'
 
 # Support for citation processing
-gem 'unicode', '>= 0.4.3.1.pre1'
-gem 'latex-decode', '>= 0.0.11'
 gem 'bibtex-ruby', '~> 2.0', require: 'bibtex'
 gem 'citeproc-ruby', '>= 0.0.4'
 
@@ -79,6 +77,5 @@ group :test do
   gem 'rspec-html-matchers'
   gem 'vcr', require: false
   gem 'webmock', require: false
-  gem 'nokogiri', require: false
   gem 'resque_spec'
 end

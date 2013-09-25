@@ -336,7 +336,6 @@ DEPENDENCIES
   jquery-rails (= 3.0.4)
   jquery_mobile_rails (= 1.3.2)
   kramdown
-  latex-decode (>= 0.0.11)
   marc
   nokogiri
   paperclip (~> 3.0)
@@ -347,7 +346,6 @@ DEPENDENCIES
   rdf (>= 0.3.5)
   rdf-n3
   rdf-rdfxml
-  responders (>= 1.0.0.rc)
   resque
   resque-pool
   resque-scheduler
@@ -362,7 +360,6 @@ DEPENDENCIES
   stanford-core-nlp
   trim_blobs
   uglifier (>= 1.3.0)
-  unicode (>= 0.4.3.1.pre1)
   unicorn
   vcr
   webmock
