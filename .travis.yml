@@ -1,6 +1,9 @@
 language: ruby
 
 matrix:
+  exclude:
+    # Exclude the "default" build w/ no rvm/gemfile/env
+    - 
   include:
     - rvm: 1.9.3
       gemfile: gemfiles/Gemfile.mri
