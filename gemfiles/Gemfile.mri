@@ -6,10 +6,10 @@ gem 'rails-i18n', '= 4.0.0.pre2'
 
 # Database and related tools
 group :production, :development do
-  gem 'activerecord-jdbcpostgresql-adapter'
+  gem 'pg'
 end
 group :test do
-  gem 'activerecord-jdbcsqlite3-adapter'
+  gem 'sqlite3'
 end
 gem 'activerecord-import', '>= 0.4.0'
 gem 'trim_blobs'
@@ -64,6 +64,7 @@ group :test, :development do
 end
 
 group :test do
+  gem 'fuubar'
   gem 'factory_girl_rails'
   gem 'rspec-html-matchers'
   gem 'vcr', require: false

@@ -181,7 +181,7 @@ describe SearchController do
         expect(response).to be_valid_download('application/mods+xml')
       end
 
-      it 'exports in RDF/XML format' do
+      it 'exports in RDF/XML format', :no_jruby do
         get :show, { id:  FactoryGirl.generate(:working_shasum),
                      format: 'rdf' }
         expect(response).to be_valid_download('application/rdf+xml')

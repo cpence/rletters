@@ -1,8 +1,14 @@
 language: ruby
-rvm:
-  - 1.9.3
-  - 2.0
-  - jruby
+
+matrix:
+  include:
+    - rvm: 1.9.3
+      gemfile: gemfiles/Gemfile.mri
+    - rvm: 2.0
+      gemfile: gemfiles/Gemfile.mri
+    - rvm: jruby-19mode
+      gemfile: Gemfile
+      env: JRUBY_OPTS="-Xcompile.invokedynamic=false"
 
 before_install: gem install --pre bundler
 bundler_args: --without production development

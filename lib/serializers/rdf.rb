@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 
 require 'rdf/n3'
-require 'rdf/rdfxml'
+require 'rdf/rdfxml' unless RUBY_PLATFORM == 'java'
 
 module Serializers
 
@@ -14,7 +14,7 @@ module Serializers
         :rdf, 'RDF/XML',
         ->(doc) { doc.to_rdf_xml },
         'http://www.w3.org/TR/rdf-syntax-grammar/'
-      )
+      ) unless RUBY_PLATFORM == 'java'
       base.register_serializer(
         :n3, 'RDF/N3',
         ->(doc) { doc.to_rdf_n3 },
@@ -106,7 +106,7 @@ module Serializers
       ::RDF::Writer.for(:rdfxml).buffer do |writer|
         writer << to_rdf
       end
-    end
+    end unless RUBY_PLATFORM == 'java'
     # :nocov:
 
   end
@@ -161,6 +161,6 @@ class Array
         writer << x.to_rdf
       end
     end
-  end
+  end unless RUBY_PLATFORM == 'java'
   # :nocov:
 end

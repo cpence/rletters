@@ -1,0 +1,369 @@
+GIT
+  remote: git://github.com/gregbell/active_admin.git
+  revision: b2ffba8197a5c9b474ba832f4070b3c522374c9b
+  specs:
+    activeadmin (0.6.1)
+      arbre (~> 1.0)
+      bourbon
+      coffee-rails
+      devise (~> 3.0)
+      formtastic (~> 2.3.0.rc2)
+      inherited_resources (~> 1.3)
+      jquery-rails
+      jquery-ui-rails
+      kaminari (~> 0.13)
+      rails (>= 3.2, < 4.1)
+      ransack (~> 1.0)
+      sass-rails
+
+GIT
+  remote: git://github.com/rubyzip/rubyzip.git
+  revision: c707d60117ead28f341aa091af9b4f15eb095b01
+  specs:
+    rubyzip (1.0.0)
+
+GIT
+  remote: git://github.com/thoughtbot/cocaine.git
+  revision: c1b49e2005df39d602308e137e7eacdd4c1c651b
+  specs:
+    cocaine (0.5.1)
+      climate_control (>= 0.0.3, < 1.0)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    actionmailer (4.0.0)
+      actionpack (= 4.0.0)
+      mail (~> 2.5.3)
+    actionpack (4.0.0)
+      activesupport (= 4.0.0)
+      builder (~> 3.1.0)
+      erubis (~> 2.7.0)
+      rack (~> 1.5.2)
+      rack-test (~> 0.6.2)
+    activemodel (4.0.0)
+      activesupport (= 4.0.0)
+      builder (~> 3.1.0)
+    activerecord (4.0.0)
+      activemodel (= 4.0.0)
+      activerecord-deprecated_finders (~> 1.0.2)
+      activesupport (= 4.0.0)
+      arel (~> 4.0.0)
+    activerecord-deprecated_finders (1.0.3)
+    activerecord-import (0.4.1)
+      activerecord (>= 3.0)
+    activesupport (4.0.0)
+      i18n (~> 0.6, >= 0.6.4)
+      minitest (~> 4.2)
+      multi_json (~> 1.3)
+      thread_safe (~> 0.1)
+      tzinfo (~> 0.3.37)
+    addressable (2.3.5)
+    airbrake (3.1.14)
+      builder
+      json
+    arbre (1.0.1)
+      activesupport (>= 3.0.0)
+    arel (4.0.0)
+    atomic (1.1.14)
+    bcrypt-ruby (3.1.2)
+    bibtex-ruby (2.3.4)
+      latex-decode (>= 0.0.6)
+      multi_json (~> 1.3)
+    bind-it (0.2.7)
+      rjb (~> 1.4.3)
+    bourbon (3.1.8)
+      sass (>= 3.2.0)
+      thor
+    builder (3.1.4)
+    citeproc-ruby (0.0.6)
+      logging (~> 1.5)
+      nokogiri (~> 1.5)
+    climate_control (0.0.3)
+      activesupport (>= 3.0)
+    coffee-rails (4.0.0)
+      coffee-script (>= 2.2.0)
+      railties (>= 4.0.0.beta, < 5.0)
+    coffee-script (2.2.0)
+      coffee-script-source
+      execjs
+    coffee-script-source (1.6.3)
+    coveralls (0.7.0)
+      multi_json (~> 1.3)
+      rest-client
+      simplecov (>= 0.7)
+      term-ansicolor
+      thor
+    crack (0.4.1)
+      safe_yaml (~> 0.9.0)
+    devise (3.1.0)
+      bcrypt-ruby (~> 3.0)
+      orm_adapter (~> 0.1)
+      railties (>= 3.2.6, < 5)
+      thread_safe (~> 0.1)
+      warden (~> 1.2.3)
+    devise-i18n (0.9.0)
+    diff-lcs (1.2.4)
+    druthers (0.0.2)
+      activerecord (>= 3.0)
+    erubis (2.7.0)
+    execjs (2.0.1)
+    factory_girl (4.2.0)
+      activesupport (>= 3.0.0)
+    factory_girl_rails (4.2.1)
+      factory_girl (~> 4.2.0)
+      railties (>= 3.0.0)
+    formtastic (2.3.0.rc2)
+      actionpack (>= 3.0)
+    fuubar (1.2.1)
+      rspec (~> 2.0)
+      rspec-instafail (~> 0.2.0)
+      ruby-progressbar (~> 1.0)
+    haml (4.0.3)
+      tilt
+    haml-rails (0.4)
+      actionpack (>= 3.1, < 4.1)
+      activesupport (>= 3.1, < 4.1)
+      haml (>= 3.1, < 4.1)
+      railties (>= 3.1, < 4.1)
+    has_scope (0.6.0.rc)
+      actionpack (>= 3.2, < 5)
+      activesupport (>= 3.2, < 5)
+    hike (1.2.3)
+    i18n (0.6.5)
+    inherited_resources (1.4.1)
+      has_scope (~> 0.6.0.rc)
+      responders (~> 1.0.0.rc)
+    jquery-rails (3.0.4)
+      railties (>= 3.0, < 5.0)
+      thor (>= 0.14, < 2.0)
+    jquery-ui-rails (4.0.5)
+      railties (>= 3.1.0)
+    jquery_mobile_rails (1.3.2)
+      railties (>= 3.1.0)
+    json (1.8.0)
+    kaminari (0.14.1)
+      actionpack (>= 3.0.0)
+      activesupport (>= 3.0.0)
+    kramdown (1.2.0)
+    latex-decode (0.1.1)
+      unicode (~> 0.4)
+    little-plugger (1.1.3)
+    logging (1.8.1)
+      little-plugger (>= 1.1.3)
+      multi_json (>= 1.3.6)
+    mail (2.5.4)
+      mime-types (~> 1.16)
+      treetop (~> 1.4.8)
+    marc (0.7.1)
+    mime-types (1.25)
+    mini_portile (0.5.1)
+    minitest (4.7.5)
+    mono_logger (1.1.0)
+    multi_json (1.8.0)
+    nokogiri (1.6.0)
+      mini_portile (~> 0.5.0)
+    orm_adapter (0.4.0)
+    paperclip (3.5.1)
+      activemodel (>= 3.0.0)
+      activesupport (>= 3.0.0)
+      cocaine (~> 0.5.0)
+      mime-types
+    paperclip_database (2.0.0)
+      paperclip (>= 2.3.0)
+      rails (>= 3.0.0)
+    pg (0.16.0)
+    polyamorous (0.6.4)
+      activerecord (>= 3.0)
+    polyglot (0.3.3)
+    puma (2.6.0)
+      rack (>= 1.1, < 2.0)
+    rack (1.5.2)
+    rack-protection (1.5.0)
+      rack
+    rack-test (0.6.2)
+      rack (>= 1.0)
+    rails (4.0.0)
+      actionmailer (= 4.0.0)
+      actionpack (= 4.0.0)
+      activerecord (= 4.0.0)
+      activesupport (= 4.0.0)
+      bundler (>= 1.3.0, < 2.0)
+      railties (= 4.0.0)
+      sprockets-rails (~> 2.0.0)
+    rails-i18n (4.0.0.pre2)
+      i18n (~> 0.6)
+      rails (~> 4.0.0)
+    railties (4.0.0)
+      actionpack (= 4.0.0)
+      activesupport (= 4.0.0)
+      rake (>= 0.8.7)
+      thor (>= 0.18.1, < 2.0)
+    rake (10.1.0)
+    ransack (1.0.0)
+      actionpack (>= 3.0)
+      activerecord (>= 3.0)
+      polyamorous (~> 0.6.0)
+    rdf (1.0.8)
+      addressable (>= 2.2)
+    rdf-n3 (1.0.2)
+      rdf (>= 1.0.7)
+    rdf-rdfxml (1.0.2)
+      rdf (>= 1.0)
+      rdf-xsd (>= 1.0)
+    rdf-xsd (1.0.2.1)
+      nokogiri (>= 1.5.0)
+      rdf (>= 0.3.4)
+    redis (3.0.4)
+    redis-namespace (1.3.1)
+      redis (~> 3.0.0)
+    responders (1.0.0)
+      railties (>= 3.2, < 5)
+    resque (1.25.0)
+      mono_logger (~> 1.0)
+      multi_json (~> 1.0)
+      redis-namespace (~> 1.2)
+      sinatra (>= 0.9.2)
+      vegas (~> 0.1.2)
+    resque-pool (0.3.0)
+      rake
+      resque (~> 1.20)
+      trollop (~> 1.16)
+    resque-scheduler (2.0.1)
+      redis (>= 2.0.1)
+      resque (>= 1.20.0)
+      rufus-scheduler
+    resque_spec (0.14.2)
+      resque (>= 1.19.0)
+      rspec-core (>= 2.5.0)
+      rspec-expectations (>= 2.5.0)
+      rspec-mocks (>= 2.5.0)
+    rest-client (1.6.7)
+      mime-types (>= 1.16)
+    rjb (1.4.8)
+    rsolr (1.0.9)
+      builder (>= 2.1.2)
+    rsolr-ext (1.0.3)
+      rsolr (>= 1.0.2)
+    rspec (2.14.1)
+      rspec-core (~> 2.14.0)
+      rspec-expectations (~> 2.14.0)
+      rspec-mocks (~> 2.14.0)
+    rspec-core (2.14.5)
+    rspec-expectations (2.14.3)
+      diff-lcs (>= 1.1.3, < 2.0)
+    rspec-html-matchers (0.4.3)
+      nokogiri (>= 1.4.4)
+      rspec (>= 2.0.0)
+    rspec-instafail (0.2.4)
+    rspec-mocks (2.14.3)
+    rspec-rails (2.14.0)
+      actionpack (>= 3.0)
+      activesupport (>= 3.0)
+      railties (>= 3.0)
+      rspec-core (~> 2.14.0)
+      rspec-expectations (~> 2.14.0)
+      rspec-mocks (~> 2.14.0)
+    ruby-progressbar (1.2.0)
+    rufus-scheduler (2.0.24)
+      tzinfo (>= 0.3.22)
+    safe_yaml (0.9.7)
+    sass (3.2.10)
+    sass-rails (4.0.0)
+      railties (>= 4.0.0.beta, < 5.0)
+      sass (>= 3.1.10)
+      sprockets-rails (~> 2.0.0)
+    simplecov (0.7.1)
+      multi_json (~> 1.0)
+      simplecov-html (~> 0.7.1)
+    simplecov-html (0.7.1)
+    sinatra (1.4.3)
+      rack (~> 1.4)
+      rack-protection (~> 1.4)
+      tilt (~> 1.3, >= 1.3.4)
+    sprockets (2.10.0)
+      hike (~> 1.2)
+      multi_json (~> 1.0)
+      rack (~> 1.0)
+      tilt (~> 1.1, != 1.3.0)
+    sprockets-rails (2.0.0)
+      actionpack (>= 3.0)
+      activesupport (>= 3.0)
+      sprockets (~> 2.8)
+    sqlite3 (1.3.7)
+    stanford-core-nlp (0.5.1)
+      bind-it (~> 0.2.5)
+    term-ansicolor (1.2.2)
+      tins (~> 0.8)
+    thor (0.18.1)
+    thread_safe (0.1.3)
+      atomic
+    tilt (1.4.1)
+    tins (0.11.0)
+    treetop (1.4.15)
+      polyglot
+      polyglot (>= 0.3.1)
+    trim_blobs (0.0.1)
+      activerecord (>= 3.2.0)
+    trollop (1.16.2)
+    tzinfo (0.3.37)
+    unicode (0.4.4)
+    vcr (2.6.0)
+    vegas (0.1.11)
+      rack (>= 1.0.0)
+    warden (1.2.3)
+      rack (>= 1.0)
+    webmock (1.13.0)
+      addressable (>= 2.2.7)
+      crack (>= 0.3.2)
+    yui-compressor (0.11.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  activeadmin!
+  activerecord-import (>= 0.4.0)
+  addressable
+  airbrake
+  bibtex-ruby (~> 2.0)
+  citeproc-ruby (>= 0.0.4)
+  cocaine!
+  coveralls
+  devise
+  devise-i18n
+  druthers
+  factory_girl_rails
+  fuubar
+  haml
+  haml-rails
+  jquery-rails (= 3.0.4)
+  jquery_mobile_rails (= 1.3.2)
+  kramdown
+  marc
+  nokogiri
+  paperclip (~> 3.0)
+  paperclip_database
+  pg
+  puma
+  rails (~> 4.0)
+  rails-i18n (= 4.0.0.pre2)
+  rdf (>= 0.3.5)
+  rdf-n3
+  rdf-rdfxml
+  resque
+  resque-pool
+  resque-scheduler
+  resque_spec
+  rsolr (>= 1.0.7)
+  rsolr-ext
+  rspec-html-matchers
+  rspec-rails
+  rubyzip!
+  sass-rails
+  sqlite3
+  stanford-core-nlp
+  trim_blobs
+  vcr
+  webmock
+  yui-compressor
