@@ -1,17 +1,22 @@
 language: ruby
 
+rvm:
+  - 1.9.3
+  - 2.0
+  - jruby-19mode
+env: JRUBY_OPTS="-Xcompile.invokedynamic=false"
+gemfile:
+  - gemfiles/Gemfile.mri
+  - gemfiles/Gemfile.jruby
+
 matrix:
   exclude:
-    # Exclude the "default" build w/ no rvm/gemfile/env
-    - 
-  include:
     - rvm: 1.9.3
-      gemfile: gemfiles/Gemfile.mri
+      gemfile: gemfiles/Gemfile.jruby
     - rvm: 2.0
-      gemfile: gemfiles/Gemfile.mri
+      gemfile: gemfiles/Gemfile.jruby
     - rvm: jruby-19mode
-      gemfile: Gemfile
-      env: JRUBY_OPTS="-Xcompile.invokedynamic=false"
+      gemfile: gemfiles/Gemfile.mri
 
 before_install: gem install --pre bundler
 bundler_args: --without production development
