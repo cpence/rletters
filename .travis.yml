@@ -13,10 +13,13 @@ matrix:
   exclude:
     - rvm: 1.9.3
       gemfile: gemfiles/Gemfile.jruby
+      env: JRUBY_OPTS="-Xcompile.invokedynamic=false"
     - rvm: 2.0
       gemfile: gemfiles/Gemfile.jruby
+      env: JRUBY_OPTS="-Xcompile.invokedynamic=false"
     - rvm: jruby-19mode
       gemfile: gemfiles/Gemfile.mri
+      env: JRUBY_OPTS="-Xcompile.invokedynamic=false"
 
 before_install: gem install --pre bundler
 bundler_args: --without production development
