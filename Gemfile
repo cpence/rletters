@@ -35,6 +35,7 @@ gem 'bibtex-ruby', '~> 2.0', require: 'bibtex'
 gem 'citeproc-ruby', '>= 0.0.4'
 
 # Support for file attachments and exporting
+gem 'cocaine', github: 'thoughtbot/cocaine'
 gem 'paperclip', '~> 3.0'
 gem 'paperclip_database'
 # This release hasn't been cut yet; waiting on it
