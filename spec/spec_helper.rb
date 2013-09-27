@@ -71,9 +71,6 @@ RSpec.configure do |config|
   # Don't test the NLP stuff if it's not installed (e.g., on Travis)
   config.filter_run_excluding nlp: true unless NLP_ENABLED
 
-  # Selectively disable some tests on JRuby
-  config.filter_run_excluding no_jruby: true if RUBY_PLATFORM == 'java'
-
   config.before(:suite) do
     # Load the DB schema, since we're using in-memory SQLite
     load Rails.root.join('db', 'schema.rb')
