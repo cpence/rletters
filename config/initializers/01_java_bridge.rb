@@ -1,5 +1,11 @@
 # -*- encoding : utf-8 -*-
 
+# Set these variables to the appropriate value to ensure that Java can be found
+#ENV['JAVA_HOME'] = '/usr/lib/jvm/java-7-openjdk'
+#ENV['LD_LIBRARY_PATH'] = "#{ENV['JAVA_HOME']}/jre/lib/amd64:#{ENV['JAVA_HOME']}/jre/lib/amd64/client"
+
+
+# Initialze the Stanford NLP
 StanfordCoreNLP.jar_path = Rails.root.join('vendor', 'nlp').to_s + File::SEPARATOR
 StanfordCoreNLP.model_path = Rails.root.join('vendor', 'nlp').to_s + File::SEPARATOR
 StanfordCoreNLP.log_file = Rails.root.join('log', 'stanford-nlp.log').to_s

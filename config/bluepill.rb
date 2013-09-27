@@ -8,7 +8,7 @@ Bluepill.application('rletters') do |app|
   app.uid = app.gid = 'rletters_deploy'
 
   app.process('puma') do |proc|
-    proc.start_command = 'bundle exec puma -C /opt/rletters/root/config/puma.rb -e production'
+    proc.start_command = 'bundle exec puma -C /opt/rletters/root/config/puma.rb -e production -b unix:///opt/rletters/root/tmp/sockets/puma.sock'
     proc.stop_command = 'kill -QUIT {{PID}}'
     proc.restart_command = 'kill -USR2 {{PID}}'
 
