@@ -38,9 +38,10 @@ RLetters allows users to save the results of a given search as a "dataset."  Thi
 
 While text analysis tasks are a current area of active development in RLetters, currently the following are available:
 
+-   Compute term frequency information
 -   Graph dataset by year
+-   Extract references to proper names (locations, people, organizations)
 -   Export dataset as citations in a variety of formats
--   Show complete table of term frequency information (for datasets consisting of a single document)
 
 ### Support for web and library standards ###
 
