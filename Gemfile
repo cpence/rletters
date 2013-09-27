@@ -6,10 +6,12 @@ gem 'rails-i18n', '= 4.0.0.pre2'
 
 # Database and related tools
 group :production, :development do
-  gem 'pg'
+  gem 'pg', platform: [:ruby, :mswin, :mingw]
+  gem 'activerecord-jdbcpostgresql-adapter', platform: :jruby
 end
 group :test do
-  gem 'sqlite3'
+  gem 'sqlite3', platform: [:ruby, :mswin, :mingw]
+  gem 'activerecord-jdbcsqlite3-adapter', platform: :jruby
 end
 gem 'activerecord-import', '>= 0.4.0'
 gem 'trim_blobs'
@@ -35,7 +37,6 @@ gem 'bibtex-ruby', '~> 2.0', require: 'bibtex'
 gem 'citeproc-ruby', '>= 0.0.4'
 
 # Support for file attachments and exporting
-gem 'cocaine', github: 'thoughtbot/cocaine'
 gem 'paperclip', '~> 3.0'
 gem 'paperclip_database'
 # This release hasn't been cut yet; waiting on it
