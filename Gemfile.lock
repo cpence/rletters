@@ -85,7 +85,7 @@ GEM
       nokogiri (~> 1.5)
     climate_control (0.0.3)
       activesupport (>= 3.0)
-    cocaine (0.5.1)
+    cocaine (0.5.2)
       climate_control (>= 0.0.3, < 1.0)
     coffee-rails (4.0.0)
       coffee-script (>= 2.2.0)
