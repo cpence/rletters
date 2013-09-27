@@ -7,24 +7,18 @@ Bluepill.application('rletters') do |app|
 
   app.uid = app.gid = 'rletters_deploy'
 
-  app.process('unicorn') do |proc|
-    proc.start_command = 'bundle exec unicorn -c /opt/rletters/root/config/unicorn.rb -E production -D'
+  app.process('puma') do |proc|
+    proc.start_command = 'bundle exec puma -C /opt/rletters/root/config/puma.rb -e production'
     proc.stop_command = 'kill -QUIT {{PID}}'
     proc.restart_command = 'kill -USR2 {{PID}}'
 
-    proc.pid_file = '/opt/rletters/root/tmp/pids/unicorn.pid'
+    proc.pid_file = '/opt/rletters/root/tmp/pids/puma.pid'
+    proc.daemonize = true
     proc.working_dir = '/opt/rletters/root'
 
     proc.start_grace_time = 60
     proc.stop_grace_time = 60
     proc.restart_grace_time = 180
-
-    proc.monitor_children do |child_process|
-      child_process.stop_command = 'kill -QUIT {{PID}}'
-
-      child_process.checks :mem_usage, every: 3.minutes, below: 200.megabytes, times: [3,4], fires: :stop
-      child_process.checks :cpu_usage, every: 3.minutes, below: 40, times: [3,4], fires: :stop
-    end
   end
 
   app.process('resque-scheduler') do |proc|

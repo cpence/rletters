@@ -61,7 +61,7 @@ RSpec.configure do |config|
 
   config.color_enabled = true
   config.tty = true
-  config.formatter = 'documentation'
+  config.formatter = 'Fuubar'
   config.order = 'random'
 
   config.use_transactional_fixtures = true
@@ -72,9 +72,6 @@ RSpec.configure do |config|
   config.filter_run_excluding nlp: true unless NLP_ENABLED
 
   config.before(:suite) do
-    # Speed up testing by deferring garbage collection
-    DeferredGarbageCollection.start
-
     # Load the DB schema, since we're using in-memory SQLite
     load Rails.root.join('db', 'schema.rb')
 
@@ -82,11 +79,6 @@ RSpec.configure do |config|
     # things like the standard package of CSL styles to be available without
     # my having to write giant XML CSL-style factories.
     load Rails.root.join('db', 'seeds.rb')
-  end
-
-  config.after(:suite) do
-    # Clean up GC
-    DeferredGarbageCollection.reconsider
   end
 
   config.before(:each) do

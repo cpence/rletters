@@ -1,7 +1,6 @@
 # -*- encoding : utf-8 -*-
 
 require 'rdf/n3'
-require 'rdf/rdfxml'
 
 module Serializers
 
@@ -12,7 +11,7 @@ module Serializers
     def self.included(base)
       base.register_serializer(
         :rdf, 'RDF/XML',
-        ->(doc) { doc.to_rdf_xml },
+        ->(doc) { doc.to_rdf_xml.to_xml(indent: 2) },
         'http://www.w3.org/TR/rdf-syntax-grammar/'
       )
       base.register_serializer(
@@ -93,19 +92,62 @@ module Serializers
     end
     # :nocov:
 
+    # Returns this document as an rdf:Description element
+    #
+    # @note No tests for this method, as it is implemented by the RDF gem.
+    # @api private
+    # @param [Nokogiri::XML::Document] doc the document to add the node to
+    # @return [Nokogiri::XML::Node] document in RDF+XML format
+    # :nocov:
+    def to_rdf_xml_node(doc)
+      graph = to_rdf
+
+      desc = Nokogiri::XML::Node.new('Description', doc)
+
+      to_rdf.each_statement do |statement|
+        qname = statement.predicate.qname
+        unless qname
+          Rails.logger.warn "Cannot get qualified name for #{statement.predicate.to_s}, skipping predicate"
+          next
+        end
+
+        unless statement.object.literal?
+          Rails.logger.warn "Object #{statement.object.inspect} is not a literal, cannot parse"
+          next
+        end
+
+        node = Nokogiri::XML::Node.new("#{qname[0]}:#{qname[1]}", doc)
+        node.content = statement.object.value
+
+        if statement.object.has_datatype?
+          node['datatype'] = statement.object.datatype.to_s
+        end
+
+        desc.add_child(node)
+      end
+
+      desc
+    end
+
     # Returns this document as RDF+XML
     #
     # @note No tests for this method, as it is implemented by the RDF gem.
     # @api public
-    # @return [String] document in RDF+XML format
+    # @return [Nokogiri::XML::Document] document in RDF+XML format
     # @example Download this document as an XML file
-    #   controller.send_data doc.to_rdf_xml, filename: 'export.xml',
+    #   controller.send_data doc.to_rdf_xml.to_xml, filename: 'export.xml',
     #                        disposition: 'attachment'
     # :nocov:
     def to_rdf_xml
-      ::RDF::Writer.for(:rdfxml).buffer do |writer|
-        writer << to_rdf
-      end
+      doc = Nokogiri::XML::Document.new
+      rdf = Nokogiri::XML::Node.new('rdf', doc)
+
+      doc.add_child(rdf)
+      rdf.default_namespace = 'http://www.w3.org/1999/02/22-rdf-syntax-ns#'
+      rdf.add_namespace_definition('dc', 'http://purl.org/dc/terms/')
+      rdf.add_child(to_rdf_xml_node(doc))
+
+      doc
     end
     # :nocov:
 
@@ -145,7 +187,7 @@ class Array
   # raise an ArgumentError otherwise.
   #
   # @api public
-  # @return [String] array of documents as RDF+XML collection
+  # @return [Nokogiri::XML::Document] array of documents as RDF+XML collection
   # @note No tests for this method, as it is implemented by the RDF gem.
   # @example Save an array of documents in RDF+XML format to stdout
   #   doc_array = Solr::Connection.search(...).documents
@@ -156,11 +198,18 @@ class Array
       fail ArgumentError, 'No to_rdf method for array element' unless x.respond_to? :to_rdf
     end
 
-    ::RDF::Writer.for(:rdf).buffer do |writer|
-      each do |x|
-        writer << x.to_rdf
-      end
+    doc = Nokogiri::XML::Document.new
+    rdf = Nokogiri::XML::Node.new('rdf', doc)
+
+    doc.add_child(rdf)
+    rdf.default_namespace = 'http://www.w3.org/1999/02/22-rdf-syntax-ns#'
+    rdf.add_namespace_definition('dc', 'http://purl.org/dc/terms/')
+
+    each do |x|
+      rdf.add_child(x.to_rdf_xml_node(doc))
     end
+
+    doc
   end
   # :nocov:
 end
