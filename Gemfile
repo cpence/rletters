@@ -6,10 +6,12 @@ gem 'rails-i18n', '= 4.0.0.pre2'
 
 # Database and related tools
 group :production, :development do
-  gem 'pg'
+  gem 'pg', platform: [:ruby, :mswin, :mingw]
+  gem 'activerecord-jdbcpostgresql-adapter', platform: :jruby
 end
 group :test do
-  gem 'sqlite3'
+  gem 'sqlite3', platform: [:ruby, :mswin, :mingw]
+  gem 'activerecord-jdbcsqlite3-adapter', platform: :jruby
 end
 gem 'activerecord-import', '>= 0.4.0'
 gem 'trim_blobs'
@@ -22,7 +24,7 @@ gem 'resque-scheduler', require: 'resque_scheduler'
 # User authentication and administration
 gem 'devise'
 gem 'devise-i18n'
-gem 'activeadmin', github: 'gregbell/active_admin', branch: 'rails4'
+gem 'activeadmin', github: 'gregbell/active_admin'
 gem 'druthers'
 
 # Textual analysis
@@ -38,11 +40,10 @@ gem 'citeproc-ruby', '>= 0.0.4'
 gem 'paperclip', '~> 3.0'
 gem 'paperclip_database'
 # This release hasn't been cut yet; waiting on it
-#gem 'rubyzip', '>= 1.1.0'
+# gem 'rubyzip', '>= 1.1.0'
 gem 'rubyzip', github: 'rubyzip/rubyzip', require: 'zip'
 gem 'marc'
 gem 'rdf', '>= 0.3.5'
-gem 'rdf-rdfxml'
 gem 'rdf-n3'
 
 # Asset tools and template generators
@@ -63,6 +64,7 @@ group :test, :development do
 end
 
 group :test do
+  gem 'fuubar'
   gem 'factory_girl_rails'
   gem 'rspec-html-matchers'
   gem 'vcr', require: false
@@ -73,7 +75,7 @@ end
 
 # Deployment and server tools
 group :production do
-  gem 'unicorn', require: false
+  gem 'puma', require: false
   gem 'airbrake', require: false
   gem 'resque-pool', require: false
 end
