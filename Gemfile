@@ -73,9 +73,7 @@ group :test do
   gem 'coveralls', require: false
 end
 
-# Deployment and server tools
+# Airbrake is only required in production
 group :production do
-  gem 'puma', require: false
   gem 'airbrake', require: false
-  gem 'resque-pool', require: false
 end
