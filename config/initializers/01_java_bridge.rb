@@ -1,6 +1,7 @@
 # -*- encoding : utf-8 -*-
 
-# Set these variables to the appropriate value to ensure that Java can be found
+# If you get errors concerning the creation of the Java VM, then set these
+# variables to the appropriate value to ensure that Java can be found
 #ENV['JAVA_HOME'] = '/usr/lib/jvm/java-7-openjdk'
 #ENV['LD_LIBRARY_PATH'] = "#{ENV['JAVA_HOME']}/jre/lib/amd64:#{ENV['JAVA_HOME']}/jre/lib/amd64/client"
 
