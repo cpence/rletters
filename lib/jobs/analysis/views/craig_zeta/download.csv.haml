@@ -5,10 +5,10 @@
   - csv << ['']
 
   - # Output the marker words
-  - csv << ["Marker words for membership in #{dataset_1.name}:"]
+  - csv << ["Marker words for membership in #{data[:name_1]}:"]
   - data[:marker_words].each { |w| csv << [w] }
   - csv << ['']
-  - csv << ["Marker words for membership in #{dataset_2.name}:"]
+  - csv << ["Marker words for membership in #{data[:name_2]}:"]
   - data[:anti_marker_words].each { |w| csv << [w] }
   - csv << ['']
 

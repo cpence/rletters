@@ -3,5 +3,5 @@
     %li
       %div{ data: { role: 'fieldcontain' } }
         = label_tag('job_params[other_dataset_id]', 'Dataset to compare with:')
-        = select_tag('job_params[other_dataset_id]', options_from_collection_for_select(current_user.datasets.all, 'id', 'name'))
+        = select_tag('job_params[other_dataset_id]', options_from_collection_for_select(current_user.datasets.where.not(id: @dataset.id), 'id', 'name'))
       = submit_tag 'Compare Datasets'
