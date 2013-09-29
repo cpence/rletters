@@ -46,7 +46,7 @@ module Jobs
         task = dataset_1.analysis_tasks.find(args[:task_id])
         fail ArgumentError, 'Task ID is not valid' unless task
 
-        task.name = "Compare datasets with Burrows' Delta"
+        task.name = 'Differentiate two datasets (Craig Zeta)'
         task.save
 
         # Do the analysis
@@ -69,8 +69,8 @@ module Jobs
 
         # 2) Cull any word that appears in *every* block.
         block_counts = {}
-        analyzer_1.blocks.each { |b| b.keys.each { |k| block_counts[k] += 1 } }
-        analyzer_2.blocks.each { |b| b.keys.each { |k| block_counts[k] += 1 } }
+        analyzer_1.blocks.each { |b| b.keys.each { |k| block_counts[k] ||= 0; block_counts[k] += 1 } }
+        analyzer_2.blocks.each { |b| b.keys.each { |k| block_counts[k] ||= 0; block_counts[k] += 1 } }
 
         max_count = analyzer_1.blocks.count + analyzer_2.blocks.count
         block_counts.delete_if { |k, v| v == max_count }
@@ -81,8 +81,8 @@ module Jobs
         # Zeta Score.
         zeta_scores = {}
         block_counts.each do |word, v|
-          a_count = analyzer_1.blocks.each { |b| b.keys.include?(word) ? 1 : 0 }.reduce(:+)
-          not_b_count = analyzer_2.blocks.each { |b| b.keys.include?(word) ? 0 : 1 }.reduce(:+)
+          a_count = analyzer_1.blocks.map { |b| b.keys.include?(word) ? 1 : 0 }.reduce(:+)
+          not_b_count = analyzer_2.blocks.map { |b| b.keys.include?(word) ? 0 : 1 }.reduce(:+)
 
           a_frac = Float(a_count) / Float(analyzer_1.blocks.count)
           not_b_frac = Float(not_b_count) / Float(analyzer_2.blocks.count)
@@ -141,7 +141,7 @@ module Jobs
 
         # Write it out
         ios = StringIO.new
-        ios.write(csv_string)
+        ios.write(data.to_yaml)
         ios.original_filename = 'craig_zeta.yml'
         ios.content_type = 'text/yaml'
         ios.rewind
