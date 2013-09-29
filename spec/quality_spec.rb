@@ -94,4 +94,18 @@ describe 'The library itself' do
       expect(error_messages.compact).to be_well_formed
     end
   end
+
+  it 'has all of its job view specs' do
+    included = %r{lib/jobs/analysis/views/.*\.(haml|erb)}
+    error_messages = []
+    Dir.chdir(File.expand_path('../..', __FILE__)) do
+      `git ls-files`.split("\n").each do |filename|
+        next unless filename =~ included
+        spec_filename = filename.sub('lib/jobs/analysis/views', 'spec/views/jobs/analysis').sub(/\.(html|csv).*/, '_spec.rb')
+        next if File.exist? spec_filename
+        error_messages << "#{filename} has no view spec (checked for #{spec_filename})"
+      end
+      expect(error_messages.compact).to be_well_formed
+    end
+  end
 end
