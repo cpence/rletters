@@ -73,7 +73,10 @@ group :test do
   gem 'coveralls', require: false
 end
 
-# Airbrake is only required in production
+# Deployment gems
 group :production do
+  gem 'unicorn', require: false, platform: [:ruby, :mswin, :mingw]
+  gem 'puma', require: false, platform: :jruby
+  gem 'resque-pool', require: false, platform: [:ruby, :mswin, :mingw]
   gem 'airbrake', require: false
 end

@@ -154,6 +154,7 @@ GEM
     kaminari (0.14.1)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
+    kgio (2.8.0)
     kramdown (1.2.0)
     latex-decode (0.1.1)
       unicode (~> 0.4)
@@ -209,6 +210,7 @@ GEM
       activesupport (= 4.0.0)
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
+    raindrops (0.11.0)
     rake (10.1.0)
     ransack (1.0.0)
       actionpack (>= 3.0)
@@ -229,6 +231,10 @@ GEM
       redis-namespace (~> 1.2)
       sinatra (>= 0.9.2)
       vegas (~> 0.1.2)
+    resque-pool (0.3.0)
+      rake
+      resque (~> 1.20)
+      trollop (~> 1.16)
     resque-scheduler (2.0.1)
       redis (>= 2.0.1)
       resque (>= 1.20.0)
@@ -307,8 +313,13 @@ GEM
       polyglot (>= 0.3.1)
     trim_blobs (0.0.1)
       activerecord (>= 3.2.0)
+    trollop (1.16.2)
     tzinfo (0.3.37)
     unicode (0.4.4)
+    unicorn (4.6.3)
+      kgio (~> 2.6)
+      rack
+      raindrops (~> 0.7)
     vcr (2.6.0)
     vegas (0.1.11)
       rack (>= 1.0.0)
@@ -348,11 +359,13 @@ DEPENDENCIES
   paperclip (~> 3.0)
   paperclip_database
   pg
+  puma
   rails (~> 4.0)
   rails-i18n (= 4.0.0.pre2)
   rdf (>= 0.3.5)
   rdf-n3
   resque
+  resque-pool
   resque-scheduler
   resque_spec
   rsolr (>= 1.0.7)
@@ -364,6 +377,7 @@ DEPENDENCIES
   sqlite3
   stanford-core-nlp
   trim_blobs
+  unicorn
   vcr
   webmock
   yui-compressor
