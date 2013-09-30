@@ -18,7 +18,7 @@ class Resque::Failure::AnalysisTask < Resque::Failure::Base
       args = payload['args']
 
       # If we can find all our parameters, save the thing
-      if args[:user_id] && args[:dataset_id] && args[:task_id]
+      if args[0][:user_id] && args[0][:dataset_id] && args[0][:task_id]
         begin
           user = User.find(args[:user_id])
           dataset = user.datasets.find(args[:dataset_id])
