@@ -4,11 +4,9 @@ require "spec_helper"
 describe UserMailer do
   describe '#job_finished_email' do
     before(:each) do
-      @user = mock_model(User, email: 'user@user.com')
-      @dataset = mock_model(Dataset, user: @user, id: '1', name: 'The Dataset')
-      @task = mock_model(AnalysisTask, dataset: @dataset, name: 'The Text Analysis')
+      @task = FactoryGirl.create(:analysis_task)
 
-      @mail = UserMailer.job_finished_email(@user, @task)
+      @mail = UserMailer.job_finished_email('user@user.com', @task.to_param)
     end
 
     it 'sets the correct subject' do
@@ -24,15 +22,15 @@ describe UserMailer do
     end
 
     it 'mentions the analysis task name' do
-      expect(@mail.body.encoded).to match('The Text Analysis')
+      expect(@mail.body.encoded).to match(@task.name)
     end
 
     it 'mentions the dataset name' do
-      expect(@mail.body.encoded).to match('The Dataset')
+      expect(@mail.body.encoded).to match(@task.dataset.name)
     end
 
     it 'includes the link to the dataset' do
-      expect(@mail.body.encoded).to match(dataset_url(@dataset))
+      expect(@mail.body.encoded).to match(dataset_url(@task.dataset))
     end
   end
 end

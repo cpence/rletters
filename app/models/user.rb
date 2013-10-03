@@ -44,10 +44,7 @@
 #     (validates_associated)
 #   @return [Array<Library>] All library links added by the user (+has_many+)
 class User < ActiveRecord::Base
-  # Include default devise modules. Others available are:
-  # :token_authenticatable, :confirmable,
-  # :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
+  devise :async, :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
   validates :name, presence: true

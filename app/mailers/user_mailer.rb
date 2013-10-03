@@ -5,14 +5,14 @@
 # This mailer is responsible for sending e-mails to users when their analysis
 # tasks complete.
 class UserMailer < ActionMailer::Base
+  include Resque::Mailer
   default from: 'noreply@example.com'
 
-  def job_finished_email(user, task)
-    @user = user
-    @task = task
+  def job_finished_email(email, task_id)
+    @task = AnalysisTask.find(task_id)
 
     mail(from: Setting.app_email,
-         to: @user.email,
+         to: email,
          task: @task,
          subject: "#{Setting.app_name} analysis job completed")
   end

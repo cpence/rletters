@@ -3,13 +3,12 @@
 require 'rubygems'
 
 # Coverage setup
-if ENV['COVERAGE'] || (ENV['TRAVIS'] && ENV['TRAVIS_RUBY_VERSION'] == '2.0')
+if ENV['COVERAGE'] || ENV['TRAVIS']
   require 'simplecov'
 
   if ENV['TRAVIS']
-    # Report coverage to coveralls.io
+    # Store coverage with Coveralls, which will be pushed later
     require 'coveralls'
-    SimpleCov.formatter = Coveralls::SimpleCov::Formatter
   else
     # Output our own report
     SimpleCov.coverage_dir('/spec/coverage')

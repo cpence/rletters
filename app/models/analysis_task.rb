@@ -87,6 +87,6 @@ class AnalysisTask < ActiveRecord::Base
     save
 
     # Send the user an e-mail
-    UserMailer.job_finished_email(dataset.user, self).deliver
+    UserMailer.job_finished_email(dataset.user.email, to_param).deliver
   end
 end

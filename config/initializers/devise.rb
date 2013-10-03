@@ -129,3 +129,9 @@ Devise.setup do |config|
   # The default HTTP method used to sign out a resource. Default is :delete.
   config.sign_out_via = :delete
 end
+
+# Send Devise e-mails the same way we send other async emails
+Devise::Async.setup do |config|
+  config.backend = :resque
+  config.queue = :maintenance
+end

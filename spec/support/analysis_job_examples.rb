@@ -91,8 +91,11 @@ shared_examples_for 'an analysis job' do
     end
 
     it 'sends an e-mail' do
+      ResqueSpec.reset!
+
       described_class.perform(@perform_args)
-      expect(ActionMailer::Base.deliveries.last.to).to eq([@user.email])
+      expect(UserMailer).to have_queue_size_of(1)
+      expect(UserMailer).to have_queued(:job_finished_email, @task.dataset.user.email, @task.to_param)
     end
   end
 end

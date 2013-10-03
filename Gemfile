@@ -20,10 +20,12 @@ gem 'addressable'
 # Job scheduling
 gem 'resque'
 gem 'resque-scheduler', require: 'resque_scheduler'
+gem 'resque_mailer'
 
 # User authentication and administration
 gem 'devise'
 gem 'devise-i18n'
+gem 'devise-async'
 gem 'activeadmin', github: 'gregbell/active_admin'
 gem 'druthers'
 
