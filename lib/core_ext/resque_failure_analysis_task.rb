@@ -32,7 +32,7 @@ class Resque::Failure::AnalysisTask < Resque::Failure::Base
 
           task.failed = true
           task.save!
-        rescue StandardException
+        rescue StandardError
         end
       end
     end
