@@ -94,11 +94,9 @@ module Serializers
 
     # Returns this document as an rdf:Description element
     #
-    # @note No tests for this method, as it is implemented by the RDF gem.
     # @api private
     # @param [Nokogiri::XML::Document] doc the document to add the node to
     # @return [Nokogiri::XML::Node] document in RDF+XML format
-    # :nocov:
     def to_rdf_xml_node(doc)
       graph = to_rdf
 
@@ -131,13 +129,11 @@ module Serializers
 
     # Returns this document as RDF+XML
     #
-    # @note No tests for this method, as it is implemented by the RDF gem.
     # @api public
     # @return [Nokogiri::XML::Document] document in RDF+XML format
     # @example Download this document as an XML file
     #   controller.send_data doc.to_rdf_xml.to_xml, filename: 'export.xml',
     #                        disposition: 'attachment'
-    # :nocov:
     def to_rdf_xml
       doc = Nokogiri::XML::Document.new
       rdf = Nokogiri::XML::Node.new('rdf', doc)
@@ -149,7 +145,6 @@ module Serializers
 
       doc
     end
-    # :nocov:
 
   end
 end
@@ -188,11 +183,9 @@ class Array
   #
   # @api public
   # @return [Nokogiri::XML::Document] array of documents as RDF+XML collection
-  # @note No tests for this method, as it is implemented by the RDF gem.
   # @example Save an array of documents in RDF+XML format to stdout
   #   doc_array = Solr::Connection.search(...).documents
   #   $stdout.write(doc_array.to_rdf_xml)
-  # :nocov:
   def to_rdf_xml
     each do |x|
       fail ArgumentError, 'No to_rdf method for array element' unless x.respond_to? :to_rdf
@@ -211,5 +204,4 @@ class Array
 
     doc
   end
-  # :nocov:
 end
