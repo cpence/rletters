@@ -15,10 +15,10 @@ class Resque::Failure::AnalysisTask < Resque::Failure::Base
 
     # Only do this if we're in an analysis job of some sort
     if klass <= Jobs::Analysis::Base
-      args = payload['args']
+      args = Hash[payload['args']].symbolize_keys
 
       # If we can find all our parameters, save the thing
-      if args.count > 0 && args[0][:user_id] && args[0][:dataset_id] && args[0][:task_id]
+      if args.count > 0 && args[:user_id] && args[:dataset_id] && args[:task_id]
         begin
           user = User.find(args[:user_id])
           dataset = user.datasets.find(args[:dataset_id])

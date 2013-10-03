@@ -70,6 +70,7 @@ group :test do
   gem 'vcr', require: false
   gem 'webmock', require: false
   gem 'resque_spec'
+  gem 'mock_redis'
   gem 'coveralls', require: false
 end
 
