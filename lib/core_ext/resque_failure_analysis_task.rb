@@ -3,11 +3,17 @@
 require 'resque/failure/base'
 
 class Resque::Failure::AnalysisTask < Resque::Failure::Base
+  # Return the number of failures this adapter has logged
+  #
+  # We can't query the database to determine this, so just return Resque's
+  # global number of failures (borrowed from the Airbrake adapter)
+  # :nocov:
   def self.count(queue = nil, class_name = nil)
     # This is a yes-or-no failure adapter, we don't actually keep track of
     # counts, so just fake this (borrowed from the Airbrake adapter)
     Stat[:failed]
   end
+  # :nocov:
 
   def save
     klass = payload['class'].safe_constantize

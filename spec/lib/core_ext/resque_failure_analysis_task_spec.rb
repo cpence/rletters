@@ -8,29 +8,11 @@ module Jobs
       def self.perform(args = {})
         raise 'This job always fails'
       end
-    end
-  end
-end
 
-describe Resque::Failure::AnalysisTask do
+      def self.run_with_worker(job_params)
+        ResqueSpec.disable_ext = true
 
-  describe '#save' do
-    before(:each) do
-      @user = FactoryGirl.create(:user)
-      @dataset = FactoryGirl.create(:full_dataset, user: @user)
-      @task = FactoryGirl.create(:analysis_task,
-                                 dataset: @dataset,
-                                 name: 'Failing task',
-                                 job_type: 'FailingJob')
-
-      job_params = {
-        user_id: @user.to_param,
-        dataset_id: @dataset.to_param,
-        task_id: @task.to_param
-      }
-
-      without_resque_spec do
-        # We jave to do this in a funny way to actually call the failure
+        # We have to do this in a funny way to actually call the failure
         # handlers.  Thanks to Matt Conway (github/wr0ngway/graylog2-resque)
         # for this code.
         queue = Resque.queue_from_class(Jobs::Analysis::FailingJob)
@@ -45,12 +27,50 @@ describe Resque::Failure::AnalysisTask do
 
         job = worker.reserve
         worker.perform(job)
+
+        ResqueSpec.disable_ext = false
+      end
+    end
+  end
+end
+
+describe Resque::Failure::AnalysisTask do
+
+  describe '#save' do
+    context 'with good parameters' do
+      before(:each) do
+        @user = FactoryGirl.create(:user)
+        @dataset = FactoryGirl.create(:full_dataset, user: @user)
+        @task = FactoryGirl.create(:analysis_task,
+                                   dataset: @dataset,
+                                   name: 'Failing task',
+                                   job_type: 'FailingJob')
+
+        job_params = {
+          user_id: @user.to_param,
+          dataset_id: @dataset.to_param,
+          task_id: @task.to_param
+        }
+
+        Jobs::Analysis::FailingJob.run_with_worker(job_params)
+      end
+
+      it 'sets the failure bit on the analysis task' do
+        @task.reload
+        expect(@task.failed).to be_true
       end
     end
 
-    it 'sets the failure bit on the analysis task' do
-      @task.reload
-      expect(@task.failed).to be_true
+    context 'with bad parameters' do
+      it 'handles the exception gracefully' do
+        expect {
+          Jobs::Analysis::FailingJob.run_with_worker(
+            user_id: 'asdf',
+            dataset_id: 'asdf',
+            task_id: 'asdf'
+          )
+        }
+      end
     end
   end
 end
