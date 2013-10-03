@@ -9,6 +9,7 @@ if ENV['COVERAGE'] || ENV['TRAVIS']
   if ENV['TRAVIS']
     # Store coverage with Coveralls, which will be pushed later
     require 'coveralls'
+    SimpleCov.command_name = ENV['TRAVIS_RUBY_VERSION']
   else
     # Output our own report
     SimpleCov.coverage_dir('/spec/coverage')
