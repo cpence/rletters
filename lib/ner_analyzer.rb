@@ -1,4 +1,7 @@
 # -*- encoding : utf-8 -*-
+# No test coverage here, as we aren't installing the Stanford NLP package on
+# Travis.
+# :nocov:
 
 # Compute named entity references for a given dataset
 #

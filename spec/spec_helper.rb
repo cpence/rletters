@@ -19,6 +19,7 @@ if ENV['COVERAGE'] || ENV['TRAVIS']
     add_filter '/config/'
     add_filter '/db/'
     add_filter '/vendor/bundle/'
+    add_filter '.haml'
 
     add_group 'Models', '/app/models/'
     add_group 'Controllers', '/app/controllers/'
