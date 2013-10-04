@@ -1,4 +1,5 @@
 # -*- encoding : utf-8 -*-
+# :nocov:
 
 if RUBY_PLATFORM == 'java'
   # On JRuby, Nokogiri requires that we prefix *every* attribute with 'xmlns:',
