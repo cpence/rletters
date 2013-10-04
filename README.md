@@ -2,15 +2,15 @@
 
 [![Build Status][travis_img]][travis] [![Dependency Status][gemnasium_img]][gemnasium] [![Coverage Status][coveralls_img]][coveralls]
 
-[travis]: http://travis-ci.org/cpence/rletters
-[travis_img]: https://secure.travis-ci.org/cpence/rletters.png?branch=master
-[coveralls]: https://coveralls.io/r/cpence/rletters
-[coveralls_img]: https://coveralls.io/repos/cpence/rletters/badge.png?branch=master
-[gemnasium]: https://gemnasium.com/cpence/rletters
-[gemnasium_img]: https://gemnasium.com/cpence/rletters.png
+[travis]: http://travis-ci.org/rletters/rletters
+[travis_img]: https://secure.travis-ci.org/rletters/rletters.png?branch=master
+[coveralls]: https://coveralls.io/r/rletters/rletters
+[coveralls_img]: https://coveralls.io/repos/rletters/rletters/badge.png?branch=master
+[gemnasium]: https://gemnasium.com/rletters/rletters
+[gemnasium_img]: https://gemnasium.com/rletters/rletters.png
 
-**Homepage:** [http://charlespence.net/rletters](http://charlespence.net/rletters})  
-**Git:** [http://github.com/cpence/rletters](http://github.com/cpence/rletters)  
+**Homepage:** [http://rletters.net](http://rletters.net)  
+**Git:** [http://github.com/rletters/rletters](http://github.com/rletters/rletters)  
 **Author:** Charles Pence  
 **Contributors:** See Contributors section below  
 **Copyright:** 2011–2013  
@@ -75,11 +75,11 @@ RLetters doesn't leave your developers out in the cold, either.  We've got suppo
 
 ## Installation / Deployment ##
 
-See our detailed [installation and deployment](https://github.com/cpence/rletters/wiki/Installation-and-Deployment) guide for instructions.  For the extremely impatient:
+See our detailed [installation and deployment](https://github.com/rletters/rletters/wiki/Installation-and-Deployment) guide for instructions.  For the extremely impatient:
 
     # Install Ansible 1.3+ from your local package manager
     # Establish passwordless SSH with passwordless sudo to your server running RHEL/CentOS 6
-    git clone git://github.com/cpence/rletters.git
+    git clone git://github.com/rletters/rletters.git
 
     cd rletters/deploy
     cp hosts.example hosts
@@ -97,7 +97,7 @@ See our detailed [installation and deployment](https://github.com/cpence/rletter
 Special thanks to all contributors for submitting patches. A full list of
 contributors including their patches can be found at:
 
-https://github.com/cpence/rletters/contributors
+https://github.com/rletters/rletters/contributors
 
 Also, several features of RLetters wouldn't be possible without the excellent work of other Ruby programmers.  Thanks in particular to those behind [Ansible,](http://www.ansibleworks.com/) [RSolr](https://github.com/mwmitchell/rsolr) and [RSolr::Ext](https://github.com/mwmitchell/rsolr-ext), [stanford-core-nlp,](https://github.com/louismullie/stanford-core-nlp/) [citeproc-ruby,](https://github.com/inukshuk/citeproc-ruby) and [bibtex-ruby](https://github.com/inukshuk/bibtex-ruby).  The stop lists found in `db/seeds/stoplists` are released under the BSD license by the Apache Lucene project.
 
@@ -106,9 +106,9 @@ Charles Pence and Grant Ramsey were supported in the development of RLetters by 
 [![National Science Foundation][nsf_img]][nsf] [![National Evolutionary Synthesis Ceter][nescent_img]][nescent]
 
 [nsf]: http://www.nsf.gov
-[nsf_img]: http://charlespence.net/rletters/images/nsf.gif
+[nsf_img]: http://rletters.net/images/nsf.gif
 [nescent]: http://nescent.org
-[nescent_img]: http://charlespence.net/rletters/images/nescent.png
+[nescent_img]: http://rletters.net/images/nescent.png
 
 ## Copyright ##
 

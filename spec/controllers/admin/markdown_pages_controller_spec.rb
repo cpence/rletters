@@ -37,7 +37,7 @@ describe Admin::MarkdownPagesController do
     end
 
     it 'renders the page Markdown to HTML' do
-      expect(response.body).to include('<a href="https://github.com/cpence/rletters/wiki/Contributing-Translations">')
+      expect(response.body).to include('<a href="https://github.com/rletters/rletters/wiki/Contributing-Translations">')
     end
   end
 

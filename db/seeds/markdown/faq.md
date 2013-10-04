@@ -1,7 +1,7 @@
 
 -   ### I selected my language in the user preferences, but all the text is still in English
     
-    The list of languages indicates all the languages in which it is possible to translate the application.  For most of these languages, the bulk of the translation work has not yet been done.  If you'd like to contribute translations in your native language, we'd love to have them: please visit the [contributing translations page](https://github.com/cpence/rletters/wiki/Contributing-Translations) at the development website for more information about how you can help.
+    The list of languages indicates all the languages in which it is possible to translate the application.  For most of these languages, the bulk of the translation work has not yet been done.  If you'd like to contribute translations in your native language, we'd love to have them: please visit the [contributing translations page](https://github.com/rletters/rletters/wiki/Contributing-Translations) at the development website for more information about how you can help.
 
 -   ### The Mendeley and CiteULike links return a "page not found" error or show me the wrong document
     
