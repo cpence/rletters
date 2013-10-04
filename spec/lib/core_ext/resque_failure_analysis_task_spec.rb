@@ -69,7 +69,7 @@ describe Resque::Failure::AnalysisTask do
             dataset_id: 'asdf',
             task_id: 'asdf'
           )
-        }
+        }.to_not raise_error
       end
     end
   end
