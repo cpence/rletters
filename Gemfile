@@ -19,7 +19,7 @@ gem 'addressable'
 
 # Job scheduling
 gem 'resque'
-gem 'resque-scheduler', require: 'resque_scheduler'
+gem 'resque-scheduler', '~> 2.2.0', require: 'resque_scheduler'
 gem 'resque_mailer'
 
 # User authentication and administration
