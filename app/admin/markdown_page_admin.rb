@@ -36,4 +36,12 @@ ActiveAdmin.register MarkdownPage do
     end
     f.actions
   end
+
+  # :nocov:
+  controller do
+    def permitted_params
+      params.permit markdown_page: [:name, :content]
+    end
+  end
+  # :nocov:
 end

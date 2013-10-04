@@ -39,4 +39,12 @@ ActiveAdmin.register UploadedAsset do
     end
     f.actions
   end
+
+  # :nocov:
+  controller do
+    def permitted_params
+      params.permit uploaded_asset: [:name, :file]
+    end
+  end
+  # :nocov:
 end

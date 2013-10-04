@@ -29,4 +29,12 @@ ActiveAdmin.register Setting do
     end
     f.actions
   end
+
+  # :nocov:
+  controller do
+    def permitted_params
+      params.permit setting: [:key, :value]
+    end
+  end
+  # :nocov:
 end
