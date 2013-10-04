@@ -12,6 +12,9 @@ module Math
   # @param [Integer] num_docs The number of documents in the corpus
   # @return [Float] The term frequency-inverse document frequency
   def self.tfidf(tf, df, num_docs)
+    # Bail out with zero if there's any funny business
+    return 0 unless tf && df && num_docs
+
     tf * Math.log10(num_docs.to_f / df.to_f)
   end
 end

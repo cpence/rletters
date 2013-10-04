@@ -259,6 +259,13 @@ describe DatasetsController do
         @task.destroy
       end
 
+      it 'raises an exception for missing views' do
+        expect {
+          get :task_view, id: @dataset.to_param,
+              task_id: @task.to_param, view: 'notaview'
+        }.to raise_error(ActiveRecord::RecordNotFound)
+      end
+
       it 'does not raise an exception' do
         expect {
           get :task_view, id: @dataset.to_param,

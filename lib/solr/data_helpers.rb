@@ -91,14 +91,12 @@ module Solr
     # @param [Symbol] field the field for grouping
     # @return [String] the field value
     def self.get_field_for_grouping(doc, field)
-      case field
-      when :year
-        # Support Y-M-D or Y/M/D dates
-        parts = doc.year.split(/[-\/]/)
-        return parts[0]
-      else
-        return doc.send(field)
-      end
+      return doc.send(field) unless field == :year
+
+      # Support Y-M-D or Y/M/D dates, even though this field is supposed to
+      # be only year values
+      parts = doc.year.split(/[-\/]/)
+      return parts[0]
     end
   end
 end

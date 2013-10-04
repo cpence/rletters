@@ -96,11 +96,7 @@ module Jobs
         # 5) Take the first 1k and last 1k rows here (or split the list
         # clean in half if there's <2k types), and those are your marker word
         # lists.
-        if zeta_array.count < 2000
-          size = (zeta_array.count / 2).floor
-        else
-          size = 1000
-        end
+        size = [(zeta_array.count / 2).floor, 1000].min
 
         marker_words = zeta_array.take(size).map { |a| a[0] }
         anti_marker_words = zeta_array.reverse_each.take(size).map { |a| a[0] }

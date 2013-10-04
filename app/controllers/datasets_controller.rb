@@ -233,7 +233,7 @@ class DatasetsController < ApplicationController
       end
     end
 
-    fail "Cannot find job view #{view} for class #{klass}"
+    fail ActiveRecord::RecordNotFound
   end
 
   # Whitelist acceptable dataset parameters
