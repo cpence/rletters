@@ -1,5 +1,4 @@
 # -*- encoding : utf-8 -*-
-# :nocov:
 
 if RUBY_PLATFORM == 'java'
   require 'java'
