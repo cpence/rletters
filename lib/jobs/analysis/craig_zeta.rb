@@ -90,15 +90,8 @@ module Jobs
           zeta_scores[word] = a_frac + not_b_frac
         end
 
-        # 4) Output words and Zeta scores, sorted first descending from 2 down
-        # to 1, and then *ascending* from 0 up to 1.
-        zeta_scores_oneplus = zeta_scores.select { |k, v| v >= 1.0 }.to_a
-        zeta_scores_less = zeta_scores.select { |k, v| v < 1.0 }.to_a
-
-        zeta_scores_oneplus.sort! { |a, b| b[1] <=> a[1] }
-        zeta_scores_less.sort! { |a, b| a[1] <=> b[1] }
-
-        zeta_array = zeta_scores_oneplus + zeta_scores_less
+        # 4) Output words and Zeta scores, sorted descending by score.
+        zeta_array = zeta_scores.to_a.sort { |a, b| b[1] <=> a[1] }
 
         # 5) Take the first 1k and last 1k rows here (or split the list
         # clean in half if there's <2k types), and those are your marker word
