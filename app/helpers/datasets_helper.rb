@@ -2,6 +2,7 @@
 
 # Markup generators for the datasets controller
 module DatasetsHelper
+
   # Render a partial from a job
   def render_job_partial(klass, view)
     # Find the partial
@@ -14,4 +15,5 @@ module DatasetsHelper
 
     render inline: "<p><strong>ERROR: Cannot find job view #{view} for class #{klass}"
   end
+
 end
