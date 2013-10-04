@@ -4,8 +4,8 @@
 class Hash
   # Convert to a HashWithIndifferentAccess.
   #
-  # This method is used internally by RSolr::Ext, and needs to be overridden
-  # here for our YAML serialization tricks to work.
+  # This method is used internally by RSolr::Ext; we want all such hashes
+  # to use ActiveSupport's HashWithIndifferentAccess.
   #
   # @return [HashWithIndifferentAccess] self with indifferent access
   def to_mash

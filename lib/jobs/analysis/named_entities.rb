@@ -12,7 +12,7 @@ module Jobs
 
       # Export the named entity data
       #
-      # This function saves out the NER data as a YAML hash, to be visualized
+      # This function saves out the NER data as a JSON hash, to be visualized
       # in a number of different ways by the job views.
       #
       # @param [Hash] args parameters for this job
@@ -47,9 +47,9 @@ module Jobs
 
         # Write it out
         ios = StringIO.new
-        ios.write(analyzer.entity_references.to_yaml)
-        ios.original_filename = 'named_entites.yml'
-        ios.content_type = 'text/yaml'
+        ios.write(analyzer.entity_references.to_json)
+        ios.original_filename = 'named_entites.json'
+        ios.content_type = 'application/json'
         ios.rewind
 
         task.result = ios
@@ -59,7 +59,7 @@ module Jobs
         task.finish!
       end
 
-      # We don't want users to download the YAML file
+      # We don't want users to download the JSON file
       def self.download?
         false
       end

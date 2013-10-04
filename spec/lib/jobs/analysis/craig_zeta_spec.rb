@@ -56,26 +56,26 @@ describe Jobs::Analysis::CraigZeta, vcr: { cassette_name: 'craig_zeta' } do
       expect(@dataset.analysis_tasks[0].name).to eq('Differentiate two datasets (Craig Zeta)')
     end
 
-    it 'creates good YAML' do
-      data = YAML.load(@dataset.analysis_tasks[0].result.file_contents(:original))
+    it 'creates good JSON' do
+      data = JSON.load(@dataset.analysis_tasks[0].result.file_contents(:original))
       expect(data).to be_a(Hash)
     end
 
     it 'fills in some values' do
-      hash = YAML.load(@dataset.analysis_tasks[0].result.file_contents(:original))
-      hash[:name_1].should eq('Dataset')
-      hash[:name_2].should eq('Dataset')
-      hash[:marker_words].should be_an(Array)
-      hash[:marker_words][0].should be_a(String)
-      hash[:anti_marker_words].should be_an(Array)
-      hash[:anti_marker_words][0].should be_a(String)
-      hash[:graph_points].should be_an(Array)
-      hash[:graph_points][0].should be_an(Array)
-      hash[:graph_points][0][0].should be_a(String)
-      hash[:graph_points][0][1].should be_a(Float)
-      hash[:graph_points][0][2].should be_a(Float)
-      hash[:zeta_scores].should be_a(Hash)
-      hash[:zeta_scores].values[0].should be_a(Float)
+      hash = JSON.load(@dataset.analysis_tasks[0].result.file_contents(:original))
+      hash['name_1'].should eq('Dataset')
+      hash['name_2'].should eq('Dataset')
+      hash['marker_words'].should be_an(Array)
+      hash['marker_words'][0].should be_a(String)
+      hash['anti_marker_words'].should be_an(Array)
+      hash['anti_marker_words'][0].should be_a(String)
+      hash['graph_points'].should be_an(Array)
+      hash['graph_points'][0].should be_an(Array)
+      hash['graph_points'][0][0].should be_a(String)
+      hash['graph_points'][0][1].should be_a(Float)
+      hash['graph_points'][0][2].should be_a(Float)
+      hash['zeta_scores'].should be_a(Hash)
+      hash['zeta_scores'].values[0].should be_a(Float)
     end
   end
 

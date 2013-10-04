@@ -26,9 +26,9 @@ describe 'craig_zeta/download' do
     }
 
     ios = StringIO.new
-    ios.write(data.to_yaml)
-    ios.original_filename = 'craig_zeta.yml'
-    ios.content_type = 'text/x-yaml'
+    ios.write(data.to_json)
+    ios.original_filename = 'craig_zeta.json'
+    ios.content_type = 'application/json'
     ios.rewind
 
     @task.result = ios

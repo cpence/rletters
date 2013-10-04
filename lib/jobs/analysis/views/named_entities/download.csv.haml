@@ -1,5 +1,5 @@
 - require 'csv'
-- data = YAML.load(@task.result.file_contents(:original))
+- data = JSON.load(@task.result.file_contents(:original))
 != CSV.generate do |csv|
   - csv << [ 'Type', 'Hit' ]
   - data.each do |category, list|

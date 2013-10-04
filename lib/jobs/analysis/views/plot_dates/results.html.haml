@@ -1,12 +1,12 @@
-- data = YAML.load(@task.result.file_contents(:original))
-- dates = data[:data]
-- percent = data[:percent]
+- data = JSON.load(@task.result.file_contents(:original))
+- dates = data['data']
+- percent = data['percent']
 
 %div.center
   %h1= @dataset.name
 
   - if percent
-    %h2== Percentage of documents in #{data[:normalization_set]} found in the #{@dataset.name} dataset, plotted by year
+    %h2== Percentage of documents in #{data['normalization_set']} found in the #{@dataset.name} dataset, plotted by year
   - else
     %h2 Number of documents, plotted by year
 

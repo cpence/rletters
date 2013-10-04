@@ -1,26 +1,26 @@
 - require 'csv'
-- data = YAML.load(@task.result.file_contents(:original))
+- data = JSON.load(@task.result.file_contents(:original))
 != CSV.generate do |csv|
-  - csv << ["Craig Zeta comparison for dataset #{data[:name_1]} against #{data[:name_2]}"]
+  - csv << ["Craig Zeta comparison for dataset #{data['name_1']} against #{data['name_2']}"]
   - csv << ['']
 
   - # Output the marker words
-  - csv << ["Marker words for membership in #{data[:name_1]}:"]
-  - data[:marker_words].each { |w| csv << [w] }
+  - csv << ["Marker words for membership in #{data['name_1']}:"]
+  - data['marker_words'].each { |w| csv << [w] }
   - csv << ['']
-  - csv << ["Marker words for membership in #{data[:name_2]}:"]
-  - data[:anti_marker_words].each { |w| csv << [w] }
+  - csv << ["Marker words for membership in #{data['name_2']}:"]
+  - data['anti_marker_words'].each { |w| csv << [w] }
   - csv << ['']
 
   - # Output the graphing points
   - csv << ['Separation graph for all analyzed text blocks:']
   - csv << ['']
   - csv << ['Block name', 'Fraction of marker words', 'Fraction of anti-marker words']
-  - data[:graph_points].each { |l| csv << l }
+  - data['graph_points'].each { |l| csv << l }
   - csv << ['']
 
   - # Output the Zeta scores
   - csv << ['Zeta scores for all analyzed words:']
-  - data[:zeta_scores].each { |k, v| csv << [k, v] }
+  - data['zeta_scores'].each { |k, v| csv << [k, v] }
 
   - csv << ['']

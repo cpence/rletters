@@ -12,9 +12,9 @@ describe 'plot_dates/results' do
                                job_type: 'PlotDates',
                                dataset: @dataset)
     ios = StringIO.new
-    ios.write({ data: [[2003, 13]], percent: false, normalization_set: nil }.to_yaml)
-    ios.original_filename = 'temp.yml'
-    ios.content_type = 'text/x-yaml'
+    ios.write({ data: [[2003, 13]], percent: false, normalization_set: nil }.to_json)
+    ios.original_filename = 'temp.json'
+    ios.content_type = 'application/json'
     ios.rewind
 
     @task.result = ios

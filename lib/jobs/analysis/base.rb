@@ -25,8 +25,8 @@ module Jobs
     #   +true+.  If +#download?+ is overridden to return +false+, then the
     #   job is expected to implement the +results+ view, which will show the
     #   user the results of the job in HTML form.  The standard way to do this
-    #   is to write the job results out as YAML in +AnalysisTask#result_file+,
-    #   and then to parse this YAML into HAML in the view.
+    #   is to write the job results out as JSON in +AnalysisTask#result_file+,
+    #   and then to parse this JSON into HAML in the view.
     class Base
       # True if this job produces a download
       #

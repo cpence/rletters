@@ -1,12 +1,12 @@
-- data = YAML.load(@task.result.file_contents(:original))
+- data = JSON.load(@task.result.file_contents(:original))
 
 %div.center
-  %h1== Comparison of #{data[:name_1]} with #{data[:name_2]}
+  %h1== Comparison of #{data['name_1']} with #{data['name_2']}
   %h2 (Craig Zeta algorithm)
 
   .verticalpad
 
-  %div.craig_zeta_data= data[:graph_points].to_json
+  %div.craig_zeta_data= data['graph_points'].to_json
   %div.craig_zeta_graph
 
   .verticalpad

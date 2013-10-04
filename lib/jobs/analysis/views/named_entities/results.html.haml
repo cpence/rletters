@@ -1,4 +1,4 @@
-- data = YAML.load(@task.result.file_contents(:original))
+- data = JSON.load(@task.result.file_contents(:original))
 
 %div.center
   %h1= @dataset.name

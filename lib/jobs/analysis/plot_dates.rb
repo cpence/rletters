@@ -10,7 +10,7 @@ module Jobs
 
       # Export the date format data
       #
-      # Like all view/multiexport jobs, this job saves its data out as a YAML
+      # Like all view/multiexport jobs, this job saves its data out as a JSON
       # file and then sends it to the user in various formats depending on
       # user selectons.
       #
@@ -69,11 +69,11 @@ module Jobs
                    normalization_set: normalization_set_name
                  }
 
-        # Serialize out to YAML
+        # Serialize out to JSON
         ios = StringIO.new
-        ios.write(output.to_yaml)
-        ios.original_filename = 'plot_dates.yml'
-        ios.content_type = 'text/yaml'
+        ios.write(output.to_json)
+        ios.original_filename = 'plot_dates.json'
+        ios.content_type = 'application/json'
         ios.rewind
 
         task.result = ios
@@ -83,7 +83,7 @@ module Jobs
         task.finish!
       end
 
-      # We don't want users to download the YAML file
+      # We don't want users to download the JSON file
       def self.download?
         false
       end

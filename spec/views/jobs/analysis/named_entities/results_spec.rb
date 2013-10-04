@@ -17,9 +17,9 @@ describe 'named_entities/results', :nlp do
       'LOCATION' => ['Austin, Texas']
     }
     ios = StringIO.new
-    ios.write(@data.to_yaml)
-    ios.original_filename = 'temp.yml'
-    ios.content_type = 'text/x-yaml'
+    ios.write(@data.to_json)
+    ios.original_filename = 'temp.json'
+    ios.content_type = 'application/json'
     ios.rewind
 
     @task.result = ios
