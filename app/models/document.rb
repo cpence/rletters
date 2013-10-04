@@ -170,6 +170,27 @@ class Document
     result.documents[0]
   end
 
+  # Return a document (just bibliographic data) by SHA-1 checksum, or nil
+  #
+  # @api public
+  # @param [String] shasum SHA-1 checksum of the document to be retrieved
+  # @param [Hash] options see +Solr::Connection.search+ for specification
+  # @return [Document] the document requested
+  # @raise [Solr::ConnectionError] thrown if there is an error querying Solr
+  # @raise [ActiveRecord::RecordNotFound] thrown if no matching document can
+  #   be found
+  # @example Look up the document with ID '1234567890abcdef1234'
+  #   doc = Document.find_by_shasum('1234567890abcdef1234')
+  # @example Look up a document that doesn't exist
+  #   Document.find_by_shasum('1234567890abcdef1234')
+  #   # => nil
+  def self.find_by_shasum(shasum, options = {})
+    result = Solr::Connection.search(options.merge({ q: "shasum:#{shasum}",
+                                                     defType: 'lucene' }))
+    return nil if result.num_hits != 1
+    result.documents[0]
+  end
+
   # Return a document (bibliographic data and full text) by SHA-1 checksum
   #
   # @api public
@@ -179,7 +200,7 @@ class Document
   # @raise [Solr::ConnectionError] thrown if there is an error querying Solr
   # @raise [ActiveRecord::RecordNotFound] thrown if no matching document can
   #   be found
-  # @example Get the full tet of the document with ID '1234567890abcdef1234'
+  # @example Get the full text of the document with ID '1234567890abcdef1234'
   #   text = Document.find_with_fulltext('1234567890abcdef1234').fulltext
   def self.find_with_fulltext(shasum, options = {})
     result = Solr::Connection.search(options.merge({ q: "shasum:#{shasum}",
@@ -187,6 +208,30 @@ class Document
                                                      tv: 'true',
                                                      fl: Solr::Connection::DEFAULT_FIELDS_FULLTEXT }))
     fail ActiveRecord::RecordNotFound if result.num_hits != 1
+    result.documents[0]
+  end
+
+  # Return a document (bibliographic data and full text) by SHA-1 checksum,
+  # or nil
+  #
+  # @api public
+  # @param [String] shasum SHA-1 checksum of the document to be retrieved
+  # @param [Hash] options see +Solr::Connection.search+ for specification
+  # @return [Document] the document requested
+  # @raise [Solr::ConnectionError] thrown if there is an error querying Solr
+  # @raise [ActiveRecord::RecordNotFound] thrown if no matching document can
+  #   be found
+  # @example Get the full text of the document with ID '1234567890abcdef1234'
+  #   doc = Document.find_by_shasum_with_fulltext('1234567890abcdef1234')
+  # @example Look up a document that doesn't exist
+  #   Document.find_by_shasum_with_fulltext('1234567890abcdef1234')
+  #   # => nil
+  def self.find_by_shasum_with_fulltext(shasum, options = {})
+    result = Solr::Connection.search(options.merge({ q: "shasum:#{shasum}",
+                                                     defType: 'lucene',
+                                                     tv: 'true',
+                                                     fl: Solr::Connection::DEFAULT_FIELDS_FULLTEXT }))
+    return nil if result.num_hits != 1
     result.documents[0]
   end
 

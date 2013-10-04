@@ -102,9 +102,7 @@ class DatasetsController < ApplicationController
     # This isn't a member action, so that it can be called easily from
     # a form.  Get the id from :dataset_id, not :id.
     @dataset = current_user.datasets.find(params[:dataset_id])
-    fail ActiveRecord::RecordNotFound unless @dataset
     @document = Document.find(params[:shasum])
-    fail ActiveRecord::RecordNotFound unless @document
 
     # No reason for this to be a delayed job, just do the create
     @dataset.entries.create({ shasum: params[:shasum] })

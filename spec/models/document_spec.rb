@@ -73,6 +73,30 @@ describe Document do
     end
   end
 
+  describe '.find_by_shasum' do
+    context 'when loading one document',
+            vcr: { cassette_name: 'solr_single' } do
+      before(:each) do
+        @doc = Document.find_by_shasum('00972c5123877961056b21aea4177d0dc69c7318')
+      end
+
+      it 'loads the document successfully' do
+        expect(@doc).to be
+      end
+    end
+
+    context 'when no documents are returned',
+            vcr: { cassette_name: 'solr_fail' } do
+      it 'does not raise an exception' do
+        expect { Document.find_by_shasum('fail') }.to_not raise_error
+      end
+
+      it 'returns nil' do
+        expect(Document.find_by_shasum('fail')).to be_nil
+      end
+    end
+  end
+
   describe '.find_with_fulltext' do
     context 'when loading one document with fulltext',
             vcr: { cassette_name: 'solr_single_fulltext' } do
@@ -96,6 +120,30 @@ describe Document do
       it 'raises an exception' do
         stub_request(:any, /(127\.0\.0\.1|localhost)/).to_timeout
         expect { Document.find_with_fulltext('fail') }.to raise_error(StandardError)
+      end
+    end
+  end
+
+    describe '.find_by_shasum_with_fulltext' do
+    context 'when loading one document with fulltext',
+            vcr: { cassette_name: 'solr_single_fulltext' } do
+      before(:each) do
+        @doc = Document.find_by_shasum_with_fulltext('00972c5123877961056b21aea4177d0dc69c7318')
+      end
+
+      it 'loads the document successfully' do
+        expect(@doc).to be
+      end
+    end
+
+    context 'when no documents are returned',
+            vcr: { cassette_name: 'solr_fail_fulltext' } do
+      it 'does not raise an exception' do
+        expect { Document.find_by_shasum_with_fulltext('fail') }.to_not raise_error
+      end
+
+      it 'returns nil' do
+        expect(Document.find_by_shasum_with_fulltext('fail')).to be_nil
       end
     end
   end

@@ -20,6 +20,12 @@ describe Jobs::Analysis::Base do
       expected = Rails.root.join('lib', 'jobs', 'analysis', 'concerns', 'views', 'normalize_document_counts')
       expect(Jobs::Analysis::MockJob.view_paths).to include(expected)
     end
+
+    it 'throws an error if you try to repeat it' do
+      expect {
+        Jobs::Analysis::MockJob.add_concern 'NormalizeDocumentCounts'
+      }.to raise_error(ArgumentError)
+    end
   end
 
   describe '.view_paths' do
