@@ -103,6 +103,10 @@ module Serializers
       desc = Nokogiri::XML::Node.new('Description', doc)
 
       to_rdf.each_statement do |statement|
+
+        # I have no idea when these errors might happen, so I can't spec for
+        # them, but I'm catching them just to be safe.
+        # :nocov:
         qname = statement.predicate.qname
         unless qname
           Rails.logger.warn "Cannot get qualified name for #{statement.predicate.to_s}, skipping predicate"
@@ -113,6 +117,7 @@ module Serializers
           Rails.logger.warn "Object #{statement.object.inspect} is not a literal, cannot parse"
           next
         end
+        # :nocov:
 
         node = Nokogiri::XML::Node.new("#{qname[0]}:#{qname[1]}", doc)
         node.content = statement.object.value
