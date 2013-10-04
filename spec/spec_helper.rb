@@ -21,6 +21,11 @@ if ENV['COVERAGE'] || ENV['TRAVIS']
     add_filter '/db/'
     add_filter '/vendor/bundle/'
     add_filter '.haml'
+    add_filter '.erb'
+
+    # Filter the few classes we explicitly can't get coverage for
+    add_filter 'lib/ner_analyzer.rb'
+    add_filter 'lib/jobs/analysis/named_entities.rb'
 
     add_group 'Models', '/app/models/'
     add_group 'Controllers', '/app/controllers/'
