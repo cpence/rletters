@@ -1,11 +1,11 @@
 
 // Bind all of our various event handlers
-$(document).on("mobileinit", function() {
+// FIXME: no longer need to do all this this way for Foundation
+$(document).on("ready", function() {
   bindDatasetsEvents();
   bindNamedEntitiesEvents();
   bindNormalizeDocumentCountsEvents();
   bindPlotDatesEvents();
-  bindSearchEvents();
   bindUserEvents();
   bindWordFrequencyEvents();
 });

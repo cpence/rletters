@@ -1,10 +1,11 @@
 - unless document.title.blank?
-  %h3= document.title
+  %h5= document.title
 - else
-  %h3 [untitled]
-- unless document.authors.blank?
-  %p= document.authors
+  %h5 [untitled]
 %p
+  - unless document.authors.blank?
+    = document.authors
+    = ' | '
   - unless document.journal.blank?
     %em= "#{document.journal}, "
   - unless document.volume.blank?

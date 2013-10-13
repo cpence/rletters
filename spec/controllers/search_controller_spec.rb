@@ -278,11 +278,4 @@ describe SearchController do
     end
   end
 
-  describe '#sort_methods' do
-    it 'loads successfully' do
-      get :sort_methods
-      expect(response).to be_success
-    end
-  end
-
 end

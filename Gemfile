@@ -55,8 +55,9 @@ gem 'kramdown'
 gem 'nokogiri'
 gem 'sass-rails'
 
-gem 'jquery-rails', '= 3.0.4'
-gem 'jquery_mobile_rails', '= 1.3.2'
+gem 'jquery-rails'
+gem 'compass-rails'
+gem 'zurb-foundation'
 
 gem 'yui-compressor'
 

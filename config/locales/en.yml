@@ -191,18 +191,15 @@ en:
             volume_abbr: "Vol. %{volume}"
             number_abbr: "No. %{number}"
             pages_abbr: "pp. %{pages}"
-        show:
-            details: "Document details"
+        dropdown:
             single_dataset: "Create a dataset from only this document"
             add_to_dataset: "Add this document to an existing dataset"
-            get: "Get this document"
-            publisher: "From the publisher (DOI: %{doi})"
-            ol_library: "Online and library access"
-            library: "Find this document in a library"
+            journal: "Download from journal"
+            library: 'Download from library'
+            online: 'Find online'
             yours: "Your library:"
             worldcat: "Find in WorldCat"
             uk_openurl: "Find with UK OpenURL Resolver"
-            online: "Find this document online"
             google: "Find on Google Scholar"
             mendeley: "Find on Mendeley"
             citeulike: "Find on CiteULike"
@@ -377,7 +374,6 @@ en:
         mendeley_key: Mendeley Consumer Key
         airbrake_key: Airbrake API Key
         google_analytics_key: Google Analytics Tracking ID
-        jquery_mobile_theme_blob: jQuery Mobile Theme CSS
         secret_token: Rails Secret Token
         secret_key_base: Rails Secret Key Base
         devise_secret_key: Devise Secret Key

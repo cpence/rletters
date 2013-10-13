@@ -1,21 +1,17 @@
-/*
- *= require jquery.mobile
-*/
+@import "foundation";
 
-.verticalpad { margin-top: 14px; margin-bottom: 14px; }
-.doublepad { margin-top: 28px; margin-bottom: 28px; }
-
-.center { text-align: center; }
-.center > * { margin-left: auto; margin-right: auto; }
-
-ul.longlist .ui-li-desc, li.longlist .ui-li-desc {
-  /* HACK: This relies on internal jQM font sizes! */
-  font-size: 14px;
-  white-space: normal;
-  margin-bottom: 1.25em;
-}
-
-@import "footer";
 @import "named_entities";
 @import "plot_dates";
-@import "search";
+
+section.main { @include grid-row; }
+.full-content { @include grid-column(12); }
+
+.flash-generic, .flash-notice, .flash-success, .flash-alert {
+  @include alert-base;
+  @include radius($global-radius);
+  .close { @include alert-close; }
+}
+
+.flash-notice { @include alert-style($secondary-color); }
+.flash-success { @include alert-style($success-color); }
+.flash-alert { @include alert-style($alert-color); }

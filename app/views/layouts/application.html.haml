@@ -2,17 +2,31 @@
 %html{ lang: I18n.locale }
   = render partial: 'layouts/head'
   %body
-    %div{ data: { role: 'page', add_back_btn: 'true', url: url_for(params) } }
-      %div{ data: { role: 'header', id: 'rlheader', position: 'fixed', tap_toggle: 'false' } }
-        %h1= Setting.app_name
+    %nav.top-bar
+      %ul.title-area
+        %li.name
+          %h1= link_to Setting.app_name, root_path
+        %li.toggle-topbar.menu-icon
+          %a{ href: '#' }
+            %span Menu
 
-      %div{ data: { role: 'content' } }
-        = render partial: 'layouts/flashes'
-        = yield
+      %section.top-bar-section
+        %ul.left
+          %li.divider
+          %li{ class: (params[:controller] == 'info') ? 'active' : nil }= link_to 'Home', root_path
+          %li{ class: (params[:controller] == 'search') ? 'active' : nil }= link_to 'Search', search_path
+          %li{ class: (params[:controller] == 'datasets') ? 'active' : nil }= link_to 'Saved Searches', datasets_path
 
-      %div.rlfooter{ data: { role: 'footer', id: 'rlfooter', position: 'fixed', tap_toggle: 'false' } }
-        %div{ data: { role: 'navbar' } }
-          %ul
-            %li= link_to t('all.home_button'), info_path, data: { icon: 'home' }, class: (params[:controller] == 'info' ? 'ui-btn-active' : nil)
-            %li= link_to t('all.search_button'), search_path, data: { icon: 'search' }, class: (params[:controller] == 'search' ? 'ui-btn-active' : nil)
-            %li= link_to t('all.datasets_button'), datasets_path, data: { icon: 'grid' }, class: (params[:controller] == 'datasets' ? 'ui-btn-active' : nil)
+        %ul.right
+          %li.divider.hide-for-small
+          - if current_user
+            %li{ class: (params[:controller] == 'users') ? 'active' : nil }= link_to 'My Account', edit_user_registration_path
+            %li= link_to 'Sign Out', destroy_user_session_path, method: :delete
+          - else
+            %li{ class: (params[:controller] == 'users') ? 'active' : nil }= link_to 'Log In', new_user_session_path
+
+    %div
+      - flash.each do |k, v|
+        = render_flash(k, v)
+
+      = content_for?(:content) ? yield(:content) : yield

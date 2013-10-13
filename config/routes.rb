@@ -12,10 +12,9 @@ RLetters::Application.routes.draw do
 
   # Search/Browse page
   get 'search' => 'search#index'
-  get 'search/sort_methods' => 'search#sort_methods'
   get 'search/advanced' => 'search#advanced'
-  get 'search/document/:id' => 'search#show',
-      as: 'search_show'
+  get 'search/document/:id/export' => 'search#export',
+      as: 'search_export'
   get 'search/document/:id/add' => 'search#add',
       as: 'search_add'
   get 'search/document/:id/mendeley' => 'search#to_mendeley',

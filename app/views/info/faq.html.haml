@@ -1,7 +1,2 @@
-%ul.longlist{ data: { role: 'listview', theme: 'd', divider_theme: 'b' } }
-  %li
-    %h2= t('.head', app_name: Setting.app_name)
-  -# Yes, this is a bad way to parse HTML, but a quick hack is better than
-  -# a slow hack
-  - faq = MarkdownPage.render 'faq'
-  = faq.gsub('<ul>', '').gsub('</ul>', '').html_safe
+%h2= t('.head', app_name: Setting.app_name)
+= MarkdownPage.render 'faq'

@@ -15,8 +15,7 @@ class Setting < ActiveRecord::Base
   # The list of setting keys that can be used
   VALID_KEYS = [:app_name, :app_email, :app_domain, :solr_server_url,
     :solr_timeout, :mendeley_key, :airbrake_key, :google_analytics_key,
-    :jquery_mobile_theme_blob, :secret_token, :secret_key_base,
-    :devise_secret_key]
+    :secret_token, :secret_key_base, :devise_secret_key]
 
   # The list of setting keys that can be used
   #

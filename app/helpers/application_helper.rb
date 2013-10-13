@@ -20,4 +20,28 @@ module ApplicationHelper
     I18n.translate_markdown(key_trans).html_safe
   end
   alias_method :t_md, :translate_markdown
+
+  # Elements of the flash hash for which we have custom CSS classes
+  FLASH_CLASSES = %w{ notice alert success }
+
+  # Create Foundation markup for a flash
+  #
+  # We're styling the background colors for several of the flashes ourselves,
+  # so we want to generate that markup here.
+  #
+  # @api public
+  # @param [Symbol] key the flash key
+  # @param [Symbol] value the flash contents
+  # @return [String] the markup for displaying the flash
+  # @example Display an alert flash
+  #   <%= render_flash(:alert, 'Oh no!')
+  def render_flash(key, value)
+    c = "flash-#{key.to_s}" if FLASH_CLASSES.include?(key.to_s)
+    c ||= "flash-generic"
+
+    content_tag(:div, class: c, 'data-alert' => true) do
+      h(value) + link_to('&times;'.html_safe, '#', class: 'close')
+    end
+  end
+
 end
