@@ -213,6 +213,9 @@ GEM
       bundler (>= 1.3.0, < 2.0)
       railties (= 4.0.0)
       sprockets-rails (~> 2.0.0)
+    rails-behaviors (0.4.1)
+      coffee-script-source (~> 1.1)
+      sprockets (~> 2.0)
     rails-i18n (4.0.0.pre2)
       i18n (~> 0.6)
       rails (~> 4.0.0)
@@ -342,6 +345,8 @@ GEM
       addressable (>= 2.2.7)
       crack (>= 0.3.2)
     yui-compressor (0.12.0)
+    zepto_rails (1.0)
+      rails (>= 3.1.0)
     zurb-foundation (4.3.2)
       sass (>= 3.2.0)
 
@@ -368,7 +373,6 @@ DEPENDENCIES
   fuubar
   haml
   haml-rails
-  jquery-rails
   kramdown
   marc
   mock_redis
@@ -378,6 +382,7 @@ DEPENDENCIES
   pg
   puma
   rails (~> 4.0)
+  rails-behaviors
   rails-i18n (= 4.0.0.pre2)
   rdf (>= 0.3.5)
   rdf-n3
@@ -399,4 +404,5 @@ DEPENDENCIES
   vcr
   webmock
   yui-compressor
+  zepto_rails
   zurb-foundation

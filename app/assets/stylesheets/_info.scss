@@ -1,0 +1,20 @@
+
+h1#landing-header {
+  padding-top: 1.5em;
+  text-align: center;
+}
+
+h4#landing-subheader {
+  line-height: $subheader-line-height;
+  color: $subheader-font-color;
+  font-weight: $subheader-font-weight;
+
+  margin-top: 1em;
+  margin-bottom: 2em;
+  text-align: center;
+}
+
+div#questions {
+  @include panel;
+  @include radius($global-radius);
+}

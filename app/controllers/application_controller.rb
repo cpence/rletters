@@ -7,6 +7,30 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
+  # Redirect to the root on successful sign in
+  #
+  # This method is called by Devise.
+  #
+  # @api private
+  # @return [undefined]
+  def after_sign_in_path_for(resource)
+    if resource.is_an?(AdminUser)
+      admin_root_url
+    else
+      root_url
+    end
+  end
+
+  # Redirect to the root on successful sign out
+  #
+  # This method is called by Devise.
+  #
+  # @api private
+  # @return [undefined]
+  def after_sign_out_path_for(resource)
+    root_url
+  end
+
   private
 
   before_filter :set_locale, :set_timezone, :ensure_trailing_slash

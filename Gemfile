@@ -55,7 +55,8 @@ gem 'kramdown'
 gem 'nokogiri'
 gem 'sass-rails'
 
-gem 'jquery-rails'
+gem 'zepto_rails'
+gem 'rails-behaviors'
 gem 'compass-rails'
 gem 'zurb-foundation'
 

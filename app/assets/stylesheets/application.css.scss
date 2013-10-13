@@ -15,3 +15,5 @@ section.main { @include grid-row; }
 .flash-notice { @include alert-style($secondary-color); }
 .flash-success { @include alert-style($success-color); }
 .flash-alert { @include alert-style($alert-color); }
+
+@import "info";

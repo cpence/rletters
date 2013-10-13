@@ -30,3 +30,6 @@
         = render_flash(k, v)
 
       = content_for?(:content) ? yield(:content) : yield
+
+    = javascript_include_tag 'https://www.google.com/jsapi'
+    = javascript_include_tag 'application'

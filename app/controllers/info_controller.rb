@@ -25,6 +25,12 @@ class InfoController < ApplicationController
     rescue StandardError
       @database_size = 0
     end
+
+    if current_user
+      render 'dashboard'
+    else
+      render 'index'
+    end
   end
 
   # Show the about page

@@ -1,27 +1,38 @@
 
-%h1 RLetters
-%h4.subheader Perform complex textual analyses on the content of the biology journal literature
+%h1#landing-header= Setting.app_name
+%h4#landing-subheader An application designed to perform complex textual analyses on a collection of journal articles
 
 .row
-  .small-6.columns
-    .panel.radius
-      - if current_user.nil?
-        %h5 Welcome!
-        %ul
-          %li= link_to t('.tutorial_text', app_name: Setting.app_name), info_tutorial_path
-          %li= link_to t('.login_text'), new_user_session_path
-          %li= link_to t('.search_text'), search_path
-      - else
-        %h5 Welcome back!
-        %ul
-          %li= link_to t('.search_text'), search_path
-          %li= link_to t('.datasets_text'), datasets_path
-          %li= link_to t('.account_text', app_name: Setting.app_name), edit_user_registration_path
-          %li= link_to t('.tutorial_text', app_name: Setting.app_name), info_tutorial_path
-          %li= link_to t('.faq_text', app_name: Setting.app_name), info_faq_path
-  .small-6.columns
-    .panel.radius
-      %h5 Database Information
-      %ul
-        %li= t('.dbsize', count: @database_size)
-        %li= t('.all_datasets', count: Dataset.count)
+  .small-8.small-centered.columns
+    #questions
+      %h5 Do you want to know...
+      %ul.no-bullet
+        %li ...what terms authors working in a given area often use?
+        %li ...what makes articles in one area of inquiry different from those in another?
+        %li ...how the use of language in the journal literature has changed over time?
+.row
+  %h3 Then RLetters is for you.
+
+  %p RLetters is a software package designed to allow users to answer these kinds of complicated textual analysis questions, without having to fiddle with command-line software, data processing, or the nuts and bolts of methods.
+
+.row
+  .small-10.small-centered.columns
+    .slideshow-wrapper
+      %ul#screenshots{ 'data-orbit' => true }
+        %li{ 'data-orbit-slide' => 'screenshot-1' }
+          %img{ src: 'http://placehold.it/400x300' }
+          .orbit-caption This should be a screenshot with a caption
+        %li{ 'data-orbit-slide' => 'screenshot-2' }
+          %img{ src: 'http://placehold.it/400x300' }
+          .orbit-caption This should be a screenshot with a caption
+        %li{ 'data-orbit-slide' => 'screenshot-3' }
+          %img{ src: 'http://placehold.it/400x300' }
+          .orbit-caption This should be a screenshot with a caption
+
+.row
+  .small-8.small-centered.columns
+    %p== Right now, we have a total of #{@database_size} journal articles available to analyze, and users have saved #{Dataset.count} different collections of data for analysis.
+
+.row
+  .small-5.small-centered.columns
+    %h4= link_to 'Log in to get started!', new_user_session_path
