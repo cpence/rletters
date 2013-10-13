@@ -24,7 +24,4 @@ function checkLibraryList() {
   });
 }
 
-function bindUserEvents() {
-  $(document).on('pageshow', 'div[data-role=page]',
-    function (event, ui) { checkLibraryList(); });
-}
+$(document).on('ready', function() { checkLibraryList(); });

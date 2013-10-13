@@ -31,5 +31,6 @@
 
       = content_for?(:content) ? yield(:content) : yield
 
-    = javascript_include_tag 'https://www.google.com/jsapi'
     = javascript_include_tag 'application'
+    - if content_for? :javascript
+      = content_for :javascript

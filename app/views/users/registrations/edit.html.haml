@@ -1,3 +1,6 @@
+- content_for :javascript do
+  = javascript_include_tag 'users_edit'
+
 %ul{ data: { role: 'listview', theme: 'd', divider_theme: 'b' } }
   %li{ data: { role: 'list-divider' } } User options
 

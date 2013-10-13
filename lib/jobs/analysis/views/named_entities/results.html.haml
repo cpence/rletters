@@ -1,3 +1,7 @@
+- content_for :javascript
+  = javascript_include_tag 'https://www.google.com/jsapi'
+  = javascript_include_tag 'named_entities'
+
 - data = JSON.load(@task.result.file_contents(:original))
 
 %div.center

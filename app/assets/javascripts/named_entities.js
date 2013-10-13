@@ -1,10 +1,17 @@
 
+// Load the Google Maps API
+// FIXME: How is the user supposed to specify an API key using this method?
+google.load('maps', '3', {'other_params':'sensor=false'});
+google.setOnLoadCallback(function() {
+  google.maps.visualRefresh = true;
+});
+
 var global_named_entity_map;
 var global_named_entity_markers = [];
 var global_named_entity_bounds;
 
 function lookUpMarkers() {
-  var dataContainer = $.mobile.activePage.find('div.named_entities_map_data');
+  var dataContainer = $('div.named_entities_map_data');
   if (dataContainer.length === 0 || global_named_entity_markers.length > 0)
     return;
 
@@ -67,12 +74,7 @@ function createNamedEntitiesMap() {
   global_named_entity_map = map;
 }
 
-function bindNamedEntitiesEvents() {
-  $(document).on('pageshow', 'div[data-role=page]', function(event, ui) {
-    lookUpMarkers();
-
-    $('.named_entities_map_collapsible').on('expand', function(event, ui) {
-      createNamedEntitiesMap();
-    });
-  });
-}
+$(document).on('ready', function() {
+  lookUpMarkers();
+  createNamedEntitiesMap();
+});

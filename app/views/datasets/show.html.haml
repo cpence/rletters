@@ -1,3 +1,6 @@
+- content_for :javascript do
+  = javascript_include_tag 'datasets_show'
+
 %ul{ data: { role: 'listview', theme: 'd', divider_theme: 'b', split_icon: 'delete', split_theme: 'a' } }
   %li{ data: { role: 'list-divider' } }= t('.head')
   %li

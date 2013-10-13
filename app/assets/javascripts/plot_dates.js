@@ -1,5 +1,6 @@
 // ---------------------------------------------------------------------------
 // Graph support for the PlotDates results page
+google.load('visualization', '1.0', {'packages':['corechart','table']});
 
 function createPlotDatesGraph() {
   // Get the elements we need
@@ -58,7 +59,4 @@ function createPlotDatesGraph() {
   table.draw(data, { page: true, pageSize: 20, sortColumn: 0, width: '20em' });
 }
 
-function bindPlotDatesEvents() {
-  $(document).on('pageshow', 'div[data-role=page]',
-    function (event, data) { createPlotDatesGraph(); });
-}
+$(document).on('ready', function() { createPlotDatesGraph(); });
