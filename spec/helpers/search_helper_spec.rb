@@ -53,13 +53,12 @@ describe SearchHelper do
         end
 
         it 'returns forward buttons' do
-          expect(@ret).to have_tag('a[href="/search/?page=1"][data-icon=arrow-r][data-iconpos=right]', text: 'Next')
-          expect(@ret).to have_tag('a[href="/search/?page=9"][data-icon=forward][data-iconpos=right]', text: 'Last')
+          expect(@ret).to have_tag('a[href="/search/?page=1"]', text: '»')
+          expect(@ret).to have_tag('a[href="/search/?page=9"]', text: '10')
         end
 
         it 'does not return back buttons' do
-          expect(@ret).not_to have_tag('a[data-icon=arrow-l]')
-          expect(@ret).not_to have_tag('a[data-icon=back]')
+          expect(@ret).to have_tag('a[href="#"]', text: '«')
         end
       end
 
@@ -73,13 +72,13 @@ describe SearchHelper do
         end
 
         it 'returns back buttons' do
-          expect(@ret).to have_tag('a[href="/search/?page=4"][data-icon=arrow-l]', text: 'Previous')
-          expect(@ret).to have_tag('a[href="/search/"][data-icon=back]', text: 'First')
+          expect(@ret).to have_tag('a[href="/search/?page=4"]', text: '«')
+          expect(@ret).to have_tag('a[href="/search/"]', text: '1')
         end
 
         it 'returns forward buttons' do
-          expect(@ret).to have_tag('a[href="/search/?page=6"][data-icon=arrow-r][data-iconpos=right]', text: 'Next')
-          expect(@ret).to have_tag('a[href="/search/?page=9"][data-icon=forward][data-iconpos=right]', text: 'Last')
+          expect(@ret).to have_tag('a[href="/search/?page=6"]', text: '»')
+          expect(@ret).to have_tag('a[href="/search/?page=9"]', text: '10')
         end
       end
 
@@ -93,13 +92,12 @@ describe SearchHelper do
         end
 
         it 'returns back buttons' do
-          expect(@ret).to have_tag('a[href="/search/?page=8"][data-icon=arrow-l]', text: 'Previous')
-          expect(@ret).to have_tag('a[href="/search/"][data-icon=back]', text: 'First')
+          expect(@ret).to have_tag('a[href="/search/?page=8"]', text: '«')
+          expect(@ret).to have_tag('a[href="/search/"]', text: '1')
         end
 
         it 'does not return forward buttons' do
-          expect(@ret).not_to have_tag('a[data-icon=arrow-r]')
-          expect(@ret).not_to have_tag('a[data-icon=forward]')
+          expect(@ret).to have_tag('a[href="#"]', text: '»')
         end
       end
     end
@@ -117,38 +115,35 @@ describe SearchHelper do
     end
   end
 
-  describe '#list_links_for_facet', vcr: { cassette_name: 'solr_default' } do
-    before(:each) do
-      @result = Solr::Connection.search({ q: '*:*', defType: 'lucene' })
-    end
-
-    context 'with no active facets' do
+  describe '#active_facet_list' do
+    context 'with some facets', vcr: { cassette_name: 'solr_default' } do
       before(:each) do
-        @ret = helper.list_links_for_facet(@result, :authors_facet, 'Authors', [])
+        @result = Solr::Connection.search({ q: '*:*', defType: 'lucene' })
+        @ret = helper.active_facet_list(@result)
       end
 
-      it 'includes a header' do
-        expect(@ret).to have_tag('li[data-role=list-divider]', text: 'Authors')
-      end
-
-      it 'includes a link to add a facet' do
-        url = '/search/?' + CGI.escape('fq[]=authors_facet:"J. C. Crabbe"').gsub('%26', '&').gsub('%3D', '=')
-        expect(@ret).to have_tag("a[href=\"#{url}\"]", text: 'J. C. Crabbe')
+      it 'includes the no-facet text' do
+        expect(@ret).to include('No filters active')
       end
     end
 
-    context 'with an active facet' do
+    context 'with active facets',
+            vcr: { cassette_name: 'search_helper_facets' } do
       before(:each) do
-        @ret = helper.list_links_for_facet(@result, :authors_facet, 'Authors', [@result.facets.for_query('authors_facet:"J. C. Crabbe"')])
+        @result = Solr::Connection.search({ q: '*:*', defType: 'lucene',
+                                            fq: ['authors_facet:"Elisa Lobato"', 'year:[2010 TO *]'] })
+
+        params[:fq] = ['authors_facet:"Elisa Lobato"', 'year:[2010 TO *]']
+        @ret = helper.active_facet_list(@result)
       end
 
-      it 'does not include the active facet in the list' do
-        expect(@ret).not_to have_tag('li', text: 'J. C. Crabbe9')
+      it 'includes a link to remove all facets' do
+        expect(@ret).to have_tag('a[href="/search/"]', text: 'Remove All')
       end
 
-      it 'does include the sixth facet in the list' do
-        url = '/search/?' + CGI.escape('fq[]=authors_facet:"J. C. Crabbe"&fq[]=authors_facet:"J. N. Crawley"').gsub('%26', '&').gsub('%3D', '=')
-        expect(@ret).to have_tag("a[href=\"#{url}\"]", text: 'J. N. Crawley')
+      it 'includes a link to remove an individual facet' do
+        url = '/search/?' + CGI.escape('fq[]=year:[2010 TO *]').gsub('%26', '&').gsub('%3D', '=')
+        expect(@ret).to have_tag("a[href=\"#{url}\"]", text: 'Authors: Elisa Lobato')
       end
     end
   end
@@ -164,51 +159,31 @@ describe SearchHelper do
       end
     end
 
-    context 'with no active facets', vcr: { cassette_name: 'solr_default' } do
+    context 'with some facets', vcr: { cassette_name: 'solr_default' } do
       before(:each) do
         @result = Solr::Connection.search({ q: '*:*', defType: 'lucene' })
         @ret = helper.facet_link_list(@result)
       end
 
       it 'includes the headers' do
-        expect(@ret).to have_tag('li[data-role=list-divider]', text: 'Authors')
-        expect(@ret).to have_tag('li[data-role=list-divider]', text: 'Journal')
-        expect(@ret).to have_tag('li[data-role=list-divider]', text: 'Publication Date')
+        expect(@ret).to include('>Authors<')
+        expect(@ret).to include('>Journal<')
+        expect(@ret).to include('>Publication Date<')
       end
 
       it 'includes a link to add an author facet' do
         url = '/search/?' + CGI.escape('fq[]=authors_facet:"J. C. Crabbe"').gsub('%26', '&').gsub('%3D', '=')
-        expect(@ret).to have_tag("a[href=\"#{url}\"]", text: 'J. C. Crabbe')
+        expect(@ret).to have_tag("a[href=\"#{url}\"]")
       end
 
       it 'includes a link to add a journal facet' do
         url = '/search/?' + CGI.escape('fq[]=journal_facet:"Ethology"').gsub('%26', '&').gsub('%3D', '=')
-        expect(@ret).to have_tag("a[href=\"#{url}\"]", text: 'Ethology')
+        expect(@ret).to have_tag("a[href=\"#{url}\"]")
       end
 
       it 'includes a link to add a year facet' do
         url = '/search/?' + CGI.escape('fq[]=year:[2000 TO 2009]').gsub('%26', '&').gsub('%3D', '=')
-        expect(@ret).to have_tag("a[href=\"#{url}\"]", text: '2000–2009')
-      end
-    end
-
-    context 'with active facets',
-            vcr: { cassette_name: 'search_helper_facets' } do
-      before(:each) do
-        @result = Solr::Connection.search({ q: '*:*', defType: 'lucene',
-                                            fq: ['authors_facet:"Elisa Lobato"', 'year:[2010 TO *]'] })
-
-        params[:fq] = ['authors_facet:"Elisa Lobato"', 'year:[2010 TO *]']
-        @ret = helper.facet_link_list(@result)
-      end
-
-      it 'includes a link to remove all facets' do
-        expect(@ret).to have_tag('a[href="/search/"]', text: 'Remove All')
-      end
-
-      it 'includes a link to remove an individual facet' do
-        url = '/search/?' + CGI.escape('fq[]=year:[2010 TO *]').gsub('%26', '&').gsub('%3D', '=')
-        expect(@ret).to have_tag("a[href=\"#{url}\"]", text: 'Authors: Elisa Lobato')
+        expect(@ret).to have_tag("a[href=\"#{url}\"]")
       end
     end
   end

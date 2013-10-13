@@ -53,7 +53,7 @@ module SearchHelper
   def render_pagination(result)
     num_pages = result.num_hits.to_f / @per_page.to_f
     num_pages = Integer(num_pages.ceil)
-    return '' if num_pages == 0
+    return '' if num_pages <= 1
 
     content_tag :ul, class: 'pagination' do
       content = page_link('&laquo;'.html_safe,
@@ -141,86 +141,6 @@ module SearchHelper
                   end
 
     "#{I18n.t('search.index.sort_prefix')} #{method_spec}"
-  end
-
-  # Create a link to the given set of facets
-  #
-  # This function converts an array of facets to a link (generated via
-  # +link_to+) to the search page for that filtered query.  All
-  # parameters other than +:fq+ are simply duplicated (including the search
-  # query itself, +:q+).
-  #
-  # @api public
-  # @param [String] text body of the link
-  # @param [Array<Solr::Facet>] facets array of facets, possibly empty
-  # @return [String] link to search for the given set of facets
-  # @example Get a "remove all facets" link
-  #   facet_link("Remove all facets", [])
-  #   # => link_to "Remove all facets", search_path
-  # @example Get a link to a given set of facets
-  #   facet_link("Some facets", [...])
-  #   # => link_to "Some facets", search_path({ fq: [ ... ] })
-  def facet_link(text, facets)
-    new_params = params.dup
-
-    if facets.empty?
-      new_params[:fq] = nil
-      return link_to text,
-                     search_path(new_params),
-                     data: { transition: 'none' }
-    end
-
-    new_params[:fq] = []
-    facets.each { |f| new_params[:fq] << f.query }
-    link_to text,
-            search_path(new_params),
-            data: { transition: 'none' }
-  end
-
-  # Get the list of facet links for one particular field
-  #
-  # This function takes the facets from the +Document+ class, checks them
-  # against +active_facets+, and creates a set of list items.  It is used
-  # by +facet_link_list+.
-  #
-  # @api public
-  # @param [Solr::SearchResult] result the search result
-  # @param [Symbol] field field we're faceting on
-  # @param [String] header content of list item header
-  # @param [Array<Solr::Facet>] active_facets array of active facets
-  # @return [String] list items for links for the given facet
-  # @example Get the links for the authors facet
-  #   list_links_for_facet(@result, :authors_facet, "Authors", [...])
-  #   # "<li><a href='...'>Johnson <span class='ui-li-count'>2</a></li>..."
-  def list_links_for_facet(result, field, header, active_facets)
-    return ''.html_safe unless result.facets
-
-    # Get the facets for this field
-    facets = (result.facets.sorted_for_field(field) - active_facets).take(5)
-
-    # Bail if there's no facets
-    ret = ''.html_safe
-    return ret if facets.empty?
-
-    # Slight hack; :authors_facet is first
-    if field != :authors_facet
-      ret << content_tag(:li, '', class: 'divider')
-    end
-
-    # Build the return value
-    ret << content_tag(:li, content_tag(:strong, header))
-    facets.each do |f|
-      ret << content_tag(:li) do
-        # Get a label into the link as well
-        count = content_tag(:span, f.hits.to_s, class: 'round secondary label')
-        text = f.label.html_safe + '&nbsp;&nbsp;'.html_safe + count
-
-        # Link to whatever the current facets are, plus the new one
-        facet_link(text, active_facets + [f])
-      end
-    end
-
-    ret
   end
 
   # Return a set of list items for faceted browsing
@@ -325,6 +245,11 @@ module SearchHelper
   private
 
   # Convert the active facet queries to facets
+  #
+  # This function converts the +params[:fq]+ string into a list of Facet
+  # objects.  It is used by several parts of the facet-display code.
+  #
+  # @api private
   def get_active_facets(result)
     [].tap do |ret|
       if params[:fq]
@@ -334,5 +259,68 @@ module SearchHelper
         ret.compact!
       end
     end
+  end
+
+  # Create a link to the given set of facets
+  #
+  # This function converts an array of facets to a link (generated via
+  # +link_to+) to the search page for that filtered query.  All
+  # parameters other than +:fq+ are simply duplicated (including the search
+  # query itself, +:q+).
+  #
+  # @api private
+  def facet_link(text, facets)
+    new_params = params.dup
+
+    if facets.empty?
+      new_params[:fq] = nil
+      return link_to text,
+                     search_path(new_params),
+                     data: { transition: 'none' }
+    end
+
+    new_params[:fq] = []
+    facets.each { |f| new_params[:fq] << f.query }
+    link_to text,
+            search_path(new_params),
+            data: { transition: 'none' }
+  end
+
+  # Get the list of facet links for one particular field
+  #
+  # This function takes the facets from the +Document+ class, checks them
+  # against +active_facets+, and creates a set of list items.  It is used
+  # by +facet_link_list+.
+  #
+  # @api private
+  def list_links_for_facet(result, field, header, active_facets)
+    return ''.html_safe unless result.facets
+
+    # Get the facets for this field
+    facets = (result.facets.sorted_for_field(field) - active_facets).take(5)
+
+    # Bail if there's no facets
+    ret = ''.html_safe
+    return ret if facets.empty?
+
+    # Slight hack; :authors_facet is first
+    if field != :authors_facet
+      ret << content_tag(:li, '', class: 'divider')
+    end
+
+    # Build the return value
+    ret << content_tag(:li, content_tag(:strong, header))
+    facets.each do |f|
+      ret << content_tag(:li) do
+        # Get a label into the link as well
+        count = content_tag(:span, f.hits.to_s, class: 'round secondary label')
+        text = f.label.html_safe + '&nbsp;&nbsp;'.html_safe + count
+
+        # Link to whatever the current facets are, plus the new one
+        facet_link(text, active_facets + [f])
+      end
+    end
+
+    ret
   end
 end

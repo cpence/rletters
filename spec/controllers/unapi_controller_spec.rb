@@ -96,7 +96,7 @@ describe UnapiController do
 
       expect(response).to redirect_to(
         controller: 'search',
-        action: 'show',
+        action: 'export',
         id: @id,
         format: f.attributes['name'].to_s)
     end
