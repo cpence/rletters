@@ -1,23 +1,22 @@
-= MarkdownPage.render('landing')
-
-.row
-  .small-10.small-centered.columns
-    .slideshow-wrapper
-      %ul#screenshots{ 'data-orbit' => true }
-        %li{ 'data-orbit-slide' => 'screenshot-1' }
-          %img{ src: 'http://placehold.it/400x300' }
-          .orbit-caption This should be a screenshot with a caption
-        %li{ 'data-orbit-slide' => 'screenshot-2' }
-          %img{ src: 'http://placehold.it/400x300' }
-          .orbit-caption This should be a screenshot with a caption
-        %li{ 'data-orbit-slide' => 'screenshot-3' }
-          %img{ src: 'http://placehold.it/400x300' }
-          .orbit-caption This should be a screenshot with a caption
-
-.row
-  .small-8.small-centered.columns
-    %p== Right now, we have a total of #{@database_size} journal articles available to analyze, and users have saved #{Dataset.count} different collections of data for analysis.
+#markdown-landing= MarkdownPage.render('landing')
 
 .row
   .small-5.small-centered.columns
-    %h4= link_to 'Log in to get started!', new_user_session_path
+    = link_to 'Sign up to get started!', new_user_registration_path, id: 'landing-login'
+
+.row
+  .small-6.small-centered.columns
+    %h3 What can it do?
+
+    .slideshow-wrapper
+      .preloader
+      %ul#screenshots{ 'data-orbit' => true }
+        %li{ 'data-orbit-slide' => 'screenshot-1' }
+          %img{ src: 'http://placehold.it/640x480' }
+          .orbit-caption This should be a screenshot with a caption
+        %li{ 'data-orbit-slide' => 'screenshot-2' }
+          %img{ src: 'http://placehold.it/640x480' }
+          .orbit-caption This should be a screenshot with a caption
+        %li{ 'data-orbit-slide' => 'screenshot-3' }
+          %img{ src: 'http://placehold.it/640x480' }
+          .orbit-caption This should be a screenshot with a caption

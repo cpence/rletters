@@ -34,6 +34,13 @@ class WorkflowController < ApplicationController
     end
   end
 
+  # Start running a new analysis
+  #
+  # @api public
+  # @return [undefined]
+  def start
+  end
+
   # Return one of the uploaded-asset images
   #
   # @api public

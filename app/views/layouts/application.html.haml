@@ -24,7 +24,10 @@
             %li{ class: (params[:controller] == 'users') ? 'active' : nil }= link_to 'My Account', edit_user_registration_path
             %li= link_to 'Sign Out', destroy_user_session_path, method: :delete
           - else
-            %li{ class: (params[:controller] == 'users') ? 'active' : nil }= link_to 'Log In', new_user_session_path
+            %li#login-button{ class: (params[:controller] == 'users') ? 'active' : nil }= link_to 'Log In', '#', 'data-dropdown' => 'login-dropdown'
+
+    - unless current_user
+      = render partial: 'layouts/log_in'
 
     %div
       - flash.each do |k, v|

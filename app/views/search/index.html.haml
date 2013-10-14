@@ -15,10 +15,7 @@
           = search_field_tag :q, (params[:precise] ? t('.adv_search_placeholder') : params[:q]), placeholder: t('.placeholder')
           %ul.button-group.radius.even-3
             %li= link_to(sort_to_string(@sort), '#', class: 'button secondary dropdown tiny', 'data-dropdown' => 'sort-dropdown')
-            - if current_user.nil?
-              %li= link_to t('.login_prompt'), new_user_session_path, class: 'button secondary tiny'
-            - else
-              %li= link_to t('.create_dataset'), new_dataset_path(q: @solr_q, defType: @solr_defType, fq: @solr_fq), class: 'button success tiny'
+            %li= link_to t('.create_dataset'), current_user ? new_dataset_path(q: @solr_q, defType: @solr_defType, fq: @solr_fq) : '#', class: 'button success tiny' + (current_user ? '' : ' disabled')
             %li= link_to t('.advanced_search'), search_advanced_path, class: 'button secondary tiny'
           %ul#sort-dropdown.f-dropdown{ data: { dropdown_content: true } }
             - sort_methods.each do |s|

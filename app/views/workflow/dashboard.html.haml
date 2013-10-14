@@ -1,10 +1,14 @@
+%ul.breadcrumbs
+  %li.current= link_to 'Home', workflow_path
 
-.row
-  %h2== #{Setting.app_name} Dashboard
+%header
+  %section
+    %h2== #{Setting.app_name} Dashboard
+    %h4.subheader== Your main control pannel for #{Setting.app_name}.  From here, you can start a new analysis, fetch the results of your completed analyses, or browse through the article database.
 
 .row
   .small-6.columns
-    = link_to 'Start a new analysis', '#', class: 'button success expand'
+    = link_to 'Start a new analysis', workflow_start_path, class: 'button success expand'
     = link_to 'See results of old analyses', '#', class: 'button secondary expand'
     = link_to 'Create a new dataset', search_path, class: 'button secondary expand'
 

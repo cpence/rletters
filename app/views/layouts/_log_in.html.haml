@@ -1,0 +1,18 @@
+#login-dropdown
+  = form_for(:user, url: user_session_path, html: { class: 'custom' }) do |f|
+
+    .row
+      .login-label= f.label :email, class: 'right inline'
+      .login-control= f.email_field :email
+    .row
+      .login-label= f.label :password, class: 'right inline'
+      .login-control= f.password_field :password
+    .row
+      .login-shift
+        = f.label :remember_me do
+          = check_box_tag 'user[remember_me]', '1', false, style: 'display: none'
+          %span.custom.checkbox
+          = User.human_attribute_name :remember_me
+
+    .row
+      .login-submit= f.submit "Sign in", class: 'button primary small expand'

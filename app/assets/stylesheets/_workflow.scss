@@ -1,20 +1,47 @@
 
-h1#landing-header {
-  padding-top: 1.5em;
-  text-align: center;
+#markdown-landing {
+  width: 90%;
+  margin-left: 5%;
+
+  h1 {
+    padding-top: 1.5em;
+    text-align: center;
+  }
+
+  h4 {
+    line-height: $subheader-line-height;
+    color: $subheader-font-color;
+    font-weight: $subheader-font-weight;
+
+    margin-top: 1em;
+    margin-bottom: 2em;
+    text-align: center;
+
+    width: 70%;
+    margin-left: 15%;
+  }
+
+  blockquote {
+    @include panel;
+    @include radius($global-radius);
+
+    width: 60%;
+    margin-left: 20%;
+    margin-bottom: 2em;
+  }
 }
 
-h4#landing-subheader {
-  line-height: $subheader-line-height;
-  color: $subheader-font-color;
-  font-weight: $subheader-font-weight;
+#landing-login {
+  @include button($button-med, $primary-color, true, true);
+  @include single-transition;
+  @include inset-shadow;
 
-  margin-top: 1em;
-  margin-bottom: 2em;
-  text-align: center;
+  margin-top: 3em;
+  margin-bottom: 3em;
 }
 
-div#questions {
-  @include panel;
-  @include radius($global-radius);
+.job-question {
+  @include button($button-med, $secondary-color, true, true);
+  @include single-transition;
+  @include inset-shadow;
 }

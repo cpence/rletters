@@ -1,0 +1,12 @@
+%ul.breadcrumbs
+  %li= link_to 'Home', workflow_path
+  %li.current= link_to 'Start Analysis', workflow_start_path
+
+%header
+  %section
+    %h2 Start a new analysis
+    %h4.subheader Start running a new analysis by deciding what kind of question you want to ask about the literature.  Click on the question you want to explore to continue.
+
+- Jobs::Analysis::Base.job_list.each do |klass|
+  = link_to workflow_info_path(klass.name.demodulize.to_s), class: 'job-question' do
+    = render_job_partial(klass, 'question')

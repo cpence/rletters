@@ -1,11 +1,14 @@
 # RLetters
+
 #### An application designed to perform complex textual analyses on a collection of journal articles
+
 
 > ##### Do you want to know...
 >
 > ...what terms authors working in a given area often use?  
 > ...what makes articles in one area of inquiry different from those in another?  
 > ...how the use of language in the journal literature has changed over time?
+
 
 ### Then RLetters is for you.
 

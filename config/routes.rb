@@ -4,6 +4,9 @@ RLetters::Application.routes.draw do
 
   # The user workflow
   get 'workflow' => 'workflow#index'
+  get 'workflow/start' => 'workflow#start'
+  get 'workflow/info/:class' => 'workflow#info', as: 'workflow_info',
+    constraints: { class: /[A-Z][A-Za-z]+/ }
   get 'workflow/image/:id' => 'workflow#image', as: 'workflow_image'
 
   # Search/Browse page
@@ -42,11 +45,16 @@ RLetters::Application.routes.draw do
   end
 
   # User login routes
-  devise_for :users
+  devise_for :users, skip: [:sessions]
+  as :user do
+    # We only want users to sign in using the dropdown box on the main page,
+    # not by visiting /users/sign_in, so we don't create a get 'sign_in' route
+    # here.
+    post 'users/sign_in' => 'devise/sessions#create', as: :user_session
+    delete 'users/sign_out' => 'devise/sessions#destroy', as: :destroy_user_session
 
-  # Redirect to the main user page after a successful user edit
-  devise_scope :user do
-    get 'users' => 'info#index', as: :user_root
+    # Redirect to the root after a successful user edit
+    get 'users' => 'workflow#index'
   end
 
   scope '/users' do

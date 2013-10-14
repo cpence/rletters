@@ -1,6 +1,33 @@
 
-section.main { @include grid-row; }
+#login-dropdown {
+  @include dropdown-container(content, true, 300px);
+  padding: $f-dropdown-content-padding / 4;
+}
+.login-label {
+  @include grid-column(4);
+
+  // Tighten up the login form substantially on the vertical axis
+  & > label.inline {
+    margin: 0;
+    padding: 0.625em 0 0 0;
+  }
+}
+.login-control { @include grid-column(8); }
+.login-shift, .login-submit { @include grid-column(8, false, false, 4); }
+.login-submit { padding-top: 1em; }
+
+section.main {
+  @include grid-row;
+  padding-top: 2em;
+}
 .full-content { @include grid-column(12); }
+
+header {
+  @include grid-row;
+  margin-bottom: 2em;
+
+  & > section { @include grid-column(12); }
+}
 
 .flash-generic, .flash-notice, .flash-success, .flash-alert {
   @include alert-base;
