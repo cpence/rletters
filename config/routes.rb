@@ -2,13 +2,9 @@
 
 RLetters::Application.routes.draw do
 
-  # Static information pages
-  get 'info' => 'info#index'
-  get 'info/about' => 'info#about'
-  get 'info/faq' => 'info#faq'
-  get 'info/privacy' => 'info#privacy'
-  get 'info/tutorial' => 'info#tutorial'
-  get 'info/image/:id' => 'info#image', as: 'info_image'
+  # The user workflow
+  get 'workflow' => 'workflow#index'
+  get 'workflow/image/:id' => 'workflow#image', as: 'workflow_image'
 
   # Search/Browse page
   get 'search' => 'search#index'
@@ -75,8 +71,8 @@ RLetters::Application.routes.draw do
   # unAPI service
   get 'unapi' => 'unapi#index'
 
-  # Start off on the info/home page
-  root to: 'info#index'
+  # Start off on the landing/dashboard page
+  root to: 'workflow#index'
 
   # Error pages
   get '/404' => 'errors#not_found'

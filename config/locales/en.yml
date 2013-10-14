@@ -271,7 +271,7 @@ en:
         update:
             success: "Library was successfully updated."
             failure: "Could not update library link!"
-    info:
+    workflow:
         index:
             head: "%{app_name}"
             tutorial_header: Welcome!
@@ -378,11 +378,7 @@ en:
         secret_key_base: Rails Secret Key Base
         devise_secret_key: Devise Secret Key
     markdown_pages:
-        tutorial: Tutorial
-        privacy_short: Privacy Notice (short)
-        privacy_long: Privacy Notice (full)
-        faq: FAQ
-        about: About
+        landing: Landing Page
     uploaded_assets:
         splash-low: Splash Screen (320x460)
         splash-high: Splash Screen (768x1004)

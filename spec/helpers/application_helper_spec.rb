@@ -30,10 +30,10 @@ describe ApplicationHelper do
       before(:all) do
         I18n.backend.store_translations(
           :en,
-          info: { spectest: { testing: '# Testing #' } }
+          workflow: { spectest: { testing: '# Testing #' } }
         )
 
-        @custom_filename = Rails.root.join('app', 'views', 'info', 'spectest.html.haml')
+        @custom_filename = Rails.root.join('app', 'views', 'workflow', 'spectest.html.haml')
         File.open(@custom_filename, 'w') do |f|
           f.write('= translate_markdown(".testing")')
         end
@@ -44,7 +44,7 @@ describe ApplicationHelper do
       end
 
       it 'renders Markdown in translations' do
-        render template: 'info/spectest'
+        render template: 'workflow/spectest'
         expect(rendered).to have_tag('h1', text: 'Testing')
       end
     end

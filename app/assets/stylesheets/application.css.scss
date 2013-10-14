@@ -1,19 +1,11 @@
 @import "foundation";
 
+// Styles that apply to the entire application
+@import "global";
+
+// Individual stylesheets for each of the controllers
+@import "workflow";
+
+// Stylesheets for analysis tasks
 @import "named_entities";
 @import "plot_dates";
-
-section.main { @include grid-row; }
-.full-content { @include grid-column(12); }
-
-.flash-generic, .flash-notice, .flash-success, .flash-alert {
-  @include alert-base;
-  @include radius($global-radius);
-  .close { @include alert-close; }
-}
-
-.flash-notice { @include alert-style($secondary-color); }
-.flash-success { @include alert-style($success-color); }
-.flash-alert { @include alert-style($alert-color); }
-
-@import "info";

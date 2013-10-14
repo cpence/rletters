@@ -15,10 +15,11 @@
           %li.divider
           %li{ class: (params[:controller] == 'info') ? 'active' : nil }= link_to 'Home', root_path
           %li{ class: (params[:controller] == 'search') ? 'active' : nil }= link_to 'Search', search_path
-          %li{ class: (params[:controller] == 'datasets') ? 'active' : nil }= link_to 'Saved Searches', datasets_path
+          %li{ class: (params[:controller] == 'datasets') ? 'active' : nil }= link_to 'Datasets', datasets_path
 
         %ul.right
           %li.divider.hide-for-small
+          %li= link_to 'Help', 'http://rletters.net/help'
           - if current_user
             %li{ class: (params[:controller] == 'users') ? 'active' : nil }= link_to 'My Account', edit_user_registration_path
             %li= link_to 'Sign Out', destroy_user_session_path, method: :delete

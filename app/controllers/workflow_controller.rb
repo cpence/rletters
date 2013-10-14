@@ -1,13 +1,14 @@
 # -*- encoding : utf-8 -*-
 
-# Display static information pages about RLetters
+# Display the user's workflow through RLetters
 #
-# This controller displays static information, such as the RLetters help, FAQ,
-# and privacy policy.
-class InfoController < ApplicationController
+# We walk the user through the process of logging in, selecting an analysis
+# type to run, gathering datasets, and collecting results.  This controller
+# is responsible for all of that.
+class WorkflowController < ApplicationController
   layout 'full_page'
 
-  # Query some Solr parameters for the index page
+  # Show the introduction page or the user dashboard
   #
   # This action will query the Solr database to get some nice statistics
   # for our index page.
@@ -32,30 +33,6 @@ class InfoController < ApplicationController
       render 'index'
     end
   end
-
-  # Show the about page
-  #
-  # @api public
-  # @return [undefined]
-  def about; end
-
-  # Show the FAQ
-  #
-  # @api public
-  # @return [undefined]
-  def faq; end
-
-  # Show the privacy policy
-  #
-  # @api public
-  # @return [undefined]
-  def privacy; end
-
-  # Show the tutorial
-  #
-  # @api public
-  # @return [undefined]
-  def tutorial; end
 
   # Return one of the uploaded-asset images
   #
