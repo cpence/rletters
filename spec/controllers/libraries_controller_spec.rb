@@ -96,13 +96,6 @@ describe LibrariesController do
     end
   end
 
-  describe '#delete' do
-    it 'loads successfully' do
-      get :delete, id: @library.to_param
-      expect(response).to be_success
-    end
-  end
-
   describe '#destroy' do
     context 'when cancel is pressed' do
       it 'does not delete the library' do

@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
   # @api private
   # @return [undefined]
   def after_sign_in_path_for(resource)
-    if resource.is_an?(AdminUser)
+    if resource.is_a?(AdminUser)
       admin_root_url
     else
       root_url

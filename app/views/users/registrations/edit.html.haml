@@ -1,80 +1,89 @@
 - content_for :javascript do
   = javascript_include_tag 'users_edit'
 
-%ul{ data: { role: 'listview', theme: 'd', divider_theme: 'b' } }
-  %li{ data: { role: 'list-divider' } } User options
+%header
+  %section
+    %h3 User options
+    %h5.subheader You can configure your user settings here, change your password, or delete your account.
 
-%div.verticalpad
+= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, class: 'custom' }) do |f|
 
-= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
-  %ul{ data: { role: 'listview', theme: 'd', divider_theme: 'b' } }
-    - unless resource.errors.empty?
-      %li{ data: { theme: 'e' } }= t("errors.messages.not_saved", count: resource.errors.count, resource: resource.class.model_name.human.downcase)
-      - resource.errors.each do |msg|
-        %li{ data: { theme: 'e' } }= msg
+  / FIXME: we can do this right with the new error wrappers...
+  - unless resource.errors.empty?
+    .row
+      .small-12.columns
+        %strong= t("errors.messages.not_saved", count: resource.errors.count, resource: resource.class.model_name.human.downcase)
+        %ul
+          - resource.errors.each do |msg|
+            %li{ data: { theme: 'e' } }= msg
 
-    %li
-      %div{ data: { role: 'fieldcontain' } }
-        = f.label :name
-        = f.text_field :name
+  .row
+    .large-6.columns
+      = f.label :name
+      = f.text_field :name
+    .large-6.columns
+      = f.label :email
+      = f.email_field :email
+  .row
+    .large-6.columns
+      = f.label :current_password
+      = f.password_field :current_password
 
-      %div{ data: { role: 'fieldcontain' } }
-        = f.label :email
-        = f.email_field :email
-
-      %div{ data: { role: 'fieldcontain' } }
+  %fieldset
+    %legend Change your password?
+    .row
+      .large-6.columns
         = f.label :password
-        = f.password_field :password, autocomplete: "off", placeholder: "(leave blank if you don't want to change it)"
-
-      %div{ data: { role: 'fieldcontain' } }
+        = f.password_field :password, autocomplete: "off", placeholder: "(leave blank for no change)"
+      .large-6.columns
         = f.label :password_confirmation
         = f.password_field :password_confirmation
 
-      %div{ data: { role: 'fieldcontain' } }
-        = f.label :current_password
-        = f.password_field :current_password
+  %fieldset
+    %legend Site settings
 
-      %div{ data: { role: 'fieldcontain' } }
+    .row
+      .large-6.columns
         = f.label :language, User.human_attribute_name('language')
         = f.select :language, options_from_locales(@user.language)
-
-      %div{ data: { role: 'fieldcontain' } }
+      .large-6.columns
         = f.label :timezone, User.human_attribute_name('timezone')
         = f.select :timezone, options_from_timezones(@user.timezone)
 
-      %div{ data: { role: 'fieldcontain' } }
+    .row
+      .large-6.columns
         = field_set_tag User.human_attribute_name('per_page'), data: { role: 'controlgroup', type: 'horizontal' } do
-          = f.radio_button :per_page, '10'
-          = f.label :per_page_10, 10.to_s
-          = f.radio_button :per_page, '25'
-          = f.label :per_page_25, 25.to_s
-          = f.radio_button :per_page, '50'
-          = f.label :per_page_50, 50.to_s
-          = f.radio_button :per_page, '100'
-          = f.label :per_page_100, 100.to_s
-
-      %div{ data: { role: 'fieldcontain' } }
+          = label_tag :per_page_10 do
+            = f.radio_button :per_page, '10', style: 'display: none;'
+            %span.custom.radio
+            = 10.to_s
+          = label_tag :per_page_25 do
+            = f.radio_button :per_page, '25', style: 'display: none;'
+            %span.custom.radio
+            = 25.to_s
+          = label_tag :per_page_50 do
+            = f.radio_button :per_page, '50', style: 'display: none;'
+            %span.custom.radio
+            = 50.to_s
+          = label_tag :per_page_100 do
+            = f.radio_button :per_page, '100', style: 'display: none;'
+            %span.custom.radio
+            = 100.to_s
+      .large-6.columns
         = f.label :csl_style_id, User.human_attribute_name('csl_style_id')
         = f.select :csl_style_id, options_from_collection_for_select(CslStyle.all, 'id', 'name')
 
-    %li= f.submit "Update"
+  .row
+    .large-4.large-offset-8.columns
+      = f.submit "Update", class: 'button primary expand'
+      %br
+      = link_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class: 'button alert expand'
 
-%div.verticalpad
+.row
+  .small-12.columns
+    %hr
 
-%ul{ data: { role: 'listview', theme: 'd', divider_theme: 'b' } }
-  %li{ data: { role: 'list-divider' } }= t('.library_links')
+    %h3= t('.library_links')
+    %h5.subheader You can add links to your local library's document retrieval system, which you can later use to obtain access to content.
 
-%div.verticalpad
-
-%div.librarylist{ data: { fetch_url: libraries_path } }
-  %ul{ data: { role: 'listview', split_icon: 'delete', split_theme: 'a' } }
-    %li= t('.loading_libraries')
-
-%div.verticalpad
-
-%ul{ data: { role: 'listview', theme: 'd', divider_theme: 'b' } }
-  %li{ data: { role: 'list-divider' } } Cancel my account
-
-  %p Unhappy? #{link_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete}.
-
-= link_to "Back", :back
+    %div#library-list{ data: { fetch_url: libraries_path } }= t('.loading_libraries')

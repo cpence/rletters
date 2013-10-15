@@ -1,4 +1,5 @@
-- content_for :title do
-  = t('.head')
+%h4 Add a new library:
+%h6.subheader Fill in the details to your local library's OpenURL resolver, and we'll take it from there.
+
 = render partial: 'form', locals: { url: libraries_path }
-= link_to t('.cancel'), edit_user_registration_path, data: { role: 'button' }
+%a.close-reveal-modal &#215;

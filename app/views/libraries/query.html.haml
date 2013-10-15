@@ -1,5 +1,6 @@
-- content_for :title do
-  = t('.head')
+%h4 Libraries found near you:
+%h6.subheader Click the button corresponding to the library that you would like to add.
+
 - if @libraries.empty?
   %p= t('.no_libraries')
 - else
@@ -7,6 +8,6 @@
     = form_tag(libraries_path, method: :post) do
       = hidden_field_tag 'library[name]', library[:name]
       = hidden_field_tag 'library[url]', library[:url]
-      = submit_tag library[:name]
+      = submit_tag library[:name], class: 'button small secondary'
 
-%p= link_to t('.cancel'), edit_user_registration_path, data: { role: 'button' }
+%a.close-reveal-modal &#215;

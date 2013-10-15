@@ -1,15 +1,18 @@
 = form_for(@library, url: url) do |f|
+  / FIXME: again with the silly errors thing
   - if @library.errors.any?
-    %ul{ data: { role: 'listview', theme: 'e', divider_theme: 'e' }, style: 'margin-bottom: 30px;' }
-      %li= t('libraries.form.errors', count: @library.errors.count)
+    = t('libraries.form.errors', count: @library.errors.count)
+    %ul
       - @library.errors.full_messages.each do |msg|
         %li= msg
 
-  %div{ data: { role: 'fieldcontain' } }
-    = f.label :name, Library.human_attribute_name('name')
-    = f.text_field :name
-  %div{ data: { role: 'fieldcontain' } }
-    = f.label :url, Library.human_attribute_name('url')
-    = f.text_field :url
+  .row
+    .large-6.columns
+      = f.label :name, Library.human_attribute_name('name')
+      = f.text_field :name
+    .large-6.columns
+      = f.label :url, Library.human_attribute_name('url')
+      = f.text_field :url
 
-  = f.submit t('libraries.form.submit_label')
+  .row
+    .large-4.large-offset-8.columns= f.submit t('libraries.form.submit_label'), class: 'button success expand'

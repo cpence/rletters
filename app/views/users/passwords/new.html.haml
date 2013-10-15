@@ -1,12 +1,18 @@
-%h1 Forgot your password?
 
-= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
-  = devise_error_messages!
+%header
+  %section
+    %h3 Forgot your password?
+    %h5.subheader Enter your e-mail address here and we'll send you a link to create a new one.
 
-  %div{ data: { role: 'fieldcontain' } }
-    = f.label :email
-    = f.email_field :email
+.row
+  .large-6.columns
+    = form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
+      .row
+        .small-12.columns= devise_error_messages!
 
-  = f.submit "Send me reset password instructions"
-
-= render "devise/shared/links"
+      .row
+        .small-12.columns
+          = f.label :email
+          = f.email_field :email
+      .row
+        .small-12.columns= f.submit "Send me reset password instructions", class: 'button primary'

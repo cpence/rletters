@@ -15,4 +15,11 @@
           = User.human_attribute_name :remember_me
 
     .row
+      .login-shift
+        %small= link_to "Forgot password?", new_user_password_path
+
+    .row
       .login-submit= f.submit "Sign in", class: 'button primary small expand'
+
+    .row
+      .login-shift= link_to "Sign up", new_user_registration_path, class: 'button success small expand'
