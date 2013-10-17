@@ -52,8 +52,13 @@ describe ApplicationHelper do
 
   describe '#render_job_partial' do
     it 'succeeds for a partial that is present' do
-      expect(helper).to receive(:render).with(file: Rails.root.join('lib', 'jobs', 'analysis', 'views', 'plot_dates', '_start.html.haml').to_s)
+      expect(helper).to receive(:render).with(file: Rails.root.join('lib', 'jobs', 'analysis', 'views', 'plot_dates', '_start.html.haml').to_s).and_return('')
       helper.render_job_partial(Jobs::Analysis::PlotDates, 'start')
+    end
+
+    it 'allows rendering of non-HAML partials' do
+      expect(helper).to receive(:render).with(file: Rails.root.join('lib', 'jobs', 'analysis', 'views', 'plot_dates', '_info.html.md').to_s).and_return('')
+      helper.render_job_partial(Jobs::Analysis::PlotDates, 'info')
     end
 
     it 'renders something reasonable for missing partials' do
