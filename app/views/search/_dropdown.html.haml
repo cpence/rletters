@@ -1,7 +1,7 @@
 - if current_user
-  %ul.button-group
-    %li= link_to t('.single_dataset'), new_dataset_path(q: "shasum:#{document.shasum}", defType: 'lucene', fq: nil), class: 'button success small'
-    %li= link_to t('.add_to_dataset'), search_add_path(id: document.shasum), class: 'button success small'
+  .row
+    .small-6.columns= link_to t('.single_dataset'), new_dataset_path(q: "shasum:#{document.shasum}", defType: 'lucene', fq: nil), class: 'button success small expand'
+    .small-6.columns= link_to t('.add_to_dataset'), search_add_path(id: document.shasum), class: 'button success small expand'
 
 = link_to t('.journal'), "http://dx.doi.org/#{document.doi}", class: 'button primary small'
 

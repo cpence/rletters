@@ -13,10 +13,9 @@
       .row
         .small-12.columns
           = search_field_tag :q, (params[:precise] ? t('.adv_search_placeholder') : params[:q]), placeholder: t('.placeholder')
-          %ul.button-group.radius.even-3
-            %li= link_to(sort_to_string(@sort), '#', class: 'button secondary dropdown tiny', 'data-dropdown' => 'sort-dropdown')
-            %li= link_to t('.create_dataset'), current_user ? new_dataset_path(q: @solr_q, defType: @solr_defType, fq: @solr_fq) : '#', class: 'button success tiny' + (current_user ? '' : ' disabled')
-            %li= link_to t('.advanced_search'), search_advanced_path, class: 'button secondary tiny'
+          %ul.button-group.radius.even-2
+            %li= link_to(sort_to_string(@sort), '#', class: 'button secondary dropdown small', 'data-dropdown' => 'sort-dropdown')
+            %li= link_to t('.create_dataset'), current_user ? new_dataset_path(q: @solr_q, defType: @solr_defType, fq: @solr_fq) : '#', class: 'button success small' + (current_user ? '' : ' disabled')
           %ul#sort-dropdown.f-dropdown{ data: { dropdown_content: true } }
             - sort_methods.each do |s|
               %li= link_to sort_to_string(s), search_path(params.merge({ sort: s }))
@@ -39,3 +38,5 @@
     .radius.panel
       %h5= t('.filters')
       %ul.side-nav= facet_link_list(@result)
+
+      %p= link_to t('.advanced_search'), search_advanced_path, class: 'button secondary small expand'
