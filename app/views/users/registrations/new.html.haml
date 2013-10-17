@@ -3,33 +3,13 @@
     %h3 Sign up
     %h5.subheader Welcome!  Enter some information about yourself and we'll get you off and running with a new user account.
 
-= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: 'custom' }) do |f|
-  .row
-    .small-12.columns= devise_error_messages!
-
-  .row
-    .large-6.columns
-      = f.label :name
-      = f.text_field :name
-    .large-6.columns
-      = f.label :email
-      = f.email_field :email
-
-  .row
-    .large-6.columns
-      = f.label :password
-      = f.password_field :password
-    .large-6.columns
-      = f.label :password_confirmation
-      = f.password_field :password_confirmation
-
-  .row
-    .large-6.columns
-      = f.label :language, User.human_attribute_name('language')
-      = f.select :language, options_from_locales(@user.language)
-    .large-6.columns
-      = f.label :timezone, User.human_attribute_name('timezone')
-      = f.select :timezone, options_from_timezones(@user.timezone)
-
-  .row
-    .large-2.large-offset-10.columns= f.submit "Sign up!", class: 'button primary expand'
+.row
+  .large-6.columns
+    = simple_form_for(:user, url: user_registration_path) do |f|
+      = f.input :name
+      = f.input :email
+      = f.input :password
+      = f.input :password_confirmation
+      = f.collection :language, collection: available_locales, label_method: :last, value_method: :first
+      = f.collection :timezone, collection: ActiveSupport::TimeZone.all, label_method: :to_s, value_method: :name
+      = f.button :submit

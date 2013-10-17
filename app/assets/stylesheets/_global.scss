@@ -38,3 +38,6 @@ header {
 .flash-notice { @include alert-style($secondary-color); }
 .flash-success { @include alert-style($success-color); }
 .flash-alert { @include alert-style($alert-color); }
+
+.custom.radio, .custom.checkbox { margin-right: 0.5em; }
+.input.radio_buttons { margin-bottom: 1em; }

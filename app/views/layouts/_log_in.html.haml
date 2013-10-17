@@ -1,4 +1,6 @@
 #login-dropdown
+  -# We're not using simple_form_for here, because I want precise control over
+  -# the layout of this inline form.
   = form_for(:user, url: user_session_path, html: { class: 'custom' }) do |f|
 
     .row

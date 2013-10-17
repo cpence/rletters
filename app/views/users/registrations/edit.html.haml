@@ -6,78 +6,26 @@
     %h3 User options
     %h5.subheader You can configure your user settings here, change your password, or delete your account.
 
-= form_for(resource, as: resource_name, url: registration_path(resource_name), method: :put, html: { class: 'custom' }) do |f|
+.row
+  .large-6.columns
+    = simple_form_for(current_user, url: user_registration_path, method: :put) do |f|
+      = f.input :name
+      = f.input :email
+      = f.input :current_password
 
-  / FIXME: we can do this right with the new error wrappers...
-  - unless resource.errors.empty?
-    .row
-      .small-12.columns
-        %strong= t("errors.messages.not_saved", count: resource.errors.count, resource: resource.class.model_name.human.downcase)
-        %ul
-          - resource.errors.each do |msg|
-            %li{ data: { theme: 'e' } }= msg
+      = field_set_tag 'Change your password?' do
+        = f.input :password, placeholder: '(leave blank for no change)'
+        = f.input :password_confirmation
 
-  .row
-    .large-6.columns
-      = f.label :name
-      = f.text_field :name
-    .large-6.columns
-      = f.label :email
-      = f.email_field :email
-  .row
-    .large-6.columns
-      = f.label :current_password
-      = f.password_field :current_password
+      = field_set_tag 'Site settings' do
+        = f.input :language, collection: available_locales, label_method: :last, value_method: :first
+        = f.input :timezone, collection: ActiveSupport::TimeZone.all, label_method: :to_s, value_method: :name
+        = f.input :per_page, as: :radio_buttons, collection: [10, 25, 50, 100]
+        = f.input :csl_style_id, collection: CslStyle.all, label_method: :name, value_method: :to_param
 
-  %fieldset
-    %legend Change your password?
-    .row
-      .large-6.columns
-        = f.label :password
-        = f.password_field :password, autocomplete: "off", placeholder: "(leave blank for no change)"
-      .large-6.columns
-        = f.label :password_confirmation
-        = f.password_field :password_confirmation
-
-  %fieldset
-    %legend Site settings
-
-    .row
-      .large-6.columns
-        = f.label :language, User.human_attribute_name('language')
-        = f.select :language, options_from_locales(@user.language)
-      .large-6.columns
-        = f.label :timezone, User.human_attribute_name('timezone')
-        = f.select :timezone, options_from_timezones(@user.timezone)
-
-    .row
-      .large-6.columns
-        = field_set_tag User.human_attribute_name('per_page'), data: { role: 'controlgroup', type: 'horizontal' } do
-          = label_tag :per_page_10 do
-            = f.radio_button :per_page, '10', style: 'display: none;'
-            %span.custom.radio
-            = 10.to_s
-          = label_tag :per_page_25 do
-            = f.radio_button :per_page, '25', style: 'display: none;'
-            %span.custom.radio
-            = 25.to_s
-          = label_tag :per_page_50 do
-            = f.radio_button :per_page, '50', style: 'display: none;'
-            %span.custom.radio
-            = 50.to_s
-          = label_tag :per_page_100 do
-            = f.radio_button :per_page, '100', style: 'display: none;'
-            %span.custom.radio
-            = 100.to_s
-      .large-6.columns
-        = f.label :csl_style_id, User.human_attribute_name('csl_style_id')
-        = f.select :csl_style_id, options_from_collection_for_select(CslStyle.all, 'id', 'name')
-
-  .row
-    .large-4.large-offset-8.columns
-      = f.submit "Update", class: 'button primary expand'
+      = f.button :submit
       %br
-      = link_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class: 'button alert expand'
+      = link_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class: 'button alert'
 
 .row
   .small-12.columns

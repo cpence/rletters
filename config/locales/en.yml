@@ -1,4 +1,22 @@
 en:
+    simple_form:
+        "yes": 'Yes'
+        "no": 'No'
+        required:
+            text: 'required'
+            mark: '*'
+        error_notification:
+            default_message: "Please review the problems below:"
+        labels:
+            user:
+                edit:
+                    password: New password
+                    password_confirmation: Confirm new password
+    helpers:
+        submit:
+            user:
+                create: Sign up
+                edit: Update settings
     all:
         home_button: "Home"
         search_button: "Search / Browse"
@@ -73,14 +91,15 @@ en:
                 name: "Name"
                 file: "Attachment"
             user:
-                email: "Email"
+                email: "E-mail"
                 name: "Name"
-                identifier: "Identifier"
+                password: "Password"
+                password_confirmation: "Confirm password"
+                remember_me: "Remember me?"
                 per_page: "Number of search results per page"
                 language: "Preferred language"
                 timezone: "Time zone"
                 csl_style_id: "Citation style"
-                libraries: "Library access links"
         errors:
             models:
                 analysis_task:
@@ -110,9 +129,9 @@ en:
                     name:
                         blank: "You must specify a name"
                     email:
-                        blank: "You must specify an email"
-                        taken: "An account with this email address already exists"
-                        invalid: "%{value} is not a valid email address"
+                        blank: "You must specify an e-mail"
+                        taken: "An account with this e-mail address already exists"
+                        invalid: "%{value} is not a valid e-mail address"
                     identifier:
                         blank: "Identifier was not specified (internal error)"
                         taken: "An account using this external account already exists (internal error)"
@@ -164,7 +183,6 @@ en:
             year_after_2010: "2010 and later"
         advanced:
             head: "Advanced search"
-            intro_header: "Construct an advanced search"
             intro_markdown: >
                 This page lets you perform an advanced search of the article
                 database.  You may choose either to utilize our guided search
@@ -172,10 +190,9 @@ en:
                 syntax](http://wiki.apache.org/solr/SolrQuerySyntax),
                 which is itself a superset of [Lucene query
                     syntax](http://lucene.apache.org/java/2_9_1/queryparsersyntax.html).
-                These custom searches are extremely powerful.
             search_header: "Guided search form"
-            type_fuzzy: "Fuzzy"
-            type_exact: "Exact"
+            type_fuzzy: "Search type: Fuzzy"
+            type_exact: "Search type: Exact"
             title_type_label: "Title search type"
             journal_type_label: "Journal search type"
             fulltext_type_label: "Full text search type"
@@ -367,7 +384,7 @@ en:
             "no": "No"
     settings:
         app_name: Application Name
-        app_email: Contact E-Mail
+        app_email: Contact E-mail
         app_domain: Application Domain Name
         solr_server_url: Solr URL
         solr_timeout: Solr Timeout (sec)

@@ -6,13 +6,6 @@
 
 .row
   .large-6.columns
-    = form_for(resource, as: resource_name, url: password_path(resource_name), method: :post) do |f|
-      .row
-        .small-12.columns= devise_error_messages!
-
-      .row
-        .small-12.columns
-          = f.label :email
-          = f.email_field :email
-      .row
-        .small-12.columns= f.submit "Send me reset password instructions", class: 'button primary'
+    = simple_form_for(:user, url: user_password_path, method: :post) do |f|
+      = f.input :email
+      = f.button :submit, 'Send me password reset instructions'

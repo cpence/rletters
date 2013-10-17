@@ -53,12 +53,14 @@ gem 'haml'
 gem 'haml-rails'
 gem 'kramdown'
 gem 'nokogiri'
-gem 'sass-rails'
 
 gem 'zepto_rails'
 gem 'rails-behaviors'
+
 gem 'compass-rails'
+gem 'sass-rails'
 gem 'zurb-foundation'
+gem 'simple_form'
 
 gem 'yui-compressor'
 
