@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130920174611) do
+ActiveRecord::Schema.define(version: 20131017161525) do
 
   create_table "admin_users", force: true do |t|
     t.string   "email",                  default: "", null: false
@@ -146,6 +146,9 @@ ActiveRecord::Schema.define(version: 20130920174611) do
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
     t.integer  "csl_style_id"
+    t.boolean  "workflow_active",        default: false
+    t.string   "workflow_class"
+    t.string   "workflow_datasets"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
