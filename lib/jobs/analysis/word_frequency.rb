@@ -9,13 +9,6 @@ module Jobs
       add_concern 'ComputeWordFrequencies'
       @queue = 'analysis'
 
-      # Return the name of this job
-      #
-      # @return [String] name of this job
-      def self.job_name
-        'Calculate Word Frequency'
-      end
-
       # Return how many datasets this job requires
       #
       # @return [Integer] number of datasets needed to perform this job

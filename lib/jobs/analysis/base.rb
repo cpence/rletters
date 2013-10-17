@@ -28,13 +28,6 @@ module Jobs
     #   is to write the job results out as JSON in +AnalysisTask#result_file+,
     #   and then to parse this JSON into HAML in the view.
     class Base
-      # Return the name of this job
-      #
-      # @return [String] name of this job
-      def self.job_name
-        'Base (ERROR)'
-      end
-
       # Return how many datasets this job requires
       #
       # @return [Integer] number of datasets needed to perform this job
