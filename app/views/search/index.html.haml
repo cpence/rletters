@@ -1,5 +1,12 @@
-= content_for :head_tags do
+- content_for :head_tags do
   %link{ rel: 'unapi-server', type: 'application/xml', title: 'unAPI', href: unapi_url }/
+- content_for :breadcrumbs do
+  %li= link_to 'Home', workflow_path
+  - if current_user.workflow_active
+    %li= link_to 'Start Analysis', workflow_start_path
+    %li= link_to "Job Info", workflow_info_path(current_user.workflow_class)
+    %li= link_to 'Collect Data', workflow_activate_path(current_user.workflow_class)
+  %li.current= link_to 'Search the Database', search_path
 
 .row
   .small-12.columns

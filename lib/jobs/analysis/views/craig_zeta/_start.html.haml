@@ -1,2 +1,2 @@
 - if current_user.datasets.count > 1
-  %li= link_to('Determine words that differentiate two datasets (Craig Zeta)', { controller: 'datasets', action: 'task_view', id: @dataset.to_param, class: 'CraigZeta', view: 'params' })
+  = link_to('Determine words that differentiate two datasets (Craig Zeta)', { controller: 'datasets', action: 'task_view', id: @dataset.to_param, class: 'CraigZeta', view: 'params' }, class: 'button small secondary expand')

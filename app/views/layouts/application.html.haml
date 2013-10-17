@@ -5,6 +5,9 @@
     = render partial: 'layouts/nav'
 
     %div
+      - if content_for? :breadcrumbs
+        %ul.breadcrumbs= yield(:breadcrumbs)
+
       - flash.each do |k, v|
         = render_flash(k, v)
 

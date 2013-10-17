@@ -1,26 +1,38 @@
 - content_for :javascript do
   = javascript_include_tag 'datasets_show'
 
-%ul{ data: { role: 'listview', theme: 'd', divider_theme: 'b', split_icon: 'delete', split_theme: 'a' } }
-  %li{ data: { role: 'list-divider' } }= t('.head')
-  %li
-    %h3= @dataset.name
-    %p= t('.num_entries', count: @dataset.entries.size)
-    %p= t('.created_at', date: @dataset.created_at.to_formatted_s(:long))
+%ul.breadcrumbs
+  %li= link_to 'Home', workflow_path
+  %li= link_to 'Manage Datasets', datasets_path
+  %li.current= link_to "Manage: #{@dataset.name}", @dataset
 
-%div.verticalpad
+%header
+  %section
+    %h2= t('.head') + ' — ' + @dataset.name
+    %h4.subheader Manage this dataset, including manually starting analysis tasks and fetching the results of prior analyses.
 
-%div.dataset_task_list{ data: { fetch_url: task_list_dataset_path(@dataset) } }
-  %ul{ data: { role: 'listview', theme: 'd' } }
-    %li= t('.loading_tasks')
+.row
+  .small-12.columns
+    = t('.num_entries', count: @dataset.entries.size)
+    |
+    = t('.created_at', date: @dataset.created_at.to_formatted_s(:long))
 
-%div.verticalpad
+.row
+  .small-12.columns
+    %hr
 
-%ul{ data: { role: 'listview', theme: 'd', divider_theme: 'b', split_icon: 'delete', split_theme: 'a' } }
+    %h4 Analysis Tasks
 
-  -# Show the markup for starting all the various background jobs
-  %li{ data: { role: 'list-divider' } }= t('.new_task')
-  - Jobs::Analysis::Base.job_list.each do |klass|
-    = render_job_partial(klass, 'start')
+    #dataset-task-list{ data: { fetch_url: task_list_dataset_path(@dataset) } }= t('.loading_tasks')
 
-  %li= link_to t('.delete'), destroy_dataset_path(@dataset), method: :delete, data: { confirm: 'Are you sure?' }
+.row
+  .small-12.columns
+    %hr
+
+    %h4= t('.new_task')
+
+    - Jobs::Analysis::Base.job_list.each_slice(2) do |a|
+      .row
+        .large-6.columns= render_job_partial(a[0], 'start')
+        - if a.count > 1
+          .large-6.columns= render_job_partial(a[1], 'start')

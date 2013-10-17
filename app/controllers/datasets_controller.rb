@@ -80,11 +80,6 @@ class DatasetsController < ApplicationController
     @dataset = current_user.datasets.find(params[:id])
     fail ActiveRecord::RecordNotFound unless @dataset
 
-    if params[:cancel]
-      redirect_to @dataset
-      return
-    end
-
     Resque.enqueue(Jobs::DestroyDataset,
                    user_id: current_user.to_param,
                    dataset_id: params[:id])
@@ -182,11 +177,6 @@ class DatasetsController < ApplicationController
   def task_destroy
     dataset = current_user.datasets.find(params[:id])
     fail ActiveRecord::RecordNotFound unless dataset
-
-    if params[:cancel]
-      redirect_to dataset
-      return
-    end
 
     task = dataset.analysis_tasks.find(params[:task_id])
     fail ActiveRecord::RecordNotFound unless task

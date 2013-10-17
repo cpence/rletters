@@ -1,6 +1,13 @@
 - content_for :javascript do
   = javascript_include_tag 'datasets_index'
+- content_for :breadcrumbs do
+  %li= link_to 'Home', workflow_path
+  %li.current= link_to 'Manage Datasets', datasets_path
 
-%div.dataset_list{ data: { fetch_url: dataset_list_datasets_path } }
-  %ul{ data: { role: 'listview', theme: 'd', divider_theme: 'b' } }
-    %li= t('.loading_datasets')
+%header
+  %section
+    %h2 Manage datasets
+    %h4.subheader From this page, you can do advanced management of your datasets, including manually running analysis tasks.
+
+.row
+  #dataset-list.small-12.columns{ data: { fetch_url: dataset_list_datasets_path } }= t('.loading_datasets')

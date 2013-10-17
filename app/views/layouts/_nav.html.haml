@@ -16,7 +16,7 @@
 
         %ul.dropdown
           %li= link_to 'Browse / Search Database', search_path
-          %li= link_to 'List of Datasets', datasets_path
+          %li= link_to 'Manage Datasets', datasets_path
 
       - if current_user && current_user.workflow_active
         %li.has-form= link_to 'Current Analysis', workflow_activate_path(current_user.workflow_class), class: 'button success'

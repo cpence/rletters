@@ -1,21 +1,28 @@
-%ul{ data: { role: 'listview', theme: 'd', divider_theme: 'b', split_icon: 'delete', split_theme: 'a' } }
+-# Unfinished (active/failed) analysis tasks
+- if @dataset.analysis_tasks.not_finished.count > 0
+  - if @dataset.analysis_tasks.active.count > 0
+    .alert-box.radius= t('.pending', count: @dataset.analysis_tasks.active.count)
+  - if @dataset.analysis_tasks.failed.count > 0
+    .alert-box.alert.radius= link_to t('.failed', count: @dataset.analysis_tasks.failed.count), dataset_path(@dataset, clear_failed: true)
 
-  -# Unfinished (active/failed) analysis tasks
-  - if @dataset.analysis_tasks.not_finished.count > 0
-    %li{ data: { role: 'list-divider' } }= t('.active_tasks')
-    - if @dataset.analysis_tasks.active.count > 0
-      %li{ data: { theme: 'e' } }= t('.pending', count: @dataset.analysis_tasks.active.count)
-    - if @dataset.analysis_tasks.failed.count > 0
-      %li{ data: { theme: 'e' } }= t('.failed', count: @dataset.analysis_tasks.failed.count)
-      %li{ data: { theme: 'e' } }= link_to t('.clear_failed'), dataset_path(@dataset, clear_failed: true)
-
-  -# Finished analysis tasks: link to download results and to delete
-  - if @dataset.analysis_tasks.finished.count > 0
-    %li{ data: { role: 'list-divider' } }= t('.finished_tasks')
-    - @dataset.analysis_tasks.finished.each do |task|
-      %li
-        - if task.job_class.download?
-          = link_to t('.task_header', name: task.name), { controller: 'datasets', action: 'task_download', id: @dataset.to_param, task_id: task.to_param }, rel: 'external'
-        - else
-          = link_to t('.task_header', name: task.name), { controller: 'datasets', action: 'task_view', id: @dataset.to_param, task_id: task.to_param, view: 'results' }
-        = link_to t('.delete_task'), { controller: 'datasets', action: 'task_destroy', id: @dataset.to_param, task_id: task.to_param }
+-# Finished analysis tasks: link to download results and to delete
+%table
+  %thead
+    %tr
+      %th Analysis Task
+      %th
+  %tbody
+    - if @dataset.analysis_tasks.finished.count == 0
+      %tr
+        %td No analysis tasks found
+        %td
+    - else
+      - @dataset.analysis_tasks.finished.each do |task|
+        %tr
+          %td= task.name
+          %td
+            - if task.job_class.download?
+              = link_to 'Download Results', { controller: 'datasets', action: 'task_download', id: @dataset.to_param, task_id: task.to_param }, class: 'button success tiny'
+            - else
+              = link_to 'View Results', { controller: 'datasets', action: 'task_view', id: @dataset.to_param, task_id: task.to_param, view: 'results' }, class: 'button success tiny'
+            = link_to t('.delete_task'), { controller: 'datasets', action: 'task_destroy', id: @dataset.to_param, task_id: task.to_param }, class: 'button alert tiny'

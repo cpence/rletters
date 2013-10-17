@@ -74,7 +74,7 @@ function createNamedEntitiesMap() {
   global_named_entity_map = map;
 }
 
-$(document).on('ready', function() {
+$(function() {
   lookUpMarkers();
   createNamedEntitiesMap();
 });

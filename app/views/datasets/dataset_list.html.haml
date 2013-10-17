@@ -1,13 +1,23 @@
-%ul{ data: { role: 'listview', theme: 'd', divider_theme: 'b' } }
-  %li{ data: { role: 'list-divider' } }= t('.num_datasets_found', count: @datasets.count)
-  - user_pending_count = AnalysisTask.joins(:dataset).where(finished_at: nil, datasets: {user_id: current_user.to_param}).count
-  - if user_pending_count > 0
-    %li{ data: { theme: 'e' } }= t('.tasks', count: user_pending_count)
-  - unless @datasets.count
-    %li{ data: { theme: 'e' } }= t('.no_datasets')
-  - else
-    - @datasets.each do |dataset|
-      %li
-        = link_to dataset do
-          = dataset.name
-          %span.ui-li-count= dataset.entries.size
+- user_pending_count = AnalysisTask.joins(:dataset).where(finished_at: nil, datasets: { user_id: current_user.to_param }).count
+- if user_pending_count > 0
+  .alert-box.radius= t('.tasks', count: user_pending_count)
+
+%table
+  %thead
+    %tr
+      %th Dataset Name
+      %th
+  %tbody
+    - unless @datasets.count
+      %tr
+        %th= t('.no_datasets')
+        %th
+    - else
+      - @datasets.each do |dataset|
+        %tr
+          %td
+            = dataset.name
+            %span.secondary.round.label= dataset.entries.size
+          %td
+            = link_to 'Manage', dataset, class: 'button tiny'
+            = link_to t('.delete'), dataset, method: :delete, data: { confirm: 'Are you sure?' }, class: 'button alert tiny'

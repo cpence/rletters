@@ -2,7 +2,7 @@
 // AJAX support for datasets##show
 
 function updateTaskList() {
-  var taskList = $('div.dataset_task_list');
+  var taskList = $('div#dataset-task-list');
   if (taskList.length === 0)
     return;
 
@@ -11,8 +11,7 @@ function updateTaskList() {
   taskList.load(ajax_url,
     function() {
       window.setTimeout(updateTaskList, 4000);
-      $(this).find('ul').listview().trigger('updatelayout');
     });
 }
 
-$(document).on('ready', function() { updateTaskList(); });
+$(updateTaskList);

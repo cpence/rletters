@@ -1,7 +1,7 @@
-%ul.breadcrumbs
+- content_for :breadcrumbs do
   %li= link_to 'Home', workflow_path
   %li= link_to 'Start Analysis', workflow_start_path
-  %li= link_to "Info: #{@klass.job_name}", workflow_info_path(params[:class])
+  %li= link_to "Job Info", workflow_info_path(params[:class])
   %li.current= link_to 'Collect Data', workflow_activate_path(params[:class])
 
 %header

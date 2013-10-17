@@ -39,5 +39,11 @@ header {
 .flash-success { @include alert-style($success-color); }
 .flash-alert { @include alert-style($alert-color); }
 
+// Scoot the flash up next to the breadcrumbs
+.breadcrumbs + .flash-generic, .breadcrumbs + .flash-notice,
+.breadcrumbs + .flash-success, .breadcrumbs + .flash-alert {
+  margin-top: -1.25em;
+}
+
 .custom.radio, .custom.checkbox { margin-right: 0.5em; }
 .input.radio_buttons { margin-bottom: 1em; }

@@ -2,7 +2,7 @@
 // AJAX support for datasets#index
 
 function updateDatasetList() {
-  var datasetList = $('div.dataset_list');
+  var datasetList = $('#dataset-list');
   if (datasetList.length === 0)
     return;
 
@@ -11,8 +11,7 @@ function updateDatasetList() {
   datasetList.load(ajax_url,
     function() {
       $(this).data('timeout', window.setTimeout(updateDatasetList, 4000));
-      $(this).find('ul').listview().trigger('updatelayout');
     });
 }
 
-$(document).on('ready', function() { updateDatasetList(); });
+$(updateDatasetList);

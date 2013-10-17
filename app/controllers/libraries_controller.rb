@@ -74,11 +74,6 @@ class LibrariesController < ApplicationController
     @library = current_user.libraries.find(params[:id])
     fail ActiveRecord::RecordNotFound unless @library
 
-    if params[:cancel]
-      redirect_to edit_user_registration_path
-      return
-    end
-
     @library.destroy
     current_user.libraries.reload
 

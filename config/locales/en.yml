@@ -363,25 +363,14 @@ en:
             deleted: "Cleared all failed analysis tasks."
             no_failed: "No failed tasks available to clear!"
             loading_tasks: "Loading analysis tasks..."
-            new_task: "Start a new analysis task"
-            delete: "Delete this dataset"
+            new_task: "Manually start a new analysis task"
         task_list:
-            active_tasks: "Active analysis tasks for dataset"
             pending:
                 one: "1 analysis task pending for this dataset..."
                 other: "%{count} analysis tasks pending for this dataset..."
             failed:
-                one: "1 analysis task failed for this dataset!"
-                other: "%{count} analysis tasks failed for this dataset!"
-            clear_failed: "Clear failed analysis tasks..."
-            finished_tasks: "Completed analysis tasks for dataset"
-            task_header: "“%{name}” Complete"
-            download_task: "Download the results of this job"
-            delete_task: "Delete this task"
-        delete:
-            head: "Are you sure?"
-            "yes": "Yes"
-            "no": "No"
+                one: "1 analysis task failed for this dataset! Click here to clear failed tasks."
+                other: "%{count} analysis tasks failed for this dataset! Click here to clear failed tasks."
     settings:
         app_name: Application Name
         app_email: Contact E-mail

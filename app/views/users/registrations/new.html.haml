@@ -1,3 +1,7 @@
+- content_for :breadcrumbs do
+  %li= link_to 'Home', workflow_path
+  %li.current= link_to 'Sign Up', new_user_registration_path
+
 %header
   %section
     %h3 Sign up
@@ -10,6 +14,6 @@
       = f.input :email
       = f.input :password
       = f.input :password_confirmation
-      = f.collection :language, collection: available_locales, label_method: :last, value_method: :first
-      = f.collection :timezone, collection: ActiveSupport::TimeZone.all, label_method: :to_s, value_method: :name
+      = f.input :language, collection: available_locales, label_method: :last, value_method: :first
+      = f.input :timezone, collection: ActiveSupport::TimeZone.all, label_method: :to_s, value_method: :name
       = f.button :submit

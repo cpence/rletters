@@ -1,5 +1,8 @@
 - content_for :javascript do
   = javascript_include_tag 'users_edit'
+- content_for :breadcrumbs do
+  %li= link_to 'Home', workflow_path
+  %li.current= link_to 'My Account', edit_user_registration_path
 
 %header
   %section
