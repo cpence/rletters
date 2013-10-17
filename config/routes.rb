@@ -4,10 +4,13 @@ RLetters::Application.routes.draw do
 
   # The user workflow
   get 'workflow' => 'workflow#index'
+  get 'workflow/image/:id' => 'workflow#image', as: 'workflow_image'
   get 'workflow/start' => 'workflow#start'
+  get 'workflow/destroy' => 'workflow#destroy'
   get 'workflow/info/:class' => 'workflow#info', as: 'workflow_info',
     constraints: { class: /[A-Z][A-Za-z]+/ }
-  get 'workflow/image/:id' => 'workflow#image', as: 'workflow_image'
+  get 'workflow/activate/:class' => 'workflow#activate', as: 'workflow_activate',
+    constraints: { class: /[A-Z][A-Za-z]+/ }
 
   # Search/Browse page
   get 'search' => 'search#index'
@@ -30,7 +33,6 @@ RLetters::Application.routes.draw do
 
     member do
       get 'task_list'
-      get 'delete'
       get 'task/:class/start' => 'datasets#task_start',
           constraints: { class: /[A-Z][A-Za-z]+/ }
       get 'task/:class/view/:view' => 'datasets#task_view',

@@ -50,16 +50,7 @@ class DatasetsController < ApplicationController
   # @return [undefined]
   def new
     @dataset = current_user.datasets.build
-    render layout: 'dialog'
-  end
-
-  # Show a confirmation box for deleting a dataset
-  # @api public
-  # @return [undefined]
-  def delete
-    @dataset = current_user.datasets.find(params[:id])
-    fail ActiveRecord::RecordNotFound unless @dataset
-    render layout: 'dialog'
+    render layout: false
   end
 
   # Create a new dataset in the database
@@ -73,7 +64,13 @@ class DatasetsController < ApplicationController
                    fq: params[:fq],
                    defType: params[:defType])
 
-    redirect_to datasets_path, notice: I18n.t('datasets.create.building')
+    if current_user.workflow_active
+      redirect_to workflow_activate_path(current_user.workflow_class),
+        flash: { success: 'Building dataset, will link when completed' }
+    else
+      redirect_to datasets_path,
+        flash: { success: I18n.t('datasets.create.building') }
+    end
   end
 
   # Delete a dataset from the database

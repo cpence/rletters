@@ -35,6 +35,13 @@ module Jobs
         'Base (ERROR)'
       end
 
+      # Return how many datasets this job requires
+      #
+      # @return [Integer] number of datasets needed to perform this job
+      def self.num_datasets
+        0
+      end
+
       # True if this job produces a download
       #
       # If true (default), then links to results of tasks will produce links to

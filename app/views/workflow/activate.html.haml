@@ -1,0 +1,72 @@
+%ul.breadcrumbs
+  %li= link_to 'Home', workflow_path
+  %li= link_to 'Start Analysis', workflow_start_path
+  %li= link_to "Info: #{@klass.job_name}", workflow_info_path(params[:class])
+  %li.current= link_to 'Collect Data', workflow_activate_path(params[:class])
+
+%header
+  %section
+    %h2 Collect Data
+    - if @user_datasets.count < @num_datasets
+      %h4.subheader You now need to determine which datasets this analysis job will run on.
+    - else
+      %h4.subheader All data has now been collected.  Click the button to start the analysis!
+
+- if @user_datasets.count < @num_datasets
+  .row
+    .small-12.columns
+      %p== In order to run, this analysis job requires that you provide #{@num_datasets} #{Dataset.model_name.human(count: @num_datasets).downcase}.  Datasets are created by performing searches, then saving a set of search results.
+- else
+  .row
+    / FIXME: This should see whether or not there's a "params" view for the
+    / task, and if so, it should change this button's title
+    .large-5.large-centered.columns= link_to 'Start Analysis', '#', class: 'button success expand'
+
+.row
+  .small-12.columns
+    %hr
+
+    - if @user_datasets.count < @num_datasets
+      .alert-box.alert.radius== #{@num_datasets - @user_datasets.count} #{Dataset.model_name.human(count: @num_datasets - @user_datasets.count).downcase} still need(s) to be added
+
+    %h3 Datasets for this job:
+
+    %table
+      %thead
+        %tr
+          %th Dataset Name
+          %th
+      %tbody
+        - if @user_datasets.empty?
+          %tr
+            %td No datasets specified
+            %td
+        - else
+          - @user_datasets.each do |d|
+            %tr
+              %td= d.name
+              %td= link_to 'Delete', workflow_activate_path(params[:class], unlink_dataset_id: d.to_param), data: { confirm: 'Are you sure?' }, class: 'button alert tiny'
+
+- if @user_datasets.count < @num_datasets
+  .row
+    .large-12.columns
+      %ul.button-group.even-2
+        %li= link_to 'Create another dataset', search_path, class: 'button success'
+        %li= link_to 'Link an already created dataset', '#', data: { reveal_id: 'link-modal' }, class: 'button secondary'
+        #link-modal.reveal-modal
+          %h4 Link an already existing dataset
+          %h6.subheader Select the dataset that you would like to use for this analysis job.
+
+          - unless current_user.datasets.count
+            %p No datasets found!
+          - else
+            #link-form-modal
+              = form_tag workflow_activate_path(params[:class]), method: :get, class: 'custom' do
+                .row
+                  .large-6.columns
+                    = label_tag :link_dataset_id, Dataset.model_name.human
+                    = select_tag :link_dataset_id, options_from_collection_for_select(current_user.datasets, 'to_param', 'name')
+                .row
+                  .large-6.columns= submit_tag 'Link dataset', class: 'button success small'
+
+          %a.close-reveal-modal &#215;

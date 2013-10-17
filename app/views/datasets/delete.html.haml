@@ -1,5 +1,0 @@
-- content_for :title do
-  = t('.head')
-= form_for(@dataset, method: 'delete') do |f|
-  = f.submit t('.yes')
-  = f.submit t('.no'), name: 'cancel'

@@ -23,4 +23,4 @@
   - Jobs::Analysis::Base.job_list.each do |klass|
     = render_job_partial(klass, 'start')
 
-  %li{ data: { icon: 'delete' } }= link_to t('.delete'), delete_dataset_path(@dataset), data: { rel: 'dialog' }
+  %li= link_to t('.delete'), destroy_dataset_path(@dataset), method: :delete, data: { confirm: 'Are you sure?' }

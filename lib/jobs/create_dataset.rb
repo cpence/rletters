@@ -84,6 +84,16 @@ module Jobs
         dataset.destroy
         raise
       end
+
+      # Link this to the user's workflow if there's one active
+      user.reload
+      if user.workflow_active
+        new_datasets = JSON.parse(user.workflow_datasets).map { |id| user.datasets.find(id) }
+        new_datasets << dataset.to_param
+        user.workflow_datasets = new_datasets.map { |d| d.to_param }.to_json
+
+        user.save
+      end
     end
   end
 end

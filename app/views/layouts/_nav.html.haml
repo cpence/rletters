@@ -11,6 +11,16 @@
       %li.divider
       %li{ class: (params[:controller] == 'workflow' && params[:action] == 'start') ? 'active' : nil }= link_to 'New Analysis', workflow_start_path
       %li{ class: (params[:controller] == 'datasets') ? 'active' : nil }= link_to 'Fetch Results', datasets_path
+      %li.has-dropdown
+        = link_to 'Advanced Tools', '#'
+
+        %ul.dropdown
+          %li= link_to 'Browse / Search Database', search_path
+          %li= link_to 'List of Datasets', datasets_path
+
+      - if current_user && current_user.workflow_active
+        %li.has-form= link_to 'Current Analysis', workflow_activate_path(current_user.workflow_class), class: 'button success'
+        %li.has-form= link_to 'Abort Building Analysis', workflow_destroy_path, class: 'button alert', data: { confirm: 'Are you sure?  The analysis now under construction will be lost!' }
 
     %ul.right
       %li= link_to 'Help', 'http://rletters.net/help'

@@ -15,6 +15,13 @@ module Jobs
         'Plot by Date'
       end
 
+      # Return how many datasets this job requires
+      #
+      # @return [Integer] number of datasets needed to perform this job
+      def self.num_datasets
+        1
+      end
+
       # Export the date format data
       #
       # Like all view/multiexport jobs, this job saves its data out as a JSON

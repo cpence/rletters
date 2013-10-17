@@ -1,23 +1,29 @@
-- content_for :title do
-  = t('.head')
+%h4 Create a new dataset
+%h6.subheader Give these search results a name, and they will be preserved as a new dataset.
 
-= form_for(@dataset) do |f|
-  - if @dataset.errors.any?
-    %ul{ data: { role: 'listview', theme: 'e', divider_theme: 'e' }, style: 'margin-bottom: 30px;' }
-      %li= t('.errors', count: @dataset.errors.count)
-      - @dataset.errors.full_messages.each do |msg|
-        %li= msg
+#new-dataset-modal
+  = form_for(@dataset) do |f|
+    = hidden_field_tag :q, params[:q]
+    = hidden_field_tag :defType, params[:defType]
+    - if params[:fq]
+      - params[:fq].each do |fq|
+        = hidden_field_tag 'fq[]', fq
 
-  %div{ data: { role: 'fieldcontain' } }
-    = f.label :name, Dataset.human_attribute_name('name')
-    = f.text_field :name
+    / FIXME this is bogus do this right
+    - if @dataset.errors.any?
+      .row
+        .small-12.columns
+          %strong= t('.errors', count: @dataset.errors.count)
+          %ul
+            - @dataset.errors.full_messages.each do |msg|
+              %li= msg
 
-  = hidden_field_tag :q, params[:q]
-  = hidden_field_tag :defType, params[:defType]
-  - if params[:fq]
-    - params[:fq].each do |fq|
-      = hidden_field_tag 'fq[]', fq
+    .row
+      .large-6.columns
+        = f.label :name
+        = f.text_field :name
 
-  = f.submit t('.submit_label')
+    .row
+      .large-6.columns= f.submit t('.submit_label'), class: 'button success small'
 
-= link_to t('.cancel'), datasets_path, data: { role: 'button' }
+%a.close-reveal-modal &#215;

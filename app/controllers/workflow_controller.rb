@@ -7,6 +7,7 @@
 # is responsible for all of that.
 class WorkflowController < ApplicationController
   layout 'full_page'
+  before_filter :authenticate_user!, except: [:index, :image]
 
   # Show the introduction page or the user dashboard
   #
@@ -41,14 +42,57 @@ class WorkflowController < ApplicationController
   def start
   end
 
+  # Destroy the currently building analysis, leaving workflow mode
+  #
+  # @api public
+  # @return [undefined]
+  def destroy
+    current_user.workflow_active = false
+    current_user.workflow_class = nil
+    current_user.workflow_datasets = nil
+    current_user.save
+
+    redirect_to workflow_path, alert: 'Analysis construction aborted!'
+  end
+
   # Show information about a job
   #
   # @api public
   # @return [undefined]
   def info
-    raise ActiveRecord::RecordNotFound unless params[:class]
-    @klass = ('Jobs::Analysis::' + params[:class]).safe_constantize
-    raise ActiveRecord::RecordNotFound unless @klass
+    load_workflow_parameters
+  end
+
+  # Get the user to collect datasets for a job
+  #
+  # @api public
+  # @return [undefined]
+  def activate
+    load_workflow_parameters
+
+    # Write out the class that the user has chosen
+    current_user.workflow_active = true
+    current_user.workflow_class = params[:class]
+
+    # See if we've been asked to link a dataset to this job
+    if params[:link_dataset_id]
+      @user_datasets << Integer(params[:link_dataset_id])
+      @user_datasets_str = @user_datasets.map { |d| d.to_param }.to_json
+      current_user.workflow_datasets = @user_datasets_str
+    end
+
+    # Same for unlinking a dataset
+    if params[:unlink_dataset_id]
+      @user_datasets.delete_if { |d| d.to_param == params[:unlink_dataset_id] }
+      @user_datasets_str = @user_datasets.map { |d| d.to_param }.to_json
+      current_user.workflow_datasets = @user_datasets_str
+    end
+
+    # Save our changes, if any
+    current_user.save
+
+    # Refresh all these parameters, we may have changed them
+    load_workflow_parameters
   end
 
   # Return one of the uploaded-asset images
@@ -61,5 +105,26 @@ class WorkflowController < ApplicationController
     send_data model.file.file_contents(style),
               filename: model.file_file_name,
               content_type: model.file_content_type
+  end
+
+  private
+
+  def load_workflow_parameters
+    raise ActiveRecord::RecordNotFound unless params[:class]
+    @klass = ('Jobs::Analysis::' + params[:class]).safe_constantize
+    raise ActiveRecord::RecordNotFound unless @klass
+
+    @num_datasets = @klass.num_datasets
+    raise ArgumentError, "Cannot instantiate a job that needs #{@num_datasets} datasets!" if @num_datasets <= 0
+
+    @user_active = current_user.workflow_active || false
+    @user_class_str = current_user.workflow_class
+    @user_class = @user_class_str.safe_constantize if @user_class_str
+    @user_datasets_str = current_user.workflow_datasets
+    if @user_datasets_str
+      p JSON.parse(@user_datasets_str)
+      @user_datasets = JSON.parse(@user_datasets_str).map { |id| current_user.datasets.find(id) }
+    end
+    @user_datasets ||= []
   end
 end

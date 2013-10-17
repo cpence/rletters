@@ -17,6 +17,13 @@ module Jobs
         'Export Citations'
       end
 
+      # Return how many datasets this job requires
+      #
+      # @return [Integer] number of datasets needed to perform this job
+      def self.num_datasets
+        1
+      end
+
       # Export the dataset
       #
       # @api public

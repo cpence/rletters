@@ -16,6 +16,13 @@ module Jobs
         'Craig Zeta'
       end
 
+      # Return how many datasets this job requires
+      #
+      # @return [Integer] number of datasets needed to perform this job
+      def self.num_datasets
+        2
+      end
+
       # Determine which words mark out differences between two datasets.
       #
       # This saves its data out as a CSV file to be downloaded by the user
