@@ -1,5 +1,5 @@
 %ul{ data: { role: 'listview', theme: 'd', divider_theme: 'b' } }
-  = form_tag({ controller: 'datasets', action: 'task_start', id: @dataset.to_param, class: 'CraigZeta' }, { method: :get }) do
+  = form_tag({ controller: 'datasets', action: 'task_start', id: @dataset.to_param, class: 'CraigZeta' }, method: :get) do
     %li
       %div{ data: { role: 'fieldcontain' } }
         = label_tag('job_params[other_dataset_id]', 'Dataset to compare with:')

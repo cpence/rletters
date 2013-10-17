@@ -97,7 +97,7 @@ class SearchController < ApplicationController
     @document = Document.find(params[:id])
     @datasets = current_user.datasets
 
-    render layout: 'dialog'
+    render layout: false
   end
 
   # Redirect to the Mendeley page for a document

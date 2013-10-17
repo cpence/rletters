@@ -6,7 +6,7 @@
     %h3 User options
     %h5.subheader You can configure your user settings here, change your password, or delete your account.
 
-= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, class: 'custom' }) do |f|
+= form_for(resource, as: resource_name, url: registration_path(resource_name), method: :put, html: { class: 'custom' }) do |f|
 
   / FIXME: we can do this right with the new error wrappers...
   - unless resource.errors.empty?

@@ -2,7 +2,7 @@
   = javascript_include_tag 'compute_word_frequencies'
 
 %ul{ data: { role: 'listview', theme: 'd', divider_theme: 'b' } }
-  = form_tag({ controller: 'datasets', action: 'task_start', id: @dataset.to_param, class: 'WordFrequency' }, { method: :get }) do
+  = form_tag({ controller: 'datasets', action: 'task_start', id: @dataset.to_param, class: 'WordFrequency' }, method: :get) do
     %li
       = render_job_partial Jobs::Analysis::WordFrequency, 'compute_word_frequencies'
       = submit_tag 'Run Frequency Analysis'

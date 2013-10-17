@@ -6,7 +6,7 @@
 
 %div.verticalpad
 
-= form_tag search_path, { method: "get" } do
+= form_tag search_path, method: 'get' do
   = hidden_field_tag :precise, true
   %ul{ data: { role: 'listview', theme: 'd', divider_theme: 'c' } }
     %li{ data: { role: 'list-divider' } }= t('.search_header')
@@ -58,7 +58,7 @@
 
 %div.verticalpad
 
-= form_tag search_path, { method: "get" } do
+= form_tag search_path, method: 'get' do
   = hidden_field_tag :precise, true
   %ul{ data: { role: 'listview', theme: 'd', divider_theme: 'b' } }
     %li
