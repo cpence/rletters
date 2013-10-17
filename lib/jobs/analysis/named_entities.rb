@@ -10,6 +10,14 @@ module Jobs
     class NamedEntities < Jobs::Analysis::Base
       @queue = 'analysis'
 
+      # Return the name of this job
+      #
+      # @return [String] name of this job
+      def self.job_name
+        'Extract Named Entities'
+      end
+
+
       # Export the named entity data
       #
       # This function saves out the NER data as a JSON hash, to be visualized

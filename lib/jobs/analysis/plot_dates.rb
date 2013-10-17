@@ -8,6 +8,13 @@ module Jobs
       add_concern 'NormalizeDocumentCounts'
       @queue = 'analysis'
 
+      # Return the name of this job
+      #
+      # @return [String] name of this job
+      def self.job_name
+        'Plot by Date'
+      end
+
       # Export the date format data
       #
       # Like all view/multiexport jobs, this job saves its data out as a JSON

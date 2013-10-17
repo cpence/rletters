@@ -4,13 +4,30 @@
 %header
   %section
     %h2== #{Setting.app_name} Dashboard
-    %h4.subheader== Your main control pannel for #{Setting.app_name}.  From here, you can start a new analysis, fetch the results of your completed analyses, or browse through the article database.
+    %h4.subheader== Your main control panel for #{Setting.app_name}.  From here, you can start a new analysis, fetch the results of your completed analyses, or browse through the article database.
 
 .row
-  .small-6.columns
+  .large-6.columns
     = link_to 'Start a new analysis', workflow_start_path, class: 'button success expand'
-    = link_to 'See results of old analyses', '#', class: 'button secondary expand'
-    = link_to 'Create a new dataset', search_path, class: 'button secondary expand'
+  .large-6.columns
+    %p Decide what kind of question you'd like to answer, select the data you'd like to consult, and get your results.
 
-  .small-6.columns
-    Some info here, maybe?
+.row
+  .large-6.columns
+    = link_to 'See results of old analyses', '#', class: 'button secondary expand'
+  .large-6.columns
+    %p Have a finished analysis?  Collect your results here.  Completed analysis data will be held for 14 days.
+
+.row
+  .large-6.columns
+    = link_to 'Advanced mode', search_path, class: 'button secondary expand'
+  .large-6.columns
+    %p Search and save datasets manually, then start an analysis task on the dataset of your choice.
+
+.row
+  .small-12.columns
+    %hr
+
+    %h4 Statistics
+
+    %p Put some stats here: how many datasets you have, how many analysis tasks you've run, how many docs/datasets are in the database, etc.

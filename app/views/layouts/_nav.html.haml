@@ -1,0 +1,25 @@
+%nav.top-bar
+  %ul.title-area
+    %li.name
+      %h1= link_to Setting.app_name, root_path
+    %li.toggle-topbar.menu-icon
+      %a{ href: '#' }
+        %span Menu
+
+  %section.top-bar-section
+    %ul.left
+      %li.divider
+      %li{ class: (params[:controller] == 'workflow' && params[:action] == 'start') ? 'active' : nil }= link_to 'New Analysis', workflow_start_path
+      %li{ class: (params[:controller] == 'datasets') ? 'active' : nil }= link_to 'Fetch Results', datasets_path
+
+    %ul.right
+      %li= link_to 'Help', 'http://rletters.net/help'
+      %li.divider.hide-for-small
+      - if current_user
+        %li{ class: (params[:controller] == 'users') ? 'active' : nil }= link_to 'My Account', edit_user_registration_path
+        %li= link_to 'Sign Out', destroy_user_session_path, method: :delete
+      - else
+        %li#login-button{ class: (params[:controller] == 'users') ? 'active' : nil }= link_to 'Log In', '#', 'data-dropdown' => 'login-dropdown'
+
+- unless current_user
+  = render partial: 'layouts/log_in'

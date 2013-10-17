@@ -10,6 +10,13 @@ module Jobs
     class ExportCitations < Jobs::Analysis::Base
       @queue = 'analysis'
 
+      # Return the name of this job
+      #
+      # @return [String] name of this job
+      def self.job_name
+        'Export Citations'
+      end
+
       # Export the dataset
       #
       # @api public

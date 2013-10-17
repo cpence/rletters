@@ -9,6 +9,13 @@ module Jobs
       add_concern 'ComputeWordFrequencies'
       @queue = 'analysis'
 
+      # Return the name of this job
+      #
+      # @return [String] name of this job
+      def self.job_name
+        'Craig Zeta'
+      end
+
       # Determine which words mark out differences between two datasets.
       #
       # This saves its data out as a CSV file to be downloaded by the user

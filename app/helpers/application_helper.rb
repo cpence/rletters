@@ -49,7 +49,10 @@ module ApplicationHelper
       extensions = "{#{ActionView::Template.template_handler_extensions.join(',')}}"
       matches = Dir.glob(File.join(p, "_#{view}.html.#{extensions}"))
 
-      return render(file: matches[0]).html_safe unless matches.empty?
+      unless matches.empty?
+        ret = render(file: matches[0])
+        return ret.html_safe if ret
+      end
     end
 
     render inline: "<p><strong>ERROR: Cannot find job view #{view} for class #{klass}"

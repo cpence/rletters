@@ -41,6 +41,16 @@ class WorkflowController < ApplicationController
   def start
   end
 
+  # Show information about a job
+  #
+  # @api public
+  # @return [undefined]
+  def info
+    raise ActiveRecord::RecordNotFound unless params[:class]
+    @klass = ('Jobs::Analysis::' + params[:class]).safe_constantize
+    raise ActiveRecord::RecordNotFound unless @klass
+  end
+
   # Return one of the uploaded-asset images
   #
   # @api public

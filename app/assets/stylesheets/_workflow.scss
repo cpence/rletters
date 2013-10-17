@@ -45,3 +45,20 @@
   @include single-transition;
   @include inset-shadow;
 }
+
+#markdown-info {
+  h4 {
+    line-height: $subheader-line-height;
+    color: $subheader-font-color;
+    font-weight: $subheader-font-weight;
+  }
+
+  blockquote {
+    @include panel;
+    @include radius($global-radius);
+
+    width: 60%;
+    margin-left: 20%;
+    margin-bottom: 2em;
+  }
+}

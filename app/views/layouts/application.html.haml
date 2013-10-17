@@ -2,32 +2,7 @@
 %html{ lang: I18n.locale }
   = render partial: 'layouts/head'
   %body
-    %nav.top-bar
-      %ul.title-area
-        %li.name
-          %h1= link_to Setting.app_name, root_path
-        %li.toggle-topbar.menu-icon
-          %a{ href: '#' }
-            %span Menu
-
-      %section.top-bar-section
-        %ul.left
-          %li.divider
-          %li{ class: (params[:controller] == 'info') ? 'active' : nil }= link_to 'Home', root_path
-          %li{ class: (params[:controller] == 'search') ? 'active' : nil }= link_to 'Search', search_path
-          %li{ class: (params[:controller] == 'datasets') ? 'active' : nil }= link_to 'Datasets', datasets_path
-
-        %ul.right
-          %li.divider.hide-for-small
-          %li= link_to 'Help', 'http://rletters.net/help'
-          - if current_user
-            %li{ class: (params[:controller] == 'users') ? 'active' : nil }= link_to 'My Account', edit_user_registration_path
-            %li= link_to 'Sign Out', destroy_user_session_path, method: :delete
-          - else
-            %li#login-button{ class: (params[:controller] == 'users') ? 'active' : nil }= link_to 'Log In', '#', 'data-dropdown' => 'login-dropdown'
-
-    - unless current_user
-      = render partial: 'layouts/log_in'
+    = render partial: 'layouts/nav'
 
     %div
       - flash.each do |k, v|

@@ -1,0 +1,13 @@
+%ul.breadcrumbs
+  %li= link_to 'Home', workflow_path
+  %li= link_to 'Start Analysis', workflow_start_path
+  %li.current= link_to "Info: #{@klass.job_name}"
+
+.row
+  #markdown-info.small-12.columns= render_job_partial(@klass, 'info')
+
+.row
+  .large-6.large-offset-6.columns
+    %ul.button-group.even-2
+      %li= link_to 'Back', workflow_start_path, class: 'button secondary'
+      %li= link_to 'Start', '#', class: 'button success'
