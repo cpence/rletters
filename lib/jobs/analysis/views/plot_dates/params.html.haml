@@ -1,8 +1,0 @@
-- content_for :javascript do
-  = javascript_include_tag 'normalize_document_counts'
-
-%ul{ data: { role: 'listview', theme: 'd', divider_theme: 'b' } }
-  = form_tag({ controller: 'datasets', action: 'task_start', id: @dataset.to_param, class: 'PlotDates' }, method: :get) do
-    %li
-      = render_job_partial Jobs::Analysis::PlotDates, 'normalize_document_counts'
-      = submit_tag 'Plot By Date'

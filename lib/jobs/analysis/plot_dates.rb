@@ -22,15 +22,6 @@ module Jobs
         1
       end
 
-      # Return link parameters for starting this job
-      #
-      # @param [Dataset] dataset the dataset on which to start the job
-      # @return [Hash] link parameters for beginning this job on the dataset
-      def self.link_parameters(dataset)
-        { controller: 'datasets', action: 'task_view', id: dataset.to_param,
-          class: 'PlotDates', view: 'params' }
-      end
-
       # Export the date format data
       #
       # Like all view/multiexport jobs, this job saves its data out as a JSON

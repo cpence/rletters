@@ -43,19 +43,14 @@ module ApplicationHelper
   end
 
   # Render a partial from a job
-  def render_job_partial(klass, view)
-    # Find the partial
-    klass.view_paths.each do |p|
-      extensions = "{#{ActionView::Template.template_handler_extensions.join(',')}}"
-      matches = Dir.glob(File.join(p, "_#{view}.html.#{extensions}"))
+  def render_job_partial(klass, view, args = {})
+    path = klass.view_path(partial: view)
 
-      unless matches.empty?
-        ret = render(file: matches[0])
-        return ret.html_safe if ret
-      end
+    if path
+      render(args.merge(file: path)).html_safe
+    else
+      "<p><strong>ERROR: Cannot find job view #{view} for class #{klass}".html_safe
     end
-
-    render inline: "<p><strong>ERROR: Cannot find job view #{view} for class #{klass}"
   end
 
 end

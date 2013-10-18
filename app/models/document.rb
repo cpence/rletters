@@ -134,7 +134,7 @@ class Document
     # @example Register a serializer for JSON
     #   Document.register_serializer (:json,
     #                                 'JSON',
-    #                                 lambda { |doc| doc.to_json },
+    #                                 ->(doc) { doc.to_json },
     #                                 'http://www.json.org/')
     def register_serializer(key, name, method, docs)
       Document.serializers ||= { }

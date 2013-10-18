@@ -123,24 +123,47 @@ class DatasetsController < ApplicationController
   # @api public
   # @return [undefined]
   def task_start
-    dataset = current_user.datasets.find(params[:id])
-    fail ActiveRecord::RecordNotFound unless dataset
-    klass = AnalysisTask.job_class(params[:class])
+    # Get the dataset and the class
+    @dataset = current_user.datasets.find(params[:id])
+    fail ActiveRecord::RecordNotFound unless @dataset
+    @klass = AnalysisTask.job_class(params[:class])
+
+    # Get the parameters we've specified so far
+    job_params = params[:job_params].to_hash if params[:job_params]
+    job_params ||= {}
+    job_params.symbolize_keys!
+
+    # Make sure we have enough other datasets, if those are required
+    if @klass.num_datasets > 1
+      other_datasets = job_params[:other_datasets]
+
+      if other_datasets.nil? || other_datasets.count < (@klass.num_datasets - 1)
+        # Still need more other datasets, render the data collection view
+        # and bail
+        render template: 'datasets/task_datasets'
+        return
+      end
+    end
+
+    # Make sure we've gathered the parameters, if those are required
+    if @klass.has_view?('_params')
+      unless job_params[:start]
+        render template: 'datasets/task_params'
+        return
+      end
+    end
 
     # Create an analysis task
-    task = dataset.analysis_tasks.create(name: params[:class],
-                                         job_type: params[:class])
+    task = @dataset.analysis_tasks.create(name: params[:class],
+                                          job_type: params[:class])
 
-    # Put the job parameters together out of the job hash
-    job_params = {}
-    job_params = params[:job_params].to_hash if params[:job_params]
-    job_params.symbolize_keys!
+    # Force these three parameters that we always need
     job_params[:user_id] = current_user.to_param
-    job_params[:dataset_id] = dataset.to_param
+    job_params[:dataset_id] = @dataset.to_param
     job_params[:task_id] = task.to_param
 
     # Enqueue the job
-    Resque.enqueue(klass, job_params)
+    Resque.enqueue(@klass, job_params)
 
     if current_user.workflow_active
       # If the user was in the workflow, they're done now
@@ -152,7 +175,7 @@ class DatasetsController < ApplicationController
       redirect_to root_path, flash: { success: 'Running analysis now, check back soon for results...' }
     else
       # Advanced mode
-      redirect_to dataset_path(dataset), flash: { success: 'Analysis job started!' }
+      redirect_to dataset_path(@dataset), flash: { success: 'Analysis job started!' }
     end
   end
 
@@ -224,15 +247,10 @@ class DatasetsController < ApplicationController
   # @param [String] view the view to render
   # @return [undefined]
   def render_job_view(klass, view, format = 'html')
-    # Find the partial
-    klass.view_paths.each do |p|
-      path = File.join(p, "#{view}.#{format}.haml")
-      if File.exist? path
-        return render file: path
-      end
-    end
+    path = klass.view_path(template: view, format: format)
+    fail ActiveRecord::RecordNotFound unless path
 
-    fail ActiveRecord::RecordNotFound
+    render file: path
   end
 
   # Whitelist acceptable dataset parameters

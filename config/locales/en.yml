@@ -17,6 +17,8 @@ en:
             user:
                 create: Sign up
                 edit: Update settings
+            job_params:
+                submit: Start analysis job
     all:
         home_button: "Home"
         search_button: "Search / Browse"

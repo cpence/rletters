@@ -24,17 +24,6 @@ module Jobs
         1
       end
 
-      # Return link parameters for starting this job
-      #
-      # @param [Dataset] dataset the dataset on which to start the job
-      # @return [Hash] link parameters for beginning this job on the dataset
-      def self.link_parameters(dataset)
-        return nil unless NLP_ENABLED
-
-        { controller: 'datasets', action: 'task_start', id: dataset.to_param,
-          class: 'NamedEntities' }
-      end
-
       # Export the named entity data
       #
       # This function saves out the NER data as a JSON hash, to be visualized

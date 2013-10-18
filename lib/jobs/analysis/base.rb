@@ -172,6 +172,49 @@ module Jobs
         ret
       end
 
+      # Returns the path to a particular view on the filesystem
+      #
+      # The arguments to this function are somewhat like the Rails render call.
+      # One of either +:template+ or +:partial+ must be specified
+      #
+      # @param [Hash] args options for finding view
+      # @options args [String] template if specified, template to search for
+      # @options args [String] partial if specified, partial to search for
+      # @options args [String] format if specified, format to render (deafults
+      #   to HTML)
+      def self.view_path(args)
+        if args[:template]
+          args[:filename] = args[:template]
+        elsif args[:partial]
+          args[:filename] = "_#{args[:partial]}"
+        else
+          fail ArgumentError, 'view_path requires at least :template or :partial'
+        end
+        args[:format] ||= 'html'
+
+        view_paths.each do |p|
+          # Look for any of the extensions that we can currently render
+          extensions = "{#{ActionView::Template.template_handler_extensions.join(',')}}"
+          matches = Dir.glob(File.join(p, "#{args[:filename]}.#{args[:format]}.#{extensions}"))
+
+          unless matches.empty?
+            return matches[0]
+          end
+        end
+
+        nil
+      end
+
+      # Returns true if the given view exists for this job class
+      #
+      # @api public
+      # @param String view the view to search for
+      # @param String format the format to search for
+      # @return [Boolean] true if the given job has the view requested
+      def self.has_view?(view, format = 'html')
+        !view_path(template: view, format: format).nil?
+      end
+
       private
 
       class << self

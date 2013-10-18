@@ -1,0 +1,23 @@
+- content_for :breadcrumbs do
+  %li= link_to 'Home', workflow_path
+  %li= link_to 'Manage Datasets', datasets_path
+  %li= link_to "Manage: #{@dataset.name}", @dataset
+  %li.current= link_to 'Add More Data', { controller: 'datasets', action: 'task_start', id: @dataset.to_param, class: params[:class] }
+
+%header
+  %section
+    %h2 Add More Datasets
+    %h4.subheader This job requires more than one dataset to run.  Select the rest of the datasets you'd like to use below.
+
+.row
+  .large-6.columns
+    = simple_form_for :job_params, url: url_for(controller: 'datasets', action: 'task_start', id: @dataset.to_param, class: params[:class]), method: :get do |f|
+      - (@klass.num_datasets - 1).times do |n|
+        -# Have to use the custom tag helper here, rather than the simple_form
+        -# method, because otherwise the array bits don't work right, and I
+        -# cannot for the life of me figure out how to get them to instantiate.
+        = label_tag 'job_params[other_datasets][]', "#{(n + 1).ordinalize} #{Dataset.model_name.human}"
+        = select_tag 'job_params[other_datasets][]', options_from_collection_for_select(current_user.datasets.where.not(id: @dataset.id), 'to_param', 'name')
+
+      = f.button :submit, 'OK'
+      = link_to 'Cancel', @dataset, class: 'button secondary'

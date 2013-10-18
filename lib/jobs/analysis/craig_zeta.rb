@@ -23,17 +23,6 @@ module Jobs
         2
       end
 
-      # Return link parameters for starting this job
-      #
-      # @param [Dataset] dataset the dataset on which to start the job
-      # @return [Hash] link parameters for beginning this job on the dataset
-      def self.link_parameters(dataset)
-        return nil if dataset.user.datasets.count <= 1
-
-        { controller: 'datasets', action: 'task_view', id: dataset.to_param,
-          class: 'CraigZeta', view: 'params' }
-      end
-
       # Determine which words mark out differences between two datasets.
       #
       # This saves its data out as a CSV file to be downloaded by the user
@@ -64,7 +53,9 @@ module Jobs
         fail ArgumentError, 'Dataset ID is not valid' unless dataset_1
 
         # Fetch the comparison dataset based on ID
-        dataset_2 = user.datasets.find(args[:other_dataset_id])
+        other_datasets = args[:other_datasets]
+        fail ArgumentError, 'Wrong number of other datasets provided' unless other_datasets.count == 1
+        dataset_2 = user.datasets.find(other_datasets[0])
         fail ArgumentError, 'Other dataset ID is not valid' unless dataset_2
 
         # Update the analysis task

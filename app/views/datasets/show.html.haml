@@ -1,7 +1,6 @@
 - content_for :javascript do
   = javascript_include_tag 'datasets_show'
-
-%ul.breadcrumbs
+- content_for :breadcrumbs do
   %li= link_to 'Home', workflow_path
   %li= link_to 'Manage Datasets', datasets_path
   %li.current= link_to "Manage: #{@dataset.name}", @dataset
@@ -33,6 +32,6 @@
 
     - Jobs::Analysis::Base.job_list.reject { |k| !k.available? || (k.num_datasets > current_user.datasets.count) }.each_slice(2) do |a|
       .row
-        .large-6.columns= link_to(a[0].t('.short_desc'), a[0].link_parameters(@dataset), class: 'button small secondary expand')
+        .large-6.columns= link_to(a[0].t('.short_desc'), { controller: 'datasets', action: 'task_start', id: @dataset.to_param, class: a[0].name.demodulize.to_s }, class: 'button small secondary expand')
         - if a.count > 1
-          .large-6.columns= link_to(a[1].t('.short_desc'), a[1].link_parameters(@dataset), class: 'button small secondary expand')
+          .large-6.columns= link_to(a[1].t('.short_desc'), { controller: 'datasets', action: 'task_start', id: @dataset.to_param, class: a[1].name.demodulize.to_s }, class: 'button small secondary expand')
