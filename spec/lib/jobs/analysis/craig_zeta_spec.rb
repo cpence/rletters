@@ -4,7 +4,7 @@ require 'spec_helper'
 describe Jobs::Analysis::CraigZeta, vcr: { cassette_name: 'craig_zeta' } do
 
   it_should_behave_like 'an analysis job with a file' do
-    let(:job_params) { { other_dataset_id: @dataset_2.id } }
+    let(:job_params) { { other_datasets: [@dataset_2.id] } }
   end
 
   before(:each) do
@@ -48,7 +48,7 @@ describe Jobs::Analysis::CraigZeta, vcr: { cassette_name: 'craig_zeta' } do
         user_id: @user.to_param,
         dataset_id: @dataset.to_param,
         task_id: @task.to_param,
-        other_dataset_id: @dataset_2.to_param,
+        other_datasets: [@dataset_2.to_param],
         normalize_doc_counts: 'off')
     end
 

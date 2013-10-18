@@ -97,30 +97,15 @@ describe LibrariesController do
   end
 
   describe '#destroy' do
-    context 'when cancel is pressed' do
-      it 'does not delete the library' do
-        expect {
-          delete :destroy, id: @library.to_param, cancel: true
-        }.to_not change { @user.libraries.count }
-      end
-
-      it 'redirects to the user page' do
-        delete :destroy, id: @library.to_param, cancel: true
-        expect(response).to redirect_to(edit_user_registration_path)
-      end
+    it 'deletes the library' do
+      expect {
+        delete :destroy, id: @library.to_param
+      }.to change { @user.libraries.count }.by(-1)
     end
 
-    context 'when cancel is not pressed' do
-      it 'deletes the library' do
-        expect {
-          delete :destroy, id: @library.to_param
-        }.to change { @user.libraries.count }.by(-1)
-      end
-
-      it 'redirects to the user page' do
-        delete :destroy, id: @library.to_param, cancel: true
-        expect(response).to redirect_to(edit_user_registration_path)
-      end
+    it 'redirects to the user page' do
+      delete :destroy, id: @library.to_param, cancel: true
+      expect(response).to redirect_to(edit_user_registration_path)
     end
   end
 
