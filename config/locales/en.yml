@@ -150,18 +150,37 @@ en:
             craig_zeta:
                 name: Craig Zeta
                 short_desc: Determine words that differentiate two datasets (Craig Zeta)
+                question: >
+                    Given two sets of articles, what words mark out an article
+                    as belonging to set A rather than to set B, or vice versa?
             export_citations:
                 name: Export Citations
                 short_desc: Export dataset as citations
+                question: >
+                    Can I export a set of articles to my favorite format or
+                    reference manager?
             named_entities:
                 name: Extract Proper Names
                 short_desc: Extract references to proper names
+                question: >
+                    What proper names (locations, people, organizations) are
+                    mentioned in a given set of articles?
             plot_dates:
                 name: Plot by Date
                 short_desc: Plot dataset by date
+                question: >
+                    How has the frequency of a term changed over time?
+
+                    When were a given set of articles published?
             word_frequency:
                 name: Word Frequency
                 short_desc: Analyze word frequency in dataset
+                question: >
+                    What's the frequency of word use within a given set of
+                    articles?
+
+                    What are the "most important" or "most frequent" words used
+                    in a given set?
     search:
         index:
             placeholder: "Search for articles..."

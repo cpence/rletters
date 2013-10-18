@@ -10,6 +10,13 @@ module Jobs
     class ExportCitations < Jobs::Analysis::Base
       @queue = 'analysis'
 
+      # Returns true if this job can be started now
+      #
+      # @return [Boolean] true
+      def self.available?
+        true
+      end
+
       # Return how many datasets this job requires
       #
       # @return [Integer] number of datasets needed to perform this job

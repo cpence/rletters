@@ -10,6 +10,13 @@ module Jobs
     class NamedEntities < Jobs::Analysis::Base
       @queue = 'analysis'
 
+      # Returns true if this job can be started now
+      #
+      # @return [Boolean] true if the Stanford NLP toolkit is available
+      def self.available?
+        NLP_ENABLED
+      end
+
       # Return how many datasets this job requires
       #
       # @return [Integer] number of datasets needed to perform this job

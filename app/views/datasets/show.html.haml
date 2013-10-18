@@ -31,8 +31,8 @@
 
     %h4= t('.new_task')
 
-    - Jobs::Analysis::Base.job_list.reject { |k| k.link_parameters(@dataset).nil? }.each_slice(2) do |a|
+    - Jobs::Analysis::Base.job_list.reject { |k| !k.available? || (k.num_datasets > current_user.datasets.count) }.each_slice(2) do |a|
       .row
-        .large-6.columns= link_to(t("#{a[0].name.underscore.gsub('/', '.')}.short_desc"), a[0].link_parameters(@dataset), class: 'button small secondary expand')
+        .large-6.columns= link_to(a[0].t('.short_desc'), a[0].link_parameters(@dataset), class: 'button small secondary expand')
         - if a.count > 1
-          .large-6.columns= link_to(t("#{a[1].name.underscore.gsub('/', '.')}.short_desc"), a[1].link_parameters(@dataset), class: 'button small secondary expand')
+          .large-6.columns= link_to(a[1].t('.short_desc'), a[1].link_parameters(@dataset), class: 'button small secondary expand')

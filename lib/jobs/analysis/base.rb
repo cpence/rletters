@@ -28,11 +28,30 @@ module Jobs
     #   is to write the job results out as JSON in +AnalysisTask#result_file+,
     #   and then to parse this JSON into HAML in the view.
     class Base
+      # Returns true if this job can be run right now
+      #
+      # In general, this checks if all required external tools are available.
+      #
+      # @return [Boolean] true if this job can be run now
+      def self.available?
+        fail NotImplementedError, 'Classes deriving from Jobs::Analysis::Base should implement .available?'
+      end
+
       # Return how many datasets this job requires
       #
       # @return [Integer] number of datasets needed to perform this job
       def self.num_datasets
-        0
+        fail NotImplementedError, 'Classes deriving from Jobs::Analysis::Base should implement .num_datasets'
+      end
+
+      # Returns a translated string for this job
+      #
+      # This handles the i18n scoping for analysis job classes.
+      #
+      # @param [String] key the translation to look up (e.g., '.short_desc')
+      # @return [String] the translated message
+      def self.t(key)
+        I18n.t("#{name.underscore.gsub('/', '.')}#{key.to_s}")
       end
 
       # True if this job produces a download
