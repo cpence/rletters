@@ -16,6 +16,17 @@ module Jobs
         2
       end
 
+      # Return link parameters for starting this job
+      #
+      # @param [Dataset] dataset the dataset on which to start the job
+      # @return [Hash] link parameters for beginning this job on the dataset
+      def self.link_parameters(dataset)
+        return nil if dataset.user.datasets.count <= 1
+
+        { controller: 'datasets', action: 'task_view', id: dataset.to_param,
+          class: 'CraigZeta', view: 'params' }
+      end
+
       # Determine which words mark out differences between two datasets.
       #
       # This saves its data out as a CSV file to be downloaded by the user

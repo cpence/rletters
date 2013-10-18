@@ -44,7 +44,7 @@ function lookUpMarkers() {
 
 function createNamedEntitiesMap() {
   // Get the elements we need
-  var mapContainer = $.mobile.activePage.find('div.named_entities_map');
+  var mapContainer = $('.named_entities_map');
   if (mapContainer.length === 0)
     return;
 

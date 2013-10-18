@@ -145,6 +145,23 @@ en:
                         invalid: "Preferred language must be a valid locale code (internal error)"
                     timezone:
                         blank: "Timezone must be specified (internal error)"
+    jobs:
+        analysis:
+            craig_zeta:
+                name: Craig Zeta
+                short_desc: Determine words that differentiate two datasets (Craig Zeta)
+            export_citations:
+                name: Export Citations
+                short_desc: Export dataset as citations
+            named_entities:
+                name: Extract Proper Names
+                short_desc: Extract references to proper names
+            plot_dates:
+                name: Plot by Date
+                short_desc: Plot dataset by date
+            word_frequency:
+                name: Word Frequency
+                short_desc: Analyze word frequency in dataset
     search:
         index:
             placeholder: "Search for articles..."

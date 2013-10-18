@@ -141,7 +141,19 @@ class DatasetsController < ApplicationController
 
     # Enqueue the job
     Resque.enqueue(klass, job_params)
-    redirect_to dataset_path(dataset)
+
+    if current_user.workflow_active
+      # If the user was in the workflow, they're done now
+      current_user.workflow_active = false
+      current_user.workflow_class = nil
+      current_user.workflow_datasets = nil
+      current_user.save
+
+      redirect_to root_path, flash: { success: 'Running analysis now, check back soon for results...' }
+    else
+      # Advanced mode
+      redirect_to dataset_path(dataset), flash: { success: 'Analysis job started!' }
+    end
   end
 
   # Show a view from an analysis task

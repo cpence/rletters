@@ -8,5 +8,6 @@
     %h4.subheader Start running a new analysis by deciding what kind of question you want to ask about the literature.  Click on the question you want to explore to continue.
 
 - Jobs::Analysis::Base.job_list.each do |klass|
-  = link_to workflow_info_path(klass.name.demodulize.to_s), class: 'job-question' do
-    = render_job_partial(klass, 'question')
+  - job_question = render_job_partial(klass, 'question')
+  - next if job_question.strip.empty?
+  = link_to job_question, workflow_info_path(klass.name.demodulize.to_s), class: 'job-question'

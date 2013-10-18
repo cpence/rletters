@@ -18,9 +18,16 @@
       %p== In order to run, this analysis job requires that you provide #{@num_datasets} #{Dataset.model_name.human(count: @num_datasets).downcase}.  Datasets are created by performing searches, then saving a set of search results.
 - else
   .row
-    / FIXME: This should see whether or not there's a "params" view for the
-    / task, and if so, it should change this button's title
-    .large-5.large-centered.columns= link_to 'Start Analysis', '#', class: 'button success expand'
+    .large-5.large-centered.columns
+      - start_params = @klass.link_parameters(@user_datasets[0])
+      - if start_params.nil?
+        -# This shouldn't happen, but we'll error for it anyway
+        = link_to 'Internal error: no job parameters!', '#', class: 'button alert disabled'
+      - else
+        - if start_params[:action] == 'task_start'
+          = link_to 'Start Analysis', start_params, class: 'button success expand'
+        - else
+          = link_to 'Set Job Options', start_params, class: 'button primary expand'
 
 .row
   .small-12.columns

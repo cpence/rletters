@@ -4,10 +4,10 @@ google.load('visualization', '1.0', {'packages':['corechart','table']});
 
 function createPlotDatesGraph() {
   // Get the elements we need
-  var dataContainer = $.mobile.activePage.find('div.plot_dates_data');
-  var percentContainer = $.mobile.activePage.find('div.plot_dates_percent');
-  var graphContainer = $.mobile.activePage.find('div.plot_dates_graph');
-  var tableContainer = $.mobile.activePage.find('div.plot_dates_table');
+  var dataContainer = $('.plot_dates_data');
+  var percentContainer = $('.plot_dates_percent');
+  var graphContainer = $('.plot_dates_graph');
+  var tableContainer = $('.plot_dates_table');
   if (graphContainer.length === 0 || dataContainer.length === 0 ||
       percentContainer.length === 0 || tableContainer.length === 0)
     return;
