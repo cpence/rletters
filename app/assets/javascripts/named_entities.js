@@ -1,17 +1,10 @@
 
-// Load the Google Maps API
-// FIXME: How is the user supposed to specify an API key using this method?
-google.load('maps', '3', {'other_params':'sensor=false'});
-google.setOnLoadCallback(function() {
-  google.maps.visualRefresh = true;
-});
-
 var global_named_entity_map;
 var global_named_entity_markers = [];
 var global_named_entity_bounds;
 
 function lookUpMarkers() {
-  var dataContainer = $('div.named_entities_map_data');
+  var dataContainer = $('#ne-map-data');
   if (dataContainer.length === 0 || global_named_entity_markers.length > 0)
     return;
 
@@ -44,7 +37,7 @@ function lookUpMarkers() {
 
 function createNamedEntitiesMap() {
   // Get the elements we need
-  var mapContainer = $('.named_entities_map');
+  var mapContainer = $('#ne-map');
   if (mapContainer.length === 0)
     return;
 
@@ -76,5 +69,13 @@ function createNamedEntitiesMap() {
 
 $(function() {
   lookUpMarkers();
-  createNamedEntitiesMap();
+  Foundation.libs.section.settings.callback = neSectionCallback;
 });
+
+function neSectionCallback(section) {
+  var active = section.find('section.active');
+  if (active.attr('id') == 'ne-map-section') {
+    createNamedEntitiesMap();
+    google.maps.event.trigger(global_named_entity_map, 'resize');
+  }
+}
