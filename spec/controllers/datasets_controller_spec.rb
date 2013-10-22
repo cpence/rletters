@@ -119,9 +119,11 @@ describe DatasetsController do
         dataset_id: @dataset.to_param)
     end
 
-    it 'redirects to index when done' do
+    it 'redirects to the previous page when done' do
+      request.env['HTTP_REFERER'] = workflow_fetch_path
       delete :destroy, id: @dataset.to_param
-      expect(response).to redirect_to(datasets_path)
+
+      expect(response).to redirect_to(workflow_fetch_path)
     end
   end
 

@@ -84,7 +84,9 @@ class DatasetsController < ApplicationController
                    user_id: current_user.to_param,
                    dataset_id: params[:id])
 
-    redirect_to datasets_path
+    # We want to send the user back where they came from, which could either
+    # be dataset_path(some_dataset) or workflow_fetch_path.
+    redirect_to(:back)
   end
 
   # Add a single document to a dataset
