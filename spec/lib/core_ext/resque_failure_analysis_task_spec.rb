@@ -16,7 +16,7 @@ module Jobs
         # handlers.  Thanks to Matt Conway (github/wr0ngway/graylog2-resque)
         # for this code.
         queue = Resque.queue_from_class(Jobs::Analysis::FailingJob)
-        Resque::Job.create(queue, Jobs::Analysis::FailingJob, *job_params)
+        Resque::Job.create(queue, Jobs::Analysis::FailingJob, job_params)
         worker = Resque::Worker.new(queue)
 
         def worker.done_working

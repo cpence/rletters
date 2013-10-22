@@ -11,6 +11,7 @@ RLetters::Application.routes.draw do
     constraints: { class: /[A-Z][A-Za-z]+/ }
   get 'workflow/activate/:class' => 'workflow#activate', as: 'workflow_activate',
     constraints: { class: /[A-Z][A-Za-z]+/ }
+  get 'workflow/fetch' => 'workflow#fetch'
 
   # Search/Browse page
   get 'search' => 'search#index'

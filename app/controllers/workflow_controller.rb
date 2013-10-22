@@ -95,6 +95,37 @@ class WorkflowController < ApplicationController
     load_workflow_parameters
   end
 
+  # Allow the user to pick up data from all of their analysis tasks
+  #
+  # @api public
+  # @return [undefined]
+  def fetch
+    analysis_criteria = {
+      datasets: { user_id: current_user.to_param }
+    }
+    @tasks = AnalysisTask.joins(:dataset).where(analysis_criteria)
+
+    @pending_tasks = @tasks.where(finished_at: nil)
+    @finished_tasks = @tasks.where.not(finished_at: nil)
+
+    if params[:terminate]
+      # Try to knock any currently running analysis tasks for this user out
+      # of the queue (if we're not running inline)
+      unless Resque.inline
+        @pending_tasks.each do |t|
+          Resque.dequeue(t.job_class, t.params)
+        end
+      end
+
+      # Delete all tasks in the DB, and if we couldn't cancel them, we just
+      # hope that the process reaper will get the jobs eventually
+      @pending_tasks.readonly(false).destroy_all
+
+      redirect_to root_path, alert: 'Attempting to cancel all pending analysis tasks...'
+      return
+    end
+  end
+
   # Return one of the uploaded-asset images
   #
   # @api public

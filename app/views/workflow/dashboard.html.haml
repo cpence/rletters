@@ -14,7 +14,7 @@
 
 .row
   .large-6.columns
-    = link_to 'See results of old analyses', '#', class: 'button secondary expand'
+    = link_to 'See results of old analyses', workflow_fetch_path, class: 'button secondary expand'
   .large-6.columns
     %p Have a finished analysis?  Collect your results here.  Completed analysis data will be held for 14 days.
 
@@ -23,11 +23,3 @@
     = link_to 'Advanced mode', search_path, class: 'button secondary expand'
   .large-6.columns
     %p Search and save datasets manually, then start an analysis task on the dataset of your choice.
-
-.row
-  .small-12.columns
-    %hr
-
-    %h4 Statistics
-
-    %p Put some stats here: how many datasets you have, how many analysis tasks you've run, how many docs/datasets are in the database, etc.

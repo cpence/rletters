@@ -9,6 +9,8 @@
 # @!attribute name
 #   @raise [RecordInvalid] if the name is missing (validates :presence)
 #   @return [String] The name of this task
+# @!attribute params
+#   @return [Hash] The parameters used to start this task with Resque
 # @!attribute created_at
 #   @return [DateTime] The time at which this task was started
 # @!attribute finished_at
@@ -30,6 +32,8 @@
 # @!attribute result_updated_at
 #   @return [DateTime] The last updated time of the result file (from Paperclip)
 class AnalysisTask < ActiveRecord::Base
+  serialize :params, Hash
+
   validates :name, presence: true
   validates :dataset_id, presence: true
   validates :job_type, presence: true

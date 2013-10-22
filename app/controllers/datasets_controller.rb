@@ -162,6 +162,10 @@ class DatasetsController < ApplicationController
     job_params[:dataset_id] = @dataset.to_param
     job_params[:task_id] = task.to_param
 
+    # Save the Resque parameters into the task, as well
+    task.params = job_params
+    task.save
+
     # Enqueue the job
     Resque.enqueue(@klass, job_params)
 

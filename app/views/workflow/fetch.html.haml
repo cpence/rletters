@@ -1,0 +1,40 @@
+- content_for :breadcrumbs do
+  %li= link_to 'Home', workflow_path
+  %li.current= link_to 'Fetch Results', workflow_fetch_path
+
+%header
+  %section
+    %h2 Fetch analysis results
+    %h4.subheader From here, you can retrieve the data produced by your analyses.  Make sure to save it soon, because it is only preserved for 14 days.
+
+- unless @pending_tasks.empty?
+  .row
+    .small-12.columns
+      .panel.radius
+        %h5 Pending analysis tasks
+        %p== You have #{@pending_tasks.count} analysis tasks that have yet to finish.  Come back to this page later to collect their results.
+        %p== Are these tasks taking too long to finish?  We can try to #{link_to 'terminate all pending jobs,', workflow_fetch_path(terminate: 'true'), data: { confirm: 'Are you sure? This may take a while.' }} though that might not work.  If it fails, #{link_to 'e-mail the site administrator.', "mailto:#{Setting.app_email}"}
+
+.row
+  .small-12.columns
+    %h4 Completed analysis tasks
+    - if @finished_tasks.empty?
+      %p You have no analysis tasks currently completed.  Start a new one and come back here to collect your data!
+    - else
+      %table
+        %thead
+          %tr
+            %th Analysis Task
+            %th Dataset
+            %th
+        %tbody
+          - @finished_tasks.each do |t|
+            %tr
+              %td= t.name
+              %td= t.dataset.name
+              %td
+                - if t.job_class.download?
+                  = link_to 'Download Results', { controller: 'datasets', action: 'task_download', id: t.dataset.to_param, task_id: t.to_param }, class: 'button success tiny'
+                - else
+                  = link_to 'View Results', { controller: 'datasets', action: 'task_view', id: t.dataset.to_param, task_id: t.to_param, view: 'results' }, class: 'button success tiny'
+                = link_to t('.delete_task'), { controller: 'datasets', action: 'task_destroy', id: t.dataset.to_param, task_id: t.to_param }, class: 'button alert tiny'
