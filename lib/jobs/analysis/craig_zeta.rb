@@ -126,13 +126,13 @@ module Jobs
           x_val = Float((marker_words & b.keys).count) / Float(b.keys.count)
           y_val = Float((anti_marker_words & b.keys).count) / Float(b.keys.count)
 
-          graph_points << ["#{dataset_1.name}: #{i+1}", x_val, y_val]
+          graph_points << [x_val, y_val, "#{dataset_1.name}: #{i+1}"]
         end
         analyzer_2.blocks.each_with_index do |b, i|
           x_val = Float((marker_words & b.keys).count) / Float(b.keys.count)
           y_val = Float((anti_marker_words & b.keys).count) / Float(b.keys.count)
 
-          graph_points << ["#{dataset_2.name}: #{i+1}", x_val, y_val]
+          graph_points << [x_val, y_val, "#{dataset_2.name}: #{i+1}"]
         end
 
         # Save out all the data
