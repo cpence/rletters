@@ -84,9 +84,7 @@ class DatasetsController < ApplicationController
                    user_id: current_user.to_param,
                    dataset_id: params[:id])
 
-    # We want to send the user back where they came from, which could either
-    # be dataset_path(some_dataset) or workflow_fetch_path.
-    redirect_to(:back)
+    redirect_to datasets_path
   end
 
   # Add a single document to a dataset
@@ -223,7 +221,10 @@ class DatasetsController < ApplicationController
     fail ActiveRecord::RecordNotFound unless task
 
     task.destroy
-    redirect_to dataset_path
+
+    # We want to send the user back where they came from, which could either
+    # be dataset_path(some_dataset) or workflow_fetch_path.
+    redirect_to :back
   end
 
   # Download a file from an analysis task

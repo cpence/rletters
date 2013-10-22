@@ -6,23 +6,27 @@
 - dates = data['data']
 - percent = data['percent']
 
-%div.center
-  %h1= @dataset.name
+.row
+  .large-8.columns
+    %h2== #{Dataset.model_name.human}: #{@dataset.name}
 
-  - if percent
-    %h2== Percentage of documents in #{data['normalization_set']} found in the #{@dataset.name} dataset, plotted by year
-  - else
-    %h2 Number of documents, plotted by year
+    - if percent
+      %h4.subheader== Percentage of documents in #{data['normalization_set']} found in the #{@dataset.name} dataset, plotted by year
+    - else
+      %h4.subheader Number of documents, plotted by year
 
-  .verticalpad
+  .large-4.columns.job-header-button
+    = link_to 'Download in CSV format', { controller: 'datasets', action: 'task_view', id: @dataset.to_param, task_id: @task.to_param, view: 'download', format: 'csv' }, class: 'button secondary expand'
 
-  %div.plot_dates_data= dates.to_json
-  %div.plot_dates_percent= percent ? 'true' : 'false'
+.row
+  .small-12.columns
+    %hr
 
-  %div.plot_dates_graph
+    .plot_dates_data= dates.to_json
+    .plot_dates_percent= percent ? 'true' : 'false'
 
-  .verticalpad
+    .plot_dates_graph
 
-  %div.plot_dates_table
+    %hr
 
-  = link_to 'Download in CSV format', { controller: 'datasets', action: 'task_view', id: @dataset.to_param, task_id: @task.to_param, view: 'download', format: 'csv' }, rel: 'external', data: { role: 'button', icon: 'bars', inline: 'true' }
+    .plot_dates_table
