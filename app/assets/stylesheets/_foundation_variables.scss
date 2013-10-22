@@ -1,3 +1,21 @@
+
+//
+// Color Scheme Variables
+//
+
+// These are taken from the Tango Icon Scheme palette,
+// http://tango.freedesktop.org/Tango_Icon_Theme_Guidelines#Color_Palette
+$gray-1: #eeeeec;
+$gray-2: #d3d7cf;
+$gray-3: #babdb6;
+$gray-4: #888a85;
+$gray-5: #555753;
+$gray-6: #2e3436;
+
+$green: #4e9a06;
+$red: #a40000;
+$blue: #3465a4;
+
 //
 // Foundation Variables
 //
@@ -63,8 +81,8 @@ $em-base: 16px !default;
 
 $default-float: left;
 
-// $body-bg: #fff;
-// $body-font-color: #222;
+$body-bg: $gray-1;
+$body-font-color: $gray-6;
 $body-font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
 // $body-font-weight: normal;
 // $body-font-style: normal;
@@ -79,10 +97,10 @@ $body-font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", Helvetica, 
 
 // Colors
 
-// $primary-color: #2ba6cb;
-// $secondary-color: #e9e9e9;
-// $alert-color: #c60f13;
-// $success-color: #5da423;
+$primary-color: $blue;
+$secondary-color: $gray-3;
+$alert-color: $red;
+$success-color: $green;
 
 // Make sure border radius matches unless we want it different.
 
@@ -176,7 +194,7 @@ $body-font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", Helvetica, 
 $header-font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
 // $header-font-weight: bold;
 // $header-font-style: normal;
-// $header-font-color: #222;
+$header-font-color: $gray-6;
 // $header-line-height: 1.4;
 // $header-top-margin: .2em;
 // $header-bottom-margin: .5em;
@@ -232,7 +250,7 @@ $header-font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", Helvetica
 
 // $hr-border-width: 1px;
 // $hr-border-style: solid;
-// $hr-border-color: #ddd;
+$hr-border-color: $gray-3;
 // $hr-margin: em-calc(20);
 
 // Style lists
@@ -248,14 +266,14 @@ $header-font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", Helvetica
 
 // $blockquote-font-color: lighten($header-font-color, 30%);
 // $blockquote-padding: em-calc(9, 20, 0, 19);
-// $blockquote-border: 1px solid #ddd;
+$blockquote-border: 1px solid $gray-2;
 // $blockquote-cite-font-size: em-calc(13);
 // $blockquote-cite-font-color: lighten($header-font-color, 20%);
 // $blockquote-cite-link-color: $blockquote-cite-font-color;
 
 // Acronym styles
 
-// $acronym-underline: 1px dotted #ddd;
+$acronym-underline: 1px dotted $gray-2;
 
 // Control padding and margin
 
@@ -266,7 +284,7 @@ $header-font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", Helvetica
 
 // $microformat-border-width: 1px;
 // $microformat-border-style: solid;
-// $microformat-border-color: #ddd;
+$microformat-border-color: $gray-2;
 
 // Control full name font styles
 
@@ -298,18 +316,18 @@ $header-font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", Helvetica
 // $form-label-pointer: pointer;
 // $form-label-font-size: em-calc(14);
 // $form-label-font-weight: 500;
-// $form-label-font-color: lighten(#000, 30%);
+$form-label-font-color: $gray-6;
 // $form-label-bottom-margin: em-calc(3);
 // $input-font-family: inherit;
 // $input-font-color: rgba(0,0,0,0.75);
 // $input-font-size: em-calc(14);
-// $input-bg-color: #fff;
-// $input-focus-bg-color: darken(#fff, 2%);
-// $input-border-color: darken(#fff, 20%);
-// $input-focus-border-color: darken(#fff, 40%);
+$input-bg-color: $gray-1;
+$input-focus-bg-color: darken($input-bg-color, 2%);
+$input-border-color: darken($input-bg-color, 20%);
+$input-focus-border-color: darken($input-bg-color, 40%);
 // $input-border-style: solid;
 // $input-border-width: 1px;
-// $input-disabled-bg: #ddd;
+$input-disabled-bg: $gray-3;
 // $input-box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
 // $input-include-glowing-effect: true;
 
@@ -317,25 +335,25 @@ $header-font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", Helvetica
 
 // $fieldset-border-style: solid;
 // $fieldset-border-width: 1px;
-// $fieldset-border-color: #ddd;
+$fieldset-border-color: $gray-2;
 // $fieldset-padding: em-calc(20);
 // $fieldset-margin: em-calc(18 0);
 
 // We use these to style the legends when you use them
 
-// $legend-bg: #fff;
+$legend-bg: $gray-1;
 // $legend-font-weight: bold;
 // $legend-padding: em-calc(0 3);
 
 // We use these to style the prefix and postfix input elements
 
-// $input-prefix-bg: darken(#fff, 5%);
-// $input-prefix-border-color: darken(#fff, 20%);
+$input-prefix-bg: darken($input-bg-color, 5%);
+$input-prefix-border-color: darken($input-bg-color, 20%);
 // $input-prefix-border-size: 1px;
 // $input-prefix-border-type: solid;
 // $input-prefix-overflow: hidden;
-// $input-prefix-font-color: #333;
-// $input-prefix-font-color-alt: #fff;
+$input-prefix-font-color: $gray-6;
+$input-prefix-font-color-alt: $gray-1;
 
 // We use these to style the error states for inputs and labels
 
@@ -343,8 +361,8 @@ $header-font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", Helvetica
 // $input-error-message-top: 0;
 // $input-error-message-font-size: em-calc(12);
 // $input-error-message-font-weight: bold;
-// $input-error-message-font-color: #fff;
-// $input-error-message-font-color-alt: #333;
+$input-error-message-font-color: $gray-1;
+$input-error-message-font-color-alt: $gray-6;
 
 // We use this to style the glowing effect of inputs when focused
 
@@ -370,8 +388,8 @@ $header-font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", Helvetica
 // We use these to control button text styles.
 
 // $button-font-family: inherit;
-// $button-font-color: #fff;
-// $button-font-color-alt: #333;
+$button-font-color: $gray-1;
+$button-font-color-alt: $gray-6;
 // $button-font-med: em-calc(16);
 // $button-font-tny: em-calc(11);
 // $button-font-sml: em-calc(13);
@@ -411,8 +429,8 @@ $header-font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", Helvetica
 
 // We use these to set the color of the pip in dropdown buttons
 
-// $dropdown-button-pip-color: #fff;
-// $dropdown-button-pip-color-alt: #333;
+$dropdown-button-pip-color: $gray-1;
+$dropdown-button-pip-color-alt: $gray-6;
 
 // We use these to style tiny dropdown buttons
 
@@ -449,8 +467,8 @@ $header-font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", Helvetica
 // We use these to control different shared styles for Split Buttons
 
 // $split-button-function-factor: 15%;
-// $split-button-pip-color: #fff;
-// $split-button-pip-color-alt: #333;
+$split-button-pip-color: $gray-1;
+$split-button-pip-color-alt: $gray-6;
 // $split-button-active-bg-tint: rgba(0,0,0,0.1);
 
 // We use these to control tiny split buttons
@@ -500,7 +518,7 @@ $header-font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", Helvetica
 
 // $alert-font-weight: bold;
 // $alert-font-size: em-calc(14);
-// $alert-font-color: #fff;
+$alert-font-color: $gray-1;
 // $alert-font-color-alt: darken($secondary-color, 60%);
 
 // We use this for close hover effect.
@@ -516,7 +534,7 @@ $header-font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", Helvetica
 
 // We use these to style the close buttons
 
-// $alert-close-color: #333;
+$alert-close-color: $gray-6;
 // $alert-close-position: em-calc(5);
 // $alert-close-font-size: em-calc(22);
 // $alert-close-opacity: 0.3;
@@ -553,14 +571,14 @@ $header-font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", Helvetica
 
 // $crumb-font-size: em-calc(11);
 // $crumb-font-color: $primary-color;
-// $crumb-font-color-current: #333;
-// $crumb-font-color-unavailable: #999;
+$crumb-font-color-current: $gray-6;
+$crumb-font-color-unavailable: $gray-4;
 // $crumb-font-transform: uppercase;
 // $crumb-link-decor: underline;
 
 // We use these to control the slash between breadcrumbs
 
-// $crumb-slash-color: #aaa;
+$crumb-slash-color: $gray-3;
 // $crumb-slash: "/";
 
 //
@@ -576,7 +594,7 @@ $header-font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", Helvetica
 
 // We use these to style the close button
 
-// $clearing-close-color: #fff;
+$clearing-close-color: $gray-1;
 // $clearing-close-size: 40px;
 
 // We use these to style the arrows
@@ -586,7 +604,7 @@ $header-font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", Helvetica
 
 // We use these to style captions
 
-// $clearing-caption-font-color: #fff;
+$clearing-caption-font-color: $gray-1;
 // $clearing-caption-padding: 10px 30px;
 
 // We use these to make the image and carousel height and style
@@ -594,7 +612,7 @@ $header-font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", Helvetica
 // $clearing-active-img-height: 75%;
 // $clearing-carousel-height: 150px;
 // $clearing-carousel-thumb-width: 175px;
-// $clearing-carousel-thumb-active-border: 4px solid rgb(255,255,255);
+$clearing-carousel-thumb-active-border: 4px solid $gray-1;
 
 //
 // Custom Form Variables
@@ -602,39 +620,39 @@ $header-font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", Helvetica
 
 // We use these to control the basic form styles input styles
 
-// $custom-form-border-color: #ccc;
+$custom-form-border-color: $gray-2;
 // $custom-form-border-size: 1px;
-// $custom-form-bg: #fff;
-// $custom-form-bg-disabled: #ddd;
+$custom-form-bg: $gray-1;
+$custom-form-bg-disabled: $gray-3;
 // $custom-form-input-size: 16px;
-// $custom-form-check-color: #222;
+$custom-form-check-color: $gray-6;
 // $custom-form-check-size: 16px;
 // $custom-form-radio-size: 8px;
 // $custom-form-checkbox-radius: 0;
 
 // We use these to style the custom select form element.
 
-// $custom-select-bg: #fff;
-// $custom-select-fade-to-color: #f3f3f3;
-// $custom-select-border-color: #ddd;
-// $custom-select-triangle-color: #aaa;
-// $custom-select-triangle-color-open: #222;
+$custom-select-bg: $gray-1;
+$custom-select-fade-to-color: #ddd;
+$custom-select-border-color: $gray-2;
+$custom-select-triangle-color: $gray-3;
+$custom-select-triangle-color-open: $gray-6;
 // $custom-select-height: em-calc(13) + ($form-spacing * 1.5);
 // $custom-select-margin-bottom: em-calc(20);
-// $custom-select-font-color-selected: #141414;
-// $custom-select-disabled-color: #888;
+$custom-select-font-color-selected: $gray-6;
+$custom-select-disabled-color: $gray-3;
 
 // We use these to control the style of the custom select dropdown element.
 
 // $custom-dropdown-height: 200px;
-// $custom-dropdown-bg: #fff;
-// $custom-dropdown-border-color: darken(#fff, 20%);
+$custom-dropdown-bg: $gray-1;
+$custom-dropdown-border-color: $gray-2;
 // $custom-dropdown-border-width: 1px;
 // $custom-dropdown-border-style: solid;
-// $custom-dropdown-font-color: #555;
+$custom-dropdown-font-color: $gray-5;
 // $custom-dropdown-font-size: em-calc(14);
-// $custom-dropdown-color-selected: #eeeeee;
-// $custom-dropdown-font-color-selected: #000;
+$custom-dropdown-color-selected: $gray-2;
+$custom-dropdown-font-color-selected: $gray-6;
 // $custom-dropdown-shadow: 0 2px 2px 0 rgba(0,0,0,0.1);
 // $custom-dropdown-offset-top: auto;
 // $custom-dropdown-list-padding: em-calc(4);
@@ -658,28 +676,28 @@ $header-font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", Helvetica
 
 // We use this to control the background color
 
-// $f-dropdown-bg: #fff;
+$f-dropdown-bg: $gray-1;
 
 // We use this to set the border styles for dropdowns.
 
 // $f-dropdown-border-style: solid;
 // $f-dropdown-border-width: 1px;
-// $f-dropdown-border-color: darken(#fff, 20%);
+$f-dropdown-border-color: $gray-2;
 
 // We use these to style the triangle pip.
 
 // $f-dropdown-triangle-size: 6px;
-// $f-dropdown-triangle-color: #fff;
+$f-dropdown-triangle-color: $gray-1;
 // $f-dropdown-triangle-side-offset: 10px;
 
 // We use these to control styles for the list elements.
 
 // $f-dropdown-list-style: none;
-// $f-dropdown-font-color: #555;
+$f-dropdown-font-color: $gray-5;
 // $f-dropdown-font-size: em-calc(14);
 // $f-dropdown-list-padding: em-calc(5 10);
 // $f-dropdown-line-height: em-calc(18);
-// $f-dropdown-list-hover-bg: #eeeeee;
+$f-dropdown-list-hover-bg: $gray-2;
 // $dropdown-mobile-default-float: 0;
 
 // We use this to control the styles for when the dropdown has custom content.
@@ -731,16 +749,16 @@ $header-font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", Helvetica
 
 // Controlling default Joyride styles
 
-// $joyride-tip-bg: rgb(0,0,0);
+$joyride-tip-bg: $gray-6;
 // $joyride-tip-default-width: 300px;
 // $joyride-tip-padding: em-calc(18 20 24);
-// $joyride-tip-border: solid 1px #555;
+$joyride-tip-border: solid 1px $gray-5;
 // $joyride-tip-radius: 4px;
 // $joyride-tip-position-offset: 22px;
 
 // Here, we're setting the tip dont styles
 
-// $joyride-tip-font-color: #fff;
+$joyride-tip-font-color: $gray-1;
 // $joyride-tip-font-size: em-calc(14);
 // $joyride-tip-header-weight: bold;
 
@@ -752,11 +770,11 @@ $header-font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", Helvetica
 
 // $joyride-tip-timer-width: 50px;
 // $joyride-tip-timer-height: 3px;
-// $joyride-tip-timer-color: #666;
+$joyride-tip-timer-color: $gray-5;
 
 // This changes up the styles for the close button
 
-// $joyride-tip-close-color: #777;
+$joyride-tip-close-color: $gray-4;
 // $joyride-tip-close-size: 30px;
 // $joyride-tip-close-weight: normal;
 
@@ -772,9 +790,9 @@ $header-font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", Helvetica
 
 // $keystroke-font: "Consolas", "Menlo", "Courier", monospace;
 // $keystroke-font-size: em-calc(14);
-// $keystroke-font-color: #222;
-// $keystroke-font-color-alt: #fff;
-// $keystroke-function-factor: 7%;
+$keystroke-font-color: $gray-6;
+$keystroke-font-color-alt: $gray-1;
+$keystroke-function-factor: 7%;
 
 // We use this to control keystroke padding.
 
@@ -782,7 +800,7 @@ $header-font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", Helvetica
 
 // We use these to control background and border styles.
 
-// $keystroke-bg: darken(#fff, $keystroke-function-factor);
+$keystroke-bg: darken($keystroke-font-color, $keystroke-function-factor);
 // $keystroke-border-style: solid;
 // $keystroke-border-width: 1px;
 // $keystroke-border-color: darken($keystroke-bg, $keystroke-function-factor);
@@ -801,14 +819,14 @@ $header-font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", Helvetica
 
 // $label-font-sizing: em-calc(14);
 // $label-font-weight: bold;
-// $label-font-color: #333;
-// $label-font-color-alt: #fff;
+$label-font-color: $gray-6;
+$label-font-color-alt: $gray-1;
 
 //
 // Magellan Variables
 //
 
-// $magellan-bg: #fff;
+$magellan-bg: $gray-1;
 // $magellan-padding: 10px;
 
 //
@@ -817,9 +835,9 @@ $header-font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", Helvetica
 
 // We use these to control the caption styles
 
-// $orbit-container-bg: #f5f5f5;
+$orbit-container-bg: $gray-1;
 // $orbit-caption-bg: rgba(0,0,0,0.6);
-// $orbit-caption-font-color: #fff;
+$orbit-caption-font-color: $gray-1;
 // $orbit-caption-font-size: emCalc(14);
 // $orbit-caption-position: "bottom";    // Supported values: "bottom", "under"
 // $orbit-caption-padding: emCalc(10,14);
@@ -829,8 +847,8 @@ $header-font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", Helvetica
 
 // $orbit-nav-bg: rgba(0,0,0,0.6);
 // $orbit-nav-bg-hover: rgba(0,0,0,0.6);
-// $orbit-nav-arrow-color: #fff;
-// $orbit-nav-arrow-color-hover: #ccc;
+$orbit-nav-arrow-color: $gray-1;
+$orbit-nav-arrow-color-hover: $gray-2;
 
 // We use these to control the timer styles
 
@@ -839,14 +857,14 @@ $header-font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", Helvetica
 
 // We use these to control the bullet nav styles
 
-// $orbit-bullet-nav-color: #999;
-// $orbit-bullet-nav-color-active: #555;
+$orbit-bullet-nav-color: $gray-4;
+$orbit-bullet-nav-color-active: $gray-5;
 // $orbit-bullet-radius: emCalc(18);
 
 // We use these to controls the style of slide numbers
 
 // $orbit-slide-number-bg: rgba(0,0,0,0);
-// $orbit-slide-number-font-color: #fff;
+$orbit-slide-number-font-color: $gray-1;
 // $orbit-slide-number-padding: em-calc(5);
 
 // Graceful Loading Wrapper and preloader
@@ -867,26 +885,26 @@ $header-font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", Helvetica
 
 // $pagination-li-float: $default-float;
 // $pagination-li-height: em-calc(24);
-// $pagination-li-font-color: #222;
+$pagination-li-font-color: $gray-6;
 // $pagination-li-font-size: em-calc(14);
 // $pagination-li-margin: em-calc(5);
 
 // We use these for the pagination anchor links
 
 // $pagination-link-pad: em-calc(1 7 1);
-// $pagination-link-font-color: #999;
-// $pagination-link-active-bg: darken(#fff, 10%);
+$pagination-link-font-color: $gray-4;
+$pagination-link-active-bg: darken($body-bg, 10%);
 
 // We use these for disabled anchor links
 
 // $pagination-link-unavailable-cursor: default;
-// $pagination-link-unavailable-font-color: #999;
+$pagination-link-unavailable-font-color: $gray-5;
 // $pagination-link-unavailable-bg-active: transparent;
 
 // We use these for currently selected anchor links
 
 // $pagination-link-current-background: $primary-color;
-// $pagination-link-current-font-color: #fff;
+$pagination-link-current-font-color: $gray-1;
 // $pagination-link-current-font-weight: bold;
 // $pagination-link-current-cursor: default;
 // $pagination-link-current-active-bg: $primary-color;
@@ -897,7 +915,7 @@ $header-font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", Helvetica
 
 // We use these to control the background and border styles
 
-// $panel-bg: darken(#fff, 5%);
+$panel-bg: darken($gray-2, 5%);
 // $panel-border-style: solid;
 // $panel-border-size: 1px;
 
@@ -913,8 +931,8 @@ $header-font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", Helvetica
 
 // We use these to set default font colors
 
-// $panel-font-color: #333;
-// $panel-font-color-alt: #fff;
+$panel-font-color: $gray-6;
+$panel-font-color-alt: $gray-1;
 
 // $panel-header-adjust: true;
 
@@ -924,7 +942,7 @@ $header-font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", Helvetica
 
 // We use this to control the border color
 
-// $price-table-border: solid 1px #ddd;
+$price-table-border: solid 1px $gray-2;
 
 // We use this to control the bottom margin of the pricing table
 
@@ -932,10 +950,10 @@ $header-font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", Helvetica
 
 // We use these to control the title styles
 
-// $price-title-bg: #ddd;
+$price-title-bg: $gray-2;
 // $price-title-padding: em-calc(15 20);
 // $price-title-align: center;
-// $price-title-color: #333;
+$price-title-color: $gray-6;
 // $price-title-weight: bold;
 // $price-title-size: em-calc(16);
 
@@ -944,33 +962,33 @@ $header-font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", Helvetica
 // $price-money-bg: #eee;
 // $price-money-padding: em-calc(15, 20);
 // $price-money-align: center;
-// $price-money-color: #333;
+$price-money-color: $gray-6;
 // $price-money-weight: normal;
 // $price-money-size: em-calc(20);
 
 // We use these to control the description styles
 
-// $price-bg: #fff;
-// $price-desc-color: #777;
+$price-bg: $gray-1;
+$price-desc-color: $gray-4;
 // $price-desc-padding: em-calc(15);
 // $price-desc-align: center;
 // $price-desc-font-size: em-calc(12);
 // $price-desc-weight: normal;
 // $price-desc-line-height: 1.4;
-// $price-desc-bottom-border: dotted 1px #ddd;
+$price-desc-bottom-border: dotted 1px $gray-2;
 
 // We use these to control the list item styles
 
-// $price-item-color: #333;
+$price-item-color: $gray-6;
 // $price-item-padding: em-calc(15);
 // $price-item-align: center;
 // $price-item-font-size: em-calc(14);
 // $price-item-weight: normal;
-// $price-item-bottom-border: dotted 1px #ddd;
+$price-item-bottom-border: dotted 1px $gray-2;
 
 // We use these to control the CTA area styles
 
-// $price-cta-bg: #f5f5f5;
+$price-cta-bg: $gray-1;
 // $price-cta-align: center;
 // $price-cta-padding: em-calc(20 20 0);
 
@@ -985,7 +1003,7 @@ $header-font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", Helvetica
 
 // We use these to control the border styles
 
-// $progress-bar-border-color: darken(#fff, 20%);
+$progress-bar-border-color: darken($body-bg, 20%);
 // $progress-bar-border-size: 1px;
 // $progress-bar-border-style: solid;
 // $progress-bar-border-radius: $global-radius;
@@ -1013,7 +1031,7 @@ $header-font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", Helvetica
 
 // We use these to control the style of the modal itself.
 
-// $reveal-modal-bg: #fff;
+$reveal-modal-bg: $gray-1;
 // $reveal-position-top: 50px;
 // $reveal-default-width: 80%;
 // $reveal-modal-padding: em-calc(20);
@@ -1024,14 +1042,14 @@ $header-font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", Helvetica
 // $reveal-close-font-size: em-calc(22);
 // $reveal-close-top: em-calc(8);
 // $reveal-close-side: em-calc(11);
-// $reveal-close-color: #aaa;
+$reveal-close-color: $gray-3;
 // $reveal-close-weight: bold;
 
 // We use these to control the modal border
 
 // $reveal-border-style: solid;
 // $reveal-border-width: 1px;
-// $reveal-border-color: #666;
+$reveal-border-color: $gray-5;
 
 // $reveal-modal-class: "reveal-modal";
 // $close-reveal-modal-class: "close-reveal-modal";
@@ -1048,18 +1066,18 @@ $header-font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", Helvetica
 
 // These style the titles
 
-// $section-title-color: #333;
-// $section-title-color-active: #333;
-// $section-title-bg: #efefef;
+$section-title-color: $gray-6;
+$section-title-color-active: lighten($section-title-color, 10%);
+$section-title-bg: $gray-2;
 // $section-title-bg-active: darken($section-title-bg, $section-function-factor);
-// $section-title-bg-active-tabs: #fff;
+$section-title-bg-active-tabs: $gray-1;
 // $section-title-bg-hover: darken($section-title-bg, $section-function-factor / 2);
 
 // Want to control border size, here ya go!
 
 // $section-border-size: 1px;
 // $section-border-style: solid;
-// $section-border-color: #ccc;
+$section-border-color: $gray-2;
 
 // Font controls
 
@@ -1067,7 +1085,7 @@ $header-font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", Helvetica
 
 // Control the color of the background and some size options
 
-// $section-content-bg: #fff;
+$section-content-bg: $gray-1;
 // $section-vertical-nav-min-width: em-calc(200);
 // $section-vertical-tabs-title-width: em-calc(200);
 // $section-bottom-margin: em-calc(20);
@@ -1115,7 +1133,7 @@ $header-font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", Helvetica
 // We use this to control the definition
 
 // $sub-nav-font-size: em-calc(14);
-// $sub-nav-font-color: #999;
+$sub-nav-font-color: $gray-4;
 // $sub-nav-font-weight: normal;
 // $sub-nav-text-decoration: none;
 // $sub-nav-border-radius: 1000px;
@@ -1124,7 +1142,7 @@ $header-font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", Helvetica
 
 // $sub-nav-active-font-weight: bold;
 // $sub-nav-active-bg: $primary-color;
-// $sub-nav-active-color: #fff;
+$sub-nav-active-color: $gray-1;
 // $sub-nav-active-padding: em-calc(3 9);
 // $sub-nav-active-cursor: default;
 
@@ -1137,10 +1155,10 @@ $header-font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", Helvetica
 
 // Controlling border styles and background colors for the switch container
 
-// $switch-border-color: darken(#fff, 20%);
+$switch-border-color: darken($body-bg, 20%);
 // $switch-border-style: solid;
 // $switch-border-width: 1px;
-// $switch-bg: #fff;
+$switch-bg: $body-bg;
 
 // We use these to control the switch heights for our default classes
 
@@ -1160,19 +1178,19 @@ $header-font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", Helvetica
 
 // We use these to style the switch-paddle
 
-// $switch-paddle-bg: #fff;
-// $switch-paddle-fade-to-color: darken($switch-paddle-bg, 10%);
+$switch-paddle-bg: $body-bg;
+$switch-paddle-fade-to-color: darken($switch-paddle-bg, 10%);
 // $switch-paddle-border-color: darken($switch-paddle-bg, 35%);
 // $switch-paddle-border-width: 1px;
 // $switch-paddle-border-style: solid;
 // $switch-paddle-transition-speed: .1s;
 // $switch-paddle-transition-ease: ease-out;
 // $switch-positive-color: lighten($success-color, 50%);
-// $switch-negative-color: #f5f5f5;
+$switch-negative-color: $switch-paddle-fade-to-color;
 
 // Outline Style for tabbing through switches
 
-// $switch-label-outline: 1px dotted #888;
+$switch-label-outline: 1px dotted $gray-4;
 
 //
 // Table Variables
@@ -1180,20 +1198,20 @@ $header-font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", Helvetica
 
 // These control the background color for the table and even rows
 
-// $table-bg: #fff;
-// $table-even-row-bg: #f9f9f9;
+$table-bg: $body-bg;
+$table-even-row-bg: $gray-2;
 
 // These control the table cell border style
 
 // $table-border-style: solid;
 // $table-border-size: 1px;
-// $table-border-color: #ddd;
+$table-border-color: $gray-3;
 
 // These control the table head styles
 
-// $table-head-bg: #f5f5f5;
+$table-head-bg: $body-bg;
 // $table-head-font-size: em-calc(14);
-// $table-head-font-color: #222;
+$table-head-font-color: $gray-6;
 // $table-head-font-weight: bold;
 // $table-head-padding: em-calc(8 10 10);
 
@@ -1201,7 +1219,7 @@ $header-font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", Helvetica
 
 // $table-row-padding: em-calc(9 10);
 // $table-row-font-size: em-calc(14);
-// $table-row-font-color: #222;
+$table-row-font-color: $gray-6;
 // $table-line-height: em-calc(18);
 
 // These are for controlling the display and margin of tables
@@ -1217,7 +1235,7 @@ $header-font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", Helvetica
 
 // $thumb-border-style: solid;
 // $thumb-border-width: 4px;
-// $thumb-border-color: #fff;
+$thumb-border-color: $body-bg;
 // $thumb-box-shadow: 0 0 0 1px rgba(#000,.2);
 // $thumb-box-shadow-hover: 0 0 6px 1px rgba($primary-color,0.5);
 
@@ -1230,22 +1248,22 @@ $header-font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", Helvetica
 // Tooltip Variables
 //
 
-// $has-tip-border-bottom: dotted 1px #ccc;
+$has-tip-border-bottom: dotted 1px $gray-2;
 // $has-tip-font-weight: bold;
-// $has-tip-font-color: #333;
+$has-tip-font-color: $gray-6;
 // $has-tip-border-bottom-hover: dotted 1px darken($primary-color, 20%);
 // $has-tip-font-color-hover: $primary-color;
 // $has-tip-cursor-type: help;
 
 // $tooltip-padding: em-calc(8);
-// $tooltip-bg: #000;
+$tooltip-bg: $gray-6;
 // $tooltip-font-size: em-calc(15);
 // $tooltip-font-weight: bold;
-// $tooltip-font-color: #fff;
+$tooltip-font-color: $gray-1;
 // $tooltip-line-height: 1.3;
 // $tooltip-close-font-size: em-calc(10);
 // $tooltip-close-font-weight: normal;
-// $tooltip-close-font-color: #888;
+$tooltip-close-font-color: $gray-4;
 // $tooltip-font-size-sml: em-calc(14);
 // $tooltip-radius: $global-radius;
 // $tooltip-pip-size: 5px;
@@ -1256,7 +1274,7 @@ $header-font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", Helvetica
 
 // Background color for the top bar
 
-// $topbar-bg-color: #111;
+$topbar-bg-color: $gray-6;
 // $topbar-bg: $topbar-bg-color;
 
 // Height and margin
@@ -1275,25 +1293,25 @@ $header-font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", Helvetica
 
 // Style the top bar dropdown elements
 
-// $topbar-dropdown-bg: #222;
-// $topbar-dropdown-link-color: #fff;
+$topbar-dropdown-bg: $gray-6;
+$topbar-dropdown-link-color: $gray-1;
 // // $topbar-dropdown-link-bg: lighten($topbar-bg-color, 5%);
 // $topbar-dropdown-toggle-size: 5px;
-// $topbar-dropdown-toggle-color: #fff;
+$topbar-dropdown-toggle-color: $gray-1;
 // $topbar-dropdown-toggle-alpha: 0.5;
 
 // Set the link colors and styles for top-level nav
 
-// $topbar-link-color: #fff;
-// $topbar-link-color-hover: #fff;
-// $topbar-link-color-active: #fff;
+$topbar-link-color: $gray-1;
+$topbar-link-color-hover: $gray-1;
+$topbar-link-color-active: $gray-1;
 // $topbar-link-weight: bold;
 // $topbar-link-font-size: em-calc(13);
 // $topbar-link-hover-lightness: -30%; // Darken by 30%
 // $topbar-link-bg-hover: darken($topbar-bg-color, 3%);
 // $topbar-link-bg-active: darken($topbar-bg-color, 3%);
 
-// $topbar-dropdown-label-color: #555;
+$topbar-dropdown-label-color: $gray-5;
 // $topbar-dropdown-label-text-transform: uppercase;
 // $topbar-dropdown-label-font-weight: bold;
 // $topbar-dropdown-label-font-size: em-calc(10);
@@ -1304,10 +1322,10 @@ $header-font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", Helvetica
 // $topbar-menu-link-transform: uppercase;
 // $topbar-menu-link-font-size: em-calc(13);
 // $topbar-menu-link-weight: bold;
-// $topbar-menu-link-color: #fff;
-// $topbar-menu-icon-color: #fff;
-// $topbar-menu-link-color-toggled: #888;
-// $topbar-menu-icon-color-toggled: #888;
+$topbar-menu-link-color: $gray-1;
+$topbar-menu-icon-color: $gray-1;
+$topbar-menu-link-color-toggled: $gray-4;
+$topbar-menu-icon-color-toggled: $gray-4;
 
 // Transitions and breakpoint styles
 
