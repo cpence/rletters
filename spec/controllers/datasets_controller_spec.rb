@@ -119,11 +119,9 @@ describe DatasetsController do
         dataset_id: @dataset.to_param)
     end
 
-    it 'redirects to the previous page when done' do
-      request.env['HTTP_REFERER'] = workflow_fetch_path
+    it 'redirects to the index when done' do
       delete :destroy, id: @dataset.to_param
-
-      expect(response).to redirect_to(workflow_fetch_path)
+      expect(response).to redirect_to(datasets_path)
     end
   end
 
@@ -332,6 +330,7 @@ describe DatasetsController do
 
     context 'when a valid task ID is passed' do
       before(:each) do
+        request.env['HTTP_REFERER'] = workflow_fetch_path
         @task = FactoryGirl.create(:analysis_task, dataset: @dataset,
                                    job_type: 'ExportCitations')
       end
@@ -342,9 +341,9 @@ describe DatasetsController do
         }.to change { @dataset.analysis_tasks.count }.by(-1)
       end
 
-      it 'redirects to the dataset page' do
+      it 'redirects to the prior page' do
         get :task_destroy, id: @dataset.to_param, task_id: @task.to_param
-        expect(response).to redirect_to(dataset_path(@dataset))
+        expect(response).to redirect_to(workflow_fetch_path)
       end
     end
   end

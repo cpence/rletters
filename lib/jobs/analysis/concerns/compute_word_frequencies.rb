@@ -91,7 +91,7 @@ module Jobs
             if args[:split_across].blank?
               args[:split_across] = nil
             else
-              if args[:split_across] == 'true'
+              if args[:split_across] == '1'
                 args[:split_across] = true
               else
                 args[:split_across] = false
