@@ -70,7 +70,7 @@ module Jobs
         # Save out the data, including getting the name of the normalization
         # set for pretty display
         normalization_set_name = ''
-        if args[:normalize_doc_counts] == 'on'
+        if args[:normalize_doc_counts] == '1'
           if args[:normalize_doc_dataset].blank?
             normalization_set_name = 'Entire Corpus'
           else
@@ -79,7 +79,7 @@ module Jobs
         end
 
         output = { data: dates,
-                   percent: (args[:normalize_doc_counts] == 'on'),
+                   percent: (args[:normalize_doc_counts] == '1'),
                    normalization_set: normalization_set_name
                  }
 
