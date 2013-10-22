@@ -71,9 +71,9 @@ describe Jobs::Analysis::CraigZeta, vcr: { cassette_name: 'craig_zeta' } do
       hash['anti_marker_words'][0].should be_a(String)
       hash['graph_points'].should be_an(Array)
       hash['graph_points'][0].should be_an(Array)
-      hash['graph_points'][0][0].should be_a(String)
+      hash['graph_points'][0][0].should be_a(Float)
       hash['graph_points'][0][1].should be_a(Float)
-      hash['graph_points'][0][2].should be_a(Float)
+      hash['graph_points'][0][2].should be_a(String)
       hash['zeta_scores'].should be_a(Hash)
       hash['zeta_scores'].values[0].should be_a(Float)
     end
