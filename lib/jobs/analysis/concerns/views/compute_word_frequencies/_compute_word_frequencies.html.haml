@@ -14,4 +14,4 @@
   = f.input :last_block, label: 'Last block method', collection: [[:big_last, 'Big last block'], [:small_last, 'Small last block'], [:truncate_last, 'Truncate leftover words'], [:truncate_all, 'Truncate every document to given size']], value_method: :first, label_method: :last, include_blank: false, required: false
 #blocks_controls{ style: 'display: none;' }
   = f.input :num_blocks, label: 'Number of blocks', as: :integer, required: false, input_html: { value: '10' }
-= f.input :split_across, label: 'Split blocks across documents?', as: :boolean, required: false, input_html: { value: '1' }
+= f.input :split_across, label: 'Split blocks across documents?', as: :boolean, required: false, input_html: { checked: true }
