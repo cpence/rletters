@@ -1,14 +1,14 @@
 - content_for :breadcrumbs do
-  %li= link_to 'Home', workflow_path
-  %li.current= link_to 'Request Password E-mail', new_user_password_path
+  %li= link_to t('breadcrumbs.root'), root_path
+  %li.current= link_to t('breadcrumbs.users_passwords_new'), new_user_password_path
 
 %header
   %section
-    %h3 Forgot your password?
-    %h5.subheader Enter your e-mail address here and we'll send you a link to create a new one.
+    %h3= t('.header')
+    %h5.subheader= t('.subheader')
 
 .row
   .large-6.columns
     = simple_form_for(:user, url: user_password_path, method: :post) do |f|
       = f.input :email
-      = f.button :submit, 'Send me password reset instructions'
+      = f.button :submit, t('.submit')

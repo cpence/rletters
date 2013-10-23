@@ -1,5 +1,5 @@
-%h4 Add document to a dataset
-%h6.subheader Select the dataset to which you would like to add this document.
+%h4= t('.header')
+%h6.subheader= t('.subheader')
 
 - unless @datasets.count
   %p= t('.no_datasets')

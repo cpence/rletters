@@ -1,11 +1,11 @@
 - content_for :breadcrumbs do
-  %li= link_to 'Home', workflow_path
-  %li.current= link_to 'Sign Up', new_user_registration_path
+  %li= link_to t('breadcrumbs.root'), root_path
+  %li.current= link_to t('breadcrumbs.users_registrations_new'), new_user_registration_path
 
 %header
   %section
-    %h3 Sign up
-    %h5.subheader Welcome!  Enter some information about yourself and we'll get you off and running with a new user account.
+    %h3= t('.header')
+    %h5.subheader= t('.subheader')
 
 .row
   .large-6.columns

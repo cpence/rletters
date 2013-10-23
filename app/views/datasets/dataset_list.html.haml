@@ -5,7 +5,7 @@
 %table
   %thead
     %tr
-      %th Dataset Name
+      %th= t('.name_column')
       %th
   %tbody
     - unless @datasets.count
@@ -19,5 +19,5 @@
             = dataset.name
             %span.secondary.round.label= dataset.entries.size
           %td
-            = link_to 'Manage', dataset, class: 'button tiny'
-            = link_to t('.delete'), dataset, method: :delete, data: { confirm: 'Are you sure?' }, class: 'button alert tiny'
+            = link_to t('.manage_button'), dataset, class: 'button tiny'
+            = link_to t('.delete_button'), dataset, method: :delete, data: { confirm: t('.delete_confirm') }, class: 'button alert tiny'

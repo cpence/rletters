@@ -1,13 +1,13 @@
 - content_for :breadcrumbs do
-  %li= link_to 'Home', workflow_path
-  %li= link_to 'Manage Datasets', datasets_path
-  %li= link_to "Manage: #{@dataset.name}", @dataset
-  %li.current= link_to 'Add More Data', { controller: 'datasets', action: 'task_start', id: @dataset.to_param, class: params[:class] }
+  %li= link_to t('breadcrumbs.root'), root_path
+  %li= link_to t('breadcrumbs.datasets_index'), datasets_path
+  %li= link_to t('breadcrumbs.datasets_show', name: @dataset.name), @dataset
+  %li.current= link_to t('breadcrumbs.datasets_task_datasets'), { controller: 'datasets', action: 'task_start', id: @dataset.to_param, class: params[:class] }
 
 %header
   %section
-    %h2 Add More Datasets
-    %h4.subheader This job requires more than one dataset to run.  Select the rest of the datasets you'd like to use below.
+    %h2= t('.header')
+    %h4.subheader= t('.subheader')
 
 .row
   .large-6.columns
@@ -19,5 +19,5 @@
         = label_tag 'job_params[other_datasets][]', "#{(n + 1).ordinalize} #{Dataset.model_name.human}"
         = select_tag 'job_params[other_datasets][]', options_from_collection_for_select(current_user.datasets.where.not(id: @dataset.id), 'to_param', 'name')
 
-      = f.button :submit, 'OK'
-      = link_to 'Cancel', @dataset, class: 'button secondary'
+      = f.button :submit
+      = link_to t('.cancel'), @dataset, class: 'button secondary'

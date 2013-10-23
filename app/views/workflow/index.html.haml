@@ -1,25 +1,25 @@
 - content_for :breadcrumbs do
-  %li.current= link_to 'Home', workflow_path
+  %li.current= link_to t('breadcrumbs.root'), root_path
 
 #markdown-landing= MarkdownPage.render('landing')
 
 .row
   .small-5.small-centered.columns
-    = link_to 'Sign up to get started!', new_user_registration_path, id: 'landing-login'
+    = link_to t('.sign_up_button'), new_user_registration_path, id: 'landing-login'
 
 .row
   .small-6.small-centered.columns
-    %h3 What can it do?
+    %h3
 
     .slideshow-wrapper
       .preloader
       %ul#screenshots{ 'data-orbit' => true }
         %li{ 'data-orbit-slide' => 'screenshot-1' }
           %img{ src: 'http://placehold.it/640x480' }
-          .orbit-caption This should be a screenshot with a caption
+          .orbit-caption= t('.screenshot_one_caption')
         %li{ 'data-orbit-slide' => 'screenshot-2' }
           %img{ src: 'http://placehold.it/640x480' }
-          .orbit-caption This should be a screenshot with a caption
+          .orbit-caption= t('.screenshot_two_caption')
         %li{ 'data-orbit-slide' => 'screenshot-3' }
           %img{ src: 'http://placehold.it/640x480' }
-          .orbit-caption This should be a screenshot with a caption
+          .orbit-caption= t('.screenshot_three_caption')

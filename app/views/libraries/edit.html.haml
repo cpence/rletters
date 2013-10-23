@@ -1,5 +1,5 @@
-%h4 Edit your library details:
-%h6.subheader Fill in the details to your local library's OpenURL resolver, and we'll take it from there.
+%h4= t('.header')
+%h6.subheader= t('.subheader')
 
 = render partial: 'form', locals: { url: library_path(@library) }
 %a.close-reveal-modal &#215;

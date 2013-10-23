@@ -196,7 +196,7 @@ module SearchHelper
 
     if active_facets.empty?
       ret << content_tag(:dd) do
-        link_to 'No filters active', '#'
+        link_to I18n.t('search.index.no_filters'), '#'
       end
 
       return ret

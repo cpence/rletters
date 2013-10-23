@@ -1,11 +1,11 @@
 - content_for :breadcrumbs do
-  %li= link_to 'Home', workflow_path
-  %li.current= link_to 'Start Analysis', workflow_start_path
+  %li= link_to t('breadcrumbs.root'), root_path
+  %li.current= link_to t('breadcrumbs.workflow_start'), workflow_start_path
 
 %header
   %section
-    %h2 Start a new analysis
-    %h4.subheader Start running a new analysis by deciding what kind of question you want to ask about the literature.  Click on the question you want to explore to continue.
+    %h2= t('.header')
+    %h4.subheader= t('.subheader')
 
 - Jobs::Analysis::Base.job_list.each do |klass|
   - next unless klass.available?

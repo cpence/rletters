@@ -1,14 +1,14 @@
 - content_for :javascript do
   = javascript_include_tag 'datasets_show'
 - content_for :breadcrumbs do
-  %li= link_to 'Home', workflow_path
-  %li= link_to 'Manage Datasets', datasets_path
-  %li.current= link_to "Manage: #{@dataset.name}", @dataset
+  %li= link_to t('breadcrumbs.root'), root_path
+  %li= link_to t('breadcrumbs.datasets_index'), datasets_path
+  %li.current= link_to t('breadcrumbs.datasets_show', name: @dataset.name), @dataset
 
 %header
   %section
-    %h2= t('.head') + ' — ' + @dataset.name
-    %h4.subheader Manage this dataset, including manually starting analysis tasks and fetching the results of prior analyses.
+    %h2= t('.header') + ' — ' + @dataset.name
+    %h4.subheader
 
 .row
   .small-12.columns
@@ -20,7 +20,7 @@
   .small-12.columns
     %hr
 
-    %h4 Analysis Tasks
+    %h4= t('.tasks')
 
     #dataset-task-list{ data: { fetch_url: task_list_dataset_path(@dataset) } }= t('.loading_tasks')
 

@@ -1,67 +1,67 @@
 - content_for :breadcrumbs do
-  %li= link_to 'Home', workflow_path
-  %li= link_to 'Start Analysis', workflow_start_path
-  %li= link_to "Job Info", workflow_info_path(params[:class])
-  %li.current= link_to 'Collect Data', workflow_activate_path(params[:class])
+  %li= link_to t('breadcrumbs.root'), root_path
+  %li= link_to t('breadcrumbs.workflow_start'), workflow_start_path
+  %li= link_to t('breadcrumbs.workflow_info'), workflow_info_path(params[:class])
+  %li.current= link_to t('breadcrumbs.workflow_activate'), workflow_activate_path(params[:class])
 
 %header
   %section
-    %h2 Collect Data
+    %h2= t('.header')
     - if @user_datasets.count < @num_datasets
-      %h4.subheader You now need to determine which datasets this analysis job will run on.
+      %h4.subheader= t('.subheader_pending')
     - else
-      %h4.subheader All data has now been collected.  Click the button to start the analysis!
+      %h4.subheader= t('.subheader_done')
 
 - if @user_datasets.count < @num_datasets
   .row
     .small-12.columns
-      %p== In order to run, this analysis job requires that you provide #{@num_datasets} #{Dataset.model_name.human(count: @num_datasets).downcase}.  Datasets are created by performing searches, then saving a set of search results.
+      %p= t('.pending_instructions', count: @num_datasets)
 - else
   .row
     .large-5.large-centered.columns
       - start_params = { controller: 'datasets', action: 'task_start', id: @user_datasets[0].to_param, class: params[:class], job_params: { other_datasets: @user_datasets[1..-1] } }
       - if @klass.has_view? '_params'
-        = link_to 'Set Job Options', start_params, class: 'button primary expand'
+        = link_to t('.button_params'), start_params, class: 'button primary expand'
       - else
-        = link_to 'Start Analysis', start_params, class: 'button success expand'
+        = link_to t('.button_start'), start_params, class: 'button success expand'
 
 .row
   .small-12.columns
     %hr
 
     - if @user_datasets.count < @num_datasets
-      .alert-box.alert.radius== #{@num_datasets - @user_datasets.count} #{Dataset.model_name.human(count: @num_datasets - @user_datasets.count).downcase} still need(s) to be added
+      .alert-box.alert.radius= t('.pending_count', count: (@num_datasets - @user_datasets.count))
 
-    %h3 Datasets for this job:
+    %h3= t('.dataset_list')
 
     %table
       %thead
         %tr
-          %th Dataset Name
+          %th= t('.name_column')
           %th
       %tbody
         - if @user_datasets.empty?
           %tr
-            %td No datasets specified
+            %td= t('.no_datasets')
             %td
         - else
           - @user_datasets.each do |d|
             %tr
               %td= d.name
-              %td= link_to 'Delete', workflow_activate_path(params[:class], unlink_dataset_id: d.to_param), data: { confirm: 'Are you sure?' }, class: 'button alert tiny'
+              %td= link_to t('.delete_button'), workflow_activate_path(params[:class], unlink_dataset_id: d.to_param), data: { confirm: t('.delete_confirm') }, class: 'button alert tiny'
 
 - if @user_datasets.count < @num_datasets
   .row
     .large-12.columns
       %ul.button-group.even-2
-        %li= link_to 'Create another dataset', search_path, class: 'button success'
-        %li= link_to 'Link an already created dataset', '#', data: { reveal_id: 'link-modal' }, class: 'button secondary'
+        %li= link_to t('.create_button'), search_path, class: 'button success'
+        %li= link_to t('.link_button'), '#', data: { reveal_id: 'link-modal' }, class: 'button secondary'
         #link-modal.reveal-modal
-          %h4 Link an already existing dataset
-          %h6.subheader Select the dataset that you would like to use for this analysis job.
+          %h4= t('.link_header')
+          %h6.subheader= t('.link_subheader')
 
           - unless current_user.datasets.count
-            %p No datasets found!
+            %p= t('.link_no_datasets')
           - else
             #link-form-modal
               = form_tag workflow_activate_path(params[:class]), method: :get, class: 'custom' do
@@ -70,6 +70,6 @@
                     = label_tag :link_dataset_id, Dataset.model_name.human
                     = select_tag :link_dataset_id, options_from_collection_for_select(current_user.datasets, 'to_param', 'name')
                 .row
-                  .large-6.columns= submit_tag 'Link dataset', class: 'button success small'
+                  .large-6.columns= submit_tag t('.link_submit'), class: 'button success small'
 
           %a.close-reveal-modal &#215;

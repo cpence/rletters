@@ -1,12 +1,12 @@
 - content_for :head_tags do
   %link{ rel: 'unapi-server', type: 'application/xml', title: 'unAPI', href: unapi_url }/
 - content_for :breadcrumbs do
-  %li= link_to 'Home', workflow_path
+  %li= link_to t('breadcrumbs.root'), root_path
   - if current_user.workflow_active
-    %li= link_to 'Start Analysis', workflow_start_path
-    %li= link_to "Job Info", workflow_info_path(current_user.workflow_class)
-    %li= link_to 'Collect Data', workflow_activate_path(current_user.workflow_class)
-  %li.current= link_to 'Search the Database', search_path
+    %li= link_to t('breadcrumbs.workflow_start'), workflow_start_path
+    %li= link_to t('breadcrumbs.workflow_info'), workflow_info_path(current_user.workflow_class)
+    %li= link_to t('breadcrumbs.workflow_activate'), workflow_activate_path(current_user.workflow_class)
+  %li.current= link_to t('breadcrumbs.search_index'), search_path
 
 .row
   .small-12.columns
@@ -51,4 +51,4 @@
 
       %p= link_to t('.advanced_search'), search_advanced_path, class: 'button secondary small expand'
 
-#new-modal.reveal-modal Loading...
+#new-modal.reveal-modal= t('.loading')

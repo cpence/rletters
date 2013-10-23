@@ -4,32 +4,32 @@
       %h1= link_to Setting.app_name, root_path
     %li.toggle-topbar.menu-icon
       %a{ href: '#' }
-        %span Menu
+        %span= t('layouts.nav.menu')
 
   %section.top-bar-section
     %ul.left
       %li.divider
-      %li{ class: (params[:controller] == 'workflow' && params[:action] == 'start') ? 'active' : nil }= link_to 'New Analysis', workflow_start_path
-      %li{ class: (params[:controller] == 'workflow' && params[:action] == 'fetch') ? 'active' : nil }= link_to 'Fetch Results', workflow_fetch_path
+      %li{ class: (params[:controller] == 'workflow' && params[:action] == 'start') ? 'active' : nil }= link_to t('layouts.nav.new_analysis'), workflow_start_path
+      %li{ class: (params[:controller] == 'workflow' && params[:action] == 'fetch') ? 'active' : nil }= link_to t('layouts.nav.fetch_results'), workflow_fetch_path
       %li.has-dropdown
-        = link_to 'Advanced Tools', '#'
+        = link_to t('layouts.nav.advanced'), '#'
 
         %ul.dropdown
-          %li= link_to 'Browse / Search Database', search_path
-          %li= link_to 'Manage Datasets', datasets_path
+          %li= link_to t('layouts.nav.browse'), search_path
+          %li= link_to t('layouts.nav.manage'), datasets_path
 
       - if current_user && current_user.workflow_active
-        %li.has-form= link_to 'Current Analysis', workflow_activate_path(current_user.workflow_class), class: 'button success'
-        %li.has-form= link_to 'Abort Building Analysis', workflow_destroy_path, class: 'button alert', data: { confirm: 'Are you sure?  The analysis now under construction will be lost!' }
+        %li.has-form= link_to t('layouts.nav.current'), workflow_activate_path(current_user.workflow_class), class: 'button success'
+        %li.has-form= link_to t('layouts.nav.abort'), workflow_destroy_path, class: 'button alert', data: { confirm: t('layouts.nav.abort_warning') }
 
     %ul.right
-      %li= link_to 'Help', 'http://rletters.net/help'
+      %li= link_to t('layouts.nav.help'), 'http://rletters.net/help'
       %li.divider.hide-for-small
       - if current_user
-        %li{ class: (params[:controller] == 'users') ? 'active' : nil }= link_to 'My Account', edit_user_registration_path
-        %li= link_to 'Sign Out', destroy_user_session_path, method: :delete
+        %li{ class: (params[:controller] == 'users') ? 'active' : nil }= link_to t('layouts.nav.account'), edit_user_registration_path
+        %li= link_to t('layouts.nav.sign_out'), destroy_user_session_path, method: :delete
       - else
-        %li#login-button{ class: (params[:controller] == 'users') ? 'active' : nil }= link_to 'Log In', '#', 'data-dropdown' => 'login-dropdown'
+        %li#login-button{ class: (params[:controller] == 'users') ? 'active' : nil }= link_to t('layouts.nav.sign_in'), '#', 'data-dropdown' => 'login-dropdown'
 
 - unless current_user
-  = render partial: 'layouts/log_in'
+  = render partial: 'layouts/sign_in'

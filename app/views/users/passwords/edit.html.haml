@@ -1,11 +1,11 @@
 - content_for :breadcrumbs do
-  %li= link_to 'Home', workflow_path
-  %li.current= link_to 'Change Password', edit_user_password_path
+  %li= link_to t('breadcrumbs.root'), root_path
+  %li.current= link_to t('breadcrumbs.users_passwords_edit'), edit_user_password_path
 
 %header
   %section
-    %h3 Change your password
-    %h5.subheader Enter a new password here, and we'll replace the one that you forgot.
+    %h3= t('.header')
+    %h5.subheader= t('.subheader')
 
 .row
   .large-6.columns
@@ -14,4 +14,4 @@
 
       = f.input :password
       = f.input :password_confirmation
-      = f.button :submit, 'Change password'
+      = f.button :submit, t('.submit')

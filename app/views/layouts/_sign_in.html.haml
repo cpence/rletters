@@ -18,10 +18,10 @@
 
     .row
       .login-shift
-        %small= link_to "Forgot password?", new_user_password_path
+        %small= link_to t('layouts.sign_in.forgot_password'), new_user_password_path
 
     .row
-      .login-submit= f.submit "Sign in", class: 'button primary small expand'
+      .login-submit= f.submit t('layouts.sign_in.sign_in'), class: 'button primary small expand'
 
     .row
-      .login-shift= link_to "Sign up", new_user_registration_path, class: 'button success small expand'
+      .login-shift= link_to t('layouts.sign_in.sign_up'), new_user_registration_path, class: 'button success small expand'

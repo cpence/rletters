@@ -6,20 +6,20 @@
 %table
   %thead
     %tr
-      %th Library Name
+      %th= t('.name_column')
       %th
   %tbody
     - @libraries.each do |library|
       %tr
         %td= library.name
         %td
-          = link_to 'Edit', edit_library_path(library), data: { reveal_id: 'edit-modal', reveal_ajax: 'true' }, class: 'button secondary tiny'
-          = link_to 'Delete', library_path(library), method: 'delete', data: { confirm: 'Are you sure?' }, class: 'button alert tiny'
+          = link_to t('.edit_button'), edit_library_path(library), data: { reveal_id: 'edit-modal', reveal_ajax: 'true' }, class: 'button secondary tiny'
+          = link_to t('.delete_button'), library_path(library), method: 'delete', data: { confirm: t('.delete_confirm') }, class: 'button alert tiny'
     - if @libraries.count == 0
       %tr
-        %td No libraries found
+        %td= t('.no_libraries')
         %td
 
-#query-modal.reveal-modal Loading...
-#new-modal.reveal-modal Loading...
-#edit-modal.reveal-modal Loading...
+#query-modal.reveal-modal= t('.loading')
+#new-modal.reveal-modal= t('.loading')
+#edit-modal.reveal-modal= t('.loading')

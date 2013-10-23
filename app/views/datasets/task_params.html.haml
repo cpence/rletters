@@ -1,12 +1,12 @@
 - content_for :breadcrumbs do
-  %li= link_to 'Home', workflow_path
-  %li= link_to 'Manage Datasets', datasets_path
-  %li= link_to "Manage: #{@dataset.name}", @dataset
-  %li.current= link_to 'Job Options', { controller: 'datasets', action: 'task_start', id: @dataset.to_param, class: params[:class] }
+  %li= link_to t('breadcrumbs.root'), root_path
+  %li= link_to t('breadcrumbs.datasets_index'), datasets_path
+  %li= link_to t('breadcrumbs.datasets_show', name: @dataset.name), @dataset
+  %li.current= link_to t('breadcrumbs.datasets_task_params'), { controller: 'datasets', action: 'task_start', id: @dataset.to_param, class: params[:class] }
 
 %header
   %section
-    %h2 Job Options
-    %h4.subheader This job has some more options that you can configure before you get started.
+    %h2= t('.header')
+    %h4.subheader= t('.subheader')
 
 = render_job_partial(@klass, 'params')
