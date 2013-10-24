@@ -37,4 +37,5 @@
     %h3= t('.library_links_header')
     %h5.subheader= t('.library_links_subheader')
 
-    %div#library-list{ data: { fetch_url: libraries_path } }= t('.loading_libraries')
+    %div#library-list{ data: { fetch_url: libraries_path } }
+      .preloader

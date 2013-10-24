@@ -289,7 +289,6 @@ en:
         dropdown:
             single_dataset: Create a dataset from only this document
             add_to_dataset: Add this document to an existing dataset
-            loading: Loading...
             journal: Download from journal
             library: Download from library
             yours: "Your library:"
@@ -353,7 +352,6 @@ en:
             year_before_1800: Before 1800
             year_after_2010: 2010 and later
             advanced_search: Advanced search
-            loading: Loading...
     users:
         passwords:
             edit:
@@ -375,7 +373,6 @@ en:
                 cancel_confirm: Are you sure? We'd hate to see you go!
                 library_links_header: Library access links
                 library_links_subheader: "You can add links to your local library's document retrieval system, which you can later use to obtain access to content."
-                loading_libraries: Loading libraries...
             new:
                 header: Sign up
                 subheader: "Welcome!  Enter some information about yourself and we'll get you off and running with a new user account."
@@ -391,7 +388,6 @@ en:
             delete_button: Delete
             delete_confirm: Are you sure?
             no_libraries: No libraries found
-            loading: Loading...
         new:
             header: Add a new library
             subheader: "Fill in the details to your local library's OpenURL resolver, and we'll take it from there."
@@ -496,7 +492,6 @@ en:
         index:
             header: Manage datasets
             subheader: "From this page, you can do advanced management of your datasets, including manually running analysis tasks."
-            loading_datasets: "Loading datasets..."
         new:
             header:  Create a new dataset
             subheader: "Give these search results a name, and they will be preserved as a new dataset."
@@ -509,7 +504,6 @@ en:
             created_at: "Created at: %{date}"
             deleted: Cleared all failed analysis tasks.
             tasks: Analysis tasks
-            loading_tasks: Loading analysis tasks...
             new_task: Manually start a new analysis task
         task_datasets:
             header: Add more datasets

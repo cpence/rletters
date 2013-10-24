@@ -22,7 +22,8 @@
 
     %h4= t('.tasks')
 
-    #dataset-task-list{ data: { fetch_url: task_list_dataset_path(@dataset) } }= t('.loading_tasks')
+    #dataset-task-list{ data: { fetch_url: task_list_dataset_path(@dataset) } }
+      .preloader
 
 .row
   .small-12.columns

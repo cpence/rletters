@@ -1342,3 +1342,11 @@ $topbar-menu-icon-color-toggled: $gray-4;
 
 // $topbar-sticky-class: ".sticky";
 // $topbar-arrows: true; //Set false to remove the triangle icon from the menu item
+
+
+//
+// Overrides that don't have SCSS variables
+//
+
+// Fix the 'preloader' to match our color scheme
+.preloader { border-color: $gray-5 $body-bg; }
