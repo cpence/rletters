@@ -47,3 +47,26 @@ header {
 
 .custom.radio, .custom.checkbox { margin-right: 0.5em; }
 .input.radio_buttons, .input.boolean { margin-bottom: 1em; }
+
+footer {
+  @include grid-row;
+  padding: 3em 0;
+
+  & > section {
+    @include grid-column(12);
+
+    color: lighten($header-font-color, 30%);
+    font-size: 75%;
+
+    dl.sitemap {
+      @include sub-nav(inherit, 100%);
+
+      dd, dt, li {
+        margin-left: 2em;
+        margin-right: 2em;
+      }
+    }
+
+    p { margin: 0 0 0 0.5em; }
+  }
+}

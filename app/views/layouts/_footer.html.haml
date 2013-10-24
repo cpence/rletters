@@ -1,0 +1,15 @@
+%footer
+  %section
+    %hr
+
+    %dl.sitemap
+      %dd= link_to t('breadcrumbs.home'), root_path
+      %dd= link_to t('breadcrumbs.workflow_start'), workflow_start_path
+      %dd= link_to t('breadcrumbs.search_index'), search_path
+      %dd= link_to t('breadcrumbs.datasets_index'), datasets_path
+      %dd= link_to t('breadcrumbs.users_registrations_edit'), edit_user_registration_path
+      %dd= link_to t('breadcrumbs.users_registrations_new'), new_user_registration_path
+      %dd= link_to t('layouts.nav.help'), 'http://rletters.net/help'
+
+    %p= t('layouts.footer.copyright', app_name: Setting.app_name)
+    = t_md('layouts.footer.rletters_markdown')

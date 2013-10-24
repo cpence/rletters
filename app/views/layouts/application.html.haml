@@ -13,6 +13,8 @@
 
       = content_for?(:content) ? yield(:content) : yield
 
+      = render partial: 'layouts/footer'
+
     = javascript_include_tag 'application'
     - if content_for? :javascript
       = content_for :javascript
