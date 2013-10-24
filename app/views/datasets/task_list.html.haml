@@ -6,21 +6,21 @@
     .alert-box.alert.radius= link_to t('.failed', count: @dataset.analysis_tasks.failed.count), dataset_path(@dataset, clear_failed: true)
 
 -# Finished analysis tasks: link to download results and to delete
-%table
+%table.button-table
   %thead
     %tr
-      %th= t('.task_column')
-      %th
+      %th.label-cell= t('.task_column')
+      %th.button-cell
   %tbody
     - if @dataset.analysis_tasks.finished.count == 0
       %tr
-        %td= t('.no_tasks')
-        %td
+        %td.label-cell= t('.no_tasks')
+        %td.button-cell
     - else
       - @dataset.analysis_tasks.finished.each do |task|
         %tr
-          %td= task.name
-          %td
+          %td.label-cell= task.name
+          %td.button-cell
             - if task.job_class.download?
               = link_to t('.download_button'), { controller: 'datasets', action: 'task_download', id: @dataset.to_param, task_id: task.to_param }, class: 'button success tiny'
             - else

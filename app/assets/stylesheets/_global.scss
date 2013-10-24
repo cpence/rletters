@@ -45,6 +45,15 @@ header {
   margin-top: -1.5em;
 }
 
+// Styling for our various "manage" tables with a right-hand button
+// column
+table.button-table {
+  width: 100%;
+
+  td .button, td button { margin-bottom: 0; }
+  td.button-cell, th.button-cell { width: 1px; white-space: nowrap; }
+}
+
 .custom.radio, .custom.checkbox { margin-right: 0.5em; }
 .input.radio_buttons, .input.boolean { margin-bottom: 1em; }
 

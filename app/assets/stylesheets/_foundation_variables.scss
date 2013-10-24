@@ -1209,7 +1209,7 @@ $table-border-color: $gray-3;
 
 // These control the table head styles
 
-$table-head-bg: $body-bg;
+$table-head-bg: darken($body-bg, 5%);
 // $table-head-font-size: em-calc(14);
 $table-head-font-color: $gray-6;
 // $table-head-font-weight: bold;

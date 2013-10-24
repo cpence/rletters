@@ -34,21 +34,21 @@
 
     %h3= t('.dataset_list')
 
-    %table
+    %table.button-table
       %thead
         %tr
-          %th= t('.name_column')
-          %th
+          %th.label-cell= t('.name_column')
+          %th.button-cell
       %tbody
         - if @user_datasets.empty?
           %tr
-            %td= t('.no_datasets')
-            %td
+            %td.label-cell= t('.no_datasets')
+            %td.button-cell
         - else
           - @user_datasets.each do |d|
             %tr
-              %td= d.name
-              %td= link_to t('.delete_button'), workflow_activate_path(params[:class], unlink_dataset_id: d.to_param), data: { confirm: t('.delete_confirm') }, class: 'button alert tiny'
+              %td.label-cell= d.name
+              %td.button-cell= link_to t('.delete_button'), workflow_activate_path(params[:class], unlink_dataset_id: d.to_param), data: { confirm: t('.delete_confirm') }, class: 'button alert tiny'
 
 - if @user_datasets.count < @num_datasets
   .row

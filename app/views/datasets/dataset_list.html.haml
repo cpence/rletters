@@ -2,22 +2,22 @@
 - if user_pending_count > 0
   .alert-box.radius= t('.tasks', count: user_pending_count)
 
-%table
+%table.button-table
   %thead
     %tr
-      %th= t('.name_column')
-      %th
+      %th.label-cell= t('.name_column')
+      %th.button-cell
   %tbody
     - unless @datasets.count
       %tr
-        %th= t('.no_datasets')
-        %th
+        %td.label-cell= t('.no_datasets')
+        %td.button-cell
     - else
       - @datasets.each do |dataset|
         %tr
-          %td
+          %td.label-cell
             = dataset.name
             %span.secondary.round.label= dataset.entries.size
-          %td
+          %td.button-cell
             = link_to t('.manage_button'), dataset, class: 'button tiny'
             = link_to t('.delete_button'), dataset, method: :delete, data: { confirm: t('.delete_confirm') }, class: 'button alert tiny'

@@ -3,22 +3,22 @@
   %li= link_to t('.query'), query_libraries_path, data: { reveal_id: 'query-modal', reveal_ajax: 'true' }, class: 'button secondary small'
   %li= link_to t('.add_new'), new_library_path, data: { reveal_id: 'new-modal', reveal_ajax: 'true' }, class: 'button secondary small'
 
-%table
+%table.button-table
   %thead
     %tr
-      %th= t('.name_column')
-      %th
+      %th.label-cell= t('.name_column')
+      %th.button-cell
   %tbody
     - @libraries.each do |library|
       %tr
-        %td= library.name
-        %td
+        %td.label-cell= library.name
+        %td.button-cell
           = link_to t('.edit_button'), edit_library_path(library), data: { reveal_id: 'edit-modal', reveal_ajax: 'true' }, class: 'button secondary tiny'
           = link_to t('.delete_button'), library_path(library), method: 'delete', data: { confirm: t('.delete_confirm') }, class: 'button alert tiny'
     - if @libraries.count == 0
       %tr
-        %td= t('.no_libraries')
-        %td
+        %td.label-cell= t('.no_libraries')
+        %td.button-cell
 
 #query-modal.reveal-modal= t('.loading')
 #new-modal.reveal-modal= t('.loading')

@@ -35,7 +35,7 @@
       = active_facet_list(@result)
 
     .pagination-centered= render_pagination(@result)
-    %table
+    %table.document-list
       - @documents.each do |d|
         %tr
           %td{ 'data-dropdown' => "drop-#{d.shasum}" }

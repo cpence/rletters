@@ -21,18 +21,18 @@
     - if @finished_tasks.empty?
       %p= t('.no_completed')
     - else
-      %table
+      %table.button-table
         %thead
           %tr
-            %th= t('datasets.task_list.task_column')
-            %th= Dataset.model_name.human
-            %th
+            %th.label-cell= t('datasets.task_list.task_column')
+            %th.label-cell= Dataset.model_name.human
+            %th.button-cell
         %tbody
           - @finished_tasks.each do |t|
             %tr
-              %td= t.name
-              %td= t.dataset.name
-              %td
+              %td.label-cell= t.name
+              %td.label-cell= t.dataset.name
+              %td.button-cell
                 - if t.job_class.download?
                   = link_to t('datasets.task_list.download_button'), { controller: 'datasets', action: 'task_download', id: t.dataset.to_param, task_id: t.to_param }, class: 'button success tiny'
                 - else
