@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 # Rails
 gem 'rails', '~> 4.0'
-gem 'rails-i18n', '= 4.0.0.pre2'
+gem 'rails-i18n', '= 4.0.0'
 
 # Database and related tools
 group :production, :development do
