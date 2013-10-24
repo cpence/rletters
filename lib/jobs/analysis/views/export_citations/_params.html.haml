@@ -5,4 +5,4 @@
 
       = f.input :format, collection: Document.serializers.map { |a| [a[1][:name], a[0]] }
       = f.button :submit
-      = link_to('Cancel', @dataset, class: 'button secondary')
+      = link_to(t('common.cancel'), @dataset, class: 'button secondary')

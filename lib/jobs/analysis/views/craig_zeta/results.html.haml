@@ -6,18 +6,24 @@
 
 .row
   .large-8.columns
-    %h2== Comparison of #{data['name_1']} with #{data['name_2']}
-    %h4.subheader Craig Zeta algorithm)
-  .large-4.columns.job-header-button= link_to 'Download in CSV format', { controller: 'datasets', action: 'task_view', id: @dataset.to_param, task_id: @task.to_param, view: 'download', format: 'csv' }, class: 'button secondary expand'
+    %h2= t('jobs.analysis.craig_zeta.header', name_1: data['name_1'], name_2: data['name_2'])
+    %h4.subheader= t('jobs.analysis.craig_zeta.subheader')
+  .large-4.columns.job-header-button= link_to t('common.download_csv'), { controller: 'datasets', action: 'task_view', id: @dataset.to_param, task_id: @task.to_param, view: 'download', format: 'csv' }, class: 'button secondary expand'
 
 .row
   .small-12.columns
     %hr
 
+    %h5= t('jobs.analysis.craig_zeta.graph_header')
+    %p= t('jobs.analysis.craig_zeta.graph_explanation')
+
     #cz-graph-data= data['graph_points'].to_json
     #cz-graph
 
     %hr
+
+    %h5= t('jobs.analysis.craig_zeta.zeta_score_header')
+    %p= t('jobs.analysis.craig_zeta.zeta_score_explanation', name_1: data['name_1'], name_2: data['name_2'])
 
     #cz-table-data= data['zeta_scores'].to_a.to_json
     #cz-table

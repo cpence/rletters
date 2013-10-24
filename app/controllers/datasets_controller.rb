@@ -257,7 +257,7 @@ class DatasetsController < ApplicationController
     path = klass.view_path(template: view, format: format)
     fail ActiveRecord::RecordNotFound unless path
 
-    render file: path
+    render file: path, locals: { klass: klass }
   end
 
   # Whitelist acceptable dataset parameters

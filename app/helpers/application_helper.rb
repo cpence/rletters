@@ -21,6 +21,24 @@ module ApplicationHelper
   end
   alias_method :t_md, :translate_markdown
 
+  # Render a localized Markdown document
+  #
+  # This function renders a localized Markdown file located in the locales
+  # tree.
+  #
+  # @api public
+  # @param [String] file the document to be rendered
+  # @return [SafeBuffer] the rendering result
+  # @example Render config/locales/test/test.en.md
+  #   <%= render_localized_markdown :test %>
+  def render_localized_markdown(file)
+    path = Rails.root.join('config', 'locales', file.to_s,
+                           "#{file.to_S}.#{I18n.locale}.md")
+    raise I18n::MissingTranslationData unless File.exists?(path)
+
+    render file: path
+  end
+
   # Elements of the flash hash for which we have custom CSS classes
   FLASH_CLASSES = %w{ notice alert success }
 
@@ -47,7 +65,10 @@ module ApplicationHelper
     path = klass.view_path(partial: view)
 
     if path
-      render(args.merge(file: path)).html_safe
+      locals = args[:locals] || {}
+      locals[:klass] = klass
+
+      render(args.merge(file: path, locals: locals)).html_safe
     else
       "<p><strong>ERROR: Cannot find job view #{view} for class #{klass}".html_safe
     end

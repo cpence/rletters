@@ -51,19 +51,51 @@ describe ApplicationHelper do
   end
 
   describe '#render_job_partial' do
-    it 'succeeds for a partial that is present' do
-      expect(helper).to receive(:render).with(file: Rails.root.join('lib', 'jobs', 'analysis', 'views', 'plot_dates', '_params.html.haml').to_s).and_return('')
-      helper.render_job_partial(Jobs::Analysis::PlotDates, 'params')
+    context 'with a partial that is present' do
+      before(:all) do
+        @path = Rails.root.join('lib', 'jobs', 'analysis', 'views',
+                                'plot_dates', '_test_spec.html.haml').to_s
+
+        File.open(@path, 'w') do |f|
+          f.puts '%h1 Testing'
+        end
+      end
+
+      after(:all) do
+        File.unlink(@path)
+      end
+
+      it 'succeeds' do
+        expect(helper).to receive(:render).with(file: @path, locals: { klass: Jobs::Analysis::PlotDates }).and_return('')
+        helper.render_job_partial(Jobs::Analysis::PlotDates, 'test_spec')
+      end
     end
 
-    it 'allows rendering of non-HAML partials' do
-      expect(helper).to receive(:render).with(file: Rails.root.join('lib', 'jobs', 'analysis', 'views', 'plot_dates', '_info.html.md').to_s).and_return('')
-      helper.render_job_partial(Jobs::Analysis::PlotDates, 'info')
+    context 'with a non-HAML partial' do
+      before(:all) do
+        @path = Rails.root.join('lib', 'jobs', 'analysis', 'views',
+                                'plot_dates', '_test_spec.html.md').to_s
+
+        File.open(@path, 'w') do |f|
+          f.puts '# Testing'
+        end
+      end
+
+      after(:all) do
+        File.unlink(@path)
+      end
+
+      it 'succeeds' do
+        expect(helper).to receive(:render).with(file: @path, locals: { klass: Jobs::Analysis::PlotDates }).and_return('')
+        helper.render_job_partial(Jobs::Analysis::PlotDates, 'test_spec')
+      end
     end
 
-    it 'renders something reasonable for missing partials' do
-      output = helper.render_job_partial(Jobs::Analysis::PlotDates, 'notapartial')
-      expect(output).to start_with('<p>')
+    context 'with a missing partial' do
+      it 'renders something reasonable' do
+        output = helper.render_job_partial(Jobs::Analysis::PlotDates, 'notapartial')
+        expect(output).to start_with('<p>')
+      end
     end
   end
 

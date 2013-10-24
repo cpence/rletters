@@ -8,4 +8,4 @@
 
       = render_job_partial Jobs::Analysis::PlotDates, 'normalize_document_counts', locals: { f: f }
       = f.button :submit
-      = link_to('Cancel', @dataset, class: 'button secondary')
+      = link_to(t('common.cancel'), @dataset, class: 'button secondary')

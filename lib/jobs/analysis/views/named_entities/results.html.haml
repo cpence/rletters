@@ -8,8 +8,8 @@
 .row
   .large-8.columns
     %h2== #{Dataset.model_name.human}: #{@dataset.name}
-    %h4.subheader References to proper names
-  .large-4.columns.job-header-button= link_to 'Download in CSV format', { controller: 'datasets', action: 'task_view', id: @dataset.to_param, task_id: @task.to_param, view: 'download', format: 'csv' }, class: 'button secondary expand'
+    %h4.subheader= t('jobs.analysis.named_entities.subheader')
+  .large-4.columns.job-header-button= link_to t('common.download_csv'), { controller: 'datasets', action: 'task_view', id: @dataset.to_param, task_id: @task.to_param, view: 'download', format: 'csv' }, class: 'button secondary expand'
 
 .row
   .small-12.columns
@@ -18,37 +18,37 @@
     .section-container.auto{ data: { section: true } }
       - if data['PERSON']
         %section
-          %p.title{ data: { section_title: true } }= link_to 'People', '#panel1'
+          %p.title{ data: { section_title: true } }= link_to t('jobs.analysis.named_entities.people_category'), '#panel1'
           .content{ data: { section_content: true } }
             %ul.no-bullet
               - data['PERSON'].uniq.sort.each do |p|
-                %li= link_to p, "https://en.wikipedia.org/w/index.php?title=Special:Search&search=#{CGI.escape(p)}&fulltext=Search"
+                %li= link_to p, t('jobs.analysis.named_entities.wikipedia_link', query: CGI.escape(p))
       - if data['ORGANIZATION']
         %section
-          %p.title{ data: { section_title: true } }= link_to 'Organizations', '#panel2'
+          %p.title{ data: { section_title: true } }= link_to t('jobs.analysis.named_entities.organization_category'), '#panel2'
           .content{ data: { section_content: true } }
             %ul.no-bullet
               - data['ORGANIZATION'].uniq.sort.each do |o|
-                %li= link_to o, "https://en.wikipedia.org/w/index.php?title=Special:Search&search=#{CGI.escape(o)}&fulltext=Search"
+                %li= link_to o, t('jobs.analysis.named_entities.wikipedia_link', query: CGI.escape(o))
       - if data['LOCATION']
         %section#ne-map-section
-          %p.title{ data: { section_title: true } }= link_to 'Locations (Map)', '#panel3'
+          %p.title{ data: { section_title: true } }= link_to t('jobs.analysis.named_entities.location_map'), '#panel3'
           .content{ data: { section_content: true } }
             #ne-map-data= data['LOCATION'].uniq.sort.to_json
             #ne-map
         %section
-          %p.title{ data: { section_title: true } }= link_to 'Locations (List)', '#panel4'
+          %p.title{ data: { section_title: true } }= link_to t('jobs.analysis.named_entities.location_list'), '#panel4'
           .content{ data: { section_content: true } }
             %ul.no-bullet
               - data['LOCATION'].uniq.sort.each do |l|
-                %li= link_to l, "https://en.wikipedia.org/w/index.php?title=Special:Search&search=#{CGI.escape(l)}&fulltext=Search"
+                %li= link_to l, t('jobs.analysis.named_entities.wikipedia_link', query: CGI.escape(l))
       - unless data.reject { |c| %w{PERSON ORGANIZATION LOCATION}.include?(c) }.empty?
         %section
-          %p.title{ data: { section_title: true } }= link_to 'Other', '#panel4'
+          %p.title{ data: { section_title: true } }= link_to t('jobs.analysis.named_entities.other_category'), '#panel4'
           .content{ data: { section_content: true } }
             - data.reject { |c| %w{PERSON ORGANIZATION LOCATION}.include?(c) }.each do |c|
               %p
                 %strong= c
               %ul.no-bullet
                 - c.uniq.sort.each do |o|
-                  %li= link_to o, "https://en.wikipedia.org/w/index.php?title=Special:Search&search=#{CGI.escape(o)}&fulltext=Search"
+                  %li= link_to o, t('jobs.analysis.named_entities.wikipedia_link', query: CGI.escape(o))

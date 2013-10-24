@@ -11,12 +11,12 @@
     %h2== #{Dataset.model_name.human}: #{@dataset.name}
 
     - if percent
-      %h4.subheader== Percentage of documents in #{data['normalization_set']} found in the #{@dataset.name} dataset, plotted by year
+      %h4.subheader= t('jobs.analysis.plot_dates.fraction_subheader', name: @dataset.name, normalization_set: data['normalization_set'])
     - else
-      %h4.subheader Number of documents, plotted by year
+      %h4.subheader= t('jobs.analysis.plot_dates.number_subheader')
 
   .large-4.columns.job-header-button
-    = link_to 'Download in CSV format', { controller: 'datasets', action: 'task_view', id: @dataset.to_param, task_id: @task.to_param, view: 'download', format: 'csv' }, class: 'button secondary expand'
+    = link_to t('common.download_csv'), { controller: 'datasets', action: 'task_view', id: @dataset.to_param, task_id: @task.to_param, view: 'download', format: 'csv' }, class: 'button secondary expand'
 
 .row
   .small-12.columns

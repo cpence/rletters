@@ -3,6 +3,6 @@
 - dates = data['data']
 - percent = data['percent']
 != CSV.generate do |csv|
-  - csv << [ 'Year', percent ? 'Fraction of Documents' : 'Number of Documents' ]
+  - csv << [ Document.human_attribute_name(:year), percent ? t('jobs.analysis.plot_dates.fraction_column') : t('jobs.analysis.plot_dates.number_column') ]
   - dates.each do |d|
     - csv << d
