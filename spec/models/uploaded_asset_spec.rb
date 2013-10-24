@@ -55,7 +55,7 @@ describe UploadedAsset do
     context 'when an extant asset is specified' do
       it 'returns a URL' do
         url = UploadedAsset.url_for(@asset.name)
-        expect(url).to start_with('/info/image/')
+        expect(url).to start_with('/workflow/image/')
         expect(url).to include(@asset.to_param + '?')
       end
     end
