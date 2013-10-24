@@ -1,0 +1,40 @@
+- content_for :breadcrumbs do
+  %li= link_to t('breadcrumbs.root'), root_path
+  %li.current= link_to t('breadcrumbs.workflow_fetch'), workflow_fetch_path
+
+%header
+  %section
+    %h2= t('.header')
+    %h4.subheader= t('.subheader')
+
+- unless @pending_tasks.empty?
+  .row
+    .small-12.columns
+      .panel.radius
+        %h5= t('.pending_header')
+        %p= t('.pending_count', count: @pending_tasks.count)
+        %p= t_md('.pending_cancel_markdown', terminate_url: workflow_fetch_path(terminate: 'true'), email: Setting.app_email)
+
+.row
+  .small-12.columns
+    %h4= t('.completed_header')
+    - if @finished_tasks.empty?
+      %p= t('.no_completed')
+    - else
+      %table.button-table
+        %thead
+          %tr
+            %th.label-cell= t('datasets.task_list.task_column')
+            %th.label-cell= Dataset.model_name.human
+            %th.button-cell
+        %tbody
+          - @finished_tasks.each do |t|
+            %tr
+              %td.label-cell= t.name
+              %td.label-cell= t.dataset.name
+              %td.button-cell
+                - if t.job_class.download?
+                  = link_to t('datasets.task_list.download_button'), { controller: 'datasets', action: 'task_download', id: t.dataset.to_param, task_id: t.to_param }, class: 'button success tiny'
+                - else
+                  = link_to t('datasets.task_list.view_button'), { controller: 'datasets', action: 'task_view', id: t.dataset.to_param, task_id: t.to_param, view: 'results' }, class: 'button success tiny'
+                = link_to t('datasets.task_list.delete_button'), { controller: 'datasets', action: 'task_destroy', id: t.dataset.to_param, task_id: t.to_param }, class: 'button alert tiny'

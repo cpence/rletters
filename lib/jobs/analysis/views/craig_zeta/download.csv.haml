@@ -1,26 +1,26 @@
 - require 'csv'
 - data = JSON.load(@task.result.file_contents(:original))
 != CSV.generate do |csv|
-  - csv << ["Craig Zeta comparison for dataset #{data['name_1']} against #{data['name_2']}"]
+  - csv << [t('jobs.analysis.craig_zeta.csv_header', name_1: data['name_1'], name_2: data['name_2'])]
   - csv << ['']
 
   - # Output the marker words
-  - csv << ["Marker words for membership in #{data['name_1']}:"]
+  - csv << [t('jobs.analysis.craig_zeta.marker_header', name: data['name_1'])]
   - data['marker_words'].each { |w| csv << [w] }
   - csv << ['']
-  - csv << ["Marker words for membership in #{data['name_2']}:"]
+  - csv << [t('jobs.analysis.craig_zeta.marker_header', name: data['name_2'])]
   - data['anti_marker_words'].each { |w| csv << [w] }
   - csv << ['']
 
   - # Output the graphing points
-  - csv << ['Separation graph for all analyzed text blocks:']
+  - csv << [t('jobs.analysis.craig_zeta.graph_header')]
   - csv << ['']
-  - csv << ['Block name', 'Fraction of marker words', 'Fraction of anti-marker words']
+  - csv << [t('jobs.analysis.craig_zeta.block_name_column'), t('jobs.analysis.craig_zeta.marker_column'), t('jobs.analysis.craig_zeta.anti_marker_column')]
   - data['graph_points'].each { |l| csv << l }
   - csv << ['']
 
   - # Output the Zeta scores
-  - csv << ['Zeta scores for all analyzed words:']
+  - csv << [t('jobs.analysis.craig_zeta.zeta_score_header')]
   - data['zeta_scores'].each { |k, v| csv << [k, v] }
 
   - csv << ['']

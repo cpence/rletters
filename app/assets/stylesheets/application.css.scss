@@ -1,21 +1,18 @@
-/*
- *= require jquery.mobile
-*/
+@import "foundation_variables";
+@import "foundation";
 
-.verticalpad { margin-top: 14px; margin-bottom: 14px; }
-.doublepad { margin-top: 28px; margin-bottom: 28px; }
+// Google Fonts: Source Sans Pro
+@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic);
 
-.center { text-align: center; }
-.center > * { margin-left: auto; margin-right: auto; }
+// Styles that apply to the entire application
+@import "global";
 
-ul.longlist .ui-li-desc, li.longlist .ui-li-desc {
-  /* HACK: This relies on internal jQM font sizes! */
-  font-size: 14px;
-  white-space: normal;
-  margin-bottom: 1.25em;
-}
+// Individual stylesheets for each of the controllers
+@import "search";
+@import "workflow";
+@import "jobs";
 
-@import "footer";
+// Stylesheets for analysis tasks
+@import "craig_zeta";
 @import "named_entities";
 @import "plot_dates";
-@import "search";

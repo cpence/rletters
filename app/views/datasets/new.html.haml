@@ -1,23 +1,16 @@
-- content_for :title do
-  = t('.head')
+%h4= t('.header')
+%h6.subheader= t('.subheader')
 
-= form_for(@dataset) do |f|
-  - if @dataset.errors.any?
-    %ul{ data: { role: 'listview', theme: 'e', divider_theme: 'e' }, style: 'margin-bottom: 30px;' }
-      %li= t('.errors', count: @dataset.errors.count)
-      - @dataset.errors.full_messages.each do |msg|
-        %li= msg
+.row
+  .large-6.columns#new-dataset-modal
+    = simple_form_for(@dataset) do |f|
+      = hidden_field_tag :q, params[:q]
+      = hidden_field_tag :defType, params[:defType]
+      - if params[:fq]
+        - params[:fq].each do |fq|
+          = hidden_field_tag 'fq[]', fq
 
-  %div{ data: { role: 'fieldcontain' } }
-    = f.label :name, Dataset.human_attribute_name('name')
-    = f.text_field :name
+      = f.input :name
+      = f.button :submit
 
-  = hidden_field_tag :q, params[:q]
-  = hidden_field_tag :defType, params[:defType]
-  - if params[:fq]
-    - params[:fq].each do |fq|
-      = hidden_field_tag 'fq[]', fq
-
-  = f.submit t('.submit_label')
-
-= link_to t('.cancel'), datasets_path, data: { role: 'button' }
+%a.close-reveal-modal &#215;

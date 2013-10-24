@@ -35,13 +35,13 @@ module Jobs
           # @param [Hash<String, Integer>] counts the counts of documents,
           #   grouped by +field+ values
           # @param [Hash] args parameters specifying normalization behavior
-          # @option args [String] normalize_doc_coutns if 'on', perform
+          # @option args [String] normalize_doc_coutns if '1', perform
           #   normalization
           # @option args [String] normalize_doc_dataset the id of the dataset
           #   against which to normalize, or blank if the entire corpus
           # @return [Hash<String, Float>] the counts of documents, normalized
           def self.normalize_document_counts(user, field, counts, args)
-            return counts unless args[:normalize_doc_counts] == 'on'
+            return counts unless args[:normalize_doc_counts] == '1'
 
             if args[:normalize_doc_dataset].blank?
               normalization_set = nil

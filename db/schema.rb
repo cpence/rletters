@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130920174611) do
+ActiveRecord::Schema.define(version: 20131022151607) do
 
   create_table "admin_users", force: true do |t|
     t.string   "email",                  default: "", null: false
@@ -49,6 +49,7 @@ ActiveRecord::Schema.define(version: 20130920174611) do
     t.string   "result_content_type"
     t.integer  "result_file_size"
     t.datetime "result_updated_at"
+    t.text     "params"
   end
 
   add_index "analysis_tasks", ["dataset_id"], name: "index_analysis_tasks_on_dataset_id"
@@ -146,6 +147,9 @@ ActiveRecord::Schema.define(version: 20130920174611) do
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
     t.integer  "csl_style_id"
+    t.boolean  "workflow_active",        default: false
+    t.string   "workflow_class"
+    t.string   "workflow_datasets"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

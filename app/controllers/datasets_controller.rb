@@ -50,16 +50,7 @@ class DatasetsController < ApplicationController
   # @return [undefined]
   def new
     @dataset = current_user.datasets.build
-    render layout: 'dialog'
-  end
-
-  # Show a confirmation box for deleting a dataset
-  # @api public
-  # @return [undefined]
-  def delete
-    @dataset = current_user.datasets.find(params[:id])
-    fail ActiveRecord::RecordNotFound unless @dataset
-    render layout: 'dialog'
+    render layout: false
   end
 
   # Create a new dataset in the database
@@ -73,7 +64,13 @@ class DatasetsController < ApplicationController
                    fq: params[:fq],
                    defType: params[:defType])
 
-    redirect_to datasets_path, notice: I18n.t('datasets.create.building')
+    if current_user.workflow_active
+      redirect_to workflow_activate_path(current_user.workflow_class),
+        flash: { success: 'Building dataset, will link when completed' }
+    else
+      redirect_to datasets_path,
+        flash: { success: I18n.t('datasets.create.building') }
+    end
   end
 
   # Delete a dataset from the database
@@ -82,11 +79,6 @@ class DatasetsController < ApplicationController
   def destroy
     @dataset = current_user.datasets.find(params[:id])
     fail ActiveRecord::RecordNotFound unless @dataset
-
-    if params[:cancel]
-      redirect_to @dataset
-      return
-    end
 
     Resque.enqueue(Jobs::DestroyDataset,
                    user_id: current_user.to_param,
@@ -131,25 +123,64 @@ class DatasetsController < ApplicationController
   # @api public
   # @return [undefined]
   def task_start
-    dataset = current_user.datasets.find(params[:id])
-    fail ActiveRecord::RecordNotFound unless dataset
-    klass = AnalysisTask.job_class(params[:class])
+    # Get the dataset and the class
+    @dataset = current_user.datasets.find(params[:id])
+    fail ActiveRecord::RecordNotFound unless @dataset
+    @klass = AnalysisTask.job_class(params[:class])
+
+    # Get the parameters we've specified so far
+    job_params = params[:job_params].to_hash if params[:job_params]
+    job_params ||= {}
+    job_params.symbolize_keys!
+
+    # Make sure we have enough other datasets, if those are required
+    if @klass.num_datasets > 1
+      other_datasets = job_params[:other_datasets]
+
+      if other_datasets.nil? || other_datasets.count < (@klass.num_datasets - 1)
+        # Still need more other datasets, render the data collection view
+        # and bail
+        render template: 'datasets/task_datasets'
+        return
+      end
+    end
+
+    # Make sure we've gathered the parameters, if those are required
+    if @klass.has_view?('_params')
+      unless job_params[:start]
+        render template: 'datasets/task_params'
+        return
+      end
+    end
 
     # Create an analysis task
-    task = dataset.analysis_tasks.create(name: params[:class],
-                                         job_type: params[:class])
+    task = @dataset.analysis_tasks.create(name: params[:class],
+                                          job_type: params[:class])
 
-    # Put the job parameters together out of the job hash
-    job_params = {}
-    job_params = params[:job_params].to_hash if params[:job_params]
-    job_params.symbolize_keys!
+    # Force these three parameters that we always need
     job_params[:user_id] = current_user.to_param
-    job_params[:dataset_id] = dataset.to_param
+    job_params[:dataset_id] = @dataset.to_param
     job_params[:task_id] = task.to_param
 
+    # Save the Resque parameters into the task, as well
+    task.params = job_params
+    task.save
+
     # Enqueue the job
-    Resque.enqueue(klass, job_params)
-    redirect_to dataset_path(dataset)
+    Resque.enqueue(@klass, job_params)
+
+    if current_user.workflow_active
+      # If the user was in the workflow, they're done now
+      current_user.workflow_active = false
+      current_user.workflow_class = nil
+      current_user.workflow_datasets = nil
+      current_user.save
+
+      redirect_to root_path, flash: { success: 'Running analysis now, check back soon for results...' }
+    else
+      # Advanced mode
+      redirect_to dataset_path(@dataset), flash: { success: 'Analysis job started!' }
+    end
   end
 
   # Show a view from an analysis task
@@ -186,16 +217,14 @@ class DatasetsController < ApplicationController
     dataset = current_user.datasets.find(params[:id])
     fail ActiveRecord::RecordNotFound unless dataset
 
-    if params[:cancel]
-      redirect_to dataset
-      return
-    end
-
     task = dataset.analysis_tasks.find(params[:task_id])
     fail ActiveRecord::RecordNotFound unless task
 
     task.destroy
-    redirect_to dataset_path
+
+    # We want to send the user back where they came from, which could either
+    # be dataset_path(some_dataset) or workflow_fetch_path.
+    redirect_to :back
   end
 
   # Download a file from an analysis task
@@ -225,15 +254,10 @@ class DatasetsController < ApplicationController
   # @param [String] view the view to render
   # @return [undefined]
   def render_job_view(klass, view, format = 'html')
-    # Find the partial
-    klass.view_paths.each do |p|
-      path = File.join(p, "#{view}.#{format}.haml")
-      if File.exist? path
-        return render file: path
-      end
-    end
+    path = klass.view_path(template: view, format: format)
+    fail ActiveRecord::RecordNotFound unless path
 
-    fail ActiveRecord::RecordNotFound
+    render file: path, locals: { klass: klass }
   end
 
   # Whitelist acceptable dataset parameters

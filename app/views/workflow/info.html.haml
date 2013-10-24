@@ -1,0 +1,13 @@
+- content_for :breadcrumbs do
+  %li= link_to t('breadcrumbs.root'), root_path
+  %li= link_to t('breadcrumbs.workflow_start'), workflow_start_path
+  %li.current= link_to t('breadcrumbs.workflow_info'), workflow_info_path(params[:class])
+
+.row
+  #markdown-info.small-12.columns= render_localized_document(@klass.name.demodulize.underscore)
+
+.row
+  .large-6.large-offset-6.columns
+    %ul.button-group.even-2
+      %li= link_to t('.back'), workflow_start_path, class: 'button secondary'
+      %li= link_to t('.start'), workflow_activate_path(params[:class]), class: 'button success'

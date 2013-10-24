@@ -1,4 +1,5 @@
-- content_for :title do
-  = t('.head')
+%h4= t('.header')
+%h6.subheader= t('.subheader')
+
 = render partial: 'form', locals: { url: library_path(@library) }
-= link_to t('.cancel'), edit_user_registration_path, data: { role: 'button' }
+%a.close-reveal-modal &#215;

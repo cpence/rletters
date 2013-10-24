@@ -23,33 +23,27 @@ module SearchHelper
   # @api public
   # @param [String] text text for this link
   # @param [Integer] num the page number (0-based)
-  # @param [String] icon icon for the button, if desired
-  # @param [Boolean] right if true, put icon on the right side of the button
+  # @param [String] cl class to put on the <li> tag
   # @return [String] the requested link
-  # @example Get a link to the 3rd page of results, with a right-arrow icon
-  #   page_link('Page 3!', 2, 'arrow-r', true)
-  def page_link(text, num, icon = '', right = false)
-    new_params = params.dup
-    if num == 0
-      new_params.delete :page
+  # @example Get a link to the 3rd page of results
+  #   page_link('Page 3!', 2)
+  def page_link(text, num, cl)
+    if num == nil
+      href = '#'
     else
-      new_params[:page] = num
+      new_params = params.dup
+      if num == 0
+        new_params.delete :page
+      else
+        new_params[:page] = num
+      end
+      href = search_path(new_params)
     end
 
-    data = { transition: :none, role: :button }
-    data[:icon] = icon unless icon.empty?
-    data[:iconpos] = 'right' if right
-
-    link_to text, search_path(new_params), data: data
+    content_tag(:li, link_to(text, href), class: cl)
   end
 
   # Render the pagination links
-  #
-  # We currently render four buttons, in a 4x1 grid: first, previous, next,
-  # and last.  Pagination is difficult for an application like this; we don't
-  # want infinite scroll, as there are far too many items, but full
-  # pagination (like that on Google or Flickr) really doesn't work on mobile
-  # devices.  So this is a compromise.
   #
   # @api public
   # @param [Solr::SearchResult] result the search result
@@ -59,40 +53,35 @@ module SearchHelper
   def render_pagination(result)
     num_pages = result.num_hits.to_f / @per_page.to_f
     num_pages = Integer(num_pages.ceil)
-    return '' if num_pages == 0
+    return '' if num_pages <= 1
 
-    content_tag :div, class: 'ui-grid-c' do
-      content = content_tag(:div, class: 'ui-block-a') do
-        if @page != 0
-          page_link(I18n.t('search.index.first_button'),
-                    0,
-                    'back')
-        end
+    content_tag :ul, class: 'pagination' do
+      content = page_link('&laquo;'.html_safe,
+                          @page == 0 ? nil : @page - 1,
+                          @page == 0 ? 'unavailable' : nil)
+
+      # Render at most seven pagination links
+      if num_pages < 7
+        range_to_render = (0..num_pages).to_a
+      elsif @page < 3
+        range_to_render = [0, 1, 2, 3, nil, num_pages - 2, num_pages - 1]
+      elsif @page >= num_pages - 3
+        range_to_render = [0, 1, nil, num_pages - 4, num_pages - 3, num_pages - 2, num_pages - 1]
+      else
+        range_to_render = [0, nil, @page - 1, @page, @page + 1, nil, num_pages - 1]
       end
-      content << content_tag(:div, class: 'ui-block-b') do
-        if @page != 0
-          page_link(I18n.t('search.index.previous_button'),
-                    @page - 1,
-                    'arrow-l')
+
+      range_to_render.each do |p|
+        if p.nil?
+          content << page_link('&hellip;'.html_safe, nil, 'unavailable')
+        else
+          content << page_link((p + 1).to_s, p, (@page == p) ? 'current' : nil)
         end
       end
 
-      content << content_tag(:div, class: 'ui-block-c') do
-        if @page != (num_pages - 1)
-          page_link(I18n.t('search.index.next_button'),
-                    @page + 1,
-                    'arrow-r',
-                    true)
-        end
-      end
-      content << content_tag(:div, class: 'ui-block-d') do
-        if @page != num_pages - 1
-          page_link(I18n.t('search.index.last_button'),
-                    num_pages - 1,
-                    'forward',
-                    true)
-        end
-      end
+      content << page_link('&raquo;'.html_safe,
+                           @page == num_pages - 1 ? nil : @page + 1,
+                           @page == num_pages - 1 ? 'unavailable' : nil)
 
       content
     end
@@ -154,79 +143,6 @@ module SearchHelper
     "#{I18n.t('search.index.sort_prefix')} #{method_spec}"
   end
 
-  # Create a link to the given set of facets
-  #
-  # This function converts an array of facets to a link (generated via
-  # +link_to+) to the search page for that filtered query.  All
-  # parameters other than +:fq+ are simply duplicated (including the search
-  # query itself, +:q+).
-  #
-  # @api public
-  # @param [String] text body of the link
-  # @param [Array<Solr::Facet>] facets array of facets, possibly empty
-  # @return [String] link to search for the given set of facets
-  # @example Get a "remove all facets" link
-  #   facet_link("Remove all facets", [])
-  #   # => link_to "Remove all facets", search_path
-  # @example Get a link to a given set of facets
-  #   facet_link("Some facets", [...])
-  #   # => link_to "Some facets", search_path({ fq: [ ... ] })
-  def facet_link(text, facets)
-    new_params = params.dup
-
-    if facets.empty?
-      new_params[:fq] = nil
-      return link_to text,
-                     search_path(new_params),
-                     data: { transition: 'none' }
-    end
-
-    new_params[:fq] = []
-    facets.each { |f| new_params[:fq] << f.query }
-    link_to text,
-            search_path(new_params),
-            data: { transition: 'none' }
-  end
-
-  # Get the list of facet links for one particular field
-  #
-  # This function takes the facets from the +Document+ class, checks them
-  # against +active_facets+, and creates a set of list items.  It is used
-  # by +facet_link_list+.
-  #
-  # @api public
-  # @param [Solr::SearchResult] result the search result
-  # @param [Symbol] field field we're faceting on
-  # @param [String] header content of list item header
-  # @param [Array<Solr::Facet>] active_facets array of active facets
-  # @return [String] list items for links for the given facet
-  # @example Get the links for the authors facet
-  #   list_links_for_facet(@result, :authors_facet, "Authors", [...])
-  #   # "<li><a href='...'>Johnson <span class='ui-li-count'>2</a></li>..."
-  def list_links_for_facet(result, field, header, active_facets)
-    return ''.html_safe unless result.facets
-
-    # Get the facets for this field
-    facets = (result.facets.sorted_for_field(field) - active_facets).take(5)
-
-    # Bail if there's no facets
-    ret = ''.html_safe
-    return ret if facets.empty?
-
-    # Build the return value
-    ret << content_tag(:li, header, data: { role: 'list-divider' })
-    facets.each do |f|
-      ret << content_tag(:li) do
-        # Link to whatever the current facets are, plus the new one
-        link = facet_link f.label, active_facets + [f]
-        count = content_tag :span, f.hits.to_s, class: 'ui-li-count'
-        link + count
-      end
-    end
-
-    ret
-  end
-
   # Return a set of list items for faceted browsing
   #
   # This function queries both the active facets on the current search and the
@@ -244,31 +160,8 @@ module SearchHelper
     # Bail now if there's no facet data (faceted down to one document)
     return ''.html_safe unless result.facets
 
-    # Convert the active facet queries to facets
-    active_facets = []
-    if params[:fq]
-      params[:fq].each do |query|
-        active_facets << result.facets.for_query(query)
-      end
-      active_facets.compact!
-    end
-
-    # Start with the active facets
+    active_facets = get_active_facets(result)
     ret = ''.html_safe
-    unless active_facets.empty?
-      ret << content_tag(:li,
-                         I18n.t('search.index.active_filters'),
-                         data: { role: 'list-divider' })
-      ret << content_tag(:li, data: { icon: 'delete' }) do
-        facet_link I18n.t('search.index.remove_all'), []
-      end
-      active_facets.each do |f|
-        ret << content_tag(:li, data: { icon: 'delete' }) do
-          other_facets = active_facets.reject { |x| x == f }
-          facet_link "#{f.field_label}: #{f.label}", other_facets
-        end
-      end
-    end
 
     # Run the facet-list code for all three facet fields
     ret << list_links_for_facet(result,
@@ -283,6 +176,46 @@ module SearchHelper
                                 :year,
                                 I18n.t('search.index.year_facet'),
                                 active_facets)
+    ret
+  end
+
+  # Return a list of active facets for a Foundation sub-nav
+  #
+  # @api public
+  # @param [Solr::SearchResult] result the search result
+  # @return [String] active facets in <dd><a> tags
+  # @example Get all of the facet removal links
+  #   active_Facet_list(@result)
+  #   # "<dd><a href='...'>Johnson</a></dd>..."
+  def active_facet_list(result)
+    # Bail now if there's no facet data (faceted down to one document)
+    return ''.html_safe unless result.facets
+
+    active_facets = get_active_facets(result)
+    ret = ''.html_safe
+
+    if active_facets.empty?
+      ret << content_tag(:dd) do
+        link_to I18n.t('search.index.no_filters'), '#'
+      end
+
+      return ret
+    end
+
+    return ''.html_safe if active_facets.empty?
+
+
+    ret << content_tag(:dd) do
+      facet_link I18n.t('search.index.remove_all'), []
+    end
+
+    active_facets.each do |f|
+      ret << content_tag(:dd, class: 'active') do
+        other_facets = active_facets.reject { |x| x == f }
+        facet_link "#{f.field_label}: #{f.label}", other_facets
+      end
+    end
+
     ret
   end
 
@@ -307,5 +240,87 @@ module SearchHelper
     end
 
     render partial: 'document', locals: { document: doc }
+  end
+
+  private
+
+  # Convert the active facet queries to facets
+  #
+  # This function converts the +params[:fq]+ string into a list of Facet
+  # objects.  It is used by several parts of the facet-display code.
+  #
+  # @api private
+  def get_active_facets(result)
+    [].tap do |ret|
+      if params[:fq]
+        params[:fq].each do |query|
+          ret << result.facets.for_query(query)
+        end
+        ret.compact!
+      end
+    end
+  end
+
+  # Create a link to the given set of facets
+  #
+  # This function converts an array of facets to a link (generated via
+  # +link_to+) to the search page for that filtered query.  All
+  # parameters other than +:fq+ are simply duplicated (including the search
+  # query itself, +:q+).
+  #
+  # @api private
+  def facet_link(text, facets)
+    new_params = params.dup
+
+    if facets.empty?
+      new_params[:fq] = nil
+      return link_to text,
+                     search_path(new_params),
+                     data: { transition: 'none' }
+    end
+
+    new_params[:fq] = []
+    facets.each { |f| new_params[:fq] << f.query }
+    link_to text,
+            search_path(new_params),
+            data: { transition: 'none' }
+  end
+
+  # Get the list of facet links for one particular field
+  #
+  # This function takes the facets from the +Document+ class, checks them
+  # against +active_facets+, and creates a set of list items.  It is used
+  # by +facet_link_list+.
+  #
+  # @api private
+  def list_links_for_facet(result, field, header, active_facets)
+    return ''.html_safe unless result.facets
+
+    # Get the facets for this field
+    facets = (result.facets.sorted_for_field(field) - active_facets).take(5)
+
+    # Bail if there's no facets
+    ret = ''.html_safe
+    return ret if facets.empty?
+
+    # Slight hack; :authors_facet is first
+    if field != :authors_facet
+      ret << content_tag(:li, '', class: 'divider')
+    end
+
+    # Build the return value
+    ret << content_tag(:li, content_tag(:strong, header))
+    facets.each do |f|
+      ret << content_tag(:li) do
+        # Get a label into the link as well
+        count = content_tag(:span, f.hits.to_s, class: 'round secondary label')
+        text = f.label.html_safe + '&nbsp;&nbsp;'.html_safe + count
+
+        # Link to whatever the current facets are, plus the new one
+        facet_link(text, active_facets + [f])
+      end
+    end
+
+    ret
   end
 end

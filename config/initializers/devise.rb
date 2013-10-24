@@ -128,6 +128,11 @@ Devise.setup do |config|
 
   # The default HTTP method used to sign out a resource. Default is :delete.
   config.sign_out_via = :delete
+
+  # Redirect to the root on a failed sign-in
+  config.warden do |manager|
+    manager.failure_app = DeviseFailure
+  end
 end
 
 # Send Devise e-mails the same way we send other async emails

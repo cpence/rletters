@@ -59,27 +59,18 @@ class SearchController < ApplicationController
   # @return [undefined]
   def advanced; end
 
-  # Show the sort-methods page
+  # Export an individual document
   #
-  # @api public
-  # @return [undefined]
-  def sort_methods
-    render layout: 'dialog'
-  end
-
-  # Show or export an individual document
-  #
-  # This action is content-negotiated: if you request the page for a document
-  # with any of the MIME types specified in +Document.serializers+, you
+  # This action is content-negotiated: you must request the page for a document
+  # with one of the MIME types specified in +Document.serializers+, and you
   # will get a citation export back, as a download.
   #
   # @api public
   # @return [undefined]
-  def show
+  def export
     @document = Document.find(params[:id])
 
     respond_to do |format|
-      format.html { render }
       format.any(*Document.serializers.keys) do
         f = Document.serializers[request.format.to_sym]
         send_file f[:method].call(@document),
@@ -106,7 +97,7 @@ class SearchController < ApplicationController
     @document = Document.find(params[:id])
     @datasets = current_user.datasets
 
-    render layout: 'dialog'
+    render layout: false
   end
 
   # Redirect to the Mendeley page for a document

@@ -1,0 +1,11 @@
+- content_for :javascript do
+  = javascript_include_tag 'compute_word_frequencies'
+
+.row
+  .large-6.columns
+    = simple_form_for :job_params, url: url_for({ controller: 'datasets', action: 'task_start', id: @dataset.to_param, class: 'WordFrequency' }), method: :get do |f|
+      = hidden_field_tag 'job_params[start]', 'true'
+
+      = render_job_partial Jobs::Analysis::WordFrequency, 'compute_word_frequencies', locals: { f: f }
+      = f.button :submit
+      = link_to(t('common.cancel'), @dataset, class: 'button secondary')

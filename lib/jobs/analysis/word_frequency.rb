@@ -9,6 +9,20 @@ module Jobs
       add_concern 'ComputeWordFrequencies'
       @queue = 'analysis'
 
+      # Returns true if this job can be started now
+      #
+      # @return [Boolean] true
+      def self.available?
+        true
+      end
+
+      # Return how many datasets this job requires
+      #
+      # @return [Integer] number of datasets needed to perform this job
+      def self.num_datasets
+        1
+      end
+
       # Export the word frequency data.
       #
       # This saves its data out as a CSV file to be downloaded by the user

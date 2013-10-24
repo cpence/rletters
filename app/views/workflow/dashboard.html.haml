@@ -1,0 +1,25 @@
+- content_for :breadcrumbs do
+  %li.current= link_to t('breadcrumbs.root'), root_path
+
+%header
+  %section
+    %h2= t('.header', app_name: Setting.app_name)
+    %h4.subheader= t('.subheader', app_name: Setting.app_name)
+
+.row
+  .large-6.columns
+    = link_to t('.start_button'), workflow_start_path, class: 'button success expand'
+  .large-6.columns
+    %p= t('.start_explanation')
+
+.row
+  .large-6.columns
+    = link_to t('.fetch_button'), workflow_fetch_path, class: 'button secondary expand'
+  .large-6.columns
+    %p= t('.fetch_explanation')
+
+.row
+  .large-6.columns
+    = link_to t('.advanced_button'), search_path, class: 'button secondary expand'
+  .large-6.columns
+    %p= t('.advanced_explanation')

@@ -1,9 +1,27 @@
 en:
-    all:
-        home_button: "Home"
-        search_button: "Search / Browse"
-        datasets_button: "Datasets"
-        login_warning: "You must be logged in to view this page."
+    common:
+        download_csv: Download in CSV format
+        cancel: Cancel
+    simple_form:
+        "yes": 'Yes'
+        "no": 'No'
+        required:
+            text: required
+            mark: '*'
+        error_notification:
+            default_message: "Please review the problems below:"
+        labels:
+            user:
+                edit:
+                    password: New password
+                    password_confirmation: Confirm new password
+    helpers:
+        submit:
+            user:
+                create: Sign up
+                edit: Update settings
+            job_params:
+                submit: Start analysis job
     activemodel:
         models:
             document:
@@ -11,17 +29,17 @@ en:
                 other: Documents
         attributes:
             document:
-                shasum: "SHA-1 checksum"
-                doi: "DOI"
-                authors: "Authors"
-                title: "Title"
-                journal: "Journal"
-                year: "Year"
-                volume: "Volume"
-                number: "Number"
-                pages: "Pages"
-                fulltext: "Full text"
-                term_vectors: "Term vectors"
+                shasum: SHA-1 checksum
+                doi: DOI
+                authors: Authors
+                title: Title
+                journal: Journal
+                year: Year
+                volume: Volume
+                number: Number
+                pages: Pages
+                fulltext: Full text
+                term_vectors: Term vectors
         errors:
             models:
                 document:
@@ -54,339 +72,472 @@ en:
                 other: Users
         attributes:
             analysis_task:
-                name: "Name"
-                created_at: "Creation date"
-                finished_at: "Completion date"
+                name: Name
+                created_at: Creation time
+                finished_at: Completion time
             dataset:
-                name: "Name"
+                name: Name
             dataset_entry:
-                shasum: "SHA-1 checksum"
+                shasum: SHA-1 checksum
             library:
-                name: "Name"
-                url: "Base URL"
+                name: Name
+                url: Base URL
             markdown_page:
-                friendly_name: "Name"
-                name: "Name"
-                content: "Content"
+                friendly_name: Name
+                name: Name
+                content: Content
             uploaded_asset:
-                friendly_name: "Name"
-                name: "Name"
-                file: "Attachment"
+                friendly_name: Name
+                name: Name
+                file: Attachment
             user:
-                email: "Email"
-                name: "Name"
-                identifier: "Identifier"
-                per_page: "Number of search results per page"
-                language: "Preferred language"
-                timezone: "Time zone"
-                csl_style_id: "Citation style"
-                libraries: "Library access links"
+                email: E-mail
+                name: Name
+                password: Password
+                password_confirmation: Confirm password
+                remember_me: Remember me?
+                per_page: Number of search results per page
+                language: Preferred language
+                timezone: Time zone
+                csl_style_id: Citation style
         errors:
             models:
                 analysis_task:
                     name:
-                        blank: "You must specify a name for this analysis task"
+                        blank: You must specify a name for this analysis task
                     dataset:
-                        blank: "Analysis task not connected to dataset (internal error)"
+                        blank: Analysis task not connected to dataset (internal error)
                 dataset:
                     name:
-                        blank: "You must specify a name for this dataset"
+                        blank: You must specify a name for this dataset
                     user_id:
-                        blank: "Dataset must have a user ID specified (internal error)"
+                        blank: Dataset must have a user ID specified (internal error)
                 dataset_entry:
                     shasum:
-                        blank: "SHA-1 checksum was not specified (internal error)"
-                        wrong_length: "SHA-1 checksum is not 20 characters (internal error)"
-                        invalid: "SHA-1 checksum contains invalid characters (internal error)"
+                        blank: SHA-1 checksum was not specified (internal error)
+                        wrong_length: SHA-1 checksum is not 20 characters (internal error)
+                        invalid: SHA-1 checksum contains invalid characters (internal error)
                 library:
                     name:
-                        blank: "You must specify a name for this library entry"
+                        blank: You must specify a name for this library entry
                     url:
-                        blank: "You must specify a URL for this library entry"
-                        invalid: "Library base URL must be a URL"
+                        blank: You must specify a URL for this library entry
+                        invalid: Library base URL must be a URL
                     user_id:
-                        blank: "Library must be associated with user (internal error)"
+                        blank: Library must be associated with user (internal error)
                 user:
                     name:
-                        blank: "You must specify a name"
-                    email:
-                        blank: "You must specify an email"
-                        taken: "An account with this email address already exists"
-                        invalid: "%{value} is not a valid email address"
-                    identifier:
-                        blank: "Identifier was not specified (internal error)"
-                        taken: "An account using this external account already exists (internal error)"
-                        invalid: "Identifier must be a URL (internal error)"
+                        blank: You must specify a name
                     per_page:
-                        blank: "Number of search results per page must be specified (internal error)"
-                        not_a_number: "Number of search results per page must be an integer"
-                        inclusion: "Number of search results must be greater than zero"
+                        blank: Number of search results per page must be specified (internal error)
+                        not_a_number: Number of search results per page must be an integer
+                        inclusion: Number of search results must be greater than zero
                     language:
-                        blank: "Preferred language must be specified (internal error)"
-                        invalid: "Preferred language must be a valid locale code (internal error)"
+                        blank: Preferred language must be specified (internal error)
+                        invalid: Preferred language must be a valid locale code (internal error)
                     timezone:
-                        blank: "Timezone must be specified (internal error)"
+                        blank: Timezone must be specified (internal error)
+    breadcrumbs:
+        home: Home
+        datasets_index: Manage Datasets
+        datasets_show: "Manage: %{name}"
+        datasets_task_datasets: Add More Data
+        datasets_task_params: Job Options
+        search_index: Search the Database
+        search_advanced: Advanced Search
+        users_passwords_edit: Change Password
+        users_passwords_new: Request Password E-mail
+        users_registrations_edit: My Account
+        users_registrations_new: Sign Up
+        workflow_fetch: Fetch Results
+        workflow_start: Start Analysis
+        workflow_info: Job Info
+        workflow_activate: Collect Data
+    layouts:
+        footer:
+            copyright: >
+                Copyright © 2011–2013 %{app_name} and the RLetters development
+                team.  Article content remains copyrighted as specified on
+                individual article entries.  All rights reserved.
+            rletters_markdown: >
+                Built with RLetters—the Open Source article textual analysis
+                platform.  For more information, see
+                [rletters.net.](http://rletters.net/)
+        nav:
+            menu: Menu
+            new_analysis: New Analysis
+            fetch_results: Fetch Results
+            advanced: Advanced Tools
+            browse: Browse/Search Database
+            manage: Manage Datasets
+            current: Current Analysis
+            abort: Abort Building Analysis
+            abort_warning: Are you sure? The analysis now under construction will be lost!
+            help: Help
+            account: My Account
+            sign_out: Sign Out
+            sign_in: Sign In
+        sign_in:
+            forgot_password: Forgot password?
+            sign_in: Sign In
+            sign_up: Sign Up
+    jobs:
+        concerns:
+            compute_word_frequencies:
+                word_method: Word selection method
+                most_frequent: Most frequent words
+                list: Explicit list of words
+                num_words: Number of words to analyze
+                exclude_method: Exclude any words?
+                none: 'No'
+                stop: Most common words (stop words)
+                stop_language: Language of text (for stop word list)
+                exclusion_list: Words to exclude (space-separated)
+                inclusion_list: Words to analyze (space-separated)
+                block_method: Text block method
+                num_words: By number of words
+                num_blocks: By number of blocks
+                block_size: Number of words per block
+                last_block: Last block method
+                big_last: Big last block
+                small_last: Small last block
+                truncate_last: Truncate leftover words
+                truncate_all: Truncate every document to given size
+                num_blocks_label: Number of blocks
+                split_across: Split blocks across documents?
+            normalize_document_counts:
+                checkbox_label: Normalize document counts to relative fraction of documents?
+                params: Normalization parameters
+                dataset_label: Dataset to normalize against
+                all: Entire corpus
+        analysis:
+            craig_zeta:
+                name: Craig Zeta
+                short_desc: Determine words that differentiate two datasets (Craig Zeta)
+                question: >
+                    Given two sets of articles, what words mark out an article
+                    as belonging to set A rather than to set B, or vice versa?
+                header: "Comparison of %{name_1} with %{name_2}"
+                subheader: (Craig Zeta algorithm)
+                csv_header: "Craig Zeta comparison for dataset %{name_1} with %{name_2}"
+                marker_header: "Marker words for membership in dataset %{name}"
+                graph_header: Separation graph for all analyzed text blocks
+                graph_explanation: >
+                    This graph plots the fraction of words in each individual
+                    analyzed block of text, with the coordinates corresponding
+                    to the fraction of words in each block that belong to the
+                    two identified marker sets.  If the analysis has succeeded,
+                    you should see two clearly separate clouds of points with
+                    little overlap, indicating that the marker words are able
+                    to readily distinguish blocks of text from each dataset.
+                block_name_column: Text block name
+                marker_column: Fraction of marker words
+                anti_marker_column: Fraction of anti-marker words
+                zeta_score_header: Zeta scores for all analyzed words
+                zeta_score_explanation: >
+                    Zeta scores for all analyzed words follow.  The scores range
+                    from two (a perfect marker word indicating membership in
+                    %{name_1}) to zero (a perfect anti-marker word indicating
+                    membership in %{name_2}).
+            export_citations:
+                name: Export Citations
+                short_desc: Export dataset as citations
+                question: >
+                    Can I export a set of articles to my favorite format or
+                    reference manager?
+            named_entities:
+                name: Extract Proper Names
+                short_desc: Extract references to proper names
+                question: >
+                    What proper names (locations, people, organizations) are
+                    mentioned in a given set of articles?
+                subheader: References to proper names
+                wikipedia_link: "https://en.wikipedia.org/w/index.php?title=Special:Search&search=%{query}&fulltext=Search"
+                people_category: People
+                organization_category: Organizations
+                location_map: Locations (Map)
+                location_category: Locations (List)
+                other_category: Other
+                type_column: Type
+                hit_column: Hit
+            plot_dates:
+                name: Plot by Date
+                short_desc: Plot dataset by date
+                question: >
+                    How has the frequency of a term changed over time?
+
+                    When were a given set of articles published?
+                fraction_subheader: "Fraction of documents in %{normalization_set} found in the %{name} dataset, plotted by year"
+                number_subheader: "Number of documents, plotted by year"
+                fraction_column: Fraction of Documents
+                number_column: Number of Documents
+            word_frequency:
+                name: Word Frequency
+                short_desc: Analyze word frequency in dataset
+                question: >
+                    What's the frequency of word use within a given set of
+                    articles?
+
+                    What are the "most important" or "most frequent" words used
+                    in a given set?
     search:
-        index:
-            placeholder: "Search for articles..."
-            adv_search_placeholder: "(advanced search)"
-            num_hits_found:
-                zero: "no articles found"
-                one: "1 article found"
-                other: "%{count} articles found"
-            num_documents_database:
-                zero: "no articles in database"
-                one: "1 article in database"
-                other: "%{count} articles in database"
-            first_button: "First"
-            previous_button: "Previous"
-            next_button: "Next"
-            last_button: "Last"
-            tools: "Tools"
-            login_prompt: "Log in to analyze results!"
-            sort_prefix: "Sort:"
-            sort_unknown: "Unknown"
-            sort_asc: "(ascending)"
-            sort_desc: "(descending)"
-            sort_score: "Relevance"
-            create_dataset: "Create dataset from search"
-            advanced_search: "Advanced search"
-            filters: "Filter search"
-            active_filters: "Active Filters"
-            remove_all: "Remove All"
-            authors_facet: "Authors"
-            journal_facet: "Journal"
-            year_facet: "Publication Date"
-            authors_facet_short: "Authors"
-            journal_facet_short: "Journal"
-            year_facet_short: "Year"
-            year_before_1800: "Before 1800"
-            year_after_2010: "2010 and later"
+        document:
+            untitled: "[untitled]"
+            volume_abbr: "Vol. %{volume}"
+            number_abbr: "No. %{number}"
+            pages_abbr: "pp. %{pages}"
+        dropdown:
+            single_dataset: Create a dataset from only this document
+            add_to_dataset: Add this document to an existing dataset
+            journal: Download from journal
+            library: Download from library
+            yours: "Your library:"
+            worldcat: Find in WorldCat
+            uk_openurl: Find with UK OpenURL Resolver
+            online: Find online
+            google: Find on Google Scholar
+            mendeley: Find on Mendeley
+            citeulike: Find on CiteULike
+        add:
+            header: Add document to a dataset
+            subheader: Select the dataset to which you would like to add this document.
+            no_datasets: No datasets available
+            submit: Add
         advanced:
-            head: "Advanced search"
-            intro_header: "Construct an advanced search"
-            intro_markdown: >
+            header: Advanced search
+            subheader_markdown: >
                 This page lets you perform an advanced search of the article
                 database.  You may choose either to utilize our guided search
                 form, or to construct a query directly in [Solr's query
                 syntax](http://wiki.apache.org/solr/SolrQuerySyntax),
                 which is itself a superset of [Lucene query
-                    syntax](http://lucene.apache.org/java/2_9_1/queryparsersyntax.html).
-                These custom searches are extremely powerful.
-            search_header: "Guided search form"
-            type_fuzzy: "Fuzzy"
-            type_exact: "Exact"
-            title_type_label: "Title search type"
-            journal_type_label: "Journal search type"
-            fulltext_type_label: "Full text search type"
-            year_ranges: "Year ranges"
+                syntax](http://lucene.apache.org/java/2_9_1/queryparsersyntax.html).
+            search_header: Guided search form
+            type_fuzzy: "Search type: Fuzzy"
+            type_exact: "Search type: Exact"
+            year_ranges: Year ranges
             authors_placeholder: "e.g., A. Johnson, B. Smith"
             year_ranges_placeholder: "e.g., 1999, 2005-2010, 2001"
             pages_placeholder: "e.g., 135-150"
-            search_button: "Perform advanced search"
-            solr_header: "Search with Solr syntax"
-            solr_label: "Solr query"
-            solr_button: "Perform Solr query"
-        cite:
-            volume_abbr: "Vol. %{volume}"
-            number_abbr: "No. %{number}"
-            pages_abbr: "pp. %{pages}"
-        show:
-            details: "Document details"
-            single_dataset: "Create a dataset from only this document"
-            add_to_dataset: "Add this document to an existing dataset"
-            get: "Get this document"
-            publisher: "From the publisher (DOI: %{doi})"
-            ol_library: "Online and library access"
-            library: "Find this document in a library"
-            yours: "Your library:"
-            worldcat: "Find in WorldCat"
-            uk_openurl: "Find with UK OpenURL Resolver"
-            online: "Find this document online"
-            google: "Find on Google Scholar"
-            mendeley: "Find on Mendeley"
-            citeulike: "Find on CiteULike"
-        add:
-            title: "Add document to dataset"
-            no_datasets: "No datasets available"
-            submit: "Add"
-            cancel: "Cancel"
-    users:
-        show:
-            head: "Your user account"
-            user_id: "You are logged in as %{name} (%{email})"
-            not_you: "Not you? Log in as a different user."
-            options: "User options"
-            errors:
-                one: "1 error kept these options from being saved:"
-                other: "%{count} errors kept these options from being saved:"
-            submit_label: "Save user options"
-            default_style: "Default citation style"
-            library_links: "Look up documents using your local library"
-            loading_libraries: "Loading libraries..."
-        new:
-            head: "Welcome!"
-            intro: >
-                Thanks for signing up for %{app_name}!  Please double-check
-                your information before continuing.
-            errors:
-                one: "1 error kept you from creating your account:"
-                other: "%{count} errors kept you from creating your account:"
-            submit_label: "Create user account"
-        login:
-            head: "Log in to continue"
-            instructions_header: "Log in to %{app_name}"
-            instructions_one: >
-                If you want to perform any analysis on a set of search results,
-                you'll have to register for a user account.  This lets us save
-                your search results as a dataset, perform analysis on them in
-                the background, and send you an e-mail when the analysis is
-                complete.
-    libraries:
-        delete:
-            head: "Are you sure you want to delete this library link?"
-            "yes": "Yes"
-            "no": "No"
-        edit:
-            head: "Edit library link"
-            cancel: "Cancel"
+            search_button: Perform advanced search
+            solr_header: Search with Solr syntax
+            solr_label: Solr query
+            solr_button: Perform Solr query
         index:
-            delete: "Delete"
-            query: "Look up your library automatically"
-            add_new: "Add your library manually"
+            placeholder: Search for articles...
+            adv_search_placeholder: (advanced search)
+            sort_prefix: "Sort:"
+            sort_unknown: "Unknown"
+            sort_asc: "(ascending)"
+            sort_desc: "(descending)"
+            sort_score: "Relevance"
+            create_dataset: Create dataset from search
+            num_hits_found:
+                zero: no articles found
+                one: 1 article found
+                other: "%{count} articles found"
+            num_documents_database:
+                zero: no articles in database
+                one: 1 article in database
+                other: "%{count} articles in database"
+            no_filters: No filters active
+            remove_all: Remove All
+            filters: Filter search
+            authors_facet: Authors
+            journal_facet: Journal
+            year_facet: Publication Date
+            authors_facet_short: Authors
+            journal_facet_short: Journal
+            year_facet_short: Year
+            year_before_1800: Before 1800
+            year_after_2010: 2010 and later
+            advanced_search: Advanced search
+    users:
+        passwords:
+            edit:
+                header: Change your password
+                subheader: "Enter a new password here, and we'll replace the one that you forgot."
+                submit: Change password
+            new:
+                header: Forgot your password?
+                subheader: "Enter your e-mail address here and we'll send you a link to create a new one."
+                submit: Send me password reset instructions
+        registrations:
+            edit:
+                header: User options
+                subheader: "You can configure your user settings here, change your password, or delete your account."
+                change_password: Change your password?
+                password_placeholder: (leave blank for no change)
+                settings: Site settings
+                cancel: Cancel my account
+                cancel_confirm: Are you sure? We'd hate to see you go!
+                library_links_header: Library access links
+                library_links_subheader: "You can add links to your local library's document retrieval system, which you can later use to obtain access to content."
+            new:
+                header: Sign up
+                subheader: "Welcome!  Enter some information about yourself and we'll get you off and running with a new user account."
+    libraries:
+        edit:
+            header: Edit your library details
+            subheader: "Fill in the details to your local library's OpenURL resolver, and we'll take it from there."
+        index:
+            query: Look up your library automatically
+            add_new: Add your library manually
+            name_column: Library Name
+            edit_button: Edit
+            delete_button: Delete
+            delete_confirm: Are you sure?
+            no_libraries: No libraries found
         new:
-            head: "Add your library manually"
-            cancel: "Cancel"
+            header: Add a new library
+            subheader: "Fill in the details to your local library's OpenURL resolver, and we'll take it from there."
         query:
-            head: "Look up library automatically"
+            header: Libraries found near you
+            subheader: "Click the button corresponding to the library that you would like to add."
             no_libraries: >
                 Could not determine your library automatically.  If you'd like,
                 you can still add your library manually.
-            your_libraries: "Libraries available at your address:"
-        form:
-            errors:
-                one: "1 error kept you from adding your library:"
-                other: "%{count} errors kept you from adding your library:"
-            submit_label: "Link your library"
         create:
-            success: "Library was successfully connected."
-            failure: "Could not save library link!"
+            success: Library was successfully connected.
         update:
-            success: "Library was successfully updated."
-            failure: "Could not update library link!"
-    info:
+            success: Library was successfully updated.
+    workflow:
+        activate:
+            header: Collect data
+            subheader_pending: "You now need to determine which datasets this analysis job will run on."
+            subheader_done: "All data has now been collected.  Click the button to start the analysis!"
+            pending_instructions:
+                one: >
+                    In order to run, this analysis job requires that you provide
+                    1 dataset.  Datasets are created by performing
+                    searches, then saving a set of search results.
+                other: >
+                    In order to run, this analysis job requires that you provide
+                    %{count} datasets.  Datasets are created by performing
+                    searches, then saving a set of search results.
+            button_params: Set Job Options
+            button_start: Start Analysis
+            pending_count:
+                one: 1 dataset still needs to be added
+                other: "%{count} datasets still need to be added"
+            dataset_list: "Datasets for this job:"
+            name_coulmn: Dataset Name
+            no_datasets: No datasets specified
+            delete_button: Delete
+            delete_confirm: Are you sure?
+            create_button: Create another dataset
+            link_button: Link an already created dataset
+            link_header: Link an already existing dataset
+            link_subheader: Select the dataset that you would like to use for this analysis job.
+            link_no_datasets: No datasets found!
+            link_submit: Link dataset
+        dashboard:
+            header: "%{app_name} dashboard"
+            subheader: >
+                Your main control panel for %{app_name}. From here, you can
+                start a new analysis, fetch the results of your completed
+                analyses, or browse through the article database.
+            start_button: Start a new analysis
+            start_explanation: >
+                Decide what kind of question you'd like to answer, select the
+                data you'd like to consult, and get your results.
+            fetch_button: See results of old analyses
+            fetch_explanation: >
+                Have a finished analysis?  Collect your results here.  Completed
+                analysis data will be held for 14 days.
+            advanced_button: Advanced mode
+            advanced_explanation: >
+                Search and save datasets manually, then start an analysis task
+                on the dataset of your choice.
+        fetch:
+            header: Fetch analysis results
+            subheader: "From here, you can retrieve the data produced by your analyses.  Make sure to save it soon, because it is only preserved for 14 days."
+            pending_header: Pending analysis tasks
+            pending_count: >
+                You have %{count} analysis tasks that have yet to finish. Come
+                back to this page later to collect their results.
+            pending_cancel_markdown: >
+                Are these tasks taking too long to finish?  We can try to
+                [terminate all pending jobs,](%{terminate_url}) though that
+                might not work.  If it fails,
+                [e-mail the site administrators.](mailto:%{email})
+            completed_header: Completed analysis tasks
+            no_completed: "You have no analysis tasks currently completed.  Start a new one and come back here to collect your data!"
         index:
-            head: "%{app_name}"
-            tutorial_header: Welcome!
-            tutorial_text: >
-                Welcome to %{app_name}.  To get started, click here to view our
-                tutorial.
-            search: "Search or browse the database"
-            search_text: >
-                Get started here by browsing through the article database.
-            login: "Create an account or log in"
-            login_text: >
-                In order to create datasets and analyze them, log into your
-                account or create a new one.
-            datasets:
-                one: "You have one dataset"
-                other: "You have %{count} datasets"
-            datasets_text: >
-                Click here to view the list of your datasets, start new
-                analysis tasks, or view the results of previous analyses.
-            dbinfo: "Database information"
-            dbsize:
-                one: "The database contains one document"
-                other: "The database contains %{count} documents"
-            all_datasets:
-                one: "Users have saved a total of one dataset"
-                other: "Users have saved a total of %{count} datasets"
-            help: "More information and help"
-            faq_header: "Frequently asked questions"
-            faq_text: >
-                See a list of commonly asked questions about and problems
-                with %{app_name}
-            account_header: "Your user account and settings"
-            account_text: >
-                Visit this page to configure your user account and personal
-                settings.
-            privacy_header: "Privacy policy"
-            privacy_text: "How we use the information we collect from you."
-        privacy:
-            head: "Privacy Policy"
-        about:
-            head: "About %{app_name}"
-        tutorial:
-            head: "Tutorial"
-        faq:
-            head: "Frequently Asked Questions"
+            sign_up_button: Sign up to get started!
+            screenshots_header: What can it do?
+            screenshot_one_caption: First screenshot caption
+            screenshot_two_caption: Second screenshot caption
+            screenshot_three_caption: Third screenshot caption
+        info:
+            back: Back
+            start: Start
+        start:
+            header: Start a new analysis
+            subheader: >
+                Start running a new analysis by deciding what kind of question
+                you want to ask about the literature.  Click on the question you
+                want to explore to continue.
     datasets:
-        index:
-            loading_datasets: "Loading datasets..."
         dataset_list:
-            num_datasets_found:
-                zero: "no datasets found"
-                one: "1 dataset found"
-                other: "%{count} datasets found"
-            no_datasets: "No datasets"
             tasks:
-                zero: "You have no analysis tasks pending..."
-                one: "You have one analysis task pending..."
+                zero: You have no analysis tasks pending...
+                one: You have one analysis task pending...
                 other: "You have %{count} analysis tasks pending..."
+            name_column: Dataset Name
+            no_datasets: No datasets
+            manage_button: Manage
+            delete_button: Delete
+            delete_confirm: Are you sure?
+        index:
+            header: Manage datasets
+            subheader: "From this page, you can do advanced management of your datasets, including manually running analysis tasks."
         new:
-            head: "Create a new dataset"
-            errors:
-                one: "1 error kept you from creating this dataset:"
-                other: "%{count} errors kept you from creating this dataset:"
-            submit_label: "Save dataset"
-            cancel: "Cancel"
+            header:  Create a new dataset
+            subheader: "Give these search results a name, and they will be preserved as a new dataset."
         create:
             building: "Now building dataset, please wait..."
         show:
-            head: "Information for dataset"
+            header: Information for dataset
+            subheader: "Manage this dataset, including manually starting analysis tasks and fetching the results of prior analyses."
             num_entries: "Number of documents: %{count}"
             created_at: "Created at: %{date}"
-            deleted: "Cleared all failed analysis tasks."
-            no_failed: "No failed tasks available to clear!"
-            loading_tasks: "Loading analysis tasks..."
-            new_task: "Start a new analysis task"
-            delete: "Delete this dataset"
+            deleted: Cleared all failed analysis tasks.
+            tasks: Analysis tasks
+            new_task: Manually start a new analysis task
+        task_datasets:
+            header: Add more datasets
+            subheader: "This job requires more than one dataset to run.  Select the rest of the datasets you'd like to use below."
+            cancel: Cancel
         task_list:
-            active_tasks: "Active analysis tasks for dataset"
             pending:
                 one: "1 analysis task pending for this dataset..."
                 other: "%{count} analysis tasks pending for this dataset..."
             failed:
-                one: "1 analysis task failed for this dataset!"
-                other: "%{count} analysis tasks failed for this dataset!"
-            clear_failed: "Clear failed analysis tasks..."
-            finished_tasks: "Completed analysis tasks for dataset"
-            task_header: "“%{name}” Complete"
-            download_task: "Download the results of this job"
-            delete_task: "Delete this task"
-        delete:
-            head: "Are you sure?"
-            "yes": "Yes"
-            "no": "No"
+                one: "1 analysis task failed for this dataset! Click here to clear failed tasks."
+                other: "%{count} analysis tasks failed for this dataset! Click here to clear failed tasks."
+            task_column: Analysis Task
+            no_tasks: No analysis tasks found
+            download_button: Download Results
+            view_button: View Results
+            delete_button: Delete Task
+        task_params:
+            header: Job options
+            subheader: This job has some more options that you can configure before you get started.
     settings:
         app_name: Application Name
-        app_email: Contact E-Mail
+        app_email: Contact E-mail
         app_domain: Application Domain Name
         solr_server_url: Solr URL
         solr_timeout: Solr Timeout (sec)
         mendeley_key: Mendeley Consumer Key
         airbrake_key: Airbrake API Key
         google_analytics_key: Google Analytics Tracking ID
-        jquery_mobile_theme_blob: jQuery Mobile Theme CSS
         secret_token: Rails Secret Token
         secret_key_base: Rails Secret Key Base
         devise_secret_key: Devise Secret Key
     markdown_pages:
-        tutorial: Tutorial
-        privacy_short: Privacy Notice (short)
-        privacy_long: Privacy Notice (full)
-        faq: FAQ
-        about: About
+        landing: Landing Page
     uploaded_assets:
         splash-low: Splash Screen (320x460)
         splash-high: Splash Screen (768x1004)

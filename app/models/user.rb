@@ -43,6 +43,16 @@
 #   @raise [RecordInvalid] if any of the libraries are invalid
 #     (validates_associated)
 #   @return [Array<Library>] All library links added by the user (+has_many+)
+#
+# @!attribute workflow_active
+#   @return [Boolean] True if the user is currently building a query in the
+#     workflow controller
+# @!attribute workflow_class
+#   @return [String] If set, the class the user has selected to perform in the
+#     workflow controller
+# @!attribute workflow_datasets
+#   @return [String] An array of the datasets the user has selected to perform
+#     in the workflow controller
 class User < ActiveRecord::Base
   devise :async, :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable

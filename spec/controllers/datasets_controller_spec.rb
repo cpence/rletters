@@ -18,7 +18,7 @@ describe DatasetsController do
 
       it 'redirects to the login page' do
         get :index
-        expect(response).to redirect_to(new_user_session_path)
+        expect(response).to redirect_to(root_path)
       end
     end
 
@@ -110,44 +110,18 @@ describe DatasetsController do
     end
   end
 
-  describe '#delete' do
-    it 'loads successfully' do
-      get :delete, id: @dataset.to_param
-      expect(response).to be_success
-    end
-
-    it 'assigns dataset' do
-      get :delete, id: @dataset.to_param
-      expect(assigns(:dataset)).to eq(@dataset)
-    end
-  end
-
   describe '#destroy' do
-    context 'when cancel is not passed' do
-      it 'creates a delayed job' do
-        delete :destroy, id: @dataset.to_param
+    it 'creates a delayed job' do
+      delete :destroy, id: @dataset.to_param
 
-        expect(Jobs::DestroyDataset).to have_queued(
-          user_id: @user.to_param,
-          dataset_id: @dataset.to_param)
-      end
-
-      it 'redirects to index when done' do
-        delete :destroy, id: @dataset.to_param
-        expect(response).to redirect_to(datasets_path)
-      end
+      expect(Jobs::DestroyDataset).to have_queued(
+        user_id: @user.to_param,
+        dataset_id: @dataset.to_param)
     end
 
-    context 'when cancel is passed' do
-      it 'does not create a delayed job' do
-        delete :destroy, id: @dataset.to_param, cancel: true
-        expect(Jobs::DestroyDataset).to_not have_queued
-      end
-
-      it 'redirects to the dataset page' do
-        delete :destroy, id: @dataset.to_param, cancel: true
-        expect(response).to redirect_to(@dataset)
-      end
+    it 'redirects to the index when done' do
+      delete :destroy, id: @dataset.to_param
+      expect(response).to redirect_to(datasets_path)
     end
   end
 
@@ -196,7 +170,7 @@ describe DatasetsController do
       end
     end
 
-    context 'when a valid class is passed' do
+    context 'when a valid class is passed without start' do
       it 'does not raise an exception' do
         expect {
           get :task_start, id: @dataset.to_param, class: 'ExportCitations',
@@ -204,9 +178,32 @@ describe DatasetsController do
         }.to_not raise_error
       end
 
-      it 'enqueues a job' do
+      it 'does not enqueue a job' do
         get :task_start, id: @dataset.to_param, class: 'ExportCitations',
             job_params: { format: 'bibtex' }
+
+        expect(Jobs::Analysis::ExportCitations).to_not have_queued
+      end
+
+      it 'renders the parameters view' do
+        get :task_start, id: @dataset.to_param, class: 'ExportCitations',
+            job_params: { format: 'bibtex' }
+
+        expect(response).to render_template(:task_params)
+      end
+    end
+
+    context 'when a valid class is passed with start' do
+      it 'does not raise an exception' do
+        expect {
+          get :task_start, id: @dataset.to_param, class: 'ExportCitations',
+              job_params: { format: 'bibtex', start: 'true' }
+        }.to_not raise_error
+      end
+
+      it 'enqueues a job' do
+        get :task_start, id: @dataset.to_param, class: 'ExportCitations',
+            job_params: { format: 'bibtex', start: 'true' }
 
         @dataset.analysis_tasks.reload
         task_id = @dataset.analysis_tasks[0].to_param
@@ -215,12 +212,13 @@ describe DatasetsController do
           user_id: @user.to_param,
           dataset_id: @dataset.to_param,
           task_id: task_id,
-          format: 'bibtex')
+          format: 'bibtex',
+          start: 'true')
       end
 
       it 'redirects to the dataset page' do
         get :task_start, id: @dataset.to_param, class: 'ExportCitations',
-            job_params: { format: 'bibtex' }
+            job_params: { format: 'bibtex', start: 'true' }
         expect(response).to redirect_to(dataset_path(@dataset))
       end
     end
@@ -269,14 +267,14 @@ describe DatasetsController do
       it 'does not raise an exception' do
         expect {
           get :task_view, id: @dataset.to_param,
-              task_id: @task.to_param, view: 'params'
+              task_id: @task.to_param, view: '_params'
         }.to_not raise_error
       end
 
       it 'renders the right view' do
         get :task_view, id: @dataset.to_param,
-            task_id: @task.to_param, view: 'params'
-        expect(response.body).to include('<li>')
+            task_id: @task.to_param, view: '_params'
+        expect(response.body).to include('<option')
       end
     end
 
@@ -284,7 +282,7 @@ describe DatasetsController do
       it 'does not raise an exception' do
         expect {
           get :task_view, id: @dataset.to_param, class: 'ExportCitations',
-              view: 'params'
+              view: '_params'
         }.to_not raise_error
       end
     end
@@ -330,32 +328,9 @@ describe DatasetsController do
       end
     end
 
-    context 'when cancel is pressed' do
+    context 'when a valid task ID is passed' do
       before(:each) do
-        @task = FactoryGirl.create(:analysis_task, dataset: @dataset,
-                                   job_type: 'ExportCitations')
-      end
-
-      after(:each) do
-        @task.destroy
-      end
-
-      it 'does not delete the task' do
-        expect {
-          get :task_destroy, id: @dataset.to_param,
-              task_id: @task.to_param, cancel: true
-        }.to_not change { @dataset.analysis_tasks.count }
-      end
-
-      it 'redirects to the dataset page' do
-        get :task_destroy, id: @dataset.to_param,
-            task_id: @task.to_param, cancel: true
-        expect(response).to redirect_to(dataset_path(@dataset))
-      end
-    end
-
-    context 'when cancel is not pressed' do
-      before(:each) do
+        request.env['HTTP_REFERER'] = workflow_fetch_path
         @task = FactoryGirl.create(:analysis_task, dataset: @dataset,
                                    job_type: 'ExportCitations')
       end
@@ -366,9 +341,9 @@ describe DatasetsController do
         }.to change { @dataset.analysis_tasks.count }.by(-1)
       end
 
-      it 'redirects to the dataset page' do
+      it 'redirects to the prior page' do
         get :task_destroy, id: @dataset.to_param, task_id: @task.to_param
-        expect(response).to redirect_to(dataset_path(@dataset))
+        expect(response).to redirect_to(workflow_fetch_path)
       end
     end
   end

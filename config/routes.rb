@@ -2,20 +2,22 @@
 
 RLetters::Application.routes.draw do
 
-  # Static information pages
-  get 'info' => 'info#index'
-  get 'info/about' => 'info#about'
-  get 'info/faq' => 'info#faq'
-  get 'info/privacy' => 'info#privacy'
-  get 'info/tutorial' => 'info#tutorial'
-  get 'info/image/:id' => 'info#image', as: 'info_image'
+  # The user workflow
+  get 'workflow' => 'workflow#index'
+  get 'workflow/image/:id' => 'workflow#image', as: 'workflow_image'
+  get 'workflow/start' => 'workflow#start'
+  get 'workflow/destroy' => 'workflow#destroy'
+  get 'workflow/info/:class' => 'workflow#info', as: 'workflow_info',
+    constraints: { class: /[A-Z][A-Za-z]+/ }
+  get 'workflow/activate/:class' => 'workflow#activate', as: 'workflow_activate',
+    constraints: { class: /[A-Z][A-Za-z]+/ }
+  get 'workflow/fetch' => 'workflow#fetch'
 
   # Search/Browse page
   get 'search' => 'search#index'
-  get 'search/sort_methods' => 'search#sort_methods'
   get 'search/advanced' => 'search#advanced'
-  get 'search/document/:id' => 'search#show',
-      as: 'search_show'
+  get 'search/document/:id/export' => 'search#export',
+      as: 'search_export'
   get 'search/document/:id/add' => 'search#add',
       as: 'search_add'
   get 'search/document/:id/mendeley' => 'search#to_mendeley',
@@ -32,7 +34,6 @@ RLetters::Application.routes.draw do
 
     member do
       get 'task_list'
-      get 'delete'
       get 'task/:class/start' => 'datasets#task_start',
           constraints: { class: /[A-Z][A-Za-z]+/ }
       get 'task/:class/view/:view' => 'datasets#task_view',
@@ -47,19 +48,21 @@ RLetters::Application.routes.draw do
   end
 
   # User login routes
-  devise_for :users
+  devise_for :users, skip: [:sessions]
+  as :user do
+    # We only want users to sign in using the dropdown box on the main page,
+    # not by visiting /users/sign_in, so we don't create a get 'sign_in' route
+    # here.
+    post 'users/sign_in' => 'devise/sessions#create', as: :user_session
+    delete 'users/sign_out' => 'devise/sessions#destroy', as: :destroy_user_session
 
-  # Redirect to the main user page after a successful user edit
-  devise_scope :user do
-    get 'users' => 'info#index', as: :user_root
+    # Redirect to the root after a successful user edit
+    get 'users' => 'workflow#index'
   end
 
   scope '/users' do
     # Libraries, nested under users
     resources :libraries, except: :show do
-      member do
-        get 'delete'
-      end
       collection do
         get 'query'
       end
@@ -76,8 +79,8 @@ RLetters::Application.routes.draw do
   # unAPI service
   get 'unapi' => 'unapi#index'
 
-  # Start off on the info/home page
-  root to: 'info#index'
+  # Start off on the landing/dashboard page
+  root to: 'workflow#index'
 
   # Error pages
   get '/404' => 'errors#not_found'

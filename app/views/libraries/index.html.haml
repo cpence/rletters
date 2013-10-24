@@ -1,7 +1,28 @@
-%ul{ data: { role: 'listview', split_icon: 'delete', split_theme: 'a' } }
-  - @libraries.each do |library|
-    %li
-      = link_to library.name, edit_library_path(library), data: { rel: 'dialog' }
-      = link_to t('.delete'), delete_library_path(library), data: { rel: 'dialog' }
-  %li= link_to t('.query'), query_libraries_path, data: { rel: 'dialog' }
-  %li= link_to t('.add_new'), new_library_path, data: { rel: 'dialog' }
+
+%ul.button-group
+  %li= link_to t('.query'), query_libraries_path, data: { reveal_id: 'query-modal', reveal_ajax: 'true' }, class: 'button secondary small'
+  %li= link_to t('.add_new'), new_library_path, data: { reveal_id: 'new-modal', reveal_ajax: 'true' }, class: 'button secondary small'
+
+%table.button-table
+  %thead
+    %tr
+      %th.label-cell= t('.name_column')
+      %th.button-cell
+  %tbody
+    - @libraries.each do |library|
+      %tr
+        %td.label-cell= library.name
+        %td.button-cell
+          = link_to t('.edit_button'), edit_library_path(library), data: { reveal_id: 'edit-modal', reveal_ajax: 'true' }, class: 'button secondary tiny'
+          = link_to t('.delete_button'), library_path(library), method: 'delete', data: { confirm: t('.delete_confirm') }, class: 'button alert tiny'
+    - if @libraries.count == 0
+      %tr
+        %td.label-cell= t('.no_libraries')
+        %td.button-cell
+
+#query-modal.reveal-modal
+  .preloader
+#new-modal.reveal-modal
+  .preloader
+#edit-modal.reveal-modal
+  .preloader

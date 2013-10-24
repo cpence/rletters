@@ -9,6 +9,20 @@ module Jobs
       add_concern 'ComputeWordFrequencies'
       @queue = 'analysis'
 
+      # Returns true if this job can be started now
+      #
+      # @return [Boolean] true
+      def self.available?
+        true
+      end
+
+      # Return how many datasets this job requires
+      #
+      # @return [Integer] number of datasets needed to perform this job
+      def self.num_datasets
+        2
+      end
+
       # Determine which words mark out differences between two datasets.
       #
       # This saves its data out as a CSV file to be downloaded by the user
@@ -39,7 +53,9 @@ module Jobs
         fail ArgumentError, 'Dataset ID is not valid' unless dataset_1
 
         # Fetch the comparison dataset based on ID
-        dataset_2 = user.datasets.find(args[:other_dataset_id])
+        other_datasets = args[:other_datasets]
+        fail ArgumentError, 'Wrong number of other datasets provided' unless other_datasets.count == 1
+        dataset_2 = user.datasets.find(other_datasets[0])
         fail ArgumentError, 'Other dataset ID is not valid' unless dataset_2
 
         # Update the analysis task
@@ -110,13 +126,13 @@ module Jobs
           x_val = Float((marker_words & b.keys).count) / Float(b.keys.count)
           y_val = Float((anti_marker_words & b.keys).count) / Float(b.keys.count)
 
-          graph_points << ["#{dataset_1.name}: #{i+1}", x_val, y_val]
+          graph_points << [x_val, y_val, "#{dataset_1.name}: #{i+1}"]
         end
         analyzer_2.blocks.each_with_index do |b, i|
           x_val = Float((marker_words & b.keys).count) / Float(b.keys.count)
           y_val = Float((anti_marker_words & b.keys).count) / Float(b.keys.count)
 
-          graph_points << ["#{dataset_2.name}: #{i+1}", x_val, y_val]
+          graph_points << [x_val, y_val, "#{dataset_2.name}: #{i+1}"]
         end
 
         # Save out all the data

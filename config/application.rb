@@ -24,6 +24,15 @@ module RLetters
                                                  '*.{rb,yml}').to_s]
     config.i18n.default_locale = :en
 
+    # Use the 'full_page' layout for all Devise views
+    config.to_prepare do
+      Devise::SessionsController.layout 'full_page'
+      Devise::RegistrationsController.layout 'full_page'
+      Devise::ConfirmationsController.layout 'full_page'
+      Devise::UnlocksController.layout 'full_page'
+      Devise::PasswordsController.layout 'full_page'
+    end
+
     # Bounce exceptions to the routing system
     config.exceptions_app = routes
 

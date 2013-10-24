@@ -4,7 +4,7 @@ var global_named_entity_markers = [];
 var global_named_entity_bounds;
 
 function lookUpMarkers() {
-  var dataContainer = $.mobile.activePage.find('div.named_entities_map_data');
+  var dataContainer = $('#ne-map-data');
   if (dataContainer.length === 0 || global_named_entity_markers.length > 0)
     return;
 
@@ -37,7 +37,7 @@ function lookUpMarkers() {
 
 function createNamedEntitiesMap() {
   // Get the elements we need
-  var mapContainer = $.mobile.activePage.find('div.named_entities_map');
+  var mapContainer = $('#ne-map');
   if (mapContainer.length === 0)
     return;
 
@@ -67,12 +67,15 @@ function createNamedEntitiesMap() {
   global_named_entity_map = map;
 }
 
-function bindNamedEntitiesEvents() {
-  $(document).on('pageshow', 'div[data-role=page]', function(event, ui) {
-    lookUpMarkers();
+$(function() {
+  lookUpMarkers();
+  Foundation.libs.section.settings.callback = neSectionCallback;
+});
 
-    $('.named_entities_map_collapsible').on('expand', function(event, ui) {
-      createNamedEntitiesMap();
-    });
-  });
+function neSectionCallback(section) {
+  var active = section.find('section.active');
+  if (active.attr('id') == 'ne-map-section') {
+    createNamedEntitiesMap();
+    google.maps.event.trigger(global_named_entity_map, 'resize');
+  }
 }

@@ -1,7 +1,0 @@
-%ul{ data: { role: 'listview', theme: 'd', divider_theme: 'b' } }
-  = form_tag({ controller: 'datasets', action: 'task_start', id: @dataset.to_param, class: 'CraigZeta' }, { method: :get }) do
-    %li
-      %div{ data: { role: 'fieldcontain' } }
-        = label_tag('job_params[other_dataset_id]', 'Dataset to compare with:')
-        = select_tag('job_params[other_dataset_id]', options_from_collection_for_select(current_user.datasets.where.not(id: @dataset.id), 'id', 'name'))
-      = submit_tag 'Compare Datasets'

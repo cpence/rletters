@@ -1,0 +1,26 @@
+- if current_user
+  .row
+    .small-6.columns= link_to t('.single_dataset'), new_dataset_path(q: "shasum:#{document.shasum}", defType: 'lucene', fq: nil), class: 'button success small expand'
+    .small-6.columns= link_to t('.add_to_dataset'), search_add_path(id: document.shasum), data: { reveal_id: "add-#{document.shasum}-modal", reveal_ajax: 'true' }, class: 'button success small expand'
+    .reveal-modal{ id: "add-#{document.shasum}-modal" }
+      .preloader
+
+.row
+  .small-6.columns= link_to t('.journal'), "http://dx.doi.org/#{document.doi}", class: 'button primary small expand'
+
+.row
+  .small-6.columns
+    %strong= t('.library')
+    %ul.no-bullet
+      - if current_user
+        - current_user.libraries.each do |library|
+          %li= link_to t('.yours') + ' ' + library.name, "#{library.url}#{document.to_openurl_params}"
+      %li= link_to t('.worldcat'), "http://worldcatlibraries.org/registry/gateway?#{document.to_openurl_params}"
+      %li= link_to t('.uk_openurl'), "http://openurl.ac.uk/?#{document.to_openurl_params}"
+  .small-6.columns
+    %strong= t('.online')
+    %ul.no-bullet
+      %li= link_to t('.google'), "http://scholar.google.com/scholar?q=#{CGI.escape(document.title)}"
+      - unless Setting.mendeley_key.blank?
+        %li= link_to t('.mendeley'), mendeley_redirect_path(id: document.shasum), rel: "external"
+      %li= link_to t('.citeulike'), citeulike_redirect_path(id: document.shasum), rel: "external"

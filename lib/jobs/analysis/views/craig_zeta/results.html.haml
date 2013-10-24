@@ -1,16 +1,29 @@
+- content_for :javascript do
+  = javascript_include_tag 'https://www.google.com/jsapi'
+  = javascript_include_tag 'craig_zeta'
+
 - data = JSON.load(@task.result.file_contents(:original))
 
-%div.center
-  %h1== Comparison of #{data['name_1']} with #{data['name_2']}
-  %h2 (Craig Zeta algorithm)
+.row
+  .large-8.columns
+    %h2= t('jobs.analysis.craig_zeta.header', name_1: data['name_1'], name_2: data['name_2'])
+    %h4.subheader= t('jobs.analysis.craig_zeta.subheader')
+  .large-4.columns.job-header-button= link_to t('common.download_csv'), { controller: 'datasets', action: 'task_view', id: @dataset.to_param, task_id: @task.to_param, view: 'download', format: 'csv' }, class: 'button secondary expand'
 
-  .verticalpad
+.row
+  .small-12.columns
+    %hr
 
-  %div.craig_zeta_data= data['graph_points'].to_json
-  %div.craig_zeta_graph
+    %h5= t('jobs.analysis.craig_zeta.graph_header')
+    %p= t('jobs.analysis.craig_zeta.graph_explanation')
 
-  .verticalpad
+    #cz-graph-data= data['graph_points'].to_json
+    #cz-graph
 
-  %div.craig_zeta_table
+    %hr
 
-  = link_to 'Download in CSV format', { controller: 'datasets', action: 'task_view', id: @dataset.to_param, task_id: @task.to_param, view: 'download', format: 'csv' }, rel: 'external', data: { role: 'button', icon: 'bars', inline: 'true' }
+    %h5= t('jobs.analysis.craig_zeta.zeta_score_header')
+    %p= t('jobs.analysis.craig_zeta.zeta_score_explanation', name_1: data['name_1'], name_2: data['name_2'])
+
+    #cz-table-data= data['zeta_scores'].to_a.to_json
+    #cz-table

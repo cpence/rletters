@@ -8,6 +8,20 @@ module Jobs
       add_concern 'NormalizeDocumentCounts'
       @queue = 'analysis'
 
+      # Returns true if this job can be started now
+      #
+      # @return [Boolean] true
+      def self.available?
+        true
+      end
+
+      # Return how many datasets this job requires
+      #
+      # @return [Integer] number of datasets needed to perform this job
+      def self.num_datasets
+        1
+      end
+
       # Export the date format data
       #
       # Like all view/multiexport jobs, this job saves its data out as a JSON
@@ -56,7 +70,7 @@ module Jobs
         # Save out the data, including getting the name of the normalization
         # set for pretty display
         normalization_set_name = ''
-        if args[:normalize_doc_counts] == 'on'
+        if args[:normalize_doc_counts] == '1'
           if args[:normalize_doc_dataset].blank?
             normalization_set_name = 'Entire Corpus'
           else
@@ -65,7 +79,7 @@ module Jobs
         end
 
         output = { data: dates,
-                   percent: (args[:normalize_doc_counts] == 'on'),
+                   percent: (args[:normalize_doc_counts] == '1'),
                    normalization_set: normalization_set_name
                  }
 

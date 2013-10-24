@@ -20,15 +20,14 @@ describe Admin::MarkdownPagesController do
       expect(response).to be_success
     end
 
-    it 'includes some of the markdown pages' do
-      expect(response.body).to include('Tutorial')
-      expect(response.body).to include('Privacy Notice (full)')
+    it 'includes one of the markdown pages' do
+      expect(response.body).to include('Landing Page')
     end
   end
 
   describe '#show' do
     before(:each) do
-      @page = MarkdownPage.find_by!(name: 'faq')
+      @page = MarkdownPage.find_by!(name: 'landing')
       get :show, id: @page.to_param
     end
 
@@ -37,13 +36,13 @@ describe Admin::MarkdownPagesController do
     end
 
     it 'renders the page Markdown to HTML' do
-      expect(response.body).to include('<a href="https://github.com/rletters/rletters/wiki/Contributing-Translations">')
+      expect(response.body).to include('</h1>')
     end
   end
 
   describe '#edit' do
     before(:each) do
-      @page = MarkdownPage.find_by!(name: 'faq')
+      @page = MarkdownPage.find_by!(name: 'landing')
       get :edit, id: @page.to_param
     end
 

@@ -1,35 +1,55 @@
-%div.leftcolumn
-  %ul{ data: { role: 'listview', theme: 'd', divider_theme: 'b' } }
-    %li{ data: { role: 'list-divider' } }= num_hits_string(@result)
-    %li.search
-      = form_tag(search_path, method: :get, data: { transition: 'none' }) do
-        - if params[:fq]
-          - params[:fq].each do |p|
-            = hidden_field_tag "fq[]", p
-        = label_tag :q, t('.placeholder'), class: 'ui-hidden-accessible'
-        = search_field_tag :q, (params[:precise] ? t('.adv_search_placeholder') : params[:q]), placeholder: t('.placeholder')
-    - @documents.each do |d|
-      %li.searchlist= link_to document_bibliography_entry(d), search_show_path(id: d.shasum)
+- content_for :head_tags do
+  %link{ rel: 'unapi-server', type: 'application/xml', title: 'unAPI', href: unapi_url }/
+- content_for :breadcrumbs do
+  %li= link_to t('breadcrumbs.root'), root_path
+  - if current_user.workflow_active
+    %li= link_to t('breadcrumbs.workflow_start'), workflow_start_path
+    %li= link_to t('breadcrumbs.workflow_info'), workflow_info_path(current_user.workflow_class)
+    %li= link_to t('breadcrumbs.workflow_activate'), workflow_activate_path(current_user.workflow_class)
+  %li.current= link_to t('breadcrumbs.search_index'), search_path
 
-  %div.verticalpad
-  %p.pagination= render_pagination(@result)
-  %div.verticalpad
+.row
+  .small-12.columns
+    &nbsp;
+.row
+  .small-12.large-9.columns
+    = form_tag(search_path, method: :get) do
+      - if params[:fq]
+        - params[:fq].each do |p|
+          = hidden_field_tag "fq[]", p
+      .row
+        .small-12.columns
+          = search_field_tag :q, (params[:precise] ? t('.adv_search_placeholder') : params[:q]), placeholder: t('.placeholder')
+          %ul.button-group.radius.even-2
+            %li= link_to(sort_to_string(@sort), '#', class: 'button secondary dropdown small', 'data-dropdown' => 'sort-dropdown')
+            - if current_user
+              %li= link_to t('.create_dataset'), new_dataset_path(q: @solr_q, defType: @solr_defType, fq: @solr_fq), class: 'button success small', data: { reveal_id: 'new-modal', reveal_ajax: 'true' }
+            - else
+              %li= link_to t('.create_dataset'), '#', class: 'button success small disabled'
+          %ul#sort-dropdown.f-dropdown{ data: { dropdown_content: true } }
+            - sort_methods.each do |s|
+              %li= link_to sort_to_string(s), search_path(params.merge({ sort: s }))
 
-%div.rightcolumn
-  %ul{ data: { role: 'listview', theme: 'd', divider_theme: 'b' } }
-    %li.toolsheader{ data: { role: 'list-divider' } }= t('.tools')
-  %div.verticalpad
-  %ul.toolslist{ data: { role: 'listview', theme: 'd', divider_theme: 'c' } }
-    %li{ data: { icon: 'forward' } }= link_to(sort_to_string(@sort), search_sort_methods_path(params), data: { rel: 'dialog' })
-    - if current_user.nil?
-      %li{ data: { theme: 'e' } }= link_to t('.login_prompt'), new_user_session_path
-    - else
-      %li{ data: { icon: 'plus' } }= link_to t('.create_dataset'), new_dataset_path(q: @solr_q, defType: @solr_defType, fq: @solr_fq), data: { rel: 'dialog' }
-    %li{ data: { icon: 'search' } }= link_to t('.advanced_search'), search_advanced_path
-  %div.verticalpad
+    %dl.sub-nav
+      %dt= num_hits_string(@result)
+      = active_facet_list(@result)
 
-  %ul{ data: { role: 'listview', theme: 'd', divider_theme: 'b' } }
-    %li.filterheader{ data: { role: 'list-divider' } }= t('.filters')
-  %div.verticalpad
-  %ul.facetlist{ data: { role: 'listview', theme: 'd', divider_theme: 'c' } }
-    = facet_link_list(@result)
+    .pagination-centered= render_pagination(@result)
+    %table.document-list
+      - @documents.each do |d|
+        %tr
+          %td{ 'data-dropdown' => "drop-#{d.shasum}" }
+            %abbr{ class: 'unapi-id', title: d.shasum }= ''
+            = document_bibliography_entry(d)
+          %div.f-dropdown.medium.content{ 'data-dropdown-content' => true, id: "drop-#{d.shasum}" }= render partial: 'dropdown', locals: { document: d }
+    .pagination-centered= render_pagination(@result)
+
+  .small-12.large-3.columns
+    .radius.panel
+      %h5= t('.filters')
+      %ul.side-nav= facet_link_list(@result)
+
+      %p= link_to t('.advanced_search'), search_advanced_path, class: 'button secondary small expand'
+
+#new-modal.reveal-modal
+  .preloader

@@ -11,9 +11,6 @@ class LibrariesController < ApplicationController
 
   # Display the list of the user's libraries
   #
-  # This action is meant to be pulled in via AJAX, so it doesn't render a
-  # layout.
-  #
   # @api public
   # @return [undefined]
   def index
@@ -26,7 +23,7 @@ class LibrariesController < ApplicationController
   # @return [undefined]
   def new
     @library = current_user.libraries.build
-    render layout: 'dialog'
+    render layout: false
   end
 
   # Show the form for editing a library link
@@ -35,16 +32,7 @@ class LibrariesController < ApplicationController
   def edit
     @library = current_user.libraries.find(params[:id])
     fail ActiveRecord::RecordNotFound unless @library
-    render layout: 'dialog'
-  end
-
-  # Show a confirmation form for deleting a library link
-  # @api public
-  # @return [undefined]
-  def delete
-    @library = current_user.libraries.find(params[:id])
-    fail ActiveRecord::RecordNotFound unless @library
-    render layout: 'dialog'
+    render layout: false
   end
 
   # Create a new library link in the database
@@ -59,7 +47,7 @@ class LibrariesController < ApplicationController
       redirect_to edit_user_registration_path,
                   notice: I18n.t('libraries.create.success')
     else
-      render action: 'new', layout: 'dialog'
+      render action: 'new', layout: false
     end
   end
 
@@ -75,7 +63,7 @@ class LibrariesController < ApplicationController
       redirect_to edit_user_registration_path,
                   notice: I18n.t('libraries.update.success')
     else
-      render action: 'edit', layout: 'dialog'
+      render action: 'edit', layout: false
     end
   end
 
@@ -85,11 +73,6 @@ class LibrariesController < ApplicationController
   def destroy
     @library = current_user.libraries.find(params[:id])
     fail ActiveRecord::RecordNotFound unless @library
-
-    if params[:cancel]
-      redirect_to edit_user_registration_path
-      return
-    end
 
     @library.destroy
     current_user.libraries.reload
@@ -124,7 +107,7 @@ class LibrariesController < ApplicationController
       @libraries = []
     end
 
-    render layout: 'dialog'
+    render layout: false
   end
 
   private

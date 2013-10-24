@@ -5,16 +5,13 @@ module UsersHelper
   # Create a localized list of languages
   #
   # This method uses the translated languages and territories lists from the
-  # CLDR to create a set of option tags, one per each available locale
-  # (similar to +options_from_collection+ in Rails) that can be placed inside
-  # a select element.  The locale specified in +current+ will be selected.
+  # CLDR to create a collection for use with simple_form.
   #
   # @api public
-  # @param [String] current the current locale, gets +selected+ attribute
-  # @return [String] set of localized locale options tags
+  # @return [Array<Hash>] set of localized locale options tags
   # @example Create a select box for the locale
-  #   <select name='locale'><%= options_from_locales(user.locale) %></select>
-  def options_from_locales(current = I18n.locale)
+  #   <%= f.input :language, collection: available_locales %>
+  def available_locales
     list = []
 
     Rails.application.config.i18n.available_locales.each do |loc|
@@ -23,20 +20,19 @@ module UsersHelper
 
       if parts.count == 1
         # Just a language, translate
-        entry = I18n.t("languages.#{loc}")
+        name = I18n.t("languages.#{loc}")
       elsif parts.count == 2
         # A language and a territory
-        entry = I18n.t("languages.#{parts[0]}")
-        entry += ' ('
-        entry += I18n.t("territories.#{parts[1]}")
-        entry += ')'
+        name = I18n.t("languages.#{parts[0]}")
+        name += ' ('
+        name += I18n.t("territories.#{parts[1]}")
+        name += ')'
       end
 
-      list << [entry, loc]
+      list << [ loc, name ]
     end
 
-    list.sort! { |a, b| a[0] <=> b[0] }
-    options_for_select(list, current)
+    list.sort! { |a, b| a.first <=> b.first }
   end
 
   # Get the user's preferred language from the Accept-Language header
@@ -59,26 +55,6 @@ module UsersHelper
     else
       I18n.default_locale.to_s
     end
-  end
-
-  # Create a list of all timezones
-  #
-  # This function returns a set of option tags for every timezone (similar
-  # to +options_from_collection+ in Rails), which can be put inside a select
-  # item.
-  #
-  # @api public
-  # @param [String] current the currently selected timezone
-  # @return [String] set of timezone option tags
-  # @example Create a select box for the timezone
-  #   <select name='timezone'>
-  #     <%= options_from_timezones(user.timezone) %>
-  #   </select>
-  def options_from_timezones(current = '')
-    timezone_options = ActiveSupport::TimeZone.all.map do |tz|
-      [tz.to_s, tz.name]
-    end
-    options_for_select(timezone_options, current)
   end
 end
 

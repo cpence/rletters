@@ -28,6 +28,32 @@ module Jobs
     #   is to write the job results out as JSON in +AnalysisTask#result_file+,
     #   and then to parse this JSON into HAML in the view.
     class Base
+      # Returns true if this job can be run right now
+      #
+      # In general, this checks if all required external tools are available.
+      #
+      # @return [Boolean] true if this job can be run now
+      def self.available?
+        fail NotImplementedError, 'Classes deriving from Jobs::Analysis::Base should implement .available?'
+      end
+
+      # Return how many datasets this job requires
+      #
+      # @return [Integer] number of datasets needed to perform this job
+      def self.num_datasets
+        fail NotImplementedError, 'Classes deriving from Jobs::Analysis::Base should implement .num_datasets'
+      end
+
+      # Returns a translated string for this job
+      #
+      # This handles the i18n scoping for analysis job classes.
+      #
+      # @param [String] key the translation to look up (e.g., '.short_desc')
+      # @return [String] the translated message
+      def self.t(key)
+        I18n.t("#{name.underscore.gsub('/', '.')}#{key.to_s}")
+      end
+
       # True if this job produces a download
       #
       # If true (default), then links to results of tasks will produce links to
@@ -144,6 +170,49 @@ module Jobs
         end
 
         ret
+      end
+
+      # Returns the path to a particular view on the filesystem
+      #
+      # The arguments to this function are somewhat like the Rails render call.
+      # One of either +:template+ or +:partial+ must be specified
+      #
+      # @param [Hash] args options for finding view
+      # @options args [String] template if specified, template to search for
+      # @options args [String] partial if specified, partial to search for
+      # @options args [String] format if specified, format to render (deafults
+      #   to HTML)
+      def self.view_path(args)
+        if args[:template]
+          args[:filename] = args[:template]
+        elsif args[:partial]
+          args[:filename] = "_#{args[:partial]}"
+        else
+          fail ArgumentError, 'view_path requires at least :template or :partial'
+        end
+        args[:format] ||= 'html'
+
+        view_paths.each do |p|
+          # Look for any of the extensions that we can currently render
+          extensions = "{#{ActionView::Template.template_handler_extensions.join(',')}}"
+          matches = Dir.glob(File.join(p, "#{args[:filename]}.#{args[:format]}.#{extensions}"))
+
+          unless matches.empty?
+            return matches[0]
+          end
+        end
+
+        nil
+      end
+
+      # Returns true if the given view exists for this job class
+      #
+      # @api public
+      # @param String view the view to search for
+      # @param String format the format to search for
+      # @return [Boolean] true if the given job has the view requested
+      def self.has_view?(view, format = 'html')
+        !view_path(template: view, format: format).nil?
       end
 
       private

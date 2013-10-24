@@ -58,7 +58,7 @@ describe Jobs::Analysis::PlotDates, vcr: { cassette_name: 'plot_dates' } do
         user_id: @user.to_param,
         dataset_id: @dataset.to_param,
         task_id: @task.to_param,
-        normalize_doc_counts: 'on',
+        normalize_doc_counts: '1',
         normalize_doc_dataset: '')
     end
 
@@ -132,7 +132,7 @@ describe Jobs::Analysis::PlotDates, vcr: { cassette_name: 'plot_dates' } do
         user_id: @user.to_param,
         dataset_id: @dataset.to_param,
         task_id: @task.to_param,
-        normalize_doc_counts: 'on',
+        normalize_doc_counts: '1',
         normalize_doc_dataset: @normalization_set.id.to_s)
     end
 

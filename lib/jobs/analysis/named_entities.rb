@@ -10,6 +10,20 @@ module Jobs
     class NamedEntities < Jobs::Analysis::Base
       @queue = 'analysis'
 
+      # Returns true if this job can be started now
+      #
+      # @return [Boolean] true if the Stanford NLP toolkit is available
+      def self.available?
+        NLP_ENABLED
+      end
+
+      # Return how many datasets this job requires
+      #
+      # @return [Integer] number of datasets needed to perform this job
+      def self.num_datasets
+        1
+      end
+
       # Export the named entity data
       #
       # This function saves out the NER data as a JSON hash, to be visualized

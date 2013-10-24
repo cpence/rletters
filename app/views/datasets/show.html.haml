@@ -1,23 +1,38 @@
-%ul{ data: { role: 'listview', theme: 'd', divider_theme: 'b', split_icon: 'delete', split_theme: 'a' } }
-  %li{ data: { role: 'list-divider' } }= t('.head')
-  %li
-    %h3= @dataset.name
-    %p= t('.num_entries', count: @dataset.entries.size)
-    %p= t('.created_at', date: @dataset.created_at.to_formatted_s(:long))
+- content_for :javascript do
+  = javascript_include_tag 'datasets_show'
+- content_for :breadcrumbs do
+  %li= link_to t('breadcrumbs.root'), root_path
+  %li= link_to t('breadcrumbs.datasets_index'), datasets_path
+  %li.current= link_to t('breadcrumbs.datasets_show', name: @dataset.name), @dataset
 
-%div.verticalpad
+%header
+  %section
+    %h2= t('.header') + ' — ' + @dataset.name
+    %h4.subheader
 
-%div.dataset_task_list{ data: { fetch_url: task_list_dataset_path(@dataset) } }
-  %ul{ data: { role: 'listview', theme: 'd' } }
-    %li= t('.loading_tasks')
+.row
+  .small-12.columns
+    = t('.num_entries', count: @dataset.entries.size)
+    |
+    = t('.created_at', date: @dataset.created_at.to_formatted_s(:long))
 
-%div.verticalpad
+.row
+  .small-12.columns
+    %hr
 
-%ul{ data: { role: 'listview', theme: 'd', divider_theme: 'b', split_icon: 'delete', split_theme: 'a' } }
+    %h4= t('.tasks')
 
-  -# Show the markup for starting all the various background jobs
-  %li{ data: { role: 'list-divider' } }= t('.new_task')
-  - Jobs::Analysis::Base.job_list.each do |klass|
-    = render_job_partial(klass, 'start')
+    #dataset-task-list{ data: { fetch_url: task_list_dataset_path(@dataset) } }
+      .preloader
 
-  %li{ data: { icon: 'delete' } }= link_to t('.delete'), delete_dataset_path(@dataset), data: { rel: 'dialog' }
+.row
+  .small-12.columns
+    %hr
+
+    %h4= t('.new_task')
+
+    - Jobs::Analysis::Base.job_list.reject { |k| !k.available? || (k.num_datasets > current_user.datasets.count) }.each_slice(2) do |a|
+      .row
+        .large-6.columns= link_to(a[0].t('.short_desc'), { controller: 'datasets', action: 'task_start', id: @dataset.to_param, class: a[0].name.demodulize.to_s }, class: 'button small secondary expand')
+        - if a.count > 1
+          .large-6.columns= link_to(a[1].t('.short_desc'), { controller: 'datasets', action: 'task_start', id: @dataset.to_param, class: a[1].name.demodulize.to_s }, class: 'button small secondary expand')

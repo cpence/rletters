@@ -1,0 +1,12 @@
+- content_for :breadcrumbs do
+  %li= link_to t('breadcrumbs.root'), root_path
+  %li.current= link_to t('breadcrumbs.workflow_start'), workflow_start_path
+
+%header
+  %section
+    %h2= t('.header')
+    %h4.subheader= t('.subheader')
+
+- Jobs::Analysis::Base.job_list.each do |klass|
+  - next unless klass.available?
+  = link_to simple_format(klass.t('.question'), {}, wrapper_tag: 'span'), workflow_info_path(klass.name.demodulize.to_s), class: 'job-question'

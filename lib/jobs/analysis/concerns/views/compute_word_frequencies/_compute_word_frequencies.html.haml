@@ -1,51 +1,17 @@
-%div{ data: { role: 'fieldcontain' } }
-  = field_set_tag "Word selection method:", data: { role: 'controlgroup' } do
-    = radio_button_tag('word_method_switch', 'count', true)
-    = label_tag('word_method_switch_count', 'Most frequent words')
-    = radio_button_tag('word_method_switch', 'list', false)
-    = label_tag('word_method_switch_list', 'Explicit list of words')
-%div{ class: 'num_words_controls', data: { role: 'fieldcontain' } }
-  = label_tag('job_params[num_words]', "Number of words to analyze:")
-  = number_field_tag('job_params[num_words]')
-%div{ class: 'num_words_controls', data: { role: 'fieldcontain' } }
-  = field_set_tag 'Exclude any words?', data: { role: 'controlgroup' } do
-    = radio_button_tag('exclude_method_switch', 'none', true)
-    = label_tag('exclude_method_switch_none', 'No')
-    = radio_button_tag('exclude_method_switch', 'common', false)
-    = label_tag('exclude_method_switch_common', 'Most common words (stop words)')
-    = radio_button_tag('exclude_method_switch', 'list', false)
-    = label_tag('exclude_method_switch_list', 'Exclude explicit list of words')
-%div{ class: 'exclude_common_controls', data: { role: 'fieldcontain' }, style: 'display: none;' }
-  = label_tag('job_params[stop_list]', 'Language of text:')
-  = select_tag('job_params[stop_list]', options_from_collection_for_select(StopList.all, 'language', 'display_language', 'en'))
-%div{ class: 'exclude_list_controls', data: { role: 'fieldcontain' }, style: 'display: none;' }
-  = label_tag('job_params[exclusion_list]', 'Words to exclude (space-separated):')
-  = text_area_tag('job_params[exclusion_list]', nil, { escape: false })
-%div{ class: 'inclusion_list_controls', data: { role: 'fieldcontain' }, style: 'display: none;' }
-  = label_tag('job_params[inclusion_list]', 'Words to analyze (space-separated):')
-  = text_area_tag('job_params[inclusion_list]', nil, { escape: false })
-%div{ data: { role: 'fieldcontain' } }
-  = field_set_tag "Text block method:", data: { role: 'controlgroup' } do
-    = radio_button_tag('block_method_switch', 'count', true)
-    = label_tag('block_method_switch_count', "By number of words")
-    = radio_button_tag('block_method_switch', 'blocks', false)
-    = label_tag('block_method_switch_blocks', "By number of blocks")
-%div{ class: 'count_controls', data: { role: 'fieldcontain' } }
-  = label_tag('job_params[block_size]', 'Number of words per block:')
-  = number_field_tag('job_params[block_size]')
-%div{ class: 'count_controls', data: { role: 'fieldcontain' } }
-  = field_set_tag "Last block method:", data: { role: 'controlgroup' } do
-    = radio_button_tag('job_params[last_block]', 'big_last', true)
-    = label_tag('job_params[last_block]_big_last', 'Big last block')
-    = radio_button_tag('job_params[last_block]', 'small_last', false)
-    = label_tag('job_params[last_block]_small_last', 'Small last block')
-    = radio_button_tag('job_params[last_block]', 'truncate_last', false)
-    = label_tag('job_params[last_block]_truncate_last', 'Truncate leftover words')
-    = radio_button_tag('job_params[last_block]', 'truncate_all', false)
-    = label_tag('job_params[last_block]_truncate_all', 'Truncate every document to given size')
-%div{ class: 'blocks_controls', data: { role: 'fieldcontain' }, style: 'display: none;' }
-  = label_tag('job_params[num_blocks]', 'Number of blocks:')
-  = number_field_tag('job_params[num_blocks]')
-%div{ data: { role: 'fieldcontain' } }
-  = label_tag('job_params[split_across]', 'Split blocks across documents?')
-  = check_box_tag('job_params[split_across]', 'true', true)
+= f.input :word_method, label: t('jobs.concerns.compute_word_frequencies.word_method'), collection: [[:count, t('jobs.concerns.compute_word_frequencies.most_frequent')], [:list, t('jobs.concerns.compute_word_frequencies.list')]], value_method: :first, label_method: :last, include_blank: false
+#num_words_controls
+  = f.input :num_words, as: :integer, label: t('jobs.concerns.compute_word_frequencies.num_words'), required: false, input_html: { value: 100 }
+  = f.input :exclude_method, label: t('jobs.concerns.compute_word_frequencies.exclude_method'), collection: [[:none, t('jobs.concerns.compute_word_frequencies.none')], [:common, t('jobs.concerns.compute_word_frequencies.stop')], [:list, t('jobs.concerns.compute_word_frequencies.list')]], value_method: :first, label_method: :last, include_blank: false, required: false
+#exclude_common_controls{ style: 'display: none;' }
+  = f.input :stop_list, label: t('jobs.concerns.compute_word_frequencies.stop_language'), collection: StopList.all.sort_by { |l| l.language }, value_method: :language, label_method: :display_language, include_blank: false, selected: 'en'
+#exclude_list_controls{ style: 'display: none;' }
+  = f.input :exclusion_list, label: t('jobs.concerns.compute_word_frequencies.exclusion_list'), as: :text, required: false
+#inclusion_list_controls{ style: 'display: none;' }
+  = f.input :inclusion_list, label: t('jobs.concerns.compute_word_frequencies.inclusion_list'), as: :text, required: false
+= f.input :block_method, label: t('jobs.concerns.compute_word_frequencies.block_method'), collection: [[:count, t('jobs.concerns.compute_word_frequencies.num_words')], [:blocks, t('jobs.concerns.compute_word_frequencies.num_blocks')]], value_method: :first, label_method: :last, include_blank: false
+#count_controls
+  = f.input :block_size, label: t('jobs.concerns.compute_word_frequencies.block_size'), as: :integer, required: false, input_html: { value: 250 }
+  = f.input :last_block, label: t('jobs.concerns.compute_word_frequencies.last_block'), collection: [[:big_last, t('jobs.concerns.compute_word_frequencies.big_last')], [:small_last, t('jobs.concerns.compute_word_frequencies.small_last')], [:truncate_last, t('jobs.concerns.compute_word_frequencies.truncate_last')], [:truncate_all, t('jobs.concerns.compute_word_frequencies.truncate_all')]], value_method: :first, label_method: :last, include_blank: false, required: false
+#blocks_controls{ style: 'display: none;' }
+  = f.input :num_blocks, label: t('jobs.concerns.compute_word_frequencies.num_blocks_label'), as: :integer, required: false, input_html: { value: '10' }
+= f.input :split_across, label: t('jobs.concerns.compute_word_frequencies.split_across'), as: :boolean, required: false, input_html: { checked: true }

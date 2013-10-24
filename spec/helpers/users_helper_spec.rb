@@ -3,13 +3,13 @@ require 'spec_helper'
 
 describe UsersHelper do
 
-  describe '#options_from_locales' do
-    it 'includes options for locales without country codes' do
-      expect(helper.options_from_locales).to have_tag('option[value=az]', text: 'Azeri')
+  describe '#available_locales' do
+    it 'includes locales without country codes' do
+      expect(helper.available_locales).to include(['az', 'Azeri'])
     end
 
     it 'includes options for locales with country codes' do
-      expect(helper.options_from_locales).to have_tag('option[value=es-MX]', text: 'Spanish (Mexico)')
+      expect(helper.available_locales).to include(['es-MX', 'Spanish (Mexico)'])
     end
   end
 
@@ -32,14 +32,6 @@ describe UsersHelper do
         allow(controller.request).to receive(:env).and_return({ 'HTTP_ACCEPT_LANGUAGE' => 'es' })
         expect(helper.get_user_language).to eq('es')
       end
-    end
-  end
-
-  describe '#options_from_timezones' do
-    it 'includes an option for some common time zones' do
-      ret = helper.options_from_timezones
-      expect(ret).to have_tag('option[value="Mountain Time (US & Canada)"]', text: '(GMT-07:00) Mountain Time (US & Canada)')
-      expect(ret).to have_tag('option[value="West Central Africa"]', text: '(GMT+01:00) West Central Africa')
     end
   end
 
