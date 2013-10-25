@@ -46,7 +46,7 @@ module ApplicationHelper
     # Give up if we can't find it
     raise I18n::MissingTranslationData.new(I18n.locale, "localized_markdown.#{file}", {}) unless File.exists?(path)
 
-    render file: path
+    render(file: path).html_safe
   end
 
   # Elements of the flash hash for which we have custom CSS classes
