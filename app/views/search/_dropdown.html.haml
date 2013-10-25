@@ -27,7 +27,11 @@
 
 .row
   .small-12.columns
-    - if document.license_url
-      %small= link_to t('.license', license: document.license || t('.no_license')), document.license_url
-    - else
-      %small= t('.license', license: document.license || t('.no_license'))
+    %p.document-details
+      - if document.doi
+        %small= link_to "DOI: #{document.doi}", "http://dx.doi.org/#{document.doi}"
+        %br
+      - if document.license_url
+        %small= link_to t('.license', license: document.license || t('.no_license')), document.license_url
+      - else
+        %small= t('.license', license: document.license || t('.no_license'))
