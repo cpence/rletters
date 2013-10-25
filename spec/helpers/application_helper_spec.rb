@@ -10,19 +10,19 @@ describe ApplicationHelper do
   describe '#translate_markdown' do
     context 'without a shortcut' do
       it 'renders Markdown in translations' do
-        I18n.backend.store_translations :en, test_markdown: '# Testing #'
+        I18n.backend.store_translations :en, test_markdown: '# Testing %{word} #'
 
-        html = helper.translate_markdown(:test_markdown)
+        html = helper.translate_markdown(:test_markdown, word: 'things')
         expect(html).to be
-        expect(html).to have_tag('h1', text: 'Testing')
+        expect(html).to have_tag('h1', text: 'Testing things')
       end
 
       it 'works when called as t_md' do
-        I18n.backend.store_translations :en, test_markdown: '# Testing #'
+        I18n.backend.store_translations :en, test_markdown: '# Testing %{word} #'
 
-        html = helper.t_md(:test_markdown)
+        html = helper.t_md(:test_markdown, word: 'things')
         expect(html).to be
-        expect(html).to have_tag('h1', text: 'Testing')
+        expect(html).to have_tag('h1', text: 'Testing things')
       end
     end
 
