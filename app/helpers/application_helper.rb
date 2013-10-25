@@ -13,11 +13,11 @@ module ApplicationHelper
   # @return [String] the requested translation, parsed as Markdown
   # @example Parse the translation for +error.not_found+ as Markdown
   #   <%= translate_markdown(:"error.not_found") %>
-  def translate_markdown(key)
+  def translate_markdown(key, options = {})
     # This method is private, but it's what maps the ".not_found" shortcut
     # style keys to their full equivalents
     key_trans = send(:scope_key_by_partial, key)
-    I18n.translate_markdown(key_trans).html_safe
+    I18n.translate_markdown(key_trans, options).html_safe
   end
   alias_method :t_md, :translate_markdown
 

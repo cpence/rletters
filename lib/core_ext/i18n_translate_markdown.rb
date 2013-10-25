@@ -17,8 +17,8 @@ module I18n
       # @return [String] the requested translation, parsed as Markdown
       # @example Parse the translation for +error.not_found+ as Markdown
       #   <%= translate_markdown(:"error.not_found") %>
-      def translate_markdown(key)
-        Kramdown::Document.new(I18n.t(key)).to_html.html_safe
+      def translate_markdown(key, options = {})
+        Kramdown::Document.new(I18n.t(key, options)).to_html.html_safe
       end
       alias_method :t_md, :translate_markdown
 
