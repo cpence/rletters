@@ -27,7 +27,7 @@ RLetters::Application.configure do
   config.assets.compile = false
 
   # Precompile vendor images as well
-  config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif *.js)
+  config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif)
 
   # Precompile all my local JS (since it's all included per-page)
   config.assets.precompile << Proc.new do |path|
