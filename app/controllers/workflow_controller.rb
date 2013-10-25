@@ -76,7 +76,7 @@ class WorkflowController < ApplicationController
 
     # See if we've been asked to link a dataset to this job
     if params[:link_dataset_id]
-      @user_datasets << Integer(params[:link_dataset_id])
+      @user_datasets << Dataset.find(params[:link_dataset_id])
       @user_datasets_str = @user_datasets.map { |d| d.to_param }.to_json
       current_user.workflow_datasets = @user_datasets_str
     end
