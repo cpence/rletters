@@ -33,8 +33,18 @@ module ApplicationHelper
   #   <%= render_localized_markdown :test %>
   def render_localized_markdown(file)
     path = Rails.root.join('config', 'locales', file.to_s,
-                           "#{file.to_S}.#{I18n.locale}.md")
-    raise I18n::MissingTranslationData unless File.exists?(path)
+                           "#{file}.#{I18n.locale}.md")
+
+    # Fall back to English if we have to
+    unless File.exist?(path)
+      if I18n.locale != :en
+        path = Rails.root.join('config', 'locales', file.to_s,
+                               "#{file}.en.md")
+      end
+    end
+
+    # Give up if we can't find it
+    raise I18n::MissingTranslationData.new(I18n.locale, "localized_markdown.#{file}", {}) unless File.exists?(path)
 
     render file: path
   end

@@ -50,6 +50,44 @@ describe ApplicationHelper do
     end
   end
 
+  describe '#render_localized_markdown' do
+    context 'with a locale that exists' do
+      before(:each) do
+        I18n.locale = :en
+      end
+
+      it 'renders the file' do
+        path = Rails.root.join('config', 'locales', 'plot_dates', 'plot_dates.en.md')
+        expect(helper).to receive(:render).with(file: path)
+        helper.render_localized_markdown(:plot_dates)
+      end
+    end
+
+    context 'with a missing locale' do
+      before(:each) do
+        I18n.locale = :pirate
+      end
+
+      after(:each) do
+        I18n.locale = :en
+      end
+
+      it 'falls back to English' do
+        path = Rails.root.join('config', 'locales', 'plot_dates', 'plot_dates.en.md')
+        expect(helper).to receive(:render).with(file: path)
+        helper.render_localized_markdown(:plot_dates)
+      end
+    end
+
+    context 'with a missing file' do
+      it 'raises MissingTranslationData' do
+        expect {
+          helper.render_localized_markdown(:not_there)
+        }.to raise_error(I18n::MissingTranslationData)
+      end
+    end
+  end
+
   describe '#render_job_partial' do
     context 'with a partial that is present' do
       before(:all) do
