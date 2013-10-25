@@ -11,6 +11,7 @@ task "resque:setup" => :environment do
 end
 
 begin
+  require 'resque/pool'
   require 'resque/pool/tasks'
 
   task "resque:pool:setup" do
