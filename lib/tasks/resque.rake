@@ -1,17 +1,13 @@
 # -*- encoding : utf-8 -*-
-# Add the tasks for Resque, resque_pool, and the scheduler, but don't worry
-# if we aren't able to load them in development/test.
+# Add the tasks for Resque, resque_pool, and the scheduler.  resque-pool is a
+# production-only gem, so don't fail if it can't be found.
 
-begin
-  require 'resque/tasks'
-  require 'resque_scheduler'
-  require 'resque_scheduler/tasks'
+require 'resque/tasks'
+require 'resque_scheduler'
+require 'resque_scheduler/tasks'
 
-  task "resque:setup" => :environment do
-    Resque.schedule = YAML.load_file(Rails.root.join('config', 'schedule.yml'))
-  end
-rescue LoadError
-  raise if Rails.env.production?
+task "resque:setup" => :environment do
+  Resque.schedule = YAML.load_file(Rails.root.join('config', 'schedule.yml'))
 end
 
 begin
@@ -21,7 +17,8 @@ begin
     ActiveRecord::Base.connection.disconnect!
     Resque::Pool.after_prefork do |job|
       ActiveRecord::Base.establish_connection
-    end
+      Resque.redis.client.reconnect
+     end
   end
 rescue LoadError
   raise if Rails.env.production?
