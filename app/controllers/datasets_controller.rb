@@ -140,7 +140,7 @@ class DatasetsController < ApplicationController
       if other_datasets.nil? || other_datasets.count < (@klass.num_datasets - 1)
         # Still need more other datasets, render the data collection view
         # and bail
-        render template: 'datasets/task_datasets'
+        render 'task_datasets'
         return
       end
     end
@@ -148,7 +148,7 @@ class DatasetsController < ApplicationController
     # Make sure we've gathered the parameters, if those are required
     if @klass.has_view?('_params')
       unless job_params[:start]
-        render template: 'datasets/task_params'
+        render 'task_params'
         return
       end
     end

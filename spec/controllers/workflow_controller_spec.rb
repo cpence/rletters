@@ -20,15 +20,40 @@ describe WorkflowController do
 
   describe '#index' do
     context 'given Solr results', vcr: { cassette_name: 'workflow_query' } do
-      it 'loads successfully' do
-        get :index
-        expect(response).to be_success
+      context 'when logged in' do
+        before(:each) do
+          @user = FactoryGirl.create(:user)
+          sign_in @user
+
+          get :index
+        end
+
+        it 'loads successfully' do
+          expect(response).to be_success
+        end
+
+        it 'renders the dashboard' do
+          expect(response).to render_template(:dashboard)
+        end
+
+        it 'sets the number of documents' do
+          expect(assigns(:database_size)).to be
+          expect(assigns(:database_size)).to eq(1042)
+        end
       end
 
-      it 'sets the number of documents' do
-        get :index
-        expect(assigns(:database_size)).to be
-        expect(assigns(:database_size)).to eq(1042)
+      context 'when not logged in' do
+        before(:each) do
+          get :index
+        end
+
+        it 'loads successfully' do
+          expect(response).to be_success
+        end
+
+        it 'renders the index' do
+          expect(response).to render_template(:index)
+        end
       end
     end
 
@@ -38,8 +63,6 @@ describe WorkflowController do
         expect(response).to be_success
       end
     end
-
-    # FIXME: Test the logged in / logged out behavior?
   end
 
   describe '#image' do

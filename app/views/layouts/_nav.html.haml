@@ -18,18 +18,18 @@
           %li= link_to t('layouts.nav.browse'), search_path
           %li= link_to t('layouts.nav.manage'), datasets_path
 
-      - if current_user && current_user.workflow_active
+      - if user_signed_in? && current_user.workflow_active
         %li.has-form= link_to t('layouts.nav.current'), workflow_activate_path(current_user.workflow_class), class: 'button success'
         %li.has-form= link_to t('layouts.nav.abort'), workflow_destroy_path, class: 'button alert', data: { confirm: t('layouts.nav.abort_warning') }
 
     %ul.right
       %li= link_to t('layouts.nav.help'), 'http://rletters.net/help'
       %li.divider.hide-for-small
-      - if current_user
+      - if user_signed_in?
         %li{ class: (params[:controller] == 'users') ? 'active' : nil }= link_to t('layouts.nav.account'), edit_user_registration_path
         %li= link_to t('layouts.nav.sign_out'), destroy_user_session_path, method: :delete
       - else
         %li#login-button{ class: (params[:controller] == 'users') ? 'active' : nil }= link_to t('layouts.nav.sign_in'), '#', 'data-dropdown' => 'login-dropdown'
 
-- unless current_user
+- unless user_signed_in?
   = render partial: 'layouts/sign_in'

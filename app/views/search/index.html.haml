@@ -2,7 +2,7 @@
   %link{ rel: 'unapi-server', type: 'application/xml', title: 'unAPI', href: unapi_url }/
 - content_for :breadcrumbs do
   %li= link_to t('breadcrumbs.root'), root_path
-  - if current_user.workflow_active
+  - if user_signed_in? && current_user.workflow_active
     %li= link_to t('breadcrumbs.workflow_start'), workflow_start_path
     %li= link_to t('breadcrumbs.workflow_info'), workflow_info_path(current_user.workflow_class)
     %li= link_to t('breadcrumbs.workflow_activate'), workflow_activate_path(current_user.workflow_class)
@@ -22,7 +22,7 @@
           = search_field_tag :q, (params[:precise] ? t('.adv_search_placeholder') : params[:q]), placeholder: t('.placeholder')
           %ul.button-group.radius.even-2
             %li= link_to(sort_to_string(@sort), '#', class: 'button secondary dropdown small', 'data-dropdown' => 'sort-dropdown')
-            - if current_user
+            - if user_signed_in?
               %li= link_to t('.create_dataset'), new_dataset_path(q: @solr_q, defType: @solr_defType, fq: @solr_fq), class: 'button success small', data: { reveal_id: 'new-modal', reveal_ajax: 'true' }
             - else
               %li= link_to t('.create_dataset'), '#', class: 'button success small disabled'

@@ -28,7 +28,7 @@ class WorkflowController < ApplicationController
       @database_size = 0
     end
 
-    if current_user
+    if user_signed_in?
       render 'dashboard'
     else
       render 'index'
