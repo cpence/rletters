@@ -24,3 +24,10 @@
       - unless Setting.mendeley_key.blank?
         %li= link_to t('.mendeley'), mendeley_redirect_path(id: document.shasum), rel: "external"
       %li= link_to t('.citeulike'), citeulike_redirect_path(id: document.shasum), rel: "external"
+
+.row
+  .small-12.columns
+    - if document.license_url
+      %small= link_to t('.license', license: document.license || t('.no_license')), document.license_url
+    - else
+      %small= t('.license', license: document.license || t('.no_license'))

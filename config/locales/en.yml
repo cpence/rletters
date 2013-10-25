@@ -298,6 +298,9 @@ en:
             google: Find on Google Scholar
             mendeley: Find on Mendeley
             citeulike: Find on CiteULike
+            license: "Document license: %{license}"
+            license_url_only: Document license
+            no_license: No license specified in database
         add:
             header: Add document to a dataset
             subheader: Select the dataset to which you would like to add this document.
