@@ -58,7 +58,7 @@ describe ApplicationHelper do
 
       it 'renders the file' do
         path = Rails.root.join('config', 'locales', 'plot_dates', 'plot_dates.en.md')
-        expect(helper).to receive(:render).with(file: path)
+        expect(helper).to receive(:render).with(file: path).and_return('')
         helper.render_localized_markdown(:plot_dates)
       end
     end
@@ -74,7 +74,7 @@ describe ApplicationHelper do
 
       it 'falls back to English' do
         path = Rails.root.join('config', 'locales', 'plot_dates', 'plot_dates.en.md')
-        expect(helper).to receive(:render).with(file: path)
+        expect(helper).to receive(:render).with(file: path).and_return('')
         helper.render_localized_markdown(:plot_dates)
       end
     end
