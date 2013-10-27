@@ -47,103 +47,134 @@ describe Document do
   end
 
   describe '.find' do
-    context 'when loading one document',
-            vcr: { cassette_name: 'solr_single' } do
-      before(:each) do
-        @doc = Document.find('00972c5123877961056b21aea4177d0dc69c7318')
+    context 'without fulltext' do
+      context 'when loading one document',
+              vcr: { cassette_name: 'solr_single' } do
+        before(:each) do
+          @doc = Document.find('00972c5123877961056b21aea4177d0dc69c7318')
+        end
+
+        it 'loads the document successfully' do
+          expect(@doc).to be
+        end
       end
 
-      it 'loads the document successfully' do
-        expect(@doc).to be
+      context 'when no documents are returned',
+              vcr: { cassette_name: 'solr_fail' } do
+        it 'raises an exception' do
+          expect { Document.find('fail') }.to raise_error(ActiveRecord::RecordNotFound)
+        end
+      end
+
+      context 'when Solr times out' do
+        it 'raises an exception' do
+          stub_request(:any, /(127\.0\.0\.1|localhost)/).to_timeout
+          expect { Document.find('fail') }.to raise_error(StandardError)
+        end
       end
     end
 
+    context 'with fulltext' do
+      context 'when loading one document with fulltext',
+              vcr: { cassette_name: 'solr_single_fulltext' } do
+        before(:each) do
+          @doc = Document.find('00972c5123877961056b21aea4177d0dc69c7318', true)
+        end
+
+        it 'loads the document successfully' do
+          expect(@doc).to be
+        end
+      end
+
+      context 'when no documents are returned',
+              vcr: { cassette_name: 'solr_fail_fulltext' } do
+        it 'raises an exception' do
+          expect { Document.find('fail', true) }.to raise_error(StandardError)
+        end
+      end
+
+      context 'when Solr times out' do
+        it 'raises an exception' do
+          stub_request(:any, /(127\.0\.0\.1|localhost)/).to_timeout
+          expect { Document.find('fail', true) }.to raise_error(StandardError)
+        end
+      end
+    end
+  end
+
+  describe '.find_by' do
+    context 'without fulltext' do
+      context 'when loading one document',
+              vcr: { cassette_name: 'solr_single' } do
+        before(:each) do
+          @doc = Document.find_by(shasum: '00972c5123877961056b21aea4177d0dc69c7318')
+        end
+
+        it 'loads the document successfully' do
+          expect(@doc).to be
+        end
+      end
+
+      context 'when no documents are returned',
+              vcr: { cassette_name: 'solr_fail' } do
+        it 'does not raise an exception' do
+          expect { Document.find_by(shasum: 'fail') }.to_not raise_error
+        end
+
+        it 'returns nil' do
+          expect(Document.find_by(shasum: 'fail')).to be_nil
+        end
+      end
+
+      context 'with a field other than shasum',
+              vcr: { cassette_name: 'solr_single_by_author' } do
+        before(:each) do
+          @doc = Document.find_by(author: 'C. Alaux')
+        end
+
+        it 'loads the document successfully' do
+          expect(@doc).to be
+        end
+      end
+    end
+
+    context 'with fulltext' do
+      context 'when loading one document with fulltext',
+              vcr: { cassette_name: 'solr_single_fulltext' } do
+        before(:each) do
+          @doc = Document.find_by(shasum: '00972c5123877961056b21aea4177d0dc69c7318', fulltext: true)
+        end
+
+        it 'loads the document successfully' do
+          expect(@doc).to be
+        end
+      end
+
+      context 'when no documents are returned',
+              vcr: { cassette_name: 'solr_fail_fulltext' } do
+        it 'does not raise an exception' do
+          expect { Document.find_by(shasum: 'fail', fulltext: true) }.to_not raise_error
+        end
+
+        it 'returns nil' do
+          expect(Document.find_by(shasum: 'fail', fulltext: true)).to be_nil
+        end
+      end
+    end
+  end
+
+  describe '.find_by!' do
     context 'when no documents are returned',
             vcr: { cassette_name: 'solr_fail' } do
       it 'raises an exception' do
-        expect { Document.find('fail') }.to raise_error(ActiveRecord::RecordNotFound)
+        expect { Document.find_by!(shasum: 'fail') }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
 
     context 'when Solr times out' do
       it 'raises an exception' do
         stub_request(:any, /(127\.0\.0\.1|localhost)/).to_timeout
-        expect { Document.find('fail') }.to raise_error(StandardError)
-      end
-    end
-  end
-
-  describe '.find_by_shasum' do
-    context 'when loading one document',
-            vcr: { cassette_name: 'solr_single' } do
-      before(:each) do
-        @doc = Document.find_by_shasum('00972c5123877961056b21aea4177d0dc69c7318')
-      end
-
-      it 'loads the document successfully' do
-        expect(@doc).to be
-      end
-    end
-
-    context 'when no documents are returned',
-            vcr: { cassette_name: 'solr_fail' } do
-      it 'does not raise an exception' do
-        expect { Document.find_by_shasum('fail') }.to_not raise_error
-      end
-
-      it 'returns nil' do
-        expect(Document.find_by_shasum('fail')).to be_nil
-      end
-    end
-  end
-
-  describe '.find_with_fulltext' do
-    context 'when loading one document with fulltext',
-            vcr: { cassette_name: 'solr_single_fulltext' } do
-      before(:each) do
-        @doc = Document.find_with_fulltext('00972c5123877961056b21aea4177d0dc69c7318')
-      end
-
-      it 'loads the document successfully' do
-        expect(@doc).to be
-      end
-    end
-
-    context 'when no documents are returned',
-            vcr: { cassette_name: 'solr_fail_fulltext' } do
-      it 'raises an exception' do
-        expect { Document.find_with_fulltext('fail') }.to raise_error(StandardError)
-      end
-    end
-
-    context 'when Solr times out' do
-      it 'raises an exception' do
-        stub_request(:any, /(127\.0\.0\.1|localhost)/).to_timeout
-        expect { Document.find_with_fulltext('fail') }.to raise_error(StandardError)
-      end
-    end
-  end
-
-  describe '.find_by_shasum_with_fulltext' do
-    context 'when loading one document with fulltext',
-            vcr: { cassette_name: 'solr_single_fulltext' } do
-      before(:each) do
-        @doc = Document.find_by_shasum_with_fulltext('00972c5123877961056b21aea4177d0dc69c7318')
-      end
-
-      it 'loads the document successfully' do
-        expect(@doc).to be
-      end
-    end
-
-    context 'when no documents are returned',
-            vcr: { cassette_name: 'solr_fail_fulltext' } do
-      it 'does not raise an exception' do
-        expect { Document.find_by_shasum_with_fulltext('fail') }.to_not raise_error
-      end
-
-      it 'returns nil' do
-        expect(Document.find_by_shasum_with_fulltext('fail')).to be_nil
+        expect { Document.find_by!(shasum: 'fail') }.to raise_error(StandardError)
       end
     end
   end
@@ -169,7 +200,7 @@ describe Document do
     context 'when loading one document with fulltext',
             vcr: { cassette_name: 'solr_single_fulltext' } do
       before(:each) do
-        @doc = Document.find_with_fulltext('00972c5123877961056b21aea4177d0dc69c7318')
+        @doc = Document.find('00972c5123877961056b21aea4177d0dc69c7318', true)
       end
 
       it 'gets the right shasum' do
@@ -322,7 +353,7 @@ describe Document do
     context 'when loading one document with fulltext',
             vcr: { cassette_name: 'solr_single_fulltext' } do
       before(:each) do
-        @doc = Document.find_with_fulltext('00972c5123877961056b21aea4177d0dc69c7318')
+        @doc = Document.find('00972c5123877961056b21aea4177d0dc69c7318', true)
       end
 
       it 'sets the term vectors' do

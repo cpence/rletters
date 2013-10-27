@@ -156,82 +156,61 @@ class Document
   #
   # @api public
   # @param [String] shasum SHA-1 checksum of the document to be retrieved
-  # @param [Hash] options see +Solr::Connection.search+ for specification
+  # @param [Boolean] fulltext if true, return document full text
   # @return [Document] the document requested
   # @raise [Solr::ConnectionError] thrown if there is an error querying Solr
   # @raise [ActiveRecord::RecordNotFound] thrown if no matching document can
   #   be found
   # @example Look up the document with ID '1234567890abcdef1234'
   #   doc = Document.find('1234567890abcdef1234')
-  def self.find(shasum, options = {})
-    result = Solr::Connection.search(options.merge({ q: "shasum:#{shasum}",
-                                                     defType: 'lucene' }))
-    fail ActiveRecord::RecordNotFound if result.num_hits != 1
-    result.documents[0]
+  def self.find(shasum, fulltext = false)
+    find_by!(shasum: shasum, fulltext: fulltext)
   end
 
-  # Return a document (just bibliographic data) by SHA-1 checksum, or nil
+  # Query a document and raise an exception if it's not found
   #
   # @api public
-  # @param [String] shasum SHA-1 checksum of the document to be retrieved
-  # @param [Hash] options see +Solr::Connection.search+ for specification
-  # @return [Document] the document requested
+  # @api public
+  # @option args [Boolean] fulltext if true, return the full text of the
+  #   document if found
+  # @option args [String] field any document field may be queried here as a
+  #   search query (see example)
+  # @return [Document] the document requested, or nil if not found
   # @raise [Solr::ConnectionError] thrown if there is an error querying Solr
   # @raise [ActiveRecord::RecordNotFound] thrown if no matching document can
   #   be found
-  # @example Look up the document with ID '1234567890abcdef1234'
-  #   doc = Document.find_by_shasum('1234567890abcdef1234')
-  # @example Look up a document that doesn't exist
-  #   Document.find_by_shasum('1234567890abcdef1234')
-  #   # => nil
-  def self.find_by_shasum(shasum, options = {})
-    result = Solr::Connection.search(options.merge({ q: "shasum:#{shasum}",
-                                                     defType: 'lucene' }))
-    return nil if result.num_hits != 1
-    result.documents[0]
+  # @example Look up a document by W. Shatner (raising exception if not found)
+  #   doc = Document.find_by!(author: 'W. Shatner')
+  def self.find_by!(args)
+    find_by(args) or fail ActiveRecord::RecordNotFound
   end
 
-  # Return a document (bibliographic data and full text) by SHA-1 checksum
+  # Query a document and return it (or nil)
   #
   # @api public
-  # @param [String] shasum SHA-1 checksum of the document to be retrieved
-  # @param [Hash] options see +Solr::Connection.search+ for specification
-  # @return [Document] the document requested, including full text
+  # @option args [Boolean] fulltext if true, return the full text of the
+  #   document if found
+  # @option args [String] field any document field may be queried here as a
+  #   search query (see example)
+  # @return [Document] the document requested, or nil if not found
   # @raise [Solr::ConnectionError] thrown if there is an error querying Solr
-  # @raise [ActiveRecord::RecordNotFound] thrown if no matching document can
-  #   be found
-  # @example Get the full text of the document with ID '1234567890abcdef1234'
-  #   text = Document.find_with_fulltext('1234567890abcdef1234').fulltext
-  def self.find_with_fulltext(shasum, options = {})
-    result = Solr::Connection.search(options.merge({ q: "shasum:#{shasum}",
-                                                     defType: 'lucene',
-                                                     tv: 'true',
-                                                     fl: Solr::Connection::DEFAULT_FIELDS_FULLTEXT }))
-    fail ActiveRecord::RecordNotFound if result.num_hits != 1
-    result.documents[0]
-  end
+  # @example Look up a document by W. Shatner (returning nil if not found)
+  #   doc = Document.find_by(author: 'W. Shatner')
+  def self.find_by(args)
+    # First, delete the 'fulltext' argument, because it's special
+    fulltext = args.delete(:fulltext)
 
-  # Return a document (bibliographic data and full text) by SHA-1 checksum,
-  # or nil
-  #
-  # @api public
-  # @param [String] shasum SHA-1 checksum of the document to be retrieved
-  # @param [Hash] options see +Solr::Connection.search+ for specification
-  # @return [Document] the document requested
-  # @raise [Solr::ConnectionError] thrown if there is an error querying Solr
-  # @raise [ActiveRecord::RecordNotFound] thrown if no matching document can
-  #   be found
-  # @example Get the full text of the document with ID '1234567890abcdef1234'
-  #   doc = Document.find_by_shasum_with_fulltext('1234567890abcdef1234')
-  # @example Look up a document that doesn't exist
-  #   Document.find_by_shasum_with_fulltext('1234567890abcdef1234')
-  #   # => nil
-  def self.find_by_shasum_with_fulltext(shasum, options = {})
-    result = Solr::Connection.search(options.merge({ q: "shasum:#{shasum}",
-                                                     defType: 'lucene',
-                                                     tv: 'true',
-                                                     fl: Solr::Connection::DEFAULT_FIELDS_FULLTEXT }))
-    return nil if result.num_hits != 1
+    # Build the query
+    query = { defType: 'lucene' }
+    query[:q] = args.map { |k, v| "#{k}:(#{v})" }.join(' AND ')
+    if fulltext == true
+      query[:tv] = 'true'
+      query[:fl] = Solr::Connection::DEFAULT_FIELDS_FULLTEXT
+    end
+
+    # Run it and return
+    result = Solr::Connection.search(query)
+    return nil if result.num_hits < 1
     result.documents[0]
   end
 

@@ -31,7 +31,7 @@ class NERAnalyzer
     @entity_references = {}
 
     dataset.entries.each do |e|
-      doc = Document.find_with_fulltext e.shasum
+      doc = Document.find(e.shasum, true)
       triples = classifier.classifyToCharacterOffsets(doc.fulltext)
 
       triples.each do |t|
