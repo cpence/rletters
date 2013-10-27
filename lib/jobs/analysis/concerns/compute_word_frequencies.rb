@@ -15,7 +15,8 @@ module Jobs
         included do
           # Compute word frequency data for a given dataset
           #
-          # @param [Dataset] datset the dataset for which to compute frequencies
+          # @param [Dataset] datset the dataset for which to compute
+          #   frequencies
           # @param [Hash] args parameters for frequency analysis
           # @option args [String] block_size block size, in words
           #
@@ -29,12 +30,12 @@ module Jobs
           #   documents
           #
           #   If this is set to true, then we will effectively concatenate all
-          #   the documents before splitting into blocks.  If false, we'll split
-          #   blocks on a per-document basis.  Defaults to true.
+          #   the documents before splitting into blocks.  If false, we'll
+          #   split blocks on a per-document basis.  Defaults to true.
           # @option args [String] num_words how many words to keep in the list
           #
-          #   If greater than the number of types in the dataset (or zero), then
-          #   return all the words.  Defaults to zero.
+          #   If greater than the number of types in the dataset (or zero),
+          #   then return all the words.  Defaults to zero.
           # @option args [String] last_block how to treat the last block
           #
           #   Can be set to big_last, small_last, truncate_last, or
@@ -44,7 +45,8 @@ module Jobs
           #
           #   If this attribute is set, then we'll only analyze the words that
           #   are specified here (separated by spaces), and no others.
-          # @option args [String] stop_list if set, language of stop list to use
+          # @option args [String] stop_list if set, language of stop list
+          #   to use
           # @option args [String] exclusion_list if set, list of words to
           #   exclude from analysis
           # @return [WordFrequencyAnalyzer] the computed frequency analyzer

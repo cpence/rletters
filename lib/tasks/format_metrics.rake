@@ -6,10 +6,12 @@ namespace :metrics do
     require 'fileutils'
     require 'nokogiri'
 
-    # Get all the source against which we'll run any metrics
-    ruby_files = Dir['{app,config,db,lib,spec}/**/*.{rb,rake,god}']
-    ruby_files.delete('db/schema.rb')
+    # Get all the source against which we'll run any metrics (everything but
+    # the seeds.rb file in 'db' is auto-generated, so skip that)
+    ruby_files = Dir['{app,config,lib,spec}/**/*.{rb,rake}']
+    ruby_files << 'db/seeds.rb'
     ruby_files << 'Gemfile'
+    ruby_files.sort!
 
       # Run it through the pretty-printer first
     ruby_files.each do |in_file|

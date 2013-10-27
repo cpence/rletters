@@ -3,6 +3,7 @@ require 'spec_helper'
 
 module Jobs
   module Analysis
+    # A job that always throws an exception
     class FailingJob < Jobs::Analysis::Base
       @queue = 'ui'
       def self.perform(args = {})

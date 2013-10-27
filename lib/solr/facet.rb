@@ -41,12 +41,16 @@ module Solr
         # We already have a query here, so go ahead and save the query
         @query = options[:query]
 
-        fail ArgumentError, 'facet query specified without hits' unless options[:hits]
+        unless options[:hits]
+          fail ArgumentError, 'facet query specified without hits'
+        end
         @hits = Integer(options[:hits])
 
         # Basic format: "field:QUERY"
         parts = @query.split(':')
-        fail ArgumentError, 'facet query not separated by colon' unless parts.count == 2
+        unless parts.count == 2
+          fail ArgumentError, 'facet query not separated by colon'
+        end
 
         @field = parts[0].to_sym
         @value = parts[1]
@@ -56,23 +60,25 @@ module Solr
 
         # Format the label according to the field type -- for now, the only
         # argument type is year, so raise an error otherwise
-        fail ArgumentError, "do not know how to handle facet queries for #{@field}" unless @field == :year
+        unless @field == :year
+          fail ArgumentError, "do not know how to handle facet queries for #{@field}"
+        end
         format_year_label
 
         return
       end
 
       # We need to have name, value, and hits
-      fail ArgumentError, 'facet specified without name' unless options[:name]
+      fail ArgumentError, 'facet without name' unless options[:name]
       @field = options[:name].to_sym
 
-      fail ArgumentError, 'facet specified without value' unless options[:value]
+      fail ArgumentError, 'facet without value' unless options[:value]
       @value = options[:value]
 
       # Strip quotes from the value if present
       @value = @value[1..-2] if @value[0] == '"' && @value[-1] == '"'
 
-      fail ArgumentError, 'facet specified without hits' unless options[:hits]
+      fail ArgumentError, 'facet without hits' unless options[:hits]
       @hits = Integer(options[:hits])
 
       # Construct the query
@@ -119,7 +125,9 @@ module Solr
       value_without_brackets = @value[1..-2]
 
       parts = value_without_brackets.split
-      fail ArgumentError, 'year query does not follow correct format' unless parts.count == 3
+      unless parts.count == 3
+        fail ArgumentError, 'year query does not follow correct format'
+      end
 
       decade = parts[0]
       decade = '1790' if decade == '*'

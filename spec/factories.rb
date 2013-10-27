@@ -49,7 +49,7 @@ FactoryGirl.define do
       after(:create) do |dataset, evaluator|
         dataset.entries = evaluator.entries_count.times.map do
           FactoryGirl.create(:dataset_entry, dataset: dataset,
-                             working: evaluator.working)
+                                             working: evaluator.working)
         end
       end
     end

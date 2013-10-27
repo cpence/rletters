@@ -60,7 +60,7 @@ module Jobs
         task = dataset.analysis_tasks.find(args[:task_id])
         fail ArgumentError, 'Task ID is not valid' unless task
 
-        task.name = 'Calculate word frequencies'
+        task.name = I18n.t('jobs.analysis.word_frequency.short_desc')
         task.save
 
         # Do the analysis
@@ -68,12 +68,13 @@ module Jobs
 
         # Create some CSV
         csv_string = CSV.generate do |csv|
-          csv << ["Word frequency information for dataset #{dataset.name}"]
+          csv << [I18n.t('jobs.analysis.word_frequency.csv_header',
+                         name: dataset.name)]
           csv << ['']
 
           # Output the block data
           if analyzer.blocks.count > 1
-            csv << ['Each block of document:']
+            csv << [I18n.t('jobs.analysis.word_frequency.each_block')]
 
             name_row = ['']
             header_row = ['']
@@ -81,18 +82,18 @@ module Jobs
             analyzer.word_list.each do |w|
               word_rows << [w]
             end
-            types_row = ['Number of types']
-            tokens_row = ['Number of tokens']
-            ttr_row = ['Type/token ratio']
+            types_row = [I18n.t('jobs.analysis.word_frequency.types_header')]
+            tokens_row = [I18n.t('jobs.analysis.word_frequency.tokens_header')]
+            ttr_row = [I18n.t('jobs.analysis.word_frequency.ttr_header')]
 
             analyzer.blocks.each_with_index do |b, i|
               s = analyzer.block_stats[i]
 
               name_row << s[:name] << '' << '' << ''
-              header_row << 'Frequency' \
-                         << 'Proportion' \
-                         << 'TF/IDF (vs. dataset)' \
-                         << 'TF/IDF (vs. corpus)'
+              header_row << I18n.t('jobs.analysis.word_frequency.freq_header') \
+                         << I18n.t('jobs.analysis.word_frequency.prop_header') \
+                         << I18n.t('jobs.analysis.word_frequency.tfidf_dataset_header') \
+                         << I18n.t('jobs.analysis.word_frequency.tfidf_corpus_header')
 
               word_rows.each do |r|
                 word = r[0]
@@ -125,19 +126,27 @@ module Jobs
 
           # Output the dataset data
           csv << ['']
-          csv << ['For the entire dataset:']
-          csv << ['', 'Frequency', 'Proportion', 'DF (in corpus)', 'TF/IDF (dataset vs. corpus)']
+          csv << [I18n.t('jobs.analysis.word_frequency.whole_dataset')]
+          csv << ['', I18n.t('jobs.analysis.word_frequency.freq_header'),
+                  I18n.t('jobs.analysis.word_frequency.prop_header'),
+                  I18n.t('jobs.analysis.word_frequency.df_header'),
+                  I18n.t('jobs.analysis.word_frequency.tfidf_corpus_header')]
           analyzer.word_list.each do |w|
             tf_in_dataset = analyzer.tf_in_dataset[w]
             csv << [w,
                     tf_in_dataset.to_s,
-                    (tf_in_dataset.to_f / analyzer.num_dataset_tokens.to_f).to_s,
+                    (tf_in_dataset.to_f / analyzer.num_dataset_tokens).to_s,
                     analyzer.df_in_corpus[w].to_s,
-                    Math.tfidf(tf_in_dataset, analyzer.df_in_corpus[w], analyzer.num_corpus_documents)]
+                    Math.tfidf(tf_in_dataset, analyzer.df_in_corpus[w],
+                               analyzer.num_corpus_documents)]
           end
-          csv << ['Number of types', analyzer.num_dataset_types.to_s]
-          csv << ['Number of tokens', analyzer.num_dataset_tokens.to_s]
-          csv << ['Type/token ratio', (analyzer.num_dataset_types.to_f / analyzer.num_dataset_tokens.to_f).to_s]
+          csv << [I18n.t('jobs.analysis.word_frequency.types_header'),
+                  analyzer.num_dataset_types.to_s]
+          csv << [I18n.t('jobs.analysis.word_frequency.tokens_header'),
+                  analyzer.num_dataset_tokens.to_s]
+          csv << [I18n.t('jobs.analysis.word_frequency.ttr_header'),
+                  (analyzer.num_dataset_types.to_f /
+                   analyzer.num_dataset_tokens).to_s]
           csv << ['']
         end
 
@@ -157,4 +166,3 @@ module Jobs
     end
   end
 end
-

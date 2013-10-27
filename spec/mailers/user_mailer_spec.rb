@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-require "spec_helper"
+require 'spec_helper'
 
 describe UserMailer do
   describe '#job_finished_email' do

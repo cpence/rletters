@@ -7,7 +7,7 @@ describe NERAnalyzer,
   before(:each) do
     @user = FactoryGirl.create(:user)
     @dataset = FactoryGirl.create(:full_dataset, entries_count: 10,
-                                  working: true, user: @user)
+                                                 working: true, user: @user)
   end
 
   it 'works' do

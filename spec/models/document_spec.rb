@@ -124,7 +124,7 @@ describe Document do
     end
   end
 
-    describe '.find_by_shasum_with_fulltext' do
+  describe '.find_by_shasum_with_fulltext' do
     context 'when loading one document with fulltext',
             vcr: { cassette_name: 'solr_single_fulltext' } do
       before(:each) do

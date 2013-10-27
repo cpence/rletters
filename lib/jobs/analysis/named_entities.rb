@@ -54,7 +54,7 @@ module Jobs
         task = dataset.analysis_tasks.find(args[:task_id])
         fail ArgumentError, 'Task ID is not valid' unless task
 
-        task.name = 'Extract references to proper names'
+        task.name = I18n.t('jobs.analysis.named_entities.short_desc')
         task.save
 
         analyzer = NERAnalyzer.new(dataset)

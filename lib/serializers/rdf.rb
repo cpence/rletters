@@ -98,8 +98,6 @@ module Serializers
     # @param [Nokogiri::XML::Document] doc the document to add the node to
     # @return [Nokogiri::XML::Node] document in RDF+XML format
     def to_rdf_xml_node(doc)
-      graph = to_rdf
-
       desc = Nokogiri::XML::Node.new('Description', doc)
 
       to_rdf.each_statement do |statement|

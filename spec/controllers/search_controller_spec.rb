@@ -136,61 +136,61 @@ describe SearchController do
     context 'when exporting in other formats' do
       it 'exports in MARC format' do
         get :export, { id: FactoryGirl.generate(:working_shasum),
-                     format: 'marc' }
+                       format: 'marc' }
         expect(response).to be_valid_download('application/marc')
       end
 
       it 'exports in MARC-JSON format' do
         get :export, { id: FactoryGirl.generate(:working_shasum),
-                     format: 'json' }
+                       format: 'json' }
         expect(response).to be_valid_download('application/json')
       end
 
       it 'exports in MARC-XML format' do
         get :export, { id: FactoryGirl.generate(:working_shasum),
-                     format: 'marcxml' }
+                       format: 'marcxml' }
         expect(response).to be_valid_download('application/marcxml+xml')
       end
 
       it 'exports in BibTeX format' do
         get :export, { id: FactoryGirl.generate(:working_shasum),
-                     format: 'bibtex' }
+                       format: 'bibtex' }
         expect(response).to be_valid_download('application/x-bibtex')
       end
 
       it 'exports in EndNote format' do
         get :export, { id:  FactoryGirl.generate(:working_shasum),
-                     format: 'endnote' }
+                       format: 'endnote' }
         expect(response).to be_valid_download('application/x-endnote-refer')
       end
 
       it 'exports in RIS format' do
         get :export, { id:  FactoryGirl.generate(:working_shasum),
-                     format: 'ris' }
+                       format: 'ris' }
         expect(response).to be_valid_download('application/x-research-info-systems')
       end
 
       it 'exports in MODS format' do
         get :export, { id:  FactoryGirl.generate(:working_shasum),
-                     format: 'mods' }
+                       format: 'mods' }
         expect(response).to be_valid_download('application/mods+xml')
       end
 
       it 'exports in RDF/XML format' do
         get :export, { id:  FactoryGirl.generate(:working_shasum),
-                     format: 'rdf' }
+                       format: 'rdf' }
         expect(response).to be_valid_download('application/rdf+xml')
       end
 
       it 'exports in RDF/N3 format' do
         get :export, { id: FactoryGirl.generate(:working_shasum),
-                     format: 'n3' }
+                       format: 'n3' }
         expect(response).to be_valid_download('text/rdf+n3')
       end
 
       it 'fails to export an invalid format' do
         get :export, { id: FactoryGirl.generate(:working_shasum),
-                     format: 'csv' }
+                       format: 'csv' }
         expect(controller.response.response_code).to eq(406)
       end
     end

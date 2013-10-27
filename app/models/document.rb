@@ -271,10 +271,12 @@ class Document
     super
 
     # Split out the author list and format it
-    self.author_list = authors.split(',').map { |a| a.strip } unless authors.nil?
-    unless author_list.nil?
-      self.formatted_author_list = author_list.map do |a|
-        BibTeX::Names.parse(a)[0]
+    unless authors.nil?
+      self.author_list = authors.split(',').map { |a| a.strip }
+      unless author_list.nil?
+        self.formatted_author_list = author_list.map do |a|
+          BibTeX::Names.parse(a)[0]
+        end
       end
     end
   end

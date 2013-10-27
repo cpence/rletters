@@ -62,7 +62,7 @@ module Jobs
         task = dataset_1.analysis_tasks.find(args[:task_id])
         fail ArgumentError, 'Task ID is not valid' unless task
 
-        task.name = 'Differentiate two datasets (Craig Zeta)'
+        task.name = I18n.t('jobs.analysis.craig_zeta.short_desc')
         task.save
 
         # Do the analysis
@@ -85,16 +85,26 @@ module Jobs
 
         # 2) Cull any word that appears in *every* block.
         block_counts = {}
-        analyzer_1.blocks.each { |b| b.keys.each { |k| block_counts[k] ||= 0; block_counts[k] += 1 } }
-        analyzer_2.blocks.each { |b| b.keys.each { |k| block_counts[k] ||= 0; block_counts[k] += 1 } }
+        analyzer_1.blocks.each do |b|
+          b.keys.each do |k|
+            block_counts[k] ||= 0
+            block_counts[k] += 1
+          end
+        end
+        analyzer_2.blocks.each do |b|
+          b.keys.each do |k|
+            block_counts[k] ||= 0;
+            block_counts[k] += 1
+          end
+        end
 
         max_count = analyzer_1.blocks.count + analyzer_2.blocks.count
         block_counts.delete_if { |k, v| v == max_count }
 
-        # 3) For each word, compute the fraction of blocks in dataset A in which
-        # the word appears.  Compute the fraction of blocks in dataset B in
-        # which the word *doesn't* appear.  Add the two numbers.  This is the
-        # Zeta Score.
+        # 3) For each word, compute the fraction of blocks in dataset A in
+        # which the word appears.  Compute the fraction of blocks in dataset
+        # B in which the word *doesn't* appear.  Add the two numbers.  This is
+        # the Zeta Score.
         zeta_scores = {}
         block_counts.each do |word, v|
           a_count = analyzer_1.blocks.map { |b| b.keys.include?(word) ? 1 : 0 }.reduce(:+)
@@ -126,13 +136,13 @@ module Jobs
           x_val = Float((marker_words & b.keys).count) / Float(b.keys.count)
           y_val = Float((anti_marker_words & b.keys).count) / Float(b.keys.count)
 
-          graph_points << [x_val, y_val, "#{dataset_1.name}: #{i+1}"]
+          graph_points << [x_val, y_val, "#{dataset_1.name}: #{i + 1}"]
         end
         analyzer_2.blocks.each_with_index do |b, i|
           x_val = Float((marker_words & b.keys).count) / Float(b.keys.count)
           y_val = Float((anti_marker_words & b.keys).count) / Float(b.keys.count)
 
-          graph_points << [x_val, y_val, "#{dataset_2.name}: #{i+1}"]
+          graph_points << [x_val, y_val, "#{dataset_2.name}: #{i + 1}"]
         end
 
         # Save out all the data
@@ -165,4 +175,3 @@ module Jobs
     end
   end
 end
-

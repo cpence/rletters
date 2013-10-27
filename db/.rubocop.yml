@@ -1,5 +1,0 @@
-inherit_from: ../.rubocop.yml
-
-# We don't need documentation comments on our migrations and schema.
-Documentation:
-  Enabled: false

@@ -53,7 +53,7 @@ describe Jobs::Analysis::CraigZeta, vcr: { cassette_name: 'craig_zeta' } do
     end
 
     it 'names the task correctly' do
-      expect(@dataset.analysis_tasks[0].name).to eq('Differentiate two datasets (Craig Zeta)')
+      expect(@dataset.analysis_tasks[0].name).to eq('Determine words that differentiate two datasets (Craig Zeta)')
     end
 
     it 'creates good JSON' do

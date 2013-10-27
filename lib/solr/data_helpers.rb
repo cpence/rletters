@@ -3,6 +3,11 @@ require_relative './errors'
 
 module Solr
 
+  # Methods that help us process inbound data from Solr
+  #
+  # A handful of operations are so commonly performed on a dataset that we
+  # abstract them here to increase code reuse and give us an opportunity to
+  # optimize our interactions with the Solr server.
   module DataHelpers
 
     # Count up a dataset (or the corpus) by a field
@@ -38,7 +43,9 @@ module Solr
           solr_query[:facet] = false
 
           search_result = Solr::Connection.search solr_query
-          fail "Failed to get batch of results in count_by_field (wanted #{group.count} hits, got #{search_result.num_hits})" unless search_result.num_hits == group.count
+          unless search_result.num_hits == group.count
+            fail "Failed to get batch of results in count_by_field (wanted #{group.count} hits, got #{search_result.num_hits})"
+          end
 
           search_result.documents.each do |doc|
             key = get_field_for_grouping(doc, field)
@@ -59,10 +66,14 @@ module Solr
         solr_query[:facet] = false
 
         search_result = Solr::Connection.search_raw solr_query
-        fail 'Solr server did not return any grouped results' unless search_result['grouped']
+        unless search_result['grouped']
+          fail 'Solr server did not return any grouped results'
+        end
 
         grouped = search_result['grouped'][field.to_s]
-        fail 'Solr server did not return grouped results for field' unless grouped && grouped['matches']
+        unless grouped && grouped['matches']
+          fail 'Solr server did not return grouped results for field'
+        end
         return {} if grouped['matches'] == 0
 
         groups = grouped['groups']
@@ -78,7 +89,6 @@ module Solr
 
       ret
     end
-
 
     private
 
@@ -96,7 +106,7 @@ module Solr
       # Support Y-M-D or Y/M/D dates, even though this field is supposed to
       # be only year values
       parts = doc.year.split(/[-\/]/)
-      return parts[0]
+      parts[0]
     end
   end
 end

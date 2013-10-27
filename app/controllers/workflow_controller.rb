@@ -52,7 +52,7 @@ class WorkflowController < ApplicationController
     current_user.workflow_datasets = nil
     current_user.save
 
-    redirect_to workflow_path, alert: 'Analysis construction aborted!'
+    redirect_to workflow_path, alert: I18n.t('workflow.destroy.success')
   end
 
   # Show information about a job
@@ -121,7 +121,7 @@ class WorkflowController < ApplicationController
       # hope that the process reaper will get the jobs eventually
       @pending_tasks.readonly(false).destroy_all
 
-      redirect_to root_path, alert: 'Attempting to cancel all pending analysis tasks...'
+      redirect_to root_path, alert: I18n.t('workflow.fetch.terminate')
       return
     end
   end
@@ -146,7 +146,9 @@ class WorkflowController < ApplicationController
     raise ActiveRecord::RecordNotFound unless @klass
 
     @num_datasets = @klass.num_datasets
-    raise ArgumentError, "Cannot instantiate a job that needs #{@num_datasets} datasets!" if @num_datasets <= 0
+    if @num_datasets <= 0
+      raise ArgumentError, "Invalid number of datasets (#{@num_datasets})"
+    end
 
     @user_active = current_user.workflow_active || false
     @user_class_str = current_user.workflow_class
@@ -154,7 +156,9 @@ class WorkflowController < ApplicationController
     @user_datasets_str = current_user.workflow_datasets
     if @user_datasets_str
       p JSON.parse(@user_datasets_str)
-      @user_datasets = JSON.parse(@user_datasets_str).map { |id| current_user.datasets.find(id) }
+      @user_datasets = JSON.parse(@user_datasets_str).map do |id|
+        current_user.datasets.find(id)
+      end
     end
     @user_datasets ||= []
   end

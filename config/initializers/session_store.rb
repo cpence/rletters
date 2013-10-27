@@ -3,9 +3,9 @@
 
 # Use cookies for sessions, keeping them out of the database
 if ActiveRecord::Base.connection.tables.include?('settings')
-  RLetters::Application.config.session_store(:cookie_store,
-                                             key: "_#{Setting.app_name}_session")
+  key = "_#{Setting.app_name}_session"
 else
-  RLetters::Application.config.session_store(:cookie_store,
-                                             key: '_rletters_session')
+  key = '_rletters_session'
 end
+
+RLetters::Application.config.session_store(:cookie_store, key: key)

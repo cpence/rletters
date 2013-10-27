@@ -130,9 +130,10 @@ describe ApplicationHelper do
     end
 
     context 'with a missing partial' do
-      it 'renders something reasonable' do
-        output = helper.render_job_partial(Jobs::Analysis::PlotDates, 'notapartial')
-        expect(output).to start_with('<p>')
+      it 'raises an exception' do
+        expect {
+          helper.render_job_partial(Jobs::Analysis::PlotDates, 'notapartial')
+        }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
   end

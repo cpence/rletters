@@ -88,4 +88,3 @@ describe Library do
   end
 
 end
-

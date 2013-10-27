@@ -45,7 +45,7 @@ class LibrariesController < ApplicationController
     if @library.save
       current_user.libraries.reload
       redirect_to edit_user_registration_path,
-                  notice: I18n.t('libraries.create.success')
+                  flash: { success: I18n.t('libraries.create.success') }
     else
       render action: 'new', layout: false
     end
@@ -61,7 +61,7 @@ class LibrariesController < ApplicationController
     if @library.update_attributes(library_params)
       current_user.libraries.reload
       redirect_to edit_user_registration_path,
-                  notice: I18n.t('libraries.update.success')
+                  flash: { success: I18n.t('libraries.update.success') }
     else
       render action: 'edit', layout: false
     end

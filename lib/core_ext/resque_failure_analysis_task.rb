@@ -1,12 +1,15 @@
 # -*- encoding : utf-8 -*-
-# Set the failed bit on analysis tasks when they fail.
 require 'resque/failure/base'
 
+# A Resque failure class to set the failure bit on analysis tasks
 class Resque::Failure::AnalysisTask < Resque::Failure::Base
   # Return the number of failures this adapter has logged
   #
   # We can't query the database to determine this, so just return Resque's
   # global number of failures (borrowed from the Airbrake adapter)
+  #
+  # @api private
+  # @return [Integer] number of failed tasks
   # :nocov:
   def self.count(queue = nil, class_name = nil)
     # This is a yes-or-no failure adapter, we don't actually keep track of
@@ -15,6 +18,14 @@ class Resque::Failure::AnalysisTask < Resque::Failure::Base
   end
   # :nocov:
 
+  # Attempt to look up the analysis task associated with this job and fail it
+  #
+  # If we want the user interface to know that a given Resque job has failed,
+  # we have to look up the task object on Resque failure and set the failure
+  # bit.  Do that here.
+  #
+  # @api private
+  # @return [undefined]
   def save
     klass = payload['class'].safe_constantize
     return unless klass
@@ -33,7 +44,8 @@ class Resque::Failure::AnalysisTask < Resque::Failure::Base
 
             task.failed = true
             task.save!
-          rescue StandardError
+          rescue ActiveRecord::RecordNotFound
+            Resque.logger.warn 'Could not set failure bit for analysis task!'
           end
         end
       end

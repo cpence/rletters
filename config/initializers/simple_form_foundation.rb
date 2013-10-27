@@ -3,7 +3,7 @@
 # Use this setup block to configure all options available in SimpleForm.
 SimpleForm.setup do |config|
   config.wrappers :foundation, class: :input, hint_class: :field_with_hint,
-                  error_class: :error do |b|
+                               error_class: :error do |b|
     b.use :html5
     b.use :placeholder
 

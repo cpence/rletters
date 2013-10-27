@@ -38,7 +38,7 @@ class SearchController < ApplicationController
     else
       @sort = 'year_sort desc'
     end
-    @sort = params[:sort] if params.has_key? :sort
+    @sort = params[:sort] if params[:sort]
 
     # Expose the precise Solr search so we can use it to create datasets
     solr_query = search_params_to_solr_query(params)
@@ -168,7 +168,7 @@ class SearchController < ApplicationController
     query_params = {}
     query_params[:fq] = params[:fq] unless params[:fq].nil?
 
-    if params.has_key? :precise
+    if params[:precise]
       q_array = []
 
       # Advanced search, step through the fields
@@ -223,12 +223,12 @@ class SearchController < ApplicationController
           if r.include? '-'
             range_years = r.split('-')
             next unless range_years.count == 2
-            next if range_years[0].match(/\A\d+\z/) == nil
-            next if range_years[1].match(/\A\d+\z/) == nil
+            next if range_years[0].match(/\A\d+\z/).nil?
+            next if range_years[1].match(/\A\d+\z/).nil?
 
             year_queries << "[#{range_years[0]} TO #{range_years[1]}]"
           else
-            next if r.match(/\A\d+\z/) == nil
+            next if r.match(/\A\d+\z/).nil?
 
             year_queries << r
           end

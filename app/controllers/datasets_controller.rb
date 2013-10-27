@@ -66,10 +66,10 @@ class DatasetsController < ApplicationController
 
     if current_user.workflow_active
       redirect_to workflow_activate_path(current_user.workflow_class),
-        flash: { success: 'Building dataset, will link when completed' }
+                  flash: { success: I18n.t('datasets.create.building_workflow') }
     else
       redirect_to datasets_path,
-        flash: { success: I18n.t('datasets.create.building') }
+                  flash: { success: I18n.t('datasets.create.building') }
     end
   end
 
@@ -137,7 +137,8 @@ class DatasetsController < ApplicationController
     if @klass.num_datasets > 1
       other_datasets = job_params[:other_datasets]
 
-      if other_datasets.nil? || other_datasets.count < (@klass.num_datasets - 1)
+      if other_datasets.nil? ||
+         other_datasets.count < (@klass.num_datasets - 1)
         # Still need more other datasets, render the data collection view
         # and bail
         render 'task_datasets'
@@ -176,10 +177,12 @@ class DatasetsController < ApplicationController
       current_user.workflow_datasets = nil
       current_user.save
 
-      redirect_to root_path, flash: { success: 'Running analysis now, check back soon for results...' }
+      redirect_to root_path,
+                  flash: { success: I18n.t('datasets.task_start.workflow') }
     else
       # Advanced mode
-      redirect_to dataset_path(@dataset), flash: { success: 'Analysis job started!' }
+      redirect_to dataset_path(@dataset),
+                  flash: { success: I18n.t('datasets.task_start.success') }
     end
   end
 

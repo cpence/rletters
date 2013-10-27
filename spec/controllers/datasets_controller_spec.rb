@@ -59,7 +59,7 @@ describe DatasetsController do
   describe '#create' do
     it 'creates a delayed job' do
       post :create, { dataset: { name: 'Test Dataset' },
-        q: '*:*', fq: nil, defType: 'lucene' }
+                      q: '*:*', fq: nil, defType: 'lucene' }
       expect(Jobs::CreateDataset).to have_queued(user_id: @user.to_param,
                                                  name: 'Test Dataset',
                                                  q: '*:*',
@@ -69,7 +69,7 @@ describe DatasetsController do
 
     it 'redirects to index when done' do
       post :create, { dataset: { name: 'Test Dataset' },
-        q: '*:*', fq: nil, defType: 'lucene' }
+                      q: '*:*', fq: nil, defType: 'lucene' }
       expect(response).to redirect_to(datasets_path)
     end
   end
@@ -140,14 +140,14 @@ describe DatasetsController do
       it 'adds to the dataset' do
         expect {
           get :add, dataset_id: @dataset.to_param,
-              shasum: FactoryGirl.generate(:working_shasum)
+                    shasum: FactoryGirl.generate(:working_shasum)
         }.to change { @dataset.entries.count }.by(1)
       end
 
       it 'redirects to the dataset page',
          vcr: { cassette_name: 'solr_single' } do
         get :add, dataset_id: @dataset.to_param,
-            shasum: FactoryGirl.generate(:working_shasum)
+                  shasum: FactoryGirl.generate(:working_shasum)
         expect(response).to redirect_to(dataset_path(@dataset))
       end
     end
@@ -174,20 +174,20 @@ describe DatasetsController do
       it 'does not raise an exception' do
         expect {
           get :task_start, id: @dataset.to_param, class: 'ExportCitations',
-              job_params: { format: 'bibtex' }
+                           job_params: { format: 'bibtex' }
         }.to_not raise_error
       end
 
       it 'does not enqueue a job' do
         get :task_start, id: @dataset.to_param, class: 'ExportCitations',
-            job_params: { format: 'bibtex' }
+                         job_params: { format: 'bibtex' }
 
         expect(Jobs::Analysis::ExportCitations).to_not have_queued
       end
 
       it 'renders the parameters view' do
         get :task_start, id: @dataset.to_param, class: 'ExportCitations',
-            job_params: { format: 'bibtex' }
+                         job_params: { format: 'bibtex' }
 
         expect(response).to render_template(:task_params)
       end
@@ -197,13 +197,13 @@ describe DatasetsController do
       it 'does not raise an exception' do
         expect {
           get :task_start, id: @dataset.to_param, class: 'ExportCitations',
-              job_params: { format: 'bibtex', start: 'true' }
+                           job_params: { format: 'bibtex', start: 'true' }
         }.to_not raise_error
       end
 
       it 'enqueues a job' do
         get :task_start, id: @dataset.to_param, class: 'ExportCitations',
-            job_params: { format: 'bibtex', start: 'true' }
+                         job_params: { format: 'bibtex', start: 'true' }
 
         @dataset.analysis_tasks.reload
         task_id = @dataset.analysis_tasks[0].to_param
@@ -218,7 +218,7 @@ describe DatasetsController do
 
       it 'redirects to the dataset page' do
         get :task_start, id: @dataset.to_param, class: 'ExportCitations',
-            job_params: { format: 'bibtex', start: 'true' }
+                         job_params: { format: 'bibtex', start: 'true' }
         expect(response).to redirect_to(dataset_path(@dataset))
       end
     end
@@ -229,7 +229,7 @@ describe DatasetsController do
       it 'raises an exception' do
         expect {
           get :task_view, id: @dataset.to_param,
-              task_id: '12345678', view: 'test'
+                          task_id: '12345678', view: 'test'
         }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
@@ -249,7 +249,8 @@ describe DatasetsController do
       render_views
 
       before(:each) do
-        @task = FactoryGirl.create(:analysis_task, dataset: @dataset,
+        @task = FactoryGirl.create(:analysis_task,
+                                   dataset: @dataset,
                                    job_type: 'ExportCitations')
       end
 
@@ -260,20 +261,20 @@ describe DatasetsController do
       it 'raises an exception for missing views' do
         expect {
           get :task_view, id: @dataset.to_param,
-              task_id: @task.to_param, view: 'notaview'
+                          task_id: @task.to_param, view: 'notaview'
         }.to raise_error(ActiveRecord::RecordNotFound)
       end
 
       it 'does not raise an exception' do
         expect {
           get :task_view, id: @dataset.to_param,
-              task_id: @task.to_param, view: '_params'
+                          task_id: @task.to_param, view: '_params'
         }.to_not raise_error
       end
 
       it 'renders the right view' do
         get :task_view, id: @dataset.to_param,
-            task_id: @task.to_param, view: '_params'
+                        task_id: @task.to_param, view: '_params'
         expect(response.body).to include('<option')
       end
     end
@@ -282,7 +283,7 @@ describe DatasetsController do
       it 'does not raise an exception' do
         expect {
           get :task_view, id: @dataset.to_param, class: 'ExportCitations',
-              view: '_params'
+                          view: '_params'
         }.to_not raise_error
       end
     end
@@ -331,7 +332,8 @@ describe DatasetsController do
     context 'when a valid task ID is passed' do
       before(:each) do
         request.env['HTTP_REFERER'] = workflow_fetch_path
-        @task = FactoryGirl.create(:analysis_task, dataset: @dataset,
+        @task = FactoryGirl.create(:analysis_task,
+                                   dataset: @dataset,
                                    job_type: 'ExportCitations')
       end
 

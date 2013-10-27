@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 
+# Helper methods for making complex Solr queries
 module SearchControllerQuery
   def do_solr_query(q = nil, fq = nil, precise = false, other_params = {})
     assign(:page, 0)

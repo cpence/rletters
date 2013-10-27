@@ -18,9 +18,7 @@ namespace :setting do
 
   desc 'Get the value of a setting in the database'
   task :get, [:setting] => :environment do |t, args|
-    unless args[:setting]
-      abort 'Must specify setting to get'
-    end
+    abort 'Must specify setting to get' unless args[:setting]
 
     key = args[:setting].to_sym
     unless Setting.valid_keys.include? key

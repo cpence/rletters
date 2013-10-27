@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-require "spec_helper"
+require 'spec_helper'
 
 describe Devise::Mailer do
   # I've customized this view, so here's a spec for it
@@ -8,7 +8,7 @@ describe Devise::Mailer do
       @user = mock_model(User,
                          email: 'user@user.com',
                          reset_password_token: 'resettoken')
-      @mail = Devise::Mailer::reset_password_instructions(@user, 'resettoken')
+      @mail = Devise::Mailer.reset_password_instructions(@user, 'resettoken')
     end
 
     it 'sets the to e-mail' do

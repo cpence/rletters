@@ -13,7 +13,8 @@ describe SearchController do
 
     it 'copies over faceted browsing paramters' do
       params = { q: '*:*', precise: 'true',
-        fq: ['authors_facet:W. Shatner', 'journal_facet:Astrobiology'] }
+                 fq: ['authors_facet:W. Shatner',
+                      'journal_facet:Astrobiology'] }
       ret = controller.send(:search_params_to_solr_query, params)
       expect(ret[:fq][0]).to eq('authors_facet:W. Shatner')
       expect(ret[:fq][1]).to eq('journal_facet:Astrobiology')
@@ -40,7 +41,7 @@ describe SearchController do
 
     it 'mixes in verbatim search parameters correctly' do
       params = { precise: 'true', authors: 'W. Shatner',
-        volume: '30', number: '5', pages: '300-301' }
+                 volume: '30', number: '5', pages: '300-301' }
       ret = controller.send(:search_params_to_solr_query, params)
       expect(ret[:q]).to include('authors:(("W* Shatner"))')
       expect(ret[:q]).to include('volume:(30)')
@@ -50,7 +51,7 @@ describe SearchController do
 
     it 'handles fuzzy params as verbatim without type set' do
       params = { precise: 'true', journal: 'Astrobiology',
-        title: 'Testing with Spaces', fulltext: 'alien' }
+                 title: 'Testing with Spaces', fulltext: 'alien' }
       ret = controller.send(:search_params_to_solr_query, params)
       expect(ret[:q]).to include('journal:(Astrobiology)')
       expect(ret[:q]).to include('title:(Testing with Spaces)')
@@ -59,9 +60,9 @@ describe SearchController do
 
     it 'handles fuzzy params with type set to verbatim' do
       params = { precise: 'true', journal: 'Astrobiology',
-        journal_type: 'exact', title: 'Testing with Spaces',
-        title_type: 'exact', fulltext: 'alien',
-        fulltext_type: 'exact' }
+                 journal_type: 'exact', title: 'Testing with Spaces',
+                 title_type: 'exact', fulltext: 'alien',
+                 fulltext_type: 'exact' }
       ret = controller.send(:search_params_to_solr_query, params)
       expect(ret[:q]).to include('journal:(Astrobiology)')
       expect(ret[:q]).to include('title:(Testing with Spaces)')
@@ -70,9 +71,9 @@ describe SearchController do
 
     it 'handles fuzzy params with type set to fuzzy' do
       params = { precise: 'true', journal: 'Astrobiology',
-        journal_type: 'fuzzy', title: 'Testing with Spaces',
-        title_type: 'fuzzy', fulltext: 'alien',
-        fulltext_type: 'fuzzy' }
+                 journal_type: 'fuzzy', title: 'Testing with Spaces',
+                 title_type: 'fuzzy', fulltext: 'alien',
+                 fulltext_type: 'fuzzy' }
       ret = controller.send(:search_params_to_solr_query, params)
       expect(ret[:q]).to include('journal_stem:(Astrobiology)')
       expect(ret[:q]).to include('title_stem:(Testing with Spaces)')

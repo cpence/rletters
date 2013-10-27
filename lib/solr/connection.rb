@@ -51,7 +51,9 @@ module Solr
         }
       end
 
-      SearchResult.new(RSolr::Ext::Response::Base.new(raw_response, 'search', params))
+      SearchResult.new(RSolr::Ext::Response::Base.new(raw_response,
+                                                      'search',
+                                                      params))
     end
 
     # Get a raw hash response from Solr
@@ -67,7 +69,7 @@ module Solr
       Connection.solr.post 'search', data: params
     rescue StandardError => e
       Rails.logger.warn "Connection to Solr failed: #{e.inspect}"
-      Rails.logger.info "Query parameters for failed connection: #{params.to_s}"
+      Rails.logger.info "Query for failed connection: #{params.to_s}"
       {}
     end
 

@@ -10,7 +10,7 @@ describe Jobs::Analysis::ExportCitations, vcr: { cassette_name: 'solr_single' } 
   before(:each) do
     @user = FactoryGirl.create(:user)
     @dataset = FactoryGirl.create(:full_dataset, entries_count: 10,
-                                  working: true, user: @user)
+                                                 working: true, user: @user)
     @task = FactoryGirl.create(:analysis_task, dataset: @dataset)
   end
 
@@ -53,19 +53,17 @@ describe Jobs::Analysis::ExportCitations, vcr: { cassette_name: 'solr_single' } 
     end
 
     it 'names the task correctly' do
-      expect(@dataset.analysis_tasks[0].name).to eq('Export as BibTeX')
+      expect(@dataset.analysis_tasks[0].name).to eq('Export dataset as citations')
     end
 
     it 'creates a proper ZIP file' do
       data = @dataset.analysis_tasks[0].result.file_contents('original')
       entries = 0
       Zip::InputStream.open(StringIO.new(data)) do |zis|
-        while (entry = zis.get_next_entry)
-          entries += 1
-        end
+        entries += 1 while zis.get_next_entry
       end
       expect(entries).to eq(10)
-     end
+    end
   end
 
 end

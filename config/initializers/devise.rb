@@ -25,7 +25,7 @@ Devise.setup do |config|
   if ActiveRecord::Base.connection.tables.include?('settings')
     config.mailer_sender = "noreply@#{Setting.app_domain}"
   else
-    config.mailer_sender = "noreply@example.com"
+    config.mailer_sender = 'noreply@example.com'
   end
 
   # Configure the class responsible to send e-mails.
@@ -69,9 +69,6 @@ Devise.setup do |config|
   # of your test suite dramatically. However, it is STRONGLY RECOMMENDED to not
   # use a value less than 10 in other environments.
   config.stretches = Rails.env.test? ? 1 : 10
-
-  # Setup a pepper to generate the encrypted password.
-  # config.pepper = "06252e30b457b6e0b15c8cdbefc9f55664e431fd0f649ea87bf63435de855cffd2b99c99c18c35f403ee49e403b958579c542dc85de28a32eccfa5f7a8b85d0a"
 
   # ==> Configuration for :rememberable
   # The time the user will be remembered without asking for credentials again.

@@ -54,11 +54,11 @@ module Jobs
         task = dataset.analysis_tasks.find(args[:task_id])
         fail ArgumentError, 'Task ID is not valid' unless task
 
-        task.name = 'Plot dataset by date'
+        task.name = I18n.t('jobs.analysis.plot_dates.short_desc')
         task.save
 
         # Get the counts and normalize if requested
-        dates = Solr::DataHelpers::count_by_field(dataset, :year)
+        dates = Solr::DataHelpers.count_by_field(dataset, :year)
         dates = normalize_document_counts(user, :year, dates, args)
 
         dates = dates.to_a
@@ -69,18 +69,19 @@ module Jobs
 
         # Save out the data, including getting the name of the normalization
         # set for pretty display
-        normalization_set_name = ''
+        norm_set_name = ''
         if args[:normalize_doc_counts] == '1'
           if args[:normalize_doc_dataset].blank?
-            normalization_set_name = 'Entire Corpus'
+            norm_set_name = I18n.t('jobs.analysis.plot_dates.entire_corpus')
           else
-            normalization_set_name = user.datasets.find(args[:normalize_doc_dataset]).name
+            norm_set = user.datasets.find(args[:normalize_doc_dataset])
+            norm_set_name = norm_set.name
           end
         end
 
         output = { data: dates,
                    percent: (args[:normalize_doc_counts] == '1'),
-                   normalization_set: normalization_set_name
+                   normalization_set: norm_set_name
                  }
 
         # Serialize out to JSON

@@ -25,7 +25,7 @@ describe Dataset do
     end
 
     context 'when user and name are specified' do
-      before (:each) do
+      before(:each) do
         @dataset = FactoryGirl.create(:dataset)
       end
 

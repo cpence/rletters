@@ -339,15 +339,19 @@ class WordFrequencyAnalyzer
   def block_name
     if @split_across
       if @block_method == :count
-        "Block #{@block_num}/#{@num_blocks} (across dataset)"
+        I18n.t('lib.wfa.block_count_dataset',
+               num: @block_num, total: @num_blocks)
       else
-        "Block #{@block_num} of #{@block_size} words (across dataset)"
+        I18n.t('lib.wfa.block_size_dataset',
+               num: @block_num, size: @block_size)
       end
     else
       if @block_method == :count
-        "Block #{@block_num}/#{@num_blocks} (within \"#{@current_doc.title}\")"
+        I18n.t('lib.wfa.block_count_doc',
+               num: @block_num, total: @num_blocks, title: @current_doc.title)
       else
-        "Block #{@block_num} of #{@block_size} words (within \"#{@current_doc.title}\")"
+        I18n.t('lib.wfa.block_size_doc',
+               num: @block_num, size: @block_size, title: @current_doc.title)
       end
     end
   end
@@ -364,7 +368,7 @@ class WordFrequencyAnalyzer
       @block_num += 1
 
       @block_stats << { name: block_name, types: @block_types,
-        tokens: @block_tokens }
+                        tokens: @block_tokens }
       @blocks << @block.dup
     end
 

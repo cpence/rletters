@@ -28,7 +28,7 @@ module SearchHelper
   # @example Get a link to the 3rd page of results
   #   page_link('Page 3!', 2)
   def page_link(text, num, cl)
-    if num == nil
+    if num.nil?
       href = '#'
     else
       new_params = params.dup
@@ -66,16 +66,18 @@ module SearchHelper
       elsif @page < 3
         range_to_render = [0, 1, 2, 3, nil, num_pages - 2, num_pages - 1]
       elsif @page >= num_pages - 3
-        range_to_render = [0, 1, nil, num_pages - 4, num_pages - 3, num_pages - 2, num_pages - 1]
+        range_to_render = [0, 1, nil, num_pages - 4, num_pages - 3,
+                           num_pages - 2, num_pages - 1]
       else
-        range_to_render = [0, nil, @page - 1, @page, @page + 1, nil, num_pages - 1]
+        range_to_render = [0, nil, @page - 1, @page, @page + 1, nil,
+                           num_pages - 1]
       end
 
       range_to_render.each do |p|
         if p.nil?
           content << page_link('&hellip;'.html_safe, nil, 'unavailable')
         else
-          content << page_link((p + 1).to_s, p, (@page == p) ? 'current' : nil)
+          content << page_link((p + 1).to_s, p, @page == p ? 'current' : nil)
         end
       end
 
@@ -204,7 +206,6 @@ module SearchHelper
 
     return ''.html_safe if active_facets.empty?
 
-
     ret << content_tag(:dd) do
       facet_link I18n.t('search.index.remove_all'), []
     end
@@ -274,9 +275,9 @@ module SearchHelper
 
     if facets.empty?
       new_params[:fq] = nil
-      return link_to text,
+      return link_to(text,
                      search_path(new_params),
-                     data: { transition: 'none' }
+                     data: { transition: 'none' })
     end
 
     new_params[:fq] = []
@@ -303,10 +304,9 @@ module SearchHelper
     ret = ''.html_safe
     return ret if facets.empty?
 
-    # Slight hack; :authors_facet is first
-    if field != :authors_facet
-      ret << content_tag(:li, '', class: 'divider')
-    end
+    # Slight hack; :authors_facet is first, so for all others, put a divider
+    # between the various kinds of facet
+    ret << content_tag(:li, '', class: 'divider') if field != :authors_facet
 
     # Build the return value
     ret << content_tag(:li, content_tag(:strong, header))

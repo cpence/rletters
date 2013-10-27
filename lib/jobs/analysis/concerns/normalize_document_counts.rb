@@ -30,8 +30,8 @@ module Jobs
           #
           # @param [User] user the user whose datasets we're querying
           # @param [Symbol] field the field against which to normalize.  This
-          #   must obviously match the keys in +counts+.  Can be set to any Solr
-          #   field.
+          #   must obviously match the keys in +counts+.  Can be set to any
+          #   Solr field.
           # @param [Hash<String, Integer>] counts the counts of documents,
           #   grouped by +field+ values
           # @param [Hash] args parameters specifying normalization behavior
@@ -47,10 +47,9 @@ module Jobs
               normalization_set = nil
             else
               normalization_set = user.datasets.find(args[:normalize_doc_dataset])
-              fail ArgumentError, 'Normalization set ID is invalid' unless normalization_set
             end
 
-            normalize_counts = Solr::DataHelpers::count_by_field(normalization_set, field)
+            normalize_counts = Solr::DataHelpers.count_by_field(normalization_set, field)
 
             ret = {}
             counts.each do |k, v|

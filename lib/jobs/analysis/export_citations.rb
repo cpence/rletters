@@ -61,12 +61,12 @@ module Jobs
         fail ArgumentError, 'Format is not valid' unless serializer
 
         # Update the task name
-        task.name = "Export as #{serializer[:name]}"
+        task.name = I18n.t('jobs.analysis.export_citations.short_desc')
         task.save
 
         # Make a zip file for the output
         # Pack all those files into a ZIP
-        ios = Zip::OutputStream::write_buffer do |zos|
+        ios = Zip::OutputStream.write_buffer do |zos|
           # find_each will take care of batching logic for us
           dataset.entries.find_each do |e|
             doc = Document.find_by_shasum(e.shasum)

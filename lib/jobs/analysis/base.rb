@@ -194,12 +194,11 @@ module Jobs
 
         view_paths.each do |p|
           # Look for any of the extensions that we can currently render
-          extensions = "{#{ActionView::Template.template_handler_extensions.join(',')}}"
-          matches = Dir.glob(File.join(p, "#{args[:filename]}.#{args[:format]}.#{extensions}"))
+          extensions = ActionView::Template.template_handler_extensions.join(',')
+          glob = "#{args[:filename]}.#{args[:format]}.{#{extensions}}"
+          matches = Dir.glob(File.join(p, glob))
 
-          unless matches.empty?
-            return matches[0]
-          end
+          return matches[0] unless matches.empty?
         end
 
         nil

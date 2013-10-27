@@ -30,15 +30,15 @@ RLetters::Application.configure do
   config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif)
 
   # Precompile all my local JS (since it's all included per-page)
-  config.assets.precompile << Proc.new do |path|
+  config.assets.precompile << proc do |path|
     if path =~ /\.js\z/
       full_path = Rails.application.assets.resolve(path).to_path
       app_assets_path = Rails.root.join('app', 'assets', 'javascripts').to_path
       if full_path.starts_with? app_assets_path
-        puts "including asset: " + full_path
+        puts "including asset: #{full_path}"
         true
       else
-        puts "excluding asset: " + full_path
+        puts "excluding asset: #{full_path}"
         false
       end
     else

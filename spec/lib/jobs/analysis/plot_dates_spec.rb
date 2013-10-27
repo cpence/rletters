@@ -77,7 +77,7 @@ describe Jobs::Analysis::PlotDates, vcr: { cassette_name: 'plot_dates' } do
 
     it 'sets the normalization set properly' do
       data = JSON.load(@dataset.analysis_tasks[0].result.file_contents(:original))
-      expect(data['normalization_set']).to eq("Entire Corpus")
+      expect(data['normalization_set']).to eq('Entire Corpus')
     end
 
     it 'marks that this was a normalized count' do

@@ -271,6 +271,7 @@ en:
                 number_subheader: "Number of documents, plotted by year"
                 fraction_column: Fraction of Documents
                 number_column: Number of Documents
+                entire_corpus: Entire Corpus
             word_frequency:
                 name: Word Frequency
                 short_desc: Analyze word frequency in dataset
@@ -280,6 +281,23 @@ en:
 
                     What are the "most important" or "most frequent" words used
                     in a given set?
+                csv_header: "Word frequency information for dataset %{name}"
+                each_block: "Each block of document:"
+                whole_dataset: "For the entire dataset:"
+                types_header: Number of types
+                tokens_header: Number of tokens
+                ttr_header: Type/token ratio
+                freq_header: Frequency
+                prop_header: Proportion
+                tfidf_dataset_header: TF/IDF (vs. dataset)
+                tfidf_corpus_header: TF/IDF (vs. corpus)
+                df_header: DF (in corpus)
+    lib:
+        wfa:
+            block_count_dataset: "Block %{num}/%{total} (across dataset)"
+            block_size_dataset: "Block %{num} of %{size} words (across dataset)"
+            block_count_doc: "Block %{num}/%{total} (within '%{title}')"
+            block_size_doc: "Block %{num} of %{size} words (within '%{title}')"
     search:
         document:
             untitled: "[untitled]"
@@ -466,6 +484,7 @@ en:
                 [e-mail the site administrators.](mailto:%{email})
             completed_header: Completed analysis tasks
             no_completed: "You have no analysis tasks currently completed.  Start a new one and come back here to collect your data!"
+            terminate: Attempting to cancel all pending analysis tasks...
         index:
             sign_up_button: Sign up to get started!
             screenshots_header: What can it do?
@@ -481,6 +500,8 @@ en:
                 Start running a new analysis by deciding what kind of question
                 you want to ask about the literature.  Click on the question you
                 want to explore to continue.
+        destroy:
+            success: Analysis construction aborted!
     datasets:
         dataset_list:
             tasks:
@@ -500,6 +521,7 @@ en:
             subheader: "Give these search results a name, and they will be preserved as a new dataset."
         create:
             building: "Now building dataset, please wait..."
+            building_workflow: "Building dataset, will link when completed"
         show:
             header: Information for dataset
             subheader: "Manage this dataset, including manually starting analysis tasks and fetching the results of prior analyses."
@@ -527,6 +549,9 @@ en:
         task_params:
             header: Job options
             subheader: This job has some more options that you can configure before you get started.
+        task_start:
+            workflow: "Running analysis now, check back soon for results..."
+            success: Analysis job started!
     settings:
         app_name: Application Name
         app_email: Contact E-mail

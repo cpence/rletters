@@ -52,7 +52,7 @@ VCR.configure do |c|
 
   c.default_cassette_options = { allow_playback_repeats: true,
                                  record: :none,
-                                 match_requests_on: [ :method, :uri, :body ] }
+                                 match_requests_on: [:method, :uri, :body] }
 end
 
 # Standard setup for RSpec
@@ -103,7 +103,4 @@ RSpec.configure do |config|
 
   # Add helpers for running Solr queries in view specs
   config.include SearchControllerQuery, type: :view
-
-  # Add helpers for dealing with analysis job views
-  config.include JobViewHelper, type: :view
 end

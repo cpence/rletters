@@ -8,9 +8,9 @@ RLetters::Application.routes.draw do
   get 'workflow/start' => 'workflow#start'
   get 'workflow/destroy' => 'workflow#destroy'
   get 'workflow/info/:class' => 'workflow#info', as: 'workflow_info',
-    constraints: { class: /[A-Z][A-Za-z]+/ }
-  get 'workflow/activate/:class' => 'workflow#activate', as: 'workflow_activate',
-    constraints: { class: /[A-Z][A-Za-z]+/ }
+      constraints: { class: /[A-Z][A-Za-z]+/ }
+  get 'workflow/activate/:class' => 'workflow#activate',
+      as: 'workflow_activate', constraints: { class: /[A-Z][A-Za-z]+/ }
   get 'workflow/fetch' => 'workflow#fetch'
 
   # Search/Browse page
@@ -54,7 +54,8 @@ RLetters::Application.routes.draw do
     # not by visiting /users/sign_in, so we don't create a get 'sign_in' route
     # here.
     post 'users/sign_in' => 'devise/sessions#create', as: :user_session
-    delete 'users/sign_out' => 'devise/sessions#destroy', as: :destroy_user_session
+    delete 'users/sign_out' => 'devise/sessions#destroy',
+           as: :destroy_user_session
 
     # Redirect to the root after a successful user edit
     get 'users' => 'workflow#index'

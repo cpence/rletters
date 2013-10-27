@@ -31,7 +31,7 @@ describe Serializers::MARC do
 
       # All author fields
       expected = ['Botero, Carlos A.', 'Mudge, Andrew E.', 'Koltz, Amanda M.',
-        'Hochachka, Wesley M.', 'Vehrencamp, Sandra L.']
+                  'Hochachka, Wesley M.', 'Vehrencamp, Sandra L.']
       actual = []
       @record.select { |field| field.tag == '700' }.each do |f|
         # Name is in Last, First format

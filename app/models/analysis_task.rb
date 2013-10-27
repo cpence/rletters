@@ -30,7 +30,8 @@
 # @!attribute result_content_type
 #   @return [String] The content type of the result file (from Paperclip)
 # @!attribute result_updated_at
-#   @return [DateTime] The last updated time of the result file (from Paperclip)
+#   @return [DateTime] The last updated time of the result file (from
+#     Paperclip)
 class AnalysisTask < ActiveRecord::Base
   serialize :params, Hash
 
@@ -54,15 +55,19 @@ class AnalysisTask < ActiveRecord::Base
   # @example Call the view_path method for ExportCitations
   #   AnalysisTask.job_class('ExportCitations').view_path(...)
   def self.job_class(class_name)
-    # Never let the 'Base' class match
-    class_name = 'Jobs::Analysis::' + class_name
-    fail ArgumentError, 'cannot instantiate the Base job' if class_name == 'Jobs::Analysis::Base'
-
     begin
-      klass = class_name.constantize
-      fail ArgumentError, "#{class_name} is not a class" unless klass.is_a?(Class)
+      klass = "Jobs::Analysis::#{class_name}".constantize
+
+      unless klass.is_a?(Class)
+        fail ArgumentError, "#{class_name} is not a class"
+      end
     rescue NameError
       raise ArgumentError, "#{class_name} is not a valid class"
+    end
+
+    # Never let the 'Base' class match
+    if klass == Jobs::Analysis::Base
+      fail ArgumentError, 'cannot instantiate the Base job'
     end
 
     klass

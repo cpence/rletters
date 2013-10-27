@@ -39,7 +39,7 @@ class UnapiController < ApplicationController
     end
 
     format = params[:format].to_s.to_sym
-    if Document.serializers.has_key? format
+    if Document.serializers[format]
       redirect_to controller: 'search',
                   action: 'export',
                   id: params[:id],

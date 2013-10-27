@@ -61,9 +61,13 @@ module Solr
       @facets = nil
 
       # Raise an error if Solr does not respond
-      fail Solr::ConnectionError, 'Solr server did not respond' unless solr_response.ok?
+      unless solr_response.ok?
+        fail Solr::ConnectionError, 'Solr server did not respond'
+      end
       return if solr_response.total == 0
-      fail Solr::ConnectionError, 'Solr server claimed to have documents, but returned an empty array' unless solr_response.docs && solr_response.docs.count
+      unless solr_response.docs && solr_response.docs.count
+        fail Solr::ConnectionError, 'Solr server claimed to have documents, but returned an empty array'
+      end
 
       # Make sure that we set the encoding on all the returned Solr strings
       solr_response.to_utf8!
@@ -117,7 +121,7 @@ module Solr
     # @return [Hash] term vectors as stored in +Document#term_vectors+
     # @see Document#term_vectors
     # @example Convert the term vectors for the first document in the response
-    #   doc.term_vectors = parse_term_vectors(solr_response['termVectors'][1][3])
+    #   doc.term_vectors = parse_term_vectors solr_response['termVectors'][1][3]
     def parse_term_vectors(tvec_array)
       term_vectors = {}
 

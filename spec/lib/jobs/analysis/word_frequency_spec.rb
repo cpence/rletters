@@ -9,7 +9,7 @@ describe Jobs::Analysis::WordFrequency,
   before(:each) do
     @user = FactoryGirl.create(:user)
     @dataset = FactoryGirl.create(:full_dataset, entries_count: 10,
-                                  working: true, user: @user)
+                                                 working: true, user: @user)
     @task = FactoryGirl.create(:analysis_task, dataset: @dataset)
   end
 
@@ -21,44 +21,44 @@ describe Jobs::Analysis::WordFrequency,
     it 'accepts all the various valid parameters' do
       params_to_test =
         [{ user_id: @user.to_param,
-          dataset_id: @dataset.to_param,
-          task_id: @task.to_param,
-          block_size: '100',
-          split_across: '1',
-          num_words: '0' },
-        { user_id: @user.to_param,
-          dataset_id: @dataset.to_param,
-          task_id: @task.to_param,
-          block_size: '100',
-          split_across: '0',
-          num_words: '0' },
-        { user_id: @user.to_param,
-          dataset_id: @dataset.to_param,
-          task_id: @task.to_param,
-          num_blocks: '10',
-          split_across: '1',
-          num_words: '0' },
-        { user_id: @user.to_param,
-          dataset_id: @dataset.to_param,
-          task_id: @task.to_param,
-          num_blocks: '10',
-          split_across: '1',
-          num_words: '0',
-          inclusion_list: 'asdf,sdfhj,wert' },
-        { user_id: @user.to_param,
-          dataset_id: @dataset.to_param,
-          task_id: @task.to_param,
-          num_blocks: '10',
-          split_across: '1',
-          num_words: '0',
-          exclusion_list: 'asdf,sdfgh,qwert' },
-        { user_id: @user.to_param,
-          dataset_id: @dataset.to_param,
-          task_id: @task.to_param,
-          num_blocks: '10',
-          split_across: '1',
-          num_words: '0',
-          stop_list: 'en' }]
+           dataset_id: @dataset.to_param,
+           task_id: @task.to_param,
+           block_size: '100',
+           split_across: '1',
+           num_words: '0' },
+         { user_id: @user.to_param,
+           dataset_id: @dataset.to_param,
+           task_id: @task.to_param,
+           block_size: '100',
+           split_across: '0',
+           num_words: '0' },
+         { user_id: @user.to_param,
+           dataset_id: @dataset.to_param,
+           task_id: @task.to_param,
+           num_blocks: '10',
+           split_across: '1',
+           num_words: '0' },
+         { user_id: @user.to_param,
+           dataset_id: @dataset.to_param,
+           task_id: @task.to_param,
+           num_blocks: '10',
+           split_across: '1',
+           num_words: '0',
+           inclusion_list: 'asdf,sdfhj,wert' },
+         { user_id: @user.to_param,
+           dataset_id: @dataset.to_param,
+           task_id: @task.to_param,
+           num_blocks: '10',
+           split_across: '1',
+           num_words: '0',
+           exclusion_list: 'asdf,sdfgh,qwert' },
+         { user_id: @user.to_param,
+           dataset_id: @dataset.to_param,
+           task_id: @task.to_param,
+           num_blocks: '10',
+           split_across: '1',
+           num_words: '0',
+           stop_list: 'en' }]
 
       expect {
         # Make sure to rewind the VCR cassette each time we do this
@@ -86,7 +86,7 @@ describe Jobs::Analysis::WordFrequency,
       end
 
       it 'names the task correctly' do
-        expect(@dataset.analysis_tasks[0].name).to eq('Calculate word frequencies')
+        expect(@dataset.analysis_tasks[0].name).to eq('Analyze word frequency in dataset')
       end
 
       it 'creates good CSV' do
@@ -95,4 +95,3 @@ describe Jobs::Analysis::WordFrequency,
     end
   end
 end
-

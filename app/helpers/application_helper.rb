@@ -44,7 +44,11 @@ module ApplicationHelper
     end
 
     # Give up if we can't find it
-    raise I18n::MissingTranslationData.new(I18n.locale, "localized_markdown.#{file}", {}) unless File.exists?(path)
+    unless File.exists?(path)
+      raise I18n::MissingTranslationData.new(I18n.locale,
+                                             "localized_markdown.#{file}",
+                                             {})
+    end
 
     render(file: path).html_safe
   end
@@ -65,7 +69,7 @@ module ApplicationHelper
   #   <%= render_flash(:alert, 'Oh no!')
   def render_flash(key, value)
     c = "flash-#{key.to_s}" if FLASH_CLASSES.include?(key.to_s)
-    c ||= "flash-generic"
+    c ||= 'flash-generic'
 
     content_tag(:div, class: c) { h(value) }
   end
@@ -80,7 +84,9 @@ module ApplicationHelper
 
       render(args.merge(file: path, locals: locals)).html_safe
     else
-      "<p><strong>ERROR: Cannot find job view #{view} for class #{klass}".html_safe
+      # This is a programmer error, so it should raise an exception
+      fail(ActiveRecord::RecordNotFound,
+           "Cannot find job view #{view} for class #{klass}")
     end
   end
 
