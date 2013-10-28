@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe 'Solr::Facets', vcr: { cassette_name: 'solr_default' } do
+describe 'Solr::Facets' do
 
   before(:each) do
     @result = Solr::Connection.search({ q: '*:*', defType: 'lucene' })

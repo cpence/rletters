@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe Jobs::Analysis::ExportCitations, vcr: { cassette_name: 'solr_single' } do
+describe Jobs::Analysis::ExportCitations do
 
   it_should_behave_like 'an analysis job with a file' do
     let(:job_params) { { format: :bibtex } }
@@ -30,8 +30,7 @@ describe Jobs::Analysis::ExportCitations, vcr: { cassette_name: 'solr_single' } 
     end
   end
 
-  context 'when the format is a string',
-          vcr: { cassette_name: 'solr_single' } do
+  context 'when the format is a string' do
     it 'works anyway' do
       expect {
         Jobs::Analysis::ExportCitations.perform(

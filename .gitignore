@@ -13,3 +13,4 @@ tmp/*
 vendor/bundle
 vendor/nlp/*
 !vendor/nlp/.gitkeep
+vendor/solr

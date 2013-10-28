@@ -1,8 +1,7 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe Jobs::Analysis::WordFrequency,
-         vcr: { cassette_name: 'solr_single_fulltext' } do
+describe Jobs::Analysis::WordFrequency do
 
   it_should_behave_like 'an analysis job'
 
@@ -61,13 +60,8 @@ describe Jobs::Analysis::WordFrequency,
            stop_list: 'en' }]
 
       expect {
-        # Make sure to rewind the VCR cassette each time we do this
-        VCR.eject_cassette
-
         params_to_test.each do |params|
-          VCR.use_cassette 'solr_single_fulltext' do
-            Jobs::Analysis::WordFrequency.perform(params)
-          end
+          Jobs::Analysis::WordFrequency.perform(params)
         end
       }.to_not raise_error
     end

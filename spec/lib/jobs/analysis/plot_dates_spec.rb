@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe Jobs::Analysis::PlotDates, vcr: { cassette_name: 'plot_dates' } do
+describe Jobs::Analysis::PlotDates do
 
   before(:each) do
     @user = FactoryGirl.create(:user)
@@ -52,7 +52,7 @@ describe Jobs::Analysis::PlotDates, vcr: { cassette_name: 'plot_dates' } do
     end
   end
 
-  context 'when normalizing to the corpus', vcr: { cassette_name: 'plot_dates_normalize_full' } do
+  context 'when normalizing to the corpus' do
     before(:each) do
       Jobs::Analysis::PlotDates.perform(
         user_id: @user.to_param,
@@ -92,7 +92,7 @@ describe Jobs::Analysis::PlotDates, vcr: { cassette_name: 'plot_dates' } do
     end
   end
 
-  context 'when normalizing to a dataset', vcr: { cassette_name: 'plot_dates_normalize_set', record: :new_episodes } do
+  context 'when normalizing to a dataset' do
     before(:each) do
       @normalization_set = FactoryGirl.create(:dataset, user: @user)
       %w(00040b66948f49c3a6c6c0977530e2014899abf9

@@ -5,7 +5,7 @@ describe WorkflowController do
 
   # N.B.: This is an ApplicationController test, but we have to spec it
   # in a real controller, as its implementation uses url_for().
-  describe '#ensure_trailing_slash', vcr: { cassette_name: 'workflow_query' } do
+  describe '#ensure_trailing_slash' do
     it 'adds a trailing slash when there is none' do
       request.env['REQUEST_URI'] = '/workflow'
       get :index, trailing_slash: false
@@ -19,7 +19,7 @@ describe WorkflowController do
   end
 
   describe '#index' do
-    context 'given Solr results', vcr: { cassette_name: 'workflow_query' } do
+    context 'given Solr results' do
       context 'when logged in' do
         before(:each) do
           @user = FactoryGirl.create(:user)
@@ -57,9 +57,11 @@ describe WorkflowController do
       end
     end
 
-    context 'when Solr fails', vcr: { cassette_name: 'workflow_query_error' } do
+    context 'when Solr fails' do
       it 'loads successfully' do
+        stub_request(:any, /(127\.0\.0\.1|localhost)/).to_timeout
         get :index
+
         expect(response).to be_success
       end
     end

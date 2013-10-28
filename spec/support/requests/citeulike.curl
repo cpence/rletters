@@ -1,0 +1,39 @@
+HTTP/1.1 200 OK
+Server: nginx/0.8.31
+Date: Sun, 27 Oct 2013 21:55:29 GMT
+Content-Type: application/json; charset=utf-8
+Connection: keep-alive
+Vary: Accept-Encoding
+Max-Age: 0
+Expires: 0
+Cache-Control: no-cache
+MIME-Version: 1.0
+Content-Length: 1016
+
+[
+{
+"article_id": "3509563",
+"date": "2008-11-13 18:39:29",
+"href": "http:\/\/www.citeulike.org\/article\/3509563",
+"type": "JOUR",
+"title": "How Reliable are the Methods for Estimating Repertoire Size?",
+"volume": "114",
+"issue": "12",
+"start_page": "1227",
+"end_page": "1238",
+"journal": "Ethology",
+"publisher": "Blackwell Publishing",
+"issn": "0179-1613",
+"is_unchecked": "N",
+"published": ["2008","12"],
+"authors": [ " Botero", "A. Carlos", " Mudge", "E. Andrew", " Koltz", "M. Amanda", " Hochachka", "M. Wesley", " Vehrencamp", "L. Sandra" ],
+"linkouts": [
+	{"type": "DOI", "url": "http:\/\/dx.doi.org\/10.1111\/j.1439-0310.2008.01576.x"},
+	{"type": "IngentaConnect", "url": "http:\/\/www.ingentaconnect.com\/content\/bsc\/eth\/2008\/00000114\/00000012\/art00010"}
+],
+"doi": "10.1111\/j.1439-0310.2008.01576.x",
+"citation": "Ethology, Vol. 114, No. 12. (December 2008), pp. 1227-1238, doi:10.1111\/j.1439-0310.2008.01576.x",
+"posted_count": 0,
+"citation_keys": ["citeulike:3509563", "Botero2008How", null]
+}
+]

@@ -41,26 +41,14 @@ if ENV['COVERAGE'] || (ENV['TRAVIS'] && ENV['TRAVIS_RUBY_VERSION'] == '2.0')
   end
 end
 
-# VCR setup
-require 'vcr'
-require 'webmock/rspec'
-
-VCR.configure do |c|
-  c.configure_rspec_metadata!
-  c.cassette_library_dir = 'spec/cassettes'
-  c.hook_into :webmock
-
-  c.default_cassette_options = { allow_playback_repeats: true,
-                                 record: :none,
-                                 match_requests_on: [:method, :uri, :body] }
-end
-
 # Standard setup for RSpec
 ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
 require 'rspec/rails'
 require 'rspec/autorun'
-require 'fileutils'
+
+require 'webmock/rspec'
+WebMock.disable_net_connect!(allow_localhost: true)
 
 Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 
@@ -90,6 +78,20 @@ RSpec.configure do |config|
     # things like the standard package of CSL styles to be available without
     # my having to write giant XML CSL-style factories.
     load Rails.root.join('db', 'seeds.rb')
+
+    # Activate bundled Solr server, if available
+    if File.exists? Rails.root.join('vendor', 'solr')
+      Dir.chdir(Rails.root.join('vendor', 'solr')) do
+        system(Rails.root.join('vendor', 'solr', 'start').to_s)
+      end
+    end
+  end
+
+  config.after(:suite) do
+    # Destroy Solr server
+    if File.exists? Rails.root.join('vendor', 'solr')
+      system(Rails.root.join('vendor', 'solr', 'stop').to_s)
+    end
   end
 
   config.before(:each) do
@@ -103,4 +105,7 @@ RSpec.configure do |config|
 
   # Add helpers for running Solr queries in view specs
   config.include SearchControllerQuery, type: :view
+
+  # Add helpers for stubbing HTTP connections
+  config.include StubConnection
 end

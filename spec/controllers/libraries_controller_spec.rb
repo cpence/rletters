@@ -110,17 +110,17 @@ describe LibrariesController do
   end
 
   describe '#query' do
-    context 'when no libraries are returned',
-            vcr: { cassette_name: 'libraries_query_empty' } do
+    context 'when no libraries are returned' do
       it 'assigns no libraries' do
+        stub_connection(/worldcatlibraries.org/, 'worldcat_no_libraries')
         get :query
         expect(assigns(:libraries)).to have(0).items
       end
     end
 
-    context 'when libraries are returned',
-            vcr: { cassette_name: 'libraries_query_notredame' } do
+    context 'when libraries are returned' do
       it 'assigns the libraries' do
+        stub_connection(/worldcatlibraries.org/, 'worldcat_notre_dame')
         get :query
         expect(assigns(:libraries)).to have(1).item
       end

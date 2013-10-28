@@ -73,7 +73,6 @@ group :test do
   gem 'fuubar'
   gem 'factory_girl_rails'
   gem 'rspec-html-matchers'
-  gem 'vcr', require: false
   gem 'webmock', require: false
   gem 'resque_spec'
   gem 'mock_redis'

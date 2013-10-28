@@ -7,7 +7,7 @@ describe Solr::Connection do
   # basically the entire source base.
 
   describe '.info' do
-    context 'when connection succeeds', vcr: { cassette_name: 'workflow_connection_success' } do
+    context 'when connection succeeds' do
       it 'gets the relevant data' do
         info = Solr::Connection.info
 

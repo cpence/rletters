@@ -116,7 +116,7 @@ describe SearchHelper do
   end
 
   describe '#active_facet_list' do
-    context 'with some facets', vcr: { cassette_name: 'solr_default' } do
+    context 'with some facets' do
       before(:each) do
         @result = Solr::Connection.search({ q: '*:*', defType: 'lucene' })
         @ret = helper.active_facet_list(@result)
@@ -127,8 +127,7 @@ describe SearchHelper do
       end
     end
 
-    context 'with active facets',
-            vcr: { cassette_name: 'search_helper_facets' } do
+    context 'with active facets' do
       before(:each) do
         @result = Solr::Connection.search({ q: '*:*', defType: 'lucene',
                                             fq: ['authors_facet:"Elisa Lobato"', 'year:[2010 TO *]'] })
@@ -159,7 +158,7 @@ describe SearchHelper do
       end
     end
 
-    context 'with some facets', vcr: { cassette_name: 'solr_default' } do
+    context 'with some facets' do
       before(:each) do
         @result = Solr::Connection.search({ q: '*:*', defType: 'lucene' })
         @ret = helper.facet_link_list(@result)
@@ -188,8 +187,7 @@ describe SearchHelper do
     end
   end
 
-  describe '#document_bibliography_entry',
-           vcr: { cassette_name: 'solr_single' } do
+  describe '#document_bibliography_entry' do
     before(:each) do
       @doc = Document.find(FactoryGirl.generate(:working_shasum))
     end

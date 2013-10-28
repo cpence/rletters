@@ -4,8 +4,7 @@ require 'spec_helper'
 describe SearchController do
 
   describe '#index' do
-    context 'with empty search results',
-            vcr: { cassette_name: 'search_controller_fail' } do
+    context 'with empty search results' do
       before(:each) do
         get :index, { q: 'fail' }
       end
@@ -15,8 +14,7 @@ describe SearchController do
       end
     end
 
-    context 'with precise search results',
-            vcr: { cassette_name: 'search_controller_default' } do
+    context 'with precise search results' do
       before(:each) do
         get :index
       end
@@ -125,7 +123,7 @@ describe SearchController do
     end
   end
 
-  describe '#export', vcr: { cassette_name: 'solr_single' } do
+  describe '#export' do
     context 'when displaying as HTML' do
       it 'will not load' do
         get :export, { id: FactoryGirl.generate(:working_shasum) }
@@ -196,7 +194,7 @@ describe SearchController do
     end
   end
 
-  describe '#add', vcr: { cassette_name: 'solr_single' } do
+  describe '#add' do
     before(:each) do
       @user = FactoryGirl.create(:user)
       sign_in @user
@@ -208,7 +206,7 @@ describe SearchController do
     end
   end
 
-  describe '#to_mendeley', vcr: { cassette_name: 'search_mendeley' } do
+  describe '#to_mendeley' do
     context 'when request succeeds' do
       before(:all) do
         Setting.mendeley_key = '5ba3606d28aa1be94e9c58502b90a49c04dc17289'
@@ -219,8 +217,9 @@ describe SearchController do
       end
 
       it 'redirects to Mendeley' do
+        stub_connection(/api.mendeley.com/, 'mendeley')
         get :to_mendeley, { id: '00972c5123877961056b21aea4177d0dc69c7318' }
-        expect(response).to redirect_to('http://www.mendeley.com/research/reliable-methods-estimating-repertoire-size-1/')
+        expect(response).to redirect_to('http://www.mendeley.com/catalog/choose-good-scientific-problem-1/')
       end
     end
 
@@ -245,9 +244,10 @@ describe SearchController do
     end
   end
 
-  describe '#to_citeulike', vcr: { cassette_name: 'search_citeulike' } do
+  describe '#to_citeulike' do
     context 'when request succeeds' do
       it 'redirects to citeulike' do
+        stub_connection(/www.citeulike.org/, 'citeulike')
         get :to_citeulike, { id: '00972c5123877961056b21aea4177d0dc69c7318' }
         expect(response).to redirect_to('http://www.citeulike.org/article/3509563')
       end

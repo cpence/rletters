@@ -22,11 +22,12 @@ describe Admin::DashboardController do
   end
 
   describe '#index' do
-    before(:each) do
-      get :index
-    end
-
     context 'with no connection to Solr' do
+      before(:each) do
+        stub_request(:any, /(127\.0\.0\.1|localhost)/).to_timeout
+        get :index
+      end
+
       it 'loads successfully' do
         expect(response).to be_success
       end
@@ -48,8 +49,11 @@ describe Admin::DashboardController do
       end
     end
 
-    context 'with a connection to Solr',
-            vcr: { cassette_name: 'solr_admin_dashboard' } do
+    context 'with a connection to Solr' do
+      before(:each) do
+        get :index
+      end
+
       it 'loads successfully' do
         expect(response).to be_success
       end
@@ -59,7 +63,7 @@ describe Admin::DashboardController do
       end
 
       it 'includes the Solr version' do
-        expect(response.body).to include('4.3.1')
+        expect(response.body).to include('4.4.0')
       end
 
       it 'includes the database size' do

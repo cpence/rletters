@@ -41,8 +41,8 @@ describe Serializers::CSL do
       expect(@doc.to_csl_entry(CslStyle.find_by!(name: 'Vancouver'))).to eq('Botero CA, Mudge AE, Koltz AM, Hochachka WM, Vehrencamp SL. How Reliable are the Methods for Estimating Repertoire Size?. Ethology. 2008;114:1227–38.')
     end
 
-    it 'fetches CSL styles over HTTP',
-       vcr: { cassette_name: 'csl_from_github' } do
+    it 'fetches CSL styles over HTTP' do
+      stub_connection('https://raw.github.com/citation-style-language/styles/master/science.csl', 'csl_style_github')
       entry = @doc.to_csl_entry('https://raw.github.com/citation-style-language/styles/master/science.csl')
       expect(entry.to_s).to eq('C. A. Botero, A. E. Mudge, A. M. Koltz, W. M. Hochachka, S. L. Vehrencamp, How Reliable are the Methods for Estimating Repertoire Size?, <i>Ethology</i> <b>114</b>, 1227-1238 (2008).')
     end

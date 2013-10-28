@@ -9,5 +9,7 @@ env: JRUBY_OPTS="-Xcompile.invokedynamic=false"
 before_install: gem install --pre bundler
 bundler_args: --without production development
 
-before_script: cp config/database.yml.travis config/database.yml
+before_script:
+  - cp config/database.yml.travis config/database.yml
+  - git clone https://github.com/rletters/solr-example.git vendor/solr
 script: bundle exec rspec

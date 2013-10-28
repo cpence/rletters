@@ -20,15 +20,14 @@ describe Jobs::CreateDataset do
     end
   end
 
-  context 'given a standard search',
-          vcr: { cassette_name: 'create_dataset_standard' } do
+  context 'given a standard search' do
     before(:each) do
       Jobs::CreateDataset.perform(
         user_id: @user.to_param,
         name: 'Short Test Dataset',
         q: 'test',
         fq: nil,
-        defType: nil)
+        defType: 'dismax')
 
       @user.datasets.reload
     end
@@ -43,8 +42,7 @@ describe Jobs::CreateDataset do
     end
   end
 
-  context 'given large Solr dataset',
-          vcr: { cassette_name: 'create_dataset_large' } do
+  context 'given large Solr dataset' do
     before(:each) do
       Jobs::CreateDataset.perform(
         user_id: @user.to_param,
@@ -66,8 +64,11 @@ describe Jobs::CreateDataset do
     end
   end
 
-  context 'when Solr fails',
-          vcr: { cassette_name: 'solr_fail' } do
+  context 'when Solr fails' do
+    before(:each) do
+      stub_request(:any, /(127\.0\.0\.1|localhost)/).to_timeout
+    end
+
     it 'does not create a dataset' do
       expect {
         begin
@@ -76,7 +77,7 @@ describe Jobs::CreateDataset do
             name: 'Failure Test Dataset',
             q: 'test',
             fq: nil,
-            defType: nil)
+            defType: 'dismax')
         rescue StandardError
         end
       }.to_not change { Dataset.count }
@@ -89,7 +90,7 @@ describe Jobs::CreateDataset do
           name: 'Failure Test Dataset',
           q: 'test',
           fq: nil,
-          defType: nil)
+          defType: 'dismax')
       }.to raise_error(StandardError)
     end
   end

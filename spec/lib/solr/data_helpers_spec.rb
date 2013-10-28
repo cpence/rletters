@@ -4,7 +4,7 @@ require 'spec_helper'
 describe Solr::DataHelpers do
 
   describe '.count_by_field' do
-    context 'without a dataset', vcr: { cassette_name: 'solr_by_field_full' } do
+    context 'without a dataset' do
       before(:each) do
         @counts = Solr::DataHelpers.count_by_field(nil, :year)
       end
@@ -15,7 +15,7 @@ describe Solr::DataHelpers do
       end
     end
 
-    context 'with a dataset', vcr: { cassette_name: 'solr_by_field_dataset' } do
+    context 'with a dataset' do
       before(:each) do
         @user = FactoryGirl.create(:user)
         @dataset = FactoryGirl.create(:dataset, user: @user)

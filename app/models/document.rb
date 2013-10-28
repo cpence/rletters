@@ -180,7 +180,7 @@ class Document
   # @raise [ActiveRecord::RecordNotFound] thrown if no matching document can
   #   be found
   # @example Look up a document by W. Shatner (raising exception if not found)
-  #   doc = Document.find_by!(author: 'W. Shatner')
+  #   doc = Document.find_by!(authors: 'W. Shatner')
   def self.find_by!(args)
     find_by(args) or fail ActiveRecord::RecordNotFound
   end
@@ -195,7 +195,7 @@ class Document
   # @return [Document] the document requested, or nil if not found
   # @raise [Solr::ConnectionError] thrown if there is an error querying Solr
   # @example Look up a document by W. Shatner (returning nil if not found)
-  #   doc = Document.find_by(author: 'W. Shatner')
+  #   doc = Document.find_by(authors: 'W. Shatner')
   def self.find_by(args)
     # First, delete the 'fulltext' argument, because it's special
     fulltext = args.delete(:fulltext)

@@ -48,8 +48,7 @@ describe Document do
 
   describe '.find' do
     context 'without fulltext' do
-      context 'when loading one document',
-              vcr: { cassette_name: 'solr_single' } do
+      context 'when loading one document' do
         before(:each) do
           @doc = Document.find('00972c5123877961056b21aea4177d0dc69c7318')
         end
@@ -59,8 +58,7 @@ describe Document do
         end
       end
 
-      context 'when no documents are returned',
-              vcr: { cassette_name: 'solr_fail' } do
+      context 'when no documents are returned' do
         it 'raises an exception' do
           expect { Document.find('fail') }.to raise_error(ActiveRecord::RecordNotFound)
         end
@@ -75,8 +73,7 @@ describe Document do
     end
 
     context 'with fulltext' do
-      context 'when loading one document with fulltext',
-              vcr: { cassette_name: 'solr_single_fulltext' } do
+      context 'when loading one document with fulltext' do
         before(:each) do
           @doc = Document.find('00972c5123877961056b21aea4177d0dc69c7318', true)
         end
@@ -86,8 +83,7 @@ describe Document do
         end
       end
 
-      context 'when no documents are returned',
-              vcr: { cassette_name: 'solr_fail_fulltext' } do
+      context 'when no documents are returned' do
         it 'raises an exception' do
           expect { Document.find('fail', true) }.to raise_error(StandardError)
         end
@@ -104,8 +100,7 @@ describe Document do
 
   describe '.find_by' do
     context 'without fulltext' do
-      context 'when loading one document',
-              vcr: { cassette_name: 'solr_single' } do
+      context 'when loading one document' do
         before(:each) do
           @doc = Document.find_by(shasum: '00972c5123877961056b21aea4177d0dc69c7318')
         end
@@ -115,8 +110,7 @@ describe Document do
         end
       end
 
-      context 'when no documents are returned',
-              vcr: { cassette_name: 'solr_fail' } do
+      context 'when no documents are returned' do
         it 'does not raise an exception' do
           expect { Document.find_by(shasum: 'fail') }.to_not raise_error
         end
@@ -126,10 +120,9 @@ describe Document do
         end
       end
 
-      context 'with a field other than shasum',
-              vcr: { cassette_name: 'solr_single_by_author' } do
+      context 'with a field other than shasum' do
         before(:each) do
-          @doc = Document.find_by(author: 'C. Alaux')
+          @doc = Document.find_by(authors: 'C. Alaux')
         end
 
         it 'loads the document successfully' do
@@ -139,8 +132,7 @@ describe Document do
     end
 
     context 'with fulltext' do
-      context 'when loading one document with fulltext',
-              vcr: { cassette_name: 'solr_single_fulltext' } do
+      context 'when loading one document with fulltext' do
         before(:each) do
           @doc = Document.find_by(shasum: '00972c5123877961056b21aea4177d0dc69c7318', fulltext: true)
         end
@@ -150,8 +142,7 @@ describe Document do
         end
       end
 
-      context 'when no documents are returned',
-              vcr: { cassette_name: 'solr_fail_fulltext' } do
+      context 'when no documents are returned' do
         it 'does not raise an exception' do
           expect { Document.find_by(shasum: 'fail', fulltext: true) }.to_not raise_error
         end
@@ -164,8 +155,7 @@ describe Document do
   end
 
   describe '.find_by!' do
-    context 'when no documents are returned',
-            vcr: { cassette_name: 'solr_fail' } do
+    context 'when no documents are returned' do
       it 'raises an exception' do
         expect { Document.find_by!(shasum: 'fail') }.to raise_error(ActiveRecord::RecordNotFound)
       end
@@ -182,8 +172,7 @@ describe Document do
   # All of these attributes are loaded in the same loop, so they can be
   # tested at the same time
   describe 'attributes' do
-    context 'when loading one document',
-            vcr: { cassette_name: 'solr_single' } do
+    context 'when loading one document' do
       before(:each) do
         @doc = Document.find('00972c5123877961056b21aea4177d0dc69c7318')
       end
@@ -197,8 +186,7 @@ describe Document do
       end
     end
 
-    context 'when loading one document with fulltext',
-            vcr: { cassette_name: 'solr_single_fulltext' } do
+    context 'when loading one document with fulltext' do
       before(:each) do
         @doc = Document.find('00972c5123877961056b21aea4177d0dc69c7318', true)
       end
@@ -212,8 +200,7 @@ describe Document do
       end
     end
 
-    context 'when loading a set of documents',
-            vcr: { cassette_name: 'solr_default' } do
+    context 'when loading a set of documents' do
       before(:each) do
         @result = Solr::Connection.search({ q: '*:*', defType: 'lucene' })
         @docs = @result.documents
@@ -266,8 +253,7 @@ describe Document do
   end
 
   describe '#author_list' do
-    context 'when loading one document',
-            vcr: { cassette_name: 'solr_single' } do
+    context 'when loading one document' do
       before(:each) do
         @doc = Document.find('00972c5123877961056b21aea4177d0dc69c7318')
       end
@@ -287,8 +273,7 @@ describe Document do
   end
 
   describe '#formatted_author_list' do
-    context 'when loading one document',
-            vcr: { cassette_name: 'solr_single' } do
+    context 'when loading one document' do
       before(:each) do
         @doc = Document.find('00972c5123877961056b21aea4177d0dc69c7318')
       end
@@ -308,8 +293,7 @@ describe Document do
   end
 
   describe '#start_page and #end_page' do
-    context 'when loading one document',
-            vcr: { cassette_name: 'solr_single' } do
+    context 'when loading one document' do
       before(:each) do
         @doc = Document.find('00972c5123877961056b21aea4177d0dc69c7318')
       end
@@ -339,8 +323,7 @@ describe Document do
   end
 
   describe '#term_vectors' do
-    context 'when loading one document',
-            vcr: { cassette_name: 'solr_single' } do
+    context 'when loading one document' do
       before(:each) do
         @doc = Document.find('00972c5123877961056b21aea4177d0dc69c7318')
       end
@@ -350,8 +333,7 @@ describe Document do
       end
     end
 
-    context 'when loading one document with fulltext',
-            vcr: { cassette_name: 'solr_single_fulltext' } do
+    context 'when loading one document with fulltext' do
       before(:each) do
         @doc = Document.find('00972c5123877961056b21aea4177d0dc69c7318', true)
       end
@@ -381,8 +363,7 @@ describe Document do
       end
     end
 
-    context 'when loading one document with offsets',
-            vcr: { cassette_name: 'solr_single_fulltext_offsets' } do
+    context 'when loading one document with offsets' do
       before(:each) do
         @result = Solr::Connection.search(q: 'shasum:00972c5123877961056b21aea4177d0dc69c7318',
                                           defType: 'lucene',

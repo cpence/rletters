@@ -3,7 +3,7 @@ require 'spec_helper'
 
 describe 'Solr::SearchResult' do
 
-  describe '#solr_response', vcr: { cassette_name: 'solr_default' } do
+  describe '#solr_response' do
     it 'returns an RSolr::Ext::Response' do
       result = Solr::Connection.search({ q: '*:*', defType: 'lucene' })
       expect(result.solr_response).to be_a(RSolr::Ext::Response::Base)
@@ -11,8 +11,7 @@ describe 'Solr::SearchResult' do
   end
 
   describe '#documents' do
-    context 'when loading a set of documents',
-            vcr: { cassette_name: 'solr_default' } do
+    context 'when loading a set of documents' do
       before(:each) do
         @result = Solr::Connection.search({ q: '*:*', defType: 'lucene' })
       end
@@ -22,8 +21,7 @@ describe 'Solr::SearchResult' do
       end
     end
 
-    context 'when no documents are returned',
-            vcr: { cassette_name: 'solr_fail' } do
+    context 'when no documents are returned' do
       it 'returns an empty array' do
         expect(Solr::Connection.search({ q: 'shasum:fail', defType: 'lucene' }).documents).to have(0).items
       end
@@ -38,8 +36,7 @@ describe 'Solr::SearchResult' do
   end
 
   describe '#num_hits' do
-    context 'when loading one document',
-            vcr: { cassette_name: 'solr_single' } do
+    context 'when loading one document' do
       before(:each) do
         @result = Solr::Connection.search({ q: 'shasum:00972c5123877961056b21aea4177d0dc69c7318', defType: 'lucene' })
       end
@@ -49,8 +46,7 @@ describe 'Solr::SearchResult' do
       end
     end
 
-    context 'when loading a set of documents',
-            vcr: { cassette_name: 'solr_default' } do
+    context 'when loading a set of documents' do
       before(:each) do
         @result = Solr::Connection.search({ q: '*:*', defType: 'lucene' })
       end
@@ -62,8 +58,7 @@ describe 'Solr::SearchResult' do
   end
 
   describe '#facets' do
-    context 'when loading a set of documents',
-            vcr: { cassette_name: 'solr_default' } do
+    context 'when loading a set of documents' do
       before(:each) do
         @result = Solr::Connection.search({ q: '*:*', defType: 'lucene' })
       end
