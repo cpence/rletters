@@ -71,9 +71,7 @@ module Jobs
           dataset.entries.find_each do |e|
             doc = Document.find_by(uid: e.uid)
             if doc
-              # The only filename-invalid character that's valid in HTML IDs
-              # is the colon, so sub that out here.
-              zos.put_next_entry "#{doc.html_uid.gsub(':', '_')}.#{args[:format].to_s}"
+              zos.put_next_entry "#{doc.html_uid}.#{args[:format].to_s}"
               zos.print serializer[:method].call(doc)
             end
           end
