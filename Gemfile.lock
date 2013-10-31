@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/gregbell/active_admin.git
-  revision: 2482f0edeeb9b0192e90d1afa1a5bf715936aa5c
+  revision: b25351e9e9c5404351e0139866c4c5802614326c
   specs:
     activeadmin (0.6.1)
       arbre (~> 1.0)
@@ -18,7 +18,7 @@ GIT
 
 GIT
   remote: git://github.com/rubyzip/rubyzip.git
-  revision: b67675480d1c14d26a55aad080dcc8a44d86c5bc
+  revision: 875bb8ded648a341587efd3c075d805f85a3c98c
   specs:
     rubyzip (1.0.0)
 
@@ -117,7 +117,7 @@ GEM
       warden (~> 1.2.3)
     devise-async (0.8.0)
       devise (>= 2.2, < 3.2)
-    devise-i18n (0.9.2)
+    devise-i18n (0.10.0)
     diff-lcs (1.2.4)
     druthers (0.0.2)
       activerecord (>= 3.0)
@@ -155,7 +155,7 @@ GEM
     jquery-rails (3.0.4)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
-    jquery-ui-rails (4.0.5)
+    jquery-ui-rails (4.1.0)
       railties (>= 3.1.0)
     json (1.8.1)
     json (1.8.1-java)
@@ -230,7 +230,7 @@ GEM
       actionpack (>= 3.0)
       activerecord (>= 3.0)
       polyamorous (~> 0.6.0)
-    rdf (1.0.9)
+    rdf (1.0.10)
       addressable (>= 2.3)
     rdf-n3 (1.0.2)
       rdf (>= 1.0.7)
@@ -271,7 +271,7 @@ GEM
       rspec-core (~> 2.14.0)
       rspec-expectations (~> 2.14.0)
       rspec-mocks (~> 2.14.0)
-    rspec-core (2.14.6)
+    rspec-core (2.14.7)
     rspec-expectations (2.14.3)
       diff-lcs (>= 1.1.3, < 2.0)
     rspec-html-matchers (0.4.3)
@@ -343,7 +343,7 @@ GEM
       rack (>= 1.0.0)
     warden (1.2.3)
       rack (>= 1.0)
-    webmock (1.15.0)
+    webmock (1.15.2)
       addressable (>= 2.2.7)
       crack (>= 0.3.2)
     yui-compressor (0.12.0)
