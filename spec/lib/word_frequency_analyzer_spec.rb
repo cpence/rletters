@@ -72,9 +72,8 @@ describe WordFrequencyAnalyzer do
       end
 
       it 'creates a parallel list (same words in all blocks)' do
-        words = @analyzer.blocks[0].keys
         @analyzer.blocks.each do |b|
-          expect(b.keys).to eq(words)
+          expect(b.keys & @analyzer.word_list).to eq(b.keys)
         end
       end
     end
