@@ -5,11 +5,9 @@
   - csv << ['']
 
   - # Output the marker words
-  - csv << [t('jobs.analysis.craig_zeta.marker_header', name: data['name_1'])]
-  - data['marker_words'].each { |w| csv << [w] }
+  - csv << [t('jobs.analysis.craig_zeta.marker_header', name: data['name_1']), t('jobs.analysis.craig_zeta.marker_header', name: data['name_2'])]
+  - data['marker_words'].each_with_index { |w, i| csv << [w, data['anti_marker_words'].at(i)] }
   - csv << ['']
-  - csv << [t('jobs.analysis.craig_zeta.marker_header', name: data['name_2'])]
-  - data['anti_marker_words'].each { |w| csv << [w] }
   - csv << ['']
 
   - # Output the graphing points

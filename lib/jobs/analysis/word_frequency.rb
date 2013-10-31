@@ -97,13 +97,13 @@ module Jobs
 
               word_rows.each do |r|
                 word = r[0]
-                r << b[word].to_s
-                r << (b[word].to_f / s[:tokens].to_f).to_s
+                r << (b[word] || 0).to_s
+                r << ((b[word] || 0).to_f / s[:tokens].to_f).to_s
 
-                r << Math.tfidf(b[word].to_f / s[:tokens].to_f,
+                r << Math.tfidf((b[word] || 0).to_f / s[:tokens].to_f,
                                 analyzer.df_in_dataset[word],
                                 dataset.entries.count)
-                r << Math.tfidf(b[word].to_f / s[:tokens].to_f,
+                r << Math.tfidf((b[word] || 0).to_f / s[:tokens].to_f,
                                 analyzer.df_in_corpus[word],
                                 analyzer.num_corpus_documents)
               end

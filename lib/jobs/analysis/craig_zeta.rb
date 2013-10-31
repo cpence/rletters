@@ -72,12 +72,14 @@ module Jobs
         # needed, because we're going to remove common words below.
         analyzer_1 = compute_word_frequencies(
           dataset_1,
+          num_words: 999_999,
           block_size: 500,
           split_across: true,
           last_block: :big_last
         )
         analyzer_2 = compute_word_frequencies(
           dataset_2,
+          num_words: 999_999,
           block_size: 500,
           split_across: true,
           last_block: :big_last
@@ -107,8 +109,8 @@ module Jobs
         # the Zeta Score.
         zeta_scores = {}
         block_counts.each do |word, v|
-          a_count = analyzer_1.blocks.map { |b| b.keys.include?(word) ? 1 : 0 }.reduce(:+)
-          not_b_count = analyzer_2.blocks.map { |b| b.keys.include?(word) ? 0 : 1 }.reduce(:+)
+          a_count = analyzer_1.blocks.map { |b| b[word] ? 1 : 0 }.reduce(:+)
+          not_b_count = analyzer_2.blocks.map { |b| b[word] ? 0 : 1 }.reduce(:+)
 
           a_frac = Float(a_count) / Float(analyzer_1.blocks.count)
           not_b_frac = Float(not_b_count) / Float(analyzer_2.blocks.count)

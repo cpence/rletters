@@ -133,8 +133,6 @@ class WordFrequencyAnalyzer
       # by position
       sorted_words = []
       tv.each do |word, hash|
-        next unless @word_list.include? word
-
         hash[:positions].each do |p|
           sorted_words << [word, p]
         end
@@ -151,10 +149,15 @@ class WordFrequencyAnalyzer
           break
         end
 
-        # Add this word to the block
-        @block[word] += 1
+        # Add this word to the block if we want it
+        if @word_list.include? word
+          @block[word] ||= 0
+          @block[word] += 1
+        end
+
+        # Always increment the block counter and the number of tokens
+        @type_counter[word] ||= true
         @block_tokens += 1
-        @block_types += 1 if @block[word] == 1
         @block_counter += 1
 
         # If we're doing :big_last for the last block, and this is the last
@@ -367,20 +370,16 @@ class WordFrequencyAnalyzer
     if add
       @block_num += 1
 
-      @block_stats << { name: block_name, types: @block_types,
+      @block_stats << { name: block_name, types: @type_counter.count,
                         tokens: @block_tokens }
       @blocks << @block.dup
     end
 
     @block_counter = 0
-    @block_types = 0
     @block_tokens = 0
 
-    # Set up an empty block
     @block = {}
-    @word_list.each do |w|
-      @block[w] = 0
-    end
+    @type_counter = {}
   end
 
   # Compute the block size parameters from the number of tokens
