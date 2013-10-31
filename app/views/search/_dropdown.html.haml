@@ -1,7 +1,9 @@
 - if user_signed_in?
   .row
-    .small-6.columns= link_to t('.single_dataset'), new_dataset_path(q: "shasum:#{document.shasum}", defType: 'lucene', fq: nil), class: 'button success small expand'
+    .small-6.columns= link_to t('.single_dataset'), new_dataset_path(q: "shasum:#{document.shasum}", defType: 'lucene', fq: nil), data: { reveal_id: "single-#{document.shasum}-modal", reveal_ajax: 'true' }, class: 'button success small expand'
     .small-6.columns= link_to t('.add_to_dataset'), search_add_path(id: document.shasum), data: { reveal_id: "add-#{document.shasum}-modal", reveal_ajax: 'true' }, class: 'button success small expand'
+    .reveal-modal{ id: "single-#{document.shasum}-modal"}
+      .preloader
     .reveal-modal{ id: "add-#{document.shasum}-modal" }
       .preloader
 
