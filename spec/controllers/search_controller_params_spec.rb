@@ -36,7 +36,7 @@ describe SearchController do
     it 'combines the search terms with AND' do
       params = { precise: 'true', volume: '30', number: '5' }
       ret = controller.send(:search_params_to_solr_query, params)
-      expect(ret[:q]).to eq('volume:(30) AND number:(5)')
+      expect(ret[:q]).to eq('volume:"30" AND number:"5"')
     end
 
     it 'mixes in verbatim search parameters correctly' do
@@ -44,18 +44,18 @@ describe SearchController do
                  volume: '30', number: '5', pages: '300-301' }
       ret = controller.send(:search_params_to_solr_query, params)
       expect(ret[:q]).to include('authors:(("W* Shatner"))')
-      expect(ret[:q]).to include('volume:(30)')
-      expect(ret[:q]).to include('number:(5)')
-      expect(ret[:q]).to include('pages:(300-301)')
+      expect(ret[:q]).to include('volume:"30"')
+      expect(ret[:q]).to include('number:"5"')
+      expect(ret[:q]).to include('pages:"300-301"')
     end
 
     it 'handles fuzzy params as verbatim without type set' do
       params = { precise: 'true', journal: 'Astrobiology',
                  title: 'Testing with Spaces', fulltext: 'alien' }
       ret = controller.send(:search_params_to_solr_query, params)
-      expect(ret[:q]).to include('journal:(Astrobiology)')
-      expect(ret[:q]).to include('title:(Testing with Spaces)')
-      expect(ret[:q]).to include('fulltext_search:(alien)')
+      expect(ret[:q]).to include('journal:"Astrobiology"')
+      expect(ret[:q]).to include('title:"Testing with Spaces"')
+      expect(ret[:q]).to include('fulltext_search:"alien"')
     end
 
     it 'handles fuzzy params with type set to verbatim' do
@@ -64,9 +64,9 @@ describe SearchController do
                  title_type: 'exact', fulltext: 'alien',
                  fulltext_type: 'exact' }
       ret = controller.send(:search_params_to_solr_query, params)
-      expect(ret[:q]).to include('journal:(Astrobiology)')
-      expect(ret[:q]).to include('title:(Testing with Spaces)')
-      expect(ret[:q]).to include('fulltext_search:(alien)')
+      expect(ret[:q]).to include('journal:"Astrobiology"')
+      expect(ret[:q]).to include('title:"Testing with Spaces"')
+      expect(ret[:q]).to include('fulltext_search:"alien"')
     end
 
     it 'handles fuzzy params with type set to fuzzy' do
@@ -75,9 +75,9 @@ describe SearchController do
                  title_type: 'fuzzy', fulltext: 'alien',
                  fulltext_type: 'fuzzy' }
       ret = controller.send(:search_params_to_solr_query, params)
-      expect(ret[:q]).to include('journal_stem:(Astrobiology)')
-      expect(ret[:q]).to include('title_stem:(Testing with Spaces)')
-      expect(ret[:q]).to include('fulltext_stem:(alien)')
+      expect(ret[:q]).to include('journal_stem:"Astrobiology"')
+      expect(ret[:q]).to include('title_stem:"Testing with Spaces"')
+      expect(ret[:q]).to include('fulltext_stem:"alien"')
     end
 
     it 'handles multiple authors correctly' do

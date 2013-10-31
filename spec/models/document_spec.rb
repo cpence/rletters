@@ -345,7 +345,7 @@ describe Document do
 
     context 'when loading one document with offsets' do
       before(:each) do
-        @result = Solr::Connection.search(q: 'id:(doi:10.1111/j.1439-0310.2008.01576.x)',
+        @result = Solr::Connection.search(q: 'uid:"doi:10.1111/j.1439-0310.2008.01576.x"',
                                           defType: 'lucene',
                                           fields: Solr::Connection::DEFAULT_FIELDS_FULLTEXT,
                                           tv: 'true',

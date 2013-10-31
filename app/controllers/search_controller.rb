@@ -177,7 +177,7 @@ class SearchController < ApplicationController
 
       # Verbatim search fields
       %W(volume number pages).each do |f|
-        q_array << "#{f}:(#{params[f.to_sym]})" unless params[f.to_sym].blank?
+        q_array << "#{f}:\"#{params[f.to_sym]}\"" unless params[f.to_sym].blank?
       end
 
       # Verbatim or fuzzy search fields
@@ -188,7 +188,7 @@ class SearchController < ApplicationController
           param = params[(f + '_type').to_sym]
           field += '_stem' if param && param == 'fuzzy'
 
-          q_array << "#{field}:(#{params[f.to_sym]})"
+          q_array << "#{field}:\"#{params[f.to_sym]}\""
         end
       end
 
@@ -199,7 +199,7 @@ class SearchController < ApplicationController
         else
           field = 'fulltext_search'
         end
-        q_array << "#{field}:(#{params[:fulltext]})"
+        q_array << "#{field}:\"#{params[:fulltext]}\""
       end
 
       # Handle the authors separately, for splitting support (authors search

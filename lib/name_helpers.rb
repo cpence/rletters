@@ -52,7 +52,7 @@ module NameHelpers
     end
 
     # Compose these together and return
-    "(#{queries.join(" OR ")})"
+    "(#{queries.join(' OR ')})"
   end
 
   private

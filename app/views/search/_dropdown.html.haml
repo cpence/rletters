@@ -1,6 +1,6 @@
 - if user_signed_in?
   .row
-    .small-6.columns= link_to t('.single_dataset'), new_dataset_path(q: "uid:(#{document.uid})", defType: 'lucene', fq: nil), data: { reveal_id: "single-#{document.html_uid}-modal", reveal_ajax: 'true' }, class: 'button success small expand'
+    .small-6.columns= link_to t('.single_dataset'), new_dataset_path(q: "uid:\"#{document.uid}\"", defType: 'lucene', fq: nil), data: { reveal_id: "single-#{document.html_uid}-modal", reveal_ajax: 'true' }, class: 'button success small expand'
     .small-6.columns= link_to t('.add_to_dataset'), search_add_path(uid: document.uid), data: { reveal_id: "add-#{document.html_uid}-modal", reveal_ajax: 'true' }, class: 'button success small expand'
     .reveal-modal{ id: "single-#{document.html_uid}-modal"}
       .preloader

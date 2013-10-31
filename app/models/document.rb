@@ -195,7 +195,7 @@ class Document
 
     # Build the query
     query = { defType: 'lucene' }
-    query[:q] = args.map { |k, v| "#{k}:(#{v})" }.join(' AND ')
+    query[:q] = args.map { |k, v| "#{k}:\"#{v}\"" }.join(' AND ')
     if fulltext == true
       query[:tv] = 'true'
       query[:fl] = Solr::Connection::DEFAULT_FIELDS_FULLTEXT
