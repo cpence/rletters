@@ -157,7 +157,7 @@ class WorkflowController < ApplicationController
     if @user_datasets_str
       p JSON.parse(@user_datasets_str)
       @user_datasets = JSON.parse(@user_datasets_str).map do |id|
-        current_user.datasets.find(id)
+        current_user.datasets.active.find(id)
       end
     end
     @user_datasets ||= []

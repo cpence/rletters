@@ -6,6 +6,7 @@ ActiveAdmin.register Dataset do
   index do
     column :name
     column :user
+    column :disabled
     column :entries do |dataset|
       dataset.entries.count
     end
@@ -17,4 +18,5 @@ ActiveAdmin.register Dataset do
 
   filter :user
   filter :name
+  filter :disabled
 end

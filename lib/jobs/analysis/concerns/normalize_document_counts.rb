@@ -46,7 +46,7 @@ module Jobs
             if args[:normalize_doc_dataset].blank?
               normalization_set = nil
             else
-              normalization_set = user.datasets.find(args[:normalize_doc_dataset])
+              normalization_set = user.datasets.active.find(args[:normalize_doc_dataset])
             end
 
             normalize_counts = Solr::DataHelpers.count_by_field(normalization_set, field)

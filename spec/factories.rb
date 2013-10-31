@@ -39,6 +39,7 @@ FactoryGirl.define do
 
     name 'Dataset'
     user
+    disabled false
 
     factory :full_dataset do
       ignore do

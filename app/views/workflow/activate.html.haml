@@ -60,7 +60,7 @@
           %h4= t('.link_header')
           %h6.subheader= t('.link_subheader')
 
-          - unless current_user.datasets.count
+          - unless current_user.datasets.active.count
             %p= t('.link_no_datasets')
           - else
             #link-form-modal
@@ -68,7 +68,7 @@
                 .row
                   .large-6.columns
                     = label_tag :link_dataset_id, Dataset.model_name.human
-                    = select_tag :link_dataset_id, options_from_collection_for_select(current_user.datasets, 'to_param', 'name')
+                    = select_tag :link_dataset_id, options_from_collection_for_select(current_user.datasets.active, 'to_param', 'name')
                 .row
                   .large-6.columns= submit_tag t('.link_submit'), class: 'button success small'
 

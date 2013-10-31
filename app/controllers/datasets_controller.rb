@@ -24,7 +24,7 @@ class DatasetsController < ApplicationController
   # @api public
   # @return [undefined]
   def dataset_list
-    @datasets = current_user.datasets
+    @datasets = current_user.datasets.active
     render layout: false
   end
 
@@ -36,7 +36,7 @@ class DatasetsController < ApplicationController
   # @api public
   # @return [undefined]
   def show
-    @dataset = current_user.datasets.find(params[:id])
+    @dataset = current_user.datasets.active.find(params[:id])
     fail ActiveRecord::RecordNotFound unless @dataset
 
     if params[:clear_failed] && @dataset.analysis_tasks.failed.count > 0
@@ -57,9 +57,12 @@ class DatasetsController < ApplicationController
   # @api public
   # @return [undefined]
   def create
+    dataset = current_user.datasets.create(name: dataset_params[:name],
+                                           disabled: true)
+
     Resque.enqueue(Jobs::CreateDataset,
                    user_id: current_user.to_param,
-                   name: dataset_params[:name],
+                   dataset_id: dataset.to_param,
                    q: params[:q],
                    fq: params[:fq],
                    defType: params[:defType])
@@ -80,6 +83,9 @@ class DatasetsController < ApplicationController
     @dataset = current_user.datasets.find(params[:id])
     fail ActiveRecord::RecordNotFound unless @dataset
 
+    @dataset.disabled = true
+    @dataset.save
+
     Resque.enqueue(Jobs::DestroyDataset,
                    user_id: current_user.to_param,
                    dataset_id: @dataset.to_param)
@@ -93,7 +99,7 @@ class DatasetsController < ApplicationController
   def add
     # This isn't a member action, so that it can be called easily from
     # a form.  Get the id from :dataset_id, not :uid.
-    @dataset = current_user.datasets.find(params[:dataset_id])
+    @dataset = current_user.datasets.active.find(params[:dataset_id])
     @document = Document.find(params[:uid])
 
     # No reason for this to be a delayed job, just do the create
@@ -109,7 +115,7 @@ class DatasetsController < ApplicationController
   # @api public
   # @return [undefined]
   def task_list
-    @dataset = current_user.datasets.find(params[:id])
+    @dataset = current_user.datasets.active.find(params[:id])
     fail ActiveRecord::RecordNotFound unless @dataset
 
     render layout: false
@@ -124,7 +130,7 @@ class DatasetsController < ApplicationController
   # @return [undefined]
   def task_start
     # Get the dataset and the class
-    @dataset = current_user.datasets.find(params[:id])
+    @dataset = current_user.datasets.active.find(params[:id])
     fail ActiveRecord::RecordNotFound unless @dataset
     @klass = AnalysisTask.job_class(params[:class])
 
@@ -194,7 +200,7 @@ class DatasetsController < ApplicationController
   # @api public
   # @return [undefined]
   def task_view
-    @dataset = current_user.datasets.find(params[:id])
+    @dataset = current_user.datasets.active.find(params[:id])
     fail ActiveRecord::RecordNotFound unless @dataset
     fail ActiveRecord::RecordNotFound unless params[:view]
 
@@ -217,7 +223,7 @@ class DatasetsController < ApplicationController
   # @api public
   # @return [undefined]
   def task_destroy
-    dataset = current_user.datasets.find(params[:id])
+    dataset = current_user.datasets.active.find(params[:id])
     fail ActiveRecord::RecordNotFound unless dataset
 
     task = dataset.analysis_tasks.find(params[:task_id])
@@ -238,7 +244,7 @@ class DatasetsController < ApplicationController
   # @api public
   # @return [undefined]
   def task_download
-    dataset = current_user.datasets.find(params[:id])
+    dataset = current_user.datasets.active.find(params[:id])
     fail ActiveRecord::RecordNotFound unless dataset
     task = dataset.analysis_tasks.find(params[:task_id])
     fail ActiveRecord::RecordNotFound unless task

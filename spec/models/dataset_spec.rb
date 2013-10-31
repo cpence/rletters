@@ -66,7 +66,7 @@ describe Dataset do
 
       it 'is connected to the user' do
         @user.datasets.reload
-        expect(@user.datasets).to have(1).items
+        expect(@user.datasets.active).to have(1).items
       end
 
       it 'has the right number of entries' do

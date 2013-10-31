@@ -47,7 +47,7 @@ module Jobs
         fail ArgumentError, 'User ID is not valid' unless user
 
         # Fetch the dataset based on ID
-        dataset = user.datasets.find(args[:dataset_id])
+        dataset = user.datasets.active.find(args[:dataset_id])
         fail ArgumentError, 'Dataset ID is not valid' unless dataset
 
         # Make a new analysis task
@@ -74,7 +74,7 @@ module Jobs
           if args[:normalize_doc_dataset].blank?
             norm_set_name = I18n.t('jobs.analysis.plot_dates.entire_corpus')
           else
-            norm_set = user.datasets.find(args[:normalize_doc_dataset])
+            norm_set = user.datasets.active.find(args[:normalize_doc_dataset])
             norm_set_name = norm_set.name
           end
         end

@@ -47,7 +47,7 @@ module Jobs
         fail ArgumentError, 'User ID is not valid' unless user
 
         # Fetch the dataset based on ID
-        dataset = user.datasets.find(args[:dataset_id])
+        dataset = user.datasets.active.find(args[:dataset_id])
         fail ArgumentError, 'Dataset ID is not valid' unless dataset
 
         # Update the analysis task

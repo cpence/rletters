@@ -49,13 +49,13 @@ module Jobs
         fail ArgumentError, 'User ID is not valid' unless user
 
         # Fetch the dataset based on ID
-        dataset_1 = user.datasets.find(args[:dataset_id])
+        dataset_1 = user.datasets.active.find(args[:dataset_id])
         fail ArgumentError, 'Dataset ID is not valid' unless dataset_1
 
         # Fetch the comparison dataset based on ID
         other_datasets = args[:other_datasets]
         fail ArgumentError, 'Wrong number of other datasets provided' unless other_datasets.count == 1
-        dataset_2 = user.datasets.find(other_datasets[0])
+        dataset_2 = user.datasets.active.find(other_datasets[0])
         fail ArgumentError, 'Other dataset ID is not valid' unless dataset_2
 
         # Update the analysis task

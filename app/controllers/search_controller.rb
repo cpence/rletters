@@ -95,7 +95,7 @@ class SearchController < ApplicationController
     fail ActiveRecord::RecordNotFound unless user_signed_in?
 
     @document = Document.find(params[:uid])
-    @datasets = current_user.datasets
+    @datasets = current_user.datasets.active
 
     render layout: false
   end

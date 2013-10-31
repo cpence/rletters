@@ -5,6 +5,7 @@ describe Jobs::CreateDataset do
 
   before(:each) do
     @user = FactoryGirl.create(:user)
+    @dataset = @user.datasets.create(name: 'test', disabled: true)
   end
 
   context 'when user is invalid' do
@@ -12,7 +13,20 @@ describe Jobs::CreateDataset do
       expect {
         Jobs::CreateDataset.perform(
           user_id: '12345678',
-          name: 'Test Dataset',
+          dataset_id: @dataset.to_param,
+          q: '*:*',
+          fq: nil,
+          defType: 'lucene')
+      }.to raise_error(ActiveRecord::RecordNotFound)
+    end
+  end
+
+  context 'when dataset is invalid' do
+    it 'raises an exception' do
+      expect {
+        Jobs::CreateDataset.perform(
+          user_id: @user.to_param,
+          dataset_id: '12345678',
           q: '*:*',
           fq: nil,
           defType: 'lucene')
@@ -24,7 +38,7 @@ describe Jobs::CreateDataset do
     before(:each) do
       Jobs::CreateDataset.perform(
         user_id: @user.to_param,
-        name: 'Short Test Dataset',
+        dataset_id: @dataset.to_param,
         q: 'test',
         fq: nil,
         defType: 'dismax')
@@ -32,9 +46,8 @@ describe Jobs::CreateDataset do
       @user.datasets.reload
     end
 
-    it 'creates a dataset' do
-      expect(@user.datasets).to have(1).items
-      expect(@user.datasets[0]).to be
+    it 'clears the disabled attribute' do
+      expect(@user.datasets[0].disabled).to be_false
     end
 
     it 'puts the right number of items in the dataset' do
@@ -46,7 +59,7 @@ describe Jobs::CreateDataset do
     before(:each) do
       Jobs::CreateDataset.perform(
         user_id: @user.to_param,
-        name: 'Long Dataset',
+        dataset_id: @dataset.to_param,
         q: '*:*',
         fq: nil,
         defType: 'lucene')
@@ -54,9 +67,8 @@ describe Jobs::CreateDataset do
       @user.datasets.reload
     end
 
-    it 'creates a dataset' do
-      expect(@user.datasets).to have(1).items
-      expect(@user.datasets[0]).to be
+    it 'clears the disabled attribute' do
+      expect(@user.datasets[0].disabled).to be_false
     end
 
     it 'puts the right number of items in the dataset' do
@@ -74,20 +86,20 @@ describe Jobs::CreateDataset do
         begin
           Jobs::CreateDataset.perform(
             user_id: @user.to_param,
-            name: 'Failure Test Dataset',
+            dataset_id: @dataset.to_param,
             q: 'test',
             fq: nil,
             defType: 'dismax')
         rescue StandardError
         end
-      }.to_not change { Dataset.count }
+      }.to change { Dataset.count }.by(-1)
     end
 
     it 'raises an exception' do
       expect {
         Jobs::CreateDataset.perform(
           user_id: @user.to_param,
-          name: 'Failure Test Dataset',
+          dataset_id: @dataset.to_param,
           q: 'test',
           fq: nil,
           defType: 'dismax')

@@ -9,21 +9,23 @@ module Jobs
   class CreateDataset
     @queue = 'ui'
 
-    # Create a dataset for the user
+    # Create a dataset for the user (filling in an extant template)
     #
     # @api public
     # @param [Hash] args the arguments for this job
     # @option args [String] user_id the user that created this dataset
-    # @option args [String] name the name of the dataset to create
+    # @option args [String] dataset_id the dataset to fill in
     # @option args [String] q the Solr query for this search
     # @option args [Array<String>] fq faceted browsing parameters for
     #   this search
     # @option args [String] defType parser type for this search
     # @return [undefined]
     # @example Start a job for creating a dataset
+    #   dataset = users(:john).datasets.create(disabled: true,
+    #                                          name: 'A Dataset')
     #   Resque.enqueue(Jobs::CreateDataset.new,
     #                  user_id: users(:john).to_param,
-    #                  name: 'Test Dataset',
+    #                  dataset_id: dataset.to_param,
     #                  q: '*:*'
     #                  fq: ['authors_facet:"Shatner"'],
     #                  defType: 'lucene')
@@ -34,10 +36,9 @@ module Jobs
       user = User.find(args[:user_id])
       fail ArgumentError, 'User ID is not valid' unless user
 
-      # Create a dataset and save it, to fix its ID
-      dataset = user.datasets.build(name: args[:name])
-      fail 'Cannot create dataset for user' unless dataset
-      fail 'Cannot save dataset' unless dataset.save
+      # Fetch the dataset
+      dataset = user.datasets.find(args[:dataset_id])
+      fail ArgumentError, 'Dataset ID is not valid' unless dataset
 
       # Build a Solr query to fetch the results, 1000 at a time
       solr_query = {}
@@ -79,6 +80,10 @@ module Jobs
             search_result = Solr::Connection.search solr_query
           end
         end
+
+        # Clear the disabled attribute
+        dataset.disabled = false
+        dataset.save
       rescue StandardError
         # Destroy the dataset to clean up
         dataset.destroy

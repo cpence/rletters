@@ -60,11 +60,22 @@ describe DatasetsController do
     it 'creates a delayed job' do
       post :create, { dataset: { name: 'Test Dataset' },
                       q: '*:*', fq: nil, defType: 'lucene' }
+      @user.datasets.reload
       expect(Jobs::CreateDataset).to have_queued(user_id: @user.to_param,
-                                                 name: 'Test Dataset',
+                                                 dataset_id: @user.datasets.inactive[0].to_param,
                                                  q: '*:*',
                                                  fq: nil,
                                                  defType: 'lucene')
+    end
+
+    it 'creates a skeleton dataset' do
+      expect {
+        post :create, { dataset: { name: 'Test Dataset' },
+                q: '*:*', fq: nil, defType: 'lucene' }
+      }.to change { @user.datasets.count }.by(1)
+
+      expect(@user.datasets.inactive.count).to eq(1)
+      expect(@user.datasets.inactive[0].name).to eq('Test Dataset')
     end
 
     it 'redirects to index when done' do

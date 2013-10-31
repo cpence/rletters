@@ -11,6 +11,9 @@
 # @!attribute user
 #   @raise [RecordInvalid] if the user is missing (validates :presence)
 #   @return [User] The user that owns this dataset
+# @!attribute disabled
+#   @return [Boolean] true if this dataset cannot be used (is currently being
+#     built)
 # @!attribute entries
 #   @raise [RecordInvalid] if any of the entries are invalid
 #     (validates_associated)
@@ -28,4 +31,9 @@ class Dataset < ActiveRecord::Base
   has_many :analysis_tasks, dependent: :destroy
 
   validates_associated :entries
+
+  # @return [Array<Dataset>] all datasets that are currently not disabled
+  scope :active, -> { where(disabled: false) }
+  # @return [Array<Dataset>] all datasets that are currently disabled
+  scope :inactive, -> { where(disabled: true) }
 end

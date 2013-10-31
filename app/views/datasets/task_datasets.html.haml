@@ -17,7 +17,7 @@
         -# method, because otherwise the array bits don't work right, and I
         -# cannot for the life of me figure out how to get them to instantiate.
         = label_tag 'job_params[other_datasets][]', "#{(n + 1).ordinalize} #{Dataset.model_name.human}"
-        = select_tag 'job_params[other_datasets][]', options_from_collection_for_select(current_user.datasets.where.not(id: @dataset.id), 'to_param', 'name')
+        = select_tag 'job_params[other_datasets][]', options_from_collection_for_select(current_user.datasets.active.where.not(id: @dataset.id), 'to_param', 'name')
 
       = f.button :submit
       = link_to t('.cancel'), @dataset, class: 'button secondary'
