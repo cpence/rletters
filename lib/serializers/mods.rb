@@ -41,7 +41,7 @@ module Serializers
       end
 
       mods['version'] = '3.0'
-      mods['ID'] = 'rletters_' + shasum
+      mods['ID'] = 'rletters_' + html_uid.gsub(':', '_')
 
       unless title.blank?
         title_info = Nokogiri::XML::Node.new('titleInfo', doc)

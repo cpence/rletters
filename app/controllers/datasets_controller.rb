@@ -82,7 +82,7 @@ class DatasetsController < ApplicationController
 
     Resque.enqueue(Jobs::DestroyDataset,
                    user_id: current_user.to_param,
-                   dataset_id: params[:id])
+                   dataset_id: @dataset.to_param)
 
     redirect_to datasets_path
   end
@@ -92,12 +92,12 @@ class DatasetsController < ApplicationController
   # @return [undefined]
   def add
     # This isn't a member action, so that it can be called easily from
-    # a form.  Get the id from :dataset_id, not :id.
+    # a form.  Get the id from :dataset_id, not :uid.
     @dataset = current_user.datasets.find(params[:dataset_id])
-    @document = Document.find(params[:shasum])
+    @document = Document.find(params[:uid])
 
     # No reason for this to be a delayed job, just do the create
-    @dataset.entries.create({ shasum: params[:shasum] })
+    @dataset.entries.create({ uid: params[:uid] })
     redirect_to dataset_path(@dataset)
   end
 

@@ -7,14 +7,9 @@
 # document searching in class-level methods, and access to the data provided by
 # Solr in instance-level methods and attributes.
 #
-# @!attribute [r] shasum
-#   @raise [RecordInvalid] if the SHA-1 checksum is missing (validates
-#     :presence)
-#   @raise [RecordInvalid] if the SHA-1 checksum is not 40 characters
-#     (validates :length)
-#   @raise [RecordInvalid] if the SHA-1 checksum contains invalid characters
-#     (validates :format)
-#   @return [String] the SHA-1 checksum of this document
+# @!attribute [r] uid
+#   @raise [RecordInvalid] if the uid is missing (validates :presence)
+#   @return [String] the uid of this document
 # @!attribute [r] doi
 #   @return [String] the DOI (Digital Object Identifier) of this document
 #
@@ -100,14 +95,12 @@ class Document
   # the database (it's in Solr).
   include ActiveModel::Model
 
-  attr_accessor :shasum, :doi, :license, :license_url, :authors,
+  attr_accessor :uid, :doi, :license, :license_url, :authors,
                 :author_list, :formatted_author_list, :title, :journal,
                 :year, :volume, :number, :pages, :fulltext, :term_vectors
 
-  # The shasum attribute is the only required one
-  validates :shasum, presence: true
-  validates :shasum, length: { is: 40 }
-  validates :shasum, format: { with: /\A[a-fA-F\d]+\z/ }
+  # The uid attribute is the only required one
+  validates :uid, presence: true
 
   class << self
     # Registration for all serializers
@@ -152,19 +145,19 @@ class Document
   include Serializers::RIS
   include Serializers::OpenURL
 
-  # Return a document (just bibliographic data) by SHA-1 checksum
+  # Return a document (just bibliographic data) by uid
   #
   # @api public
-  # @param [String] shasum SHA-1 checksum of the document to be retrieved
+  # @param [String] uid uid of the document to be retrieved
   # @param [Boolean] fulltext if true, return document full text
   # @return [Document] the document requested
   # @raise [Solr::ConnectionError] thrown if there is an error querying Solr
   # @raise [ActiveRecord::RecordNotFound] thrown if no matching document can
   #   be found
-  # @example Look up the document with ID '1234567890abcdef1234'
+  # @example Look up the document with UID '1234567890abcdef1234'
   #   doc = Document.find('1234567890abcdef1234')
-  def self.find(shasum, fulltext = false)
-    find_by!(shasum: shasum, fulltext: fulltext)
+  def self.find(uid, fulltext = false)
+    find_by!(uid: uid, fulltext: fulltext)
   end
 
   # Query a document and raise an exception if it's not found
@@ -212,6 +205,11 @@ class Document
     result = Solr::Connection.search(query)
     return nil if result.num_hits < 1
     result.documents[0]
+  end
+
+  # @return [String] the document UID, sanitized for use as an HTML attribute
+  def html_uid
+    uid ? uid.gsub(/[^0-9a-zA-Z\-_:\.]/, '_') : nil
   end
 
   # @return [String] the starting page of this document, if it can be parsed

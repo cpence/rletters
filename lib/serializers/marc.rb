@@ -49,8 +49,8 @@ module Serializers
     def to_marc
       record = ::MARC::Record.new
 
-      record.append(::MARC::ControlField.new('001', shasum))
-      record.append(::MARC::ControlField.new('003', 'PDFSHASUM'))
+      record.append(::MARC::ControlField.new('001', uid))
+      record.append(::MARC::ControlField.new('003', 'RLID'))
       record.append(::MARC::ControlField.new(
         '005', Time.now.strftime('%Y%m%d%H%M%S.0')
       ))

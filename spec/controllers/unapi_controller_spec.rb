@@ -9,7 +9,7 @@ describe UnapiController do
 
   def get_unapi(with_id = false, format = nil)
     if with_id
-      @id = FactoryGirl.generate(:working_shasum)
+      @id = FactoryGirl.generate(:working_uid)
       get :index, { id: @id, format: format }
     else
       get :index
@@ -97,7 +97,7 @@ describe UnapiController do
       expect(response).to redirect_to(
         controller: 'search',
         action: 'export',
-        id: @id,
+        uid: @id,
         format: f.attributes['name'].to_s)
     end
   end

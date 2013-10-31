@@ -69,9 +69,11 @@ module Jobs
         ios = Zip::OutputStream.write_buffer do |zos|
           # find_each will take care of batching logic for us
           dataset.entries.find_each do |e|
-            doc = Document.find_by(shasum: e.shasum)
+            doc = Document.find_by(uid: e.uid)
             if doc
-              zos.put_next_entry "#{doc.shasum}.#{args[:format].to_s}"
+              # The only filename-invalid character that's valid in HTML IDs
+              # is the colon, so sub that out here.
+              zos.put_next_entry "#{doc.html_uid.gsub(':', '_')}.#{args[:format].to_s}"
               zos.print serializer[:method].call(doc)
             end
           end

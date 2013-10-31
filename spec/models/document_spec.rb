@@ -5,9 +5,9 @@ describe Document do
   it_should_behave_like 'ActiveModel'
 
   describe '#valid' do
-    context 'when no shasum is specified' do
+    context 'when no uid is specified' do
       before(:each) do
-        @doc = FactoryGirl.build(:document, shasum: nil)
+        @doc = FactoryGirl.build(:document, uid: nil)
       end
 
       it 'is not valid' do
@@ -15,27 +15,7 @@ describe Document do
       end
     end
 
-    context 'when a short shasum is specified' do
-      before(:each) do
-        @doc = FactoryGirl.build(:document, shasum: 'notanshasum')
-      end
-
-      it 'is not valid' do
-        expect(@doc).not_to be_valid
-      end
-    end
-
-    context 'when a bad shasum is specified' do
-      before(:each) do
-        @doc = FactoryGirl.build(:document, shasum: '1234567890thisisbad!')
-      end
-
-      it 'is not valid' do
-        expect(@doc).not_to be_valid
-      end
-    end
-
-    context 'when a good shasum is specified' do
+    context 'when a good uid is specified' do
       before(:each) do
         @doc = FactoryGirl.build(:document)
       end
@@ -50,7 +30,7 @@ describe Document do
     context 'without fulltext' do
       context 'when loading one document' do
         before(:each) do
-          @doc = Document.find('00972c5123877961056b21aea4177d0dc69c7318')
+          @doc = Document.find('doi:10.1111/j.1439-0310.2008.01576.x')
         end
 
         it 'loads the document successfully' do
@@ -75,7 +55,7 @@ describe Document do
     context 'with fulltext' do
       context 'when loading one document with fulltext' do
         before(:each) do
-          @doc = Document.find('00972c5123877961056b21aea4177d0dc69c7318', true)
+          @doc = Document.find('doi:10.1111/j.1439-0310.2008.01576.x', true)
         end
 
         it 'loads the document successfully' do
@@ -102,7 +82,7 @@ describe Document do
     context 'without fulltext' do
       context 'when loading one document' do
         before(:each) do
-          @doc = Document.find_by(shasum: '00972c5123877961056b21aea4177d0dc69c7318')
+          @doc = Document.find_by(uid: 'doi:10.1111/j.1439-0310.2008.01576.x')
         end
 
         it 'loads the document successfully' do
@@ -112,15 +92,15 @@ describe Document do
 
       context 'when no documents are returned' do
         it 'does not raise an exception' do
-          expect { Document.find_by(shasum: 'fail') }.to_not raise_error
+          expect { Document.find_by(uid: 'fail') }.to_not raise_error
         end
 
         it 'returns nil' do
-          expect(Document.find_by(shasum: 'fail')).to be_nil
+          expect(Document.find_by(uid: 'fail')).to be_nil
         end
       end
 
-      context 'with a field other than shasum' do
+      context 'with a field other than uid' do
         before(:each) do
           @doc = Document.find_by(authors: 'C. Alaux')
         end
@@ -134,7 +114,7 @@ describe Document do
     context 'with fulltext' do
       context 'when loading one document with fulltext' do
         before(:each) do
-          @doc = Document.find_by(shasum: '00972c5123877961056b21aea4177d0dc69c7318', fulltext: true)
+          @doc = Document.find_by(uid: 'doi:10.1111/j.1439-0310.2008.01576.x', fulltext: true)
         end
 
         it 'loads the document successfully' do
@@ -144,11 +124,11 @@ describe Document do
 
       context 'when no documents are returned' do
         it 'does not raise an exception' do
-          expect { Document.find_by(shasum: 'fail', fulltext: true) }.to_not raise_error
+          expect { Document.find_by(uid: 'fail', fulltext: true) }.to_not raise_error
         end
 
         it 'returns nil' do
-          expect(Document.find_by(shasum: 'fail', fulltext: true)).to be_nil
+          expect(Document.find_by(uid: 'fail', fulltext: true)).to be_nil
         end
       end
     end
@@ -157,14 +137,14 @@ describe Document do
   describe '.find_by!' do
     context 'when no documents are returned' do
       it 'raises an exception' do
-        expect { Document.find_by!(shasum: 'fail') }.to raise_error(ActiveRecord::RecordNotFound)
+        expect { Document.find_by!(uid: 'fail') }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
 
     context 'when Solr times out' do
       it 'raises an exception' do
         stub_request(:any, /(127\.0\.0\.1|localhost)/).to_timeout
-        expect { Document.find_by!(shasum: 'fail') }.to raise_error(StandardError)
+        expect { Document.find_by!(uid: 'fail') }.to raise_error(StandardError)
       end
     end
   end
@@ -174,11 +154,11 @@ describe Document do
   describe 'attributes' do
     context 'when loading one document' do
       before(:each) do
-        @doc = Document.find('00972c5123877961056b21aea4177d0dc69c7318')
+        @doc = Document.find('doi:10.1111/j.1439-0310.2008.01576.x')
       end
 
-      it 'gets the right shasum' do
-        expect(@doc.shasum).to eq('00972c5123877961056b21aea4177d0dc69c7318')
+      it 'gets the right uid' do
+        expect(@doc.uid).to eq('doi:10.1111/j.1439-0310.2008.01576.x')
       end
 
       it 'does not have any fulltext' do
@@ -188,11 +168,11 @@ describe Document do
 
     context 'when loading one document with fulltext' do
       before(:each) do
-        @doc = Document.find('00972c5123877961056b21aea4177d0dc69c7318', true)
+        @doc = Document.find('doi:10.1111/j.1439-0310.2008.01576.x', true)
       end
 
-      it 'gets the right shasum' do
-        expect(@doc.shasum).to eq('00972c5123877961056b21aea4177d0dc69c7318')
+      it 'gets the right uid' do
+        expect(@doc.uid).to eq('doi:10.1111/j.1439-0310.2008.01576.x')
       end
 
       it 'loads the fulltext' do
@@ -206,16 +186,16 @@ describe Document do
         @docs = @result.documents
       end
 
-      it 'sets the shasum' do
-        expect(@docs[0].shasum).to eq('2aed42dcdf4d98ee499a1d19b4a0d613b5377ad0')
+      it 'sets the uid' do
+        expect(@docs[0].uid).to eq('doi:10.1111/j.1601-183X.2009.00525.x')
       end
 
       it 'sets the doi' do
-        expect(@docs[3].doi).to eq('10.1111/j.1439-0310.2006.01156.x')
+        expect(@docs[3].doi).to eq('10.1111/j.1439-0310.2010.01811.x')
       end
 
       it 'sets the license' do
-        expect(@docs[0].license).to eq('© Blackwell Verlag GmbH')
+        expect(@docs[0].license).to eq('© Blackwell Publishing Ltd/International Behavioural and Neural Genetics Society')
       end
 
       it 'does not set the license URL (none specified)' do
@@ -223,19 +203,19 @@ describe Document do
       end
 
       it 'sets the authors' do
-        expect(@docs[9].authors).to eq('C. Alaux, Y. Le Conte, H. A. Adams, S. Rodriguez-Zas, C. M. Grozinger, S. Sinha, G. E. Robinson')
+        expect(@docs[9].authors).to eq('Christian T. Vlautin, Nicholas J. Hobbs, Michael H. Ferkin')
       end
 
       it 'sets the title' do
-        expect(@docs[2].title).to eq('Fine mapping of a sedative-hypnotic drug withdrawal locus on mouse chromosome 11')
+        expect(@docs[2].title).to eq('Defining the dopamine transporter proteome by convergent biochemical and in silico analyses')
       end
 
       it 'sets the journal' do
-        expect(@docs[0].journal).to eq('Ethology')
+        expect(@docs[0].journal).to eq('Genes, Brain and Behavior')
       end
 
       it 'sets the year' do
-        expect(@docs[5].year).to eq('2009')
+        expect(@docs[5].year).to eq('1998')
       end
 
       it 'sets the volume' do
@@ -243,7 +223,7 @@ describe Document do
       end
 
       it 'sets the pages' do
-        expect(@docs[8].pages).to eq('581-591')
+        expect(@docs[8].pages).to eq('113-126')
       end
 
       it 'does not set the fulltext' do
@@ -255,7 +235,7 @@ describe Document do
   describe '#author_list' do
     context 'when loading one document' do
       before(:each) do
-        @doc = Document.find('00972c5123877961056b21aea4177d0dc69c7318')
+        @doc = Document.find('doi:10.1111/j.1439-0310.2008.01576.x')
       end
 
       it 'gets the right number of authors' do
@@ -275,7 +255,7 @@ describe Document do
   describe '#formatted_author_list' do
     context 'when loading one document' do
       before(:each) do
-        @doc = Document.find('00972c5123877961056b21aea4177d0dc69c7318')
+        @doc = Document.find('doi:10.1111/j.1439-0310.2008.01576.x')
       end
 
       it 'gets the right number of authors' do
@@ -295,7 +275,7 @@ describe Document do
   describe '#start_page and #end_page' do
     context 'when loading one document' do
       before(:each) do
-        @doc = Document.find('00972c5123877961056b21aea4177d0dc69c7318')
+        @doc = Document.find('doi:10.1111/j.1439-0310.2008.01576.x')
       end
 
       it 'parses start_page correctly' do
@@ -325,7 +305,7 @@ describe Document do
   describe '#term_vectors' do
     context 'when loading one document' do
       before(:each) do
-        @doc = Document.find('00972c5123877961056b21aea4177d0dc69c7318')
+        @doc = Document.find('doi:10.1111/j.1439-0310.2008.01576.x')
       end
 
       it 'does not set any term vectors' do
@@ -335,7 +315,7 @@ describe Document do
 
     context 'when loading one document with fulltext' do
       before(:each) do
-        @doc = Document.find('00972c5123877961056b21aea4177d0dc69c7318', true)
+        @doc = Document.find('doi:10.1111/j.1439-0310.2008.01576.x', true)
       end
 
       it 'sets the term vectors' do
@@ -365,7 +345,7 @@ describe Document do
 
     context 'when loading one document with offsets' do
       before(:each) do
-        @result = Solr::Connection.search(q: 'shasum:00972c5123877961056b21aea4177d0dc69c7318',
+        @result = Solr::Connection.search(q: 'id:(doi:10.1111/j.1439-0310.2008.01576.x)',
                                           defType: 'lucene',
                                           fields: Solr::Connection::DEFAULT_FIELDS_FULLTEXT,
                                           tv: 'true',

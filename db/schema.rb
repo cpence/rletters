@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131022151607) do
+ActiveRecord::Schema.define(version: 20131031130451) do
 
   create_table "admin_users", force: true do |t|
     t.string   "email",                  default: "", null: false
@@ -62,7 +62,7 @@ ActiveRecord::Schema.define(version: 20131022151607) do
   end
 
   create_table "dataset_entries", force: true do |t|
-    t.string   "shasum"
+    t.string   "uid"
     t.integer  "dataset_id"
     t.datetime "created_at"
     t.datetime "updated_at"

@@ -6,7 +6,7 @@
 - else
   #add-form-modal
     = form_tag add_to_datasets_path, method: :get, class: 'custom' do
-      = hidden_field_tag :shasum, @document.shasum
+      = hidden_field_tag :uid, @document.uid
       .row
         .large-6.columns
           = label_tag :dataset_id, Dataset.model_name.human

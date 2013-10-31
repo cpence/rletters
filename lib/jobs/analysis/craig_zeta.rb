@@ -93,7 +93,7 @@ module Jobs
         end
         analyzer_2.blocks.each do |b|
           b.keys.each do |k|
-            block_counts[k] ||= 0;
+            block_counts[k] ||= 0
             block_counts[k] += 1
           end
         end

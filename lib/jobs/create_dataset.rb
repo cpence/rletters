@@ -47,8 +47,8 @@ module Jobs
       solr_query[:fq] = args[:fq]
       solr_query[:defType] = args[:defType]
 
-      # Only get shasum, no facets
-      solr_query[:fl] = 'shasum'
+      # Only get uid, no facets
+      solr_query[:fl] = 'uid'
       solr_query[:facet] = false
 
       # We trap all of this so that if we get exceptions we can clean them
@@ -66,9 +66,9 @@ module Jobs
           docs_fetched = search_result.documents.count
 
           # Send them all in with activerecord-import
-          DatasetEntry.import([:shasum, :dataset_id],
+          DatasetEntry.import([:uid, :dataset_id],
                               search_result.documents.map do |d|
-                                [d.shasum, dataset_id]
+                                [d.uid, dataset_id]
                               end,
                               validate: false)
 

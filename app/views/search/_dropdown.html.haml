@@ -1,10 +1,10 @@
 - if user_signed_in?
   .row
-    .small-6.columns= link_to t('.single_dataset'), new_dataset_path(q: "shasum:#{document.shasum}", defType: 'lucene', fq: nil), data: { reveal_id: "single-#{document.shasum}-modal", reveal_ajax: 'true' }, class: 'button success small expand'
-    .small-6.columns= link_to t('.add_to_dataset'), search_add_path(id: document.shasum), data: { reveal_id: "add-#{document.shasum}-modal", reveal_ajax: 'true' }, class: 'button success small expand'
-    .reveal-modal{ id: "single-#{document.shasum}-modal"}
+    .small-6.columns= link_to t('.single_dataset'), new_dataset_path(q: "uid:#{document.uid}", defType: 'lucene', fq: nil), data: { reveal_id: "single-#{document.html_uid}-modal", reveal_ajax: 'true' }, class: 'button success small expand'
+    .small-6.columns= link_to t('.add_to_dataset'), search_add_path(uid: document.uid), data: { reveal_id: "add-#{document.html_uid}-modal", reveal_ajax: 'true' }, class: 'button success small expand'
+    .reveal-modal{ id: "single-#{document.html_uid}-modal"}
       .preloader
-    .reveal-modal{ id: "add-#{document.shasum}-modal" }
+    .reveal-modal{ id: "add-#{document.html_uid}-modal" }
       .preloader
 
 .row
@@ -24,8 +24,8 @@
     %ul.no-bullet
       %li= link_to t('.google'), "http://scholar.google.com/scholar?q=#{CGI.escape(document.title)}"
       - unless Setting.mendeley_key.blank?
-        %li= link_to t('.mendeley'), mendeley_redirect_path(id: document.shasum), rel: "external"
-      %li= link_to t('.citeulike'), citeulike_redirect_path(id: document.shasum), rel: "external"
+        %li= link_to t('.mendeley'), mendeley_redirect_path(uid: document.uid)
+      %li= link_to t('.citeulike'), citeulike_redirect_path(uid: document.uid)
 
 .row
   .small-12.columns

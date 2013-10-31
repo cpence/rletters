@@ -16,13 +16,13 @@ RLetters::Application.routes.draw do
   # Search/Browse page
   get 'search' => 'search#index'
   get 'search/advanced' => 'search#advanced'
-  get 'search/document/:id/export' => 'search#export',
+  get 'search/document/export/*uid' => 'search#export',
       as: 'search_export'
-  get 'search/document/:id/add' => 'search#add',
+  get 'search/document/add/*uid' => 'search#add',
       as: 'search_add'
-  get 'search/document/:id/mendeley' => 'search#to_mendeley',
+  get 'search/document/mendeley/*uid' => 'search#to_mendeley',
       as: 'mendeley_redirect'
-  get 'search/document/:id/citeulike' => 'search#to_citeulike',
+  get 'search/document/citeulike/*uid' => 'search#to_citeulike',
       as: 'citeulike_redirect'
 
   # Datasets (per-user)

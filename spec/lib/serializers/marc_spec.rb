@@ -11,8 +11,8 @@ describe Serializers::MARC do
 
     it 'creates a good MARC::Record' do
       # Control fields
-      expect(@record['001'].value).to eq('00972c5123877961056b21aea4177d0dc69c7318')
-      expect(@record['003'].value).to eq('PDFSHASUM')
+      expect(@record['001'].value).to eq('doi:10.1111/j.1439-0310.2008.01576.x')
+      expect(@record['003'].value).to eq('RLID')
       expect(@record['008'].value).to eq('110501s2008       ||||fo     ||0 0|eng d')
       expect(@record['040']['a']).to eq('RLetters')
       expect(@record['040']['b']).to eq('eng')

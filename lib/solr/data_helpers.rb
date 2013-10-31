@@ -36,8 +36,8 @@ module Solr
           # Build a Solr query to fetch only the one field for this group
           solr_query = {}
           solr_query[:rows] = group.count
-          query_str = group.map { |e| e.shasum }.join(' OR ')
-          solr_query[:q] = "shasum:(#{query_str})"
+          query_str = group.map { |e| "(#{e.uid})" }.join(' OR ')
+          solr_query[:q] = "uid:(#{query_str})"
           solr_query[:defType] = 'lucene'
           solr_query[:fl] = field.to_s
           solr_query[:facet] = false
@@ -62,7 +62,7 @@ module Solr
         solr_query[:defType] = 'lucene'
         solr_query[:group] = 'true'
         solr_query[:'group.field'] = field.to_s
-        solr_query[:fl] = 'shasum'
+        solr_query[:fl] = 'uid'
         solr_query[:facet] = false
 
         search_result = Solr::Connection.search_raw solr_query

@@ -4,9 +4,9 @@ require 'spec_helper'
 describe DatasetEntry do
 
   describe '#valid?' do
-    context 'when no shasum is specified' do
+    context 'when no uid is specified' do
       before(:each) do
-        @entry = FactoryGirl.build(:dataset_entry, shasum: nil)
+        @entry = FactoryGirl.build(:dataset_entry, uid: nil)
       end
 
       it 'is not valid' do
@@ -14,27 +14,7 @@ describe DatasetEntry do
       end
     end
 
-    context 'when a short shasum is specified' do
-      before(:each) do
-        @entry = FactoryGirl.build(:dataset_entry, shasum: 'notanshasum')
-      end
-
-      it 'is not valid' do
-        expect(@entry).not_to be_valid
-      end
-    end
-
-    context 'when an invalid shasum is specified' do
-      before(:each) do
-        @entry = FactoryGirl.build(:dataset_entry, shasum: '1234567890thisisbad!')
-      end
-
-      it 'is not valid' do
-        expect(@entry).not_to be_valid
-      end
-    end
-
-    context 'when a good shasum is specified' do
+    context 'when a good uid is specified' do
       before(:each) do
         @entry = FactoryGirl.create(:dataset_entry)
       end

@@ -77,8 +77,8 @@ module Solr
         # See if there are term vectors in this search
         if solr_response['termVectors']
           (0...solr_response['termVectors'].length).step(2) do |i|
-            shasum = solr_response['termVectors'][i + 1][1]
-            next unless doc['shasum'] == shasum
+            uid = solr_response['termVectors'][i + 1][1]
+            next unless doc['uid'] == uid
 
             tv = parse_term_vectors(solr_response['termVectors'][i + 1][3])
             doc['term_vectors'] = tv
@@ -102,7 +102,7 @@ module Solr
     #
     # Example of the Solr term vector format:
     #
-    #   [ 'doc-N', [ 'uniqueKey', 'shasum',
+    #   [ 'doc-N', [ 'uniqueKey', 'uid',
     #     'fulltext', [
     #       'term', [
     #         'tf', 1,

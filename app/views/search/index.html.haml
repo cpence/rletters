@@ -38,10 +38,10 @@
     %table.document-list
       - @documents.each do |d|
         %tr
-          %td{ 'data-dropdown' => "drop-#{d.shasum}" }
-            %abbr{ class: 'unapi-id', title: d.shasum }= ''
+          %td{ 'data-dropdown' => "drop-#{d.html_uid}" }
+            %abbr{ class: 'unapi-id', title: d.uid }= ''
             = document_bibliography_entry(d)
-          %div.f-dropdown.medium.content{ 'data-dropdown-content' => true, id: "drop-#{d.shasum}" }= render partial: 'dropdown', locals: { document: d }
+          %div.f-dropdown.medium.content{ 'data-dropdown-content' => true, id: "drop-#{d.html_uid}" }= render partial: 'dropdown', locals: { document: d }
     .pagination-centered= render_pagination(@result)
 
   .small-12.large-3.columns

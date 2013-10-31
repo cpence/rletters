@@ -1,22 +1,22 @@
 # -*- encoding : utf-8 -*-
 
-WORKING_SHASUMS = [
-                   '00040b66948f49c3a6c6c0977530e2014899abf9'.freeze,
-                   '001954306c066a8a4cff3da02f7e9dda8e0fb634'.freeze,
-                   '00496e7961871ad05013e1388aaa6650507b2638'.freeze,
-                   '008896a5c58241b65088d931e02f3bea02fc3bf0'.freeze,
-                   '00972c5123877961056b21aea4177d0dc69c7318'.freeze,
-                   '0097c3434054c25e1ace6243a1ac54b71f35bc28'.freeze,
-                   '0097e0f4029fef57b8158970112ab32c1e692cff'.freeze,
-                   '00a004096479b9332b153e91053f09df8003ef74'.freeze,
-                   '00cdb0f945c1e1d7b7789cd8178f3232a57fee34'.freeze,
-                   '00dbffbfff2d18a74ed5f8895fa9f515bf38bf5f'.freeze
-                  ].freeze
+WORKING_UIDS = [
+                'doi:10.1111/j.1439-0310.2009.01707.x'.freeze,
+                'doi:10.1046/j.0179-1613.2003.00929.x'.freeze,
+                'doi:10.1046/j.1439-0310.2000.00539.x'.freeze,
+                'doi:10.1111/j.1439-0310.2009.01716.x'.freeze,
+                'doi:10.1111/j.1439-0310.2008.01576.x'.freeze,
+                'doi:10.1046/j.1439-0310.2001.00723.x'.freeze,
+                'doi:10.1111/j.1439-0310.2011.01898.x'.freeze,
+                'doi:10.1111/j.1439-0310.1998.tb00103.x'.freeze,
+                'doi:10.1111/j.1439-0310.2006.01139.x'.freeze,
+                'doi:10.1111/j.1439-0310.2007.01421.x'.freeze
+               ].freeze
 
 FactoryGirl.define do
 
-  sequence :working_shasum do |n|
-    WORKING_SHASUMS[n % WORKING_SHASUMS.count]
+  sequence :working_uid do |n|
+    WORKING_UIDS[n % WORKING_UIDS.count]
   end
 
   factory :admin_user do
@@ -60,11 +60,11 @@ FactoryGirl.define do
       working false
     end
 
-    sequence(:shasum) do |n|
+    sequence(:uid) do |n|
       if working
-        FactoryGirl.generate(:working_shasum)
+        FactoryGirl.generate(:working_uid)
       else
-        "#{1_234_567_890_123_456_789_012_345_678_901_234_567_890 + n}"
+        "doi:10.1234/this.is.a.doi.#{n}"
       end
     end
 
@@ -73,7 +73,7 @@ FactoryGirl.define do
 
   factory :document do
     ignore do
-      shasum '1111111111111111111111111111111111111111'
+      uid 'doi:10.1234/this.is.a.doi'
       doi nil
       license nil
       license_url nil
@@ -89,7 +89,7 @@ FactoryGirl.define do
 
     factory :full_document do
       ignore do
-        shasum '00972c5123877961056b21aea4177d0dc69c7318'
+        uid 'doi:10.1111/j.1439-0310.2008.01576.x'
         doi '10.1111/j.1439-0310.2008.01576.x'
         license '© Blackwell Verlag GmbH'
         license_url 'http://onlinelibrary.wiley.com/journal/10.1111/(ISSN)1439-0310/homepage/Permissions.html'
@@ -104,7 +104,7 @@ FactoryGirl.define do
     end
 
     initialize_with do
-      Document.new(shasum: shasum, doi: doi, license: license,
+      Document.new(uid: uid, doi: doi, license: license,
                    license_url: license_url, authors: authors, title: title,
                    journal: journal, year: year, volume: volume,
                    number: number, pages: pages, fulltext: fulltext)

@@ -99,7 +99,7 @@ describe Serializers::RDF do
     context 'with an array of documents' do
       before(:each) do
         doc = FactoryGirl.build(:full_document)
-        doc2 = FactoryGirl.build(:full_document, shasum: 'wut')
+        doc2 = FactoryGirl.build(:full_document, uid: 'wut')
 
         @docs = [doc, doc2]
         @xml = @docs.to_rdf_xml

@@ -68,7 +68,7 @@ class SearchController < ApplicationController
   # @api public
   # @return [undefined]
   def export
-    @document = Document.find(params[:id])
+    @document = Document.find(params[:uid])
 
     respond_to do |format|
       format.any(*Document.serializers.keys) do
@@ -94,7 +94,7 @@ class SearchController < ApplicationController
   def add
     fail ActiveRecord::RecordNotFound unless user_signed_in?
 
-    @document = Document.find(params[:id])
+    @document = Document.find(params[:uid])
     @datasets = current_user.datasets
 
     render layout: false
@@ -106,7 +106,7 @@ class SearchController < ApplicationController
   def to_mendeley
     fail ActiveRecord::RecordNotFound if Setting.mendeley_key.blank?
 
-    @document = Document.find(params[:id])
+    @document = Document.find(params[:uid])
 
     begin
       res = Net::HTTP.start('api.mendeley.com') do |http|
@@ -128,7 +128,7 @@ class SearchController < ApplicationController
   # @api public
   # @return [undefined]
   def to_citeulike
-    @document = Document.find(params[:id])
+    @document = Document.find(params[:uid])
 
     begin
       res = Net::HTTP.start('www.citeulike.org') do |http|

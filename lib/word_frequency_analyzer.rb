@@ -118,7 +118,7 @@ class WordFrequencyAnalyzer
 
     # Process all of the documents
     @dataset.entries.each do |e|
-      @current_doc = Document.find(e.shasum, true)
+      @current_doc = Document.find(e.uid, true)
       tv = @current_doc.term_vectors
 
       # If we aren't splitting across, then we have to completely clear
@@ -279,7 +279,7 @@ class WordFrequencyAnalyzer
     @df_in_corpus = {}
 
     @dataset.entries.each do |e|
-      doc = Document.find(e.shasum, true)
+      doc = Document.find(e.uid, true)
       tv = doc.term_vectors
 
       tv.each do |word, hash|

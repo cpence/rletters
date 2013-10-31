@@ -129,7 +129,7 @@ describe DatasetsController do
     context 'when an invalid document is passed' do
       it 'raises an exception' do
         expect {
-          get :add, dataset_id: @dataset.to_param, shasum: 'fail'
+          get :add, dataset_id: @dataset.to_param, uid: 'fail'
         }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
@@ -138,13 +138,13 @@ describe DatasetsController do
       it 'adds to the dataset' do
         expect {
           get :add, dataset_id: @dataset.to_param,
-                    shasum: FactoryGirl.generate(:working_shasum)
+                    uid: FactoryGirl.generate(:working_uid)
         }.to change { @dataset.entries.count }.by(1)
       end
 
       it 'redirects to the dataset page' do
         get :add, dataset_id: @dataset.to_param,
-                  shasum: FactoryGirl.generate(:working_shasum)
+                  uid: FactoryGirl.generate(:working_uid)
         expect(response).to redirect_to(dataset_path(@dataset))
       end
     end

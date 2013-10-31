@@ -23,14 +23,14 @@ describe 'Solr::SearchResult' do
 
     context 'when no documents are returned' do
       it 'returns an empty array' do
-        expect(Solr::Connection.search({ q: 'shasum:fail', defType: 'lucene' }).documents).to have(0).items
+        expect(Solr::Connection.search({ q: 'uid:(fail)', defType: 'lucene' }).documents).to have(0).items
       end
     end
 
     context 'when Solr times out' do
       it 'raises an error' do
         stub_request(:any, /(127\.0\.0\.1|localhost)/).to_timeout
-        expect { Solr::Connection.search({ q: 'shasum:fail', defType: 'lucene' }) }.to raise_error(StandardError)
+        expect { Solr::Connection.search({ q: 'uid:(fail)', defType: 'lucene' }) }.to raise_error(StandardError)
       end
     end
   end
@@ -38,7 +38,7 @@ describe 'Solr::SearchResult' do
   describe '#num_hits' do
     context 'when loading one document' do
       before(:each) do
-        @result = Solr::Connection.search({ q: 'shasum:00972c5123877961056b21aea4177d0dc69c7318', defType: 'lucene' })
+        @result = Solr::Connection.search({ q: 'uid:(doi:10.1111/j.1439-0310.2008.01576.x)', defType: 'lucene' })
       end
 
       it 'sets num_hits to 1' do

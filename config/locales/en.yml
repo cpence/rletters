@@ -29,7 +29,7 @@ en:
                 other: Documents
         attributes:
             document:
-                shasum: SHA-1 checksum
+                uid: Unique identifier
                 doi: DOI
                 authors: Authors
                 title: Title
@@ -43,10 +43,8 @@ en:
         errors:
             models:
                 document:
-                    shasum:
-                        blank: "SHA-1 checksum was not specified (internal  error)"
-                        wrong_length: "SHA-1 checksum is not 20 characters (internal error)"
-                        invalid: "SHA-1 checksum contains invalid characters (internal error)"
+                    uid:
+                        blank: "Unique ID was not specified (internal  error)"
     activerecord:
         models:
             csl_style:
@@ -78,7 +76,7 @@ en:
             dataset:
                 name: Name
             dataset_entry:
-                shasum: SHA-1 checksum
+                uid: Unique identifier
             library:
                 name: Name
                 url: Base URL
@@ -113,10 +111,8 @@ en:
                     user_id:
                         blank: Dataset must have a user ID specified (internal error)
                 dataset_entry:
-                    shasum:
-                        blank: SHA-1 checksum was not specified (internal error)
-                        wrong_length: SHA-1 checksum is not 20 characters (internal error)
-                        invalid: SHA-1 checksum contains invalid characters (internal error)
+                    uid:
+                        blank: Unique ID was not specified (internal error)
                 library:
                     name:
                         blank: You must specify a name for this library entry

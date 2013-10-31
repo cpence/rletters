@@ -189,7 +189,7 @@ describe SearchHelper do
 
   describe '#document_bibliography_entry' do
     before(:each) do
-      @doc = Document.find(FactoryGirl.generate(:working_shasum))
+      @doc = Document.find(FactoryGirl.generate(:working_uid))
     end
 
     context 'when no user is logged in' do

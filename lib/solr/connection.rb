@@ -7,10 +7,10 @@ module Solr
   module Connection
 
     # The default Solr search fields
-    DEFAULT_FIELDS = 'shasum,doi,license,license_url,authors,title,journal,year,volume,number,pages'
+    DEFAULT_FIELDS = 'uid,doi,license,license_url,authors,title,journal,year,volume,number,pages'
 
     # The default Solr search fields, with the fulltext added
-    DEFAULT_FIELDS_FULLTEXT = 'shasum,doi,license,license_url,authors,title,journal,year,volume,number,pages,fulltext'
+    DEFAULT_FIELDS_FULLTEXT = 'uid,doi,license,license_url,authors,title,journal,year,volume,number,pages,fulltext'
 
     class << self
       # Cache the connection to solr
@@ -68,6 +68,7 @@ module Solr
 
       Connection.solr.post 'search', data: params
     rescue StandardError => e
+      raise
       Rails.logger.warn "Connection to Solr failed: #{e.inspect}"
       Rails.logger.info "Query for failed connection: #{params.to_s}"
       {}

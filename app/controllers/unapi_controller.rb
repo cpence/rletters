@@ -42,7 +42,7 @@ class UnapiController < ApplicationController
     if Document.serializers[format]
       redirect_to controller: 'search',
                   action: 'export',
-                  id: params[:id],
+                  uid: params[:id],
                   format: format
     else
       render template: 'errors/404',
