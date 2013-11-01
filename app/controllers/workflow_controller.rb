@@ -84,8 +84,12 @@ class WorkflowController < ApplicationController
     # Same for unlinking a dataset
     if params[:unlink_dataset_id]
       @user_datasets.delete_if { |d| d.to_param == params[:unlink_dataset_id] }
-      @user_datasets_str = @user_datasets.map { |d| d.to_param }.to_json
-      current_user.workflow_datasets = @user_datasets_str
+      if @user_datasets.empty?
+        current_user.workflow_datasets = nil
+      else
+        @user_datasets_str = @user_datasets.map { |d| d.to_param }.to_json
+        current_user.workflow_datasets = @user_datasets_str
+      end
     end
 
     # Save our changes, if any
@@ -101,7 +105,7 @@ class WorkflowController < ApplicationController
   # @return [undefined]
   def fetch
     analysis_criteria = {
-      datasets: { user_id: current_user.to_param }
+      datasets: { user_id: current_user.to_param, disabled: false }
     }
     @tasks = AnalysisTask.joins(:dataset).where(analysis_criteria)
 
@@ -155,7 +159,6 @@ class WorkflowController < ApplicationController
     @user_class = @user_class_str.safe_constantize if @user_class_str
     @user_datasets_str = current_user.workflow_datasets
     if @user_datasets_str
-      p JSON.parse(@user_datasets_str)
       @user_datasets = JSON.parse(@user_datasets_str).map do |id|
         current_user.datasets.active.find(id)
       end

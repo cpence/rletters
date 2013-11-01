@@ -41,6 +41,13 @@ describe DatasetsController do
         get :dataset_list
         expect(assigns(:datasets)).to eq([@dataset])
       end
+
+      it 'ignores disabled datasets' do
+        disabled = FactoryGirl.create(:dataset, user: @user, name: 'Disabled',
+                                                disabled: true)
+        get :dataset_list
+        expect(assigns(:datasets)).to eq([@dataset])
+      end
     end
   end
 
@@ -57,10 +64,13 @@ describe DatasetsController do
   end
 
   describe '#create' do
-    it 'creates a delayed job' do
-      post :create, { dataset: { name: 'Test Dataset' },
+    before(:each) do
+      post :create, { dataset: { name: 'Disabled Dataset' },
                       q: '*:*', fq: nil, defType: 'lucene' }
       @user.datasets.reload
+    end
+
+    it 'creates a delayed job' do
       expect(Jobs::CreateDataset).to have_queued(user_id: @user.to_param,
                                                  dataset_id: @user.datasets.inactive[0].to_param,
                                                  q: '*:*',
@@ -69,18 +79,17 @@ describe DatasetsController do
     end
 
     it 'creates a skeleton dataset' do
-      expect {
-        post :create, { dataset: { name: 'Test Dataset' },
-                q: '*:*', fq: nil, defType: 'lucene' }
-      }.to change { @user.datasets.count }.by(1)
+      expect(@user.datasets.count).to eq(2)
+    end
+
+    it 'makes that dataset inactive' do
+      expect(@user.datasets.active.count).to eq(1)
 
       expect(@user.datasets.inactive.count).to eq(1)
-      expect(@user.datasets.inactive[0].name).to eq('Test Dataset')
+      expect(@user.datasets.inactive[0].name).to eq('Disabled Dataset')
     end
 
     it 'redirects to index when done' do
-      post :create, { dataset: { name: 'Test Dataset' },
-                      q: '*:*', fq: nil, defType: 'lucene' }
       expect(response).to redirect_to(datasets_path)
     end
   end
@@ -95,6 +104,19 @@ describe DatasetsController do
       it 'assigns dataset' do
         get :show, id: @dataset.to_param
         expect(assigns(:dataset)).to eq(@dataset)
+      end
+    end
+
+    context 'with a disabled dataset' do
+      before(:each) do
+        @disabled = FactoryGirl.create(:dataset, user: @user, name: 'Disabled',
+                                                 disabled: true)
+      end
+
+      it 'raises an exception' do
+        expect {
+          get :show, id: @disabled.to_param
+        }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
 
@@ -122,17 +144,27 @@ describe DatasetsController do
   end
 
   describe '#destroy' do
-    it 'creates a delayed job' do
+    before(:each) do
       delete :destroy, id: @dataset.to_param
+    end
 
+    it 'creates a delayed job' do
       expect(Jobs::DestroyDataset).to have_queued(
         user_id: @user.to_param,
         dataset_id: @dataset.to_param)
     end
 
     it 'redirects to the index when done' do
-      delete :destroy, id: @dataset.to_param
       expect(response).to redirect_to(datasets_path)
+    end
+
+    it 'disables the dataset' do
+      @user.datasets.reload
+      @dataset.reload
+
+      expect(@user.datasets.active.count).to eq(0)
+      expect(@user.datasets.inactive.count).to eq(1)
+      expect(@dataset.disabled).to be_true
     end
   end
 
@@ -141,6 +173,19 @@ describe DatasetsController do
       it 'raises an exception' do
         expect {
           get :add, dataset_id: @dataset.to_param, uid: 'fail'
+        }.to raise_error(ActiveRecord::RecordNotFound)
+      end
+    end
+
+    context 'with a disabled dataset' do
+      before(:each) do
+        @disabled = FactoryGirl.create(:dataset, user: @user, name: 'Disabled',
+                                                 disabled: true)
+      end
+
+      it 'raises an exception' do
+        expect {
+          get :add, id: @disabled.to_param, uid: FactoryGirl.generate(:working_uid)
         }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
@@ -175,6 +220,19 @@ describe DatasetsController do
         expect {
           get :task_start, id: @dataset.to_param, class: 'Base'
         }.to raise_error
+      end
+    end
+
+    context 'with a disabled dataset' do
+      before(:each) do
+        @disabled = FactoryGirl.create(:dataset, user: @user, name: 'Disabled',
+                                                 disabled: true)
+      end
+
+      it 'raises an exception' do
+        expect {
+          get :task_start, id: @disabled.to_param, class: 'PlotDates'
+        }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
 
@@ -246,8 +304,21 @@ describe DatasetsController do
       it 'raises an exception' do
         expect {
           get :task_view, id: @dataset.to_param, class: 'NotClass',
-          view: 'test'
+                          view: 'test'
         }.to raise_error(ArgumentError)
+      end
+    end
+
+    context 'with a disabled dataset' do
+      before(:each) do
+        @disabled = FactoryGirl.create(:dataset, user: @user, name: 'Disabled',
+                                                 disabled: true)
+      end
+
+      it 'raises an exception' do
+        expect {
+          get :task_view, id: @disabled.to_param, class: 'PlotDates', view: '_params'
+        }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
 
@@ -260,10 +331,6 @@ describe DatasetsController do
         @task = FactoryGirl.create(:analysis_task,
                                    dataset: @dataset,
                                    job_type: 'ExportCitations')
-      end
-
-      after(:each) do
-        @task.destroy
       end
 
       it 'raises an exception for missing views' do
@@ -308,10 +375,6 @@ describe DatasetsController do
       )
     end
 
-    after(:each) do
-      @task.destroy
-    end
-
     it 'loads successfully' do
       get :task_download, id: @dataset.to_param, task_id: @task.to_param
       expect(response).to be_success
@@ -333,6 +396,22 @@ describe DatasetsController do
       it 'raises an exception' do
         expect {
           get :task_destroy, id: @dataset.to_param, task_id: '12345678'
+        }.to raise_error(ActiveRecord::RecordNotFound)
+      end
+    end
+
+    context 'with a disabled dataset' do
+      before(:each) do
+        @disabled = FactoryGirl.create(:dataset, user: @user, name: 'Disabled',
+                                                 disabled: true)
+        @task = FactoryGirl.create(:analysis_task,
+                                   dataset: @disabled,
+                                   job_type: 'ExportCitations')
+      end
+
+      it 'raises an exception' do
+        expect {
+          get :task_destroy, id: @disabled.to_param, task_id: @task.to_param
         }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
@@ -371,6 +450,19 @@ describe DatasetsController do
       end
     end
 
+    context 'with a disabled dataset' do
+      before(:each) do
+        @disabled = FactoryGirl.create(:dataset, user: @user, name: 'Disabled',
+                                                 disabled: true)
+      end
+
+      it 'raises an exception' do
+        expect {
+          get :task_list, id: @disabled.to_param
+        }.to raise_error(ActiveRecord::RecordNotFound)
+      end
+    end
+
     context 'with an invalid dataset' do
       it 'raises an error' do
         expect {
@@ -379,5 +471,4 @@ describe DatasetsController do
       end
     end
   end
-
 end

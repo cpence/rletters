@@ -198,11 +198,24 @@ describe SearchController do
     before(:each) do
       @user = FactoryGirl.create(:user)
       sign_in @user
+
+      @document = Document.find(FactoryGirl.generate(:working_uid))
+      @dataset = FactoryGirl.create(:dataset, user: @user, name: 'Enabled')
+      @disabled = FactoryGirl.create(:dataset, user: @user, name: 'Disabled', disabled: true)
+
+      get :add, { uid: @document.uid }
     end
 
     it 'loads successfully' do
-      get :add, { uid: FactoryGirl.generate(:working_uid) }
       expect(response).to be_success
+    end
+
+    it 'sets the document' do
+      expect(assigns(:document).uid).to eq(@document.uid)
+    end
+
+    it 'sets the datasets, ignoring disabled' do
+      expect(assigns(:datasets)).to eq([@dataset])
     end
   end
 
