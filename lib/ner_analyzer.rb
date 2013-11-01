@@ -31,7 +31,7 @@ class NERAnalyzer
     @entity_references = {}
 
     dataset.entries.each do |e|
-      doc = Document.find(e.uid, true)
+      doc = Document.find(e.uid, fulltext: true)
       triples = classifier.classifyToCharacterOffsets(doc.fulltext)
 
       triples.each do |t|

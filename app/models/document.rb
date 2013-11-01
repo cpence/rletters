@@ -149,15 +149,18 @@ class Document
   #
   # @api public
   # @param [String] uid uid of the document to be retrieved
-  # @param [Boolean] fulltext if true, return document full text
+  # @param [Hash] options options which modify the behavior of the search
+  # @option options [Boolean] fulltext if true, return document full text
+  # @option options [Boolean] term_vectors if true, return term vectors
   # @return [Document] the document requested
   # @raise [Solr::ConnectionError] thrown if there is an error querying Solr
   # @raise [ActiveRecord::RecordNotFound] thrown if no matching document can
   #   be found
   # @example Look up the document with UID '1234567890abcdef1234'
   #   doc = Document.find('1234567890abcdef1234')
-  def self.find(uid, fulltext = false)
-    find_by!(uid: uid, fulltext: fulltext)
+  def self.find(uid, options = {})
+    find_by!(uid: uid, fulltext: options[:fulltext],
+             term_vectors: options[:term_vectors])
   end
 
   # Query a document and raise an exception if it's not found
@@ -166,6 +169,7 @@ class Document
   # @api public
   # @option args [Boolean] fulltext if true, return the full text of the
   #   document if found
+  # @option args [Boolean] term_vectors if true, return term vectors
   # @option args [String] field any document field may be queried here as a
   #   search query (see example)
   # @return [Document] the document requested, or nil if not found
@@ -183,6 +187,7 @@ class Document
   # @api public
   # @option args [Boolean] fulltext if true, return the full text of the
   #   document if found
+  # @option args [Boolean] term_vectors if true, return term vectors
   # @option args [String] field any document field may be queried here as a
   #   search query (see example)
   # @return [Document] the document requested, or nil if not found
@@ -190,15 +195,21 @@ class Document
   # @example Look up a document by W. Shatner (returning nil if not found)
   #   doc = Document.find_by(authors: 'W. Shatner')
   def self.find_by(args)
-    # First, delete the 'fulltext' argument, because it's special
+    # Delete the special arguments
     fulltext = args.delete(:fulltext)
+    term_vectors = args.delete(:term_vectors)
 
     # Build the query
     query = { defType: 'lucene' }
     query[:q] = args.map { |k, v| "#{k}:\"#{v}\"" }.join(' AND ')
     if fulltext == true
-      query[:tv] = 'true'
       query[:fl] = Solr::Connection::DEFAULT_FIELDS_FULLTEXT
+    end
+    if term_vectors == true
+      # FIXME: here we don't want to query fulltext unless we really want it;
+      # this will have to be patched for HTTP
+      query[:fl] = Solr::Connection::DEFAULT_FIELDS_FULLTEXT
+      query[:tv] = 'true'
     end
 
     # Run it and return

@@ -55,7 +55,7 @@ describe Document do
     context 'with fulltext' do
       context 'when loading one document with fulltext' do
         before(:each) do
-          @doc = Document.find('doi:10.1111/j.1439-0310.2008.01576.x', true)
+          @doc = Document.find('doi:10.1111/j.1439-0310.2008.01576.x', fulltext: true)
         end
 
         it 'loads the document successfully' do
@@ -168,7 +168,7 @@ describe Document do
 
     context 'when loading one document with fulltext' do
       before(:each) do
-        @doc = Document.find('doi:10.1111/j.1439-0310.2008.01576.x', true)
+        @doc = Document.find('doi:10.1111/j.1439-0310.2008.01576.x', fulltext: true)
       end
 
       it 'gets the right uid' do
@@ -177,6 +177,10 @@ describe Document do
 
       it 'loads the fulltext' do
         expect(@doc.fulltext).to be
+      end
+
+      it 'does not load term vectors' do
+        expect(@doc.term_vectors).not_to be
       end
     end
 
@@ -227,7 +231,7 @@ describe Document do
       end
 
       it 'does not set the fulltext' do
-        expect(@docs[1].fulltext).to be_nil
+        expect(@docs[1].fulltext).not_to be
       end
     end
   end
@@ -313,9 +317,15 @@ describe Document do
       end
     end
 
-    context 'when loading one document with fulltext' do
+    context 'when loading one document with term vectors' do
       before(:each) do
-        @doc = Document.find('doi:10.1111/j.1439-0310.2008.01576.x', true)
+        @doc = Document.find('doi:10.1111/j.1439-0310.2008.01576.x', term_vectors: true)
+      end
+
+      # FIXME: This will be fixed when we have support for term vectors without
+      # fulltext (part of HTTP fetching)
+      xit 'does not load the fulltext' do
+        expect(@doc.fulltext).not_to be
       end
 
       it 'sets the term vectors' do
