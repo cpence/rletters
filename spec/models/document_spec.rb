@@ -76,6 +76,29 @@ describe Document do
         end
       end
     end
+
+    context 'with external fulltext (HTTP)' do
+      before(:each) do
+        stub_connection('http://www.gutenberg.org/cache/epub/3172/pg3172.txt', 'gutenberg')
+        @doc = Document.find('gutenberg:3172', fulltext: true, term_vectors: true)
+      end
+
+      it 'loads successfully' do
+        expect(@doc).to be
+      end
+
+      it 'loads the fulltext' do
+        expect(@doc.fulltext).to start_with('The Project Gutenberg EBook of')
+      end
+
+      it 'loads the term vectors' do
+        expect(@doc.term_vectors).to be
+      end
+
+      it 'fills in term vectors with reasonable quantites' do
+        expect(@doc.term_vectors['cooper']['tf']).to be(44)
+      end
+    end
   end
 
   describe '.find_by' do
@@ -322,9 +345,7 @@ describe Document do
         @doc = Document.find('doi:10.1111/j.1439-0310.2008.01576.x', term_vectors: true)
       end
 
-      # FIXME: This will be fixed when we have support for term vectors without
-      # fulltext (part of HTTP fetching)
-      xit 'does not load the fulltext' do
+      it 'does not load the fulltext' do
         expect(@doc.fulltext).not_to be
       end
 

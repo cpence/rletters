@@ -72,7 +72,7 @@ describe Jobs::CreateDataset do
     end
 
     it 'puts the right number of items in the dataset' do
-      expect(@user.datasets[0].entries).to have(1042).items
+      expect(@user.datasets[0].entries).to have(1043).items
     end
   end
 

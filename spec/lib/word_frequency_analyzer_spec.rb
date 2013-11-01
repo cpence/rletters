@@ -342,7 +342,7 @@ describe WordFrequencyAnalyzer do
     end
 
     it 'works' do
-      expect(@analyzer.num_corpus_documents).to eq(1042)
+      expect(@analyzer.num_corpus_documents).to eq(1043)
     end
   end
 end

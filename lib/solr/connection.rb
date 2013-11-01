@@ -10,7 +10,7 @@ module Solr
     DEFAULT_FIELDS = 'uid,doi,license,license_url,authors,title,journal,year,volume,number,pages'
 
     # The default Solr search fields, with the fulltext added
-    DEFAULT_FIELDS_FULLTEXT = 'uid,doi,license,license_url,authors,title,journal,year,volume,number,pages,fulltext'
+    DEFAULT_FIELDS_FULLTEXT = 'uid,doi,license,license_url,authors,title,journal,year,volume,number,pages,fulltext_url,fulltext'
 
     class << self
       # Cache the connection to solr

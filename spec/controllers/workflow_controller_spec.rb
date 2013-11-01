@@ -38,7 +38,7 @@ describe WorkflowController do
 
         it 'sets the number of documents' do
           expect(assigns(:database_size)).to be
-          expect(assigns(:database_size)).to eq(1042)
+          expect(assigns(:database_size)).to eq(1043)
         end
       end
 

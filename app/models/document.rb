@@ -41,9 +41,17 @@
 # @!attribute [r] pages
 #   @return [String] the page numbers in the journal of this document, in the
 #     format 'start-end'
-# @!attribute [r] fulltet
+#
+# @!attribute [r] fulltext
+#   If +fulltext_url+ is set, this variable will be transparently set to the
+#   fetched text when a document is retrieved from the server with fulltext
+#   requested.
+#
 #   @return [String] the full text of this document.  May be +nil+ if the query
 #     type used to retrieve the document does not provide the full text
+# @!attribute [r] fulltext_url
+#   @return [URI] if present, the URL from which to fetch the full text.  May
+#     be +nil+ if the text is stored locally
 #
 # @!attribute [r] term_vectors
 #   Term vectors for this document
@@ -97,7 +105,8 @@ class Document
 
   attr_accessor :uid, :doi, :license, :license_url, :authors,
                 :author_list, :formatted_author_list, :title, :journal,
-                :year, :volume, :number, :pages, :fulltext, :term_vectors
+                :year, :volume, :number, :pages, :fulltext, :fulltext_url,
+                :term_vectors
 
   # The uid attribute is the only required one
   validates :uid, presence: true
@@ -206,16 +215,28 @@ class Document
       query[:fl] = Solr::Connection::DEFAULT_FIELDS_FULLTEXT
     end
     if term_vectors == true
-      # FIXME: here we don't want to query fulltext unless we really want it;
-      # this will have to be patched for HTTP
-      query[:fl] = Solr::Connection::DEFAULT_FIELDS_FULLTEXT
       query[:tv] = 'true'
     end
 
-    # Run it and return
+    # Run the search
     result = Solr::Connection.search(query)
     return nil if result.num_hits < 1
-    result.documents[0]
+    doc = result.documents[0]
+
+    # If the full text is requested, fetch it if we have to
+    if fulltext == true && !doc.fulltext_url.blank?
+      doc.fulltext = Net::HTTP.get(doc.fulltext_url)
+      doc.fulltext = doc.fulltext.encode('utf-8',
+                                         invalid: :replace, undef: :replace,
+                                         replace: '')
+
+      # Some websites return a UTF-8 BOM, strip it if it's found
+      if doc.fulltext.start_with?("\xEF\xBB\xBF")
+        doc.fulltext = doc.fulltext[3..-1]
+      end
+    end
+
+    doc
   end
 
   # @return [String] the document UID, sanitized for use as an HTML attribute
@@ -257,6 +278,11 @@ class Document
   # @param [Hash] attributes attributes for this document
   def initialize(attributes = {})
     super
+
+    # Convert the fulltext_url into a URI
+    if fulltext_url
+      self.fulltext_url = URI.parse(fulltext_url)
+    end
 
     # Split out the author list and format it
     unless authors.nil?

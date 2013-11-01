@@ -67,7 +67,7 @@ describe Admin::DashboardController do
       end
 
       it 'includes the database size' do
-        expect(response.body).to include('1042 items')
+        expect(response.body).to include('1043 items')
       end
     end
   end

@@ -52,7 +52,7 @@ describe 'Solr::SearchResult' do
       end
 
       it 'sets num_hits' do
-        expect(@result.num_hits).to eq(1042)
+        expect(@result.num_hits).to eq(1043)
       end
     end
   end
