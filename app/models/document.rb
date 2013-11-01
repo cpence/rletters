@@ -241,7 +241,7 @@ class Document
 
   # @return [String] the document UID, sanitized for use as an HTML attribute
   def html_uid
-    uid ? uid.gsub(/[^0-9a-zA-Z\-_\.]/, '_') : nil
+    uid ? uid.gsub(/[^0-9a-zA-Z\-_]/, '_') : nil
   end
 
   # @return [String] the starting page of this document, if it can be parsed
