@@ -26,8 +26,8 @@ RLetters::Application.configure do
   # Do not fallback to assets pipeline if a precompiled asset is missed.
   config.assets.compile = false
 
-  # Precompile vendor images as well
-  config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif)
+  # Precompile asset/vendor images and fonts
+  config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif *.svg *.eot *.woff *.ttf)
 
   # Precompile all my local JS (since it's all included per-page)
   config.assets.precompile << proc do |path|

@@ -237,7 +237,16 @@ module SearchHelper
   #   # "Johnson, W. 2000. ..."
   def document_bibliography_entry(doc)
     if user_signed_in? && current_user.csl_style
-      return doc.to_csl_entry(current_user.csl_style)
+      if doc.fulltext_url
+        cloud_icon = content_tag(:span, '',
+                                 'data-tooltip' => true,
+                                 title: t('search.document.cloud_tooltip'),
+                                 class: 'icon fi-upload-cloud has-tip')
+      else
+        cloud_icon = ''.html_safe
+      end
+
+      return doc.to_csl_entry(current_user.csl_style) + cloud_icon
     end
 
     render partial: 'document', locals: { document: doc }

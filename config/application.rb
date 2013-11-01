@@ -24,6 +24,9 @@ module RLetters
                                                  '*.{rb,yml}').to_s]
     config.i18n.default_locale = :en
 
+    # Find the local fonts folder
+    config.assets.paths << Rails.root.join('app', 'assets', 'fonts')
+
     # Use the 'full_page' layout for all Devise views
     config.to_prepare do
       Devise::SessionsController.layout 'full_page'

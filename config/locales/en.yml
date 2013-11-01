@@ -297,6 +297,9 @@ en:
     search:
         document:
             untitled: "[untitled]"
+            cloud_tooltip: |
+                This document may take a while to analyze, as its full text is
+                stored externally with one of our content partners.
             volume_abbr: "Vol. %{volume}"
             number_abbr: "No. %{number}"
             pages_abbr: "pp. %{pages}"

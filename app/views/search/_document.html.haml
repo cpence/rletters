@@ -1,7 +1,11 @@
-- unless document.title.blank?
-  %h5= document.title
-- else
-  %h5= t('.untitled')
+%h5
+  - unless document.title.blank?
+    = document.title
+  - else
+    = t('.untitled')
+
+  - if document.fulltext_url
+    %span.icon.fi-upload-cloud.has-tip{ data: { tooltip: true }, title: t('.cloud_tooltip') }
 %p
   - unless document.authors.blank?
     = document.authors

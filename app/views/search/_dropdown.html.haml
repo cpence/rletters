@@ -7,8 +7,9 @@
     .reveal-modal{ id: "add-#{document.html_uid}-modal" }
       .preloader
 
-.row
-  .small-6.columns= link_to t('.journal'), "http://dx.doi.org/#{document.doi}", class: 'button primary small expand'
+- if document.doi
+  .row
+    .small-6.columns= link_to t('.journal'), "http://dx.doi.org/#{document.doi}", class: 'button primary small expand'
 
 .row
   .small-6.columns
