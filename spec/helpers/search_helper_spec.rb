@@ -228,7 +228,7 @@ describe SearchHelper do
       end
 
       it 'renders a CSL style' do
-        expect(@doc).to receive(:to_csl_entry).with(@csl_style)
+        expect(@doc).to receive(:to_csl_entry).with(@csl_style).and_return('')
         helper.document_bibliography_entry(@doc)
       end
     end
