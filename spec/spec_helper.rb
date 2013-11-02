@@ -25,6 +25,7 @@ if ENV['COVERAGE'] || (ENV['TRAVIS'] && ENV['TRAVIS_RUBY_VERSION'] == '2.0')
     add_filter '.builder'
 
     # Filter things only JRuby uses
+    add_filter '/lib/core_ext/activerecord_base_logger.rb'
     add_filter '/lib/core_ext/java_print_stream.rb'
     add_filter '/lib/core_ext/nokogiri_xml_node_attributes.rb'
 

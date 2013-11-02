@@ -3,6 +3,29 @@ require 'spec_helper'
 
 describe SearchHelper do
 
+  # This is a spec for /lib/core_ext/markdown_handler, but we need access to
+  # helper.render, so we have to do this in a helper spec.
+  context 'with a Markdown template including ERB' do
+    before(:each) do
+      @path = Rails.root.join('app', 'views', 'search', 'test_spec.md')
+      $spec_markdown_global = 'things'
+      File.open(@path, 'w') do |file|
+        file.puts('# Testing <%= $spec_markdown_global %> #')
+      end
+    end
+
+    after(:each) do
+      File.delete(@path)
+    end
+
+    it 'renders the Markdown as expected' do
+      html = helper.render file: @path
+
+      expect(html).to be
+      expect(html).to have_tag('h1', text: 'Testing things')
+    end
+  end
+
   describe '#num_hits_string' do
     before(:each) do
       @result = double(Solr::SearchResult, num_hits: 100)
