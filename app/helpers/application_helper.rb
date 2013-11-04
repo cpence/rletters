@@ -56,22 +56,24 @@ module ApplicationHelper
   # Elements of the flash hash for which we have custom CSS classes
   FLASH_CLASSES = %w{ notice alert success }
 
-  # Create Foundation markup for a flash
+  # Create Foundation markup for the flashes
   #
   # We're styling the background colors for several of the flashes ourselves,
   # so we want to generate that markup here.
   #
   # @api public
-  # @param [Symbol] key the flash key
-  # @param [Symbol] value the flash contents
   # @return [String] the markup for displaying the flash
-  # @example Display an alert flash
-  #   <%= render_flash(:alert, 'Oh no!')
-  def render_flash(key, value)
-    c = "flash-#{key.to_s}" if FLASH_CLASSES.include?(key.to_s)
-    c ||= 'flash-generic'
+  # @example Display all the flashes
+  #   <%= render_flash %>
+  def render_flash
+    ''.html_safe.tap do |content|
+      flash.each do |key, value|
+        c = "flash-#{key.to_s}" if FLASH_CLASSES.include?(key.to_s)
+        c ||= 'flash-generic'
 
-    content_tag(:div, class: c) { h(value) }
+        content << content_tag(:div, html_escape(value), class: c)
+      end
+    end
   end
 
   # Render a partial from a job

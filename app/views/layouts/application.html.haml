@@ -7,9 +7,7 @@
     %div
       - if content_for? :breadcrumbs
         %ul.breadcrumbs= yield(:breadcrumbs)
-
-      - flash.each do |k, v|
-        = render_flash(k, v)
+      = render_flash
 
       = content_for?(:content) ? yield(:content) : yield
 
