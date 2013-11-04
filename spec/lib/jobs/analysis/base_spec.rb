@@ -42,6 +42,43 @@ describe Jobs::Analysis::Base do
     end
   end
 
+  describe '.view_path' do
+    context 'with neither template nor partial' do
+      it 'raises an error' do
+        expect {
+          Jobs::Analysis::MockJob.view_path(bad: true)
+        }.to raise_error(ArgumentError)
+      end
+    end
+
+    context 'with template' do
+      it 'returns nil for missing views' do
+        expect(Jobs::Analysis::MockJob.view_path(template: 'test')).to be_nil
+      end
+
+      it 'returns path for available views' do
+        expected = Rails.root.join('lib', 'jobs', 'analysis', 'views', 'named_entities', 'results.html.haml').to_s
+        expect(Jobs::Analysis::NamedEntities.view_path(template: 'results')).to eq(expected)
+      end
+    end
+
+    context 'with partial' do
+      it 'returns nil for missing views' do
+        expect(Jobs::Analysis::MockJob.view_path(partial: 'what')).to be_nil
+      end
+
+      it 'returns path for available views' do
+        expected = Rails.root.join('lib', 'jobs', 'analysis', 'views', 'plot_dates', '_params.html.haml').to_s
+        expect(Jobs::Analysis::PlotDates.view_path(partial: 'params')).to eq(expected)
+      end
+
+      it 'returns path for concern views' do
+        expected = Rails.root.join('lib', 'jobs', 'analysis', 'concerns', 'views', 'normalize_document_counts', '_normalize_document_counts.html.haml').to_s
+        expect(Jobs::Analysis::PlotDates.view_path(partial: 'normalize_document_counts')).to eq(expected)
+      end
+    end
+  end
+
   describe '.job_list' do
     before(:each) do
       @jobs = Jobs::Analysis::Base.job_list
