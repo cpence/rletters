@@ -16,6 +16,12 @@ describe Jobs::Analysis::WordFrequency do
     @task.destroy
   end
 
+  describe '.download?' do
+    it 'is true' do
+      expect(Jobs::Analysis::WordFrequency.download?).to be_true
+    end
+  end
+
   describe '#perform' do
     it 'accepts all the various valid parameters' do
       params_to_test =

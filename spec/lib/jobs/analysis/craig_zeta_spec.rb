@@ -18,6 +18,12 @@ describe Jobs::Analysis::CraigZeta do
     @task.destroy
   end
 
+  describe '.download?' do
+    it 'is false' do
+      expect(Jobs::Analysis::CraigZeta.download?).to be_false
+    end
+  end
+
   context 'when all parameters are valid' do
     before(:each) do
       Jobs::Analysis::CraigZeta.perform(

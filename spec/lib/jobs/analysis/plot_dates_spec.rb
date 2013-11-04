@@ -3,6 +3,8 @@ require 'spec_helper'
 
 describe Jobs::Analysis::PlotDates do
 
+  it_should_behave_like 'an analysis job with a file'
+
   before(:each) do
     @user = FactoryGirl.create(:user)
     @dataset = FactoryGirl.create(:full_dataset, working: true, user: @user)
@@ -13,7 +15,11 @@ describe Jobs::Analysis::PlotDates do
     @task.destroy
   end
 
-  it_should_behave_like 'an analysis job with a file'
+  describe '.download?' do
+    it 'is false' do
+      expect(Jobs::Analysis::PlotDates.download?).to be_false
+    end
+  end
 
   context 'when not normalizing' do
     before(:each) do

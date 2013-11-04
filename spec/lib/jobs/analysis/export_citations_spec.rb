@@ -18,6 +18,12 @@ describe Jobs::Analysis::ExportCitations do
     @task.destroy
   end
 
+  describe '.download?' do
+    it 'is true' do
+      expect(Jobs::Analysis::ExportCitations.download?).to be_true
+    end
+  end
+
   context 'when an invalid format is specified' do
     it 'raises an exception' do
       expect {
