@@ -44,7 +44,9 @@ module Solr
 
           search_result = Solr::Connection.search solr_query
           unless search_result.num_hits == group.count
+            # :nocov:
             fail "Failed to get batch of results in count_by_field (wanted #{group.count} hits, got #{search_result.num_hits})"
+            # :nocov:
           end
 
           search_result.documents.each do |doc|
@@ -67,12 +69,16 @@ module Solr
 
         search_result = Solr::Connection.search_raw solr_query
         unless search_result['grouped']
+          # :nocov:
           fail 'Solr server did not return any grouped results'
+          # :nocov:
         end
 
         grouped = search_result['grouped'][field.to_s]
         unless grouped && grouped['matches']
+          # :nocov:
           fail 'Solr server did not return grouped results for field'
+          # :nocov:
         end
         return {} if grouped['matches'] == 0
 

@@ -61,6 +61,13 @@ describe WorkflowController do
       @disabled = FactoryGirl.create(:dataset, name: 'Disabled Dataset', disabled: true, user: @user)
     end
 
+    describe '#info' do
+      it 'loads successfully' do
+        get :info, class: 'PlotDates'
+        expect(response).to be_success
+      end
+    end
+
     describe '#start' do
       it 'loads successfully' do
         get :start
@@ -118,11 +125,12 @@ describe WorkflowController do
         end
       end
 
-      context 'when asked to unlink a dataset' do
+      context 'when asked to unlink a dataset with one dataset' do
         before(:each) do
           @user.workflow_active = true
           @user.workflow_class = 'PlotDates'
           @user.workflow_datasets = [@dataset.to_param].to_json
+          @user.save
 
           get :activate, class: 'PlotDates', unlink_dataset_id: @dataset.to_param
           @user.reload
@@ -134,6 +142,28 @@ describe WorkflowController do
 
         it 'sends the parameters to the view' do
           expect(assigns(:user_datasets)).to be_empty
+        end
+      end
+
+      context 'when asked to unlink a dataset with multiple datasets' do
+        before(:each) do
+          @dataset_2 = FactoryGirl.create(:dataset, user: @user)
+
+          @user.workflow_active = true
+          @user.workflow_class = 'CraigZeta'
+          @user.workflow_datasets = [@dataset.to_param, @dataset_2.to_param].to_json
+          @user.save
+
+          get :activate, class: 'CraigZeta', unlink_dataset_id: @dataset_2.to_param
+          @user.reload
+        end
+
+        it 'unlinks the dataset' do
+          expect(@user.workflow_datasets).to eq([@dataset.to_param].to_json)
+        end
+
+        it 'sends the parameters to the view' do
+          expect(assigns(:user_datasets)).to eq([@dataset])
         end
       end
     end

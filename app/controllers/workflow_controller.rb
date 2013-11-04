@@ -150,13 +150,12 @@ class WorkflowController < ApplicationController
     raise ActiveRecord::RecordNotFound unless @klass
 
     @num_datasets = @klass.num_datasets
-    if @num_datasets <= 0
-      raise ArgumentError, "Invalid number of datasets (#{@num_datasets})"
-    end
 
     @user_active = current_user.workflow_active || false
+
     @user_class_str = current_user.workflow_class
     @user_class = @user_class_str.safe_constantize if @user_class_str
+
     @user_datasets_str = current_user.workflow_datasets
     if @user_datasets_str
       @user_datasets = JSON.parse(@user_datasets_str).map do |id|
