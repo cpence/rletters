@@ -33,16 +33,20 @@ module Jobs
       # In general, this checks if all required external tools are available.
       #
       # @return [Boolean] true if this job can be run now
+      # :nocov:
       def self.available?
         fail NotImplementedError, 'Classes deriving from Jobs::Analysis::Base should implement .available?'
       end
+      # :nocov:
 
       # Return how many datasets this job requires
       #
       # @return [Integer] number of datasets needed to perform this job
+      # :nocov:
       def self.num_datasets
         fail NotImplementedError, 'Classes deriving from Jobs::Analysis::Base should implement .num_datasets'
       end
+      # :nocov:
 
       # Returns a translated string for this job
       #
