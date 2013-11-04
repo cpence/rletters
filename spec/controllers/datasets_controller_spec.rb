@@ -64,33 +64,50 @@ describe DatasetsController do
   end
 
   describe '#create' do
-    before(:each) do
-      post :create, { dataset: { name: 'Disabled Dataset' },
-                      q: '*:*', fq: nil, defType: 'lucene' }
-      @user.datasets.reload
+    context 'with no workflow active' do
+      before(:each) do
+        post :create, { dataset: { name: 'Disabled Dataset' },
+                        q: '*:*', fq: nil, defType: 'lucene' }
+        @user.datasets.reload
+      end
+
+      it 'creates a delayed job' do
+        expect(Jobs::CreateDataset).to have_queued(user_id: @user.to_param,
+                                                   dataset_id: @user.datasets.inactive[0].to_param,
+                                                   q: '*:*',
+                                                   fq: nil,
+                                                   defType: 'lucene')
+      end
+
+      it 'creates a skeleton dataset' do
+        expect(@user.datasets.count).to eq(2)
+      end
+
+      it 'makes that dataset inactive' do
+        expect(@user.datasets.active.count).to eq(1)
+
+        expect(@user.datasets.inactive.count).to eq(1)
+        expect(@user.datasets.inactive[0].name).to eq('Disabled Dataset')
+      end
+
+      it 'redirects to index when done' do
+        expect(response).to redirect_to(datasets_path)
+      end
     end
 
-    it 'creates a delayed job' do
-      expect(Jobs::CreateDataset).to have_queued(user_id: @user.to_param,
-                                                 dataset_id: @user.datasets.inactive[0].to_param,
-                                                 q: '*:*',
-                                                 fq: nil,
-                                                 defType: 'lucene')
-    end
+    context 'with an active workflow' do
+      it 'redirects to the workflow activation when workflow is active' do
+        @user.workflow_active = true
+        @user.workflow_class = 'PlotDates'
+        @user.save
 
-    it 'creates a skeleton dataset' do
-      expect(@user.datasets.count).to eq(2)
-    end
+        post :create, { dataset: { name: 'Disabled Dataset' },
+                        q: '*:*', fq: nil, defType: 'lucene' }
+        @user.datasets.reload
 
-    it 'makes that dataset inactive' do
-      expect(@user.datasets.active.count).to eq(1)
-
-      expect(@user.datasets.inactive.count).to eq(1)
-      expect(@user.datasets.inactive[0].name).to eq('Disabled Dataset')
-    end
-
-    it 'redirects to index when done' do
-      expect(response).to redirect_to(datasets_path)
+        expect(response).to redirect_to(workflow_activate_path('PlotDates'))
+        expect(flash[:success]).to be
+      end
     end
   end
 
