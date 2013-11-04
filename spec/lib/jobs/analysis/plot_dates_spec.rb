@@ -21,6 +21,12 @@ describe Jobs::Analysis::PlotDates do
     end
   end
 
+  describe '.available?' do
+    it 'is true' do
+      expect(Jobs::Analysis::PlotDates.available?).to be_true
+    end
+  end
+
   context 'when not normalizing' do
     before(:each) do
       Jobs::Analysis::PlotDates.perform(

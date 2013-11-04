@@ -225,15 +225,13 @@ class Document
 
     # If the full text is requested, fetch it if we have to
     if fulltext == true && doc.fulltext_url
-      doc.fulltext = Net::HTTP.get(doc.fulltext_url)
-      doc.fulltext = doc.fulltext.encode('utf-8',
-                                         invalid: :replace, undef: :replace,
-                                         replace: '')
+      text = Net::HTTP.get(doc.fulltext_url)
+      text.encode!('utf-8', invalid: :replace, undef: :replace, replace: '')
 
       # Some websites return a UTF-8 BOM, strip it if it's found
-      if doc.fulltext.start_with?("\xEF\xBB\xBF")
-        doc.fulltext.sub!("\xEF\xBB\xBF", '')
-      end
+      text.sub!("\xEF\xBB\xBF", '') if text.start_with?("\xEF\xBB\xBF")
+
+      doc.fulltext = text
     end
 
     doc

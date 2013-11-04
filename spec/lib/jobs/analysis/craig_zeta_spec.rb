@@ -24,6 +24,12 @@ describe Jobs::Analysis::CraigZeta do
     end
   end
 
+  describe '.available?' do
+    it 'is true' do
+      expect(Jobs::Analysis::CraigZeta.available?).to be_true
+    end
+  end
+
   context 'when all parameters are valid' do
     before(:each) do
       Jobs::Analysis::CraigZeta.perform(

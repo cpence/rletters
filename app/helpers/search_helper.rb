@@ -97,17 +97,15 @@ module SearchHelper
   #   <%= sort_methods.each do |s| %>
   #     <%= link_to ... %>
   def sort_methods
-    [
-      'score desc',
-      'authors_sort asc',
-      'authors_sort desc',
-      'title_sort asc',
-      'title_sort desc',
-      'journal_sort asc',
-      'journal_sort desc',
-      'year_sort asc',
-      'year_sort desc'
-    ]
+    ['score desc',
+     'authors_sort asc',
+     'authors_sort desc',
+     'title_sort asc',
+     'title_sort desc',
+     'journal_sort asc',
+     'journal_sort desc',
+     'year_sort asc',
+     'year_sort desc']
   end
 
   # Get the given sort method as a string

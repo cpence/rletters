@@ -125,9 +125,7 @@ module Solr
       value_without_brackets = @value[1..-2]
 
       parts = value_without_brackets.split
-      unless parts.count == 3
-        fail ArgumentError, 'year query does not follow correct format'
-      end
+      fail ArgumentError, 'invalid year query' unless parts.count == 3
 
       decade = parts[0]
       decade = '1790' if decade == '*'
