@@ -55,22 +55,11 @@ class AnalysisTask < ActiveRecord::Base
   # @example Call the view_path method for ExportCitations
   #   AnalysisTask.job_class('ExportCitations').view_path(...)
   def self.job_class(class_name)
-    begin
-      klass = "Jobs::Analysis::#{class_name}".constantize
-
-      unless klass.is_a?(Class)
-        fail ArgumentError, "#{class_name} is not a class"
+    "Jobs::Analysis::#{class_name}".safe_constantize.tap do |klass|
+      if klass.nil? || klass == Jobs::Analysis::Base
+        fail ArgumentError, "#{class_name} is not a valid class"
       end
-    rescue NameError
-      raise ArgumentError, "#{class_name} is not a valid class"
     end
-
-    # Never let the 'Base' class match
-    if klass == Jobs::Analysis::Base
-      fail ArgumentError, 'cannot instantiate the Base job'
-    end
-
-    klass
   end
 
   # Convert #job_type into a class object
