@@ -276,6 +276,38 @@ describe DatasetsController do
       end
     end
 
+    context 'when a valid class is passed that needs more datasets' do
+      before(:each) do
+        get(:task_start, id: @dataset.to_param, class: 'CraigZeta',
+                         job_params: { })
+      end
+
+      it 'renders the task_datasets view' do
+        expect(response).to render_template(:task_datasets)
+      end
+    end
+
+    context 'when a valid class is passed that needs and has more datasets' do
+      before(:each) do
+        @other_dataset = FactoryGirl.create(:dataset, user: @user)
+        get(:task_start, id: @dataset.to_param, class: 'CraigZeta',
+                         job_params: { other_datasets: [@other_dataset.to_param],
+                                       start: true })
+
+        @dataset.analysis_tasks.reload
+        @task_id = @dataset.analysis_tasks[0].to_param
+      end
+
+      it 'enqueues a job' do
+        expect(Jobs::Analysis::CraigZeta).to have_queued(
+          user_id: @user.to_param,
+          dataset_id: @dataset.to_param,
+          task_id: @task_id,
+          other_datasets: [@other_dataset.to_param],
+          start: true)
+      end
+    end
+
     context 'when a valid class is passed with start' do
       it 'does not raise an exception' do
         expect {
@@ -303,6 +335,30 @@ describe DatasetsController do
         get :task_start, id: @dataset.to_param, class: 'ExportCitations',
                          job_params: { format: 'bibtex', start: 'true' }
         expect(response).to redirect_to(dataset_path(@dataset))
+      end
+    end
+
+    context 'when a valid class is passed at the end of a workflow' do
+      before(:each) do
+        @user.workflow_active = true
+        @user.workflow_datasets = [@dataset.to_param].to_json
+        @user.workflow_class = 'ExportCitations'
+        @user.save
+
+        get(:task_start, id: @dataset.to_param, class: 'ExportCitations',
+                         job_params: { format: 'bibtex', start: 'true' })
+
+        @user.reload
+      end
+
+      it 'clears the workflow parameters' do
+        expect(@user.workflow_active).to be_false
+        expect(@user.workflow_class).to be_nil
+        expect(@user.workflow_datasets).to be_nil
+      end
+
+      it 'redirects to the root' do
+        expect(response).to redirect_to(root_path)
       end
     end
   end
