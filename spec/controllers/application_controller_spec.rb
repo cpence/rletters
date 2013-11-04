@@ -2,14 +2,33 @@
 require 'spec_helper'
 
 describe ApplicationController do
+  controller do
+    def index
+      render nothing: true
+    end
+  end
 
-  describe '#set_locale' do
-    controller(ApplicationController) do
-      def index
-        render nothing: true
-      end
+  describe '#ensure_trailing_slash' do
+    it 'adds a trailing slash when there is none' do
+      # This relies on an implementation detail of anonymous controllers in
+      # RSpec, but I doubt it will change any time soon.
+      path_spec = { 'controller' => 'anonymous',
+                    'action' => 'index',
+                    'trailing_slash' => true }
+      allow(controller).to receive(:url_for).with(path_spec).and_return('http://test.host/anonymous/')
+
+      request.env['REQUEST_URI'] = '/anonymous'
+      get :index, trailing_slash: false
+      expect(response).to redirect_to('/anonymous/')
     end
 
+    it 'does not redirect when there is a trailing slash' do
+      get :index, trailing_slash: true
+      expect(response).not_to be_redirect
+    end
+  end
+
+  describe '#set_locale' do
     context 'with no user' do
       before(:each) do
         sign_out :user
@@ -37,12 +56,6 @@ describe ApplicationController do
   end
 
   describe '#set_timezone' do
-    controller(ApplicationController) do
-      def index
-        render nothing: true
-      end
-    end
-
     context 'with no user' do
       before(:each) do
         sign_out :user
@@ -68,7 +81,4 @@ describe ApplicationController do
       end
     end
   end
-
-  # N.B.: ApplicationController#ensure_trailing_slash is tested in the
-  # spec for InfoController, as it requires a real controller.
 end

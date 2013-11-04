@@ -3,21 +3,6 @@ require 'spec_helper'
 
 describe WorkflowController do
 
-  # N.B.: This is an ApplicationController test, but we have to spec it
-  # in a real controller, as its implementation uses url_for().
-  describe '#ensure_trailing_slash' do
-    it 'adds a trailing slash when there is none' do
-      request.env['REQUEST_URI'] = '/workflow'
-      get :index, trailing_slash: false
-      expect(response).to redirect_to('/workflow/')
-    end
-
-    it 'does not redirect when there is a trailing slash' do
-      get :index, trailing_slash: true
-      expect(response).not_to be_redirect
-    end
-  end
-
   describe '#index' do
     context 'given Solr results' do
       context 'when logged in' do
