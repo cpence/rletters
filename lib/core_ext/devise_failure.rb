@@ -24,15 +24,14 @@ class DeviseFailure < Devise::FailureApp
     end
   end
 
-  # Redirect on almost all failures
+  # Redirect on all failures
+  #
+  # This does not include support for HTTP basic authentication, which is fine,
+  # because we don't want that.
   #
   # @api private
   # @return [undefined]
   def respond
-    if http_auth?
-      http_auth
-    else
-      redirect
-    end
+    redirect
   end
 end
