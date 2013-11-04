@@ -55,6 +55,28 @@ describe Jobs::CreateDataset do
     end
   end
 
+  context 'when the user has an active workflow' do
+    before(:each) do
+      @user.workflow_active = true
+      @user.save
+
+      Jobs::CreateDataset.perform(
+        user_id: @user.to_param,
+        dataset_id: @dataset.to_param,
+        q: 'test',
+        fq: nil,
+        defType: 'dismax')
+
+      @user.reload
+      @user.datasets.reload
+    end
+
+    it 'links the dataset to the workflow' do
+      expected = @user.datasets.map { |d| d.to_param }.to_json
+      expect(@user.workflow_datasets).to eq(expected)
+    end
+  end
+
   context 'given large Solr dataset' do
     before(:each) do
       Jobs::CreateDataset.perform(

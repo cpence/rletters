@@ -93,6 +93,7 @@ module Jobs
       # Link this to the user's workflow if there's one active
       user.reload
       if user.workflow_active
+        user.workflow_datasets ||= '[]'
         new_datasets = JSON.parse(user.workflow_datasets)
         new_datasets << dataset.to_param
         user.workflow_datasets = new_datasets.to_json
