@@ -6,7 +6,7 @@
 # analysis purposes.  To make that process easy, we seed lists of those words
 # into the database.
 #
-# @!attribute lanuage
+# @!attribute language
 #   @return [String] Language for this stop list
 # @!attribute list
 #   @return [String] Space-separated list of common words to exclude

@@ -599,3 +599,5 @@ en:
         uploaded_asset:
             file_details: "%{size} bytes"
             asset_header: "Asset: %{name}"
+        stop_list:
+            header: "Stop List: %{language}"
