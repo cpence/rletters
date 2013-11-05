@@ -14,10 +14,6 @@ describe Jobs::Analysis::ExportCitations do
     @task = FactoryGirl.create(:analysis_task, dataset: @dataset)
   end
 
-  after(:each) do
-    @task.destroy
-  end
-
   describe '.download?' do
     it 'is true' do
       expect(Jobs::Analysis::ExportCitations.download?).to be_true

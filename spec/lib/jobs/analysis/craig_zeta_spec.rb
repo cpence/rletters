@@ -14,10 +14,6 @@ describe Jobs::Analysis::CraigZeta do
     @task = FactoryGirl.create(:analysis_task, dataset: @dataset)
   end
 
-  after(:each) do
-    @task.destroy
-  end
-
   describe '.download?' do
     it 'is false' do
       expect(Jobs::Analysis::CraigZeta.download?).to be_false

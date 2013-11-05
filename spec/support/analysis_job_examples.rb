@@ -98,6 +98,12 @@ shared_examples_for 'an analysis job' do
       expect(UserMailer).to have_queued(:job_finished_email, @task.dataset.user.email, @task.to_param)
     end
   end
+
+  describe '.available?' do
+    it 'is true' do
+      expect(described_class.available?).to be_true
+    end
+  end
 end
 
 shared_examples_for 'an analysis job with a file' do

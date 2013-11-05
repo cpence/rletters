@@ -69,7 +69,7 @@ RSpec.configure do |config|
   config.treat_symbols_as_metadata_keys_with_true_values = true
 
   # Don't test the NLP stuff if it's not installed (e.g., on Travis)
-  config.filter_run_excluding nlp: true unless NLP_ENABLED
+  config.filter_run_excluding nlp: !NLP_ENABLED
 
   config.before(:suite) do
     # Load the DB schema, since we're using in-memory SQLite
