@@ -221,6 +221,17 @@ describe DatasetsController do
         expect(response).to redirect_to(dataset_path(@dataset))
       end
     end
+
+    context 'with a remote document' do
+      it 'sets the fetch flag' do
+        expect(@dataset.fetch).to be_false
+
+        get :add, dataset_id: @dataset.to_param, uid: 'gutenberg:3172'
+        @dataset.reload
+
+        expect(@dataset.fetch).to be_true
+      end
+    end
   end
 
   describe '#task_start' do

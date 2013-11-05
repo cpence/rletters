@@ -509,6 +509,10 @@ en:
                 other: "You have %{count} analysis tasks pending..."
             name_column: Dataset Name
             no_datasets: No datasets
+            cloud_tooltip: |
+                This dataset may take a while to analyze, as at least one of
+                its documents is stored externally with one of our content
+                partners.
             manage_button: Manage
             delete_button: Delete
             delete_confirm: Are you sure?

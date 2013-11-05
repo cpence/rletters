@@ -18,6 +18,8 @@
           %td.label-cell
             = dataset.name
             %span.secondary.round.label= dataset.entries.size
+            - if dataset.fetch
+              %span.icon.fi-upload-cloud.has-tip{ data: { tooltip: true }, title: t('.cloud_tooltip') }
           %td.button-cell
             = link_to t('.manage_button'), dataset, class: 'button tiny'
             = link_to t('.delete_button'), dataset, method: :delete, data: { confirm: t('.delete_confirm') }, class: 'button alert tiny'

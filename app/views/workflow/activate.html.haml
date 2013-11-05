@@ -47,7 +47,10 @@
         - else
           - @user_datasets.each do |d|
             %tr
-              %td.label-cell= d.name
+              %td.label-cell
+                = d.name
+                - if d.fetch
+                  %span.icon.fi-upload-cloud.has-tip{ data: { tooltip: true }, title: t('datasets.dataset_list.cloud_tooltip') }
               %td.button-cell= link_to t('.delete_button'), workflow_activate_path(params[:class], unlink_dataset_id: d.to_param), data: { confirm: t('.delete_confirm') }, class: 'button alert tiny'
 
 - if @user_datasets.count < @num_datasets

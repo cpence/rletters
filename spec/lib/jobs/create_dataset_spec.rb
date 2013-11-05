@@ -53,6 +53,12 @@ describe Jobs::CreateDataset do
     it 'puts the right number of items in the dataset' do
       expect(@user.datasets[0].entries).to have_at_least(10).items
     end
+
+    it 'does not set the fetch attribute' do
+      # The word 'test' does not appear in our external document, so it
+      # shouldn't be returned in this search.
+      expect(@user.datasets[0].fetch).to be_false
+    end
   end
 
   context 'when the user has an active workflow' do
@@ -95,6 +101,10 @@ describe Jobs::CreateDataset do
 
     it 'puts the right number of items in the dataset' do
       expect(@user.datasets[0].entries).to have(1043).items
+    end
+
+    it 'sets the fetch attribute' do
+      expect(@user.datasets[0].fetch).to be_true
     end
   end
 

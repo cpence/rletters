@@ -102,6 +102,12 @@ class DatasetsController < ApplicationController
     @dataset = current_user.datasets.active.find(params[:dataset_id])
     @document = Document.find(params[:uid])
 
+    # Set the fetch flag if required
+    if @document.fulltext_url
+      @dataset.fetch = true
+      @dataset.save
+    end
+
     # No reason for this to be a delayed job, just do the create
     @dataset.entries.create({ uid: params[:uid] })
     redirect_to dataset_path(@dataset)

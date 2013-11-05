@@ -48,8 +48,8 @@ module Jobs
       solr_query[:fq] = args[:fq]
       solr_query[:defType] = args[:defType]
 
-      # Only get uid, no facets
-      solr_query[:fl] = 'uid'
+      # Only get uid and external URLs, no facets
+      solr_query[:fl] = 'uid,fulltext_url'
       solr_query[:facet] = false
 
       # We trap all of this so that if we get exceptions we can clean them
@@ -72,6 +72,13 @@ module Jobs
                                 [d.uid, dataset_id]
                               end,
                               validate: false)
+
+          # Check to see if there's any externally fetched documents here
+          unless dataset.fetch
+            if search_result.documents.any? { |d| d.fulltext_url }
+              dataset.fetch = true
+            end
+          end
 
           # Update counters and execute another query if required
           docs_to_fetch = docs_to_fetch - docs_fetched

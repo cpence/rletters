@@ -7,8 +7,11 @@
 
 %header
   %section
-    %h2= t('.header') + ' — ' + @dataset.name
-    %h4.subheader
+    %h2
+      = t('.header') + ' — ' + @dataset.name
+      - if @dataset.fetch
+        %span.icon.fi-upload-cloud.has-tip{ data: { tooltip: true }, title: t('datasets.dataset_list.cloud_tooltip') }
+    %h4.subheader= t('.subheader')
 
 .row
   .small-12.columns

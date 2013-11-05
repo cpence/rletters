@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131031190215) do
+ActiveRecord::Schema.define(version: 20131105202034) do
 
   create_table "admin_users", force: true do |t|
     t.string   "email",                  default: "", null: false
@@ -76,6 +76,7 @@ ActiveRecord::Schema.define(version: 20131031190215) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "disabled"
+    t.boolean  "fetch",      default: false
   end
 
   add_index "datasets", ["user_id"], name: "index_datasets_on_user_id"
