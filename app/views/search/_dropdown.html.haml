@@ -38,3 +38,6 @@
         %small= link_to t('.license', license: document.license || t('.no_license')), document.license_url
       - else
         %small= t('.license', license: document.license || t('.no_license'))
+      - if document.data_source
+        %br
+        %small= t('.data_source', source: document.data_source)
