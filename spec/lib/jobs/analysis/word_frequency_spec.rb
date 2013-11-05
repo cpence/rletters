@@ -18,12 +18,6 @@ describe Jobs::Analysis::WordFrequency do
     end
   end
 
-  describe '.available?' do
-    it 'is true' do
-      expect(Jobs::Analysis::WordFrequency.available?).to be_true
-    end
-  end
-
   describe '#perform' do
     it 'accepts all the various valid parameters' do
       params_to_test =

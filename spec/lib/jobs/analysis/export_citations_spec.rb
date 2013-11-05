@@ -20,12 +20,6 @@ describe Jobs::Analysis::ExportCitations do
     end
   end
 
-  describe '.available?' do
-    it 'is true' do
-      expect(Jobs::Analysis::ExportCitations.available?).to be_true
-    end
-  end
-
   context 'when an invalid format is specified' do
     it 'raises an exception' do
       expect {
