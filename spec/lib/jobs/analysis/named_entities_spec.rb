@@ -4,7 +4,7 @@ require 'spec_helper'
 describe Jobs::Analysis::NamedEntities, nlp: false do
   describe '.available?' do
     it 'is false' do
-      expect(Jobs::Analysis::NamedEntities).to be_false
+      expect(Jobs::Analysis::NamedEntities.available?).to be_false
     end
   end
 end
