@@ -18,6 +18,12 @@ describe Jobs::Analysis::WordFrequency do
     end
   end
 
+  describe '.num_datasets' do
+    it 'is 1' do
+      expect(Jobs::Analysis::WordFrequency.num_datasets).to eq(1)
+    end
+  end
+
   describe '#perform' do
     it 'accepts all the various valid parameters' do
       params_to_test =

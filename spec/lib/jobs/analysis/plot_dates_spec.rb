@@ -17,6 +17,12 @@ describe Jobs::Analysis::PlotDates do
     end
   end
 
+  describe '.num_datasets' do
+    it 'is 1' do
+      expect(Jobs::Analysis::PlotDates.num_datasets).to eq(1)
+    end
+  end
+
   context 'when not normalizing' do
     before(:each) do
       Jobs::Analysis::PlotDates.perform(

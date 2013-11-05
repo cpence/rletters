@@ -20,6 +20,12 @@ describe Jobs::Analysis::CraigZeta do
     end
   end
 
+  describe '.num_datasets' do
+    it 'is 2' do
+      expect(Jobs::Analysis::CraigZeta.num_datasets).to eq(2)
+    end
+  end
+
   context 'when all parameters are valid' do
     before(:each) do
       Jobs::Analysis::CraigZeta.perform(

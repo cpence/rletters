@@ -20,6 +20,12 @@ describe Jobs::Analysis::ExportCitations do
     end
   end
 
+  describe '.num_datasets' do
+    it 'is 1' do
+      expect(Jobs::Analysis::ExportCitations.num_datasets).to eq(1)
+    end
+  end
+
   context 'when an invalid format is specified' do
     it 'raises an exception' do
       expect {
