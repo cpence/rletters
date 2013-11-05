@@ -17,6 +17,8 @@
 #   @return [String] the human-readable name of the document's license
 # @!attribute [r] license_url
 #   @return [String] a URL referencing the document's license terms
+# @!attribute [r] data_source
+#   @return [String] a description of where this document's data was obtained
 #
 # @!attribute [r] authors
 #   @return [String] the document's authors, in a comma-delimited list
@@ -103,7 +105,7 @@ class Document
   # the database (it's in Solr).
   include ActiveModel::Model
 
-  attr_accessor :uid, :doi, :license, :license_url, :authors,
+  attr_accessor :uid, :doi, :license, :license_url, :data_source, :authors,
                 :author_list, :formatted_author_list, :title, :journal,
                 :year, :volume, :number, :pages, :fulltext, :fulltext_url,
                 :term_vectors
