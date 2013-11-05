@@ -89,6 +89,19 @@ module SearchHelper
     end
   end
 
+  # The array of all sort methods
+  SORT_METHODS = [
+    'score desc',
+    'authors_sort asc',
+    'authors_sort desc',
+    'title_sort asc',
+    'title_sort desc',
+    'journal_sort asc',
+    'journal_sort desc',
+    'year_sort asc',
+    'year_sort desc'
+  ]
+
   # Return an array of all sort methods
   #
   # @api public
@@ -97,15 +110,7 @@ module SearchHelper
   #   <%= sort_methods.each do |s| %>
   #     <%= link_to ... %>
   def sort_methods
-    ['score desc',
-     'authors_sort asc',
-     'authors_sort desc',
-     'title_sort asc',
-     'title_sort desc',
-     'journal_sort asc',
-     'journal_sort desc',
-     'year_sort asc',
-     'year_sort desc']
+    SORT_METHODS
   end
 
   # Get the given sort method as a string

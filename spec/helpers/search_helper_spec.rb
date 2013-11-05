@@ -65,6 +65,23 @@ describe SearchHelper do
       end
     end
 
+    context 'when we have only one flat range of results' do
+      before(:each) do
+        @result = double(Solr::SearchResult, num_hits: 49)
+        @per_page = 10
+        @page = 0
+
+        @ret = helper.render_pagination(@result)
+      end
+
+      it 'has links for all the pages included' do
+        (1..4).each do |n|
+          expect(@ret).to have_tag("a[href=\"/search/?page=#{n}\"]",
+                                   text: (n + 1).to_s)
+        end
+      end
+    end
+
     context 'when we have more than one page of results' do
       context 'when we are on the first page' do
         before(:each) do
@@ -135,6 +152,7 @@ describe SearchHelper do
       expect(helper.sort_to_string('title_sort asc')).to eq('Sort: Title (ascending)')
       expect(helper.sort_to_string('journal_sort desc')).to eq('Sort: Journal (descending)')
       expect(helper.sort_to_string('year_sort asc')).to eq('Sort: Year (ascending)')
+      expect(helper.sort_to_string('authors_sort desc')).to eq('Sort: Authors (descending)')
     end
   end
 
@@ -211,12 +229,10 @@ describe SearchHelper do
   end
 
   describe '#document_bibliography_entry' do
-    before(:each) do
-      @doc = Document.find(FactoryGirl.generate(:working_uid))
-    end
-
     context 'when no user is logged in' do
       before(:each) do
+        @doc = Document.find(FactoryGirl.generate(:working_uid))
+
         allow(helper).to receive(:current_user).and_return(nil)
         allow(helper).to receive(:user_signed_in?).and_return(false)
       end
@@ -230,6 +246,8 @@ describe SearchHelper do
 
     context 'when the user has no CSL style set' do
       before(:each) do
+        @doc = Document.find(FactoryGirl.generate(:working_uid))
+
         @user = FactoryGirl.create(:user)
         allow(helper).to receive(:current_user).and_return(@user)
         allow(helper).to receive(:user_signed_in?).and_return(true)
@@ -242,8 +260,10 @@ describe SearchHelper do
       end
     end
 
-    context 'when the user has a CSL style set' do
+    context 'when the user has a CSL style set, for a normal document' do
       before(:each) do
+        @doc = Document.find(FactoryGirl.generate(:working_uid))
+
         @csl_style = CslStyle.find_by!(name: 'American Psychological Association 6th Edition')
         @user = FactoryGirl.create(:user, csl_style_id: @csl_style.id)
         allow(helper).to receive(:current_user).and_return(@user)
@@ -253,6 +273,24 @@ describe SearchHelper do
       it 'renders a CSL style' do
         expect(@doc).to receive(:to_csl_entry).with(@csl_style).and_return('')
         helper.document_bibliography_entry(@doc)
+      end
+    end
+
+    context 'when the user has a CSL style set, for a remote document' do
+      before(:each) do
+        @doc = Document.find('gutenberg:3172')
+
+        @csl_style = CslStyle.find_by!(name: 'American Psychological Association 6th Edition')
+        @user = FactoryGirl.create(:user, csl_style_id: @csl_style.id)
+        allow(helper).to receive(:current_user).and_return(@user)
+        allow(helper).to receive(:user_signed_in?).and_return(true)
+      end
+
+      it 'renders a cloud icon' do
+        expect(@doc).to receive(:to_csl_entry).with(@csl_style).and_return('')
+        html = helper.document_bibliography_entry(@doc)
+
+        expect(html).to have_tag('span.fi-upload-cloud')
       end
     end
   end
