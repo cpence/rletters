@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 
 def create_visitor
   @visitor ||=

@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 
 # Activate bundled Solr server, if available
 if File.exists? Rails.root.join('vendor', 'solr')

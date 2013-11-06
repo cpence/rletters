@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 
 # Load the DB schema, since we're using in-memory SQLite
 load Rails.root.join('db', 'schema.rb')

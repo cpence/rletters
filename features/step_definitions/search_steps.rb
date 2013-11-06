@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 
 ### WHEN ###
 When /^I visit the search page$/ do
