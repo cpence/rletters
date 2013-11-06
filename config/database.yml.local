@@ -12,7 +12,7 @@ production:
   database: rletters_production
   <<: *base
 
-test:
+test: &test
   adapter: sqlite3
   database: ':memory:'
 

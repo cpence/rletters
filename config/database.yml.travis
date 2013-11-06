@@ -1,4 +1,4 @@
-test:
+test: &test
   adapter: sqlite3
   database: ':memory:'
 
