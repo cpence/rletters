@@ -13,7 +13,7 @@
     &nbsp;
 .row
   .small-12.large-9.columns
-    = form_tag(search_path, method: :get) do
+    = form_tag(search_path, method: :get, id: 'search_form') do
       - if params[:fq]
         - params[:fq].each do |p|
           = hidden_field_tag "fq[]", p

@@ -13,3 +13,4 @@ Feature: Browse Database
     Scenario: I search for an article
       When I search for articles
       Then I should see a list of articles
+        And I should see the number of articles found
