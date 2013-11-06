@@ -1,7 +1,7 @@
 Feature: Edit User
   As a registered user of the website
   I want to edit my user profile
-  so I can change my user information
+  So that I can change my user information
 
     Scenario: I sign in and edit my account
       Given I am logged in
