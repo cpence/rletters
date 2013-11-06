@@ -17,9 +17,6 @@ en:
                     password_confirmation: Confirm new password
     helpers:
         submit:
-            user:
-                create: Sign up
-                edit: Update settings
             job_params:
                 submit: Start analysis job
     activemodel:
@@ -175,8 +172,8 @@ en:
             sign_in: Sign In
         sign_in:
             forgot_password: Forgot password?
-            sign_in: Sign In
-            sign_up: Sign Up
+            sign_in: Sign in
+            sign_up: Sign up
     jobs:
         concerns:
             compute_word_frequencies:
@@ -390,6 +387,7 @@ en:
                 change_password: Change your password?
                 password_placeholder: (leave blank for no change)
                 settings: Site settings
+                submit: Update settings
                 cancel: Cancel my account
                 cancel_confirm: Are you sure? We'd hate to see you go!
                 library_links_header: Library access links
@@ -397,6 +395,7 @@ en:
             new:
                 header: Sign up
                 subheader: "Welcome!  Enter some information about yourself and we'll get you off and running with a new user account."
+                submit: Sign up
     libraries:
         edit:
             header: Edit your library details

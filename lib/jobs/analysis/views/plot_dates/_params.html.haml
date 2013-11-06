@@ -4,6 +4,8 @@
 .row
   .large-6.columns
     = simple_form_for :job_params, url: url_for({ controller: 'datasets', action: 'task_start', id: @dataset.to_param, class: 'PlotDates' }), method: :get do |f|
+      = f.error_notification
+
       = hidden_field_tag 'job_params[start]', 'true'
 
       = render_job_partial Jobs::Analysis::PlotDates, 'normalize_document_counts', locals: { f: f }

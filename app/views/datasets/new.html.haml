@@ -4,6 +4,8 @@
 .row
   .large-6.columns#new-dataset-modal
     = simple_form_for(@dataset) do |f|
+      = f.error_notification
+
       = hidden_field_tag :q, params[:q]
       = hidden_field_tag :defType, params[:defType]
       - if params[:fq]

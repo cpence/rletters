@@ -15,3 +15,6 @@ production:
 test:
   adapter: sqlite3
   database: ':memory:'
+
+cucumber:
+  <<: *test

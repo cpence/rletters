@@ -47,7 +47,8 @@ describe ApplicationController do
     end
 
     it 'redirects to the root path on logout' do
-      delete(destroy_user_session_path)
+      # This would be a delete request, but we've overridden it.
+      get(destroy_user_session_path)
       expect(response).to redirect_to(root_path)
       expect(flash[:notice]).to be
       expect(flash[:alert]).not_to be

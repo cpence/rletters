@@ -12,6 +12,8 @@
 .row
   .large-6.columns
     = simple_form_for :job_params, url: url_for(controller: 'datasets', action: 'task_start', id: @dataset.to_param, class: params[:class]), method: :get do |f|
+      = f.error_notification
+
       - (@klass.num_datasets - 1).times do |n|
         -# Have to use the custom tag helper here, rather than the simple_form
         -# method, because otherwise the array bits don't work right, and I

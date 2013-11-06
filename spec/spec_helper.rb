@@ -56,8 +56,7 @@ require 'capybara/rspec'
 Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 
 RSpec.configure do |config|
-  # Switch to the new RSpec syntax; but not to the expectation syntax yet, as
-  # our have_selector matcher gem uses the old syntax.
+  # Switch to the new RSpec syntax
   config.expect_with(:rspec) { |e| e.syntax = :expect }
   config.mock_with(:rspec) { |m| m.syntax = :expect }
 
@@ -66,9 +65,12 @@ RSpec.configure do |config|
   config.formatter = 'Fuubar'
   config.order = 'random'
 
-  config.use_transactional_fixtures = true
   config.infer_base_class_for_anonymous_controllers = true
   config.treat_symbols_as_metadata_keys_with_true_values = true
+
+  # We're going to use database_cleaner, so we don't need RSpec's transactional
+  # fixture support
+  config.use_transactional_fixtures = false
 
   # Don't test the NLP stuff if it's not installed (e.g., on Travis)
   config.filter_run_excluding nlp: !NLP_ENABLED
@@ -88,6 +90,9 @@ RSpec.configure do |config|
         system(Rails.root.join('vendor', 'solr', 'start').to_s)
       end
     end
+
+    # Use transactions to clean database
+    DatabaseCleaner.strategy = :transaction
   end
 
   config.after(:suite) do
@@ -101,6 +106,14 @@ RSpec.configure do |config|
     # Reset the locale and timezone to defaults on each new test
     I18n.locale = I18n.default_locale
     Time.zone = 'Eastern Time (US & Canada)'
+
+    # Reset database after each test
+    DatabaseCleaner.start
+  end
+
+  config.after(:each) do
+    # Clean the database after each test
+    DatabaseCleaner.clean
   end
 
   # Add helpers for Devise

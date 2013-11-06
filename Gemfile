@@ -69,10 +69,10 @@ end
 
 group :test do
   gem 'cucumber-rails', require: false
+  gem 'capybara', require: false
   gem 'database_cleaner'
 
   gem 'fuubar'
-  gem 'capybara', require: false
   gem 'factory_girl_rails'
   gem 'webmock', require: false
   gem 'resque_spec'

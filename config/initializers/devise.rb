@@ -124,7 +124,9 @@ Devise.setup do |config|
   # config.navigational_formats = ["*/*", :html]
 
   # The default HTTP method used to sign out a resource. Default is :delete.
-  config.sign_out_via = :delete
+  # We have to override this in the test environment so that Cucumber works, as
+  # it always and only performs 'get' requests when you call 'visit'.
+  config.sign_out_via = Rails.env.test? ? :get : :delete
 
   # Redirect to the root on a failed sign-in
   config.warden do |manager|

@@ -9,6 +9,8 @@
 
 .row
   .large-6.columns
-    = simple_form_for(:user, url: user_password_path, method: :post) do |f|
-      = f.input :email
+    = simple_form_for(resource, as: resource_name, url: user_password_path) do |f|
+      = f.error_notification
+
+      = f.input :email, required: true, autofocus: true
       = f.button :submit, t('.submit')

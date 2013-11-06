@@ -9,11 +9,13 @@
 
 .row
   .large-6.columns
-    = simple_form_for(:user, url: user_registration_path) do |f|
+    = simple_form_for(resource, as: resource_name, url: user_registration_path) do |f|
+      = f.error_notification
+
       = f.input :name
       = f.input :email
-      = f.input :password
-      = f.input :password_confirmation
+      = f.input :password, required: true
+      = f.input :password_confirmation, required: true
       = f.input :language, collection: available_locales, label_method: :last, value_method: :first
       = f.input :timezone, collection: ActiveSupport::TimeZone.all, label_method: :to_s, value_method: :name
-      = f.button :submit
+      = f.button :submit, t('.submit')

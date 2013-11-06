@@ -54,8 +54,13 @@ RLetters::Application.routes.draw do
     # not by visiting /users/sign_in, so we don't create a get 'sign_in' route
     # here.
     post 'users/sign_in' => 'devise/sessions#create', as: :user_session
-    delete 'users/sign_out' => 'devise/sessions#destroy',
-           as: :destroy_user_session
+    if Rails.env.test?
+      get 'users/sign_out' => 'devise/sessions#destroy',
+          as: :destroy_user_session
+    else
+      delete 'users/sign_out' => 'devise/sessions#destroy',
+             as: :destroy_user_session
+    end
 
     # Redirect to the root after a successful user edit
     get 'users' => 'workflow#index'
