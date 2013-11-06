@@ -3,12 +3,17 @@
 ## Version 1.2 (beta, unreleased)
 
 *   The entire user interface has been rewritten using the Foundation toolkit.
+    *   This includes a new "workflow" mode, in which the user will be walked through the process of starting a new analysis, adding data to it, and collecting the results when it completes.
 *   A new "Differentiate two datasets" job has been added, which will compare two datasets using the Craig Zeta algorithm.  This is the Zeta algorithm, originally introduced by John F. Burrows (Literary and Linguistic Computing, 22(1):27, 2007), as extended by Hugh Craig (Craig and Kinney, _Shakespeare, Computers, and the Mystery of Authorship,_ 2009) to generate both marker words and anti-marker words.
     *   Thanks to [David Hoover's analysis pages,](https://files.nyu.edu/dh3/public/TheZeta&IotaSpreadsheet.html) which were exceptionally useful in the implementation of this job.
     *   This analysis task compares the two requested datasets and returns a list of words for each that marks out a text as belonging to that dataset (words that make a document likely to appear in dataset A and words that make a document likely to appear in dataset B).
     *   It also produces a graph, showing the separation between these two sets of words.  It does so by looking at pieces of each of datasets A and B, and determining what fraction of the words in those pieces belong to the A-marker set and to the B-marker set, respectively.  If the analysis has succeeded, then this graph should appear as two clouds of distinct points, a set of A-dataset points and a set of B-dataset points, clearly delineated.
     *   Finally, it returns the "Zeta scores" of each of the 1,000 most common words in the datasets.  The highest possible Zeta score is 2.0 (indicating a "pure" A-marker word) and the lowest is 0.0 (indicating a "pure" B-marker word).
+*   RLetters now supports fetching the full text of documents from an external HTTP server.
 *   RLetters now can run on JRuby, and when running under JRuby the connection to the Stanford NLP package is native, by default.
+*   More information is now available in the dropdown for each document, including the DOI, the document's license, and information about the data source for the document.
+*   Datasets, while being created and destroyed, are now marked as disabled so that partially-completed datasets will not appear in the user interface.
+*   Basic integration testing (essentially, smoke tests) added using Cucumber.
 
 
 ## Version 1.1 (beta, 2013-09-24)
