@@ -47,15 +47,15 @@ describe Admin::DashboardController do
         end
 
         it 'links to the dataset' do
-          expect(response.body).to have_tag('a', text: @dataset.name)
+          expect(response.body).to have_selector('a', text: @dataset.name)
         end
 
         it 'links to the user' do
-          expect(response.body).to have_tag('a', text: @user.name)
+          expect(response.body).to have_selector('a', text: @user.name)
         end
 
         it 'links to the analysis task' do
-          expect(response.body).to have_tag('a', text: @analysis_task.name)
+          expect(response.body).to have_selector('a', text: @analysis_task.name)
         end
       end
 

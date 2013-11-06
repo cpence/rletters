@@ -66,7 +66,7 @@ describe Jobs::Analysis::ExportCitations do
     it 'creates a proper ZIP file' do
       data = @dataset.analysis_tasks[0].result.file_contents('original')
       entries = 0
-      Zip::InputStream.open(StringIO.new(data)) do |zis|
+      ::Zip::InputStream.open(StringIO.new(data)) do |zis|
         entries += 1 while zis.get_next_entry
       end
       expect(entries).to eq(10)

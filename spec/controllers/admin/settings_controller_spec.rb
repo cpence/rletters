@@ -50,7 +50,7 @@ describe Admin::SettingsController do
     end
 
     it 'has a textarea field for the value' do
-      expect(response.body).to have_tag('textarea[name="setting[value]"]')
+      expect(response.body).to have_selector('textarea[name="setting[value]"]')
     end
   end
 

@@ -52,7 +52,7 @@ describe Admin::UploadedAssetsController do
     end
 
     it 'has an upload button for the asset' do
-      expect(response.body).to have_tag('input[name="uploaded_asset[file]"]')
+      expect(response.body).to have_selector('input[name="uploaded_asset[file]"]')
     end
   end
 

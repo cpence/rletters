@@ -14,7 +14,7 @@ describe ApplicationHelper do
 
         html = helper.translate_markdown(:test_markdown, word: 'things')
         expect(html).to be
-        expect(html).to have_tag('h1', text: 'Testing things')
+        expect(html).to have_selector('h1', text: 'Testing things')
       end
 
       it 'works when called as t_md' do
@@ -22,7 +22,7 @@ describe ApplicationHelper do
 
         html = helper.t_md(:test_markdown, word: 'things')
         expect(html).to be
-        expect(html).to have_tag('h1', text: 'Testing things')
+        expect(html).to have_selector('h1', text: 'Testing things')
       end
     end
 
@@ -45,7 +45,7 @@ describe ApplicationHelper do
 
       it 'renders Markdown in translations' do
         render template: 'workflow/spectest'
-        expect(rendered).to have_tag('h1', text: 'Testing')
+        expect(rendered).to have_selector('h1', text: 'Testing')
       end
     end
   end
@@ -151,11 +151,11 @@ describe ApplicationHelper do
     end
 
     it 'renders custom classes' do
-      expect(@html).to have_tag('div.flash-alert', text: 'alert test')
+      expect(@html).to have_selector('div.flash-alert', text: 'alert test')
     end
 
     it 'renders generic classes' do
-      expect(@html).to have_tag('div.flash-generic', text: 'generic test')
+      expect(@html).to have_selector('div.flash-generic', text: 'generic test')
     end
   end
 

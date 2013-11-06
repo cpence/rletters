@@ -51,7 +51,7 @@ describe Admin::MarkdownPagesController do
     end
 
     it 'has a textarea field for the content' do
-      expect(response.body).to have_tag('textarea[name="markdown_page[content]"]')
+      expect(response.body).to have_selector('textarea[name="markdown_page[content]"]')
     end
   end
 

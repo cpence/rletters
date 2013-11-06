@@ -35,7 +35,7 @@ describe Admin::AdminUsersController do
     end
 
     it 'has an edit field for the e-mail' do
-      expect(response.body).to have_tag('input[name="admin_user[email]"]')
+      expect(response.body).to have_selector('input[name="admin_user[email]"]')
     end
   end
 

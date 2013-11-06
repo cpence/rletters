@@ -47,19 +47,19 @@ describe Jobs::Analysis::CraigZeta do
 
     it 'fills in some values' do
       hash = JSON.load(@dataset.analysis_tasks[0].result.file_contents(:original))
-      hash['name_1'].should eq('Dataset')
-      hash['name_2'].should eq('Dataset')
-      hash['marker_words'].should be_an(Array)
-      hash['marker_words'][0].should be_a(String)
-      hash['anti_marker_words'].should be_an(Array)
-      hash['anti_marker_words'][0].should be_a(String)
-      hash['graph_points'].should be_an(Array)
-      hash['graph_points'][0].should be_an(Array)
-      hash['graph_points'][0][0].should be_a(Float)
-      hash['graph_points'][0][1].should be_a(Float)
-      hash['graph_points'][0][2].should be_a(String)
-      hash['zeta_scores'].should be_a(Hash)
-      hash['zeta_scores'].values[0].should be_a(Float)
+      expect(hash['name_1']).to eq('Dataset')
+      expect(hash['name_2']).to eq('Dataset')
+      expect(hash['marker_words']).to be_an(Array)
+      expect(hash['marker_words'][0]).to be_a(String)
+      expect(hash['anti_marker_words']).to be_an(Array)
+      expect(hash['anti_marker_words'][0]).to be_a(String)
+      expect(hash['graph_points']).to be_an(Array)
+      expect(hash['graph_points'][0]).to be_an(Array)
+      expect(hash['graph_points'][0][0]).to be_a(Float)
+      expect(hash['graph_points'][0][1]).to be_a(Float)
+      expect(hash['graph_points'][0][2]).to be_a(String)
+      expect(hash['zeta_scores']).to be_a(Hash)
+      expect(hash['zeta_scores'].values[0]).to be_a(Float)
     end
   end
 

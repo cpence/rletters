@@ -47,7 +47,7 @@ describe Admin::StopListsController do
     end
 
     it 'has a textarea field for the list' do
-      expect(response.body).to have_tag('textarea[name="stop_list[list]"]')
+      expect(response.body).to have_selector('textarea[name="stop_list[list]"]')
     end
   end
 

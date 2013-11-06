@@ -41,9 +41,7 @@ gem 'citeproc-ruby', '>= 0.0.4'
 # Support for file attachments and exporting
 gem 'paperclip', '~> 3.0'
 gem 'paperclip_database'
-# This release hasn't been cut yet; waiting on it
-# gem 'rubyzip', '>= 1.1.0'
-gem 'rubyzip', github: 'rubyzip/rubyzip', require: 'zip'
+gem 'rubyzip', '>= 1.1.0', require: 'zip'
 gem 'marc'
 gem 'rdf', '>= 0.3.5'
 gem 'rdf-n3'
@@ -70,12 +68,16 @@ group :test, :development do
 end
 
 group :test do
+  gem 'cucumber-rails', require: false
+  gem 'database_cleaner'
+
   gem 'fuubar'
+  gem 'capybara', require: false
   gem 'factory_girl_rails'
-  gem 'rspec-html-matchers'
   gem 'webmock', require: false
   gem 'resque_spec'
   gem 'mock_redis'
+
   gem 'coveralls', require: false
 end
 

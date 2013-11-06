@@ -22,7 +22,7 @@ describe SearchHelper do
       html = helper.render file: @path
 
       expect(html).to be
-      expect(html).to have_tag('h1', text: 'Testing things')
+      expect(html).to have_selector('h1', text: 'Testing things')
     end
   end
 
@@ -61,7 +61,7 @@ describe SearchHelper do
       end
 
       it 'returns no links' do
-        expect(helper.render_pagination(@result)).not_to have_tag('a')
+        expect(helper.render_pagination(@result)).not_to have_selector('a')
       end
     end
 
@@ -76,7 +76,7 @@ describe SearchHelper do
 
       it 'has links for all the pages included' do
         (1..4).each do |n|
-          expect(@ret).to have_tag("a[href=\"/search/?page=#{n}\"]",
+          expect(@ret).to have_selector("a[href=\"/search/?page=#{n}\"]",
                                    text: (n + 1).to_s)
         end
       end
@@ -93,12 +93,12 @@ describe SearchHelper do
         end
 
         it 'returns forward buttons' do
-          expect(@ret).to have_tag('a[href="/search/?page=1"]', text: '»')
-          expect(@ret).to have_tag('a[href="/search/?page=9"]', text: '10')
+          expect(@ret).to have_selector('a[href="/search/?page=1"]', text: '»')
+          expect(@ret).to have_selector('a[href="/search/?page=9"]', text: '10')
         end
 
         it 'does not return back buttons' do
-          expect(@ret).to have_tag('a[href="#"]', text: '«')
+          expect(@ret).to have_selector('a[href="#"]', text: '«')
         end
       end
 
@@ -112,13 +112,13 @@ describe SearchHelper do
         end
 
         it 'returns back buttons' do
-          expect(@ret).to have_tag('a[href="/search/?page=4"]', text: '«')
-          expect(@ret).to have_tag('a[href="/search/"]', text: '1')
+          expect(@ret).to have_selector('a[href="/search/?page=4"]', text: '«')
+          expect(@ret).to have_selector('a[href="/search/"]', text: '1')
         end
 
         it 'returns forward buttons' do
-          expect(@ret).to have_tag('a[href="/search/?page=6"]', text: '»')
-          expect(@ret).to have_tag('a[href="/search/?page=9"]', text: '10')
+          expect(@ret).to have_selector('a[href="/search/?page=6"]', text: '»')
+          expect(@ret).to have_selector('a[href="/search/?page=9"]', text: '10')
         end
       end
 
@@ -132,12 +132,12 @@ describe SearchHelper do
         end
 
         it 'returns back buttons' do
-          expect(@ret).to have_tag('a[href="/search/?page=8"]', text: '«')
-          expect(@ret).to have_tag('a[href="/search/"]', text: '1')
+          expect(@ret).to have_selector('a[href="/search/?page=8"]', text: '«')
+          expect(@ret).to have_selector('a[href="/search/"]', text: '1')
         end
 
         it 'does not return forward buttons' do
-          expect(@ret).to have_tag('a[href="#"]', text: '»')
+          expect(@ret).to have_selector('a[href="#"]', text: '»')
         end
       end
     end
@@ -178,12 +178,12 @@ describe SearchHelper do
       end
 
       it 'includes a link to remove all facets' do
-        expect(@ret).to have_tag('a[href="/search/"]', text: 'Remove All')
+        expect(@ret).to have_selector('a[href="/search/"]', text: 'Remove All')
       end
 
       it 'includes a link to remove an individual facet' do
         url = '/search/?' + CGI.escape('fq[]=year:[2010 TO *]').gsub('%26', '&').gsub('%3D', '=')
-        expect(@ret).to have_tag("a[href=\"#{url}\"]", text: 'Authors: Elisa Lobato')
+        expect(@ret).to have_selector("a[href=\"#{url}\"]", text: 'Authors: Elisa Lobato')
       end
     end
   end
@@ -213,17 +213,17 @@ describe SearchHelper do
 
       it 'includes a link to add an author facet' do
         url = '/search/?' + CGI.escape('fq[]=authors_facet:"J. C. Crabbe"').gsub('%26', '&').gsub('%3D', '=')
-        expect(@ret).to have_tag("a[href=\"#{url}\"]")
+        expect(@ret).to have_selector("a[href=\"#{url}\"]")
       end
 
       it 'includes a link to add a journal facet' do
         url = '/search/?' + CGI.escape('fq[]=journal_facet:"Ethology"').gsub('%26', '&').gsub('%3D', '=')
-        expect(@ret).to have_tag("a[href=\"#{url}\"]")
+        expect(@ret).to have_selector("a[href=\"#{url}\"]")
       end
 
       it 'includes a link to add a year facet' do
         url = '/search/?' + CGI.escape('fq[]=year:[2000 TO 2009]').gsub('%26', '&').gsub('%3D', '=')
-        expect(@ret).to have_tag("a[href=\"#{url}\"]")
+        expect(@ret).to have_selector("a[href=\"#{url}\"]")
       end
     end
   end
@@ -290,7 +290,7 @@ describe SearchHelper do
         expect(@doc).to receive(:to_csl_entry).with(@csl_style).and_return('')
         html = helper.document_bibliography_entry(@doc)
 
-        expect(html).to have_tag('span.fi-upload-cloud')
+        expect(html).to have_selector('span.fi-upload-cloud')
       end
     end
   end

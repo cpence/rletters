@@ -1,8 +1,8 @@
 GIT
   remote: git://github.com/gregbell/active_admin.git
-  revision: b25351e9e9c5404351e0139866c4c5802614326c
+  revision: a6f6794c0fbac3b481afe3bd0acbb36d792b0300
   specs:
-    activeadmin (0.6.1)
+    activeadmin (1.0.0.pre)
       arbre (~> 1.0)
       bourbon
       coffee-rails
@@ -16,31 +16,25 @@ GIT
       ransack (~> 1.0)
       sass-rails
 
-GIT
-  remote: git://github.com/rubyzip/rubyzip.git
-  revision: 875bb8ded648a341587efd3c075d805f85a3c98c
-  specs:
-    rubyzip (1.0.0)
-
 GEM
   remote: https://rubygems.org/
   specs:
-    actionmailer (4.0.0)
-      actionpack (= 4.0.0)
-      mail (~> 2.5.3)
-    actionpack (4.0.0)
-      activesupport (= 4.0.0)
+    actionmailer (4.0.1)
+      actionpack (= 4.0.1)
+      mail (~> 2.5.4)
+    actionpack (4.0.1)
+      activesupport (= 4.0.1)
       builder (~> 3.1.0)
       erubis (~> 2.7.0)
       rack (~> 1.5.2)
       rack-test (~> 0.6.2)
-    activemodel (4.0.0)
-      activesupport (= 4.0.0)
+    activemodel (4.0.1)
+      activesupport (= 4.0.1)
       builder (~> 3.1.0)
-    activerecord (4.0.0)
-      activemodel (= 4.0.0)
+    activerecord (4.0.1)
+      activemodel (= 4.0.1)
       activerecord-deprecated_finders (~> 1.0.2)
-      activesupport (= 4.0.0)
+      activesupport (= 4.0.1)
       arel (~> 4.0.0)
     activerecord-deprecated_finders (1.0.3)
     activerecord-import (0.4.1)
@@ -53,7 +47,7 @@ GEM
     activerecord-jdbcsqlite3-adapter (1.3.2)
       activerecord-jdbc-adapter (~> 1.3.2)
       jdbc-sqlite3 (~> 3.7.2)
-    activesupport (4.0.0)
+    activesupport (4.0.1)
       i18n (~> 0.6, >= 0.6.4)
       minitest (~> 4.2)
       multi_json (~> 1.3)
@@ -80,6 +74,12 @@ GEM
       sass (>= 3.2.0)
       thor
     builder (3.1.4)
+    capybara (2.1.0)
+      mime-types (>= 1.16)
+      nokogiri (>= 1.3.3)
+      rack (>= 1.0.0)
+      rack-test (>= 0.5.4)
+      xpath (~> 2.0)
     chunky_png (1.2.9)
     citeproc-ruby (0.0.6)
       logging (~> 1.5)
@@ -109,6 +109,18 @@ GEM
       thor
     crack (0.4.1)
       safe_yaml (~> 0.9.0)
+    cucumber (1.3.8)
+      builder (>= 2.1.2)
+      diff-lcs (>= 1.1.3)
+      gherkin (~> 2.12.1)
+      multi_json (>= 1.7.5, < 2.0)
+      multi_test (>= 0.0.2)
+    cucumber-rails (1.4.0)
+      capybara (>= 1.1.2)
+      cucumber (>= 1.2.0)
+      nokogiri (>= 1.5.0)
+      rails (>= 3.0.0)
+    database_cleaner (1.2.0)
     devise (3.1.1)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.1)
@@ -123,10 +135,10 @@ GEM
       activerecord (>= 3.0)
     erubis (2.7.0)
     execjs (2.0.2)
-    factory_girl (4.2.0)
+    factory_girl (4.3.0)
       activesupport (>= 3.0.0)
-    factory_girl_rails (4.2.1)
-      factory_girl (~> 4.2.0)
+    factory_girl_rails (4.3.0)
+      factory_girl (~> 4.3.0)
       railties (>= 3.0.0)
     formtastic (2.3.0.rc2)
       actionpack (>= 3.0)
@@ -135,7 +147,11 @@ GEM
       rspec (~> 2.0)
       rspec-instafail (~> 0.2.0)
       ruby-progressbar (~> 1.0)
-    haml (4.0.3)
+    gherkin (2.12.2)
+      multi_json (~> 1.3)
+    gherkin (2.12.2-java)
+      multi_json (~> 1.3)
+    haml (4.0.4)
       tilt
     haml-rails (0.4)
       actionpack (>= 3.1, < 4.1)
@@ -181,6 +197,7 @@ GEM
     mock_redis (0.9.0)
     mono_logger (1.1.0)
     multi_json (1.8.2)
+    multi_test (0.0.2)
     nokogiri (1.6.0)
       mini_portile (~> 0.5.0)
     nokogiri (1.6.0-java)
@@ -205,13 +222,13 @@ GEM
       rack
     rack-test (0.6.2)
       rack (>= 1.0)
-    rails (4.0.0)
-      actionmailer (= 4.0.0)
-      actionpack (= 4.0.0)
-      activerecord (= 4.0.0)
-      activesupport (= 4.0.0)
+    rails (4.0.1)
+      actionmailer (= 4.0.1)
+      actionpack (= 4.0.1)
+      activerecord (= 4.0.1)
+      activesupport (= 4.0.1)
       bundler (>= 1.3.0, < 2.0)
-      railties (= 4.0.0)
+      railties (= 4.0.1)
       sprockets-rails (~> 2.0.0)
     rails-behaviors (0.4.1)
       coffee-script-source (~> 1.1)
@@ -219,24 +236,24 @@ GEM
     rails-i18n (4.0.0)
       i18n (~> 0.6)
       rails (~> 4.0.0)
-    railties (4.0.0)
-      actionpack (= 4.0.0)
-      activesupport (= 4.0.0)
+    railties (4.0.1)
+      actionpack (= 4.0.1)
+      activesupport (= 4.0.1)
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
     raindrops (0.12.0)
     rake (10.1.0)
-    ransack (1.0.0)
+    ransack (1.1.0)
       actionpack (>= 3.0)
       activerecord (>= 3.0)
       polyamorous (~> 0.6.0)
-    rdf (1.0.10)
+    rdf (1.0.10.1)
       addressable (>= 2.3)
     rdf-n3 (1.0.2)
       rdf (>= 1.0.7)
     redis (3.0.5)
-    redis-namespace (1.3.1)
-      redis (~> 3.0.0)
+    redis-namespace (1.3.2)
+      redis (~> 3.0.4)
     responders (1.0.0)
       railties (>= 3.2, < 5)
     resque (1.24.1)
@@ -274,9 +291,6 @@ GEM
     rspec-core (2.14.7)
     rspec-expectations (2.14.3)
       diff-lcs (>= 1.1.3, < 2.0)
-    rspec-html-matchers (0.4.3)
-      nokogiri (>= 1.4.4)
-      rspec (>= 2.0.0)
     rspec-instafail (0.2.4)
     rspec-mocks (2.14.4)
     rspec-rails (2.14.0)
@@ -287,6 +301,7 @@ GEM
       rspec-expectations (~> 2.14.0)
       rspec-mocks (~> 2.14.0)
     ruby-progressbar (1.2.0)
+    rubyzip (1.1.0)
     rufus-scheduler (2.0.24)
       tzinfo (>= 0.3.22)
     safe_yaml (0.9.7)
@@ -335,7 +350,7 @@ GEM
     trollop (1.16.2)
     tzinfo (0.3.38)
     unicode (0.4.4)
-    unicorn (4.6.3)
+    unicorn (4.7.0)
       kgio (~> 2.6)
       rack
       raindrops (~> 0.7)
@@ -346,6 +361,8 @@ GEM
     webmock (1.15.2)
       addressable (>= 2.2.7)
       crack (>= 0.3.2)
+    xpath (2.0.0)
+      nokogiri (~> 1.3)
     yui-compressor (0.12.0)
     zepto_rails (1.0)
       rails (>= 3.1.0)
@@ -364,9 +381,12 @@ DEPENDENCIES
   addressable
   airbrake
   bibtex-ruby (~> 2.0)
+  capybara
   citeproc-ruby (>= 0.0.4)
   compass-rails
   coveralls
+  cucumber-rails
+  database_cleaner
   devise
   devise-async
   devise-i18n
@@ -395,9 +415,8 @@ DEPENDENCIES
   resque_spec
   rsolr (>= 1.0.7)
   rsolr-ext
-  rspec-html-matchers
   rspec-rails
-  rubyzip!
+  rubyzip (>= 1.1.0)
   sass-rails
   simple_form
   sqlite3
