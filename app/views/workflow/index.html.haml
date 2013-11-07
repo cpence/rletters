@@ -15,11 +15,11 @@
       .preloader
       %ul#screenshots{ 'data-orbit' => true }
         %li{ 'data-orbit-slide' => 'screenshot-1' }
-          %img{ src: 'http://placehold.it/640x480' }
-          .orbit-caption= t('.screenshot_one_caption')
+          %img{ src: UploadedAsset.url_for('screenshot-one') }
+          .orbit-caption= MarkdownPage.render('caption-one')
         %li{ 'data-orbit-slide' => 'screenshot-2' }
-          %img{ src: 'http://placehold.it/640x480' }
-          .orbit-caption= t('.screenshot_two_caption')
+          %img{ src: UploadedAsset.url_for('screenshot-two') }
+          .orbit-caption= MarkdownPage.render('caption-two')
         %li{ 'data-orbit-slide' => 'screenshot-3' }
-          %img{ src: 'http://placehold.it/640x480' }
-          .orbit-caption= t('.screenshot_three_caption')
+          %img{ src: UploadedAsset.url_for('screenshot-three') }
+          .orbit-caption= MarkdownPage.render('caption-three')

@@ -487,9 +487,6 @@ en:
         index:
             sign_up_button: Sign up to get started!
             screenshots_header: What can it do?
-            screenshot_one_caption: First screenshot caption
-            screenshot_two_caption: Second screenshot caption
-            screenshot_three_caption: Third screenshot caption
         info:
             back: Back
             start: Start
@@ -569,6 +566,9 @@ en:
         devise_secret_key: Devise Secret Key
     markdown_pages:
         landing: Landing Page
+        caption-one: First Screenshot Caption
+        caption-two: Second Screenshot Caption
+        caption-three: Third Screenshot Caption
     uploaded_assets:
         splash-low: Splash Screen (320x460)
         splash-high: Splash Screen (768x1004)
@@ -578,6 +578,9 @@ en:
         apple-touch-icon-low: App Icon (57x57)
         apple-touch-icon-med: App Icon (72x72)
         apple-touch-icon-high: App Icon (114x114)
+        screenshot-one: First Screenshot
+        screenshot-two: Second Screenshot
+        screenshot-three: Third Screenshot
     admin:
         admin_user:
             admin_details: Administrator Details
