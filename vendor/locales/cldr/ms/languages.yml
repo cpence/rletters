@@ -1,5 +1,5 @@
-ms: 
-  languages: 
+ms:
+  languages:
     ab: Abkhazia
     ach: Akoli
     af: Afrikaans
@@ -45,7 +45,7 @@ ms:
     eu: Basque
     fa: Parsi
     fi: Finland
-    fil: Filipina
+    tl: Filipina
     fj: Fiji
     fo: Faroe
     fr: Perancis
@@ -173,7 +173,7 @@ ms:
     yi: Yiddish
     yo: Yoruba
     zh: Cina
-    zh-Hans: "Cina Ringkas"
-    zh-Hant: "Cina Tradisional"
+    zh-CN: "Cina Ringkas"
+    zh-TW: "Cina Tradisional"
     zu: Zulu
     zxx: "Tidak kandungan linguistik"

@@ -1,7 +1,31 @@
 # -*- encoding : utf-8 -*-
-# Rename languages that are different in the CLDR
+# Rename languages that are different in the CLDR or Transifex
+require 'fileutils'
 
 namespace :locales do
+
+  desc 'Pull translations from Transifex'
+  task :pull do
+    `tx pull -a --minimum-perc=1`
+
+    # All of the Transifex language codes use underscores (en_GB) instead of
+    # dashes, as Rails does (en-GB).  Rename, and fix with sed.
+    Dir[Rails.root.join('config', 'locales', '*_*.yml')].each do |file|
+      dash_filename = File.basename(file).gsub('_', '-')
+      dest = File.join(File.dirname(file), dash_filename)
+      FileUtils.mv(file, dest)
+
+      underscore_base = File.basename(file, '.yml')
+      dash_base = underscore_base.gsub('_', '-')
+      `sed -i'' -e 's/#{underscore_base}:/#{dash_base}:/g' #{dest}`
+    end
+  end
+
+  desc 'Send source file to Transifex'
+  task :push do
+    `tx push -s`
+  end
+
   desc 'Rename problematic CLDR languages'
   task :rename do
     LOCALES_TO_FIX = {
@@ -21,7 +45,7 @@ namespace :locales do
   desc 'Fix up CLDR languages (requires hash_syntax, Perl)'
   task :fixup do
     Dir[Rails.root.join('vendor', 'locales', 'cldr', '**', '*.rb').to_s].each do |file|
-      `hash_syntax --to-19 #{file}`
+      Bundler.with_clean_env { `hash_syntax --to-19 #{file}` }
     end
 
     Dir[Rails.root.join('vendor', 'locales', 'cldr', '**', '*.{rb,yml}').to_s].each do |file|
