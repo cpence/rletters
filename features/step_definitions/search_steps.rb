@@ -8,7 +8,7 @@ end
 When /^I search for articles$/ do
   visit '/search/'
   fill_in 'q', with: 'test'
-  Capybara::RackTest::Form.new(page.driver, find('#search_form').native).submit(:name => nil)
+  submit_form 'search_form'
 end
 
 When /^I run an advanced search for the ([a-z_]+) (.*)$/ do |field, content|

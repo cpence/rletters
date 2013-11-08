@@ -41,9 +41,12 @@ end
 
 def sign_in
   visit '/'
-  fill_in 'user_email', with: @visitor[:email]
-  fill_in 'user_password', with: @visitor[:password]
-  click_button 'Sign in'
+  click_link 'Sign In'
+  within('#login-dropdown') do
+    fill_in 'user_email', with: @visitor[:email]
+    fill_in 'user_password', with: @visitor[:password]
+    click_button 'Sign in'
+  end
 end
 
 ### GIVEN ###

@@ -13,8 +13,8 @@ production:
   <<: *base
 
 test: &test
-  adapter: sqlite3
-  database: ':memory:'
+  database: rletters_test
+  <<: *base
 
 cucumber:
   <<: *test

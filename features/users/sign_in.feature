@@ -1,3 +1,4 @@
+@javascript
 Feature: Sign in
   In order to be able to save datasets and run analyses
   A user

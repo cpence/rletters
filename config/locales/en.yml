@@ -131,7 +131,7 @@ en:
                     timezone:
                         blank: Timezone must be specified (internal error)
     breadcrumbs:
-        home: Home
+        root: Home
         datasets_index: Manage Datasets
         datasets_show: "Manage: %{name}"
         datasets_task_datasets: Add More Data

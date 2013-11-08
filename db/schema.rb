@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20131105202034) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "admin_users", force: true do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
@@ -28,8 +31,8 @@ ActiveRecord::Schema.define(version: 20131105202034) do
     t.datetime "updated_at"
   end
 
-  add_index "admin_users", ["email"], name: "index_admin_users_on_email", unique: true
-  add_index "admin_users", ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
+  add_index "admin_users", ["email"], name: "index_admin_users_on_email", unique: true, using: :btree
+  add_index "admin_users", ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true, using: :btree
 
   create_table "analysis_task_results", force: true do |t|
     t.integer "analysis_task_id"
@@ -52,7 +55,7 @@ ActiveRecord::Schema.define(version: 20131105202034) do
     t.text     "params"
   end
 
-  add_index "analysis_tasks", ["dataset_id"], name: "index_analysis_tasks_on_dataset_id"
+  add_index "analysis_tasks", ["dataset_id"], name: "index_analysis_tasks_on_dataset_id", using: :btree
 
   create_table "csl_styles", force: true do |t|
     t.string   "name"
@@ -68,7 +71,7 @@ ActiveRecord::Schema.define(version: 20131105202034) do
     t.datetime "updated_at"
   end
 
-  add_index "dataset_entries", ["dataset_id"], name: "index_dataset_entries_on_dataset_id"
+  add_index "dataset_entries", ["dataset_id"], name: "index_dataset_entries_on_dataset_id", using: :btree
 
   create_table "datasets", force: true do |t|
     t.string   "name"
@@ -79,7 +82,7 @@ ActiveRecord::Schema.define(version: 20131105202034) do
     t.boolean  "fetch",      default: false
   end
 
-  add_index "datasets", ["user_id"], name: "index_datasets_on_user_id"
+  add_index "datasets", ["user_id"], name: "index_datasets_on_user_id", using: :btree
 
   create_table "libraries", force: true do |t|
     t.string   "name"
@@ -89,7 +92,7 @@ ActiveRecord::Schema.define(version: 20131105202034) do
     t.datetime "updated_at"
   end
 
-  add_index "libraries", ["user_id"], name: "index_libraries_on_user_id"
+  add_index "libraries", ["user_id"], name: "index_libraries_on_user_id", using: :btree
 
   create_table "markdown_pages", force: true do |t|
     t.string   "name"
@@ -105,7 +108,7 @@ ActiveRecord::Schema.define(version: 20131105202034) do
     t.datetime "updated_at"
   end
 
-  add_index "settings", ["key"], name: "key_udx", unique: true
+  add_index "settings", ["key"], name: "key_udx", unique: true, using: :btree
 
   create_table "stop_lists", force: true do |t|
     t.string   "language"
@@ -154,7 +157,7 @@ ActiveRecord::Schema.define(version: 20131105202034) do
     t.string   "workflow_datasets"
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
 end

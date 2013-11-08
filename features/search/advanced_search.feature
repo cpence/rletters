@@ -1,3 +1,4 @@
+@javascript
 Feature: Advanced Search
   As a visitor to the website
   I want to be able to perform advanced searches

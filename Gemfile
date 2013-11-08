@@ -5,14 +5,8 @@ gem 'rails', '~> 4.0'
 gem 'rails-i18n', '= 4.0.0'
 
 # Database and related tools
-group :production, :development do
-  gem 'pg', platform: [:ruby, :mswin, :mingw]
-  gem 'activerecord-jdbcpostgresql-adapter', platform: :jruby
-end
-group :test do
-  gem 'sqlite3', platform: [:ruby, :mswin, :mingw]
-  gem 'activerecord-jdbcsqlite3-adapter', platform: :jruby
-end
+gem 'pg', platform: [:ruby, :mswin, :mingw]
+gem 'activerecord-jdbcpostgresql-adapter', platform: :jruby
 gem 'activerecord-import', '>= 0.4.0'
 gem 'trim_blobs'
 gem 'addressable'
@@ -70,6 +64,7 @@ end
 group :test do
   gem 'cucumber-rails', require: false
   gem 'capybara', require: false
+  gem 'poltergeist', require: false
   gem 'database_cleaner'
 
   gem 'fuubar'

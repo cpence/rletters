@@ -9,6 +9,10 @@ bundler_args: --without production development
 before_script:
   - cp config/database.yml.travis config/database.yml
   - git clone --depth=1 https://github.com/rletters/solr-example.git vendor/solr
+  - psql -c 'create database rletters_development;' -U postgres
+  - psql -c 'create database rletters_test;' -U postgres
+  - rake db:migrate db:test:prepare
+  - rake RAILS_ENV=test db:seed
 script:
   - bundle exec rspec
-  - bundle exec cucumber
+  - bundle exec rake cucumber

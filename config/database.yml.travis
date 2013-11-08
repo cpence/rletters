@@ -1,6 +1,17 @@
+base: &base
+  adapter: postgresql
+  username: postgres
+  encoding: unicode
+  pool: 5
+  min_messages: WARNING
+
+development:
+  database: rletters_development
+  <<: *base
+
 test: &test
-  adapter: sqlite3
-  database: ':memory:'
+  database: rletters_test
+  <<: *test
 
 cucumber:
   <<: *test

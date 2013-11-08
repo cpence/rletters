@@ -1,3 +1,4 @@
+@javascript
 Feature: Browse Database
   As a visitor to the website
   I want to browse the article database
