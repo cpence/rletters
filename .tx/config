@@ -6,3 +6,32 @@ file_filter = config/locales/<lang>.yml
 source_file = config/locales/en.yml
 source_lang = en
 
+[rletters.craig_zeta]
+file_filter = config/locales/craig_zeta/craig_zeta.<lang>.md
+source_file = config/locales/craig_zeta/craig_zeta.en.md
+source_lang = en
+type = TXT
+
+[rletters.export_citations]
+file_filter = config/locales/export_citations/export_citations.<lang>.md
+source_file = config/locales/export_citations/export_citations.en.md
+source_lang = en
+type = TXT
+
+[rletters.named_entities]
+file_filter = config/locales/named_entities/named_entities.<lang>.md
+source_file = config/locales/named_entities/named_entities.en.md
+source_lang = en
+type = TXT
+
+[rletters.plot_dates]
+file_filter = config/locales/plot_dates/plot_dates.<lang>.md
+source_file = config/locales/plot_dates/plot_dates.en.md
+source_lang = en
+type = TXT
+
+[rletters.word_frequency]
+file_filter = config/locales/word_frequency/word_frequency.<lang>.md
+source_file = config/locales/word_frequency/word_frequency.en.md
+source_lang = en
+type = TXT
