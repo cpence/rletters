@@ -11,7 +11,7 @@ development:
 
 test: &test
   database: rletters_test
-  <<: *test
+  <<: *base
 
 cucumber:
   <<: *test
