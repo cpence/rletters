@@ -94,10 +94,11 @@ See our detailed [installation and deployment](https://github.com/rletters/rlett
 
 ## Contributors / Support ##
 
-Special thanks to all contributors for submitting patches. A full list of
-contributors including their patches can be found at:
+Special thanks to all contributors to the code here on GitHub. A full list of contributors including their patches can be found at:
 
-https://github.com/rletters/rletters/contributors
+<https://github.com/rletters/rletters/contributors>
+
+We also have received the help of a great community of translators at [Transifex.](https://www.transifex.com/projects/p/rletters/)  Thanks especially to Alejandro León Aznar.
 
 Also, several features of RLetters wouldn't be possible without the excellent work of other Ruby programmers.  Thanks in particular to those behind [Ansible,](http://www.ansibleworks.com/) [RSolr](https://github.com/mwmitchell/rsolr) and [RSolr::Ext](https://github.com/mwmitchell/rsolr-ext), [stanford-core-nlp,](https://github.com/louismullie/stanford-core-nlp/) [citeproc-ruby,](https://github.com/inukshuk/citeproc-ruby) and [bibtex-ruby](https://github.com/inukshuk/bibtex-ruby).  The stop lists found in `db/seeds/stoplists` are released under the BSD license by the Apache Lucene project.
 

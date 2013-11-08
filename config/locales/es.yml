@@ -1,0 +1,410 @@
+es:
+  common:
+    download_csv: Descargar en formato CSV
+    cancel: Cancelar
+  simple_form:
+    'yes': 'Sí'
+    'no': 'No'
+    required:
+      text: obligatorio
+      mark: '*'
+    error_notification:
+      default_message: "Por favor, subsane los siguientes problemas:"
+    labels:
+      user:
+        edit:
+          password: Nueva contraseña
+          password_confirmation: Confirme nueva contraseña
+  helpers:
+    submit:
+      job_params:
+        submit: Comenzar tarea de análisis
+  activemodel:
+    models:
+      document:
+        one: Documento
+        other: Documentos
+    attributes:
+      document:
+        uid: Identificador único
+        doi: DOI
+        authors: Autores
+        title: Título
+        journal: Revista
+        year: Año
+        volume: Tomo
+        number: Número
+        pages: Páginas
+        fulltext: Texto completo
+        term_vectors: Importancia de términos
+    errors:
+      models:
+        document:
+          uid:
+            blank: "No se especificó el identificador único (error interno)"
+  activerecord:
+    models:
+      csl_style:
+        one: Estilo CSL
+        other: Estilos CSL
+      dataset:
+        one: Conjunto de datos
+        other: Conjuntos de datos
+      dataset_entry:
+        one: Entrada de conjunto de datos
+        other: Entradas de conjunto de datos
+      library:
+        one: Biblioteca
+        other: Bibliotecas
+      markdown_page:
+        one: Página personalizable
+        other: Páginas personalizables
+      uploaded_asset:
+        one: Recurso personalizable
+        other: Recursos personalizables
+      user:
+        one: Usuario
+        other: Usuarios
+    attributes:
+      analysis_task:
+        name: Nombre
+        created_at: Hora de creación
+        finished_at: Hora de finalización
+      dataset:
+        name: Nombre
+      dataset_entry:
+        uid: Identificador único
+      library:
+        name: Nombre
+        url: URL base
+      markdown_page:
+        friendly_name: Nombre
+        name: Nombre
+        content: Índice
+      uploaded_asset:
+        friendly_name: Nombre
+        name: Nombre
+        file: Archivo adjunto
+      user:
+        email: Correo-e
+        name: Nombre
+        password: Contraseña
+        password_confirmation: Confirmar contraseña
+        remember_me: ¿Recordar datos de inicio de sesión?
+        per_page: Número de resultados por página
+        language: Idioma preferido
+        timezone: Zona horaria
+        csl_style_id: Estilo de cita
+    errors:
+      models:
+        analysis_task:
+          name:
+            blank: Debe poner un nombre a esta tarea de anális
+          dataset:
+            blank: Tarea de análisis no conectada al conjunto de datos (error interno)
+        dataset:
+          name:
+            blank: Debe poner un nombre a este conjunto de datos
+          user_id:
+            blank: El conjunto de datos debe tener un identificador de usuario (error interno)
+        dataset_entry:
+          uid:
+            blank: No se especificó el identificador único (error interno)
+        library:
+          name:
+            blank: Debe poner nombre a esta entrada de la biblioteca
+          url:
+            blank: Debe poner una URL a esta entrada de la biblioteca
+            invalid: La URL base de la biblioteca debe ser una URL
+          user_id:
+            blank: La biblioteca debe asociarse a un usuario (error interno)
+        user:
+          name:
+            blank: Debe poner un nombre
+          per_page:
+            blank: Debe especificarse el número de resultados por página (error interno)
+            not_a_number: El número de resultados por página debe ser un número entero
+            inclusion: El número de resultados de búsqueda debe ser superior a cero
+          language:
+            blank: Debe especificarse un idioma preferido (error interno)
+            invalid: El idioma preferido debe ser un código de idioma válido (error interno)
+          timezone:
+            blank: Debe seleccionarse una zona horaria (error interno)
+  breadcrumbs:
+    home: Inicio
+    datasets_index: Administrar conjuntos de datos
+    datasets_show: "Administrar: %{name}"
+    datasets_task_datasets: Añadir más datos
+    datasets_task_params: Opciones de tarea
+    search_index: Buscar base de datos
+    search_advanced: Búsqueda avanzada
+    users_passwords_edit: Cambiar contraseña
+    users_passwords_new: Enviar contraseña por correo-e
+    users_registrations_edit: Mi cuenta
+    users_registrations_new: Registrarse
+    workflow_fetch: Buscar resultados
+    workflow_start: Comenzar análisis
+    workflow_info: Información de la tarea
+    workflow_activate: Recopilar datos
+  layouts:
+    footer:
+      copyright: >
+        Copyright © 2011–2013 %{app_name} y el equipo de desarrollo de RLetters. El
+        contenido del artículo tiene derechos de autor como es especifica en entradas
+        de artículos individuales. Todos los derechos reservados.
+      rletters_markdown: >
+        Creado con RLetters — la plataforma de análisis textual de artículos de código
+        abierto. Para más información, ver [rletters.net.](http://rletters.net/)
+    nav:
+      menu: Menú
+      new_analysis: Nuevo análisis
+      fetch_results: Buscar
+      advanced: Herramientas avanzadas
+      browse: Buscar/Examinar base de datos
+      manage: Administrar conjuntos de datos
+      current: Análisis en curso
+      abort: Cancelar el análisis en curso
+      abort_warning: ¿Está seguro? ¡Se perderá el análisis en curso!
+      help: Ayuda
+      account: Mi cuenta
+      sign_out: Desconectarse
+      sign_in: Identificarse
+    sign_in:
+      forgot_password: ¿Contraseña olvidada?
+      sign_in: Identificarse
+      sign_up: Registrarse
+  jobs:
+    concerns:
+      compute_word_frequencies:
+        word_method: Método de selección de palabras
+        most_frequent: Palabras más frecuentes
+        list: Lista explícita de palabras
+        exclude_method: ¿Excluir alguna palabra?
+        none: 'No'
+        stop: Palabras más comunes (palabras no significativas)
+        stop_language: Idioma del texto (para la lista de palabras no significativas)
+        exclusion_list: Palabras a excluir (separadas por espacios)
+        inclusion_list: Palabras a analizar (separadas por espacios)
+        block_method: Método con bloque de texto
+        num_words: Por número de palabras
+        num_blocks: Por número de bloques
+        block_size: Número de palabras por bloque
+        last_block: Último método con bloque
+        big_last: Último bloque grande
+        small_last: Último bloque pequeño
+        truncate_last: Excluir palabras restantes
+        truncate_all: Excluir cualquier documento del tamaño especificado
+        num_blocks_label: Número de bloques
+        split_across: ¿Dividir bloques en documentos distintos?
+      normalize_document_counts:
+        checkbox_label: ¿Normalizar recuentos de documentos a francciones relativas de documentos?
+        params: Opciones de normalización
+        dataset_label: Normalizar contra conjunto de datos
+        all: Todo el corpus
+    analysis:
+      craig_zeta:
+        name: Craig Zeta
+        short_desc: Determina palabras que diferencian dos bases de datos (Craig Zeta)
+        question: >
+          Dados dos conjuntos de artículos, ¿qué palabras revelan la pertenencia de
+          un artículo al conjunto A en vez de al conjunto B o viceversa?
+        header: "Comparación de %{name_1} con %{name_2}"
+        subheader: (Algoritmo Craig Zeta)
+        csv_header: "Comparación de Craig Zeta para el conjunto de datos %{name_1} con %{name_2}"
+        marker_header: "Palabras indicadoras para miembros en el conjunto de datos %{name}"
+        graph_header: Gráfico de separación para todos los bloques de texto analizados
+        graph_explanation: >
+          Este gráfico traza la fracción de palabras en cada bloque de texto individual
+          analizado con las coordenadas correspondientes a la fracción de palabras
+          en cada bloque que pertenezcan a los dos conjuntos identificados. Si el
+          análisis se realiza con éxito, debería poder ver dos nubes de puntos claramente
+          separadas por una pequeña superposición, la cual muestra que las palabras
+          indicadoras pueden distinguir bloques de texto de cada conjunto de datos
+          fácilmente.
+        block_name_column: Nombre del bloque de texto
+        marker_column: Fracción de palabras indicadoras
+        anti_marker_column: Fracción antipalabras indicadoras
+        zeta_score_header: Resultados Zeta para todas las palabras analizadas
+        zeta_score_explanation: >
+          Resultados Zeta para todas las palabras analizadas correctos. El rango de
+          resultados de dos (una palabra indicadora perfecta que indentifica a un
+          miembro en %{name_1}) a cero (una antipalabra indicadora que identifica
+          a un miembro en %{name_2}).
+      export_citations:
+        name: Exportar citas
+        short_desc: Exportar conjunto de datos como citas
+        question: >
+          ¿Puedo exportar un conjunto de artículos a mi formato favorito o al administrador
+          de referencias?
+      named_entities:
+        name: Extraer nombres verdaderos
+        short_desc: Extraer referencias a nombres verdaderos
+        question: >
+          ¿Qué nombres verdaderos (lugares, personas u organizaciones) se mencionan
+          en un conjunto de artículos dado?
+        wikipedia_link: "https://en.wikipedia.org/w/index.php?title=Special:Search&search=%{query}&fulltext=Search"
+        people_category: Personas
+        organization_category: Organizaciones
+        location_map: Localizaciones (Mapa)
+        location_category: Localizaciones (Lista)
+        other_category: Otros
+        type_column: Tipo
+        hit_column: Coincidencia
+      plot_dates:
+        name: Trazar por fecha
+        short_desc: Trazar conjunto de datos por fecha
+        question: >
+          ¿Cómo ha cambiado la frecuencia de un término con el tiempo?
+
+          ¿Cuándo se publicaron un conjunto de artículos dados?
+  search:
+    document:
+      volume_abbr: "Tomo %{volume}"
+      number_abbr: "Nº %{number}"
+      pages_abbr: "%{pages} págs."
+    dropdown:
+      single_dataset: Crear un conjunto de datos únicamente de este documento
+      add_to_dataset: Añadir este documento a un conjunto de datos existente
+      yours: "Su biblioteca:"
+      worldcat: Buscar en WorldCat
+      uk_openurl: Buscar en OpenURL
+      google: Buscar en Google Académico
+      mendeley: Buscar en Mendeley
+      citeulike: Buscar en CiteULike
+    add:
+      no_datasets: Conjuntos de datos no disponibles
+      submit: Añadir
+    advanced:
+      header: Búsqueda avanzada
+      search_header: Búsqueda guiada
+      year_ranges: Intervalo de años
+      authors_placeholder: "p. ej. A. Johnson, B. Smith"
+      year_ranges_placeholder: "p. ej. 1999, 2005-2010, 2001"
+      pages_placeholder: "p. ej. 135-150"
+      search_button: Realizar búsqueda avanzada
+      solr_header: Buscar con Solr
+      solr_label: Búsqueda con Solr
+      solr_button: Realizar búsqueda con Solr
+    index:
+      placeholder: Buscando artículos...
+      adv_search_placeholder: (búsqueda avanzada)
+      sort_prefix: "Ordenar:"
+      sort_unknown: "Desconocido"
+      sort_asc: "(ascendente)"
+      sort_desc: "(descendente)"
+      sort_score: "Importancia"
+      create_dataset: Cree una base de datos a partir de la búsqueda
+      num_hits_found:
+        zero: No se encontraron artículos.
+        one: Se encontró un artículo.
+        other: "Se encontraron %{count} artículos."
+      num_documents_database:
+        zero: No hay artículos en la base de datos.
+        one: Hay un artículo en la base de datos.
+        other: "Hay un total de %{count} artículos en la base de datos."
+      remove_all: Eliminar todo
+      filters: Búsqueda con filtros
+      authors_facet: Autores
+      journal_facet: Revista
+      year_facet: Fecha de publicación
+      authors_facet_short: Autores
+      journal_facet_short: Revista
+      year_facet_short: Año
+      year_before_1800: Antes de 1800
+      year_after_2010: De 2010 en adelante
+      advanced_search: Búsqueda avanzada
+  users:
+    registrations:
+      edit:
+        header: Preferencias de usuario
+        library_links_header: Enlaces de acceso a la biblioteca
+      new:
+        header: Registrarse
+        submit: Registrarse
+  libraries:
+    index:
+      query: Buscar en su biblioteca automáticamente
+      add_new: Añadir su biblioteca manualmente
+      delete_button: Eliminar
+      delete_confirm: ¿Está seguro?
+    query:
+      no_libraries: >
+        No se pudo determinar su biblioteca automáticamente. Si aún lo desea, puede
+        añadir su biblioteca manualmente.⏎
+    create:
+      success: Se conectó con exito a la biblioteca.
+    update:
+      success: Biblioteca actualizada con éxito.
+  workflow:
+    activate:
+      button_start: Comenzar análisis
+      delete_button: Eliminar
+      delete_confirm: ¿Está seguro?
+    index:
+      sign_up_button: ¡Regístrese para comenzar!
+  datasets:
+    dataset_list:
+      tasks:
+        zero: No tiene ninguna tarea de análisis pendiente...
+        one: Tiene una tarea de análisis pendiente...
+        other: "Tiene un total de %{count} tareas de análisis pendientes..."
+      no_datasets: Ningún conjunto de datos
+      delete_button: Eliminar
+      delete_confirm: ¿Está seguro?
+    new:
+      header: Crear un nuevo conjunto de datos
+    create:
+      building: "Construyendo conjunto de datos. Espere, por favor."
+    show:
+      header: Información para el conjunto de datos
+      num_entries: "Número de documentos: %{count}"
+      created_at: "Creado el: %{date}"
+      deleted: Todas las tareas de análisis fallidas han sido eliminadas.
+    task_datasets:
+      cancel: Cancelar
+    task_list:
+      pending:
+        one: "Hay una tarea de análisis pendiente para este conjunto de datos..."
+        other: "Hay un total de %{count} tareas de análisis pendientes para este conjunto de datos..."
+  settings:
+    app_name: Nombre de la aplicación
+    app_domain: Nombre de dominio de la aplicación
+    solr_server_url: URL Solr
+    solr_timeout: Espera de Solr (seg)
+    mendeley_key: Clave de Mendeley
+    airbrake_key: Clave de API de Airbrake
+    google_analytics_key: Código de seguimiento de Google Analytics
+  uploaded_assets:
+    splash-low: Pantalla de bienvenida (320x460)
+    splash-high: Pantalla de bienvenida (768x1004)
+    favicon: Icono de favorito (16x16)
+    error-watermark: Página de error de marca de agua (~500x400)
+    apple-touch-icon-precomposed-low: Icono de aplicación (precompuesto, 57x57)
+    apple-touch-icon-low: Icono de aplicación (57x57)
+    apple-touch-icon-med: Icono de aplicación (72x72)
+    apple-touch-icon-high: Icono de aplicación (114x114)
+  admin:
+    admin_user:
+      admin_details: Detalles del administrador
+    dashboard:
+      new_datasets: Conjuntos de datos más recientes
+      new_analysis_tasks: Tareas de análisis más recientes
+      recent_users: Usuarios conectados recientemente
+      backend: Información de backend
+      database: Base de datos
+      db_size: "Tamaño de la base de datos: %{count} artículos"
+      connection_failed: ¡No se pudo conectar con Solr! Configure la URL de Solr en la pestaña Configuración
+      latency: "Latencia de la base de datos local: %{count} ms"
+      solr: Servidor Solr
+      solr_version: "Versión de Solr %{solr_ver}, versión de Lucene %{lucene_ver}"
+      java_version: "Versión de Java %{java_ver}"
+      memory_info: "Memoria: usada %{used}, con %{free} libres de %{total}; máximo %{max}"
+    markdown_page:
+      markdown_info_markdown: >
+        Se puede dar formato a las páginas personalizadas con el lenguaje markdown.
+        Visite la [guía de Kramdown](http://kramdown.rubyforge.org/syntax.html) para
+        información más detallada.⏎
+      page_header: "Página: %{name}"
+    uploaded_asset:
+      file_details: "%{size} bytes"
+      asset_header: "Recurso: %{name}"
