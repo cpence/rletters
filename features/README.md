@@ -1,0 +1,3 @@
+RLetters is an application designed to let users perform complex searches as well as digital-humanities and text-mining analysis tasks on a corpus of journal articles.
+
+This feature documentation (or acceptance-test documentation) [is open-source,](https://github.com/rletters/rletters/tree/master/features) and is a work in progress.  It is intended to describe all of the basic functionality of RLetters -- anything that we *never* want to see break.  If you find it incomplete or confusing, please [submit an issue,](https://github.com/rletters/rletters/issues) or help us correct it by submitting a pull request!

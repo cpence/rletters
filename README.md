@@ -1,11 +1,13 @@
 # RLetters #
 
-[![Build Status][travis_img]][travis] [![Dependency Status][gemnasium_img]][gemnasium] [![Coverage Status][coveralls_img]][coveralls]
+[![Build Status][travis_img]][travis] [![Dependency Status][gemnasium_img]][gemnasium] [![Coverage Status][coveralls_img]][coveralls] [![Code Metrics][codeclimate_img]][codeclimate]
 
 [travis]: http://travis-ci.org/rletters/rletters
 [travis_img]: https://secure.travis-ci.org/rletters/rletters.png?branch=master
 [coveralls]: https://coveralls.io/r/rletters/rletters
 [coveralls_img]: https://coveralls.io/repos/rletters/rletters/badge.png?branch=master
+[codeclimate]: https://codeclimate.com/github/rletters/rletters
+[codeclimate_img]: https://codeclimate.com/github/rletters/rletters.png
 [gemnasium]: https://gemnasium.com/rletters/rletters
 [gemnasium_img]: https://gemnasium.com/rletters/rletters.png
 

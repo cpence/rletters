@@ -1,0 +1,1 @@
+The datasets component allows users to save the results of a particular search and then perform analysis tasks on that set of documents.  Acceptance tests here make sure that we can successfully create datasets, see information about them, and run analyses.

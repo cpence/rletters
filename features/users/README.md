@@ -1,0 +1,1 @@
+The acceptance tests for the users component of RLetters ensure that the basic functionality pertaining to user accounts works properly.  This includes signing up for accounts, signing in and out, and setting personalized user settings.
