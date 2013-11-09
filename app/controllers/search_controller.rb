@@ -173,16 +173,16 @@ class SearchController < ApplicationController
 
       # Advanced search, step through the fields
       query_params[:defType] = 'lucene'
-      q_array << "#{params[:q]}" unless params[:q].blank?
+      q_array << "#{params[:q]}" if params[:q].present?
 
       # Verbatim search fields
       %W(volume number pages).each do |f|
-        q_array << "#{f}:\"#{params[f.to_sym]}\"" unless params[f.to_sym].blank?
+        q_array << "#{f}:\"#{params[f.to_sym]}\"" if params[f.to_sym].present?
       end
 
       # Verbatim or fuzzy search fields
       %W(title journal).each do |f|
-        unless params[f.to_sym].blank?
+        if params[f.to_sym].present?
           field = f
 
           param = params[(f + '_type').to_sym]
@@ -193,7 +193,7 @@ class SearchController < ApplicationController
       end
 
       # Fulltext is different, because of fulltext_search
-      unless params[:fulltext].blank?
+      if params[:fulltext].present?
         if params[:fulltext_type] && params[:fulltext_type] == 'fuzzy'
           field = 'fulltext_stem'
         else
@@ -204,7 +204,7 @@ class SearchController < ApplicationController
 
       # Handle the authors separately, for splitting support (authors search
       # is an AND search, not an OR search)
-      unless params[:authors].blank?
+      if params[:authors].present?
         authors = params[:authors].split(',').map do |a|
           NameHelpers.name_to_lucene(a.strip)
         end
@@ -214,7 +214,7 @@ class SearchController < ApplicationController
       end
 
       # Handle the year separately, for range support
-      unless params[:year_ranges].blank?
+      if params[:year_ranges].present?
         # Strip whitespace, split on commas
         ranges = params[:year_ranges].gsub(/\s/, '').split(',')
         year_queries = []

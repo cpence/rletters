@@ -1,5 +1,5 @@
 %h5
-  - unless document.title.blank?
+  - if document.title.present?
     = document.title
   - else
     = t('.untitled')
@@ -7,16 +7,16 @@
   - if document.fulltext_url
     %span.icon.fi-upload-cloud.has-tip{ data: { tooltip: true }, title: t('.cloud_tooltip') }
 %p
-  - unless document.authors.blank?
+  - if document.authors.present?
     = document.authors
     = ' | '
-  - unless document.journal.blank?
+  - if document.journal.present?
     %em= "#{document.journal}, "
-  - unless document.volume.blank?
+  - if document.volume.present?
     = t('.volume_abbr', volume: document.volume) + ','
-  - unless document.number.blank?
+  - if document.number.present?
     = t('.number_abbr', number: document.number)
-  - unless document.year.blank?
+  - if document.year.present?
     = "(#{document.year}),"
-  - unless document.pages.blank?
+  - if document.pages.present?
     = t('.pages_abbr', pages: document.pages)

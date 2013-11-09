@@ -76,22 +76,12 @@ RSpec.configure do |config|
   config.filter_run_excluding nlp: !NLP_ENABLED
 
   config.before(:suite) do
-    # Activate bundled Solr server, if available
-    if File.exists? Rails.root.join('vendor', 'solr')
-      Dir.chdir(Rails.root.join('vendor', 'solr')) do
-        system(Rails.root.join('vendor', 'solr', 'start').to_s)
-      end
-    end
+    # Prepare the database
+    DatabaseCleaner.clean_with(:truncation)
+    load Rails.root.join('db', 'seeds.rb')
 
     # Use transactions to clean database
     DatabaseCleaner.strategy = :transaction
-  end
-
-  config.after(:suite) do
-    # Destroy Solr server
-    if File.exists? Rails.root.join('vendor', 'solr')
-      system(Rails.root.join('vendor', 'solr', 'stop').to_s)
-    end
   end
 
   config.before(:each) do

@@ -17,7 +17,7 @@
   %link{ href: UploadedAsset.url_for('favicon'), rel: "shortcut icon" }/
 
   -# Load Google analytics (if enabled)
-  - unless Setting.google_analytics_key.blank?
+  - if Setting.google_analytics_key.present?
     = render partial: 'layouts/google'
 
   = content_for :head_tags

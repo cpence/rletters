@@ -3,16 +3,15 @@ rvm:
   - 1.9.3
   - 2.0
 
-before_install: gem install --pre bundler
 bundler_args: --without production development
-
 before_script:
   - cp config/database.yml.travis config/database.yml
   - git clone --depth=1 https://github.com/rletters/solr-example.git vendor/solr
-  - psql -c 'create database rletters_development;' -U postgres
-  - psql -c 'create database rletters_test;' -U postgres
-  - rake db:migrate db:test:prepare
-  - rake RAILS_ENV=test db:seed
+  - 'pushd vendor/solr && ./start && popd'
+  - rake db:create db:migrate
+
 script:
-  - bundle exec rspec
-  - bundle exec rake cucumber
+  - rake spec cucumber
+
+after_script:
+  - 'pushd vendor/solr && ./stop && popd'

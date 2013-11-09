@@ -23,13 +23,13 @@ class Library < ActiveRecord::Base
   protected
 
   before_validation do |library|
-    unless library.url.blank?
+    if library.url.present?
       library.url = 'http://' + url unless library.url.include? '://'
     end
   end
 
   after_validation do |library|
-    unless library.url.blank?
+    if library.url.present?
       library.url = library.url + '?' unless library.url.end_with? '?'
     end
   end

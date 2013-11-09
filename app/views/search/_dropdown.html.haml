@@ -24,7 +24,7 @@
     %strong= t('.online')
     %ul.no-bullet
       %li= link_to t('.google'), "http://scholar.google.com/scholar?q=#{CGI.escape(document.title)}"
-      - unless Setting.mendeley_key.blank?
+      - if Setting.mendeley_key.present?
         %li= link_to t('.mendeley'), mendeley_redirect_path(uid: document.uid)
       %li= link_to t('.citeulike'), citeulike_redirect_path(uid: document.uid)
 

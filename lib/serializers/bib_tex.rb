@@ -32,16 +32,14 @@ module Serializers
       cite_key = "#{first_author}#{year}"
 
       ret  = "@article{#{cite_key},\n"
-      unless author_list.nil? || author_list.count == 0
-        ret << "    author = {#{author_list.join(' and ')}},\n"
-      end
-      ret << "    title = {#{title}},\n" unless title.blank?
-      ret << "    journal = {#{journal}},\n" unless journal.blank?
-      ret << "    volume = {#{volume}},\n" unless volume.blank?
-      ret << "    number = {#{number}},\n" unless number.blank?
-      ret << "    pages = {#{pages}},\n" unless pages.blank?
-      ret << "    doi = {#{doi}},\n" unless doi.blank?
-      ret << "    year = {#{year}}\n" unless year.blank?
+      ret << "    author = {#{author_list.join(' and ')}},\n" if author_list.present?
+      ret << "    title = {#{title}},\n" if title.present?
+      ret << "    journal = {#{journal}},\n" if journal.present?
+      ret << "    volume = {#{volume}},\n" if volume.present?
+      ret << "    number = {#{number}},\n" if number.present?
+      ret << "    pages = {#{pages}},\n" if pages.present?
+      ret << "    doi = {#{doi}},\n" if doi.present?
+      ret << "    year = {#{year}}\n" if year.present?
       ret << "}\n"
 
       ret

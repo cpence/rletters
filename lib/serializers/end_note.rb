@@ -26,18 +26,18 @@ module Serializers
       if formatted_author_list && formatted_author_list.count
         formatted_author_list.each do |a|
           ret << "%A #{a.last}, #{a.first}"
-          ret << " #{a.von}" unless a.von.blank?
-          ret << ", #{a.suffix}" unless a.suffix.blank?
+          ret << " #{a.von}" if a.von.present?
+          ret << ", #{a.suffix}" if a.suffix.present?
           ret << "\n"
         end
       end
-      ret << "%T #{title}\n" unless title.blank?
-      ret << "%D #{year}\n" unless year.blank?
-      ret << "%J #{journal}\n" unless journal.blank?
-      ret << "%V #{volume}\n" unless volume.blank?
-      ret << "%N #{number}\n" unless number.blank?
-      ret << "%P #{pages}\n" unless pages.blank?
-      ret << "%M #{doi}\n" unless doi.blank?
+      ret << "%T #{title}\n" if title.present?
+      ret << "%D #{year}\n" if year.present?
+      ret << "%J #{journal}\n" if journal.present?
+      ret << "%V #{volume}\n" if volume.present?
+      ret << "%N #{number}\n" if number.present?
+      ret << "%P #{pages}\n" if pages.present?
+      ret << "%M #{doi}\n" if doi.present?
       ret << "\n"
       ret
     end

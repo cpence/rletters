@@ -31,12 +31,12 @@ module Serializers
         ret['author'] = formatted_author_list.map { |a| a.to_citeproc }
       end
 
-      ret['title'] = title unless title.blank?
-      ret['container-title'] = journal unless journal.blank?
-      ret['issued'] = { 'date-parts' => [[Integer(year)]] } unless year.blank?
-      ret['volume'] = volume unless volume.blank?
-      ret['issue'] = number unless number.blank?
-      ret['page'] = pages unless pages.blank?
+      ret['title'] = title if title.present?
+      ret['container-title'] = journal if journal.present?
+      ret['issued'] = { 'date-parts' => [[Integer(year)]] } if year.present?
+      ret['volume'] = volume if volume.present?
+      ret['issue'] = number if number.present?
+      ret['page'] = pages if pages.present?
 
       ret
     end

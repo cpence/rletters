@@ -23,22 +23,22 @@ module Serializers
     #                        'attachment'
     def to_ris
       ret  = "TY  - JOUR\n"
-      unless formatted_author_list.nil?
+      if formatted_author_list.present?
         formatted_author_list.each do |a|
           ret << 'AU  - '
-          ret << "#{a.von} " unless a.von.blank?
+          ret << "#{a.von} " if a.von.present?
           ret << "#{a.last},#{a.first}"
-          ret << ",#{a.suffix}" unless a.suffix.blank?
+          ret << ",#{a.suffix}" if a.suffix.present?
           ret << "\n"
         end
       end
-      ret << "TI  - #{title}\n" unless title.blank?
-      ret << "PY  - #{year}\n" unless year.blank?
-      ret << "JO  - #{journal}\n" unless journal.blank?
-      ret << "VL  - #{volume}\n" unless volume.blank?
-      ret << "IS  - #{number}\n" unless number.blank?
-      ret << "SP  - #{start_page}\n" unless start_page.blank?
-      ret << "EP  - #{end_page}\n" unless end_page.blank?
+      ret << "TI  - #{title}\n" if title.present?
+      ret << "PY  - #{year}\n" if year.present?
+      ret << "JO  - #{journal}\n" if journal.present?
+      ret << "VL  - #{volume}\n" if volume.present?
+      ret << "IS  - #{number}\n" if number.present?
+      ret << "SP  - #{start_page}\n" if start_page.present?
+      ret << "EP  - #{end_page}\n" if end_page.present?
       ret << "ER  - \n"
       ret
     end

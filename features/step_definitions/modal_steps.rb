@@ -1,12 +1,18 @@
 # -*- encoding : utf-8 -*-
 
-# Foundation's modal dialogs don't actually work on Poltergeist for some
-# reason, so hack the support here.
-def in_modal_dialog(button_name, &block)
+def in_modal_dialog(link_or_name, &block)
+  link = nil
+
+  if link_or_name.is_a? String
+    link = find_link(link_or_name, match: :first)
+  else
+    link = link_or_name
+  end
+
+  href = link[:href]
   back_url = current_url
 
-  link = find_link(button_name)
-  visit link[:href]
+  visit href
 
   yield
 

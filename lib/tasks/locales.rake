@@ -26,8 +26,8 @@ namespace :locales do
     `tx push -s`
   end
 
-  desc 'Rename problematic CLDR languages'
-  task :rename do
+  desc 'Clean up problematic CLDR languages'
+  task :fixup do
     LOCALES_TO_FIX = {
       'fil:' => 'tl:',
       'zh-Hans:' => 'zh-CN:',
@@ -40,10 +40,7 @@ namespace :locales do
       LOCALES_TO_FIX.each { |from, to| text.gsub!(from, to) }
       File.open(file, 'w') { |f| f.write(text) }
     end
-  end
 
-  desc 'Fix up CLDR languages (requires hash_syntax, Perl)'
-  task :fixup do
     Dir[Rails.root.join('vendor', 'locales', 'cldr', '**', '*.rb').to_s].each do |file|
       Bundler.with_clean_env { `hash_syntax --to-19 #{file}` }
     end

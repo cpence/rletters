@@ -43,7 +43,7 @@ module Serializers
       mods['version'] = '3.0'
       mods['ID'] = 'rletters_' + html_uid
 
-      unless title.blank?
+      if title.present?
         title_info = Nokogiri::XML::Node.new('titleInfo', doc)
         mods.add_child(title_info)
 
@@ -53,7 +53,7 @@ module Serializers
         title_elt.content = title
       end
 
-      unless formatted_author_list.nil? || formatted_author_list.count == 0
+      if formatted_author_list.present?
         formatted_author_list.each do |a|
           name = Nokogiri::XML::Node.new('name', doc)
           mods.add_child(name)
@@ -66,9 +66,9 @@ module Serializers
           first_name_elt['type'] = 'given'
 
           last_name = ''
-          last_name << " #{a.von}" unless a.von.blank?
+          last_name << " #{a.von}" if a.von.present?
           last_name << a.last
-          last_name << ", #{a.suffix}" unless a.suffix.blank?
+          last_name << ", #{a.suffix}" if a.suffix.present?
           last_name_elt = Nokogiri::XML::Node.new('namePart', doc)
           name.add_child(last_name_elt)
           last_name_elt.content = last_name
@@ -97,7 +97,7 @@ module Serializers
       article_issuance = Nokogiri::XML::Node.new('issuance', doc)
       article_origin_info.add_child(article_issuance)
       article_issuance.content = 'monographic'
-      unless year.blank?
+      if year.present?
         date_issued = Nokogiri::XML::Node.new('dateIssued', doc)
         article_origin_info.add_child(date_issued)
         date_issued.content = year
@@ -107,7 +107,7 @@ module Serializers
       mods.add_child(related_item)
       related_item['type'] = 'host'
 
-      unless journal.blank?
+      if journal.present?
         title_info = Nokogiri::XML::Node.new('titleInfo', doc)
         related_item.add_child(title_info)
         title_info['type'] = 'abbreviated'
@@ -122,7 +122,7 @@ module Serializers
       journal_issuance = Nokogiri::XML::Node.new('issuance', doc)
       journal_origin_info.add_child(journal_issuance)
       journal_issuance.content = 'continuing'
-      unless year.blank?
+      if year.present?
         date_issued = Nokogiri::XML::Node.new('dateIssued', doc)
         journal_origin_info.add_child(date_issued)
         date_issued.content = year
@@ -138,7 +138,7 @@ module Serializers
 
       part = Nokogiri::XML::Node.new('part', doc)
       related_item.add_child(part)
-      unless volume.blank?
+      if volume.present?
         detail = Nokogiri::XML::Node.new('detail', doc)
         part.add_child(detail)
         detail['type'] = 'volume'
@@ -147,7 +147,7 @@ module Serializers
         number_elt.content = volume
       end
 
-      unless number.blank?
+      if number.present?
         detail = Nokogiri::XML::Node.new('detail', doc)
         part.add_child(detail)
         detail['type'] = 'issue'
@@ -159,29 +159,29 @@ module Serializers
         caption.content = 'no.'
       end
 
-      unless pages.blank?
+      if pages.present?
         extent = Nokogiri::XML::Node.new('extent', doc)
         part.add_child(extent)
         extent['unit'] = 'page'
-        unless start_page.blank?
+        if start_page.present?
           start_elt = Nokogiri::XML::Node.new('start', doc)
           extent.add_child(start_elt)
           start_elt.content = start_page
         end
-        unless end_page.blank?
+        if end_page.present?
           end_elt = Nokogiri::XML::Node.new('end', doc)
           extent.add_child(end_elt)
           end_elt.content = end_page
         end
       end
 
-      unless year.blank?
+      if year.present?
         date = Nokogiri::XML::Node.new('date', doc)
         part.add_child(date)
         date.content = year
       end
 
-      unless doi.blank?
+      if doi.present?
         identifier = Nokogiri::XML::Node.new('identifier', doc)
         mods.add_child(identifier)
         identifier['type'] = 'doi'

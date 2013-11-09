@@ -15,6 +15,6 @@
         .large-6.columns= submit_tag t('.submit'), class: 'button success small'
 
   :javascript
-    $('#add-form-modal').foundation('forms');
+    if (typeof $ !== 'undefined') { $('#add-form-modal').foundation('forms'); }
 
 %a.close-reveal-modal &#215;

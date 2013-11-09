@@ -2,7 +2,7 @@
 
 # Set the Airbrake key and start up Airbrake, if available
 if ActiveRecord::Base.connection.tables.include?('settings')
-  unless Setting.airbrake_key.blank?
+  if Setting.airbrake_key.present?
     begin
       require 'airbrake'
 

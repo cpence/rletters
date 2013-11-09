@@ -69,13 +69,13 @@ module Serializers
                                           %w(b eng),
                                           %w(c RLetters)))
 
-      unless doi.blank?
+      if doi.present?
         record.append(::MARC::DataField.new('024', '7', ' ',
                                             %w(2 doi),
                                             %W(a #{doi})))
       end
 
-      unless formatted_author_list.nil? || formatted_author_list.count == 0
+      if formatted_author_list.present?
         record.append(::MARC::DataField.new(
           '100', '1', ' ',
           ::MARC::Subfield.new('a', author_to_marc(formatted_author_list[0]))
@@ -89,7 +89,7 @@ module Serializers
         end
       end
 
-      unless title.blank?
+      if title.present?
         record.append(::MARC::DataField.new(
           '245', '1', '0',
           ['a', title + (title[-1] == '.' ? nil : '.')]
@@ -97,9 +97,9 @@ module Serializers
       end
 
       marc_volume = ''
-      marc_volume << "v. #{volume}" unless volume.blank?
-      marc_volume << ' ' if !volume.blank? && !number.blank?
-      marc_volume << "no. #{number}" unless number.blank?
+      marc_volume << "v. #{volume}" if volume.present?
+      marc_volume << ' ' if volume.present? && number.present?
+      marc_volume << "no. #{number}" if number.present?
       record.append(::MARC::DataField.new(
         '490', '1', ' ',
         ::MARC::Subfield.new('a', journal),
@@ -112,18 +112,18 @@ module Serializers
       ))
 
       marc_free = ''
-      unless volume.blank?
+      if volume.present?
         marc_free << "Vol. #{volume}"
         marc_free << (number.blank? ? ' ' : ', ')
       end
-      marc_free << "no. #{number} " unless number.blank?
-      marc_free << "(#{year})" unless year.blank?
-      marc_free << ", p. #{pages}" unless pages.blank?
+      marc_free << "no. #{number} " if number.present?
+      marc_free << "(#{year})" if year.present?
+      marc_free << ", p. #{pages}" if pages.present?
 
       marc_enumeration = ''
-      marc_enumeration << volume unless volume.blank?
-      marc_enumeration << ":#{number}" unless number.blank?
-      marc_enumeration << "<#{start_page}" unless start_page.blank?
+      marc_enumeration << volume if volume.present?
+      marc_enumeration << ":#{number}" if number.present?
+      marc_enumeration << "<#{start_page}" if start_page.present?
 
       record.append(::MARC::DataField.new(
         '773', '0', ' ',
@@ -134,13 +134,13 @@ module Serializers
       ))
 
       subfields = []
-      subfields << ['a', volume] unless volume.blank?
-      subfields << ['b', number] unless number.blank?
-      subfields << ['c', start_page] unless start_page.blank?
-      subfields << ['i', year] unless year.blank?
+      subfields << ['a', volume] if volume.present?
+      subfields << ['b', number] if number.present?
+      subfields << ['c', start_page] if start_page.present?
+      subfields << ['i', year] if year.present?
       record.append(::MARC::DataField.new('363', ' ', ' ', *subfields))
 
-      unless year.blank?
+      if year.present?
         record.append(::MARC::DataField.new(
           '362', '0', ' ',
           %W(a #{year}.)
@@ -219,9 +219,9 @@ module Serializers
     # @return [String] author formatted as MARC expects it
     def author_to_marc(a)
       author = ''
-      author << a.von + ' ' unless a.von.blank?
+      author << a.von + ' ' if a.von.present?
       author << a.last
-      author << ' ' + a.suffix unless a.suffix.blank?
+      author << ' ' + a.suffix if a.suffix.present?
       author << ', ' + a.first
       author
     end

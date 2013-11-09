@@ -42,24 +42,23 @@ module Serializers
       graph = ::RDF::Graph.new
       doc = ::RDF::Node.new
 
-      unless formatted_author_list.nil?
+      if formatted_author_list.present?
         formatted_author_list.each do |a|
           name = ''
-          name << "#{a.von} " unless a.von.blank?
+          name << "#{a.von} " if a.von.present?
           name << "#{a.last}"
-          name << " #{a.suffix}" unless a.suffix.blank?
+          name << " #{a.suffix}" if a.suffix.present?
           name << ", #{a.first}"
           graph << [doc, ::RDF::DC.creator, name]
         end
       end
-      graph << [doc, ::RDF::DC.issued, year] unless year.blank?
+      graph << [doc, ::RDF::DC.issued, year] if year.present?
 
-      citation = "#{journal}" unless journal.blank?
-      citation << " #{volume}" unless volume.blank?
-      citation << ' ' if volume.blank?
-      citation << "(#{number})" unless number.blank?
-      citation << ", #{pages}" unless pages.blank?
-      citation << ". (#{year})" unless year.blank?
+      citation = "#{journal}" if journal.present?
+      citation << (volume.present? ? " #{volume}" : ' ')
+      citation << "(#{number})" if number.present?
+      citation << ", #{pages}" if pages.present?
+      citation << ". (#{year})" if year.present?
       graph << [doc, ::RDF::DC.bibliographicCitation, citation]
 
       ourl = ::RDF::Literal.new(
@@ -68,10 +67,10 @@ module Serializers
       )
       graph << [doc, ::RDF::DC.bibliographicCitation, ourl]
 
-      graph << [doc, ::RDF::DC.relation, journal] unless journal.blank?
-      graph << [doc, ::RDF::DC.title, title] unless title.blank?
+      graph << [doc, ::RDF::DC.relation, journal] if journal.present?
+      graph << [doc, ::RDF::DC.title, title] if title.present?
       graph << [doc, ::RDF::DC.type, 'Journal Article']
-      graph << [doc, ::RDF::DC.identifier, "info:doi/#{doi}"] unless doi.blank?
+      graph << [doc, ::RDF::DC.identifier, "info:doi/#{doi}"] if doi.present?
 
       graph
     end

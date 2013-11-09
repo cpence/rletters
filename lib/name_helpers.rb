@@ -22,9 +22,9 @@ module NameHelpers
     # Construct the last name we'll use, which is last name with von part
     # and suffix w/o period
     last = ''
-    last += "#{parts.von} " unless parts.von.blank?
+    last += "#{parts.von} " if parts.von.present?
     last += parts.last
-    last += " #{parts.suffix.chomp('.')}" unless parts.suffix.blank?
+    last += " #{parts.suffix.chomp('.')}" if parts.suffix.present?
 
     # Quick out: if there's no first name, bail
     return "\"#{last}\"" if parts.first.blank?
