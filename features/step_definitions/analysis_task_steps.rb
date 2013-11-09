@@ -31,6 +31,21 @@ Given(/^I complete an analysis task for the dataset$/) do
 end
 
 ### WHEN ###
+When(/^I start an analysis task for the dataset$/) do
+  expect(@dataset).to be
+
+  visit dataset_path(@dataset)
+  click_link 'Plot dataset by date'
+end
+
+When(/^I start a multi\-dataset analysis task for the dataset$/) do
+  expect(@dataset).to be
+  expect(@other_dataset).to be
+
+  visit dataset_path(@dataset)
+  click_link 'Determine words that differentiate two datasets (Craig Zeta)'
+end
+
 When(/^I clear the failed task$/) do
   expect(@dataset).to be
   expect(@task).to be
@@ -45,6 +60,35 @@ When(/^I clear the failed task$/) do
 end
 
 ### THEN ###
+Then(/^I should be able to select the second dataset for the task$/) do
+  expect(@other_dataset).to be
+
+  select @other_dataset.name, from: 'job_params_other_datasets_'
+  with_resque { click_button 'Start analysis job' }
+end
+
+Then(/^I should be able to configure parameters for the task$/) do
+  with_resque { click_button 'Start analysis job' }
+end
+
+Then(/^I should be able to start the task$/) do
+  with_resque do
+    if page.has_button? 'Start analysis job'
+      click_button 'Start analysis job'
+    end
+
+    # If the first page was task_datasets, then this could be task_params, in
+    # which case we have to click the button again
+    if page.has_button? 'Start analysis job'
+      click_button 'Start analysis job'
+    end
+  end
+
+  expect(current_path).to eq(dataset_path(@dataset, trailing_slash: true))
+  @task = @dataset.analysis_tasks.first
+  expect(@task).to be
+end
+
 Then(/^I should be able to view the results of the task$/) do
   expect(@dataset).to be
   expect(@task).to be
@@ -52,7 +96,7 @@ Then(/^I should be able to view the results of the task$/) do
   visit dataset_path(@dataset)
   click_link 'View Results'
 
-  expect(page).to have_content("Dataset: #{@dataset.name}")
+  expect(page).to have_content('Download in CSV format')
 
   visit dataset_path(@dataset)
 end
