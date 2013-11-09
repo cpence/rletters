@@ -84,7 +84,6 @@ Then(/^I should be able to start the task$/) do
     end
   end
 
-  expect(current_path).to eq(dataset_path(@dataset, trailing_slash: true))
   @task = @dataset.analysis_tasks.first
   expect(@task).to be
 end

@@ -10,12 +10,14 @@ end
 
 ### GIVEN ###
 Given(/^I have a dataset$/) do
-  @dataset = FactoryGirl.create(:full_dataset, working: true,
+  @dataset = FactoryGirl.create(:full_dataset, name: 'Cucumber Dataset',
+                                               working: true,
                                                user: @user)
 end
 
 Given(/^I have another dataset$/) do
-  @other_dataset = FactoryGirl.create(:full_dataset, working: true,
+  @other_dataset = FactoryGirl.create(:full_dataset, name: 'Other Dataset',
+                                                     working: true,
                                                      user: @user)
 end
 
