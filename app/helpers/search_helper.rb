@@ -126,9 +126,7 @@ module SearchHelper
   #   sort_to_string 'score desc'
   #   # => 'Sort: Relevance'
   def sort_to_string(sort)
-    unless sort_methods.include? sort
-      return I18n.t('search.index.sort_unknown')
-    end
+    return I18n.t('search.index.sort_unknown') unless sort_methods.include?(sort)
 
     parts = sort.split(' ')
     method = parts[0]
