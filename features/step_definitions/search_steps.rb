@@ -41,6 +41,11 @@ When(/^I remove all facets$/) do
   end
 end
 
+When(/^I sort by ([a-z_]+) \((ascending|descending)\)$/) do |field, dir|
+  click_link('Sort: Year (descending)', match: :first)
+  click_link("Sort: #{field.titlecase} (#{dir})")
+end
+
 ### THEN ###
 Then(/^I should see a list of articles$/) do
   expect(page).to have_selector('table.document-list tr td')
