@@ -72,15 +72,17 @@ Then(/^I should be able to configure parameters for the task$/) do
 end
 
 Then(/^I should be able to start the task$/) do
-  with_resque do
-    if page.has_button? 'Start analysis job'
-      click_button 'Start analysis job'
-    end
+  @task = @dataset.analysis_tasks.first
 
-    # If the first page was task_datasets, then this could be task_params, in
-    # which case we have to click the button again
-    if page.has_button? 'Start analysis job'
+  if @task.nil?
+    with_resque do
       click_button 'Start analysis job'
+
+      # If the first page was task_datasets, then this could be task_params, in
+      # which case we have to click the button again
+      if page.has_button? 'Start analysis job'
+        click_button 'Start analysis job'
+      end
     end
   end
 

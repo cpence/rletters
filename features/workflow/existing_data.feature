@@ -15,7 +15,7 @@ Feature: Run an analysis on existing data
         And I link the dataset
         And I confirm the data
       Then I should be able to start the task
-        And I should be able to fetch the results
+        And I should be able to fetch the workflow results
 
     Scenario: Run a workflow analysis on two datasets
       Given I have another dataset
@@ -26,4 +26,4 @@ Feature: Run an analysis on existing data
         And I link the other dataset
         And I confirm the data
       Then I should be able to start the task
-        And I should be able to fetch the results
+        And I should be able to fetch the workflow results

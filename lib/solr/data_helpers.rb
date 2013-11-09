@@ -36,7 +36,7 @@ module Solr
           # Build a Solr query to fetch only the one field for this group
           solr_query = {}
           solr_query[:rows] = group.count
-          query_str = group.map { |e| "(#{e.uid})" }.join(' OR ')
+          query_str = group.map { |e| "\"#{e.uid}\"" }.join(' OR ')
           solr_query[:q] = "uid:(#{query_str})"
           solr_query[:defType] = 'lucene'
           solr_query[:fl] = field.to_s

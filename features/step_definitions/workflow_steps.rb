@@ -27,6 +27,8 @@ When(/^I link the dataset$/) do
   click_link 'Link an already created dataset'
   select @dataset.name, from: 'link_dataset_id'
   click_button 'Link dataset'
+
+  sleep 1
 end
 
 When(/^I link the other dataset$/) do
@@ -35,9 +37,19 @@ When(/^I link the other dataset$/) do
   click_link 'Link an already created dataset'
   select @other_dataset.name, from: 'link_dataset_id'
   click_button 'Link dataset'
+
+  sleep 1
+end
+
+When(/^I choose to create a new dataset$/) do
+  click_link 'Create another dataset'
 end
 
 When(/^I confirm the data$/) do
+  # Sometimes we may have screwed-up URLs here.  This is a hack, but it gets
+  # us around some of our AJAX-dialog box trouble.
+  click_link 'Current Analysis'
+
   within('.main') do
     if page.has_link? 'Start Analysis'
       with_resque { click_link 'Start Analysis' }
@@ -47,8 +59,21 @@ When(/^I confirm the data$/) do
   end
 end
 
+When(/^I abort the workflow$/) do
+  click_link 'Abort Building Analysis'
+end
+
 ### THEN ###
-Then(/^I should be able to fetch the results$/) do
+Then(/^I should be able to fetch the workflow results$/) do
   within('nav') { click_link 'Fetch Results' }
   expect(page).to have_selector('td', text: @dataset.name)
+end
+
+Then(/^I should no longer be building a workflow$/) do
+  expect(page).not_to have_link('Current Analysis')
+end
+
+Then(/^I should be able to view the result data$/) do
+  click_link 'View Results'
+  expect(page).to have_link('Download in CSV format')
 end
