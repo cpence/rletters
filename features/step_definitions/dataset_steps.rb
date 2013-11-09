@@ -50,9 +50,18 @@ When(/^I add the first article to the dataset$/) do
   end
 end
 
+When(/^I view the list of datasets$/) do
+  visit '/datasets/'
+end
+
 When(/^I visit the page for the dataset$/) do
   expect(@dataset).to be
   visit dataset_path(@dataset)
+end
+
+When(/^I delete the dataset$/) do
+  find_dataset
+  click_link 'Delete'
 end
 
 ### THEN ###
@@ -62,6 +71,11 @@ Then(/^I should see the dataset in the list of datasets$/) do
 
   visit '/datasets/'
   expect(page).to have_selector('td', text: "#{@dataset.name} #{@dataset.entries.size}")
+end
+
+Then(/^I should see no datasets in the list of datasets$/) do
+  visit '/datasets/'
+  expect(page).to have_selector('td', text: 'No datasets')
 end
 
 Then(/^I should be able to view the dataset's properties$/) do

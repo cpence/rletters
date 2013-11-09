@@ -8,7 +8,7 @@
       %th.label-cell= t('.name_column')
       %th.button-cell
   %tbody
-    - unless @datasets.count
+    - if @datasets.blank?
       %tr
         %td.label-cell= t('.no_datasets')
         %td.button-cell
