@@ -33,6 +33,7 @@ When(/^I link the dataset$/) do
   # let it go.
   sleep 3
   page.evaluate_script('$("div.reveal-modal-bg").hide()')
+  sleep 3
 end
 
 When(/^I link the other dataset$/) do
@@ -47,6 +48,7 @@ When(/^I link the other dataset$/) do
   # let it go.
   sleep 3
   page.evaluate_script('$("div.reveal-modal-bg").hide()')
+  sleep 3
 end
 
 When(/^I choose to create a new dataset$/) do
