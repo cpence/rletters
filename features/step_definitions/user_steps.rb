@@ -128,8 +128,37 @@ When(/^I edit my account details$/) do
   click_button 'Update settings'
 end
 
-When(/^I look at the list of users$/) do
-  visit '/'
+When(/^I visit my account page$/) do
+  within('nav') { click_link 'My Account' }
+end
+
+When(/^I add a library automatically$/) do
+  in_modal_dialog('Look up your library automatically') do
+    click_button 'Drupal Link Resolver Module Test Institution for Functional Tests'
+  end
+
+  @user.reload
+  expect(@user.libraries.count).to eq(1)
+  @library = @user.libraries.first
+end
+
+When(/^I manually add the library "(.*?)" with URL "(.*?)"$/) do |name, url|
+  in_modal_dialog('Add your library manually') do
+    fill_in 'library_name', with: name
+    fill_in 'library_url', with: url
+    click_button 'Create Library'
+  end
+
+  @user.reload
+  expect(@user.libraries.count).to eq(1)
+  @library = @user.libraries.first
+end
+
+When(/^I select a custom citation style$/) do
+  within('nav') { click_link 'My Account' }
+  select 'Chicago Manual of Style (Author-Date format)', from: 'user_csl_style_id'
+  fill_in 'user_current_password', with: @visitor[:password]
+  click_button 'Update settings'
 end
 
 ### THEN ###
@@ -178,4 +207,15 @@ end
 
 Then(/^I should see an account edited message$/) do
   expect(page).to have_content('You updated your account successfully.')
+end
+
+Then(/^I should see the library in the list$/) do
+  expect(page).to have_selector('td', text: @library.name)
+end
+
+Then(/^I should be able to fetch a document using the library$/) do
+  visit '/search/'
+
+  link = find_link "Your library: #{@library.name}", match: :first, visible: false
+  expect(link).to be
 end

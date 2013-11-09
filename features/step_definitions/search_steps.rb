@@ -60,6 +60,10 @@ Then(/^the article list should contain (.*)$/) do |content|
   expect(element).to have_content(content)
 end
 
+Then(/^I should see the documents formatted with my style$/) do
+  expect(page).to have_content('Kovařík, Petr, and Václav Pavel. 2011. “Does Threat to the Nest Affect Incubation Rhythm in a Small Passerine?”. Ethology 117: 181-187.')
+end
+
 Then(/^I should see (\d+) articles$/) do |num|
   expect(page).to have_content("#{num} articles")
 end
