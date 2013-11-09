@@ -1,5 +1,5 @@
 @javascript
-Feature: Create Dataset from Search
+Feature: Create dataset from search
   As a registered user
   I want to be able to save the results of a search as a dataset
   So that I can run an analysis on those documents
@@ -7,7 +7,7 @@ Feature: Create Dataset from Search
     Background:
       Given I am logged in
 
-    Scenario: I save the results of a search as a dataset
+    Scenario: Save the results of a search as a dataset
       When I search for articles
         And I create a dataset from the current search
       Then I should see the dataset in the list of datasets

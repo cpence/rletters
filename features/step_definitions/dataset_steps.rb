@@ -50,6 +50,11 @@ When(/^I add the first article to the dataset$/) do
   end
 end
 
+When(/^I visit the page for the dataset$/) do
+  expect(@dataset).to be
+  visit dataset_path(@dataset)
+end
+
 ### THEN ###
 Then(/^I should see the dataset in the list of datasets$/) do
   find_dataset
@@ -70,4 +75,32 @@ end
 Then(/^the dataset should have (\d+) entries$/) do |entries|
   @dataset.reload
   expect(@dataset.entries.count).to eq(Integer(entries))
+end
+
+Then(/^I should see the number of articles$/) do
+  expect(page).to have_content("Number of documents: #{@dataset.entries.count}")
+end
+
+Then(/^I should see the list of analysis tasks$/) do
+  if @dataset.analysis_tasks.present?
+    expect(page).to have_selector('td', text: @dataset.analysis_tasks[0].name)
+  else
+    expect(page).to have_selector('td', text: 'No analysis tasks found')
+  end
+end
+
+Then(/^I should see links for starting new analysis tasks$/) do
+  expect(page).to have_link('Plot dataset by date')
+end
+
+Then(/^I should see an alert for the pending task$/) do
+  expect(page).to have_selector('.alert-box', text: '1 analysis task pending for this dataset...')
+end
+
+Then(/^I should see an alert for the failed task$/) do
+  expect(page).to have_selector('.alert-box.alert', text: '1 analysis task failed for this dataset! Click here to clear failed tasks.')
+end
+
+Then(/^I should see no alert for the failed task$/) do
+  expect(page).not_to have_selector('.alert-box.alert')
 end
