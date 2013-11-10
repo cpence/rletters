@@ -55,6 +55,8 @@ When(/^I confirm the data$/) do
   @user.reload
   visit workflow_activate_path(class: @user.workflow_class)
 
+  puts page.html
+
   within('.main') do
     if page.has_link? 'Start Analysis'
       with_resque { click_link 'Start Analysis' }
