@@ -28,12 +28,10 @@ When(/^I link the dataset$/) do
   select @dataset.name, from: 'link_dataset_id'
   click_button 'Link dataset'
 
-  # No matter how long we sleep here, this doesn't seem to go all the way away
-  # on some clients (including and especially Travis).  This is a hack, but
-  # let it go.
-  sleep 3
-  page.evaluate_script('$("div.reveal-modal-bg").hide()')
-  sleep 3
+  # There's trouble with the modal dialog here acting unreliably; circumvent
+  # it by going back to the workflow#activate page
+  @user.reload
+  visit workflow_activate_path(class: @user.workflow_class)
 end
 
 When(/^I link the other dataset$/) do
@@ -43,12 +41,10 @@ When(/^I link the other dataset$/) do
   select @other_dataset.name, from: 'link_dataset_id'
   click_button 'Link dataset'
 
-  # No matter how long we sleep here, this doesn't seem to go all the way away
-  # on some clients (including and especially Travis).  This is a hack, but
-  # let it go.
-  sleep 3
-  page.evaluate_script('$("div.reveal-modal-bg").hide()')
-  sleep 3
+  # There's trouble with the modal dialog here acting unreliably; circumvent
+  # it by going back to the workflow#activate page
+  @user.reload
+  visit workflow_activate_path(class: @user.workflow_class)
 end
 
 When(/^I choose to create a new dataset$/) do
