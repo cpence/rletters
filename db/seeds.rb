@@ -1,11 +1,11 @@
 # -*- encoding : utf-8 -*-
 
 # If we have no administration users at all, then create the default one
-unless AdminUser.exists?
-  AdminUser.create!(email: 'admin@example.com',
-                    password: 'password',
-                    password_confirmation: 'password')
-  puts 'Seeded administrative user:admin@example.com'
+unless Admin::Administrator.exists?
+  Admin::Administrator.create!(email: 'admin@example.com',
+                               password: 'password',
+                               password_confirmation: 'password')
+  puts 'Seeded administrator:admin@example.com'
   puts "   -> CHANGE THIS USER'S PASSWORD IMMEDIATELY"
 end
 

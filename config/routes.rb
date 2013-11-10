@@ -77,8 +77,8 @@ RLetters::Application.routes.draw do
 
   # Administration pages
   ActiveAdmin.routes(self)
-  devise_for :admin_users, ActiveAdmin::Devise.config
-  authenticate :admin_user do
+  devise_for :administrators, ActiveAdmin::Devise.config.merge(class_name: 'Admin::Administrator')
+  authenticate :administrator do
     mount Resque::Server.new, at: '/admin/jobs'
   end
 

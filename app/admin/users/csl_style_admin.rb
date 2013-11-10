@@ -12,7 +12,7 @@ ActiveAdmin.register Users::CslStyle do
   # :nocov:
   controller do
     def permitted_params
-      params.permit csl_style: [:name, :style]
+      params.permit users_csl_style: [:name, :style]
     end
   end
   # :nocov:

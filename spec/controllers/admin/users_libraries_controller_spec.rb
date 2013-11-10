@@ -7,8 +7,8 @@ describe Admin::UsersLibrariesController do
   render_views
 
   before(:each) do
-    @admin_user = FactoryGirl.create(:admin_user)
-    sign_in :admin_user, @admin_user
+    @administrator = FactoryGirl.create(:administrator)
+    sign_in :administrator, @administrator
     @library = FactoryGirl.create(:library)
   end
 

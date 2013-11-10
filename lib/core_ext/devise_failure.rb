@@ -16,7 +16,7 @@ class DeviseFailure < Devise::FailureApp
   # @api private
   # @return [String] the URL for redirection
   def redirect_url
-    if scope == :admin_user
+    if scope == :administrator
       # For administrators, we want to redirect to the login page
       super
     else

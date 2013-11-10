@@ -1,14 +1,14 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe Admin::AdminUsersController do
+describe Admin::AdminAdministratorsController do
   # Normally I hate turning this on, but in ActiveAdmin, the view logic *is*
   # defined in the same place where I define the controller.
   render_views
 
   before(:each) do
-    @admin_user = FactoryGirl.create(:admin_user)
-    sign_in :admin_user, @admin_user
+    @administrator = FactoryGirl.create(:administrator)
+    sign_in :administrator, @administrator
   end
 
   describe '#index' do
@@ -21,13 +21,13 @@ describe Admin::AdminUsersController do
     end
 
     it 'includes the admin user' do
-      expect(response.body).to include(@admin_user.email)
+      expect(response.body).to include(@administrator.email)
     end
   end
 
   describe '#edit' do
     before(:each) do
-      get :edit, id: @admin_user.to_param
+      get :edit, id: @administrator.to_param
     end
 
     it 'loads successfully' do
@@ -35,7 +35,7 @@ describe Admin::AdminUsersController do
     end
 
     it 'has an edit field for the e-mail' do
-      expect(response.body).to have_selector('input[name="admin_user[email]"]')
+      expect(response.body).to have_selector('input[name="admin_administrator[email]"]')
     end
   end
 

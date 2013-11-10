@@ -14,7 +14,14 @@
 #   @return [String] Password confirmation field (encrypted, from Devise)
 # @!attribute remember_me
 #   @return [Boolean] Whether to keep user logged in (from Devise)
-class AdminUser < ActiveRecord::Base
+class Admin::Administrator < ActiveRecord::Base
   devise :async, :database_authenticatable,
          :recoverable, :rememberable, :trackable, :validatable
+end
+
+# Module for resources related to site administration
+module Admin
+  def self.table_name_prefix
+    'admin_'
+  end
 end

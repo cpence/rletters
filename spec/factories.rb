@@ -19,7 +19,7 @@ FactoryGirl.define do
     WORKING_UIDS[n % WORKING_UIDS.count]
   end
 
-  factory :admin_user do
+  factory :administrator, class: Admin::Administrator do
     sequence(:email) { |n| "admin#{n}@example.com" }
     password 'password'
     password_confirmation 'password'

@@ -10,15 +10,15 @@ describe Admin::DashboardController do
     describe '#index' do
       it 'redirects to the login page' do
         get :index
-        expect(response).to redirect_to(new_admin_user_session_path)
+        expect(response).to redirect_to(new_administrator_session_path)
       end
     end
   end
 
   context 'when an admin user is logged in' do
     before(:each) do
-      @admin_user = FactoryGirl.create(:admin_user)
-      sign_in :admin_user, @admin_user
+      @administrator = FactoryGirl.create(:administrator)
+      sign_in :administrator, @administrator
 
       @user = FactoryGirl.create(:user)
       sign_in :user, @user
@@ -28,7 +28,7 @@ describe Admin::DashboardController do
     end
 
     after(:each) do
-      sign_out :admin_user
+      sign_out :administrator
     end
 
     describe '#index' do

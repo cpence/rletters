@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-ActiveAdmin.register AdminUser do
+ActiveAdmin.register Admin::Administrator do
   menu parent: 'users'
 
   index do
@@ -14,7 +14,7 @@ ActiveAdmin.register AdminUser do
   filter :email
 
   form do |f|
-    f.inputs I18n.t('admin.admin_user.admin_details') do
+    f.inputs I18n.t('admin.administrator.admin_details') do
       f.input :email
       f.input :password
       f.input :password_confirmation
@@ -25,7 +25,7 @@ ActiveAdmin.register AdminUser do
   # :nocov:
   controller do
     def permitted_params
-      params.permit admin_user: [:email, :password, :password_confirmation]
+      params.permit admin_administrator: [:email, :password, :password_confirmation]
     end
   end
   # :nocov:

@@ -585,7 +585,7 @@ en:
         screenshot-two: Second Screenshot
         screenshot-three: Third Screenshot
     admin:
-        admin_user:
+        administrator:
             admin_details: Administrator Details
         dashboard:
             new_datasets: Newest Datasets

@@ -22,14 +22,14 @@ describe ApplicationController do
 
     context 'with an admin user' do
       before(:each) do
-        @user = FactoryGirl.create(:admin_user)
+        @user = FactoryGirl.create(:administrator)
       end
 
       it 'redirects to the admin root on login' do
-        post(admin_user_session_path(trailing_slash: true),
-             admin_user: { email: @user.email,
-                           password: @user.password,
-                           password_confirmation: @user.password })
+        post(administrator_session_path(trailing_slash: true),
+             administrator: { email: @user.email,
+                              password: @user.password,
+                              password_confirmation: @user.password })
         expect(response).to redirect_to(admin_root_path)
         expect(flash[:notice]).to be
         expect(flash[:alert]).not_to be
