@@ -144,8 +144,8 @@ end
 
 When(/^I manually add the library "(.*?)" with URL "(.*?)"$/) do |name, url|
   in_modal_dialog('Add your library manually') do
-    fill_in 'library_name', with: name
-    fill_in 'library_url', with: url
+    fill_in 'users_library_name', with: name
+    fill_in 'users_library_url', with: url
     click_button 'Create Library'
   end
 

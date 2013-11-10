@@ -1,4 +1,4 @@
-# -*- encoding : utf-8 -*-
+# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131105202034) do
+ActiveRecord::Schema.define(version: 20131110162848) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -84,16 +84,6 @@ ActiveRecord::Schema.define(version: 20131105202034) do
 
   add_index "datasets", ["user_id"], name: "index_datasets_on_user_id", using: :btree
 
-  create_table "libraries", force: true do |t|
-    t.string   "name"
-    t.string   "url"
-    t.integer  "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "libraries", ["user_id"], name: "index_libraries_on_user_id", using: :btree
-
   create_table "markdown_pages", force: true do |t|
     t.string   "name"
     t.text     "content"
@@ -159,5 +149,15 @@ ActiveRecord::Schema.define(version: 20131105202034) do
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+
+  create_table "users_libraries", force: true do |t|
+    t.string   "name"
+    t.string   "url"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "users_libraries", ["user_id"], name: "index_users_libraries_on_user_id", using: :btree
 
 end

@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-ActiveAdmin.register Library do
+ActiveAdmin.register Users::Library do
   menu parent: 'users'
   actions :index, :show
 

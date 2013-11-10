@@ -53,9 +53,6 @@ en:
             dataset_entry:
                 one: Dataset Entry
                 other: Dataset Entries
-            library:
-                one: Library
-                other: Libraries
             markdown_page:
                 one: Custom Page
                 other: Custom Pages
@@ -65,6 +62,10 @@ en:
             user:
                 one: User
                 other: Users
+            users:
+                library:
+                    one: Library
+                    other: Libraries
         attributes:
             analysis_task:
                 name: Name
@@ -74,9 +75,6 @@ en:
                 name: Name
             dataset_entry:
                 uid: Unique identifier
-            library:
-                name: Name
-                url: Base URL
             markdown_page:
                 friendly_name: Name
                 name: Name
@@ -95,6 +93,10 @@ en:
                 language: Preferred language
                 timezone: Time zone
                 csl_style_id: Citation style
+            users:
+                library:
+                    name: Name
+                    url: Base URL
         errors:
             models:
                 analysis_task:
@@ -110,14 +112,6 @@ en:
                 dataset_entry:
                     uid:
                         blank: Unique ID was not specified (internal error)
-                library:
-                    name:
-                        blank: You must specify a name for this library entry
-                    url:
-                        blank: You must specify a URL for this library entry
-                        invalid: Library base URL must be a URL
-                    user_id:
-                        blank: Library must be associated with user (internal error)
                 user:
                     name:
                         blank: You must specify a name
@@ -130,6 +124,15 @@ en:
                         invalid: Preferred language must be a valid locale code (internal error)
                     timezone:
                         blank: Timezone must be specified (internal error)
+                users:
+                    library:
+                        name:
+                            blank: You must specify a name for this library entry
+                        url:
+                            blank: You must specify a URL for this library entry
+                            invalid: Library base URL must be a URL
+                        user_id:
+                            blank: Library must be associated with user (internal error)
     breadcrumbs:
         root: Home
         datasets_index: Manage Datasets
@@ -396,31 +399,31 @@ en:
                 header: Sign up
                 subheader: "Welcome!  Enter some information about yourself and we'll get you off and running with a new user account."
                 submit: Sign up
-    libraries:
-        edit:
-            header: Edit your library details
-            subheader: "Fill in the details to your local library's OpenURL resolver, and we'll take it from there."
-        index:
-            query: Look up your library automatically
-            add_new: Add your library manually
-            name_column: Library Name
-            edit_button: Edit
-            delete_button: Delete
-            delete_confirm: Are you sure?
-            no_libraries: No libraries found
-        new:
-            header: Add a new library
-            subheader: "Fill in the details to your local library's OpenURL resolver, and we'll take it from there."
-        query:
-            header: Libraries found near you
-            subheader: "Click the button corresponding to the library that you would like to add."
-            no_libraries: >
-                Could not determine your library automatically.  If you'd like,
-                you can still add your library manually.
-        create:
-            success: Library was successfully connected.
-        update:
-            success: Library was successfully updated.
+        libraries:
+            edit:
+                header: Edit your library details
+                subheader: "Fill in the details to your local library's OpenURL resolver, and we'll take it from there."
+            index:
+                query: Look up your library automatically
+                add_new: Add your library manually
+                name_column: Library Name
+                edit_button: Edit
+                delete_button: Delete
+                delete_confirm: Are you sure?
+                no_libraries: No libraries found
+            new:
+                header: Add a new library
+                subheader: "Fill in the details to your local library's OpenURL resolver, and we'll take it from there."
+            query:
+                header: Libraries found near you
+                subheader: "Click the button corresponding to the library that you would like to add."
+                no_libraries: >
+                    Could not determine your library automatically.  If you'd like,
+                    you can still add your library manually.
+            create:
+                success: Library was successfully connected.
+            update:
+                success: Library was successfully updated.
     workflow:
         activate:
             header: Collect data

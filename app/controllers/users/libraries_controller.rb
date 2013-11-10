@@ -6,7 +6,7 @@
 # resolvers that users are allowed to link to their accounts.
 #
 # @see Library
-class LibrariesController < ApplicationController
+class Users::LibrariesController < ApplicationController
   before_filter :authenticate_user!
 
   # Display the list of the user's libraries
@@ -39,7 +39,7 @@ class LibrariesController < ApplicationController
   # @api public
   # @return [undefined]
   def create
-    @library = Library.new(library_params)
+    @library = Users::Library.new(library_params)
     @library.user = current_user
 
     if @library.save
@@ -117,6 +117,6 @@ class LibrariesController < ApplicationController
   # @return [ActionController::Parameters] acceptable parameters for
   #   mass-assignment
   def library_params
-    params.require(:library).permit(:name, :url)
+    params.require(:users_library).permit(:name, :url)
   end
 end

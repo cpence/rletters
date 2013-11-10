@@ -12,7 +12,7 @@
 # @!attribute user
 #   @raise [RecordInvalid] if the user is missing (validates :presence)
 #   @return [User] The user this library entry belongs to
-class Library < ActiveRecord::Base
+class Users::Library < ActiveRecord::Base
   belongs_to :user
 
   validates :name, presence: true

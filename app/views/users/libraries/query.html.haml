@@ -6,8 +6,8 @@
 - else
   - @libraries.each do |library|
     = form_tag(libraries_path, method: :post) do
-      = hidden_field_tag 'library[name]', library[:name]
-      = hidden_field_tag 'library[url]', library[:url]
+      = hidden_field_tag 'users_library[name]', library[:name]
+      = hidden_field_tag 'users_library[url]', library[:url]
       = submit_tag library[:name], class: 'button small secondary'
 
 %a.close-reveal-modal &#215;

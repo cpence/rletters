@@ -68,7 +68,7 @@ RLetters::Application.routes.draw do
 
   scope '/users' do
     # Libraries, nested under users
-    resources :libraries, except: :show do
+    resources :libraries, module: 'users', except: :show do
       collection do
         get 'query'
       end

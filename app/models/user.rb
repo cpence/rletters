@@ -42,7 +42,8 @@
 # @!attribute libraries
 #   @raise [RecordInvalid] if any of the libraries are invalid
 #     (validates_associated)
-#   @return [Array<Library>] All library links added by the user (+has_many+)
+#   @return [Array<Users::Library>] All library links added by the user
+#     (+has_many+)
 #
 # @!attribute workflow_active
 #   @return [Boolean] True if the user is currently building a query in the
@@ -66,7 +67,7 @@ class User < ActiveRecord::Base
   validates :timezone, presence: true
 
   has_many :datasets, dependent: :delete_all
-  has_many :libraries, dependent: :delete_all
+  has_many :libraries, dependent: :delete_all, class_name: 'Users::Library'
 
   validates_associated :datasets
   validates_associated :libraries
@@ -110,4 +111,11 @@ class User < ActiveRecord::Base
     end
   end
   # :nocov:
+end
+
+# Module for resources that are owned by individual users
+module Users
+  def self.table_name_prefix
+    'users_'
+  end
 end

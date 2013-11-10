@@ -117,7 +117,7 @@ FactoryGirl.define do
     analysis_task
   end
 
-  factory :library do
+  factory :library, class: Users::Library do
     name 'Harvard'
     sequence(:url) { |n| "http://sfx.hul.harvard#{n}.edu/sfx_local?" }
     user

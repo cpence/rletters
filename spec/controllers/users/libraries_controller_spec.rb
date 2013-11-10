@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe LibrariesController do
+describe Users::LibrariesController do
 
   before(:each) do
     @user = FactoryGirl.create(:user)
