@@ -52,9 +52,8 @@ When(/^I choose to create a new dataset$/) do
 end
 
 When(/^I confirm the data$/) do
-  # Sometimes we may have screwed-up URLs here.  This is a hack, but it gets
-  # us around some of our AJAX-dialog box trouble.
-  click_link 'Current Analysis'
+  @user.reload
+  visit workflow_activate_path(class: @user.workflow_class)
 
   within('.main') do
     if page.has_link? 'Start Analysis'
