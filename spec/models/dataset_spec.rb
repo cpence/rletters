@@ -48,7 +48,7 @@ describe Dataset do
       end
 
       it 'has one analysis task' do
-        expect(@dataset.analysis_tasks).to have(1).items
+        expect(@dataset.analysis_tasks.count).to eq(1)
       end
 
       it 'points to the right analysis task' do
@@ -66,11 +66,11 @@ describe Dataset do
 
       it 'is connected to the user' do
         @user.datasets.reload
-        expect(@user.datasets.active).to have(1).items
+        expect(@user.datasets.active.count).to eq(1)
       end
 
       it 'has the right number of entries' do
-        expect(@dataset.entries).to have(2).items
+        expect(@dataset.entries.count).to eq(2)
       end
     end
   end

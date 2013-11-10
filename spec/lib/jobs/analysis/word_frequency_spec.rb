@@ -14,7 +14,7 @@ describe Jobs::Analysis::WordFrequency do
 
   describe '.download?' do
     it 'is true' do
-      expect(Jobs::Analysis::WordFrequency.download?).to be_true
+      expect(Jobs::Analysis::WordFrequency.download?).to be true
     end
   end
 

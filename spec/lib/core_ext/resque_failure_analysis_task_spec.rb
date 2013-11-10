@@ -58,7 +58,7 @@ describe Resque::Failure::AnalysisTask do
 
       it 'sets the failure bit on the analysis task' do
         @task.reload
-        expect(@task.failed).to be_true
+        expect(@task.failed).to be true
       end
     end
 

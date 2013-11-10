@@ -16,7 +16,7 @@ describe Jobs::Analysis::ExportCitations do
 
   describe '.download?' do
     it 'is true' do
-      expect(Jobs::Analysis::ExportCitations.download?).to be_true
+      expect(Jobs::Analysis::ExportCitations.download?).to be true
     end
   end
 

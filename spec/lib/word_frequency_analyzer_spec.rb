@@ -122,7 +122,7 @@ describe WordFrequencyAnalyzer do
       end
 
       it 'creates only one 10-word block' do
-        expect(@analyzer.block_stats).to have(1).entry
+        expect(@analyzer.block_stats.count).to eq(1)
         expect(@analyzer.block_stats[0][:tokens]).to eq(10)
       end
     end
@@ -137,7 +137,7 @@ describe WordFrequencyAnalyzer do
       end
 
       it 'creates one 10-word block for each document' do
-        expect(@analyzer.block_stats).to have(10).entries
+        expect(@analyzer.block_stats.count).to eq(10)
         @analyzer.block_stats.each do |s|
           expect(s[:tokens]).to eq(10)
         end
@@ -152,7 +152,7 @@ describe WordFrequencyAnalyzer do
       end
 
       it 'makes 10 blocks (the size of the dataset)' do
-        expect(@analyzer.blocks).to have(10).blocks
+        expect(@analyzer.blocks.count).to eq(10)
       end
     end
   end
@@ -187,7 +187,7 @@ describe WordFrequencyAnalyzer do
       end
 
       it 'creates at least 30 blocks' do
-        expect(@analyzer.blocks).to have_at_least(30).blocks
+        expect(@analyzer.blocks.count).to be >= 30
       end
 
       it 'creates all blocks nearly the same size for each document' do
@@ -308,7 +308,7 @@ describe WordFrequencyAnalyzer do
     end
 
     it 'only includes  the requested number of words' do
-      expect(@analyzer.word_list).to have(10).words
+      expect(@analyzer.word_list.count).to eq(10)
     end
 
     it 'analyzes those words in the blocks' do

@@ -43,7 +43,7 @@ describe Serializers::MODS do
 
     it 'creates good MODS collections' do
       expect(@xml.at_css('modsCollection mods titleInfo title').content).to eq('How Reliable are the Methods for Estimating Repertoire Size?')
-      expect(@xml.at_css('modsCollection').children.to_a).to have(2).elements
+      expect(@xml.at_css('modsCollection').children.count).to eq(2)
     end
 
     it 'creates MODS collections that are valid against the schema' do

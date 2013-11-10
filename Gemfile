@@ -67,7 +67,6 @@ group :test do
   gem 'poltergeist', require: false
   gem 'database_cleaner'
 
-  gem 'fuubar'
   gem 'factory_girl_rails'
   gem 'webmock', require: false
   gem 'resque_spec'

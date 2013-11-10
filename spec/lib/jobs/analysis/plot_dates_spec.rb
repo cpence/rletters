@@ -13,7 +13,7 @@ describe Jobs::Analysis::PlotDates do
 
   describe '.download?' do
     it 'is false' do
-      expect(Jobs::Analysis::PlotDates.download?).to be_false
+      expect(Jobs::Analysis::PlotDates.download?).to be false
     end
   end
 
@@ -78,7 +78,7 @@ describe Jobs::Analysis::PlotDates do
 
     it 'marks that this was a normalized count' do
       data = JSON.load(@dataset.analysis_tasks[0].result.file_contents(:original))
-      expect(data['percent']).to be_true
+      expect(data['percent']).to be true
     end
 
     it 'fills in some values' do
@@ -119,7 +119,7 @@ describe Jobs::Analysis::PlotDates do
 
     it 'marks that this was a normalized count' do
       data = JSON.load(@dataset.analysis_tasks[0].result.file_contents(:original))
-      expect(data['percent']).to be_true
+      expect(data['percent']).to be true
     end
 
     it 'fills in some values' do

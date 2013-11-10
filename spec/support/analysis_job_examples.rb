@@ -101,7 +101,7 @@ shared_examples_for 'an analysis job' do
 
   describe '.available?' do
     it 'is true' do
-      expect(described_class.available?).to be_true
+      expect(described_class.available?).to be true
     end
   end
 end

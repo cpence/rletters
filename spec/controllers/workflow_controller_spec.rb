@@ -88,7 +88,7 @@ describe WorkflowController do
         get :destroy
         @user.reload
 
-        expect(@user.workflow_active).to be_false
+        expect(@user.workflow_active).to be false
         expect(@user.workflow_class).to be_nil
         expect(@user.workflow_datasets).to be_nil
       end
@@ -102,7 +102,7 @@ describe WorkflowController do
         end
 
         it 'sets the workflow parameters' do
-          expect(@user.workflow_active).to be_true
+          expect(@user.workflow_active).to be true
           expect(@user.workflow_class).to eq('PlotDates')
           expect(@user.workflow_datasets).to be_nil
         end
@@ -115,7 +115,7 @@ describe WorkflowController do
         end
 
         it 'sets the right parameters' do
-          expect(@user.workflow_active).to be_true
+          expect(@user.workflow_active).to be true
           expect(@user.workflow_class).to eq('PlotDates')
           expect(@user.workflow_datasets).to eq([@dataset.to_param].to_json)
         end
@@ -205,13 +205,13 @@ describe WorkflowController do
       end
 
       it 'destroys the tasks' do
-        expect(AnalysisTask.exists?(@pending_task)).to be_false
+        expect(AnalysisTask.exists?(@pending_task)).to be false
       end
 
       it 'leaves everything else alone' do
-        expect(AnalysisTask.exists?(@finished_task)).to be_true
-        expect(AnalysisTask.exists?(@disabled_task)).to be_true
-        expect(AnalysisTask.exists?(@other_task)).to be_true
+        expect(AnalysisTask.exists?(@finished_task)).to be true
+        expect(AnalysisTask.exists?(@disabled_task)).to be true
+        expect(AnalysisTask.exists?(@other_task)).to be true
       end
 
       it 'redirects to the workflow index' do

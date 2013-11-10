@@ -17,13 +17,13 @@ describe 'Solr::SearchResult' do
       end
 
       it 'loads all of the documents' do
-        expect(@result.documents).to have(10).items
+        expect(@result.documents.count).to eq(10)
       end
     end
 
     context 'when no documents are returned' do
       it 'returns an empty array' do
-        expect(Solr::Connection.search({ q: 'uid:"fail"', defType: 'lucene' }).documents).to have(0).items
+        expect(Solr::Connection.search({ q: 'uid:"fail"', defType: 'lucene' }).documents).to be_empty
       end
     end
 
@@ -64,7 +64,7 @@ describe 'Solr::SearchResult' do
       end
 
       it 'sets the facets' do
-        expect(@result.facets.all).to have_at_least(1).facet
+        expect(@result.facets.all).to be_present
         expect(@result.facets).not_to be_empty
       end
     end

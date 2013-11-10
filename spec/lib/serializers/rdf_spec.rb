@@ -19,7 +19,7 @@ describe Serializers::RDF do
           RDF::DC.identifier => :doistr
         }
       })
-      expect(rdf_docs).to have(1).item
+      expect(rdf_docs.count).to eq(1)
 
       expect(rdf_docs[0].journal.to_s).to eq('Ethology')
       expect(rdf_docs[0].year.to_s).to eq('2008')
@@ -33,7 +33,7 @@ describe Serializers::RDF do
         }
       })
 
-      expect(rdf_authors).to have(5).items
+      expect(rdf_authors.count).to eq(5)
 
       expected = ['Botero, Carlos A.', 'Mudge, Andrew E.', 'Koltz, Amanda M.',
                   'Hochachka, Wesley M.', 'Vehrencamp, Sandra L.']
@@ -50,7 +50,7 @@ describe Serializers::RDF do
         }
       })
 
-      expect(rdf_citations).to have(2).items
+      expect(rdf_citations.count).to eq(2)
 
       # rubocop:disable LineContinuation
       expected = ['&ctx_ver=Z39.88-2004&rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3A' \
@@ -86,7 +86,7 @@ describe Serializers::RDF do
       end
 
       it 'includes a single description element' do
-        expect(@xml.css('Description')).to have(1).item
+        expect(@xml.css('Description').count).to eq(1)
       end
 
       it 'includes a few of the important Dublin Core elements' do
@@ -106,7 +106,7 @@ describe Serializers::RDF do
       end
 
       it 'includes two description elements' do
-        expect(@xml.css('Description')).to have(2).items
+        expect(@xml.css('Description').count).to eq(2)
       end
     end
   end

@@ -16,7 +16,7 @@ describe Jobs::Analysis::CraigZeta do
 
   describe '.download?' do
     it 'is false' do
-      expect(Jobs::Analysis::CraigZeta.download?).to be_false
+      expect(Jobs::Analysis::CraigZeta.download?).to be false
     end
   end
 

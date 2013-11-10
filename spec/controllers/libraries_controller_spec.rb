@@ -114,7 +114,7 @@ describe LibrariesController do
       it 'assigns no libraries' do
         stub_connection(/worldcatlibraries.org/, 'worldcat_no_libraries')
         get :query
-        expect(assigns(:libraries)).to have(0).items
+        expect(assigns(:libraries)).to be_empty
       end
     end
 
@@ -122,7 +122,7 @@ describe LibrariesController do
       it 'assigns the libraries' do
         stub_connection(/worldcatlibraries.org/, 'worldcat_notre_dame')
         get :query
-        expect(assigns(:libraries)).to have(1).item
+        expect(assigns(:libraries).count).to eq(1)
       end
     end
 
@@ -131,7 +131,7 @@ describe LibrariesController do
         stub_request(:any,
                      %r{worldcatlibraries.org/registry/lookup.*}).to_timeout
         get :query
-        expect(assigns(:libraries)).to have(0).items
+        expect(assigns(:libraries)).to be_empty
       end
     end
   end

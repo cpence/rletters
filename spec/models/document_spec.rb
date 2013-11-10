@@ -266,7 +266,7 @@ describe Document do
       end
 
       it 'gets the right number of authors' do
-        expect(@doc.author_list).to have(5).items
+        expect(@doc.author_list.count).to eq(5)
       end
 
       it 'gets the right first author' do
@@ -286,7 +286,7 @@ describe Document do
       end
 
       it 'gets the right number of authors' do
-        expect(@doc.formatted_author_list).to have(5).items
+        expect(@doc.formatted_author_list.count).to eq(5)
       end
 
       it 'gets the right second author, first name' do

@@ -41,7 +41,7 @@ When(/^I create a dataset from the current search$/) do
 
   find_dataset
   expect(@dataset).to be
-  expect(@dataset.disabled).to be_false
+  expect(@dataset.disabled).to be false
 end
 
 When(/^I add the first article to the dataset$/) do

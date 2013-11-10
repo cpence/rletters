@@ -36,9 +36,9 @@ describe UnapiController do
     expect(@doc.root.name).to eq('formats')
   end
 
-  it 'has >0 formats in response' do
+  it 'has some formats in response' do
     get_unapi
-    expect(@formats).to have_at_least(1).item
+    expect(@formats).not_to be_empty
   end
 
   it 'gives each format a type' do
@@ -67,7 +67,7 @@ describe UnapiController do
 
   it 'returns formats for request for id without format' do
     get_unapi true
-    expect(@formats).to have_at_least(1).item
+    expect(@formats).not_to be_empty
   end
 
   it 'each format (w/ id) has a type' do

@@ -141,7 +141,7 @@ describe DatasetsController do
       before(:each) do
         task = FactoryGirl.build(:analysis_task, dataset: @dataset)
         task.failed = true
-        expect(task.save).to be_true
+        expect(task.save).to be true
 
         get :show, id: @dataset.to_param, clear_failed: true
       end
@@ -151,7 +151,7 @@ describe DatasetsController do
       end
 
       it 'deletes the failed task' do
-        expect(@dataset.analysis_tasks.failed.count).to eq(0)
+        expect(@dataset.analysis_tasks.failed).to be_empty
       end
 
       it 'sets the flash' do
@@ -179,9 +179,9 @@ describe DatasetsController do
       @user.datasets.reload
       @dataset.reload
 
-      expect(@user.datasets.active.count).to eq(0)
+      expect(@user.datasets.active).to be_empty
       expect(@user.datasets.inactive.count).to eq(1)
-      expect(@dataset.disabled).to be_true
+      expect(@dataset.disabled).to be true
     end
   end
 
@@ -224,12 +224,12 @@ describe DatasetsController do
 
     context 'with a remote document' do
       it 'sets the fetch flag' do
-        expect(@dataset.fetch).to be_false
+        expect(@dataset.fetch).to be false
 
         get :add, dataset_id: @dataset.to_param, uid: 'gutenberg:3172'
         @dataset.reload
 
-        expect(@dataset.fetch).to be_true
+        expect(@dataset.fetch).to be true
       end
     end
   end
@@ -363,7 +363,7 @@ describe DatasetsController do
       end
 
       it 'clears the workflow parameters' do
-        expect(@user.workflow_active).to be_false
+        expect(@user.workflow_active).to be false
         expect(@user.workflow_class).to be_nil
         expect(@user.workflow_datasets).to be_nil
       end

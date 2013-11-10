@@ -10,9 +10,9 @@ describe 'Solr::Facets' do
 
   describe '#for_field' do
     it 'has the right facet hash keys' do
-      expect(@facets.for_field(:authors_facet)).to have_at_least(1).facet
-      expect(@facets.for_field(:journal_facet)).to have_at_least(1).facet
-      expect(@facets.for_field(:year)).to have_at_least(1).facet
+      expect(@facets.for_field(:authors_facet)).to be_present
+      expect(@facets.for_field(:journal_facet)).to be_present
+      expect(@facets.for_field(:year)).to be_present
     end
 
     it 'parses authors_facet correctly' do

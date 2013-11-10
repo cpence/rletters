@@ -47,17 +47,17 @@ describe Jobs::CreateDataset do
     end
 
     it 'clears the disabled attribute' do
-      expect(@user.datasets[0].disabled).to be_false
+      expect(@user.datasets[0].disabled).to be false
     end
 
     it 'puts the right number of items in the dataset' do
-      expect(@user.datasets[0].entries).to have_at_least(10).items
+      expect(@user.datasets[0].entries.count).to be >= 10
     end
 
     it 'does not set the fetch attribute' do
       # The word 'test' does not appear in our external document, so it
       # shouldn't be returned in this search.
-      expect(@user.datasets[0].fetch).to be_false
+      expect(@user.datasets[0].fetch).to be false
     end
   end
 
@@ -96,15 +96,15 @@ describe Jobs::CreateDataset do
     end
 
     it 'clears the disabled attribute' do
-      expect(@user.datasets[0].disabled).to be_false
+      expect(@user.datasets[0].disabled).to be false
     end
 
     it 'puts the right number of items in the dataset' do
-      expect(@user.datasets[0].entries).to have(1043).items
+      expect(@user.datasets[0].entries.count).to eq(1043)
     end
 
     it 'sets the fetch attribute' do
-      expect(@user.datasets[0].fetch).to be_true
+      expect(@user.datasets[0].fetch).to be true
     end
   end
 

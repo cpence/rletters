@@ -26,7 +26,7 @@ Given(/^I complete an analysis task for the dataset$/) do
   @dataset.reload
   expect(@dataset.analysis_tasks.count).to eq(1)
   @task = @dataset.analysis_tasks.first
-  expect(@task.failed).to be_false
+  expect(@task.failed).to be false
   expect(@task.finished_at).to be
 end
 
@@ -54,8 +54,8 @@ When(/^I clear the failed task$/) do
   click_link '1 analysis task failed for this dataset! Click here to clear failed tasks.'
 
   @dataset.reload
-  expect(@dataset.analysis_tasks.count).to eq(0)
-  expect(AnalysisTask.exists?(@task)).to be_false
+  expect(@dataset.analysis_tasks).to be_empty
+  expect(AnalysisTask.exists?(@task)).to be false
   @task = nil
 end
 
@@ -110,7 +110,7 @@ Then(/^I should be able to delete the task$/) do
   click_link 'Delete Task'
 
   @dataset.reload
-  expect(@dataset.analysis_tasks.count).to eq(0)
-  expect(AnalysisTask.exists?(@task)).to be_false
+  expect(@dataset.analysis_tasks).to be_empty
+  expect(AnalysisTask.exists?(@task)).to be false
   @task = nil
 end

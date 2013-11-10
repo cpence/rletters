@@ -64,7 +64,7 @@ describe AnalysisTask do
       end
 
       it 'is false' do
-        expect(@task.finished_at).to be_false
+        expect(@task.finished_at).to be_nil
       end
     end
   end

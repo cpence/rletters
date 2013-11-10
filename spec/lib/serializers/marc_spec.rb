@@ -102,7 +102,7 @@ describe Serializers::MARC do
     end
 
     it 'creates MARCXML collections of the right size' do
-      expect(@docs.to_marc_xml.css('collection').children.to_a).to have(2).elements
+      expect(@docs.to_marc_xml.css('collection').children.count).to eq(2)
     end
   end
 

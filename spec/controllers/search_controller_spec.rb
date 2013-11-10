@@ -28,7 +28,7 @@ describe SearchController do
       end
 
       it 'assigns the right number of documents' do
-        expect(assigns(:documents)).to have(10).items
+        expect(assigns(:documents).count).to eq(10)
       end
 
       it 'assigns solr_q' do
@@ -93,7 +93,7 @@ describe SearchController do
 
         get :index, { page: '1', per_page: '20' }
 
-        expect(assigns(:documents)).to have(0).items
+        expect(assigns(:documents)).to be_empty
       end
 
       it 'does not throw an exception on non-integral page values' do

@@ -48,11 +48,6 @@ require File.expand_path('../../config/environment', __FILE__)
 require 'rspec/rails'
 require 'rspec/autorun'
 
-require 'webmock/rspec'
-WebMock.disable_net_connect!(allow_localhost: true)
-
-require 'capybara/rspec'
-
 Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 
 RSpec.configure do |config|
@@ -62,10 +57,10 @@ RSpec.configure do |config|
 
   config.color_enabled = true
   config.tty = true
-  config.formatter = 'Fuubar'
   config.order = 'random'
 
   config.infer_base_class_for_anonymous_controllers = true
+  # Remove the next line for RSpec 3
   config.treat_symbols_as_metadata_keys_with_true_values = true
 
   # We're going to use database_cleaner, so we don't need RSpec's transactional
