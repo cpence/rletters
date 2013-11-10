@@ -32,8 +32,8 @@
 #   @raise [RecordInvalid] if the timezone is missing (validates :presence)
 #   @return [String] User's timezone, in Rails' format
 # @!attribute csl_style_id
-#   @return [Integer] User's preferred citation style (id of a CslStyle in
-#     database)
+#   @return [Integer] User's preferred citation style (id of a
+#     Users::CslStyle in database)
 #
 # @!attribute datasets
 #   @raise [RecordInvalid] if any of the datasets are invalid
@@ -75,12 +75,12 @@ class User < ActiveRecord::Base
   # Convert the +csl_style_id+ to a CslStyle (or nil)
   #
   # @api public
-  # @return [CslStyle] the user's CSL style (or nil)
+  # @return [Users::CslStyle] the user's CSL style (or nil)
   # @example Format a document with a user's CSL style
   #   @document.to_csl_entry(@user.csl_style)
   #   # Note: Do *not* call to_csl_entry with @user.csl_style_id, it will fail!
   def csl_style
-    CslStyle.find(csl_style_id) rescue nil
+    Users::CslStyle.find(csl_style_id) rescue nil
   end
 
   # Parameter sanitizer class for regular users

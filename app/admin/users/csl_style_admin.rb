@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-ActiveAdmin.register CslStyle do
+ActiveAdmin.register Users::CslStyle do
   menu parent: 'settings'
   filter :name
 

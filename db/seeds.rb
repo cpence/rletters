@@ -21,7 +21,7 @@ Dir.glob(Rails.root.join('db', 'seeds', 'csl', '*.csl')) do |csl|
 
   unless name == ''
     csl_string = IO.read(csl)
-    CslStyle.where(name: name).first_or_create(style: csl_string)
+    Users::CslStyle.where(name: name).first_or_create(style: csl_string)
     puts "Seeded csl_style:#{name}"
   end
 end

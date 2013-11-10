@@ -10,5 +10,5 @@
 #   @return [String] Name of this CSL style
 # @!attribute style
 #   @return [String] XML source for this CSL style
-class CslStyle < ActiveRecord::Base
+class Users::CslStyle < ActiveRecord::Base
 end

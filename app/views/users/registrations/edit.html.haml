@@ -26,7 +26,7 @@
         = f.input :language, collection: available_locales, label_method: :last, value_method: :first
         = f.input :timezone, collection: ActiveSupport::TimeZone.all, label_method: :to_s, value_method: :name
         = f.input :per_page, as: :radio_buttons, collection: [10, 25, 50, 100]
-        = f.input :csl_style_id, collection: CslStyle.all, label_method: :name, value_method: :to_param
+        = f.input :csl_style_id, collection: Users::CslStyle.all, label_method: :name, value_method: :to_param
 
       = f.button :submit, t('.submit')
       %br

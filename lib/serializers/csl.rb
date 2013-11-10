@@ -53,7 +53,7 @@ module Serializers
     #   doc.to_csl_entry(csl_style)
     #   # => "Doe, John. 2000. ..."
     def to_csl_entry(style_or_url)
-      if style_or_url.is_a? CslStyle
+      if style_or_url.is_a? Users::CslStyle
         # Get the XML style
         style = style_or_url.style
       elsif style_or_url.is_a? String

@@ -264,7 +264,7 @@ describe SearchHelper do
       before(:each) do
         @doc = Document.find(FactoryGirl.generate(:working_uid))
 
-        @csl_style = CslStyle.find_by!(name: 'American Psychological Association 6th Edition')
+        @csl_style = Users::CslStyle.find_by!(name: 'American Psychological Association 6th Edition')
         @user = FactoryGirl.create(:user, csl_style_id: @csl_style.id)
         allow(helper).to receive(:current_user).and_return(@user)
         allow(helper).to receive(:user_signed_in?).and_return(true)
@@ -280,7 +280,7 @@ describe SearchHelper do
       before(:each) do
         @doc = Document.find('gutenberg:3172')
 
-        @csl_style = CslStyle.find_by!(name: 'American Psychological Association 6th Edition')
+        @csl_style = Users::CslStyle.find_by!(name: 'American Psychological Association 6th Edition')
         @user = FactoryGirl.create(:user, csl_style_id: @csl_style.id)
         allow(helper).to receive(:current_user).and_return(@user)
         allow(helper).to receive(:user_signed_in?).and_return(true)
