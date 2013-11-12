@@ -2,7 +2,6 @@
 require 'spec_helper'
 
 describe SearchController do
-
   describe '#index' do
     context 'with empty search results' do
       before(:each) do
@@ -123,77 +122,6 @@ describe SearchController do
     end
   end
 
-  describe '#export' do
-    context 'when displaying as HTML' do
-      it 'will not load' do
-        get :export, { uid: FactoryGirl.generate(:working_uid) }
-        expect(controller.response.response_code).to eq(406)
-      end
-    end
-
-    context 'when exporting in other formats' do
-      it 'exports in MARC format' do
-        get :export, { uid: FactoryGirl.generate(:working_uid),
-                       format: 'marc' }
-        expect(response).to be_valid_download('application/marc')
-      end
-
-      it 'exports in MARC-JSON format' do
-        get :export, { uid: FactoryGirl.generate(:working_uid),
-                       format: 'json' }
-        expect(response).to be_valid_download('application/json')
-      end
-
-      it 'exports in MARC-XML format' do
-        get :export, { uid: FactoryGirl.generate(:working_uid),
-                       format: 'marcxml' }
-        expect(response).to be_valid_download('application/marcxml+xml')
-      end
-
-      it 'exports in BibTeX format' do
-        get :export, { uid: FactoryGirl.generate(:working_uid),
-                       format: 'bibtex' }
-        expect(response).to be_valid_download('application/x-bibtex')
-      end
-
-      it 'exports in EndNote format' do
-        get :export, { uid:  FactoryGirl.generate(:working_uid),
-                       format: 'endnote' }
-        expect(response).to be_valid_download('application/x-endnote-refer')
-      end
-
-      it 'exports in RIS format' do
-        get :export, { uid:  FactoryGirl.generate(:working_uid),
-                       format: 'ris' }
-        expect(response).to be_valid_download('application/x-research-info-systems')
-      end
-
-      it 'exports in MODS format' do
-        get :export, { uid:  FactoryGirl.generate(:working_uid),
-                       format: 'mods' }
-        expect(response).to be_valid_download('application/mods+xml')
-      end
-
-      it 'exports in RDF/XML format' do
-        get :export, { uid:  FactoryGirl.generate(:working_uid),
-                       format: 'rdf' }
-        expect(response).to be_valid_download('application/rdf+xml')
-      end
-
-      it 'exports in RDF/N3 format' do
-        get :export, { uid: FactoryGirl.generate(:working_uid),
-                       format: 'n3' }
-        expect(response).to be_valid_download('text/rdf+n3')
-      end
-
-      it 'fails to export an invalid format' do
-        get :export, { uid: FactoryGirl.generate(:working_uid),
-                       format: 'csv' }
-        expect(controller.response.response_code).to eq(406)
-      end
-    end
-  end
-
   describe '#add' do
     before(:each) do
       @user = FactoryGirl.create(:user)
@@ -219,71 +147,10 @@ describe SearchController do
     end
   end
 
-  describe '#to_mendeley' do
-    context 'when request succeeds' do
-      before(:all) do
-        Setting.mendeley_key = '5ba3606d28aa1be94e9c58502b90a49c04dc17289'
-      end
-
-      after(:all) do
-        Setting.mendeley_key = ''
-      end
-
-      it 'redirects to Mendeley' do
-        stub_connection(/api.mendeley.com/, 'mendeley')
-        get :to_mendeley, { uid: 'doi:10.1111/j.1439-0310.2008.01576.x' }
-        expect(response).to redirect_to('http://www.mendeley.com/catalog/choose-good-scientific-problem-1/')
-      end
-    end
-
-    context 'when request times out' do
-      before(:all) do
-        Setting.mendeley_key = '5ba3606d28aa1be94e9c58502b90a49c04dc17289'
-      end
-
-      after(:all) do
-        Setting.mendeley_key = ''
-      end
-
-      before(:each) do
-        stub_request(:any, /api\.mendeley\.com\/.*/).to_timeout
-      end
-
-      it 'raises an exception' do
-        expect {
-          get :to_mendeley, { uid: 'doi:10.1111/j.1439-0310.2008.01576.x' }
-        }.to raise_error(ActiveRecord::RecordNotFound)
-      end
-    end
-  end
-
-  describe '#to_citeulike' do
-    context 'when request succeeds' do
-      it 'redirects to citeulike' do
-        stub_connection(/www.citeulike.org/, 'citeulike')
-        get :to_citeulike, { uid: 'doi:10.1111/j.1439-0310.2008.01576.x' }
-        expect(response).to redirect_to('http://www.citeulike.org/article/3509563')
-      end
-    end
-
-    context 'when request times out' do
-      before(:each) do
-        stub_request(:any, %r{www\.citeulike\.org/json/.*}).to_timeout
-      end
-
-      it 'raises an exception' do
-        expect {
-          get :to_citeulike, { uid: 'doi:10.1111/j.1439-0310.2008.01576.x' }
-        }.to raise_error(ActiveRecord::RecordNotFound)
-      end
-    end
-  end
-
   describe '#advanced' do
     it 'loads successfully' do
       get :advanced
       expect(response).to be_success
     end
   end
-
 end

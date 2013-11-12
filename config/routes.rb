@@ -16,14 +16,16 @@ RLetters::Application.routes.draw do
   # Search/Browse page
   get 'search' => 'search#index'
   get 'search/advanced' => 'search#advanced'
-  get 'search/document/export' => 'search#export',
-      as: 'search_export', constraints: ->(req) { req.params[:uid].present? }
   get 'search/document/add' => 'search#add',
       as: 'search_add', constraints: ->(req) { req.params[:uid].present? }
-  get 'search/document/mendeley' => 'search#to_mendeley',
-      as: 'mendeley_redirect', constraints: ->(req) { req.params[:uid].present? }
-  get 'search/document/citeulike' => 'search#to_citeulike',
-      as: 'citeulike_redirect', constraints: ->(req) { req.params[:uid].present? }
+
+  # Documents
+  get 'documents/:uid/export' => 'documents#export',
+    as: 'documents_export', constraints: { uid: /.*/ }
+  get 'documents/:uid/mendeley' => 'documents#mendeley',
+    as: 'documents_mendeley', constraints: { uid: /.*/ }
+  get 'documents/:uid/citeulike' => 'documents#citeulike',
+    as: 'documents_citeulike', constraints: { uid: /.*/ }
 
   # Datasets (per-user)
   resources :datasets, except: [:edit, :update] do

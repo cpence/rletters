@@ -94,11 +94,8 @@ describe UnapiController do
     @formats.each do |f|
       get_unapi true, f.attributes['name']
 
-      expect(response).to redirect_to(
-        controller: 'search',
-        action: 'export',
-        uid: @id,
-        format: f.attributes['name'].to_s)
+      path = documents_export_path(@id, format: f.attributes['name'].to_s)
+      expect(response).to redirect_to(path)
     end
   end
 

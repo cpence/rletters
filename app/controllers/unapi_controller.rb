@@ -40,10 +40,7 @@ class UnapiController < ApplicationController
 
     format = params[:format].to_s.to_sym
     if Document.serializers[format]
-      redirect_to controller: 'search',
-                  action: 'export',
-                  uid: params[:id],
-                  format: format
+      redirect_to documents_export_path(params[:id], format: format)
     else
       render template: 'errors/404',
              layout: false,

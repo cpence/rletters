@@ -2,9 +2,8 @@
 
 # Search and browse the document database
 #
-# This controller displays both traditional and advanced search pages, the
-# resulting lists of documents, and also handles the detailed display of
-# information about a single document.  Its main function is to convert the
+# This controller displays both traditional and advanced search pages and the
+# resulting lists of documents.  Its main function is to convert the
 # user's provided search criteria into Solr queries for
 # +Solr::Connection.search+.
 class SearchController < ApplicationController
@@ -59,35 +58,6 @@ class SearchController < ApplicationController
   # @return [undefined]
   def advanced; end
 
-  # Export an individual document
-  #
-  # This action is content-negotiated: you must request the page for a document
-  # with one of the MIME types specified in +Document.serializers+, and you
-  # will get a citation export back, as a download.
-  #
-  # @api public
-  # @return [undefined]
-  def export
-    @document = Document.find(params[:uid])
-
-    respond_to do |format|
-      format.any(*Document.serializers.keys) do
-        f = Document.serializers[request.format.to_sym]
-        send_file f[:method].call(@document),
-                  "export.#{request.format.to_sym.to_s}",
-                  request.format.to_s
-        return
-      end
-      format.any do
-        render template: 'errors/404',
-               layout: false,
-               formats: [:html],
-               status: 406
-        return
-      end
-    end
-  end
-
   # Add a single document to an existing dataset
   # @api public
   # @return [undefined]
@@ -98,51 +68,6 @@ class SearchController < ApplicationController
     @datasets = current_user.datasets.active
 
     render layout: false
-  end
-
-  # Redirect to the Mendeley page for a document
-  # @api public
-  # @return [undefined]
-  def to_mendeley
-    fail ActiveRecord::RecordNotFound if Setting.mendeley_key.blank?
-
-    @document = Document.find(params[:uid])
-
-    begin
-      res = Net::HTTP.start('api.mendeley.com') do |http|
-        http.get("/oapi/documents/search/title%3A#{CGI.escape(@document.title)}/?consumer_key=#{Setting.mendeley_key}")
-      end
-      json = res.body
-      result = JSON.parse(json)
-
-      mendeley_docs = result['documents']
-      fail ActiveRecord::RecordNotFound unless mendeley_docs.size
-
-      redirect_to mendeley_docs[0]['mendeley_url']
-    rescue StandardError, Timeout::Error
-      raise ActiveRecord::RecordNotFound
-    end
-  end
-
-  # Redirect to the Citeulike page for a document
-  # @api public
-  # @return [undefined]
-  def to_citeulike
-    @document = Document.find(params[:uid])
-
-    begin
-      res = Net::HTTP.start('www.citeulike.org') do |http|
-        http.get("/json/search/all?per_page=1&page=1&q=title%3A%28#{CGI.escape(@document.title)}%29")
-      end
-      json = res.body
-      cul_docs = JSON.parse(json)
-
-      fail ActiveRecord::RecordNotFound unless cul_docs.size
-
-      redirect_to cul_docs[0]['href']
-    rescue StandardError, Timeout::Error
-      raise ActiveRecord::RecordNotFound
-    end
   end
 
   private
@@ -257,18 +182,5 @@ class SearchController < ApplicationController
     end
 
     query_params
-  end
-
-  # Send the given string content to the browser as a file download
-  #
-  # @api private
-  # @param [String] str content to send to the browser
-  # @param [String] filename filename for the downloaded file
-  # @param [String] mime MIME type for the content
-  # @return [undefined]
-  def send_file(str, filename, mime)
-    headers['Cache-Control'] = 'no-cache, must-revalidate, post-check=0, pre-check=0'
-    headers['Expires'] = '0'
-    send_data str, filename: filename, type: mime, disposition: 'attachment'
   end
 end
