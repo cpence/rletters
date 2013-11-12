@@ -47,6 +47,9 @@ en:
             'admin/uploaded_asset':
                 one: Custom Asset
                 other: Custom Assets
+            'admin/markdown_page':
+                one: Custom Page
+                other: Custom Pages
             csl_style:
                 one: CSL Style
                 other: CSL Styles
@@ -56,9 +59,6 @@ en:
             dataset_entry:
                 one: Dataset Entry
                 other: Dataset Entries
-            markdown_page:
-                one: Custom Page
-                other: Custom Pages
             user:
                 one: User
                 other: Users
@@ -70,6 +70,10 @@ en:
                 friendly_name: Name
                 name: Name
                 file: Attachment
+            'admin/markdown_page':
+                friendly_name: Name
+                name: Name
+                content: Content
             analysis_task:
                 name: Name
                 created_at: Creation time
@@ -78,10 +82,6 @@ en:
                 name: Name
             dataset_entry:
                 uid: Unique identifier
-            markdown_page:
-                friendly_name: Name
-                name: Name
-                content: Content
             user:
                 email: E-mail
                 name: Name

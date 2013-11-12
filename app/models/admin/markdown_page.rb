@@ -16,7 +16,7 @@
 #   @return [String] Name of this page (an internal ID)
 # @!attribute content
 #   @return [String] Markdown content for this page
-class MarkdownPage < ActiveRecord::Base
+class Admin::MarkdownPage < ActiveRecord::Base
   validates :name, presence: true
 
   # @return [String] Friendly name of this page (looked up in locale)
@@ -34,9 +34,9 @@ class MarkdownPage < ActiveRecord::Base
   #   friendly name)
   # @return [String] HTML output of rendering this page to Markdown
   # @example Render the 'faq' page
-  #   <%= MarkdownPage.render('faq') %>
+  #   <%= Admin::MarkdownPage.render('faq') %>
   def self.render(name)
-    page = MarkdownPage.find_by(name: name)
+    page = find_by(name: name)
     return '' unless page
 
     erb_page = ERB.new(page.content).result(binding)

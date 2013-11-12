@@ -1,7 +1,7 @@
 - content_for :breadcrumbs do
   %li.current= link_to t('breadcrumbs.root'), root_path
 
-#markdown-landing= MarkdownPage.render('landing')
+#markdown-landing= Admin::MarkdownPage.render('landing')
 
 .row
   .small-5.small-centered.columns
@@ -16,10 +16,10 @@
       %ul#screenshots{ 'data-orbit' => true }
         %li{ 'data-orbit-slide' => 'screenshot-1' }
           %img{ src: Admin::UploadedAsset.url_for('screenshot-one') }
-          .orbit-caption= MarkdownPage.render('caption-one')
+          .orbit-caption= Admin::MarkdownPage.render('caption-one')
         %li{ 'data-orbit-slide' => 'screenshot-2' }
           %img{ src: Admin::UploadedAsset.url_for('screenshot-two') }
-          .orbit-caption= MarkdownPage.render('caption-two')
+          .orbit-caption= Admin::MarkdownPage.render('caption-two')
         %li{ 'data-orbit-slide' => 'screenshot-3' }
           %img{ src: Admin::UploadedAsset.url_for('screenshot-three') }
-          .orbit-caption= MarkdownPage.render('caption-three')
+          .orbit-caption= Admin::MarkdownPage.render('caption-three')

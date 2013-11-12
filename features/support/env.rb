@@ -19,7 +19,16 @@ require 'cucumber/rails'
 ActionController::Base.allow_rescue = false
 
 DatabaseCleaner.strategy = :transaction
-Cucumber::Rails::Database.javascript_strategy = :truncation, { except: %w[markdown_pages admin_uploaded_assets admin_uploaded_asset_files stop_lists users_csl_styles] }
+
+SEED_TABLES = %w[
+  admin_markdown_pages
+  admin_uploaded_assets
+  admin_uploaded_asset_files
+  stop_lists
+  users_csl_styles
+]
+
+Cucumber::Rails::Database.javascript_strategy = :truncation, { except: SEED_TABLES }
 
 # Set up the database for the first time
 DatabaseCleaner.clean_with :truncation

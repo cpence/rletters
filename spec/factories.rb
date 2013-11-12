@@ -123,7 +123,7 @@ FactoryGirl.define do
     user
   end
 
-  factory :markdown_page do
+  factory :markdown_page, class: Admin::MarkdownPage do
     name 'test_page'
     content '# Header'
   end

@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe MarkdownPage do
+describe Admin::MarkdownPage do
 
   describe '#valid?' do
     context 'when no name spcified' do
@@ -48,13 +48,13 @@ describe MarkdownPage do
 
     context 'when a non-existent page is specified' do
       it 'returns an empty string' do
-        expect(MarkdownPage.render('not_a_page_id')).to eq('')
+        expect(Admin::MarkdownPage.render('not_a_page_id')).to eq('')
       end
     end
 
     context 'when an extant page is specified' do
       it 'renders the page' do
-        expect(MarkdownPage.render(@page.name)).to include('<h1 id="header">Header</h1>')
+        expect(Admin::MarkdownPage.render(@page.name)).to include('<h1 id="header">Header</h1>')
       end
     end
   end

@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-ActiveAdmin.register MarkdownPage do
+ActiveAdmin.register Admin::MarkdownPage do
   actions :index, :update, :edit, :show
   menu parent: 'settings'
   filter :name
@@ -31,7 +31,7 @@ ActiveAdmin.register MarkdownPage do
 
   form do |f|
     f.inputs I18n.t('admin.markdown_page.page_header',
-                    name: markdown_page.friendly_name) do
+                    name: admin_markdown_page.friendly_name) do
       f.input :content, input_html: { rows: 30 }
     end
     f.actions
@@ -40,7 +40,7 @@ ActiveAdmin.register MarkdownPage do
   # :nocov:
   controller do
     def permitted_params
-      params.permit markdown_page: [:name, :content]
+      params.permit admin_markdown_page: [:name, :content]
     end
   end
   # :nocov:

@@ -29,7 +29,7 @@ end
 # Markdown pages
 Dir.glob(Rails.root.join('db', 'seeds', 'markdown', '*.md')) do |md|
   name = File.basename(md, '.md')
-  MarkdownPage.where(name: name).first_or_create(content: IO.read(md))
+  Admin::MarkdownPage.where(name: name).first_or_create(content: IO.read(md))
   puts "Seeded markdown_page:#{name}"
 end
 
