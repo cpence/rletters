@@ -10,7 +10,9 @@ describe 'The library itself' do
     failing_lines = []
 
     File.readlines(filename).each_with_index do |line, number|
-      failing_lines << number + 1 if line =~ /^ *(describe|it|context) {1}"{1}/
+      if line =~ /^ *(describe|it|context) "/
+        failing_lines << number + 1 if line !~ /".*#\{.*"/
+      end
     end
 
     unless failing_lines.empty?
