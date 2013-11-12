@@ -34,9 +34,7 @@ gem 'citeproc-ruby', '>= 0.0.4'
 
 # Support for file attachments and exporting
 gem 'paperclip', '~> 3.0'
-# Not released yet
-# gem 'paperclip_database', '> 2.0.0'
-gem 'paperclip_database', github: 'softace/paperclip_database'
+gem 'paperclip_database', '>= 2.2.0'
 gem 'rubyzip', '>= 1.1.0', require: 'zip'
 gem 'marc'
 gem 'rdf', '>= 0.3.5'

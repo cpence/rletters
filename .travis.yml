@@ -8,7 +8,7 @@ before_script:
   - cp config/database.yml.travis config/database.yml
   - git clone --depth=1 https://github.com/rletters/solr-example.git vendor/solr
   - 'pushd vendor/solr && ./start && popd'
-  - rake db:create db:migrate
+  - rake db:create db:schema:load
 
 script:
   - rake spec cucumber
