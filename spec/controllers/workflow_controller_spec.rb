@@ -235,7 +235,7 @@ describe WorkflowController do
 
     context 'with a valid id' do
       before(:each) do
-        @asset = UploadedAsset.find_by(name: 'splash-low').to_param
+        @asset = Admin::UploadedAsset.find_by(name: 'splash-low').to_param
         @id = @asset.to_param
 
         get :image, id: @id

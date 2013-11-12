@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe UploadedAsset do
+describe Admin::UploadedAsset do
 
   describe '#valid?' do
     context 'when no name spcified' do
@@ -48,13 +48,13 @@ describe UploadedAsset do
 
     context 'when a non-existent asset is specified' do
       it 'returns an empty string' do
-        expect(UploadedAsset.url_for('not_an_asset_id')).to eq('')
+        expect(Admin::UploadedAsset.url_for('not_an_asset_id')).to eq('')
       end
     end
 
     context 'when an extant asset is specified' do
       it 'returns a URL' do
-        url = UploadedAsset.url_for(@asset.name)
+        url = Admin::UploadedAsset.url_for(@asset.name)
         expect(url).to start_with('/workflow/image/')
         expect(url).to include(@asset.to_param + '?')
       end

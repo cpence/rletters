@@ -16,6 +16,14 @@ GIT
       ransack (~> 1.0)
       sass-rails
 
+GIT
+  remote: git://github.com/softace/paperclip_database.git
+  revision: 35de5bcd484f3f70dadc188c1879b70b4fbbbcb1
+  specs:
+    paperclip_database (2.0.0)
+      paperclip (>= 2.3.0)
+      rails (>= 3.0.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -201,9 +209,6 @@ GEM
       activesupport (>= 3.0.0)
       cocaine (~> 0.5.3)
       mime-types
-    paperclip_database (2.0.0)
-      paperclip (>= 2.3.0)
-      rails (>= 3.0.0)
     pg (0.17.0)
     poltergeist (1.4.1)
       capybara (~> 2.1.0)
@@ -391,7 +396,7 @@ DEPENDENCIES
   mock_redis
   nokogiri
   paperclip (~> 3.0)
-  paperclip_database
+  paperclip_database!
   pg
   poltergeist
   puma

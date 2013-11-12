@@ -44,6 +44,9 @@ en:
                         blank: "Unique ID was not specified (internal  error)"
     activerecord:
         models:
+            'admin/uploaded_asset':
+                one: Custom Asset
+                other: Custom Assets
             csl_style:
                 one: CSL Style
                 other: CSL Styles
@@ -56,17 +59,17 @@ en:
             markdown_page:
                 one: Custom Page
                 other: Custom Pages
-            uploaded_asset:
-                one: Custom Asset
-                other: Custom Assets
             user:
                 one: User
                 other: Users
-            users:
-                library:
-                    one: Library
-                    other: Libraries
+            'users/library':
+                one: Library
+                other: Libraries
         attributes:
+            'admin/uploaded_asset':
+                friendly_name: Name
+                name: Name
+                file: Attachment
             analysis_task:
                 name: Name
                 created_at: Creation time
@@ -79,10 +82,6 @@ en:
                 friendly_name: Name
                 name: Name
                 content: Content
-            uploaded_asset:
-                friendly_name: Name
-                name: Name
-                file: Attachment
             user:
                 email: E-mail
                 name: Name
@@ -93,10 +92,9 @@ en:
                 language: Preferred language
                 timezone: Time zone
                 csl_style_id: Citation style
-            users:
-                library:
-                    name: Name
-                    url: Base URL
+            'users/library':
+                name: Name
+                url: Base URL
         errors:
             models:
                 analysis_task:
@@ -124,15 +122,14 @@ en:
                         invalid: Preferred language must be a valid locale code (internal error)
                     timezone:
                         blank: Timezone must be specified (internal error)
-                users:
-                    library:
-                        name:
-                            blank: You must specify a name for this library entry
-                        url:
-                            blank: You must specify a URL for this library entry
-                            invalid: Library base URL must be a URL
-                        user_id:
-                            blank: Library must be associated with user (internal error)
+                'users/library':
+                    name:
+                        blank: You must specify a name for this library entry
+                    url:
+                        blank: You must specify a URL for this library entry
+                        invalid: Library base URL must be a URL
+                    user_id:
+                        blank: Library must be associated with user (internal error)
     breadcrumbs:
         root: Home
         datasets_index: Manage Datasets

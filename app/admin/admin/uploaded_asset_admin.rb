@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-ActiveAdmin.register UploadedAsset do
+ActiveAdmin.register Admin::UploadedAsset do
   actions :index, :update, :edit, :show
   menu parent: 'settings'
   filter :name
@@ -34,7 +34,7 @@ ActiveAdmin.register UploadedAsset do
 
   form do |f|
     f.inputs I18n.t('admin.uploaded_asset.asset_header',
-                    name: uploaded_asset.friendly_name) do
+                    name: admin_uploaded_asset.friendly_name) do
       f.input :file
     end
     f.actions
@@ -43,7 +43,7 @@ ActiveAdmin.register UploadedAsset do
   # :nocov:
   controller do
     def permitted_params
-      params.permit uploaded_asset: [:name, :file]
+      params.permit admin_uploaded_asset: [:name, :file]
     end
   end
   # :nocov:

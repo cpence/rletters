@@ -15,11 +15,11 @@
       .preloader
       %ul#screenshots{ 'data-orbit' => true }
         %li{ 'data-orbit-slide' => 'screenshot-1' }
-          %img{ src: UploadedAsset.url_for('screenshot-one') }
+          %img{ src: Admin::UploadedAsset.url_for('screenshot-one') }
           .orbit-caption= MarkdownPage.render('caption-one')
         %li{ 'data-orbit-slide' => 'screenshot-2' }
-          %img{ src: UploadedAsset.url_for('screenshot-two') }
+          %img{ src: Admin::UploadedAsset.url_for('screenshot-two') }
           .orbit-caption= MarkdownPage.render('caption-two')
         %li{ 'data-orbit-slide' => 'screenshot-3' }
-          %img{ src: UploadedAsset.url_for('screenshot-three') }
+          %img{ src: Admin::UploadedAsset.url_for('screenshot-three') }
           .orbit-caption= MarkdownPage.render('caption-three')
