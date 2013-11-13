@@ -16,8 +16,6 @@ RLetters::Application.routes.draw do
   # Search/Browse page
   get 'search' => 'search#index'
   get 'search/advanced' => 'search#advanced'
-  get 'search/document/add' => 'search#add',
-      as: 'search_add', constraints: ->(req) { req.params[:uid].present? }
 
   # Documents
   get 'documents/:uid/export' => 'documents#export',

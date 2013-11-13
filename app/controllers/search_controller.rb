@@ -58,18 +58,6 @@ class SearchController < ApplicationController
   # @return [undefined]
   def advanced; end
 
-  # Add a single document to an existing dataset
-  # @api public
-  # @return [undefined]
-  def add
-    fail ActiveRecord::RecordNotFound unless user_signed_in?
-
-    @document = Document.find(params[:uid])
-    @datasets = current_user.datasets.active
-
-    render layout: false
-  end
-
   private
 
   # Convert from search parameters to Solr query parameters

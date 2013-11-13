@@ -49,12 +49,12 @@ When(/^I add the first article to the dataset$/) do
   expect(@dataset).to be
 
   cell = first('table.document-list td')
-  cell.click
+  unapi = cell.find('abbr.unapi-id')
 
-  in_modal_dialog('Add this document to an existing dataset') do
-    select @dataset.name, from: 'dataset_id'
-    click_button 'Add'
-  end
+  # This is an unfortunate hack, but modal dialogs will be the death of me
+  visit add_to_datasets_path(dataset_id: @dataset.to_param,
+                             uid: unapi[:title])
+  expect(page).to have_content("Information for dataset — #{@dataset.name}")
 end
 
 When(/^I view the list of datasets$/) do

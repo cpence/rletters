@@ -41,8 +41,10 @@
           %td{ 'data-dropdown' => "drop-#{d.html_uid}" }
             %abbr{ class: 'unapi-id', title: d.uid }= ''
             = document_bibliography_entry(d)
-          %div.f-dropdown.medium.content{ 'data-dropdown-content' => true, id: "drop-#{d.html_uid}" }= render partial: 'dropdown', locals: { document: d }
     .pagination-centered= render_pagination(@result)
+
+    - @documents.each do |d|
+      %div.f-dropdown.medium.content{ 'data-dropdown-content' => true, id: "drop-#{d.html_uid}" }= render partial: 'dropdown', locals: { document: d }
 
   .small-12.large-3.columns
     .radius.panel
