@@ -81,8 +81,6 @@ class DatasetsController < ApplicationController
   # @return [undefined]
   def destroy
     @dataset = current_user.datasets.find(params[:id])
-    fail ActiveRecord::RecordNotFound unless @dataset
-
     @dataset.disabled = true
     @dataset.save
 
@@ -94,12 +92,17 @@ class DatasetsController < ApplicationController
   end
 
   # Add a single document to a dataset
+  #
+  # This is an odd update method.  The only attribute that we allow you to send
+  # in here is the UID of a single document to be added into the dataset.
+  # Any other attempts to PATCH dataset attributes will be silently ignored.
+  #
   # @api public
   # @return [undefined]
-  def add
-    # This isn't a member action, so that it can be called easily from
-    # a form.  Get the id from :dataset_id, not :uid.
-    @dataset = current_user.datasets.active.find(params[:dataset_id])
+  def update
+    fail ActionController::ParameterMissing.new(:uid) unless params[:uid]
+
+    @dataset = current_user.datasets.active.find(params[:id])
     @document = Document.find(params[:uid])
 
     # Set the fetch flag if required

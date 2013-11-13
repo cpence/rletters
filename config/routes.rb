@@ -26,10 +26,9 @@ RLetters::Application.routes.draw do
     as: 'documents_citeulike', constraints: { uid: /.*/ }
 
   # Datasets (per-user)
-  resources :datasets, except: [:edit, :update] do
+  resources :datasets, except: [:edit] do
     collection do
       get 'dataset_list'
-      get 'add' => 'datasets#add', as: 'add_to'
     end
 
     member do

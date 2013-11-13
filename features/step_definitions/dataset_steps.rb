@@ -48,12 +48,22 @@ When(/^I add the first article to the dataset$/) do
   expect(current_path).to eq(search_path(trailing_slash: true))
   expect(@dataset).to be
 
-  cell = first('table.document-list td')
-  unapi = cell.find('abbr.unapi-id')
+  abbr = first('table.document-list td abbr.unapi-id')
+  uid = abbr[:title]
 
   # This is an unfortunate hack, but modal dialogs will be the death of me
-  visit add_to_datasets_path(dataset_id: @dataset.to_param,
-                             uid: unapi[:title])
+  params = "uid=#{Rack::Utils.escape(uid)}&_method=PATCH"
+  script = <<EOS
+var x = new XMLHttpRequest();
+x.open('POST', '#{dataset_path(@dataset, trailing_slash: true)}', false);
+x.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+x.send('#{params}');
+EOS
+  page.execute_script(script)
+
+  # The redirect here often doesn't work, patch it manually
+  visit dataset_path(@dataset)
+
   expect(page).to have_content("Information for dataset — #{@dataset.name}")
 end
 

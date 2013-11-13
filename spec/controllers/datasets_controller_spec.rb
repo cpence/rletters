@@ -185,11 +185,11 @@ describe DatasetsController do
     end
   end
 
-  describe '#add' do
+  describe '#update' do
     context 'when an invalid document is passed' do
       it 'raises an exception' do
         expect {
-          get :add, dataset_id: @dataset.to_param, uid: 'fail'
+          patch :update, id: @dataset.to_param, uid: 'fail'
         }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
@@ -202,7 +202,7 @@ describe DatasetsController do
 
       it 'raises an exception' do
         expect {
-          get :add, id: @disabled.to_param, uid: FactoryGirl.generate(:working_uid)
+          patch :update, id: @disabled.to_param, uid: FactoryGirl.generate(:working_uid)
         }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
@@ -210,14 +210,14 @@ describe DatasetsController do
     context 'when all parameters are valid' do
       it 'adds to the dataset' do
         expect {
-          get :add, dataset_id: @dataset.to_param,
-                    uid: FactoryGirl.generate(:working_uid)
+          patch :update, id: @dataset.to_param,
+                         uid: FactoryGirl.generate(:working_uid)
         }.to change { @dataset.entries.count }.by(1)
       end
 
       it 'redirects to the dataset page' do
-        get :add, dataset_id: @dataset.to_param,
-                  uid: FactoryGirl.generate(:working_uid)
+        patch :update, id: @dataset.to_param,
+                       uid: FactoryGirl.generate(:working_uid)
         expect(response).to redirect_to(dataset_path(@dataset))
       end
     end
@@ -226,7 +226,7 @@ describe DatasetsController do
       it 'sets the fetch flag' do
         expect(@dataset.fetch).to be false
 
-        get :add, dataset_id: @dataset.to_param, uid: 'gutenberg:3172'
+        patch :update, id: @dataset.to_param, uid: 'gutenberg:3172'
         @dataset.reload
 
         expect(@dataset.fetch).to be true

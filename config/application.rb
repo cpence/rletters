@@ -11,8 +11,8 @@ module RLetters
 
   # Central application class, started by Rails
   class Application < Rails::Application
-    # Custom directories with classes and modules you want to be autoloadable.
-    config.autoload_paths << "#{config.root}/lib"
+    # Custom directories with classes and modules
+    config.eager_load_paths << "#{config.root}/lib"
 
     # Generate all URLs with trailing slashes
     config.action_controller.default_url_options = { trailing_slash: true }

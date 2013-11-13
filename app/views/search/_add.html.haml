@@ -4,13 +4,20 @@
 - if current_user.datasets.active.blank?
   %p= t('.no_datasets')
 - else
-  = form_tag add_to_datasets_path, method: :get, class: 'custom' do
+  = form_tag dataset_path(current_user.datasets.first), method: :patch, class: 'custom', id: "add-form-#{document.html_uid}" do
     = hidden_field_tag :uid, document.uid
     .row
       .large-6.columns
         = label_tag :dataset_id, Dataset.model_name.human
-        = select_tag :dataset_id, options_from_collection_for_select(current_user.datasets.active, 'to_param', 'name')
+        = select_tag :dataset_id, options_from_collection_for_select(current_user.datasets.active, 'to_param', 'name'), id: "add-select-#{document.html_uid}"
     .row
       .large-6.columns= submit_tag t('.submit'), class: 'button success small'
+
+  - content_for(:javascript) do
+    :javascript
+      $('#add-select-#{document.html_uid}').change(function() {
+        $('#add-form-#{document.html_uid}').attr('action', '#{datasets_path(trailing_slash: true)}' + $('#add-select-#{document.html_uid}').val() + '/');
+      });
+      $('#add-select-#{document.html_uid}').trigger('change');
 
 %a.close-reveal-modal &#215;
