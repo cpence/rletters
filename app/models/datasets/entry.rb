@@ -10,7 +10,7 @@
 #   @return [String] The uid of the document represented here
 # @!attribute dataset
 #   @return [Dataset] The dataset this entry belongs to
-class DatasetEntry < ActiveRecord::Base
+class Datasets::Entry < ActiveRecord::Base
   validates :uid, presence: true
 
   # Do *not* validate the dataset association here.  Since datasets and

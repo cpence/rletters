@@ -20,7 +20,7 @@
 # @!attribute entries
 #   @raise [RecordInvalid] if any of the entries are invalid
 #     (validates_associated)
-#   @return [Array<DatasetEntry>] The documents contained in this dataset
+#   @return [Array<Datasets::Entry>] The documents contained in this dataset
 #     (+has_many+)
 # @!attribute analysis_tasks
 #   @return [Array<Datasets::AnalysisTask>] The analysis tasks run on this
@@ -30,7 +30,7 @@ class Dataset < ActiveRecord::Base
   validates :user_id, presence: true
 
   belongs_to :user
-  has_many :entries, class_name: 'DatasetEntry', dependent: :delete_all
+  has_many :entries, class_name: 'Datasets::Entry', dependent: :delete_all
   has_many :analysis_tasks, class_name: 'Datasets::AnalysisTask', dependent: :destroy
 
   validates_associated :entries

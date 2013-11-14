@@ -67,11 +67,11 @@ module Jobs
           docs_fetched = search_result.documents.count
 
           # Send them all in with activerecord-import
-          DatasetEntry.import([:uid, :dataset_id],
-                              search_result.documents.map do |d|
-                                [d.uid, dataset_id]
-                              end,
-                              validate: false)
+          Datasets::Entry.import([:uid, :dataset_id],
+                                 search_result.documents.map do |d|
+                                   [d.uid, dataset_id]
+                                 end,
+                                 validate: false)
 
           # Check to see if there's any externally fetched documents here
           unless dataset.fetch

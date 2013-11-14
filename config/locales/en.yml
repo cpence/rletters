@@ -56,7 +56,10 @@ en:
             dataset:
                 one: Dataset
                 other: Datasets
-            dataset_entry:
+            'datasets/analysis_task':
+                one: Analysis Task
+                other: Analysis Tasks
+            'datasets/entry':
                 one: Dataset Entry
                 other: Dataset Entries
             user:
@@ -76,12 +79,12 @@ en:
                 content: Content
             dataset:
                 name: Name
-            dataset_entry:
-                uid: Unique identifier
             'datasets/analysis_task':
                 name: Name
                 created_at: Creation time
                 finished_at: Completion time
+            'datasets/entry':
+                uid: Unique identifier
             user:
                 email: E-mail
                 name: Name
@@ -102,14 +105,14 @@ en:
                         blank: You must specify a name for this dataset
                     user_id:
                         blank: Dataset must have a user ID specified (internal error)
-                dataset_entry:
-                    uid:
-                        blank: Unique ID was not specified (internal error)
                 'datasets/analysis_task':
                     name:
                         blank: You must specify a name for this analysis task
                     dataset:
                         blank: Analysis task not connected to dataset (internal error)
+                'datasets/entry':
+                    uid:
+                        blank: Unique ID was not specified (internal error)
                 user:
                     name:
                         blank: You must specify a name
