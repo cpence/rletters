@@ -14,18 +14,15 @@ class DatasetsController < ApplicationController
   # Show all of the current user's datasets
   # @api public
   # @return [undefined]
-  def index; end
-
-  # Show the list of datasets for this user
-  #
-  # This list needs to be updated live, as the datasets are being created
-  # in the background.  This action is to be called via AJAX.
-  #
-  # @api public
-  # @return [undefined]
-  def dataset_list
+  def index
     @datasets = current_user.datasets.active
-    render layout: false
+
+    # If this is an AJAX request, render the dataset table only
+    if request.xhr?
+      render :index_xhr, layout: false
+    else
+      render
+    end
   end
 
   # Show information about the requested dataset
@@ -37,7 +34,6 @@ class DatasetsController < ApplicationController
   # @return [undefined]
   def show
     @dataset = current_user.datasets.active.find(params[:id])
-    fail ActiveRecord::RecordNotFound unless @dataset
 
     if params[:clear_failed] && @dataset.analysis_tasks.failed.count > 0
       @dataset.analysis_tasks.failed.destroy_all
@@ -125,8 +121,6 @@ class DatasetsController < ApplicationController
   # @return [undefined]
   def task_list
     @dataset = current_user.datasets.active.find(params[:id])
-    fail ActiveRecord::RecordNotFound unless @dataset
-
     render layout: false
   end
 
@@ -140,7 +134,6 @@ class DatasetsController < ApplicationController
   def task_start
     # Get the dataset and the class
     @dataset = current_user.datasets.active.find(params[:id])
-    fail ActiveRecord::RecordNotFound unless @dataset
     @klass = AnalysisTask.job_class(params[:class])
 
     # Get the parameters we've specified so far
@@ -210,15 +203,12 @@ class DatasetsController < ApplicationController
   # @return [undefined]
   def task_view
     @dataset = current_user.datasets.active.find(params[:id])
-    fail ActiveRecord::RecordNotFound unless @dataset
-    fail ActiveRecord::RecordNotFound unless params[:view]
+    fail ActionController::ParameterMissing(:view) unless params[:view]
 
     if params[:class]
       klass = AnalysisTask.job_class(params[:class])
     else
       @task = @dataset.analysis_tasks.find(params[:task_id])
-      fail ActiveRecord::RecordNotFound unless @task
-
       klass = @task.job_class
     end
 
@@ -233,10 +223,7 @@ class DatasetsController < ApplicationController
   # @return [undefined]
   def task_destroy
     dataset = current_user.datasets.active.find(params[:id])
-    fail ActiveRecord::RecordNotFound unless dataset
-
     task = dataset.analysis_tasks.find(params[:task_id])
-    fail ActiveRecord::RecordNotFound unless task
 
     task.destroy
 
@@ -254,9 +241,7 @@ class DatasetsController < ApplicationController
   # @return [undefined]
   def task_download
     dataset = current_user.datasets.active.find(params[:id])
-    fail ActiveRecord::RecordNotFound unless dataset
     task = dataset.analysis_tasks.find(params[:task_id])
-    fail ActiveRecord::RecordNotFound unless task
     fail ActiveRecord::RecordNotFound unless task.result_file_size
 
     send_data(task.result.file_contents(:original),

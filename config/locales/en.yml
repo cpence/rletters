@@ -499,7 +499,10 @@ en:
         destroy:
             success: Analysis construction aborted!
     datasets:
-        dataset_list:
+        index:
+            header: Manage datasets
+            subheader: "From this page, you can do advanced management of your datasets, including manually running analysis tasks."
+        index_xhr:
             tasks:
                 zero: You have no analysis tasks pending...
                 one: You have one analysis task pending...
@@ -513,9 +516,6 @@ en:
             manage_button: Manage
             delete_button: Delete
             delete_confirm: Are you sure?
-        index:
-            header: Manage datasets
-            subheader: "From this page, you can do advanced management of your datasets, including manually running analysis tasks."
         new:
             header:  Create a new dataset
             subheader: "Give these search results a name, and they will be preserved as a new dataset."

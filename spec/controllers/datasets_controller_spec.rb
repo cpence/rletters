@@ -11,41 +11,41 @@ describe DatasetsController do
   end
 
   describe '#index' do
-    context 'when not logged in' do
-      before(:each) do
-        sign_out :user
+    context 'standard GET request' do
+      context 'when not logged in' do
+        before(:each) do
+          sign_out :user
+        end
+
+        it 'redirects to the login page' do
+          get :index
+          expect(response).to redirect_to(root_path)
+        end
       end
 
-      it 'redirects to the login page' do
-        get :index
-        expect(response).to redirect_to(root_path)
+      context 'when logged in' do
+        it 'loads successfully' do
+          get :index
+          expect(response).to be_success
+        end
       end
     end
 
-    context 'when logged in' do
+    context 'XHR GET request' do
       it 'loads successfully' do
-        get :index
-        expect(response).to be_success
-      end
-    end
-  end
-
-  describe '#dataset_list' do
-    context 'when logged in' do
-      it 'loads successfully' do
-        get :dataset_list
+        xhr :get, :index
         expect(response).to be_success
       end
 
       it 'assigns the list of datsets' do
-        get :dataset_list
+        xhr :get, :index
         expect(assigns(:datasets)).to eq([@dataset])
       end
 
       it 'ignores disabled datasets' do
         disabled = FactoryGirl.create(:dataset, user: @user, name: 'Disabled',
                                                 disabled: true)
-        get :dataset_list
+        xhr :get, :index
         expect(assigns(:datasets)).to eq([@dataset])
       end
     end

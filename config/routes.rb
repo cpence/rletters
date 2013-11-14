@@ -27,10 +27,6 @@ RLetters::Application.routes.draw do
 
   # Datasets (per-user)
   resources :datasets, except: [:edit] do
-    collection do
-      get 'dataset_list'
-    end
-
     member do
       get 'task_list'
       get 'task/:class/start' => 'datasets#task_start',
