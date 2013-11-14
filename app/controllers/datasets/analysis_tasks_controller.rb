@@ -6,6 +6,7 @@
 class Datasets::AnalysisTasksController < ApplicationController
   before_action :authenticate_user!
   before_action :set_task
+  before_action :set_current_params, only: [:new, :create]
 
   # Show the list of analysis tasks for this dataset
   #
@@ -25,14 +26,9 @@ class Datasets::AnalysisTasksController < ApplicationController
   # @api public
   # @return [undefined]
   def new
-    # Get the parameters we've specified so far
-    job_params = params[:job_params].to_hash if params[:job_params]
-    job_params ||= {}
-    job_params.symbolize_keys!
-
     # Make sure we have enough other datasets, if those are required
     if @klass.num_datasets > 1
-      other_datasets = job_params[:other_datasets]
+      other_datasets = @current_params[:other_datasets]
 
       if other_datasets.nil? ||
          other_datasets.count < (@klass.num_datasets - 1)
@@ -49,26 +45,21 @@ class Datasets::AnalysisTasksController < ApplicationController
   # @api public
   # @return [undefined]
   def create
-    # Get the parameters we've specified so far
-    job_params = params[:job_params].to_hash if params[:job_params]
-    job_params ||= {}
-    job_params.symbolize_keys!
-
     # Create an analysis task
     task = @dataset.analysis_tasks.create(name: params[:class],
                                           job_type: params[:class])
 
     # Force these three parameters that we always need
-    job_params[:user_id] = current_user.to_param
-    job_params[:dataset_id] = @dataset.to_param
-    job_params[:task_id] = task.to_param
+    @current_params[:user_id] = current_user.to_param
+    @current_params[:dataset_id] = @dataset.to_param
+    @current_params[:task_id] = task.to_param
 
     # Save the Resque parameters into the task, as well
-    task.params = job_params
+    task.params = @current_params
     task.save
 
     # Enqueue the job
-    Resque.enqueue(@klass, job_params)
+    Resque.enqueue(@klass, @current_params)
 
     if current_user.workflow_active
       # If the user was in the workflow, they're done now
@@ -135,6 +126,15 @@ class Datasets::AnalysisTasksController < ApplicationController
     @dataset = current_user.datasets.active.find(params[:dataset_id])
     @task = @dataset.analysis_tasks.find(params[:id]) if params[:id].present?
     @klass = Datasets::AnalysisTask.job_class(params[:class]) if params[:class].present?
+  end
+
+  # Get the current parameters hash from the params
+  #
+  # @return [undefined]
+  def set_current_params
+    @current_params = params[:job_params].to_hash if params[:job_params]
+    @current_params ||= {}
+    @current_params.symbolize_keys!
   end
 
   # Render a job view, given the class name and view name
