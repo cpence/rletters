@@ -134,8 +134,7 @@ en:
         root: Home
         datasets_index: Manage Datasets
         datasets_show: "Manage: %{name}"
-        datasets_analysis_tasks_datasets: Add More Data
-        datasets_analysis_tasks_params: Job Options
+        datasets_analysis_tasks_new: Job Options
         search_index: Search the Database
         search_advanced: Advanced Search
         users_passwords_edit: Change Password
@@ -529,7 +528,6 @@ en:
             created_at: "Created at: %{date}"
             deleted: Cleared all failed analysis tasks.
             tasks: Analysis tasks
-            new_task: Manually start a new analysis task
         analysis_tasks:
             index:
                 pending:

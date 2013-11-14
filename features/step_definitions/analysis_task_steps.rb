@@ -16,11 +16,19 @@ end
 
 Given(/^I complete an analysis task for the dataset$/) do
   expect(@dataset).to be
-  visit dataset_path(@dataset)
+  visit '/'
+  click_link 'Start a new analysis'
+  click_link 'How has the frequency of a term changed over time?'
+  click_link 'Start'
 
+  # This is an unfortunate hack, but modal dialogs will be the death of me
+  @user.reload
+  visit workflow_activate_path(class: @user.workflow_class,
+                               link_dataset_id: @dataset.to_param)
+
+  click_link 'Set Job Options'
   with_resque do
-    click_link('Plot dataset by date')
-    click_button('Start analysis job')
+    click_button 'Start analysis job'
   end
 
   @dataset.reload
@@ -31,21 +39,6 @@ Given(/^I complete an analysis task for the dataset$/) do
 end
 
 ### WHEN ###
-When(/^I start an analysis task for the dataset$/) do
-  expect(@dataset).to be
-
-  visit dataset_path(@dataset)
-  click_link 'Plot dataset by date'
-end
-
-When(/^I start a multi\-dataset analysis task for the dataset$/) do
-  expect(@dataset).to be
-  expect(@other_dataset).to be
-
-  visit dataset_path(@dataset)
-  click_link 'Determine words that differentiate two datasets (Craig Zeta)'
-end
-
 When(/^I clear the failed task$/) do
   expect(@dataset).to be
   expect(@task).to be
@@ -60,17 +53,6 @@ When(/^I clear the failed task$/) do
 end
 
 ### THEN ###
-Then(/^I should be able to select the second dataset for the task$/) do
-  expect(@other_dataset).to be
-
-  select @other_dataset.name, from: 'job_params_other_datasets_'
-  with_resque { click_button 'Start analysis job' }
-end
-
-Then(/^I should be able to configure parameters for the task$/) do
-  with_resque { click_button 'Start analysis job' }
-end
-
 Then(/^I should be able to start the task$/) do
   @task = @dataset.analysis_tasks.first
 

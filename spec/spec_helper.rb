@@ -17,6 +17,7 @@ if ENV['COVERAGE'] || (ENV['TRAVIS'] && ENV['TRAVIS_RUBY_VERSION'] == '2.0')
 
   SimpleCov.start do
     add_filter '/spec/'
+    add_filter '/features/'
     add_filter '/config/'
     add_filter '/db/'
     add_filter '/vendor/bundle/'

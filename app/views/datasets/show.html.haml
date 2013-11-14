@@ -27,15 +27,3 @@
 
     #dataset-task-list{ data: { fetch_url: dataset_analysis_tasks_path(@dataset) } }
       .preloader
-
-.row
-  .small-12.columns
-    %hr
-
-    %h4= t('.new_task')
-
-    - Jobs::Analysis::Base.job_list.reject { |k| !k.available? || (k.num_datasets > current_user.datasets.active.count) }.each_slice(2) do |a|
-      .row
-        .large-6.columns= link_to(a[0].t('.short_desc'), new_dataset_analysis_task_path(@dataset, class: a[0].name.demodulize.to_s), class: 'button small secondary expand')
-        - if a.count > 1
-          .large-6.columns= link_to(a[1].t('.short_desc'), new_dataset_analysis_task_path(@dataset, class: a[1].name.demodulize.to_s), class: 'button small secondary expand')

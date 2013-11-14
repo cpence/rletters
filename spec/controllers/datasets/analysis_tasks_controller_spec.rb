@@ -75,30 +75,12 @@ describe Datasets::AnalysisTasksController do
       end
     end
 
-    context 'when gathering parameters' do
-      it 'does not raise an exception' do
-        expect {
-          get :new, dataset_id: @dataset.to_param, class: 'ExportCitations',
-                    job_params: { format: 'bibtex' }
-        }.to_not raise_error
-      end
-
-      it 'renders the parameters view' do
+    context 'with valid parameters' do
+      it 'loads successfully' do
         get :new, dataset_id: @dataset.to_param, class: 'ExportCitations',
                   job_params: { format: 'bibtex' }
 
-        expect(response).to render_template(:new_params)
-      end
-    end
-
-    context 'when gathering datasets' do
-      before(:each) do
-        get(:new, dataset_id: @dataset.to_param, class: 'CraigZeta',
-                  job_params: { })
-      end
-
-      it 'renders the datasets view' do
-        expect(response).to render_template(:new_datasets)
+        expect(response).to be_success
       end
     end
   end

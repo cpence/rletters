@@ -12,7 +12,6 @@ Feature: Show information about dataset
       When I visit the page for the dataset
       Then I should see the number of articles
         And I should see the list of analysis tasks
-        And I should see links for starting new analysis tasks
 
     Scenario: Display pending analysis tasks
       Given I have a pending analysis task

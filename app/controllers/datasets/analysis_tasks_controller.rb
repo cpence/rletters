@@ -40,26 +40,9 @@ class Datasets::AnalysisTasksController < ApplicationController
 
       if other_datasets.nil? ||
          other_datasets.count < (@klass.num_datasets - 1)
-        # Still need more other datasets, render the data collection view
-        # and bail
-        if @klass.has_view? '_params'
-          # We still need parameters, so post right back to this page
-          @form_url = new_dataset_analysis_task_path(@dataset, class: params[:class])
-          @form_method = :get
-        else
-          # No parameters, just create it
-          @form_url = dataset_analysis_tasks_path(@dataset, class: params[:class])
-          @form_method = :post
-        end
-
-        render 'new_datasets'
-        return
+        fail ArgumentError, "not enough datasets specified for #{params[:class]}"
       end
     end
-
-    # Gather the parameters for the task.  If there aren't any, then this
-    # action shouldn't have been called, just let it fail.
-    render 'new_params'
   end
 
   # Start an analysis task for this dataset

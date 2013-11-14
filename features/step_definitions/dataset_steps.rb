@@ -120,10 +120,6 @@ Then(/^I should see the list of analysis tasks$/) do
   end
 end
 
-Then(/^I should see links for starting new analysis tasks$/) do
-  expect(page).to have_link('Plot dataset by date')
-end
-
 Then(/^I should see an alert for the pending task$/) do
   expect(page).to have_selector('.alert-box', text: '1 analysis task pending for this dataset...')
 end
