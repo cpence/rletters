@@ -14,9 +14,6 @@ module RLetters
     # Custom directories with classes and modules
     config.eager_load_paths << "#{config.root}/lib"
 
-    # Generate all URLs with trailing slashes
-    config.action_controller.default_url_options = { trailing_slash: true }
-
     # Add vendor locales (for CLDR files)
     config.i18n.load_path += Dir[Rails.root.join('vendor',
                                                  'locales',

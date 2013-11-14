@@ -33,11 +33,11 @@ class ApplicationController < ActionController::Base
 
   private
 
-  before_filter :set_locale, :set_timezone, :ensure_trailing_slash
+  before_action :set_locale, :set_timezone
 
   # Set the locale if the user is logged in
   #
-  # This function is called as a +before_filter+ in all controllers, you do
+  # This function is called as a +before_action+ in all controllers, you do
   # not need to call it yourself.  Do not disable it, or the locale system
   # will go haywire.
   #
@@ -53,7 +53,7 @@ class ApplicationController < ActionController::Base
 
   # Set the timezone if the user is logged in
   #
-  # This function is called as a +before_filter+ in all controllers, you do
+  # This function is called as a +before_action+ in all controllers, you do
   # not need to call it yourself.  Do not disable it, or the timezone system
   # will go haywire.
   #
@@ -65,31 +65,6 @@ class ApplicationController < ActionController::Base
     else
       Time.zone = 'Eastern Time (US & Canada)'
     end
-  end
-
-  # Make sure there's a trailing slash on the URL
-  #
-  # jQuery Mobile really wants us always to have a trailing slash on our
-  # URLs, since we often are redirecting to subdirectory pages (e.g., from
-  # /datasets/ to /datasets/2/ to /datasets/2/tasks/3/results/, etc.).  This
-  # helper makes sure we've always got a trailing slash.  Don't disable it!
-  #
-  # @api private
-  # @return [undefined]
-  def ensure_trailing_slash
-    redirect_to url_for(params.merge(trailing_slash: true)),
-                status: 301 unless trailing_slash?
-  end
-
-  # Does the URL end with a trailing slash?
-  # @api private
-  # @return [Boolean] true if request URL ends with /
-  def trailing_slash?
-    # If fullpath isn't defined (e.g., in testing), then just return true
-    # so we don't do unnecessary redirects.
-    return true if request.env['REQUEST_URI'].blank?
-
-    request.env['REQUEST_URI'].match(/[^\?]+/).to_s.last == '/'
   end
 
   protected

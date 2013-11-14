@@ -2,23 +2,23 @@
 
 ### WHEN ###
 When(/^I visit the search page$/) do
-  visit '/search/'
+  visit '/search'
 end
 
 When(/^I search for articles$/) do
-  visit '/search/'
+  visit '/search'
   fill_in 'q', with: 'test'
   submit_form 'search_form'
 end
 
 When(/^I run an advanced search for the ([a-z_]+) (.*)$/) do |field, content|
-  visit '/search/advanced/'
+  visit '/search/advanced'
   fill_in field, with: content
   click_button 'Perform advanced search'
 end
 
 When(/^I run a Solr query search for '(.*)'$/) do |query|
-  visit '/search/advanced/'
+  visit '/search/advanced'
   fill_in 'q', with: query
   click_button 'Perform Solr query'
 end

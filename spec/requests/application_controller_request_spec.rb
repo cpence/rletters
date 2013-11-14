@@ -10,7 +10,7 @@ describe ApplicationController do
       end
 
       it 'redirects to the root path on login' do
-        post(user_session_path(trailing_slash: true),
+        post(user_session_path,
              user: { email: @user.email,
                      password: @user.password,
                      password_confirmation: @user.password })
@@ -26,7 +26,7 @@ describe ApplicationController do
       end
 
       it 'redirects to the admin root on login' do
-        post(administrator_session_path(trailing_slash: true),
+        post(administrator_session_path,
              administrator: { email: @user.email,
                               password: @user.password,
                               password_confirmation: @user.password })
@@ -40,7 +40,7 @@ describe ApplicationController do
   describe '#after_sign_out_path_for' do
     before(:each) do
       @user = FactoryGirl.create(:user)
-      post(user_session_path(trailing_slash: true),
+      post(user_session_path,
            user: { email: @user.email,
                    password: @user.password,
                    password_confirmation: @user.password })

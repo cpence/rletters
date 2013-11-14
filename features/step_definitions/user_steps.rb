@@ -214,7 +214,7 @@ Then(/^I should see the library in the list$/) do
 end
 
 Then(/^I should be able to fetch a document using the library$/) do
-  visit '/search/'
+  visit '/search'
 
   link = find_link "Your library: #{@library.name}", match: :first, visible: false
   expect(link).to be

@@ -30,7 +30,7 @@ end
 
 ### WHEN ###
 When(/^I create a dataset from the current search$/) do
-  expect(current_path).to eq(search_path(trailing_slash: true))
+  expect(current_path).to eq(search_path)
 
   in_modal_dialog 'Create dataset from search' do
     with_resque do
@@ -45,7 +45,7 @@ When(/^I create a dataset from the current search$/) do
 end
 
 When(/^I add the first article to the dataset$/) do
-  expect(current_path).to eq(search_path(trailing_slash: true))
+  expect(current_path).to eq(search_path)
   expect(@dataset).to be
 
   abbr = first('table.document-list td abbr.unapi-id')
@@ -55,7 +55,7 @@ When(/^I add the first article to the dataset$/) do
   params = "uid=#{Rack::Utils.escape(uid)}&_method=PATCH"
   script = <<EOS
 var x = new XMLHttpRequest();
-x.open('POST', '#{dataset_path(@dataset, trailing_slash: true)}', false);
+x.open('POST', '#{dataset_path(@dataset)}', false);
 x.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 x.send('#{params}');
 EOS
@@ -68,7 +68,7 @@ EOS
 end
 
 When(/^I view the list of datasets$/) do
-  visit '/datasets/'
+  visit '/datasets'
 end
 
 When(/^I visit the page for the dataset$/) do
@@ -91,13 +91,13 @@ Then(/^I should see the dataset in the list of datasets$/) do
 end
 
 Then(/^I should see no datasets in the list of datasets$/) do
-  visit '/datasets/'
+  visit '/datasets'
   expect(page).to have_selector('td', text: 'No datasets')
 end
 
 Then(/^I should be able to view the dataset's properties$/) do
   find_dataset
-  visit '/datasets/'
+  visit '/datasets'
 
   click_link 'Manage'
   expect(page).to have_content("Information for dataset — #{@dataset.name}")

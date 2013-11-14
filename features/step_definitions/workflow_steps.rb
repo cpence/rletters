@@ -46,8 +46,7 @@ end
 
 When(/^I confirm the data$/) do
   @user.reload
-  good_path = workflow_activate_path(class: @user.workflow_class,
-                                     trailing_slash: true)
+  good_path = workflow_activate_path(class: @user.workflow_class)
   if current_path != good_path
     # This can occasionally be called without being on the activation page,
     # for example, when creating new datasets for workflows
