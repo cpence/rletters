@@ -4,7 +4,8 @@
 #
 # @see Datasets::AnalysisTask
 class Datasets::AnalysisTasksController < ApplicationController
-  before_filter :authenticate_user!
+  before_action :authenticate_user!
+  before_action :set_task
 
   # Show the list of analysis tasks for this dataset
   #
@@ -14,7 +15,6 @@ class Datasets::AnalysisTasksController < ApplicationController
   # @api public
   # @return [undefined]
   def index
-    @dataset = current_user.datasets.active.find(params[:dataset_id])
     render layout: false
   end
 
@@ -25,10 +25,6 @@ class Datasets::AnalysisTasksController < ApplicationController
   # @api public
   # @return [undefined]
   def new
-    # Get the dataset and the class
-    @dataset = current_user.datasets.active.find(params[:dataset_id])
-    @klass = Datasets::AnalysisTask.job_class(params[:class])
-
     # Get the parameters we've specified so far
     job_params = params[:job_params].to_hash if params[:job_params]
     job_params ||= {}
@@ -53,10 +49,6 @@ class Datasets::AnalysisTasksController < ApplicationController
   # @api public
   # @return [undefined]
   def create
-    # Get the dataset and the class
-    @dataset = current_user.datasets.active.find(params[:dataset_id])
-    @klass = Datasets::AnalysisTask.job_class(params[:class])
-
     # Get the parameters we've specified so far
     job_params = params[:job_params].to_hash if params[:job_params]
     job_params ||= {}
@@ -105,9 +97,6 @@ class Datasets::AnalysisTasksController < ApplicationController
   # @api public
   # @return [undefined]
   def show
-    @dataset = current_user.datasets.active.find(params[:dataset_id])
-    @task = @dataset.analysis_tasks.find(params[:id])
-
     if params[:view]
       render_job_view(@task.job_class, params[:view], params[:format] || 'html')
       return
@@ -130,10 +119,7 @@ class Datasets::AnalysisTasksController < ApplicationController
   # @api public
   # @return [undefined]
   def destroy
-    dataset = current_user.datasets.active.find(params[:dataset_id])
-    task = dataset.analysis_tasks.find(params[:id])
-
-    task.destroy
+    @task.destroy
 
     # We want to send the user back where they came from, which could either
     # be dataset_path(some_dataset) or workflow_fetch_path.
@@ -141,6 +127,15 @@ class Datasets::AnalysisTasksController < ApplicationController
   end
 
   private
+
+  # Get the task, dataset, and class objects from the params
+  #
+  # @return [undefined]
+  def set_task
+    @dataset = current_user.datasets.active.find(params[:dataset_id])
+    @task = @dataset.analysis_tasks.find(params[:id]) if params[:id].present?
+    @klass = Datasets::AnalysisTask.job_class(params[:class]) if params[:class].present?
+  end
 
   # Render a job view, given the class name and view name
   #
