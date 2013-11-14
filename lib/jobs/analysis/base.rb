@@ -7,17 +7,15 @@ module Jobs
 
     # Base class for all analysis jobs
     #
-    # Analysis jobs are required to implement one partial, and possibly a
-    # second view, located at +lib/jobs/analysis/views/(job)/*.html.haml+:
+    # Analysis jobs have two special partials that can be implemented to
+    # engage novel behavior:
     #
-    # - +_start.html.haml+: This contains code for starting a job.  It will be
-    #   placed inside a <ul> tag, and so should contain at least one list
-    #   item.  Commonly, it will contain (i) a single list item for
-    #   starting the job, (ii) multiple <li> tags for different ways of
-    #   starting the job, or (iii) a nested <ul> that contains different
-    #   ways of starting the job (which will be handled gracefully by
-    #   jQuery Mobile).  Note that this should have at least one link to the
-    #   appropriate invocation of +datasets#task_start+ to be useful.
+    # - +_params.html.haml+ (optional): If this view is present, then after the
+    #   task has collected the appropriate number of datasets, the user will be
+    #   presented with this form in order to set special parameters for the
+    #   task.  This partial should consist of a form that submits to
+    #   +dataset_analysis_tasks_path+ with +:post+
+    #   (+datasets/analysis_tasks#create+).
     # - +results.html.haml+ (optional): Tasks may report their results in two
     #   different ways.  Some tasks (e.g., ExportCitations) just dump all of
     #   their results into a file (see +AnalysisTask#result_file+) for the
@@ -69,12 +67,10 @@ module Jobs
       # @return [Boolean] true if task produces a download, false otherwise
       # @example Get a link to the results of a task
       #   if task.job_class.download?
-      #     link_to '', controller: 'datasets', action: 'task_download',
-      #       id: dataset.to_param, task_id: task.to_param
+      #     link_to '', datasets_analysis_task_path(dataset, task)
       #   else
-      #     link_to '', controller: 'datasets', action: 'task_view',
-      #       id: dataset.to_param, task_id: task.to_param,
-      #       view: 'results'
+      #     link_to '', datasets_analysis_task_path(dataset, task,
+      #                                             view: 'results')
       #   end
       def self.download?
         true

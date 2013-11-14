@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-ActiveAdmin.register AnalysisTask do
+ActiveAdmin.register Datasets::AnalysisTask do
   menu parent: 'datasets'
   actions :index, :show
 

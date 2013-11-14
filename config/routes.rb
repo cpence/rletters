@@ -26,20 +26,9 @@ RLetters::Application.routes.draw do
     as: 'documents_citeulike', constraints: { uid: /.*/ }
 
   # Datasets (per-user)
-  resources :datasets, except: [:edit] do
-    member do
-      get 'task_list'
-      get 'task/:class/start' => 'datasets#task_start',
-          constraints: { class: /[A-Z][A-Za-z]+/ }
-      get 'task/:class/view/:view' => 'datasets#task_view',
-          constraints: { class: /[A-Z][A-Za-z]+/ }
-      get 'task/:task_id/view/:view' => 'datasets#task_view',
-          constraints: { task_id: /[0-9]+/ }
-      get 'task/:task_id/destroy' => 'datasets#task_destroy',
-          constraints: { task_id: /[0-9]+/ }
-      get 'task/:task_id/download' => 'datasets#task_download',
-          constraints: { task_id: /[0-9]+/ }
-    end
+  resources :datasets, except: :edit do
+    resources :analysis_tasks, module: 'datasets',
+      path: 'tasks', except: [:edit, :update]
   end
 
   # User login routes

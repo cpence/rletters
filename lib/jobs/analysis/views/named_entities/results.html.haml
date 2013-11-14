@@ -9,7 +9,7 @@
   .large-8.columns
     %h2== #{Dataset.model_name.human}: #{@dataset.name}
     %h4.subheader= t('jobs.analysis.named_entities.subheader')
-  .large-4.columns.job-header-button= link_to t('common.download_csv'), { controller: 'datasets', action: 'task_view', id: @dataset.to_param, task_id: @task.to_param, view: 'download', format: 'csv' }, class: 'button secondary expand'
+  .large-4.columns.job-header-button= link_to t('common.download_csv'), dataset_analysis_task_path(@dataset, @task, view: 'download', format: 'csv'), class: 'button secondary expand'
 
 .row
   .small-12.columns

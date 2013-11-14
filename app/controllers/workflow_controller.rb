@@ -107,7 +107,7 @@ class WorkflowController < ApplicationController
     analysis_criteria = {
       datasets: { user_id: current_user.to_param, disabled: false }
     }
-    @tasks = AnalysisTask.joins(:dataset).where(analysis_criteria)
+    @tasks = Datasets::AnalysisTask.joins(:dataset).where(analysis_criteria)
 
     @pending_tasks = @tasks.where(finished_at: nil)
     @finished_tasks = @tasks.where.not(finished_at: nil)

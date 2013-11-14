@@ -2,7 +2,7 @@
   %li= link_to t('breadcrumbs.root'), root_path
   %li= link_to t('breadcrumbs.datasets_index'), datasets_path
   %li= link_to t('breadcrumbs.datasets_show', name: @dataset.name), @dataset
-  %li.current= link_to t('breadcrumbs.datasets_task_params'), { controller: 'datasets', action: 'task_start', id: @dataset.to_param, class: params[:class] }
+  %li.current= link_to t('breadcrumbs.datasets_analysis_tasks_params'), new_dataset_analysis_task_path(@dataset, params[:class])
 
 %header
   %section

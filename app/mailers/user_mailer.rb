@@ -9,7 +9,7 @@ class UserMailer < ActionMailer::Base
   default from: 'noreply@example.com'
 
   def job_finished_email(email, task_id)
-    @task = AnalysisTask.find(task_id)
+    @task = Datasets::AnalysisTask.find(task_id)
 
     mail(from: Setting.app_email,
          to: email,

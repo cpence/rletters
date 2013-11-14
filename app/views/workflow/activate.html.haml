@@ -19,11 +19,11 @@
 - else
   .row
     .large-5.large-centered.columns
-      - start_params = { controller: 'datasets', action: 'task_start', id: @user_datasets[0].to_param, class: params[:class], job_params: { other_datasets: @user_datasets[1..-1] } }
+      - button_params = { class: params[:class], job_params: { other_datasets: @user_datasets[1..-1] } }
       - if @klass.has_view? '_params'
-        = link_to t('.button_params'), start_params, class: 'button primary expand'
+        = link_to t('.button_params'), new_dataset_analysis_task_path(@user_datasets[0], button_params), class: 'button primary expand'
       - else
-        = link_to t('.button_start'), start_params, class: 'button success expand'
+        = link_to t('.button_start'), dataset_analysis_tasks_path(@user_datasets[0], button_params), method: :post, class: 'button success expand'
 
 .row
   .small-12.columns

@@ -16,7 +16,7 @@
       %h4.subheader= t('jobs.analysis.plot_dates.number_subheader')
 
   .large-4.columns.job-header-button
-    = link_to t('common.download_csv'), { controller: 'datasets', action: 'task_view', id: @dataset.to_param, task_id: @task.to_param, view: 'download', format: 'csv' }, class: 'button secondary expand'
+    = link_to t('common.download_csv'), dataset_analysis_task_path(@dataset, @task, view: 'download', format: 'csv'), class: 'button secondary expand'
 
 .row
   .small-12.columns

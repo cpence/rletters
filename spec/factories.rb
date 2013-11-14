@@ -26,7 +26,7 @@ FactoryGirl.define do
     remember_me false
   end
 
-  factory :analysis_task do
+  factory :analysis_task, class: Datasets::AnalysisTask do
     name 'Analysis Task'
     dataset
     job_type 'FakeJob'

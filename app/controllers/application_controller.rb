@@ -71,7 +71,7 @@ class ApplicationController < ActionController::Base
   #
   # jQuery Mobile really wants us always to have a trailing slash on our
   # URLs, since we often are redirecting to subdirectory pages (e.g., from
-  # /datasets/ to /datasets/2/ to /datasets/2/task/3/results/, etc.).  This
+  # /datasets/ to /datasets/2/ to /datasets/2/tasks/3/results/, etc.).  This
   # helper makes sure we've always got a trailing slash.  Don't disable it!
   #
   # @api private

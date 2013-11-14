@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe Admin::AnalysisTasksController do
+describe Admin::DatasetsAnalysisTasksController do
   # Normally I hate turning this on, but in ActiveAdmin, the view logic *is*
   # defined in the same place where I define the controller.
   render_views

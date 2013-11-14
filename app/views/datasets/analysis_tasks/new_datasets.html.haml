@@ -2,7 +2,7 @@
   %li= link_to t('breadcrumbs.root'), root_path
   %li= link_to t('breadcrumbs.datasets_index'), datasets_path
   %li= link_to t('breadcrumbs.datasets_show', name: @dataset.name), @dataset
-  %li.current= link_to t('breadcrumbs.datasets_task_datasets'), { controller: 'datasets', action: 'task_start', id: @dataset.to_param, class: params[:class] }
+  %li.current= link_to t('breadcrumbs.datasets_analysis_tasks_datasets'), new_dataset_analysis_task_path(@dataset, params[:class])
 
 %header
   %section
@@ -11,7 +11,7 @@
 
 .row
   .large-6.columns
-    = simple_form_for :job_params, url: url_for(controller: 'datasets', action: 'task_start', id: @dataset.to_param, class: params[:class]), method: :get do |f|
+    = simple_form_for :job_params, url: @form_url, method: @form_method do |f|
       = f.error_notification
 
       - (@klass.num_datasets - 1).times do |n|

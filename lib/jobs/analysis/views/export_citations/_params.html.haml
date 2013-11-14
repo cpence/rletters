@@ -1,9 +1,7 @@
 .row
   .large-6.columns
-    = simple_form_for :job_params, url: url_for({ controller: 'datasets', action: 'task_start', id: @dataset.to_param, class: 'ExportCitations' }), method: :get do |f|
+    = simple_form_for :job_params, url: dataset_analysis_tasks_path(@dataset, class: 'ExportCitations'), method: :post do |f|
       = f.error_notification
-
-      = hidden_field_tag 'job_params[start]', 'true'
 
       = f.input :format, collection: Document.serializers.map { |a| [a[1][:name], a[0]] }
       = f.button :submit

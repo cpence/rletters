@@ -12,7 +12,7 @@ module Jobs
     # @example Start a job for expiring all old analysis tasks
     #   Resque.enqueue(Jobs::ExpireAnalysisTasks)
     def self.perform
-      AnalysisTask.destroy_all ['created_at < ?', 2.weeks.ago]
+      Datasets::AnalysisTask.destroy_all ['created_at < ?', 2.weeks.ago]
     end
   end
 end

@@ -74,14 +74,14 @@ en:
                 friendly_name: Name
                 name: Name
                 content: Content
-            analysis_task:
-                name: Name
-                created_at: Creation time
-                finished_at: Completion time
             dataset:
                 name: Name
             dataset_entry:
                 uid: Unique identifier
+            'datasets/analysis_task':
+                name: Name
+                created_at: Creation time
+                finished_at: Completion time
             user:
                 email: E-mail
                 name: Name
@@ -97,11 +97,6 @@ en:
                 url: Base URL
         errors:
             models:
-                analysis_task:
-                    name:
-                        blank: You must specify a name for this analysis task
-                    dataset:
-                        blank: Analysis task not connected to dataset (internal error)
                 dataset:
                     name:
                         blank: You must specify a name for this dataset
@@ -110,6 +105,11 @@ en:
                 dataset_entry:
                     uid:
                         blank: Unique ID was not specified (internal error)
+                'datasets/analysis_task':
+                    name:
+                        blank: You must specify a name for this analysis task
+                    dataset:
+                        blank: Analysis task not connected to dataset (internal error)
                 user:
                     name:
                         blank: You must specify a name
@@ -134,8 +134,8 @@ en:
         root: Home
         datasets_index: Manage Datasets
         datasets_show: "Manage: %{name}"
-        datasets_task_datasets: Add More Data
-        datasets_task_params: Job Options
+        datasets_analysis_tasks_datasets: Add More Data
+        datasets_analysis_tasks_params: Job Options
         search_index: Search the Database
         search_advanced: Advanced Search
         users_passwords_edit: Change Password
@@ -530,28 +530,29 @@ en:
             deleted: Cleared all failed analysis tasks.
             tasks: Analysis tasks
             new_task: Manually start a new analysis task
-        task_datasets:
-            header: Add more datasets
-            subheader: "This job requires more than one dataset to run.  Select the rest of the datasets you'd like to use below."
-            cancel: Cancel
-        task_list:
-            pending:
-                one: "1 analysis task pending for this dataset..."
-                other: "%{count} analysis tasks pending for this dataset..."
-            failed:
-                one: "1 analysis task failed for this dataset! Click here to clear failed tasks."
-                other: "%{count} analysis tasks failed for this dataset! Click here to clear failed tasks."
-            task_column: Analysis Task
-            no_tasks: No analysis tasks found
-            download_button: Download Results
-            view_button: View Results
-            delete_button: Delete Task
-        task_params:
-            header: Job options
-            subheader: This job has some more options that you can configure before you get started.
-        task_start:
-            workflow: "Running analysis now, check back soon for results..."
-            success: Analysis job started!
+        analysis_tasks:
+            index:
+                pending:
+                    one: "1 analysis task pending for this dataset..."
+                    other: "%{count} analysis tasks pending for this dataset..."
+                failed:
+                    one: "1 analysis task failed for this dataset! Click here to clear failed tasks."
+                    other: "%{count} analysis tasks failed for this dataset! Click here to clear failed tasks."
+                task_column: Analysis Task
+                no_tasks: No analysis tasks found
+                download_button: Download Results
+                view_button: View Results
+                delete_button: Delete Task
+            new_datasets:
+                header: Add more datasets
+                subheader: "This job requires more than one dataset to run.  Select the rest of the datasets you'd like to use below."
+                cancel: Cancel
+            new_params:
+                header: Job options
+                subheader: This job has some more options that you can configure before you get started.
+            create:
+                workflow: "Running analysis now, check back soon for results..."
+                success: Analysis job started!
     settings:
         app_name: Application Name
         app_email: Contact E-mail

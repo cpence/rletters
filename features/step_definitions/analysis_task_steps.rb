@@ -55,7 +55,7 @@ When(/^I clear the failed task$/) do
 
   @dataset.reload
   expect(@dataset.analysis_tasks).to be_empty
-  expect(AnalysisTask.exists?(@task)).to be false
+  expect(Datasets::AnalysisTask.exists?(@task)).to be false
   @task = nil
 end
 
@@ -111,6 +111,6 @@ Then(/^I should be able to delete the task$/) do
 
   @dataset.reload
   expect(@dataset.analysis_tasks).to be_empty
-  expect(AnalysisTask.exists?(@task)).to be false
+  expect(Datasets::AnalysisTask.exists?(@task)).to be false
   @task = nil
 end

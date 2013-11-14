@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe AnalysisTask do
+describe Datasets::AnalysisTask do
 
   describe '#valid?' do
     context 'when no name is specified' do
@@ -110,7 +110,7 @@ describe AnalysisTask do
   describe '.job_class' do
     context 'with a good class' do
       it 'returns the class' do
-        klass = AnalysisTask.job_class('ExportCitations')
+        klass = Datasets::AnalysisTask.job_class('ExportCitations')
         expect(klass).to eq(Jobs::Analysis::ExportCitations)
       end
     end
@@ -118,7 +118,7 @@ describe AnalysisTask do
     context 'with a bad class' do
       it 'raises an error' do
         expect {
-          AnalysisTask.job_class('NotClass')
+          Datasets::AnalysisTask.job_class('NotClass')
         }.to raise_error(ArgumentError)
       end
     end

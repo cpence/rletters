@@ -1,4 +1,4 @@
-# encoding: UTF-8
+# -*- encoding : utf-8 -*-
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131112153938) do
+ActiveRecord::Schema.define(version: 20131114011634) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -58,29 +58,6 @@ ActiveRecord::Schema.define(version: 20131112153938) do
     t.datetime "updated_at"
   end
 
-  create_table "analysis_task_results", force: true do |t|
-    t.integer "analysis_task_id"
-    t.string  "style"
-    t.binary  "file_contents"
-  end
-
-  create_table "analysis_tasks", force: true do |t|
-    t.string   "name"
-    t.datetime "finished_at"
-    t.integer  "dataset_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.boolean  "failed",              default: false
-    t.string   "job_type"
-    t.string   "result_file_name"
-    t.string   "result_content_type"
-    t.integer  "result_file_size"
-    t.datetime "result_updated_at"
-    t.text     "params"
-  end
-
-  add_index "analysis_tasks", ["dataset_id"], name: "index_analysis_tasks_on_dataset_id", using: :btree
-
   create_table "dataset_entries", force: true do |t|
     t.string   "uid"
     t.integer  "dataset_id"
@@ -100,6 +77,29 @@ ActiveRecord::Schema.define(version: 20131112153938) do
   end
 
   add_index "datasets", ["user_id"], name: "index_datasets_on_user_id", using: :btree
+
+  create_table "datasets_analysis_task_results", force: true do |t|
+    t.integer "datasets_analysis_task_id"
+    t.string  "style"
+    t.binary  "file_contents"
+  end
+
+  create_table "datasets_analysis_tasks", force: true do |t|
+    t.string   "name"
+    t.datetime "finished_at"
+    t.integer  "dataset_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "failed",              default: false
+    t.string   "job_type"
+    t.string   "result_file_name"
+    t.string   "result_content_type"
+    t.integer  "result_file_size"
+    t.datetime "result_updated_at"
+    t.text     "params"
+  end
+
+  add_index "datasets_analysis_tasks", ["dataset_id"], name: "index_datasets_analysis_tasks_on_dataset_id", using: :btree
 
   create_table "settings", force: true do |t|
     t.string   "key"

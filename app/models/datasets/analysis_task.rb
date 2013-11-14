@@ -32,7 +32,7 @@
 # @!attribute result_updated_at
 #   @return [DateTime] The last updated time of the result file (from
 #     Paperclip)
-class AnalysisTask < ActiveRecord::Base
+class Datasets::AnalysisTask < ActiveRecord::Base
   serialize :params, Hash
 
   validates :name, presence: true
@@ -40,7 +40,7 @@ class AnalysisTask < ActiveRecord::Base
   validates :job_type, presence: true
 
   belongs_to :dataset
-  has_attached_file :result, database_table: 'analysis_task_results'
+  has_attached_file :result, database_table: 'datasets_analysis_task_results'
 
   scope :finished, -> { where('finished_at IS NOT NULL') }
   scope :not_finished, -> { where('finished_at IS NULL') }
@@ -53,7 +53,7 @@ class AnalysisTask < ActiveRecord::Base
   # @param [String] class_name the class name to convert
   # @return [Class] the job class
   # @example Call the view_path method for ExportCitations
-  #   AnalysisTask.job_class('ExportCitations').view_path(...)
+  #   Datasets::AnalysisTask.job_class('ExportCitations').view_path(...)
   def self.job_class(class_name)
     "Jobs::Analysis::#{class_name}".safe_constantize.tap do |klass|
       if klass.nil? || klass == Jobs::Analysis::Base
@@ -86,5 +86,12 @@ class AnalysisTask < ActiveRecord::Base
 
     # Send the user an e-mail
     UserMailer.job_finished_email(dataset.user.email, to_param).deliver
+  end
+end
+
+# Module for resources related to datasets
+module Datasets
+  def self.table_name_prefix
+    'datasets_'
   end
 end

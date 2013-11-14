@@ -1,4 +1,4 @@
-- user_pending_count = AnalysisTask.joins(:dataset).where(finished_at: nil, datasets: { user_id: current_user.to_param }).count
+- user_pending_count = Datasets::AnalysisTask.joins(:dataset).where(finished_at: nil, datasets: { user_id: current_user.to_param }).count
 - if user_pending_count > 0
   .alert-box.radius= t('.tasks', count: user_pending_count)
 
