@@ -7,7 +7,7 @@
 # is responsible for all of that.
 class WorkflowController < ApplicationController
   layout 'full_page'
-  before_filter :authenticate_user!, except: [:index, :image]
+  before_action :authenticate_user!, except: [:index, :image]
 
   # Show the introduction page or the user dashboard
   #
