@@ -110,7 +110,7 @@ module Jobs
               args[:stop_list] = nil
             else
               # Returns nil if the argument isn't found
-              args[:stop_list] = StopList.find_by(language: args[:stop_list])
+              args[:stop_list] = Documents::StopList.find_by(language: args[:stop_list])
             end
 
             args[:inclusion_list] = nil if args[:inclusion_list].blank?

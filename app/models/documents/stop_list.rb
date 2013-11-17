@@ -10,10 +10,17 @@
 #   @return [String] Language for this stop list
 # @!attribute list
 #   @return [String] Space-separated list of common words to exclude
-class StopList < ActiveRecord::Base
+class Documents::StopList < ActiveRecord::Base
   # @return [String] the +language+ parameter, translated into the user's
   #   selected language
   def display_language
     I18n.t("languages.#{language}")
+  end
+end
+
+# Module for resources related to documents and textual analysis
+module Documents
+  def self.table_name_prefix
+    'documents_'
   end
 end

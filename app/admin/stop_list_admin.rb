@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-ActiveAdmin.register StopList do
+ActiveAdmin.register Documents::StopList do
   actions :index, :update, :edit, :show
   menu parent: 'settings'
   filter :name
@@ -21,7 +21,7 @@ ActiveAdmin.register StopList do
 
   form do |f|
     f.inputs I18n.t('admin.stop_list.header',
-                    language: stop_list.display_language) do
+                    language: documents_stop_list.display_language) do
       f.input :list, input_html: { rows: 30 }
     end
     f.actions
@@ -30,7 +30,7 @@ ActiveAdmin.register StopList do
   # :nocov:
   controller do
     def permitted_params
-      params.permit stop_list: [:language, :list]
+      params.permit documents_stop_list: [:language, :list]
     end
   end
   # :nocov:

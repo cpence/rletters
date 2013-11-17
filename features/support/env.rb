@@ -24,7 +24,7 @@ SEED_TABLES = %w[
   admin_markdown_pages
   admin_uploaded_assets
   admin_uploaded_asset_files
-  stop_lists
+  documents_stop_lists
   users_csl_styles
 ]
 

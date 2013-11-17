@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe Admin::StopListsController do
+describe Admin::DocumentsStopListsController do
   # Normally I hate turning this on, but in ActiveAdmin, the view logic *is*
   # defined in the same place where I define the controller.
   render_views
@@ -27,7 +27,7 @@ describe Admin::StopListsController do
 
   describe '#show' do
     before(:each) do
-      @list = StopList.find_by!(language: 'fr')
+      @list = Documents::StopList.find_by!(language: 'fr')
       get :show, id: @list.to_param
     end
 
@@ -38,7 +38,7 @@ describe Admin::StopListsController do
 
   describe '#edit' do
     before(:each) do
-      @list = StopList.find_by!(language: 'fr')
+      @list = Documents::StopList.find_by!(language: 'fr')
       get :edit, id: @list.to_param
     end
 
@@ -47,7 +47,7 @@ describe Admin::StopListsController do
     end
 
     it 'has a textarea field for the list' do
-      expect(response.body).to have_selector('textarea[name="stop_list[list]"]')
+      expect(response.body).to have_selector('textarea[name="documents_stop_list[list]"]')
     end
   end
 

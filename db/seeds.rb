@@ -49,6 +49,6 @@ end
 # Stop lists
 Dir.glob(Rails.root.join('db', 'seeds', 'stoplists', '*.txt')) do |txt|
   language = File.basename(txt, '.txt')
-  StopList.where(language: language).first_or_create(list: IO.read(txt))
+  Documents::StopList.where(language: language).first_or_create(list: IO.read(txt))
   puts "Seeded stop_list:#{language}"
 end

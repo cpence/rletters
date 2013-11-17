@@ -275,7 +275,7 @@ describe WordFrequencyAnalyzer do
 
   describe '#stop_list' do
     before(:each) do
-      @list = StopList.find_by!(language: 'en')
+      @list = Documents::StopList.find_by!(language: 'en')
       @analyzer = WordFrequencyAnalyzer.new(@dataset, stop_list: @list)
     end
 

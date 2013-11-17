@@ -90,9 +90,9 @@ class WordFrequencyAnalyzer
   # @option options [String] :exclusion_list If specified, then the analyzer
   #   will *not* compute frequency information for the words that are specified
   #   in this list (which is space-separated).
-  # @option options [StopList] :stop_list If specified, then the analyzer will
-  #   *not* compute frequency information for the words that appear within this
-  #   stop list.
+  # @option options [Documents::StopList] :stop_list If specified, then the
+  #   analyzer will *not* compute frequency information for the words that
+  #   appear within this stop list.
   def initialize(dataset, options = {})
     # Save the dataset and options
     @dataset = dataset
@@ -233,7 +233,7 @@ class WordFrequencyAnalyzer
     options[:exclusion_list] = nil if options[:exclusion_list].blank?
 
     # Make sure stop_list is the right type
-    options[:stop_list] = nil unless options[:stop_list].is_a? StopList
+    options[:stop_list] = nil unless options[:stop_list].is_a? Documents::StopList
 
     # Copy over the parameters to member variables
     @num_blocks = options[:num_blocks]

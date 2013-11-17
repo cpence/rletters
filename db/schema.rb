@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131114044009) do
+ActiveRecord::Schema.define(version: 20131117181239) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -101,6 +101,13 @@ ActiveRecord::Schema.define(version: 20131114044009) do
 
   add_index "datasets_entries", ["dataset_id"], name: "index_datasets_entries_on_dataset_id", using: :btree
 
+  create_table "documents_stop_lists", force: true do |t|
+    t.string   "language"
+    t.text     "list"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "settings", force: true do |t|
     t.string   "key"
     t.text     "value"
@@ -109,13 +116,6 @@ ActiveRecord::Schema.define(version: 20131114044009) do
   end
 
   add_index "settings", ["key"], name: "key_udx", unique: true, using: :btree
-
-  create_table "stop_lists", force: true do |t|
-    t.string   "language"
-    t.text     "list"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "",                           null: false

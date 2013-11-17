@@ -62,6 +62,9 @@ en:
             'datasets/entry':
                 one: Dataset Entry
                 other: Dataset Entries
+            'documents/stop_list':
+                one: Stop List
+                other: Stop Lists
             user:
                 one: User
                 other: Users
