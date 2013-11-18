@@ -7,8 +7,12 @@
 # the administration interface.
 #
 # @!attribute name
+#   @raise [RecordInvalid] if the name is missing (validates :presence)
 #   @return [String] Name of this CSL style
 # @!attribute style
+#   @raise [RecordInvalid] if the source is missing (validates :presence)
 #   @return [String] XML source for this CSL style
 class Users::CslStyle < ActiveRecord::Base
+  validates :name, presence: true
+  validates :style, presence: true
 end

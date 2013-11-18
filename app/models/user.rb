@@ -59,11 +59,11 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   validates :name, presence: true
-  validates :per_page, presence: true
-  validates :per_page, numericality: { only_integer: true }
-  validates :per_page, inclusion: { in: 1..999_999_999 }
-  validates :language, presence: true
-  validates :language, format: { with: /\A[a-z]{2,3}(-[A-Z]{2})?\Z/ }
+  validates :per_page, presence: true,
+                       numericality: { only_integer: true },
+                       inclusion: { in: 1..999_999_999 }
+  validates :language, presence: true,
+                       format: { with: /\A[a-z]{2,3}(-[A-Z]{2})?\Z/ }
   validates :timezone, presence: true
 
   has_many :datasets, dependent: :delete_all

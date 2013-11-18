@@ -7,10 +7,15 @@
 # into the database.
 #
 # @!attribute language
+#   @raise [RecordInvalid] if the language is missing (validates :presence)
 #   @return [String] Language for this stop list
 # @!attribute list
+#   @raise [RecordInvalid] if the list is missing (validates :presence)
 #   @return [String] Space-separated list of common words to exclude
 class Documents::StopList < ActiveRecord::Base
+  validates :language, presence: true
+  validates :list, presence: true
+
   # @return [String] the +language+ parameter, translated into the user's
   #   selected language
   def display_language

@@ -16,8 +16,7 @@ class Users::Library < ActiveRecord::Base
   belongs_to :user
 
   validates :name, presence: true
-  validates :url, presence: true
-  validates :url, url: true
+  validates :url, presence: true, url: true
   validates :user_id, presence: true
 
   protected
