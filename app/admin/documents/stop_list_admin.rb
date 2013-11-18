@@ -2,7 +2,7 @@
 
 ActiveAdmin.register Documents::StopList do
   actions :index, :update, :edit, :show
-  menu parent: 'settings'
+  menu parent: 'admin_settings'
   filter :name
 
   index do

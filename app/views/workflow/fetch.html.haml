@@ -13,7 +13,7 @@
       .panel.radius
         %h5= t('.pending_header')
         %p= t('.pending_count', count: @pending_tasks.count)
-        %p= t_md('.pending_cancel_markdown', terminate_url: workflow_fetch_path(terminate: 'true'), email: Setting.app_email)
+        %p= t_md('.pending_cancel_markdown', terminate_url: workflow_fetch_path(terminate: 'true'), email: Admin::Setting.app_email)
 
 .row
   .small-12.columns

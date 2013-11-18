@@ -2,7 +2,7 @@
 
 ActiveAdmin.register Admin::MarkdownPage do
   actions :index, :update, :edit, :show
-  menu parent: 'settings'
+  menu parent: 'admin_settings'
   filter :name
 
   sidebar :markdown, only: :edit do

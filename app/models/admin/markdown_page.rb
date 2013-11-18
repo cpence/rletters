@@ -9,7 +9,7 @@
 # directory), and these pages may then be edited in the administration panel.
 # Pages are stored in the Markdown format for easy editing, and will also be
 # passed through ERB before Markdown, so any Rails variables accessible at the
-# time of the call will be available (such as the +Settings+ hash).
+# time of the call will be available (such as the +Admin::Settings+).
 #
 # @!attribute name
 #   @raise [RecordInvalid] if the name is missing (validates :presence)

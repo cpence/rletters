@@ -7,9 +7,9 @@
 # the site title, etc.).
 #
 # @example Get the Solr URL
-#   Setting.solr_server_url
+#   Admin::Setting.solr_server_url
 #   # => 'http://localhost:8983/solr/'
-class Setting < ActiveRecord::Base
+class Admin::Setting < ActiveRecord::Base
   serialize :value
 
   # The list of setting keys that can be used
@@ -18,12 +18,23 @@ class Setting < ActiveRecord::Base
                 :google_analytics_key, :secret_token, :secret_key_base,
                 :devise_secret_key]
 
+  # The list of keys that shouldn't be edited by the user in the admin panel
+  HIDDEN_KEYS = [:secret_token, :secret_key_base, :devise_secret_key]
+
   # The list of setting keys that can be used
   #
   # @api public
-  # @return [Array<String>] valid setting keys
+  # @return [Array<Symbol>] valid setting keys
   def self.valid_keys
     VALID_KEYS
+  end
+
+  # The list of setting keys that shouldn't be shown in the admin interface
+  #
+  # @api public
+  # @return [Array<Symbol>] hidden setting keys
+  def self.hidden_keys
+    HIDDEN_KEYS
   end
 
   def_druthers(*VALID_KEYS)
@@ -49,5 +60,12 @@ class Setting < ActiveRecord::Base
     ret = I18n.t("settings.#{key}", default: '')
     return key.to_s if ret == ''
     ret
+  end
+end
+
+# Module for resources related to site administration
+module Admin
+  def self.table_name_prefix
+    'admin_'
   end
 end

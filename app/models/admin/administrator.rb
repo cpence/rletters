@@ -18,10 +18,3 @@ class Admin::Administrator < ActiveRecord::Base
   devise :async, :database_authenticatable,
          :recoverable, :rememberable, :trackable, :validatable
 end
-
-# Module for resources related to site administration
-module Admin
-  def self.table_name_prefix
-    'admin_'
-  end
-end

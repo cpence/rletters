@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe Admin::SettingsController do
+describe Admin::AdminSettingsController do
   # Normally I hate turning this on, but in ActiveAdmin, the view logic *is*
   # defined in the same place where I define the controller.
   render_views
@@ -20,18 +20,25 @@ describe Admin::SettingsController do
       expect(response).to be_success
     end
 
-    it 'includes all of the settings' do
-      Setting.valid_keys.each do |k|
+    it 'includes all of the visible settings' do
+      shown_keys = Admin::Setting.valid_keys - Admin::Setting.hidden_keys
+      shown_keys.each do |k|
         expect(response.body).to include(I18n.t("settings.#{k}"))
       end
     end
 
-    it 'includes all of the default values' do
-      Setting.valid_keys.each do |k|
-        method = "default_#{k}".to_sym
-        next unless Setting.respond_to? method
+    it 'does not include hidden settings' do
+      Admin::Setting.hidden_keys.each do |k|
+        expect(response.body).to_not include(I18n.t("settings.#{k}"))
+      end
+    end
 
-        default = Setting.send(method)
+    it 'includes all of the default values' do
+      Admin::Setting.valid_keys.each do |k|
+        method = "default_#{k}".to_sym
+        next unless Admin::Setting.respond_to? method
+
+        default = Admin::Setting.send(method)
         next unless default
 
         expect(response.body).to include(default.to_s)
@@ -41,7 +48,7 @@ describe Admin::SettingsController do
 
   describe '#edit' do
     before(:each) do
-      @setting = Setting.where(key: :app_name).first_or_create(value: Setting.send(:app_name))
+      @setting = Admin::Setting.where(key: :app_name).first_or_create(value: Admin::Setting.send(:app_name))
       get :edit, id: @setting.to_param
     end
 
@@ -50,7 +57,7 @@ describe Admin::SettingsController do
     end
 
     it 'has a textarea field for the value' do
-      expect(response.body).to have_selector('textarea[name="setting[value]"]')
+      expect(response.body).to have_selector('textarea[name="admin_setting[value]"]')
     end
   end
 

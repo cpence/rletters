@@ -10,20 +10,20 @@ Devise.setup do |config|
   # secret_token.rb.  This key will be stored in the database.
   if Rails.env.development? || Rails.env.test?
     config.secret_key = '14ddf1b0c817d66971b0c3ee12bec65989e8cc6c0c76be794418d518dcf4597082f1f4fafee3ca34fdf45a0f2712aeb0fed586bc0b63043f50d68f3892fcee06'
-  elsif !ActiveRecord::Base.connection.tables.include?('settings')
+  elsif !ActiveRecord::Base.connection.tables.include?('admin_settings')
     Rails.logger.warn 'Using insecure Devise key; this should only occur once, when first bringing up the database'
     config.secret_key = '14ddf1b0c817d66971b0c3ee12bec65989e8cc6c0c76be794418d518dcf4597082f1f4fafee3ca34fdf45a0f2712aeb0fed586bc0b63043f50d68f3892fcee06'
   else
-    Setting.devise_secret_key = SecureRandom.hex(128) if Setting.devise_secret_key.blank?
-    config.secret_key = Setting.devise_secret_key
+    Admin::Setting.devise_secret_key = SecureRandom.hex(128) if Admin::Setting.devise_secret_key.blank?
+    config.secret_key = Admin::Setting.devise_secret_key
   end
 
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class with
   # default "from" parameter.
-  if ActiveRecord::Base.connection.tables.include?('settings')
-    config.mailer_sender = "noreply@#{Setting.app_domain}"
+  if ActiveRecord::Base.connection.tables.include?('admin_settings')
+    config.mailer_sender = "noreply@#{Admin::Setting.app_domain}"
   else
     config.mailer_sender = 'noreply@example.com'
   end

@@ -44,15 +44,18 @@ en:
                         blank: "Unique ID was not specified (internal  error)"
     activerecord:
         models:
+            'admin/administrator':
+                one: Administrator
+                other: Administrators
             'admin/uploaded_asset':
                 one: Custom Asset
                 other: Custom Assets
             'admin/markdown_page':
                 one: Custom Page
                 other: Custom Pages
-            csl_style:
-                one: CSL Style
-                other: CSL Styles
+            'admin/setting':
+                one: Setting
+                other: Settings
             dataset:
                 one: Dataset
                 other: Datasets
@@ -68,6 +71,9 @@ en:
             user:
                 one: User
                 other: Users
+            'users/csl_style':
+                one: CSL Style
+                other: CSL Styles
             'users/library':
                 one: Library
                 other: Libraries

@@ -76,18 +76,18 @@ describe Solr::Connection do
 
   describe '.get_solr' do
     it 'successfully responds to changes in cached Solr URL' do
-      old_url = Setting.solr_server_url
+      old_url = Admin::Setting.solr_server_url
 
       Solr::Connection.send(:get_solr)
       solr = Solr::Connection.solr
       expect(solr.uri).to eq(URI.parse(old_url))
 
-      Setting.solr_server_url = 'http://1.2.3.4/solr/'
+      Admin::Setting.solr_server_url = 'http://1.2.3.4/solr/'
       Solr::Connection.send(:get_solr)
       solr = Solr::Connection.solr
       expect(solr.uri).to eq(URI.parse('http://1.2.3.4/solr/'))
 
-      Setting.solr_server_url = old_url
+      Admin::Setting.solr_server_url = old_url
     end
   end
 

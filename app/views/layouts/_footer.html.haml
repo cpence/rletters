@@ -11,5 +11,5 @@
       %dd= link_to t('breadcrumbs.users_registrations_new'), new_user_registration_path
       %dd= link_to t('layouts.nav.help'), 'http://rletters.net/help'
 
-    %p= t('layouts.footer.copyright', app_name: Setting.app_name)
+    %p= t('layouts.footer.copyright', app_name: Admin::Setting.app_name)
     = t_md('layouts.footer.rletters_markdown')

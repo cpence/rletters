@@ -1,7 +1,7 @@
 %head
   %meta{ charset: 'utf-8' }/
 
-  %title= Setting.app_name
+  %title= Admin::Setting.app_name
 
   = stylesheet_link_tag 'application'
   = javascript_include_tag 'vendor/custom.modernizr'
@@ -17,7 +17,7 @@
   %link{ href: Admin::UploadedAsset.url_for('favicon'), rel: "shortcut icon" }/
 
   -# Load Google analytics (if enabled)
-  - if Setting.google_analytics_key.present?
+  - if Admin::Setting.google_analytics_key.present?
     = render partial: 'layouts/google'
 
   = content_for :head_tags

@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 
 ActiveAdmin.register Users::CslStyle do
-  menu parent: 'settings'
+  menu parent: 'admin_settings'
   filter :name
 
   index do

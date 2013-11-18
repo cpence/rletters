@@ -30,11 +30,11 @@ describe DocumentsController do
   describe '#mendeley' do
     context 'when request succeeds' do
       before(:all) do
-        Setting.mendeley_key = '5ba3606d28aa1be94e9c58502b90a49c04dc17289'
+        Admin::Setting.mendeley_key = '5ba3606d28aa1be94e9c58502b90a49c04dc17289'
       end
 
       after(:all) do
-        Setting.mendeley_key = ''
+        Admin::Setting.mendeley_key = ''
       end
 
       it 'redirects to Mendeley' do
@@ -46,11 +46,11 @@ describe DocumentsController do
 
     context 'when request times out' do
       before(:all) do
-        Setting.mendeley_key = '5ba3606d28aa1be94e9c58502b90a49c04dc17289'
+        Admin::Setting.mendeley_key = '5ba3606d28aa1be94e9c58502b90a49c04dc17289'
       end
 
       after(:all) do
-        Setting.mendeley_key = ''
+        Admin::Setting.mendeley_key = ''
       end
 
       before(:each) do
