@@ -13,7 +13,7 @@
   - # Output the graphing points
   - csv << [t('jobs.analysis.craig_zeta.graph_header')]
   - csv << ['']
-  - csv << [t('jobs.analysis.craig_zeta.block_name_column'), t('jobs.analysis.craig_zeta.marker_column'), t('jobs.analysis.craig_zeta.anti_marker_column')]
+  - csv << [t('jobs.analysis.craig_zeta.marker_column', name: data['name_1']), t('jobs.analysis.craig_zeta.marker_column', name: data['name_2']), t('jobs.analysis.craig_zeta.block_name_column')]
   - data['graph_points'].each { |l| csv << l }
   - csv << ['']
 

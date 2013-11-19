@@ -235,8 +235,7 @@ en:
                     little overlap, indicating that the marker words are able
                     to readily distinguish blocks of text from each dataset.
                 block_name_column: Text block name
-                marker_column: Fraction of marker words
-                anti_marker_column: Fraction of anti-marker words
+                marker_column: "Fraction marker words for %{name}"
                 zeta_score_header: Zeta scores for all analyzed words
                 zeta_score_explanation: >
                     Zeta scores for all analyzed words follow.  The scores range
