@@ -80,7 +80,7 @@ class User < ActiveRecord::Base
   #   @document.to_csl_entry(@user.csl_style)
   #   # Note: Do *not* call to_csl_entry with @user.csl_style_id, it will fail!
   def csl_style
-    Users::CslStyle.find(csl_style_id) rescue nil
+    Users::CslStyle.find_by(id: csl_style_id)
   end
 
   # Parameter sanitizer class for regular users

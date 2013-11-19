@@ -12,6 +12,13 @@ module Solr
     # The default Solr search fields, with the fulltext added
     DEFAULT_FIELDS_FULLTEXT = 'uid,doi,license,license_url,data_source,authors,title,journal,year,volume,number,pages,fulltext_url,fulltext'
 
+    # Exceptions that can be raised by the Solr connection
+    EXCEPTIONS = Net::HTTP::EXCEPTIONS + [
+      RSolr::Error::Http,
+      RSolr::Error::InvalidRubyResponse,
+      Solr::ConnectionError
+    ]
+
     class << self
       # Cache the connection to solr
       #
@@ -67,7 +74,7 @@ module Solr
       get_solr
 
       Connection.solr.post 'search', data: params
-    rescue StandardError => e
+    rescue *Solr::Connection::EXCEPTIONS => e
       Rails.logger.warn "Connection to Solr failed: #{e.inspect}"
       Rails.logger.info "Query for failed connection: #{params.to_s}"
       {}
@@ -83,7 +90,7 @@ module Solr
     def self.info
       get_solr
       Connection.solr.get 'admin/system'
-    rescue StandardError => e
+    rescue *Solr::Connection::EXCEPTIONS => e
       Rails.logger.warn "Connection to Solr failed: #{e.inspect}"
       {}
     end

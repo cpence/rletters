@@ -103,7 +103,7 @@ class Users::LibrariesController < ApplicationController
         { name: entry.at_css('institutionName').content,
           url: entry.at_css('resolver baseURL').content }
       end
-    rescue StandardError, Timeout::Error
+    rescue *Net::HTTP::EXCEPTIONS
       @libraries = []
     end
 

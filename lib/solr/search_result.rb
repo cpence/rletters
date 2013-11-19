@@ -62,7 +62,7 @@ module Solr
 
       # Raise an error if Solr does not respond
       unless solr_response.ok?
-        fail Solr::ConnectionError, 'Solr server did not respond'
+        fail Solr::ConnectionError, 'Solr server returned nothing or failed request'
       end
       return if solr_response.total == 0
 

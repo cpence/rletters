@@ -58,7 +58,7 @@ class DocumentsController < ApplicationController
       fail ActiveRecord::RecordNotFound unless mendeley_docs.size
 
       redirect_to mendeley_docs[0]['mendeley_url']
-    rescue StandardError, Timeout::Error
+    rescue *Net::HTTP::EXCEPTIONS
       raise ActiveRecord::RecordNotFound
     end
   end
@@ -79,7 +79,7 @@ class DocumentsController < ApplicationController
       fail ActiveRecord::RecordNotFound unless cul_docs.size
 
       redirect_to cul_docs[0]['href']
-    rescue StandardError, Timeout::Error
+    rescue *Net::HTTP::EXCEPTIONS
       raise ActiveRecord::RecordNotFound
     end
   end

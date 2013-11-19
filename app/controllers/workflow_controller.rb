@@ -24,7 +24,7 @@ class WorkflowController < ApplicationController
     begin
       search_result = Solr::Connection.search solr_query
       @database_size = search_result.num_hits
-    rescue StandardError
+    rescue Solr::ConnectionError
       @database_size = 0
     end
 

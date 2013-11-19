@@ -92,7 +92,7 @@ module Jobs
         dataset.disabled = false
         dataset.save
       rescue StandardError
-        # Destroy the dataset to clean up
+        # Don't leave an empty dataset around under any circumstances
         dataset.destroy
         raise
       end
