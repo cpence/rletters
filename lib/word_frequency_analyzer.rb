@@ -372,7 +372,7 @@ class WordFrequencyAnalyzer
 
       @block_stats << { name: block_name, types: @type_counter.count,
                         tokens: @block_tokens }
-      @blocks << @block.dup
+      @blocks << @block.deep_dup
     end
 
     @block_counter = 0

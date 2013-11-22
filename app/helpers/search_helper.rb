@@ -31,7 +31,7 @@ module SearchHelper
     if num.nil?
       href = '#'
     else
-      new_params = params.dup
+      new_params = params.deep_dup
       if num == 0
         new_params.delete :page
       else
@@ -207,8 +207,6 @@ module SearchHelper
       return ret
     end
 
-    return ''.html_safe if active_facets.empty?
-
     ret << content_tag(:dd) do
       facet_link I18n.t('search.index.remove_all'), []
     end
@@ -221,6 +219,23 @@ module SearchHelper
     end
 
     ret
+  end
+
+  # Return a list of journal categories
+  #
+  # This function formats the tree of Documents::Category objects for
+  # display in the faceting system.
+  #
+  # @api public
+  # @return [String] journal categories, formatted for display
+  # @example Display the journal categories
+  #   <%= journal_category_list %>
+  #   # "<ul><li>Category<ul>..."
+  def journal_category_list
+    content_tag(:li, content_tag(:strong, I18n.t('search.index.categories'))) +
+      content_tag_for(:li, Documents::Category.roots) do |root|
+        journal_category_list_for(root)
+      end
   end
 
   # Get the short, formatted representation of a document
@@ -283,7 +298,7 @@ module SearchHelper
   #
   # @api private
   def facet_link(text, facets)
-    new_params = params.dup
+    new_params = params.deep_dup
 
     if facets.empty?
       new_params[:fq] = nil
@@ -334,5 +349,68 @@ module SearchHelper
     end
 
     ret
+  end
+
+  # Recursively get the tree of journal categories
+  #
+  # @api private
+  # @return [String] a list item for this category and its descendants
+  def journal_category_list_for(category)
+    ''.html_safe.tap do |content|
+      content << category_link_for(category)
+
+      unless category.leaf?
+        content << content_tag(:ul) do
+          content_tag_for(:li, category.children) do |c|
+            journal_category_list_for(c)
+          end
+        end
+      end
+    end
+  end
+
+  # Return true if the category is currently enabled
+  #
+  # @api private
+  def category_enabled(category)
+    params[:categories] && params[:categories].include?(category.to_param)
+  end
+
+  # Get the params for enabling or disabling a category
+  #
+  # We want to enable or disable the category as well as all its descendants
+  # with a single click, so do that here.
+  #
+  # @api private
+  def params_for_category(category)
+    params.deep_dup.tap do |ret|
+      ret[:categories] ||= []
+
+      if category_enabled(category)
+        ret[:categories] -= category.self_and_ancestors.collect(&:to_param)
+        ret[:categories] -= category.self_and_descendants.collect(&:to_param)
+      else
+        ret[:categories] += category.self_and_descendants.collect(&:to_param)
+      end
+    end
+  end
+
+  # Create a link to facet by a journal category
+  #
+  # @api private
+  def category_link_for(category)
+    new_params = params_for_category(category)
+
+    if category_enabled(category)
+      link_to(search_path(new_params)) do
+        check_box_tag("category_#{category.to_param}", '1', true, disabled: true) +
+          category.name
+      end
+    else
+      link_to(search_path(new_params)) do
+        check_box_tag("category_#{category.to_param}", '1', false, disabled: true) +
+          category.name
+      end
+    end
   end
 end

@@ -419,6 +419,7 @@ en:
             year_facet_short: Year
             year_before_1800: Before 1800
             year_after_2010: 2010 and later
+            categories: Journal Categories
             advanced_search: Advanced search
     users:
         passwords:

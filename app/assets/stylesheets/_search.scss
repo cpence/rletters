@@ -1,6 +1,11 @@
 
 table.document-list { width: 100%; }
 
+// Make the nested lists in the side nav look right
+.side-nav li li { font-size: 100%; margin-bottom: 0; }
+.side-nav ul { list-style-type: none; }
+.side-nav li.documents_category input { position: relative; top: 2px; }
+
 .advanced-shift { padding-top: 1em; }
 
 p.document-details {

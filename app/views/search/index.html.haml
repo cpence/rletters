@@ -49,7 +49,10 @@
   .small-12.large-3.columns
     .radius.panel
       %h5= t('.filters')
-      %ul.side-nav= facet_link_list(@result)
+      %ul.side-nav
+        = facet_link_list(@result)
+        %li.divider
+        = journal_category_list
 
       %p= link_to t('.advanced_search'), search_advanced_path, class: 'button secondary small expand'
 
