@@ -40,3 +40,10 @@ class Dataset < ActiveRecord::Base
   # @return [Array<Dataset>] all datasets that are currently disabled
   scope :inactive, -> { where(disabled: true) }
 end
+
+# Module for resources related to datasets
+module Datasets
+  def self.table_name_prefix
+    'datasets_'
+  end
+end

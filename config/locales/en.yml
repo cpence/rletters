@@ -41,7 +41,7 @@ en:
             models:
                 document:
                     uid:
-                        blank: "Unique ID was not specified (internal  error)"
+                        blank: "Unique ID was not specified (internal error)"
     activerecord:
         models:
             'admin/administrator':
@@ -65,6 +65,9 @@ en:
             'datasets/entry':
                 one: Dataset Entry
                 other: Dataset Entries
+            'documents/category':
+                one: Category
+                other: Categories
             'documents/stop_list':
                 one: Stop List
                 other: Stop Lists
@@ -78,14 +81,23 @@ en:
                 one: Library
                 other: Libraries
         attributes:
-            'admin/uploaded_asset':
-                friendly_name: Name
+            'admin/administrator':
+                email: E-mail
                 name: Name
-                file: Attachment
+                password: Password
+                password_confirmation: Confirm password
+                remember_me: Remember me?
             'admin/markdown_page':
                 friendly_name: Name
                 name: Name
                 content: Content
+            'admin/setting':
+                key: Key
+                value: Value
+            'admin/uploaded_asset':
+                friendly_name: Name
+                name: Name
+                file: Attachment
             dataset:
                 name: Name
             'datasets/analysis_task':
@@ -94,6 +106,12 @@ en:
                 finished_at: Completion time
             'datasets/entry':
                 uid: Unique identifier
+            'documents/category':
+                name: Name
+                journals: List of Journals
+            'documents/stop_list':
+                language: Language
+                list: List of Stop Words
             user:
                 email: E-mail
                 name: Name
@@ -104,11 +122,20 @@ en:
                 language: Preferred language
                 timezone: Time zone
                 csl_style_id: Citation style
+            'users/csl_style':
+                name: Name
+                style: Style (XML)
             'users/library':
                 name: Name
                 url: Base URL
         errors:
             models:
+                'admin/markdown_page':
+                    name:
+                        blank: Name was not specified (internal error)
+                'admin/uploaded_asset':
+                    name:
+                        blank: Name was not specified (internal error)
                 dataset:
                     name:
                         blank: You must specify a name for this dataset
@@ -122,6 +149,14 @@ en:
                 'datasets/entry':
                     uid:
                         blank: Unique ID was not specified (internal error)
+                'documents/category':
+                    name:
+                        blank: You must specify a name for this category
+                'documents/stop_list':
+                    language:
+                        blank: Language was not specified (internal error)
+                    list:
+                        blank: Stop list was not specified (internal error)
                 user:
                     name:
                         blank: You must specify a name
@@ -134,6 +169,11 @@ en:
                         invalid: Preferred language must be a valid locale code (internal error)
                     timezone:
                         blank: Timezone must be specified (internal error)
+                'users/csl_style':
+                    name:
+                        blank: Name was not specified (internal error)
+                    style:
+                        blank: Style was not specified (internal error)
                 'users/library':
                     name:
                         blank: You must specify a name for this library entry

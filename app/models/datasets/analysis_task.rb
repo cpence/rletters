@@ -88,10 +88,3 @@ class Datasets::AnalysisTask < ActiveRecord::Base
     UserMailer.job_finished_email(dataset.user.email, to_param).deliver
   end
 end
-
-# Module for resources related to datasets
-module Datasets
-  def self.table_name_prefix
-    'datasets_'
-  end
-end

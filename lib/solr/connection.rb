@@ -1,7 +1,9 @@
 # -*- encoding : utf-8 -*-
-require_relative './errors'
 
 module Solr
+
+  # Exception thrown on failure to connect to Solr
+  class ConnectionError < RuntimeError; end
 
   # Methods for managing the singleton connection to the Solr server
   module Connection

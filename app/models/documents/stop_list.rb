@@ -22,10 +22,3 @@ class Documents::StopList < ActiveRecord::Base
     I18n.t("languages.#{language}")
   end
 end
-
-# Module for resources related to documents and textual analysis
-module Documents
-  def self.table_name_prefix
-    'documents_'
-  end
-end
