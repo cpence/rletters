@@ -81,6 +81,17 @@ class SearchController < ApplicationController
     query_params = {}
     query_params[:fq] = params[:fq] unless params[:fq].nil?
 
+    # And converting categories to facets
+    if params[:categories]
+      category_journals = params[:categories].collect do |id|
+        Documents::Category.find(id).journals.map { |j| "\"#{j}\"" }
+      end
+      category_journals.uniq!
+
+      query_params[:fq] ||= []
+      query_params[:fq] << "journal_facet:(#{category_journals.join(' OR ')})"
+    end
+
     if params[:precise]
       q_array = []
 

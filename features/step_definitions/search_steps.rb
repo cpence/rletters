@@ -1,5 +1,20 @@
 # -*- encoding : utf-8 -*-
 
+### GIVEN ###
+Given(/^there are categories:$/) do |table|
+  # We have to rely on the user to create these in order!
+  table.hashes.each do |category|
+    journals = category['journals'].split(';').map(&:strip)
+
+    if category['parent'].present?
+      parent = Documents::Category.find_by!(name: category['parent'])
+      parent.children.create(name: category['name'], journals: journals)
+    else
+      Documents::Category.create(name: category['name'], journals: journals)
+    end
+  end
+end
+
 ### WHEN ###
 When(/^I visit the search page$/) do
   visit '/search'
@@ -35,7 +50,19 @@ When(/^I remove the facet "(.*?)"$/) do |facet|
   end
 end
 
-When(/^I remove all facets$/) do
+When(/^I select the journal category "(.*?)"$/) do |category|
+  within('.side-nav') do
+    click_link(category)
+  end
+end
+
+When(/^I remove the category "(.*?)"$/) do |category|
+  within('.side-nav') do
+    click_link(category)
+  end
+end
+
+When(/^I remove all filters$/) do
   within('dl.sub-nav') do
     click_link('Remove All')
   end
@@ -68,7 +95,7 @@ Then(/^I should see (\d+) articles$/) do |num|
   expect(page).to have_content("#{num} articles")
 end
 
-Then(/^I should see "(.*?)" in the list of active facets$/) do |facet|
+Then(/^I should see "(.*?)" in the list of active filters$/) do |facet|
   expect(page).to have_selector('dd a', text: /#{facet}/)
 end
 

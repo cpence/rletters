@@ -32,7 +32,7 @@
 
     %dl.sub-nav
       %dt= num_hits_string(@result)
-      = active_facet_list(@result)
+      = active_filter_list(@result)
 
     .pagination-centered= render_pagination(@result)
     %table.document-list

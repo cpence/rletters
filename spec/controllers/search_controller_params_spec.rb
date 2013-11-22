@@ -20,6 +20,13 @@ describe SearchController do
       expect(ret[:fq][1]).to eq('journal_facet:Astrobiology')
     end
 
+    it 'does the right thing with categories' do
+      category = Documents::Category.create(name: 'Test Category', journals: ['Ethology', 'Genes, Brain and Behavior'])
+      params = { q: '*:*', precise: 'true', categories: [category.to_param] }
+      ret = controller.send(:search_params_to_solr_query, params)
+      expect(ret[:fq][0]).to eq('journal_facet:("Ethology" OR "Genes, Brain and Behavior")')
+    end
+
     it 'puts together empty precise search correctly' do
       params = { q: '', precise: 'true' }
       ret = controller.send(:search_params_to_solr_query, params)

@@ -184,22 +184,19 @@ module SearchHelper
     ret
   end
 
-  # Return a list of active facets for a Foundation sub-nav
+  # Return a list of active filters for a Foundation sub-nav
   #
   # @api public
   # @param [Solr::SearchResult] result the search result
-  # @return [String] active facets in <dd><a> tags
-  # @example Get all of the facet removal links
+  # @return [String] active filters in <dd><a> tags
+  # @example Get all of the filter removal links
   #   active_Facet_list(@result)
   #   # "<dd><a href='...'>Johnson</a></dd>..."
-  def active_facet_list(result)
-    # Bail now if there's no facet data (faceted down to one document)
-    return ''.html_safe unless result.facets
-
+  def active_filter_list(result)
     active_facets = get_active_facets(result)
     ret = ''.html_safe
 
-    if active_facets.empty?
+    if active_facets.empty? && params[:categories].blank?
       ret << content_tag(:dd) do
         link_to I18n.t('search.index.no_filters'), '#'
       end
@@ -207,14 +204,35 @@ module SearchHelper
       return ret
     end
 
+    # Remove all
     ret << content_tag(:dd) do
-      facet_link I18n.t('search.index.remove_all'), []
+      new_params = params.deep_dup
+      new_params.delete(:categories)
+      new_params.delete(:fq)
+
+      link_to I18n.t('search.index.remove_all'), search_path(new_params)
     end
 
-    active_facets.each do |f|
-      ret << content_tag(:dd, class: 'active') do
-        other_facets = active_facets.reject { |x| x == f }
-        facet_link "#{f.field_label}: #{f.label}", other_facets
+    # Categories
+    if params[:categories]
+      params[:categories].each do |id|
+        c = Documents::Category.find(id)
+
+        ret << content_tag(:dd, class: 'active') do
+          new_params = params_for_category(c)
+          link_to("#{Documents::Category.model_name.human}: #{c.name}",
+                  search_path(new_params))
+        end
+      end
+    end
+
+    # Facets
+    if active_facets
+      active_facets.each do |f|
+        ret << content_tag(:dd, class: 'active') do
+          other_facets = active_facets.reject { |x| x == f }
+          facet_link "#{f.field_label}: #{f.label}", other_facets
+        end
       end
     end
 
@@ -302,16 +320,12 @@ module SearchHelper
 
     if facets.empty?
       new_params[:fq] = nil
-      return link_to(text,
-                     search_path(new_params),
-                     data: { transition: 'none' })
+      return link_to(text, search_path(new_params))
     end
 
     new_params[:fq] = []
     facets.each { |f| new_params[:fq] << f.query }
-    link_to text,
-            search_path(new_params),
-            data: { transition: 'none' }
+    link_to(text, search_path(new_params))
   end
 
   # Get the list of facet links for one particular field
@@ -392,6 +406,9 @@ module SearchHelper
       else
         ret[:categories] += category.self_and_descendants.collect(&:to_param)
       end
+
+      ret[:categories].uniq!
+      ret.delete(:categories) if ret[:categories].empty?
     end
   end
 

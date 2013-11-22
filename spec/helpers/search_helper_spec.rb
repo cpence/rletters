@@ -156,11 +156,11 @@ describe SearchHelper do
     end
   end
 
-  describe '#active_facet_list' do
+  describe '#active_filter_list' do
     context 'with some facets' do
       before(:each) do
         @result = Solr::Connection.search({ q: '*:*', defType: 'lucene' })
-        @ret = helper.active_facet_list(@result)
+        @ret = helper.active_filter_list(@result)
       end
 
       it 'includes the no-facet text' do
@@ -174,10 +174,10 @@ describe SearchHelper do
                                             fq: ['authors_facet:"Elisa Lobato"', 'year:[2010 TO *]'] })
 
         params[:fq] = ['authors_facet:"Elisa Lobato"', 'year:[2010 TO *]']
-        @ret = helper.active_facet_list(@result)
+        @ret = helper.active_filter_list(@result)
       end
 
-      it 'includes a link to remove all facets' do
+      it 'includes a link to remove all filters' do
         expect(@ret).to have_selector('a[href="/search"]', text: 'Remove All')
       end
 
