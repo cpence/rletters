@@ -15,4 +15,24 @@ ActiveAdmin.register Documents::Category do
     label :name
     actions
   end
+
+  form do |f|
+    # Get the journals from Solr
+    result = Solr::DataHelpers.count_by_field(nil, :journal_facet)
+    journals = result.keys.compact
+
+    f.inputs do
+      f.input :name
+      f.input :journals, as: :check_boxes, collection: journals, hidden_fields: false
+    end
+    f.actions
+  end
+
+  # :nocov:
+  controller do
+    def permitted_params
+      params.permit(documents_category: [:parent_id, :sort_order, :name, journals: []])
+    end
+  end
+  # :nocov:
 end

@@ -27,4 +27,13 @@ class Documents::Category < ActiveRecord::Base
 
   # Enable closure_tree
   acts_as_tree name_column: 'name', order: 'sort_order'
+
+  # Clean up list of journals when created
+  #
+  # To support empty arrays, ActiveAdmin will send us a blank item when
+  # a new category is created.  We want to prune that before the object is
+  # saved.
+  before_save do
+    journals.delete('')
+  end
 end
