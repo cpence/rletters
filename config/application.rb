@@ -14,6 +14,10 @@ module RLetters
     # Custom directories with classes and modules
     config.eager_load_paths << "#{config.root}/lib"
 
+    # Always eager load code, because otherwise we don't pick up our table
+    # prefixes.
+    config.eager_load = true
+
     # Add vendor locales (for CLDR files)
     config.i18n.load_path += Dir[Rails.root.join('vendor',
                                                  'locales',
