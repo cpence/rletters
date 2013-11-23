@@ -248,6 +248,41 @@ describe WordFrequencyAnalyzer do
     end
   end
 
+  describe '#ngrams' do
+    context 'with num_words not set' do
+      before(:each) do
+        @analyzer = WordFrequencyAnalyzer.new(@dataset, ngrams: 3)
+      end
+
+      it 'only creates one block' do
+        expect(@analyzer.blocks.count).to eq(1)
+      end
+
+      it 'creates correctly sized ngrams' do
+        @analyzer.blocks[0].each do |k, v|
+          expect(k.split.count).to eq(3)
+        end
+      end
+
+      it 'correctly combines ngrams' do
+        expect(@analyzer.blocks[0].keys.uniq).to match_array(@analyzer.blocks[0].keys)
+        expect(@analyzer.blocks[0].values.max).to be > 1
+      end
+    end
+
+    context 'with num_words set' do
+      before(:each) do
+        @analyzer = WordFrequencyAnalyzer.new(@dataset,
+                                              ngrams: 3,
+                                              num_words: 10)
+      end
+
+      it 'only includes 10 trigrams' do
+        expect(@analyzer.blocks[0].count).to eq(10)
+      end
+    end
+  end
+
   describe '#inclusion_list' do
     before(:each) do
       @analyzer = WordFrequencyAnalyzer.new(@dataset, inclusion_list: 'a the')
