@@ -250,6 +250,8 @@ module SearchHelper
   #   <%= journal_category_list %>
   #   # "<ul><li>Category<ul>..."
   def journal_category_list
+    return ''.html_safe if Documents::Category.count == 0
+
     content_tag(:li, content_tag(:strong, I18n.t('search.index.categories'))) +
       content_tag_for(:li, Documents::Category.roots) do |root|
         journal_category_list_for(root)
