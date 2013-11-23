@@ -3,7 +3,8 @@
 # Compute detailed word frequency information for a given dataset
 #
 # @!attribute [r] blocks
-#   @return [Array<Hash>] The analyzed blocks of text (array of hashes of tfs)
+#   @return [Array<Hash>] The analyzed blocks of text (array of hashes of term
+#     frequencies)
 # @!attribute [r] block_stats
 #   Information about each block.
 #
@@ -12,20 +13,23 @@
 #
 #   @return [Array<Hash>] Block information
 # @!attribute [r] word_list
-#   @return [Array<String>] The list of words analyzed
+#   @return [Array<String>] The list of words (or ngrams) analyzed
 # @!attribute [r] tf_in_dataset
-#   @return [Hash<String, Integer>] For each word, how many times that word
-#     occurs in the dataset
+#   @return [Hash<String, Integer>] For each word (or ngram), how many times
+#     that word occurs in the dataset
 # @!attribute [r] df_in_dataset
-#   @return [Hash<String, Integer>] For each word, the number of documents in
-#     the dataset in which that word appears
+#   @return [Hash<String, Integer>] For each word (or ngram), the number of
+#     documents in the dataset in which that word appears
 # @!attribute [r] df_in_corpus
 #   @return [Hash<String, Integer>] For each word, the number of documents in
-#     the entire Solr corpus in which that word appears
+#     the entire Solr corpus in which that word appears.  If +ngrams+ is set,
+#     this value will not be available.
 # @!attribute [r] num_dataset_tokens
-#   @return [Integer] The number of tokens in the dataset
+#   @return [Integer] The number of tokens in the dataset.  If +ngrams+ is set,
+#     this is the number of ngrams.
 # @!attribute [r] num_dataset_types
-#   @return [Integer] The number of types in the dataset
+#   @return [Integer] The number of types in the dataset.  If +ngrams+ is set,
+#     this is the number of distinct ngrams.
 class WordFrequencyAnalyzer
 
   attr_reader :blocks, :block_stats, :word_list, :tf_in_dataset,
@@ -68,8 +72,11 @@ class WordFrequencyAnalyzer
   # @option options [Boolean] :split_across If true, combine all the dataset
   #   documents together before splitting into blocks; otherwise, split into
   #   blocks only within a document
+  # @option options [Integer] :ngrams If set, look for n-grams of this size,
+  #   instead of single words
   # @option options [Integer] :num_words If set, only return frequency data for
-  #   this many words; otherwise, return all words
+  #   this many words; otherwise, return all words.  If +ngrams+ is set, this
+  #   is a number of ngrams, not a number of words.
   # @option options [Symbol] :last_block This parameter changes what will
   #   happen to the "leftover" words when +block_size+ is set.
   #
@@ -86,13 +93,15 @@ class WordFrequencyAnalyzer
   #   The default is +:big_last+.
   # @option options [String] :inclusion_list If specified, then the analyzer
   #   will only compute frequency information for the words that are specified
-  #   in this list (which is space-separated).
+  #   in this list (which is space-separated).  Cannot be used if +ngrams+ is
+  #   set.
   # @option options [String] :exclusion_list If specified, then the analyzer
   #   will *not* compute frequency information for the words that are specified
-  #   in this list (which is space-separated).
+  #   in this list (which is space-separated).  Cannot be used if +ngrams+ is
+  #   set.
   # @option options [Documents::StopList] :stop_list If specified, then the
   #   analyzer will *not* compute frequency information for the words that
-  #   appear within this stop list.
+  #   appear within this stop list.  Cannot be used if +ngrams+ is set.
   def initialize(dataset, options = {})
     # Save the dataset and options
     @dataset = dataset
@@ -119,26 +128,15 @@ class WordFrequencyAnalyzer
     # Process all of the documents
     @dataset.entries.each do |e|
       @current_doc = Document.find(e.uid, term_vectors: true)
-      tv = @current_doc.term_vectors
+      sorted_words = compute_ngrams_list(@current_doc)
 
       # If we aren't splitting across, then we have to completely clear
       # out all the count information for every document, and we have to
       # compute how many/how big the blocks should be for this document
       unless @split_across
         @block_num = 0
-        compute_block_size(tv.values.map { |x| x['tf'] }.reduce(:+))
+        compute_block_size(sorted_words.count)
       end
-
-      # Create a single array that has the words in the document sorted
-      # by position
-      sorted_words = []
-      tv.each do |word, hash|
-        hash[:positions].each do |p|
-          sorted_words << [word, p]
-        end
-      end
-      sorted_words.sort! { |a, b| a[1] <=> b[1] }
-      sorted_words.map! { |x| x[0] }
 
       # Do the processing for this document
       sorted_words.each do |word|
@@ -201,6 +199,7 @@ class WordFrequencyAnalyzer
     options[:num_blocks] ||= 0
     options[:block_size] ||= 0
     options[:split_across] = true if options[:split_across].nil?
+    options[:ngrams] ||= 1
     options[:num_words] ||= 0
 
     # If we get num_blocks and block_size, then the user's done something
@@ -213,6 +212,9 @@ class WordFrequencyAnalyzer
     if options[:num_blocks] <= 0 && options[:block_size] <= 0
       options[:num_blocks] = 1
     end
+
+    # Ngrams has to be 1 or greater
+    options[:ngrams] = 1 if options[:ngrams] < 1
 
     # Make sure num_words isn't negative
     options[:num_words] = 0 if options[:num_words] < 0
@@ -235,10 +237,17 @@ class WordFrequencyAnalyzer
     # Make sure stop_list is the right type
     options[:stop_list] = nil unless options[:stop_list].is_a? Documents::StopList
 
+    # No inclusion, exclusion, or stop lists if ngrams is set
+    if (options[:exclusion_list] || options[:inclusion_list] || options[:stop_list]) &&
+       options[:ngrams] != 1
+      fail ArgumentError, 'cannot set both ngrams > 1 and {inclusion,exclusion,stop}_list'
+    end
+
     # Copy over the parameters to member variables
     @num_blocks = options[:num_blocks]
     @block_size = options[:block_size]
     @split_across = options[:split_across]
+    @ngrams = options[:ngrams]
     @num_words = options[:num_words]
     @last_block = options[:last_block]
     @inclusion_list = options[:inclusion_list]
@@ -283,20 +292,36 @@ class WordFrequencyAnalyzer
 
     @dataset.entries.each do |e|
       doc = Document.find(e.uid, term_vectors: true)
-      tv = doc.term_vectors
 
-      tv.each do |word, hash|
-        # Oddly enough, you'll get weird bogus values for words that don't
-        # appear in your document back from Solr.  Not sure what's up with
-        # that.
-        @df_in_corpus[word] = hash[:df] unless hash[:df] == 0
-        next if hash[:tf] == 0
+      if @ngrams == 1
+        tv = doc.term_vectors
 
-        @tf_in_dataset[word] ||= 0
-        @tf_in_dataset[word] += hash[:tf]
+        tv.each do |word, hash|
+          # Oddly enough, you'll get weird bogus values for words that don't
+          # appear in your document back from Solr.  Not sure what's up with
+          # that.
+          if hash[:df] > 0 && @df_in_corpus[word].blank?
+            @df_in_corpus[word] = hash[:df]
+          end
+          next if hash[:tf] == 0
 
-        @df_in_dataset[word] ||= 0
-        @df_in_dataset[word] += 1
+          @tf_in_dataset[word] ||= 0
+          @tf_in_dataset[word] += hash[:tf]
+
+          @df_in_dataset[word] ||= 0
+          @df_in_dataset[word] += 1
+        end
+      else
+        # FIXME: There's probably a faster way to sort this once, then zip it
+        # by count into an array of arrays.
+        ngrams = compute_ngrams_list(doc)
+        ngrams.uniq.each do |ngram|
+          @tf_in_dataset[ngram] ||= 0
+          @tf_in_dataset[ngram] += ngrams.count(ngram)
+
+          @df_in_dataset[ngram] ||= 0
+          @df_in_dataset[ngram] += 1
+        end
       end
     end
 
@@ -408,6 +433,37 @@ class WordFrequencyAnalyzer
       end
 
       @num_remainder_blocks = 0
+    end
+  end
+
+  # Get the list of ngrams for a given document
+  #
+  # Since we don't have a way to query Solr for these, we have to build this
+  # array manually.  It's much slower, but it works.
+  #
+  # It is also used by the actual analysis code, since it returns the words
+  # in sorted order (even when +@ngrams+ is 1).
+  #
+  # @api private
+  # @param [Document] doc The document to query
+  # @return [Array<String>] Ordered array of all n-grams in the document
+  def compute_ngrams_list(doc)
+    # Build an array of the words in the document
+    sorted_words = []
+    doc.term_vectors.each do |word, hash|
+      hash[:positions].each do |p|
+        sorted_words << [word, p]
+      end
+    end
+    sorted_words.sort! { |a, b| a[1] <=> b[1] }
+    sorted_words.map! { |x| x[0] }
+
+    # This is the array of single words
+    return sorted_words if @ngrams == 1
+
+    # Break it into ngrams and return it
+    (0..(sorted_words.size - @ngrams)).map do |i|
+      sorted_words[i, @ngrams].join(' ')
     end
   end
 
