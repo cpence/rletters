@@ -281,6 +281,34 @@ describe WordFrequencyAnalyzer do
         expect(@analyzer.blocks[0].count).to eq(10)
       end
     end
+
+    context 'with inclusion_list set' do
+      before(:each) do
+        @analyzer = WordFrequencyAnalyzer.new(@dataset,
+                                              ngrams: 3,
+                                              inclusion_list: 'brain')
+      end
+
+      it 'produces ngrams that all contain brain' do
+        @analyzer.blocks[0].each do |k, v|
+          expect(k).to include('brain')
+        end
+      end
+    end
+
+    context 'with exclusion_list set' do
+      before(:each) do
+        @analyzer = WordFrequencyAnalyzer.new(@dataset,
+                                              ngrams: 3,
+                                              exclusion_list: 'brain')
+      end
+
+      it 'produces ngrams that do not contain brain' do
+        @analyzer.blocks[0].each do |k, v|
+          expect(k).not_to include('brain')
+        end
+      end
+    end
   end
 
   describe '#inclusion_list' do

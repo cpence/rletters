@@ -361,17 +361,17 @@ class WordFrequencyAnalyzer
     @word_list = sorted_pairs.map { |a| a[0] }
 
     if @ngrams == 1
-      if excluded
+      if excluded.present?
         # For 1-grams we can just use array difference.  If an inclusion list
         # was specified, we already did that up above and bailed early.
         @word_list -= excluded
       end
     else
-      if excluded
+      if excluded.present?
         # Keep any grams for which there is no overlap between the exclusion
         # list and the gram's words
         @word_list.select! { |w| (w.split & excluded).empty? }
-      elsif included
+      elsif included.present?
         # Reject any grams for which there is no overlap between the exclusion
         # list and the gram's words
         @word_list.reject! { |w| (w.split & included).empty? }
