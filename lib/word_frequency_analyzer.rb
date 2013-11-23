@@ -237,10 +237,9 @@ class WordFrequencyAnalyzer
     # Make sure stop_list is the right type
     options[:stop_list] = nil unless options[:stop_list].is_a? Documents::StopList
 
-    # No inclusion, exclusion, or stop lists if ngrams is set
-    if (options[:exclusion_list] || options[:inclusion_list] || options[:stop_list]) &&
-       options[:ngrams] != 1
-      fail ArgumentError, 'cannot set both ngrams > 1 and {inclusion,exclusion,stop}_list'
+    # No stop lists if ngrams is set
+    if options[:stop_list] && options[:ngrams] != 1
+      fail ArgumentError, 'cannot set both ngrams > 1 and stop_list'
     end
 
     # Copy over the parameters to member variables
@@ -338,7 +337,8 @@ class WordFrequencyAnalyzer
   #
   # @api private
   def pick_words
-    if @inclusion_list
+    # If we have a word-list for 1-grams, this is easy
+    if @inclusion_list && @ngrams == 1
       @word_list = @inclusion_list.split
       return
     end
@@ -352,13 +352,33 @@ class WordFrequencyAnalyzer
       excluded = @stop_list.list.split
     end
 
-    if @num_words == 0
-      @word_list = @tf_in_dataset.keys - excluded
-    else
-      sorted_pairs = @tf_in_dataset.to_a.sort { |a, b| b[1] <=> a[1] }
-      sorted_pairs.reject! { |a| excluded.include?(a[0]) }
-      @word_list = sorted_pairs.take(@num_words).map { |a| a[0] }
+    included = []
+    if @inclusion_list
+      included = @inclusion_list.split
     end
+
+    sorted_pairs = @tf_in_dataset.to_a.sort { |a, b| b[1] <=> a[1] }
+    @word_list = sorted_pairs.map { |a| a[0] }
+
+    if @ngrams == 1
+      if excluded
+        # For 1-grams we can just use array difference.  If an inclusion list
+        # was specified, we already did that up above and bailed early.
+        @word_list -= excluded
+      end
+    else
+      if excluded
+        # Keep any grams for which there is no overlap between the exclusion
+        # list and the gram's words
+        @word_list.select! { |w| (w.split & excluded).empty? }
+      elsif included
+        # Reject any grams for which there is no overlap between the exclusion
+        # list and the gram's words
+        @word_list.reject! { |w| (w.split & included).empty? }
+      end
+    end
+
+    @word_list = @word_list.take(@num_words) if @num_words != 0
   end
 
   # Get the name of this block
