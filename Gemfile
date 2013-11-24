@@ -48,12 +48,10 @@ gem 'haml-rails'
 gem 'kramdown'
 gem 'nokogiri'
 
-gem 'zepto_rails'
-gem 'rails-behaviors'
-
+gem 'jquery-rails'
 gem 'compass-rails'
 gem 'sass-rails'
-gem 'zurb-foundation'
+gem 'foundation-rails'
 gem 'simple_form'
 
 gem 'yui-compressor'

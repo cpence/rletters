@@ -19,7 +19,6 @@ SimpleForm.setup do |config|
   config.boolean_style = :nested
   config.button_class = 'button'
   config.error_notification_class = 'alert-box alert'
-  config.form_class = :custom
 
   config.default_wrapper = :foundation
 end

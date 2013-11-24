@@ -23,7 +23,6 @@
 
   blockquote {
     @include panel;
-    @include radius($global-radius);
 
     width: 60%;
     margin-left: 20%;
@@ -32,7 +31,7 @@
 }
 
 #landing-login {
-  @include button($button-med, $primary-color, true, true);
+  @include button($button-med, $primary-color, false, true);
   @include single-transition;
   @include inset-shadow;
 
@@ -41,7 +40,7 @@
 }
 
 .job-question {
-  @include button($button-med, $secondary-color, true, true);
+  @include button($button-med, $secondary-color, false, true);
   @include single-transition;
   @include inset-shadow;
 }
@@ -55,7 +54,6 @@
 
   blockquote {
     @include panel;
-    @include radius($global-radius);
 
     width: 60%;
     margin-left: 20%;

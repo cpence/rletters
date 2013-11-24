@@ -2,9 +2,9 @@
   .row
     .small-6.columns= link_to t('.single_dataset'), new_dataset_path(q: "uid:\"#{document.uid}\"", defType: 'lucene', fq: nil), data: { reveal_id: "single-#{document.html_uid}-modal", reveal_ajax: 'true' }, class: 'button success small expand'
     .small-6.columns= link_to t('.add_to_dataset'), '#', data: { reveal_id: "add-#{document.html_uid}-modal" }, class: 'button success small expand'
-    .reveal-modal{ id: "single-#{document.html_uid}-modal"}
+    .reveal-modal{ id: "single-#{document.html_uid}-modal", data: { reveal: true } }
       .preloader
-    .reveal-modal{ id: "add-#{document.html_uid}-modal" }= render partial: 'add', locals: { document: document }
+    .reveal-modal{ id: "add-#{document.html_uid}-modal", data: { reveal: true } }= render partial: 'add', locals: { document: document }
 
 - if document.doi
   .row

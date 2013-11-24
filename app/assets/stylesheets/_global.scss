@@ -31,7 +31,6 @@ header {
 
 .flash-generic, .flash-notice, .flash-success, .flash-alert {
   @include alert-base;
-  @include radius($global-radius);
   .close { @include alert-close; }
 }
 
@@ -54,9 +53,6 @@ table.button-table {
   td.button-cell, th.button-cell { width: 1px; white-space: nowrap; }
 }
 
-.custom.radio, .custom.checkbox { margin-right: 0.5em; }
-.input.radio_buttons, .input.boolean { margin-bottom: 1em; }
-
 footer {
   @include grid-row;
   padding: 3em 0;
@@ -65,10 +61,11 @@ footer {
     @include grid-column(12);
 
     color: lighten($header-font-color, 30%);
-    font-size: 75%;
 
     dl.sitemap {
       @include sub-nav(inherit, 100%);
+
+      font-size: 75%;
 
       dd, dt, li {
         margin-left: 2em;
@@ -76,6 +73,9 @@ footer {
       }
     }
 
-    p { margin: 0 0 0 0.5em; }
+    p {
+      font-size: 75%;
+      margin: 0 0 0 0.5em;
+    }
   }
 }

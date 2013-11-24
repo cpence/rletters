@@ -423,12 +423,12 @@ module SearchHelper
     if category_enabled(category)
       link_to(search_path(new_params)) do
         check_box_tag("category_#{category.to_param}", '1', true, disabled: true) +
-          category.name
+          content_tag(:span, category.name)
       end
     else
       link_to(search_path(new_params)) do
         check_box_tag("category_#{category.to_param}", '1', false, disabled: true) +
-          category.name
+          content_tag(:span, category.name)
       end
     end
   end

@@ -10,7 +10,7 @@
 - unless @pending_tasks.empty?
   .row
     .small-12.columns
-      .panel.radius
+      .panel
         %h5= t('.pending_header')
         %p= t('.pending_count', count: @pending_tasks.count)
         %p= t_md('.pending_cancel_markdown', terminate_url: workflow_fetch_path(terminate: 'true'), email: Admin::Setting.app_email)

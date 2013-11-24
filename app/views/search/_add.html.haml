@@ -4,7 +4,7 @@
 - if current_user.datasets.active.blank?
   %p= t('.no_datasets')
 - else
-  = form_tag dataset_path(current_user.datasets.first), method: :patch, class: 'custom', id: "add-form-#{document.html_uid}" do
+  = form_tag dataset_path(current_user.datasets.first), method: :patch, id: "add-form-#{document.html_uid}" do
     = hidden_field_tag :uid, document.uid
     .row
       .large-6.columns

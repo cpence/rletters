@@ -1,9 +1,9 @@
 -# Unfinished (active/failed) analysis tasks
 - if @dataset.analysis_tasks.not_finished.count > 0
   - if @dataset.analysis_tasks.active.count > 0
-    .alert-box.radius= t('.pending', count: @dataset.analysis_tasks.active.count)
+    .alert-box= t('.pending', count: @dataset.analysis_tasks.active.count)
   - if @dataset.analysis_tasks.failed.count > 0
-    .alert-box.alert.radius= link_to t('.failed', count: @dataset.analysis_tasks.failed.count), dataset_path(@dataset, clear_failed: true)
+    .alert-box.alert= link_to t('.failed', count: @dataset.analysis_tasks.failed.count), dataset_path(@dataset, clear_failed: true)
 
 -# Finished analysis tasks: link to download results and to delete
 %table.button-table

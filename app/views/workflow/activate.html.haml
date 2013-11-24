@@ -30,7 +30,7 @@
     %hr
 
     - if @user_datasets.count < @num_datasets
-      .alert-box.alert.radius= t('.pending_count', count: (@num_datasets - @user_datasets.count))
+      .alert-box.alert= t('.pending_count', count: (@num_datasets - @user_datasets.count))
 
     %h3= t('.dataset_list')
 
@@ -59,7 +59,7 @@
       %ul.button-group.even-2
         %li= link_to t('.create_button'), search_path, class: 'button success'
         %li= link_to t('.link_button'), '#', data: { reveal_id: 'link-modal' }, class: 'button secondary'
-        #link-modal.reveal-modal
+        #link-modal.reveal-modal{ data: { reveal: true } }
           %h4= t('.link_header')
           %h6.subheader= t('.link_subheader')
 
@@ -67,7 +67,7 @@
             %p= t('.link_no_datasets')
           - else
             #link-form-modal
-              = form_tag workflow_activate_path(params[:class]), method: :get, class: 'custom' do
+              = form_tag workflow_activate_path(params[:class]), method: :get do
                 .row
                   .large-6.columns
                     = label_tag :link_dataset_id, Dataset.model_name.human

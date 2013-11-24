@@ -89,18 +89,6 @@ When(/^I sign up with an invalid email$/) do
   sign_up
 end
 
-When(/^I sign up without a password confirmation$/) do
-  create_visitor
-  @visitor = @visitor.merge(password_confirmation: '')
-  sign_up
-end
-
-When(/^I sign up without a password$/) do
-  create_visitor
-  @visitor = @visitor.merge(password: '')
-  sign_up
-end
-
 When(/^I sign up with a mismatched password confirmation$/) do
   create_visitor
   @visitor = @visitor.merge(password_confirmation: 'changeme123')

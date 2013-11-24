@@ -1,6 +1,5 @@
-//= require zepto
-//= require zepto/all
-//= require rails
+//= require jquery
+//= require jquery_ujs
 //= require foundation
 
 $(document).foundation();

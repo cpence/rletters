@@ -79,7 +79,7 @@ Then(/^I should see a list of articles$/) do
 end
 
 Then(/^I should see the number of articles found$/) do
-  expect(page).to have_content(/\d+ articles found/)
+  expect(page).to have_content(/\d+ articles found/i)
 end
 
 Then(/^the article list should contain (.*)$/) do |content|
@@ -92,7 +92,7 @@ Then(/^I should see the documents formatted with my style$/) do
 end
 
 Then(/^I should see (\d+) articles$/) do |num|
-  expect(page).to have_content("#{num} articles")
+  expect(page).to have_content(/#{num} articles /i)
 end
 
 Then(/^I should see "(.*?)" in the list of active filters$/) do |facet|

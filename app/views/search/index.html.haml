@@ -20,7 +20,7 @@
       .row
         .small-12.columns
           = search_field_tag :q, (params[:precise] ? t('.adv_search_placeholder') : params[:q]), placeholder: t('.placeholder')
-          %ul.button-group.radius.even-2
+          %ul.button-group.even-2
             %li= link_to(sort_to_string(@sort), '#', class: 'button secondary dropdown small', 'data-dropdown' => 'sort-dropdown')
             - if user_signed_in?
               %li= link_to t('.create_dataset'), new_dataset_path(q: @solr_q, defType: @solr_defType, fq: @solr_fq), class: 'button success small', data: { reveal_id: 'new-modal', reveal_ajax: 'true' }
@@ -47,7 +47,7 @@
       %div.f-dropdown.medium.content{ 'data-dropdown-content' => true, id: "drop-#{d.html_uid}" }= render partial: 'dropdown', locals: { document: d }
 
   .small-12.large-3.columns
-    .radius.panel
+    .panel
       %h5= t('.filters')
       %ul.side-nav
         = facet_link_list(@result)
@@ -56,5 +56,5 @@
 
       %p= link_to t('.advanced_search'), search_advanced_path, class: 'button secondary small expand'
 
-#new-modal.reveal-modal
+#new-modal.reveal-modal{ data: { reveal: true } }
   .preloader
