@@ -47,6 +47,7 @@ Dir.glob(Rails.root.join('db', 'seeds', 'images', '*')) do |img|
 end
 
 # Stop lists
+require Rails.root.join('app', 'models', 'document.rb')
 Dir.glob(Rails.root.join('db', 'seeds', 'stoplists', '*.txt')) do |txt|
   language = File.basename(txt, '.txt')
   Documents::StopList.where(language: language).first_or_create(list: IO.read(txt))
