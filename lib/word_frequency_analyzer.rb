@@ -93,12 +93,19 @@ class WordFrequencyAnalyzer
   #   The default is +:big_last+.
   # @option options [String] :inclusion_list If specified, then the analyzer
   #   will only compute frequency information for the words that are specified
-  #   in this list (which is space-separated).  Cannot be used if +ngrams+ is
-  #   set.
+  #   in this list (which is space-separated).
+  #
+  #   If +ngrams+ is set, then this works differently.  This list is assumed
+  #   to be a comma-separated list of single words.  Ngrams will only be
+  #   analyzed, then, if the ngram contains _at least one_ of the words found
+  #   in +inclusion_list+.
   # @option options [String] :exclusion_list If specified, then the analyzer
   #   will *not* compute frequency information for the words that are specified
-  #   in this list (which is space-separated).  Cannot be used if +ngrams+ is
-  #   set.
+  #   in this list (which is space-separated).
+  #
+  #   If +ngrams+ is set, then this works differently.  This list is assumed
+  #   to be a comma-separated list of single words.  If an ngram contains _any
+  #   of the words_ in this list, then it will not be analyzed.
   # @option options [Documents::StopList] :stop_list If specified, then the
   #   analyzer will *not* compute frequency information for the words that
   #   appear within this stop list.  Cannot be used if +ngrams+ is set.
