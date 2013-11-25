@@ -28,7 +28,7 @@ RLetters::Application.configure do
     if path =~ /\.js\z/
       full_path = Rails.application.assets.resolve(path).to_path
       app_assets_path = Rails.root.join('app', 'assets', 'javascripts').to_path
-      if full_path.starts_with? app_assets_path
+      if full_path.starts_with?(app_assets_path) || full_path.basename == 'modernizr.js'
         puts "including asset: #{full_path}"
         true
       else
