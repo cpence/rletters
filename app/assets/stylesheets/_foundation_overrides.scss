@@ -384,9 +384,9 @@ $dropdown-button-pip-color-alt: $gray-6;
 $form-label-font-color: $gray-6;
 // $form-label-bottom-margin: rem-calc(8);
 // $input-font-family: inherit;
-// $input-font-color: rgba(0,0,0,0.75);
+$input-font-color: #000;
 // $input-font-size: rem-calc(14);
-$input-bg-color: $gray-1;
+$input-bg-color: #fafafa;
 $input-focus-bg-color: darken($input-bg-color, 2%);
 $input-border-color: darken($input-bg-color, 20%);
 $input-focus-border-color: darken($input-bg-color, 40%);
@@ -431,7 +431,7 @@ $input-error-message-font-color-alt: $gray-6;
 // $glowing-effect-color: $input-focus-border-color;
 
 // Select variables
-// $select-bg-color: #fafafa  ;
+$select-bg-color: #fafafa;
 
 // Inline Lists
 
