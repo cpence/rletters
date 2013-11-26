@@ -69,11 +69,11 @@ class Datasets::AnalysisTasksController < ApplicationController
       current_user.save
 
       redirect_to root_path,
-                  flash: { success: I18n.t('datasets.create.workflow') }
+                  flash: { success: I18n.t('datasets.create.building_workflow') }
     else
       # Advanced mode
       redirect_to dataset_path(@dataset),
-                  flash: { success: I18n.t('datasets.create.success') }
+                  flash: { success: I18n.t('datasets.create.building') }
     end
   end
 
