@@ -228,6 +228,13 @@ en:
     jobs:
         concerns:
             compute_word_frequencies:
+                ngram_method: Analyze single words or n-grams?
+                single_words: Single words
+                n_grams: N-grams (multiple word phrases)
+                ngram_size: Size of phrases to analyze
+                num_ngrams: Number of n-grams to analyze
+                ngram_inclusion_list: Include only n-grams that contain one of the following words (space-separated)
+                ngram_exclusion_list: Exclude any n-grams that contain one of the following words (space-separated)
                 word_method: Word selection method
                 most_frequent: Most frequent words
                 list: Explicit list of words
@@ -239,8 +246,8 @@ en:
                 exclusion_list: Words to exclude (space-separated)
                 inclusion_list: Words to analyze (space-separated)
                 block_method: Text block method
-                num_words: By number of words
-                num_blocks: By number of blocks
+                num_words_split: By number of words
+                num_blocks_split: By number of blocks
                 block_size: Number of words per block
                 last_block: Last block method
                 big_last: Big last block
@@ -593,11 +600,7 @@ en:
                 download_button: Download Results
                 view_button: View Results
                 delete_button: Delete Task
-            new_datasets:
-                header: Add more datasets
-                subheader: "This job requires more than one dataset to run.  Select the rest of the datasets you'd like to use below."
-                cancel: Cancel
-            new_params:
+            new:
                 header: Job options
                 subheader: This job has some more options that you can configure before you get started.
             create:

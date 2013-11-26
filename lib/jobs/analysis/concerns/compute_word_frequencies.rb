@@ -55,6 +55,7 @@ module Jobs
 
             # Perform the analysis and return it
             WordFrequencyAnalyzer.new(dataset,
+                                      ngrams: args[:ngrams],
                                       block_size: args[:block_size],
                                       num_blocks: args[:num_blocks],
                                       num_words: args[:num_words],
@@ -72,6 +73,12 @@ module Jobs
           # Since the params are coming in from a form, they'll all be strings.
           # We need them as integer or boolean types, so convert them here.
           def self.convert_args!(args)
+            if args[:ngrams].blank?
+              args[:ngrams] = 1
+            else
+              args[:ngrams] = Integer(args[:ngrams])
+            end
+
             if args[:block_size].blank?
               args[:block_size] = nil
             else
