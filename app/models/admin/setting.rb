@@ -10,6 +10,7 @@
 #   Admin::Setting.solr_server_url
 #   # => 'http://localhost:8983/solr/'
 class Admin::Setting < ActiveRecord::Base
+  self.table_name = 'admin_settings'
   serialize :value
 
   # The list of setting keys that can be used
@@ -60,12 +61,5 @@ class Admin::Setting < ActiveRecord::Base
     ret = I18n.t("settings.#{key}", default: '')
     return key.to_s if ret == ''
     ret
-  end
-end
-
-# Module for resources related to site administration
-module Admin
-  def self.table_name_prefix
-    'admin_'
   end
 end

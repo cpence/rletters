@@ -16,14 +16,9 @@
 # @!attribute journals
 #   @return [Array<String>] list of journals in this category
 class Documents::Category < ActiveRecord::Base
+  self.table_name = 'documents_categories'
   validates :name, presence: true
   serialize :journals, Array
-
-  # Set table name manually
-  #
-  # For some reason, this model doesn't pick up Documents.table_name_prefix.
-  # Fix it here.
-  self.table_name = 'documents_categories'
 
   # Enable closure_tree
   acts_as_tree name_column: 'name', order: 'sort_order'

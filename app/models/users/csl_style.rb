@@ -13,6 +13,7 @@
 #   @raise [RecordInvalid] if the source is missing (validates :presence)
 #   @return [String] XML source for this CSL style
 class Users::CslStyle < ActiveRecord::Base
+  self.table_name = 'users_csl_styles'
   validates :name, presence: true
   validates :style, presence: true
 end

@@ -33,6 +33,7 @@
 #   @return [DateTime] The last updated time of the result file (from
 #     Paperclip)
 class Datasets::AnalysisTask < ActiveRecord::Base
+  self.table_name = 'datasets_analysis_tasks'
   serialize :params, Hash
 
   validates :name, presence: true

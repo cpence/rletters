@@ -12,6 +12,7 @@
 # @!attribute file
 #   @return [Paperclip::Attachment] The asset itself
 class Admin::UploadedAsset < ActiveRecord::Base
+  self.table_name = 'admin_uploaded_assets'
   validates :name, presence: true
 
   # Store these assets in the database

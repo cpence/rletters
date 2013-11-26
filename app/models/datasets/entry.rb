@@ -11,6 +11,7 @@
 # @!attribute dataset
 #   @return [Dataset] The dataset this entry belongs to
 class Datasets::Entry < ActiveRecord::Base
+  self.table_name = 'datasets_entries'
   validates :uid, presence: true
 
   # Do *not* validate the dataset association here.  Since datasets and

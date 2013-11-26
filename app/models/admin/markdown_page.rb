@@ -17,6 +17,7 @@
 # @!attribute content
 #   @return [String] Markdown content for this page
 class Admin::MarkdownPage < ActiveRecord::Base
+  self.table_name = 'admin_markdown_pages'
   validates :name, presence: true
 
   # @return [String] Friendly name of this page (looked up in locale)

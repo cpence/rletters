@@ -15,6 +15,8 @@
 # @!attribute remember_me
 #   @return [Boolean] Whether to keep user logged in (from Devise)
 class Admin::Administrator < ActiveRecord::Base
+  self.table_name = 'admin_administrators'
+
   devise :async, :database_authenticatable,
          :recoverable, :rememberable, :trackable, :validatable
 end

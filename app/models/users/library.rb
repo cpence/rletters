@@ -13,6 +13,7 @@
 #   @raise [RecordInvalid] if the user is missing (validates :presence)
 #   @return [User] The user this library entry belongs to
 class Users::Library < ActiveRecord::Base
+  self.table_name = 'users_libraries'
   belongs_to :user
 
   validates :name, presence: true
