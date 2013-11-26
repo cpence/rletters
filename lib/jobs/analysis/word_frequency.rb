@@ -103,9 +103,13 @@ module Jobs
                 r << Math.tfidf((b[word] || 0).to_f / s[:tokens].to_f,
                                 analyzer.df_in_dataset[word],
                                 dataset.entries.count)
-                r << Math.tfidf((b[word] || 0).to_f / s[:tokens].to_f,
-                                analyzer.df_in_corpus[word],
-                                analyzer.num_corpus_documents)
+                if analyzer.df_in_corpus.present?
+                  r << Math.tfidf((b[word] || 0).to_f / s[:tokens].to_f,
+                                  analyzer.df_in_corpus[word],
+                                  analyzer.num_corpus_documents)
+                else
+                  r << ''
+                end
               end
 
               # Output the block stats at the end
@@ -133,12 +137,18 @@ module Jobs
                   I18n.t('jobs.analysis.word_frequency.tfidf_corpus_header')]
           analyzer.word_list.each do |w|
             tf_in_dataset = analyzer.tf_in_dataset[w]
-            csv << [w,
-                    tf_in_dataset.to_s,
-                    (tf_in_dataset.to_f / analyzer.num_dataset_tokens).to_s,
-                    analyzer.df_in_corpus[w].to_s,
-                    Math.tfidf(tf_in_dataset, analyzer.df_in_corpus[w],
-                               analyzer.num_corpus_documents)]
+            r = [w,
+                 tf_in_dataset.to_s,
+                 (tf_in_dataset.to_f / analyzer.num_dataset_tokens).to_s]
+            if analyzer.df_in_corpus.present?
+              r << analyzer.df_in_corpus[w].to_s
+              r << Math.tfidf(tf_in_dataset, analyzer.df_in_corpus[w],
+                              analyzer.num_corpus_documents)
+            else
+              r << ''
+              r << ''
+            end
+            csv << r
           end
           csv << [I18n.t('jobs.analysis.word_frequency.types_header'),
                   analyzer.num_dataset_types.to_s]

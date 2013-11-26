@@ -4,26 +4,31 @@
 
 This job yields an incredibly detailed word frequency chart, customizable in a variety of ways.  You may choose any of the following methods to select a set of words you're interested in:
 
-*   Take the N most frequently occurring words in the dataset
-*   Take an explicit list of words
-*   Remove from the list the most common words appearing in a variety of languages
-*   Remove from the list any words appearing in a given explicit list
+*   Analyze single words or phrases of more than one word (n-grams)
+*   Take the N most frequently occurring words (or n-grams) in the dataset
+*   For single words:
+    *   Take an explicit list of words
+    *   Remove from the list the most common words appearing in a variety of languages
+    *   Remove from the list any words appearing in a given explicit list
+*   For n-grams:
+    *   Include only n-grams that contain certain words
+    *   Exclude any n-grams that contain certain words
 
 You may then choose to divide the text into segments, a common requirement for other analysis algorithms.  You can create these segments either by setting an explicit number of words, or by setting the number of blocks you would like to appear in the final result.  These blocks can either be produced within each individual journal article, or across journal article boundaries (i.e., segmented after the articles are concatenated into one large stream of text).
 
-A variety of results are then reported.  Within each segmented block of text, you receive the following statistics for each word:
+A variety of results are then reported.  Within each segmented block of text, you receive the following statistics for each word (or n-gram):
 
 *   How many times that word appears within the block
 *   That absolute count divided by the number of words within the block (i.e., the fraction of the block that this word constitutes)
 *   [TF/IDF (term frequency-inverse document frequency)](https://en.wikipedia.org/wiki/Tf%E2%80%93idf) of this term within the dataset
-*   TF/IDF of this term within the corpus as a whole
+*   TF/IDF of this term within the corpus as a whole (not available for n-grams)
 
 You also can see the number of types and tokens for each segment.  And for the entire dataset, you receive the following statistics for each word:
 
 *   How many times that word appears within the entire dataset
 *   That absolute count divided by the number of words within the dataset (i.e., the fraction of the dataset that this word constitutes)
-*   DF (document frequency) of this term within the entire corpus (i.e., the number of documents in the entire database in which this term appears)
-*   TF/IDF of this term within the entire corpus
+*   DF (document frequency) of this term within the entire corpus (i.e., the number of documents in the entire database in which this term appears; not available for n-grams)
+*   TF/IDF of this term within the entire corpus (not available for n-grams)
 
 In addition to supplying the raw input for a wide variety of textual analysis algorithms that the user can run on their own, this data can immediate answer a variety of interesting questions:
 
