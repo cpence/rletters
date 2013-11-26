@@ -31,7 +31,7 @@ class SearchController < ApplicationController
     offset = @page * @per_page
     limit = @per_page
 
-    # Default sort to relevance if there's a search, otherwise title
+    # Default sort to relevance if there's a search, otherwise year
     if params[:precise] || params[:q]
       @sort = 'score desc'
     else
@@ -50,6 +50,12 @@ class SearchController < ApplicationController
                                                          start: offset,
                                                          rows: limit }))
     @documents = @result.documents
+
+    # Respond
+    respond_to do |format|
+      format.html
+      format.json { render json: @documents, root: 'results' }
+    end
   end
 
   # Show the advanced search page

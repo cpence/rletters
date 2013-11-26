@@ -104,6 +104,7 @@ class Document
   # Make this class act like an ActiveRecord model, though it's not backed by
   # the database (it's in Solr).
   include ActiveModel::Model
+  include ActiveModel::SerializerSupport
 
   attr_accessor :uid, :doi, :license, :license_url, :data_source, :authors,
                 :author_list, :formatted_author_list, :title, :journal,

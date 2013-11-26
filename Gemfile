@@ -47,6 +47,7 @@ gem 'haml'
 gem 'haml-rails'
 gem 'kramdown'
 gem 'nokogiri'
+gem 'active_model_serializers'
 
 gem 'jquery-rails'
 gem 'compass-rails'
