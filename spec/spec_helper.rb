@@ -94,12 +94,9 @@ RSpec.configure do |config|
     DatabaseCleaner.clean
   end
 
-  # Add helpers for Devise
+  # Add a variety of test helpers
   config.include Devise::TestHelpers, type: :controller
-
-  # Add helpers for running Solr queries in view specs
   config.include SearchControllerQuery, type: :view
-
-  # Add helpers for stubbing HTTP connections
+  config.include ParseJson, type: :request
   config.include StubConnection
 end
