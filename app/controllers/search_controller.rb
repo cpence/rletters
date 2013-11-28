@@ -50,12 +50,6 @@ class SearchController < ApplicationController
                                                          start: offset,
                                                          rows: limit }))
     @documents = @result.documents
-
-    # Respond
-    respond_to do |format|
-      format.html
-      format.json { render json: @documents, root: 'results' }
-    end
   end
 
   # Show the advanced search page

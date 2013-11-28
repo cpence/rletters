@@ -47,7 +47,8 @@ gem 'haml'
 gem 'haml-rails'
 gem 'kramdown'
 gem 'nokogiri'
-gem 'active_model_serializers'
+gem 'oj', platform: [:ruby, :mswin, :mingw]
+gem 'rabl'
 
 gem 'jquery-rails'
 gem 'compass-rails'
