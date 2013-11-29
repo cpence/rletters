@@ -1,6 +1,7 @@
 # RLetters #
 
-[![Build Status][travis_img]][travis] [![Dependency Status][gemnasium_img]][gemnasium] [![Coverage Status][coveralls_img]][coveralls] [![Code Metrics][codeclimate_img]][codeclimate]
+[![Build Status][travis_img]][travis] [![Dependency Status][gemnasium_img]][gemnasium] [![Coverage Status][coveralls_img]][coveralls] [![Code Metrics][codeclimate_img]][codeclimate]  
+[![External API Docs][apiary_img]][apiary] [![Code Docs][rubydoc_img]][rubydoc] [![Feature Docs][relish_img]][relish]
 
 [travis]: http://travis-ci.org/rletters/rletters
 [travis_img]: https://secure.travis-ci.org/rletters/rletters.png?branch=master
@@ -10,6 +11,12 @@
 [codeclimate_img]: https://codeclimate.com/github/rletters/rletters.png
 [gemnasium]: https://gemnasium.com/rletters/rletters
 [gemnasium_img]: https://gemnasium.com/rletters/rletters.png
+[apiary]: http://docs.rletters.apiary.io/
+[apiary_img]: http://rletters.net/images/apiary.png
+[rubydoc]: http://rubydoc.info/github/rletters/rletters
+[rubydoc_img]: http://rletters.net/images/rubydoc.png
+[relish]: https://www.relishapp.com/rletters/rletters/docs
+[relish_img]: http://rletters.net/images/relish.png
 
 **Homepage:** [http://rletters.net](http://rletters.net)  
 **Git:** [http://github.com/rletters/rletters](http://github.com/rletters/rletters)  
@@ -24,6 +31,18 @@ RLetters is an application designed to let users perform complex searches as wel
 
 ## Features ##
 
+### Text analysis ###
+
+RLetters allows users to save the results of a given search as a "dataset."  This produces a saved record that users can return to later in order to perform text analysis tasks.
+
+While text analysis tasks are a current area of active development in RLetters, currently the following are available:
+
+-   Compute term frequency information (for single words or multiple-word phrases)
+-   Compare word usage in two different datasets
+-   Graph dataset by publication date
+-   Extract references to proper names (locations, people, organizations)
+-   Export dataset as citations in a variety of formats
+
 ### Complex search ###
 
 The Solr backend on which RLetters is based allows for a number of complicated searching operations:
@@ -33,17 +52,6 @@ The Solr backend on which RLetters is based allows for a number of complicated s
 -   Text stemming ("evolution" matching "evolutionary" or "evolutionist")
 -   Fuzzy matching (matching words similar to the requested term)
 -   Proximity searching (two terms within N words of one another)
-
-### Text analysis ###
-
-RLetters allows users to save the results of a given search as a "dataset."  This produces a saved record that users can return to later in order to perform text analysis tasks.
-
-While text analysis tasks are a current area of active development in RLetters, currently the following are available:
-
--   Compute term frequency information
--   Graph dataset by year
--   Extract references to proper names (locations, people, organizations)
--   Export dataset as citations in a variety of formats
 
 ### Support for web and library standards ###
 
