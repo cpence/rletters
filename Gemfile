@@ -14,7 +14,7 @@ gem 'addressable'
 
 # Job scheduling
 gem 'resque'
-gem 'resque-scheduler', '~> 2.2.0', require: 'resque_scheduler'
+gem 'resque-scheduler', require: 'resque_scheduler'
 gem 'resque_mailer'
 
 # User authentication and administration
@@ -31,7 +31,7 @@ gem 'rsolr-ext'
 gem 'stanford-core-nlp'
 
 # Citation processing
-gem 'bibtex-ruby', '~> 2.0', require: 'bibtex'
+gem 'bibtex-ruby', require: 'bibtex'
 gem 'citeproc-ruby', '>= 0.0.4'
 
 # Support for file attachments and exporting
