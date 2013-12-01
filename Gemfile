@@ -30,6 +30,8 @@ gem 'rsolr', '>= 1.0.7'
 gem 'rsolr-ext'
 gem 'stanford-core-nlp'
 gem 'distribution'
+gem 'fast-stemmer', platform: [:ruby, :mswin, :mingw]
+gem 'jruby-stemmer', platform: :jruby
 
 # Citation processing
 gem 'bibtex-ruby', require: 'bibtex'

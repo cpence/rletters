@@ -152,6 +152,7 @@ GEM
     factory_girl_rails (4.3.0)
       factory_girl (~> 4.3.0)
       railties (>= 3.0.0)
+    fast-stemmer (1.0.2)
     formtastic (2.3.0.rc2)
       actionpack (>= 3.0)
     foundation-rails (5.0.2.0)
@@ -409,10 +410,12 @@ DEPENDENCIES
   distribution
   druthers
   factory_girl_rails
+  fast-stemmer
   foundation-rails
   haml
   haml-rails
   jquery-rails
+  jruby-stemmer
   kramdown
   marc
   mock_redis
