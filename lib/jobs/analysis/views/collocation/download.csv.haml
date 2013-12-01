@@ -1,0 +1,11 @@
+- require 'csv'
+- data = JSON.load(@task.result.file_contents(:original))
+!= CSV.generate do |csv|
+  - csv << [t('jobs.analysis.collocation.header', name: data['name'])]
+  - csv << [t('jobs.analysis.collocation.subheader', test: data['algorithm'])]
+  - csv << ['']
+
+  - csv << [t('jobs.analysis.collocation.pair'), data['column']]
+  - data['data'].each { |k, v| csv << [k, v] }
+
+  - csv << ['']

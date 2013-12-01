@@ -15,7 +15,9 @@ StanfordCoreNLP.log_file = Rails.root.join('log', 'stanford-nlp.log').to_s
 # good old fashioned global variable
 NER_CLASSIFIER_PATH = Rails.root.join('vendor', 'nlp', 'classifiers',
                                       'all.3class.distsim.crf.ser.gz').to_s
-NLP_ENABLED = File.exists?(NER_CLASSIFIER_PATH)
+POS_TAGGER_PATH = Rails.root.join('vendor', 'nlp', 'taggers',
+                                  'english-left3words-distsim.tagger').to_s
+NLP_ENABLED = File.exists?(NER_CLASSIFIER_PATH) && File.exists?(POS_TAGGER_PATH)
 
 if NLP_ENABLED
   # Load the java classes now, on initialization

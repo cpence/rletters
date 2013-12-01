@@ -3,8 +3,6 @@
 # Ruby's standard Math module
 module Math
 
-  # Extend the Math module with a few useful functions.
-
   # Compute the term frequency-inverse document frequency for a term
   #
   # @param [Integer] tf The frequency of this term in the document

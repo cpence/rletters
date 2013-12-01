@@ -29,6 +29,7 @@ gem 'druthers'
 gem 'rsolr', '>= 1.0.7'
 gem 'rsolr-ext'
 gem 'stanford-core-nlp'
+gem 'distribution'
 
 # Citation processing
 gem 'bibtex-ruby', require: 'bibtex'

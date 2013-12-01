@@ -262,6 +262,26 @@ en:
                 dataset_label: Dataset to normalize against
                 all: Entire corpus
         analysis:
+            collocation:
+                name: Collocation Analysis
+                short_desc: Determine significant associations between word pairs
+                question: >
+                    What pairs of words often appear together?
+
+                    What technical terms or phrases appear in the literature?
+                mi: Mutual Information
+                mi_column: Mutual Information
+                t: T-test
+                t_column: p-value
+                likelihood: Log-likelihood
+                likelihood_column: "-2*log-likelihood"
+                pos: Frequency (filtered by parts of speech)
+                pos_column: Frequency
+                analysis_type: Test to use for significance
+                num_pairs: Number of collocations to find
+                header: "Collocation analysis for %{name}"
+                subheader: "Significance test: %{test}"
+                pair: 'Collocation pair'
             craig_zeta:
                 name: Craig Zeta
                 short_desc: Determine words that differentiate two datasets (Craig Zeta)
@@ -295,6 +315,7 @@ en:
                 question: >
                     Can I export a set of articles to my favorite format or
                     reference manager?
+                format: Format for export
             named_entities:
                 name: Extract Proper Names
                 short_desc: Extract references to proper names

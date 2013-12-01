@@ -36,7 +36,7 @@ module Jobs
       # @option args [String] other_dataset_id the dataset to compare with
       # @return [undefined]
       # @example Start a job for comparing two datasets
-      #   Resque.enqueue(Jobs::Analysis::BurrowsDelta,
+      #   Resque.enqueue(Jobs::Analysis::CraigZeta,
       #                  user_id: current_user.to_param,
       #                  dataset_id: dataset.to_param,
       #                  task_id: task.to_param,
@@ -72,14 +72,12 @@ module Jobs
         # needed, because we're going to remove common words below.
         analyzer_1 = compute_word_frequencies(
           dataset_1,
-          num_words: 999_999,
           block_size: 500,
           split_across: true,
           last_block: :big_last
         )
         analyzer_2 = compute_word_frequencies(
           dataset_2,
-          num_words: 999_999,
           block_size: 500,
           split_across: true,
           last_block: :big_last

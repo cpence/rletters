@@ -30,7 +30,7 @@ You also can see the number of types and tokens for each segment.  And for the e
 *   DF (document frequency) of this term within the entire corpus (i.e., the number of documents in the entire database in which this term appears; not available for n-grams)
 *   TF/IDF of this term within the entire corpus (not available for n-grams)
 
-In addition to supplying the raw input for a wide variety of textual analysis algorithms that the user can run on their own, this data can immediate answer a variety of interesting questions:
+In addition to supplying the raw input for a wide variety of textual analysis algorithms that the user can run on their own, this data can immediately answer a variety of interesting questions:
 
 > How often are certain words used within a given dataset? *(Input: a domain of interest, looking at the proportion value for the terms at issue)*
 >
