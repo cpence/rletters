@@ -10,7 +10,7 @@ describe Jobs::Analysis::NamedEntities, nlp: false do
 end
 
 describe Jobs::Analysis::NamedEntities, nlp: true do
-  it_should_behave_like 'an analysis job with a file'
+  it_should_behave_like 'an analysis job'
 
   describe '.download?' do
     it 'is false' do

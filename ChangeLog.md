@@ -5,11 +5,17 @@
 *   The entire user interface has been rewritten.
     *   This includes a new "workflow" mode, in which the user will be walked through the process of starting a new analysis, adding data to it, and collecting the results when it completes.
     *   The ability to manually start analysis tasks from the page for the dataset has been removed; the workflow controller is now the only way to start tasks.
-*   A new "Differentiate two datasets" job has been added, which will compare two datasets using the Craig Zeta algorithm.  This is the Zeta algorithm, originally introduced by John F. Burrows (Literary and Linguistic Computing, 22(1):27, 2007), as extended by Hugh Craig (Craig and Kinney, _Shakespeare, Computers, and the Mystery of Authorship,_ 2009) to generate both marker words and anti-marker words.
+*   A new "differentiate two datasets" job has been added, which will compare two datasets using the Craig Zeta algorithm.  This is the Zeta algorithm, originally introduced by John F. Burrows (Literary and Linguistic Computing, 22(1):27, 2007), as extended by Hugh Craig (Craig and Kinney, _Shakespeare, Computers, and the Mystery of Authorship,_ 2009) to generate both marker words and anti-marker words.
     *   Thanks to [David Hoover's analysis pages,](https://files.nyu.edu/dh3/public/TheZeta&IotaSpreadsheet.html) which were exceptionally useful in the implementation of this job.
     *   This analysis task compares the two requested datasets and returns a list of words for each that marks out a text as belonging to that dataset (words that make a document likely to appear in dataset A and words that make a document likely to appear in dataset B).
     *   It also produces a graph, showing the separation between these two sets of words.  It does so by looking at pieces of each of datasets A and B, and determining what fraction of the words in those pieces belong to the A-marker set and to the B-marker set, respectively.  If the analysis has succeeded, then this graph should appear as two clouds of distinct points, a set of A-dataset points and a set of B-dataset points, clearly delineated.
     *   Finally, it returns the "Zeta scores" of each of the 1,000 most common words in the datasets.  The highest possible Zeta score is 2.0 (indicating a "pure" A-marker word) and the lowest is 0.0 (indicating a "pure" B-marker word).
+*   A new "collocation analysis" job has been added, which will look for statistically significantly associated pairs of words within a text.
+    *   Statistical significance can be measured by any one of four different methods -- mutual information, a basic t-test, likelihood ratio, and a simple frequency-based count, culled by matching patterns in parts-of-speech usage.
+    *   The user specifies the number of collocations to return, and they are downloadable in a CSV file.
+*   A new "compute network of terms" job has been added, which renders the network of terms surrounding a given focal word.
+    *   The network is drawn using D3 showing node degree and node connection strength.
+    *   Results can be downloaded as a GraphML file for further analysis.
 *   The "compute word frequency" job now supports analyzing multiple-word phrases (n-grams), in addition to single words.
 *   RLetters now supports fetching the full text of documents from an external HTTP server.
 *   Administrators of RLetters sites can now define custom categories of journals, and if these categories are defined, they are available for users to filter their search results.

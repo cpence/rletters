@@ -129,6 +129,8 @@ GEM
       cucumber (>= 1.2.0)
       nokogiri (>= 1.5.0)
       rails (>= 3.0.0)
+    d3_rails (3.3.10)
+      railties (>= 3.1.0)
     database_cleaner (1.2.0)
     devise (3.2.2)
       bcrypt-ruby (~> 3.0)
@@ -184,6 +186,7 @@ GEM
       thor (>= 0.14, < 2.0)
     jquery-ui-rails (4.1.0)
       railties (>= 3.1.0)
+    jruby-stemmer (0.0.1-java)
     json (1.8.1)
     json (1.8.1-java)
     kaminari (0.15.0)
@@ -403,6 +406,7 @@ DEPENDENCIES
   compass-rails
   coveralls
   cucumber-rails
+  d3_rails
   database_cleaner
   devise
   devise-async

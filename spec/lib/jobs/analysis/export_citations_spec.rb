@@ -3,7 +3,7 @@ require 'spec_helper'
 
 describe Jobs::Analysis::ExportCitations do
 
-  it_should_behave_like 'an analysis job with a file' do
+  it_should_behave_like 'an analysis job' do
     let(:job_params) { { format: :bibtex } }
   end
 

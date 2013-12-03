@@ -3,7 +3,7 @@ require 'spec_helper'
 
 describe Jobs::Analysis::CraigZeta do
 
-  it_should_behave_like 'an analysis job with a file' do
+  it_should_behave_like 'an analysis job' do
     let(:job_params) { { other_datasets: [@dataset_2.id] } }
   end
 

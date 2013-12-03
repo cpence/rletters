@@ -331,6 +331,15 @@ en:
                 other_category: Other
                 type_column: Type
                 hit_column: Hit
+            network:
+                name: Compute Term Network
+                short_desc: Compute network of associated terms
+                question: >
+                    What broader network of words is often found with one focal
+                    word of interest?
+                word: Focal word
+                subheader: "Network of associated terms surrounding word: '%{word}'"
+                download: Download in GraphML format
             plot_dates:
                 name: Plot by Date
                 short_desc: Plot dataset by date

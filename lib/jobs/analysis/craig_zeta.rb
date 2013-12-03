@@ -62,7 +62,7 @@ module Jobs
         task = dataset_1.analysis_tasks.find(args[:task_id])
         fail ArgumentError, 'Task ID is not valid' unless task
 
-        task.name = I18n.t('jobs.analysis.craig_zeta.short_desc')
+        task.name = t('.short_desc')
         task.save
 
         # Do the analysis

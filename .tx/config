@@ -30,6 +30,12 @@ source_file = config/locales/named_entities/named_entities.en.md
 source_lang = en
 type = TXT
 
+[rletters.network]
+file_filter = config/locales/network/network.<lang>.md
+source_file = config/locales/network/network.en.md
+source_lang = en
+type = TXT
+
 [rletters.plot_dates]
 file_filter = config/locales/plot_dates/plot_dates.<lang>.md
 source_file = config/locales/plot_dates/plot_dates.en.md

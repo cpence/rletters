@@ -9,3 +9,4 @@ Mime::Type.register 'application/x-research-info-systems', :ris
 Mime::Type.register 'application/mods+xml', :mods
 Mime::Type.register 'application/rdf+xml', :rdf
 Mime::Type.register 'text/rdf+n3', :n3
+Mime::Type.register 'application/graphml+xml', :graphml

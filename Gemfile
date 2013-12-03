@@ -32,6 +32,7 @@ gem 'stanford-core-nlp'
 gem 'distribution'
 gem 'fast-stemmer', platform: [:ruby, :mswin, :mingw]
 gem 'jruby-stemmer', platform: :jruby
+gem 'd3_rails'
 
 # Citation processing
 gem 'bibtex-ruby', require: 'bibtex'

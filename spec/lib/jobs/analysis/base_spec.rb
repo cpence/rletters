@@ -12,7 +12,7 @@ describe Jobs::Analysis::Base do
 
   describe '.t' do
     it 'queries the right keys' do
-      expect(I18n).to receive(:t).with('jobs.analysis.mock_job.testing')
+      expect(I18n).to receive(:t).with('jobs.analysis.mock_job.testing', {})
       Jobs::Analysis::MockJob.t('.testing')
     end
   end

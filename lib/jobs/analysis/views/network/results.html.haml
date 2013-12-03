@@ -1,0 +1,23 @@
+- content_for :javascript do
+  = javascript_include_tag 'network'
+
+- data = JSON.load(@task.result.file_contents(:original))
+
+.row
+  .large-8.columns
+    %h2== #{Dataset.model_name.human}: #{@dataset.name}
+    %h4.subheader= t('jobs.analysis.network.subheader', word: data['word'])
+
+  .large-4.columns.job-header-button
+    = link_to t('jobs.analysis.network.download'), dataset_analysis_task_path(@dataset, @task, view: 'download', format: 'graphml'), class: 'button secondary expand'
+
+.row
+  .small-12.columns
+    %hr
+
+    .network_graph_nodes= data['d3_nodes'].to_json
+    .network_graph_links= data['d3_links'].to_json
+
+    .network_graph
+      .network_graph_box
+        %p ...

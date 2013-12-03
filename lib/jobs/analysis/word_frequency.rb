@@ -60,7 +60,7 @@ module Jobs
         task = dataset.analysis_tasks.find(args[:task_id])
         fail ArgumentError, 'Task ID is not valid' unless task
 
-        task.name = I18n.t('jobs.analysis.word_frequency.short_desc')
+        task.name = t('.short_desc')
         task.save
 
         # Do the analysis
@@ -68,13 +68,12 @@ module Jobs
 
         # Create some CSV
         csv_string = CSV.generate do |csv|
-          csv << [I18n.t('jobs.analysis.word_frequency.csv_header',
-                         name: dataset.name)]
+          csv << [t('.csv_header', name: dataset.name)]
           csv << ['']
 
           # Output the block data
           if analyzer.blocks.count > 1
-            csv << [I18n.t('jobs.analysis.word_frequency.each_block')]
+            csv << [t('.each_block')]
 
             name_row = ['']
             header_row = ['']
@@ -82,18 +81,18 @@ module Jobs
             analyzer.word_list.each do |w|
               word_rows << [w]
             end
-            types_row = [I18n.t('jobs.analysis.word_frequency.types_header')]
-            tokens_row = [I18n.t('jobs.analysis.word_frequency.tokens_header')]
-            ttr_row = [I18n.t('jobs.analysis.word_frequency.ttr_header')]
+            types_row = [t('.types_header')]
+            tokens_row = [t('.tokens_header')]
+            ttr_row = [t('.ttr_header')]
 
             analyzer.blocks.each_with_index do |b, i|
               s = analyzer.block_stats[i]
 
               name_row << s[:name] << '' << '' << ''
-              header_row << I18n.t('jobs.analysis.word_frequency.freq_header') \
-                         << I18n.t('jobs.analysis.word_frequency.prop_header') \
-                         << I18n.t('jobs.analysis.word_frequency.tfidf_dataset_header') \
-                         << I18n.t('jobs.analysis.word_frequency.tfidf_corpus_header')
+              header_row << t('.freq_header') \
+                         << t('.prop_header') \
+                         << t('.tfidf_dataset_header') \
+                         << t('.tfidf_corpus_header')
 
               word_rows.each do |r|
                 word = r[0]
@@ -130,11 +129,9 @@ module Jobs
 
           # Output the dataset data
           csv << ['']
-          csv << [I18n.t('jobs.analysis.word_frequency.whole_dataset')]
-          csv << ['', I18n.t('jobs.analysis.word_frequency.freq_header'),
-                  I18n.t('jobs.analysis.word_frequency.prop_header'),
-                  I18n.t('jobs.analysis.word_frequency.df_header'),
-                  I18n.t('jobs.analysis.word_frequency.tfidf_corpus_header')]
+          csv << [t('.whole_dataset')]
+          csv << ['', t('.freq_header'), t('.prop_header'),
+                  t('.df_header'), t('.tfidf_corpus_header')]
           analyzer.word_list.each do |w|
             tf_in_dataset = analyzer.tf_in_dataset[w]
             r = [w,
@@ -150,13 +147,10 @@ module Jobs
             end
             csv << r
           end
-          csv << [I18n.t('jobs.analysis.word_frequency.types_header'),
-                  analyzer.num_dataset_types.to_s]
-          csv << [I18n.t('jobs.analysis.word_frequency.tokens_header'),
-                  analyzer.num_dataset_tokens.to_s]
-          csv << [I18n.t('jobs.analysis.word_frequency.ttr_header'),
-                  (analyzer.num_dataset_types.to_f /
-                   analyzer.num_dataset_tokens).to_s]
+          csv << [t('.types_header'), analyzer.num_dataset_types.to_s]
+          csv << [t('.tokens_header'), analyzer.num_dataset_tokens.to_s]
+          csv << [t('.ttr_header'), (analyzer.num_dataset_types.to_f /
+                                     analyzer.num_dataset_tokens).to_s]
           csv << ['']
         end
 

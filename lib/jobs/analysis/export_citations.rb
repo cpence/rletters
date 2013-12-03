@@ -61,7 +61,7 @@ module Jobs
         fail ArgumentError, 'Format is not valid' unless serializer
 
         # Update the task name
-        task.name = I18n.t('jobs.analysis.export_citations.short_desc')
+        task.name = t('.short_desc')
         task.save
 
         # Make a zip file for the output

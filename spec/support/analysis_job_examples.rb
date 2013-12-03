@@ -99,22 +99,18 @@ shared_examples_for 'an analysis job' do
     end
   end
 
-  describe '.available?' do
-    it 'is true' do
-      expect(described_class.available?).to be true
-    end
-  end
-end
-
-shared_examples_for 'an analysis job with a file' do
-  include_examples 'an analysis job'
-
   context 'when a file is made' do
     include_context 'create job with params and perform'
 
     it 'makes a file for the task' do
       @task.reload
       expect(@task.result_file_size).to be > 0
+    end
+  end
+
+  describe '.available?' do
+    it 'is true' do
+      expect(described_class.available?).to be true
     end
   end
 end

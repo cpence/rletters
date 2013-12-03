@@ -1,0 +1,42 @@
+.network_graph {
+  position: relative;
+  display: block;
+  width: 750px;
+  margin: 0 auto;
+
+  text {
+    font: 10px sans-serif;
+  }
+
+  line {
+    stroke: #000;
+  }
+
+  circle {
+    stroke: #fff;
+    stroke-width: 1.5px;
+  }
+
+  .overlay {
+    fill: none;
+    pointer-events: all;
+  }
+}
+
+.network_graph_box {
+  position: absolute;
+  display: none;
+
+  width: 200px;
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 0.85);
+  border: 1px solid black;
+
+  p {
+    margin: 0;
+    font-size: 80%;
+  }
+}
+
+.network_graph_nodes { display: none; }
+.network_graph_links { display: none; }

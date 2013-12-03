@@ -3,7 +3,7 @@ require 'spec_helper'
 
 describe Jobs::Analysis::PlotDates do
 
-  it_should_behave_like 'an analysis job with a file'
+  it_should_behave_like 'an analysis job'
 
   before(:each) do
     @user = FactoryGirl.create(:user)

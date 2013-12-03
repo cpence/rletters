@@ -13,8 +13,8 @@ describe Jobs::Analysis::Collocation do
   end
 
   describe '.download?' do
-    it 'is false' do
-      expect(Jobs::Analysis::Collocation.download?).to be false
+    it 'is true' do
+      expect(Jobs::Analysis::Collocation.download?).to be true
     end
   end
 
@@ -49,26 +49,16 @@ describe Jobs::Analysis::Collocation do
           task_id: @task.to_param,
           num_pairs: '10',
           analysis_type: 'mi')
+
+        @output = CSV.parse(@dataset.analysis_tasks[0].result.file_contents(:original))
       end
 
       it 'names the task correctly' do
         expect(@dataset.analysis_tasks[0].name).to eq('Determine significant associations between word pairs')
       end
 
-      it 'creates good JSON' do
-        data = JSON.load(@dataset.analysis_tasks[0].result.file_contents(:original))
-        expect(data).to be_a(Hash)
-      end
-
-      it 'fills in some values' do
-        hash = JSON.load(@dataset.analysis_tasks[0].result.file_contents(:original))
-        expect(hash['name']).to eq('Dataset')
-        expect(hash['algorithm']).to eq('Mutual Information')
-        expect(hash['column']).to eq('Mutual Information')
-        expect(hash['data']).to be_a(Array)
-        expect(hash['data'][0][0]).to be_a(String)
-        expect(hash['data'][0][0].split.count).to eq(2)
-        expect(hash['data'][0][1]).to be_a(Float)
+      it 'creates good CSV' do
+        expect(@output).to be_an(Array)
       end
     end
   end

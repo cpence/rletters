@@ -35,14 +35,15 @@ module Jobs
       #   significance of collocations.  Can be 'mi' (for mutual
       #   information), 't' (for t-test), 'likelihood' (for log-likelihood),
       #   or 'pos' (for part-of-speech biased frequencies).
-      # @option args [Integer] num_pairs number of collocations to return
+      # @option args [String] num_pairs number of collocations to return
       # @return [undefined]
-      # @example Start a job for comparing two datasets
+      # @example Start a job for locating collocations
       #   Resque.enqueue(Jobs::Analysis::Collocation,
       #                  user_id: current_user.to_param,
       #                  dataset_id: dataset.to_param,
       #                  task_id: task.to_param,
-      #                  num_pairs: 50)
+      #                  analysis_type: 't',
+      #                  num_pairs: '50')
       def self.perform(args = { })
         args.symbolize_keys!
 
@@ -58,7 +59,7 @@ module Jobs
         task = dataset.analysis_tasks.find(args[:task_id])
         fail ArgumentError, 'Task ID is not valid' unless task
 
-        task.name = I18n.t('jobs.analysis.collocation.short_desc')
+        task.name = t('.short_desc')
         task.save
 
         analysis_type = (args[:analysis_type] || :mi).to_sym
@@ -69,21 +70,21 @@ module Jobs
 
         case analysis_type
         when :mi
-          algorithm = I18n.t('jobs.analysis.collocation.mi')
-          column = I18n.t('jobs.analysis.collocation.mi_column')
+          algorithm = t('.mi')
+          column = t('.mi_column')
           grams = analyze_mutual_information(dataset)
         when :t
-          algorithm = I18n.t('jobs.analysis.collocation.t')
-          column = I18n.t('jobs.analysis.collocation.t_column')
+          algorithm = t('.t')
+          column = t('.t_column')
           grams = analyze_t_test(dataset)
         when :likelihood
-          algorithm = I18n.t('jobs.analysis.collocation.likelihood')
-          column = I18n.t('jobs.analysis.collocation.likelihood_column')
+          algorithm = t('.likelihood')
+          column = t('.likelihood_column')
           grams = analyze_likelihood(dataset)
         when :pos
           # :nocov:
-          algorithm = I18n.t('jobs.analysis.collocation.pos')
-          column = I18n.t('jobs.analysis.collocation.pos_column')
+          algorithm = t('.pos')
+          column = t('.pos_column')
           grams = analyze_pos(dataset)
           # :nocov:
         else
@@ -93,18 +94,22 @@ module Jobs
         grams = grams.to_a.sort_by(&:last).reverse_each.take(num_pairs)
 
         # Save out all the data
-        data = {
-          name: dataset.name,
-          algorithm: algorithm,
-          column: column,
-          data: grams
-        }
+        csv_string = CSV.generate do |csv|
+          csv << [t('.header', name: dataset.name)]
+          csv << [t('.subheader', test: algorithm)]
+          csv << ['']
+
+          csv << [t('.pair'), column]
+          grams.each { |k, v| csv << [k, v] }
+
+          csv << ['']
+        end
 
         # Write it out
         ios = StringIO.new
-        ios.write(data.to_json)
-        ios.original_filename = 'collocation.json'
-        ios.content_type = 'application/json'
+        ios.write(csv_string)
+        ios.original_filename = 'collocation.csv'
+        ios.content_type = 'text/csv'
         ios.rewind
 
         task.result = ios
@@ -116,7 +121,7 @@ module Jobs
 
       # We don't want users to download the JSON file
       def self.download?
-        false
+        true
       end
 
       # Helper method for creating the job parameters view
@@ -124,7 +129,7 @@ module Jobs
       # This method returns the list of available significance test methods.
       def self.significance_tests
         [:mi, :t, :likelihood, :pos].map do |sym|
-          [I18n.t("jobs.analysis.collocation.#{sym}"), sym]
+          [t(".#{sym}"), sym]
         end
       end
 

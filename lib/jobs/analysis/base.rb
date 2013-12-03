@@ -52,8 +52,8 @@ module Jobs
       #
       # @param [String] key the translation to look up (e.g., '.short_desc')
       # @return [String] the translated message
-      def self.t(key)
-        I18n.t("#{name.underscore.gsub('/', '.')}#{key.to_s}")
+      def self.t(key, opts = {})
+        I18n.t("#{name.underscore.gsub('/', '.')}#{key.to_s}", opts)
       end
 
       # True if this job produces a download

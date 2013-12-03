@@ -54,7 +54,7 @@ module Jobs
         task = dataset.analysis_tasks.find(args[:task_id])
         fail ArgumentError, 'Task ID is not valid' unless task
 
-        task.name = I18n.t('jobs.analysis.plot_dates.short_desc')
+        task.name = t('.short_desc')
         task.save
 
         # Get the counts and normalize if requested
@@ -72,7 +72,7 @@ module Jobs
         norm_set_name = ''
         if args[:normalize_doc_counts] == '1'
           if args[:normalize_doc_dataset].blank?
-            norm_set_name = I18n.t('jobs.analysis.plot_dates.entire_corpus')
+            norm_set_name = t('.entire_corpus')
           else
             norm_set = user.datasets.active.find(args[:normalize_doc_dataset])
             norm_set_name = norm_set.name
