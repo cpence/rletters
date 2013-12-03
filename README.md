@@ -57,7 +57,7 @@ The Solr backend on which RLetters is based allows for a number of complicated s
 
 ### Support for web and library standards ###
 
-RLetters provides support for the following web and library standards:
+RLetters features a [JSON API to return search results](http://docs.rletters.apiary.io/) to other services around the internet.  We also provide support for the following web and library standards:
 
 -   [unAPI](http://unapi.info) for automatic bibliographic data retrieval from individual documents
 -   [WorldCat OpenURL Registry](http://www.oclc.org/developer/services/worldcat-registry) for detection of the OpenURL resolver of the user's local library
