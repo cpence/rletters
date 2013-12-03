@@ -40,6 +40,8 @@ While text analysis tasks are a current area of active development in RLetters, 
 -   Compute term frequency information (for single words or multiple-word phrases)
 -   Compare word usage in two different datasets
 -   Graph dataset by publication date
+-   Determine statistically significant pairs of words (collocations)
+-   Compute network of words used around a focal word
 -   Extract references to proper names (locations, people, organizations)
 -   Export dataset as citations in a variety of formats
 
