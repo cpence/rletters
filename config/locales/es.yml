@@ -44,47 +44,74 @@ es:
             blank: "No se especificó el identificador único (error interno)"
   activerecord:
     models:
-      csl_style:
-        one: Estilo CSL
-        other: Estilos CSL
+      admin/administrator:
+        one: Administrador
+        other: Administradores
+      admin/uploaded_asset:
+        one: Recurso personalizable
+        other: Recursos personalizables
+      admin/markdown_page:
+        one: Página personalizable
+        other: Páginas personalizables
+      admin/setting:
+        one: Configuración
+        other: Configuración
       dataset:
         one: Conjunto de datos
         other: Conjuntos de datos
-      dataset_entry:
-        one: Entrada de conjunto de datos
-        other: Entradas de conjunto de datos
-      library:
-        one: Biblioteca
-        other: Bibliotecas
-      markdown_page:
-        one: Página personalizable
-        other: Páginas personalizables
-      uploaded_asset:
-        one: Recurso personalizable
-        other: Recursos personalizables
+      datasets/analysis_task:
+        one: Tarea de análisis
+        other: Tareas de análisis
+      datasets/entry:
+        one: Entrada del conjunto de datos
+        other: Entradas del conjunto de datos
+      documents/category:
+        one: Categoría
+        other: Categorías
+      documents/stop_list:
+        one: Lista de palabras no significativas
+        other: Listas de palabras no significativas
       user:
         one: Usuario
         other: Usuarios
+      users/csl_style:
+        one: Estilo CSL
+        other: Estilos CSL
+      users/library:
+        one: Biblioteca
+        other: Bibliotecas
     attributes:
-      analysis_task:
+      admin/administrator:
+        email: Correo-e
         name: Nombre
-        created_at: Hora de creación
-        finished_at: Hora de finalización
-      dataset:
-        name: Nombre
-      dataset_entry:
-        uid: Identificador único
-      library:
-        name: Nombre
-        url: URL base
-      markdown_page:
+        password: Contraseña
+        password_confirmation: Confirmar contraseña
+        remember_me: ¿Recordar datos de inicio de sesión?
+      admin/markdown_page:
         friendly_name: Nombre
         name: Nombre
         content: Índice
-      uploaded_asset:
+      admin/setting:
+        key: Botón
+        value: Valor
+      admin/uploaded_asset:
         friendly_name: Nombre
         name: Nombre
         file: Archivo adjunto
+      dataset:
+        name: Nombre
+      datasets/analysis_task:
+        name: Nombre
+        created_at: Hora de creación
+        finished_at: Hora de finalización
+      datasets/entry:
+        uid: Identificador único
+      documents/category:
+        name: Nombre
+        journals: Lista de revistas
+      documents/stop_list:
+        language: Idioma
+        list: Lista de palabras vacías
       user:
         email: Correo-e
         name: Nombre
@@ -95,29 +122,41 @@ es:
         language: Idioma preferido
         timezone: Zona horaria
         csl_style_id: Estilo de cita
+      users/csl_style:
+        name: Nombre
+        style: Estilo (XML)
+      users/library:
+        name: Nombre
+        url: URL base
     errors:
       models:
-        analysis_task:
+        admin/markdown_page:
           name:
-            blank: Debe poner un nombre a esta tarea de anális
-          dataset:
-            blank: Tarea de análisis no conectada al conjunto de datos (error interno)
+            blank: No se especificó el nombre (error interno)
+        admin/uploaded_asset:
+          name:
+            blank: No se especificó el nombre (error interno)
         dataset:
           name:
             blank: Debe poner un nombre a este conjunto de datos
           user_id:
             blank: El conjunto de datos debe tener un identificador de usuario (error interno)
-        dataset_entry:
-          uid:
-            blank: No se especificó el identificador único (error interno)
-        library:
+        datasets/analysis_task:
           name:
-            blank: Debe poner nombre a esta entrada de la biblioteca
-          url:
-            blank: Debe poner una URL a esta entrada de la biblioteca
-            invalid: La URL base de la biblioteca debe ser una URL
-          user_id:
-            blank: La biblioteca debe asociarse a un usuario (error interno)
+            blank: Debe poner un nombre a esta tarea de análisis
+          dataset:
+            blank: Tarea de análisis no conectada al conjunto de datos (error interno)
+        datasets/entry:
+          uid:
+            blank: No se especificó un el identificador único (error interno)
+        documents/category:
+          name:
+            blank: Debe poner un nombre a esta categoría
+        documents/stop_list:
+          language:
+            blank: No se especificó el idioma (error interno)
+          list:
+            blank: No se especificó la lista de palabras no significativas (error interno)
         user:
           name:
             blank: Debe poner un nombre
@@ -130,12 +169,24 @@ es:
             invalid: El idioma preferido debe ser un código de idioma válido (error interno)
           timezone:
             blank: Debe seleccionarse una zona horaria (error interno)
+        users/csl_style:
+          name:
+            blank: No se especificó el nombre (error interno)
+          style:
+            blank: No se especificó un estilo (error interno)
+        users/library:
+          name:
+            blank: Debe poner nombre a esta entrada de la biblioteca
+          url:
+            blank: Debe poner una URL a esta entrada de la biblioteca
+            invalid: La URL base de la biblioteca debe ser una URL
+          user_id:
+            blank: La biblioteca debe asociarse a un usuario (error interno)
   breadcrumbs:
-    home: Inicio
+    root: Inicio
     datasets_index: Administrar conjuntos de datos
     datasets_show: "Administrar: %{name}"
-    datasets_task_datasets: Añadir más datos
-    datasets_task_params: Opciones de tarea
+    datasets_analysis_tasks_new: Preferencias de tarea
     search_index: Buscar base de datos
     search_advanced: Búsqueda avanzada
     users_passwords_edit: Cambiar contraseña
@@ -150,15 +201,15 @@ es:
     footer:
       copyright: >
         Copyright © 2011–2013 %{app_name} y el equipo de desarrollo de RLetters. El
-        contenido del artículo tiene derechos de autor como es especifica en entradas
+        contenido del artículo tiene derechos de autor, como se especifica en entradas
         de artículos individuales. Todos los derechos reservados.
       rletters_markdown: >
-        Creado con RLetters — la plataforma de análisis textual de artículos de código
+        Creado con RLetters —la plataforma de análisis textual de artículos de código
         abierto. Para más información, ver [rletters.net.](http://rletters.net/)
     nav:
       menu: Menú
       new_analysis: Nuevo análisis
-      fetch_results: Buscar
+      fetch_results: Buscar resultados
       advanced: Herramientas avanzadas
       browse: Buscar/Examinar base de datos
       manage: Administrar conjuntos de datos
@@ -167,7 +218,7 @@ es:
       abort_warning: ¿Está seguro? ¡Se perderá el análisis en curso!
       help: Ayuda
       account: Mi cuenta
-      sign_out: Desconectarse
+      sign_out: Desconectar
       sign_in: Identificarse
     sign_in:
       forgot_password: ¿Contraseña olvidada?
@@ -176,9 +227,17 @@ es:
   jobs:
     concerns:
       compute_word_frequencies:
+        ngram_method: ¿Analizar palabras sueltas o n-gramas?
+        single_words: Palabras sueltas
+        n_grams: N-gramas (frases de varias palabras)
+        ngram_size: Tamaño de las frases para analizar
+        num_ngrams: Número de n-gramas para analizar
+        ngram_inclusion_list: Incluir únicamente n-gramas que contengan una de las siguientes palabras (separadas por espacios)
+        ngram_exclusion_list: Excluir cualquier n-grama que contenga una de las siguientes palabras (separadas por espacios)
         word_method: Método de selección de palabras
         most_frequent: Palabras más frecuentes
         list: Lista explícita de palabras
+        num_words: Número de palabras para analizar
         exclude_method: ¿Excluir alguna palabra?
         none: 'No'
         stop: Palabras más comunes (palabras no significativas)
@@ -186,8 +245,8 @@ es:
         exclusion_list: Palabras a excluir (separadas por espacios)
         inclusion_list: Palabras a analizar (separadas por espacios)
         block_method: Método con bloque de texto
-        num_words: Por número de palabras
-        num_blocks: Por número de bloques
+        num_words_split: Por número de palabras
+        num_blocks_split: Por número de bloques
         block_size: Número de palabras por bloque
         last_block: Último método con bloque
         big_last: Último bloque grande
@@ -222,11 +281,10 @@ es:
           indicadoras pueden distinguir bloques de texto de cada conjunto de datos
           fácilmente.
         block_name_column: Nombre del bloque de texto
-        marker_column: Fracción de palabras indicadoras
-        anti_marker_column: Fracción antipalabras indicadoras
+        marker_column: "Fracción de palabras indicadoras para %{name}"
         zeta_score_header: Resultados Zeta para todas las palabras analizadas
         zeta_score_explanation: >
-          Resultados Zeta para todas las palabras analizadas correctos. El rango de
+          Resultados Zeta correctos para todas las palabras analizadas. El rango de
           resultados de dos (una palabra indicadora perfecta que indentifica a un
           miembro en %{name_1}) a cero (una antipalabra indicadora que identifica
           a un miembro en %{name_2}).
@@ -237,11 +295,12 @@ es:
           ¿Puedo exportar un conjunto de artículos a mi formato favorito o al administrador
           de referencias?
       named_entities:
-        name: Extraer nombres verdaderos
-        short_desc: Extraer referencias a nombres verdaderos
+        name: Extraer nombres propios
+        short_desc: Extraer referencias a nombres propios
         question: >
-          ¿Qué nombres verdaderos (lugares, personas u organizaciones) se mencionan
-          en un conjunto de artículos dado?
+          ¿Qué nombres propios (lugares, personas u organizaciones) se mencionan en
+          un conjunto de artículos dado?
+        subheader: Referencias a nombres propios
         wikipedia_link: "https://en.wikipedia.org/w/index.php?title=Special:Search&search=%{query}&fulltext=Search"
         people_category: Personas
         organization_category: Organizaciones
@@ -257,26 +316,77 @@ es:
           ¿Cómo ha cambiado la frecuencia de un término con el tiempo?
 
           ¿Cuándo se publicaron un conjunto de artículos dados?
+        fraction_subheader: "Fracción de documentos en %{normalization_set} encontrados en el conjunto de datos %{name}, trazada por año"
+        number_subheader: "Número de documentos, trazados por año"
+        fraction_column: Fracción de documentos
+        number_column: Número de documentos
+        entire_corpus: Todo el corpus
+      word_frequency:
+        name: Frecuencia de palabras
+        short_desc: Analizar la frecuencia de palabras en el conjunto de datos
+        question: >
+          ¿Cuál es la frecuencia de uso de palabras en un conjunto de artículos dado?
+
+          ¿Cuál es la palabra «más importante» o «más frecuente» empleada en un conjunto
+          dado?
+        csv_header: "Información de frecuencia de palabras para el conjunto de datos %{name}"
+        each_block: "Cada bloque del documento:"
+        whole_dataset: "Para todo el conjunto de datos:"
+        types_header: Número de tipos
+        tokens_header: Número de tokens
+        ttr_header: Ratio de tipo/token
+        freq_header: Frecuencia
+        prop_header: Proporción
+        tfidf_dataset_header: TF/IDF (Frecuencia de términos/Frecuencia inversa de documentos contra conjunto de datos)
+        tfidf_corpus_header: TF/DF (Frecuencia de términos/Frecuencia de documentos contra corpus)
+        df_header: DF (Frecuencia de documentos en el corpus)
+  lib:
+    wfa:
+      block_count_dataset: "Bloque %{num}/%{total} (en todo el conjunto de datos)"
+      block_size_dataset: "Bloque %{num} de %{size} palabras (en todo el conjunto de datos)"
+      block_count_doc: "Bloque %{num}/%{total} (dentro de  '%{title}'}"
+      block_size_doc: "Bloque %{num} de %{size} palabras (dentrod e '%{title}')"
   search:
     document:
+      untitled: "[sin título]"
+      cloud_tooltip: |
+        El análisis de este documento puede llevar un tiempo,
+        ya que el texto completo está almacenado externamente
+        con uno de nuestro patrocinadores de contenido.
       volume_abbr: "Tomo %{volume}"
       number_abbr: "Nº %{number}"
       pages_abbr: "%{pages} págs."
     dropdown:
-      single_dataset: Crear un conjunto de datos únicamente de este documento
+      single_dataset: Crear conjunto de datos a partir de este documento
       add_to_dataset: Añadir este documento a un conjunto de datos existente
+      journal: Descargar de la revista
+      library: Descargar desde la biblioteca
       yours: "Su biblioteca:"
       worldcat: Buscar en WorldCat
       uk_openurl: Buscar en OpenURL
+      online: Buscar en línea
       google: Buscar en Google Académico
       mendeley: Buscar en Mendeley
       citeulike: Buscar en CiteULike
+      data_source: "Fuente de datos: %{source}"
+      license: "Licencia del documento: %{license}"
+      license_url_only: Licencia del documento
+      no_license: No se especifica ninguna licencia en el documento
     add:
+      header: Añadir documento al conjunto de datos
+      subheader: Seleccione el conjunto de datos al que le gustaría añadir este documento.
       no_datasets: Conjuntos de datos no disponibles
       submit: Añadir
     advanced:
       header: Búsqueda avanzada
+      subheader_markdown: >
+        Esta página le permite realizar una búsqueda avanzada en la bases de datos
+        de artículos. Puede elegir bien nuestro formulario de búsqueda guiada o bien
+        realizarla directamente mediante [búsquedas con Solr](http://wiki.apache.org/solr/SolrQuerySyntax),
+        que es un superconjunto de las [búsquedas con Lucene](http://lucene.apache.org/java/2_9_1/queryparsersyntax.html).
       search_header: Búsqueda guiada
+      type_fuzzy: "Tipo de búsqueda: Aproximada"
+      type_exact: "Tipo de búsqueda: Exacta"
       year_ranges: Intervalo de años
       authors_placeholder: "p. ej. A. Johnson, B. Smith"
       year_ranges_placeholder: "p. ej. 1999, 2005-2010, 2001"
@@ -293,7 +403,7 @@ es:
       sort_asc: "(ascendente)"
       sort_desc: "(descendente)"
       sort_score: "Importancia"
-      create_dataset: Cree una base de datos a partir de la búsqueda
+      create_dataset: Cree base de datos a partir de la búsqueda
       num_hits_found:
         zero: No se encontraron artículos.
         one: Se encontró un artículo.
@@ -302,6 +412,7 @@ es:
         zero: No hay artículos en la base de datos.
         one: Hay un artículo en la base de datos.
         other: "Hay un total de %{count} artículos en la base de datos."
+      no_filters: No hay filtros activos
       remove_all: Eliminar todo
       filters: Búsqueda con filtros
       authors_facet: Autores
@@ -312,68 +423,202 @@ es:
       year_facet_short: Año
       year_before_1800: Antes de 1800
       year_after_2010: De 2010 en adelante
+      categories: Categorías de revistas
       advanced_search: Búsqueda avanzada
   users:
+    passwords:
+      edit:
+        header: Cambiar contraseña
+        subheader: "Introduzca una nueva contraseña y cambiaremos la que olvidó por ésta."
+        submit: Cambiar contraseña
+      new:
+        header: ¿Olvidó su contraseña?
+        subheader: "Introduzca su dirección de correo-e para poder enviarle un enlace para crear una nueva contraseña."
+        submit: Enviarme intrucciones de reestablecimiento de contraseña.
     registrations:
       edit:
         header: Preferencias de usuario
-        library_links_header: Enlaces de acceso a la biblioteca
+        subheader: "Aquí puede ajustar la configuración de usuario, cambiar la contraseña o eliminar su cuenta."
+        change_password: ¿Cambiar contraseña?
+        password_placeholder: (dejar en blanco para no cambiar nada)
+        settings: Configuración de la página
+        submit: Actualizar configuración
+        cancel: Eliminar cuenta
+        cancel_confirm: ¿Está seguro? ¡Nos apena mucho verle partir!
+        library_links_header: Enlaces de acceso a bibliotecas
+        library_links_subheader: "Puede añadir enlaces al sistema de recuperación de documentos de la biblioteca local que más tarde podrá utilizar para tener acceso al contenido."
       new:
         header: Registrarse
+        subheader: "¡Bienvenido! Escriba algunos detalles sobre usted y podrá utilizar libremente su nueva cuenta de usuario."
         submit: Registrarse
-  libraries:
-    index:
-      query: Buscar en su biblioteca automáticamente
-      add_new: Añadir su biblioteca manualmente
-      delete_button: Eliminar
-      delete_confirm: ¿Está seguro?
-    query:
-      no_libraries: >
-        No se pudo determinar su biblioteca automáticamente. Si aún lo desea, puede
-        añadir su biblioteca manualmente.⏎
-    create:
-      success: Se conectó con exito a la biblioteca.
-    update:
-      success: Biblioteca actualizada con éxito.
+    libraries:
+      edit:
+        header: Editar detalles de biblioteca
+        subheader: "Rellene los detalles en el solucionador de OpenURL de la biblioteca y los tomaremos de ahí."
+      index:
+        query: Buscar biblioteca automáticamente
+        add_new: Añadir biblioteca manualmente
+        name_column: Nombre de la biblioteca
+        edit_button: Editar
+        delete_button: Eliminar
+        delete_confirm: ¿Está seguro?
+        no_libraries: No se encontraron bibliotecas
+      new:
+        header: Añadir nueva biblioteca
+        subheader: "Escriba los datos en el solucionador de OpenURL de la biblioteca y los tomaremos de ahí."
+      query:
+        header: Bibliotecas encontradas cerca de usted
+        subheader: "Haga clic en el botón correspondiente a la biblioteca que desea añadir."
+        no_libraries: >
+          No se pudo determinar la biblioteca automáticamente. Si aún lo desea, puede
+          añadir la biblioteca manualmente.
+      create:
+        success: Conexión con la biblioteca realizada con éxito.
+      update:
+        success: Biblioteca actualizada con éxito.
   workflow:
     activate:
+      header: Recopilar datos
+      subheader_pending: "Necesita determinar sobre qué conjuntos de datos desea que se ejecute el análisis."
+      subheader_done: "Se han recopilado todos los datos. ¡Haga clic en el botón para comenzar el análisis!"
+      pending_instructions:
+        one: >
+          Para poder realizarla, esta tarea de análisis necesita que se cree al menos
+          1 conjunto de datos. Los conjuntos de datos se crean al realizar búsquedas
+          y guardar un conjunto de resultados.
+        other: >
+          Para poder realizarla, esta tarea de análisis necesita que se creen al menos
+          %{count} conjuntos de datos. Los conjuntos de datos se crean al realizar
+          búsquedas y guardar un conjunto de resultados.
+      button_params: Establecer preferencias de tarea
       button_start: Comenzar análisis
+      pending_count:
+        one: Todavía debe añadirse 1 conjuntos de datos
+        other: Todavía deben añadirse %{count} conjuntos de datos
+      dataset_list: "Conjuntos de datos para esta tarea:"
+      name_coulmn: Nombre del conjunto de datos
+      no_datasets: No se especificó ningún conjunto de datos
       delete_button: Eliminar
       delete_confirm: ¿Está seguro?
+      create_button: Crear otro conjunto de datos
+      link_button: Enlazar un conjunto de datos ya creado
+      link_header: Enlazar un conjunto de datos ya existente
+      link_subheader: Seleccionar el conjunto de datos que le gustaría utilizar para esta tarea de análisis.
+      link_no_datasets: ¡No se encontraron conjuntos de datos!
+      link_submit: Enlazar conjunto de datos
+    dashboard:
+      header: "Panel de %{app_name}"
+      subheader: >
+        Panel de control principal de %{app_name}. Desde aquí podrá realizar análisis,
+        buscar en los resultados de análisis completos o buscar en la base de datos
+        de artículos.
+      start_button: Comenzar un nuevo análisis
+      start_explanation: >
+        Decida a qué tipo de pregunta le gustaría responder, seleccione los datos
+        que le gustaría consultar y obtenga los resultados.
+      fetch_button: Ver resultados de análisis anteriores
+      fetch_explanation: >
+        ¿Ha finalizado un análisis? Recopile aquí los resultados. Los datos del análisis
+        estarán disponibles durante 14 días.
+      advanced_button: Modo avanzado
+      advanced_explanation: >
+        Buscar y guardar conjuntos de datos manualmente y comenzar una tarea de análisis
+        en el conjuto de datos de su elección.
+    fetch:
+      header: Buscar resultados de análisis
+      subheader: "Aquí podrá recuperar los datos generados por los análisis. Asegúrese de guardarlos al poco tiempo, pues sólo estarán disponibles durante 14 días."
+      pending_header: Tareas de análisis pendientes
+      pending_count: >
+        Ya tiene %{count} tareas de análisis finalizadas. Vuelva más tarde a esta
+        página para recopilar los resultados.
+      pending_cancel_markdown: >
+        ¿Los análisis tardan mucho en finalizar? Podemos intentar [interrumpir todas
+        la tareas pendientes,](%{terminate_url}) pero puede no funcionar. Si falla,
+        [envíe un correo-e a los administradores de la página.](mailto:%{email})
+      completed_header: Tareas de análisis completadas
+      no_completed: "No tiene tareas de análisis completadas. ¡Comience una nueva y vuelva aquí para recopilar los datos!"
+      terminate: Intentando cancelar todas las tareas de análisis pendientes...
     index:
       sign_up_button: ¡Regístrese para comenzar!
+      screenshots_header: ¿Qué puedo hacer?
+    info:
+      back: Atrás
+      start: Comenzar
+    start:
+      header: Comenzar un nuevo análisis
+      subheader: >
+        Comience ejecutando un nuevo análisis al decidir qué tipo de pregunta quiere
+        realizar sobre la literatura. Haga clic sobre la pregunta que sea explorar
+        para continuar.
+    destroy:
+      success: ¡inicio de análisis abortado!
   datasets:
-    dataset_list:
+    index:
+      header: Administrar conjuntos de datos
+      subheader: "En esta página puede administrar de forma avanzada los conjuntos de datos, incluyendo tareas de análisis manuales en marcha."
+    index_xhr:
       tasks:
         zero: No tiene ninguna tarea de análisis pendiente...
         one: Tiene una tarea de análisis pendiente...
-        other: "Tiene un total de %{count} tareas de análisis pendientes..."
+        other: "Tiene %{count} tareas de análisis pendientes..."
+      name_column: Nombre del conjunto de datos
       no_datasets: Ningún conjunto de datos
+      cloud_tooltip: |
+        El análisis de este conjunto de datos puede llevar un tiempo,
+        ya que los documentos están almacenados externamente
+        con uno de nuestro patrocinadores de contenido.
+      manage_button: Administrar
       delete_button: Eliminar
       delete_confirm: ¿Está seguro?
     new:
       header: Crear un nuevo conjunto de datos
+      subheader: "Ponga nombre a los resultados de búsquedas y se guardarán como un nuevo conjunto de datos."
     create:
-      building: "Construyendo conjunto de datos. Espere, por favor."
+      building: "Creando conjunto de datos. Espere, por favor."
+      building_workflow: "Creando conjunto de datos, se enlazará cuando se haya completado"
     show:
       header: Información para el conjunto de datos
+      subheader: "Administrar este conjunto de datos, incluyendo el inicio manual de tareas de análisis y búsqueda de resultados de análisis previos."
       num_entries: "Número de documentos: %{count}"
       created_at: "Creado el: %{date}"
       deleted: Todas las tareas de análisis fallidas han sido eliminadas.
-    task_datasets:
-      cancel: Cancelar
-    task_list:
-      pending:
-        one: "Hay una tarea de análisis pendiente para este conjunto de datos..."
-        other: "Hay un total de %{count} tareas de análisis pendientes para este conjunto de datos..."
+      tasks: Tareas de análisis
+    analysis_tasks:
+      index:
+        pending:
+          one: "Hay 1 tarea de análisis pendiente para este conjunto de datos..."
+          other: "Hay %{count} tareas de análisis pendientes para este conjunto de datos..."
+        failed:
+          one: "¡Falló 1 tarea de análisis para este conjunto de datos! haga clic aquí para eliminar las tareas fallidas."
+          other: "¡Fallaron %{count} tareas de análisis para este conjunto de datos! Haga clic aquí para eliminar las tareas fallidas."
+        task_column: Tarea de análisis
+        no_tasks: No se encontraron tareas de análisis
+        download_button: Descargar resultados
+        view_button: Ver resultados
+        delete_button: Eliminar tarea
+      new:
+        header: Preferencias de tarea
+        subheader: Esta tarea tiene más prefereferias que puede configurar antes de comenzarla.
+      create:
+        workflow: "Ejecutando análisis, vuelva más tarde para ver los resultados..."
+        success: ¡Tarea de análisis iniciada!
   settings:
     app_name: Nombre de la aplicación
+    app_email: Correo-e de contacto
     app_domain: Nombre de dominio de la aplicación
     solr_server_url: URL Solr
     solr_timeout: Espera de Solr (seg)
     mendeley_key: Clave de Mendeley
     airbrake_key: Clave de API de Airbrake
     google_analytics_key: Código de seguimiento de Google Analytics
+    secret_token: Estructurar mediante Rails el token secreto
+    secret_key_base: Estructurar mediante Rails la base de clave secreta
+    devise_secret_key: Crear clave secreta
+  markdown_pages:
+    landing: Página de llegada
+    caption-one: Primer titular de captura de pantalla
+    caption-two: Segundo titular de captura de pantalla
+    caption-three: Tercer titular de captura de pantalla
   uploaded_assets:
     splash-low: Pantalla de bienvenida (320x460)
     splash-high: Pantalla de bienvenida (768x1004)
@@ -383,11 +628,14 @@ es:
     apple-touch-icon-low: Icono de aplicación (57x57)
     apple-touch-icon-med: Icono de aplicación (72x72)
     apple-touch-icon-high: Icono de aplicación (114x114)
+    screenshot-one: Primera captura de pantalla
+    screenshot-two: Segunda captura de pantalla
+    screenshot-three: Tercera captura de pantalla
   admin:
-    admin_user:
+    administrator:
       admin_details: Detalles del administrador
     dashboard:
-      new_datasets: Conjuntos de datos más recientes
+      new_datasets: Conjuntos de datos recientes
       new_analysis_tasks: Tareas de análisis más recientes
       recent_users: Usuarios conectados recientemente
       backend: Información de backend
@@ -408,3 +656,5 @@ es:
     uploaded_asset:
       file_details: "%{size} bytes"
       asset_header: "Recurso: %{name}"
+    stop_list:
+      header: "Lista de palabras no significativas: %{language}"
