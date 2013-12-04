@@ -19,6 +19,7 @@ class DatasetsController < ApplicationController
 
     # If this is an AJAX request, render the dataset table only
     if request.xhr?
+      disable_browser_cache
       render :index_xhr, layout: false
     else
       render

@@ -69,6 +69,18 @@ class ApplicationController < ActionController::Base
 
   protected
 
+  # Set cache control headers
+  #
+  # This helper can be called when we want a page to expire.  This is similar
+  # to Rails' +expires_now+ function, but sets more headers to work with more
+  # browsers.
+  def disable_browser_cache
+    response.cache_control[:no_cache] = true
+    response.cache_control[:extras] = ['no-store', 'max-age=0', 'must-revalidate']
+    response.headers['Pragma'] = 'no-cache'
+    response.headers['Expires'] = 'Fri, 01 Jan 1990 00:00:00 GMT'
+  end
+
   # Send the right parameter sanitizers to Devise
   #
   # Devise in Rails 4 uses this hook in the application controller in order
