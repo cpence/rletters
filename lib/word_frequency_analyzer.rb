@@ -137,7 +137,8 @@ class WordFrequencyAnalyzer
 
     # Process all of the documents
     @dataset.entries.each do |e|
-      words = compute_ngrams_list(e.uid)
+      @ngrams[e.uid] ||= compute_ngrams_list(e.uid)
+      words = @ngrams[e.uid]
 
       # If we aren't splitting across, then we have to completely clear
       # out all the count information for every document, and we have to
@@ -305,6 +306,7 @@ class WordFrequencyAnalyzer
     @df_in_dataset = {}
     @tf_in_dataset = {}
     @df_in_corpus = {}
+    @ngrams = {}
 
     @dataset.entries.each do |e|
       if @ngrams == 1
@@ -327,15 +329,16 @@ class WordFrequencyAnalyzer
           @df_in_dataset[word] += 1
         end
       else
-        # FIXME: There's probably a faster way to sort this once, then zip it
-        # by count into an array of arrays.
-        ngrams = compute_ngrams_list(e.uid)
-        ngrams.uniq.each do |ngram|
-          @tf_in_dataset[ngram] ||= 0
-          @tf_in_dataset[ngram] += ngrams.count(ngram)
+        # We're saving these out for ngrams, because computing them is
+        # expensive, and we have to do it more than once
+        @ngrams[e.uid] ||= compute_ngrams_list(e.uid)
 
-          @df_in_dataset[ngram] ||= 0
-          @df_in_dataset[ngram] += 1
+        @ngrams[e.uid].group_by { |w| w }.map { |k, v| [k, v.count] }.each do |g|
+          @tf_in_dataset[g[0]] ||= 0
+          @tf_in_dataset[g[0]] += g[1]
+
+          @df_in_dataset[g[0]] ||= 0
+          @df_in_dataset[g[0]] += 1
         end
       end
     end
