@@ -279,6 +279,7 @@ en:
                 pos_column: Frequency
                 analysis_type: Test to use for significance
                 num_pairs: Number of collocations to find
+                word: Return only collocations including this word (blank for all)
                 header: "Collocation analysis for %{name}"
                 subheader: "Significance test: %{test}"
                 pair: 'Collocation pair'

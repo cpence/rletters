@@ -5,5 +5,6 @@
 
       = f.input :analysis_type, label: t('jobs.analysis.collocation.analysis_type'), collection: Jobs::Analysis::Collocation.significance_tests, include_blank: false
       = f.input :num_pairs, as: :integer, label: t('jobs.concerns.collocation.num_pairs'), required: true, input_html: { value: 50 }
+      = f.input :word, label: t('jobs.concerns.collocation.word')
       = f.button :submit
       = link_to(t('common.cancel'), @dataset, class: 'button secondary')

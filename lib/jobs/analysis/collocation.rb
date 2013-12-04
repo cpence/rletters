@@ -36,6 +36,8 @@ module Jobs
       #   information), 't' (for t-test), 'likelihood' (for log-likelihood),
       #   or 'pos' (for part-of-speech biased frequencies).
       # @option args [String] num_pairs number of collocations to return
+      # @option args [String] word if present, return only collocations
+      #   including this word
       # @return [undefined]
       # @example Start a job for locating collocations
       #   Resque.enqueue(Jobs::Analysis::Collocation,
@@ -52,11 +54,11 @@ module Jobs
         fail ArgumentError, 'User ID is not valid' unless user
 
         # Fetch the dataset based on ID
-        dataset = user.datasets.active.find(args[:dataset_id])
-        fail ArgumentError, 'Dataset ID is not valid' unless dataset
+        @dataset = user.datasets.active.find(args[:dataset_id])
+        fail ArgumentError, 'Dataset ID is not valid' unless @dataset
 
         # Update the analysis task
-        task = dataset.analysis_tasks.find(args[:task_id])
+        task = @dataset.analysis_tasks.find(args[:task_id])
         fail ArgumentError, 'Task ID is not valid' unless task
 
         task.name = t('.short_desc')
@@ -64,6 +66,8 @@ module Jobs
 
         analysis_type = (args[:analysis_type] || :mi).to_sym
         num_pairs = (args[:num_pairs] || 50).to_i
+        @word = args[:word]
+        @word = nil if @word.blank?
 
         # Part of speech tagging requires the Stanford NLP
         analysis_type = :mi if !NLP_ENABLED && analysis_type == :pos
@@ -72,20 +76,20 @@ module Jobs
         when :mi
           algorithm = t('.mi')
           column = t('.mi_column')
-          grams = analyze_mutual_information(dataset)
+          grams = analyze_mutual_information
         when :t
           algorithm = t('.t')
           column = t('.t_column')
-          grams = analyze_t_test(dataset)
+          grams = analyze_t_test
         when :likelihood
           algorithm = t('.likelihood')
           column = t('.likelihood_column')
-          grams = analyze_likelihood(dataset)
+          grams = analyze_likelihood
         when :pos
           # :nocov:
           algorithm = t('.pos')
           column = t('.pos_column')
-          grams = analyze_pos(dataset)
+          grams = analyze_pos
           # :nocov:
         else
           fail ArgumentError, 'Invalid value for analysis_type'
@@ -95,7 +99,7 @@ module Jobs
 
         # Save out all the data
         csv_string = CSV.generate do |csv|
-          csv << [t('.header', name: dataset.name)]
+          csv << [t('.header', name: @dataset.name)]
           csv << [t('.subheader', test: algorithm)]
           csv << ['']
 
@@ -135,16 +139,15 @@ module Jobs
 
       private
 
-      def self.analyze_mutual_information(dataset)
+      def self.analyze_mutual_information
         # MUTUAL INFORMATION
         # PMI(a, b) = log [ (f(a b) / N) / (f(a) f(b) / N^2) ]
         # with N the number of single-word tokens
+        options = { num_blocks: 1, split_across: true }
+        options[:inclusion_list] = @word if @word
 
-        bigrams = compute_word_frequencies(dataset, ngrams: 2,
-                                                    num_blocks: 1,
-                                                    split_across: true)
-        words = compute_word_frequencies(dataset, num_blocks: 1,
-                                                  split_across: true)
+        bigrams = compute_word_frequencies(@dataset, options.merge(ngrams: 2))
+        words = compute_word_frequencies(@dataset, options)
 
         bigram_f = bigrams.blocks[0]
         word_f = words.blocks[0]
@@ -159,7 +162,7 @@ module Jobs
         end]
       end
 
-      def self.analyze_t_test(dataset)
+      def self.analyze_t_test
         # T-TEST
         # Pr(a) = f(a) / N
         # Pr(b) = f(b) / N
@@ -169,12 +172,11 @@ module Jobs
         # t = (x - H0) / sqrt(s^2 / N)
         # convert t to a p-value based on N
         #   1 - Distribution::T.cdf(t, N-1)
+        options = { num_blocks: 1, split_across: true }
+        options[:inclusion_list] = @word if @word
 
-        bigrams = compute_word_frequencies(dataset, ngrams: 2,
-                                                    num_blocks: 1,
-                                                    split_across: true)
-        words = compute_word_frequencies(dataset, num_blocks: 1,
-                                                  split_across: true)
+        bigrams = compute_word_frequencies(@dataset, options.merge(ngrams: 2))
+        words = compute_word_frequencies(@dataset, options)
 
         bigram_f = bigrams.blocks[0]
         word_f = words.blocks[0]
@@ -195,19 +197,18 @@ module Jobs
         Math.log(x**k * ((1 - x)**(n - k)))
       end
 
-      def self.analyze_likelihood(dataset)
+      def self.analyze_likelihood
         # LIKELIHOOD RATIO
         # Log-lambda = log L(f(a b), f(a), f(a) / N) +
         #              log L(f(b) - f(a b), N - f(a), f(a) / N) -
         #              log L(f(a b), f(a), f(a b) / f(a)) -
         #              log L(f(b) - f(a b), N - f(a), (f(b) - f(a b)) / (N - f(a)))
         # sort by -2 log-lambda
+        options = { num_blocks: 1, split_across: true }
+        options[:inclusion_list] = @word if @word
 
-        bigrams = compute_word_frequencies(dataset, ngrams: 2,
-                                                    num_blocks: 1,
-                                                    split_across: true)
-        words = compute_word_frequencies(dataset, num_blocks: 1,
-                                                  split_across: true)
+        bigrams = compute_word_frequencies(@dataset, options.merge(ngrams: 2))
+        words = compute_word_frequencies(@dataset, options)
 
         bigram_f = bigrams.blocks[0]
         word_f = words.blocks[0]
@@ -242,7 +243,7 @@ module Jobs
         /[^\s]+_NN[^\s]{0,2}\s+[^\s]+_IN\s+[^\s]+_NN[^\s]{0,2}/ # NOUN PREP NOUN
       ]
 
-      def self.analyze_pos(dataset)
+      def self.analyze_pos
         # PoS + FREQUENCY
         # Take only those that match the following patterns:
         # A N, N N, A A N, A N N, N A N, N N N, N P N
@@ -253,13 +254,14 @@ module Jobs
         # NLP POS tagger requires us to send it full sentences for maximum
         # accuracy.
         tagger = StanfordCoreNLP::MaxentTagger.new(POS_TAGGER_PATH)
-        dataset.entries.inject({}) do |result, e|
+        @dataset.entries.inject({}) do |result, e|
           doc = Document.find(e.uid, fulltext: true)
           tagged = tagger.tagString(doc.fulltext).split
 
           (0..(tagged.size - 2)).map do |i|
             bigram = tagged[i, 2].join(' ')
-            if POS_BI_REGEXES.any? { |r| bigram =~ r }
+            if (!@word || bigram.include?(@word)) &&
+               POS_BI_REGEXES.any? { |r| bigram =~ r }
               stripped = bigram.gsub(/_(JJ[^\s]?|NN[^\s]{0,2}|IN)(\s+|\Z)/, '\2')
 
               result[stripped] ||= 0
@@ -268,7 +270,8 @@ module Jobs
 
             if i != tagged.size - 3
               trigram = tagged[i, 3].join(' ')
-              if POS_TRI_REGEXES.any? { |r| trigram =~ r }
+              if (!@word || trigram.include?(@word)) &&
+                 POS_TRI_REGEXES.any? { |r| trigram =~ r }
                 stripped = trigram.gsub(/_(JJ[^\s]?|NN[^\s]{0,2}|IN)(\s+|\Z)/, '\2')
 
                 result[stripped] ||= 0
