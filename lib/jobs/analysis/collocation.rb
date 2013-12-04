@@ -254,33 +254,37 @@ module Jobs
         # NLP POS tagger requires us to send it full sentences for maximum
         # accuracy.
         tagger = StanfordCoreNLP::MaxentTagger.new(POS_TAGGER_PATH)
-        @dataset.entries.inject({}) do |result, e|
+        @dataset.entries.each_with_object({}) do |e, result|
           doc = Document.find(e.uid, fulltext: true)
           tagged = tagger.tagString(doc.fulltext).split
 
-          (0..(tagged.size - 2)).map do |i|
-            bigram = tagged[i, 2].join(' ')
-            if (!@word || bigram.include?(@word)) &&
-               POS_BI_REGEXES.any? { |r| bigram =~ r }
+          tagged.each_cons(2).map do |t|
+            if @word
+              next unless t.any? { |w| w.start_with?("#{@word}_") }
+            end
+
+            bigram = t.join(' ')
+            if POS_BI_REGEXES.any? { |r| bigram =~ r }
               stripped = bigram.gsub(/_(JJ[^\s]?|NN[^\s]{0,2}|IN)(\s+|\Z)/, '\2')
 
               result[stripped] ||= 0
               result[stripped] += 1
             end
-
-            if i != tagged.size - 3
-              trigram = tagged[i, 3].join(' ')
-              if (!@word || trigram.include?(@word)) &&
-                 POS_TRI_REGEXES.any? { |r| trigram =~ r }
-                stripped = trigram.gsub(/_(JJ[^\s]?|NN[^\s]{0,2}|IN)(\s+|\Z)/, '\2')
-
-                result[stripped] ||= 0
-                result[stripped] += 1
-              end
-            end
           end
 
-          result
+          tagged.each_cons(3).map do |t|
+            if @word
+              next unless t.any? { |w| w.start_with?("#{@word}_") }
+            end
+
+            trigram = t.join(' ')
+            if POS_TRI_REGEXES.any? { |r| trigram =~ r }
+              stripped = trigram.gsub(/_(JJ[^\s]?|NN[^\s]{0,2}|IN)(\s+|\Z)/, '\2')
+
+              result[stripped] ||= 0
+              result[stripped] += 1
+            end
+          end
         end
       end
       # :nocov:

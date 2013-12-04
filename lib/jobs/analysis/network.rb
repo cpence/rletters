@@ -78,8 +78,7 @@ module Jobs
         edges = []
 
         # Scan with two-word gap
-        (0..(words_stem.size - 2)).each do |i|
-          gap = words[i, 2]
+        words.each_cons(2).each_with_index do |gap, i|
           gap_stem = words_stem[i, 2]
           next unless gap_stem.include? word_stem
 
@@ -110,8 +109,7 @@ module Jobs
         end
 
         # Scan with five-word gap
-        (0..(words_stem.size - 5)).each do |i|
-          gap = words[i, 5]
+        words.each_cons(5).each_with_index do |gap, i|
           gap_stem = words_stem[i, 5]
           next unless gap_stem.include? word_stem
 

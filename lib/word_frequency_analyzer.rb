@@ -494,9 +494,7 @@ class WordFrequencyAnalyzer
     return words if @ngrams == 1
 
     # Break it into ngrams and return it
-    (0..(words.size - @ngrams)).map do |i|
-      words[i, @ngrams].join(' ')
-    end
+    words.each_cons(@ngrams).map { |g| g.join(' ') }
   end
 
   # Stem all words according to the stemming parameter
