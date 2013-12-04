@@ -19,6 +19,7 @@ module RLetters
     config.eager_load = true
 
     # Add vendor locales (for CLDR files)
+    I18n.config.enforce_available_locales = true
     config.i18n.load_path += Dir[Rails.root.join('vendor',
                                                  'locales',
                                                  '**',

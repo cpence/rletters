@@ -65,7 +65,7 @@ describe ApplicationHelper do
 
     context 'with a missing locale' do
       before(:each) do
-        I18n.locale = :pirate
+        I18n.locale = :az
       end
 
       after(:each) do
