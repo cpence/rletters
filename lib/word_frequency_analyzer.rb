@@ -307,9 +307,8 @@ class WordFrequencyAnalyzer
     @df_in_corpus = {}
 
     @dataset.entries.each do |e|
-      doc = Document.find(e.uid, term_vectors: true)
-
       if @ngrams == 1
+        doc = Document.find(e.uid, term_vectors: true)
         tv = doc.term_vectors
 
         tv.each do |word, hash|

@@ -139,6 +139,22 @@ module Jobs
 
       private
 
+      # bigram_f: [['bigram bigram', 1], ['bigram other', 3], ...]
+      # word_f: [['bigram', 8], ['other', 4], ...]
+      def self.word_f_from_bigram_f(bigram_f)
+        # FIXME: This will neglect the *very last* word of every document,
+        # because it won't be the first word of any bigram.
+        bigram_f.each_with_object([]) do |p, ret|
+          word = p[0].split[0]
+          pair = ret.assoc(word)
+          if pair.nil?
+            ret << [word, 0]
+            pair = ret.last
+          end
+          pair[1] += p[1]
+        end
+      end
+
       def self.analyze_mutual_information
         # MUTUAL INFORMATION
         # PMI(a, b) = log [ (f(a b) / N) / (f(a) f(b) / N^2) ]
@@ -147,11 +163,10 @@ module Jobs
         options[:inclusion_list] = @word if @word
 
         bigrams = compute_word_frequencies(@dataset, options.merge(ngrams: 2))
-        words = compute_word_frequencies(@dataset, options)
-
         bigram_f = bigrams.blocks[0]
-        word_f = words.blocks[0]
-        n = words.num_dataset_tokens.to_f
+        word_f = word_f_from_bigram_f(bigram_f)
+
+        n = bigrams.num_dataset_tokens.to_f + 1.0
         n_2 = n * n
 
         Hash[bigram_f.map do |b|
@@ -176,11 +191,10 @@ module Jobs
         options[:inclusion_list] = @word if @word
 
         bigrams = compute_word_frequencies(@dataset, options.merge(ngrams: 2))
-        words = compute_word_frequencies(@dataset, options)
-
         bigram_f = bigrams.blocks[0]
-        word_f = words.blocks[0]
-        n = words.num_dataset_tokens.to_f
+        word_f = word_f_from_bigram_f(bigram_f)
+
+        n = bigrams.num_dataset_tokens.to_f + 1.0
 
         Hash[bigram_f.map do |b|
           bigram_words = b[0].split
@@ -208,11 +222,10 @@ module Jobs
         options[:inclusion_list] = @word if @word
 
         bigrams = compute_word_frequencies(@dataset, options.merge(ngrams: 2))
-        words = compute_word_frequencies(@dataset, options)
-
         bigram_f = bigrams.blocks[0]
-        word_f = words.blocks[0]
-        n = words.num_dataset_tokens.to_f
+        word_f = word_f_from_bigram_f(bigram_f)
+
+        n = bigrams.num_dataset_tokens.to_f + 1.0
 
         Hash[bigram_f.map do |b|
           bigram_words = b[0].split
