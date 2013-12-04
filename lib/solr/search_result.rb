@@ -77,8 +77,12 @@ module Solr
             uid = solr_response['termVectors'][i + 1][1]
             next unless doc['uid'] == uid
 
-            tv = parse_term_vectors(solr_response['termVectors'][i + 1][3])
-            doc['term_vectors'] = tv
+            if solr_response['termVectors'][i + 1][3].blank?
+              doc['term_vectors'] = {}
+            else
+              tv = parse_term_vectors(solr_response['termVectors'][i + 1][3])
+              doc['term_vectors'] = tv
+            end
           end
         end
 

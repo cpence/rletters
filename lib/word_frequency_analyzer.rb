@@ -77,6 +77,9 @@ class WordFrequencyAnalyzer
   # @option options [Integer] :num_words If set, only return frequency data for
   #   this many words; otherwise, return all words.  If +ngrams+ is set, this
   #   is a number of ngrams, not a number of words.
+  # @option options [Symbol] :stemming If set to +:stem+, stem words with the
+  #   Porter stemmer before taking frequency.  If set to +:lemma+, lemmatize
+  #   with the Stanford NLP (if availble; slow!).  If unset, do not stem.
   # @option options [Symbol] :last_block This parameter changes what will
   #   happen to the "leftover" words when +block_size+ is set.
   #
@@ -134,19 +137,18 @@ class WordFrequencyAnalyzer
 
     # Process all of the documents
     @dataset.entries.each do |e|
-      @current_doc = Document.find(e.uid, term_vectors: true)
-      sorted_words = compute_ngrams_list(@current_doc)
+      words = compute_ngrams_list(e.uid)
 
       # If we aren't splitting across, then we have to completely clear
       # out all the count information for every document, and we have to
       # compute how many/how big the blocks should be for this document
       unless @split_across
         @block_num = 0
-        compute_block_size(sorted_words.count)
+        compute_block_size(words.count)
       end
 
       # Do the processing for this document
-      sorted_words.each do |word|
+      words.each do |word|
         # If we're truncating, then we want to be sure to stop when we hit the
         # calculated number of blocks
         if (@last_block == :truncate_last || @last_block == :truncate_all) &&
@@ -208,6 +210,7 @@ class WordFrequencyAnalyzer
     options[:split_across] = true if options[:split_across].nil?
     options[:ngrams] ||= 1
     options[:num_words] ||= 0
+    options[:stemming] ||= nil
 
     # If we get num_blocks and block_size, then the user's done something
     # wrong; just take block_size
@@ -233,6 +236,12 @@ class WordFrequencyAnalyzer
       options[:last_block] = :big_last
     end
 
+    # Make sure stemming is a legitimate value
+    allowed_stemming = [:stem, :lemma]
+    unless allowed_stemming.include? options[:stemming]
+      options[:stemming] = nil
+    end
+
     # Make sure inclusion_list isn't blank
     options[:inclusion_list].strip! if options[:inclusion_list]
     options[:inclusion_list] = nil if options[:inclusion_list].blank?
@@ -255,6 +264,7 @@ class WordFrequencyAnalyzer
     @split_across = options[:split_across]
     @ngrams = options[:ngrams]
     @num_words = options[:num_words]
+    @stemming = options[:stemming]
     @last_block = options[:last_block]
     @inclusion_list = options[:inclusion_list]
     @exclusion_list = options[:exclusion_list]
@@ -320,7 +330,7 @@ class WordFrequencyAnalyzer
       else
         # FIXME: There's probably a faster way to sort this once, then zip it
         # by count into an array of arrays.
-        ngrams = compute_ngrams_list(doc)
+        ngrams = compute_ngrams_list(e.uid)
         ngrams.uniq.each do |ngram|
           @tf_in_dataset[ngram] ||= 0
           @tf_in_dataset[ngram] += ngrams.count(ngram)
@@ -403,10 +413,12 @@ class WordFrequencyAnalyzer
     else
       if @block_method == :count
         I18n.t('lib.wfa.block_count_doc',
-               num: @block_num, total: @num_blocks, title: @current_doc.title)
+               num: @block_num, total: @num_blocks,
+               title: @current_doc.title || I18n.t('search.document.untitled'))
       else
         I18n.t('lib.wfa.block_size_doc',
-               num: @block_num, size: @block_size, title: @current_doc.title)
+               num: @block_num, size: @block_size,
+               title: @current_doc.title || I18n.t('search.document.untitled'))
       end
     end
   end
@@ -472,26 +484,51 @@ class WordFrequencyAnalyzer
   # in sorted order (even when +@ngrams+ is 1).
   #
   # @api private
-  # @param [Document] doc The document to query
+  # @param [String] uid The uid of the document to query
   # @return [Array<String>] Ordered array of all n-grams in the document
-  def compute_ngrams_list(doc)
-    # Build an array of the words in the document
-    sorted_words = []
-    doc.term_vectors.each do |word, hash|
-      hash[:positions].each do |p|
-        sorted_words << [word, p]
-      end
-    end
-    sorted_words.sort! { |a, b| a[1] <=> b[1] }
-    sorted_words.map! { |x| x[0] }
+  def compute_ngrams_list(uid)
+    # Get the words in the document
+    words = get_stemmed_words(uid)
 
     # This is the array of single words
-    return sorted_words if @ngrams == 1
+    return words if @ngrams == 1
 
     # Break it into ngrams and return it
-    (0..(sorted_words.size - @ngrams)).map do |i|
-      sorted_words[i, @ngrams].join(' ')
+    (0..(words.size - @ngrams)).map do |i|
+      words[i, @ngrams].join(' ')
     end
   end
 
+  # Stem all words according to the stemming parameter
+  #
+  # @api private
+  # @param [String] uid the UID of the document to query
+  # @return [Array<String>] the words in the document, stemmed
+  def get_stemmed_words(uid)
+    # If we're not stemming at all or Porter-stemming, be fast and don't
+    # hit fulltext
+    if @stemming != :lemma || !NLP_ENABLED
+      doc = Document.find(uid, term_vectors: true)
+      @current_doc = doc
+
+      sorted_words = []
+      doc.term_vectors.each do |word, hash|
+        hash[:positions].each do |p|
+          sorted_words << [word, p]
+        end
+      end
+      sorted_words.sort! { |a, b| a[1] <=> b[1] }
+      sorted_words.map! { |x| @stemming == :stem ? x[0].stem : x[0] }
+
+      return sorted_words
+    end
+
+    # We're lemmatizing, so we have to hit fulltext
+    doc = Document.find(uid, fulltext: true)
+    @current_doc = doc
+
+    pipeline = StanfordCoreNLP.load(:tokenize, :ssplit, :pos, :lemma)
+    text = StanfordCoreNLP::Annotation.new(doc.fulltext)
+    text.get(:tokens).map { |tok| tok.get(:lemma).to_s }
+  end
 end

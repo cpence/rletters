@@ -59,6 +59,7 @@ module Jobs
                                       block_size: args[:block_size],
                                       num_blocks: args[:num_blocks],
                                       num_words: args[:num_words],
+                                      stemming: args[:stemming],
                                       split_across: args[:split_across],
                                       last_block: args[:last_block],
                                       inclusion_list: args[:inclusion_list],
@@ -122,6 +123,12 @@ module Jobs
 
             args[:inclusion_list] = nil if args[:inclusion_list].blank?
             args[:exclusion_list] = nil if args[:exclusion_list].blank?
+
+            if args[:stemming].blank? || args[:stemming] == 'no'
+              args[:stemming] = nil
+            else
+              args[:stemming] = args[:stemming].to_sym
+            end
           end
 
         end

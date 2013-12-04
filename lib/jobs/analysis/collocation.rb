@@ -95,8 +95,6 @@ module Jobs
           fail ArgumentError, 'Invalid value for analysis_type'
         end
 
-        grams = grams.to_a.sort_by(&:last).reverse_each.take(num_pairs)
-
         # Save out all the data
         csv_string = CSV.generate do |csv|
           csv << [t('.header', name: @dataset.name)]
@@ -104,7 +102,9 @@ module Jobs
           csv << ['']
 
           csv << [t('.pair'), column]
-          grams.each { |k, v| csv << [k, v] }
+          grams.sort { |a, b| b[1] <=> a[1] }.take(num_pairs).each do |w, v|
+            csv << [w, v]
+          end
 
           csv << ['']
         end
