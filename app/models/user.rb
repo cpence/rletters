@@ -66,11 +66,8 @@ class User < ActiveRecord::Base
                        format: { with: /\A[a-z]{2,3}(-[A-Z]{2})?\Z/ }
   validates :timezone, presence: true
 
-  has_many :datasets, dependent: :delete_all
-  has_many :libraries, dependent: :delete_all, class_name: 'Users::Library'
-
-  validates_associated :datasets
-  validates_associated :libraries
+  has_many :datasets
+  has_many :libraries, class_name: 'Users::Library'
 
   # Convert the +csl_style_id+ to a CslStyle (or nil)
   #

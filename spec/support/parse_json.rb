@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 
 # This is a nice idea to DRY-up JSON API specs, thanks to
 # http://matthewlehner.net/rails-api-testing-guidelines/

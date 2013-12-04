@@ -30,10 +30,8 @@ class Dataset < ActiveRecord::Base
   validates :user_id, presence: true
 
   belongs_to :user
-  has_many :entries, class_name: 'Datasets::Entry', dependent: :delete_all
+  has_many :entries, class_name: 'Datasets::Entry'
   has_many :analysis_tasks, class_name: 'Datasets::AnalysisTask', dependent: :destroy
-
-  validates_associated :entries
 
   # @return [Array<Dataset>] all datasets that are currently not disabled
   scope :active, -> { where(disabled: false) }

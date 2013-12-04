@@ -8,6 +8,7 @@ gem 'rails-i18n', '= 4.0.0'
 gem 'pg', platform: [:ruby, :mswin, :mingw]
 gem 'activerecord-jdbcpostgresql-adapter', platform: :jruby
 gem 'activerecord-import', '>= 0.4.0'
+gem 'foreigner'
 gem 'closure_tree'
 gem 'trim_blobs'
 gem 'addressable'
