@@ -101,7 +101,7 @@ module Jobs
           csv << ['']
 
           csv << [t('.pair'), column]
-          grams.sort { |a, b| b[1] <=> a[1] }.take(num_pairs).each do |w, v|
+          grams.take(num_pairs).each do |w, v|
             csv << [w, v]
           end
 
@@ -155,12 +155,12 @@ module Jobs
         n = words.num_dataset_tokens.to_f
         n_2 = n * n
 
-        Hash[bigram_f.map do |b|
+        bigram_f.map { |b|
           bigram_words = b[0].split
           [b[0],
            Math.log((b[1].to_f / n) /
                     (word_f[bigram_words[0]].to_f * word_f[bigram_words[1]] / n_2))]
-        end]
+        }.sort { |a, b| b[1] <=> a[1] }
       end
 
       def self.analyze_t_test
@@ -177,19 +177,15 @@ module Jobs
         bigram_options = { ngrams: 2 }
         bigram_options[:inclusion_list] = @word if @word
 
-        Rails.logger.info "Getting bigram frequencies"
         bigrams = WordFrequencyAnalyzer.new(@dataset, options.merge(bigram_options))
-        Rails.logger.info "Getting word frequencies"
         words = WordFrequencyAnalyzer.new(@dataset, options)
 
         bigram_f = bigrams.blocks[0]
         word_f = words.blocks[0]
-        Rails.logger.info bigram_f.inspect
-        Rails.logger.info word_f.inspect
 
         n = words.num_dataset_tokens.to_f
 
-        Hash[bigram_f.map do |b|
+        bigram_f.map { |b|
           bigram_words = b[0].split
           h_0 = (word_f[bigram_words[0]].to_f / n) *
                 (word_f[bigram_words[1]].to_f / n)
@@ -197,7 +193,7 @@ module Jobs
           p = 1.0 - Distribution::T.cdf(t, n - 1)
 
           [b[0], p]
-        end]
+        }.sort { |a, b| a[1] <=> b[1] }
       end
 
       def self.log_l(k, n, x)
@@ -224,7 +220,7 @@ module Jobs
 
         n = words.num_dataset_tokens.to_f
 
-        Hash[bigram_f.map do |b|
+        bigram_f.map { |b|
           bigram_words = b[0].split
           f_ab = b[1].to_f
           f_a = word_f[bigram_words[0]].to_f
@@ -235,7 +231,7 @@ module Jobs
                log_l(f_ab, f_a, f_ab / f_a) -
                log_l(f_b - f_ab, n - f_a, (f_b - f_ab) / (n - f_a))
           [b[0], -2.0 * ll]
-        end]
+        }.sort { |a, b| b[1] <=> a[1] }
       end
 
       # No coverage here, as we don't install Stanford NLP on Travis
@@ -264,7 +260,7 @@ module Jobs
         # NLP POS tagger requires us to send it full sentences for maximum
         # accuracy.
         tagger = StanfordCoreNLP::MaxentTagger.new(POS_TAGGER_PATH)
-        @dataset.entries.each_with_object({}) do |e, result|
+        @dataset.entries.each_with_object({}) { |e, result|
           doc = Document.find(e.uid, fulltext: true)
           tagged = tagger.tagString(doc.fulltext).split
 
@@ -295,7 +291,7 @@ module Jobs
               result[stripped] += 1
             end
           end
-        end
+        }.sort { |a, b| b[1] <=> a[1] }
       end
       # :nocov:
     end
