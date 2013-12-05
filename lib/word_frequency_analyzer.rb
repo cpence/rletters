@@ -137,8 +137,8 @@ class WordFrequencyAnalyzer
 
     # Process all of the documents
     @dataset.entries.each do |e|
-      @ngrams[e.uid] ||= compute_ngrams_list(e.uid)
-      words = @ngrams[e.uid]
+      @word_cache[e.uid] ||= compute_ngrams_list(e.uid)
+      words = @word_cache[e.uid]
 
       # If we aren't splitting across, then we have to completely clear
       # out all the count information for every document, and we have to
@@ -306,7 +306,7 @@ class WordFrequencyAnalyzer
     @df_in_dataset = {}
     @tf_in_dataset = {}
     @df_in_corpus = {}
-    @ngrams = {}
+    @word_cache = {}
 
     @dataset.entries.each do |e|
       if @ngrams == 1
@@ -331,9 +331,9 @@ class WordFrequencyAnalyzer
       else
         # We're saving these out for ngrams, because computing them is
         # expensive, and we have to do it more than once
-        @ngrams[e.uid] ||= compute_ngrams_list(e.uid)
+        @word_cache[e.uid] ||= compute_ngrams_list(e.uid)
 
-        @ngrams[e.uid].group_by { |w| w }.map { |k, v| [k, v.count] }.each do |g|
+        @word_cache[e.uid].group_by { |w| w }.map { |k, v| [k, v.count] }.each do |g|
           @tf_in_dataset[g[0]] ||= 0
           @tf_in_dataset[g[0]] += g[1]
 
