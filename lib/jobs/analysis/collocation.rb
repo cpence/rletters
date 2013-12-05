@@ -5,7 +5,6 @@ module Jobs
 
     # Determine statistically significant collocations in text
     class Collocation < Jobs::Analysis::Base
-      add_concern 'ComputeWordFrequencies'
       @queue = 'analysis'
 
       # Returns true if this job can be started now
@@ -139,34 +138,21 @@ module Jobs
 
       private
 
-      # bigram_f: [['bigram bigram', 1], ['bigram other', 3], ...]
-      # word_f: [['bigram', 8], ['other', 4], ...]
-      def self.word_f_from_bigram_f(bigram_f)
-        # FIXME: This will neglect the *very last* word of every document,
-        # because it won't be the first word of any bigram.
-        bigram_f.each_with_object([]) do |p, ret|
-          word = p[0].split[0]
-          pair = ret.assoc(word)
-          if pair.nil?
-            ret << [word, 0]
-            pair = ret.last
-          end
-          pair[1] += p[1]
-        end
-      end
-
       def self.analyze_mutual_information
         # MUTUAL INFORMATION
         # PMI(a, b) = log [ (f(a b) / N) / (f(a) f(b) / N^2) ]
         # with N the number of single-word tokens
         options = { num_blocks: 1, split_across: true }
-        options[:inclusion_list] = @word if @word
+        bigram_options = { ngrams: 2 }
+        bigram_options[:inclusion_list] = @word if @word
 
-        bigrams = compute_word_frequencies(@dataset, options.merge(ngrams: 2))
+        bigrams = WordFrequencyAnalyzer.new(@dataset, options.merge(bigram_options))
+        words = WordFrequencyAnalyzer.new(@dataset, options)
+
         bigram_f = bigrams.blocks[0]
-        word_f = word_f_from_bigram_f(bigram_f)
+        word_f = words.blocks[0]
 
-        n = bigrams.num_dataset_tokens.to_f + 1.0
+        n = words.num_dataset_tokens.to_f
         n_2 = n * n
 
         Hash[bigram_f.map do |b|
@@ -188,21 +174,29 @@ module Jobs
         # convert t to a p-value based on N
         #   1 - Distribution::T.cdf(t, N-1)
         options = { num_blocks: 1, split_across: true }
-        options[:inclusion_list] = @word if @word
+        bigram_options = { ngrams: 2 }
+        bigram_options[:inclusion_list] = @word if @word
 
-        bigrams = compute_word_frequencies(@dataset, options.merge(ngrams: 2))
+        Rails.logger.info "Getting bigram frequencies"
+        bigrams = WordFrequencyAnalyzer.new(@dataset, options.merge(bigram_options))
+        Rails.logger.info "Getting word frequencies"
+        words = WordFrequencyAnalyzer.new(@dataset, options)
+
         bigram_f = bigrams.blocks[0]
-        word_f = word_f_from_bigram_f(bigram_f)
+        word_f = words.blocks[0]
+        Rails.logger.info bigram_f.inspect
+        Rails.logger.info word_f.inspect
 
-        n = bigrams.num_dataset_tokens.to_f + 1.0
+        n = words.num_dataset_tokens.to_f
 
         Hash[bigram_f.map do |b|
           bigram_words = b[0].split
           h_0 = (word_f[bigram_words[0]].to_f / n) *
                 (word_f[bigram_words[1]].to_f / n)
           t = ((b[1].to_f / n) - h_0) / Math.sqrt((h_0 * (1.0 - h_0)) / n)
+          p = 1.0 - Distribution::T.cdf(t, n - 1)
 
-          [b[0], 1.0 - Distribution::T.cdf(t, n - 1)]
+          [b[0], p]
         end]
       end
 
@@ -219,13 +213,16 @@ module Jobs
         #              log L(f(b) - f(a b), N - f(a), (f(b) - f(a b)) / (N - f(a)))
         # sort by -2 log-lambda
         options = { num_blocks: 1, split_across: true }
-        options[:inclusion_list] = @word if @word
+        bigram_options = { ngrams: 2 }
+        bigram_options[:inclusion_list] = @word if @word
 
-        bigrams = compute_word_frequencies(@dataset, options.merge(ngrams: 2))
+        bigrams = WordFrequencyAnalyzer.new(@dataset, options.merge(bigram_options))
+        words = WordFrequencyAnalyzer.new(@dataset, options)
+
         bigram_f = bigrams.blocks[0]
-        word_f = word_f_from_bigram_f(bigram_f)
+        word_f = words.blocks[0]
 
-        n = bigrams.num_dataset_tokens.to_f + 1.0
+        n = words.num_dataset_tokens.to_f
 
         Hash[bigram_f.map do |b|
           bigram_words = b[0].split
@@ -263,7 +260,7 @@ module Jobs
         # sort by frequency
         fail ArgumentError, 'NLP library not available' unless NLP_ENABLED
 
-        # We actually aren't going to use compute_word_frequencies here; the
+        # We actually aren't going to use WordFrequencyAnalyzer here; the
         # NLP POS tagger requires us to send it full sentences for maximum
         # accuracy.
         tagger = StanfordCoreNLP::MaxentTagger.new(POS_TAGGER_PATH)
