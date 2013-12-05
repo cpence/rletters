@@ -6,7 +6,6 @@ module Jobs
 
     # Compare two datasets using the Craig Zeta algorithm
     class CraigZeta < Jobs::Analysis::Base
-      add_concern 'ComputeWordFrequencies'
       @queue = 'analysis'
 
       # Returns true if this job can be started now
@@ -70,13 +69,13 @@ module Jobs
         # 1) Get word lists for each dataset.  Break the datasets up into
         # blocks when you do.  500-word blocks, BigLast.  Stop lists aren't
         # needed, because we're going to remove common words below.
-        analyzer_1 = compute_word_frequencies(
+        analyzer_1 = WordFrequencyAnalyzer.new(
           dataset_1,
           block_size: 500,
           split_across: true,
           last_block: :big_last
         )
-        analyzer_2 = compute_word_frequencies(
+        analyzer_2 = WordFrequencyAnalyzer.new(
           dataset_2,
           block_size: 500,
           split_across: true,
