@@ -17,6 +17,7 @@
     *   The network is drawn using D3 showing node degree and node connection strength.
     *   Results can be downloaded as a GraphML file for further analysis.
 *   The "compute word frequency" job now supports analyzing multiple-word phrases (n-grams), in addition to single words.
+*   The "compute word frequency" job now supports word stemming (fast) and full word lemmatization (slow).
 *   RLetters now supports fetching the full text of documents from an external HTTP server.
 *   Administrators of RLetters sites can now define custom categories of journals, and if these categories are defined, they are available for users to filter their search results.
 *   More information is now available in the dropdown for each document, including the DOI, the document's license, and information about the data source for the document.
