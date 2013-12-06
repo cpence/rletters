@@ -239,8 +239,6 @@ GEM
     polyamorous (0.6.4)
       activerecord (>= 3.0)
     polyglot (0.3.3)
-    puma (2.7.0-java)
-      rack (>= 1.1, < 2.0)
     rabl (0.9.2)
       activesupport (>= 2.3.14)
     rack (1.5.2)
@@ -432,7 +430,6 @@ DEPENDENCIES
   paperclip_database (>= 2.2.0)
   pg
   poltergeist
-  puma
   rabl
   rails (~> 4.0)
   rails-i18n (= 4.0.0)
