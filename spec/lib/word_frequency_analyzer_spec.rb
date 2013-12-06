@@ -311,6 +311,46 @@ describe WordFrequencyAnalyzer do
     end
   end
 
+  describe '#stemming' do
+    context 'with Porter stemming' do
+      before(:each) do
+        @dataset = FactoryGirl.create(:dataset, user: @user)
+        @entry = FactoryGirl.create(:entry, uid: 'gutenberg:3172', dataset: @dataset)
+        @dataset.entries = [@entry]
+        @dataset.save
+
+        stub_connection('http://www.gutenberg.org/cache/epub/3172/pg3172.txt', 'gutenberg')
+        @analyzer = WordFrequencyAnalyzer.new(@dataset, stemming: :stem)
+      end
+
+      it 'stems words' do
+        block = @analyzer.blocks[0]
+
+        expect(block).not_to include('describes')
+        expect(block).to include('describ')
+      end
+    end
+
+    context 'with lemmatization', nlp: true do
+      before(:each) do
+        @dataset = FactoryGirl.create(:dataset, user: @user)
+        @entry = FactoryGirl.create(:entry, uid: 'gutenberg:3172', dataset: @dataset)
+        @dataset.entries = [@entry]
+        @dataset.save
+
+        stub_connection('http://www.gutenberg.org/cache/epub/3172/pg3172.txt', 'gutenberg')
+        @analyzer = WordFrequencyAnalyzer.new(@dataset, stemming: :lemma)
+      end
+
+      it 'lemmatizes words' do
+        block = @analyzer.blocks[0]
+
+        expect(block).not_to include('gone')
+        expect(block).to include('go')
+      end
+    end
+  end
+
   describe '#inclusion_list' do
     before(:each) do
       @analyzer = WordFrequencyAnalyzer.new(@dataset, inclusion_list: 'a the')

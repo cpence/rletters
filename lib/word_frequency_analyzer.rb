@@ -308,12 +308,27 @@ class WordFrequencyAnalyzer
     @df_in_corpus = {}
     @word_cache = {}
 
+    # FIXME: This whole damn thing needs serious refactoring
     @dataset.entries.each do |e|
       if @ngrams == 1
         doc = Document.find(e.uid, term_vectors: true)
         tv = doc.term_vectors
 
+        # Add to document frequencies
+        if @stemming == :stem
+          words = tv.keys.map(&:stem).uniq
+        else
+          words = tv.keys
+        end
+        words.each do |w|
+          @df_in_dataset[w] ||= 0
+          @df_in_dataset[w] += 1
+        end
+
+        # Add to word frequencies
         tv.each do |word, hash|
+          word = word.stem if @stemming == :stem
+
           # Oddly enough, you'll get weird bogus values for words that don't
           # appear in your document back from Solr.  Not sure what's up with
           # that.
@@ -324,9 +339,6 @@ class WordFrequencyAnalyzer
 
           @tf_in_dataset[word] ||= 0
           @tf_in_dataset[word] += hash[:tf]
-
-          @df_in_dataset[word] ||= 0
-          @df_in_dataset[word] += 1
         end
       else
         # We're saving these out for ngrams, because computing them is
@@ -514,11 +526,11 @@ class WordFrequencyAnalyzer
       sorted_words = []
       doc.term_vectors.each do |word, hash|
         hash[:positions].each do |p|
-          sorted_words << [word, p]
+          sorted_words << [(@stemming == :stem ? word.stem : word), p]
         end
       end
       sorted_words.sort! { |a, b| a[1] <=> b[1] }
-      sorted_words.map! { |x| @stemming == :stem ? x[0].stem : x[0] }
+      sorted_words.map! { |x| x[0] }
 
       return sorted_words
     end
@@ -529,6 +541,8 @@ class WordFrequencyAnalyzer
 
     pipeline = StanfordCoreNLP.load(:tokenize, :ssplit, :pos, :lemma)
     text = StanfordCoreNLP::Annotation.new(doc.fulltext)
-    text.get(:tokens).map { |tok| tok.get(:lemma).to_s }
+    pipeline.annotate(text)
+
+    tokens = text.get(:tokens).to_a.map { |tok| tok.get(:lemma).to_s }
   end
 end
