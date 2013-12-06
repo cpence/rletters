@@ -24,24 +24,13 @@ ActiveAdmin.register_page 'Dashboard' do
           h4 I18n.t('admin.dashboard.database')
 
           ul do
-            solr_query = {}
-            solr_query[:q] = '*:*'
-            solr_query[:defType] = 'lucene'
-            solr_query[:rows] = 1
-            solr_query[:start] = 0
+            corpus_size = Solr::DataHelpers.corpus_size
+            ping = Solr::Connection.ping
 
-            begin
-              search_result = Solr::Connection.search solr_query
-
-              li I18n.t('admin.dashboard.db_size',
-                        count: search_result.num_hits)
-
-              if search_result.solr_response['responseHeader'] &&
-                  search_result.solr_response['responseHeader']['QTime']
-                li I18n.t('admin.dashboard.latency',
-                          count: search_result.solr_response['responseHeader']['QTime'])
-              end
-            rescue Solr::ConnectionError
+            if corpus_size && ping
+              li I18n.t('admin.dashboard.db_size', count: corpus_size)
+              li I18n.t('admin.dashboard.latency', count: ping)
+            else
               li I18n.t('admin.dashboard.connection_failed')
             end
           end

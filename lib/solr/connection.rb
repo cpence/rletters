@@ -97,6 +97,22 @@ module Solr
       {}
     end
 
+    # Ping the Solr server
+    #
+    # Returns the latency of the connection, or +nil+ if there is a connection
+    # failure.
+    #
+    # @return [Integer] latency of Solr connection
+    # @example Get the Solr latency
+    #   Solr::Connection.ping
+    #   # => 6
+    def self.ping
+      get_solr
+      Connection.solr.get('admin/ping')['responseHeader']['QTime']
+    rescue *Solr::Connection::EXCEPTIONS
+      nil
+    end
+
     private
 
     # Retrieve the Solr connection object

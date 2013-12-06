@@ -438,14 +438,4 @@ describe WordFrequencyAnalyzer do
       end
     end
   end
-
-  describe '#num_corpus_documents' do
-    before(:each) do
-      @analyzer = WordFrequencyAnalyzer.new(@dataset)
-    end
-
-    it 'works' do
-      expect(@analyzer.num_corpus_documents).to eq(1043)
-    end
-  end
 end

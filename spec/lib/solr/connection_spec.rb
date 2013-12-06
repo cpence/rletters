@@ -74,6 +74,12 @@ describe Solr::Connection do
     end
   end
 
+  describe '.ping' do
+    it 'works' do
+      expect(Solr::Connection.ping).to be_an(Integer)
+    end
+  end
+
   describe '.get_solr' do
     it 'successfully responds to changes in cached Solr URL' do
       old_url = Admin::Setting.solr_server_url

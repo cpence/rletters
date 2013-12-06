@@ -36,30 +36,6 @@ class WordFrequencyAnalyzer
               :df_in_dataset, :df_in_corpus, :num_dataset_tokens,
               :num_dataset_types
 
-  # Get the size of the entire Solr corpus.
-  #
-  # We need this value in order to compute tf/idf against the entire
-  # corpus.  We compute it here and memoize it, as it requires a query to
-  # the Solr database.
-  #
-  # @api private
-  # @raise [Solr::ConnectionError] if the Solr connection fails
-  # @return [Integer] Size of the Solr database, in documents
-  def num_corpus_documents
-    if @corpus_size.nil?
-      solr_query = {}
-      solr_query[:q] = '*:*'
-      solr_query[:defType] = 'lucene'
-      solr_query[:rows] = 1
-      solr_query[:start] = 0
-
-      search_result = Solr::Connection.search(solr_query)
-      @corpus_size = search_result.num_hits
-    end
-
-    @corpus_size
-  end
-
   # Create a new word frequency analyzer and analyze
   #
   # @api public

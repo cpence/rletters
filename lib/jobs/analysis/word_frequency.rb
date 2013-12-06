@@ -105,7 +105,7 @@ module Jobs
                 if analyzer.df_in_corpus.present?
                   r << Math.tfidf((b[word] || 0).to_f / s[:tokens].to_f,
                                   analyzer.df_in_corpus[word],
-                                  analyzer.num_corpus_documents)
+                                  Solr::DataHelpers.corpus_size)
                 else
                   r << ''
                 end
@@ -140,7 +140,7 @@ module Jobs
             if analyzer.df_in_corpus.present?
               r << analyzer.df_in_corpus[w].to_s
               r << Math.tfidf(tf_in_dataset, analyzer.df_in_corpus[w],
-                              analyzer.num_corpus_documents)
+                              Solr::DataHelpers.corpus_size)
             else
               r << ''
               r << ''
