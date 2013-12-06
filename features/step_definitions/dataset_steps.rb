@@ -104,6 +104,7 @@ Then(/^I should be able to view the dataset's properties$/) do
 end
 
 Then(/^the dataset should have (\d+) entries$/) do |entries|
+  sleep 1
   @dataset.reload
   expect(@dataset.entries.count).to eq(Integer(entries))
 end
