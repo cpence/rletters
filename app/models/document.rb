@@ -156,6 +156,9 @@ class Document
   include Serializers::RIS
   include Serializers::OpenURL
 
+  # Concerns with other document-processing logic
+  include Documents::WordList
+
   # Return a document (just bibliographic data) by uid
   #
   # @api public

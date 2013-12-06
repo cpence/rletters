@@ -133,13 +133,10 @@ class WordFrequencyAnalyzer
 
     # Set up the initial block
     @block_num = 0
-    clear_block(false)
+    clear_block(nil, false)
 
     # Process all of the documents
-    @dataset.entries.each do |e|
-      @word_cache[e.uid] ||= compute_ngrams_list(e.uid)
-      words = @word_cache[e.uid]
-
+    @word_cache.each do |uid, words|
       # If we aren't splitting across, then we have to completely clear
       # out all the count information for every document, and we have to
       # compute how many/how big the blocks should be for this document
@@ -182,14 +179,14 @@ class WordFrequencyAnalyzer
 
           if @block_counter >= check_size
             @num_remainder_blocks -= 1 if @num_remainder_blocks != 0
-            clear_block
+            clear_block(uid)
           end
         end
       end
 
       # If we're not splitting across, we need to make sure the last block
       # for this doc, if there's anything in it, has been added to the list.
-      clear_block if !@split_across && @block_counter != 0
+      clear_block(uid) if !@split_across && @block_counter != 0
     end
 
     # If we are splitting across, we need to put the last block into the
@@ -308,25 +305,22 @@ class WordFrequencyAnalyzer
     @df_in_corpus = {}
     @word_cache = {}
 
-    # FIXME: This whole damn thing needs serious refactoring
     @dataset.entries.each do |e|
+      @word_cache[e.uid] = Document.word_list_for(e.uid, ngrams: @ngrams,
+                                                         stemming: @stemming)
+
+      @word_cache[e.uid].group_by { |w| w }.map { |k, v| [k, v.count] }.each do |g|
+        @tf_in_dataset[g[0]] ||= 0
+        @tf_in_dataset[g[0]] += g[1]
+
+        @df_in_dataset[g[0]] ||= 0
+        @df_in_dataset[g[0]] += 1
+      end
+
+      # Fetch @df_in_corpus, if available
       if @ngrams == 1
         doc = Document.find(e.uid, term_vectors: true)
-        tv = doc.term_vectors
-
-        # Add to document frequencies
-        if @stemming == :stem
-          words = tv.keys.map(&:stem).uniq
-        else
-          words = tv.keys
-        end
-        words.each do |w|
-          @df_in_dataset[w] ||= 0
-          @df_in_dataset[w] += 1
-        end
-
-        # Add to word frequencies
-        tv.each do |word, hash|
+        doc.term_vectors.each do |word, hash|
           word = word.stem if @stemming == :stem
 
           # Oddly enough, you'll get weird bogus values for words that don't
@@ -335,22 +329,6 @@ class WordFrequencyAnalyzer
           if hash[:df] > 0 && @df_in_corpus[word].blank?
             @df_in_corpus[word] = hash[:df]
           end
-          next if hash[:tf] == 0
-
-          @tf_in_dataset[word] ||= 0
-          @tf_in_dataset[word] += hash[:tf]
-        end
-      else
-        # We're saving these out for ngrams, because computing them is
-        # expensive, and we have to do it more than once
-        @word_cache[e.uid] ||= compute_ngrams_list(e.uid)
-
-        @word_cache[e.uid].group_by { |w| w }.map { |k, v| [k, v.count] }.each do |g|
-          @tf_in_dataset[g[0]] ||= 0
-          @tf_in_dataset[g[0]] += g[1]
-
-          @df_in_dataset[g[0]] ||= 0
-          @df_in_dataset[g[0]] += 1
         end
       end
     end
@@ -414,8 +392,9 @@ class WordFrequencyAnalyzer
 
   # Get the name of this block
   #
+  # @param [String] uid the id of the document for this block (if needed)
   # @return [String] The name of this block
-  def block_name
+  def block_name(uid)
     if @split_across
       if @block_method == :count
         I18n.t('lib.wfa.block_count_dataset',
@@ -425,14 +404,16 @@ class WordFrequencyAnalyzer
                num: @block_num, size: @block_size)
       end
     else
+      title = Document.find_by(uid: uid).try(:title)
+
       if @block_method == :count
         I18n.t('lib.wfa.block_count_doc',
                num: @block_num, total: @num_blocks,
-               title: @current_doc.title || I18n.t('search.document.untitled'))
+               title: title || I18n.t('search.document.untitled'))
       else
         I18n.t('lib.wfa.block_size_doc',
                num: @block_num, size: @block_size,
-               title: @current_doc.title || I18n.t('search.document.untitled'))
+               title: title || I18n.t('search.document.untitled'))
       end
     end
   end
@@ -444,11 +425,11 @@ class WordFrequencyAnalyzer
   # to the block list before clearing it.
   #
   # @api private
-  def clear_block(add = true)
+  def clear_block(uid = nil, add = true)
     if add
       @block_num += 1
 
-      @block_stats << { name: block_name, types: @type_counter.count,
+      @block_stats << { name: block_name(uid), types: @type_counter.count,
                         tokens: @block_tokens }
       @blocks << @block.deep_dup
     end
@@ -487,62 +468,5 @@ class WordFrequencyAnalyzer
 
       @num_remainder_blocks = 0
     end
-  end
-
-  # Get the list of ngrams for a given document
-  #
-  # Since we don't have a way to query Solr for these, we have to build this
-  # array manually.  It's much slower, but it works.
-  #
-  # It is also used by the actual analysis code, since it returns the words
-  # in sorted order (even when +@ngrams+ is 1).
-  #
-  # @api private
-  # @param [String] uid The uid of the document to query
-  # @return [Array<String>] Ordered array of all n-grams in the document
-  def compute_ngrams_list(uid)
-    # Get the words in the document
-    words = get_stemmed_words(uid)
-
-    # This is the array of single words
-    return words if @ngrams == 1
-
-    # Break it into ngrams and return it
-    words.each_cons(@ngrams).map { |g| g.join(' ') }
-  end
-
-  # Stem all words according to the stemming parameter
-  #
-  # @api private
-  # @param [String] uid the UID of the document to query
-  # @return [Array<String>] the words in the document, stemmed
-  def get_stemmed_words(uid)
-    # If we're not stemming at all or Porter-stemming, be fast and don't
-    # hit fulltext
-    if @stemming != :lemma || !NLP_ENABLED
-      doc = Document.find(uid, term_vectors: true)
-      @current_doc = doc
-
-      sorted_words = []
-      doc.term_vectors.each do |word, hash|
-        hash[:positions].each do |p|
-          sorted_words << [(@stemming == :stem ? word.stem : word), p]
-        end
-      end
-      sorted_words.sort! { |a, b| a[1] <=> b[1] }
-      sorted_words.map! { |x| x[0] }
-
-      return sorted_words
-    end
-
-    # We're lemmatizing, so we have to hit fulltext
-    doc = Document.find(uid, fulltext: true)
-    @current_doc = doc
-
-    pipeline = StanfordCoreNLP.load(:tokenize, :ssplit, :pos, :lemma)
-    text = StanfordCoreNLP::Annotation.new(doc.fulltext)
-    pipeline.annotate(text)
-
-    tokens = text.get(:tokens).to_a.map { |tok| tok.get(:lemma).to_s }
   end
 end
