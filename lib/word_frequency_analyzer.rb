@@ -179,12 +179,11 @@ class WordFrequencyAnalyzer
   # @see WordFrequencyAnalyzer#initialize
   def normalize_options(options)
     # Set default values
-    options[:num_blocks] ||= 0
-    options[:block_size] ||= 0
-    options[:split_across] = true if options[:split_across].nil?
-    options[:ngrams] ||= 1
-    options[:num_words] ||= 0
-    options[:stemming] ||= nil
+    options.reverse_merge!(num_blocks: 0,
+                           block_size: 0,
+                           split_across: true,
+                           ngrams: 1,
+                           num_words: 0)
 
     # If we get num_blocks and block_size, then the user's done something
     # wrong; just take block_size
@@ -204,15 +203,13 @@ class WordFrequencyAnalyzer
     options[:num_words] = 0 if options[:num_words] < 0
 
     # Make sure last_block is a legitimate value
-    allowed_last_block = [:big_last, :small_last,
-                          :truncate_last, :truncate_all]
-    unless allowed_last_block.include? options[:last_block]
+    unless [:big_last, :small_last,
+            :truncate_last, :truncate_all].include? options[:last_block]
       options[:last_block] = :big_last
     end
 
     # Make sure stemming is a legitimate value
-    allowed_stemming = [:stem, :lemma]
-    unless allowed_stemming.include? options[:stemming]
+    unless [:stem, :lemma].include? options[:stemming]
       options[:stemming] = nil
     end
 
@@ -240,8 +237,8 @@ class WordFrequencyAnalyzer
     @num_words = options[:num_words]
     @stemming = options[:stemming]
     @last_block = options[:last_block]
-    @inclusion_list = options[:inclusion_list]
-    @exclusion_list = options[:exclusion_list]
+    @inclusion_list = options[:inclusion_list].try(:split)
+    @exclusion_list = options[:exclusion_list].try(:split)
     @stop_list = options[:stop_list]
 
     # We will eventually set both @num_blocks and @block_size for our inner
@@ -323,8 +320,8 @@ class WordFrequencyAnalyzer
   # @api private
   def pick_words
     # If we have a word-list for 1-grams, this is easy
-    if @inclusion_list && @ngrams == 1
-      @word_list = @inclusion_list.split
+    if @inclusion_list.present? && @ngrams == 1
+      @word_list = @inclusion_list
       return
     end
 
@@ -332,14 +329,14 @@ class WordFrequencyAnalyzer
     # specified
     excluded = []
     if @exclusion_list
-      excluded = @exclusion_list.split
+      excluded = @exclusion_list
     elsif @stop_list
       excluded = @stop_list.list.split
     end
 
     included = []
     if @inclusion_list
-      included = @inclusion_list.split
+      included = @inclusion_list
     end
 
     sorted_pairs = @tf_in_dataset.to_a.sort { |a, b| b[1] <=> a[1] }
@@ -357,7 +354,7 @@ class WordFrequencyAnalyzer
         # list and the gram's words
         @word_list.select! { |w| (w.split & excluded).empty? }
       elsif included.present?
-        # Reject any grams for which there is no overlap between the exclusion
+        # Reject any grams for which there is no overlap between the inclusion
         # list and the gram's words
         @word_list.reject! { |w| (w.split & included).empty? }
       end

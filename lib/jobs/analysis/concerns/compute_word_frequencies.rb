@@ -54,17 +54,7 @@ module Jobs
             convert_args!(args)
 
             # Perform the analysis and return it
-            WordFrequencyAnalyzer.new(dataset,
-                                      ngrams: args[:ngrams],
-                                      block_size: args[:block_size],
-                                      num_blocks: args[:num_blocks],
-                                      num_words: args[:num_words],
-                                      stemming: args[:stemming],
-                                      split_across: args[:split_across],
-                                      last_block: args[:last_block],
-                                      inclusion_list: args[:inclusion_list],
-                                      stop_list: args[:stop_list],
-                                      exclusion_list: args[:exclusion_list])
+            WordFrequencyAnalyzer.new(dataset, args)
           end
 
           private
@@ -74,60 +64,24 @@ module Jobs
           # Since the params are coming in from a form, they'll all be strings.
           # We need them as integer or boolean types, so convert them here.
           def self.convert_args!(args)
-            if args[:ngrams].blank?
-              args[:ngrams] = 1
-            else
-              args[:ngrams] = Integer(args[:ngrams])
-            end
+            args.remove_blank!
 
-            if args[:block_size].blank?
-              args[:block_size] = nil
-            else
-              args[:block_size] = Integer(args[:block_size])
-            end
+            args[:ngrams] = Integer(args[:ngrams]) if args[:ngrams]
+            args[:ngrams] ||= 1
+            args[:block_size] = Integer(args[:block_size]) if args[:block_size]
+            args[:num_blocks] = Integer(args[:num_blocks]) if args[:num_blocks]
+            args[:num_words] = Integer(args[:num_words]) if args[:num_words]
+            args[:last_block] = args[:last_block].to_sym if args[:last_block]
+            args[:stop_list] = Documents::StopList.find_by(language: args[:stop_list]) if args[:stop_list]
+            args[:stemming] = args[:stemming].to_sym if args[:stemming]
+            args[:stemming] = nil if args[:stemming] == :no
 
-            if args[:num_blocks].blank?
-              args[:num_blocks] = nil
-            else
-              args[:num_blocks] = Integer(args[:num_blocks])
-            end
-
-            if args[:num_words].blank?
-              args[:num_words] = nil
-            else
-              args[:num_words] = Integer(args[:num_words])
-            end
-
-            if args[:split_across].blank?
-              args[:split_across] = nil
-            else
+            if args[:split_across]
               if args[:split_across] == '1'
                 args[:split_across] = true
               else
                 args[:split_across] = false
               end
-            end
-
-            if args[:last_block].blank?
-              args[:last_block] = nil
-            else
-              args[:last_block] = args[:last_block].to_sym
-            end
-
-            if args[:stop_list].blank?
-              args[:stop_list] = nil
-            else
-              # Returns nil if the argument isn't found
-              args[:stop_list] = Documents::StopList.find_by(language: args[:stop_list])
-            end
-
-            args[:inclusion_list] = nil if args[:inclusion_list].blank?
-            args[:exclusion_list] = nil if args[:exclusion_list].blank?
-
-            if args[:stemming].blank? || args[:stemming] == 'no'
-              args[:stemming] = nil
-            else
-              args[:stemming] = args[:stemming].to_sym
             end
           end
 

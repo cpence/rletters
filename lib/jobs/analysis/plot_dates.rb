@@ -41,6 +41,7 @@ module Jobs
       #                  task_id: task.to_param)
       def self.perform(args = { })
         args.symbolize_keys!
+        args.remove_blank!
 
         # Fetch the user based on ID
         user = User.find(args[:user_id])
@@ -71,11 +72,11 @@ module Jobs
         # set for pretty display
         norm_set_name = ''
         if args[:normalize_doc_counts] == '1'
-          if args[:normalize_doc_dataset].blank?
-            norm_set_name = t('.entire_corpus')
-          else
+          if args[:normalize_doc_dataset]
             norm_set = user.datasets.active.find(args[:normalize_doc_dataset])
             norm_set_name = norm_set.name
+          else
+            norm_set_name = t('.entire_corpus')
           end
         end
 

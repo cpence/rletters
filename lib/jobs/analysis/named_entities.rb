@@ -41,6 +41,7 @@ module Jobs
       #                  task_id: task.to_param)
       def self.perform(args = { })
         args.symbolize_keys!
+        args.remove_blank!
 
         # Fetch the user based on ID
         user = User.find(args[:user_id])

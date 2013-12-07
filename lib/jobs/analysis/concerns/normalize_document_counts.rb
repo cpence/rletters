@@ -41,12 +41,13 @@ module Jobs
           #   against which to normalize, or blank if the entire corpus
           # @return [Hash<String, Float>] the counts of documents, normalized
           def self.normalize_document_counts(user, field, counts, args)
+            args.remove_blank!
             return counts unless args[:normalize_doc_counts] == '1'
 
-            if args[:normalize_doc_dataset].blank?
-              normalization_set = nil
-            else
+            if args[:normalize_doc_dataset]
               normalization_set = user.datasets.active.find(args[:normalize_doc_dataset])
+            else
+              normalization_set = nil
             end
 
             normalize_counts = Solr::DataHelpers.count_by_field(normalization_set, field)

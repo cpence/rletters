@@ -23,7 +23,6 @@
 *   More information is now available in the dropdown for each document, including the DOI, the document's license, and information about the data source for the document.
 *   Datasets, while being created and destroyed, are now marked as disabled so that partially-completed datasets will not appear in the user interface.
 *   Basic integration testing (essentially, smoke tests) added using Cucumber.
-*   RLetters now can run on JRuby, and when running under JRuby the connection to the Stanford NLP package is native, by default.
 
 
 ## Version 1.1 (beta, 2013-09-24)

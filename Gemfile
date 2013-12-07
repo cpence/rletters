@@ -5,8 +5,7 @@ gem 'rails', '~> 4.0'
 gem 'rails-i18n', '= 4.0.0'
 
 # Database and related tools
-gem 'pg', platform: [:ruby, :mswin, :mingw]
-gem 'activerecord-jdbcpostgresql-adapter', platform: :jruby
+gem 'pg'
 gem 'activerecord-import', '>= 0.4.0'
 gem 'foreigner'
 gem 'closure_tree'
@@ -31,8 +30,7 @@ gem 'rsolr', '>= 1.0.7'
 gem 'rsolr-ext'
 gem 'stanford-core-nlp'
 gem 'distribution'
-gem 'fast-stemmer', platform: [:ruby, :mswin, :mingw]
-gem 'jruby-stemmer', platform: :jruby
+gem 'fast-stemmer'
 gem 'd3_rails'
 
 # Citation processing
@@ -52,7 +50,7 @@ gem 'haml'
 gem 'haml-rails'
 gem 'kramdown'
 gem 'nokogiri'
-gem 'oj', platform: [:ruby, :mswin, :mingw]
+gem 'oj'
 gem 'rabl'
 
 gem 'jquery-rails'
@@ -84,7 +82,7 @@ end
 
 # Deployment gems
 group :production do
-  gem 'unicorn', require: false, platform: [:ruby, :mswin, :mingw]
-  gem 'resque-pool', require: false, platform: [:ruby, :mswin, :mingw]
+  gem 'unicorn', require: false
+  gem 'resque-pool', require: false
   gem 'airbrake', require: false
 end

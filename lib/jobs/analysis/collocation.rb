@@ -47,6 +47,7 @@ module Jobs
       #                  num_pairs: '50')
       def self.perform(args = { })
         args.symbolize_keys!
+        args.remove_blank!
 
         # Fetch the user based on ID
         user = User.find(args[:user_id])
@@ -66,7 +67,6 @@ module Jobs
         analysis_type = (args[:analysis_type] || :mi).to_sym
         num_pairs = (args[:num_pairs] || 50).to_i
         @word = args[:word]
-        @word = nil if @word.blank?
 
         # Part of speech tagging requires the Stanford NLP
         analysis_type = :mi if !NLP_ENABLED && analysis_type == :pos
