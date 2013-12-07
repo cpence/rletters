@@ -2,7 +2,7 @@
 require 'spec_helper'
 require 'nokogiri'
 
-describe Serializers::MODS do
+describe Documents::Serializers::MODS do
 
   context 'when serializing a single document' do
     before(:each) do

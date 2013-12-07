@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe Serializers::CSL do
+describe Documents::Serializers::CSL do
 
   before(:each) do
     @doc = FactoryGirl.build(:full_document)

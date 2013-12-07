@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe Serializers::RIS do
+describe Documents::Serializers::RIS do
 
   context 'when serializing a single document' do
     before(:each) do

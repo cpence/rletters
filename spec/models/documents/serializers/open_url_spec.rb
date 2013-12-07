@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe Serializers::OpenURL do
+describe Documents::Serializers::OpenURL do
 
   context 'when getting OpenURL link for a single document' do
     before(:each) do

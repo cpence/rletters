@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe Serializers::MARC do
+describe Documents::Serializers::MARC do
 
   context 'when serializing a single document' do
     before(:each) do
