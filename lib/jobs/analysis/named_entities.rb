@@ -38,7 +38,7 @@ module Jobs
       #                  user_id: current_user.to_param,
       #                  dataset_id: dataset.to_param,
       #                  task_id: task.to_param)
-      def self.perform(args = { })
+      def self.perform(args = {})
         args.symbolize_keys!
         args.remove_blank!
 

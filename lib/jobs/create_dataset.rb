@@ -28,7 +28,7 @@ module Jobs
     #                  q: '*:*'
     #                  fq: ['authors_facet:"Shatner"'],
     #                  defType: 'lucene')
-    def self.perform(args = { })
+    def self.perform(args = {})
       args.symbolize_keys!
 
       # Fetch the user based on ID

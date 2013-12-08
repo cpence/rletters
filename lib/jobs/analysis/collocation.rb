@@ -44,7 +44,7 @@ module Jobs
       #                  task_id: task.to_param,
       #                  analysis_type: 't',
       #                  num_pairs: '50')
-      def self.perform(args = { })
+      def self.perform(args = {})
         args.symbolize_keys!
         args.remove_blank!
 

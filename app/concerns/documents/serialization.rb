@@ -30,7 +30,7 @@ module Documents
       #                                 ->(doc) { doc.to_json },
       #                                 'http://www.json.org/')
       def register_serializer(key, name, method, docs)
-        Document.serializers ||= { }
+        Document.serializers ||= {}
         Document.serializers[key] = { name: name, method: method, docs: docs }
       end
     end

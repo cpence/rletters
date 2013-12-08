@@ -49,7 +49,7 @@ module Jobs
           # @option args [String] exclusion_list if set, list of words to
           #   exclude from analysis
           # @return [WordFrequencyAnalyzer] the computed frequency analyzer
-          def self.compute_word_frequencies(dataset, args = { })
+          def self.compute_word_frequencies(dataset, args = {})
             convert_args!(args)
 
             # Perform the analysis and return it

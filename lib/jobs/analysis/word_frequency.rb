@@ -44,7 +44,7 @@ module Jobs
       #                  dataset_id: dataset.to_param,
       #                  task_id: task.to_param,
       #                  [word frequency concern arguments])
-      def self.perform(args = { })
+      def self.perform(args = {})
         args.symbolize_keys!
         args.remove_blank!
 

@@ -19,7 +19,7 @@ module Jobs
     #   Resque.enqueue(Jobs::DestroyDataset,
     #                  user_id: users(:john).to_param,
     #                  dataset_id: dataset.to_param)
-    def self.perform(args = { })
+    def self.perform(args = {})
       args.symbolize_keys!
 
       # Fetch the user based on ID

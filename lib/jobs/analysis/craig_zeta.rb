@@ -39,7 +39,7 @@ module Jobs
       #                  dataset_id: dataset.to_param,
       #                  task_id: task.to_param,
       #                  other_dataset_id: dataset2.to_param)
-      def self.perform(args = { })
+      def self.perform(args = {})
         args.symbolize_keys!
         args.remove_blank!
 
