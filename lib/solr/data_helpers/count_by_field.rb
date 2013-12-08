@@ -23,23 +23,28 @@ module Solr
         #   Solr::DataHelpers.count_by_field(dataset, :year)
         #   # => { '1940' => 3, '1941' => 5, ... }
         def count_by_field(dataset, field)
-          ret = {}
+          dataset ? group_dataset(dataset, field) : group_corpus(field)
+        end
 
-          if dataset
-            # If there is a dataset here, then we have to just walk it and
-            # group it by the provided field.
+        private
 
+        # Walk a dataset manually and group it by field
+        #
+        # @api private
+        # @param [Dataset] dataset set to count
+        # @param [Symbol] field field to group by
+        # @return [Hash<String, Integer>] number of documents in each group
+        def group_dataset(dataset, field)
+          {}.tap do |ret|
             dataset.entries.find_in_batches do |group|
-              # Build a Solr query to fetch only the one field for this group
-              solr_query = {}
-              solr_query[:rows] = group.count
-              query_str = group.map { |e| "\"#{e.uid}\"" }.join(' OR ')
-              solr_query[:q] = "uid:(#{query_str})"
-              solr_query[:def_type] = 'lucene'
-              solr_query[:fl] = field.to_s
-              solr_query[:facet] = false
+              search_result = Solr::Connection.search({
+                rows: group.count,
+                q: "uid:(#{group.map { |e| "\"#{e.uid}\"" }.join(' OR ')})",
+                def_type: 'lucene',
+                fl: field.to_s,
+                facet: false
+              })
 
-              search_result = Solr::Connection.search solr_query
               unless search_result.num_hits == group.count
                 # :nocov:
                 fail "Failed to get batch of results in count_by_field (wanted #{group.count} hits, got #{search_result.num_hits})"
@@ -52,48 +57,45 @@ module Solr
                 ret[key] += 1
               end
             end
-          else
-            # If we're just normalizing against the corpus, then we need to use
-            # Solr's result grouping.
-
-            solr_query = {}
-            solr_query[:q] = '*:*'
-            solr_query[:def_type] = 'lucene'
-            solr_query[:group] = 'true'
-            solr_query[:'group.field'] = field.to_s
-            solr_query[:fl] = 'uid'
-            solr_query[:facet] = false
-
-            search_result = Solr::Connection.search_raw solr_query
-            unless search_result['grouped']
-              # :nocov:
-              fail 'Solr server did not return any grouped results'
-              # :nocov:
-            end
-
-            grouped = search_result['grouped'][field.to_s]
-            unless grouped && grouped['matches']
-              # :nocov:
-              fail 'Solr server did not return grouped results for field'
-              # :nocov:
-            end
-            return {} if grouped['matches'] == 0
-
-            groups = grouped['groups']
-            return {} unless groups
-
-            groups.each do |g|
-              key = g['groupValue']
-              val = g['doclist']['numFound']
-
-              ret[key] = val
-            end
           end
-
-          ret
         end
 
-        private
+        # Group the entire corpus by field, using Solr's result grouping
+        #
+        # @api private
+        # @param [Symbol] field field to group by
+        # @return [Hash<String, Integer>] number of documents in each group
+        def group_corpus(field)
+          search_result = Solr::Connection.search_raw({
+            q: '*:*',
+            def_type: 'lucene',
+            group: 'true',
+            'group.field' => field.to_s,
+            fl: 'uid',
+            facet: 'false'
+          })
+
+          unless search_result['grouped'] &&
+                 search_result['grouped'][field.to_s] &&
+                 search_result['grouped'][field.to_s]['matches']
+            # :nocov:
+            fail 'Solr server did not return any grouped results'
+            # :nocov:
+          end
+
+          grouped = search_result['grouped'][field.to_s]
+          return {} if grouped['matches'] == 0
+
+          groups = grouped['groups']
+          return {} unless groups
+
+          groups.each_with_object({}) do |g, ret|
+            key = g['groupValue']
+            val = g['doclist']['numFound']
+
+            ret[key] = val
+          end
+        end
 
         # Get the value of the field for grouping
         #
