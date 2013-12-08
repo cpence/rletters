@@ -357,7 +357,7 @@ describe WordFrequencyAnalyzer do
     end
 
     it 'only includes those words' do
-      expect(@analyzer.blocks[0].keys).to match_array(['a', 'the'])
+      expect(@analyzer.blocks[0].keys).to match_array(%w(a the))
     end
   end
 
