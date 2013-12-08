@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe Solr::DataHelpers do
+describe Solr::DataHelpers::CorpusSize do
 
   describe '.corpus_size' do
     it 'works' do

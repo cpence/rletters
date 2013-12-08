@@ -2,7 +2,6 @@
 
 # Ruby's standard Hash class
 class Hash
-
   # Set all string encodings in the hash to UTF-8
   #
   # Walks through self, recursively (including Hashes and Arrays), setting any

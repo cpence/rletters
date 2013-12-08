@@ -6,7 +6,6 @@
 # back to the root page, rather than to the login page (since we no longer
 # have a dedicated login action).
 class DeviseFailure < Devise::FailureApp
-
   # The redirection URL on failure
   #
   # For regular users, return the root path.  Make sure not to do that, though,

@@ -4,7 +4,6 @@ require 'rdf/n3'
 
 module Documents
   module Serializers
-
     # Convert a document to an RDF record
     module RDF
       extend ActiveSupport::Concern
@@ -150,7 +149,6 @@ module Documents
         doc
       end
     end
-
   end
 end
 

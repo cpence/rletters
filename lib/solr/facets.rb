@@ -1,7 +1,6 @@
 # -*- encoding : utf-8 -*-
 
 module Solr
-
   # The list of all facets returned by Solr
   #
   # @!attribute [r] all
@@ -66,7 +65,5 @@ module Solr
         end
       end
     end
-
   end
-
 end

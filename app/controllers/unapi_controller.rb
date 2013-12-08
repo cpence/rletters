@@ -6,7 +6,6 @@
 # records using the unAPI interface, used most prominently by Zotero (as well
 # as other web-based bibliography managers).
 class UnapiController < ApplicationController
-
   # Implement all of unAPI
   #
   # If an id is set, return either a list of formats customized for a
@@ -48,5 +47,4 @@ class UnapiController < ApplicationController
              status: 406
     end
   end
-
 end

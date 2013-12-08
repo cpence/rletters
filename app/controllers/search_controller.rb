@@ -7,7 +7,6 @@
 # user's provided search criteria into Solr queries for
 # +Solr::Connection.search+.
 class SearchController < ApplicationController
-
   # Show the main search index page
   #
   # The controller just passes the search parameters through
@@ -46,9 +45,9 @@ class SearchController < ApplicationController
     @solr_fq = solr_query[:fq]
 
     # Get the documents
-    @result = Solr::Connection.search(solr_query.merge({ sort: @sort,
-                                                         start: offset,
-                                                         rows: limit }))
+    @result = Solr::Connection.search(solr_query.merge(sort: @sort,
+                                                       start: offset,
+                                                       rows: limit))
     @documents = @result.documents
   end
 

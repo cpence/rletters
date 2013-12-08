@@ -2,7 +2,6 @@
 
 module Jobs
   module Analysis
-
     # Determine statistically significant collocations in text
     class Collocation < Jobs::Analysis::Base
       @queue = 'analysis'
@@ -295,6 +294,5 @@ module Jobs
       end
       # :nocov:
     end
-
   end
 end

@@ -2,7 +2,6 @@
 
 module Documents
   module Serializers
-
     # Convert a document to an EndNote record
     module EndNote
       extend ActiveSupport::Concern
@@ -44,7 +43,6 @@ module Documents
         ret
       end
     end
-
   end
 end
 

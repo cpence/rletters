@@ -2,7 +2,6 @@
 
 module Documents
   module Serializers
-
     # Convert a document to a MARC record
     module MARC
       extend ActiveSupport::Concern
@@ -228,7 +227,6 @@ module Documents
         author
       end
     end
-
   end
 end
 

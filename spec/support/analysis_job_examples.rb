@@ -41,9 +41,9 @@ shared_examples_for 'an analysis job' do
     it 'raises an exception' do
       expect {
         described_class.perform(job_params.merge(
-          { user_id: FactoryGirl.create(:user).to_param,
-            dataset_id: @dataset.to_param,
-            task_id: @task.to_param }))
+          user_id: FactoryGirl.create(:user).to_param,
+          dataset_id: @dataset.to_param,
+          task_id: @task.to_param))
       }.to raise_error(ActiveRecord::RecordNotFound)
     end
   end
@@ -52,9 +52,9 @@ shared_examples_for 'an analysis job' do
     it 'raises an exception' do
       expect {
         described_class.perform(job_params.merge(
-          { user_id: '12345678',
-            dataset_id: @dataset.to_param,
-            task_id: @task.to_param }))
+          user_id: '12345678',
+          dataset_id: @dataset.to_param,
+          task_id: @task.to_param))
       }.to raise_error(ActiveRecord::RecordNotFound)
     end
   end
@@ -63,9 +63,9 @@ shared_examples_for 'an analysis job' do
     it 'raises an exception' do
       expect {
         described_class.perform(job_params.merge(
-          { user_id: @user.to_param,
-            dataset_id: '12345678',
-            task_id: @task.to_param }))
+          user_id: @user.to_param,
+          dataset_id: '12345678',
+          task_id: @task.to_param))
       }.to raise_error(ActiveRecord::RecordNotFound)
     end
   end
@@ -74,9 +74,9 @@ shared_examples_for 'an analysis job' do
     it 'raises an exception' do
       expect {
         described_class.perform(job_params.merge(
-          { user_id: @user.to_param,
-            dataset_id: @dataset.to_param,
-            task_id: '12345678' }))
+          user_id: @user.to_param,
+          dataset_id: @dataset.to_param,
+          task_id: '12345678'))
       }.to raise_error(ActiveRecord::RecordNotFound)
     end
   end

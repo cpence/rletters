@@ -5,7 +5,7 @@ describe SearchController do
   describe '#index' do
     context 'with empty search results' do
       before(:each) do
-        get :index, { q: 'fail' }
+        get :index, q: 'fail'
       end
 
       it 'loads successfully' do
@@ -50,7 +50,7 @@ describe SearchController do
     context 'with faceted search results' do
       before(:each) do
         expect(Solr::Connection).to receive(:search).and_return(double(Solr::SearchResult, documents: []))
-        get :index, { fq: ['journal_facet:"Journal of Nothing"'] }
+        get :index, fq: ['journal_facet:"Journal of Nothing"']
       end
 
       it 'assigns solr_fq' do
@@ -65,7 +65,7 @@ describe SearchController do
     context 'with a dismax search' do
       before(:each) do
         expect(Solr::Connection).to receive(:search).and_return(double(Solr::SearchResult, documents: []))
-        get :index, { q: 'testing' }
+        get :index, q: 'testing'
       end
 
       it 'assigns solr_q' do
@@ -90,7 +90,7 @@ describe SearchController do
         default_sq = { q: '*:*', defType: 'lucene', sort: 'year_sort desc', start: 20, rows: 20 }
         expect(Solr::Connection).to receive(:search).with(default_sq).and_return(double(Solr::SearchResult, documents: []))
 
-        get :index, { page: '1', per_page: '20' }
+        get :index, page: '1', per_page: '20'
 
         expect(assigns(:documents)).to be_empty
       end
@@ -100,7 +100,7 @@ describe SearchController do
         expect(Solr::Connection).to receive(:search).with(default_sq).and_return(double(Solr::SearchResult, documents: []))
 
         expect {
-          get :index, { page: 'zzyzzy', per_page: '20' }
+          get :index, page: 'zzyzzy', per_page: '20'
         }.to_not raise_error
       end
 
@@ -109,7 +109,7 @@ describe SearchController do
         expect(Solr::Connection).to receive(:search).with(default_sq).and_return(double(Solr::SearchResult, documents: []))
 
         expect {
-          get :index, { page: '1', per_page: 'zzyzzy' }
+          get :index, page: '1', per_page: 'zzyzzy'
         }.to_not raise_error
       end
 
@@ -117,7 +117,7 @@ describe SearchController do
         default_sq = { q: '*:*', defType: 'lucene', sort: 'year_sort desc', start: 10, rows: 10 }
         expect(Solr::Connection).to receive(:search).with(default_sq).and_return(double(Solr::SearchResult, documents: []))
 
-        get :index, { page: '1', per_page: '0' }
+        get :index, page: '1', per_page: '0'
       end
     end
   end

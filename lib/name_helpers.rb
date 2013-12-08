@@ -2,7 +2,6 @@
 
 # Code for formatting the names of authors
 module NameHelpers
-
   # Turn an author's name into a set of Lucene queries
   #
   # When a user searches for an author by name, we want some degree of
@@ -128,5 +127,4 @@ module NameHelpers
     # Return the queries
     names.map { |na| "\"#{na.join(' ')}\"" }
   end
-
 end

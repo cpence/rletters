@@ -159,7 +159,7 @@ describe SearchHelper do
   describe '#active_filter_list' do
     context 'with some facets' do
       before(:each) do
-        @result = Solr::Connection.search({ q: '*:*', defType: 'lucene' })
+        @result = Solr::Connection.search(q: '*:*', defType: 'lucene')
         @ret = helper.active_filter_list(@result)
       end
 
@@ -170,8 +170,8 @@ describe SearchHelper do
 
     context 'with active facets' do
       before(:each) do
-        @result = Solr::Connection.search({ q: '*:*', defType: 'lucene',
-                                            fq: ['authors_facet:"Elisa Lobato"', 'year:[2010 TO *]'] })
+        @result = Solr::Connection.search(q: '*:*', defType: 'lucene',
+                                          fq: ['authors_facet:"Elisa Lobato"', 'year:[2010 TO *]'])
 
         params[:fq] = ['authors_facet:"Elisa Lobato"', 'year:[2010 TO *]']
         @ret = helper.active_filter_list(@result)
@@ -201,7 +201,7 @@ describe SearchHelper do
 
     context 'with some facets' do
       before(:each) do
-        @result = Solr::Connection.search({ q: '*:*', defType: 'lucene' })
+        @result = Solr::Connection.search(q: '*:*', defType: 'lucene')
         @ret = helper.facet_link_list(@result)
       end
 
@@ -238,8 +238,8 @@ describe SearchHelper do
       end
 
       it 'renders the default template' do
-        expect(helper).to receive(:render).with({ partial: 'document',
-                                                  locals: { document: @doc } })
+        expect(helper).to receive(:render).with(partial: 'document',
+                                                locals: { document: @doc })
         helper.document_bibliography_entry(@doc)
       end
     end
@@ -254,8 +254,8 @@ describe SearchHelper do
       end
 
       it 'renders the default template' do
-        expect(helper).to receive(:render).with({ partial: 'document',
-                                                  locals: { document: @doc } })
+        expect(helper).to receive(:render).with(partial: 'document',
+                                                locals: { document: @doc })
         helper.document_bibliography_entry(@doc)
       end
     end

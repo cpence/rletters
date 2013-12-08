@@ -17,7 +17,6 @@
 #   entity_references['LOCATION'] = ['Virginia', 'U.S.']
 #   entity_references['PERSON'] = ['John Marshall', 'William III']
 class NERAnalyzer
-
   attr_reader :entity_references
 
   # Create a new NER analyzer and analyze

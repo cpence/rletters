@@ -1,10 +1,8 @@
 # -*- encoding : utf-8 -*-
 
 module Jobs
-
   # Expire any analysis tasks older than two weeks.
   class ExpireAnalysisTasks
-
     # Expire old analysis tasks
     #
     # @api public

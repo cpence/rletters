@@ -66,8 +66,8 @@ describe DatasetsController do
   describe '#create' do
     context 'with no workflow active' do
       before(:each) do
-        post :create, { dataset: { name: 'Disabled Dataset' },
-                        q: '*:*', fq: nil, defType: 'lucene' }
+        post :create, dataset: { name: 'Disabled Dataset' },
+                      q: '*:*', fq: nil, defType: 'lucene'
         @user.datasets.reload
       end
 
@@ -101,8 +101,8 @@ describe DatasetsController do
         @user.workflow_class = 'PlotDates'
         @user.save
 
-        post :create, { dataset: { name: 'Disabled Dataset' },
-                        q: '*:*', fq: nil, defType: 'lucene' }
+        post :create, dataset: { name: 'Disabled Dataset' },
+                      q: '*:*', fq: nil, defType: 'lucene'
         @user.datasets.reload
 
         expect(response).to redirect_to(workflow_activate_path('PlotDates'))

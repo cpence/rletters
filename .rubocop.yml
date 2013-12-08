@@ -1,7 +1,6 @@
 AllCops:
   Includes:
     - '**/*.rake'
-    - '**/*.god'
     - 'Gemfile'
   Excludes:
     - 'vendor/**'
@@ -17,3 +16,7 @@ AsciiComments:
 # FIXME: This one's bad.
 MethodLength:
   Max: 125
+
+# FIXME: This is bad.
+LineLength:
+  Enabled: false

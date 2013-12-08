@@ -3,7 +3,6 @@ require 'csv'
 
 module Jobs
   module Analysis
-
     # Compare two datasets using the Craig Zeta algorithm
     class CraigZeta < Jobs::Analysis::Base
       @queue = 'analysis'

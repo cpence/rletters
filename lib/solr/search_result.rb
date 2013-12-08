@@ -1,7 +1,6 @@
 # -*- encoding : utf-8 -*-
 
 module Solr
-
   # An object representing the result of a search against the Solr database
   #
   # @!attribute [r] facets
@@ -42,7 +41,6 @@ module Solr
   # @!attribute [r] solr_response
   #   @return [RSolr::Ext::Response] the raw Solr search response
   class SearchResult
-
     attr_reader :facets, :num_hits, :documents, :solr_response
 
     # Create a search result from a Solr response
@@ -163,7 +161,5 @@ module Solr
 
       term_vectors
     end
-
   end
-
 end

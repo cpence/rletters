@@ -2,7 +2,6 @@
 
 module Jobs
   module Analysis
-
     # Export a dataset in a given citation format
     #
     # This job fetches the contents of the dataset and offers them to the
@@ -88,6 +87,5 @@ module Jobs
         task.finish!
       end
     end
-
   end
 end

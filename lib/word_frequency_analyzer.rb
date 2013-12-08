@@ -31,7 +31,6 @@
 #   @return [Integer] The number of types in the dataset.  If +ngrams+ is set,
 #     this is the number of distinct ngrams.
 class WordFrequencyAnalyzer
-
   attr_reader :blocks, :block_stats, :word_list, :tf_in_dataset,
               :df_in_dataset, :df_in_corpus, :num_dataset_tokens,
               :num_dataset_types

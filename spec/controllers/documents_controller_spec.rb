@@ -5,7 +5,7 @@ describe DocumentsController do
   describe '#export' do
     context 'when displaying as HTML' do
       it 'will not load' do
-        get :export, { uid: FactoryGirl.generate(:working_uid) }
+        get :export, uid: FactoryGirl.generate(:working_uid)
         expect(controller.response.response_code).to eq(406)
       end
     end
@@ -13,15 +13,15 @@ describe DocumentsController do
     context 'when exporting in other formats' do
       Document.serializers.each do |key, s|
         it "exports in #{s[:name]} format" do
-          get :export, { uid: FactoryGirl.generate(:working_uid),
-                         format: key.to_s }
+          get :export, uid: FactoryGirl.generate(:working_uid),
+                       format: key.to_s
           expect(response).to be_valid_download(Mime::Type.lookup_by_extension(key.to_s).to_s)
         end
       end
 
       it 'fails to export an invalid format' do
-        get :export, { uid: FactoryGirl.generate(:working_uid),
-                       format: 'csv' }
+        get :export, uid: FactoryGirl.generate(:working_uid),
+                     format: 'csv'
         expect(controller.response.response_code).to eq(406)
       end
     end
@@ -39,7 +39,7 @@ describe DocumentsController do
 
       it 'redirects to Mendeley' do
         stub_connection(/api.mendeley.com/, 'mendeley')
-        get :mendeley, { uid: 'doi:10.1111/j.1439-0310.2008.01576.x' }
+        get :mendeley, uid: 'doi:10.1111/j.1439-0310.2008.01576.x'
         expect(response).to redirect_to('http://www.mendeley.com/catalog/choose-good-scientific-problem-1/')
       end
     end
@@ -59,7 +59,7 @@ describe DocumentsController do
 
       it 'raises an exception' do
         expect {
-          get :mendeley, { uid: 'doi:10.1111/j.1439-0310.2008.01576.x' }
+          get :mendeley, uid: 'doi:10.1111/j.1439-0310.2008.01576.x'
         }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
@@ -69,7 +69,7 @@ describe DocumentsController do
     context 'when request succeeds' do
       it 'redirects to citeulike' do
         stub_connection(/www.citeulike.org/, 'citeulike')
-        get :citeulike, { uid: 'doi:10.1111/j.1439-0310.2008.01576.x' }
+        get :citeulike, uid: 'doi:10.1111/j.1439-0310.2008.01576.x'
         expect(response).to redirect_to('http://www.citeulike.org/article/3509563')
       end
     end
@@ -81,7 +81,7 @@ describe DocumentsController do
 
       it 'raises an exception' do
         expect {
-          get :citeulike, { uid: 'doi:10.1111/j.1439-0310.2008.01576.x' }
+          get :citeulike, uid: 'doi:10.1111/j.1439-0310.2008.01576.x'
         }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end

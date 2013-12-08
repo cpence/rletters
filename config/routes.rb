@@ -19,16 +19,17 @@ RLetters::Application.routes.draw do
 
   # Documents
   get 'documents/:uid/export' => 'documents#export',
-    as: 'documents_export', constraints: { uid: /.*/ }
+      as: 'documents_export', constraints: { uid: /.*/ }
   get 'documents/:uid/mendeley' => 'documents#mendeley',
-    as: 'documents_mendeley', constraints: { uid: /.*/ }
+      as: 'documents_mendeley', constraints: { uid: /.*/ }
   get 'documents/:uid/citeulike' => 'documents#citeulike',
-    as: 'documents_citeulike', constraints: { uid: /.*/ }
+      as: 'documents_citeulike', constraints: { uid: /.*/ }
 
   # Datasets (per-user)
   resources :datasets, except: :edit do
     resources :analysis_tasks, module: 'datasets',
-      path: 'tasks', except: [:edit, :update]
+                               path: 'tasks',
+                               except: [:edit, :update]
   end
 
   # User login routes

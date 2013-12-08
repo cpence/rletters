@@ -2,7 +2,6 @@
 
 module Documents
   module Serializers
-
     # Convert a document to an OpenURL query
     module OpenURL
       extend ActiveSupport::Concern
@@ -37,6 +36,5 @@ module Documents
         params
       end
     end
-
   end
 end

@@ -1,7 +1,6 @@
 # -*- encoding : utf-8 -*-
 
 module Jobs
-
   # Destroy a user's datset
   #
   # This job destroys a given dataset.  This SQL call can be quite expensive,

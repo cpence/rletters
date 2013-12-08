@@ -1,7 +1,6 @@
 # -*- encoding : utf-8 -*-
 
 module Jobs
-
   # Create a dataset from a Solr query for a given user
   #
   # This job fetches results from the Solr server and spools them into the

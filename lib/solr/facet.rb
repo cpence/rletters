@@ -2,7 +2,6 @@
 
 # Code for parsing Solr's Ruby response format into a useful set of objects
 module Solr
-
   # A representation of a Solr facet
   #
   # Solr facets arrive in a variety of formats, and thus have to be parsed in
@@ -142,5 +141,4 @@ module Solr
       @field_label = I18n.t('search.index.year_facet_short')
     end
   end
-
 end

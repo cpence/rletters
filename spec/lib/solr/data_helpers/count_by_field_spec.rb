@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe Solr::DataHelpers do
+describe Solr::DataHelpers::CountByField do
 
   describe '.count_by_field' do
     context 'without a dataset' do

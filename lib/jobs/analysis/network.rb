@@ -2,7 +2,6 @@
 
 module Jobs
   module Analysis
-
     # Examine the network of words associated with a focal term
     class Network < Jobs::Analysis::Base
       add_concern 'ComputeWordFrequencies'
@@ -186,6 +185,5 @@ module Jobs
         false
       end
     end
-
   end
 end

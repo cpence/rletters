@@ -1,10 +1,8 @@
 # -*- encoding : utf-8 -*-
 
 module Jobs
-
   # Module containing all analysis jobs
   module Analysis
-
     # Base class for all analysis jobs
     #
     # Analysis jobs have two special partials that can be implemented to
@@ -221,6 +219,5 @@ module Jobs
         attr_accessor :concerns
       end
     end
-
   end
 end

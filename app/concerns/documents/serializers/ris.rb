@@ -2,7 +2,6 @@
 
 module Documents
   module Serializers
-
     # Convert a document to a RIS record
     module RIS
       extend ActiveSupport::Concern
@@ -45,7 +44,6 @@ module Documents
         ret
       end
     end
-
   end
 end
 

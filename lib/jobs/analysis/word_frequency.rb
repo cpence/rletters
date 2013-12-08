@@ -3,7 +3,6 @@ require 'csv'
 
 module Jobs
   module Analysis
-
     # Produce a parallel word frequency list for a dataset
     class WordFrequency < Jobs::Analysis::Base
       add_concern 'ComputeWordFrequencies'

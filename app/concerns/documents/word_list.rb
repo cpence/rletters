@@ -1,13 +1,11 @@
 
 module Documents
-
   # Code for generating a list of words (or ngrams) for a +Document+
   module WordList
     extend ActiveSupport::Concern
 
     # Class methods to mix in to +Document+
     module ClassMethods
-
       # Get the list of words, in sorted order, for this document
       #
       # This function also supports returning a stemmed or lemmatized list
@@ -58,5 +56,4 @@ module Documents
       end
     end
   end
-
 end

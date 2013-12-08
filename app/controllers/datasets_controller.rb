@@ -109,7 +109,7 @@ class DatasetsController < ApplicationController
     end
 
     # No reason for this to be a delayed job, just do the create
-    @dataset.entries.create({ uid: params[:uid] })
+    @dataset.entries.create(uid: params[:uid])
     redirect_to dataset_path(@dataset)
   end
 

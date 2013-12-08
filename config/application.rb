@@ -8,15 +8,10 @@ require 'rails/all'
 Bundler.require(:default, Rails.env)
 
 module RLetters
-
   # Central application class, started by Rails
   class Application < Rails::Application
     # Custom directories with classes and modules
     config.eager_load_paths << "#{config.root}/lib"
-
-    # Always eager load code, because otherwise we don't pick up our table
-    # prefixes.
-    config.eager_load = true
 
     # Add vendor locales (for CLDR files)
     I18n.config.enforce_available_locales = true
@@ -52,5 +47,4 @@ module RLetters
                                     dir: 'spec/factories'
     end
   end
-
 end

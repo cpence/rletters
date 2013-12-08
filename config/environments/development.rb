@@ -8,6 +8,7 @@ RLetters::Application.configure do
   # development since you don't have to restart the web server when you make
   # code changes.
   config.cache_classes = false
+  config.eager_load = false
 
   # Show full error reports and disable caching.
   config.consider_all_requests_local       = true

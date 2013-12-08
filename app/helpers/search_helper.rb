@@ -2,7 +2,6 @@
 
 # Markup generators for the search controller
 module SearchHelper
-
   # Return a formatted version of the number of hits for the last search
   #
   # @api public

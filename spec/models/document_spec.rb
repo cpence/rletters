@@ -209,7 +209,7 @@ describe Document do
 
     context 'when loading a set of documents' do
       before(:each) do
-        @result = Solr::Connection.search({ q: '*:*', defType: 'lucene' })
+        @result = Solr::Connection.search(q: '*:*', defType: 'lucene')
         @docs = @result.documents
       end
 

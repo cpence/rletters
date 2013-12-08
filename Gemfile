@@ -22,7 +22,7 @@ gem 'devise'
 gem 'devise-i18n'
 gem 'devise-async'
 gem 'activeadmin', github: 'gregbell/active_admin'
-gem 'activeadmin-sortable-tree', :github => 'nebirhos/activeadmin-sortable-tree'
+gem 'activeadmin-sortable-tree', github: 'nebirhos/activeadmin-sortable-tree'
 gem 'druthers'
 
 # Textual analysis

@@ -1,5 +1,4 @@
 module Documents
-
   module SerializationBase
     extend ActiveSupport::Concern
 
@@ -51,5 +50,4 @@ module Documents
     include Serializers::RIS
     include Serializers::OpenURL
   end
-
 end

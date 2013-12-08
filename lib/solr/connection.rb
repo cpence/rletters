@@ -1,13 +1,11 @@
 # -*- encoding : utf-8 -*-
 
 module Solr
-
   # Exception thrown on failure to connect to Solr
   class ConnectionError < RuntimeError; end
 
   # Methods for managing the singleton connection to the Solr server
   module Connection
-
     # The default Solr search fields
     DEFAULT_FIELDS = 'uid,doi,license,license_url,data_source,authors,title,journal,year,volume,number,pages,fulltext_url'
 

@@ -2,14 +2,12 @@
 require 'citeproc'
 
 module Documents
-
   # Serialization code for +Document+ objects
   #
   # This module contains helpers intended to be included by the +Document+
   # model, which allow the document to be converted to any one of a number of
   # export formats.
   module Serializers
-
     # Serialization code to Citation Style Language
     #
     # The Citation Style Language (http://citationstyles.org) is a language
@@ -69,6 +67,5 @@ module Documents
         CiteProc.process(to_csl, format: :html, style: style).strip.html_safe
       end
     end
-
   end
 end

@@ -4,7 +4,6 @@ require 'active_support/concern'
 module Jobs
   module Analysis
     module Concerns
-
       # Compute word frequencies for a given dataset
       #
       # This concern just encapsulates obtaining the parameters you need for
@@ -84,10 +83,8 @@ module Jobs
               end
             end
           end
-
         end
       end
-
     end
   end
 end

@@ -2,7 +2,6 @@
 
 module Documents
   module Serializers
-
     # Convert a document to a MODS XML document
     module MODS
       extend ActiveSupport::Concern
@@ -194,7 +193,6 @@ module Documents
         doc
       end
     end
-
   end
 end
 

@@ -10,7 +10,7 @@ describe UnapiController do
   def get_unapi(with_id = false, format = nil)
     if with_id
       @id = FactoryGirl.generate(:working_uid)
-      get :index, { id: @id, format: format }
+      get :index, id: @id, format: format
     else
       get :index
     end

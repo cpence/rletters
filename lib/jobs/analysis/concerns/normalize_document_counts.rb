@@ -3,10 +3,8 @@ require 'active_support/concern'
 
 module Jobs
   module Analysis
-
     # Namespace containing all analysis-job concerns
     module Concerns
-
       # Normalize a set of document counts by dividing by other counts
       #
       # This concern provides support for converting a dataset from absolute
@@ -66,10 +64,8 @@ module Jobs
             end
             ret
           end
-
         end
       end
     end
-
   end
 end

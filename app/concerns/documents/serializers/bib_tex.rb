@@ -2,7 +2,6 @@
 
 module Documents
   module Serializers
-
     # Convert a document to a BibTeX record
     module BibTex
       extend ActiveSupport::Concern
@@ -47,7 +46,6 @@ module Documents
         ret
       end
     end
-
   end
 end
 

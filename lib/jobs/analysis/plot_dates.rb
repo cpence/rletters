@@ -2,7 +2,6 @@
 
 module Jobs
   module Analysis
-
     # Plot a dataset's members by year
     class PlotDates < Jobs::Analysis::Base
       add_concern 'NormalizeDocumentCounts'
@@ -104,6 +103,5 @@ module Jobs
         false
       end
     end
-
   end
 end

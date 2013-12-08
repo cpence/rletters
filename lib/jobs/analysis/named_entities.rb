@@ -5,7 +5,6 @@
 
 module Jobs
   module Analysis
-
     # Extract proper noun named entities from documents
     class NamedEntities < Jobs::Analysis::Base
       @queue = 'analysis'
@@ -79,6 +78,5 @@ module Jobs
         false
       end
     end
-
   end
 end
