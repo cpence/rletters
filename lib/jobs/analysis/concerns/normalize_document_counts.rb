@@ -50,8 +50,7 @@ module Jobs
 
             normalize_counts = Solr::DataHelpers.count_by_field(normalization_set, field)
 
-            ret = {}
-            counts.each do |k, v|
+            counts.each_with_object({}) do |(k, v), ret|
               if normalize_counts[k] && normalize_counts[k] > 0
                 ret[k] = v.to_f / normalize_counts[k]
               else
@@ -62,7 +61,6 @@ module Jobs
                 ret[k] = 0.0
               end
             end
-            ret
           end
         end
       end
