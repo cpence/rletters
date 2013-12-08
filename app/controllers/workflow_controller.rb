@@ -11,22 +11,10 @@ class WorkflowController < ApplicationController
 
   # Show the introduction page or the user dashboard
   #
-  # This action will query the Solr database to get some nice statistics
-  # for our index page.
-  #
   # @api public
   # @return [undefined]
   def index
-    solr_query = { q: '*:*',
-                   defType: 'lucene',
-                   rows: 1,
-                   start: 0 }
-    begin
-      search_result = Solr::Connection.search solr_query
-      @database_size = search_result.num_hits
-    rescue Solr::ConnectionError
-      @database_size = 0
-    end
+    @database_size = Solr::DataHelpers.corpus_size || 0
 
     if user_signed_in?
       render 'dashboard'

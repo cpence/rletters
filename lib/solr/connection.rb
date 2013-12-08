@@ -72,6 +72,7 @@ module Solr
     # @return [Hash] Solr search result, unprocessed
     def self.search_raw(params)
       get_solr
+      camelize_params!(params)
 
       Connection.solr.post 'search', data: params
     rescue *Solr::Connection::EXCEPTIONS => e
@@ -139,6 +140,18 @@ module Solr
           read_timeout: Admin::Setting.solr_timeout.to_i,
           open_timeout: Admin::Setting.solr_timeout.to_i
         )
+      end
+    end
+
+    # Convert some parameters
+    #
+    # We want to allow users to pass 'Ruby-esque' symbols to this class, so
+    # coerce all of the parameter keys to Java-style 'lowerCamelCase' here.
+    def self.camelize_params!(params)
+      params.keys.each do |k|
+        if k.to_s.include? '_'
+          params[k.to_s.camelize(:lower)] = params.delete(k)
+        end
       end
     end
   end

@@ -35,7 +35,7 @@ module Solr
               solr_query[:rows] = group.count
               query_str = group.map { |e| "\"#{e.uid}\"" }.join(' OR ')
               solr_query[:q] = "uid:(#{query_str})"
-              solr_query[:defType] = 'lucene'
+              solr_query[:def_type] = 'lucene'
               solr_query[:fl] = field.to_s
               solr_query[:facet] = false
 
@@ -58,7 +58,7 @@ module Solr
 
             solr_query = {}
             solr_query[:q] = '*:*'
-            solr_query[:defType] = 'lucene'
+            solr_query[:def_type] = 'lucene'
             solr_query[:group] = 'true'
             solr_query[:'group.field'] = field.to_s
             solr_query[:fl] = 'uid'

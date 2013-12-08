@@ -18,7 +18,7 @@ module Solr
         def corpus_size
           solr_query = {}
           solr_query[:q] = '*:*'
-          solr_query[:defType] = 'lucene'
+          solr_query[:def_type] = 'lucene'
           solr_query[:rows] = 1
           solr_query[:start] = 0
 

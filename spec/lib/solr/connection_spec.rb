@@ -12,7 +12,7 @@ describe Solr::Connection do
     context 'when fetching external fulltext for a single document' do
       before(:each) do
         @result = Solr::Connection.search_raw(q: 'uid:"gutenberg:3172"',
-                                              defType: 'lucene',
+                                              def_type: 'lucene',
                                               tv: 'true',
                                               fl: '*')
       end
@@ -40,7 +40,7 @@ describe Solr::Connection do
     context 'when searching for the external document' do
       it 'is searchable through fulltext_search' do
         @result = Solr::Connection.search_raw(q: 'fulltext_search:personage',
-                                              defType: 'lucene',
+                                              def_type: 'lucene',
                                               fl: '*')
         expect(@result['response']['docs'][0]['uid']).to eq('gutenberg:3172')
       end
@@ -48,7 +48,7 @@ describe Solr::Connection do
       it 'is searchable through fulltext_stem' do
         # PG3172 contains "violated" and "violates" but not "violate"
         @result = Solr::Connection.search_raw(q: 'fulltext_stem:violate',
-                                              defType: 'lucene',
+                                              def_type: 'lucene',
                                               fl: '*')
         expect(@result['response']['docs'][0]['uid']).to eq('gutenberg:3172')
       end

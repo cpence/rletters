@@ -23,7 +23,7 @@
           %ul.button-group.even-2
             %li= link_to(sort_to_string(@sort), '#', class: 'button secondary dropdown small', 'data-dropdown' => 'sort-dropdown')
             - if user_signed_in?
-              %li= link_to t('.create_dataset'), new_dataset_path(q: @solr_q, defType: @solr_defType, fq: @solr_fq), class: 'button success small', data: { reveal_id: 'new-modal', reveal_ajax: 'true' }
+              %li= link_to t('.create_dataset'), new_dataset_path(q: @solr_q, def_type: @solr_def_type, fq: @solr_fq), class: 'button success small', data: { reveal_id: 'new-modal', reveal_ajax: 'true' }
             - else
               %li= link_to t('.create_dataset'), '#', class: 'button success small disabled'
           %ul#sort-dropdown.f-dropdown{ data: { dropdown_content: true } }

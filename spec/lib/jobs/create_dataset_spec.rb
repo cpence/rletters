@@ -16,7 +16,7 @@ describe Jobs::CreateDataset do
           dataset_id: @dataset.to_param,
           q: '*:*',
           fq: nil,
-          defType: 'lucene')
+          def_type: 'lucene')
       }.to raise_error(ActiveRecord::RecordNotFound)
     end
   end
@@ -29,7 +29,7 @@ describe Jobs::CreateDataset do
           dataset_id: '12345678',
           q: '*:*',
           fq: nil,
-          defType: 'lucene')
+          def_type: 'lucene')
       }.to raise_error(ActiveRecord::RecordNotFound)
     end
   end
@@ -41,7 +41,7 @@ describe Jobs::CreateDataset do
         dataset_id: @dataset.to_param,
         q: 'test',
         fq: nil,
-        defType: 'dismax')
+        def_type: 'dismax')
 
       @user.datasets.reload
     end
@@ -71,7 +71,7 @@ describe Jobs::CreateDataset do
         dataset_id: @dataset.to_param,
         q: 'test',
         fq: nil,
-        defType: 'dismax')
+        def_type: 'dismax')
 
       @user.reload
       @user.datasets.reload
@@ -90,7 +90,7 @@ describe Jobs::CreateDataset do
         dataset_id: @dataset.to_param,
         q: '*:*',
         fq: nil,
-        defType: 'lucene')
+        def_type: 'lucene')
 
       @user.datasets.reload
     end
@@ -121,7 +121,7 @@ describe Jobs::CreateDataset do
             dataset_id: @dataset.to_param,
             q: 'test',
             fq: nil,
-            defType: 'dismax')
+            def_type: 'dismax')
         rescue Solr::ConnectionError
         end
       }.to change { Dataset.count }.by(-1)
@@ -134,7 +134,7 @@ describe Jobs::CreateDataset do
           dataset_id: @dataset.to_param,
           q: 'test',
           fq: nil,
-          defType: 'dismax')
+          def_type: 'dismax')
       }.to raise_error(Solr::ConnectionError)
     end
   end

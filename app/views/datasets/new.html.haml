@@ -7,7 +7,7 @@
       = f.error_notification
 
       = hidden_field_tag :q, params[:q]
-      = hidden_field_tag :defType, params[:defType]
+      = hidden_field_tag :def_type, params[:def_type]
       - if params[:fq]
         - params[:fq].each do |fq|
           = hidden_field_tag 'fq[]', fq

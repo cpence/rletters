@@ -41,7 +41,7 @@ class SearchController < ApplicationController
     # Expose the precise Solr search so we can use it to create datasets
     solr_query = search_params_to_solr_query(params)
     @solr_q = solr_query[:q]
-    @solr_defType = solr_query[:defType]
+    @solr_def_type = solr_query[:def_type]
     @solr_fq = solr_query[:fq]
 
     # Get the documents
@@ -70,7 +70,7 @@ class SearchController < ApplicationController
   # @return [Hash] Solr-format query parameters
   # @example Convert an advanced search to Solr format
   #   search_params_to_solr_query({ precise: 'true', title: 'test' })
-  #   # => { :defType => 'lucene', :q => 'title:(test)' }
+  #   # => { :def_type => 'lucene', :q => 'title:(test)' }
   def search_params_to_solr_query(params)
     # Remove any blank values (you get these on form submissions, for
     # example)
@@ -95,7 +95,7 @@ class SearchController < ApplicationController
       q_array = []
 
       # Advanced search, step through the fields
-      query_params[:defType] = 'lucene'
+      query_params[:def_type] = 'lucene'
       q_array << "#{params[:q]}" if params[:q].present?
 
       # Verbatim search fields
@@ -172,10 +172,10 @@ class SearchController < ApplicationController
       # Simple search
       if params[:q]
         query_params[:q] = params[:q]
-        query_params[:defType] = 'dismax'
+        query_params[:def_type] = 'dismax'
       else
         query_params[:q] = '*:*'
-        query_params[:defType] = 'lucene'
+        query_params[:def_type] = 'lucene'
       end
     end
 

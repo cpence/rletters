@@ -67,7 +67,7 @@ describe DatasetsController do
     context 'with no workflow active' do
       before(:each) do
         post :create, dataset: { name: 'Disabled Dataset' },
-                      q: '*:*', fq: nil, defType: 'lucene'
+                      q: '*:*', fq: nil, def_type: 'lucene'
         @user.datasets.reload
       end
 
@@ -76,7 +76,7 @@ describe DatasetsController do
                                                    dataset_id: @user.datasets.inactive[0].to_param,
                                                    q: '*:*',
                                                    fq: nil,
-                                                   defType: 'lucene')
+                                                   def_type: 'lucene')
       end
 
       it 'creates a skeleton dataset' do
@@ -102,7 +102,7 @@ describe DatasetsController do
         @user.save
 
         post :create, dataset: { name: 'Disabled Dataset' },
-                      q: '*:*', fq: nil, defType: 'lucene'
+                      q: '*:*', fq: nil, def_type: 'lucene'
         @user.datasets.reload
 
         expect(response).to redirect_to(workflow_activate_path('PlotDates'))

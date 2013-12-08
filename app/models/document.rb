@@ -172,7 +172,7 @@ class Document
     term_vectors = args.delete(:term_vectors)
 
     # Build the query
-    query = { defType: 'lucene' }
+    query = { def_type: 'lucene' }
     query[:q] = args.map { |k, v| "#{k}:\"#{v}\"" }.join(' AND ')
     if fulltext == true
       query[:fl] = Solr::Connection::DEFAULT_FIELDS_FULLTEXT

@@ -159,7 +159,7 @@ describe SearchHelper do
   describe '#active_filter_list' do
     context 'with some facets' do
       before(:each) do
-        @result = Solr::Connection.search(q: '*:*', defType: 'lucene')
+        @result = Solr::Connection.search(q: '*:*', def_type: 'lucene')
         @ret = helper.active_filter_list(@result)
       end
 
@@ -170,7 +170,7 @@ describe SearchHelper do
 
     context 'with active facets' do
       before(:each) do
-        @result = Solr::Connection.search(q: '*:*', defType: 'lucene',
+        @result = Solr::Connection.search(q: '*:*', def_type: 'lucene',
                                           fq: ['authors_facet:"Elisa Lobato"', 'year:[2010 TO *]'])
 
         params[:fq] = ['authors_facet:"Elisa Lobato"', 'year:[2010 TO *]']
@@ -201,7 +201,7 @@ describe SearchHelper do
 
     context 'with some facets' do
       before(:each) do
-        @result = Solr::Connection.search(q: '*:*', defType: 'lucene')
+        @result = Solr::Connection.search(q: '*:*', def_type: 'lucene')
         @ret = helper.facet_link_list(@result)
       end
 

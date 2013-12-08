@@ -62,7 +62,7 @@ class DatasetsController < ApplicationController
                    dataset_id: dataset.to_param,
                    q: params[:q],
                    fq: params[:fq],
-                   defType: params[:defType])
+                   def_type: params[:def_type])
 
     if current_user.workflow_active
       redirect_to workflow_activate_path(current_user.workflow_class),

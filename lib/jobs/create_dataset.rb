@@ -17,7 +17,7 @@ module Jobs
     # @option args [String] q the Solr query for this search
     # @option args [Array<String>] fq faceted browsing parameters for
     #   this search
-    # @option args [String] defType parser type for this search
+    # @option args [String] def_type parser type for this search
     # @return [undefined]
     # @example Start a job for creating a dataset
     #   dataset = users(:john).datasets.create(disabled: true,
@@ -27,7 +27,7 @@ module Jobs
     #                  dataset_id: dataset.to_param,
     #                  q: '*:*'
     #                  fq: ['authors_facet:"Shatner"'],
-    #                  defType: 'lucene')
+    #                  def_type: 'lucene')
     def self.perform(args = {})
       args.symbolize_keys!
 
@@ -40,7 +40,7 @@ module Jobs
       solr_query[:rows] = 1000
       solr_query[:q] = args[:q]
       solr_query[:fq] = args[:fq]
-      solr_query[:defType] = args[:defType]
+      solr_query[:def_type] = args[:def_type]
 
       # Only get uid and external URLs, no facets
       solr_query[:fl] = 'uid,fulltext_url'

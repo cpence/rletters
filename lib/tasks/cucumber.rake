@@ -31,10 +31,9 @@ namespace :cucumber do
     ::STATS_DIRECTORIES << %w(Cucumber\ features features) if File.exist?('features')
     ::CodeStatistics::TEST_TYPES << "Cucumber features" if File.exist?('features')
   end
-
-  desc 'Alias for cucumber:ok'
-  task :cucumber => 'cucumber:ok'
-
-  task :default => :cucumber
-  task :stats => 'cucumber:statsetup'
 end
+
+desc 'Alias for cucumber:ok'
+task :cucumber => 'cucumber:ok'
+
+task :stats => 'cucumber:statsetup'

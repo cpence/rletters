@@ -4,7 +4,7 @@ require 'spec_helper'
 describe 'Solr::Facets' do
 
   before(:each) do
-    @result = Solr::Connection.search(q: '*:*', defType: 'lucene')
+    @result = Solr::Connection.search(q: '*:*', def_type: 'lucene')
     @facets = @result.facets
   end
 
