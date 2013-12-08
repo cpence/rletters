@@ -26,34 +26,57 @@ module Documents
       #   Document.word_list_for('gutenberg:3172')
       #   # => ['the', 'project', 'gutenberg', 'ebook', 'of', ...]
       def word_list_for(uid, options = {})
-        if !NLP_ENABLED || options[:stemming] != :lemma
-          doc = Document.find(uid, term_vectors: true)
+        word_list = if options[:stemming] == :lemma && NLP_ENABLED
+                      get_lemmatized_words(uid)
+                    else
+                      get_words(uid, options[:stemming] == :stem)
+                    end
 
-          # This converts from a hash to an array like:
-          #  [[['word', pos], ['word', pos]], [['other', pos], ...], ...]
-          word_list = doc.term_vectors.map do |k, v|
-            [options[:stemming] == :stem ? k.stem : k].product(v[:positions])
-          end
+        return word_list if !options[:ngrams] || options[:ngrams] <= 1
 
-          # Peel off one layer of inner arrays, sort it by the position, and
-          # then return the array of just words in sorted order
-          word_list = word_list.flatten(1).sort_by(&:last).map(&:first)
-        else
-          doc = Document.find(uid, fulltext: true)
-
-          pipeline = StanfordCoreNLP.load(:tokenize, :ssplit, :pos, :lemma)
-          text = StanfordCoreNLP::Annotation.new(doc.fulltext)
-          pipeline.annotate(text)
-
-          word_list = text.get(:tokens).to_a.map { |tok| tok.get(:lemma).to_s }
-        end
-
-        # Return ngrams if requested
-        if options[:ngrams].blank? || options[:ngrams] <= 1
-          return word_list
-        end
         word_list.each_cons(options[:ngrams]).map { |a| a.join(' ') }
       end
+
+      private
+
+      # Get the word list for this document, possibly stemmed
+      #
+      # This method reconstructs the word list from doc.term_vectors.
+      #
+      # @api private
+      # @param [Boolean] stem if true, stem words in list
+      # @return [Array<String>] list of words for document
+      def get_words(uid, stem = false)
+        doc = Document.find(uid, term_vectors: true)
+
+        # This converts from a hash to an array like:
+        #  [[['word', pos], ['word', pos]], [['other', pos], ...], ...]
+        word_list = doc.term_vectors.map do |k, v|
+          [stem ? k.stem : k].product(v[:positions])
+        end
+
+        # Peel off one layer of inner arrays, sort it by the position, and
+        # then return the array of just words in sorted order
+        word_list.flatten(1).sort_by(&:last).map(&:first)
+      end
+
+      # Get the word list for this document, lemmatized
+      #
+      # This method hits doc.fulltext.
+      #
+      # @api private
+      # @return [Array<String>] list of lemmatized words for document
+      # :nocov:
+      def get_lemmatized_words(uid)
+        doc = Document.find(uid, fulltext: true)
+
+        pipeline = StanfordCoreNLP.load(:tokenize, :ssplit, :pos, :lemma)
+        text = StanfordCoreNLP::Annotation.new(doc.fulltext)
+        pipeline.annotate(text)
+
+        text.get(:tokens).to_a.map { |tok| tok.get(:lemma).to_s }
+      end
+      # :nocov:
     end
   end
 end
