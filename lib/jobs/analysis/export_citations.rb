@@ -43,17 +43,9 @@ module Jobs
         args.symbolize_keys!
         args.remove_blank!
 
-        # Fetch the user based on ID
         user = User.find(args[:user_id])
-        fail ArgumentError, 'User ID is not valid' unless user
-
-        # Fetch the dataset based on ID
         dataset = user.datasets.active.find(args[:dataset_id])
-        fail ArgumentError, 'Dataset ID is not valid' unless dataset
-
-        # Grab and update the analysis task
         task = dataset.analysis_tasks.find(args[:task_id])
-        fail ArgumentError, 'Task ID is not valid' unless task
 
         # Check that the format is valid
         fail ArgumentError, 'Format is not specified' unless args[:format]

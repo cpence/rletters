@@ -22,13 +22,8 @@ module Jobs
     def self.perform(args = {})
       args.symbolize_keys!
 
-      # Fetch the user based on ID
       user = User.find(args[:user_id])
-      raise ArgumentError, 'User ID is not valid' unless user
-
       dataset = user.datasets.find(args[:dataset_id])
-      raise ArgumentError, 'Dataset ID is not valid' unless dataset
-
       dataset.destroy
     end
   end

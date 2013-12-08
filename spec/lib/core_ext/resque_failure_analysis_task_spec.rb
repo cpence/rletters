@@ -7,7 +7,7 @@ module Jobs
     class FailingJob < Jobs::Analysis::Base
       @queue = 'ui'
       def self.perform(args = {})
-        raise 'This job always fails'
+        fail 'This job always fails'
       end
 
       def self.run_with_worker(job_params)

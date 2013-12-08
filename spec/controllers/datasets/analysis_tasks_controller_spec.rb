@@ -65,7 +65,7 @@ describe Datasets::AnalysisTasksController do
     context 'with a disabled dataset' do
       before(:each) do
         @disabled = FactoryGirl.create(:dataset, user: @user, name: 'Disabled',
-                                       disabled: true)
+                                                 disabled: true)
       end
 
       it 'raises an exception' do
@@ -105,7 +105,7 @@ describe Datasets::AnalysisTasksController do
     context 'with a disabled dataset' do
       before(:each) do
         @disabled = FactoryGirl.create(:dataset, user: @user, name: 'Disabled',
-                                       disabled: true)
+                                                 disabled: true)
       end
 
       it 'raises an exception' do

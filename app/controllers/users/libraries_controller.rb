@@ -31,7 +31,6 @@ class Users::LibrariesController < ApplicationController
   # @return [undefined]
   def edit
     @library = current_user.libraries.find(params[:id])
-    fail ActiveRecord::RecordNotFound unless @library
     render layout: false
   end
 
@@ -56,7 +55,6 @@ class Users::LibrariesController < ApplicationController
   # @return [undefined]
   def update
     @library = current_user.libraries.find(params[:id])
-    fail ActiveRecord::RecordNotFound unless @library
 
     if @library.update_attributes(library_params)
       current_user.libraries.reload
@@ -72,7 +70,6 @@ class Users::LibrariesController < ApplicationController
   # @return [undefined]
   def destroy
     @library = current_user.libraries.find(params[:id])
-    fail ActiveRecord::RecordNotFound unless @library
 
     @library.destroy
     current_user.libraries.reload

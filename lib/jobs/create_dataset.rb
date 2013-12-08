@@ -31,13 +31,8 @@ module Jobs
     def self.perform(args = {})
       args.symbolize_keys!
 
-      # Fetch the user based on ID
       user = User.find(args[:user_id])
-      fail ArgumentError, 'User ID is not valid' unless user
-
-      # Fetch the dataset
       dataset = user.datasets.find(args[:dataset_id])
-      fail ArgumentError, 'Dataset ID is not valid' unless dataset
 
       # Build a Solr query to fetch the results, 1000 at a time
       solr_query = {}

@@ -43,8 +43,8 @@ describe DatasetsController do
       end
 
       it 'ignores disabled datasets' do
-        disabled = FactoryGirl.create(:dataset, user: @user, name: 'Disabled',
-                                                disabled: true)
+        FactoryGirl.create(:dataset, user: @user, name: 'Disabled',
+                                     disabled: true)
         xhr :get, :index
         expect(assigns(:datasets)).to eq([@dataset])
       end

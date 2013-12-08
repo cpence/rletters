@@ -44,9 +44,9 @@ module ApplicationHelper
 
     # Give up if we can't find it
     unless File.exists?(path)
-      raise I18n::MissingTranslationData.new(I18n.locale,
-                                             "localized_markdown.#{file}",
-                                             {})
+      fail I18n::MissingTranslationData.new(I18n.locale,
+                                            "localized_markdown.#{file}",
+                                            {})
     end
 
     render(file: path).html_safe
