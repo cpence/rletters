@@ -18,7 +18,7 @@ describe 'Search API' do
   end
 
   it 'loads faceted searches correctly' do
-    get '/search', fq: [ 'authors_facet:"J. C. Crabbe"' ], format: :json
+    get '/search', fq: ['authors_facet:"J. C. Crabbe"'], format: :json
 
     expect(response).to be_success
     expect(json['results']['num_hits']).to eq(9)

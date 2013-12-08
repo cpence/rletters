@@ -77,7 +77,7 @@ describe SearchHelper do
       it 'has links for all the pages included' do
         (1..4).each do |n|
           expect(@ret).to have_selector("a[href=\"/search?page=#{n}\"]",
-                                   text: (n + 1).to_s)
+                                        text: (n + 1).to_s)
         end
       end
     end

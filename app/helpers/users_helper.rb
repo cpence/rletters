@@ -29,7 +29,7 @@ module UsersHelper
         name += ')'
       end
 
-      list << [ loc, name ]
+      list << [loc, name]
     end
 
     list.sort! { |a, b| a.first <=> b.first }

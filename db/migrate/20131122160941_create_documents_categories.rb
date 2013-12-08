@@ -18,10 +18,10 @@ class CreateDocumentsCategories < ActiveRecord::Migration
     end
 
     add_index :documents_category_hierarchies,
-      [:ancestor_id, :descendant_id, :generations],
-      :unique => true, :name => "documents_category_anc_desc_udx"
+              [:ancestor_id, :descendant_id, :generations],
+              unique: true, name: 'documents_category_anc_desc_udx'
 
     add_index :documents_category_hierarchies, [:descendant_id],
-      :name => "documents_category_desc_idx"
+              name: 'documents_category_desc_idx'
   end
 end
