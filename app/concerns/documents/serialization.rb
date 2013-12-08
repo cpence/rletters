@@ -1,4 +1,7 @@
+# -*- encoding : utf-8 -*-
+
 module Documents
+  # Methods for registering serializers with the +Document+ class
   module SerializationBase
     extend ActiveSupport::Concern
 

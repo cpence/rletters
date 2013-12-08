@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 
 module Documents
   # Code for generating a list of words (or ngrams) for a +Document+
