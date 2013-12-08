@@ -213,11 +213,11 @@ class WordFrequencyAnalyzer
     end
 
     # Make sure inclusion_list isn't blank
-    options[:inclusion_list].strip! if options[:inclusion_list]
+    options[:inclusion_list].try(:strip!)
     options[:inclusion_list] = nil if options[:inclusion_list].blank?
 
     # Same for exclusion_list
-    options[:exclusion_list].strip! if options[:exclusion_list]
+    options[:exclusion_list].try(:strip!)
     options[:exclusion_list] = nil if options[:exclusion_list].blank?
 
     # Make sure stop_list is the right type
@@ -290,6 +290,9 @@ class WordFrequencyAnalyzer
       end
 
       # Fetch @df_in_corpus, if available
+      #
+      # FIXME: This is really expensive, as we wind up looking up the document
+      # twice.  Is there some other way to do this?
       if @ngrams == 1
         doc = Document.find(e.uid, term_vectors: true)
         doc.term_vectors.each do |word, hash|
@@ -305,8 +308,8 @@ class WordFrequencyAnalyzer
       end
     end
 
-    @num_dataset_types ||= @tf_in_dataset.count
-    @num_dataset_tokens ||= @tf_in_dataset.values.reduce(:+)
+    @num_dataset_types = @tf_in_dataset.count
+    @num_dataset_tokens = @tf_in_dataset.values.reduce(:+)
   end
 
   # Determine which words we'll analyze

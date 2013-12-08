@@ -59,13 +59,9 @@ module Jobs
         # Make a zip file for the output
         # Pack all those files into a ZIP
         ios = ::Zip::OutputStream.write_buffer do |zos|
-          # find_each will take care of batching logic for us
-          dataset.entries.find_each do |e|
-            doc = Document.find_by(uid: e.uid)
-            if doc
-              zos.put_next_entry "#{doc.html_uid}.#{args[:format].to_s}"
-              zos.print serializer[:method].call(doc)
-            end
+          dataset.documents.each do |doc|
+            zos.put_next_entry "#{doc.html_uid}.#{args[:format].to_s}"
+            zos.print serializer[:method].call(doc)
           end
         end
 

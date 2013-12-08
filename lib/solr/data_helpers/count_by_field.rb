@@ -35,28 +35,10 @@ module Solr
         # @param [Symbol] field field to group by
         # @return [Hash<String, Integer>] number of documents in each group
         def group_dataset(dataset, field)
-          {}.tap do |ret|
-            dataset.entries.find_in_batches do |group|
-              search_result = Solr::Connection.search({
-                rows: group.count,
-                q: "uid:(#{group.map { |e| "\"#{e.uid}\"" }.join(' OR ')})",
-                def_type: 'lucene',
-                fl: field.to_s,
-                facet: false
-              })
-
-              unless search_result.num_hits == group.count
-                # :nocov:
-                fail "Failed to get batch of results in count_by_field (wanted #{group.count} hits, got #{search_result.num_hits})"
-                # :nocov:
-              end
-
-              search_result.documents.each do |doc|
-                key = get_field_for_grouping(doc, field)
-                ret[key] ||= 0
-                ret[key] += 1
-              end
-            end
+          dataset.documents.each_with_object({}) do |doc, ret|
+            key = get_field_for_grouping(doc, field)
+            ret[key] ||= 0
+            ret[key] += 1
           end
         end
 

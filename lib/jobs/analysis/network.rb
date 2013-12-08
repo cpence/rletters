@@ -55,8 +55,7 @@ module Jobs
         stop_words = Documents::StopList.find_by!(language: 'en').list.split
 
         # Create a list of lowercase words
-        words = dataset.entries.map do |e|
-          doc = Document.find(e.uid, fulltext: true)
+        words = dataset.documents(fulltext: true).map do |doc|
           doc.fulltext.gsub(/[^A-Za-z ]/, '').downcase.split
         end
 

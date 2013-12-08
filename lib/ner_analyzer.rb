@@ -29,8 +29,7 @@ class NERAnalyzer
     classifier = StanfordCoreNLP::CRFClassifier.getClassifierNoExceptions(NER_CLASSIFIER_PATH)
     @entity_references = {}
 
-    dataset.entries.each do |e|
-      doc = Document.find(e.uid, fulltext: true)
+    dataset.documents(fulltext: true).each do |doc|
       triples = classifier.classifyToCharacterOffsets(doc.fulltext)
 
       triples.each do |t|

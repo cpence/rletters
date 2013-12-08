@@ -16,11 +16,10 @@ module Solr
         #   Solr::DataHelpers.corpus_size
         #   # => 1043
         def corpus_size
-          solr_query = {}
-          solr_query[:q] = '*:*'
-          solr_query[:def_type] = 'lucene'
-          solr_query[:rows] = 1
-          solr_query[:start] = 0
+          solr_query = { q: '*:*',
+                         def_type: 'lucene',
+                         rows: 1,
+                         start: 0 }
 
           Solr::Connection.search(solr_query).num_hits
         rescue Solr::ConnectionError

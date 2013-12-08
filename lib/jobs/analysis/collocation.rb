@@ -251,8 +251,7 @@ module Jobs
         # NLP POS tagger requires us to send it full sentences for maximum
         # accuracy.
         tagger = StanfordCoreNLP::MaxentTagger.new(POS_TAGGER_PATH)
-        @dataset.entries.each_with_object({}) { |e, result|
-          doc = Document.find(e.uid, fulltext: true)
+        @dataset.documents(fulltext: true).each_with_object({}) { |doc, result|
           tagged = tagger.tagString(doc.fulltext).split
 
           tagged.each_cons(2).map do |t|
