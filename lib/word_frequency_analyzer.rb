@@ -195,12 +195,6 @@ class WordFrequencyAnalyzer
       options[:num_blocks] = 1
     end
 
-    # Ngrams has to be 1 or greater
-    options[:ngrams] = 1 if options[:ngrams] < 1
-
-    # Make sure num_words isn't negative
-    options[:num_words] = 0 if options[:num_words] < 0
-
     # Make sure last_block is a legitimate value
     unless [:big_last, :small_last,
             :truncate_last, :truncate_all].include? options[:last_block]
@@ -232,8 +226,8 @@ class WordFrequencyAnalyzer
     @num_blocks = options[:num_blocks]
     @block_size = options[:block_size]
     @split_across = options[:split_across]
-    @ngrams = options[:ngrams]
-    @num_words = options[:num_words]
+    @ngrams = options[:ngrams].try(:lbound, 1)
+    @num_words = options[:num_words].try(:lbound, 0)
     @stemming = options[:stemming]
     @last_block = options[:last_block]
     @inclusion_list = options[:inclusion_list].try(:split)

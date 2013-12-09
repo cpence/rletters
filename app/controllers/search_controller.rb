@@ -16,16 +16,9 @@ class SearchController < ApplicationController
   # @api public
   # @return [undefined]
   def index
-    # Treat 'page' and 'per_page' separately
-    @page = 0
-    @page = params[:page].to_i if params[:page]
-    @page = 0 if @page < 0
-
-    @per_page = 10
-    @per_page = current_user.per_page if user_signed_in?
-    @per_page = params[:per_page].to_i if params[:per_page]
-    @per_page = 10 if @per_page <= 0
-    @per_page = 100 if @per_page > 100
+    @page = params[:page].to_i.lbound(0)
+    @per_page = (current_user.try(:per_page) ||
+                 params[:per_page].try(:to_i) || 10).bound(10, 100)
 
     offset = @page * @per_page
     limit = @per_page
