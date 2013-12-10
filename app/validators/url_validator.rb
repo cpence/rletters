@@ -1,4 +1,5 @@
 # -*- encoding : utf-8 -*-
+require 'addressable/uri'
 
 # Validate a URL, using addressable.
 #

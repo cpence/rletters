@@ -125,8 +125,8 @@ When(/^I add a library automatically$/) do
     click_button 'Drupal Link Resolver Module Test Institution for Functional Tests'
   end
 
-  @user.reload
-  expect(@user.libraries.count).to eq(1)
+  visit libraries_path
+  expect(page).to have_content('Drupal Link Resolver Module Test Institution for Functional Tests')
   @library = @user.libraries.first
 end
 
@@ -137,8 +137,8 @@ When(/^I manually add the library "(.*?)" with URL "(.*?)"$/) do |name, url|
     click_button 'Create Library'
   end
 
-  @user.reload
-  expect(@user.libraries.count).to eq(1)
+  visit libraries_path
+  expect(page).to have_content(name)
   @library = @user.libraries.first
 end
 

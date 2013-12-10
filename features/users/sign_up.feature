@@ -1,4 +1,4 @@
-@javascript @wip
+@javascript
 Feature: Sign up for account
   In order to be able to save datasets and run analyses
   As a user

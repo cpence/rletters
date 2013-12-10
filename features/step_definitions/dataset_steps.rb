@@ -104,9 +104,12 @@ Then(/^I should be able to view the dataset's properties$/) do
 end
 
 Then(/^the dataset should have (\d+) entries$/) do |entries|
-  sleep 1
+  visit '/datasets'
+
+  cell = page.find('td.label-cell', text: /#{Regexp.escape(@dataset.name)}/)
+  expect(cell).to have_selector('span.label', text: entries.to_s)
+
   @dataset.reload
-  expect(@dataset.entries.count).to eq(Integer(entries))
 end
 
 Then(/^I should see the number of articles$/) do
