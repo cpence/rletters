@@ -1,5 +1,8 @@
 # RLetters ChangeLog
 
+## Version 1.3 (beta, unreleased)
+
+
 ## Version 1.2 (beta, 2013-12-24)
 
 *   The entire user interface has been rewritten.
