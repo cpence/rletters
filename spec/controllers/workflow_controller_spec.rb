@@ -208,6 +208,14 @@ describe WorkflowController do
 
       @finished_task = make_task(@dataset, DateTime.now)
       @pending_task = make_task(@dataset, nil)
+
+      @working_task = make_task(@dataset, nil)
+      @uuid = @working_task.resque_key
+      Resque::Plugins::Status::Hash.set(@uuid,
+        Resque::Plugins::Status::Hash.get(@uuid),
+        { 'status' => 'working',
+          'name' => 'WorkflowJob' })
+
       @disabled_task = make_task(@disabled, DateTime.now)
       @other_task = make_task(@other_dataset, DateTime.now)
 
@@ -215,7 +223,10 @@ describe WorkflowController do
     end
 
     it 'assigns the tasks, ignoring inactive datasets' do
-      expect(assigns(:tasks).to_a).to match_array([@finished_task, @pending_task])
+      expect(assigns(:tasks).to_a).to match_array(
+        [@finished_task,
+         @pending_task,
+         @working_task])
     end
 
     it 'assigns the finished tasks' do
@@ -223,16 +234,24 @@ describe WorkflowController do
     end
 
     it 'assigns the pending tasks' do
-      expect(assigns(:pending_tasks).to_a).to eq([@pending_task])
+      expect(assigns(:pending_tasks).to_a).to match_array(
+        [@pending_task,
+         @working_task])
     end
 
     context 'with terminate set' do
       before(:each) do
+        @uuid = @working_task.resque_key
         get :fetch, terminate: true
       end
 
       it 'destroys the tasks' do
         expect(Datasets::AnalysisTask.exists?(@pending_task)).to be false
+        expect(Datasets::AnalysisTask.exists?(@working_task)).to be false
+      end
+
+      it 'kills a working job when it calls tick' do
+        expect(Resque::Plugins::Status::Hash.should_kill?(@uuid)).to be true
       end
 
       it 'leaves everything else alone' do

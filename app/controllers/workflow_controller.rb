@@ -105,12 +105,21 @@ class WorkflowController < ApplicationController
       # of the queue (if we're not running inline)
       unless Resque.inline
         @pending_tasks.each do |t|
-          t.job_class.dequeue(t.job_class, t.resque_key)
+          status = Resque::Plugins::Status::Hash.get(t.resque_key)
+
+          if status.working?
+            # Since these might be working on remote worker machines, there's
+            # no way we can actually feed them a kill signal; all we can do is
+            # hope that they hit an at() or a tick() soon
+            Resque::Plugins::Status::Hash.kill(t.resque_key)
+          else
+            # Pull from the queue
+            t.job_class.dequeue(t.job_class, t.resque_key)
+          end
         end
       end
 
-      # Delete all tasks in the DB, and if we couldn't cancel them, we just
-      # hope that the process reaper will get the jobs eventually
+      # Delete all tasks in the DB
       @pending_tasks.readonly(false).destroy_all
 
       redirect_to root_path, alert: I18n.t('workflow.fetch.terminate')
