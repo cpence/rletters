@@ -1,6 +1,6 @@
 # RLetters ChangeLog
 
-## Version 1.2 (beta, unreleased)
+## Version 1.2 (beta, 2013-12-24)
 
 *   The entire user interface has been rewritten.
     *   This includes a new "workflow" mode, in which the user will be walked through the process of starting a new analysis, adding data to it, and collecting the results when it completes.

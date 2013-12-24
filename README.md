@@ -24,8 +24,8 @@
 **Contributors:** See Contributors section below  
 **Copyright:** 2011–2013  
 **License:** MIT License  
-**Latest Version:** v1.1 *beta*  
-**Release Date:** September 24, 2013  
+**Latest Version:** v1.2 *beta*  
+**Release Date:** December 24, 2013  
 
 RLetters is an application designed to let users perform complex searches as well as digital-humanities and text-mining analysis tasks on a corpus of journal articles.
 
