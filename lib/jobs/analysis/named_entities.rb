@@ -45,7 +45,7 @@ module Jobs
       def perform
         options.symbolize_keys!
         options.remove_blank!
-        at(0, 1, 'Initializing...')
+        at(0, 100, 'Initializing...')
 
         user = User.find(options[:user_id])
         dataset = user.datasets.active.find(options[:dataset_id])
@@ -54,11 +54,12 @@ module Jobs
         task.name = t('.short_desc')
         task.save
 
-        at(1, 2, 'Finding all named entities...')
-        analyzer = NERAnalyzer.new(dataset)
+        analyzer = NERAnalyzer.new(
+          dataset,
+          ->(p) { at(p, 100, 'Finding named entities...') })
 
         # Write it out
-        at(2, 2, 'Finished, generating output...')
+        at(100, 100, 'Finished, generating output...')
         ios = StringIO.new
         ios.write(analyzer.entity_references.to_json)
         ios.original_filename = 'named_entites.json'

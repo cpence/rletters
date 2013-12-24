@@ -23,15 +23,19 @@ class NERAnalyzer
   #
   # @api public
   # @param [Dataset] dataset The dataset to analyze
-  def initialize(dataset)
+  # @param [Proc] progress If set, a function to call with a percentage of
+  #   completion (one Integer parameter)
+  def initialize(dataset, progress = nil)
     return unless NLP_ENABLED
 
     classifier = StanfordCoreNLP::CRFClassifier.getClassifierNoExceptions(NER_CLASSIFIER_PATH)
     @entity_references = {}
+    total = dataset.entries.count
 
-    dataset.documents(fulltext: true).each do |doc|
+    dataset.documents(fulltext: true).each_with_index do |doc, i|
+      progress((i.to_f / total.to_f * 100.0).to_i) if progress
+
       triples = classifier.classifyToCharacterOffsets(doc.fulltext)
-
       triples.each do |t|
         s = Integer(t.second.to_s)
         e = Integer(t.third.to_s)
