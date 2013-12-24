@@ -4,8 +4,13 @@ module Jobs
   module Analysis
     # Examine the network of words associated with a focal term
     class Network < Jobs::Analysis::Base
+      include Resque::Plugins::Status
       add_concern 'ComputeWordFrequencies'
-      @queue = 'analysis'
+
+      # Set the queue for this task
+      def self.queue
+        :analysis
+      end
 
       # Returns true if this job can be started now
       #
@@ -23,31 +28,31 @@ module Jobs
 
       # Examine the network of words associated with a focal term.
       #
-      # @param [Hash] args parameters for this job
-      # @option args [String] user_id the user whose dataset we are to work on
-      # @option args [String] dataset_id the dataset to operate on
-      # @option args [String] task_id the analysis task we're working from
-      # @option args [String] word the focal word to analyze
+      # @param [Hash] options parameters for this job
+      # @option options [String] user_id the user whose dataset we are to work on
+      # @option options [String] dataset_id the dataset to operate on
+      # @option options [String] task_id the analysis task we're working from
+      # @option options [String] word the focal word to analyze
       # @return [undefined]
       # @example Start a job for examining a word network
-      #   Resque.enqueue(Jobs::Analysis::Collocation,
-      #                  user_id: current_user.to_param,
-      #                  dataset_id: dataset.to_param,
-      #                  task_id: task.to_param,
-      #                  word: 'test')
-      def self.perform(args = {})
-        args.symbolize_keys!
-        args.remove_blank!
+      #   Jobs::Analysis::Collocation.create(user_id: current_user.to_param,
+      #                                      dataset_id: dataset.to_param,
+      #                                      task_id: task.to_param,
+      #                                      word: 'test')
+      def perform
+        options.symbolize_keys!
+        options.remove_blank!
+        at(0, 1, 'Initializing...')
 
-        user = User.find(args[:user_id])
-        dataset = user.datasets.active.find(args[:dataset_id])
-        task = dataset.analysis_tasks.find(args[:task_id])
+        user = User.find(options[:user_id])
+        dataset = user.datasets.active.find(options[:dataset_id])
+        task = dataset.analysis_tasks.find(options[:task_id])
 
         task.name = t('.short_desc')
         task.save
 
         # Fetch the focal word
-        word = args[:word]
+        word = options[:word]
         fail ArgumentError, 'Focal word not specified' unless word
         word_stem = word.stem
 
@@ -55,11 +60,13 @@ module Jobs
         stop_words = Documents::StopList.find_by!(language: 'en').list.split
 
         # Create a list of lowercase words
+        at(1, 100, 'Generating list of words for documents...')
         words = dataset.documents(fulltext: true).map do |doc|
           doc.fulltext.gsub(/[^A-Za-z ]/, '').downcase.split
         end
 
         # Remove stop words and stem
+        at(17, 100, 'Cleaning and stemming list of words...')
         words = words.flatten - stop_words
         words_stem = words.map { |w| w.stem }
 
@@ -67,9 +74,13 @@ module Jobs
         nodes = []
         forms = {}
         edges = []
+        total = words.size
 
         # Scan with two-word gap
         words.each_cons(2).each_with_index do |gap, i|
+          at(33 + ((i.to_f / (total - 1).to_f) * 33.0).to_i, 100,
+             "Scanning network with two-word gap: #{i}/#{total - 1}")
+
           gap_stem = words_stem[i, 2]
           next unless gap_stem.include? word_stem
 
@@ -101,6 +112,9 @@ module Jobs
 
         # Scan with five-word gap
         words.each_cons(5).each_with_index do |gap, i|
+          at(66 + ((i.to_f / (total - 4).to_f) * 33.0).to_i, 100,
+             "Scanning network with five-word gap: #{i}/#{total - 4}")
+
           gap_stem = words_stem[i, 5]
           next unless gap_stem.include? word_stem
 
@@ -134,6 +148,7 @@ module Jobs
         end
 
         # Trim the forms of duplicates
+        at(99, 100, 'Cleaning list of words and converting...')
         forms.each { |k, v| v.uniq! }
 
         # Convert to D3-able format
@@ -150,6 +165,7 @@ module Jobs
         end
 
         # Save out all the data
+        at(100, 100, 'Finished, generating output...')
         data = {
           name: dataset.name,
           word: word,
@@ -169,6 +185,8 @@ module Jobs
 
         # We're done here
         task.finish!
+
+        completed
       end
 
       # We don't want users to download the JSON file

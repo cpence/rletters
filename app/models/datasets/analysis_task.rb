@@ -11,6 +11,8 @@
 #   @return [String] The name of this task
 # @!attribute params
 #   @return [Hash] The parameters used to start this task with Resque
+# @!attribute resque_key
+#   @return [String] The UUID of this job (from +resque-status+)
 # @!attribute created_at
 #   @return [DateTime] The time at which this task was started
 # @!attribute finished_at

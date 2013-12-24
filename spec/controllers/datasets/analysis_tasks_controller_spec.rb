@@ -129,9 +129,10 @@ describe Datasets::AnalysisTasksController do
                       job_params: { format: 'bibtex' }
 
         @dataset.analysis_tasks.reload
-        task_id = @dataset.analysis_tasks[0].to_param
+        task_id = @dataset.analysis_tasks.first.to_param
 
         expect(Jobs::Analysis::ExportCitations).to have_queued(
+          @dataset.analysis_tasks.first.resque_key,
           user_id: @user.to_param,
           dataset_id: @dataset.to_param,
           task_id: task_id,
@@ -228,6 +229,7 @@ describe Datasets::AnalysisTasksController do
     context 'when fetching a task download' do
       before(:each) do
         Jobs::Analysis::ExportCitations.perform(
+          '123',
           user_id: @user.to_param,
           dataset_id: @dataset.to_param,
           task_id: @task.to_param,

@@ -1,6 +1,14 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
+module Jobs
+  module Analysis
+    class WorkflowJob < Jobs::Analysis::Base
+      include Resque::Plugins::Status
+    end
+  end
+end
+
 describe WorkflowController do
 
   describe '#index' do
@@ -170,6 +178,25 @@ describe WorkflowController do
   end
 
   describe '#fetch' do
+    def make_task(dataset, finished)
+      task = FactoryGirl.create(:analysis_task,
+                                dataset: dataset,
+                                finished_at: finished,
+                                job_type: 'WorkflowJob')
+
+      uuid = Jobs::Analysis::WorkflowJob.create(
+        user_id: dataset.user.to_param,
+        dataset_id: dataset.to_param,
+        task_id: task.to_param
+      )
+
+      task.reload
+      task.resque_key = uuid
+      task.save
+
+      task
+    end
+
     before(:each) do
       @user = FactoryGirl.create(:user)
       @user2 = FactoryGirl.create(:user)
@@ -179,24 +206,24 @@ describe WorkflowController do
       @disabled = FactoryGirl.create(:dataset, user: @user, name: 'Disabled', disabled: true)
       @other_dataset = FactoryGirl.create(:dataset, user: @user2, name: 'OtherUser')
 
-      @finished_task = FactoryGirl.create(:analysis_task, dataset: @dataset, job_type: 'PlotDates', finished_at: DateTime.now)
-      @pending_task = FactoryGirl.create(:analysis_task, dataset: @dataset, job_type: 'PlotDates', finished_at: nil)
-      @disabled_task = FactoryGirl.create(:analysis_task, dataset: @disabled, job_type: 'PlotDates', finished_at: DateTime.now)
-      @other_task = FactoryGirl.create(:analysis_task, dataset: @other_dataset, job_type: 'PlotDates', finished_at: DateTime.now)
+      @finished_task = make_task(@dataset, DateTime.now)
+      @pending_task = make_task(@dataset, nil)
+      @disabled_task = make_task(@disabled, DateTime.now)
+      @other_task = make_task(@other_dataset, DateTime.now)
 
       get :fetch
     end
 
     it 'assigns the tasks, ignoring inactive datasets' do
-      expect(assigns(:tasks)).to match_array([@finished_task, @pending_task])
+      expect(assigns(:tasks).to_a).to match_array([@finished_task, @pending_task])
     end
 
     it 'assigns the finished tasks' do
-      expect(assigns(:finished_tasks)).to eq([@finished_task])
+      expect(assigns(:finished_tasks).to_a).to eq([@finished_task])
     end
 
     it 'assigns the pending tasks' do
-      expect(assigns(:pending_tasks)).to eq([@pending_task])
+      expect(assigns(:pending_tasks).to_a).to eq([@pending_task])
     end
 
     context 'with terminate set' do

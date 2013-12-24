@@ -69,7 +69,7 @@ describe Jobs::Analysis::WordFrequency do
 
       expect {
         params_to_test.each do |params|
-          Jobs::Analysis::WordFrequency.perform(params)
+          Jobs::Analysis::WordFrequency.perform('123', params)
         end
       }.to_not raise_error
     end
@@ -77,6 +77,7 @@ describe Jobs::Analysis::WordFrequency do
     context 'when all parameters are valid' do
       before(:each) do
         Jobs::Analysis::WordFrequency.perform(
+          '123',
           user_id: @user.to_param,
           dataset_id: @dataset.to_param,
           task_id: @task.to_param,

@@ -26,6 +26,7 @@ describe Jobs::Analysis::PlotDates do
   context 'when not normalizing' do
     before(:each) do
       Jobs::Analysis::PlotDates.perform(
+        '123',
         user_id: @user.to_param,
         dataset_id: @dataset.to_param,
         task_id: @task.to_param,
@@ -51,6 +52,7 @@ describe Jobs::Analysis::PlotDates do
   context 'when normalizing to the corpus' do
     before(:each) do
       Jobs::Analysis::PlotDates.perform(
+        '123',
         user_id: @user.to_param,
         dataset_id: @dataset.to_param,
         task_id: @task.to_param,
@@ -96,6 +98,7 @@ describe Jobs::Analysis::PlotDates do
                                                              user: @user)
 
       Jobs::Analysis::PlotDates.perform(
+        '123',
         user_id: @user.to_param,
         dataset_id: @dataset.to_param,
         task_id: @task.to_param,

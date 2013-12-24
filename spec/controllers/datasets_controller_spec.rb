@@ -72,11 +72,15 @@ describe DatasetsController do
       end
 
       it 'creates a delayed job' do
-        expect(Jobs::CreateDataset).to have_queued(user_id: @user.to_param,
-                                                   dataset_id: @user.datasets.inactive[0].to_param,
-                                                   q: '*:*',
-                                                   fq: nil,
-                                                   def_type: 'lucene')
+        dataset = @user.datasets.inactive[0]
+
+        expect(Jobs::CreateDataset).to have_queued(
+          kind_of(String),
+          user_id: @user.to_param,
+          dataset_id: @user.datasets.inactive[0].to_param,
+          q: '*:*',
+          fq: nil,
+          def_type: 'lucene')
       end
 
       it 'creates a skeleton dataset' do
@@ -167,6 +171,7 @@ describe DatasetsController do
 
     it 'creates a delayed job' do
       expect(Jobs::DestroyDataset).to have_queued(
+        kind_of(String),
         user_id: @user.to_param,
         dataset_id: @dataset.to_param)
     end

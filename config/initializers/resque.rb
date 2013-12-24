@@ -1,12 +1,16 @@
 # -*- encoding : utf-8 -*-
 
-# Load the server elements of both Resque and resque-scheduler
+# Load the server elements of Resque, resque-scheduler, resque-status
 require 'resque/server'
+require 'resque/status_server'
 require 'resque_scheduler/server'
 
 # FIXME: For external job workers, we'll have to fix this.  But not just yet.
-Resque.redis = 'localhost:6379'
+Resque.redis = Rails.env.test? ? MockRedis.new : 'localhost:6379'
 Resque.inline = Rails.env.development?
+
+# We have some long-running jobs, preserve status information for 7 days
+Resque::Plugins::Status::Hash.expire_in = 60 * 60 * 24 * 7
 
 # Send our mails delayed, using Resque, on the maintenance queue.  Dont't
 # exclude it from any environments, as resque_spec is going to intercept its

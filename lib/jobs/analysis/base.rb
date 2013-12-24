@@ -54,6 +54,17 @@ module Jobs
         I18n.t("#{name.underscore.gsub('/', '.')}#{key.to_s}", opts)
       end
 
+      # Returns a translated string for this job
+      #
+      # We alias the class method as an instance method, to save keystrokes
+      # when programming job classes.
+      #
+      # @param [String] key the translation to look up (e.g., '.short_desc')
+      # @return [String] the translated message
+      def t(key, opts = {})
+        self.class.t(key, opts)
+      end
+
       # True if this job produces a download
       #
       # If true (default), then links to results of tasks will produce links to

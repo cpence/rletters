@@ -58,8 +58,9 @@ class Datasets::AnalysisTasksController < ApplicationController
     task.params = @current_params
     task.save
 
-    # Enqueue the job
-    Resque.enqueue(@klass, @current_params)
+    # Enqueue the job, saving the UUID for it
+    task.resque_key = @klass.create(@current_params)
+    task.save
 
     if current_user.workflow_active
       # If the user was in the workflow, they're done now

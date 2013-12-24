@@ -32,6 +32,7 @@ describe Jobs::Analysis::Collocation do
       valid_params.each do |p|
         expect {
           Jobs::Analysis::Collocation.perform(
+            '123',
             user_id: @user.to_param,
             dataset_id: @dataset.to_param,
             task_id: @task.to_param,
@@ -44,6 +45,7 @@ describe Jobs::Analysis::Collocation do
     context 'when all parameters are valid' do
       before(:each) do
         Jobs::Analysis::Collocation.perform(
+          '123',
           user_id: @user.to_param,
           dataset_id: @dataset.to_param,
           task_id: @task.to_param,

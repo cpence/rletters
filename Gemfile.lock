@@ -283,6 +283,8 @@ GEM
       redis (>= 3.0.0)
       resque (~> 1.25)
       rufus-scheduler (~> 2.0)
+    resque-status (0.4.1)
+      resque (~> 1.19)
     resque_mailer (2.2.6)
       actionmailer (>= 3.0)
     resque_spec (0.14.4)
@@ -428,6 +430,7 @@ DEPENDENCIES
   resque
   resque-pool
   resque-scheduler
+  resque-status
   resque_mailer
   resque_spec
   rsolr (>= 1.0.7)

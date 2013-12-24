@@ -28,6 +28,7 @@ describe Jobs::Analysis::Network do
   context 'when all parameters are valid' do
     before(:each) do
       Jobs::Analysis::Network.perform(
+        '123',
         user_id: @user.to_param,
         dataset_id: @dataset.to_param,
         task_id: @task.to_param,

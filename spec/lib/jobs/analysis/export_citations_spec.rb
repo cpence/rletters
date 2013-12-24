@@ -30,6 +30,7 @@ describe Jobs::Analysis::ExportCitations do
     it 'raises an exception' do
       expect {
         Jobs::Analysis::ExportCitations.perform(
+          '123',
           user_id: @user.to_param,
           dataset_id: @dataset.to_param,
           task_id: @task.to_param,
@@ -42,6 +43,7 @@ describe Jobs::Analysis::ExportCitations do
     it 'works anyway' do
       expect {
         Jobs::Analysis::ExportCitations.perform(
+          '123',
           user_id: @user.to_param,
           dataset_id: @dataset.to_param,
           task_id: @task.to_param,
@@ -53,6 +55,7 @@ describe Jobs::Analysis::ExportCitations do
   context 'when all parameters are valid' do
     before(:each) do
       Jobs::Analysis::ExportCitations.perform(
+        '123',
         user_id: @user.to_param,
         dataset_id: @dataset.to_param,
         task_id: @task.to_param,

@@ -5,8 +5,13 @@ module Jobs
   module Analysis
     # Produce a parallel word frequency list for a dataset
     class WordFrequency < Jobs::Analysis::Base
+      include Resque::Plugins::Status
       add_concern 'ComputeWordFrequencies'
-      @queue = 'analysis'
+
+      # Set the queue for this task
+      def self.queue
+        :analysis
+      end
 
       # Returns true if this job can be started now
       #
@@ -32,33 +37,36 @@ module Jobs
       # +ComputeWordFrequencies+ concern; see that concern's documentation for
       # the specification of those arguments.
       #
-      # @param [Hash] args parameters for this job
-      # @option args [String] user_id the user whose dataset we are to work on
-      # @option args [String] dataset_id the dataset to operate on
-      # @option args [String] task_id the analysis task we're working from
+      # @param [Hash] options parameters for this job
+      # @option options [String] user_id the user whose dataset we are to work on
+      # @option options [String] dataset_id the dataset to operate on
+      # @option options [String] task_id the analysis task we're working from
       # @see Jobs::Analysis::Concerns::ComputeWordFrequencies
       # @return [undefined]
       # @example Start a job for computing a dataset's word frequencies
-      #   Resque.enqueue(Jobs::Analysis::WordFrequency,
-      #                  user_id: current_user.to_param,
-      #                  dataset_id: dataset.to_param,
-      #                  task_id: task.to_param,
-      #                  [word frequency concern arguments])
-      def self.perform(args = {})
-        args.symbolize_keys!
-        args.remove_blank!
+      #   Jobs::Analysis::WordFrequency.create(user_id: current_user.to_param,
+      #                                        dataset_id: dataset.to_param,
+      #                                        task_id: task.to_param,
+      #                                        [concern arguments])
+      def perform
+        options.symbolize_keys!
+        options.remove_blank!
+        at(0, 1, 'Initializing...')
 
-        user = User.find(args[:user_id])
-        dataset = user.datasets.active.find(args[:dataset_id])
-        task = dataset.analysis_tasks.find(args[:task_id])
+        user = User.find(options[:user_id])
+        dataset = user.datasets.active.find(options[:dataset_id])
+        task = dataset.analysis_tasks.find(options[:task_id])
 
         task.name = t('.short_desc')
         task.save
 
+        at(1, 2, 'Calculating word frequencies...')
+
         # Do the analysis
-        analyzer = compute_word_frequencies(dataset, args)
+        analyzer = compute_word_frequencies(dataset, options)
 
         # Create some CSV
+        at(2, 2, 'Finished, generating output...')
         csv_string = CSV.generate do |csv|
           csv << [t('.csv_header', name: dataset.name)]
           csv << ['']
@@ -158,6 +166,8 @@ module Jobs
 
         # We're done here
         task.finish!
+
+        completed
       end
     end
   end

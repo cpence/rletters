@@ -5,7 +5,12 @@ module Jobs
   module Analysis
     # Compare two datasets using the Craig Zeta algorithm
     class CraigZeta < Jobs::Analysis::Base
-      @queue = 'analysis'
+      include Resque::Plugins::Status
+
+      # Set the queue for this task
+      def self.queue
+        :analysis
+      end
 
       # Returns true if this job can be started now
       #
@@ -27,30 +32,30 @@ module Jobs
       # later.  As of yet, we don't offer display in the browser; I think this
       # data is so complex that you'll want to pull it up on a spreadsheet.
       #
-      # @param [Hash] args parameters for this job
-      # @option args [String] user_id the user whose dataset we are to work on
-      # @option args [String] dataset_id the dataset to operate on
-      # @option args [String] task_id the analysis task we're working from
-      # @option args [String] other_dataset_id the dataset to compare with
+      # @param [Hash] options parameters for this job
+      # @option options [String] user_id the user whose dataset we are to work on
+      # @option options [String] dataset_id the dataset to operate on
+      # @option options [String] task_id the analysis task we're working from
+      # @option options [String] other_dataset_id the dataset to compare with
       # @return [undefined]
       # @example Start a job for comparing two datasets
-      #   Resque.enqueue(Jobs::Analysis::CraigZeta,
-      #                  user_id: current_user.to_param,
-      #                  dataset_id: dataset.to_param,
-      #                  task_id: task.to_param,
-      #                  other_dataset_id: dataset2.to_param)
-      def self.perform(args = {})
-        args.symbolize_keys!
-        args.remove_blank!
+      #   Jobs::Analysis::CraigZeta.create(user_id: current_user.to_param,
+      #                                    dataset_id: dataset.to_param,
+      #                                    task_id: task.to_param,
+      #                                    other_dataset_id: dataset2.to_param)
+      def perform
+        options.symbolize_keys!
+        options.remove_blank!
+        at(0, 1, 'Initializing...')
 
-        user = User.find(args[:user_id])
-        dataset_1 = user.datasets.active.find(args[:dataset_id])
+        user = User.find(options[:user_id])
+        dataset_1 = user.datasets.active.find(options[:dataset_id])
 
-        other_datasets = args[:other_datasets]
+        other_datasets = options[:other_datasets]
         fail ArgumentError, 'Wrong number of other datasets provided' unless other_datasets.count == 1
         dataset_2 = user.datasets.active.find(other_datasets[0])
 
-        task = dataset_1.analysis_tasks.find(args[:task_id])
+        task = dataset_1.analysis_tasks.find(options[:task_id])
         task.name = t('.short_desc')
         task.save
 
@@ -59,12 +64,15 @@ module Jobs
         # 1) Get word lists for each dataset.  Break the datasets up into
         # blocks when you do.  500-word blocks, BigLast.  Stop lists aren't
         # needed, because we're going to remove common words below.
+        at(1, 100, 'Analyzing words in first dataset...')
         analyzer_1 = WordFrequencyAnalyzer.new(
           dataset_1,
           block_size: 500,
           split_across: true,
           last_block: :big_last
         )
+
+        at(25, 100, 'Analyzing words in second dataset...')
         analyzer_2 = WordFrequencyAnalyzer.new(
           dataset_2,
           block_size: 500,
@@ -73,6 +81,7 @@ module Jobs
         )
 
         # 2) Cull any word that appears in *every* block.
+        at(50, 100, 'Removing words that appear in all blocks...')
         block_counts = {}
         analyzer_1.blocks.each do |b|
           b.keys.each do |k|
@@ -95,7 +104,11 @@ module Jobs
         # B in which the word *doesn't* appear.  Add the two numbers.  This is
         # the Zeta Score.
         zeta_scores = {}
-        block_counts.each do |word, v|
+        total = block_counts.size
+        block_counts.each_with_index do |(word, v), i|
+          at(50 + (i.to_f / total.to_f * 25.0).to_i, 100,
+             "Computing Zeta scores: #{i}/#{total}...")
+
           a_count = analyzer_1.blocks.map { |b| b[word] ? 1 : 0 }.reduce(:+)
           not_b_count = analyzer_2.blocks.map { |b| b[word] ? 0 : 1 }.reduce(:+)
 
@@ -106,11 +119,13 @@ module Jobs
         end
 
         # 4) Output words and Zeta scores, sorted descending by score.
+        at(75, 100, 'Sorting Zeta scores...')
         zeta_array = zeta_scores.to_a.sort { |a, b| b[1] <=> a[1] }
 
         # 5) Take the first 1k and last 1k rows here (or split the list
         # clean in half if there's <2k types), and those are your marker word
         # lists.
+        at(78, 100, 'Taking marker words for each dataset...')
         size = [(zeta_array.count / 2).floor, 1000].min
 
         marker_words = zeta_array.take(size).map { |a| a[0] }
@@ -122,12 +137,18 @@ module Jobs
         # for the point.  That shows you your separation.
         graph_points = []
         analyzer_1.blocks.each_with_index do |b, i|
+          at(80 + (i.to_f / analyzer_1.blocks.count.to_f * 10.0).to_i, 100,
+             "Calculating separation graph points for first dataset: #{i}/#{analyzer_1.blocks.count}")
+
           x_val = Float((marker_words & b.keys).count) / Float(b.keys.count)
           y_val = Float((anti_marker_words & b.keys).count) / Float(b.keys.count)
 
           graph_points << [x_val, y_val, "#{dataset_1.name}: #{i + 1}"]
         end
         analyzer_2.blocks.each_with_index do |b, i|
+          at(90 + (i.to_f / analyzer_2.blocks.count.to_f * 10.0).to_i, 100,
+             "Calculating separation graph points for second dataset: #{i}/#{analyzer_2.blocks.count}")
+
           x_val = Float((marker_words & b.keys).count) / Float(b.keys.count)
           y_val = Float((anti_marker_words & b.keys).count) / Float(b.keys.count)
 
@@ -135,6 +156,7 @@ module Jobs
         end
 
         # Save out all the data
+        at(100, 100, 'Finished, generating output...')
         data = {}
         data[:name_1] = dataset_1.name
         data[:name_2] = dataset_2.name
@@ -155,6 +177,8 @@ module Jobs
 
         # We're done here
         task.finish!
+
+        completed
       end
 
       # We don't want users to download the JSON file

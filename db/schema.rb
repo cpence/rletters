@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131204171642) do
+ActiveRecord::Schema.define(version: 20131224154209) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -97,6 +97,7 @@ ActiveRecord::Schema.define(version: 20131204171642) do
     t.integer  "result_file_size"
     t.datetime "result_updated_at"
     t.text     "params"
+    t.string   "resque_key"
   end
 
   add_index "datasets_analysis_tasks", ["dataset_id"], name: "index_datasets_analysis_tasks_on_dataset_id", using: :btree

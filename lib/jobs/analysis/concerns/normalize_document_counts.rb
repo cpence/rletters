@@ -23,43 +23,41 @@ module Jobs
       module NormalizeDocumentCounts
         extend ActiveSupport::Concern
 
-        included do
-          # Normalize a hash containing absolute counts
-          #
-          # @param [User] user the user whose datasets we're querying
-          # @param [Symbol] field the field against which to normalize.  This
-          #   must obviously match the keys in +counts+.  Can be set to any
-          #   Solr field.
-          # @param [Hash<String, Integer>] counts the counts of documents,
-          #   grouped by +field+ values
-          # @param [Hash] args parameters specifying normalization behavior
-          # @option args [String] normalize_doc_coutns if '1', perform
-          #   normalization
-          # @option args [String] normalize_doc_dataset the id of the dataset
-          #   against which to normalize, or blank if the entire corpus
-          # @return [Hash<String, Float>] the counts of documents, normalized
-          def self.normalize_document_counts(user, field, counts, args)
-            args.remove_blank!
-            return counts unless args[:normalize_doc_counts] == '1'
+        # Normalize a hash containing absolute counts
+        #
+        # @param [User] user the user whose datasets we're querying
+        # @param [Symbol] field the field against which to normalize.  This
+        #   must obviously match the keys in +counts+.  Can be set to any
+        #   Solr field.
+        # @param [Hash<String, Integer>] counts the counts of documents,
+        #   grouped by +field+ values
+        # @param [Hash] args parameters specifying normalization behavior
+        # @option args [String] normalize_doc_coutns if '1', perform
+        #   normalization
+        # @option args [String] normalize_doc_dataset the id of the dataset
+        #   against which to normalize, or blank if the entire corpus
+        # @return [Hash<String, Float>] the counts of documents, normalized
+        def normalize_document_counts(user, field, counts, args)
+          args.remove_blank!
+          return counts unless args[:normalize_doc_counts] == '1'
 
-            if args[:normalize_doc_dataset]
-              normalization_set = user.datasets.active.find(args[:normalize_doc_dataset])
+          if args[:normalize_doc_dataset]
+            normalization_set = user.datasets.active.find(args[:normalize_doc_dataset])
+          else
+            normalization_set = nil
+          end
+
+          normalize_counts = Solr::DataHelpers.count_by_field(normalization_set, field)
+
+          counts.each_with_object({}) do |(k, v), ret|
+            if normalize_counts[k] && normalize_counts[k] > 0
+              ret[k] = v.to_f / normalize_counts[k]
             else
-              normalization_set = nil
-            end
-
-            normalize_counts = Solr::DataHelpers.count_by_field(normalization_set, field)
-
-            counts.each_with_object({}) do |(k, v), ret|
-              if normalize_counts[k] && normalize_counts[k] > 0
-                ret[k] = v.to_f / normalize_counts[k]
-              else
-                # I'm not sure if this is the right thing to do when you give
-                # me a dataset that can't properly normalize (i.e., you ask me
-                # to compute 1/0).  But at least it won't throw a
-                # divide-by-zero.
-                ret[k] = 0.0
-              end
+              # I'm not sure if this is the right thing to do when you give
+              # me a dataset that can't properly normalize (i.e., you ask me
+              # to compute 1/0).  But at least it won't throw a
+              # divide-by-zero.
+              ret[k] = 0.0
             end
           end
         end

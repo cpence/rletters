@@ -29,6 +29,7 @@ describe Jobs::Analysis::CraigZeta do
   context 'when all parameters are valid' do
     before(:each) do
       Jobs::Analysis::CraigZeta.perform(
+        '123',
         user_id: @user.to_param,
         dataset_id: @dataset.to_param,
         task_id: @task.to_param,

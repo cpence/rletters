@@ -6,45 +6,53 @@ module Jobs
   # This job fetches results from the Solr server and spools them into the
   # database, creating a dataset for a user.
   class CreateDataset
-    @queue = 'ui'
+    include Resque::Plugins::Status
+
+    # Set the queue for this task
+    def self.queue
+      :ui
+    end
 
     # Create a dataset for the user (filling in an extant template)
     #
     # @api public
-    # @param [Hash] args the arguments for this job
-    # @option args [String] user_id the user that created this dataset
-    # @option args [String] dataset_id the dataset to fill in
-    # @option args [String] q the Solr query for this search
-    # @option args [Array<String>] fq faceted browsing parameters for
+    # @param [Hash] options the arguments for this job
+    # @option options [String] user_id the user that created this dataset
+    # @option options [String] dataset_id the dataset to fill in
+    # @option options [String] q the Solr query for this search
+    # @option options [Array<String>] fq faceted browsing parameters for
     #   this search
-    # @option args [String] def_type parser type for this search
+    # @option options [String] def_type parser type for this search
     # @return [undefined]
     # @example Start a job for creating a dataset
     #   dataset = users(:john).datasets.create(disabled: true,
     #                                          name: 'A Dataset')
-    #   Resque.enqueue(Jobs::CreateDataset.new,
-    #                  user_id: users(:john).to_param,
-    #                  dataset_id: dataset.to_param,
-    #                  q: '*:*'
-    #                  fq: ['authors_facet:"Shatner"'],
-    #                  def_type: 'lucene')
-    def self.perform(args = {})
-      args.symbolize_keys!
+    #   Jobs::CreateDataset.create(user_id: users(:john).to_param,
+    #                              dataset_id: dataset.to_param,
+    #                              q: '*:*'
+    #                              fq: ['authors_facet:"Shatner"'],
+    #                              def_type: 'lucene')
+    def perform
+      options.symbolize_keys!
+      at(0, 1, 'Initializing...')
 
-      user = User.find(args[:user_id])
-      dataset = user.datasets.find(args[:dataset_id])
+      user = User.find(options[:user_id])
+      dataset = user.datasets.find(options[:dataset_id])
 
       # Build a Solr query to fetch the results, 1000 at a time
       solr_query = {}
       solr_query[:start] = 0
       solr_query[:rows] = 1000
-      solr_query[:q] = args[:q]
-      solr_query[:fq] = args[:fq]
-      solr_query[:def_type] = args[:def_type]
+      solr_query[:q] = options[:q]
+      solr_query[:fq] = options[:fq]
+      solr_query[:def_type] = options[:def_type]
 
       # Only get uid and external URLs, no facets
       solr_query[:fl] = 'uid,fulltext_url'
       solr_query[:facet] = false
+
+      # For the status messages
+      total = 1
 
       # We trap all of this so that if we get exceptions we can clean them
       # up and delete any and all fledgling dataset parts
@@ -53,10 +61,13 @@ module Jobs
         search_result = Solr::Connection.search solr_query
 
         # Get our parameters
-        docs_to_fetch = search_result.num_hits
+        total = search_result.num_hits
+        remaining = total
         dataset_id = dataset.to_param
 
-        while docs_to_fetch > 0
+        while remaining > 0
+          at(total - remaining, total, "Fetching documents: #{remaining} left to add...")
+
           # What did we get this time?
           docs_fetched = search_result.documents.count
 
@@ -75,8 +86,8 @@ module Jobs
           end
 
           # Update counters and execute another query if required
-          docs_to_fetch = docs_to_fetch - docs_fetched
-          if docs_to_fetch > 0
+          remaining -= docs_fetched
+          if remaining > 0
             solr_query[:start] = solr_query[:start] + docs_fetched
             search_result = Solr::Connection.search solr_query
           end
@@ -92,6 +103,7 @@ module Jobs
       end
 
       # Link this to the user's workflow if there's one active
+      at(total, total, 'Finished creating, saving dataset...')
       user.reload
       if user.workflow_active
         user.workflow_datasets ||= '[]'
@@ -101,6 +113,8 @@ module Jobs
 
         user.save
       end
+
+      completed
     end
   end
 end

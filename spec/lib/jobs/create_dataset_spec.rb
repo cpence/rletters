@@ -12,6 +12,7 @@ describe Jobs::CreateDataset do
     it 'raises an exception' do
       expect {
         Jobs::CreateDataset.perform(
+          '123',
           user_id: '12345678',
           dataset_id: @dataset.to_param,
           q: '*:*',
@@ -25,6 +26,7 @@ describe Jobs::CreateDataset do
     it 'raises an exception' do
       expect {
         Jobs::CreateDataset.perform(
+          '123',
           user_id: @user.to_param,
           dataset_id: '12345678',
           q: '*:*',
@@ -37,6 +39,7 @@ describe Jobs::CreateDataset do
   context 'given a standard search' do
     before(:each) do
       Jobs::CreateDataset.perform(
+        '123',
         user_id: @user.to_param,
         dataset_id: @dataset.to_param,
         q: 'test',
@@ -67,6 +70,7 @@ describe Jobs::CreateDataset do
       @user.save
 
       Jobs::CreateDataset.perform(
+        '123',
         user_id: @user.to_param,
         dataset_id: @dataset.to_param,
         q: 'test',
@@ -86,6 +90,7 @@ describe Jobs::CreateDataset do
   context 'given large Solr dataset' do
     before(:each) do
       Jobs::CreateDataset.perform(
+        '123',
         user_id: @user.to_param,
         dataset_id: @dataset.to_param,
         q: '*:*',
@@ -117,6 +122,7 @@ describe Jobs::CreateDataset do
       expect {
         begin
           Jobs::CreateDataset.perform(
+            '123',
             user_id: @user.to_param,
             dataset_id: @dataset.to_param,
             q: 'test',
@@ -130,6 +136,7 @@ describe Jobs::CreateDataset do
     it 'raises an exception' do
       expect {
         Jobs::CreateDataset.perform(
+          '123',
           user_id: @user.to_param,
           dataset_id: @dataset.to_param,
           q: 'test',

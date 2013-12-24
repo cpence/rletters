@@ -7,7 +7,12 @@ module Jobs
     # This job fetches the contents of the dataset and offers them to the
     # user for download as bibliographic data.
     class ExportCitations < Jobs::Analysis::Base
-      @queue = 'analysis'
+      include Resque::Plugins::Status
+
+      # Set the queue for this task
+      def self.queue
+        :analysis
+      end
 
       # Returns true if this job can be started now
       #
@@ -26,30 +31,31 @@ module Jobs
       # Export the dataset
       #
       # @api public
-      # @param [Hash] args parameters for this job
-      # @option args [String] user_id the user whose dataset we are to work on
-      # @option args [String] dataset_id the dataset to operate on
-      # @option args [String] task_id the analysis task we're working from
-      # @option args [String] format the format in which to export (see
+      # @param [Hash] options parameters for this job
+      # @option options [String] user_id the user whose dataset we are to work on
+      # @option options [String] dataset_id the dataset to operate on
+      # @option options [String] task_id the analysis task we're working from
+      # @option options [String] format the format in which to export (see
       #   +Document.serializers+)
       # @return [undefined]
       # @example Start a job for exporting a datset as JSON
-      #   Resque.enqueue(Jobs::Analysis::ExportCitations,
-      #                  user_id: current_user.to_param,
-      #                  dataset_id: dataset.to_param,
-      #                  task_id: task.to_param,
-      #                  format: :json)
-      def self.perform(args = {})
-        args.symbolize_keys!
-        args.remove_blank!
+      #   Jobs::Analysis::ExportCitations.create(
+      #     user_id: current_user.to_param,
+      #     dataset_id: dataset.to_param,
+      #     task_id: task.to_param,
+      #     format: :json)
+      def perform
+        options.symbolize_keys!
+        options.remove_blank!
+        at(0, 1, 'Initializing...')
 
-        user = User.find(args[:user_id])
-        dataset = user.datasets.active.find(args[:dataset_id])
-        task = dataset.analysis_tasks.find(args[:task_id])
+        user = User.find(options[:user_id])
+        dataset = user.datasets.active.find(options[:dataset_id])
+        task = dataset.analysis_tasks.find(options[:task_id])
 
         # Check that the format is valid
-        fail ArgumentError, 'Format is not specified' unless args[:format]
-        serializer = Document.serializers[args[:format].to_sym]
+        fail ArgumentError, 'Format is not specified' unless options[:format]
+        serializer = Document.serializers[options[:format].to_sym]
         fail ArgumentError, 'Format is not valid' unless serializer
 
         # Update the task name
@@ -57,15 +63,19 @@ module Jobs
         task.save
 
         # Make a zip file for the output
-        # Pack all those files into a ZIP
+        total = dataset.entries.count
+
         ios = ::Zip::OutputStream.write_buffer do |zos|
-          dataset.documents.each do |doc|
-            zos.put_next_entry "#{doc.html_uid}.#{args[:format].to_s}"
+          dataset.documents.each_with_index do |doc, i|
+            at(i, total, "Creating citations: #{i}/#{total}...")
+
+            zos.put_next_entry "#{doc.html_uid}.#{options[:format].to_s}"
             zos.print serializer[:method].call(doc)
           end
         end
 
         # Save it out
+        at(total, total, 'Finished, generating output...')
         ios.original_filename = 'export_citations.zip'
         ios.content_type = 'application/zip'
         ios.rewind
@@ -73,6 +83,8 @@ module Jobs
 
         # We're done here
         task.finish!
+
+        completed
       end
     end
   end

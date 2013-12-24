@@ -14,6 +14,7 @@ gem 'addressable'
 
 # Job scheduling
 gem 'resque'
+gem 'resque-status'
 gem 'resque-scheduler', require: 'resque_scheduler'
 gem 'resque_mailer'
 

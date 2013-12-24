@@ -6,25 +6,32 @@ module Jobs
   # This job destroys a given dataset.  This SQL call can be quite expensive,
   # so we perform it in the background.
   class DestroyDataset
-    @queue = 'ui'
+    include Resque::Plugins::Status
+
+    # Set the queue for this task
+    def self.queue
+      :ui
+    end
 
     # Destroy a dataset
     #
     # @api public
-    # @param args parameters for this job
-    # @option args [String] user_id the user that owns this dataset
-    # @option args [String] dataset_id the id of the dataset to be destroyed
+    # @param options parameters for this job
+    # @option options [String] user_id the user that owns this dataset
+    # @option options [String] dataset_id the id of the dataset to be destroyed
     # @return [undefined]
     # @example Start a job for destroying a dataset
-    #   Resque.enqueue(Jobs::DestroyDataset,
-    #                  user_id: users(:john).to_param,
-    #                  dataset_id: dataset.to_param)
-    def self.perform(args = {})
-      args.symbolize_keys!
+    #   Jobs::DestroyDataset.create(user_id: users(:john).to_param,
+    #                               dataset_id: dataset.to_param)
+    def perform
+      options.symbolize_keys!
+      tick('Destroying dataset...')
 
-      user = User.find(args[:user_id])
-      dataset = user.datasets.find(args[:dataset_id])
+      user = User.find(options[:user_id])
+      dataset = user.datasets.find(options[:dataset_id])
       dataset.destroy
+
+      completed
     end
   end
 end

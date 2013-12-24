@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 
 module Datasets
   # An enumerator for documents in a dataset

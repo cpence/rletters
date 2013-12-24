@@ -4,7 +4,12 @@ module Jobs
   module Analysis
     # Determine statistically significant collocations in text
     class Collocation < Jobs::Analysis::Base
-      @queue = 'analysis'
+      include Resque::Plugins::Status
+
+      # Set the queue for this task
+      def self.queue
+        :analysis
+      end
 
       # Returns true if this job can be started now
       #
@@ -25,43 +30,44 @@ module Jobs
       # This saves its data out as a CSV file to be downloaded by the user
       # later.
       #
-      # @param [Hash] args parameters for this job
-      # @option args [String] user_id the user whose dataset we are to work on
-      # @option args [String] dataset_id the dataset to operate on
-      # @option args [String] task_id the analysis task we're working from
-      # @option args [String] analysis_type the algorithm to use to analyze the
+      # @param [Hash] options parameters for this job
+      # @option options [String] user_id the user whose dataset we are to work on
+      # @option options [String] dataset_id the dataset to operate on
+      # @option options [String] task_id the analysis task we're working from
+      # @option options [String] analysis_type the algorithm to use to analyze the
       #   significance of collocations.  Can be 'mi' (for mutual
       #   information), 't' (for t-test), 'likelihood' (for log-likelihood),
       #   or 'pos' (for part-of-speech biased frequencies).
-      # @option args [String] num_pairs number of collocations to return
-      # @option args [String] word if present, return only collocations
+      # @option options [String] num_pairs number of collocations to return
+      # @option options [String] word if present, return only collocations
       #   including this word
       # @return [undefined]
       # @example Start a job for locating collocations
-      #   Resque.enqueue(Jobs::Analysis::Collocation,
-      #                  user_id: current_user.to_param,
-      #                  dataset_id: dataset.to_param,
-      #                  task_id: task.to_param,
-      #                  analysis_type: 't',
-      #                  num_pairs: '50')
-      def self.perform(args = {})
-        args.symbolize_keys!
-        args.remove_blank!
+      #   Jobs::Analysis::Collocation.create(user_id: current_user.to_param,
+      #                                      dataset_id: dataset.to_param,
+      #                                      task_id: task.to_param,
+      #                                      analysis_type: 't',
+      #                                      num_pairs: '50')
+      def perform
+        options.symbolize_keys!
+        options.remove_blank!
+        at(0, 1, 'Initializing...')
 
-        user = User.find(args[:user_id])
-        @dataset = user.datasets.active.find(args[:dataset_id])
-        task = @dataset.analysis_tasks.find(args[:task_id])
+        user = User.find(options[:user_id])
+        @dataset = user.datasets.active.find(options[:dataset_id])
+        task = @dataset.analysis_tasks.find(options[:task_id])
 
         task.name = t('.short_desc')
         task.save
 
-        analysis_type = (args[:analysis_type] || :mi).to_sym
-        num_pairs = (args[:num_pairs] || 50).to_i
-        @word = args[:word]
+        analysis_type = (options[:analysis_type] || :mi).to_sym
+        num_pairs = (options[:num_pairs] || 50).to_i
+        @word = options[:word]
 
         # Part of speech tagging requires the Stanford NLP
         analysis_type = :mi if !NLP_ENABLED && analysis_type == :pos
 
+        at(1, 2, 'Running collocation test...')
         case analysis_type
         when :mi
           algorithm = t('.mi')
@@ -86,6 +92,7 @@ module Jobs
         end
 
         # Save out all the data
+        at(2, 2, 'Finished, generating output...')
         csv_string = CSV.generate do |csv|
           csv << [t('.header', name: @dataset.name)]
           csv << [t('.subheader', test: algorithm)]
@@ -111,6 +118,8 @@ module Jobs
 
         # We're done here
         task.finish!
+
+        completed
       end
 
       # We don't want users to download the JSON file
@@ -129,16 +138,16 @@ module Jobs
 
       private
 
-      def self.analyze_mutual_information
+      def analyze_mutual_information
         # MUTUAL INFORMATION
         # PMI(a, b) = log [ (f(a b) / N) / (f(a) f(b) / N^2) ]
         # with N the number of single-word tokens
-        options = { num_blocks: 1, split_across: true }
-        bigram_options = { ngrams: 2 }
-        bigram_options[:inclusion_list] = @word if @word
+        wfa_options = { num_blocks: 1, split_across: true }
+        bigram_wfa_options = { ngrams: 2 }
+        bigram_wfa_options[:inclusion_list] = @word if @word
 
-        bigrams = WordFrequencyAnalyzer.new(@dataset, options.merge(bigram_options))
-        words = WordFrequencyAnalyzer.new(@dataset, options)
+        bigrams = WordFrequencyAnalyzer.new(@dataset, wfa_options.merge(bigram_wfa_options))
+        words = WordFrequencyAnalyzer.new(@dataset, wfa_options)
 
         bigram_f = bigrams.blocks[0]
         word_f = words.blocks[0]
@@ -154,7 +163,7 @@ module Jobs
         }.sort { |a, b| b[1] <=> a[1] }
       end
 
-      def self.analyze_t_test
+      def analyze_t_test
         # T-TEST
         # Pr(a) = f(a) / N
         # Pr(b) = f(b) / N
@@ -164,12 +173,12 @@ module Jobs
         # t = (x - H0) / sqrt(s^2 / N)
         # convert t to a p-value based on N
         #   1 - Distribution::T.cdf(t, N-1)
-        options = { num_blocks: 1, split_across: true }
-        bigram_options = { ngrams: 2 }
-        bigram_options[:inclusion_list] = @word if @word
+        wfa_options = { num_blocks: 1, split_across: true }
+        bigram_wfa_options = { ngrams: 2 }
+        bigram_wfa_options[:inclusion_list] = @word if @word
 
-        bigrams = WordFrequencyAnalyzer.new(@dataset, options.merge(bigram_options))
-        words = WordFrequencyAnalyzer.new(@dataset, options)
+        bigrams = WordFrequencyAnalyzer.new(@dataset, wfa_options.merge(bigram_wfa_options))
+        words = WordFrequencyAnalyzer.new(@dataset, wfa_options)
 
         bigram_f = bigrams.blocks[0]
         word_f = words.blocks[0]
@@ -187,24 +196,24 @@ module Jobs
         }.sort { |a, b| a[1] <=> b[1] }
       end
 
-      def self.log_l(k, n, x)
+      def log_l(k, n, x)
         # L(k, n, x) = x^k (1 - x)^(n - k)
         Math.log(x**k * ((1 - x)**(n - k)))
       end
 
-      def self.analyze_likelihood
+      def analyze_likelihood
         # LIKELIHOOD RATIO
         # Log-lambda = log L(f(a b), f(a), f(a) / N) +
         #              log L(f(b) - f(a b), N - f(a), f(a) / N) -
         #              log L(f(a b), f(a), f(a b) / f(a)) -
         #              log L(f(b) - f(a b), N - f(a), (f(b) - f(a b)) / (N - f(a)))
         # sort by -2 log-lambda
-        options = { num_blocks: 1, split_across: true }
-        bigram_options = { ngrams: 2 }
-        bigram_options[:inclusion_list] = @word if @word
+        wfa_options = { num_blocks: 1, split_across: true }
+        bigram_wfa_options = { ngrams: 2 }
+        bigram_wfa_options[:inclusion_list] = @word if @word
 
-        bigrams = WordFrequencyAnalyzer.new(@dataset, options.merge(bigram_options))
-        words = WordFrequencyAnalyzer.new(@dataset, options)
+        bigrams = WordFrequencyAnalyzer.new(@dataset, wfa_options.merge(bigram_wfa_options))
+        words = WordFrequencyAnalyzer.new(@dataset, wfa_options)
 
         bigram_f = bigrams.blocks[0]
         word_f = words.blocks[0]
@@ -240,7 +249,7 @@ module Jobs
         /[^\s]+_NN[^\s]{0,2}\s+[^\s]+_IN\s+[^\s]+_NN[^\s]{0,2}/ # NOUN PREP NOUN
       ]
 
-      def self.analyze_pos
+      def analyze_pos
         # PoS + FREQUENCY
         # Take only those that match the following patterns:
         # A N, N N, A A N, A N N, N A N, N N N, N P N

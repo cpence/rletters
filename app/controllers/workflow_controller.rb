@@ -105,7 +105,7 @@ class WorkflowController < ApplicationController
       # of the queue (if we're not running inline)
       unless Resque.inline
         @pending_tasks.each do |t|
-          Resque.dequeue(t.job_class, t.params)
+          t.job_class.dequeue(t.job_class, t.resque_key)
         end
       end
 

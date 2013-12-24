@@ -21,7 +21,7 @@ shared_context 'create job with params and perform' do
   include_context 'create job with params'
 
   before(:each) do
-    described_class.perform(@perform_args)
+    described_class.perform('123', @perform_args)
   end
 end
 
@@ -40,10 +40,12 @@ shared_examples_for 'an analysis job' do
   context 'when the wrong user is specified' do
     it 'raises an exception' do
       expect {
-        described_class.perform(job_params.merge(
-          user_id: FactoryGirl.create(:user).to_param,
-          dataset_id: @dataset.to_param,
-          task_id: @task.to_param))
+        described_class.perform(
+          '123',
+          job_params.merge(
+            user_id: FactoryGirl.create(:user).to_param,
+            dataset_id: @dataset.to_param,
+            task_id: @task.to_param))
       }.to raise_error(ActiveRecord::RecordNotFound)
     end
   end
@@ -51,10 +53,12 @@ shared_examples_for 'an analysis job' do
   context 'when an invalid user is specified' do
     it 'raises an exception' do
       expect {
-        described_class.perform(job_params.merge(
-          user_id: '12345678',
-          dataset_id: @dataset.to_param,
-          task_id: @task.to_param))
+        described_class.perform(
+          '123',
+          job_params.merge(
+            user_id: '12345678',
+            dataset_id: @dataset.to_param,
+            task_id: @task.to_param))
       }.to raise_error(ActiveRecord::RecordNotFound)
     end
   end
@@ -62,10 +66,12 @@ shared_examples_for 'an analysis job' do
   context 'when an invalid dataset is specified' do
     it 'raises an exception' do
       expect {
-        described_class.perform(job_params.merge(
-          user_id: @user.to_param,
-          dataset_id: '12345678',
-          task_id: @task.to_param))
+        described_class.perform(
+          '123',
+          job_params.merge(
+            user_id: @user.to_param,
+            dataset_id: '12345678',
+            task_id: @task.to_param))
       }.to raise_error(ActiveRecord::RecordNotFound)
     end
   end
@@ -73,10 +79,12 @@ shared_examples_for 'an analysis job' do
   context 'when an invalid task is specified' do
     it 'raises an exception' do
       expect {
-        described_class.perform(job_params.merge(
-          user_id: @user.to_param,
-          dataset_id: @dataset.to_param,
-          task_id: '12345678'))
+        described_class.perform(
+          '123',
+          job_params.merge(
+            user_id: @user.to_param,
+            dataset_id: @dataset.to_param,
+            task_id: '12345678'))
       }.to raise_error(ActiveRecord::RecordNotFound)
     end
   end
@@ -84,8 +92,18 @@ shared_examples_for 'an analysis job' do
   context 'when the job is finished' do
     include_context 'create job with params'
 
+    it 'sets the queue' do
+      expect(described_class.methods).to include(:queue)
+      expect(described_class.queue).to be_a(Symbol)
+      expect(described_class.queue).to_not eq(:statused)
+    end
+
+    it 'includes the resque-status methods' do
+      expect(described_class.methods).to include(:create)
+    end
+
     it 'calls the finish! method on the task' do
-      described_class.perform(@perform_args)
+      described_class.perform('123', @perform_args)
       @task.reload
       expect(@task.finished_at).to be
     end
@@ -93,7 +111,7 @@ shared_examples_for 'an analysis job' do
     it 'sends an e-mail' do
       ResqueSpec.reset!
 
-      described_class.perform(@perform_args)
+      described_class.perform('123', @perform_args)
       expect(UserMailer).to have_queue_size_of(1)
       expect(UserMailer).to have_queued(:job_finished_email, @task.dataset.user.email, @task.to_param)
     end
