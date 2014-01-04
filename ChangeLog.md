@@ -2,6 +2,8 @@
 
 ## Version 1.3 (beta, unreleased)
 
+*   Fix a potential DoS vulnerability from symbol conversion in the export code.
+
 
 ## Version 1.2 (beta, 2013-12-24)
 
