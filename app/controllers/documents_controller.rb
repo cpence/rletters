@@ -18,13 +18,13 @@ class DocumentsController < ApplicationController
     @document = Document.find(params[:uid])
 
     respond_to do |format|
-      format.any(*Document.serializers.keys) do
-        f = Document.serializers[request.format.to_sym]
+      format.any(*Document.serializers.keys.map { |k| k.to_sym }) do
+        f = Document.serializers[request.format]
 
         headers['Cache-Control'] = 'no-cache, must-revalidate, post-check=0, pre-check=0'
         headers['Expires'] = '0'
         send_data(f[:method].call(@document),
-                  filename: "export.#{request.format.to_sym.to_s}",
+                  filename: "export.#{request.format}",
                   type: request.format.to_s,
                   disposition: 'attachment')
         return

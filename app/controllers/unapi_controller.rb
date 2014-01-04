@@ -37,7 +37,7 @@ class UnapiController < ApplicationController
       return
     end
 
-    format = params[:format].to_s.to_sym
+    format = params[:format]
     if Document.serializers[format]
       redirect_to documents_export_path(params[:id], format: format)
     else

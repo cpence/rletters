@@ -9,7 +9,7 @@ module Documents
       included do
         # Register this serializer in the Document list
         register_serializer(
-          :mods, 'MODS',
+          'mods', 'MODS',
           ->(doc) { doc.to_mods.to_xml(indent: 2) },
           'http://www.loc.gov/standards/mods/'
         )

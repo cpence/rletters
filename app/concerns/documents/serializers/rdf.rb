@@ -11,12 +11,12 @@ module Documents
       included do
         # Register this serializer in the Document list
         register_serializer(
-          :rdf, 'RDF/XML',
+          'rdf', 'RDF/XML',
           ->(doc) { doc.to_rdf_xml.to_xml(indent: 2) },
           'http://www.w3.org/TR/rdf-syntax-grammar/'
         )
         register_serializer(
-          :n3, 'RDF/N3',
+          'n3', 'RDF/N3',
           ->(doc) { doc.to_rdf_n3 },
           'http://www.w3.org/DesignIssues/Notation3.html'
         )

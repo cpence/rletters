@@ -4,7 +4,7 @@ require 'spec_helper'
 describe Jobs::Analysis::ExportCitations do
 
   it_should_behave_like 'an analysis job' do
-    let(:job_params) { { format: :bibtex } }
+    let(:job_params) { { format: 'bibtex' } }
   end
 
   before(:each) do
@@ -34,21 +34,8 @@ describe Jobs::Analysis::ExportCitations do
           user_id: @user.to_param,
           dataset_id: @dataset.to_param,
           task_id: @task.to_param,
-          format: :notaformat)
+          format: 'notaformat')
       }.to raise_error(ArgumentError)
-    end
-  end
-
-  context 'when the format is a string' do
-    it 'works anyway' do
-      expect {
-        Jobs::Analysis::ExportCitations.perform(
-          '123',
-          user_id: @user.to_param,
-          dataset_id: @dataset.to_param,
-          task_id: @task.to_param,
-          format: 'bibtex')
-      }.to_not raise_error
     end
   end
 
@@ -59,7 +46,7 @@ describe Jobs::Analysis::ExportCitations do
         user_id: @user.to_param,
         dataset_id: @dataset.to_param,
         task_id: @task.to_param,
-        format: :bibtex)
+        format: 'bibtex')
     end
 
     it 'names the task correctly' do

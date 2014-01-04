@@ -14,8 +14,8 @@ describe DocumentsController do
       Document.serializers.each do |key, s|
         it "exports in #{s[:name]} format" do
           get :export, uid: FactoryGirl.generate(:working_uid),
-                       format: key.to_s
-          expect(response).to be_valid_download(Mime::Type.lookup_by_extension(key.to_s).to_s)
+                       format: key
+          expect(response).to be_valid_download(Mime::Type.lookup_by_extension(key).to_s)
         end
       end
 

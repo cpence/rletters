@@ -22,8 +22,10 @@ gem 'resque_mailer'
 gem 'devise'
 gem 'devise-i18n'
 gem 'devise-async'
-gem 'activeadmin', github: 'gregbell/active_admin'
-gem 'activeadmin-sortable-tree', github: 'nebirhos/activeadmin-sortable-tree'
+gem 'activeadmin',
+  git: 'https://github.com/gregbell/active_admin.git'
+gem 'activeadmin-sortable-tree',
+  git: 'https://github.com/nebirhos/activeadmin-sortable-tree.git'
 gem 'druthers'
 
 # Textual analysis

@@ -9,17 +9,17 @@ module Documents
       included do
         # Register this serializer in the Document list
         register_serializer(
-          :marc, 'MARC',
+          'marc', 'MARC',
           ->(doc) { doc.to_marc },
           'http://www.loc.gov/marc/'
         )
         register_serializer(
-          :marcxml, 'MARCXML',
+          'marcxml', 'MARCXML',
           ->(doc) { doc.to_marc_xml.to_xml(indent: 2) },
           'http://www.loc.gov/standards/marcxml/'
         )
         register_serializer(
-          :json, 'MARC-in-JSON',
+          'json', 'MARC-in-JSON',
           ->(doc) { doc.to_marc_json },
           'http://www.oclc.org/developer/content/marc-json-draft-2010-03-11'
         )

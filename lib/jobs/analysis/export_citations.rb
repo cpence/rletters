@@ -43,7 +43,7 @@ module Jobs
       #     user_id: current_user.to_param,
       #     dataset_id: dataset.to_param,
       #     task_id: task.to_param,
-      #     format: :json)
+      #     format: 'json')
       def perform
         options.symbolize_keys!
         options.remove_blank!
@@ -55,7 +55,7 @@ module Jobs
 
         # Check that the format is valid
         fail ArgumentError, 'Format is not specified' unless options[:format]
-        serializer = Document.serializers[options[:format].to_sym]
+        serializer = Document.serializers[options[:format]]
         fail ArgumentError, 'Format is not valid' unless serializer
 
         # Update the task name

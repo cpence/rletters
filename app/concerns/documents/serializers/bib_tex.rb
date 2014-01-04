@@ -9,7 +9,7 @@ module Documents
       included do
         # Register this serializer in the Document list
         register_serializer(
-          :bibtex,
+          'bibtex',
           'BibTeX', ->(doc) { doc.to_bibtex },
           'http://mirrors.ctan.org/biblio/bibtex/contrib/doc/btxdoc.pdf'
         )

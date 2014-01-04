@@ -14,14 +14,14 @@ module Documents
       # @api public
       # @return [Hash] the serializer registry
       # @example See if there is a serializer loaded for JSON
-      #   Document.serializers.has_key? :json
+      #   Document.serializers.has_key? 'json'
       attr_accessor :serializers
 
       # Register a serializer
       #
       # @api public
       # @return [undefined]
-      # @param [Symbol] key the MIME type key for this serializer, as defined
+      # @param [String] key the MIME type key for this serializer, as defined
       #   in config/initializers/mime_types.rb
       # @param [String] name the human-readable name of this serializer format
       # @param [Proc] method a method which accepts a Document object as a

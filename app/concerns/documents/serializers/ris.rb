@@ -9,7 +9,7 @@ module Documents
       included do
         # Register this serializer in the Document list
         register_serializer(
-          :ris, 'RefMan/RIS',
+          'ris', 'RefMan/RIS',
           ->(doc) { doc.to_ris },
           'http://www.refman.com/support/risformat_intro.asp'
         )
