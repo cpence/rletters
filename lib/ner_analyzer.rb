@@ -33,7 +33,7 @@ class NERAnalyzer
     total = dataset.entries.count
 
     dataset.documents(fulltext: true).each_with_index do |doc, i|
-      progress((i.to_f / total.to_f * 100.0).to_i) if progress
+      progress.call((i.to_f / total.to_f * 100.0).to_i) if progress
 
       triples = classifier.classifyToCharacterOffsets(doc.fulltext)
       triples.each do |t|
