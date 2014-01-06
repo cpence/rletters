@@ -8,10 +8,10 @@ before_script:
   - cp config/database.yml.travis config/database.yml
   - git clone --depth=1 https://github.com/rletters/solr-example.git vendor/solr
   - 'pushd vendor/solr && ./start && popd'
-  - rake db:create db:schema:load
+  - bundle exec rake db:create db:schema:load
 
 script:
-  - rake spec cucumber
+  - bundle exec rake spec cucumber
 
 after_script:
   - 'pushd vendor/solr && ./stop && popd'

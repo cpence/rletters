@@ -1,12 +1,12 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe Documents::Serializers::RDF do
+describe RLetters::Documents::Serializers::RDF do
 
   context 'when serializing a single document' do
     before(:each) do
       @doc = FactoryGirl.build(:full_document)
-      @graph = @doc.to_rdf
+      @graph = described_class.new(@doc).serialize
     end
 
     it 'creates a good RDF graph' do
@@ -71,43 +71,6 @@ describe Documents::Serializers::RDF do
         actual << d.citation.to_s
       end
       expect(actual).to match_array(expected)
-    end
-  end
-
-  context 'when serializing to RDF/XML' do
-    context 'with a single document' do
-      before(:each) do
-        @doc = FactoryGirl.build(:full_document)
-        @xml = @doc.to_rdf_xml
-      end
-
-      it 'creates an rdf root element' do
-        expect(@xml.root.name).to eq('rdf')
-      end
-
-      it 'includes a single description element' do
-        expect(@xml.css('Description').count).to eq(1)
-      end
-
-      it 'includes a few of the important Dublin Core elements' do
-        expect(@xml.at_css('dc|title').content).to eq(@doc.title)
-        expect(@xml.at_css('dc|relation').content).to eq(@doc.journal)
-        expect(@xml.at_css('dc|type').content).to eq('Journal Article')
-      end
-    end
-
-    context 'with an array of documents' do
-      before(:each) do
-        doc = FactoryGirl.build(:full_document)
-        doc2 = FactoryGirl.build(:full_document, uid: 'wut')
-
-        @docs = [doc, doc2]
-        @xml = @docs.to_rdf_xml
-      end
-
-      it 'includes two description elements' do
-        expect(@xml.css('Description').count).to eq(2)
-      end
     end
   end
 

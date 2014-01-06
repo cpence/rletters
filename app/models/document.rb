@@ -114,7 +114,6 @@ class Document
   validates :uid, presence: true
 
   # Concerns with other document-processing logic
-  include Documents::Serialization
   include Documents::WordList
 
   # Return a document (just bibliographic data) by uid

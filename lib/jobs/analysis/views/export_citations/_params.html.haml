@@ -3,6 +3,6 @@
     = simple_form_for :job_params, url: dataset_analysis_tasks_path(@dataset, class: 'ExportCitations'), method: :post do |f|
       = f.error_notification
 
-      = f.input :format, label: I18n.t('jobs.analysis.export_citations.format'), collection: Document.serializers.map { |a| [a[1][:name], a[0]] }
+      = f.input :format, label: I18n.t('jobs.analysis.export_citations.format'), collection: RLetters::Documents::Serializers::MIME_TYPES.map { |k| [RLetters::Documents::Serializers.for(k).format, k] }
       = f.button :submit
       = link_to(t('common.cancel'), @dataset, class: 'button secondary')

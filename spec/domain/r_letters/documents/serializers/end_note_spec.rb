@@ -1,12 +1,12 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe Documents::Serializers::EndNote do
+describe RLetters::Documents::Serializers::EndNote do
 
   context 'when serializing a single document' do
     before(:each) do
       @doc = FactoryGirl.build(:full_document)
-      @str = @doc.to_endnote
+      @str = described_class.new(@doc).serialize
     end
 
     it 'creates good EndNote' do
@@ -32,7 +32,7 @@ describe Documents::Serializers::EndNote do
     before(:each) do
       doc = FactoryGirl.build(:full_document)
       @docs = [doc, doc]
-      @str = @docs.to_endnote
+      @str = described_class.new(@docs).serialize
     end
 
     it 'creates good EndNote' do

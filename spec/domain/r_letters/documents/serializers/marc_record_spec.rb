@@ -1,12 +1,12 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe Documents::Serializers::MARC do
+describe RLetters::Documents::Serializers::MARCRecord do
 
   context 'when serializing a single document' do
     before(:each) do
       @doc = FactoryGirl.build(:full_document)
-      @record = @doc.to_marc
+      @record = described_class.new(@doc).serialize
     end
 
     it 'creates a good MARC::Record' do
@@ -87,22 +87,11 @@ describe Documents::Serializers::MARC do
   context 'when serializing a document with no year' do
     before(:each) do
       @doc = FactoryGirl.build(:full_document, year: nil)
-      @record = @doc.to_marc
+      @record = described_class.new(@doc).serialize
     end
 
     it 'handles no-year documents correctly' do
       expect(@record['008'].value).to eq('110501s0000       ||||fo     ||0 0|eng d')
-    end
-  end
-
-  context 'when serializing an array of documents' do
-    before(:each) do
-      doc = FactoryGirl.build(:full_document)
-      @docs = [doc, doc]
-    end
-
-    it 'creates MARCXML collections of the right size' do
-      expect(@docs.to_marc_xml.css('collection').children.count).to eq(2)
     end
   end
 

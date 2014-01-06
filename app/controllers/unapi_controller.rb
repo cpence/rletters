@@ -38,7 +38,7 @@ class UnapiController < ApplicationController
     end
 
     format = params[:format]
-    if Document.serializers[format]
+    if RLetters::Documents::Serializers::MIME_TYPES.include? format.to_sym
       redirect_to documents_export_path(params[:id], format: format)
     else
       render template: 'errors/404',

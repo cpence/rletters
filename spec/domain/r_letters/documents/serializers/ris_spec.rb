@@ -1,12 +1,12 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe Documents::Serializers::RIS do
+describe RLetters::Documents::Serializers::RIS do
 
   context 'when serializing a single document' do
     before(:each) do
       @doc = FactoryGirl.build(:full_document)
-      @str = @doc.to_ris
+      @str = described_class.new(@doc).serialize
     end
 
     it 'creates good RIS' do
@@ -30,7 +30,7 @@ describe Documents::Serializers::RIS do
     before(:each) do
       doc = FactoryGirl.build(:full_document)
       @docs = [doc, doc]
-      @str = @docs.to_ris
+      @str = described_class.new(@docs).serialize
     end
 
     it 'creates good RIS' do

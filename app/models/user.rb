@@ -74,8 +74,8 @@ class User < ActiveRecord::Base
   # @api public
   # @return [Users::CslStyle] the user's CSL style (or nil)
   # @example Format a document with a user's CSL style
-  #   @document.to_csl_entry(@user.csl_style)
-  #   # Note: Do *not* call to_csl_entry with @user.csl_style_id, it will fail!
+  #   RLetters::Documents::AsCSL.new(@doc).entry(@user.csl_style)
+  #   # Note: Do *not* call entry() with @user.csl_style_id, it will fail!
   def csl_style
     Users::CslStyle.find_by(id: csl_style_id)
   end

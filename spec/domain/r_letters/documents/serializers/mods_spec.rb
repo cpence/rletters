@@ -2,12 +2,12 @@
 require 'spec_helper'
 require 'nokogiri'
 
-describe Documents::Serializers::MODS do
+describe RLetters::Documents::Serializers::MODS do
 
   context 'when serializing a single document' do
     before(:each) do
       @doc = FactoryGirl.build(:full_document, number: '12')
-      @xml = @doc.to_mods
+      @xml = Nokogiri::XML::Document.parse(described_class.new(@doc).serialize)
     end
 
     it 'creates good MODS documents' do
@@ -38,12 +38,12 @@ describe Documents::Serializers::MODS do
       doc2 = FactoryGirl.build(:full_document, uid: 'wut')
 
       @docs = [doc, doc2]
-      @xml = @docs.to_mods
+      @xml = Nokogiri::XML::Document.parse(described_class.new(@docs).serialize)
     end
 
     it 'creates good MODS collections' do
       expect(@xml.at_css('modsCollection mods titleInfo title').content).to eq('How Reliable are the Methods for Estimating Repertoire Size?')
-      expect(@xml.at_css('modsCollection').children.count).to eq(2)
+      expect(@xml.css('modsCollection mods').count).to eq(2)
     end
 
     it 'creates MODS collections that are valid against the schema' do

@@ -1,15 +1,13 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe Documents::Serializers::OpenURL do
-
+describe RLetters::Documents::AsOpenURL do
   context 'when getting OpenURL link for a single document' do
     before(:each) do
       @doc = FactoryGirl.build(:full_document)
-      @params = @doc.to_openurl_params
+      @params = described_class.new(@doc).params
     end
 
-    # rubocop:disable LineContinuation
     it 'creates good OpenURL params' do
       expect(@params).to eq(
         'ctx_ver=Z39.88-2004&rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3A' \
@@ -24,7 +22,5 @@ describe Documents::Serializers::OpenURL do
         '&rft.au=Sandra+L.+Vehrencamp'
       )
     end
-    # rubocop:enable LineContinuation
   end
-
 end

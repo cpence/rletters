@@ -271,7 +271,7 @@ describe SearchHelper do
       end
 
       it 'renders a CSL style' do
-        expect(@doc).to receive(:to_csl_entry).with(@csl_style).and_return('')
+        expect_any_instance_of(RLetters::Documents::AsCSL).to receive(:entry).with(@csl_style).and_return('')
         helper.document_bibliography_entry(@doc)
       end
     end
@@ -287,7 +287,7 @@ describe SearchHelper do
       end
 
       it 'renders a cloud icon' do
-        expect(@doc).to receive(:to_csl_entry).with(@csl_style).and_return('')
+        expect_any_instance_of(RLetters::Documents::AsCSL).to receive(:entry).with(@csl_style).and_return('')
         html = helper.document_bibliography_entry(@doc)
 
         expect(html).to have_selector('span.fi-upload-cloud')

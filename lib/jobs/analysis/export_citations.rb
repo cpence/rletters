@@ -35,8 +35,7 @@ module Jobs
       # @option options [String] user_id the user whose dataset we are to work on
       # @option options [String] dataset_id the dataset to operate on
       # @option options [String] task_id the analysis task we're working from
-      # @option options [String] format the format in which to export (see
-      #   +Document.serializers+)
+      # @option options [String] format the format in which to export
       # @return [undefined]
       # @example Start a job for exporting a datset as JSON
       #   Jobs::Analysis::ExportCitations.create(
@@ -53,10 +52,10 @@ module Jobs
         dataset = user.datasets.active.find(options[:dataset_id])
         task = dataset.analysis_tasks.find(options[:task_id])
 
-        # Check that the format is valid
+        # Check that the format is valid (the serializer factory will throw
+        # if its not)
         fail ArgumentError, 'Format is not specified' unless options[:format]
-        serializer = Document.serializers[options[:format]]
-        fail ArgumentError, 'Format is not valid' unless serializer
+        klass = RLetters::Documents::Serializers.for(options[:format])
 
         # Update the task name
         task.name = t('.short_desc')
@@ -70,7 +69,7 @@ module Jobs
             at(i, total, "Creating citations: #{i}/#{total}...")
 
             zos.put_next_entry "#{doc.html_uid}.#{options[:format].to_s}"
-            zos.print serializer[:method].call(doc)
+            zos.print klass.new(doc).serialize
           end
         end
 

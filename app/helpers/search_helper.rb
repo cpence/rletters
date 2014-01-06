@@ -283,7 +283,8 @@ module SearchHelper
         cloud_icon = ''.html_safe
       end
 
-      return doc.to_csl_entry(current_user.csl_style) + cloud_icon
+      csl = RLetters::Documents::AsCSL.new(doc).entry(current_user.csl_style)
+      csl + cloud_icon
     end
 
     render partial: 'document', locals: { document: doc }
