@@ -233,7 +233,7 @@ describe Datasets::AnalysisTasksController do
           user_id: @user.to_param,
           dataset_id: @dataset.to_param,
           task_id: @task.to_param,
-          format: :bibtex
+          format: 'bibtex'
         )
       end
 
