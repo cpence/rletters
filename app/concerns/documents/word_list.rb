@@ -14,7 +14,7 @@ module Documents
       #
       # @param [String] uid the UID of the document to operate on
       # @param [Hash] options options for generating the word list
-      # @option options [Boolean] :stemming If set to +:stem+, pass the words
+      # @option options [Symbol] :stemming If set to +:stem+, pass the words
       #   through a Porter stemmer before returning them.  If set to +:lemma+,
       #   pass them through the Stanford NLP lemmatizer, if available.  The
       #   NLP lemmatizer is much slower, as it requires accessing the fulltext

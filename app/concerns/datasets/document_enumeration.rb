@@ -62,7 +62,6 @@ module Datasets
 
     # Iterate over the documents in this dataset
     #
-    # @param [Dataset] dataset the dataset to enumerate
     # @param [Hash] options options for finding the documents
     # @option options [String] fl fields to return in documents
     # @option options [Boolean] fulltext if true, return document full text

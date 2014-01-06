@@ -92,81 +92,26 @@ class WordFrequencyAnalyzer
     @dataset = dataset
     normalize_options(options)
 
-    # Compute all df and tfs, and the type/token values for the dataset
+    # Segment the dataset into text blocks
+    @word_blocks = @dataset.text_segments(options)
+
+    # Compute all df and tfs, and the type/token values for the dataset, from
+    # the word blocks
     compute_df_tf
 
     # Pick out the set of words we'll analyze
     pick_words
 
-    # Prep the data containers
-    @blocks = []
-    @block_stats = []
-
-    # If we're split_across, we can now compute block_size from num_blocks
-    # and vice versa
-    compute_block_size(@num_dataset_tokens) if @split_across
-
-    # Set up the initial block
-    @block_num = 0
-    clear_block(nil, false)
-
-    # Process all of the documents
-    @word_cache.each do |uid, words|
-      # If we aren't splitting across, then we have to completely clear
-      # out all the count information for every document, and we have to
-      # compute how many/how big the blocks should be for this document
-      unless @split_across
-        @block_num = 0
-        compute_block_size(words.count)
-      end
-
-      # Do the processing for this document
-      words.each do |word|
-        # If we're truncating, then we want to be sure to stop when we hit the
-        # calculated number of blocks
-        if (@last_block == :truncate_last || @last_block == :truncate_all) &&
-           @block_num == @num_blocks
-          break
-        end
-
-        # Add this word to the block if we want it
-        if @word_list.include? word
-          @block[word] ||= 0
-          @block[word] += 1
-        end
-
-        # Always increment the block counter and the number of tokens
-        @type_counter[word] ||= true
-        @block_tokens += 1
-        @block_counter += 1
-
-        # If we're doing :big_last for the last block, and this is the last
-        # block, then we don't want to stop until we've digested all of the
-        # words.  In that case, don't even check the block size.
-        unless @last_block == :big_last && @block_num == (@num_blocks - 1)
-          # If the block size doesn't divide evenly into the number of blocks
-          # that we want, we want to consume the remainder one at a time over
-          # the course of all the blocks, and *not* leave it until the end, or
-          # else we wind up with one block that contains all the remainder,
-          # despite the fact that we were trying to divide evenly.
-          check_size = @block_size
-          check_size = @block_size + 1 if @num_remainder_blocks != 0
-
-          if @block_counter >= check_size
-            @num_remainder_blocks -= 1 if @num_remainder_blocks != 0
-            clear_block(uid)
-          end
-        end
-      end
-
-      # If we're not splitting across, we need to make sure the last block
-      # for this doc, if there's anything in it, has been added to the list.
-      clear_block(uid) if !@split_across && @block_counter != 0
+    # Convert from word blocks to actual blocks
+    @blocks = @word_blocks.map do |b|
+      Hash[b.words.group_by { |w| w }.map { |k, v| [k, v.count] }]
     end
+    @blocks.map { |h| h.keep_if { |k, v| @word_list.include?(k) } }
 
-    # If we are splitting across, we need to put the last block into the
-    # list
-    clear_block if @split_across && @block_counter != 0
+    # Build block statistics
+    @block_stats = @word_blocks.map do |b|
+      { name: b.name, types: b.words.uniq.size, tokens: b.words.size }
+    end
   end
 
   private
@@ -180,26 +125,8 @@ class WordFrequencyAnalyzer
     # Set default values
     options.reverse_merge!(num_blocks: 0,
                            block_size: 0,
-                           split_across: true,
                            ngrams: 1,
                            num_words: 0)
-
-    # If we get num_blocks and block_size, then the user's done something
-    # wrong; just take block_size
-    if options[:num_blocks] > 0 && options[:block_size] > 0
-      options[:num_blocks] = 0
-    end
-
-    # Default to a single block unless otherwise specified
-    if options[:num_blocks] <= 0 && options[:block_size] <= 0
-      options[:num_blocks] = 1
-    end
-
-    # Make sure last_block is a legitimate value
-    unless [:big_last, :small_last,
-            :truncate_last, :truncate_all].include? options[:last_block]
-      options[:last_block] = :big_last
-    end
 
     # Make sure stemming is a legitimate value
     unless [:stem, :lemma].include? options[:stemming]
@@ -223,29 +150,12 @@ class WordFrequencyAnalyzer
     end
 
     # Copy over the parameters to member variables
-    @num_blocks = options[:num_blocks]
-    @block_size = options[:block_size]
-    @split_across = options[:split_across]
     @ngrams = options[:ngrams].try(:lbound, 1)
     @num_words = options[:num_words].try(:lbound, 0)
     @stemming = options[:stemming]
-    @last_block = options[:last_block]
     @inclusion_list = options[:inclusion_list].try(:split)
     @exclusion_list = options[:exclusion_list].try(:split)
     @stop_list = options[:stop_list]
-
-    # We will eventually set both @num_blocks and @block_size for our inner
-    # loops, so we need to save which of these is the "primary" one, that
-    # was set by the user
-    if @num_blocks > 0
-      @block_method = :count
-
-      # We don't want any of the last_block logic if we're splitting by number
-      # of blocks.
-      @last_block = nil
-    else
-      @block_method = :words
-    end
   end
 
   # Compute the df and tf for all the words in the dataset
@@ -269,25 +179,26 @@ class WordFrequencyAnalyzer
     @df_in_dataset = {}
     @tf_in_dataset = {}
     @df_in_corpus = {}
-    @word_cache = {}
 
-    @dataset.entries.each do |e|
-      @word_cache[e.uid] = Document.word_list_for(e.uid, ngrams: @ngrams,
-                                                         stemming: @stemming)
+    @word_blocks.each do |b|
+      b.words.group_by { |w| w }.map { |k, v| [k, v.count] }.each do |(word, count)|
+        @tf_in_dataset[word] ||= 0
+        @tf_in_dataset[word] += count
 
-      @word_cache[e.uid].group_by { |w| w }.map { |k, v| [k, v.count] }.each do |g|
-        @tf_in_dataset[g[0]] ||= 0
-        @tf_in_dataset[g[0]] += g[1]
-
-        @df_in_dataset[g[0]] ||= 0
-        @df_in_dataset[g[0]] += 1
+        @df_in_dataset[word] ||= 0
+        @df_in_dataset[word] += 1
       end
+    end
 
-      # Fetch @df_in_corpus, if available
-      #
-      # FIXME: This is really expensive, as we wind up looking up the document
-      # twice.  Is there some other way to do this?
-      if @ngrams == 1
+    @num_dataset_types = @tf_in_dataset.count
+    @num_dataset_tokens = @tf_in_dataset.values.reduce(:+)
+
+    # Fetch @df_in_corpus, if available
+    #
+    # FIXME: This is really expensive, as we wind up looking up the documents
+    # twice.  Is there some other way to do this?
+    if @ngrams == 1
+      @dataset.entries.each do |e|
         doc = Document.find(e.uid, term_vectors: true)
         doc.term_vectors.each do |word, hash|
           word = word.stem if @stemming == :stem
@@ -301,9 +212,6 @@ class WordFrequencyAnalyzer
         end
       end
     end
-
-    @num_dataset_types = @tf_in_dataset.count
-    @num_dataset_tokens = @tf_in_dataset.values.reduce(:+)
   end
 
   # Determine which words we'll analyze
@@ -357,85 +265,5 @@ class WordFrequencyAnalyzer
     end
 
     @word_list = @word_list.take(@num_words) if @num_words != 0
-  end
-
-  # Get the name of this block
-  #
-  # @param [String] uid the id of the document for this block (if needed)
-  # @return [String] The name of this block
-  def block_name(uid)
-    if @split_across
-      if @block_method == :count
-        I18n.t('lib.wfa.block_count_dataset',
-               num: @block_num, total: @num_blocks)
-      else
-        I18n.t('lib.wfa.block_size_dataset',
-               num: @block_num, size: @block_size)
-      end
-    else
-      title = Document.find_by(uid: uid).try(:title)
-
-      if @block_method == :count
-        I18n.t('lib.wfa.block_count_doc',
-               num: @block_num, total: @num_blocks,
-               title: title || I18n.t('search.document.untitled'))
-      else
-        I18n.t('lib.wfa.block_size_doc',
-               num: @block_num, size: @block_size,
-               title: title || I18n.t('search.document.untitled'))
-      end
-    end
-  end
-
-  # Reset all the current block information
-  #
-  # This clears all the block-related variables and sets us up for a new
-  # block.  If the passed parameter is true, then also add the current block
-  # to the block list before clearing it.
-  #
-  # @api private
-  def clear_block(uid = nil, add = true)
-    if add
-      @block_num += 1
-
-      @block_stats << { name: block_name(uid), types: @type_counter.count,
-                        tokens: @block_tokens }
-      @blocks << @block.deep_dup
-    end
-
-    @block_counter = 0
-    @block_tokens = 0
-
-    @block = {}
-    @type_counter = {}
-  end
-
-  # Compute the block size parameters from the number of tokens
-  #
-  # This function takes whichever of the two block size numbers is primary
-  # (by looking at @block_method), and computes the other given the number
-  # of tokens (either in the document or in the dataset) and the details of
-  # the splitting method.
-  #
-  # After this function is called, @num_blocks, @block_size,
-  # and @num_remainder_blocks will all be set correctly.
-  #
-  # @api private
-  # @param [Integer] num_tokens The number of tokens in our unit of analysis
-  def compute_block_size(num_tokens)
-    if @block_method == :count
-      @block_size = (num_tokens / @num_blocks.to_f).floor
-      @num_remainder_blocks = num_tokens - (@block_size * @num_blocks)
-    else
-      if @last_block == :big_last || @last_block == :truncate_last
-        @num_blocks = (num_tokens / @block_size.to_f).floor
-      elsif @last_block == :small_last
-        @num_blocks = (num_tokens / @block_size.to_f).ceil
-      else # :truncate_all
-        @num_blocks = 1
-      end
-
-      @num_remainder_blocks = 0
-    end
   end
 end

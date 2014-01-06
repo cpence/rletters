@@ -40,4 +40,5 @@ class Dataset < ActiveRecord::Base
 
   # Concerns for more features
   include Datasets::DocumentEnumeration
+  include Datasets::Segmentation
 end
