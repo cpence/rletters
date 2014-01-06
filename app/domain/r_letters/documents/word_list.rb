@@ -1,18 +1,14 @@
 # -*- encoding : utf-8 -*-
 
-module Documents
-  # Code for generating a list of words (or ngrams) for a +Document+
-  module WordList
-    extend ActiveSupport::Concern
-
-    # Class methods to mix in to +Document+
-    module ClassMethods
-      # Get the list of words, in sorted order, for this document
+module RLetters
+  module Documents
+    # Code for generating a list of words (or ngrams) for a +Document+
+    class WordList
+      # Initialize a word list generator for the given document
       #
       # This function also supports returning a stemmed or lemmatized list
       # of words.
       #
-      # @param [String] uid the UID of the document to operate on
       # @param [Hash] options options for generating the word list
       # @option options [Symbol] :stemming If set to +:stem+, pass the words
       #   through a Porter stemmer before returning them.  If set to +:lemma+,
@@ -21,21 +17,28 @@ module Documents
       #   of the document rather than reconstructing from the term vectors.
       # @option options [Integer] :ngrams If set, return ngrams rather than
       #   single words.  Can be set to any integer >= 1.
+      def initialize(options = {})
+        @options = options
+        @options.reverse_merge!(ngrams: 1, stemming: nil)
+      end
+
+      # The word list for this document
+      #
+      # @param [String] uid the UID of the document to operate on
       # @return [Array<String>] the words in the document, in word order,
       #   possibly stemmed or lemmatized
       # @example Get the words for a given document
-      #   Document.word_list_for('gutenberg:3172')
+      #   RLetters::Documents::WordList.new.words_for('gutenberg:3172')
       #   # => ['the', 'project', 'gutenberg', 'ebook', 'of', ...]
-      def word_list_for(uid, options = {})
-        word_list = if options[:stemming] == :lemma && NLP_ENABLED
+      def words_for(uid)
+        word_list = if @options[:stemming] == :lemma && NLP_ENABLED
                       get_lemmatized_words(uid)
                     else
-                      get_words(uid, options[:stemming] == :stem)
+                      get_words(uid, @options[:stemming] == :stem)
                     end
 
-        return word_list if !options[:ngrams] || options[:ngrams] <= 1
-
-        word_list.each_cons(options[:ngrams]).map { |a| a.join(' ') }
+        return word_list if !@options[:ngrams] || @options[:ngrams] <= 1
+        word_list.each_cons(@options[:ngrams]).map { |a| a.join(' ') }
       end
 
       private

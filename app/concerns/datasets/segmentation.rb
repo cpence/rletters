@@ -15,11 +15,9 @@ module Datasets
 
     # Split a collection of documents into text segments
     #
-    # @param [Hash] options options for the text segmentation
-    # @option options [Integer] :ngrams if set, pass to
-    #   +Document.word_list_for+.
-    # @option options [Symbol] :stemming if set, pass to
-    #   +Document.word_list_for+.
+    # @param word_list [RLetters::Documents::WordList] a word list generator
+    #   to use (if +nil+, create default)
+    # @param options [Hash] options for the text segmentation
     # @option options [Integer] :num_blocks if set, split the text into this
     #   number of blocks (defaults to 1)
     # @option options [Integer] :block_size if set, split the text into blocks
@@ -38,9 +36,8 @@ module Datasets
     #     period)
     #
     #   The default is +:big_last+.
-    def initialize(options)
-      @ngrams = options[:ngrams]
-      @stemming = options[:stemming]
+    def initialize(word_list = nil, options = {})
+      @word_list = word_list || RLetters::Documents::WordList.new
       @num_blocks = options[:num_blocks] || 0
       @block_size = options[:block_size] || 0
       @last_block = options[:last_block] || :big_last
@@ -69,7 +66,7 @@ module Datasets
     # @param [String] uid the UID of the document to add to the segmenter
     # @return [undefined]
     def add(uid)
-      words = Document.word_list_for(uid, ngrams: @ngrams, stemming: @stemming)
+      words = @word_list.words_for(uid)
       @num_blocks > 0 ? add_for_num_blocks(words) : add_for_block_size(words)
     end
 
@@ -176,11 +173,9 @@ module Datasets
 
     # Split the dataset into text segments
     #
-    # @param [Hash] options options for the text segmentation
-    # @option options [Integer] :ngrams if set, pass to
-    #   +Document.word_list_for+.
-    # @option options [Symbol] :stemming if set, pass to
-    #   +Document.word_list_for+.
+    # @param word_list [RLetters::Documents::WordList] a word list generator
+    #   to use (if +nil+, create default)
+    # @param options [Hash] options for the text segmentation
     # @option options [Boolean] :split_across If true, combine all the dataset
     #   documents together before splitting into blocks; otherwise, split into
     #   blocks (of given count or size) within each document.  Defaults to
@@ -204,10 +199,10 @@ module Datasets
     #
     #   The default is +:big_last+.
     # @return [Array<Array<String>>] a list of lists of words or ngrams
-    def text_segments(options = {})
+    def text_segments(word_list = nil, options = {})
       options.reverse_merge!(split_across: true)
-      options[:split_across] ? text_segments_across(options) :
-                               text_segments_within(options)
+      options[:split_across] ? text_segments_across(word_list, options) :
+                               text_segments_within(word_list, options)
     end
 
     private
@@ -215,10 +210,12 @@ module Datasets
     # Perform text segmentation, for splitting across documents
     #
     # @api private
-    # @param [Hash] options options for the text segmentation
+    # @param word_list [RLetters::Documents::WordList] a word list generator
+    #   to use
+    # @param options [Hash] options for the text segmentation
     # @return [Array<Array<String>>] a list of lists of words or ngrams
-    def text_segments_across(options)
-      segmenter = Datasets::Segmenter.new(options)
+    def text_segments_across(word_list, options)
+      segmenter = Datasets::Segmenter.new(word_list, options)
 
       entries.find_in_batches do |group|
         group.each do |entry|
@@ -232,13 +229,15 @@ module Datasets
     # Perform text segmentation, for splitting within documents
     #
     # @api private
-    # @param [Hash] options options for the text segmentation
+    # @param word_list [RLetters::Documents::WordList] a word list generator
+    #   to use
+    # @param options [Hash] options for the text segmentation
     # @return [Array<Array<String>>] a list of lists of words or ngrams
-    def text_segments_within(options)
+    def text_segments_within(word_list, options)
       [].tap do |ret|
         entries.find_in_batches do |group|
           group.each do |entry|
-            segmenter = Datasets::Segmenter.new(options)
+            segmenter = Datasets::Segmenter.new(word_list, options)
             segmenter.add(entry.uid)
             segmenter.blocks.each do |b|
               b.name += " (within document #{entry.uid})"

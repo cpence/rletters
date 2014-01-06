@@ -92,8 +92,13 @@ class WordFrequencyAnalyzer
     @dataset = dataset
     normalize_options(options)
 
+    # Produce a word list generator
+    @word_list = RLetters::Documents::WordList.new(
+      ngrams: options.delete(:ngrams),
+      stemming: options.delete(:stemming))
+
     # Segment the dataset into text blocks
-    @word_blocks = @dataset.text_segments(options)
+    @word_blocks = @dataset.text_segments(word_list, options)
 
     # Compute all df and tfs, and the type/token values for the dataset, from
     # the word blocks

@@ -113,9 +113,6 @@ class Document
   # The uid attribute is the only required one
   validates :uid, presence: true
 
-  # Concerns with other document-processing logic
-  include Documents::WordList
-
   # Return a document (just bibliographic data) by uid
   #
   # @api public

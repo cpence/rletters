@@ -16,9 +16,9 @@
     %ul.no-bullet
       - if user_signed_in?
         - current_user.libraries.each do |library|
-          %li= link_to t('.yours') + ' ' + library.name, "#{library.url}#{document.to_openurl_params}"
-      %li= link_to t('.worldcat'), "http://worldcatlibraries.org/registry/gateway?#{document.to_openurl_params}"
-      %li= link_to t('.uk_openurl'), "http://openurl.ac.uk/?#{document.to_openurl_params}"
+          %li= link_to t('.yours') + ' ' + library.name, "#{library.url}#{RLetters::Documents::AsOpenURL.new(document).params}"
+      %li= link_to t('.worldcat'), "http://worldcatlibraries.org/registry/gateway?#{RLetters::Documents::AsOpenURL.new(document).params}"
+      %li= link_to t('.uk_openurl'), "http://openurl.ac.uk/?#{RLetters::Documents::AsOpenURL.new(document).params}"
   .small-6.columns
     %strong= t('.online')
     %ul.no-bullet

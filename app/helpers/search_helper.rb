@@ -280,11 +280,11 @@ module SearchHelper
                                  title: t('search.document.cloud_tooltip'),
                                  class: 'icon fi-upload-cloud has-tip')
       else
-        cloud_icon = ''.html_safe
+        cloud_icon = ''
       end
 
       csl = RLetters::Documents::AsCSL.new(doc).entry(current_user.csl_style)
-      csl + cloud_icon
+      return (csl + cloud_icon).html_safe
     end
 
     render partial: 'document', locals: { document: doc }
