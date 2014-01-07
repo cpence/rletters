@@ -39,6 +39,5 @@ class Dataset < ActiveRecord::Base
   scope :inactive, -> { where(disabled: true) }
 
   # Concerns for more features
-  include Datasets::DocumentEnumeration
   include Datasets::Segmentation
 end

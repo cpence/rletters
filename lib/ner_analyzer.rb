@@ -32,7 +32,8 @@ class NERAnalyzer
     @entity_references = {}
     total = dataset.entries.count
 
-    dataset.documents(fulltext: true).each_with_index do |doc, i|
+    enum = RLetters::Datasets::DocumentEnumerator.new(dataset, fulltext: true)
+    enum.each_with_index do |doc, i|
       progress.call((i.to_f / total.to_f * 100.0).to_i) if progress
 
       triples = classifier.classifyToCharacterOffsets(doc.fulltext)

@@ -61,7 +61,8 @@ module Jobs
 
         # Create a list of lowercase words
         at(1, 100, 'Generating list of words for documents...')
-        words = dataset.documents(fulltext: true).map do |doc|
+        enum = RLetters::Datasets::DocumentEnumerator.new(dataset, fulltext: true)
+        words = enum.map do |doc|
           doc.fulltext.gsub(/[^A-Za-z ]/, '').downcase.split
         end
 

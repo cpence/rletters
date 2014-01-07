@@ -65,7 +65,8 @@ module Jobs
         total = dataset.entries.count
 
         ios = ::Zip::OutputStream.write_buffer do |zos|
-          dataset.documents.each_with_index do |doc, i|
+          enum = RLetters::Datasets::DocumentEnumerator.new(dataset)
+          enum.each_with_index do |doc, i|
             at(i, total, "Creating citations: #{i}/#{total}...")
 
             zos.put_next_entry "#{doc.html_uid}.#{options[:format].to_s}"

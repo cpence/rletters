@@ -35,7 +35,8 @@ module Solr
         # @param [Symbol] field field to group by
         # @return [Hash<String, Integer>] number of documents in each group
         def group_dataset(dataset, field)
-          dataset.documents.each_with_object({}) do |doc, ret|
+          enum = RLetters::Datasets::DocumentEnumerator.new(dataset)
+          enum.each_with_object({}) do |doc, ret|
             key = get_field_for_grouping(doc, field)
             ret[key] ||= 0
             ret[key] += 1
