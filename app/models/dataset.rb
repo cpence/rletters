@@ -37,7 +37,4 @@ class Dataset < ActiveRecord::Base
   scope :active, -> { where(disabled: false) }
   # @return [Array<Dataset>] all datasets that are currently disabled
   scope :inactive, -> { where(disabled: true) }
-
-  # Concerns for more features
-  include Datasets::Segmentation
 end

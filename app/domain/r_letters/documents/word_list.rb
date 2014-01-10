@@ -19,7 +19,7 @@ module RLetters
       #   single words.  Can be set to any integer >= 1.
       def initialize(options = {})
         @options = options
-        @options.reverse_merge!(ngrams: 1, stemming: nil)
+        @options.compact.reverse_merge!(ngrams: 1, stemming: nil)
       end
 
       # The word list for this document

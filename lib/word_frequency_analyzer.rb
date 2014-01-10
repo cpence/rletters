@@ -93,12 +93,19 @@ class WordFrequencyAnalyzer
     normalize_options(options)
 
     # Produce a word list generator
-    @word_list = RLetters::Documents::WordList.new(
+    word_list = RLetters::Documents::WordList.new(
       ngrams: options.delete(:ngrams),
       stemming: options.delete(:stemming))
 
     # Segment the dataset into text blocks
-    @word_blocks = @dataset.text_segments(word_list, options)
+    split_across = options.delete(:split_across)
+    segmenter = RLetters::Documents::Segmenter.new(word_list, options)
+    text_segments = RLetters::Datasets::TextSegments.new(
+      @dataset,
+      segmenter,
+      split_across: split_across)
+
+    @word_blocks = text_segments.segments
 
     # Compute all df and tfs, and the type/token values for the dataset, from
     # the word blocks
@@ -109,9 +116,8 @@ class WordFrequencyAnalyzer
 
     # Convert from word blocks to actual blocks
     @blocks = @word_blocks.map do |b|
-      Hash[b.words.group_by { |w| w }.map { |k, v| [k, v.count] }]
+      Hash[b.words.group_by { |w| w }.map { |k, v| [k, v.count] }].keep_if { |k, v| @word_list.include?(k) }
     end
-    @blocks.map { |h| h.keep_if { |k, v| @word_list.include?(k) } }
 
     # Build block statistics
     @block_stats = @word_blocks.map do |b|
@@ -128,10 +134,10 @@ class WordFrequencyAnalyzer
   # @see WordFrequencyAnalyzer#initialize
   def normalize_options(options)
     # Set default values
-    options.reverse_merge!(num_blocks: 0,
-                           block_size: 0,
-                           ngrams: 1,
-                           num_words: 0)
+    options.compact.reverse_merge!(num_blocks: 0,
+                                   block_size: 0,
+                                   ngrams: 1,
+                                   num_words: 0)
 
     # Make sure stemming is a legitimate value
     unless [:stem, :lemma].include? options[:stemming]
