@@ -9,6 +9,7 @@ gem 'pg'
 gem 'activerecord-import', '>= 0.4.0'
 gem 'foreigner'
 gem 'closure_tree'
+gem 'validate_url'
 gem 'trim_blobs'
 gem 'addressable'
 
@@ -63,6 +64,12 @@ gem 'foundation-rails'
 gem 'simple_form'
 
 gem 'yui-compressor'
+
+# Pretty errors in development
+group :development do
+  gem 'better_errors'
+  gem 'binding_of_caller'
+end
 
 # Testing
 group :test, :development do
