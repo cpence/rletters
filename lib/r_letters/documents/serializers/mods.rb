@@ -80,7 +80,7 @@ module RLetters
           end
 
           mods['version'] = '3.0'
-          mods['ID'] = 'rletters_' + doc.html_uid
+          mods['ID'] = 'rletters_' + doc.uid.gsub(/[^0-9a-zA-Z\-_]/, '_')
 
           if doc.title
             title_info = Nokogiri::XML::Node.new('titleInfo', xml_doc)

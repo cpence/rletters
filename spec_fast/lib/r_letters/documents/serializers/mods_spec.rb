@@ -39,8 +39,7 @@ describe RLetters::Documents::Serializers::MODS do
   context 'when serializing an array of documents' do
     before(:each) do
       doc = double_document_basic
-      doc2 = double_document_basic(uid: 'somethingelse',
-                                   html_uid: 'somethingelse')
+      doc2 = double_document_basic(uid: 'somethingelse')
 
       @docs = [doc, doc2]
       @xml = Nokogiri::XML::Document.parse(described_class.new(@docs).serialize)

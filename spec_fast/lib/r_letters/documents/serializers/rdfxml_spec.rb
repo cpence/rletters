@@ -29,7 +29,7 @@ describe RLetters::Documents::Serializers::RDFXML do
   context 'with an array of documents' do
     before(:each) do
       doc = double_document_basic
-      doc2 = double_document_basic(uid: 'what', html_uid: 'what')
+      doc2 = double_document_basic(uid: 'what')
 
       @docs = [doc, doc2]
       @xml = Nokogiri::XML::Document.parse(described_class.new(@docs).serialize)

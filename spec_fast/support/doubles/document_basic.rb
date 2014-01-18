@@ -3,7 +3,6 @@
 def double_document_basic(overrides = {})
   defaults = {
     uid: 'doi:10.1234/5678',
-    html_uid: 'doi_10_1234_5678',
     doi: '10.1234/5678',
     title: 'Test Title',
     authors: 'A. One, B. Two',
