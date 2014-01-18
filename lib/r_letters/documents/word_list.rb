@@ -18,8 +18,7 @@ module RLetters
       # @option options [Integer] :ngrams If set, return ngrams rather than
       #   single words.  Can be set to any integer >= 1.
       def initialize(options = {})
-        @options = options
-        @options.compact.reverse_merge!(ngrams: 1, stemming: nil)
+        @options = options.compact.reverse_merge(ngrams: 1, stemming: nil)
       end
 
       # The word list for this document
@@ -70,7 +69,6 @@ module RLetters
       #
       # @api private
       # @return [Array<String>] list of lemmatized words for document
-      # :nocov:
       def get_lemmatized_words(uid)
         doc = Document.find(uid, fulltext: true)
 
@@ -80,7 +78,6 @@ module RLetters
 
         text.get(:tokens).to_a.map { |tok| tok.get(:lemma).to_s }
       end
-      # :nocov:
     end
   end
 end

@@ -249,32 +249,16 @@ describe WordFrequencyAnalyzer do
   end
 
   describe '#ngrams' do
-    context 'with num_words not set' do
-      before(:each) do
-        @analyzer = WordFrequencyAnalyzer.new(@dataset, ngrams: 3)
-      end
-
-      it 'only creates one block' do
-        expect(@analyzer.blocks.count).to eq(1)
-      end
-
-      it 'creates correctly sized ngrams' do
-        @analyzer.blocks[0].each do |k, v|
-          expect(k.split.count).to eq(3)
-        end
-      end
-
-      it 'correctly combines ngrams' do
-        expect(@analyzer.blocks[0].keys.uniq).to match_array(@analyzer.blocks[0].keys)
-        expect(@analyzer.blocks[0].values.max).to be > 1
-      end
-    end
-
     context 'with num_words set' do
       before(:each) do
         @analyzer = WordFrequencyAnalyzer.new(@dataset,
                                               ngrams: 3,
                                               num_words: 10)
+      end
+
+      it 'correctly combines ngrams' do
+        expect(@analyzer.blocks[0].keys.uniq).to match_array(@analyzer.blocks[0].keys)
+        expect(@analyzer.blocks[0].values.max).to be > 1
       end
 
       it 'only includes 10 trigrams' do
@@ -307,46 +291,6 @@ describe WordFrequencyAnalyzer do
         @analyzer.blocks[0].each do |k, v|
           expect(k).not_to include('brain')
         end
-      end
-    end
-  end
-
-  describe '#stemming' do
-    context 'with Porter stemming' do
-      before(:each) do
-        @dataset = FactoryGirl.create(:dataset, user: @user)
-        @entry = FactoryGirl.create(:entry, uid: 'gutenberg:3172', dataset: @dataset)
-        @dataset.entries = [@entry]
-        @dataset.save
-
-        stub_connection('http://www.gutenberg.org/cache/epub/3172/pg3172.txt', 'gutenberg')
-        @analyzer = WordFrequencyAnalyzer.new(@dataset, stemming: :stem)
-      end
-
-      it 'stems words' do
-        block = @analyzer.blocks[0]
-
-        expect(block).not_to include('describes')
-        expect(block).to include('describ')
-      end
-    end
-
-    context 'with lemmatization', nlp: true do
-      before(:each) do
-        @dataset = FactoryGirl.create(:dataset, user: @user)
-        @entry = FactoryGirl.create(:entry, uid: 'gutenberg:3172', dataset: @dataset)
-        @dataset.entries = [@entry]
-        @dataset.save
-
-        stub_connection('http://www.gutenberg.org/cache/epub/3172/pg3172.txt', 'gutenberg')
-        @analyzer = WordFrequencyAnalyzer.new(@dataset, stemming: :lemma)
-      end
-
-      it 'lemmatizes words' do
-        block = @analyzer.blocks[0]
-
-        expect(block).not_to include('gone')
-        expect(block).to include('go')
       end
     end
   end

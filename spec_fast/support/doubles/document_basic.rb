@@ -4,6 +4,8 @@ def double_document_basic(overrides = {})
   defaults = {
     uid: 'doi:10.1234/5678',
     doi: '10.1234/5678',
+    license: 'Public domain',
+    data_source: 'Test fixture',
     title: 'Test Title',
     authors: 'A. One, B. Two',
     author_list: ['A. One', 'B. Two'],
@@ -22,4 +24,14 @@ def double_document_basic(overrides = {})
     end_page: '200'
   }
   double('Document', defaults.merge(overrides))
+end
+
+def stub_document_basic(overrides = {})
+  double = double_document_basic(overrides)
+
+  fake = Class.new
+  allow(fake).to receive(:find).and_return(double)
+  stub_const('Document', fake)
+
+  double
 end
