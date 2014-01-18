@@ -6,8 +6,10 @@ def double_document_basic
          authors: 'A. One, B. Two',
          author_list: ['A. One', 'B. Two'],
          formatted_author_list: [
-           double(first: 'A.', last: 'One', prefix: nil, suffix: nil),
-           double(first: 'B.', last: 'Two', prefix: nil, suffix: nil)
+           double(first: 'A.', last: 'One', prefix: nil, suffix: nil,
+                  to_citeproc: { 'family' => 'One', 'given' => 'A.' }),
+           double(first: 'B.', last: 'Two', prefix: nil, suffix: nil,
+                  to_citeproc: { 'family' => 'Two', 'given' => 'B.' })
            ],
          journal: 'Journal',
          volume: '10',
