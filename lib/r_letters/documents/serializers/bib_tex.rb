@@ -68,7 +68,7 @@ module RLetters
         def do_serialize(doc)
           # We don't have a concept of cite keys, so we're forced to just use
           # AuthorYear and hope it doesn't collide
-          if doc.formatted_author_list.blank?
+          if doc.formatted_author_list.empty?
             first_author = 'Anon'
           else
             first_author = doc.formatted_author_list[0].last.gsub(' ', '').gsub(/[^A-za-z0-9_]/, '')
@@ -76,14 +76,14 @@ module RLetters
           cite_key = "#{first_author}#{doc.year}"
 
           ret  = "@article{#{cite_key},\n"
-          ret << "    author = {#{doc.author_list.join(' and ')}},\n" if doc.author_list.present?
-          ret << "    title = {#{doc.title}},\n" if doc.title.present?
-          ret << "    journal = {#{doc.journal}},\n" if doc.journal.present?
-          ret << "    volume = {#{doc.volume}},\n" if doc.volume.present?
-          ret << "    number = {#{doc.number}},\n" if doc.number.present?
-          ret << "    pages = {#{doc.pages}},\n" if doc.pages.present?
-          ret << "    doi = {#{doc.doi}},\n" if doc.doi.present?
-          ret << "    year = {#{doc.year}}\n" if doc.year.present?
+          ret << "    author = {#{doc.author_list.join(' and ')}},\n" unless doc.author_list.empty?
+          ret << "    title = {#{doc.title}},\n" if doc.title
+          ret << "    journal = {#{doc.journal}},\n" if doc.journal
+          ret << "    volume = {#{doc.volume}},\n" if doc.volume
+          ret << "    number = {#{doc.number}},\n" if doc.number
+          ret << "    pages = {#{doc.pages}},\n" if doc.pages
+          ret << "    doi = {#{doc.doi}},\n" if doc.doi
+          ret << "    year = {#{doc.year}}\n" if doc.year
           ret << "}\n"
 
           ret

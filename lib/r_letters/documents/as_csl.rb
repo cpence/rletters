@@ -32,16 +32,16 @@ module RLetters
         ret = {}
         ret['type'] = 'article-journal'
 
-        if @doc.formatted_author_list.present?
+        unless @doc.formatted_author_list.empty?
           ret['author'] = @doc.formatted_author_list.map { |a| a.to_citeproc }
         end
 
-        ret['title'] = @doc.title if @doc.title.present?
-        ret['container-title'] = @doc.journal if @doc.journal.present?
-        ret['issued'] = { 'date-parts' => [[Integer(@doc.year)]] } if @doc.year.present?
-        ret['volume'] = @doc.volume if @doc.volume.present?
-        ret['issue'] = @doc.number if @doc.number.present?
-        ret['page'] = @doc.pages if @doc.pages.present?
+        ret['title'] = @doc.title if @doc.title
+        ret['container-title'] = @doc.journal if @doc.journal
+        ret['issued'] = { 'date-parts' => [[Integer(@doc.year)]] } if @doc.year
+        ret['volume'] = @doc.volume if @doc.volume
+        ret['issue'] = @doc.number if @doc.number
+        ret['page'] = @doc.pages if @doc.pages
 
         ret
       end

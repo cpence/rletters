@@ -62,10 +62,10 @@ module RLetters
             '005', Time.now.strftime('%Y%m%d%H%M%S.0')
           ))
 
-          if @doc.year.blank?
-            year_control = '0000'
-          else
+          if @doc.year
             year_control = sprintf '%04d', @doc.year
+          else
+            year_control = '0000'
           end
           record.append(::MARC::ControlField.new(
             '008', "110501s#{year_control}       ||||fo     ||0 0|eng d"
@@ -76,13 +76,13 @@ module RLetters
                                               %w(b eng),
                                               %w(c RLetters)))
 
-          if @doc.doi.present?
+          if @doc.doi
             record.append(::MARC::DataField.new('024', '7', ' ',
                                                 %w(2 doi),
                                                 %W(a #{@doc.doi})))
           end
 
-          if @doc.formatted_author_list.present?
+          unless @doc.formatted_author_list.empty?
             record.append(::MARC::DataField.new(
               '100', '1', ' ',
               ::MARC::Subfield.new(
@@ -99,7 +99,7 @@ module RLetters
             end
           end
 
-          if @doc.title.present?
+          if @doc.title
             record.append(::MARC::DataField.new(
               '245', '1', '0',
               ['a', @doc.title + (@doc.title[-1] == '.' ? nil : '.')]
@@ -107,9 +107,9 @@ module RLetters
           end
 
           marc_volume = ''
-          marc_volume << "v. #{@doc.volume}" if @doc.volume.present?
-          marc_volume << ' ' if @doc.volume.present? && @doc.number.present?
-          marc_volume << "no. #{@doc.number}" if @doc.number.present?
+          marc_volume << "v. #{@doc.volume}" if @doc.volume
+          marc_volume << ' ' if @doc.volume && @doc.number
+          marc_volume << "no. #{@doc.number}" if @doc.number
           record.append(::MARC::DataField.new(
             '490', '1', ' ',
             ::MARC::Subfield.new('a', @doc.journal),
@@ -122,18 +122,18 @@ module RLetters
           ))
 
           marc_free = ''
-          if @doc.volume.present?
+          if @doc.volume
             marc_free << "Vol. #{@doc.volume}"
-            marc_free << (@doc.number.blank? ? ' ' : ', ')
+            marc_free << (@doc.number ? ' ' : ', ')
           end
-          marc_free << "no. #{@doc.number} " if @doc.number.present?
-          marc_free << "(#{@doc.year})" if @doc.year.present?
-          marc_free << ", p. #{@doc.pages}" if @doc.pages.present?
+          marc_free << "no. #{@doc.number} " if @doc.number
+          marc_free << "(#{@doc.year})" if @doc.year
+          marc_free << ", p. #{@doc.pages}" if @doc.pages
 
           marc_enumeration = ''
-          marc_enumeration << @doc.volume if @doc.volume.present?
-          marc_enumeration << ":#{@doc.number}" if @doc.number.present?
-          marc_enumeration << "<#{@doc.start_page}" if @doc.start_page.present?
+          marc_enumeration << @doc.volume if @doc.volume
+          marc_enumeration << ":#{@doc.number}" if @doc.number
+          marc_enumeration << "<#{@doc.start_page}" if @doc.start_page
 
           record.append(::MARC::DataField.new(
             '773', '0', ' ',
@@ -144,13 +144,13 @@ module RLetters
           ))
 
           subfields = []
-          subfields << ['a', @doc.volume] if @doc.volume.present?
-          subfields << ['b', @doc.number] if @doc.number.present?
-          subfields << ['c', @doc.start_page] if @doc.start_page.present?
-          subfields << ['i', @doc.year] if @doc.year.present?
+          subfields << ['a', @doc.volume] if @doc.volume
+          subfields << ['b', @doc.number] if @doc.number
+          subfields << ['c', @doc.start_page] if @doc.start_page
+          subfields << ['i', @doc.year] if @doc.year
           record.append(::MARC::DataField.new('363', ' ', ' ', *subfields))
 
-          if @doc.year.present?
+          if @doc.year
             record.append(::MARC::DataField.new(
               '362', '0', ' ',
               %W(a #{@doc.year}.)
@@ -168,9 +168,9 @@ module RLetters
         # @return [String] author formatted as MARC expects it
         def author_to_marc(a)
           author = ''
-          author << a.von + ' ' if a.von.present?
+          author << a.prefix + ' ' if a.prefix
           author << a.last
-          author << ' ' + a.suffix if a.suffix.present?
+          author << ' ' + a.suffix if a.suffix
           author << ', ' + a.first
           author
         end

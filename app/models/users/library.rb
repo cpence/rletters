@@ -23,14 +23,12 @@ class Users::Library < ActiveRecord::Base
   protected
 
   before_validation do |library|
-    if library.url.present?
+    if library.url
       library.url = 'http://' + url unless library.url.include? '://'
     end
   end
 
   after_validation do |library|
-    if library.url.present?
-      library.url = library.url + '?' unless library.url.end_with? '?'
-    end
+    library.url += '?' unless library.url.end_with? '?'
   end
 end

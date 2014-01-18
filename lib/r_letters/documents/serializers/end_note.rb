@@ -62,21 +62,19 @@ module RLetters
         # :nodoc:
         def do_serialize(doc)
           ret  = "%0 Journal Article\n"
-          if doc.formatted_author_list.present?
-            doc.formatted_author_list.each do |a|
-              ret << "%A #{a.last}, #{a.first}"
-              ret << " #{a.von}" if a.von.present?
-              ret << ", #{a.suffix}" if a.suffix.present?
-              ret << "\n"
-            end
+          doc.formatted_author_list.each do |a|
+            ret << "%A #{a.last}, #{a.first}"
+            ret << " #{a.prefix}" if a.prefix
+            ret << ", #{a.suffix}" if a.suffix
+            ret << "\n"
           end
-          ret << "%T #{doc.title}\n" if doc.title.present?
-          ret << "%D #{doc.year}\n" if doc.year.present?
-          ret << "%J #{doc.journal}\n" if doc.journal.present?
-          ret << "%V #{doc.volume}\n" if doc.volume.present?
-          ret << "%N #{doc.number}\n" if doc.number.present?
-          ret << "%P #{doc.pages}\n" if doc.pages.present?
-          ret << "%M #{doc.doi}\n" if doc.doi.present?
+          ret << "%T #{doc.title}\n" if doc.title
+          ret << "%D #{doc.year}\n" if doc.year
+          ret << "%J #{doc.journal}\n" if doc.journal
+          ret << "%V #{doc.volume}\n" if doc.volume
+          ret << "%N #{doc.number}\n" if doc.number
+          ret << "%P #{doc.pages}\n" if doc.pages
+          ret << "%M #{doc.doi}\n" if doc.doi
           ret << "\n"
           ret
         end

@@ -52,23 +52,21 @@ module RLetters
           graph = ::RDF::Graph.new
           doc = ::RDF::Node.new
 
-          if @doc.formatted_author_list.present?
-            @doc.formatted_author_list.each do |a|
-              name = ''
-              name << "#{a.von} " if a.von.present?
-              name << "#{a.last}"
-              name << " #{a.suffix}" if a.suffix.present?
-              name << ", #{a.first}"
-              graph << [doc, ::RDF::DC.creator, name]
-            end
+          @doc.formatted_author_list.each do |a|
+            name = ''
+            name << "#{a.prefix} " if a.prefix
+            name << "#{a.last}"
+            name << " #{a.suffix}" if a.suffix
+            name << ", #{a.first}"
+            graph << [doc, ::RDF::DC.creator, name]
           end
-          graph << [doc, ::RDF::DC.issued, @doc.year] if @doc.year.present?
+          graph << [doc, ::RDF::DC.issued, @doc.year] if @doc.year
 
-          citation = "#{@doc.journal}" if @doc.journal.present?
-          citation << (@doc.volume.present? ? " #{@doc.volume}" : ' ')
-          citation << "(#{@doc.number})" if @doc.number.present?
-          citation << ", #{@doc.pages}" if @doc.pages.present?
-          citation << ". (#{@doc.year})" if @doc.year.present?
+          citation = "#{@doc.journal}" if @doc.journal
+          citation << (@doc.volume ? " #{@doc.volume}" : ' ')
+          citation << "(#{@doc.number})" if @doc.number
+          citation << ", #{@doc.pages}" if @doc.pages
+          citation << ". (#{@doc.year})" if @doc.year
           graph << [doc, ::RDF::DC.bibliographicCitation, citation]
 
           ourl = ::RDF::Literal.new(
@@ -77,10 +75,10 @@ module RLetters
           )
           graph << [doc, ::RDF::DC.bibliographicCitation, ourl]
 
-          graph << [doc, ::RDF::DC.relation, @doc.journal] if @doc.journal.present?
-          graph << [doc, ::RDF::DC.title, @doc.title] if @doc.title.present?
+          graph << [doc, ::RDF::DC.relation, @doc.journal] if @doc.journal
+          graph << [doc, ::RDF::DC.title, @doc.title] if @doc.title
           graph << [doc, ::RDF::DC.type, 'Journal Article']
-          graph << [doc, ::RDF::DC.identifier, "info:doi/#{@doc.doi}"] if @doc.doi.present?
+          graph << [doc, ::RDF::DC.identifier, "info:doi/#{@doc.doi}"] if @doc.doi
 
           graph
         end

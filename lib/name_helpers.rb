@@ -21,12 +21,12 @@ module NameHelpers
     # Construct the last name we'll use, which is last name with von part
     # and suffix w/o period
     last = ''
-    last += "#{parts.von} " if parts.von.present?
+    last += "#{parts.prefix} " if parts.prefix
     last += parts.last
-    last += " #{parts.suffix.chomp('.')}" if parts.suffix.present?
+    last += " #{parts.suffix.chomp('.')}" if parts.suffix
 
     # Quick out: if there's no first name, bail
-    return "\"#{last}\"" if parts.first.blank?
+    return "\"#{last}\"" if parts.first
 
     # Strip periods from parts.first and split
     first = parts.first.gsub('.', '')

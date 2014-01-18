@@ -217,7 +217,7 @@ class WordFrequencyAnalyzer
           # Oddly enough, you'll get weird bogus values for words that don't
           # appear in your document back from Solr.  Not sure what's up with
           # that.
-          if hash[:df] > 0 && @df_in_corpus[word].blank?
+          if hash[:df] > 0 && !@df_in_corpus.include?(word)
             @df_in_corpus[word] = hash[:df]
           end
         end

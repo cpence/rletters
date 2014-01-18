@@ -93,7 +93,7 @@ module RLetters
           mods['version'] = '3.0'
           mods['ID'] = 'rletters_' + doc.html_uid
 
-          if doc.title.present?
+          if doc.title
             title_info = Nokogiri::XML::Node.new('titleInfo', xml_doc)
             mods.add_child(title_info)
 
@@ -103,35 +103,33 @@ module RLetters
             title_elt.content = doc.title
           end
 
-          if doc.formatted_author_list.present?
-            doc.formatted_author_list.each do |a|
-              name = Nokogiri::XML::Node.new('name', xml_doc)
-              mods.add_child(name)
+          doc.formatted_author_list.each do |a|
+            name = Nokogiri::XML::Node.new('name', xml_doc)
+            mods.add_child(name)
 
-              name['type'] = 'personal'
+            name['type'] = 'personal'
 
-              first_name_elt = Nokogiri::XML::Node.new('namePart', xml_doc)
-              name.add_child(first_name_elt)
-              first_name_elt.content = a.first
-              first_name_elt['type'] = 'given'
+            first_name_elt = Nokogiri::XML::Node.new('namePart', xml_doc)
+            name.add_child(first_name_elt)
+            first_name_elt.content = a.first
+            first_name_elt['type'] = 'given'
 
-              last_name = ''
-              last_name << " #{a.von}" if a.von.present?
-              last_name << a.last
-              last_name << ", #{a.suffix}" if a.suffix.present?
-              last_name_elt = Nokogiri::XML::Node.new('namePart', xml_doc)
-              name.add_child(last_name_elt)
-              last_name_elt.content = last_name
-              last_name_elt['type'] = 'family'
+            last_name = ''
+            last_name << " #{a.prefix}" if a.prefix
+            last_name << a.last
+            last_name << ", #{a.suffix}" if a.suffix
+            last_name_elt = Nokogiri::XML::Node.new('namePart', xml_doc)
+            name.add_child(last_name_elt)
+            last_name_elt.content = last_name
+            last_name_elt['type'] = 'family'
 
-              role = Nokogiri::XML::Node.new('role', xml_doc)
-              name.add_child(role)
-              role_term = Nokogiri::XML::Node.new('roleTerm', xml_doc)
-              role.add_child(role_term)
-              role_term.content = 'author'
-              role_term['type'] = 'text'
-              role_term['authority'] = 'marcrelator'
-            end
+            role = Nokogiri::XML::Node.new('role', xml_doc)
+            name.add_child(role)
+            role_term = Nokogiri::XML::Node.new('roleTerm', xml_doc)
+            role.add_child(role_term)
+            role_term.content = 'author'
+            role_term['type'] = 'text'
+            role_term['authority'] = 'marcrelator'
           end
 
           type_of_resource = Nokogiri::XML::Node.new('typeOfResource', xml_doc)
@@ -147,7 +145,7 @@ module RLetters
           article_issuance = Nokogiri::XML::Node.new('issuance', xml_doc)
           article_origin_info.add_child(article_issuance)
           article_issuance.content = 'monographic'
-          if doc.year.present?
+          if doc.year
             date_issued = Nokogiri::XML::Node.new('dateIssued', xml_doc)
             article_origin_info.add_child(date_issued)
             date_issued.content = doc.year
@@ -157,7 +155,7 @@ module RLetters
           mods.add_child(related_item)
           related_item['type'] = 'host'
 
-          if doc.journal.present?
+          if doc.journal
             title_info = Nokogiri::XML::Node.new('titleInfo', xml_doc)
             related_item.add_child(title_info)
             title_info['type'] = 'abbreviated'
@@ -172,7 +170,7 @@ module RLetters
           journal_issuance = Nokogiri::XML::Node.new('issuance', xml_doc)
           journal_origin_info.add_child(journal_issuance)
           journal_issuance.content = 'continuing'
-          if doc.year.present?
+          if doc.year
             date_issued = Nokogiri::XML::Node.new('dateIssued', xml_doc)
             journal_origin_info.add_child(date_issued)
             date_issued.content = doc.year
@@ -188,7 +186,7 @@ module RLetters
 
           part = Nokogiri::XML::Node.new('part', xml_doc)
           related_item.add_child(part)
-          if doc.volume.present?
+          if doc.volume
             detail = Nokogiri::XML::Node.new('detail', xml_doc)
             part.add_child(detail)
             detail['type'] = 'volume'
@@ -197,7 +195,7 @@ module RLetters
             number_elt.content = doc.volume
           end
 
-          if doc.number.present?
+          if doc.number
             detail = Nokogiri::XML::Node.new('detail', xml_doc)
             part.add_child(detail)
             detail['type'] = 'issue'
@@ -209,29 +207,29 @@ module RLetters
             caption.content = 'no.'
           end
 
-          if doc.pages.present?
+          if doc.pages
             extent = Nokogiri::XML::Node.new('extent', xml_doc)
             part.add_child(extent)
             extent['unit'] = 'page'
-            if doc.start_page.present?
+            if doc.start_page
               start_elt = Nokogiri::XML::Node.new('start', xml_doc)
               extent.add_child(start_elt)
               start_elt.content = doc.start_page
             end
-            if doc.end_page.present?
+            if doc.end_page
               end_elt = Nokogiri::XML::Node.new('end', xml_doc)
               extent.add_child(end_elt)
               end_elt.content = doc.end_page
             end
           end
 
-          if doc.year.present?
+          if doc.year
             date = Nokogiri::XML::Node.new('date', xml_doc)
             part.add_child(date)
             date.content = doc.year
           end
 
-          if doc.doi.present?
+          if doc.doi
             identifier = Nokogiri::XML::Node.new('identifier', xml_doc)
             mods.add_child(identifier)
             identifier['type'] = 'doi'

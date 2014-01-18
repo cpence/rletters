@@ -203,15 +203,15 @@ class Document
 
   # @return [String] the starting page of this document, if it can be parsed
   def start_page
-    return '' if pages.blank?
+    return nil unless pages
     pages.split('-')[0]
   end
 
   # @return [String] the ending page of this document, if it can be parsed
   def end_page
-    return '' if pages.blank?
+    return nil unless pages
     parts = pages.split('-')
-    return '' if parts.length <= 1
+    return nil if parts.length <= 1
 
     spage = parts[0]
     epage = parts[-1]
@@ -236,19 +236,33 @@ class Document
   def initialize(attributes = {})
     super
 
+    # Don't let any blank strings hang around as values for the Solr
+    # fields. This prevents a whole lot of #blank? and #present? calls
+    # throughout.
+    [:uid, :doi, :license, :license_url,
+     :data_source, :authors, :title,
+     :journal, :year, :volume,
+     :number, :pages, :fulltext].each do |a|
+      value = send(a)
+      if value && value.strip.empty?
+        send("#{a}=".to_sym, nil)
+      end
+    end
+
     # Convert the fulltext_url into a URI
     if fulltext_url
       self.fulltext_url = URI.parse(fulltext_url)
     end
 
     # Split out the author list and format it
-    unless authors.nil?
+    if authors
       self.author_list = authors.split(',').map { |a| a.strip }
-      unless author_list.nil?
-        self.formatted_author_list = author_list.map do |a|
-          BibTeX::Names.parse(a)[0]
-        end
+      self.formatted_author_list = author_list.map do |a|
+        BibTeX::Names.parse(a)[0]
       end
+    else
+      self.author_list = []
+      self.formatted_author_list = []
     end
   end
 end

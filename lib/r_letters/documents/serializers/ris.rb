@@ -62,22 +62,20 @@ module RLetters
         # :nodoc:
         def do_serialize(doc)
           ret  = "TY  - JOUR\n"
-          if doc.formatted_author_list.present?
-            doc.formatted_author_list.each do |a|
-              ret << 'AU  - '
-              ret << "#{a.von} " if a.von.present?
-              ret << "#{a.last},#{a.first}"
-              ret << ",#{a.suffix}" if a.suffix.present?
-              ret << "\n"
-            end
+          doc.formatted_author_list.each do |a|
+            ret << 'AU  - '
+            ret << "#{a.prefix} " if a.prefix
+            ret << "#{a.last},#{a.first}"
+            ret << ",#{a.suffix}" if a.suffix
+            ret << "\n"
           end
-          ret << "TI  - #{doc.title}\n" if doc.title.present?
-          ret << "PY  - #{doc.year}\n" if doc.year.present?
-          ret << "JO  - #{doc.journal}\n" if doc.journal.present?
-          ret << "VL  - #{doc.volume}\n" if doc.volume.present?
-          ret << "IS  - #{doc.number}\n" if doc.number.present?
-          ret << "SP  - #{doc.start_page}\n" if doc.start_page.present?
-          ret << "EP  - #{doc.end_page}\n" if doc.end_page.present?
+          ret << "TI  - #{doc.title}\n" if doc.title
+          ret << "PY  - #{doc.year}\n" if doc.year
+          ret << "JO  - #{doc.journal}\n" if doc.journal
+          ret << "VL  - #{doc.volume}\n" if doc.volume
+          ret << "IS  - #{doc.number}\n" if doc.number
+          ret << "SP  - #{doc.start_page}\n" if doc.start_page
+          ret << "EP  - #{doc.end_page}\n" if doc.end_page
           ret << "ER  - \n"
           ret
         end
