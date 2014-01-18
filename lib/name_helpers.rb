@@ -26,7 +26,7 @@ module NameHelpers
     last += " #{parts.suffix.chomp('.')}" if parts.suffix
 
     # Quick out: if there's no first name, bail
-    return "\"#{last}\"" if parts.first
+    return "\"#{last}\"" unless parts.first
 
     # Strip periods from parts.first and split
     first = parts.first.gsub('.', '')

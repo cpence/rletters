@@ -29,6 +29,8 @@ class Users::Library < ActiveRecord::Base
   end
 
   after_validation do |library|
-    library.url += '?' unless library.url.end_with? '?'
+    if library.url
+      library.url += '?' unless library.url.end_with? '?'
+    end
   end
 end
