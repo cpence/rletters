@@ -11,7 +11,9 @@ before_script:
   - bundle exec rake db:create db:schema:load
 
 script:
-  - bundle exec rake spec cucumber
+  - bundle exec rspec -Ispec_fast spec_fast
+  - bundle exec rake spec
+  - bundle exec rake cucumber
 
 after_script:
   - 'pushd vendor/solr && ./stop && popd'
