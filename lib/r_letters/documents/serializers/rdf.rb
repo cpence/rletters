@@ -1,4 +1,5 @@
 # -*- encoding : utf-8 -*-
+require 'r_letters/documents/as_open_url'
 require 'rdf/n3'
 
 module RLetters
@@ -11,9 +12,6 @@ module RLetters
         # @api public
         # @param document [Document] a document to serialize
         def initialize(document)
-          unless document.is_a? Document
-            fail ArgumentError, 'Cannot serialize a non-Document class'
-          end
           @doc = document
         end
 

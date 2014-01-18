@@ -1,11 +1,13 @@
 # -*- encoding : utf-8 -*-
-require 'spec_helper'
+require 'r_letters/documents/serializers/rdfxml'
+require 'support/doubles/document_basic'
+require 'nokogiri'
 
 describe RLetters::Documents::Serializers::RDFXML do
 
   context 'with a single document' do
     before(:each) do
-      @doc = FactoryGirl.build(:full_document)
+      @doc = double_document_basic
       @xml = Nokogiri::XML::Document.parse(described_class.new(@doc).serialize)
     end
 
@@ -26,8 +28,8 @@ describe RLetters::Documents::Serializers::RDFXML do
 
   context 'with an array of documents' do
     before(:each) do
-      doc = FactoryGirl.build(:full_document)
-      doc2 = FactoryGirl.build(:full_document, uid: 'wut')
+      doc = double_document_basic
+      doc2 = double_document_basic(uid: 'what', html_uid: 'what')
 
       @docs = [doc, doc2]
       @xml = Nokogiri::XML::Document.parse(described_class.new(@docs).serialize)

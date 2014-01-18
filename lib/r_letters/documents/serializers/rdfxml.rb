@@ -1,4 +1,5 @@
 # -*- encoding : utf-8 -*-
+require 'r_letters/documents/serializers/rdf'
 require 'rdf/n3'
 
 module RLetters
@@ -12,19 +13,7 @@ module RLetters
         # @param document_or_array [Document Array<Document>] a document or
         #   array of documents to serialize
         def initialize(document_or_array)
-          case document_or_array
-          when Array
-            document_or_array.each do |x|
-              unless x.is_a? Document
-                fail ArgumentError, 'Array includes non-Document elements'
-              end
-            end
-            @doc = document_or_array
-          when Document
-            @doc = document_or_array
-          else
-            fail ArgumentError, 'Cannot serialize a non-Document class'
-          end
+          @doc = document_or_array
         end
 
         # Return the user-friendly name of the serializer
@@ -59,10 +48,10 @@ module RLetters
           rdf.default_namespace = 'http://www.w3.org/1999/02/22-rdf-syntax-ns#'
           rdf.add_namespace_definition('dc', 'http://purl.org/dc/terms/')
 
-          if @doc.is_a? Document
-            rdf.add_child(do_serialize(@doc, doc))
-          else
+          if @doc.is_a? Enumerable
             @doc.each { |d| rdf.add_child(do_serialize(d, doc)) }
+          else
+            rdf.add_child(do_serialize(@doc, doc))
           end
 
           doc.to_xml(indent: 2)

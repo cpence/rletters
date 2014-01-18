@@ -1,4 +1,5 @@
 # -*- encoding : utf-8 -*-
+require 'r_letters/documents/serializers/rdf'
 require 'rdf/n3'
 
 module RLetters
@@ -12,19 +13,7 @@ module RLetters
         # @param document_or_array [Document Array<Document>] a document or
         #   array of documents to serialize
         def initialize(document_or_array)
-          case document_or_array
-          when Array
-            document_or_array.each do |x|
-              unless x.is_a? Document
-                fail ArgumentError, 'Array includes non-Document elements'
-              end
-            end
-            @doc = document_or_array
-          when Document
-            @doc = document_or_array
-          else
-            fail ArgumentError, 'Cannot serialize a non-Document class'
-          end
+          @doc = document_or_array
         end
 
         # Return the user-friendly name of the serializer
@@ -54,10 +43,10 @@ module RLetters
         # :nocov:
         def serialize
           ::RDF::Writer.for(:n3).buffer do |writer|
-            if @doc.is_a? Document
-              writer << RDF.new(@doc).serialize
-            else
+            if @doc.is_a? Enumerable
               writer << @doc.each { |d| RDF.new(@doc).serialize }
+            else
+              writer << RDF.new(@doc).serialize
             end
           end
         end

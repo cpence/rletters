@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 require 'r_letters/documents/as_csl'
-require 'doubles/document_basic'
+require 'support/doubles/document_basic'
 
 describe RLetters::Documents::AsCSL do
   before(:each) do

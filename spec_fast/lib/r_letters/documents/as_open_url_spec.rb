@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 require 'r_letters/documents/as_open_url'
-require 'doubles/document_basic'
+require 'support/doubles/document_basic'
 
 describe RLetters::Documents::AsOpenURL do
   context 'when getting OpenURL link for a single document' do

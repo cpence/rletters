@@ -1,27 +1,26 @@
 # -*- encoding : utf-8 -*-
-require 'spec_helper'
+require 'r_letters/documents/serializers/end_note'
+require 'support/doubles/document_basic'
 
 describe RLetters::Documents::Serializers::EndNote do
 
   context 'when serializing a single document' do
     before(:each) do
-      @doc = FactoryGirl.build(:full_document)
+      @doc = double_document_basic
       @str = described_class.new(@doc).serialize
     end
 
     it 'creates good EndNote' do
       expect(@str).to be_start_with("%0 Journal Article\n")
-      expect(@str).to include('%A Botero, Carlos A.')
-      expect(@str).to include('%A Mudge, Andrew E.')
-      expect(@str).to include('%A Koltz, Amanda M.')
-      expect(@str).to include('%A Hochachka, Wesley M.')
-      expect(@str).to include('%A Vehrencamp, Sandra L.')
-      expect(@str).to include('%T How Reliable are the Methods for Estimating Repertoire Size?')
-      expect(@str).to include('%J Ethology')
-      expect(@str).to include('%V 114')
-      expect(@str).to include('%P 1227-1238')
-      expect(@str).to include('%M 10.1111/j.1439-0310.2008.01576.x')
-      expect(@str).to include('%D 2008')
+      expect(@str).to include('%A One, A.')
+      expect(@str).to include('%A Two, B.')
+      expect(@str).to include('%T Test Title')
+      expect(@str).to include('%J Journal')
+      expect(@str).to include('%V 10')
+      expect(@str).to include('%N 20')
+      expect(@str).to include('%P 100-200')
+      expect(@str).to include('%M 10.1234/5678')
+      expect(@str).to include('%D 2010')
       # This extra carriage return is the item separator, and is thus very
       # important
       expect(@str).to be_end_with("\n\n")
@@ -30,7 +29,7 @@ describe RLetters::Documents::Serializers::EndNote do
 
   context 'when serializing an array of documents' do
     before(:each) do
-      doc = FactoryGirl.build(:full_document)
+      doc = double_document_basic
       @docs = [doc, doc]
       @str = described_class.new(@docs).serialize
     end

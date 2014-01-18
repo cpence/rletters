@@ -1,4 +1,5 @@
 # -*- encoding : utf-8 -*-
+require 'marc'
 
 module RLetters
   module Documents
@@ -10,9 +11,6 @@ module RLetters
         # @api public
         # @param document [Document] a document to serialize
         def initialize(document)
-          unless document.is_a? Document
-            fail ArgumentError, 'Cannot serialize a non-Document class'
-          end
           @doc = document
         end
 
@@ -124,7 +122,7 @@ module RLetters
           marc_free = ''
           if @doc.volume
             marc_free << "Vol. #{@doc.volume}"
-            marc_free << (@doc.number ? ' ' : ', ')
+            marc_free << (@doc.number ? ', ' : ' ')
           end
           marc_free << "no. #{@doc.number} " if @doc.number
           marc_free << "(#{@doc.year})" if @doc.year
