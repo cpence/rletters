@@ -144,6 +144,9 @@ module RLetters
       # @api private
       # @return [Array<Array<String>>] the blocks for this segmenter
       def blocks_for_num_blocks
+        # Don't create blocks if we have no words
+        return [] if @single_block.empty?
+
         # Split the single block into the right size and return
         @single_block.in_groups(@num_blocks, false).each_with_object([]) do |b, ret|
           ret << Block.new(b, "Block ##{ret.size + 1}/#{@num_blocks}")
@@ -157,7 +160,7 @@ module RLetters
       def blocks_for_block_size
         # We're already done with the last block behavior, if we wanted a small
         # last block, or if we only generated a single block
-        return @blocks if @blocks.size == 1 || @last_block == :small_last
+        return @blocks if @blocks.size <= 1 || @last_block == :small_last
 
         # Implement the last block behavior.  The :truncate_all behavior is
         # implemented in add_for_block_size.

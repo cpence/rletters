@@ -9,44 +9,14 @@ describe WordFrequencyAnalyzer do
                                                  working: true, user: @user)
   end
 
-  describe '#initialize' do
-    context 'with both num_blocks and block_size set' do
+  describe '#num_words' do
+    context 'without num_words set' do
       before(:each) do
-        @analyzer = WordFrequencyAnalyzer.new(@dataset,
-                                              block_size: 10,
-                                              num_blocks: 30,
-                                              split_across: true,
-                                              num_words: 0)
+        @analyzer = WordFrequencyAnalyzer.new(@dataset)
       end
 
-      it 'acts like only block_size was set' do
-        num = @analyzer.block_stats.count - 1
-        @analyzer.block_stats.take(num).each do |s|
-          expect(s[:tokens]).to eq(10)
-        end
-      end
-    end
-
-    context 'with neither num_blocks nor block_size set' do
-      before(:each) do
-        @analyzer = WordFrequencyAnalyzer.new(@dataset,
-                                              split_across: true,
-                                              num_words: 0)
-      end
-
-      it 'just makes one block, splitting across' do
-        expect(@analyzer.block_stats.count).to eq(1)
-      end
-    end
-  end
-
-  describe '#block_size' do
-    context 'with 10-word blocks, split across' do
-      before(:each) do
-        @analyzer = WordFrequencyAnalyzer.new(@dataset,
-                                              block_size: 10,
-                                              split_across: true,
-                                              num_words: 0)
+      it 'includes all words' do
+        expect(@analyzer.block_stats[0][:types]).to eq(@analyzer.blocks[0].count)
       end
 
       it 'saves blocks and stats' do
@@ -63,158 +33,10 @@ describe WordFrequencyAnalyzer do
         expect(@analyzer.num_dataset_tokens).to be
       end
 
-      it 'creates 10 word blocks, and a big last block (default to big_last)' do
-        num = @analyzer.block_stats.count - 1
-        @analyzer.block_stats.take(num).each do |s|
-          expect(s[:tokens]).to eq(10)
-        end
-        expect(@analyzer.block_stats.last[:tokens]).to be > 10
-      end
-
       it 'creates a parallel list (same words in all blocks)' do
         @analyzer.blocks.each do |b|
           expect(b.keys & @analyzer.word_list).to eq(b.keys)
         end
-      end
-    end
-
-    context 'with 10-word blocks, split across, small_last' do
-      before(:each) do
-        @analyzer = WordFrequencyAnalyzer.new(@dataset,
-                                              block_size: 10,
-                                              split_across: true,
-                                              num_words: 0,
-                                              last_block: :small_last)
-      end
-
-      it 'creates 10-word blocks, and a small last block' do
-        num = @analyzer.block_stats.count - 1
-        @analyzer.block_stats.take(num).each do |s|
-          expect(s[:tokens]).to eq(10)
-        end
-        expect(@analyzer.block_stats.last[:tokens]).to be < 10
-      end
-    end
-
-    context 'with 10-word blocks, split across, truncate_last' do
-      before(:each) do
-        @analyzer = WordFrequencyAnalyzer.new(@dataset,
-                                              block_size: 10,
-                                              split_across: true,
-                                              num_words: 0,
-                                              last_block: :truncate_last)
-      end
-
-      it 'creates 10-word blocks only' do
-        @analyzer.block_stats.each do |s|
-          expect(s[:tokens]).to eq(10)
-        end
-      end
-    end
-
-    context 'with 10-word blocks, split across, truncate_all' do
-      before(:each) do
-        @analyzer = WordFrequencyAnalyzer.new(@dataset,
-                                              block_size: 10,
-                                              split_across: true,
-                                              num_words: 0,
-                                              last_block: :truncate_all)
-      end
-
-      it 'creates only one 10-word block' do
-        expect(@analyzer.block_stats.count).to eq(1)
-        expect(@analyzer.block_stats[0][:tokens]).to eq(10)
-      end
-    end
-
-    context 'with 10-word blocks, not split across, truncate_all' do
-      before(:each) do
-        @analyzer = WordFrequencyAnalyzer.new(@dataset,
-                                              block_size: 10,
-                                              split_across: false,
-                                              num_words: 0,
-                                              last_block: :truncate_all)
-      end
-
-      it 'creates one 10-word block for each document' do
-        expect(@analyzer.block_stats.count).to eq(10)
-        @analyzer.block_stats.each do |s|
-          expect(s[:tokens]).to eq(10)
-        end
-      end
-    end
-
-    context 'with 100k-word blocks, not split across' do
-      before(:each) do
-        @analyzer = WordFrequencyAnalyzer.new(@dataset,
-                                              block_size: 100_000,
-                                              split_across: false)
-      end
-
-      it 'makes 10 blocks (the size of the dataset)' do
-        expect(@analyzer.blocks.count).to eq(10)
-      end
-    end
-  end
-
-  describe '#num_blocks' do
-    context 'with 10 blocks, split across' do
-      before(:each) do
-        @analyzer = WordFrequencyAnalyzer.new(@dataset,
-                                              num_blocks: 10,
-                                              split_across: true,
-                                              num_words: 0)
-      end
-
-      it 'creates 10 blocks' do
-        expect(@analyzer.blocks.count).to eq(10)
-      end
-
-      it 'creates all blocks nearly the same size' do
-        size = @analyzer.block_stats[0][:tokens]
-        @analyzer.block_stats.each do |s|
-          expect(s[:tokens]).to be_within(1).of(size)
-        end
-      end
-    end
-
-    context 'with 3 blocks per document, not split across' do
-      before(:each) do
-        @analyzer = WordFrequencyAnalyzer.new(@dataset,
-                                              num_blocks: 3,
-                                              split_across: false,
-                                              num_words: 0)
-      end
-
-      it 'creates at least 30 blocks' do
-        expect(@analyzer.blocks.count).to be >= 30
-      end
-
-      it 'creates all blocks nearly the same size for each document' do
-        size = @analyzer.block_stats[0][:tokens]
-        doc = @analyzer.block_stats[0][:name].match(/.*(\(within .*\))/)
-
-        @analyzer.block_stats.each do |s|
-          this_doc = s[:name].match(/.*(\(within .*\))/)[1]
-          if this_doc != doc
-            size = s[:tokens]
-            doc = this_doc
-          end
-
-          expect(s[:tokens]).to be_within(1).of(size)
-        end
-      end
-    end
-  end
-
-  describe '#num_words' do
-    context 'without num_words set' do
-      before(:each) do
-        @analyzer = WordFrequencyAnalyzer.new(@dataset)
-      end
-
-      it 'includes all words' do
-        expect(@analyzer.block_stats[0][:types]).to eq(@analyzer.blocks[0].count)
       end
 
       it 'is the same as the dataset stats' do
