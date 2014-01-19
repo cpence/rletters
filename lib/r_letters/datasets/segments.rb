@@ -3,7 +3,7 @@
 module RLetters
   module Datasets
     # Splits a dataset into text segments
-    class TextSegments
+    class Segments
       # Create an object to split a dataset into text segments
       #
       # @param dataset [Dataset] the dataset to segment
@@ -13,13 +13,6 @@ module RLetters
       # @option options [Symbol] :split_across [Boolean] if true, split across
       #   documents in the dataset, otherwise split only within documents
       def initialize(dataset, segmenter = nil, options = {})
-        unless dataset.is_a? Dataset
-          fail ArgumentError, 'Cannot segment a non-Dataset object'
-        end
-        if segmenter && !segmenter.is_a?(Documents::Segmenter)
-          fail ArgumentError, 'Must pass an RLetters::Documents::Segmenter as segmenter'
-        end
-
         @dataset = dataset
         @segmenter = segmenter || Documents::Segmenter.new
 

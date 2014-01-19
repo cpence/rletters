@@ -16,7 +16,7 @@ describe RLetters::Documents::Segmenter do
   context 'with no options' do
     before(:each) do
       @segmenter = described_class.new(@list)
-      @segmenter.add(@doc)
+      @segmenter.add(@doc.uid)
       @blocks = @segmenter.blocks
     end
 
@@ -37,7 +37,7 @@ describe RLetters::Documents::Segmenter do
   context 'with a single block' do
     before(:each) do
       @segmenter = described_class.new(@list, num_blocks: 1)
-      @segmenter.add(@doc)
+      @segmenter.add(@doc.uid)
       @blocks = @segmenter.blocks
     end
 
@@ -58,7 +58,7 @@ describe RLetters::Documents::Segmenter do
   context 'with multiple blocks' do
     before(:each) do
       @segmenter = described_class.new(@list, num_blocks: 5)
-      @segmenter.add(@doc)
+      @segmenter.add(@doc.uid)
       @blocks = @segmenter.blocks
     end
 
@@ -79,7 +79,7 @@ describe RLetters::Documents::Segmenter do
     before(:each) do
       @segmenter = described_class.new(@list, block_size: 3,
                                               last_block: :big_last)
-      @segmenter.add(@doc)
+      @segmenter.add(@doc.uid)
       @blocks = @segmenter.blocks
     end
 
@@ -104,7 +104,7 @@ describe RLetters::Documents::Segmenter do
     before(:each) do
       @segmenter = described_class.new(@list, block_size: 3,
                                               last_block: :small_last)
-      @segmenter.add(@doc)
+      @segmenter.add(@doc.uid)
       @blocks = @segmenter.blocks
     end
 
@@ -129,7 +129,7 @@ describe RLetters::Documents::Segmenter do
     before(:each) do
       @segmenter = described_class.new(@list, block_size: 3,
                                               last_block: :truncate_last)
-      @segmenter.add(@doc)
+      @segmenter.add(@doc.uid)
       @blocks = @segmenter.blocks
     end
 
@@ -154,7 +154,7 @@ describe RLetters::Documents::Segmenter do
     before(:each) do
       @segmenter = described_class.new(@list, block_size: 3,
                                               last_block: :truncate_all)
-      @segmenter.add(@doc)
+      @segmenter.add(@doc.uid)
       @blocks = @segmenter.blocks
     end
 
@@ -174,7 +174,7 @@ describe RLetters::Documents::Segmenter do
   describe '#reset!' do
     it 'resets all the parameters' do
       segmenter = described_class.new(@list)
-      segmenter.add(@doc)
+      segmenter.add(@doc.uid)
       blocks = segmenter.blocks
 
       segmenter.reset!

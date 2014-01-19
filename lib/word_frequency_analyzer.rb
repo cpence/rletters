@@ -100,7 +100,7 @@ class WordFrequencyAnalyzer
     # Segment the dataset into text blocks
     split_across = options.delete(:split_across)
     segmenter = RLetters::Documents::Segmenter.new(word_list, options)
-    text_segments = RLetters::Datasets::TextSegments.new(
+    text_segments = RLetters::Datasets::Segments.new(
       @dataset,
       segmenter,
       split_across: split_across)

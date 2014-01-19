@@ -31,9 +31,8 @@ end
 def stub_document_fulltext(overrides = {})
   double = double_document_fulltext(overrides)
 
-  fake = Class.new
-  allow(fake).to receive(:find).and_return(double)
-  stub_const('Document', fake)
+  stub_const('Document', Class.new) unless defined? Document
+  allow(Document).to receive(:find).with(double.uid, kind_of(Hash)).and_return(double)
 
   double
 end

@@ -29,9 +29,8 @@ end
 def stub_document_basic(overrides = {})
   double = double_document_basic(overrides)
 
-  fake = Class.new
-  allow(fake).to receive(:find).and_return(double)
-  stub_const('Document', fake)
+  stub_const('Document', Class.new) unless defined? Document
+  allow(Document).to receive(:find).with(double.uid).and_return(double)
 
   double
 end
