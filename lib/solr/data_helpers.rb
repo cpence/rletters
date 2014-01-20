@@ -8,6 +8,5 @@ module Solr
   # optimize our interactions with the Solr server.
   module DataHelpers
     include DataHelpers::CountByField
-    include DataHelpers::CorpusSize
   end
 end

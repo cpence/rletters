@@ -14,7 +14,7 @@ class WorkflowController < ApplicationController
   # @api public
   # @return [undefined]
   def index
-    @database_size = Solr::DataHelpers.corpus_size || 0
+    @database_size = RLetters::Solr::CorpusStats.new.size || 0
 
     if user_signed_in?
       render 'dashboard'

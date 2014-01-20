@@ -28,7 +28,7 @@ module RLetters
         return to_enum(:each) unless block_given?
 
         @dataset.entries.find_in_batches do |group|
-          search_result = Solr::Connection.search(search_query_for(group))
+          search_result = ::Solr::Connection.search(search_query_for(group))
 
           # :nocov:
           unless search_result.num_hits == group.count
@@ -53,8 +53,8 @@ module RLetters
           facet: false,
           fl: @options[:fl] ? @options[:fl] :
                 (@options[:fulltext] ?
-                  Solr::Connection::DEFAULT_FIELDS_FULLTEXT :
-                  Solr::Connection::DEFAULT_FIELDS),
+                  ::Solr::Connection::DEFAULT_FIELDS_FULLTEXT :
+                  ::Solr::Connection::DEFAULT_FIELDS),
           rows: group.count }
       end
     end

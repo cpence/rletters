@@ -64,6 +64,7 @@ module Jobs
 
         # Do the analysis
         analyzer = compute_word_frequencies(dataset, options)
+        corpus_size = RLetters::Solr::CorpusStats.new.size
 
         # Create some CSV
         at(2, 2, 'Finished, generating output...')
@@ -105,7 +106,7 @@ module Jobs
                 if analyzer.df_in_corpus.present?
                   r << Math.tfidf((b[word] || 0).to_f / s[:tokens].to_f,
                                   analyzer.df_in_corpus[word],
-                                  Solr::DataHelpers.corpus_size)
+                                  corpus_size)
                 else
                   r << ''
                 end
@@ -140,7 +141,7 @@ module Jobs
             if analyzer.df_in_corpus.present?
               r << analyzer.df_in_corpus[w].to_s
               r << Math.tfidf(tf_in_dataset, analyzer.df_in_corpus[w],
-                              Solr::DataHelpers.corpus_size)
+                              corpus_size)
             else
               r << ''
               r << ''

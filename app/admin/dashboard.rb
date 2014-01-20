@@ -24,7 +24,7 @@ ActiveAdmin.register_page 'Dashboard' do
           h4 I18n.t('admin.dashboard.database')
 
           ul do
-            corpus_size = Solr::DataHelpers.corpus_size
+            corpus_size = RLetters::Solr::CorpusStats.new.size
             ping = Solr::Connection.ping
 
             if corpus_size && ping
