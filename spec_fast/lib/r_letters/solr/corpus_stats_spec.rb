@@ -5,9 +5,8 @@ describe RLetters::Solr::CorpusStats do
   before(:each) do
     @stats = described_class.new
 
-    stub_const('Solr', Module.new)
-    stub_const('Solr::Connection', Class.new)
-    stub_const('Solr::ConnectionError', Class.new)
+    stub_const('RLetters::Solr::Connection', Class.new)
+    stub_const('RLetters::Solr::ConnectionError', Class.new)
   end
 
   describe '#size' do
@@ -21,7 +20,7 @@ describe RLetters::Solr::CorpusStats do
     end
 
     it 'works' do
-      expect(::Solr::Connection).to receive(:search).with(@query).and_return(@response)
+      expect(RLetters::Solr::Connection).to receive(:search).with(@query).and_return(@response)
       expect(@stats.size).to eq(1234)
     end
   end

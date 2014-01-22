@@ -49,7 +49,7 @@ module Solr
         # @param [Symbol] field field to group by
         # @return [Hash<String, Integer>] number of documents in each group
         def group_corpus(field)
-          search_result = Solr::Connection.search_raw({
+          search_result = RLetters::Solr::Connection.search_raw({
             q: '*:*',
             def_type: 'lucene',
             group: 'true',

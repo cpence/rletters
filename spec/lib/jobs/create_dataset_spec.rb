@@ -128,7 +128,7 @@ describe Jobs::CreateDataset do
             q: 'test',
             fq: nil,
             def_type: 'dismax')
-        rescue Solr::ConnectionError
+        rescue RLetters::Solr::ConnectionError
         end
       }.to change { Dataset.count }.by(-1)
     end
@@ -142,7 +142,7 @@ describe Jobs::CreateDataset do
           q: 'test',
           fq: nil,
           def_type: 'dismax')
-      }.to raise_error(Solr::ConnectionError)
+      }.to raise_error(RLetters::Solr::ConnectionError)
     end
   end
 

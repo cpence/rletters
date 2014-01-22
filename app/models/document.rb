@@ -121,7 +121,8 @@ class Document
   # @option options [Boolean] fulltext if true, return document full text
   # @option options [Boolean] term_vectors if true, return term vectors
   # @return [Document] the document requested
-  # @raise [Solr::ConnectionError] thrown if there is an error querying Solr
+  # @raise [RLetters::Solr::ConnectionError] thrown if there is an error
+  #   querying Solr
   # @raise [ActiveRecord::RecordNotFound] thrown if no matching document can
   #   be found
   # @example Look up the document with UID '1234567890abcdef1234'
@@ -141,7 +142,8 @@ class Document
   # @option args [String] field any document field may be queried here as a
   #   search query (see example)
   # @return [Document] the document requested, or nil if not found
-  # @raise [Solr::ConnectionError] thrown if there is an error querying Solr
+  # @raise [RLetters::Solr::ConnectionError] thrown if there is an error
+  #   querying Solr
   # @raise [ActiveRecord::RecordNotFound] thrown if no matching document can
   #   be found
   # @example Look up a document by W. Shatner (raising exception if not found)
@@ -159,7 +161,8 @@ class Document
   # @option args [String] field any document field may be queried here as a
   #   search query (see example)
   # @return [Document] the document requested, or nil if not found
-  # @raise [Solr::ConnectionError] thrown if there is an error querying Solr
+  # @raise [RLetters::Solr::ConnectionError] thrown if there is an error
+  #   querying Solr
   # @example Look up a document by W. Shatner (returning nil if not found)
   #   doc = Document.find_by(authors: 'W. Shatner')
   def self.find_by(args)
@@ -171,14 +174,14 @@ class Document
     query = { def_type: 'lucene' }
     query[:q] = args.map { |k, v| "#{k}:\"#{v}\"" }.join(' AND ')
     if fulltext == true
-      query[:fl] = Solr::Connection::DEFAULT_FIELDS_FULLTEXT
+      query[:fl] = RLetters::Solr::Connection::DEFAULT_FIELDS_FULLTEXT
     end
     if term_vectors == true
       query[:tv] = 'true'
     end
 
     # Run the search
-    result = Solr::Connection.search(query)
+    result = RLetters::Solr::Connection.search(query)
     return nil if result.num_hits < 1
     doc = result.documents[0]
 

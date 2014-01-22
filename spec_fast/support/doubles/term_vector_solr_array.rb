@@ -142,6 +142,14 @@ def term_vector_solr_array
                     "position", 18, "position", 24, "position", 30,
                     "position", 36, "position", 42, "position", 48,
                     "position", 54],
+      # We don't actually use offsets, but I include this here just so we can
+      # check to be sure that our offset-parsing code works, should we want it
+      # in the future.
+      'offsets', ['start', 0, 'end', 2, 'start', 26, 'end', 28,
+                  'start', 53, 'end', 55, 'start', 79, 'end', 81,
+                  'start', 110, 'end', 112, 'start', 138, 'end', 140,
+                  'start', 171, 'end', 173, 'start', 199, 'end', 201,
+                  'start', 230, 'end', 232, 'start', 257, 'end', 259],
       "df", 1,
       "tf-idf", 10.0],
      "its",

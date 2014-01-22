@@ -18,8 +18,8 @@ module RLetters
                        def_type: 'lucene',
                        rows: 1 }
 
-        ::Solr::Connection.search(solr_query).num_hits
-      rescue ::Solr::ConnectionError
+        Connection.search(solr_query).num_hits
+      rescue ConnectionError
         nil
       end
     end

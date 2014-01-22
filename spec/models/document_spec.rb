@@ -209,7 +209,7 @@ describe Document do
 
     context 'when loading a set of documents' do
       before(:each) do
-        @result = Solr::Connection.search(q: '*:*', def_type: 'lucene')
+        @result = RLetters::Solr::Connection.search(q: '*:*', def_type: 'lucene')
         @docs = @result.documents
       end
 
@@ -376,11 +376,12 @@ describe Document do
 
     context 'when loading one document with offsets' do
       before(:each) do
-        @result = Solr::Connection.search(q: 'uid:"doi:10.1111/j.1439-0310.2008.01576.x"',
-                                          def_type: 'lucene',
-                                          fields: Solr::Connection::DEFAULT_FIELDS_FULLTEXT,
-                                          tv: 'true',
-                                          'tv.offsets' => 'true')
+        query = { q: 'uid:"doi:10.1111/j.1439-0310.2008.01576.x"',
+                  def_type: 'lucene',
+                  fields: RLetters::Solr::Connection::DEFAULT_FIELDS_FULLTEXT,
+                  tv: 'true',
+                  'tv.offsets' => 'true' }
+        @result = RLetters::Solr::Connection.search(query)
         @doc = @result.documents[0]
       end
 

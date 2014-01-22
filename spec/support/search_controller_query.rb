@@ -18,7 +18,7 @@ module SearchControllerQuery
 
     assign(:sort, params[:sort] || 'score desc')
 
-    result = Solr::Connection.search(solr_query)
+    result = RLetters::Solr::Connection.search(solr_query)
     assign(:result, result)
     assign(:documents, result.documents)
   end

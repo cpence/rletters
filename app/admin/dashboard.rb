@@ -25,7 +25,7 @@ ActiveAdmin.register_page 'Dashboard' do
 
           ul do
             corpus_size = RLetters::Solr::CorpusStats.new.size
-            ping = Solr::Connection.ping
+            ping = RLetters::Solr::Connection.ping
 
             if corpus_size && ping
               li I18n.t('admin.dashboard.db_size', count: corpus_size)
@@ -35,7 +35,7 @@ ActiveAdmin.register_page 'Dashboard' do
             end
           end
 
-          solr_info = Solr::Connection.info
+          solr_info = RLetters::Solr::Connection.info
 
           if solr_info['lucene'] && solr_info['jvm']
             h4 I18n.t('admin.dashboard.solr')

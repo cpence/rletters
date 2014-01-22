@@ -58,7 +58,7 @@ module Jobs
       # up and delete any and all fledgling dataset parts
       begin
         # Get the first Solr response
-        search_result = Solr::Connection.search solr_query
+        search_result = RLetters::Solr::Connection.search solr_query
 
         # Get our parameters
         total = search_result.num_hits
@@ -89,7 +89,7 @@ module Jobs
           remaining -= docs_fetched
           if remaining > 0
             solr_query[:start] = solr_query[:start] + docs_fetched
-            search_result = Solr::Connection.search solr_query
+            search_result = RLetters::Solr::Connection.search solr_query
           end
         end
 

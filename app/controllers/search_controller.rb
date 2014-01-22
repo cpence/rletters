@@ -5,13 +5,13 @@
 # This controller displays both traditional and advanced search pages and the
 # resulting lists of documents.  Its main function is to convert the
 # user's provided search criteria into Solr queries for
-# +Solr::Connection.search+.
+# +RLetters::Solr::Connection.search+.
 class SearchController < ApplicationController
   # Show the main search index page
   #
   # The controller just passes the search parameters through
   # +search_params_to_solr_query+, then sends this solr query on to the
-  # server using +Solr::Connection.search+.
+  # server using +RLetters::Solr::Connection.search+.
   #
   # @api public
   # @return [undefined]
@@ -37,10 +37,12 @@ class SearchController < ApplicationController
     @solr_def_type = solr_query[:def_type]
     @solr_fq = solr_query[:fq]
 
+    solr_query.merge!(sort: @sort,
+                      start: offset,
+                      rows: limit)
+
     # Get the documents
-    @result = Solr::Connection.search(solr_query.merge(sort: @sort,
-                                                       start: offset,
-                                                       rows: limit))
+    @result = RLetters::Solr::Connection.search(solr_query)
     @documents = @result.documents
   end
 

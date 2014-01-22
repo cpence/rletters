@@ -28,7 +28,7 @@ describe SearchHelper do
 
   describe '#num_hits_string' do
     before(:each) do
-      @result = double(Solr::SearchResult, num_hits: 100)
+      @result = double(num_hits: 100)
     end
 
     context 'when no search has been performed' do
@@ -55,7 +55,7 @@ describe SearchHelper do
   describe '#render_pagination' do
     context 'when we only have one page of results' do
       before(:each) do
-        @result = double(Solr::SearchResult, num_hits: 1)
+        @result = double(num_hits: 1)
         @per_page = 10
         @page = 0
       end
@@ -67,7 +67,7 @@ describe SearchHelper do
 
     context 'when we have only one flat range of results' do
       before(:each) do
-        @result = double(Solr::SearchResult, num_hits: 49)
+        @result = double(num_hits: 49)
         @per_page = 10
         @page = 0
 
@@ -85,7 +85,7 @@ describe SearchHelper do
     context 'when we have more than one page of results' do
       context 'when we are on the first page' do
         before(:each) do
-          @result = double(Solr::SearchResult, num_hits: 100)
+          @result = double(num_hits: 100)
           @per_page = 10
           @page = 0
 
@@ -104,7 +104,7 @@ describe SearchHelper do
 
       context 'when we are in the middle' do
         before(:each) do
-          @result = double(Solr::SearchResult, num_hits: 100)
+          @result = double(num_hits: 100)
           @per_page = 10
           @page = params[:page] = 5
 
@@ -124,7 +124,7 @@ describe SearchHelper do
 
       context 'when we are on the last page' do
         before(:each) do
-          @result = double(Solr::SearchResult, num_hits: 100)
+          @result = double(num_hits: 100)
           @per_page = 10
           @page = params[:page] = 9
 
@@ -159,7 +159,7 @@ describe SearchHelper do
   describe '#active_filter_list' do
     context 'with some facets' do
       before(:each) do
-        @result = Solr::Connection.search(q: '*:*', def_type: 'lucene')
+        @result = RLetters::Solr::Connection.search(q: '*:*', def_type: 'lucene')
         @ret = helper.active_filter_list(@result)
       end
 
@@ -170,8 +170,10 @@ describe SearchHelper do
 
     context 'with active facets' do
       before(:each) do
-        @result = Solr::Connection.search(q: '*:*', def_type: 'lucene',
-                                          fq: ['authors_facet:"Elisa Lobato"', 'year:[2010 TO *]'])
+        @result = RLetters::Solr::Connection.search(
+          q: '*:*',
+          def_type: 'lucene',
+          fq: ['authors_facet:"Elisa Lobato"', 'year:[2010 TO *]'])
 
         params[:fq] = ['authors_facet:"Elisa Lobato"', 'year:[2010 TO *]']
         @ret = helper.active_filter_list(@result)
@@ -191,7 +193,7 @@ describe SearchHelper do
   describe '#facet_link_list' do
     context 'when no facets present' do
       before(:each) do
-        @result = double(Solr::SearchResult, facets: nil)
+        @result = double(facets: nil)
       end
 
       it 'returns an empty string' do
@@ -201,7 +203,7 @@ describe SearchHelper do
 
     context 'with some facets' do
       before(:each) do
-        @result = Solr::Connection.search(q: '*:*', def_type: 'lucene')
+        @result = RLetters::Solr::Connection.search(q: '*:*', def_type: 'lucene')
         @ret = helper.facet_link_list(@result)
       end
 
