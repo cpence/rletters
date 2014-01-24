@@ -14,7 +14,7 @@ module RLetters
       #   documents in the dataset, otherwise split only within documents
       def initialize(dataset, segmenter = nil, options = {})
         @dataset = dataset
-        @segmenter = segmenter || Documents::Segmenter.new
+        @segmenter = segmenter || RLetters::Documents::Segmenter.new
 
         @options = options
         @options.compact.reverse_merge!(split_across: true)

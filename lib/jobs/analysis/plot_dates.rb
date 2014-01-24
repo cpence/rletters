@@ -56,7 +56,7 @@ module Jobs
 
         # Get the counts and normalize if requested
         at(1, 4, 'Getting counts by year from database...')
-        dates = Solr::DataHelpers.count_by_field(dataset, :year)
+        dates = RLetters::Solr::CountByField.new(dataset).counts_for(:year)
 
         at(2, 4, 'Normalizing document counts to frequencies...')
         dates = normalize_document_counts(user, :year, dates, options)

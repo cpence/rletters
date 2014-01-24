@@ -5,7 +5,7 @@ module SearchHelper
   # Return a formatted version of the number of hits for the last search
   #
   # @api public
-  # @param [Solr::SearchResult] result the search result
+  # @param [RLetters::Solr::SearchResult] result the search result
   # @return [String] number of hits for the search
   # @example Print the number of hits for the search (in HAML)
   #   = num_hits_string(@result)
@@ -45,7 +45,7 @@ module SearchHelper
   # Render the pagination links
   #
   # @api public
-  # @param [Solr::SearchResult] result the search result
+  # @param [RLetters::Solr::SearchResult] result the search result
   # @return [String] full set of pagination links for the current page
   # @example Put the current pagination links in a paragraph element
   #   <p><%= render_pagination(@result) %></p>
@@ -150,7 +150,7 @@ module SearchHelper
   # Return a list of active filters for a Foundation sub-nav
   #
   # @api public
-  # @param [Solr::SearchResult] result the search result
+  # @param [RLetters::Solr::SearchResult] result the search result
   # @return [String] active filters in <dd><a> tags
   # @example Get all of the filter removal links
   #   active_Facet_list(@result)

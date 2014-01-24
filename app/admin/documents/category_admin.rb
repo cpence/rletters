@@ -18,7 +18,7 @@ ActiveAdmin.register Documents::Category do
 
   form do |f|
     # Get the journals from Solr
-    result = Solr::DataHelpers.count_by_field(nil, :journal_facet)
+    result = RLetters::Solr::CountByField.new.counts_for(:journal_facet)
     journals = result.keys.compact
 
     f.inputs do
