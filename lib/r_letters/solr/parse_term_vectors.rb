@@ -51,7 +51,7 @@ module RLetters
           label, tv_uid, field, vectors = array
           next unless tv_uid == uid
 
-          if vectors.blank?
+          if !vectors.is_a?(Array) || vectors.empty?
             return nil
           else
             return vectors
