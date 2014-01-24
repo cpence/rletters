@@ -44,6 +44,11 @@ class SearchController < ApplicationController
     # Get the documents
     @result = RLetters::Solr::Connection.search(solr_query)
     @documents = @result.documents
+
+    # Decorate objects
+    if @result.facets
+      @facets = FacetsDecorator.decorate(@result.facets)
+    end
   end
 
   # Show the advanced search page

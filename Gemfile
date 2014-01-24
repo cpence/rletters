@@ -50,6 +50,7 @@ gem 'rdf', '>= 0.3.5'
 gem 'rdf-n3'
 
 # Asset tools and template generators
+gem 'draper'
 gem 'haml'
 gem 'haml-rails'
 gem 'kramdown'

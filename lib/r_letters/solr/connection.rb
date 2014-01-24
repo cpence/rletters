@@ -1,6 +1,7 @@
 # -*- encoding : utf-8 -*-
 
 module RLetters
+  # Code that connects RLetters to a Solr server and parses its responses
   module Solr
     # Exception thrown on failure to connect to Solr
     class ConnectionError < RuntimeError; end

@@ -14,15 +14,15 @@ module RLetters
     #   @api public
     #   @return [Hash] facets returned by the last search, +nil+ if none.
     #     The hash contains the following keys:
-    #       Document.facets[:authors_facet] = Array<Array>
-    #         Document.facets[:authors_facet][0] = ['Some Author', Integer]
-    #       Document.facets[:journal_facet] = Array<Array>
-    #         Document.facets[:journal_facet][0] = ['Some Journal', Integer]
-    #       Document.facets[:year]
-    #         Document.facets[:year][0] = ['1940–1949', Integer]
+    #       result.facets[:authors_facet] = Array<Array>
+    #         result.facets[:authors_facet][0] = ['Some Author', Integer]
+    #       result.facets[:journal_facet] = Array<Array>
+    #         result.facets[:journal_facet][0] = ['Some Journal', Integer]
+    #       result.facets[:year]
+    #         result.facets[:year][0] = ['1940–1949', Integer]
     #
     #   @example Get the number of documents published by W. Shatner
-    #     shatner_docs = Document.facets[:authors_facet].assoc('W. Shatner')[1]
+    #     shatner_docs = result.facets[:authors_facet].assoc('W. Shatner')[1]
     #
     # @!attribute [r] num_hits
     #   Number of documents returned by the last search
@@ -73,7 +73,7 @@ module RLetters
         solr_response.docs.each do |doc|
           # See if there are term vectors in this search
           if term_vectors
-            @parser ||= RLetters::Solr::ParseTermVectors.new(term_vectors)
+            @parser ||= ParseTermVectors.new(term_vectors)
             doc['term_vectors'] = @parser.for_document(doc['uid'])
           end
 
@@ -83,8 +83,8 @@ module RLetters
 
         # See if the facets are available, and set them if so
         if solr_response.facets || solr_response.facet_queries
-          @facets = ::Solr::Facets.new(solr_response.facets,
-                                     solr_response.facet_queries)
+          @facets = Facets.new(solr_response.facets,
+                               solr_response.facet_queries)
         end
       end
     end

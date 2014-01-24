@@ -2,10 +2,10 @@
 
 def double_rsolr_facets
   [double(name: 'authors_facet',
-          items: [double(name: 'A. One', hits: 1),
-                  double(name: 'B. Two', hits: 1)]),
+          items: [double(value: 'A. One', hits: 1),
+                  double(value: 'B. Two', hits: 1)]),
    double(name: 'journal_facet',
-          items: [double(name: 'Journal', hits: 1)])]
+          items: [double(value: 'Journal', hits: 1)])]
 end
 
 def double_rsolr_facet_queries
@@ -26,10 +26,10 @@ def double_rsolr_facet_queries
     'year:[1930 TO 1939]' => 0,
     'year:[1940 TO 1949]' => 0,
     'year:[1950 TO 1959]' => 0,
-    'year:[1960 TO 1969]' => 0,
-    'year:[1970 TO 1979]' => 0,
-    'year:[1980 TO 1989]' => 0,
-    'year:[1990 TO 1999]' => 0,
-    'year:[2000 TO 2009]' => 0,
-    'year:[2010 TO *]' => 1 }
+    'year:[1960 TO 1969]' => 1,
+    'year:[1970 TO 1979]' => 8,
+    'year:[1980 TO 1989]' => 39,
+    'year:[1990 TO 1999]' => 412,
+    'year:[2000 TO 2009]' => 10,
+    'year:[2010 TO *]' => 6 }
 end

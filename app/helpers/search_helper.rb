@@ -147,42 +147,6 @@ module SearchHelper
     "#{I18n.t('search.index.sort_prefix')} #{method_spec}"
   end
 
-  # Return a set of list items for faceted browsing
-  #
-  # This function queries both the active facets on the current search and the
-  # available facets for authors, journals, and years.  It returns a set of
-  # <li> elements (_not_ a <ul>), including list dividers.
-  #
-  # @api public
-  # @param [Solr::SearchResult] result the search result
-  # @return [String] set of list items for faceted browsing
-  # @example Get all of the links for faceted browsing
-  #   facet_link_list(@result)
-  #   # "<li>Active Filters</li>...<li>Authors</li><li>"
-  #     "<a href='...'>Johnson</a></li>..."
-  def facet_link_list(result)
-    # Bail now if there's no facet data (faceted down to one document)
-    return ''.html_safe unless result.facets
-
-    active_facets = get_active_facets(result)
-    ret = ''.html_safe
-
-    # Run the facet-list code for all three facet fields
-    ret << list_links_for_facet(result,
-                                :authors_facet,
-                                I18n.t('search.index.authors_facet'),
-                                active_facets)
-    ret << list_links_for_facet(result,
-                                :journal_facet,
-                                I18n.t('search.index.journal_facet'),
-                                active_facets)
-    ret << list_links_for_facet(result,
-                                :year,
-                                I18n.t('search.index.year_facet'),
-                                active_facets)
-    ret
-  end
-
   # Return a list of active filters for a Foundation sub-nav
   #
   # @api public
@@ -191,17 +155,15 @@ module SearchHelper
   # @example Get all of the filter removal links
   #   active_Facet_list(@result)
   #   # "<dd><a href='...'>Johnson</a></dd>..."
-  def active_filter_list(result)
-    active_facets = get_active_facets(result)
-    ret = ''.html_safe
-
-    if active_facets.empty? && params[:categories].blank?
-      ret << content_tag(:dd) do
+  def active_filter_list(result, facets)
+    # If we're entirely non-faceted, then bail
+    if params[:fq].blank? && params[:categories].blank?
+      return content_tag(:dd) do
         link_to I18n.t('search.index.no_filters'), '#'
       end
-
-      return ret
     end
+
+    ret = ''.html_safe
 
     # Remove all
     ret << content_tag(:dd) do
@@ -226,15 +188,7 @@ module SearchHelper
     end
 
     # Facets
-    if active_facets
-      active_facets.each do |f|
-        ret << content_tag(:dd, class: 'active') do
-          other_facets = active_facets.reject { |x| x == f }
-          facet_link "#{f.field_label}: #{f.label}", other_facets
-        end
-      end
-    end
-
+    ret << facets.removal_links
     ret
   end
 
@@ -291,81 +245,6 @@ module SearchHelper
   end
 
   private
-
-  # Convert the active facet queries to facets
-  #
-  # This function converts the +params[:fq]+ string into a list of Facet
-  # objects.  It is used by several parts of the facet-display code.
-  #
-  # @api private
-  def get_active_facets(result)
-    [].tap do |ret|
-      if params[:fq]
-        params[:fq].each do |query|
-          ret << result.facets.for_query(query)
-        end
-        ret.compact!
-      end
-    end
-  end
-
-  # Create a link to the given set of facets
-  #
-  # This function converts an array of facets to a link (generated via
-  # +link_to+) to the search page for that filtered query.  All
-  # parameters other than +:fq+ are simply duplicated (including the search
-  # query itself, +:q+).
-  #
-  # @api private
-  def facet_link(text, facets)
-    new_params = params.deep_dup
-
-    if facets.empty?
-      new_params[:fq] = nil
-      return link_to(text, search_path(new_params))
-    end
-
-    new_params[:fq] = []
-    facets.each { |f| new_params[:fq] << f.query }
-    link_to(text, search_path(new_params))
-  end
-
-  # Get the list of facet links for one particular field
-  #
-  # This function takes the facets from the +Document+ class, checks them
-  # against +active_facets+, and creates a set of list items.  It is used
-  # by +facet_link_list+.
-  #
-  # @api private
-  def list_links_for_facet(result, field, header, active_facets)
-    return ''.html_safe unless result.facets
-
-    # Get the facets for this field
-    facets = (result.facets.sorted_for_field(field) - active_facets).take(5)
-
-    # Bail if there's no facets
-    ret = ''.html_safe
-    return ret if facets.empty?
-
-    # Slight hack; :authors_facet is first, so for all others, put a divider
-    # between the various kinds of facet
-    ret << content_tag(:li, '', class: 'divider') if field != :authors_facet
-
-    # Build the return value
-    ret << content_tag(:li, content_tag(:strong, header))
-    facets.each do |f|
-      ret << content_tag(:li) do
-        # Get a label into the link as well
-        count = content_tag(:span, f.hits.to_s, class: 'round secondary label')
-        text = f.label.html_safe + '&nbsp;&nbsp;'.html_safe + count
-
-        # Link to whatever the current facets are, plus the new one
-        facet_link(text, active_facets + [f])
-      end
-    end
-
-    ret
-  end
 
   # Recursively get the tree of journal categories
   #

@@ -85,8 +85,8 @@ describe RLetters::Solr::SearchResult do
     end
 
     it 'creates a facets object with the data' do
-      stub_const('Solr::Facets', Class.new)
-      expect(Solr::Facets).to receive(:new).with(123, 456).and_return(true)
+      stub_const('RLetters::Solr::Facets', Class.new)
+      expect(RLetters::Solr::Facets).to receive(:new).with(123, 456).and_return(true)
 
       described_class.new(@mock_response)
     end
