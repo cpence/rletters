@@ -1,6 +1,7 @@
 # -*- encoding : utf-8 -*-
 
 class FacetDecorator < Draper::Decorator
+  decorates RLetters::Solr::Facet
   delegate_all
 
   # @return [String] the +value+ attribute, in human-readable form

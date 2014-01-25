@@ -7,6 +7,8 @@ module RLetters
     # @!attribute [r] all
     #   @return [Array<RLetters::Solr::Facet>] all the facet objects
     class Facets
+      include Draper::Decoratable if defined? Draper
+
       attr_reader :all
 
       # Get all facets for a given field

@@ -17,6 +17,8 @@ module RLetters
     # @!attribute hits
     #   @return [Integer] the number of hits for this facet
     class Facet
+      include Draper::Decoratable if defined? Draper
+
       attr_accessor :query, :field, :value, :hits
 
       # Create a new facet

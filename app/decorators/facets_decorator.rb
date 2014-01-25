@@ -1,6 +1,7 @@
 # -*- encoding : utf-8 -*-
 
 class FacetsDecorator < Draper::Decorator
+  decorates RLetters::Solr::Facets
   delegate_all
 
   # Return a set of list items for faceted browsing
