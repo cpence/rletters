@@ -129,7 +129,7 @@ class SearchController < ApplicationController
       # is an AND search, not an OR search)
       if params[:authors].present?
         authors = params[:authors].split(',').map do |a|
-          NameHelpers.name_to_lucene(a.strip)
+          RLetters::Documents::Author.new(a.strip).to_lucene
         end
         authors_str = authors.join(' AND ')
 

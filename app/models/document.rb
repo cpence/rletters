@@ -21,12 +21,8 @@
 #   @return [String] a description of where this document's data was obtained
 #
 # @!attribute [r] authors
-#   @return [String] the document's authors, in a comma-delimited list
-# @!attribute [r] author_list
-#   @return [Array<String>] the document's authors, in an array
-# @!attribute [r] formatted_author_list
-#   @return [Array<Hash>] the document's authors, split into name parts, in
-#     an array
+#   @return [RLetters::Documents::Authors] the document's authors, parsed into
+#     +Author+ objects
 #
 # @!attribute [r] title
 #   @return [String] the title of this document
@@ -106,9 +102,8 @@ class Document
   include ActiveModel::Model
 
   attr_accessor :uid, :doi, :license, :license_url, :data_source, :authors,
-                :author_list, :formatted_author_list, :title, :journal,
-                :year, :volume, :number, :pages, :fulltext, :fulltext_url,
-                :term_vectors
+                :title, :journal, :year, :volume, :number, :pages, :fulltext,
+                :fulltext_url, :term_vectors
 
   # The uid attribute is the only required one
   validates :uid, presence: true
@@ -232,7 +227,7 @@ class Document
   # Set all attributes and create author lists
   #
   # This constructor copies in all attributes, as well as splitting the
-  # +authors+ value into +author_list+ and +formatted_author_list+.
+  # +authors+ value.
   #
   # @api public
   # @param [Hash] attributes attributes for this document
@@ -241,11 +236,12 @@ class Document
 
     # Don't let any blank strings hang around as values for the Solr
     # fields. This prevents a whole lot of #blank? and #present? calls
-    # throughout.
+    # throughout. Also note that we're explicitly not setting the
+    # authors here, that's done specially.
     [:uid, :doi, :license, :license_url,
-     :data_source, :authors, :title,
-     :journal, :year, :volume,
-     :number, :pages, :fulltext].each do |a|
+     :data_source, :title, :journal,
+     :year, :volume, :number, :pages,
+     :fulltext].each do |a|
       value = send(a)
       if value && value.strip.empty?
         send("#{a}=".to_sym, nil)
@@ -257,15 +253,8 @@ class Document
       self.fulltext_url = URI.parse(fulltext_url)
     end
 
-    # Split out the author list and format it
-    if authors
-      self.author_list = authors.split(',').map { |a| a.strip }
-      self.formatted_author_list = author_list.map do |a|
-        BibTeX::Names.parse(a)[0]
-      end
-    else
-      self.author_list = []
-      self.formatted_author_list = []
-    end
+    # Convert the authors into an authors object (and do this even if the
+    # string is nil or blank)
+    self.authors = RLetters::Documents::Authors.from_list(authors)
   end
 end

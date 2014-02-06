@@ -37,7 +37,9 @@ describe 'Search API' do
     expect(doc).to be
     expect(doc['doi']).to eq('10.1111/j.1439-0310.2010.01865.x')
     expect(doc['license']).to eq('© Blackwell Verlag GmbH')
-    expect(doc['authors']).to eq('Petr Kovařík, Václav Pavel')
+    expect(doc['authors'].count).to eq(2)
+    expect(doc['authors'][0]['full']).to eq('Petr Kovařík')
+    expect(doc['authors'][1]['first']).to eq('Václav')
     expect(doc['journal']).to eq('Ethology')
     expect(doc['volume']).to eq('117')
   end

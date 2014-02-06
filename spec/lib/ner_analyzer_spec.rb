@@ -1,6 +1,8 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
+SimpleCov.command_name 'spec:lib' if defined?(SimpleCov)
+
 describe NERAnalyzer, nlp: true do
 
   before(:each) do

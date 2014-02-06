@@ -230,7 +230,9 @@ describe Document do
       end
 
       it 'sets the authors' do
-        expect(@docs[9].authors).to eq('Christian T. Vlautin, Nicholas J. Hobbs, Michael H. Ferkin')
+        authors = ['Christian T. Vlautin', 'Nicholas J. Hobbs',
+                   'Michael H. Ferkin']
+        expect(@docs[9].authors.map { |a| a.full }).to match_array(authors)
       end
 
       it 'sets the title' do
@@ -255,46 +257,6 @@ describe Document do
 
       it 'does not set the fulltext' do
         expect(@docs[1].fulltext).not_to be
-      end
-    end
-  end
-
-  describe '#author_list' do
-    context 'when loading one document' do
-      before(:each) do
-        @doc = Document.find('doi:10.1111/j.1439-0310.2008.01576.x')
-      end
-
-      it 'gets the right number of authors' do
-        expect(@doc.author_list.count).to eq(5)
-      end
-
-      it 'gets the right first author' do
-        expect(@doc.author_list[0]).to eq('Carlos A. Botero')
-      end
-
-      it 'gets the right fourth author' do
-        expect(@doc.author_list[3]).to eq('Wesley M. Hochachka')
-      end
-    end
-  end
-
-  describe '#formatted_author_list' do
-    context 'when loading one document' do
-      before(:each) do
-        @doc = Document.find('doi:10.1111/j.1439-0310.2008.01576.x')
-      end
-
-      it 'gets the right number of authors' do
-        expect(@doc.formatted_author_list.count).to eq(5)
-      end
-
-      it 'gets the right second author, first name' do
-        expect(@doc.formatted_author_list[1].first).to eq('Andrew E.')
-      end
-
-      it 'gets the right fifth author, last name' do
-        expect(@doc.formatted_author_list[4].last).to eq('Vehrencamp')
       end
     end
   end

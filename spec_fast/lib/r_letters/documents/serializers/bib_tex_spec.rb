@@ -38,9 +38,7 @@ describe RLetters::Documents::Serializers::BibTex do
 
   context 'when serializing an anonymous document' do
     before(:each) do
-      @doc = double_document_basic(authors: nil,
-                                   author_list: [],
-                                   formatted_author_list: [])
+      @doc = double_document_basic(authors: [])
       @str = described_class.new(@doc).serialize
     end
 

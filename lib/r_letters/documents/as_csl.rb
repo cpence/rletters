@@ -29,8 +29,8 @@ module RLetters
         ret = {}
         ret['type'] = 'article-journal'
 
-        unless @doc.formatted_author_list.empty?
-          ret['author'] = @doc.formatted_author_list.map { |a| a.to_citeproc }
+        unless @doc.authors.empty?
+          ret['author'] = @doc.authors.map { |a| a.to_citeproc }
         end
 
         ret['title'] = @doc.title if @doc.title

@@ -8,8 +8,10 @@ end
 
 child :documents, object_root: false do
   attributes :uid, :doi, :license, :license_url, :data_source,
-             :authors, :title, :journal, :year, :volume,
-             :number, :pages
+             :title, :journal, :year, :volume, :number, :pages
+  child :authors, root: :authors, object_root: false do
+    attributes :full, :first, :last, :prefix, :suffix
+  end
 end
 
 child @result.facets.all, root: :facets, object_root: false do

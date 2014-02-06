@@ -50,7 +50,7 @@ module RLetters
         # :nodoc:
         def do_serialize(doc)
           ret  = "TY  - JOUR\n"
-          doc.formatted_author_list.each do |a|
+          doc.authors.each do |a|
             ret << 'AU  - '
             ret << "#{a.prefix} " if a.prefix
             ret << "#{a.last},#{a.first}"

@@ -18,7 +18,7 @@ module RLetters
       # the values for the given field, and returns the result in a hash.
       #
       # FIXME: This function should support the same kind of work with names
-      # that we have in NameHelpers.
+      # that we have in RLetters::Documents::Author.
       #
       # @param [Symbol] field field to group by
       # @return [Hash<String, Integer>] number of documents in each grouping

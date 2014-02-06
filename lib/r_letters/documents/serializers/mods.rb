@@ -92,7 +92,7 @@ module RLetters
             title_elt.content = doc.title
           end
 
-          doc.formatted_author_list.each do |a|
+          doc.authors.each do |a|
             name = Nokogiri::XML::Node.new('name', xml_doc)
             mods.add_child(name)
 

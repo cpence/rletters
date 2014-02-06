@@ -28,14 +28,14 @@ module RLetters
         params << "&rft.issue=#{CGI.escape(@doc.number)}" if @doc.number
         params << "&rft.spage=#{CGI.escape(@doc.start_page)}" if @doc.start_page
         params << "&rft.epage=#{CGI.escape(@doc.end_page)}" if @doc.end_page
-        unless @doc.formatted_author_list.empty?
-          au = @doc.formatted_author_list[0]
+        unless @doc.authors.empty?
+          au = @doc.authors[0]
           params << "&rft.aufirst=#{CGI.escape(au.first)}" if au.first
           params << "&rft.aulast=#{CGI.escape(au.last)}" if au.last
         end
-        if @doc.author_list.count > 1
-          @doc.author_list[1...@doc.author_list.size].each do |a|
-            params << "&rft.au=#{CGI.escape(a)}"
+        if @doc.authors.count > 1
+          @doc.authors[1...@doc.authors.size].each do |a|
+            params << "&rft.au=#{CGI.escape(a.full)}"
           end
         end
         params

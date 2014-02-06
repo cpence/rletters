@@ -50,7 +50,7 @@ module RLetters
           graph = ::RDF::Graph.new
           doc = ::RDF::Node.new
 
-          @doc.formatted_author_list.each do |a|
+          @doc.authors.each do |a|
             name = ''
             name << "#{a.prefix} " if a.prefix
             name << "#{a.last}"

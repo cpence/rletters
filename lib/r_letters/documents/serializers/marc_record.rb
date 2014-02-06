@@ -80,16 +80,16 @@ module RLetters
                                                 %W(a #{@doc.doi})))
           end
 
-          unless @doc.formatted_author_list.empty?
+          unless @doc.authors.empty?
             record.append(::MARC::DataField.new(
               '100', '1', ' ',
               ::MARC::Subfield.new(
                 'a',
-                author_to_marc(@doc.formatted_author_list[0])
+                author_to_marc(@doc.authors[0])
               )
             ))
 
-            @doc.formatted_author_list.each do |a|
+            @doc.authors.each do |a|
               record.append(::MARC::DataField.new(
                 '700', '1', ' ',
                 ::MARC::Subfield.new('a', author_to_marc(a))
@@ -160,9 +160,9 @@ module RLetters
 
         private
 
-        # Convert the given author (from +formatted_author_list+) to MARC's format
+        # Convert the given author to MARC's format
         # @api private
-        # @param [Hash] a author from +formatted_author_list+
+        # @param [RLetters::Documents::Author] an author
         # @return [String] author formatted as MARC expects it
         def author_to_marc(a)
           author = ''
