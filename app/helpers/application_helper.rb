@@ -43,7 +43,7 @@ module ApplicationHelper
     end
 
     # Give up if we can't find it
-    unless File.exists?(path)
+    unless File.exist?(path)
       fail I18n::MissingTranslationData.new(I18n.locale,
                                             "localized_markdown.#{file}",
                                             {})

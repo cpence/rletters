@@ -17,7 +17,7 @@ NER_CLASSIFIER_PATH = Rails.root.join('vendor', 'nlp', 'classifiers',
                                       'all.3class.distsim.crf.ser.gz').to_s
 POS_TAGGER_PATH = Rails.root.join('vendor', 'nlp', 'taggers',
                                   'english-left3words-distsim.tagger').to_s
-NLP_ENABLED = File.exists?(NER_CLASSIFIER_PATH) && File.exists?(POS_TAGGER_PATH)
+NLP_ENABLED = File.exist?(NER_CLASSIFIER_PATH) && File.exist?(POS_TAGGER_PATH)
 
 if NLP_ENABLED
   # Load the java classes now, on initialization
