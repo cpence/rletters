@@ -54,7 +54,7 @@ module Jobs
         task.name = t('.short_desc')
         task.save
 
-        analyzer = NERAnalyzer.new(
+        analyzer = RLetters::Analysis::NamedEntities.new(
           dataset,
           ->(p) { at(p, 100, 'Finding named entities...') })
 

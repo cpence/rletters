@@ -1,6 +1,8 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
+SimpleCov.command_name 'spec:lib' if defined?(SimpleCov)
+
 describe WordFrequencyAnalyzer do
 
   before(:each) do
