@@ -20,7 +20,11 @@ module RLetters
       #   Defaults to no stemming.
       def initialize(options = {})
         @options = options.compact.reverse_merge(ngrams: 1, stemming: nil)
+
         @options[:ngrams] = [@options[:ngrams], 1].max
+        unless [:stem, :lemma].include?(options[:stemming])
+          @options[:stemming] = nil
+        end
 
         @dfs = {}
       end

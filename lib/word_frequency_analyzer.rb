@@ -20,10 +20,6 @@
 # @!attribute [r] df_in_dataset
 #   @return [Hash<String, Integer>] For each word (or ngram), the number of
 #     documents in the dataset in which that word appears
-# @!attribute [r] df_in_corpus
-#   @return [Hash<String, Integer>] For each word, the number of documents in
-#     the entire Solr corpus in which that word appears.  If +ngrams+ is set,
-#     this value will not be available.
 # @!attribute [r] num_dataset_tokens
 #   @return [Integer] The number of tokens in the dataset.  If +ngrams+ is set,
 #     this is the number of ngrams.
@@ -32,43 +28,17 @@
 #     this is the number of distinct ngrams.
 class WordFrequencyAnalyzer
   attr_reader :blocks, :block_stats, :word_list, :tf_in_dataset,
-              :df_in_dataset, :df_in_corpus, :num_dataset_tokens,
-              :num_dataset_types
+              :df_in_dataset, :num_dataset_tokens, :num_dataset_types
 
   # Create a new word frequency analyzer and analyze
   #
   # @api public
-  # @param [Dataset] dataset The dataset to analyze
+  # @param [RLetters::Datasets::Segments] dataset_segmenter A segmenter for
+  #   the dataset to analyze
   # @param [Hash] options Parameters for how to compute word frequency
-  # @option options [Integer] :block_size If set, split the dataset into blocks
-  #   of this many words
-  # @option options [Integer] :num_blocks If set, split the dataset into this
-  #   many blocks of equal size
-  # @option options [Boolean] :split_across If true, combine all the dataset
-  #   documents together before splitting into blocks; otherwise, split into
-  #   blocks only within a document
-  # @option options [Integer] :ngrams If set, look for n-grams of this size,
-  #   instead of single words
   # @option options [Integer] :num_words If set, only return frequency data for
   #   this many words; otherwise, return all words.  If +ngrams+ is set, this
   #   is a number of ngrams, not a number of words.
-  # @option options [Symbol] :stemming If set to +:stem+, stem words with the
-  #   Porter stemmer before taking frequency.  If set to +:lemma+, lemmatize
-  #   with the Stanford NLP (if availble; slow!).  If unset, do not stem.
-  # @option options [Symbol] :last_block This parameter changes what will
-  #   happen to the "leftover" words when +block_size+ is set.
-  #
-  #   [+:big_last+]      add them to the last block, making a block larger than
-  #     +block_size+.
-  #   [+:small_last+]    make them into their own block, making a block smaller
-  #     than +block_size+.
-  #   [+:truncate_last+] truncate those leftover words, excluding them from
-  #     frequency computation.
-  #   [+:truncate_all+]  truncate _every_ text to +block_size+, creating only
-  #     one block per document (or, if +split_across+ is set, only one block
-  #     period)
-  #
-  #   The default is +:big_last+.
   # @option options [String] :inclusion_list If specified, then the analyzer
   #   will only compute frequency information for the words that are specified
   #   in this list (which is space-separated).
@@ -87,31 +57,11 @@ class WordFrequencyAnalyzer
   # @option options [Documents::StopList] :stop_list If specified, then the
   #   analyzer will *not* compute frequency information for the words that
   #   appear within this stop list.  Cannot be used if +ngrams+ is set.
-  def initialize(dataset, options = {})
-    # Save the dataset and options
-    @dataset = dataset
+  def initialize(dataset_segmenter, options = {})
+    # Save the options
     normalize_options(options)
 
-    # Produce a word list generator
-    word_lister = RLetters::Documents::WordList.new(ngrams: options[:ngrams],
-                                                    stemming: options[:stemming])
-
-    # Segment the dataset into text blocks
-    segmenter = RLetters::Documents::Segmenter.new(
-      word_lister,
-      num_blocks: options[:num_blocks],
-      block_size: options[:block_size],
-      last_block: options[:last_block])
-    text_segments = RLetters::Datasets::Segments.new(
-      @dataset,
-      segmenter,
-      split_across: options[:split_across])
-
-    @word_blocks = text_segments.segments
-
-    # Save off the computed df_in_corpus, which is now cached in our word
-    # lister
-    @df_in_corpus = word_lister.dfs
+    @word_blocks = dataset_segmenter.segments
 
     # Compute all df and tfs, and the type/token values for the dataset, from
     # the word blocks
@@ -140,14 +90,7 @@ class WordFrequencyAnalyzer
   # @see WordFrequencyAnalyzer#initialize
   def normalize_options(options)
     # Set default values
-    options.compact.reverse_merge!(num_blocks: 0,
-                                   block_size: 0,
-                                   num_words: 0)
-
-    # Make sure stemming is a legitimate value
-    unless [:stem, :lemma].include? options[:stemming]
-      options[:stemming] = nil
-    end
+    options.compact.reverse_merge!(num_words: 0)
 
     # Make sure inclusion_list isn't blank
     options[:inclusion_list].try(:strip!)

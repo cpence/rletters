@@ -64,21 +64,21 @@ module Jobs
         # 1) Get word lists for each dataset.  Break the datasets up into
         # blocks when you do.  500-word blocks, BigLast.  Stop lists aren't
         # needed, because we're going to remove common words below.
+        doc_segmenter = RLetters::Documents::Segmenter.new(nil,
+                                                           block_size: 500,
+                                                           last_block: :big_last)
+
         at(1, 100, 'Analyzing words in first dataset...')
-        analyzer_1 = WordFrequencyAnalyzer.new(
-          dataset_1,
-          block_size: 500,
-          split_across: true,
-          last_block: :big_last
-        )
+        set_segmenter_1 = RLetters::Datasets::Segments.new(dataset_1,
+                                                           doc_segmenter,
+                                                           split_across: true)
+        analyzer_1 = WordFrequencyAnalyzer.new(set_segmenter_1)
 
         at(25, 100, 'Analyzing words in second dataset...')
-        analyzer_2 = WordFrequencyAnalyzer.new(
-          dataset_2,
-          block_size: 500,
-          split_across: true,
-          last_block: :big_last
-        )
+        set_segmenter_2 = RLetters::Datasets::Segments.new(dataset_2,
+                                                           doc_segmenter,
+                                                           split_across: true)
+        analyzer_2 = WordFrequencyAnalyzer.new(set_segmenter_2)
 
         # 2) Cull any word that appears in *every* block.
         at(50, 100, 'Removing words that appear in all blocks...')

@@ -138,21 +138,51 @@ module Jobs
 
       private
 
+      # Return two analyzers for doing collocation analysis
+      #
+      # Many of the analysis methods here need two analyzers -- one that will
+      # analyze one-grams, and one that will analyze bigrams, so that we can
+      # use frequency information from each for comparison.  This function
+      # builds those two analyzers.
+      #
+      # @api private
+      # @return [Array<WordFrequencyAnalyzer>] two analyzers, first one-gram
+      #   and second bi-gram
+      def analyzers_for_collocation
+        # Build two word listers
+        word_listers = [
+          nil,
+          RLetters::Documents::WordList.new(ngrams: 2)
+        ]
+
+        # Create document segmenters
+        doc_segmenters = word_listers.map do |wl|
+          RLetters::Documents::Segmenter.new(wl, num_blocks: 1)
+        end
+
+        # Create dataset segmenters
+        set_segmenters = doc_segmenters.map do |ds|
+          RLetters::Datasets::Segments.new(@dataset, ds, split_across: true)
+        end
+
+        # Create and return frequency analyzers
+        set_segmenters.map do |ss|
+          opts = {}
+          opts[:inclusion_list] = @word if @word
+          WordFrequencyAnalyzer.new(ss, opts)
+        end
+      end
+
       def analyze_mutual_information
         # MUTUAL INFORMATION
         # PMI(a, b) = log [ (f(a b) / N) / (f(a) f(b) / N^2) ]
         # with N the number of single-word tokens
-        wfa_options = { num_blocks: 1, split_across: true }
-        bigram_wfa_options = { ngrams: 2 }
-        bigram_wfa_options[:inclusion_list] = @word if @word
+        analyzers = analyzers_for_collocation
 
-        bigrams = WordFrequencyAnalyzer.new(@dataset, wfa_options.merge(bigram_wfa_options))
-        words = WordFrequencyAnalyzer.new(@dataset, wfa_options)
+        word_f = analyzers[0].blocks[0]
+        bigram_f = analyzers[1].blocks[0]
 
-        bigram_f = bigrams.blocks[0]
-        word_f = words.blocks[0]
-
-        n = words.num_dataset_tokens.to_f
+        n = analyzers[0].num_dataset_tokens.to_f
         n_2 = n * n
 
         bigram_f.map { |b|
@@ -173,17 +203,12 @@ module Jobs
         # t = (x - H0) / sqrt(s^2 / N)
         # convert t to a p-value based on N
         #   1 - Distribution::T.cdf(t, N-1)
-        wfa_options = { num_blocks: 1, split_across: true }
-        bigram_wfa_options = { ngrams: 2 }
-        bigram_wfa_options[:inclusion_list] = @word if @word
+        analyzers = analyzers_for_collocation
 
-        bigrams = WordFrequencyAnalyzer.new(@dataset, wfa_options.merge(bigram_wfa_options))
-        words = WordFrequencyAnalyzer.new(@dataset, wfa_options)
+        word_f = analyzers[0].blocks[0]
+        bigram_f = analyzers[1].blocks[0]
 
-        bigram_f = bigrams.blocks[0]
-        word_f = words.blocks[0]
-
-        n = words.num_dataset_tokens.to_f
+        n = analyzers[0].num_dataset_tokens.to_f
 
         bigram_f.map { |b|
           bigram_words = b[0].split
@@ -208,17 +233,12 @@ module Jobs
         #              log L(f(a b), f(a), f(a b) / f(a)) -
         #              log L(f(b) - f(a b), N - f(a), (f(b) - f(a b)) / (N - f(a)))
         # sort by -2 log-lambda
-        wfa_options = { num_blocks: 1, split_across: true }
-        bigram_wfa_options = { ngrams: 2 }
-        bigram_wfa_options[:inclusion_list] = @word if @word
+        analyzers = analyzers_for_collocation
 
-        bigrams = WordFrequencyAnalyzer.new(@dataset, wfa_options.merge(bigram_wfa_options))
-        words = WordFrequencyAnalyzer.new(@dataset, wfa_options)
+        word_f = analyzers[0].blocks[0]
+        bigram_f = analyzers[1].blocks[0]
 
-        bigram_f = bigrams.blocks[0]
-        word_f = words.blocks[0]
-
-        n = words.num_dataset_tokens.to_f
+        n = analyzers[0].num_dataset_tokens.to_f
 
         bigram_f.map { |b|
           bigram_words = b[0].split

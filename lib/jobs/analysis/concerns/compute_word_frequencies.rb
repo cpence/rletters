@@ -51,8 +51,31 @@ module Jobs
         def compute_word_frequencies(dataset, args = {})
           convert_args!(args)
 
-          # Perform the analysis and return it
-          WordFrequencyAnalyzer.new(dataset, args)
+          # Produce a word list generator
+          word_lister_options = {
+            ngrams: args.delete(:ngrams),
+            stemming: args.delete(:stemming)
+          }
+          @word_lister = RLetters::Documents::WordList.new(word_lister_options)
+
+          # Segment the dataset into text blocks
+          doc_segmenter_options = {
+            num_blocks: args.delete(:num_blocks),
+            block_size: args.delete(:block_size),
+            last_block: args.delete(:last_block)
+          }
+          @doc_segmenter = RLetters::Documents::Segmenter.new(@word_lister,
+                                                              doc_segmenter_options)
+
+          set_segmenter_options = {
+            split_across: args.delete(:split_across)
+          }
+          @set_segmenter = RLetters::Datasets::Segments.new(dataset,
+                                                            @doc_segmenter,
+                                                            set_segmenter_options)
+
+          # Perform the analysis (with the remaining args) and return it
+          WordFrequencyAnalyzer.new(@set_segmenter, args)
         end
 
         private
@@ -65,7 +88,6 @@ module Jobs
           args.remove_blank!
 
           args[:ngrams] = Integer(args[:ngrams]) if args[:ngrams]
-          args[:ngrams] ||= 1
           args[:block_size] = Integer(args[:block_size]) if args[:block_size]
           args[:num_blocks] = Integer(args[:num_blocks]) if args[:num_blocks]
           args[:num_words] = Integer(args[:num_words]) if args[:num_words]
