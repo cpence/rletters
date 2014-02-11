@@ -18,7 +18,7 @@ module RLetters
       EXCEPTIONS = Net::HTTP::EXCEPTIONS + [
         RSolr::Error::Http,
         RSolr::Error::InvalidRubyResponse,
-        ConnectionError
+        RLetters::Solr::ConnectionError
       ]
 
       class << self
@@ -73,7 +73,7 @@ module RLetters
       # @param [Hash] params Solr query parameters
       # @return [Hash] Solr search result, unprocessed
       def self.search_raw(params)
-        get_solr
+        ensure_connected!
         camelize_params!(params)
 
         Connection.solr.post 'search', data: params
@@ -91,7 +91,7 @@ module RLetters
       # @api private
       # @return [Hash] Unprocessed Solr response
       def self.info
-        get_solr
+        ensure_connected!
         Connection.solr.get 'admin/system'
       rescue *EXCEPTIONS => e
         Rails.logger.warn "Connection to Solr failed: #{e.inspect}"
@@ -108,7 +108,7 @@ module RLetters
       #   RLetters::Solr::Connection.ping
       #   # => 6
       def self.ping
-        get_solr
+        ensure_connected!
         Connection.solr.get('admin/ping')['responseHeader']['QTime']
       rescue *EXCEPTIONS
         nil
@@ -123,26 +123,31 @@ module RLetters
       # and reconnect to Solr when required.
       #
       # @api private
-      # @return [RSolr::Client] Solr connection object
-      def self.get_solr
-        Connection.solr ||= RSolr::Ext.connect(
+      # @return [undefined]
+      def self.ensure_connected!
+        Connection.url ||= Admin::Setting.solr_server_url
+        Connection.solr ||= connect
+
+        # Make sure that we update the Solr connection when we change the
+        # Solr URL, since it can be dynamically modified in the admin panel
+        if Connection.url != Admin::Setting.solr_server_url
+          Connection.url = Admin::Setting.solr_server_url
+          Connection.solr = connect
+        end
+      end
+
+      # Make the actual Solr connection
+      #
+      # Read the appropriate settings and connect to the Solr server
+      #
+      # @api private
+      # @return [RSolr::Client] the Solr connection object
+      def self.connect
+        RSolr::Ext.connect(
           url: Admin::Setting.solr_server_url,
           read_timeout: Admin::Setting.solr_timeout.to_i,
           open_timeout: Admin::Setting.solr_timeout.to_i
         )
-
-        # Make sure that we update the Solr connection when we change the
-        # Solr URL, since it can be dynamically modified in the admin panel
-        Connection.url ||= Admin::Setting.solr_server_url
-        if Connection.url != Admin::Setting.solr_server_url
-          Connection.url = Admin::Setting.solr_server_url
-
-          Connection.solr = RSolr::Ext.connect(
-            url: Admin::Setting.solr_server_url,
-            read_timeout: Admin::Setting.solr_timeout.to_i,
-            open_timeout: Admin::Setting.solr_timeout.to_i
-          )
-        end
       end
 
       # Convert some parameters
