@@ -93,19 +93,25 @@ class WordFrequencyAnalyzer
     normalize_options(options)
 
     # Produce a word list generator
-    word_list = RLetters::Documents::WordList.new(
-      ngrams: options.delete(:ngrams),
-      stemming: options.delete(:stemming))
+    word_lister = RLetters::Documents::WordList.new(ngrams: options[:ngrams],
+                                                    stemming: options[:stemming])
 
     # Segment the dataset into text blocks
-    split_across = options.delete(:split_across)
-    segmenter = RLetters::Documents::Segmenter.new(word_list, options)
+    segmenter = RLetters::Documents::Segmenter.new(
+      word_lister,
+      num_blocks: options[:num_blocks],
+      block_size: options[:block_size],
+      last_block: options[:last_block])
     text_segments = RLetters::Datasets::Segments.new(
       @dataset,
       segmenter,
-      split_across: split_across)
+      split_across: options[:split_across])
 
     @word_blocks = text_segments.segments
+
+    # Save off the computed df_in_corpus, which is now cached in our word
+    # lister
+    @df_in_corpus = word_lister.dfs
 
     # Compute all df and tfs, and the type/token values for the dataset, from
     # the word blocks
@@ -136,7 +142,6 @@ class WordFrequencyAnalyzer
     # Set default values
     options.compact.reverse_merge!(num_blocks: 0,
                                    block_size: 0,
-                                   ngrams: 1,
                                    num_words: 0)
 
     # Make sure stemming is a legitimate value
@@ -155,15 +160,8 @@ class WordFrequencyAnalyzer
     # Make sure stop_list is the right type
     options[:stop_list] = nil unless options[:stop_list].is_a? Documents::StopList
 
-    # No stop lists if ngrams is set
-    if options[:stop_list] && options[:ngrams] != 1
-      fail ArgumentError, 'cannot set both ngrams > 1 and stop_list'
-    end
-
     # Copy over the parameters to member variables
-    @ngrams = options[:ngrams].try(:lbound, 1)
     @num_words = options[:num_words].try(:lbound, 0)
-    @stemming = options[:stemming]
     @inclusion_list = options[:inclusion_list].try(:split)
     @exclusion_list = options[:exclusion_list].try(:split)
     @stop_list = options[:stop_list]
@@ -171,8 +169,8 @@ class WordFrequencyAnalyzer
 
   # Compute the df and tf for all the words in the dataset
   #
-  # This function computes and sets +df_in_dataset+, +tf_in_dataset+,
-  # and +df_in_corpus+ for all the words in the dataset.  Note that this
+  # This function computes and sets +df_in_dataset+ and +tf_in_dataset+,
+  # for all the words in the dataset.  Note that this
   # function ignores the +num_words+ parameter, as we need these tf values
   # to sort in order to obtain the most/least frequent words.
   #
@@ -189,7 +187,6 @@ class WordFrequencyAnalyzer
   def compute_df_tf
     @df_in_dataset = {}
     @tf_in_dataset = {}
-    @df_in_corpus = {}
 
     @word_blocks.each do |b|
       b.words.group_by { |w| w }.map { |k, v| [k, v.count] }.each do |(word, count)|
@@ -203,26 +200,6 @@ class WordFrequencyAnalyzer
 
     @num_dataset_types = @tf_in_dataset.count
     @num_dataset_tokens = @tf_in_dataset.values.reduce(:+)
-
-    # Fetch @df_in_corpus, if available
-    #
-    # FIXME: This is really expensive, as we wind up looking up the documents
-    # twice.  Is there some other way to do this?
-    if @ngrams == 1
-      @dataset.entries.each do |e|
-        doc = Document.find(e.uid, term_vectors: true)
-        doc.term_vectors.each do |word, hash|
-          word = word.stem if @stemming == :stem
-
-          # Oddly enough, you'll get weird bogus values for words that don't
-          # appear in your document back from Solr.  Not sure what's up with
-          # that.
-          if hash[:df] > 0 && !@df_in_corpus.include?(word)
-            @df_in_corpus[word] = hash[:df]
-          end
-        end
-      end
-    end
   end
 
   # Determine which words we'll analyze
@@ -234,12 +211,6 @@ class WordFrequencyAnalyzer
   #
   # @api private
   def pick_words
-    # If we have a word-list for 1-grams, this is easy
-    if @inclusion_list.present? && @ngrams == 1
-      @word_list = @inclusion_list
-      return
-    end
-
     # Exclusion list takes precedence over stop list, if both are somehow
     # specified
     excluded = []
@@ -257,22 +228,14 @@ class WordFrequencyAnalyzer
     sorted_pairs = @tf_in_dataset.to_a.sort { |a, b| b[1] <=> a[1] }
     @word_list = sorted_pairs.map { |a| a[0] }
 
-    if @ngrams == 1
-      if excluded.present?
-        # For 1-grams we can just use array difference.  If an inclusion list
-        # was specified, we already did that up above and bailed early.
-        @word_list -= excluded
-      end
-    else
-      if excluded.present?
-        # Keep any grams for which there is no overlap between the exclusion
-        # list and the gram's words
-        @word_list.select! { |w| (w.split & excluded).empty? }
-      elsif included.present?
-        # Reject any grams for which there is no overlap between the inclusion
-        # list and the gram's words
-        @word_list.reject! { |w| (w.split & included).empty? }
-      end
+    if excluded.present?
+      # Keep any grams for which there is no overlap between the exclusion
+      # list and the gram's words
+      @word_list.select! { |w| (w.split & excluded).empty? }
+    elsif included.present?
+      # Reject any grams for which there is no overlap between the inclusion
+      # list and the gram's words
+      @word_list.reject! { |w| (w.split & included).empty? }
     end
 
     @word_list = @word_list.take(@num_words) if @num_words != 0

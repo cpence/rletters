@@ -10,15 +10,19 @@ module RLetters
       # of words.
       #
       # @param [Hash] options options for generating the word list
+      # @option options [Integer] :ngrams If set, return ngrams rather than
+      #   single words.  Can be set to any integer >= 1.  Defaults to 1.
       # @option options [Symbol] :stemming If set to +:stem+, pass the words
       #   through a Porter stemmer before returning them.  If set to +:lemma+,
       #   pass them through the Stanford NLP lemmatizer, if available.  The
       #   NLP lemmatizer is much slower, as it requires accessing the fulltext
       #   of the document rather than reconstructing from the term vectors.
-      # @option options [Integer] :ngrams If set, return ngrams rather than
-      #   single words.  Can be set to any integer >= 1.
+      #   Defaults to no stemming.
       def initialize(options = {})
         @options = options.compact.reverse_merge(ngrams: 1, stemming: nil)
+        @options[:ngrams] = [@options[:ngrams], 1].max
+
+        @dfs = {}
       end
 
       # The word list for this document
@@ -40,6 +44,24 @@ module RLetters
         word_list.each_cons(@options[:ngrams]).map { |a| a.join(' ') }
       end
 
+      # The document frequency of each of the words in the corpus
+      #
+      # This function returns a hash where the keys are the words in the
+      # document and the values are the document frequencies in the entire
+      # corpus (the number of documents in the corpus in which the word
+      # appears).
+      #
+      # Note that this will only return values for words appearing in the
+      # documents that have been scanned by +words_for+ since this word lister
+      # was created.
+      #
+      # @return [Hash<String, Integer>] the document frequencies for each word
+      # @example Get the number of documents in which a given word appears
+      #   RLetters::Documents::WordList
+      def dfs
+        stem_dfs
+      end
+
       private
 
       # Get the word list for this document, possibly stemmed
@@ -51,6 +73,7 @@ module RLetters
       # @return [Array<String>] list of words for document
       def get_words(uid, stem = false)
         doc = Document.find(uid, term_vectors: true)
+        add_dfs(doc)
 
         # This converts from a hash to an array like:
         #  [[['word', pos], ['word', pos]], [['other', pos], ...], ...]
@@ -70,13 +93,67 @@ module RLetters
       # @api private
       # @return [Array<String>] list of lemmatized words for document
       def get_lemmatized_words(uid)
-        doc = Document.find(uid, fulltext: true)
+        doc = Document.find(uid, fulltext: true, term_vectors: true)
+        add_dfs(doc)
 
         pipeline = StanfordCoreNLP.load(:tokenize, :ssplit, :pos, :lemma)
         text = StanfordCoreNLP::Annotation.new(doc.fulltext)
         pipeline.annotate(text)
 
         text.get(:tokens).to_a.map { |tok| tok.get(:lemma).to_s }
+      end
+
+      # Add the DFs to our cache for this document
+      #
+      # @api private
+      # @param [Document] doc the document to add
+      # @return [undefined]
+      def add_dfs(doc)
+        doc.term_vectors.each do |word, hash|
+          next if @dfs.include?(word)
+
+          # Oddly enough, you'll get weird bogus values for words that don't
+          # appear in your document back from Solr.  Not sure what's up with
+          # that.
+          if hash[:df] > 0
+            @dfs[word] = hash[:df]
+          end
+        end
+      end
+
+      # Stem or lemmatize the DFs if required
+      #
+      # @api private
+      # @return [Hash<String, Integer>] the dfs, stemmed or lemmatized if
+      #   required
+      def stem_dfs
+        case @options[:stemming]
+        when :stem
+          {}.tap do |ret|
+            @dfs.each do |k, v|
+              stem = k.stem
+              ret[stem] ||= 0
+              ret[stem] += v
+            end
+          end
+        when :lemma
+          # This may not work, but it's better than not trying anything at all.
+          pipeline = StanfordCoreNLP.load(:tokenize, :ssplit, :pos, :lemma)
+
+          {}.tap do |ret|
+            @dfs.each do |k, v|
+              text = StanfordCoreNLP::Annotation.new(k)
+              pipeline.annotate(text)
+
+              lemma = text.get(:tokens).to_a[0].get(:lemma).to_s
+
+              ret[lemma] ||= 0
+              ret[lemma] += v
+            end
+          end
+        else
+          @dfs
+        end
       end
     end
   end

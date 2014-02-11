@@ -62,6 +62,7 @@ module RLetters
       def reset!
         @blocks = []
         @single_block = []
+        @dfs = {}
       end
 
       # Add a document to this segmenter

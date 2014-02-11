@@ -33,6 +33,9 @@ describe WordFrequencyAnalyzer do
 
         expect(@analyzer.num_dataset_types).to be
         expect(@analyzer.num_dataset_tokens).to be
+
+        expect(@analyzer.df_in_corpus).to be_a(Hash)
+        expect(@analyzer.df_in_corpus).to_not be_empty
       end
 
       it 'creates a parallel list (same words in all blocks)' do

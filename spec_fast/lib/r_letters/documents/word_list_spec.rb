@@ -13,17 +13,23 @@ describe RLetters::Documents::WordList do
 
   context 'with 1-grams' do
     before(:each) do
-      @list = described_class.new.words_for(@doc.uid)
+      @stemmer = described_class.new
+      @list = @stemmer.words_for(@doc.uid)
     end
 
     it 'provides the words in order' do
       expect(@list.take(6)).to eq(['it', 'was', 'the', 'best', 'of', 'times'])
     end
+
+    it 'gets the dfs' do
+      expect(@stemmer.dfs['it']).to eq(1)
+    end
   end
 
   context 'with 2-grams' do
     before(:each) do
-      @list = described_class.new(ngrams: 2).words_for(@doc.uid)
+      @stemmer = described_class.new(ngrams: 2)
+      @list = @stemmer.words_for(@doc.uid)
     end
 
     it 'provides a list of two-grams' do
@@ -45,7 +51,8 @@ describe RLetters::Documents::WordList do
         def stem; return self + 'WHAT'; end
       end
 
-      @list = described_class.new(stemming: :stem).words_for(@doc.uid)
+      @stemmer = described_class.new(stemming: :stem)
+      @list = @stemmer.words_for(@doc.uid)
     end
 
     after(:each) do
@@ -58,12 +65,17 @@ describe RLetters::Documents::WordList do
     it 'calls #stem on each word' do
       expect(@list).to include('itWHAT')
     end
+
+    it 'calls #stem on the dfs' do
+      expect(@stemmer.dfs['itWHAT']).to be
+    end
   end
 
   context 'with lemmatization' do
     before(:each) do
       stub_stanford_nlp_lemmatizer
-      @list = described_class.new(stemming: :lemma).words_for(@doc.uid)
+      @stemmer = described_class.new(stemming: :lemma)
+      @list = @stemmer.words_for(@doc.uid)
     end
 
     it 'calls the lemmatizer' do
@@ -72,6 +84,14 @@ describe RLetters::Documents::WordList do
 
     it 'does not leave un-lemmatized words' do
       expect(@list).not_to include('was')
+    end
+
+    it 'calls the lemmatizer when setting the dfs' do
+      # Patch into the mocked lemmatizer and make sure it gets called
+      expect(StanfordCoreNLP::Annotation).to receive(:new).with('it').and_call_original
+      expect(StanfordCoreNLP::Annotation).to receive(:new).at_least(1).times.and_call_original
+
+      @stemmer.dfs
     end
   end
 end
