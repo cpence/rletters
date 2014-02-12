@@ -12,6 +12,6 @@ class ChangeCslStyleToId < ActiveRecord::Migration
       t.remove :csl_style_id
       t.string :csl_style, default: ''
     end
-    User.update_all ['csl_style = ?', '']
+    execute "UPDATE users SET csl_style=''"
   end
 end

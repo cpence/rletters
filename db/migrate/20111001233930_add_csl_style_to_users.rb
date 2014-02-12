@@ -2,7 +2,7 @@
 class AddCslStyleToUsers < ActiveRecord::Migration
   def up
     add_column :users, :csl_style, :string, default: ''
-    User.update_all ['csl_style = ?', '']
+    execute "UPDATE users SET csl_style=''"
   end
 
   def down
