@@ -118,7 +118,8 @@ class WordFrequencyAnalyzer
 
     # Make sure stop_list is the right type
     options[:stop_list] = nil unless options[:stop_list].is_a? Documents::StopList
-    @stop_list = options[:stop_list]
+    @stop_list = nil
+    @stop_list = options[:stop_list].list.split if options[:stop_list]
   end
 
   # Compute the df and tf for all the words in the dataset
@@ -164,31 +165,22 @@ class WordFrequencyAnalyzer
   def pick_words
     # Exclusion list takes precedence over stop list, if both are somehow
     # specified
-    excluded = []
-    if @exclusion_list
-      excluded = @exclusion_list
-    elsif @stop_list
-      excluded = @stop_list.list.split
-    end
+    excluded = @exclusion_list || @stop_list || nil
+    included = @inclusion_list || nil
 
-    included = []
-    if @inclusion_list
-      included = @inclusion_list
-    end
-
+    # Sort descending by frequency of occurrence
     sorted_pairs = @tf_in_dataset.to_a.sort { |a, b| b[1] <=> a[1] }
     @word_list = sorted_pairs.map { |a| a[0] }
 
-    if excluded.present?
-      # Keep any grams for which there is no overlap between the exclusion
-      # list and the gram's words
+    # Exclude/include by checking overlap bewteen the words in the n-gram
+    # and the words in the word list
+    if excluded
       @word_list.select! { |w| (w.split & excluded).empty? }
-    elsif included.present?
-      # Reject any grams for which there is no overlap between the inclusion
-      # list and the gram's words
+    elsif included
       @word_list.reject! { |w| (w.split & included).empty? }
     end
 
+    # Take the number of words that the user requests
     @word_list = @word_list.take(@num_words) if @num_words != 0
   end
 end
