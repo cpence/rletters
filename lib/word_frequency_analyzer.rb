@@ -33,7 +33,7 @@ class WordFrequencyAnalyzer
   # Create a new word frequency analyzer and analyze
   #
   # @api public
-  # @param [RLetters::Datasets::Segments] dataset_segmenter A segmenter for
+  # @param [RLetters::Datasets::Segments] dataset_segments A segmenter for
   #   the dataset to analyze
   # @param [Hash] options Parameters for how to compute word frequency
   # @option options [Integer] :num_words If set, only return frequency data for
@@ -57,12 +57,12 @@ class WordFrequencyAnalyzer
   # @option options [Documents::StopList] :stop_list If specified, then the
   #   analyzer will *not* compute frequency information for the words that
   #   appear within this stop list.  Cannot be used if +ngrams+ is set.
-  def initialize(dataset_segmenter, options = {})
+  def initialize(dataset_segments, options = {})
     # Save the options
     normalize_options(options)
 
     # Get the word blocks from the segmenter
-    @word_blocks = dataset_segmenter.segments
+    @word_blocks = dataset_segments.segments
 
     # Convert the word arrays in the blocks from the list of words as found
     # in the document to { 'word' => count } hashes

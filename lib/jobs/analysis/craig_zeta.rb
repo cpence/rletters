@@ -64,9 +64,9 @@ module Jobs
         # 1) Get word lists for each dataset.  Break the datasets up into
         # blocks when you do.  500-word blocks, BigLast.  Stop lists aren't
         # needed, because we're going to remove common words below.
-        doc_segmenter = RLetters::Documents::Segmenter.new(nil,
-                                                           block_size: 500,
-                                                           last_block: :big_last)
+        doc_segmenter = RLetters::Documents::Segments.new(nil,
+                                                          block_size: 500,
+                                                          last_block: :big_last)
 
         at(1, 100, 'Analyzing words in first dataset...')
         set_segmenter_1 = RLetters::Datasets::Segments.new(dataset_1,

@@ -7,14 +7,14 @@ module RLetters
       # Create an object to split a dataset into text segments
       #
       # @param dataset [Dataset] the dataset to segment
-      # @param segmenter [RLetters::Documents::Segmenter] a document segmenter
+      # @param segmenter [RLetters::Documents::Segments] a document segmenter
       #   (if +nil+, create default)
       # @param [Hash] options options for generating the word list
       # @option options [Symbol] :split_across [Boolean] if true, split across
       #   documents in the dataset, otherwise split only within documents
       def initialize(dataset, segmenter = nil, options = {})
         @dataset = dataset
-        @segmenter = segmenter || RLetters::Documents::Segmenter.new
+        @segmenter = segmenter || RLetters::Documents::Segments.new
 
         @options = options
         @options.compact.reverse_merge!(split_across: true)

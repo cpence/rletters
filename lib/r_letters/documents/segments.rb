@@ -11,7 +11,7 @@ module RLetters
     Block = Struct.new(:words, :name)
 
     # Splits a group of documents into configurable blocks
-    class Segmenter
+    class Segments
       # The valid values for the :last_block option
       VALID_LAST_BLOCK = [:big_last, :small_last, :truncate_last, :truncate_all]
 

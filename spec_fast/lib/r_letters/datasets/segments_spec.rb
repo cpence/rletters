@@ -4,7 +4,7 @@ require 'active_support/core_ext/hash/reverse_merge'
 require 'active_support/core_ext/array/grouping'
 
 require 'r_letters/documents/word_list'
-require 'r_letters/documents/segmenter'
+require 'r_letters/documents/segments'
 require 'r_letters/datasets/segments'
 require 'support/doubles/dataset_fulltext'
 
@@ -53,7 +53,7 @@ describe RLetters::Datasets::Segments do
 
   context 'four total blocks, splitting across' do
     before(:each) do
-      @doc_segmenter = RLetters::Documents::Segmenter.new(nil, num_blocks: 4)
+      @doc_segmenter = RLetters::Documents::Segments.new(nil, num_blocks: 4)
       @segments = RLetters::Datasets::Segments.new(@dataset, @doc_segmenter).segments
     end
 
@@ -72,8 +72,8 @@ describe RLetters::Datasets::Segments do
 
   context 'truncate_all, splitting across' do
     before(:each) do
-      @doc_segmenter = RLetters::Documents::Segmenter.new(nil, block_size: 10,
-                                                               last_block: :truncate_all)
+      @doc_segmenter = RLetters::Documents::Segments.new(nil, block_size: 10,
+                                                              last_block: :truncate_all)
       @segments = RLetters::Datasets::Segments.new(@dataset, @doc_segmenter).segments
     end
 
@@ -92,8 +92,8 @@ describe RLetters::Datasets::Segments do
 
   context 'truncate_all, not splitting across' do
     before(:each) do
-      @doc_segmenter = RLetters::Documents::Segmenter.new(nil, block_size: 10,
-                                                               last_block: :truncate_all)
+      @doc_segmenter = RLetters::Documents::Segments.new(nil, block_size: 10,
+                                                              last_block: :truncate_all)
       @segments = RLetters::Datasets::Segments.new(@dataset,
                                                    @doc_segmenter,
                                                    split_across: false).segments

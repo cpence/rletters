@@ -12,7 +12,7 @@ describe WordFrequencyAnalyzer do
     @onegram_ss = RLetters::Datasets::Segments.new(@dataset, nil)
 
     ngram_lister = RLetters::Documents::WordList.new(ngrams: 3)
-    ngram_ds = RLetters::Documents::Segmenter.new(ngram_lister)
+    ngram_ds = RLetters::Documents::Segments.new(ngram_lister)
     @ngram_ss = RLetters::Datasets::Segments.new(@dataset, ngram_ds)
   end
 

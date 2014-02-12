@@ -4,10 +4,10 @@ require 'active_support/core_ext/hash/reverse_merge'
 require 'active_support/core_ext/array/grouping'
 
 require 'r_letters/documents/word_list'
-require 'r_letters/documents/segmenter'
+require 'r_letters/documents/segments'
 require 'support/doubles/document_fulltext'
 
-describe RLetters::Documents::Segmenter do
+describe RLetters::Documents::Segments do
   before(:each) do
     @doc = stub_document_fulltext
     @word_list = RLetters::Documents::WordList.new

@@ -64,8 +64,8 @@ module Jobs
             block_size: args.delete(:block_size),
             last_block: args.delete(:last_block)
           }
-          @doc_segmenter = RLetters::Documents::Segmenter.new(@word_lister,
-                                                              doc_segmenter_options)
+          @doc_segmenter = RLetters::Documents::Segments.new(@word_lister,
+                                                             doc_segmenter_options)
 
           set_segmenter_options = {
             split_across: args.delete(:split_across)

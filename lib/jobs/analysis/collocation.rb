@@ -157,7 +157,7 @@ module Jobs
 
         # Create document segmenters
         doc_segmenters = word_listers.map do |wl|
-          RLetters::Documents::Segmenter.new(wl, num_blocks: 1)
+          RLetters::Documents::Segments.new(wl, num_blocks: 1)
         end
 
         # Create dataset segmenters
