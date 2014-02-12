@@ -7,7 +7,7 @@ module Jobs
       # Compute word frequencies for a given dataset
       #
       # This concern just encapsulates obtaining the parameters you need for
-      # a WordFrequencyAnalyzer and creates it.
+      # an Analysis::WordFrequency object and creates it.
       module ComputeWordFrequencies
         extend ActiveSupport::Concern
 
@@ -37,8 +37,8 @@ module Jobs
         # @option args [String] last_block how to treat the last block
         #
         #   Can be set to big_last, small_last, truncate_last, or
-        #   truncate_all.  See the WordFrequencyAnalyzer for more
-        #   information.
+        #   truncate_all.  See the RLetters::Analysis::WordFrequency docs for
+        #   more information.
         # @option args [String] inclusion_list if set, list of words to find
         #
         #   If this attribute is set, then we'll only analyze the words that
@@ -47,7 +47,7 @@ module Jobs
         #   to use
         # @option args [String] exclusion_list if set, list of words to
         #   exclude from analysis
-        # @return [WordFrequencyAnalyzer] the computed frequency analyzer
+        # @return [RLetters::Analysis::WordFrequency] the computed analysis
         def compute_word_frequencies(dataset, args = {})
           convert_args!(args)
 
@@ -75,7 +75,7 @@ module Jobs
                                                             set_segmenter_options)
 
           # Perform the analysis (with the remaining args) and return it
-          WordFrequencyAnalyzer.new(@set_segmenter, args)
+          RLetters::Analysis::WordFrequency.new(@set_segmenter, args)
         end
 
         private

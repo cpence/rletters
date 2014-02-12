@@ -1,15 +1,21 @@
 # -*- encoding : utf-8 -*-
-require 'spec_helper'
+require 'core_ext/hash/compact'
+require 'active_support/core_ext/hash/reverse_merge'
+require 'active_support/core_ext/array/grouping'
 
-SimpleCov.command_name 'spec:lib' if defined?(SimpleCov)
+require 'r_letters/documents/word_list'
+require 'r_letters/documents/segments'
+require 'r_letters/datasets/segments'
+require 'r_letters/analysis/word_frequency'
 
-describe WordFrequencyAnalyzer do
+require 'support/doubles/stop_list'
+require 'support/doubles/dataset_fulltext'
+
+describe RLetters::Analysis::WordFrequency do
   before(:each) do
-    @user = FactoryGirl.create(:user)
-    @dataset = FactoryGirl.create(:full_dataset, entries_count: 10,
-                                                 working: true, user: @user)
+    @dataset = double_dataset_fulltext
 
-    @onegram_ss = RLetters::Datasets::Segments.new(@dataset, nil)
+    @onegram_ss = RLetters::Datasets::Segments.new(@dataset)
 
     ngram_lister = RLetters::Documents::WordList.new(ngrams: 3)
     ngram_ds = RLetters::Documents::Segments.new(ngram_lister)
@@ -19,7 +25,7 @@ describe WordFrequencyAnalyzer do
   describe '#num_words' do
     context 'without num_words set' do
       before(:each) do
-        @analyzer = WordFrequencyAnalyzer.new(@onegram_ss)
+        @analyzer = described_class.new(@onegram_ss)
       end
 
       it 'includes all words' do
@@ -50,7 +56,7 @@ describe WordFrequencyAnalyzer do
 
     context 'with num_words negative' do
       before(:each) do
-        @analyzer = WordFrequencyAnalyzer.new(@onegram_ss, num_words: -1)
+        @analyzer = described_class.new(@onegram_ss, num_words: -1)
       end
 
       it 'acts like it was not set at all' do
@@ -60,7 +66,7 @@ describe WordFrequencyAnalyzer do
 
     context 'with num_words set to 10' do
       before(:each) do
-        @analyzer = WordFrequencyAnalyzer.new(@onegram_ss, num_words: 10)
+        @analyzer = described_class.new(@onegram_ss, num_words: 10)
       end
 
       it 'only includes ten words' do
@@ -74,23 +80,23 @@ describe WordFrequencyAnalyzer do
   describe '#inclusion_list' do
     context 'with one-grams' do
       before(:each) do
-        @analyzer = WordFrequencyAnalyzer.new(@onegram_ss, inclusion_list: 'a the')
+        @analyzer = described_class.new(@onegram_ss, inclusion_list: 'the best')
       end
 
       it 'only includes those words' do
-        expect(@analyzer.blocks[0].keys).to match_array(%w(a the))
+        expect(@analyzer.blocks[0].keys).to match_array(%w(the best))
       end
     end
 
     context 'with n-grams' do
       before(:each) do
-        @analyzer = WordFrequencyAnalyzer.new(@ngram_ss,
-                                              inclusion_list: 'brain')
+        @analyzer = described_class.new(@ngram_ss, inclusion_list: 'best')
       end
 
       it 'produces ngrams that all contain brain' do
+        expect(@analyzer.blocks[0].size).to be > 0
         @analyzer.blocks[0].each do |k, v|
-          expect(k).to include('brain')
+          expect(k).to include('best')
         end
       end
     end
@@ -99,7 +105,7 @@ describe WordFrequencyAnalyzer do
   describe '#exclusion_list' do
     context 'with one-grams' do
       before(:each) do
-        @analyzer = WordFrequencyAnalyzer.new(@onegram_ss, exclusion_list: 'a the')
+        @analyzer = described_class.new(@onegram_ss, exclusion_list: 'a the')
       end
 
       it 'does not include those words' do
@@ -114,13 +120,12 @@ describe WordFrequencyAnalyzer do
 
     context 'with n-grams' do
       before(:each) do
-        @analyzer = WordFrequencyAnalyzer.new(@ngram_ss,
-                                              exclusion_list: 'brain')
+        @analyzer = described_class.new(@ngram_ss, exclusion_list: 'worst')
       end
 
       it 'produces ngrams that do not contain brain' do
         @analyzer.blocks[0].each do |k, v|
-          expect(k).not_to include('brain')
+          expect(k).not_to include('worst')
         end
       end
     end
@@ -128,8 +133,8 @@ describe WordFrequencyAnalyzer do
 
   describe '#stop_list' do
     before(:each) do
-      @list = Documents::StopList.find_by!(language: 'en')
-      @analyzer = WordFrequencyAnalyzer.new(@onegram_ss, stop_list: @list)
+      @list = double_stop_list
+      @analyzer = described_class.new(@onegram_ss, stop_list: @list)
     end
 
     it 'does not include "a" and "the"' do
@@ -144,7 +149,7 @@ describe WordFrequencyAnalyzer do
 
   describe '#block_stats' do
     before(:each) do
-      @analyzer = WordFrequencyAnalyzer.new(@onegram_ss)
+      @analyzer = described_class.new(@onegram_ss)
     end
 
     it 'includes name, types, and tokens' do
@@ -156,8 +161,7 @@ describe WordFrequencyAnalyzer do
 
   describe '#word_list' do
     before(:each) do
-      @analyzer = WordFrequencyAnalyzer.new(@onegram_ss,
-                                            num_words: 10)
+      @analyzer = described_class.new(@onegram_ss, num_words: 10)
     end
 
     it 'only includes the requested number of words' do
@@ -173,7 +177,7 @@ describe WordFrequencyAnalyzer do
 
   describe '#tf_in_dataset' do
     before(:each) do
-      @analyzer = WordFrequencyAnalyzer.new(@onegram_ss)
+      @analyzer = described_class.new(@onegram_ss)
     end
 
     it 'includes (at least) all the words in the list' do
@@ -191,7 +195,7 @@ describe WordFrequencyAnalyzer do
 
   describe '#df_in_dataset' do
     before(:each) do
-      @analyzer = WordFrequencyAnalyzer.new(@onegram_ss)
+      @analyzer = described_class.new(@onegram_ss)
     end
 
     it 'includes (at least) all the words in the list' do

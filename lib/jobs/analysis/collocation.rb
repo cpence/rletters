@@ -146,8 +146,8 @@ module Jobs
       # builds those two analyzers.
       #
       # @api private
-      # @return [Array<WordFrequencyAnalyzer>] two analyzers, first one-gram
-      #   and second bi-gram
+      # @return [Array<RLetters::Analysis::WordFrequency>] two analyzers, first
+      #   one-gram and second bi-gram
       def analyzers_for_collocation
         # Build two word listers
         word_listers = [
@@ -169,7 +169,7 @@ module Jobs
         set_segmenters.map do |ss|
           opts = {}
           opts[:inclusion_list] = @word if @word
-          WordFrequencyAnalyzer.new(ss, opts)
+          RLetters::Analysis::WordFrequency.new(ss, opts)
         end
       end
 
@@ -276,7 +276,7 @@ module Jobs
         # sort by frequency
         fail ArgumentError, 'NLP library not available' unless NLP_ENABLED
 
-        # We actually aren't going to use WordFrequencyAnalyzer here; the
+        # We actually aren't going to use Analysis::WordFrequency here; the
         # NLP POS tagger requires us to send it full sentences for maximum
         # accuracy.
         tagger = StanfordCoreNLP::MaxentTagger.new(POS_TAGGER_PATH)
