@@ -61,7 +61,14 @@ class WordFrequencyAnalyzer
     # Save the options
     normalize_options(options)
 
+    # Get the word blocks from the segmenter
     @word_blocks = dataset_segmenter.segments
+
+    # Convert the word arrays in the blocks from the list of words as found
+    # in the document to { 'word' => count } hashes
+    @word_blocks.each do |b|
+      b.words = Hash[b.words.group_by { |w| w }.map { |k, v| [k, v.count] }]
+    end
 
     # Compute all df and tfs, and the type/token values for the dataset, from
     # the word blocks
@@ -70,14 +77,17 @@ class WordFrequencyAnalyzer
     # Pick out the set of words we'll analyze
     pick_words
 
-    # Convert from word blocks to actual blocks
+    # Convert from word blocks to the returned blocks by culling anything not
+    # in the list of words to keep
     @blocks = @word_blocks.map do |b|
-      Hash[b.words.group_by { |w| w }.map { |k, v| [k, v.count] }].keep_if { |k, v| @word_list.include?(k) }
+      b.words.reject { |k, v| !@word_list.include?(k) }
     end
 
     # Build block statistics
     @block_stats = @word_blocks.map do |b|
-      { name: b.name, types: b.words.uniq.size, tokens: b.words.size }
+      { name: b.name,
+        types: b.words.size,
+        tokens: b.words.values.reduce(:+) }
     end
   end
 
@@ -89,24 +99,25 @@ class WordFrequencyAnalyzer
   # @param [Hash] options Parameters for how to compute word frequency
   # @see WordFrequencyAnalyzer#initialize
   def normalize_options(options)
-    # Set default values
-    options.compact.reverse_merge!(num_words: 0)
+    # Lower bound on number of words, default to zero
+    @num_words = [0, options[:num_words] || 0].max
 
-    # Make sure inclusion_list isn't blank
-    options[:inclusion_list].try(:strip!)
-    options[:inclusion_list] = nil if options[:inclusion_list].blank?
+    # Strip and split the lists of words
+    if options[:inclusion_list]
+      options[:inclusion_list].strip!
+      options[:inclusion_list] = nil if options[:inclusion_list].empty?
+    end
+    if options[:exclusion_list]
+      options[:exclusion_list].strip!
+      options[:exclusion_list] = nil if options[:exclusion_list].empty?
+    end
 
-    # Same for exclusion_list
-    options[:exclusion_list].try(:strip!)
-    options[:exclusion_list] = nil if options[:exclusion_list].blank?
+    @inclusion_list = @exclusion_list = nil
+    @inclusion_list = options[:inclusion_list].split if options[:inclusion_list]
+    @exclusion_list = options[:exclusion_list].split if options[:exclusion_list]
 
     # Make sure stop_list is the right type
     options[:stop_list] = nil unless options[:stop_list].is_a? Documents::StopList
-
-    # Copy over the parameters to member variables
-    @num_words = options[:num_words].try(:lbound, 0)
-    @inclusion_list = options[:inclusion_list].try(:split)
-    @exclusion_list = options[:exclusion_list].try(:split)
     @stop_list = options[:stop_list]
   end
 
@@ -128,18 +139,15 @@ class WordFrequencyAnalyzer
   #
   # @api private
   def compute_df_tf
-    @df_in_dataset = {}
     @tf_in_dataset = {}
+    all_words = []
 
     @word_blocks.each do |b|
-      b.words.group_by { |w| w }.map { |k, v| [k, v.count] }.each do |(word, count)|
-        @tf_in_dataset[word] ||= 0
-        @tf_in_dataset[word] += count
-
-        @df_in_dataset[word] ||= 0
-        @df_in_dataset[word] += 1
-      end
+      @tf_in_dataset.merge!(b.words) { |w, v1, v2| v1 + v2 }
+      all_words += b.words.keys
     end
+
+    @df_in_dataset = Hash[all_words.group_by { |w| w }.map { |k, v| [k, v.count] }]
 
     @num_dataset_types = @tf_in_dataset.count
     @num_dataset_tokens = @tf_in_dataset.values.reduce(:+)

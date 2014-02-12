@@ -26,15 +26,11 @@ describe WordFrequencyAnalyzer do
         expect(@analyzer.block_stats[0][:types]).to eq(@analyzer.blocks[0].count)
       end
 
-      it 'saves blocks and stats' do
+      it 'saves blocks' do
         expect(@analyzer.blocks).to be_an(Array)
         expect(@analyzer.blocks[0]).to be_a(Hash)
-
-        expect(@analyzer.block_stats).to be_an(Array)
-        expect(@analyzer.block_stats[0]).to be_a(Hash)
-        expect(@analyzer.block_stats[0][:name]).to be
-        expect(@analyzer.block_stats[0][:types]).to be
-        expect(@analyzer.block_stats[0][:tokens]).to be
+        expect(@analyzer.blocks[0].first[0]).to be_a(String)
+        expect(@analyzer.blocks[0].first[1]).to be_an(Integer)
 
         expect(@analyzer.num_dataset_types).to be
         expect(@analyzer.num_dataset_tokens).to be
@@ -189,6 +185,24 @@ describe WordFrequencyAnalyzer do
     it 'returns the same values as a single-block analysis' do
       @analyzer.word_list.each do |w|
         expect(@analyzer.blocks[0][w]).to eq(@analyzer.tf_in_dataset[w])
+      end
+    end
+  end
+
+  describe '#df_in_dataset' do
+    before(:each) do
+      @analyzer = WordFrequencyAnalyzer.new(@onegram_ss)
+    end
+
+    it 'includes (at least) all the words in the list' do
+      @analyzer.word_list.each do |w|
+        expect(@analyzer.df_in_dataset[w]).to be
+      end
+    end
+
+    it 'returns one for everything' do
+      @analyzer.word_list.each do |w|
+        expect(@analyzer.df_in_dataset[w]).to eq(1)
       end
     end
   end
