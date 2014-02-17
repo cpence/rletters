@@ -75,6 +75,8 @@ end
 # Testing
 group :test, :development do
   gem 'rspec-rails'
+
+  gem 'mock_redis'
 end
 
 group :test do
@@ -86,7 +88,6 @@ group :test do
   gem 'factory_girl_rails'
   gem 'webmock', require: false
   gem 'resque_spec'
-  gem 'mock_redis'
 
   gem 'coveralls', require: false
 end

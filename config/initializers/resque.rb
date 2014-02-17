@@ -6,7 +6,7 @@ require 'resque/status_server'
 require 'resque_scheduler/server'
 
 # FIXME: For external job workers, we'll have to fix this.  But not just yet.
-Resque.redis = Rails.env.test? ? MockRedis.new : 'localhost:6379'
+Resque.redis = Rails.env.production? ? 'localhost:6379' : MockRedis.new
 Resque.inline = Rails.env.development?
 
 # We have some long-running jobs, preserve status information for 7 days
