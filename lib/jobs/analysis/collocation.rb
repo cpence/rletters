@@ -51,7 +51,7 @@ module Jobs
       def perform
         options.symbolize_keys!
         options.remove_blank!
-        at(0, 1, 'Initializing...')
+        at(0, 100, 'Initializing...')
 
         user = User.find(options[:user_id])
         @dataset = user.datasets.active.find(options[:dataset_id])
@@ -67,7 +67,6 @@ module Jobs
         # Part of speech tagging requires the Stanford NLP
         analysis_type = :mi if !NLP_ENABLED && analysis_type == :pos
 
-        at(1, 2, 'Running collocation test...')
         case analysis_type
         when :mi
           algorithm = t('.mi')
@@ -92,7 +91,7 @@ module Jobs
         end
 
         # Save out all the data
-        at(2, 2, 'Finished, generating output...')
+        at(100, 100, 'Finished, generating output...')
         csv_string = CSV.generate do |csv|
           csv << [t('.header', name: @dataset.name)]
           csv << [t('.subheader', test: algorithm)]
@@ -166,10 +165,15 @@ module Jobs
         end
 
         # Create and return frequency analyzers
-        set_segmenters.map do |ss|
+        set_segmenters.each_with_index.map do |ss, i|
           opts = {}
           opts[:inclusion_list] = @word if @word
-          RLetters::Analysis::WordFrequency.new(ss, nil, opts)
+          RLetters::Analysis::WordFrequency.new(
+            ss,
+            ->(p) { at((p.to_f * 33.0).to_i + (i * 33), 100,
+                       ['Computing frequencies for one-grams...',
+                        'Computing frequencies for bi-grams...'][i]) },
+            opts)
         end
       end
 
@@ -181,11 +185,14 @@ module Jobs
 
         word_f = analyzers[0].blocks[0]
         bigram_f = analyzers[1].blocks[0]
+        total = bigram_f.count
 
         n = analyzers[0].num_dataset_tokens.to_f
         n_2 = n * n
 
-        bigram_f.map { |b|
+        bigram_f.each_with_index.map { |b, i|
+          at((i.to_f / total.to_f * 33.0).to_i + 66, 100, 'Computing mutual information for collocations...')
+
           bigram_words = b[0].split
           [b[0],
            Math.log((b[1].to_f / n) /
@@ -207,10 +214,13 @@ module Jobs
 
         word_f = analyzers[0].blocks[0]
         bigram_f = analyzers[1].blocks[0]
+        total = bigram_f.count
 
         n = analyzers[0].num_dataset_tokens.to_f
 
-        bigram_f.map { |b|
+        bigram_f.each_with_index.map { |b, i|
+          at((i.to_f / total.to_f * 33.0).to_i + 66, 100, 'Computing t-tests for collocations...')
+
           bigram_words = b[0].split
           h_0 = (word_f[bigram_words[0]].to_f / n) *
                 (word_f[bigram_words[1]].to_f / n)
@@ -237,10 +247,13 @@ module Jobs
 
         word_f = analyzers[0].blocks[0]
         bigram_f = analyzers[1].blocks[0]
+        total = bigram_f.count
 
         n = analyzers[0].num_dataset_tokens.to_f
 
-        bigram_f.map { |b|
+        bigram_f.each_with_index.map { |b, i|
+          at((i.to_f / total.to_f * 33.0).to_i + 66, 100, 'Computing likelihood ratios for collocations...')
+
           bigram_words = b[0].split
           f_ab = b[1].to_f
           f_a = word_f[bigram_words[0]].to_f
@@ -275,6 +288,7 @@ module Jobs
         # A N, N N, A A N, A N N, N A N, N N N, N P N
         # sort by frequency
         fail ArgumentError, 'NLP library not available' unless NLP_ENABLED
+        total = @dataset.entries.count
 
         # We actually aren't going to use Analysis::WordFrequency here; the
         # NLP POS tagger requires us to send it full sentences for maximum
@@ -282,7 +296,9 @@ module Jobs
         tagger = StanfordCoreNLP::MaxentTagger.new(POS_TAGGER_PATH)
         enum = RLetters::Datasets::DocumentEnumerator.new(@dataset,
                                                           fulltext: true)
-        enum.each_with_object({}) { |doc, result|
+        enum.each_with_index.each_with_object({}) { |(doc, i), result|
+          at((i.to_f / total.to_f * 100.0).to_i, 100, 'Computing parts of speech for documents...')
+
           tagged = tagger.tagString(doc.fulltext).split
 
           tagged.each_cons(2).map do |t|
