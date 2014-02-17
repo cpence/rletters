@@ -108,9 +108,7 @@ class WorkflowController < ApplicationController
           status = Resque::Plugins::Status::Hash.get(t.resque_key)
 
           if status.working?
-            # Since these might be working on remote worker machines, there's
-            # no way we can actually feed them a kill signal; all we can do is
-            # hope that they hit an at() or a tick() soon
+            # Signal the job to terminate the next time it calls at() or tick()
             Resque::Plugins::Status::Hash.kill(t.resque_key)
           else
             # Pull from the queue
