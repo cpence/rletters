@@ -128,7 +128,7 @@ class FacetsDecorator < Draper::Decorator
 
         # Get a label into the link as well
         count = h.content_tag(:span, f.hits.to_s, class: 'round secondary label')
-        text = f.label + '&nbsp;&nbsp;'.html_safe + count
+        text = ''.html_safe + f.label + '&nbsp;&nbsp;'.html_safe + count
 
         # Link to whatever the current facets are, plus the new one
         link_to_facets(text, active_facets + [f])
