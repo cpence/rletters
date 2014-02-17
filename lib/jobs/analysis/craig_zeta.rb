@@ -68,17 +68,19 @@ module Jobs
                                                           block_size: 500,
                                                           last_block: :big_last)
 
-        at(1, 100, 'Analyzing words in first dataset...')
         set_segmenter_1 = RLetters::Datasets::Segments.new(dataset_1,
                                                            doc_segmenter,
                                                            split_across: true)
-        analyzer_1 = RLetters::Analysis::WordFrequency.new(set_segmenter_1)
+        analyzer_1 = RLetters::Analysis::WordFrequency.new(
+          set_segmenter_1,
+          ->(p) { at((p.to_f * 25.0).to_i, 100, 'Analyzing words in first dataset...') })
 
-        at(25, 100, 'Analyzing words in second dataset...')
         set_segmenter_2 = RLetters::Datasets::Segments.new(dataset_2,
                                                            doc_segmenter,
                                                            split_across: true)
-        analyzer_2 = RLetters::Analysis::WordFrequency.new(set_segmenter_2)
+        analyzer_2 = RLetters::Analysis::WordFrequency.new(
+          set_segmenter_2,
+          ->(p) { at((p.to_f * 25.0).to_i + 25, 100, 'Analyzing words in second dataset...') })
 
         # 2) Cull any word that appears in *every* block.
         at(50, 100, 'Removing words that appear in all blocks...')

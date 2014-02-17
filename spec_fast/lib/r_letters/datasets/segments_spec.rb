@@ -15,7 +15,7 @@ describe RLetters::Datasets::Segments do
 
   context 'one block for the dataset, splitting across' do
     before(:each) do
-      @segments = RLetters::Datasets::Segments.new(@dataset).segments
+      @segments = described_class.new(@dataset).segments
     end
 
     it 'creates only one block' do
@@ -31,9 +31,27 @@ describe RLetters::Datasets::Segments do
     end
   end
 
+  context 'progress reporting' do
+    it 'calls the progress function with under and equal to 100' do
+      called_sub_100 = false
+      called_100 = false
+
+      segments = described_class.new(@dataset).segments(->(p) {
+        if p < 100
+          called_sub_100 = true
+        else
+          called_100 = true
+        end
+      })
+
+      expect(called_sub_100).to be true
+      expect(called_100).to be true
+    end
+  end
+
   context 'one block per document, not splitting across' do
     before(:each) do
-      @segments = RLetters::Datasets::Segments.new(@dataset, nil, split_across: false).segments
+      @segments = described_class.new(@dataset, nil, split_across: false).segments
     end
 
       it 'creates two blocks' do
@@ -54,7 +72,7 @@ describe RLetters::Datasets::Segments do
   context 'four total blocks, splitting across' do
     before(:each) do
       @doc_segmenter = RLetters::Documents::Segments.new(nil, num_blocks: 4)
-      @segments = RLetters::Datasets::Segments.new(@dataset, @doc_segmenter).segments
+      @segments = described_class.new(@dataset, @doc_segmenter).segments
     end
 
     it 'creates four blocks' do
@@ -74,7 +92,7 @@ describe RLetters::Datasets::Segments do
     before(:each) do
       @doc_segmenter = RLetters::Documents::Segments.new(nil, block_size: 10,
                                                               last_block: :truncate_all)
-      @segments = RLetters::Datasets::Segments.new(@dataset, @doc_segmenter).segments
+      @segments = described_class.new(@dataset, @doc_segmenter).segments
     end
 
     it 'creates only one block' do
@@ -94,9 +112,9 @@ describe RLetters::Datasets::Segments do
     before(:each) do
       @doc_segmenter = RLetters::Documents::Segments.new(nil, block_size: 10,
                                                               last_block: :truncate_all)
-      @segments = RLetters::Datasets::Segments.new(@dataset,
-                                                   @doc_segmenter,
-                                                   split_across: false).segments
+      @segments = described_class.new(@dataset,
+                                      @doc_segmenter,
+                                      split_across: false).segments
     end
 
     it 'creates two blocks' do

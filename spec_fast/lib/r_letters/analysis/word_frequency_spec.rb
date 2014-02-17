@@ -56,7 +56,7 @@ describe RLetters::Analysis::WordFrequency do
 
     context 'with num_words negative' do
       before(:each) do
-        @analyzer = described_class.new(@onegram_ss, num_words: -1)
+        @analyzer = described_class.new(@onegram_ss, nil, num_words: -1)
       end
 
       it 'acts like it was not set at all' do
@@ -66,7 +66,7 @@ describe RLetters::Analysis::WordFrequency do
 
     context 'with num_words set to 10' do
       before(:each) do
-        @analyzer = described_class.new(@onegram_ss, num_words: 10)
+        @analyzer = described_class.new(@onegram_ss, nil, num_words: 10)
       end
 
       it 'only includes ten words' do
@@ -80,7 +80,7 @@ describe RLetters::Analysis::WordFrequency do
   describe '#inclusion_list' do
     context 'with one-grams' do
       before(:each) do
-        @analyzer = described_class.new(@onegram_ss, inclusion_list: 'the best')
+        @analyzer = described_class.new(@onegram_ss, nil, inclusion_list: 'the best')
       end
 
       it 'only includes those words' do
@@ -90,7 +90,7 @@ describe RLetters::Analysis::WordFrequency do
 
     context 'with n-grams' do
       before(:each) do
-        @analyzer = described_class.new(@ngram_ss, inclusion_list: 'best')
+        @analyzer = described_class.new(@ngram_ss, nil, inclusion_list: 'best')
       end
 
       it 'produces ngrams that all contain brain' do
@@ -105,7 +105,7 @@ describe RLetters::Analysis::WordFrequency do
   describe '#exclusion_list' do
     context 'with one-grams' do
       before(:each) do
-        @analyzer = described_class.new(@onegram_ss, exclusion_list: 'a the')
+        @analyzer = described_class.new(@onegram_ss, nil, exclusion_list: 'a the')
       end
 
       it 'does not include those words' do
@@ -120,7 +120,7 @@ describe RLetters::Analysis::WordFrequency do
 
     context 'with n-grams' do
       before(:each) do
-        @analyzer = described_class.new(@ngram_ss, exclusion_list: 'worst')
+        @analyzer = described_class.new(@ngram_ss, nil, exclusion_list: 'worst')
       end
 
       it 'produces ngrams that do not contain brain' do
@@ -134,7 +134,7 @@ describe RLetters::Analysis::WordFrequency do
   describe '#stop_list' do
     before(:each) do
       @list = double_stop_list
-      @analyzer = described_class.new(@onegram_ss, stop_list: @list)
+      @analyzer = described_class.new(@onegram_ss, nil, stop_list: @list)
     end
 
     it 'does not include "a" and "the"' do
@@ -161,7 +161,7 @@ describe RLetters::Analysis::WordFrequency do
 
   describe '#word_list' do
     before(:each) do
-      @analyzer = described_class.new(@onegram_ss, num_words: 10)
+      @analyzer = described_class.new(@onegram_ss, nil, num_words: 10)
     end
 
     it 'only includes the requested number of words' do
@@ -208,6 +208,24 @@ describe RLetters::Analysis::WordFrequency do
       @analyzer.word_list.each do |w|
         expect(@analyzer.df_in_dataset[w]).to eq(1)
       end
+    end
+  end
+
+  describe 'progress reporting' do
+    it 'calls the progress function with under and equal to 100' do
+      called_sub_100 = false
+      called_100 = false
+
+      described_class.new(@onegram_ss, ->(p) {
+        if p < 100
+          called_sub_100 = true
+        else
+          called_100 = true
+        end
+      })
+
+      expect(called_sub_100).to be true
+      expect(called_100).to be true
     end
   end
 end

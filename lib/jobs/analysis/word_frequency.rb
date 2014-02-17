@@ -60,10 +60,11 @@ module Jobs
         task.name = t('.short_desc')
         task.save
 
-        at(1, 2, 'Calculating word frequencies...')
-
         # Do the analysis
-        analyzer = compute_word_frequencies(dataset, options)
+        analyzer = compute_word_frequencies(
+          dataset,
+          ->(p) { at(p, 100, 'Calculating word frequencies...') },
+          options)
         df_in_corpus = @word_lister.dfs
         corpus_size = RLetters::Solr::CorpusStats.new.size
 

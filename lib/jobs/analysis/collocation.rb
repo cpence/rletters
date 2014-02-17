@@ -169,7 +169,7 @@ module Jobs
         set_segmenters.map do |ss|
           opts = {}
           opts[:inclusion_list] = @word if @word
-          RLetters::Analysis::WordFrequency.new(ss, opts)
+          RLetters::Analysis::WordFrequency.new(ss, nil, opts)
         end
       end
 

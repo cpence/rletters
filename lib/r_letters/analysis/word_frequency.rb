@@ -37,6 +37,8 @@ module RLetters
       # @api public
       # @param [RLetters::Datasets::Segments] dataset_segments A segmenter for
       #   the dataset to analyze
+      # @param [Proc] progress If set, a function to call with a percentage of
+      #   completion (one Integer parameter)
       # @param [Hash] options Parameters for how to compute word frequency
       # @option options [Integer] :num_words If set, only return frequency
       #   data for this many words; otherwise, return all words.  If +ngrams+
@@ -60,31 +62,35 @@ module RLetters
       # @option options [Documents::StopList] :stop_list If specified, then the
       #   analyzer will *not* compute frequency information for the words that
       #   appear within this stop list.  Cannot be used if +ngrams+ is set.
-      def initialize(dataset_segments, options = {})
+      def initialize(dataset_segments, progress = nil, options = {})
         # Save the options
         normalize_options(options)
 
         # Get the word blocks from the segmenter
-        @word_blocks = dataset_segments.segments
+        @word_blocks = dataset_segments.segments(->(p) { progress.call((p * 0.8).to_i) if progress })
 
         # Convert the word arrays in the blocks from the list of words as found
         # in the document to { 'word' => count } hashes
         @word_blocks.each do |b|
           b.words = Hash[b.words.group_by { |w| w }.map { |k, v| [k, v.count] }]
         end
+        progress.call(85) if progress
 
         # Compute all df and tfs, and the type/token values for the dataset,
         # from the word blocks
         compute_df_tf
+        progress.call(90) if progress
 
         # Pick out the set of words we'll analyze
         pick_words
+        progress.call(93) if progress
 
         # Convert from word blocks to the returned blocks by culling anything
         # not in the list of words to keep
         @blocks = @word_blocks.map do |b|
           b.words.reject { |k, v| !@word_list.include?(k) }
         end
+        progress.call(97) if progress
 
         # Build block statistics
         @block_stats = @word_blocks.map do |b|
@@ -92,6 +98,7 @@ module RLetters
             types: b.words.size,
             tokens: b.words.values.reduce(:+) }
         end
+        progress.call(100) if progress
       end
 
       private

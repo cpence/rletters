@@ -48,6 +48,8 @@ module RLetters
             @entity_references[type] << result
           end
         end
+
+        progress.call(100) if progress
       end
     end
   end

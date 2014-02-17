@@ -22,9 +22,12 @@ module RLetters
 
       # Split the dataset into text segments
       #
+      # @param [Proc] progress If set, a function to call with a percentage of
+      #   completion (one Integer parameter)
       # @return [Array<RLetters::Documents::Block>] the text segments
-      def segments
-        @options[:split_across] ? segments_across : segments_within
+      def segments(progress = nil)
+        @options[:split_across] ? segments_across(progress) :
+                                  segments_within(progress)
       end
 
       private
@@ -32,14 +35,24 @@ module RLetters
       # Perform text segmentation, for splitting across documents
       #
       # @api private
+      # @param [Proc] progress If set, a function to call with a percentage of
+      #   completion (one Integer parameter)
       # @return [Array<RLetters::Documents::Block>] the text segments
-      def segments_across
+      def segments_across(progress)
+        base = 0
+        total = @dataset.entries.count.to_f
+
         @segmenter.reset!
         @dataset.entries.find_in_batches do |group|
-          group.each do |entry|
+          group.each_with_index do |entry, i|
             @segmenter.add(entry.uid)
+            progress.call(((base + i).to_f / total * 100.0).to_i) if progress
           end
+
+          base += group.count
         end
+
+        progress.call(100) if progress
 
         @segmenter.blocks
       end
@@ -47,19 +60,30 @@ module RLetters
       # Perform text segmentation, for splitting within documents
       #
       # @api private
+      # @param [Proc] progress If set, a function to call with a percentage of
+      #   completion (one Integer parameter)
       # @return [Array<RLetters::Documents::Block>] the text segments
-      def segments_within
+      def segments_within(progress)
+        base = 0
+        total = @dataset.entries.count.to_f
+
         [].tap do |ret|
           @dataset.entries.find_in_batches do |group|
-            group.each do |entry|
+            group.each_with_index do |entry, i|
               @segmenter.reset!
               @segmenter.add(entry.uid)
               @segmenter.blocks.each do |b|
                 b.name += " (within document #{entry.uid})"
                 ret << b
               end
+
+              progress.call(((base + i).to_f / total * 100.0).to_i) if progress
             end
+
+            base += group.count
           end
+
+          progress.call(100) if progress
         end
       end
     end

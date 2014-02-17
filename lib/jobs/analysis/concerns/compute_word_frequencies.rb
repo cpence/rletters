@@ -15,6 +15,8 @@ module Jobs
         #
         # @param [Dataset] datset the dataset for which to compute
         #   frequencies
+        # @param [Proc] progress If set, a function to call with a percentage
+        #   of completion (one Integer parameter)
         # @param [Hash] args parameters for frequency analysis
         # @option args [String] block_size block size, in words
         #
@@ -48,7 +50,7 @@ module Jobs
         # @option args [String] exclusion_list if set, list of words to
         #   exclude from analysis
         # @return [RLetters::Analysis::WordFrequency] the computed analysis
-        def compute_word_frequencies(dataset, args = {})
+        def compute_word_frequencies(dataset, progress = nil, args = {})
           convert_args!(args)
 
           # Produce a word list generator
@@ -75,7 +77,7 @@ module Jobs
                                                             set_segmenter_options)
 
           # Perform the analysis (with the remaining args) and return it
-          RLetters::Analysis::WordFrequency.new(@set_segmenter, args)
+          RLetters::Analysis::WordFrequency.new(@set_segmenter, progress, args)
         end
 
         private
