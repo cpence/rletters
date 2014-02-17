@@ -51,7 +51,7 @@ module Jobs
       def perform
         options.symbolize_keys!
         options.remove_blank!
-        at(0, 1, 'Initializing...')
+        at(0, 100, 'Initializing...')
 
         user = User.find(options[:user_id])
         dataset = user.datasets.active.find(options[:dataset_id])
@@ -69,7 +69,7 @@ module Jobs
         corpus_size = RLetters::Solr::CorpusStats.new.size
 
         # Create some CSV
-        at(2, 2, 'Finished, generating output...')
+        at(100, 100, 'Finished, generating output...')
         csv_string = CSV.generate do |csv|
           csv << [t('.csv_header', name: dataset.name)]
           csv << ['']

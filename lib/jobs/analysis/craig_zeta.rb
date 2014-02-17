@@ -46,7 +46,7 @@ module Jobs
       def perform
         options.symbolize_keys!
         options.remove_blank!
-        at(0, 1, 'Initializing...')
+        at(0, 100, 'Initializing...')
 
         user = User.find(options[:user_id])
         dataset_1 = user.datasets.active.find(options[:dataset_id])
