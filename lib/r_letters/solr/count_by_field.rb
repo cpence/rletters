@@ -58,7 +58,8 @@ module RLetters
           group: 'true',
           'group.field' => field.to_s,
           fl: 'uid',
-          facet: 'false'
+          facet: 'false',
+          rows: '99999'
         })
 
         unless search_result['grouped'] &&
