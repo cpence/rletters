@@ -1,10 +1,6 @@
 # -*- encoding : utf-8 -*-
-#require 'core_ext/hash/compact'
-#require 'active_support/core_ext/hash/reverse_merge'
-#require 'active_support/core_ext/array/grouping'
-
 require 'r_letters/datasets/document_enumerator'
-require 'r_letters/analysis/word_frequency'
+require 'r_letters/analysis/frequency/base'
 require 'r_letters/analysis/frequency/from_tf'
 
 require 'support/doubles/stop_list'

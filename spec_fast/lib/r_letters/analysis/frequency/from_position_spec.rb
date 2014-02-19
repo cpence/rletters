@@ -6,7 +6,7 @@ require 'active_support/core_ext/array/grouping'
 require 'r_letters/documents/word_list'
 require 'r_letters/documents/segments'
 require 'r_letters/datasets/segments'
-require 'r_letters/analysis/word_frequency'
+require 'r_letters/analysis/frequency/base'
 require 'r_letters/analysis/frequency/from_position'
 
 require 'support/doubles/stop_list'

@@ -10,7 +10,7 @@ module RLetters
       # then we can analyze the words simply by reading the +tf+ values from the
       # term vectors, which is much faster than reconstructing the full text from
       # the +offsets.+
-      class FromTF < RLetters::Analysis::WordFrequency
+      class FromTF < RLetters::Analysis::Frequency::Base
         # Run a TF-based analysis
         #
         # @param [Dataset] dataset The dataset to analyze

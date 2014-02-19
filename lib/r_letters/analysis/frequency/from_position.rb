@@ -8,7 +8,7 @@ module RLetters
       # This class can compute all combinations of its input parameters, by
       # reconstructing the full text from the +offsets+ information in the
       # term vectors.
-      class FromPosition < RLetters::Analysis::WordFrequency
+      class FromPosition < RLetters::Analysis::Frequency::Base
         # Create a new word frequency analyzer and analyze
         #
         # @api public
