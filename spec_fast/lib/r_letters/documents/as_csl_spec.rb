@@ -10,19 +10,19 @@ describe RLetters::Documents::AsCSL do
 
   context 'when fetching a single document' do
     before(:each) do
-      @csl = @as_csl.hash
+      @csl = @as_csl.citeproc_item
     end
 
     it 'creates good CSL' do
-      expect(@csl['type']).to eq('article-journal')
-      expect(@csl['author'][0]['family']).to eq('One')
-      expect(@csl['author'][1]['given']).to eq('B.')
-      expect(@csl['title']).to eq('Test Title')
-      expect(@csl['container-title']).to eq('Journal')
-      expect(@csl['issued']['date-parts'][0][0]).to eq(2010)
-      expect(@csl['volume']).to eq('10')
-      expect(@csl['issue']).to eq('20')
-      expect(@csl['page']).to eq('100-200')
+      expect(@csl.type).to eq('article-journal')
+      expect(@csl.author[0].family).to eq('One')
+      expect(@csl.author[1].given).to eq('B.')
+      expect(@csl.title).to eq('Test Title')
+      expect(@csl.container_title).to eq('Journal')
+      expect(@csl.issued.to_date).to eq(Date.new(2010))
+      expect(@csl.volume).to eq('10')
+      expect(@csl.issue).to eq('20')
+      expect(@csl.page).to eq('100-200')
     end
   end
 

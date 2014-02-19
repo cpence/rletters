@@ -39,7 +39,8 @@ gem 'd3_rails'
 
 # Citation processing
 gem 'bibtex-ruby', require: 'bibtex'
-gem 'citeproc-ruby', '>= 0.0.4'
+gem 'citeproc-ruby', '~> 1.0'
+gem 'csl-styles'
 
 # Support for file attachments and exporting
 gem 'paperclip', '~> 3.0'

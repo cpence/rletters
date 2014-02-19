@@ -4,6 +4,7 @@
 
 *   Add an optimized WordFrequencyAnalyzer that can be called when only a single block is requested.
 *   Fix a bug in the computation of DF values within datasets.
+*   Update Rails, which fixes two potential DoS vulnerabilities.
 *   Fix a potential DoS vulnerability from symbol conversion in the export code.
 
 

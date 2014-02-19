@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 require 'citeproc'
+require 'csl/styles'
 
 module RLetters
   module Documents
@@ -25,22 +26,24 @@ module RLetters
       #   doc = Document.new(...)
       #   RLetters::Documents::AsCSL.new(doc).hash
       #   # => { 'type' => 'article-journal', 'author' => ... }
-      def hash
-        ret = {}
-        ret['type'] = 'article-journal'
+      def citeproc_item
+        item = CiteProc::Item.new(id: @doc.uid, type: 'article-journal')
 
         unless @doc.authors.empty?
-          ret['author'] = @doc.authors.map { |a| a.to_citeproc }
+          item.author = CiteProc::Names.new
+          @doc.authors.each do |a|
+            item.author << CiteProc::Name.new(a.to_citeproc)
+          end
         end
 
-        ret['title'] = @doc.title if @doc.title
-        ret['container-title'] = @doc.journal if @doc.journal
-        ret['issued'] = { 'date-parts' => [[Integer(@doc.year)]] } if @doc.year
-        ret['volume'] = @doc.volume if @doc.volume
-        ret['issue'] = @doc.number if @doc.number
-        ret['page'] = @doc.pages if @doc.pages
+        item.title = @doc.title if @doc.title
+        item.container_title = @doc.journal if @doc.journal
+        item.issued = CiteProc::Date.new(Integer(@doc.year)) if @doc.year
+        item.volume = @doc.volume if @doc.volume
+        item.issue = @doc.number if @doc.number
+        item.page = @doc.pages if @doc.pages
 
-        ret
+        item
       end
 
       # Convert the document to CSL, and format it with the given style
@@ -55,7 +58,11 @@ module RLetters
       #   RLetters::Documents::AsCSL.new(doc).entry(csl_style)
       #   # => "Doe, John. 2000. ..."
       def entry(style)
-        CiteProc.process(hash, format: :html, style: style.style).strip
+        processor = CiteProc::Processor.new(style: style.style, format: 'html')
+        item = citeproc_item
+
+        processor.register(citeproc_item)
+        processor.render(:bibliography, id: @doc.uid)[0]
       end
     end
   end
