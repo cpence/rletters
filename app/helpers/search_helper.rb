@@ -2,91 +2,6 @@
 
 # Markup generators for the search controller
 module SearchHelper
-  # Return a formatted version of the number of hits for the last search
-  #
-  # @api public
-  # @param [RLetters::Solr::SearchResult] result the search result
-  # @return [String] number of hits for the search
-  # @example Print the number of hits for the search (in HAML)
-  #   = num_hits_string(@result)
-  def num_hits_string(result)
-    if params[:precise] || params[:q] || params[:fq]
-      I18n.t 'search.index.num_hits_found', count: result.num_hits
-    else
-      I18n.t 'search.index.num_documents_database', count: result.num_hits
-    end
-  end
-
-  # Make a link to a page for the pagination widget
-  #
-  # @api public
-  # @param [String] text text for this link
-  # @param [Integer] num the page number (0-based)
-  # @param [String] cl class to put on the <li> tag
-  # @return [String] the requested link
-  # @example Get a link to the 3rd page of results
-  #   page_link('Page 3!', 2)
-  def page_link(text, num, cl)
-    if num.nil?
-      href = '#'
-    else
-      new_params = params.deep_dup
-      if num == 0
-        new_params.delete :page
-      else
-        new_params[:page] = num
-      end
-      href = search_path(new_params)
-    end
-
-    content_tag(:li, link_to(text, href), class: cl)
-  end
-
-  # Render the pagination links
-  #
-  # @api public
-  # @param [RLetters::Solr::SearchResult] result the search result
-  # @return [String] full set of pagination links for the current page
-  # @example Put the current pagination links in a paragraph element
-  #   <p><%= render_pagination(@result) %></p>
-  def render_pagination(result)
-    num_pages = result.num_hits.to_f / @per_page.to_f
-    num_pages = Integer(num_pages.ceil)
-    return '' if num_pages <= 1
-
-    content_tag :ul, class: 'pagination' do
-      content = page_link('&laquo;'.html_safe,
-                          @page == 0 ? nil : @page - 1,
-                          @page == 0 ? 'unavailable' : nil)
-
-      # Render at most seven pagination links
-      if num_pages < 7
-        range_to_render = (0..num_pages).to_a
-      elsif @page < 3
-        range_to_render = [0, 1, 2, 3, nil, num_pages - 2, num_pages - 1]
-      elsif @page >= num_pages - 3
-        range_to_render = [0, 1, nil, num_pages - 4, num_pages - 3,
-                           num_pages - 2, num_pages - 1]
-      else
-        range_to_render = [0, nil, @page - 1, @page, @page + 1, nil,
-                           num_pages - 1]
-      end
-
-      range_to_render.each do |p|
-        if p.nil?
-          content << page_link('&hellip;'.html_safe, nil, 'unavailable')
-        else
-          content << page_link((p + 1).to_s, p, @page == p ? 'current' : nil)
-        end
-      end
-
-      content << page_link('&raquo;'.html_safe,
-                           @page == num_pages - 1 ? nil : @page + 1,
-                           @page == num_pages - 1 ? 'unavailable' : nil)
-
-      content
-    end
-  end
 
   # The array of all sort methods
   SORT_METHODS = [
@@ -153,7 +68,7 @@ module SearchHelper
   # @param [RLetters::Solr::SearchResult] result the search result
   # @return [String] active filters in <dd><a> tags
   # @example Get all of the filter removal links
-  #   active_Facet_list(@result)
+  #   active_filter_list(@result)
   #   # "<dd><a href='...'>Johnson</a></dd>..."
   def active_filter_list(result, facets)
     # If we're entirely non-faceted, then bail
@@ -188,7 +103,7 @@ module SearchHelper
     end
 
     # Facets
-    ret << facets.removal_links
+    ret << facets.removal_links if facets
     ret
   end
 

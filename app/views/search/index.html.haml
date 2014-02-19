@@ -31,17 +31,17 @@
               %li= link_to sort_to_string(s), search_path(params.merge({ sort: s }))
 
     %dl.sub-nav
-      %dt= num_hits_string(@result)
-      = active_filter_list(@result, @facets)
+      %dt= result.num_hits(@query, @facet_query, @precise)
+      = active_filter_list(result, facets)
 
-    .pagination-centered= render_pagination(@result)
+    .pagination-centered= result.pagination(@page, @per_page)
     %table.document-list
       - @documents.each do |d|
         %tr
           %td{ 'data-dropdown' => "drop-#{d.html_uid}" }
             %abbr{ class: 'unapi-id', title: d.uid }= ''
             = document_bibliography_entry(d)
-    .pagination-centered= render_pagination(@result)
+    .pagination-centered= result.pagination(@page, @per_page)
 
     - @documents.each do |d|
       %div.f-dropdown.medium.content{ 'data-dropdown-content' => true, id: "drop-#{d.html_uid}" }= render partial: 'dropdown', locals: { document: d }
@@ -50,8 +50,8 @@
     .panel
       %h5= t('.filters')
       %ul.side-nav
-        - if @facets
-          = @facets.addition_links
+        - if facets
+          = facets.addition_links
         %li.divider
         = journal_category_list
 

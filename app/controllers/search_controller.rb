@@ -7,6 +7,9 @@
 # user's provided search criteria into Solr queries for
 # +RLetters::Solr::Connection.search+.
 class SearchController < ApplicationController
+  decorates_assigned :result, with: SearchResultDecorator
+  decorates_assigned :facets, with: FacetsDecorator
+
   # Show the main search index page
   #
   # The controller just passes the search parameters through
@@ -31,6 +34,10 @@ class SearchController < ApplicationController
     end
     @sort = params[:sort] if params[:sort]
 
+    @query = params[:q]
+    @precise = params[:precise]
+    @facet_query = params[:fq]
+
     # Expose the precise Solr search so we can use it to create datasets
     solr_query = search_params_to_solr_query(params)
     @solr_q = solr_query[:q]
@@ -43,12 +50,8 @@ class SearchController < ApplicationController
 
     # Get the documents
     @result = RLetters::Solr::Connection.search(solr_query)
+    @facets = @result.facets
     @documents = @result.documents
-
-    # Decorate objects
-    if @result.facets
-      @facets = FacetsDecorator.decorate(@result.facets)
-    end
   end
 
   # Show the advanced search page
