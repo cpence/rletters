@@ -2,6 +2,7 @@
 
 ## Version 1.3 (beta, unreleased)
 
+*   Fix a bug in the computation of DF values within datasets.
 *   Fix a potential DoS vulnerability from symbol conversion in the export code.
 
 

@@ -71,14 +71,14 @@ module Jobs
         set_segmenter_1 = RLetters::Datasets::Segments.new(dataset_1,
                                                            doc_segmenter,
                                                            split_across: true)
-        analyzer_1 = RLetters::Analysis::WordFrequency.new(
+        analyzer_1 = RLetters::Analysis::Frequency::FromPosition.new(
           set_segmenter_1,
           ->(p) { at((p.to_f * 25.0).to_i, 100, 'Analyzing words in first dataset...') })
 
         set_segmenter_2 = RLetters::Datasets::Segments.new(dataset_2,
                                                            doc_segmenter,
                                                            split_across: true)
-        analyzer_2 = RLetters::Analysis::WordFrequency.new(
+        analyzer_2 = RLetters::Analysis::Frequency::FromPosition.new(
           set_segmenter_2,
           ->(p) { at((p.to_f * 25.0).to_i + 25, 100, 'Analyzing words in second dataset...') })
 

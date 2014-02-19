@@ -1,32 +1,24 @@
 # -*- encoding : utf-8 -*-
-require 'core_ext/hash/compact'
-require 'active_support/core_ext/hash/reverse_merge'
-require 'active_support/core_ext/array/grouping'
+#require 'core_ext/hash/compact'
+#require 'active_support/core_ext/hash/reverse_merge'
+#require 'active_support/core_ext/array/grouping'
 
-require 'r_letters/documents/word_list'
-require 'r_letters/documents/segments'
-require 'r_letters/datasets/segments'
+require 'r_letters/datasets/document_enumerator'
 require 'r_letters/analysis/word_frequency'
-require 'r_letters/analysis/frequency/from_position'
+require 'r_letters/analysis/frequency/from_tf'
 
 require 'support/doubles/stop_list'
 require 'support/doubles/dataset_fulltext'
 
-describe RLetters::Analysis::Frequency::FromPosition do
+describe RLetters::Analysis::Frequency::FromTF do
   before(:each) do
-    @dataset = double_dataset_fulltext
-
-    @onegram_ss = RLetters::Datasets::Segments.new(@dataset)
-
-    ngram_lister = RLetters::Documents::WordList.new(ngrams: 3)
-    ngram_ds = RLetters::Documents::Segments.new(ngram_lister)
-    @ngram_ss = RLetters::Datasets::Segments.new(@dataset, ngram_ds)
+    @dataset = stub_dataset_fulltext
   end
 
   describe '#num_words' do
     context 'without num_words set' do
       before(:each) do
-        @analyzer = described_class.new(@onegram_ss)
+        @analyzer = described_class.new(@dataset)
       end
 
       it 'includes all words' do
@@ -57,7 +49,7 @@ describe RLetters::Analysis::Frequency::FromPosition do
 
     context 'with num_words negative' do
       before(:each) do
-        @analyzer = described_class.new(@onegram_ss, nil, num_words: -1)
+        @analyzer = described_class.new(@dataset, nil, num_words: -1)
       end
 
       it 'acts like it was not set at all' do
@@ -67,7 +59,7 @@ describe RLetters::Analysis::Frequency::FromPosition do
 
     context 'with num_words set to 10' do
       before(:each) do
-        @analyzer = described_class.new(@onegram_ss, nil, num_words: 10)
+        @analyzer = described_class.new(@dataset, nil, num_words: 10)
       end
 
       it 'only includes ten words' do
@@ -79,63 +71,34 @@ describe RLetters::Analysis::Frequency::FromPosition do
   end
 
   describe '#inclusion_list' do
-    context 'with one-grams' do
-      before(:each) do
-        @analyzer = described_class.new(@onegram_ss, nil, inclusion_list: 'the best')
-      end
-
-      it 'only includes those words' do
-        expect(@analyzer.blocks[0].keys).to match_array(%w(the best))
-      end
+    before(:each) do
+      @analyzer = described_class.new(@dataset, nil, inclusion_list: 'the best')
     end
 
-    context 'with n-grams' do
-      before(:each) do
-        @analyzer = described_class.new(@ngram_ss, nil, inclusion_list: 'best')
-      end
-
-      it 'produces ngrams that all contain brain' do
-        expect(@analyzer.blocks[0].size).to be > 0
-        @analyzer.blocks[0].each do |k, v|
-          expect(k).to include('best')
-        end
-      end
+    it 'only includes those words' do
+      expect(@analyzer.blocks[0].keys).to match_array(%w(the best))
     end
   end
 
   describe '#exclusion_list' do
-    context 'with one-grams' do
-      before(:each) do
-        @analyzer = described_class.new(@onegram_ss, nil, exclusion_list: 'a the')
-      end
-
-      it 'does not include those words' do
-        expect(@analyzer.blocks[0].keys).not_to include('a')
-        expect(@analyzer.blocks[0].keys).not_to include('the')
-      end
-
-      it 'includes some words' do
-        expect(@analyzer.blocks[0].keys).not_to be_empty
-      end
+    before(:each) do
+      @analyzer = described_class.new(@dataset, nil, exclusion_list: 'a the')
     end
 
-    context 'with n-grams' do
-      before(:each) do
-        @analyzer = described_class.new(@ngram_ss, nil, exclusion_list: 'worst')
-      end
+    it 'does not include those words' do
+      expect(@analyzer.blocks[0].keys).not_to include('a')
+      expect(@analyzer.blocks[0].keys).not_to include('the')
+    end
 
-      it 'produces ngrams that do not contain brain' do
-        @analyzer.blocks[0].each do |k, v|
-          expect(k).not_to include('worst')
-        end
-      end
+    it 'includes some words' do
+      expect(@analyzer.blocks[0].keys).not_to be_empty
     end
   end
 
   describe '#stop_list' do
     before(:each) do
       @list = double_stop_list
-      @analyzer = described_class.new(@onegram_ss, nil, stop_list: @list)
+      @analyzer = described_class.new(@dataset, nil, stop_list: @list)
     end
 
     it 'does not include "a" and "the"' do
@@ -150,7 +113,7 @@ describe RLetters::Analysis::Frequency::FromPosition do
 
   describe '#block_stats' do
     before(:each) do
-      @analyzer = described_class.new(@onegram_ss)
+      @analyzer = described_class.new(@dataset)
     end
 
     it 'includes name, types, and tokens' do
@@ -162,7 +125,7 @@ describe RLetters::Analysis::Frequency::FromPosition do
 
   describe '#word_list' do
     before(:each) do
-      @analyzer = described_class.new(@onegram_ss, nil, num_words: 10)
+      @analyzer = described_class.new(@dataset, nil, num_words: 10)
     end
 
     it 'only includes the requested number of words' do
@@ -178,7 +141,7 @@ describe RLetters::Analysis::Frequency::FromPosition do
 
   describe '#tf_in_dataset' do
     before(:each) do
-      @analyzer = described_class.new(@onegram_ss)
+      @analyzer = described_class.new(@dataset)
     end
 
     it 'includes (at least) all the words in the list' do
@@ -196,7 +159,7 @@ describe RLetters::Analysis::Frequency::FromPosition do
 
   describe '#df_in_dataset' do
     before(:each) do
-      @analyzer = described_class.new(@onegram_ss)
+      @analyzer = described_class.new(@dataset)
     end
 
     it 'includes (at least) all the words in the list' do
@@ -214,7 +177,7 @@ describe RLetters::Analysis::Frequency::FromPosition do
 
   describe '#df_in_corpus' do
     before(:each) do
-      @analyzer = described_class.new(@onegram_ss)
+      @analyzer = described_class.new(@dataset)
     end
 
     it 'includes (at least) all the words in the list' do
@@ -235,7 +198,7 @@ describe RLetters::Analysis::Frequency::FromPosition do
       called_sub_100 = false
       called_100 = false
 
-      described_class.new(@onegram_ss, ->(p) {
+      described_class.new(@dataset, ->(p) {
         if p < 100
           called_sub_100 = true
         else

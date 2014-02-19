@@ -15,6 +15,7 @@ module RLetters
       # @param [Hash] options options for finding the documents
       # @option options [String] fl fields to return in documents
       # @option options [Boolean] fulltext if true, return document full text
+      # @option options [Booelan] term_vectors if true, return term vectors
       def initialize(dataset, options = {})
         @dataset = dataset
         @options = options
@@ -62,7 +63,8 @@ module RLetters
                 (@options[:fulltext] ?
                   RLetters::Solr::Connection::DEFAULT_FIELDS_FULLTEXT :
                   RLetters::Solr::Connection::DEFAULT_FIELDS),
-          rows: group.count }
+          tv: @options[:term_vectors] || false,
+          rows: group.size }
       end
     end
   end

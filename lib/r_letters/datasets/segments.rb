@@ -15,6 +15,7 @@ module RLetters
       def initialize(dataset, segmenter = nil, options = {})
         @dataset = dataset
         @segmenter = segmenter || RLetters::Documents::Segments.new
+        @dfs = {}
 
         @options = options
         @options.compact.reverse_merge!(split_across: true)
@@ -30,7 +31,37 @@ module RLetters
                                   segments_within(progress)
       end
 
+      # Return the document frequencies for the words in this dataset
+      #
+      # @return [Hash<String, Integer>] a mapping from words to the number of
+      #   documents in this dataset in which the word appears
+      def dfs
+        @dfs
+      end
+
+      # @return [RLetters::Documents::Segments] The document segmenter used to
+      #   create these segments
+      def document_segmenter
+        @segmenter
+      end
+
       private
+
+      # Add the given list of words to the document frequency array
+      #
+      # This function piecewise constructs the word frequency in dataset for
+      # a given document
+      #
+      # @api private
+      # @param [Array<String>] words the words in one of the dataset's
+      #   documents
+      # @return [undefined]
+      def add_to_dfs(words)
+        words.each do |w|
+          @dfs[w] ||= 0
+          @dfs[w] += 1
+        end
+      end
 
       # Perform text segmentation, for splitting across documents
       #
@@ -73,6 +104,7 @@ module RLetters
             group.each_with_index do |entry, i|
               @segmenter.reset!
               @segmenter.add(entry.uid)
+              add_to_dfs(@segmenter.words_for_last)
               @segmenter.blocks.each do |b|
                 b.name += " (within document #{entry.uid})"
                 ret << b

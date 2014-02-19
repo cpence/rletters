@@ -145,36 +145,28 @@ module Jobs
       # builds those two analyzers.
       #
       # @api private
-      # @return [Array<RLetters::Analysis::WordFrequency>] two analyzers, first
-      #   one-gram and second bi-gram
+      # @return [Array<RLetters::Analysis::Frequency::FromTF>] two analyzers,
+      #   first one-gram and second bi-gram
       def analyzers_for_collocation
-        # Build two word listers
-        word_listers = [
-          nil,
-          RLetters::Documents::WordList.new(ngrams: 2)
-        ]
+        # The onegram analyzer can use TFs
+        analyzer_opts = {}
+        analyzer_opts[:inclusion_list] = @word if @word
+        onegram_analyzer = RLetters::Analysis::Frequency::FromTF.new(
+          @dataset,
+          ->(p) { at((p.to_f * 33.0).to_i + 33, 100,
+                     'Computing frequencies for one-grams...') },
+          analyzer_opts)
 
-        # Create document segmenters
-        doc_segmenters = word_listers.map do |wl|
-          RLetters::Documents::Segments.new(wl, num_blocks: 1)
-        end
+        wl = RLetters::Documents::WordList.new(ngrams: 2)
+        ds = RLetters::Documents::Segments.new(wl, num_blocks: 1)
+        ss = RLetters::Datasets::Segments.new(@dataset, ds, split_across: true)
+        bigram_analyzer = RLetters::Analysis::Frequency::FromPosition.new(
+          ss,
+          ->(p) { at((p.to_f * 33.0).to_i + 66, 100,
+                     'Computing frequencies for bi-grams...') },
+          analyzer_opts)
 
-        # Create dataset segmenters
-        set_segmenters = doc_segmenters.map do |ds|
-          RLetters::Datasets::Segments.new(@dataset, ds, split_across: true)
-        end
-
-        # Create and return frequency analyzers
-        set_segmenters.each_with_index.map do |ss, i|
-          opts = {}
-          opts[:inclusion_list] = @word if @word
-          RLetters::Analysis::WordFrequency.new(
-            ss,
-            ->(p) { at((p.to_f * 33.0).to_i + (i * 33), 100,
-                       ['Computing frequencies for one-grams...',
-                        'Computing frequencies for bi-grams...'][i]) },
-            opts)
-        end
+        [onegram_analyzer, bigram_analyzer]
       end
 
       def analyze_mutual_information

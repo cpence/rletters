@@ -21,8 +21,8 @@ describe RLetters::Documents::WordList do
       expect(@list.take(6)).to eq(['it', 'was', 'the', 'best', 'of', 'times'])
     end
 
-    it 'gets the dfs' do
-      expect(@stemmer.dfs['it']).to eq(1)
+    it 'gets the corpus dfs' do
+      expect(@stemmer.corpus_dfs['it']).to eq(1)
     end
   end
 
@@ -66,8 +66,8 @@ describe RLetters::Documents::WordList do
       expect(@list).to include('itWHAT')
     end
 
-    it 'calls #stem on the dfs' do
-      expect(@stemmer.dfs['itWHAT']).to be
+    it 'calls #stem on the corpus dfs' do
+      expect(@stemmer.corpus_dfs['itWHAT']).to be
     end
   end
 
@@ -86,12 +86,12 @@ describe RLetters::Documents::WordList do
       expect(@list).not_to include('was')
     end
 
-    it 'calls the lemmatizer when setting the dfs' do
+    it 'calls the lemmatizer when setting the corpus dfs' do
       # Patch into the mocked lemmatizer and make sure it gets called
       expect(StanfordCoreNLP::Annotation).to receive(:new).with('it').and_call_original
       expect(StanfordCoreNLP::Annotation).to receive(:new).at_least(1).times.and_call_original
 
-      @stemmer.dfs
+      @stemmer.corpus_dfs
     end
   end
 end

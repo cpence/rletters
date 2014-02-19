@@ -53,6 +53,23 @@ module Jobs
         def compute_word_frequencies(dataset, progress = nil, args = {})
           convert_args!(args)
 
+          # Quick-out for the FromTF analyzer if we can: only one block,
+          # one-grams, no stemming
+          if ((args[:num_blocks] && args[:num_blocks] == 1) ||
+             (args[:num_blocks].nil? && args[:block_size].nil?)) &&
+             (args[:ngrams].nil? || args[:ngrams] == 1) &&
+             (args[:stemming].nil?)
+            return RLetters::Analysis::Frequency::FromTF.new(
+              dataset,
+              progress,
+              split_across: args.delete(:split_across),
+              num_words: args.delete(:num_words),
+              inclusion_list: args.delete(:inclusion_list),
+              exclusion_list: args.delete(:exclusion_list),
+              stop_list: args.delete(:stop_list)
+            )
+          end
+
           # Produce a word list generator
           word_lister_options = {
             ngrams: args.delete(:ngrams),
@@ -76,8 +93,8 @@ module Jobs
                                                             @doc_segmenter,
                                                             set_segmenter_options)
 
-          # Perform the analysis (with the remaining args) and return it
-          RLetters::Analysis::WordFrequency.new(@set_segmenter, progress, args)
+          # Perform the position-based analysis (with the remaining args)
+          RLetters::Analysis::Frequency::FromPosition.new(@set_segmenter, progress, args)
         end
 
         private

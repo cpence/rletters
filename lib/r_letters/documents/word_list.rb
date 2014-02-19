@@ -62,7 +62,7 @@ module RLetters
       # @return [Hash<String, Integer>] the document frequencies for each word
       # @example Get the number of documents in which a given word appears
       #   RLetters::Documents::WordList
-      def dfs
+      def corpus_dfs
         stem_dfs
       end
 

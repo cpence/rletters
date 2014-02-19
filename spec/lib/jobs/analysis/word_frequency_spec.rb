@@ -62,7 +62,7 @@ describe Jobs::Analysis::WordFrequency do
          { user_id: @user.to_param,
            dataset_id: @dataset.to_param,
            task_id: @task.to_param,
-           num_blocks: '10',
+           num_blocks: '1',
            split_across: '1',
            num_words: '0',
            stop_list: 'en' }]

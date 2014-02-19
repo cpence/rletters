@@ -53,6 +53,12 @@ describe RLetters::Documents::Segments do
       expect(@blocks[0].words.size).to eq(119)
       expect(@blocks[0].words.take(6)).to eq(['it', 'was', 'the', 'best', 'of', 'times'])
     end
+
+    it 'sets the words_for_last correctly' do
+      words = @doc.fulltext.split.map(&:downcase)
+      words.map! { |w| w.gsub(/[^a-z]/, '') }.uniq!
+      expect(@segmenter.words_for_last).to match_array(words)
+    end
   end
 
   context 'with multiple blocks' do
@@ -71,7 +77,13 @@ describe RLetters::Documents::Segments do
     end
 
     it 'gives the blocks the right sizes' do
-      expect(@blocks.map(&:words).map(&:count)).to match_array([24, 24, 24, 24, 23])
+      expect(@blocks.map(&:words).map(&:size)).to match_array([24, 24, 24, 24, 23])
+    end
+
+    it 'still sets the words_for_last correctly' do
+      words = @doc.fulltext.split.map(&:downcase)
+      words.map! { |w| w.gsub(/[^a-z]/, '') }.uniq!
+      expect(@segmenter.words_for_last).to match_array(words)
     end
   end
 

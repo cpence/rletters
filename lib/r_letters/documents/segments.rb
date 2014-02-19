@@ -62,7 +62,6 @@ module RLetters
       def reset!
         @blocks = []
         @single_block = []
-        @dfs = {}
       end
 
       # Add a document to this segmenter
@@ -76,7 +75,19 @@ module RLetters
       # @return [undefined]
       def add(uid)
         words = @word_list.words_for(uid)
+        @words_for_last = words.uniq
         @num_blocks > 0 ? add_for_num_blocks(words) : add_for_block_size(words)
+      end
+
+      # Return the words in the last document
+      #
+      # For generating document frequencies, this returns a uniquified list of
+      # the words found in the last document scanned
+      #
+      # @api public
+      # @return [Array<String>] words in the document last scanned by +add+
+      def words_for_last
+        @words_for_last
       end
 
       # Return the blocks from this segmenter
@@ -90,6 +101,14 @@ module RLetters
       def blocks
         @num_blocks > 0 ? blocks_for_num_blocks :
                           blocks_for_block_size
+      end
+
+      # Return the word lister used to create these segments
+      #
+      # @api public
+      # @return [RLetters::Documents::WordList] word list generator
+      def word_list
+        @word_list
       end
 
       private

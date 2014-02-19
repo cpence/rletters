@@ -26,6 +26,7 @@ describe RLetters::Datasets::DocumentEnumerator do
         def_type: 'lucene',
         facet: false,
         fl: 'default_fields',
+        tv: false,
         rows: 2
       }
       result = double(documents: [@doc_1, @doc_2], num_hits: 2)
@@ -43,6 +44,27 @@ describe RLetters::Datasets::DocumentEnumerator do
     end
   end
 
+  context 'with term vectors' do
+    before(:each) do
+      @enum = RLetters::Datasets::DocumentEnumerator.new(@dataset, term_vectors: true)
+    end
+
+    it 'enumerates the documents as expected' do
+      query = {
+        q: 'uid:("doi:10.1234/5678" OR "doi:10.2345/6789")',
+        def_type: 'lucene',
+        facet: false,
+        fl: 'default_fields',
+        tv: true,
+        rows: 2
+      }
+      result = double(documents: [@doc_1, @doc_2], num_hits: 2)
+
+      expect(RLetters::Solr::Connection).to receive(:search).with(query).and_return(result)
+      @enum.each { |d| expect([@doc_1, @doc_2]).to include(d) }
+    end
+  end
+
   context 'with fulltext fields' do
     before(:each) do
       @enum = RLetters::Datasets::DocumentEnumerator.new(@dataset, fulltext: true)
@@ -54,6 +76,7 @@ describe RLetters::Datasets::DocumentEnumerator do
         def_type: 'lucene',
         facet: false,
         fl: 'fulltext_fields',
+        tv: false,
         rows: 2
       }
       result = double(documents: [@doc_1, @doc_2], num_hits: 2)
@@ -74,6 +97,7 @@ describe RLetters::Datasets::DocumentEnumerator do
         def_type: 'lucene',
         facet: false,
         fl: 'year',
+        tv: false,
         rows: 2
       }
       result = double(documents: [@doc_1, @doc_2], num_hits: 2)
