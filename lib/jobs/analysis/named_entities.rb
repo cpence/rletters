@@ -60,14 +60,12 @@ module Jobs
 
         # Write it out
         at(100, 100, 'Finished, generating output...')
-        ios = StringIO.new
-        ios.write(analyzer.entity_references.to_json)
-        ios.original_filename = 'named_entites.json'
-        ios.content_type = 'application/json'
-        ios.rewind
+        ios = StringIO.new(analyzer.entity_references.to_json)
+        file = Paperclip.io_adapters.for(ios)
+        file.original_filename = 'named_entites.json'
+        file.content_type = 'application/json'
 
-        task.result = ios
-        ios.close
+        task.result = file
 
         # We're done here
         task.finish!

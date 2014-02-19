@@ -157,14 +157,12 @@ module Jobs
         end
 
         # Write it out
-        ios = StringIO.new
-        ios.write(csv_string)
-        ios.original_filename = 'word_frequency.csv'
-        ios.content_type = 'text/csv'
-        ios.rewind
+        ios = StringIO.new(csv_string)
+        file = Paperclip.io_adapters.for(ios)
+        file.original_filename = 'word_frequency.csv'
+        file.content_type = 'text/csv'
 
-        task.result = ios
-        ios.close
+        task.result = file
 
         # We're done here
         task.finish!

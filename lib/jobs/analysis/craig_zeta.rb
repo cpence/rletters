@@ -168,14 +168,12 @@ module Jobs
         data[:zeta_scores] = zeta_scores
 
         # Write it out
-        ios = StringIO.new
-        ios.write(data.to_json)
-        ios.original_filename = 'craig_zeta.json'
-        ios.content_type = 'application/json'
-        ios.rewind
+        ios = StringIO.new(data.to_json)
+        file = Paperclip.io_adapters.for(ios)
+        file.original_filename = 'craig_zeta.json'
+        file.content_type = 'application/json'
 
-        task.result = ios
-        ios.close
+        task.result = file
 
         # We're done here
         task.finish!

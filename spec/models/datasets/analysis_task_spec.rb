@@ -72,14 +72,12 @@ describe Datasets::AnalysisTask do
   def create_task_with_file
     @task = FactoryGirl.create(:analysis_task)
 
-    ios = StringIO.new
-    ios.write('test')
-    ios.original_filename = 'test.txt'
-    ios.content_type = 'text/plain'
-    ios.rewind
+    ios = StringIO.new('test')
+    file = Paperclip.io_adapters.for(ios)
+    file.original_filename = 'test.txt'
+    file.content_type = 'text/plain'
 
-    @task.result = ios
-    ios.close
+    @task.result = file
     @task.save
   end
 

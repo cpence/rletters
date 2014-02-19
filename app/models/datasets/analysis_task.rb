@@ -44,6 +44,11 @@ class Datasets::AnalysisTask < ActiveRecord::Base
 
   belongs_to :dataset
   has_attached_file :result, database_table: 'datasets_analysis_task_results'
+  validates_attachment :result,
+                       content_type: { content_type: %w(text/csv
+                                                        text/plain
+                                                        application/json
+                                                        application/zip) }
 
   scope :finished, -> { where('finished_at IS NOT NULL') }
   scope :not_finished, -> { where('finished_at IS NULL') }

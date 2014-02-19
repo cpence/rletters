@@ -130,7 +130,7 @@ FactoryGirl.define do
 
   factory :uploaded_asset, class: Admin::UploadedAsset do
     name 'test_asset'
-    file { File.new(Rails.root.join('spec', 'spec_helper.rb')) }
+    file { File.new(Rails.root.join('db', 'seeds', 'images', 'favicon.ico')) }
   end
 
   factory :user do

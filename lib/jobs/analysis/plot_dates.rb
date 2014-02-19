@@ -88,14 +88,12 @@ module Jobs
                  }
 
         # Serialize out to JSON
-        ios = StringIO.new
-        ios.write(output.to_json)
-        ios.original_filename = 'plot_dates.json'
-        ios.content_type = 'application/json'
-        ios.rewind
+        ios = StringIO.new(output.to_json)
+        file = Paperclip.io_adapters.for(ios)
+        file.original_filename = 'plot_dates.json'
+        file.content_type = 'application/json'
 
-        task.result = ios
-        ios.close
+        task.result = file
 
         # We're done here
         task.finish!

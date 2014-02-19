@@ -43,7 +43,7 @@ gem 'citeproc-ruby', '~> 1.0'
 gem 'csl-styles'
 
 # Support for file attachments and exporting
-gem 'paperclip', '~> 3.0'
+gem 'paperclip'
 gem 'paperclip_database', '>= 2.2.0'
 gem 'rubyzip', '>= 1.1.0', require: 'zip'
 gem 'marc'

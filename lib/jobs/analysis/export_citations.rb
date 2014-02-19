@@ -73,13 +73,15 @@ module Jobs
             zos.print klass.new(doc).serialize
           end
         end
+        ios.rewind
 
         # Save it out
         at(total, total, 'Finished, generating output...')
-        ios.original_filename = 'export_citations.zip'
-        ios.content_type = 'application/zip'
-        ios.rewind
-        task.result = ios
+        file = Paperclip.io_adapters.for(ios)
+        file.original_filename = 'export_citations.zip'
+        file.content_type = 'application/zip'
+
+        task.result = file
 
         # We're done here
         task.finish!

@@ -227,7 +227,7 @@ GEM
       mini_portile (~> 0.5.0)
     oj (2.5.5)
     orm_adapter (0.5.0)
-    paperclip (3.5.4)
+    paperclip (4.1.0)
       activemodel (>= 3.0.0)
       activesupport (>= 3.0.0)
       cocaine (~> 0.5.3)
@@ -438,7 +438,7 @@ DEPENDENCIES
   mock_redis
   nokogiri
   oj
-  paperclip (~> 3.0)
+  paperclip
   paperclip_database (>= 2.2.0)
   pg
   poltergeist

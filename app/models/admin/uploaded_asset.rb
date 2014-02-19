@@ -19,6 +19,11 @@ class Admin::UploadedAsset < ActiveRecord::Base
   has_attached_file :file,
                     database_table: 'admin_uploaded_asset_files',
                     url: '/workflow/image/:id?style=:style'
+  validates_attachment :file,
+                       content_type: { content_type: %w(image/png
+                                                        image/jpeg
+                                                        image/jpg
+                                                        image/x-icon) }
 
   # @return [String] Friendly name of this asset (looked up in locale)
   def friendly_name
