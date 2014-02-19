@@ -20,7 +20,7 @@ describe RLetters::Documents::Serializers::RDF do
           RDF::DC.title => :title,
           RDF::DC.identifier => :doistr
         })
-      expect(rdf_docs.count).to eq(1)
+      expect(rdf_docs.size).to eq(1)
 
       expect(rdf_docs[0].journal.to_s).to eq('Journal')
       expect(rdf_docs[0].year.to_s).to eq('2010')
@@ -34,7 +34,7 @@ describe RLetters::Documents::Serializers::RDF do
           RDF::DC.creator => :author
         })
 
-      expect(rdf_authors.count).to eq(2)
+      expect(rdf_authors.size).to eq(2)
 
       expected = ['One, A.', 'Two, B.']
       actual = []
@@ -50,7 +50,7 @@ describe RLetters::Documents::Serializers::RDF do
           RDF::DC.bibliographicCitation => :citation
         })
 
-      expect(rdf_citations.count).to eq(2)
+      expect(rdf_citations.size).to eq(2)
 
       expected = ['&ctx_ver=Z39.88-2004' \
                   '&rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3A' \

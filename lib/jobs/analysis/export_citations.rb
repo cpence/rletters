@@ -62,7 +62,7 @@ module Jobs
         task.save
 
         # Make a zip file for the output
-        total = dataset.entries.count
+        total = dataset.entries.size
 
         ios = ::Zip::OutputStream.write_buffer do |zos|
           enum = RLetters::Datasets::DocumentEnumerator.new(dataset)

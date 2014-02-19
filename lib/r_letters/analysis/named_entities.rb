@@ -29,7 +29,7 @@ module RLetters
 
         classifier = StanfordCoreNLP::CRFClassifier.getClassifierNoExceptions(NER_CLASSIFIER_PATH)
         @entity_references = {}
-        total = dataset.entries.count
+        total = dataset.entries.size
 
         enum = RLetters::Datasets::DocumentEnumerator.new(dataset, fulltext: true)
         enum.each_with_index do |doc, i|

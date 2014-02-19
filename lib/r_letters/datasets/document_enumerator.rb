@@ -20,6 +20,13 @@ module RLetters
         @options = options
       end
 
+      # How many documents are in the dataset?
+      #
+      # @return [Integer] size of the dataset
+      def size
+        @dataset.entries.size
+      end
+
       # Iterate over the documents in the dataset
       #
       # @yield [Document] Gives each document in the dataset to the block.
@@ -31,8 +38,8 @@ module RLetters
           search_result = RLetters::Solr::Connection.search(search_query_for(group))
 
           # :nocov:
-          unless search_result.num_hits == group.count
-            fail "Failed to get batch of results in DocumentEnumerator (wanted #{group.count} hits, got #{search_result.num_hits})"
+          unless search_result.num_hits == group.size
+            fail "Failed to get batch of results in DocumentEnumerator (wanted #{group.size} hits, got #{search_result.num_hits})"
           end
           # :nocov:
 

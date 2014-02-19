@@ -21,7 +21,7 @@ describe RLetters::Documents::Segments do
     end
 
     it 'creates one block' do
-      expect(@blocks.count).to eq(1)
+      expect(@blocks.size).to eq(1)
     end
 
     it 'names the block' do
@@ -29,7 +29,7 @@ describe RLetters::Documents::Segments do
     end
 
     it 'puts all the words in the block' do
-      expect(@blocks[0].words.count).to eq(119)
+      expect(@blocks[0].words.size).to eq(119)
       expect(@blocks[0].words.take(6)).to eq(['it', 'was', 'the', 'best', 'of', 'times'])
     end
   end
@@ -42,7 +42,7 @@ describe RLetters::Documents::Segments do
     end
 
     it 'creates one block' do
-      expect(@blocks.count).to eq(1)
+      expect(@blocks.size).to eq(1)
     end
 
     it 'names the block' do
@@ -50,7 +50,7 @@ describe RLetters::Documents::Segments do
     end
 
     it 'puts all the words in the block' do
-      expect(@blocks[0].words.count).to eq(119)
+      expect(@blocks[0].words.size).to eq(119)
       expect(@blocks[0].words.take(6)).to eq(['it', 'was', 'the', 'best', 'of', 'times'])
     end
   end
@@ -63,7 +63,7 @@ describe RLetters::Documents::Segments do
     end
 
     it 'creates five blocks' do
-      expect(@blocks.count).to eq(5)
+      expect(@blocks.size).to eq(5)
     end
 
     it 'names the blocks' do
@@ -84,7 +84,7 @@ describe RLetters::Documents::Segments do
     end
 
     it 'creates 39 blocks' do
-      expect(@blocks.count).to eq(39)
+      expect(@blocks.size).to eq(39)
     end
 
     it 'names the blocks' do
@@ -109,7 +109,7 @@ describe RLetters::Documents::Segments do
     end
 
     it 'creates 40 blocks' do
-      expect(@blocks.count).to eq(40)
+      expect(@blocks.size).to eq(40)
     end
 
     it 'names the blocks' do
@@ -134,7 +134,7 @@ describe RLetters::Documents::Segments do
     end
 
     it 'creates 39 blocks' do
-      expect(@blocks.count).to eq(39)
+      expect(@blocks.size).to eq(39)
     end
 
     it 'names the blocks' do
@@ -159,7 +159,7 @@ describe RLetters::Documents::Segments do
     end
 
     it 'creates 1 block' do
-      expect(@blocks.count).to eq(1)
+      expect(@blocks.size).to eq(1)
     end
 
     it 'names the block' do

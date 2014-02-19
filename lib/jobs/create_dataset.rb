@@ -69,7 +69,7 @@ module Jobs
           at(total - remaining, total, "Fetching documents: #{remaining} left to add...")
 
           # What did we get this time?
-          docs_fetched = search_result.documents.count
+          docs_fetched = search_result.documents.size
 
           # Send them all in with activerecord-import
           Datasets::Entry.import([:uid, :dataset_id],

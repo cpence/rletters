@@ -16,7 +16,7 @@ describe RLetters::Documents::Serializers::RDFXML do
     end
 
     it 'includes a single description element' do
-      expect(@xml.css('Description').count).to eq(1)
+      expect(@xml.css('Description').size).to eq(1)
     end
 
     it 'includes a few of the important Dublin Core elements' do
@@ -36,7 +36,7 @@ describe RLetters::Documents::Serializers::RDFXML do
     end
 
     it 'includes two description elements' do
-      expect(@xml.css('Description').count).to eq(2)
+      expect(@xml.css('Description').size).to eq(2)
     end
   end
 

@@ -122,7 +122,7 @@ describe Users::LibrariesController do
       it 'assigns the libraries' do
         stub_connection(/worldcatlibraries.org/, 'worldcat_notre_dame')
         get :query
-        expect(assigns(:libraries).count).to eq(1)
+        expect(assigns(:libraries).size).to eq(1)
       end
     end
 

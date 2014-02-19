@@ -18,10 +18,10 @@ module UsersHelper
       parts = loc.split('-')
       entry = ''
 
-      if parts.count == 1
+      if parts.size == 1
         # Just a language, translate
         name = I18n.t("languages.#{loc}")
-      elsif parts.count == 2
+      elsif parts.size == 2
         # A language and a territory
         name = I18n.t("languages.#{parts[0]}")
         name += ' ('

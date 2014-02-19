@@ -32,7 +32,7 @@ Given(/^I complete an analysis task for the dataset$/) do
   end
 
   @dataset.reload
-  expect(@dataset.analysis_tasks.count).to eq(1)
+  expect(@dataset.analysis_tasks.size).to eq(1)
   @task = @dataset.analysis_tasks.first
   expect(@task.failed).to be false
   expect(@task.finished_at).to be

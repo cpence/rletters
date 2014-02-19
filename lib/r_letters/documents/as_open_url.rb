@@ -33,7 +33,7 @@ module RLetters
           params << "&rft.aufirst=#{CGI.escape(au.first)}" if au.first
           params << "&rft.aulast=#{CGI.escape(au.last)}" if au.last
         end
-        if @doc.authors.count > 1
+        if @doc.authors.size > 1
           @doc.authors[1...@doc.authors.size].each do |a|
             params << "&rft.au=#{CGI.escape(a.full)}"
           end

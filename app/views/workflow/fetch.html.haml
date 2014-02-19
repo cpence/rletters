@@ -12,7 +12,7 @@
     .small-12.columns
       .panel
         %h5= t('.pending_header')
-        %p= t('.pending_count', count: @pending_tasks.count)
+        %p= t('.pending_count', count: @pending_tasks.size)
         %p= t_md('.pending_cancel_markdown', terminate_url: workflow_fetch_path(terminate: 'true'), email: Admin::Setting.app_email)
 
 .row

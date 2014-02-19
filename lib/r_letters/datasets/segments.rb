@@ -40,16 +40,17 @@ module RLetters
       # @return [Array<RLetters::Documents::Block>] the text segments
       def segments_across(progress)
         base = 0
-        total = @dataset.entries.count.to_f
+        total = @dataset.entries.size.to_f
 
         @segmenter.reset!
         @dataset.entries.find_in_batches do |group|
           group.each_with_index do |entry, i|
             @segmenter.add(entry.uid)
+            add_to_dfs(@segmenter.words_for_last)
             progress.call(((base + i).to_f / total * 100.0).to_i) if progress
           end
 
-          base += group.count
+          base += group.size
         end
 
         progress.call(100) if progress
@@ -65,7 +66,7 @@ module RLetters
       # @return [Array<RLetters::Documents::Block>] the text segments
       def segments_within(progress)
         base = 0
-        total = @dataset.entries.count.to_f
+        total = @dataset.entries.size.to_f
 
         [].tap do |ret|
           @dataset.entries.find_in_batches do |group|
@@ -80,7 +81,7 @@ module RLetters
               progress.call(((base + i).to_f / total * 100.0).to_i) if progress
             end
 
-            base += group.count
+            base += group.size
           end
 
           progress.call(100) if progress

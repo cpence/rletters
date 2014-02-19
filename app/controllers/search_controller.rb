@@ -145,7 +145,7 @@ class SearchController < ApplicationController
         ranges.each do |r|
           if r.include? '-'
             range_years = r.split('-')
-            next unless range_years.count == 2
+            next unless range_years.size == 2
             next if range_years[0].match(/\A\d+\z/).nil?
             next if range_years[1].match(/\A\d+\z/).nil?
 

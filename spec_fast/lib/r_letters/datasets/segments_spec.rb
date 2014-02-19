@@ -19,11 +19,11 @@ describe RLetters::Datasets::Segments do
     end
 
     it 'creates only one block' do
-      expect(@segments.count).to eq(1)
+      expect(@segments.size).to eq(1)
     end
 
     it 'puts all the words in the block' do
-      expect(@segments[0].words.count).to eq(238)
+      expect(@segments[0].words.size).to eq(238)
     end
 
     it 'names the block' do

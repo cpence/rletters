@@ -52,7 +52,7 @@ module Jobs
         dataset_1 = user.datasets.active.find(options[:dataset_id])
 
         other_datasets = options[:other_datasets]
-        fail ArgumentError, 'Wrong number of other datasets provided' unless other_datasets.count == 1
+        fail ArgumentError, 'Wrong number of other datasets provided' unless other_datasets.size == 1
         dataset_2 = user.datasets.active.find(other_datasets[0])
 
         task = dataset_1.analysis_tasks.find(options[:task_id])
@@ -98,7 +98,7 @@ module Jobs
           end
         end
 
-        max_count = analyzer_1.blocks.count + analyzer_2.blocks.count
+        max_count = analyzer_1.blocks.size + analyzer_2.blocks.size
         block_counts.delete_if { |k, v| v == max_count }
 
         # 3) For each word, compute the fraction of blocks in dataset A in
@@ -114,8 +114,8 @@ module Jobs
           a_count = analyzer_1.blocks.map { |b| b[word] ? 1 : 0 }.reduce(:+)
           not_b_count = analyzer_2.blocks.map { |b| b[word] ? 0 : 1 }.reduce(:+)
 
-          a_frac = Float(a_count) / Float(analyzer_1.blocks.count)
-          not_b_frac = Float(not_b_count) / Float(analyzer_2.blocks.count)
+          a_frac = Float(a_count) / Float(analyzer_1.blocks.size)
+          not_b_frac = Float(not_b_count) / Float(analyzer_2.blocks.size)
 
           zeta_scores[word] = a_frac + not_b_frac
         end
@@ -128,7 +128,7 @@ module Jobs
         # clean in half if there's <2k types), and those are your marker word
         # lists.
         at(78, 100, 'Taking marker words for each dataset...')
-        size = [(zeta_array.count / 2).floor, 1000].min
+        size = [(zeta_array.size / 2).floor, 1000].min
 
         marker_words = zeta_array.take(size).map { |a| a[0] }
         anti_marker_words = zeta_array.reverse_each.take(size).map { |a| a[0] }
@@ -139,20 +139,20 @@ module Jobs
         # for the point.  That shows you your separation.
         graph_points = []
         analyzer_1.blocks.each_with_index do |b, i|
-          at(80 + (i.to_f / analyzer_1.blocks.count.to_f * 10.0).to_i, 100,
-             "Calculating separation graph points for first dataset: #{i}/#{analyzer_1.blocks.count}")
+          at(80 + (i.to_f / analyzer_1.blocks.size.to_f * 10.0).to_i, 100,
+             "Calculating separation graph points for first dataset: #{i}/#{analyzer_1.blocks.size}")
 
-          x_val = Float((marker_words & b.keys).count) / Float(b.keys.count)
-          y_val = Float((anti_marker_words & b.keys).count) / Float(b.keys.count)
+          x_val = Float((marker_words & b.keys).size) / Float(b.keys.size)
+          y_val = Float((anti_marker_words & b.keys).size) / Float(b.keys.size)
 
           graph_points << [x_val, y_val, "#{dataset_1.name}: #{i + 1}"]
         end
         analyzer_2.blocks.each_with_index do |b, i|
-          at(90 + (i.to_f / analyzer_2.blocks.count.to_f * 10.0).to_i, 100,
-             "Calculating separation graph points for second dataset: #{i}/#{analyzer_2.blocks.count}")
+          at(90 + (i.to_f / analyzer_2.blocks.size.to_f * 10.0).to_i, 100,
+             "Calculating separation graph points for second dataset: #{i}/#{analyzer_2.blocks.size}")
 
-          x_val = Float((marker_words & b.keys).count) / Float(b.keys.count)
-          y_val = Float((anti_marker_words & b.keys).count) / Float(b.keys.count)
+          x_val = Float((marker_words & b.keys).size) / Float(b.keys.size)
+          y_val = Float((anti_marker_words & b.keys).size) / Float(b.keys.size)
 
           graph_points << [x_val, y_val, "#{dataset_2.name}: #{i + 1}"]
         end

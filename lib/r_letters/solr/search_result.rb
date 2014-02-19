@@ -35,7 +35,7 @@ module RLetters
     #   @api public
     #   @return [Integer] number of documents in the last search
     #   @example Returns true if there are more hits than documents returned
-    #     result.documents.count > result.num_hits
+    #     result.documents.size > result.num_hits
     #
     # @!attribute [r] documents
     #   @return [Array<Document>] the documents found by the last search

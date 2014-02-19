@@ -185,7 +185,7 @@ module Jobs
 
         word_f = analyzers[0].blocks[0]
         bigram_f = analyzers[1].blocks[0]
-        total = bigram_f.count
+        total = bigram_f.size
 
         n = analyzers[0].num_dataset_tokens.to_f
         n_2 = n * n
@@ -214,7 +214,7 @@ module Jobs
 
         word_f = analyzers[0].blocks[0]
         bigram_f = analyzers[1].blocks[0]
-        total = bigram_f.count
+        total = bigram_f.size
 
         n = analyzers[0].num_dataset_tokens.to_f
 
@@ -247,7 +247,7 @@ module Jobs
 
         word_f = analyzers[0].blocks[0]
         bigram_f = analyzers[1].blocks[0]
-        total = bigram_f.count
+        total = bigram_f.size
 
         n = analyzers[0].num_dataset_tokens.to_f
 
@@ -288,7 +288,7 @@ module Jobs
         # A N, N N, A A N, A N N, N A N, N N N, N P N
         # sort by frequency
         fail ArgumentError, 'NLP library not available' unless NLP_ENABLED
-        total = @dataset.entries.count
+        total = @dataset.entries.size
 
         # We actually aren't going to use Analysis::WordFrequency here; the
         # NLP POS tagger requires us to send it full sentences for maximum

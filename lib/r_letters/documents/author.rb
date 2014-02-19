@@ -97,7 +97,7 @@ module RLetters
         # "First (all middles) Last"
         queries = []
         queries.concat(query_for_names([first_names[0]], all_last))
-        if first_names.count > 1
+        if first_names.size > 1
           queries.concat(query_for_names(first_names, all_last))
         end
 
@@ -158,12 +158,12 @@ module RLetters
         # Step through these and create the combined-initials queries
         new_names = []
         names.each do |name|
-          next if name.count == 2
+          next if name.size == 2
 
           # We want to be able to combine "First M M Last" to "First MM Last".
           # So loop over subsequences of all size == 1 and <= number of first
           # names.
-          (2..(name.count - 1)).each do |n|
+          (2..(name.size - 1)).each do |n|
             name.each_with_index do |p, i|
               # See if a part of the array at index i with size n is all initials
               portion = name[i, n]

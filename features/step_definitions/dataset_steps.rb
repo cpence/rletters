@@ -113,7 +113,7 @@ Then(/^the dataset should have (\d+) entries$/) do |entries|
 end
 
 Then(/^I should see the number of articles$/) do
-  expect(page).to have_content("Number of documents: #{@dataset.entries.count}")
+  expect(page).to have_content("Number of documents: #{@dataset.entries.size}")
 end
 
 Then(/^I should see the list of analysis tasks$/) do

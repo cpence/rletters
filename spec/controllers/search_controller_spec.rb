@@ -27,7 +27,7 @@ describe SearchController do
       end
 
       it 'assigns the right number of documents' do
-        expect(assigns(:documents).count).to eq(10)
+        expect(assigns(:documents).size).to eq(10)
       end
 
       it 'assigns solr_q' do

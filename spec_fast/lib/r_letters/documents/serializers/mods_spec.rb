@@ -47,7 +47,7 @@ describe RLetters::Documents::Serializers::MODS do
 
     it 'creates good MODS collections' do
       expect(@xml.at_css('modsCollection mods titleInfo title').content).to eq('Test Title')
-      expect(@xml.css('modsCollection mods').count).to eq(2)
+      expect(@xml.css('modsCollection mods').size).to eq(2)
     end
 
     it 'creates MODS collections that are valid against the schema' do

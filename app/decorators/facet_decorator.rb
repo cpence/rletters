@@ -45,7 +45,7 @@ class FacetDecorator < Draper::Decorator
       value_without_brackets = value[1..-2]
 
       parts = value_without_brackets.split
-      fail ArgumentError, 'invalid year query' unless parts.count == 3
+      fail ArgumentError, 'invalid year query' unless parts.size == 3
 
       decade = parts[0]
       decade = '1790' if decade == '*'

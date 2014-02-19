@@ -46,7 +46,7 @@ module RLetters
 
           # Basic format: "field:QUERY"
           parts = @query.split(':')
-          unless parts.count == 2
+          unless parts.size == 2
             fail ArgumentError, 'facet query not separated by colon'
           end
 

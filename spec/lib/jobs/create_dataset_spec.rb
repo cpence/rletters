@@ -56,7 +56,7 @@ describe Jobs::CreateDataset do
     end
 
     it 'puts the right number of items in the dataset' do
-      expect(@user.datasets[0].entries.count).to be >= 10
+      expect(@user.datasets[0].entries.size).to be >= 10
     end
 
     it 'does not set the fetch attribute' do
@@ -107,7 +107,7 @@ describe Jobs::CreateDataset do
     end
 
     it 'puts the right number of items in the dataset' do
-      expect(@user.datasets[0].entries.count).to eq(1043)
+      expect(@user.datasets[0].entries.size).to eq(1043)
     end
 
     it 'sets the fetch attribute' do
@@ -132,7 +132,7 @@ describe Jobs::CreateDataset do
             def_type: 'dismax')
         rescue RLetters::Solr::ConnectionError
         end
-      }.to change { Dataset.count }.by(-1)
+      }.to change { Dataset.all.count }.by(-1)
     end
 
     it 'raises an exception' do

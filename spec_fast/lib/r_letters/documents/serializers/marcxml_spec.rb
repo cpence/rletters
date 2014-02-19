@@ -13,7 +13,7 @@ describe RLetters::Documents::Serializers::MARCXML do
     end
 
     it 'creates MARCXML collections of the right size' do
-      expect(@xml.css('collection record').count).to eq(2)
+      expect(@xml.css('collection record').size).to eq(2)
     end
   end
 

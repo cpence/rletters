@@ -30,7 +30,7 @@ describe Admin::DatasetsController do
     end
 
     it 'includes the number of entries' do
-      expect(response.body).to include(@dataset.entries.count.to_s)
+      expect(response.body).to include(@dataset.entries.size.to_s)
     end
   end
 

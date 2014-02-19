@@ -29,7 +29,7 @@ describe RLetters::Analysis::WordFrequency do
       end
 
       it 'includes all words' do
-        expect(@analyzer.block_stats[0][:types]).to eq(@analyzer.blocks[0].count)
+        expect(@analyzer.block_stats[0][:types]).to eq(@analyzer.blocks[0].size)
       end
 
       it 'saves blocks' do
@@ -60,7 +60,7 @@ describe RLetters::Analysis::WordFrequency do
       end
 
       it 'acts like it was not set at all' do
-        expect(@analyzer.block_stats[0][:types]).to eq(@analyzer.blocks[0].count)
+        expect(@analyzer.block_stats[0][:types]).to eq(@analyzer.blocks[0].size)
       end
     end
 
@@ -71,7 +71,7 @@ describe RLetters::Analysis::WordFrequency do
 
       it 'only includes ten words' do
         @analyzer.blocks.each do |b|
-          expect(b.count).to eq(10)
+          expect(b.size).to eq(10)
         end
       end
     end
@@ -165,7 +165,7 @@ describe RLetters::Analysis::WordFrequency do
     end
 
     it 'only includes the requested number of words' do
-      expect(@analyzer.word_list.count).to eq(10)
+      expect(@analyzer.word_list.size).to eq(10)
     end
 
     it 'analyzes those words in the blocks' do

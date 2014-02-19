@@ -84,13 +84,13 @@ describe DatasetsController do
       end
 
       it 'creates a skeleton dataset' do
-        expect(@user.datasets.count).to eq(2)
+        expect(@user.datasets.size).to eq(2)
       end
 
       it 'makes that dataset inactive' do
-        expect(@user.datasets.active.count).to eq(1)
+        expect(@user.datasets.active.size).to eq(1)
 
-        expect(@user.datasets.inactive.count).to eq(1)
+        expect(@user.datasets.inactive.size).to eq(1)
         expect(@user.datasets.inactive[0].name).to eq('Disabled Dataset')
       end
 
@@ -185,7 +185,7 @@ describe DatasetsController do
       @dataset.reload
 
       expect(@user.datasets.active).to be_empty
-      expect(@user.datasets.inactive.count).to eq(1)
+      expect(@user.datasets.inactive.size).to eq(1)
       expect(@dataset.disabled).to be true
     end
   end

@@ -32,7 +32,7 @@ class Resque::Failure::AnalysisTask < Resque::Failure::Base
 
     # Only do this if we're in an analysis job of some sort
     if klass <= Jobs::Analysis::Base
-      if payload['args'].count > 0
+      if payload['args'].size > 0
         args = payload['args'][1].symbolize_keys
 
         # If we can find all our parameters, save the thing

@@ -7,12 +7,12 @@
 %header
   %section
     %h2= t('.header')
-    - if @user_datasets.count < @num_datasets
+    - if @user_datasets.size < @num_datasets
       %h4.subheader= t('.subheader_pending')
     - else
       %h4.subheader= t('.subheader_done')
 
-- if @user_datasets.count < @num_datasets
+- if @user_datasets.size < @num_datasets
   .row
     .small-12.columns
       %p= t('.pending_instructions', count: @num_datasets)
@@ -29,8 +29,8 @@
   .small-12.columns
     %hr
 
-    - if @user_datasets.count < @num_datasets
-      .alert-box.alert= t('.pending_count', count: (@num_datasets - @user_datasets.count))
+    - if @user_datasets.size < @num_datasets
+      .alert-box.alert= t('.pending_count', count: (@num_datasets - @user_datasets.size))
 
     %h3= t('.dataset_list')
 
@@ -53,7 +53,7 @@
                   %span.icon.fi-upload-cloud.has-tip{ data: { tooltip: true }, title: t('datasets.index_xhr.cloud_tooltip') }
               %td.button-cell= link_to t('.delete_button'), workflow_activate_path(params[:class], unlink_dataset_id: d.to_param), data: { confirm: t('.delete_confirm') }, class: 'button alert tiny'
 
-- if @user_datasets.count < @num_datasets
+- if @user_datasets.size < @num_datasets
   .row
     .large-12.columns
       %ul.button-group.even-2
@@ -63,7 +63,7 @@
           %h4= t('.link_header')
           %h6.subheader= t('.link_subheader')
 
-          - unless current_user.datasets.active.count
+          - unless current_user.datasets.active.size
             %p= t('.link_no_datasets')
           - else
             #link-form-modal

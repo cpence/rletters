@@ -9,7 +9,7 @@ describe 'Search API' do
     expect(response.content_type).to eq('application/json')
 
     expect(json['results']['num_hits']).to eq(1043)
-    expect(json['results']['documents'].count).to eq(10)
+    expect(json['results']['documents'].size).to eq(10)
 
     expect(json['results']['solr_params']['q']).to eq('*:*')
     expect(json['results']['solr_params']['defType']).to eq('lucene')
@@ -37,7 +37,7 @@ describe 'Search API' do
     expect(doc).to be
     expect(doc['doi']).to eq('10.1111/j.1439-0310.2010.01865.x')
     expect(doc['license']).to eq('© Blackwell Verlag GmbH')
-    expect(doc['authors'].count).to eq(2)
+    expect(doc['authors'].size).to eq(2)
     expect(doc['authors'][0]['full']).to eq('Petr Kovařík')
     expect(doc['authors'][1]['first']).to eq('Václav')
     expect(doc['journal']).to eq('Ethology')

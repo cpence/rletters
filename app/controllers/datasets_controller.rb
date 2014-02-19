@@ -36,7 +36,7 @@ class DatasetsController < ApplicationController
   def show
     @dataset = current_user.datasets.active.find(params[:id])
 
-    if params[:clear_failed] && @dataset.analysis_tasks.failed.count > 0
+    if params[:clear_failed] && @dataset.analysis_tasks.failed.size > 0
       @dataset.analysis_tasks.failed.destroy_all
       flash[:notice] = t('datasets.show.deleted')
     end

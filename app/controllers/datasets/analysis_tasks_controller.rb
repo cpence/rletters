@@ -31,7 +31,7 @@ class Datasets::AnalysisTasksController < ApplicationController
       other_datasets = @current_params[:other_datasets]
 
       if other_datasets.nil? ||
-         other_datasets.count < (@klass.num_datasets - 1)
+         other_datasets.size < (@klass.num_datasets - 1)
         fail ArgumentError, "not enough datasets specified for #{params[:class]}"
       end
     end

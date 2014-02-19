@@ -39,7 +39,7 @@ describe RLetters::Documents::WordList do
 
     it 'does not make any non-2-grams' do
       @list.each do |g|
-        expect(g.split.count).to eq(2)
+        expect(g.split.size).to eq(2)
       end
     end
   end

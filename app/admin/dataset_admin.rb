@@ -8,10 +8,10 @@ ActiveAdmin.register Dataset do
     column :user
     column :disabled
     column :entries do |dataset|
-      dataset.entries.count
+      dataset.entries.size
     end
     column :analysis_tasks do |dataset|
-      dataset.analysis_tasks.count
+      dataset.analysis_tasks.size
     end
     default_actions
   end

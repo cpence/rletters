@@ -16,7 +16,7 @@ WORKING_UIDS = [
 FactoryGirl.define do
 
   sequence :working_uid do |n|
-    WORKING_UIDS[n % WORKING_UIDS.count]
+    WORKING_UIDS[n % WORKING_UIDS.size]
   end
 
   factory :administrator, class: Admin::Administrator do

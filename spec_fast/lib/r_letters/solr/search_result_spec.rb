@@ -43,7 +43,7 @@ describe RLetters::Solr::SearchResult do
   describe '#documents' do
     context 'when loading documents' do
       it 'loads the documents' do
-        expect(described_class.new(@mock_response).documents.count).to eq(2)
+        expect(described_class.new(@mock_response).documents.size).to eq(2)
       end
 
       it 'passes the document hashes to the Document constructor' do

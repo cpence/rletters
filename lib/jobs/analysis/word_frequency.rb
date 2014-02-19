@@ -75,7 +75,7 @@ module Jobs
           csv << ['']
 
           # Output the block data
-          if analyzer.blocks.count > 1
+          if analyzer.blocks.size > 1
             csv << [t('.each_block')]
 
             name_row = ['']
