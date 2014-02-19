@@ -30,7 +30,7 @@ RLetters::Application.config.i18n.available_locales = ['en']
 "en-CA, en-GB, en-IE, en-IN, en-NZ, eo, es, es-419, es-AR, es-CL, " \
 "es-CO, es-MX, es-PE, es-VE, et, eu, fa, fi, fr, fr-CA, fr-CH, gl, he, hi, " \
 "hi-IN, hr, hu, id, is, it, it-CH, ja, kn, ko, lo, lt, lv, mk, mn, ms, nb, " \
-"ne, nl, nn, or, pl, pt, pt-BR, rm, ro, ru, sk, sl, sr, sv, sw, th, tr, uk, " \
-"uz, vi, zh-CN, zh-HK, zh-TW".split(',').each do |loc|
+"ne, nl, nn, or, pl, pt, pt-BR, rm, ro, ru, sk, sl, sr, sv, sw, th, tl, tr, " \
+"uk, ur, uz, vi, zh-CN, zh-HK, zh-TW".split(',').each do |loc|
   RLetters::Application.config.i18n.available_locales << loc.strip
 end
