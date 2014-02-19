@@ -19,6 +19,12 @@ module RLetters
       def initialize(dataset, options = {})
         @dataset = dataset
         @options = options
+
+        if @options[:term_vectors] || @options[:fulltext]
+          @batch_size = 100
+        else
+          @batch_size = 1000
+        end
       end
 
       # How many documents are in the dataset?
@@ -35,7 +41,7 @@ module RLetters
       def each
         return to_enum(:each) unless block_given?
 
-        @dataset.entries.find_in_batches do |group|
+        @dataset.entries.find_in_batches(batch_size: @batch_size) do |group|
           search_result = RLetters::Solr::Connection.search(search_query_for(group))
 
           # :nocov:
