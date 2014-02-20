@@ -42,7 +42,7 @@ module RLetters
     # @!attribute [r] solr_response
     #   @return [RSolr::Ext::Response] the raw Solr search response
     class SearchResult
-      attr_reader :facets, :num_hits, :documents, :solr_response
+      attr_reader :facets, :num_hits, :documents, :solr_response, :params
 
       # Create a search result from a Solr response
       #
@@ -55,6 +55,8 @@ module RLetters
 
         @num_hits = 0
         @num_hits = response.total if response.ok?
+
+        @params = response.params
 
         @documents = []
         @facets = nil

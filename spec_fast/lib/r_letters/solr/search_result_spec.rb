@@ -23,6 +23,7 @@ describe RLetters::Solr::SearchResult do
     allow(@mock_response).to receive(:facets).and_return(nil)
     allow(@mock_response).to receive(:facet_queries).and_return(nil)
     allow(@mock_response).to receive(:[]).with('termVectors').and_return(nil)
+    allow(@mock_response).to receive(:params).and_return({})
   end
 
   describe '#solr_response' do
@@ -33,6 +34,7 @@ describe RLetters::Solr::SearchResult do
     it 'throws an exception if the response is not okay' do
       fail_response = double
       allow(fail_response).to receive(:ok?).and_return(false)
+      allow(fail_response).to receive(:params).and_return({})
 
       expect {
         described_class.new(fail_response)

@@ -12,9 +12,6 @@ module SearchControllerQuery
     controller.params.merge!(other_params)
 
     solr_query = SearchController.new.send(:search_params_to_solr_query, controller.params)
-    assign(:solr_q, solr_query[:q])
-    assign(:solr_def_type, solr_query[:def_type])
-    assign(:solr_fq, solr_query[:fq])
 
     assign(:sort, params[:sort] || 'score desc')
 

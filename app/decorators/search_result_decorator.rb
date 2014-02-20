@@ -10,8 +10,8 @@ class SearchResultDecorator < Draper::Decorator
   # @return [String] number of hits for the search
   # @example Print the number of hits for the search (in HAML)
   #   = result.num_hits
-  def num_hits(q = nil, fq = nil, precise = nil)
-    if q || fq || precise
+  def num_hits
+    if (params[:q] && params[:q] != '*:*') || params[:fq]
       I18n.t 'search.index.num_hits_found', count: object.num_hits
     else
       I18n.t 'search.index.num_documents_database', count: object.num_hits
@@ -24,7 +24,12 @@ class SearchResultDecorator < Draper::Decorator
   # @return [String] full set of pagination links for the current page
   # @example Put the current pagination links in a paragraph element
   #   <p><%= result.pagination %></p>
-  def pagination(page = 0, per_page = 10)
+  def pagination
+    # Extract page and per_page from the Solr query that we called
+    per_page = (params['rows'] || 10).to_i
+    start = (params['start'] || 0).to_i
+    page = start / per_page
+
     num_pages = object.num_hits.to_f / per_page.to_f
     num_pages = Integer(num_pages.ceil)
     return ''.html_safe if num_pages <= 1

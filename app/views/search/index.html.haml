@@ -14,16 +14,16 @@
 .row
   .small-12.large-9.columns
     = form_tag(search_path, method: :get, id: 'search_form') do
-      - if params[:fq]
-        - params[:fq].each do |p|
+      - if result.params['fq']
+        - [result.params['fq']].flatten.each do |p|
           = hidden_field_tag "fq[]", p
       .row
         .small-12.columns
           = search_field_tag :q, (params[:precise] ? t('.adv_search_placeholder') : params[:q]), placeholder: t('.placeholder')
           %ul.button-group.even-2
-            %li= link_to(sort_to_string(@sort), '#', class: 'button secondary dropdown small', 'data-dropdown' => 'sort-dropdown')
+            %li= link_to(sort_to_string(result.params['sort']), '#', class: 'button secondary dropdown small', 'data-dropdown' => 'sort-dropdown')
             - if user_signed_in?
-              %li= link_to t('.create_dataset'), new_dataset_path(q: @solr_q, def_type: @solr_def_type, fq: @solr_fq), class: 'button success small', data: { reveal_id: 'new-modal', reveal_ajax: 'true' }
+              %li= link_to t('.create_dataset'), new_dataset_path(q: result.params['q'], def_type: result.params['defType'], fq: result.params['fq']), class: 'button success small', data: { reveal_id: 'new-modal', reveal_ajax: 'true' }
             - else
               %li= link_to t('.create_dataset'), '#', class: 'button success small disabled'
           %ul#sort-dropdown.f-dropdown{ data: { dropdown_content: true } }
@@ -31,17 +31,17 @@
               %li= link_to sort_to_string(s), search_path(params.merge({ sort: s }))
 
     %dl.sub-nav
-      %dt= result.num_hits(@query, @facet_query, @precise)
+      %dt= result.num_hits
       = active_filter_list(result, facets)
 
-    .pagination-centered= result.pagination(@page, @per_page)
+    .pagination-centered= result.pagination
     %table.document-list
       - @documents.each do |d|
         %tr
           %td{ 'data-dropdown' => "drop-#{d.html_uid}" }
             %abbr{ class: 'unapi-id', title: d.uid }= ''
             = document_bibliography_entry(d)
-    .pagination-centered= result.pagination(@page, @per_page)
+    .pagination-centered= result.pagination
 
     - @documents.each do |d|
       %div.f-dropdown.medium.content{ 'data-dropdown-content' => true, id: "drop-#{d.html_uid}" }= render partial: 'dropdown', locals: { document: d }

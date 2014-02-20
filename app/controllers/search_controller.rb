@@ -19,34 +19,22 @@ class SearchController < ApplicationController
   # @api public
   # @return [undefined]
   def index
-    @page = params[:page].to_i.lbound(0)
-    @per_page = (current_user.try(:per_page) ||
-                 params[:per_page].try(:to_i) || 10).bound(10, 100)
-
-    offset = @page * @per_page
-    limit = @per_page
+    page = params[:page].to_i.lbound(0)
+    per_page = (current_user.try(:per_page) ||
+                params[:per_page].try(:to_i) || 10).bound(10, 100)
 
     # Default sort to relevance if there's a search, otherwise year
     if params[:precise] || params[:q]
-      @sort = 'score desc'
+      sort = 'score desc'
     else
-      @sort = 'year_sort desc'
+      sort = 'year_sort desc'
     end
-    @sort = params[:sort] if params[:sort]
+    sort = params[:sort] if params[:sort]
 
-    @query = params[:q]
-    @precise = params[:precise]
-    @facet_query = params[:fq]
-
-    # Expose the precise Solr search so we can use it to create datasets
     solr_query = search_params_to_solr_query(params)
-    @solr_q = solr_query[:q]
-    @solr_def_type = solr_query[:def_type]
-    @solr_fq = solr_query[:fq]
-
-    solr_query.merge!(sort: @sort,
-                      start: offset,
-                      rows: limit)
+    solr_query.merge!(sort: sort,
+                      start: page * per_page,
+                      rows: per_page)
 
     # Get the documents
     @result = RLetters::Solr::Connection.search(solr_query)

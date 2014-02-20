@@ -30,65 +30,46 @@ describe SearchController do
         expect(assigns(:documents).size).to eq(10)
       end
 
-      it 'assigns solr_q' do
-        expect(assigns(:solr_q)).to eq('*:*')
-      end
-
-      it 'assigns solr_def_type' do
-        expect(assigns(:solr_def_type)).to eq('lucene')
-      end
-
-      it 'does not assign solr_fq' do
-        expect(assigns(:solr_fq)).to be_nil
-      end
-
       it 'sorts by year, descending' do
-        expect(assigns(:sort)).to eq('year_sort desc')
+        expect(assigns(:result).params['sort']).to eq('year_sort desc')
       end
     end
 
     context 'with faceted search results' do
-      before(:each) do
-        expect(RLetters::Solr::Connection).to receive(:search).and_return(double(documents: [], facets: nil))
-        get :index, fq: ['journal_facet:"Journal of Nothing"']
-      end
-
-      it 'assigns solr_fq' do
-        expect(assigns(:solr_fq)).to be
-      end
-
       it 'sorts by year, descending' do
-        expect(assigns(:sort)).to eq('year_sort desc')
+        params = {
+          q: '*:*',
+          fq: ['journal_facet:"Journal of Nothing"'],
+          def_type: 'lucene',
+          sort: 'year_sort desc',
+          start: 0,
+          rows: 10
+        }
+
+        expect(RLetters::Solr::Connection).to receive(:search).with(params).and_return(double(documents: [], facets: nil, params: params.stringify_keys))
+        get :index, fq: ['journal_facet:"Journal of Nothing"']
       end
     end
 
     context 'with a dismax search' do
-      before(:each) do
-        expect(RLetters::Solr::Connection).to receive(:search).and_return(double(documents: [], facets: nil))
-        get :index, q: 'testing'
-      end
-
-      it 'assigns solr_q' do
-        expect(assigns(:solr_q)).to eq('testing')
-      end
-
-      it 'assigns solr_def_type' do
-        expect(assigns(:solr_def_type)).to eq('dismax')
-      end
-
-      it 'does not assign solr_fq' do
-        expect(assigns(:solr_fq)).to be_nil
-      end
-
       it 'sorts by score, descending' do
-        expect(assigns(:sort)).to eq('score desc')
+        params = {
+          q: 'testing',
+          def_type: 'dismax',
+          sort: 'score desc',
+          start: 0,
+          rows: 10
+        }
+
+        expect(RLetters::Solr::Connection).to receive(:search).with(params).and_return(double(documents: [], facets: nil, params: params.stringify_keys))
+        get :index, q: 'testing'
       end
     end
 
     context 'with offset and limit parameters' do
       it 'successfully parses those parameters' do
         default_sq = { q: '*:*', def_type: 'lucene', sort: 'year_sort desc', start: 20, rows: 20 }
-        expect(RLetters::Solr::Connection).to receive(:search).with(default_sq).and_return(double(documents: [], facets: nil))
+        expect(RLetters::Solr::Connection).to receive(:search).with(default_sq).and_return(double(documents: [], facets: nil, params: default_sq.stringify_keys))
 
         get :index, page: '1', per_page: '20'
 
@@ -97,7 +78,7 @@ describe SearchController do
 
       it 'does not throw an exception on non-integral page values' do
         default_sq = { q: '*:*', def_type: 'lucene', sort: 'year_sort desc', start: 0, rows: 20 }
-        expect(RLetters::Solr::Connection).to receive(:search).with(default_sq).and_return(double(documents: [], facets: nil))
+        expect(RLetters::Solr::Connection).to receive(:search).with(default_sq).and_return(double(documents: [], facets: nil, params: default_sq.stringify_keys))
 
         expect {
           get :index, page: 'zzyzzy', per_page: '20'
@@ -106,7 +87,7 @@ describe SearchController do
 
       it 'does not throw an exception on non-integral per_page values' do
         default_sq = { q: '*:*', def_type: 'lucene', sort: 'year_sort desc', start: 10, rows: 10 }
-        expect(RLetters::Solr::Connection).to receive(:search).with(default_sq).and_return(double(documents: [], facets: nil))
+        expect(RLetters::Solr::Connection).to receive(:search).with(default_sq).and_return(double(documents: [], facets: nil, params: default_sq.stringify_keys))
 
         expect {
           get :index, page: '1', per_page: 'zzyzzy'
@@ -115,7 +96,7 @@ describe SearchController do
 
       it 'does not let the user specify zero items per page' do
         default_sq = { q: '*:*', def_type: 'lucene', sort: 'year_sort desc', start: 10, rows: 10 }
-        expect(RLetters::Solr::Connection).to receive(:search).with(default_sq).and_return(double(documents: [], facets: nil))
+        expect(RLetters::Solr::Connection).to receive(:search).with(default_sq).and_return(double(documents: [], facets: nil, params: default_sq.stringify_keys))
 
         get :index, page: '1', per_page: '0'
       end
