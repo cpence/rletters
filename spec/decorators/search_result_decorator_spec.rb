@@ -42,7 +42,7 @@ describe SearchResultDecorator do
     end
   end
 
-  describe '#render_pagination' do
+  describe '#pagination' do
     context 'when we only have one page of results' do
       before(:each) do
         @result = described_class.decorate(double(num_hits: 1, params: { 'rows' => 10 }))
@@ -116,6 +116,27 @@ describe SearchResultDecorator do
           expect(@ret).to have_selector('a[href="#"]', text: '»')
         end
       end
+    end
+  end
+
+  describe '#sort' do
+    before(:each) do
+      @result = described_class.decorate(double(params: { 'sort' => 'score desc' }))
+    end
+
+    it 'reads the sort method from the params' do
+      expect(@result.sort).to eq('Sort: Relevance')
+    end
+  end
+
+  describe '#sort_methods' do
+    it 'works as expected' do
+      @result = described_class.decorate(double(params: { 'sort' => 'score desc' }))
+      expect(@result.sort_methods.assoc('score desc')[1]).to eq('Sort: Relevance')
+      expect(@result.sort_methods.assoc('title_sort asc')[1]).to eq('Sort: Title (ascending)')
+      expect(@result.sort_methods.assoc('journal_sort desc')[1]).to eq('Sort: Journal (descending)')
+      expect(@result.sort_methods.assoc('year_sort asc')[1]).to eq('Sort: Year (ascending)')
+      expect(@result.sort_methods.assoc('authors_sort desc')[1]).to eq('Sort: Authors (descending)')
     end
   end
 end

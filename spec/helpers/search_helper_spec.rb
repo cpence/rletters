@@ -26,19 +26,6 @@ describe SearchHelper do
     end
   end
 
-  describe '#sort_to_string' do
-    it 'returns the right thing for relevance' do
-      expect(helper.sort_to_string('score desc')).to eq('Sort: Relevance')
-    end
-
-    it 'returns the right thing for other sort fields' do
-      expect(helper.sort_to_string('title_sort asc')).to eq('Sort: Title (ascending)')
-      expect(helper.sort_to_string('journal_sort desc')).to eq('Sort: Journal (descending)')
-      expect(helper.sort_to_string('year_sort asc')).to eq('Sort: Year (ascending)')
-      expect(helper.sort_to_string('authors_sort desc')).to eq('Sort: Authors (descending)')
-    end
-  end
-
   describe '#active_filter_list' do
     context 'with nothing active' do
       before(:each) do

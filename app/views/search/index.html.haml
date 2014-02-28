@@ -21,14 +21,14 @@
         .small-12.columns
           = search_field_tag :q, (params[:precise] ? t('.adv_search_placeholder') : params[:q]), placeholder: t('.placeholder')
           %ul.button-group.even-2
-            %li= link_to(sort_to_string(result.params['sort']), '#', class: 'button secondary dropdown small', 'data-dropdown' => 'sort-dropdown')
+            %li= link_to(result.sort, '#', class: 'button secondary dropdown small', 'data-dropdown' => 'sort-dropdown')
             - if user_signed_in?
               %li= link_to t('.create_dataset'), new_dataset_path(q: result.params['q'], def_type: result.params['defType'], fq: result.params['fq']), class: 'button success small', data: { reveal_id: 'new-modal', reveal_ajax: 'true' }
             - else
               %li= link_to t('.create_dataset'), '#', class: 'button success small disabled'
           %ul#sort-dropdown.f-dropdown{ data: { dropdown_content: true } }
-            - sort_methods.each do |s|
-              %li= link_to sort_to_string(s), search_path(params.merge({ sort: s }))
+            - result.sort_methods.each do |(param, desc)|
+              %li= link_to desc, search_path(params.merge({ sort: param }))
 
     %dl.sub-nav
       %dt= result.num_hits

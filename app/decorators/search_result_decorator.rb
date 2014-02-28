@@ -68,6 +68,28 @@ class SearchResultDecorator < Draper::Decorator
     end
   end
 
+  # Return an array of all sort methods
+  #
+  # @api public
+  # @return [Array<String>] all possible sorting strings
+  # @example Create links to all the sort methods
+  #   <%= sort_methods.each do |s| %>
+  #     <%= link_to ... %>
+  def sort_methods
+    SORT_METHODS.map { |m| [m, sort_string_for(m)] }
+  end
+
+  # Get the current sort method as a string
+  #
+  # @api public
+  # @return [String] user-friendly representation of current sort method
+  # @example Get the current search's sort method
+  #   result.sort
+  #   # => 'Sort: Relevance'
+  def sort
+    sort_string_for params['sort']
+  end
+
   private
 
   # Make a link to a page for the pagination widget
@@ -93,5 +115,50 @@ class SearchResultDecorator < Draper::Decorator
     end
 
     h.content_tag(:li, h.link_to(text, href), class: klass)
+  end
+
+  # The array of all sort methods
+  SORT_METHODS = [
+    'score desc',
+    'authors_sort asc',
+    'authors_sort desc',
+    'title_sort asc',
+    'title_sort desc',
+    'journal_sort asc',
+    'journal_sort desc',
+    'year_sort asc',
+    'year_sort desc'
+  ]
+
+  # Convert a precise sort method into a friendly string
+  #
+  # This function converts a sort method ('relevance', 'title', 'author',
+  # 'journal', 'year') and sort direction ('asc' or 'desc') into a
+  # user-friendly string.
+  #
+  # @api private
+  # @param [String] method the sort method
+  # @return [String] user-friendly representation of sort method
+  def sort_string_for(method)
+    return I18n.t('search.index.sort_unknown') unless SORT_METHODS.include?(method)
+
+    parts = method.split(' ')
+    method = parts[0]
+    dir = I18n.t("search.index.sort_#{parts[1]}")
+
+    method_spec = case method
+                  when 'score'
+                    I18n.t('search.index.sort_score')
+                  when 'title_sort'
+                    "#{Document.human_attribute_name('title')} #{dir}"
+                  when 'authors_sort'
+                    "#{Document.human_attribute_name('authors')} #{dir}"
+                  when 'journal_sort'
+                    "#{Document.human_attribute_name('journal')} #{dir}"
+                  when 'year_sort'
+                    "#{Document.human_attribute_name('year')} #{dir}"
+                  end
+
+    "#{I18n.t('search.index.sort_prefix')} #{method_spec}"
   end
 end

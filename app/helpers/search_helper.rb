@@ -3,65 +3,6 @@
 # Markup generators for the search controller
 module SearchHelper
 
-  # The array of all sort methods
-  SORT_METHODS = [
-    'score desc',
-    'authors_sort asc',
-    'authors_sort desc',
-    'title_sort asc',
-    'title_sort desc',
-    'journal_sort asc',
-    'journal_sort desc',
-    'year_sort asc',
-    'year_sort desc'
-  ]
-
-  # Return an array of all sort methods
-  #
-  # @api public
-  # @return [Array<String>] all possible sorting strings
-  # @example Create links to all the sort methods
-  #   <%= sort_methods.each do |s| %>
-  #     <%= link_to ... %>
-  def sort_methods
-    SORT_METHODS
-  end
-
-  # Get the given sort method as a string
-  #
-  # This function converts a sort method ('relevance', 'title', 'author',
-  # 'journal', 'year') and sort direction ('asc' or 'desc') into a
-  # user-friendly string.
-  #
-  # @api public
-  # @param [String] sort sorting string
-  # @return [String] user-friendly representation of sort method
-  # @example Get the user-friendly version of 'score desc'
-  #   sort_to_string 'score desc'
-  #   # => 'Sort: Relevance'
-  def sort_to_string(sort)
-    return I18n.t('search.index.sort_unknown') unless sort_methods.include?(sort)
-
-    parts = sort.split(' ')
-    method = parts[0]
-    dir = I18n.t("search.index.sort_#{parts[1]}")
-
-    method_spec = case method
-                  when 'score'
-                    I18n.t('search.index.sort_score')
-                  when 'title_sort'
-                    "#{Document.human_attribute_name('title')} #{dir}"
-                  when 'authors_sort'
-                    "#{Document.human_attribute_name('authors')} #{dir}"
-                  when 'journal_sort'
-                    "#{Document.human_attribute_name('journal')} #{dir}"
-                  when 'year_sort'
-                    "#{Document.human_attribute_name('year')} #{dir}"
-                  end
-
-    "#{I18n.t('search.index.sort_prefix')} #{method_spec}"
-  end
-
   # Return a list of active filters for a Foundation sub-nav
   #
   # @api public
