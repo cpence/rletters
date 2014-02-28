@@ -8,7 +8,6 @@
 # +RLetters::Solr::Connection.search+.
 class SearchController < ApplicationController
   decorates_assigned :result, with: SearchResultDecorator
-  decorates_assigned :facets, with: FacetsDecorator
 
   # Show the main search index page
   #

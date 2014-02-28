@@ -32,7 +32,7 @@
 
     %dl.sub-nav
       %dt= result.num_hits
-      = active_filter_list(result, facets)
+      = active_filter_list(result)
 
     .pagination-centered= result.pagination
     %table.document-list
@@ -50,8 +50,8 @@
     .panel
       %h5= t('.filters')
       %ul.side-nav
-        - if facets
-          = facets.addition_links
+        - if result.facets
+          = result.facets.addition_links
         %li.divider
         = journal_category_list
 

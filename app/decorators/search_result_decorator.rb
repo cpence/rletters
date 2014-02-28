@@ -4,6 +4,16 @@ class SearchResultDecorator < Draper::Decorator
   decorates RLetters::Solr::SearchResult
   delegate_all
 
+  # Decorate the facets
+  #
+  # @api public
+  # @return [FacetsDecorator] the decorated facets
+  # @example Iterate the decorated facets
+  #   - result.facets.each { |f| ... }
+  def facets
+    FacetsDecorator.decorate(object.facets)
+  end
+
   # Return a formatted version of the number of hits for the last search
   #
   # @api public

@@ -30,8 +30,8 @@ describe SearchHelper do
     context 'with nothing active' do
       before(:each) do
         @result = RLetters::Solr::Connection.search(q: '*:*', def_type: 'lucene')
-        @facets = FacetsDecorator.decorate(@result.facets)
-        @ret = helper.active_filter_list(@result, @facets)
+        @decorated = SearchResultDecorator.decorate(@result)
+        @ret = helper.active_filter_list(@decorated)
       end
 
       it 'includes the no-facet text' do

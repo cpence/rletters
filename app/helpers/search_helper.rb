@@ -11,7 +11,7 @@ module SearchHelper
   # @example Get all of the filter removal links
   #   active_filter_list(@result)
   #   # "<dd><a href='...'>Johnson</a></dd>..."
-  def active_filter_list(result, facets)
+  def active_filter_list(result)
     # If we're entirely non-faceted, then bail
     if params[:fq].blank? && params[:categories].blank?
       return content_tag(:dd) do
@@ -44,7 +44,7 @@ module SearchHelper
     end
 
     # Facets
-    ret << facets.removal_links if facets
+    ret << result.facets.removal_links if result.facets
     ret
   end
 
