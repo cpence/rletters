@@ -37,7 +37,6 @@ class SearchController < ApplicationController
 
     # Get the documents
     @result = RLetters::Solr::Connection.search(solr_query)
-    @facets = @result.facets
     @documents = @result.documents
   end
 
