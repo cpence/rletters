@@ -32,6 +32,11 @@ FactoryGirl.define do
     job_type 'FakeJob'
   end
 
+  factory :category, class: Documents::Category do
+    name 'Test Category'
+    journals ['Ethology']
+  end
+
   factory :dataset do
     ignore do
       working false

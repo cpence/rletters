@@ -32,7 +32,7 @@
 
     %dl.sub-nav
       %dt= result.num_hits
-      = active_filter_list(result)
+      = result.filter_removal_links
 
     .pagination-centered= result.pagination
     %table.document-list
@@ -53,7 +53,7 @@
         - if result.facets
           = result.facets.addition_links
         %li.divider
-        = journal_category_list
+        = result.categories.link_tree
 
       %p= link_to t('.advanced_search'), search_advanced_path, class: 'button secondary small expand'
 

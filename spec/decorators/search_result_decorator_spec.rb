@@ -4,6 +4,87 @@ require 'spec_helper'
 describe SearchResultDecorator do
   include Capybara::RSpecMatchers
 
+  describe '#filter_removal_links' do
+    context 'with nothing active' do
+      before(:each) do
+        params = {
+          q: '*:*',
+          defType: 'lucene'
+        }
+        @result = RLetters::Solr::Connection.search(params)
+        @decorated = described_class.decorate(@result)
+        @ret = @decorated.filter_removal_links
+      end
+
+      it 'includes the no-facet text' do
+        expect(@ret).to include('No filters active')
+      end
+    end
+
+    context 'with a facet active' do
+      before(:each) do
+        params = {
+          q: '*:*',
+          defType: 'lucene',
+          fq: ['journal_facet:"Ethology"']
+        }
+        Draper::ViewContext.current.params[:fq] = ['journal_facet:"Ethology"']
+        @result = RLetters::Solr::Connection.search(params)
+        @decorated = described_class.decorate(@result)
+        @ret = @decorated.filter_removal_links
+      end
+
+      it 'includes the removal link' do
+        expect(@ret).to include('<a href="/search">Journal: Ethology</a>')
+      end
+    end
+
+    context 'with a category active' do
+      before(:each) do
+        @category = FactoryGirl.create(:category)
+        params = {
+          q: '*:*',
+          defType: 'lucene',
+          categories: [@category.to_param],
+          fq: ['journal_facet:("Ethology")']
+        }
+        Draper::ViewContext.current.params[:categories] = [@category.to_param]
+        @result = RLetters::Solr::Connection.search(params)
+        @decorated = described_class.decorate(@result)
+        @ret = @decorated.filter_removal_links
+      end
+
+      it 'includes the removal link' do
+        expect(@ret).to include('<a href="/search">Category: Test Category</a>')
+      end
+    end
+
+    context 'with overlapping facet and category active' do
+      before(:each) do
+        @category = FactoryGirl.create(:category)
+        params = {
+          q: '*:*',
+          defType: 'lucene',
+          categories: [@category.to_param],
+          fq: ['journal_facet:("Ethology")', 'journal_facet:"Ethology"']
+        }
+        Draper::ViewContext.current.params[:categories] = [@category.to_param]
+        Draper::ViewContext.current.params[:fq] = ['journal_facet:"Ethology"']
+        @result = RLetters::Solr::Connection.search(params)
+        @decorated = described_class.decorate(@result)
+        @ret = @decorated.filter_removal_links
+      end
+
+      it 'includes the category removal link (with facet)' do
+        expect(@ret).to include('<a href="/search?fq%5B%5D=journal_facet%3A%22Ethology%22">Category: Test Category</a>')
+      end
+
+      it 'includes the facet removal link (with category)' do
+        expect(@ret).to include('<a href="/search?categories%5B%5D=2">Journal: Ethology</a>')
+      end
+    end
+  end
+
   describe '#num_hits' do
     context 'when no search has been performed' do
       before(:each) do

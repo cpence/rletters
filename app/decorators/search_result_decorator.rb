@@ -14,6 +14,54 @@ class SearchResultDecorator < Draper::Decorator
     FacetsDecorator.decorate(object.facets)
   end
 
+  # Decorate the complete set of categories
+  #
+  # @api public
+  # @return [CategoriesDecorator] all categories, decorated
+  # @example Iterate through all the categories
+  #   - result.categories.each { |c| ... }
+  def categories
+    CategoriesDecorator.decorate(Documents::Category.all)
+  end
+
+  # Decorate the active categories
+  #
+  # @api public
+  # @return [CategoriesDecorator] the decorated categories
+  # @example Iterate the active categories
+  #   - result.active_categories.each { |c| ... }
+  def active_categories
+    categories = [h.params[:categories] || []].flatten.map do |id|
+      Documents::Category.find(id)
+    end
+
+    CategoriesDecorator.decorate(categories)
+  end
+
+  # Return a list of links to remove all active filters
+  #
+  # @api public
+  # @return [String] removal links for all filters
+  def filter_removal_links
+    if h.params[:fq].blank? && active_categories.blank?
+      return h.content_tag(:dd) do
+        h.link_to I18n.t('search.index.no_filters'), '#'
+      end
+    end
+
+    ''.html_safe.tap do |ret|
+      # Remove all
+      ret << h.content_tag(:dd) do
+        new_params = h.params.deep_dup.except!(:categories, :fq)
+        h.link_to I18n.t('search.index.remove_all'), h.search_path(new_params)
+      end
+
+      # Categories and facets
+      ret << active_categories.removal_links unless active_categories.empty?
+      ret << facets.removal_links unless facets.empty?
+    end
+  end
+
   # Return a formatted version of the number of hits for the last search
   #
   # @api public

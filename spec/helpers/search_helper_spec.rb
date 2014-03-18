@@ -26,20 +26,6 @@ describe SearchHelper do
     end
   end
 
-  describe '#active_filter_list' do
-    context 'with nothing active' do
-      before(:each) do
-        @result = RLetters::Solr::Connection.search(q: '*:*', def_type: 'lucene')
-        @decorated = SearchResultDecorator.decorate(@result)
-        @ret = helper.active_filter_list(@decorated)
-      end
-
-      it 'includes the no-facet text' do
-        expect(@ret).to include('No filters active')
-      end
-    end
-  end
-
   describe '#document_bibliography_entry' do
     context 'when no user is logged in' do
       before(:each) do
