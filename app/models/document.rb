@@ -194,15 +194,12 @@ class Document
     doc
   end
 
-  # @return [String] the document UID, sanitized for use as an HTML attribute
-  def html_uid
-    uid ? uid.gsub(/[^0-9a-zA-Z\-_]/, '_') : nil
-  end
-
   # @return [String] the starting page of this document, if it can be parsed
   def start_page
     return nil unless pages
-    pages.split('-')[0]
+
+    @start_page ||= pages.split('-')[0]
+    @start_page
   end
 
   # @return [String] the ending page of this document, if it can be parsed
@@ -211,17 +208,20 @@ class Document
     parts = pages.split('-')
     return nil if parts.length <= 1
 
-    spage = parts[0]
-    epage = parts[-1]
+    @end_page ||= begin
+      spage = parts[0]
+      epage = parts[-1]
 
-    # Check for range strings like "1442-7"
-    if spage.length > epage.length
-      ret = spage
-      ret[-epage.length..-1] = epage
-    else
-      ret = epage
+      # Check for range strings like "1442-7"
+      if spage.length > epage.length
+        ret = spage
+        ret[-epage.length..-1] = epage
+      else
+        ret = epage
+      end
+      ret
     end
-    ret
+    @end_page
   end
 
   # Set all attributes and create author lists

@@ -4,6 +4,16 @@ class SearchResultDecorator < Draper::Decorator
   decorates RLetters::Solr::SearchResult
   delegate_all
 
+  # Decorate the documents
+  #
+  # @api public
+  # @return [Array<DocumentDecorator] the decorated documents
+  # @example Iterate the decorated documents
+  #   - result.documents.each { |f| ... }
+  def documents
+    DocumentDecorator.decorate_collection(object.documents)
+  end
+
   # Decorate the facets
   #
   # @api public
@@ -31,11 +41,11 @@ class SearchResultDecorator < Draper::Decorator
   # @example Iterate the active categories
   #   - result.active_categories.each { |c| ... }
   def active_categories
-    categories = [h.params[:categories] || []].flatten.map do |id|
+    cats = [h.params[:categories] || []].flatten.map do |id|
       Documents::Category.find(id)
     end
 
-    CategoriesDecorator.decorate(categories)
+    CategoriesDecorator.decorate(cats)
   end
 
   # Return a list of links to remove all active filters
@@ -69,7 +79,7 @@ class SearchResultDecorator < Draper::Decorator
   # @example Print the number of hits for the search (in HAML)
   #   = result.num_hits
   def num_hits
-    if (params[:q] && params[:q] != '*:*') || params[:fq]
+    if (object.params[:q] && object.params[:q] != '*:*') || object.params[:fq]
       I18n.t 'search.index.num_hits_found', count: object.num_hits
     else
       I18n.t 'search.index.num_documents_database', count: object.num_hits
@@ -84,8 +94,8 @@ class SearchResultDecorator < Draper::Decorator
   #   <p><%= result.pagination %></p>
   def pagination
     # Extract page and per_page from the Solr query that we called
-    per_page = (params['rows'] || 10).to_i
-    start = (params['start'] || 0).to_i
+    per_page = (object.params['rows'] || 10).to_i
+    start = (object.params['start'] || 0).to_i
     page = start / per_page
 
     num_pages = object.num_hits.to_f / per_page.to_f
@@ -145,7 +155,7 @@ class SearchResultDecorator < Draper::Decorator
   #   result.sort
   #   # => 'Sort: Relevance'
   def sort
-    sort_string_for params['sort']
+    sort_string_for object.params['sort']
   end
 
   private

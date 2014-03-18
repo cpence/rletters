@@ -11,7 +11,7 @@ class CategoryDecorator < Draper::Decorator
   def removal_link
     h.content_tag(:dd, class: 'active') do
       new_params = toggle_params
-      h.link_to("#{Documents::Category.model_name.human}: #{object.name}",
+      h.link_to("#{Documents::Category.model_name.human}: #{name}",
               h.search_path(new_params))
     end
   end
@@ -25,9 +25,9 @@ class CategoryDecorator < Draper::Decorator
     ''.html_safe.tap do |content|
       content << toggle_link
 
-      unless object.leaf?
+      unless leaf?
         content << h.content_tag(:ul) do
-          h.content_tag_for(:li, object.children) do |c|
+          h.content_tag_for(:li, children) do |c|
             CategoryDecorator.decorate(c).link_tree
           end
         end
@@ -38,7 +38,7 @@ class CategoryDecorator < Draper::Decorator
   # @api public
   # @return [Boolean] true if the category is currently enabled
   def enabled
-    h.params[:categories] && h.params[:categories].include?(object.to_param)
+    h.params[:categories] && h.params[:categories].include?(to_param)
   end
 
   # Create a link to facet by a journal category
@@ -49,13 +49,13 @@ class CategoryDecorator < Draper::Decorator
 
     if enabled
       h.link_to(h.search_path(new_params)) do
-        h.check_box_tag("category_#{object.to_param}", '1', true, disabled: true) +
-          h.content_tag(:span, object.name)
+        h.check_box_tag("category_#{to_param}", '1', true, disabled: true) +
+          h.content_tag(:span, name)
       end
     else
       h.link_to(h.search_path(new_params)) do
-        h.check_box_tag("category_#{object.to_param}", '1', false, disabled: true) +
-          h.content_tag(:span, object.name)
+        h.check_box_tag("category_#{to_param}", '1', false, disabled: true) +
+          h.content_tag(:span, name)
       end
     end
   end
@@ -73,10 +73,10 @@ class CategoryDecorator < Draper::Decorator
       ret[:categories] ||= []
 
       if enabled
-        ret[:categories] -= object.self_and_ancestors.collect(&:to_param)
-        ret[:categories] -= object.self_and_descendants.collect(&:to_param)
+        ret[:categories] -= self_and_ancestors.collect(&:to_param)
+        ret[:categories] -= self_and_descendants.collect(&:to_param)
       else
-        ret[:categories] += object.self_and_descendants.collect(&:to_param)
+        ret[:categories] += self_and_descendants.collect(&:to_param)
       end
 
       ret[:categories].uniq!

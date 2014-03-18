@@ -36,15 +36,15 @@
 
     .pagination-centered= result.pagination
     %table.document-list
-      - @documents.each do |d|
+      - result.documents.each do |d|
         %tr
-          %td{ 'data-dropdown' => "drop-#{d.html_uid}" }
+          %td{ 'data-dropdown' => "drop-#{d.uid.html_id}" }
             %abbr{ class: 'unapi-id', title: d.uid }= ''
-            = document_bibliography_entry(d)
+            = d.citation
     .pagination-centered= result.pagination
 
-    - @documents.each do |d|
-      %div.f-dropdown.medium.content{ 'data-dropdown-content' => true, id: "drop-#{d.html_uid}" }= render partial: 'dropdown', locals: { document: d }
+    - result.documents.each do |d|
+      %div.f-dropdown.medium.content{ 'data-dropdown-content' => true, id: "drop-#{d.uid.html_id}" }= render partial: 'dropdown', locals: { document: d }
 
   .small-12.large-3.columns
     .panel

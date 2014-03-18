@@ -22,14 +22,6 @@ describe SearchController do
         expect(assigns(:result)).to be
       end
 
-      it 'assigns the documents variable' do
-        expect(assigns(:documents)).to be
-      end
-
-      it 'assigns the right number of documents' do
-        expect(assigns(:documents).size).to eq(10)
-      end
-
       it 'sorts by year, descending' do
         expect(assigns(:result).params['sort']).to eq('year_sort desc')
       end
@@ -73,7 +65,7 @@ describe SearchController do
 
         get :index, page: '1', per_page: '20'
 
-        expect(assigns(:documents)).to be_empty
+        expect(assigns(:result).documents).to be_empty
       end
 
       it 'does not throw an exception on non-integral page values' do

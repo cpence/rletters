@@ -4,20 +4,20 @@
 - if current_user.datasets.active.blank?
   %p= t('.no_datasets')
 - else
-  = form_tag dataset_path(current_user.datasets.first), method: :patch, id: "add-form-#{document.html_uid}" do
+  = form_tag dataset_path(current_user.datasets.first), method: :patch, id: "add-form-#{document.uid.html_id}" do
     = hidden_field_tag :uid, document.uid
     .row
       .large-6.columns
         = label_tag :dataset_id, Dataset.model_name.human
-        = select_tag :dataset_id, options_from_collection_for_select(current_user.datasets.active, 'to_param', 'name'), id: "add-select-#{document.html_uid}"
+        = select_tag :dataset_id, options_from_collection_for_select(current_user.datasets.active, 'to_param', 'name'), id: "add-select-#{document.uid.html_id}"
     .row
       .large-6.columns= submit_tag t('.submit'), class: 'button success small'
 
   - content_for(:javascript) do
     :javascript
-      $('#add-select-#{document.html_uid}').change(function() {
-        $('#add-form-#{document.html_uid}').attr('action', '#{datasets_path(trailing_slash: true)}' + $('#add-select-#{document.html_uid}').val() + '/');
+      $('#add-select-#{document.uid.html_id}').change(function() {
+        $('#add-form-#{document.uid.html_id}').attr('action', '#{datasets_path(trailing_slash: true)}' + $('#add-select-#{document.uid.html_id}').val() + '/');
       });
-      $('#add-select-#{document.html_uid}').trigger('change');
+      $('#add-select-#{document.uid.html_id}').trigger('change');
 
 %a.close-reveal-modal &#215;
