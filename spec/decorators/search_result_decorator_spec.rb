@@ -80,7 +80,7 @@ describe SearchResultDecorator do
       end
 
       it 'includes the facet removal link (with category)' do
-        expect(@ret).to include('<a href="/search?categories%5B%5D=2">Journal: Ethology</a>')
+        expect(@ret).to include("<a href=\"/search?categories%5B%5D=#{@category.to_param}\">Journal: Ethology</a>")
       end
     end
   end
