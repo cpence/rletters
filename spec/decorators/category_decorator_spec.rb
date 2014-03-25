@@ -3,7 +3,7 @@ require 'spec_helper'
 
 describe CategoryDecorator do
   before(:each) do
-    @category = FactoryGirl.create(:category)
+    @category = create(:category)
     @decorated = described_class.decorate(@category)
   end
 
@@ -20,7 +20,7 @@ describe CategoryDecorator do
     before(:each) do
       allow(@decorated).to receive(:toggle_params).and_return({ toggle: true })
 
-      @subcat = FactoryGirl.create(:category)
+      @subcat = create(:category)
       @category.children << @subcat
     end
 

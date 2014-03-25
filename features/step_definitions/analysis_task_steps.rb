@@ -4,14 +4,13 @@
 Given(/^I have a pending analysis task$/) do
   expect(@dataset).to be
 
-  @task = FactoryGirl.create(:analysis_task, dataset: @dataset)
+  @task = create(:analysis_task, dataset: @dataset)
 end
 
 Given(/^I have a failed analysis task$/) do
   expect(@dataset).to be
 
-  @task = FactoryGirl.create(:analysis_task, dataset: @dataset,
-                                             failed: true)
+  @task = create(:analysis_task, dataset: @dataset, failed: true)
 end
 
 Given(/^I complete an analysis task for the dataset$/) do

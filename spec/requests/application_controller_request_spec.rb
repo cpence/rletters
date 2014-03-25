@@ -6,7 +6,7 @@ describe ApplicationController do
   describe '#after_sign_in_path_for' do
     context 'with a regular user' do
       before(:each) do
-        @user = FactoryGirl.create(:user)
+        @user = create(:user)
       end
 
       it 'redirects to the root path on login' do
@@ -22,7 +22,7 @@ describe ApplicationController do
 
     context 'with an admin user' do
       before(:each) do
-        @user = FactoryGirl.create(:administrator)
+        @user = create(:administrator)
       end
 
       it 'redirects to the admin root on login' do
@@ -39,7 +39,7 @@ describe ApplicationController do
 
   describe '#after_sign_out_path_for' do
     before(:each) do
-      @user = FactoryGirl.create(:user)
+      @user = create(:user)
       post(user_session_path,
            user: { email: @user.email,
                    password: @user.password,

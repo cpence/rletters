@@ -10,22 +10,18 @@ end
 
 ### GIVEN ###
 Given(/^I have a dataset$/) do
-  @dataset = FactoryGirl.create(:full_dataset, name: 'Cucumber Dataset',
-                                               working: true,
-                                               user: @user)
+  @dataset = create(:full_dataset, name: 'Cucumber Dataset', working: true,
+                                                             user: @user)
 end
 
 Given(/^I have another dataset$/) do
-  @other_dataset = FactoryGirl.create(:full_dataset, name: 'Other Dataset',
-                                                     working: true,
-                                                     user: @user)
+  @other_dataset = create(:full_dataset, name: 'Other Dataset', working: true,
+                                                                user: @user)
 end
 
 Given(/^I have a dataset with (\d+) entries$/) do |entries|
-  @dataset = FactoryGirl.create(:full_dataset,
-                                working: true,
-                                user: @user,
-                                entries_count: Integer(entries))
+  @dataset = create(:full_dataset, working: true, user: @user,
+                                   entries_count: Integer(entries))
 end
 
 ### WHEN ###

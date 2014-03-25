@@ -4,7 +4,7 @@ require 'spec_helper'
 describe UserMailer do
   describe '#job_finished_email' do
     before(:each) do
-      @task = FactoryGirl.create(:analysis_task)
+      @task = create(:analysis_task)
 
       @mail = UserMailer.job_finished_email('user@user.com', @task.to_param)
     end

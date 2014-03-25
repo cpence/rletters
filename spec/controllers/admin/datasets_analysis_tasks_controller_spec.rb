@@ -7,9 +7,9 @@ describe Admin::DatasetsAnalysisTasksController do
   render_views
 
   before(:each) do
-    @administrator = FactoryGirl.create(:administrator)
+    @administrator = create(:administrator)
     sign_in :administrator, @administrator
-    @task = FactoryGirl.create(:analysis_task)
+    @task = create(:analysis_task)
   end
 
   describe '#index' do

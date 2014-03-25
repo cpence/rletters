@@ -46,12 +46,10 @@ describe Resque::Failure::AnalysisTask do
   describe '#save' do
     context 'with good parameters' do
       before(:each) do
-        @user = FactoryGirl.create(:user)
-        @dataset = FactoryGirl.create(:full_dataset, user: @user)
-        @task = FactoryGirl.create(:analysis_task,
-                                   dataset: @dataset,
-                                   name: 'Failing task',
-                                   job_type: 'FailingJob')
+        @user = create(:user)
+        @dataset = create(:full_dataset, user: @user)
+        @task = create(:analysis_task, dataset: @dataset, name: 'Failing task',
+                                       job_type: 'FailingJob')
 
         job_params = {
           user_id: @user.to_param,
@@ -72,7 +70,7 @@ describe Resque::Failure::AnalysisTask do
       it 'handles the exception gracefully' do
         expect {
           Jobs::Analysis::FailingJob.run_with_worker(
-            FactoryGirl.create(:analysis_task),
+            create(:analysis_task),
             user_id: 'asdf',
             dataset_id: 'asdf',
             task_id: 'asdf'

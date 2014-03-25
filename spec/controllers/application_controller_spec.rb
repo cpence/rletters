@@ -23,7 +23,7 @@ describe ApplicationController do
 
     context 'with a user' do
       before(:each) do
-        @user = FactoryGirl.create(:user, language: 'es-MX')
+        @user = create(:user, language: 'es-MX')
         sign_in @user
 
         get :index
@@ -50,7 +50,7 @@ describe ApplicationController do
 
     context 'with a user' do
       before(:each) do
-        @user = FactoryGirl.create(:user, timezone: 'Mexico City')
+        @user = create(:user, timezone: 'Mexico City')
         sign_in @user
 
         get :index

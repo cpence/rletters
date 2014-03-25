@@ -41,7 +41,7 @@ describe SearchResultDecorator do
 
     context 'with a category active' do
       before(:each) do
-        @category = FactoryGirl.create(:category)
+        @category = create(:category)
         params = {
           q: '*:*',
           defType: 'lucene',
@@ -61,7 +61,7 @@ describe SearchResultDecorator do
 
     context 'with overlapping facet and category active' do
       before(:each) do
-        @category = FactoryGirl.create(:category)
+        @category = create(:category)
         params = {
           q: '*:*',
           defType: 'lucene',

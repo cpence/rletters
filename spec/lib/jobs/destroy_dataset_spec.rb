@@ -4,8 +4,8 @@ require 'spec_helper'
 describe Jobs::DestroyDataset do
 
   before(:each) do
-    @user = FactoryGirl.create(:user)
-    @dataset = FactoryGirl.create(:dataset, user: @user)
+    @user = create(:user)
+    @dataset = create(:dataset, user: @user)
   end
 
   context 'when the wrong user is specified' do
@@ -14,7 +14,7 @@ describe Jobs::DestroyDataset do
         expect {
           Jobs::DestroyDataset.perform(
             '123',
-            user_id: FactoryGirl.create(:user).to_param,
+            user_id: create(:user).to_param,
             dataset_id: @dataset.to_param)
         }.to raise_error(ActiveRecord::RecordNotFound)
       }.to_not change { @user.datasets.count }

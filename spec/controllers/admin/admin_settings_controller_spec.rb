@@ -7,7 +7,7 @@ describe Admin::AdminSettingsController do
   render_views
 
   before(:each) do
-    @administrator = FactoryGirl.create(:administrator)
+    @administrator = create(:administrator)
     sign_in :administrator, @administrator
   end
 

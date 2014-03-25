@@ -4,10 +4,10 @@ require 'spec_helper'
 describe Users::LibrariesController do
 
   before(:each) do
-    @user = FactoryGirl.create(:user)
+    @user = create(:user)
     sign_in @user
 
-    @library = FactoryGirl.create(:library, user: @user)
+    @library = create(:library, user: @user)
   end
 
   describe '#index' do
@@ -29,13 +29,13 @@ describe Users::LibrariesController do
       it 'creates a library' do
         expect {
           post :create,
-               users_library: FactoryGirl.attributes_for(:library, user: @user)
+               users_library: attributes_for(:library, user: @user)
         }.to change { @user.libraries.count }.by(1)
       end
 
       it 'redirects to the user page' do
         post :create,
-             users_library: FactoryGirl.attributes_for(:library, user: @user)
+             users_library: attributes_for(:library, user: @user)
         expect(response).to redirect_to(edit_user_registration_path)
       end
     end
@@ -44,17 +44,15 @@ describe Users::LibrariesController do
       it 'does not create a library' do
         expect {
           post :create,
-               users_library: FactoryGirl.attributes_for(:library,
-                                                         url: 'what:nope',
-                                                         user: @user)
+               users_library: attributes_for(:library, url: 'what:nope',
+                                                       user: @user)
         }.to_not change { @user.libraries.count }
       end
 
       it 'renders the new form' do
         post :create,
-             users_library: FactoryGirl.attributes_for(:library,
-                                                       url: 'what:nope',
-                                                       user: @user)
+             users_library: attributes_for(:library, url: 'what:nope',
+                                                     user: @user)
         expect(response).not_to redirect_to(edit_user_registration_path)
       end
     end

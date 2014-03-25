@@ -15,7 +15,7 @@ describe WorkflowController do
     context 'given Solr results' do
       context 'when logged in' do
         before(:each) do
-          @user = FactoryGirl.create(:user)
+          @user = create(:user)
           sign_in @user
 
           get :index
@@ -62,11 +62,13 @@ describe WorkflowController do
 
   describe 'workflow actions' do
     before(:each) do
-      @user = FactoryGirl.create(:user)
+      @user = create(:user)
       sign_in @user
 
-      @dataset = FactoryGirl.create(:dataset, name: 'Test Dataset', working: true, user: @user)
-      @disabled = FactoryGirl.create(:dataset, name: 'Disabled Dataset', disabled: true, user: @user)
+      @dataset = create(:dataset, name: 'Test Dataset', working: true,
+                                  user: @user)
+      @disabled = create(:dataset, name: 'Disabled Dataset', disabled: true,
+                                   user: @user)
     end
 
     describe '#info' do
@@ -155,7 +157,7 @@ describe WorkflowController do
 
       context 'when asked to unlink a dataset with multiple datasets' do
         before(:each) do
-          @dataset_2 = FactoryGirl.create(:dataset, user: @user)
+          @dataset_2 = create(:dataset, user: @user)
 
           @user.workflow_active = true
           @user.workflow_class = 'CraigZeta'
@@ -179,10 +181,8 @@ describe WorkflowController do
 
   describe '#fetch' do
     def make_task(dataset, finished)
-      task = FactoryGirl.create(:analysis_task,
-                                dataset: dataset,
-                                finished_at: finished,
-                                job_type: 'WorkflowJob')
+      task = create(:analysis_task, dataset: dataset, finished_at: finished,
+                                    job_type: 'WorkflowJob')
 
       uuid = Jobs::Analysis::WorkflowJob.create(
         user_id: dataset.user.to_param,
@@ -198,13 +198,14 @@ describe WorkflowController do
     end
 
     before(:each) do
-      @user = FactoryGirl.create(:user)
-      @user2 = FactoryGirl.create(:user)
+      @user = create(:user)
+      @user2 = create(:user)
       sign_in @user
 
-      @dataset = FactoryGirl.create(:dataset, user: @user, name: 'Enabled')
-      @disabled = FactoryGirl.create(:dataset, user: @user, name: 'Disabled', disabled: true)
-      @other_dataset = FactoryGirl.create(:dataset, user: @user2, name: 'OtherUser')
+      @dataset = create(:dataset, user: @user, name: 'Enabled')
+      @disabled = create(:dataset, user: @user, name: 'Disabled',
+                                   disabled: true)
+      @other_dataset = create(:dataset, user: @user2, name: 'OtherUser')
 
       @finished_task = make_task(@dataset, DateTime.now)
       @pending_task = make_task(@dataset, nil)

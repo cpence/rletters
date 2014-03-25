@@ -7,9 +7,9 @@ describe Admin::DatasetsController do
   render_views
 
   before(:each) do
-    @administrator = FactoryGirl.create(:administrator)
+    @administrator = create(:administrator)
     sign_in :administrator, @administrator
-    @dataset = FactoryGirl.create(:dataset)
+    @dataset = create(:dataset)
   end
 
   describe '#index' do

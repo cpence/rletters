@@ -8,9 +8,9 @@ describe Jobs::Analysis::Network do
   end
 
   before(:each) do
-    @user = FactoryGirl.create(:user)
-    @dataset = FactoryGirl.create(:full_dataset, working: true, user: @user)
-    @task = FactoryGirl.create(:analysis_task, dataset: @dataset)
+    @user = create(:user)
+    @dataset = create(:full_dataset, working: true, user: @user)
+    @task = create(:analysis_task, dataset: @dataset)
   end
 
   describe '.download?' do

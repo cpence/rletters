@@ -6,7 +6,7 @@ describe Admin::MarkdownPage do
   describe '#valid?' do
     context 'when no name spcified' do
       before(:each) do
-        @page = FactoryGirl.build(:markdown_page, name: nil)
+        @page = build(:markdown_page, name: nil)
       end
 
       it 'is not valid' do
@@ -16,7 +16,7 @@ describe Admin::MarkdownPage do
 
     context 'when all parameters are valid' do
       before(:each) do
-        @page = FactoryGirl.build(:markdown_page)
+        @page = build(:markdown_page)
       end
 
       it 'is valid' do
@@ -27,7 +27,7 @@ describe Admin::MarkdownPage do
 
   describe '#friendly_name' do
     before(:each) do
-      @page = FactoryGirl.create(:markdown_page)
+      @page = create(:markdown_page)
     end
 
     it 'returns the plain name with no translation, friendly name with translation' do
@@ -43,7 +43,7 @@ describe Admin::MarkdownPage do
 
   describe '.render' do
     before(:each) do
-      @page = FactoryGirl.create(:markdown_page)
+      @page = create(:markdown_page)
     end
 
     context 'when a non-existent page is specified' do

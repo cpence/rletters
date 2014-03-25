@@ -17,14 +17,14 @@ describe Admin::DashboardController do
 
   context 'when an admin user is logged in' do
     before(:each) do
-      @administrator = FactoryGirl.create(:administrator)
+      @administrator = create(:administrator)
       sign_in :administrator, @administrator
 
-      @user = FactoryGirl.create(:user)
+      @user = create(:user)
       sign_in :user, @user
 
-      @dataset = FactoryGirl.create(:dataset, user: @user)
-      @analysis_task = FactoryGirl.create(:analysis_task, dataset: @dataset)
+      @dataset = create(:dataset, user: @user)
+      @analysis_task = create(:analysis_task, dataset: @dataset)
     end
 
     after(:each) do

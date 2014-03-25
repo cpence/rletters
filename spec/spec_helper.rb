@@ -91,6 +91,7 @@ RSpec.configure do |config|
 
   # Add a variety of test helpers
   config.include Devise::TestHelpers, type: :controller
+  config.include FactoryGirl::Syntax::Methods
   config.include SearchControllerQuery, type: :view
   config.include ParseJson, type: :request
   config.include StubConnection

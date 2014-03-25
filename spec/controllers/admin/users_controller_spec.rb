@@ -7,9 +7,9 @@ describe Admin::UsersController do
   render_views
 
   before(:each) do
-    @administrator = FactoryGirl.create(:administrator)
+    @administrator = create(:administrator)
     sign_in :administrator, @administrator
-    @user = FactoryGirl.create(:user)
+    @user = create(:user)
   end
 
   describe '#index' do

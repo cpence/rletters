@@ -6,7 +6,7 @@ describe Admin::UploadedAsset do
   describe '#valid?' do
     context 'when no name spcified' do
       before(:each) do
-        @asset = FactoryGirl.build(:uploaded_asset, name: nil)
+        @asset = build(:uploaded_asset, name: nil)
       end
 
       it 'is not valid' do
@@ -16,7 +16,7 @@ describe Admin::UploadedAsset do
 
     context 'when all parameters are valid' do
       before(:each) do
-        @asset = FactoryGirl.build(:uploaded_asset)
+        @asset = build(:uploaded_asset)
       end
 
       it 'is valid' do
@@ -27,7 +27,7 @@ describe Admin::UploadedAsset do
 
   describe '#friendly_name' do
     before(:each) do
-      @asset = FactoryGirl.create(:uploaded_asset)
+      @asset = create(:uploaded_asset)
     end
 
     it 'returns the plain name with no translation, friendly name with translation' do
@@ -43,7 +43,7 @@ describe Admin::UploadedAsset do
 
   describe '.url_for' do
     before(:each) do
-      @asset = FactoryGirl.create(:uploaded_asset)
+      @asset = create(:uploaded_asset)
     end
 
     context 'when a non-existent asset is specified' do

@@ -4,10 +4,10 @@ require 'spec_helper'
 describe Datasets::AnalysisTasksController do
 
   before(:each) do
-    @user = FactoryGirl.create(:user)
+    @user = create(:user)
     sign_in @user
 
-    @dataset = FactoryGirl.create(:full_dataset, user: @user, working: true)
+    @dataset = create(:full_dataset, user: @user, working: true)
   end
 
   describe '#index' do
@@ -25,8 +25,8 @@ describe Datasets::AnalysisTasksController do
 
     context 'with a disabled dataset' do
       before(:each) do
-        @disabled = FactoryGirl.create(:dataset, user: @user, name: 'Disabled',
-                                                 disabled: true)
+        @disabled = create(:dataset, user: @user, name: 'Disabled',
+                                     disabled: true)
       end
 
       it 'raises an exception' do
@@ -64,8 +64,8 @@ describe Datasets::AnalysisTasksController do
 
     context 'with a disabled dataset' do
       before(:each) do
-        @disabled = FactoryGirl.create(:dataset, user: @user, name: 'Disabled',
-                                                 disabled: true)
+        @disabled = create(:dataset, user: @user, name: 'Disabled',
+                                     disabled: true)
       end
 
       it 'raises an exception' do
@@ -104,8 +104,8 @@ describe Datasets::AnalysisTasksController do
 
     context 'with a disabled dataset' do
       before(:each) do
-        @disabled = FactoryGirl.create(:dataset, user: @user, name: 'Disabled',
-                                                 disabled: true)
+        @disabled = create(:dataset, user: @user, name: 'Disabled',
+                                     disabled: true)
       end
 
       it 'raises an exception' do
@@ -173,9 +173,8 @@ describe Datasets::AnalysisTasksController do
 
   describe '#show' do
     before(:each) do
-      @task = FactoryGirl.create(:analysis_task,
-                                 dataset: @dataset,
-                                 job_type: 'ExportCitations')
+      @task = create(:analysis_task, dataset: @dataset,
+                                     job_type: 'ExportCitations')
     end
 
     context 'when an invalid task ID is passed' do
@@ -189,8 +188,8 @@ describe Datasets::AnalysisTasksController do
 
     context 'with a disabled dataset' do
       before(:each) do
-        @disabled = FactoryGirl.create(:dataset, user: @user, name: 'Disabled',
-                                                 disabled: true)
+        @disabled = create(:dataset, user: @user, name: 'Disabled',
+                                     disabled: true)
       end
 
       it 'raises an exception' do
@@ -265,11 +264,10 @@ describe Datasets::AnalysisTasksController do
 
     context 'with a disabled dataset' do
       before(:each) do
-        @disabled = FactoryGirl.create(:dataset, user: @user, name: 'Disabled',
-                                                 disabled: true)
-        @task = FactoryGirl.create(:analysis_task,
-                                   dataset: @disabled,
-                                   job_type: 'ExportCitations')
+        @disabled = create(:dataset, user: @user, name: 'Disabled',
+                                     disabled: true)
+        @task = create(:analysis_task, dataset: @disabled,
+                                       job_type: 'ExportCitations')
       end
 
       it 'raises an exception' do
@@ -282,9 +280,8 @@ describe Datasets::AnalysisTasksController do
     context 'when a valid task ID is passed' do
       before(:each) do
         request.env['HTTP_REFERER'] = workflow_fetch_path
-        @task = FactoryGirl.create(:analysis_task,
-                                   dataset: @dataset,
-                                   job_type: 'ExportCitations')
+        @task = create(:analysis_task, dataset: @dataset,
+                                       job_type: 'ExportCitations')
       end
 
       it 'deletes the task' do

@@ -7,7 +7,7 @@ describe Document do
   describe '#valid' do
     context 'when no uid is specified' do
       before(:each) do
-        @doc = FactoryGirl.build(:document, uid: nil)
+        @doc = build(:document, uid: nil)
       end
 
       it 'is not valid' do
@@ -17,7 +17,7 @@ describe Document do
 
     context 'when a good uid is specified' do
       before(:each) do
-        @doc = FactoryGirl.build(:document)
+        @doc = build(:document)
       end
 
       it 'is valid' do
@@ -278,7 +278,7 @@ describe Document do
 
     context 'when loading a document with funny page ranges' do
       before(:each) do
-        @doc = FactoryGirl.build(:document, pages: '1483-92')
+        @doc = build(:document, pages: '1483-92')
       end
 
       it 'parses start_page correctly' do

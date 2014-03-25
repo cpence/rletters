@@ -8,10 +8,10 @@ describe Jobs::Analysis::ExportCitations do
   end
 
   before(:each) do
-    @user = FactoryGirl.create(:user)
-    @dataset = FactoryGirl.create(:full_dataset, entries_count: 10,
-                                                 working: true, user: @user)
-    @task = FactoryGirl.create(:analysis_task, dataset: @dataset)
+    @user = create(:user)
+    @dataset = create(:full_dataset, entries_count: 10, working: true,
+                                     user: @user)
+    @task = create(:analysis_task, dataset: @dataset)
   end
 
   describe '.download?' do

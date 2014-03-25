@@ -6,7 +6,7 @@ SimpleCov.command_name 'spec:lib' if defined?(SimpleCov)
 describe Jobs::CreateDataset do
 
   before(:each) do
-    @user = FactoryGirl.create(:user)
+    @user = create(:user)
     @dataset = @user.datasets.create(name: 'test', disabled: true)
   end
 

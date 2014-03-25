@@ -6,7 +6,7 @@ describe Datasets::Entry do
   describe '#valid?' do
     context 'when no uid is specified' do
       before(:each) do
-        @entry = FactoryGirl.build(:entry, uid: nil)
+        @entry = build(:entry, uid: nil)
       end
 
       it 'is not valid' do
@@ -16,7 +16,7 @@ describe Datasets::Entry do
 
     context 'when a good uid is specified' do
       before(:each) do
-        @entry = FactoryGirl.create(:entry)
+        @entry = create(:entry)
       end
 
       it 'is valid' do

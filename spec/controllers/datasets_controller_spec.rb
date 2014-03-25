@@ -4,10 +4,10 @@ require 'spec_helper'
 describe DatasetsController do
 
   before(:each) do
-    @user = FactoryGirl.create(:user)
+    @user = create(:user)
     sign_in @user
 
-    @dataset = FactoryGirl.create(:full_dataset, user: @user, working: true)
+    @dataset = create(:full_dataset, user: @user, working: true)
   end
 
   describe '#index' do
@@ -43,8 +43,7 @@ describe DatasetsController do
       end
 
       it 'ignores disabled datasets' do
-        FactoryGirl.create(:dataset, user: @user, name: 'Disabled',
-                                     disabled: true)
+        create(:dataset, user: @user, name: 'Disabled', disabled: true)
         xhr :get, :index
         expect(assigns(:datasets)).to eq([@dataset])
       end
@@ -130,8 +129,8 @@ describe DatasetsController do
 
     context 'with a disabled dataset' do
       before(:each) do
-        @disabled = FactoryGirl.create(:dataset, user: @user, name: 'Disabled',
-                                                 disabled: true)
+        @disabled = create(:dataset, user: @user, name: 'Disabled',
+                                     disabled: true)
       end
 
       it 'raises an exception' do
@@ -143,7 +142,7 @@ describe DatasetsController do
 
     context 'with clear_failed' do
       before(:each) do
-        task = FactoryGirl.build(:analysis_task, dataset: @dataset)
+        task = build(:analysis_task, dataset: @dataset)
         task.failed = true
         expect(task.save).to be true
 
@@ -201,13 +200,13 @@ describe DatasetsController do
 
     context 'with a disabled dataset' do
       before(:each) do
-        @disabled = FactoryGirl.create(:dataset, user: @user, name: 'Disabled',
-                                                 disabled: true)
+        @disabled = create(:dataset, user: @user, name: 'Disabled',
+                                     disabled: true)
       end
 
       it 'raises an exception' do
         expect {
-          patch :update, id: @disabled.to_param, uid: FactoryGirl.generate(:working_uid)
+          patch :update, id: @disabled.to_param, uid: generate(:working_uid)
         }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
@@ -215,14 +214,12 @@ describe DatasetsController do
     context 'when all parameters are valid' do
       it 'adds to the dataset' do
         expect {
-          patch :update, id: @dataset.to_param,
-                         uid: FactoryGirl.generate(:working_uid)
+          patch :update, id: @dataset.to_param, uid: generate(:working_uid)
         }.to change { @dataset.entries.count }.by(1)
       end
 
       it 'redirects to the dataset page' do
-        patch :update, id: @dataset.to_param,
-                       uid: FactoryGirl.generate(:working_uid)
+        patch :update, id: @dataset.to_param, uid: generate(:working_uid)
         expect(response).to redirect_to(dataset_path(@dataset))
       end
     end

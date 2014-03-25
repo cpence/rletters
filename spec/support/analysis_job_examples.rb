@@ -3,14 +3,14 @@ require 'spec_helper'
 
 shared_context 'create job with params' do
   before(:each) do
-    @user ||= FactoryGirl.create(:user)
-    @dataset ||= FactoryGirl.create(
+    @user ||= create(:user)
+    @dataset ||= create(
       :full_dataset,
       { user: @user,
         working: true,
         entries_count: 10 }.merge(dataset_params)
     )
-    @task = FactoryGirl.create(:analysis_task, dataset: @dataset)
+    @task = create(:analysis_task, dataset: @dataset)
     @perform_args = { user_id: @user.to_param,
                       dataset_id: @dataset.to_param,
                       task_id: @task.to_param }.merge(job_params)
@@ -43,7 +43,7 @@ shared_examples_for 'an analysis job' do
         described_class.perform(
           '123',
           job_params.merge(
-            user_id: FactoryGirl.create(:user).to_param,
+            user_id: create(:user).to_param,
             dataset_id: @dataset.to_param,
             task_id: @task.to_param))
       }.to raise_error(ActiveRecord::RecordNotFound)

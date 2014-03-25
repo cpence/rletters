@@ -7,7 +7,7 @@ describe DocumentDecorator do
   describe '#citation' do
     context 'when no user is logged in' do
       before(:each) do
-        @doc = described_class.decorate(Document.find(FactoryGirl.generate(:working_uid)))
+        @doc = described_class.decorate(Document.find(generate(:working_uid)))
 
         allow(Draper::ViewContext.current).to receive(:current_user).and_return(nil)
         allow(Draper::ViewContext.current).to receive(:user_signed_in?).and_return(false)
@@ -23,9 +23,9 @@ describe DocumentDecorator do
 
     context 'when the user has no CSL style set' do
       before(:each) do
-        @doc = described_class.decorate(Document.find(FactoryGirl.generate(:working_uid)))
+        @doc = described_class.decorate(Document.find(generate(:working_uid)))
 
-        @user = FactoryGirl.create(:user)
+        @user = create(:user)
         allow(Draper::ViewContext.current).to receive(:current_user).and_return(@user)
         allow(Draper::ViewContext.current).to receive(:user_signed_in?).and_return(true)
       end
@@ -40,10 +40,10 @@ describe DocumentDecorator do
 
     context 'when the user has a CSL style set, for a normal document' do
       before(:each) do
-        @doc = described_class.decorate(Document.find(FactoryGirl.generate(:working_uid)))
+        @doc = described_class.decorate(Document.find(generate(:working_uid)))
 
         @csl_style = Users::CslStyle.find_by!(name: 'American Psychological Association 6th Edition')
-        @user = FactoryGirl.create(:user, csl_style_id: @csl_style.id)
+        @user = create(:user, csl_style_id: @csl_style.id)
         allow(Draper::ViewContext.current).to receive(:current_user).and_return(@user)
         allow(Draper::ViewContext.current).to receive(:user_signed_in?).and_return(true)
       end
@@ -59,7 +59,7 @@ describe DocumentDecorator do
         @doc = described_class.decorate(Document.find('gutenberg:3172'))
 
         @csl_style = Users::CslStyle.find_by!(name: 'American Psychological Association 6th Edition')
-        @user = FactoryGirl.create(:user, csl_style_id: @csl_style.id)
+        @user = create(:user, csl_style_id: @csl_style.id)
         allow(Draper::ViewContext.current).to receive(:current_user).and_return(@user)
         allow(Draper::ViewContext.current).to receive(:user_signed_in?).and_return(true)
       end
