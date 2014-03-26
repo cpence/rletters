@@ -43,7 +43,8 @@ gem 'citeproc-ruby', '~> 1.0'
 gem 'csl-styles'
 
 # Support for file attachments and exporting
-gem 'paperclip'
+# gem 'paperclip', '>= 4.1.2' not released yet
+gem 'paperclip', github: 'thoughtbot/paperclip'
 gem 'paperclip_database', '>= 2.2.0'
 gem 'rubyzip', '>= 1.1.0', require: 'zip'
 gem 'marc'
@@ -61,17 +62,11 @@ gem 'rabl'
 
 gem 'jquery-rails'
 gem 'compass-rails'
-gem 'sass-rails'
+gem 'sass-rails', '>= 4.0.2'
 gem 'foundation-rails'
 gem 'simple_form'
 
 gem 'yui-compressor'
-
-# Pretty errors in development
-group :development do
-  gem 'better_errors'
-  gem 'binding_of_caller'
-end
 
 # Testing
 group :test, :development do

@@ -64,7 +64,7 @@ module Jobs
         # Make a zip file for the output
         total = dataset.entries.size
 
-        ios = ::Zip::OutputStream.write_buffer do |zos|
+        ios = ::Zip::OutputStream.write_buffer(StringIO.new('')) do |zos|
           enum = RLetters::Datasets::DocumentEnumerator.new(dataset)
           enum.each_with_index do |doc, i|
             at(i, total, "Creating citations: #{i}/#{total}...")
