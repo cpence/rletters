@@ -76,7 +76,10 @@ module RLetters
         ensure_connected!
         camelize_params!(params)
 
-        Connection.solr.post 'search', data: params
+        # We have a different destination if term vectors are enabled
+        dest = params[:tv] ? 'termvectors' : 'search'
+
+        Connection.solr.post dest, data: params
       rescue *EXCEPTIONS => e
         Rails.logger.warn "Connection to Solr failed: #{e.inspect}"
         Rails.logger.info "Query for failed connection: #{params.to_s}"
