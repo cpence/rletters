@@ -327,10 +327,6 @@ describe Document do
         expect(@doc.term_vectors['reliable'][:df]).to eq(1.0)
       end
 
-      it 'sets tfidf' do
-        expect(@doc.term_vectors['andrew'][:tfidf]).to be_within(0.001).of(0.06666)
-      end
-
       it 'does not set anything for terms that do not appear' do
         expect(@doc.term_vectors['zuzax']).not_to be
       end
