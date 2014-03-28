@@ -33,7 +33,9 @@ RLetters::Application.routes.draw do
   end
 
   # User login routes
-  devise_for :users, skip: [:sessions]
+  devise_for :users, skip: [:sessions], controllers: {
+    registrations: 'users/registrations'
+  }
   as :user do
     # We only want users to sign in using the dropdown box on the main page,
     # not by visiting /users/sign_in, so we don't create a get 'sign_in' route

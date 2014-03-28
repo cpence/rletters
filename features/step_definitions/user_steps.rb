@@ -68,6 +68,10 @@ Given(/^I do not exist as a user$/) do
   delete_user
 end
 
+Given(/^I have a language configured in my browser$/) do
+  page.driver.add_headers('Accept-Language' => 'es, en', permanent: false)
+end
+
 ### WHEN ###
 When(/^I sign in with valid credentials$/) do
   create_visitor
@@ -206,4 +210,9 @@ Then(/^I should be able to fetch a document using the library$/) do
 
   link = find_link "Your library: #{@library.name}", match: :first, visible: false
   expect(link).to be
+end
+
+Then(/^I should have my language configured$/) do
+  visit '/users/edit'
+  expect(page).to have_select('user[language]', selected: 'español')
 end

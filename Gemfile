@@ -2,7 +2,6 @@ source 'https://rubygems.org'
 
 # Rails
 gem 'rails', '~> 4.0'
-gem 'rails-i18n', '= 4.0.1'
 
 # Database and related tools
 gem 'pg'
@@ -28,6 +27,10 @@ gem 'activeadmin',
 gem 'activeadmin-sortable-tree',
   git: 'https://github.com/nebirhos/activeadmin-sortable-tree.git'
 gem 'druthers'
+
+# Internationalization
+gem 'rails-i18n', '= 4.0.1'
+gem 'http_accept_language'
 
 # Textual analysis
 gem 'rsolr', '>= 1.0.7'

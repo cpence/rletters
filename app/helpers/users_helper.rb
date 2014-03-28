@@ -14,8 +14,8 @@ module UsersHelper
   def available_locales
     list = []
 
-    Rails.application.config.i18n.available_locales.each do |loc|
-      parts = loc.split('-')
+    I18n.available_locales.each do |loc|
+      parts = loc.to_s.split('-')
       entry = ''
 
       if parts.size == 1
@@ -29,32 +29,10 @@ module UsersHelper
         name += ')'
       end
 
-      list << [loc, name]
+      list << [loc.to_s, name]
     end
 
     list.sort! { |a, b| a.first <=> b.first }
-  end
-
-  # Get the user's preferred language from the Accept-Language header
-  #
-  # @api public
-  # @return [String] the preferred language specified by the browser
-  # @example Set the user's default language by the Accept-Language header
-  #   user.locale = get_user_language
-  def get_user_language
-    acc_language = request.env['HTTP_ACCEPT_LANGUAGE']
-    if acc_language
-      lang = acc_language.scan(/^([a-z]{2,3}(-[A-Za-z]{2})?)/).first[0]
-      if lang.include? '-'
-        # Capitalize the country portion (many browsers send it lowercase)
-        lang[-2, 2] = lang[-2, 2].upcase
-        lang
-      else
-        lang
-      end
-    else
-      I18n.default_locale.to_s
-    end
   end
 end
 

@@ -193,6 +193,7 @@ GEM
       actionpack (>= 3.2, < 5)
       activesupport (>= 3.2, < 5)
     hike (1.2.3)
+    http_accept_language (2.0.1)
     i18n (0.6.9)
     inherited_resources (1.4.1)
       has_scope (~> 0.6.0.rc)
@@ -430,6 +431,7 @@ DEPENDENCIES
   foundation-rails
   haml
   haml-rails
+  http_accept_language
   jquery-rails
   kramdown
   marc

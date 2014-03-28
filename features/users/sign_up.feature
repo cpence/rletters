@@ -18,3 +18,8 @@ Feature: Sign up for account
     Scenario: Sign up with mismatched password and confirmation
       When I sign up with a mismatched password confirmation
       Then I should see a mismatched password message
+
+    Scenario: Sign up when requesting a foreign language
+      Given I have a language configured in my browser
+      When I sign up with valid user data
+      Then I should have my language configured
