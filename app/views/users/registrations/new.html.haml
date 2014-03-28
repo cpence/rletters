@@ -16,6 +16,6 @@
       = f.input :email
       = f.input :password, required: true
       = f.input :password_confirmation, required: true
-      = f.input :language, collection: available_locales, label_method: :last, value_method: :first
+      = f.input :language, collection: I18n.available_locales.translated
       = f.input :timezone, collection: ActiveSupport::TimeZone.all, label_method: :to_s, value_method: :name
       = f.button :submit, t('.submit')
