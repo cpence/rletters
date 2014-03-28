@@ -3,10 +3,14 @@ require 'spec_helper'
 
 SimpleCov.command_name 'spec:helpers' if defined?(SimpleCov)
 
-describe ApplicationHelper do
+# We need to run a variety of tests that have access to a helper context (e.g.,
+# to test core_ext patches), but we don't actually *have* an application
+# helper. Just define something right here for the purpose of testing.
+#module ApplicationHelper; end
 
-  # Note that these tests are also testing our extension
-  # I18n.translate_markdown, in lib/core_ext.
+describe ApplicationHelper do
+  # This is a test for I18n.translate_markdown and its associated helper patch,
+  # lib/core_ext/i18n/translate_markdown.rb
   describe '#translate_markdown' do
     context 'without a shortcut' do
       it 'renders Markdown in translations' do
