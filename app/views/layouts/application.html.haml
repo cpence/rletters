@@ -7,7 +7,7 @@
     %div
       - if content_for? :breadcrumbs
         %ul.breadcrumbs= yield(:breadcrumbs)
-      = render_flash
+      = render partial: 'layouts/flashes'
 
       = content_for?(:content) ? yield(:content) : yield
 

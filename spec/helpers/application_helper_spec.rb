@@ -141,26 +141,4 @@ describe ApplicationHelper do
       end
     end
   end
-
-  describe '#render_flash' do
-    # Very strange, but we have to do this to get html_escape() to work in the
-    # helper.
-    include ERB::Util
-
-    before(:each) do
-      flash[:alert] = 'alert test'
-      flash[:other] = 'generic test'
-
-      @html = render_flash
-    end
-
-    it 'renders custom classes' do
-      expect(@html).to have_selector('div.flash-alert', text: 'alert test')
-    end
-
-    it 'renders generic classes' do
-      expect(@html).to have_selector('div.flash-generic', text: 'generic test')
-    end
-  end
-
 end
