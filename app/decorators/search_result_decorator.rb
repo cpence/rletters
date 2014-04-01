@@ -67,8 +67,8 @@ class SearchResultDecorator < Draper::Decorator
       end
 
       # Categories and facets
-      ret << active_categories.removal_links unless active_categories.empty?
-      ret << facets.removal_links unless facets.empty?
+      ret << active_categories.removal_links unless active_categories.blank?
+      ret << facets.removal_links unless facets.blank?
     end
   end
 
