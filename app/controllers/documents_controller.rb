@@ -76,7 +76,9 @@ class DocumentsController < ApplicationController
       json = res.body
       cul_docs = JSON.parse(json)
 
-      fail ActiveRecord::RecordNotFound unless cul_docs.size
+      unless cul_docs && cul_docs.size > 0 && cul_docs[0]
+        fail ActiveRecord::RecordNotFound
+      end
 
       redirect_to cul_docs[0]['href']
     rescue *Net::HTTP::EXCEPTIONS
