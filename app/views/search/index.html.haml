@@ -53,7 +53,8 @@
         - if result.facets
           = result.facets.addition_links
         %li.divider
-        = result.categories.link_tree
+        - if result.categories
+          = result.categories.link_tree
 
       %p= link_to t('.advanced_search'), search_advanced_path, class: 'button secondary small expand'
 
