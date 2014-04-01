@@ -31,6 +31,67 @@ class ApplicationController < ActionController::Base
     root_url
   end
 
+  # Render a localized Markdown document
+  #
+  # This function renders a localized Markdown file located in the locales
+  # tree.
+  #
+  # @api public
+  # @param [String] file the document to be rendered
+  # @return [SafeBuffer] the rendering result
+  # @example Render config/locales/test/test.en.md
+  #   <%= render_localized_markdown :test %>
+  def render_localized_markdown(file)
+    path = Rails.root.join('config', 'locales', file.to_s,
+                           "#{file}.#{I18n.locale}.md")
+
+    # Fall back to English if we have to
+    unless File.exist?(path)
+      if I18n.locale != :en
+        path = Rails.root.join('config', 'locales', file.to_s,
+                               "#{file}.en.md")
+      end
+    end
+
+    # Give up if we can't find it
+    unless File.exist?(path)
+      fail I18n::MissingTranslationData.new(I18n.locale,
+                                            "localized_markdown.#{file}",
+                                            {})
+    end
+
+    render_to_string(file: path).html_safe
+  end
+  helper_method :render_localized_markdown
+
+  # Render a partial from a job
+  #
+  # Delayed jobs ship with some of their own views, and this function
+  # handles looking them up in the filesystem.
+  #
+  # @api public
+  # @param [Class] klass the job class whose view we want to render
+  # @param [String] view the job view to render
+  # @param [Hash] args arguments to pass to the call to +render+
+  # @example Render the 'params' view from ExportCitations, with a local
+  #   = render_job_partial(Jobs::Analysis::PlotDates, 'params',
+  #                        locals: { param: value })
+  def render_job_partial(klass, view, args = {})
+    path = klass.view_path(partial: view)
+
+    if path
+      locals = args[:locals] || {}
+      locals[:klass] = klass
+
+      render_to_string(args.merge(file: path, locals: locals)).html_safe
+    else
+      # This is a programmer error, so it should raise an exception
+      fail(ActiveRecord::RecordNotFound,
+           "Cannot find job view #{view} for class #{klass}")
+    end
+  end
+  helper_method :render_job_partial
+
   private
 
   before_action :set_locale, :set_timezone
