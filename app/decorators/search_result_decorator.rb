@@ -11,6 +11,7 @@ class SearchResultDecorator < Draper::Decorator
   # @example Iterate the decorated documents
   #   - result.documents.each { |f| ... }
   def documents
+    return nil unless object.documents
     DocumentDecorator.decorate_collection(object.documents)
   end
 
@@ -21,6 +22,7 @@ class SearchResultDecorator < Draper::Decorator
   # @example Iterate the decorated facets
   #   - result.facets.each { |f| ... }
   def facets
+    return nil unless object.facets
     FacetsDecorator.decorate(object.facets)
   end
 
@@ -31,6 +33,7 @@ class SearchResultDecorator < Draper::Decorator
   # @example Iterate through all the categories
   #   - result.categories.each { |c| ... }
   def categories
+    return nil unless Documents::Category.count > 0
     CategoriesDecorator.decorate(Documents::Category.all)
   end
 

@@ -70,6 +70,8 @@ class FacetsDecorator < Draper::Decorator
   #
   # @api private
   def active_facets
+    return [] if object.blank?
+
     [].tap do |ret|
       if h.params[:fq]
         h.params[:fq].each do |query|
