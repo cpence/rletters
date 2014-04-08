@@ -60,7 +60,7 @@ class ApplicationController < ActionController::Base
                                             {})
     end
 
-    render_to_string(file: path).html_safe
+    render_to_string(file: path, layout: false).html_safe
   end
   helper_method :render_localized_markdown
 
@@ -83,7 +83,12 @@ class ApplicationController < ActionController::Base
       locals = args[:locals] || {}
       locals[:klass] = klass
 
-      render_to_string(args.merge(file: path, locals: locals)).html_safe
+      render_args = args.merge(
+        file: path,
+        locals: locals,
+        layout: false
+      )
+      render_to_string(render_args).html_safe
     else
       # This is a programmer error, so it should raise an exception
       fail(ActiveRecord::RecordNotFound,
