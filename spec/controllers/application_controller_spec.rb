@@ -70,7 +70,7 @@ describe ApplicationController do
 
       it 'renders the file' do
         path = Rails.root.join('config', 'locales', 'plot_dates', 'plot_dates.en.md')
-        expect(controller).to receive(:render_to_string).with(file: path).and_return('')
+        expect(controller).to receive(:render_to_string).with(file: path, layout: false).and_return('')
         controller.render_localized_markdown(:plot_dates)
       end
     end
@@ -86,7 +86,7 @@ describe ApplicationController do
 
       it 'falls back to English' do
         path = Rails.root.join('config', 'locales', 'plot_dates', 'plot_dates.en.md')
-        expect(controller).to receive(:render_to_string).with(file: path).and_return('')
+        expect(controller).to receive(:render_to_string).with(file: path, layout: false).and_return('')
         controller.render_localized_markdown(:plot_dates)
       end
     end
@@ -116,7 +116,7 @@ describe ApplicationController do
       end
 
       it 'succeeds' do
-        expect(controller).to receive(:render_to_string).with(file: @path, locals: { klass: Jobs::Analysis::PlotDates }).and_return('')
+        expect(controller).to receive(:render_to_string).with(file: @path, layout: false, locals: { klass: Jobs::Analysis::PlotDates }).and_return('')
         controller.render_job_partial(Jobs::Analysis::PlotDates, 'test_spec')
       end
     end
@@ -136,7 +136,7 @@ describe ApplicationController do
       end
 
       it 'succeeds' do
-        expect(controller).to receive(:render_to_string).with(file: @path, locals: { klass: Jobs::Analysis::PlotDates }).and_return('')
+        expect(controller).to receive(:render_to_string).with(file: @path, layout: false locals: { klass: Jobs::Analysis::PlotDates }).and_return('')
         controller.render_job_partial(Jobs::Analysis::PlotDates, 'test_spec')
       end
     end
