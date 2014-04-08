@@ -136,7 +136,7 @@ describe ApplicationController do
       end
 
       it 'succeeds' do
-        expect(controller).to receive(:render_to_string).with(file: @path, layout: false locals: { klass: Jobs::Analysis::PlotDates }).and_return('')
+        expect(controller).to receive(:render_to_string).with(file: @path, layout: false, locals: { klass: Jobs::Analysis::PlotDates }).and_return('')
         controller.render_job_partial(Jobs::Analysis::PlotDates, 'test_spec')
       end
     end
