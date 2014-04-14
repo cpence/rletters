@@ -113,6 +113,7 @@ class WorkflowController < ApplicationController
           else
             # Pull from the queue
             t.job_class.dequeue(t.job_class, t.resque_key)
+            Resque::Plugins::Status::Hash.remove(t.resque_key)
           end
         end
       end
