@@ -74,7 +74,7 @@ class FacetsDecorator < Draper::Decorator
 
     [].tap do |ret|
       if h.params[:fq]
-        h.params[:fq].each do |query|
+        [h.params[:fq]].flatten.each do |query|
           ret << for_query(query)
         end
         ret.compact!
