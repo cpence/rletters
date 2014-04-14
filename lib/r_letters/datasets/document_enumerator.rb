@@ -21,7 +21,9 @@ module RLetters
         @options = options
 
         if @options[:term_vectors] || @options[:fulltext]
-          @batch_size = 100
+          # We've been hitting trouble here with timeouts on these larger
+          # fetches; try throttling
+          @batch_size = 10
         else
           @batch_size = 1000
         end
