@@ -106,6 +106,7 @@ class WorkflowController < ApplicationController
       unless Resque.inline
         @pending_tasks.each do |t|
           status = Resque::Plugins::Status::Hash.get(t.resque_key)
+          next unless status
 
           if status.working?
             # Signal the job to terminate the next time it calls at() or tick()
