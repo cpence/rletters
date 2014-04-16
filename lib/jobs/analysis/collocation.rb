@@ -151,7 +151,7 @@ module Jobs
         analyzer_opts[:inclusion_list] = @word if @word
         onegram_analyzer = RLetters::Analysis::Frequency::FromTF.new(
           @dataset,
-          ->(p) { at((p.to_f * 33.0).to_i + 33, 100,
+          ->(p) { at((p.to_f / 100.0 * 33.0).to_i + 33, 100,
                      'Computing frequencies for one-grams...') },
           analyzer_opts)
 
@@ -160,7 +160,7 @@ module Jobs
         ss = RLetters::Datasets::Segments.new(@dataset, ds, split_across: true)
         bigram_analyzer = RLetters::Analysis::Frequency::FromPosition.new(
           ss,
-          ->(p) { at((p.to_f * 33.0).to_i + 66, 100,
+          ->(p) { at((p.to_f / 100.0 * 33.0).to_i + 66, 100,
                      'Computing frequencies for bi-grams...') },
           analyzer_opts)
 
@@ -227,6 +227,7 @@ module Jobs
         # L(k, n, x) = x^k (1 - x)^(n - k)
         l = x**k * ((1 - x)**(n - k))
         l = Math.log(l) unless l.abs < 0.001
+        l
       end
 
       def analyze_likelihood
