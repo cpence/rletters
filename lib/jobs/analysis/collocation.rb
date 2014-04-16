@@ -1,4 +1,5 @@
 # -*- encoding : utf-8 -*-
+require 'csv'
 
 module Jobs
   module Analysis
