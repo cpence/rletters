@@ -10,7 +10,7 @@ module Math
   # @return [Float] The term frequency-inverse document frequency
   def self.tfidf(tf, df, num_docs)
     # Bail out with zero if there's any funny business
-    return 0 unless tf && df && num_docs
+    return 0 unless tf && tf > 0 && df && df > 0 && num_docs && num_docs > 0
 
     tf * Math.log10(num_docs.to_f / df.to_f)
   end

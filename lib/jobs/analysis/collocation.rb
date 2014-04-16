@@ -184,9 +184,11 @@ module Jobs
           at((i.to_f / total.to_f * 33.0).to_i + 66, 100, 'Computing mutual information for collocations...')
 
           bigram_words = b[0].split
-          [b[0],
-           Math.log((b[1].to_f / n) /
-                    (word_f[bigram_words[0]].to_f * word_f[bigram_words[1]] / n_2))]
+          l = (b[1].to_f / n) /
+              (word_f[bigram_words[0]].to_f * word_f[bigram_words[1]] / n_2)
+          l = Math.log(l) unless l.abs < 0.001
+
+          [b[0], l]
         }.sort { |a, b| b[1] <=> a[1] }
       end
 
@@ -223,7 +225,8 @@ module Jobs
 
       def log_l(k, n, x)
         # L(k, n, x) = x^k (1 - x)^(n - k)
-        Math.log(x**k * ((1 - x)**(n - k)))
+        l = x**k * ((1 - x)**(n - k))
+        l = Math.log(l) unless l.abs < 0.001
       end
 
       def analyze_likelihood
