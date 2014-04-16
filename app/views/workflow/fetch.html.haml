@@ -26,7 +26,7 @@
           %tr
             %th.label-cell= t('datasets.analysis_tasks.index.task_column')
             %th.label-cell= Dataset.model_name.human
-            %th.button-cell
+            %th.button-cell= t('datasets.analysis_tasks.index.results_column')
         %tbody
           - @finished_tasks.each do |t|
             %tr

@@ -630,10 +630,11 @@ en:
                     one: "1 analysis task failed for this dataset! Click here to clear failed tasks."
                     other: "%{count} analysis tasks failed for this dataset! Click here to clear failed tasks."
                 task_column: Analysis Task
+                results_column: Results
                 no_tasks: No analysis tasks found
-                download_button: Download Results
-                view_button: View Results
-                delete_button: Delete Task
+                download_button: Download
+                view_button: View
+                delete_button: Delete
             new:
                 header: Job options
                 subheader: This job has some more options that you can configure before you get started.
