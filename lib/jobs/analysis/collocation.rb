@@ -185,7 +185,7 @@ module Jobs
 
           bigram_words = b[0].split
           l = (b[1].to_f / n) /
-              (word_f[bigram_words[0]].to_f * word_f[bigram_words[1]] / n_2)
+              (word_f[bigram_words[0]].to_f * word_f[bigram_words[1]].to_f / n_2)
           l = Math.log(l) unless l.abs < 0.001
 
           [b[0], l]
