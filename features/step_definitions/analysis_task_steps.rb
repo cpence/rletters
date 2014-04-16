@@ -76,7 +76,7 @@ Then(/^I should be able to view the results of the task$/) do
   expect(@task).to be
 
   visit dataset_path(@dataset)
-  click_link 'View Results'
+  click_link 'View'
 
   expect(page).to have_content('Download in CSV format')
 
@@ -88,7 +88,7 @@ Then(/^I should be able to delete the task$/) do
   expect(@task).to be
 
   visit dataset_path(@dataset)
-  click_link 'Delete Task'
+  click_link 'Delete'
 
   @dataset.reload
   expect(@dataset.analysis_tasks).to be_empty

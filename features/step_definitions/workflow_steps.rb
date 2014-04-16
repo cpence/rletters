@@ -68,7 +68,7 @@ end
 
 ### THEN ###
 Then(/^I should be able to fetch the workflow results$/) do
-  within('nav') { click_link 'Fetch Results' }
+  within('nav') { click_link 'Fetch' }
   expect(page).to have_selector('td', text: @dataset.name)
 end
 
@@ -77,6 +77,6 @@ Then(/^I should no longer be building a workflow$/) do
 end
 
 Then(/^I should be able to view the result data$/) do
-  click_link 'View Results'
+  click_link 'View'
   expect(page).to have_link('Download in CSV format')
 end
