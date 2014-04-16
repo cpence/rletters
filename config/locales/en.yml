@@ -535,7 +535,7 @@ en:
             dataset_list: "Datasets for this job:"
             name_coulmn: Dataset Name
             no_datasets: No datasets specified
-            delete_button: Delete
+            delete_button: Remove
             delete_confirm: Are you sure?
             create_button: Create another dataset
             link_button: Link an already created dataset
