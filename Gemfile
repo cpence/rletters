@@ -9,7 +9,6 @@ gem 'activerecord-import', '>= 0.4.0'
 gem 'foreigner'
 gem 'closure_tree'
 gem 'validate_url'
-gem 'trim_blobs'
 gem 'addressable'
 
 # Job scheduling
@@ -60,7 +59,6 @@ gem 'haml'
 gem 'haml-rails'
 gem 'kramdown'
 gem 'nokogiri'
-gem 'oj'
 gem 'rabl'
 
 gem 'jquery-rails'

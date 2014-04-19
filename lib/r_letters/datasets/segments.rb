@@ -17,8 +17,7 @@ module RLetters
         @segmenter = segmenter || RLetters::Documents::Segments.new
         @dfs = {}
 
-        @options = options
-        @options.compact.reverse_merge!(split_across: true)
+        @options = options.compact.reverse_merge(split_across: true)
       end
 
       # Split the dataset into text segments

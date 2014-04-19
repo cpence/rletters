@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-require 'core_ext/hash/compact'
+require 'active_support/core_ext/hash/compact'
 require 'active_support/core_ext/hash/reverse_merge'
 
 require 'r_letters/documents/word_list'

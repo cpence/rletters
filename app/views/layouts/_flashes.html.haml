@@ -1,2 +1,2 @@
 - flash.each do |key, value|
-  %div{ class: "flash-#{%w(notice alert success).include?(key.to_s) ? key.to_s : 'generic'}" }= value
+  %div{ class: "flash-#{%w(notice alert success).include?(key) ? key : 'generic'}" }= value
