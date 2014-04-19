@@ -29,11 +29,11 @@ When(/^I create a dataset from the current search$/) do
   expect(current_path).to eq(search_path)
 
   in_modal_dialog 'Create dataset from search' do
-    with_resque do
-      fill_in 'dataset_name', with: 'Cucumber Dataset'
-      click_button 'Create Dataset'
-    end
+    fill_in 'dataset_name', with: 'Cucumber Dataset'
+    click_button 'Create Dataset'
   end
+
+  ResqueSpec.perform_all(:ui)
 
   find_dataset
   expect(@dataset).to be
@@ -75,6 +75,8 @@ end
 When(/^I delete the dataset$/) do
   find_dataset
   click_link 'Delete'
+
+  ResqueSpec.perform_all(:ui)
 end
 
 ### THEN ###

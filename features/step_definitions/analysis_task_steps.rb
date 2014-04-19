@@ -26,9 +26,9 @@ Given(/^I complete an analysis task for the dataset$/) do
                                link_dataset_id: @dataset.to_param)
 
   click_link 'Set Job Options'
-  with_resque do
-    click_button 'Start analysis job'
-  end
+  click_button 'Start analysis job'
+
+  ResqueSpec.perform_all(:analysis)
 
   @dataset.reload
   expect(@dataset.analysis_tasks.size).to eq(1)
@@ -56,15 +56,15 @@ Then(/^I should be able to start the task$/) do
   @task = @dataset.analysis_tasks.first
 
   if @task.nil?
-    with_resque do
-      click_button 'Start analysis job'
+    click_button 'Start analysis job'
 
-      # If the first page was task_datasets, then this could be task_params, in
-      # which case we have to click the button again
-      if page.has_button? 'Start analysis job'
-        click_button 'Start analysis job'
-      end
+    # If the first page was task_datasets, then this could be task_params, in
+    # which case we have to click the button again
+    if page.has_button? 'Start analysis job'
+      click_button 'Start analysis job'
     end
+
+    ResqueSpec.perform_all(:analysis)
   end
 
   @task = @dataset.analysis_tasks.first
