@@ -1,8 +1,7 @@
 # -*- encoding : utf-8 -*-
-require 'spec_helper'
+require 'core_ext/numeric/bound'
 
 describe Numeric do
-
   describe '#lbound' do
     it 'works' do
       expect(-3.lbound(0)).to eq(0)
@@ -28,5 +27,4 @@ describe Numeric do
       expect(50.bound(5, 10)).to eq(10)
     end
   end
-
 end

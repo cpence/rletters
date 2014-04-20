@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-require 'spec_helper'
+require 'core_ext/hash/to_utf8'
 
 describe Hash do
 
