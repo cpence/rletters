@@ -110,7 +110,7 @@ describe RLetters::Solr::Connection do
   describe '.ping' do
     it 'works' do
       mock_solr = double
-      expect(mock_solr).to receive(:get).with('admin/ping').and_return({ 'responseHeader' => { 'QTime' => 1337 } })
+      expect(mock_solr).to receive(:post).with('search', data: { q: '*:*', start: 0, rows: 0, 'defType' => 'lucene' }).and_return({ 'responseHeader' => { 'QTime' => 1337 } })
       expect(RSolr::Ext).to receive(:connect).with(any_args()).and_return(mock_solr)
 
       expect(described_class.ping).to eq(1337)

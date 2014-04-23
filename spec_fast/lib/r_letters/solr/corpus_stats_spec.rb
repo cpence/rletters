@@ -15,7 +15,7 @@ describe RLetters::Solr::CorpusStats do
       @query = {
         q: '*:*',
         def_type: 'lucene',
-        rows: 1
+        rows: 0
       }
     end
 

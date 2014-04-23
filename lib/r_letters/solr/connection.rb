@@ -112,7 +112,14 @@ module RLetters
       #   # => 6
       def self.ping
         ensure_connected!
-        Connection.solr.get('admin/ping')['responseHeader']['QTime']
+
+        result = search_raw(q: '*:*',
+                            def_type: 'lucene',
+                            start: 0,
+                            rows: 0)
+
+        return nil if result.blank?
+        result ['responseHeader']['QTime']
       rescue *EXCEPTIONS
         nil
       end

@@ -15,7 +15,7 @@ module RLetters
       def size
         solr_query = { q: '*:*',
                        def_type: 'lucene',
-                       rows: 1 }
+                       rows: 0 }
 
         Connection.search(solr_query).num_hits
       rescue ConnectionError
