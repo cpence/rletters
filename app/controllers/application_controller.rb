@@ -64,39 +64,6 @@ class ApplicationController < ActionController::Base
   end
   helper_method :render_localized_markdown
 
-  # Render a partial from a job
-  #
-  # Delayed jobs ship with some of their own views, and this function
-  # handles looking them up in the filesystem.
-  #
-  # @api public
-  # @param [Class] klass the job class whose view we want to render
-  # @param [String] view the job view to render
-  # @param [Hash] args arguments to pass to the call to +render+
-  # @example Render the 'params' view from ExportCitations, with a local
-  #   = render_job_partial(Jobs::Analysis::PlotDates, 'params',
-  #                        locals: { param: value })
-  def render_job_partial(klass, view, args = {})
-    path = klass.view_path(partial: view)
-
-    if path
-      locals = args[:locals] || {}
-      locals[:klass] = klass
-
-      render_args = args.merge(
-        file: path,
-        locals: locals,
-        layout: false
-      )
-      render_to_string(render_args).html_safe
-    else
-      # This is a programmer error, so it should raise an exception
-      fail(ActiveRecord::RecordNotFound,
-           "Cannot find job view #{view} for class #{klass}")
-    end
-  end
-  helper_method :render_job_partial
-
   private
 
   before_action :set_locale, :set_timezone

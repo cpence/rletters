@@ -14,5 +14,4 @@
       = render partial: 'layouts/footer'
 
     = javascript_include_tag 'application'
-    - if content_for? :javascript
-      = content_for :javascript
+    = yield(:javascript) if content_for?(:javascript)

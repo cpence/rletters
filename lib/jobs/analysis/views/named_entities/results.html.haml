@@ -1,8 +1,6 @@
 -# FIXME: GOOGLE MAPS API KEY GOES HERE
-- content_for :javascript do
-  = javascript_include_tag '//maps.googleapis.com/maps/api/js?sensor=false'
-  = javascript_include_tag 'named_entities'
-
+- content_for :javascript, javascript_include_tag('//maps.googleapis.com/maps/api/js?sensor=false')
+- content_for :javascript, javascript_include_tag('named_entities')
 - data = JSON.load(@task.result.file_contents(:original))
 
 .row

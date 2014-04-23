@@ -9,4 +9,4 @@
     %h2= t('.header')
     %h4.subheader= t('.subheader')
 
-= render_job_partial(@klass, 'params')
+= render file: @klass.view_path(partial: 'params'), klass: @klass, layout: false

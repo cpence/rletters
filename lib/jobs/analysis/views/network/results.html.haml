@@ -1,6 +1,4 @@
-- content_for :javascript do
-  = javascript_include_tag 'network'
-
+- content_for :javascript, javascript_include_tag('network')
 - data = JSON.load(@task.result.file_contents(:original))
 
 .row

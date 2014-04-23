@@ -1,5 +1,4 @@
-- content_for :javascript do
-  = javascript_include_tag 'users_edit'
+- content_for :javascript, javascript_include_tag('users_edit')
 - content_for :breadcrumbs do
   %li= link_to t('breadcrumbs.root'), root_path
   %li.current= link_to t('breadcrumbs.users_registrations_edit'), edit_user_registration_path

@@ -1,11 +1,10 @@
-- content_for :javascript do
-  = javascript_include_tag 'normalize_document_counts'
+- content_for :javascript, javascript_include_tag('normalize_document_counts')
 
 .row
   .large-6.columns
     = simple_form_for :job_params, url: dataset_analysis_tasks_path(@dataset, class: 'PlotDates'), method: :post do |f|
       = f.error_notification
 
-      = render_job_partial Jobs::Analysis::PlotDates, 'normalize_document_counts', locals: { f: f }
+      = render file: Jobs::Analysis::PlotDates.view_path(partial: 'normalize_document_counts'), locals: { f: f }, klass: Jobs::Analysis::PlotDates, layout: false
       = f.button :submit
       = link_to(t('common.cancel'), @dataset, class: 'button secondary')
