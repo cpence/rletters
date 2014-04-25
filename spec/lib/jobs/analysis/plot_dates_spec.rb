@@ -47,6 +47,12 @@ describe Jobs::Analysis::PlotDates do
       expect((1990..2012)).to cover(arr[0][0])
       expect((1..5)).to cover(arr[0][1])
     end
+
+    it 'fills in some zeroes in intervening years' do
+      arr = JSON.load(@dataset.analysis_tasks[0].result.file_contents(:original))['data']
+      elt = arr.find { |y| y[1] == 0 }
+      expect(elt).to be
+    end
   end
 
   context 'when normalizing to the corpus' do

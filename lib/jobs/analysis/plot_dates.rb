@@ -64,9 +64,11 @@ module Jobs
         dates = dates.to_a
         dates.each { |d| d[0] = Integer(d[0]) }
 
-        # Sort by date
-        at(3, 4, 'Sorting by date...')
-        dates = dates.sort_by { |y| y[0] }
+        # Fill in zeroes for any years that are missing
+        at(3, 4, 'Filling missing years...')
+        dates = Range.new(*(dates.map { |d| d[0] }.minmax)).each.map do |y|
+          dates.assoc(y) || [ y, 0 ]
+        end
 
         # Save out the data, including getting the name of the normalization
         # set for pretty display
