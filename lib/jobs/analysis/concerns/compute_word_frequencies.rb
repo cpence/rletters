@@ -104,7 +104,7 @@ module Jobs
         # Since the params are coming in from a form, they'll all be strings.
         # We need them as integer or boolean types, so convert them here.
         def convert_args!(args)
-          args.remove_blank!
+          args.clean_options!
 
           args[:ngrams] = Integer(args[:ngrams]) if args[:ngrams]
           args[:block_size] = Integer(args[:block_size]) if args[:block_size]

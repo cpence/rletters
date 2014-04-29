@@ -50,8 +50,7 @@ module Jobs
       #                                      analysis_type: 't',
       #                                      num_pairs: '50')
       def perform
-        options.symbolize_keys!
-        options.remove_blank!
+        options.clean_options!
         at(0, 100, 'Initializing...')
 
         user = User.find(options[:user_id])

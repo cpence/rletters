@@ -44,8 +44,7 @@ module Jobs
       #                                    task_id: task.to_param,
       #                                    other_dataset_id: dataset2.to_param)
       def perform
-        options.symbolize_keys!
-        options.remove_blank!
+        options.clean_options!
         at(0, 100, 'Initializing...')
 
         user = User.find(options[:user_id])

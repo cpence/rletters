@@ -38,7 +38,7 @@ module Jobs
         #   against which to normalize, or blank if the entire corpus
         # @return [Hash<String, Float>] the counts of documents, normalized
         def normalize_document_counts(user, field, counts, args)
-          args.remove_blank!
+          args.clean_options!
           return counts unless args[:normalize_doc_counts] == '1'
 
           if args[:normalize_doc_dataset]
