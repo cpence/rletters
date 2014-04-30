@@ -62,6 +62,14 @@ describe Jobs::Analysis::Collocation do
       it 'creates good CSV' do
         expect(@output).to be_an(Array)
       end
+
+      it 'saves some words and significances' do
+        words, sig = @output[4]
+
+        expect(words.split.count).to eq(2)
+        expect(sig.to_f).to_not eq(Float::INFINITY)
+        expect(sig.to_f).to_not eq(0.0)
+      end
     end
   end
 end

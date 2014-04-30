@@ -147,13 +147,15 @@ module Jobs
       #   first one-gram and second bi-gram
       def analyzers_for_collocation
         # The onegram analyzer can use TFs
-        analyzer_opts = {}
-        analyzer_opts[:inclusion_list] = @word if @word
         onegram_analyzer = RLetters::Analysis::Frequency::FromTF.new(
           @dataset,
           ->(p) { at((p.to_f / 100.0 * 33.0).to_i + 33, 100,
-                     'Computing frequencies for one-grams...') },
-          analyzer_opts)
+                     'Computing frequencies for one-grams...') })
+
+        # The bigrams should only include the focal word, if the user has
+        # restricted the analysis
+        bigram_opts = {}
+        bigram_opts[:inclusion_list] = @word if @word
 
         wl = RLetters::Documents::WordList.new(ngrams: 2)
         ds = RLetters::Documents::Segments.new(wl, num_blocks: 1)
@@ -162,7 +164,7 @@ module Jobs
           ss,
           ->(p) { at((p.to_f / 100.0 * 33.0).to_i + 66, 100,
                      'Computing frequencies for bi-grams...') },
-          analyzer_opts)
+          bigram_opts)
 
         [onegram_analyzer, bigram_analyzer]
       end
