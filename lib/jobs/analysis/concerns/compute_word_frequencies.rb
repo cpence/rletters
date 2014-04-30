@@ -114,6 +114,8 @@ module Jobs
           args[:stop_list] = Documents::StopList.find_by(language: args[:stop_list]) if args[:stop_list]
           args[:stemming] = args[:stemming].to_sym if args[:stemming]
           args[:stemming] = nil if args[:stemming] == :no
+          args[:inclusion_list] = args[:inclusion_list].mb_chars.downcase.to_s if args[:inclusion_list]
+          args[:exclusion_list] = args[:exclusion_list].mb_chars.downcase.to_s if args[:exclusion_list]
 
           if args[:split_across]
             if args[:split_across] == '1'

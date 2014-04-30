@@ -51,7 +51,7 @@ module Jobs
         task.save
 
         # Fetch the focal word
-        word = options[:word]
+        word = options[:word].mb_chars.downcase.to_s
         fail ArgumentError, 'Focal word not specified' unless word
         word_stem = word.stem
 

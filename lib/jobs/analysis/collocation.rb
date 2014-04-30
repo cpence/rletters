@@ -62,7 +62,7 @@ module Jobs
 
         analysis_type = (options[:analysis_type] || :mi).to_sym
         num_pairs = (options[:num_pairs] || 50).to_i
-        @word = options[:word]
+        @word = options[:word].mb_chars.downcase.to_s if options[:word]
 
         # Part of speech tagging requires the Stanford NLP
         analysis_type = :mi if !NLP_ENABLED && analysis_type == :pos

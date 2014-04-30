@@ -71,5 +71,26 @@ describe Jobs::Analysis::Collocation do
         expect(sig.to_f).to_not eq(0.0)
       end
     end
+
+    context 'with an uppercase focal word' do
+      before(:each) do
+        Jobs::Analysis::Collocation.perform(
+          '123',
+          user_id: @user.to_param,
+          dataset_id: @dataset.to_param,
+          task_id: @task.to_param,
+          num_pairs: '10',
+          analysis_type: 'mi',
+          word: 'University')
+
+        @output = CSV.parse(@dataset.analysis_tasks[0].result.file_contents(:original))
+      end
+
+      it 'still works' do
+        p @output
+        words, sig = @output[4]
+        expect(words.split).to include('university')
+      end
+    end
   end
 end
