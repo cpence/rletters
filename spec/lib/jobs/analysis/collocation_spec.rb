@@ -87,7 +87,6 @@ describe Jobs::Analysis::Collocation do
       end
 
       it 'still works' do
-        p @output
         words, sig = @output[4]
         expect(words.split).to include('university')
       end
