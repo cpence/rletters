@@ -1,11 +1,11 @@
 # -*- encoding : utf-8 -*-
 require 'r_letters/datasets/document_enumerator'
-require 'r_letters/solr/count_by_field'
+require 'r_letters/analysis/count_articles_by_field'
 
 require 'support/doubles/dataset_fulltext'
 require 'support/doubles/grouped_solr_hash'
 
-describe RLetters::Solr::CountByField do
+describe RLetters::Analysis::CountArticlesByField do
   before(:each) do
     stub_const('RLetters::Solr::Connection', Class.new)
     stub_const('RLetters::Solr::ConnectionError', Class.new)

@@ -1,10 +1,10 @@
 # -*- encoding : utf-8 -*-
 
 module RLetters
-  module Solr
-    # Code for counting a dataset (or the corpus), grouped by a field
-    class CountByField
-      # Create a new object for counting a datset by field
+  module Analysis
+    # Code for counting the number of articles in a dataset, grouped by a field
+    class CountArticlesByField
+      # Create a new object for counting articles in a datset by field
       #
       # Pass the dataset you'd like to count, or +nil+ to indicate the entire
       # corpus.
@@ -23,7 +23,7 @@ module RLetters
       # @param [Symbol] field field to group by
       # @return [Hash<String, Integer>] number of documents in each grouping
       # @example Group a dataset by year of publication
-      #   RLetters::Solr::CountByField.new(dataset).counts_for(:year)
+      #   RLetters::Analysis::CountArticlesByField.new(dataset).counts_for(:year)
       #   # => { '1940' => 3, '1941' => 5, ... }
       def counts_for(field)
         @dataset ? group_dataset(@dataset, field) : group_corpus(field)
@@ -56,7 +56,7 @@ module RLetters
         start = 0
 
         loop do
-          search_result = Connection.search_raw({
+          search_result = RLetters::Solr::Connection.search_raw({
             q: '*:*',
             def_type: 'lucene',
             group: 'true',

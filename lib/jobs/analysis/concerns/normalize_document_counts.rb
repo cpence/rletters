@@ -47,7 +47,7 @@ module Jobs
             normalization_set = nil
           end
 
-          normalize_counts = RLetters::Solr::CountByField.new(normalization_set).counts_for(field)
+          normalize_counts = RLetters::Analysis::CountArticlesByField.new(normalization_set).counts_for(field)
 
           counts.each_with_object({}) do |(k, v), ret|
             if normalize_counts[k] && normalize_counts[k] > 0
