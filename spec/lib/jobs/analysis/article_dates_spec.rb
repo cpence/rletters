@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe Jobs::Analysis::PlotDates do
+describe Jobs::Analysis::ArticleDates do
 
   it_should_behave_like 'an analysis job'
 
@@ -13,19 +13,19 @@ describe Jobs::Analysis::PlotDates do
 
   describe '.download?' do
     it 'is false' do
-      expect(Jobs::Analysis::PlotDates.download?).to be false
+      expect(Jobs::Analysis::ArticleDates.download?).to be false
     end
   end
 
   describe '.num_datasets' do
     it 'is 1' do
-      expect(Jobs::Analysis::PlotDates.num_datasets).to eq(1)
+      expect(Jobs::Analysis::ArticleDates.num_datasets).to eq(1)
     end
   end
 
   context 'when not normalizing' do
     before(:each) do
-      Jobs::Analysis::PlotDates.perform(
+      Jobs::Analysis::ArticleDates.perform(
         '123',
         user_id: @user.to_param,
         dataset_id: @dataset.to_param,
@@ -57,7 +57,7 @@ describe Jobs::Analysis::PlotDates do
 
   context 'when normalizing to the corpus' do
     before(:each) do
-      Jobs::Analysis::PlotDates.perform(
+      Jobs::Analysis::ArticleDates.perform(
         '123',
         user_id: @user.to_param,
         dataset_id: @dataset.to_param,
@@ -103,7 +103,7 @@ describe Jobs::Analysis::PlotDates do
                                                  entries_count: 10,
                                                  user: @user)
 
-      Jobs::Analysis::PlotDates.perform(
+      Jobs::Analysis::ArticleDates.perform(
         '123',
         user_id: @user.to_param,
         dataset_id: @dataset.to_param,

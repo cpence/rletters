@@ -70,7 +70,7 @@ describe Datasets::AnalysisTasksController do
 
       it 'raises an exception' do
         expect {
-          get :new, dataset_id: @disabled.to_param, class: 'PlotDates'
+          get :new, dataset_id: @disabled.to_param, class: 'ArticleDates'
         }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
@@ -110,7 +110,7 @@ describe Datasets::AnalysisTasksController do
 
       it 'raises an exception' do
         expect {
-          post :create, dataset_id: @disabled.to_param, class: 'PlotDates'
+          post :create, dataset_id: @disabled.to_param, class: 'ArticleDates'
         }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end

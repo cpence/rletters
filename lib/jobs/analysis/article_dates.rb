@@ -3,7 +3,7 @@
 module Jobs
   module Analysis
     # Plot a dataset's members by year
-    class PlotDates < Jobs::Analysis::Base
+    class ArticleDates < Jobs::Analysis::Base
       include Resque::Plugins::Status
       add_concern 'NormalizeDocumentCounts'
 
@@ -39,9 +39,9 @@ module Jobs
       # @option options [String] task_id the analysis task we're working from
       # @return [undefined]
       # @example Start a job for plotting a dataset by year
-      #   Jobs::Analysis::PlotDates.create(user_id: current_user.to_param,
-      #                                    dataset_id: dataset.to_param,
-      #                                    task_id: task.to_param)
+      #   Jobs::Analysis::ArticleDates.create(user_id: current_user.to_param,
+      #                                       dataset_id: dataset.to_param,
+      #                                       task_id: task.to_param)
       def perform
         options.clean_options!
         at(0, 1, 'Initializing...')
@@ -91,7 +91,7 @@ module Jobs
         # Serialize out to JSON
         ios = StringIO.new(output.to_json)
         file = Paperclip.io_adapters.for(ios)
-        file.original_filename = 'plot_dates.json'
+        file.original_filename = 'article_dates.json'
         file.content_type = 'application/json'
 
         task.result = file

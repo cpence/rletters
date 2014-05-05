@@ -68,13 +68,13 @@ describe Jobs::Analysis::Base do
       end
 
       it 'returns path for available views' do
-        expected = Rails.root.join('lib', 'jobs', 'analysis', 'views', 'plot_dates', '_params.html.haml').to_s
-        expect(Jobs::Analysis::PlotDates.view_path(partial: 'params')).to eq(expected)
+        expected = Rails.root.join('lib', 'jobs', 'analysis', 'views', 'article_dates', '_params.html.haml').to_s
+        expect(Jobs::Analysis::ArticleDates.view_path(partial: 'params')).to eq(expected)
       end
 
       it 'returns path for concern views' do
         expected = Rails.root.join('lib', 'jobs', 'analysis', 'concerns', 'views', 'normalize_document_counts', '_normalize_document_counts.html.haml').to_s
-        expect(Jobs::Analysis::PlotDates.view_path(partial: 'normalize_document_counts')).to eq(expected)
+        expect(Jobs::Analysis::ArticleDates.view_path(partial: 'normalize_document_counts')).to eq(expected)
       end
     end
   end

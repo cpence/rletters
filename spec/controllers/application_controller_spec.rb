@@ -69,9 +69,9 @@ describe ApplicationController do
       end
 
       it 'renders the file' do
-        path = Rails.root.join('config', 'locales', 'plot_dates', 'plot_dates.en.md')
+        path = Rails.root.join('config', 'locales', 'article_dates', 'article_dates.en.md')
         expect(controller).to receive(:render_to_string).with(file: path, layout: false).and_return('')
-        controller.render_localized_markdown(:plot_dates)
+        controller.render_localized_markdown(:article_dates)
       end
     end
 
@@ -85,9 +85,9 @@ describe ApplicationController do
       end
 
       it 'falls back to English' do
-        path = Rails.root.join('config', 'locales', 'plot_dates', 'plot_dates.en.md')
+        path = Rails.root.join('config', 'locales', 'article_dates', 'article_dates.en.md')
         expect(controller).to receive(:render_to_string).with(file: path, layout: false).and_return('')
-        controller.render_localized_markdown(:plot_dates)
+        controller.render_localized_markdown(:article_dates)
       end
     end
 

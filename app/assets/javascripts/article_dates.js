@@ -1,13 +1,13 @@
 // ---------------------------------------------------------------------------
-// Graph support for the PlotDates results page
+// Graph support for the ArticleDates results page
 google.load('visualization', '1.0', {'packages':['corechart','table']});
 
-function createPlotDatesGraph() {
+function createArticleDatesGraph() {
   // Get the elements we need
-  var dataContainer = $('.plot_dates_data');
-  var percentContainer = $('.plot_dates_percent');
-  var graphContainer = $('.plot_dates_graph');
-  var tableContainer = $('.plot_dates_table');
+  var dataContainer = $('.article_dates_data');
+  var percentContainer = $('.article_dates_percent');
+  var graphContainer = $('.article_dates_graph');
+  var tableContainer = $('.article_dates_table');
   if (graphContainer.length === 0 || dataContainer.length === 0 ||
       percentContainer.length === 0 || tableContainer.length === 0)
     return;
@@ -59,4 +59,4 @@ function createPlotDatesGraph() {
   table.draw(data, { page: true, pageSize: 20, sortColumn: 0, width: '20em' });
 }
 
-$(createPlotDatesGraph);
+$(createArticleDatesGraph);

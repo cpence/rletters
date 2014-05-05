@@ -1,5 +1,5 @@
 - content_for :javascript, javascript_include_tag('https://www.google.com/jsapi')
-- content_for :javascript, javascript_include_tag('plot_dates')
+- content_for :javascript, javascript_include_tag('article_dates')
 
 - data = JSON.load(@task.result.file_contents(:original))
 - dates = data['data']
@@ -10,9 +10,9 @@
     %h2== #{Dataset.model_name.human}: #{@dataset.name}
 
     - if percent
-      %h4.subheader= t('jobs.analysis.plot_dates.fraction_subheader', name: @dataset.name, normalization_set: data['normalization_set'])
+      %h4.subheader= t('jobs.analysis.article_dates.fraction_subheader', name: @dataset.name, normalization_set: data['normalization_set'])
     - else
-      %h4.subheader= t('jobs.analysis.plot_dates.number_subheader')
+      %h4.subheader= t('jobs.analysis.article_dates.number_subheader')
 
   .large-4.columns.job-header-button
     = link_to t('common.download_csv'), dataset_analysis_task_path(@dataset, @task, view: 'download', format: 'csv'), class: 'button secondary expand'
@@ -21,11 +21,11 @@
   .small-12.columns
     %hr
 
-    .plot_dates_data= dates.to_json
-    .plot_dates_percent= percent ? 'true' : 'false'
+    .article_dates_data= dates.to_json
+    .article_dates_percent= percent ? 'true' : 'false'
 
-    .plot_dates_graph
+    .article_dates_graph
 
     %hr
 
-    .plot_dates_table
+    .article_dates_table

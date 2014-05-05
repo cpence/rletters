@@ -73,7 +73,7 @@ describe WorkflowController do
 
     describe '#info' do
       it 'loads successfully' do
-        get :info, class: 'PlotDates'
+        get :info, class: 'ArticleDates'
         expect(response).to be_success
       end
     end
@@ -88,7 +88,7 @@ describe WorkflowController do
     describe '#destroy' do
       before(:each) do
         @user.workflow_active = true
-        @user.workflow_class = 'PlotDates'
+        @user.workflow_class = 'ArticleDates'
         @user.workflow_datasets = [@dataset.to_param].to_json
 
         @user.save
@@ -107,26 +107,26 @@ describe WorkflowController do
     describe '#activate' do
       context 'with no datasets linked' do
         before(:each) do
-          get :activate, class: 'PlotDates'
+          get :activate, class: 'ArticleDates'
           @user.reload
         end
 
         it 'sets the workflow parameters' do
           expect(@user.workflow_active).to be true
-          expect(@user.workflow_class).to eq('PlotDates')
+          expect(@user.workflow_class).to eq('ArticleDates')
           expect(@user.workflow_datasets).to be_nil
         end
       end
 
       context 'when asked to link a dataset' do
         before(:each) do
-          get :activate, class: 'PlotDates', link_dataset_id: @dataset.to_param
+          get :activate, class: 'ArticleDates', link_dataset_id: @dataset.to_param
           @user.reload
         end
 
         it 'sets the right parameters' do
           expect(@user.workflow_active).to be true
-          expect(@user.workflow_class).to eq('PlotDates')
+          expect(@user.workflow_class).to eq('ArticleDates')
           expect(@user.workflow_datasets).to eq([@dataset.to_param].to_json)
         end
 
@@ -138,11 +138,11 @@ describe WorkflowController do
       context 'when asked to unlink a dataset with one dataset' do
         before(:each) do
           @user.workflow_active = true
-          @user.workflow_class = 'PlotDates'
+          @user.workflow_class = 'ArticleDates'
           @user.workflow_datasets = [@dataset.to_param].to_json
           @user.save
 
-          get :activate, class: 'PlotDates', unlink_dataset_id: @dataset.to_param
+          get :activate, class: 'ArticleDates', unlink_dataset_id: @dataset.to_param
           @user.reload
         end
 

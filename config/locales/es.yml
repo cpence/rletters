@@ -309,7 +309,7 @@ es:
         other_category: Otros
         type_column: Tipo
         hit_column: Coincidencia
-      plot_dates:
+      article_dates:
         name: Trazar por fecha
         short_desc: Trazar conjunto de datos por fecha
         question: >

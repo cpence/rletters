@@ -101,14 +101,14 @@ describe DatasetsController do
     context 'with an active workflow' do
       it 'redirects to the workflow activation when workflow is active' do
         @user.workflow_active = true
-        @user.workflow_class = 'PlotDates'
+        @user.workflow_class = 'ArticleDates'
         @user.save
 
         post :create, dataset: { name: 'Disabled Dataset' },
                       q: '*:*', fq: nil, def_type: 'lucene'
         @user.datasets.reload
 
-        expect(response).to redirect_to(workflow_activate_path('PlotDates'))
+        expect(response).to redirect_to(workflow_activate_path('ArticleDates'))
         expect(flash[:success]).to be
       end
     end

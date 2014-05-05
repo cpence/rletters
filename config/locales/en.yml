@@ -344,7 +344,7 @@ en:
                 word: Focal word
                 subheader: "Network of associated terms surrounding word: '%{word}'"
                 download: Download in GraphML format
-            plot_dates:
+            article_dates:
                 name: Plot by Date
                 short_desc: Plot dataset by date
                 question: >
