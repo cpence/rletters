@@ -67,8 +67,6 @@ module RLetters
             rows: 100
           })
 
-          start = start + 100
-
           # These conditions would indicate a malformed Solr response
           break unless search_result['grouped'] &&
                        search_result['grouped'][field.to_s] &&
@@ -90,6 +88,9 @@ module RLetters
 
             ret[key] = val
           end
+
+          # Get the next batch of groups
+          start = start + 100
         end
 
         ret

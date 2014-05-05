@@ -118,7 +118,7 @@ module RLetters
                             start: 0,
                             rows: 0)
 
-        return nil if result.blank?
+        return nil if !result || result.empty?
         result ['responseHeader']['QTime']
       rescue *EXCEPTIONS
         nil
