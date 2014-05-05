@@ -16,7 +16,7 @@ describe RLetters::Solr::CountByField do
   describe '#counts_for' do
     context 'without a dataset' do
       before(:each) do
-        expect(RLetters::Solr::Connection).to receive(:search_raw).and_return(grouped_solr_hash)
+        expect(RLetters::Solr::Connection).to receive(:search_raw).and_return(grouped_solr_hash, grouped_solr_hash_no_records)
         @counts = described_class.new.counts_for(:year)
       end
 

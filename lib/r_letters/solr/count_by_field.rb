@@ -52,34 +52,47 @@ module RLetters
       # @param [Symbol] field field to group by
       # @return [Hash<String, Integer>] number of documents in each group
       def group_corpus(field)
-        search_result = Connection.search_raw({
-          q: '*:*',
-          def_type: 'lucene',
-          group: 'true',
-          'group.field' => field.to_s,
-          fl: 'uid',
-          facet: 'false',
-          rows: '99999'
-        })
+        ret = {}
+        start = 0
 
-        unless search_result['grouped'] &&
-               search_result['grouped'][field.to_s] &&
-               search_result['grouped'][field.to_s]['matches']
-          return {}
+        loop do
+          search_result = Connection.search_raw({
+            q: '*:*',
+            def_type: 'lucene',
+            group: 'true',
+            'group.field' => field.to_s,
+            fl: 'uid',
+            facet: 'false',
+            start: start.to_s,
+            rows: 100
+          })
+
+          start = start + 100
+
+          # These conditions would indicate a malformed Solr response
+          break unless search_result['grouped'] &&
+                       search_result['grouped'][field.to_s] &&
+                       search_result['grouped'][field.to_s]['matches']
+
+          grouped = search_result['grouped'][field.to_s]
+          break if grouped['matches'] == 0
+
+          groups = grouped['groups']
+          break unless groups
+
+          # This indicates that we're out of records
+          break if groups.empty?
+
+          # Add this batch to the return
+          groups.each do |g|
+            key = g['groupValue']
+            val = g['doclist']['numFound']
+
+            ret[key] = val
+          end
         end
 
-        grouped = search_result['grouped'][field.to_s]
-        return {} if grouped['matches'] == 0
-
-        groups = grouped['groups']
-        return {} unless groups
-
-        groups.each_with_object({}) do |g, ret|
-          key = g['groupValue']
-          val = g['doclist']['numFound']
-
-          ret[key] = val
-        end
+        ret
       end
 
       # Get the value of the field for grouping

@@ -12,3 +12,13 @@ def grouped_solr_hash
     }
   }
 end
+
+def grouped_solr_hash_no_records
+  { 'grouped' => {
+    'year' => {
+      'matches' => 1043,
+      'groups' => []
+      }
+    }
+  }
+end
