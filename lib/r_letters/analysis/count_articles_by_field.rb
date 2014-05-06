@@ -8,8 +8,13 @@ module RLetters
       #
       # Pass the dataset you'd like to count, or +nil+ to indicate the entire
       # corpus.
-      def initialize(dataset = nil)
+      #
+      # @param [Dataset] dataset the dataset to analyze (or nil)
+      # @param [Proc] progress If set, a function to call with a percentage of
+      #   completion (one Integer parameter)
+      def initialize(dataset = nil, progress = nil)
         @dataset = dataset
+        @progress = progress
       end
 
       # Count up a dataset (or the corpus) by a field
@@ -38,12 +43,21 @@ module RLetters
       # @param [Symbol] field field to group by
       # @return [Hash<String, Integer>] number of documents in each group
       def group_dataset(dataset, field)
+        ret = {}
+        total = dataset.entries.size
+
         enum = RLetters::Datasets::DocumentEnumerator.new(dataset)
-        enum.each_with_object({}) do |doc, ret|
+        enum.each_with_index do |doc, i|
           key = get_field_for_grouping(doc, field)
           ret[key] ||= 0
           ret[key] += 1
+
+          @progress.call((i.to_f / total.to_f * 100.0).to_i) if @progress
         end
+
+        @progress.call(100) if @progress
+
+        ret
       end
 
       # Group the entire corpus by field, using Solr's result grouping
@@ -54,6 +68,9 @@ module RLetters
       def group_corpus(field)
         ret = {}
         start = 0
+
+        num_docs = 0
+        total_docs = RLetters::Solr::CorpusStats.new.size
 
         loop do
           search_result = RLetters::Solr::Connection.search_raw({
@@ -87,11 +104,19 @@ module RLetters
             val = g['doclist']['numFound']
 
             ret[key] = val
+
+            # Update the progress meter
+            if @progress
+              num_docs += g['doclist']['numFound']
+              @progress.call((num_docs.to_f / total_docs.to_f * 100.0).to_i)
+            end
           end
 
           # Get the next batch of groups
           start = start + 100
         end
+
+        @progress.call(100) if @progress
 
         ret
       end

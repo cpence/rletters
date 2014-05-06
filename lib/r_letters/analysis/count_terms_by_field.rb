@@ -9,9 +9,15 @@ module RLetters
       # Pass the term that you're interested to analyze, and the dataset that
       # you'd like to draw the term from (or +nil+ to indicate the entire
       # corpus).
-      def initialize(term, dataset = nil)
+      #
+      # @param [String] term the term of interest
+      # @param [Dataset] dataset the dataset to analyze (or nil)
+      # @param [Proc] progress If set, a function to call with a percentage of
+      #   completion (one Integer parameter)
+      def initialize(term, dataset = nil, progress = nil)
         @term = term
         @dataset = dataset
+        @progress = progress
       end
 
       # Count term occurrences, grouping by a field
@@ -46,12 +52,21 @@ module RLetters
       # @param [Symbol] field field to group by
       # @return [Hash<String, Array<String>>] list of UIDs for each group
       def grouped_uids_dataset(dataset, field)
+        ret = {}
+        total = dataset.entries.size
+
         enum = RLetters::Datasets::DocumentEnumerator.new(dataset)
-        enum.each_with_object({}) do |doc, ret|
+        enum.each_with_index do |doc, i|
           key = get_field_for_grouping(doc, field)
           ret[key] ||= []
           ret[key] << doc.uid
+
+          @progress.call((i.to_f / total.to_f * 50.0).to_i) if @progress
         end
+
+        @progress.call(50) if @progress
+
+        ret
       end
 
       # Group the UIDs in the entire corpus by field
@@ -62,6 +77,9 @@ module RLetters
       def grouped_uids_corpus(field)
         ret = {}
         start = 0
+
+        num_docs = 0
+        total_docs = RLetters::Solr::CorpusStats.new.size
 
         loop do
           group_result = RLetters::Solr::Connection.search_raw({
@@ -94,7 +112,7 @@ module RLetters
 
           # Run a new query to get all of the UIDs
           key = group['groupValue']
-          num_docs = group['doclist']['numFound']
+          group_size = group['doclist']['numFound']
 
           uids_result = RLetters::Solr::Connection.search_raw({
             q: '*:*',
@@ -105,7 +123,7 @@ module RLetters
             facet: 'false',
             start: start.to_s,
             rows: 1,
-            'group.limit' => num_docs
+            'group.limit' => group_size
           })
 
           # Malformed Solr response
@@ -121,7 +139,15 @@ module RLetters
 
           # Get the next group
           start += 1
+
+          # Update the progress meter
+          if @progress
+            num_docs += group_size
+            @progress.call((num_docs.to_f / total_docs.to_f * 50.0).to_i)
+          end
         end
+
+        @progress.call(50) if @progress
 
         ret
       end
@@ -152,7 +178,10 @@ module RLetters
       # @param [Hash<String, Array<String>>] uids the grouped UIDs to fetch
       # @return [Hash<String, Integer>] grouped term counts by field
       def uids_to_term_counts(uids)
-        uids.each_with_object({}) do |(key, arr), ret|
+        ret = {}
+        total = uids.size
+
+        uids.each_with_index do |(key, arr), i|
           ret[key] = 0
 
           arr.each do |uid|
@@ -161,7 +190,13 @@ module RLetters
 
             ret[key] += vec[:tf] if vec
           end
+
+          @progress.call(50 + (i.to_f / total.to_f * 50.0).to_i) if @progress
         end
+
+        @progress.call(100) if @progress
+
+        ret
       end
     end
   end

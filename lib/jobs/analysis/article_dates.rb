@@ -44,7 +44,7 @@ module Jobs
       #                                       task_id: task.to_param)
       def perform
         options.clean_options!
-        at(0, 1, 'Initializing...')
+        at(0, 100, 'Initializing...')
 
         user = User.find(options[:user_id])
         dataset = user.datasets.active.find(options[:dataset_id])
@@ -54,24 +54,27 @@ module Jobs
         task.save
 
         # Get the counts and normalize if requested
-        at(1, 4, 'Getting counts by year from database...')
-        dates = RLetters::Analysis::CountArticlesByField.new(dataset).counts_for(:year)
+        analyzer = RLetters::Analysis::CountArticlesByField.new(
+          dataset,
+          ->(p) { at((p.to_f / 100.0 * 90.0).to_i, 100,
+                     'Counting articles by year...') })
+        dates = analyzer.counts_for(:year)
 
-        at(2, 4, 'Normalizing document counts to frequencies...')
+        at(90, 100, 'Normalizing document counts to frequencies...')
         dates = normalize_document_counts(user, :year, dates, options)
 
         dates = dates.to_a
         dates.each { |d| d[0] = Integer(d[0]) }
 
         # Fill in zeroes for any years that are missing
-        at(3, 4, 'Filling missing years...')
+        at(95, 100, 'Filling missing years...')
         dates = Range.new(*(dates.map { |d| d[0] }.minmax)).each.map do |y|
           dates.assoc(y) || [ y, 0 ]
         end
 
         # Save out the data, including getting the name of the normalization
         # set for pretty display
-        at(4, 4, 'Finished, generating output...')
+        at(100, 100, 'Finished, generating output...')
 
         norm_set_name = ''
         if options[:normalize_doc_counts] == '1'

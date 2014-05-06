@@ -43,7 +43,7 @@ module Jobs
       #                                    task_id: task.to_param)
       def perform
         options.clean_options!
-        at(0, 1, 'Initializing...')
+        at(0, 100, 'Initializing...')
 
         user = User.find(options[:user_id])
         dataset = user.datasets.active.find(options[:dataset_id])
@@ -53,21 +53,23 @@ module Jobs
         task.save
 
         # Get the counts and normalize if requested
-        at(1, 3, 'Getting counts by year from database...')
         term = options[:term]
-        dates = RLetters::Analysis::CountTermsByField.new(term, dataset).counts_for(:year)
+        analyzer = RLetters::Analysis::CountTermsByField.new(
+          term,
+          dataset,
+          ->(p) { at(p, 100, 'Querying term frequency counts...') })
+        dates = analyzer.counts_for(:year)
 
         dates = dates.to_a
         dates.each { |d| d[0] = Integer(d[0]) }
 
         # Fill in zeroes for any years that are missing
-        at(2, 3, 'Filling missing years...')
+        at(100, 100, 'Normalizing and saving data...')
         dates = Range.new(*(dates.map { |d| d[0] }.minmax)).each.map do |y|
           dates.assoc(y) || [ y, 0 ]
         end
 
         # Save out the data
-        at(3, 3, 'Finished, generating output...')
         output = { data: dates, term: term }
 
         # Serialize out to JSON
