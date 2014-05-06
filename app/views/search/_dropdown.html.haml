@@ -22,7 +22,8 @@
   .small-6.columns
     %strong= t('.online')
     %ul.no-bullet
-      %li= link_to t('.google'), "http://scholar.google.com/scholar?q=#{CGI.escape(document.title)}"
+      - if document.title
+        %li= link_to t('.google'), "http://scholar.google.com/scholar?q=#{CGI.escape(document.title)}"
       - if Admin::Setting.mendeley_key.present?
         %li= link_to t('.mendeley'), documents_mendeley_path(document.uid)
       %li= link_to t('.citeulike'), documents_citeulike_path(document.uid)
