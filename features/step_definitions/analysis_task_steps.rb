@@ -17,7 +17,7 @@ Given(/^I complete an analysis task for the dataset$/) do
   expect(@dataset).to be
   visit '/'
   click_link 'Start a new analysis'
-  click_link 'How has the frequency of a term changed over time?'
+  click_link 'When were a given set of articles published?'
   click_link 'Start'
 
   # This is an unfortunate hack, but modal dialogs will be the death of me

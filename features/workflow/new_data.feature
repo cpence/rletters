@@ -9,7 +9,7 @@ Feature: Run an analysis on new data
 
     Scenario: Run a workflow analysis on new data
       When I start a new workflow analysis
-        And I choose the plot dates task
+        And I choose the article dates task
         And I confirm the choice
         And I choose to create a new dataset
         And I search for articles

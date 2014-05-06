@@ -1,0 +1,25 @@
+- content_for :javascript, javascript_include_tag('https://www.google.com/jsapi')
+- content_for :javascript, javascript_include_tag('term_dates')
+
+- data = JSON.load(@task.result.file_contents(:original))
+- dates = data['data']
+
+.row
+  .large-8.columns
+    %h2== #{Dataset.model_name.human}: #{@dataset.name}
+    %h4.subheader= t('jobs.analysis.term_dates.subheader', term: data['term'])
+
+  .large-4.columns.job-header-button
+    = link_to t('common.download_csv'), dataset_analysis_task_path(@dataset, @task, view: 'download', format: 'csv'), class: 'button secondary expand'
+
+.row
+  .small-12.columns
+    %hr
+
+    .term_dates_data= dates.to_json
+
+    .term_dates_graph
+
+    %hr
+
+    .term_dates_table

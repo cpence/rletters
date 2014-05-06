@@ -10,7 +10,7 @@ Feature: Fetch workflow results
 
     Scenario: Get results of finished analysis
       When I start a new workflow analysis
-        And I choose the plot dates task
+        And I choose the article dates task
         And I confirm the choice
         And I link the dataset
         And I confirm the data

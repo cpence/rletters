@@ -265,6 +265,16 @@ en:
                 dataset_label: Dataset to normalize against
                 all: Entire corpus
         analysis:
+            article_dates:
+                name: Plot Article Counts by Date
+                short_desc: Plot number of articles by date
+                question: >
+                    When were a given set of articles published?
+                fraction_subheader: "Fraction of documents in %{normalization_set} found in the %{name} dataset, plotted by year"
+                number_subheader: "Number of documents, plotted by year"
+                fraction_column: Fraction of Documents
+                number_column: Number of Documents
+                entire_corpus: Entire Corpus
             collocation:
                 name: Collocation Analysis
                 short_desc: Determine significant associations between word pairs
@@ -344,18 +354,16 @@ en:
                 word: Focal word
                 subheader: "Network of associated terms surrounding word: '%{word}'"
                 download: Download in GraphML format
-            article_dates:
-                name: Plot by Date
-                short_desc: Plot dataset by date
+            term_dates:
+                name: Word Occurrences by Date
+                short_desc: Plot word occurrences by date
                 question: >
                     How has the frequency of a term changed over time?
 
-                    When were a given set of articles published?
-                fraction_subheader: "Fraction of documents in %{normalization_set} found in the %{name} dataset, plotted by year"
-                number_subheader: "Number of documents, plotted by year"
-                fraction_column: Fraction of Documents
-                number_column: Number of Documents
-                entire_corpus: Entire Corpus
+                    When was a word used within a particular dataset?
+                word: Focal word
+                subheader: "Occurrences of %{term}, plotted by year"
+                number_column: Occurrences of Word
             word_frequency:
                 name: Word Frequency
                 short_desc: Analyze word frequency in dataset

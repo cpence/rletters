@@ -1,0 +1,8 @@
+.row
+  .large-6.columns
+    = simple_form_for :job_params, url: dataset_analysis_tasks_path(@dataset, class: 'TermDates'), method: :post do |f|
+      = f.error_notification
+
+      = f.input :word, label: I18n.t('jobs.analysis.term_dates.word')
+      = f.button :submit
+      = link_to(t('common.cancel'), @dataset, class: 'button secondary')

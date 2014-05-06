@@ -8,7 +8,7 @@ end
 
 When(/^I choose the (.*) task$/) do |task|
   map = {
-    'plot dates' => 'How has the frequency of a term changed over time?',
+    'article dates' => 'When were a given set of articles published?',
     'Craig Zeta' => 'Given two sets of articles, what words mark out an article'
   }
 

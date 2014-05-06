@@ -34,7 +34,7 @@ describe Jobs::Analysis::ArticleDates do
     end
 
     it 'names the task correctly' do
-      expect(@dataset.analysis_tasks[0].name).to eq('Plot dataset by date')
+      expect(@dataset.analysis_tasks[0].name).to eq('Plot number of articles by date')
     end
 
     it 'creates good JSON' do
@@ -71,7 +71,7 @@ describe Jobs::Analysis::ArticleDates do
     end
 
     it 'names the task correctly' do
-      expect(@dataset.analysis_tasks[0].name).to eq('Plot dataset by date')
+      expect(@dataset.analysis_tasks[0].name).to eq('Plot number of articles by date')
     end
 
     it 'creates good JSON' do
@@ -113,7 +113,7 @@ describe Jobs::Analysis::ArticleDates do
     end
 
     it 'names the task correctly' do
-      expect(@dataset.analysis_tasks[0].name).to eq('Plot dataset by date')
+      expect(@dataset.analysis_tasks[0].name).to eq('Plot number of articles by date')
     end
 
     it 'creates good JSON' do

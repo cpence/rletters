@@ -1,0 +1,7 @@
+- require 'csv'
+- data = JSON.load(@task.result.file_contents(:original))
+- dates = data['data']
+!= CSV.generate do |csv|
+  - csv << [ Document.human_attribute_name(:year), t('jobs.analysis.term_dates.number_column') ]
+  - dates.each do |d|
+    - csv << d
