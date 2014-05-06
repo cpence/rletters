@@ -1,7 +1,9 @@
 User-agent: *
 Disallow: /assets/
 Disallow: /datasets/
-Disallow: /search/document/
+Disallow: /search/
 Disallow: /unapi/
 Disallow: /user/
 
+User-agent: AhrefsBot
+Disallow: /
