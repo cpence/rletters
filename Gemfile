@@ -67,6 +67,7 @@ gem 'sass-rails', '>= 4.0.2'
 gem 'foundation-rails'
 gem 'simple_form'
 
+gem 'uglifier'
 gem 'yui-compressor'
 
 # Testing

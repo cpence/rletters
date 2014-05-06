@@ -376,6 +376,9 @@ GEM
     trollop (1.16.2)
     tzinfo (1.1.0)
       thread_safe (~> 0.1)
+    uglifier (2.5.0)
+      execjs (>= 0.3.0)
+      json (>= 1.8.0)
     unf (0.1.4)
       unf_ext
     unf (0.1.4-java)
@@ -462,6 +465,7 @@ DEPENDENCIES
   sass-rails (>= 4.0.2)
   simple_form
   stanford-core-nlp
+  uglifier
   unicorn
   validate_url
   webmock
