@@ -36,11 +36,13 @@ module Jobs
       # @option options [String] user_id the user whose dataset we are to work on
       # @option options [String] dataset_id the dataset to operate on
       # @option options [String] task_id the analysis task we're working from
+      # @option options [String] term the focal word to analyze
       # @return [undefined]
       # @example Start a job for plotting a dataset by year
       #   Jobs::Analysis::TermDates.create(user_id: current_user.to_param,
       #                                    dataset_id: dataset.to_param,
-      #                                    task_id: task.to_param)
+      #                                    task_id: task.to_param,
+      #                                    term: 'test')
       def perform
         options.clean_options!
         at(0, 100, 'Initializing...')
