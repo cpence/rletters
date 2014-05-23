@@ -48,21 +48,21 @@ describe Jobs::CreateDataset do
         fq: nil,
         def_type: 'dismax')
 
-      @user.datasets.reload
+      @dataset.reload
     end
 
     it 'clears the disabled attribute' do
-      expect(@user.datasets[0].disabled).to be false
+      expect(@dataset.disabled).to be false
     end
 
     it 'puts the right number of items in the dataset' do
-      expect(@user.datasets[0].entries.size).to be >= 10
+      expect(@dataset.entries.size).to be >= 10
     end
 
     it 'does not set the fetch attribute' do
       # The word 'test' does not appear in our external document, so it
       # shouldn't be returned in this search.
-      expect(@user.datasets[0].fetch).to be false
+      expect(@dataset.fetch).to be false
     end
   end
 
@@ -99,19 +99,19 @@ describe Jobs::CreateDataset do
         fq: nil,
         def_type: 'lucene')
 
-      @user.datasets.reload
+      @dataset.reload
     end
 
     it 'clears the disabled attribute' do
-      expect(@user.datasets[0].disabled).to be false
+      expect(@dataset.disabled).to be false
     end
 
     it 'puts the right number of items in the dataset' do
-      expect(@user.datasets[0].entries.size).to eq(1043)
+      expect(@dataset.entries.size).to eq(1043)
     end
 
     it 'sets the fetch attribute' do
-      expect(@user.datasets[0].fetch).to be true
+      expect(@dataset.fetch).to be true
     end
   end
 
