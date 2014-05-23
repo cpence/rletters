@@ -18,17 +18,21 @@
 class Documents::Category < ActiveRecord::Base
   self.table_name = 'documents_categories'
   validates :name, presence: true
+
+  before_save :clean_journals
   serialize :journals, Array
 
   # Enable closure_tree
   acts_as_tree name_column: 'name', order: 'sort_order'
+
+  private
 
   # Clean up list of journals when created
   #
   # To support empty arrays, ActiveAdmin will send us a blank item when
   # a new category is created.  We want to prune that before the object is
   # saved.
-  before_save do
+  def clean_journals
     journals.delete('')
   end
 end

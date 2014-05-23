@@ -53,11 +53,8 @@ module Jobs
       at(100, 100, 'Finished creating, saving dataset...')
       user.reload
       if user.workflow_active
-        user.workflow_datasets ||= '[]'
-        new_datasets = JSON.parse(user.workflow_datasets)
-        new_datasets << dataset.to_param
-        user.workflow_datasets = new_datasets.to_json
-
+        user.workflow_datasets ||= []
+        user.workflow_datasets << dataset
         user.save
       end
 

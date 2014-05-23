@@ -7,30 +7,30 @@
 %header
   %section
     %h2= t('.header')
-    - if @user_datasets.size < @num_datasets
+    - if current_user.workflow_datasets.size < @num_datasets
       %h4.subheader= t('.subheader_pending')
     - else
       %h4.subheader= t('.subheader_done')
 
-- if @user_datasets.size < @num_datasets
+- if current_user.workflow_datasets.size < @num_datasets
   .row
     .small-12.columns
       %p= t('.pending_instructions', count: @num_datasets)
 - else
   .row
     .large-5.large-centered.columns
-      - button_params = { class: params[:class], job_params: { other_datasets: @user_datasets[1..-1] } }
+      - button_params = { class: params[:class], job_params: { other_datasets: current_user.workflow_datasets[1..-1].map(&:to_param) } }
       - if @klass.has_view? '_params'
-        = link_to t('.button_params'), new_dataset_analysis_task_path(@user_datasets[0], button_params), class: 'button primary expand'
+        = link_to t('.button_params'), new_dataset_analysis_task_path(current_user.workflow_datasets[0], button_params), class: 'button primary expand'
       - else
-        = link_to t('.button_start'), dataset_analysis_tasks_path(@user_datasets[0], button_params), method: :post, class: 'button success expand'
+        = link_to t('.button_start'), dataset_analysis_tasks_path(current_user.workflow_datasets[0], button_params), method: :post, class: 'button success expand'
 
 .row
   .small-12.columns
     %hr
 
-    - if @user_datasets.size < @num_datasets
-      .alert-box.alert= t('.pending_count', count: (@num_datasets - @user_datasets.size))
+    - if current_user.workflow_datasets.size < @num_datasets
+      .alert-box.alert= t('.pending_count', count: (@num_datasets - current_user.workflow_datasets.size))
 
     %h3= t('.dataset_list')
 
@@ -40,12 +40,12 @@
           %th.label-cell= t('.name_column')
           %th.button-cell
       %tbody
-        - if @user_datasets.empty?
+        - if current_user.workflow_datasets.blank?
           %tr
             %td.label-cell= t('.no_datasets')
             %td.button-cell
         - else
-          - @user_datasets.each do |d|
+          - current_user.workflow_datasets.each do |d|
             %tr
               %td.label-cell
                 = d.name
@@ -53,7 +53,7 @@
                   %span.icon.fi-upload-cloud.has-tip{ data: { tooltip: true }, title: t('datasets.index_xhr.cloud_tooltip') }
               %td.button-cell= link_to t('.delete_button'), workflow_activate_path(params[:class], unlink_dataset_id: d.to_param), data: { confirm: t('.delete_confirm') }, class: 'button alert tiny'
 
-- if @user_datasets.size < @num_datasets
+- if current_user.workflow_datasets.size < @num_datasets
   .row
     .large-12.columns
       %ul.button-group.even-2

@@ -89,7 +89,7 @@ describe WorkflowController do
       before(:each) do
         @user.workflow_active = true
         @user.workflow_class = 'ArticleDates'
-        @user.workflow_datasets = [@dataset.to_param].to_json
+        @user.workflow_datasets = [@dataset]
 
         @user.save
       end
@@ -100,7 +100,7 @@ describe WorkflowController do
 
         expect(@user.workflow_active).to be false
         expect(@user.workflow_class).to be_nil
-        expect(@user.workflow_datasets).to be_nil
+        expect(@user.workflow_datasets).to be_blank
       end
     end
 
@@ -114,7 +114,7 @@ describe WorkflowController do
         it 'sets the workflow parameters' do
           expect(@user.workflow_active).to be true
           expect(@user.workflow_class).to eq('ArticleDates')
-          expect(@user.workflow_datasets).to be_nil
+          expect(@user.workflow_datasets).to be_blank
         end
       end
 
@@ -127,11 +127,7 @@ describe WorkflowController do
         it 'sets the right parameters' do
           expect(@user.workflow_active).to be true
           expect(@user.workflow_class).to eq('ArticleDates')
-          expect(@user.workflow_datasets).to eq([@dataset.to_param].to_json)
-        end
-
-        it 'sends the parameters to the view' do
-          expect(assigns(:user_datasets)).to eq([@dataset])
+          expect(@user.workflow_datasets).to eq([@dataset])
         end
       end
 
@@ -139,7 +135,7 @@ describe WorkflowController do
         before(:each) do
           @user.workflow_active = true
           @user.workflow_class = 'ArticleDates'
-          @user.workflow_datasets = [@dataset.to_param].to_json
+          @user.workflow_datasets = [@dataset]
           @user.save
 
           get :activate, class: 'ArticleDates', unlink_dataset_id: @dataset.to_param
@@ -147,11 +143,7 @@ describe WorkflowController do
         end
 
         it 'unlinks the dataset' do
-          expect(@user.workflow_datasets).to be_nil
-        end
-
-        it 'sends the parameters to the view' do
-          expect(assigns(:user_datasets)).to be_empty
+          expect(@user.workflow_datasets).to be_blank
         end
       end
 
@@ -161,7 +153,7 @@ describe WorkflowController do
 
           @user.workflow_active = true
           @user.workflow_class = 'CraigZeta'
-          @user.workflow_datasets = [@dataset.to_param, @dataset_2.to_param].to_json
+          @user.workflow_datasets = [@dataset, @dataset_2]
           @user.save
 
           get :activate, class: 'CraigZeta', unlink_dataset_id: @dataset_2.to_param
@@ -169,11 +161,7 @@ describe WorkflowController do
         end
 
         it 'unlinks the dataset' do
-          expect(@user.workflow_datasets).to eq([@dataset.to_param].to_json)
-        end
-
-        it 'sends the parameters to the view' do
-          expect(assigns(:user_datasets)).to eq([@dataset])
+          expect(@user.workflow_datasets).to eq([@dataset])
         end
       end
     end

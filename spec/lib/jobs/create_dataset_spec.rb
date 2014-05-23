@@ -84,8 +84,7 @@ describe Jobs::CreateDataset do
     end
 
     it 'links the dataset to the workflow' do
-      expected = @user.datasets.map { |d| d.to_param }.to_json
-      expect(@user.workflow_datasets).to eq(expected)
+      expect(@user.workflow_datasets).to eq(@user.datasets)
     end
   end
 

@@ -64,27 +64,21 @@ class WorkflowController < ApplicationController
 
     # See if we've been asked to link a dataset to this job
     if params[:link_dataset_id]
-      @user_datasets << Dataset.find(params[:link_dataset_id])
-      @user_datasets_str = @user_datasets.map { |d| d.to_param }.to_json
-      current_user.workflow_datasets = @user_datasets_str
+      dataset = current_user.datasets.active.find(params[:link_dataset_id])
+
+      current_user.workflow_datasets ||= []
+      current_user.workflow_datasets << dataset
     end
 
     # Same for unlinking a dataset
     if params[:unlink_dataset_id]
-      @user_datasets.delete_if { |d| d.to_param == params[:unlink_dataset_id] }
-      if @user_datasets.empty?
-        current_user.workflow_datasets = nil
-      else
-        @user_datasets_str = @user_datasets.map { |d| d.to_param }.to_json
-        current_user.workflow_datasets = @user_datasets_str
+      current_user.workflow_datasets.delete_if do |d|
+        d.to_param == params[:unlink_dataset_id]
       end
     end
 
     # Save our changes, if any
     current_user.save
-
-    # Refresh all these parameters, we may have changed them
-    load_workflow_parameters
   end
 
   # Allow the user to pick up data from all of their analysis tasks
@@ -150,18 +144,5 @@ class WorkflowController < ApplicationController
     fail ActiveRecord::RecordNotFound unless @klass
 
     @num_datasets = @klass.num_datasets
-
-    @user_active = current_user.workflow_active || false
-
-    @user_class_str = current_user.workflow_class
-    @user_class = @user_class_str.safe_constantize if @user_class_str
-
-    @user_datasets_str = current_user.workflow_datasets
-    if @user_datasets_str
-      @user_datasets = JSON.parse(@user_datasets_str).map do |id|
-        current_user.datasets.active.find(id)
-      end
-    end
-    @user_datasets ||= []
   end
 end

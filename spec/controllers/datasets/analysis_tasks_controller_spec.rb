@@ -149,7 +149,7 @@ describe Datasets::AnalysisTasksController do
     context 'when a valid class/params are passed at the end of a workflow' do
       before(:each) do
         @user.workflow_active = true
-        @user.workflow_datasets = [@dataset.to_param].to_json
+        @user.workflow_datasets = [@dataset]
         @user.workflow_class = 'ExportCitations'
         @user.save
 
@@ -162,7 +162,7 @@ describe Datasets::AnalysisTasksController do
       it 'clears the workflow parameters' do
         expect(@user.workflow_active).to be false
         expect(@user.workflow_class).to be_nil
-        expect(@user.workflow_datasets).to be_nil
+        expect(@user.workflow_datasets).to be_blank
       end
 
       it 'redirects to the root' do

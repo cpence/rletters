@@ -52,8 +52,8 @@
 #   @return [String] If set, the class the user has selected to perform in the
 #     workflow controller
 # @!attribute workflow_datasets
-#   @return [String] An array of the datasets the user has selected to perform
-#     in the workflow controller
+#   @return [Array<Dataset>] An array of the datasets the user has selected
+#     to perform in the workflow controller
 class User < ActiveRecord::Base
   devise :async, :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
@@ -68,6 +68,15 @@ class User < ActiveRecord::Base
 
   has_many :datasets
   has_many :libraries, class_name: 'Users::Library'
+
+  # We don't want to serialize *all* of the DatasetEntries into the database
+  # with the workflow_datasets, so wrap that parameter by converting it just
+  # to dataset ids.
+  before_save :workflow_datasets_to_ids
+  after_save :workflow_datasets_from_ids
+  after_find :workflow_datasets_from_ids
+
+  serialize :workflow_datasets, Array
 
   # Convert the +csl_style_id+ to a CslStyle (or nil)
   #
@@ -108,4 +117,28 @@ class User < ActiveRecord::Base
     end
   end
   # :nocov:
+
+  private
+
+  # Convert workflow datasets to an array of ids
+  #
+  # If we serialize the full datasets into YAML, that will also serialize the
+  # entire list of dataset entries, which is massive.  This pair of callbacks
+  # prevents that, by converting to a simple array of ids on save.
+  def workflow_datasets_to_ids
+    if workflow_datasets
+      workflow_datasets.map!(&:to_param)
+    end
+  end
+
+  # Convert array of ids to workflow datasets
+  #
+  # If we serialize the full datasets into YAML, that will also serialize the
+  # entire list of dataset entries, which is massive.  This pair of callbacks
+  # prevents that, by converting to a simple array of ids on save.
+  def workflow_datasets_from_ids
+    if workflow_datasets
+      workflow_datasets.map! { |id| datasets.find(id) }
+    end
+  end
 end
