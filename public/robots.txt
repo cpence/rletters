@@ -1,9 +1,12 @@
 User-agent: *
-Disallow: /assets/
-Disallow: /datasets/
-Disallow: /search/
-Disallow: /unapi/
-Disallow: /user/
+Crawl-Delay: 10
+Disallow: /assets
+Disallow: /datasets
+Disallow: /documents
+Disallow: /search
+Disallow: /unapi
+Disallow: /users
+Disallow: /workflow/image
 
 User-agent: AhrefsBot
 Disallow: /
