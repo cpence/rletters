@@ -8,7 +8,7 @@
 #
 # @example Get the Solr URL
 #   Admin::Setting.solr_server_url
-#   # => 'http://localhost:8983/solr/'
+#   # => 'http://127.0.0.1:8983/solr/'
 class Admin::Setting < ActiveRecord::Base
   self.table_name = 'admin_settings'
   serialize :value
@@ -50,7 +50,7 @@ class Admin::Setting < ActiveRecord::Base
     'not.a.web.site.com'
   end
   def self.default_solr_server_url
-    'http://localhost:8983/'
+    'http://127.0.0.1:8983/'
   end
   def self.default_solr_timeout
     120

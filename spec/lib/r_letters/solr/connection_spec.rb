@@ -18,21 +18,21 @@ describe RLetters::Solr::Connection do
       # Zero out the current instance to make it reconnect
       described_class.instance_variable_set(:@solr, nil)
 
-      expect(RSolr::Ext).to receive(:connect).with(url: 'http://localhost:8983/',
+      expect(RSolr::Ext).to receive(:connect).with(url: 'http://127.0.0.1:8983/',
                                                    read_timeout: 120,
                                                    open_timeout: 120).and_call_original
 
       described_class.search_raw({})
 
-      Admin::Setting.solr_server_url = 'http://localhost:8080/'
-      expect(RSolr::Ext).to receive(:connect).with(url: 'http://localhost:8080/',
+      Admin::Setting.solr_server_url = 'http://127.0.0.1:8080/'
+      expect(RSolr::Ext).to receive(:connect).with(url: 'http://127.0.0.1:8080/',
                                                    read_timeout: 120,
                                                    open_timeout: 120).and_call_original
 
       described_class.search_raw({})
 
       # Make damn sure it refreshes after this spec runs
-      Admin::Setting.solr_server_url = 'http://localhost:8983/'
+      Admin::Setting.solr_server_url = 'http://127.0.0.1:8983/'
       described_class.instance_variable_set(:@solr, nil)
     end
 
