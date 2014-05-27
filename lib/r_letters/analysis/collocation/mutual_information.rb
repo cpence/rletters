@@ -17,7 +17,7 @@ module RLetters
           n = analyzers[0].num_dataset_tokens.to_f
           n_2 = n * n
 
-          bigram_f.each_with_index.map { |b, i|
+          ret = bigram_f.each_with_index.map { |b, i|
             @progress.call((i.to_f / total.to_f * 33.0).to_i + 66) if @progress
 
             bigram_words = b[0].split
@@ -26,7 +26,11 @@ module RLetters
             l = Math.log(l) unless l.abs < 0.001
 
             [b[0], l]
-          }.sort { |a, b| b[1] <=> a[1] }
+          }.sort { |a, b| b[1] <=> a[1] }.take(@num_pairs)
+
+          @progress.call(100) if @progress
+
+          ret
         end
       end
     end

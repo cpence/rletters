@@ -106,7 +106,7 @@ module Jobs
           csv << ['']
 
           csv << [t('.pair'), column]
-          grams.take(num_pairs).each do |w, v|
+          grams.each do |w, v|
             csv << [w, v]
           end
 

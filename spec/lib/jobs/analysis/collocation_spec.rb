@@ -39,56 +39,16 @@ describe Jobs::Analysis::Collocation do
             analysis_type: p.to_s,
             num_pairs: '10')
         }.to_not raise_error
-      end
-    end
 
-    context 'when all parameters are valid' do
-      before(:each) do
-        Jobs::Analysis::Collocation.perform(
-          '123',
-          user_id: @user.to_param,
-          dataset_id: @dataset.to_param,
-          task_id: @task.to_param,
-          num_pairs: '10',
-          analysis_type: 'mi')
+        expect(@dataset.analysis_tasks[0].name).to eq('Determine significant associations between word pairs')
 
         @output = CSV.parse(@dataset.analysis_tasks[0].result.file_contents(:original))
-      end
-
-      it 'names the task correctly' do
-        expect(@dataset.analysis_tasks[0].name).to eq('Determine significant associations between word pairs')
-      end
-
-      it 'creates good CSV' do
         expect(@output).to be_an(Array)
-      end
 
-      it 'saves some words and significances' do
         words, sig = @output[4]
 
         expect(words.split.count).to eq(2)
-        expect(sig.to_f).to_not eq(Float::INFINITY)
-        expect(sig.to_f).to_not eq(0.0)
-      end
-    end
-
-    context 'with an uppercase focal word' do
-      before(:each) do
-        Jobs::Analysis::Collocation.perform(
-          '123',
-          user_id: @user.to_param,
-          dataset_id: @dataset.to_param,
-          task_id: @task.to_param,
-          num_pairs: '10',
-          analysis_type: 'mi',
-          word: 'University')
-
-        @output = CSV.parse(@dataset.analysis_tasks[0].result.file_contents(:original))
-      end
-
-      it 'still works' do
-        words, sig = @output[4]
-        expect(words.split).to include('university')
+        expect(sig.to_f).to be_finite
       end
     end
   end

@@ -20,9 +20,9 @@ module RLetters
           bigram_f = analyzers[1].blocks[0]
           total = bigram_f.size
 
-          n = analyzers[0].num_dataset_tokens.to_f
+          n = analyzers[0].num_dataset_tokens
 
-          bigram_f.each_with_index.map { |b, i|
+          ret = bigram_f.each_with_index.map { |b, i|
             @progress.call((i.to_f / total.to_f * 33.0).to_i + 66) if @progress
 
             bigram_words = b[0].split
@@ -32,7 +32,11 @@ module RLetters
             p = 1.0 - Distribution::T.cdf(t, n - 1)
 
             [b[0], p]
-          }.sort { |a, b| a[1] <=> b[1] }
+          }.sort { |a, b| a[1] <=> b[1] }.take(@num_pairs)
+
+          @progress.call(100) if @progress
+
+          ret
         end
       end
     end

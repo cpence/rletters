@@ -21,10 +21,11 @@ module RLetters
           tagger = StanfordCoreNLP::MaxentTagger.new(POS_TAGGER_PATH)
           enum = RLetters::Datasets::DocumentEnumerator.new(@dataset,
                                                             fulltext: true)
-          enum.each_with_index.each_with_object({}) { |(doc, i), result|
+          ret = enum.each_with_index.each_with_object({}) { |(doc, i), result|
             @progress.call((i.to_f / total.to_f * 100.0).to_i) if @progress
 
-            tagged = tagger.tagString(doc.fulltext).split
+            lowercase = doc.fulltext.mb_chars.downcase.to_s
+            tagged = tagger.tagString(lowercase).split
 
             tagged.each_cons(2).map do |t|
               if @word
@@ -53,7 +54,11 @@ module RLetters
                 result[stripped] += 1
               end
             end
-          }.sort { |a, b| b[1] <=> a[1] }
+          }.sort { |a, b| b[1] <=> a[1] }.take(@num_pairs)
+
+          @progress.call(100) if @progress
+
+          ret
         end
 
         private
