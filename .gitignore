@@ -5,7 +5,7 @@
 
 config/database.yml
 doc
-log/*.log
+log/*.log*
 public/assets
 spec/coverage
 tmp/*
