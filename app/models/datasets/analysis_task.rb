@@ -95,4 +95,39 @@ class Datasets::AnalysisTask < ActiveRecord::Base
     # Send the user an e-mail
     UserMailer.job_finished_email(dataset.user.email, to_param).deliver
   end
+
+  # Get the job status hash
+  #
+  # This returns the current status hash for the job, defined by
+  # resque-status.
+  #
+  #
+  # @api public
+  # @return [OpenStruct]
+  # @example Print the progress message
+  #   puts task.status.message
+  #   # => 'Working on it...'
+  def status
+    Resque::Plugins::Status::Hash.get(resque_key)
+  end
+
+  # FIXME THIS IS A DECORATOR METHOD
+  def status_message
+    ret = ''
+
+    hash = status
+    if hash
+      if hash.pct_complete
+        ret += "#{hash.pct_complete}%"
+        if hash.message
+          ret += ": "
+        end
+      end
+      if hash.message
+        ret += hash.message
+      end
+    end
+
+    ret
+  end
 end

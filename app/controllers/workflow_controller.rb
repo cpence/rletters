@@ -122,6 +122,14 @@ class WorkflowController < ApplicationController
       redirect_to root_path, alert: I18n.t('workflow.fetch.terminate')
       return
     end
+
+    # If this is an AJAX request, render the tasks table only
+    if request.xhr?
+      disable_browser_cache
+      render :fetch_xhr, layout: false
+    else
+      render
+    end
   end
 
   # Return one of the uploaded-asset images

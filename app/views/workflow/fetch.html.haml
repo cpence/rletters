@@ -1,3 +1,4 @@
+- content_for :javascript, javascript_include_tag('workflow_fetch')
 - content_for :breadcrumbs do
   %li= link_to t('breadcrumbs.root'), root_path
   %li.current= link_to t('breadcrumbs.workflow_fetch'), workflow_fetch_path
@@ -7,34 +8,5 @@
     %h2= t('.header')
     %h4.subheader= t('.subheader')
 
-- unless @pending_tasks.empty?
-  .row
-    .small-12.columns
-      .panel
-        %h5= t('.pending_header')
-        %p= t('.pending_count', count: @pending_tasks.size)
-        %p= t_md('.pending_cancel_markdown', terminate_url: workflow_fetch_path(terminate: 'true'), email: Admin::Setting.app_email)
-
-.row
-  .small-12.columns
-    %h4= t('.completed_header')
-    - if @finished_tasks.empty?
-      %p= t('.no_completed')
-    - else
-      %table.button-table
-        %thead
-          %tr
-            %th.label-cell= t('datasets.analysis_tasks.index.task_column')
-            %th.label-cell= Dataset.model_name.human
-            %th.button-cell= t('datasets.analysis_tasks.index.results_column')
-        %tbody
-          - @finished_tasks.each do |t|
-            %tr
-              %td.label-cell= t.name
-              %td.label-cell= t.dataset.name
-              %td.button-cell
-                - if t.job_class.download?
-                  = link_to t('datasets.analysis_tasks.index.download_button'), dataset_analysis_task_path(t.dataset, t), class: 'button success tiny'
-                - else
-                  = link_to t('datasets.analysis_tasks.index.view_button'), dataset_analysis_task_path(t.dataset, t, view: 'results'), class: 'button success tiny'
-                = link_to t('datasets.analysis_tasks.index.delete_button'), dataset_analysis_task_path(t.dataset, t), method: :delete, class: 'button alert tiny'
+#task-list.small-12.columns{ data: { fetch_url: workflow_fetch_path } }
+  .preloader
