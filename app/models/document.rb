@@ -178,20 +178,36 @@ class Document
     # Run the search
     result = RLetters::Solr::Connection.search(query)
     return nil if result.num_hits < 1
-    doc = result.documents[0]
+    result.documents[0]
+  end
 
+  # Get the full text of the document when needed
+  #
+  # This function transparently handles fetching the full document text
+  # from an external URL when required.
+  #
+  # @api public
+  # @return [String] the document full text
+  # @example Get the document's full text
+  #   text = doc.fulltext
+  def fulltext
     # If the full text is requested, fetch it if we have to
-    if fulltext == true && doc.fulltext_url
-      text = Net::HTTP.get(doc.fulltext_url)
-      text.encode!('utf-8', invalid: :replace, undef: :replace, replace: '')
+    if @fulltext.nil? && fulltext_url
+      @fulltext = Net::HTTP.get(fulltext_url)
+      @fulltext.encode!('utf-8', invalid: :replace,
+                                 undef: :replace,
+                                 replace: '')
 
       # Some websites return a UTF-8 BOM, strip it if it's found
-      text.sub!("\xEF\xBB\xBF", '') if text.start_with?("\xEF\xBB\xBF")
+      if @fulltext.start_with?("\xEF\xBB\xBF")
+        @fulltext.sub!("\xEF\xBB\xBF", '')
+      end
 
-      doc.fulltext = text
+      # Don't do this twice, even if we got nothing
+      @fulltext ||= ''
     end
 
-    doc
+    @fulltext
   end
 
   # @return [String] the starting page of this document, if it can be parsed
@@ -237,11 +253,12 @@ class Document
     # Don't let any blank strings hang around as values for the Solr
     # fields. This prevents a whole lot of #blank? and #present? calls
     # throughout. Also note that we're explicitly not setting the
-    # authors here, that's done specially.
+    # authors here, that's done specially. Finally, don't do this for
+    # the full text, because that might trigger a fetch from an external
+    # source that we wouldn't otherwise have to do
     [:uid, :doi, :license, :license_url,
      :data_source, :title, :journal,
-     :year, :volume, :number, :pages,
-     :fulltext].each do |a|
+     :year, :volume, :number, :pages].each do |a|
       value = send(a)
       if value && value.strip.empty?
         send("#{a}=".to_sym, nil)
