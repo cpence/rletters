@@ -65,7 +65,9 @@ module Jobs
         focal_word = options[:word].mb_chars.downcase.to_s if options[:word]
 
         # Part of speech tagging requires the Stanford NLP
-        analysis_type = :mi if !NLP_ENABLED && analysis_type == :pos
+        if analysis_type == :pos && Admin::Setting.nlp_tool_path.blank?
+          analysis_type = :mi
+        end
 
         case analysis_type
         when :mi

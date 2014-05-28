@@ -27,7 +27,7 @@ describe Jobs::Analysis::Collocation do
   describe '.perform' do
     it 'accepts all the valid parameters' do
       valid_params = [:mi, :t, :likelihood]
-      valid_params << :pos if NLP_ENABLED
+      valid_params << :pos if Admin::Setting.nlp_tool_path.present?
 
       valid_params.each do |p|
         expect {

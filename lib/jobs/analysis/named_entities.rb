@@ -18,7 +18,7 @@ module Jobs
       #
       # @return [Boolean] true if the Stanford NLP toolkit is available
       def self.available?
-        NLP_ENABLED
+        Admin::Setting.nlp_tool_path.present?
       end
 
       # Return how many datasets this job requires

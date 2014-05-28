@@ -63,8 +63,13 @@ RSpec.configure do |config|
   # fixture support
   config.use_transactional_fixtures = false
 
-  # Don't test the NLP stuff if it's not installed (e.g., on Travis)
-  config.filter_run_excluding nlp: !NLP_ENABLED
+  # For testing, the NLP tool must be present in vendor/nlp/nlp-tool
+  if File.exist?(Rails.root.join('vendor', 'nlp', 'nlp-tool'))
+    Admin::Setting.nlp_tool_path = Rails.root.join('vendor', 'nlp', 'nlp-tool').to_s
+    config.filter_run_excluding nlp: false
+  else
+    config.filter_run_excluding nlp: true
+  end
 
   config.before(:suite) do
     # Prepare the database

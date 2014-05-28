@@ -12,20 +12,23 @@ module RLetters
           # Take only those that match the following patterns:
           # A N, N N, A A N, A N N, N A N, N N N, N P N
           # sort by frequency
-          fail ArgumentError, 'NLP library not available' unless NLP_ENABLED
+          if Admin::Setting.nlp_tool_path.blank?
+            fail ArgumentError, 'NLP tool not available'
+          end
           total = @dataset.entries.size
 
           # We actually aren't going to use Analysis::WordFrequency here; the
           # NLP POS tagger requires us to send it full sentences for maximum
           # accuracy.
-          tagger = StanfordCoreNLP::MaxentTagger.new(POS_TAGGER_PATH)
           enum = RLetters::Datasets::DocumentEnumerator.new(@dataset,
                                                             fulltext: true)
           ret = enum.each_with_index.each_with_object({}) { |(doc, i), result|
             @progress.call((i.to_f / total.to_f * 100.0).to_i) if @progress
 
-            lowercase = doc.fulltext.mb_chars.downcase.to_s
-            tagged = tagger.tagString(lowercase).split
+            yml = Cheetah.run(Admin::Setting.nlp_tool_path, '-p',
+                              stdin: doc.fulltext.mb_chars.downcase.to_s,
+                              stdout: :capture)
+            tagged = YAML.load(yml)
 
             tagged.each_cons(2).map do |t|
               if @word

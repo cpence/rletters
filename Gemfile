@@ -35,7 +35,7 @@ gem 'http_accept_language'
 # Textual analysis
 gem 'rsolr', '>= 1.0.7'
 gem 'rsolr-ext'
-gem 'stanford-core-nlp'
+gem 'cheetah'
 gem 'distribution'
 gem 'fast-stemmer'
 gem 'd3_rails'

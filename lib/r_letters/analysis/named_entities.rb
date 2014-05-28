@@ -25,29 +25,21 @@ module RLetters
       # @param [Proc] progress If set, a function to call with a percentage of
       #   completion (one Integer parameter)
       def initialize(dataset, progress = nil)
-        return unless NLP_ENABLED
+        return if Admin::Setting.nlp_tool_path.blank?
 
-        classifier = StanfordCoreNLP::CRFClassifier.getClassifierNoExceptions(NER_CLASSIFIER_PATH)
-        @entity_references = {}
         total = dataset.entries.size
+        text_cache = ""
 
         enum = RLetters::Datasets::DocumentEnumerator.new(dataset, fulltext: true)
         enum.each_with_index do |doc, i|
-          progress.call((i.to_f / total.to_f * 100.0).to_i) if progress
+          progress.call((i.to_f / total.to_f * 50.0).to_i) if progress
 
-          triples = classifier.classifyToCharacterOffsets(doc.fulltext)
-          triples.each do |t|
-            s = Integer(t.second.to_s)
-            e = Integer(t.third.to_s)
-            range = s...e
-
-            type = t.first.to_s
-            result = doc.fulltext[range]
-
-            @entity_references[type] ||= []
-            @entity_references[type] << result
-          end
+          text_cache += doc.fulltext
         end
+
+        yml = Cheetah.run(Admin::Setting.nlp_tool_path, '-n',
+                          stdin: text_cache, stdout: :capture)
+        @entity_references = YAML.load(yml)
 
         progress.call(100) if progress
       end

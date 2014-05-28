@@ -38,7 +38,8 @@ module RLetters
       #   RLetters::Documents::WordList.new.words_for('gutenberg:3172')
       #   # => ['the', 'project', 'gutenberg', 'ebook', 'of', ...]
       def words_for(uid)
-        word_list = if @options[:stemming] == :lemma && NLP_ENABLED
+        word_list = if @options[:stemming] == :lemma &&
+                       Admin::Setting.nlp_tool_path.present?
                       get_lemmatized_words(uid)
                     else
                       get_words(uid, @options[:stemming] == :stem)
@@ -100,11 +101,9 @@ module RLetters
         doc = Document.find(uid, fulltext: true, term_vectors: true)
         add_dfs(doc)
 
-        pipeline = StanfordCoreNLP.load(:tokenize, :ssplit, :pos, :lemma)
-        text = StanfordCoreNLP::Annotation.new(doc.fulltext)
-        pipeline.annotate(text)
-
-        text.get(:tokens).to_a.map { |tok| tok.get(:lemma).to_s }
+        yml = Cheetah.run(Admin::Setting.nlp_tool_path, '-l',
+                          stdin: doc.fulltext, stdout: :capture)
+        YAML.load(yml)
       end
 
       # Add the DFs to our cache for this document
@@ -141,15 +140,15 @@ module RLetters
             end
           end
         when :lemma
-          # This may not work, but it's better than not trying anything at all.
-          pipeline = StanfordCoreNLP.load(:tokenize, :ssplit, :pos, :lemma)
-
+          # This may not work without sentential context to feed to the NLP
+          # engine, but it's better than not trying anything at all
           {}.tap do |ret|
             @dfs.each do |k, v|
-              text = StanfordCoreNLP::Annotation.new(k)
-              pipeline.annotate(text)
+              yml = Cheetah.run(Admin::Setting.nlp_tool_path, '-l',
+                  stdin: k, stdout: :capture)
+              result = YAML.load(yml)
 
-              lemma = text.get(:tokens).to_a[0].get(:lemma).to_s
+              lemma = result[0]
 
               ret[lemma] ||= 0
               ret[lemma] += v
