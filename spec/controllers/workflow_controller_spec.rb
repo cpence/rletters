@@ -211,13 +211,6 @@ describe WorkflowController do
       get :fetch
     end
 
-    it 'assigns the tasks, ignoring inactive datasets' do
-      expect(assigns(:tasks).to_a).to match_array(
-        [@finished_task,
-         @pending_task,
-         @working_task])
-    end
-
     it 'assigns the finished tasks' do
       expect(assigns(:finished_tasks).to_a).to eq([@finished_task])
     end

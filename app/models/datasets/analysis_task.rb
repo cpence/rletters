@@ -103,31 +103,11 @@ class Datasets::AnalysisTask < ActiveRecord::Base
   #
   #
   # @api public
-  # @return [OpenStruct]
+  # @return [OpenStruct] the status information for the job
   # @example Print the progress message
   #   puts task.status.message
   #   # => 'Working on it...'
   def status
     Resque::Plugins::Status::Hash.get(resque_key)
-  end
-
-  # FIXME THIS IS A DECORATOR METHOD
-  def status_message
-    ret = ''
-
-    hash = status
-    if hash
-      if hash.pct_complete
-        ret += "#{hash.pct_complete}%"
-        if hash.message
-          ret += ": "
-        end
-      end
-      if hash.message
-        ret += hash.message
-      end
-    end
-
-    ret
   end
 end

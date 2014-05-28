@@ -67,7 +67,15 @@ When(/^I abort the workflow$/) do
   click_link 'Abort Building Analysis'
 end
 
+When(/^I visit the status page$/) do
+  within('nav') { click_link 'Fetch' }
+end
+
 ### THEN ###
+Then(/^I should see the status of my task$/) do
+  expect(page).to have_selector('td', text: '40%: Pending task...')
+end
+
 Then(/^I should be able to fetch the workflow results$/) do
   within('nav') { click_link 'Fetch' }
   expect(page).to have_selector('td', text: @dataset.name)

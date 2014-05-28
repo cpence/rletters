@@ -89,10 +89,10 @@ class WorkflowController < ApplicationController
     analysis_criteria = {
       datasets: { user_id: current_user.to_param, disabled: false }
     }
-    @tasks = Datasets::AnalysisTask.joins(:dataset).where(analysis_criteria)
+    tasks = Datasets::AnalysisTask.joins(:dataset).where(analysis_criteria)
 
-    @pending_tasks = @tasks.where(finished_at: nil)
-    @finished_tasks = @tasks.where.not(finished_at: nil)
+    @pending_tasks = tasks.where(finished_at: nil)
+    @finished_tasks = tasks.where.not(finished_at: nil)
 
     if params[:terminate]
       # Try to knock any currently running analysis tasks for this user out
@@ -122,6 +122,10 @@ class WorkflowController < ApplicationController
       redirect_to root_path, alert: I18n.t('workflow.fetch.terminate')
       return
     end
+
+    # Decorate
+    @pending_tasks = AnalysisTaskDecorator.decorate_collection(@pending_tasks)
+    @finished_tasks = AnalysisTaskDecorator.decorate_collection(@finished_tasks)
 
     # If this is an AJAX request, render the tasks table only
     if request.xhr?

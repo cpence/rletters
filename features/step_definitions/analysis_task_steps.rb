@@ -4,7 +4,17 @@
 Given(/^I have a pending analysis task$/) do
   expect(@dataset).to be
 
-  @task = create(:analysis_task, dataset: @dataset)
+  @task = create(:analysis_task, dataset: @dataset,
+                                 resque_key: 'asdf123',
+                                 finished_at: nil)
+
+  Resque::Plugins::Status::Hash.create(
+    'asdf123',
+    status: Resque::Plugins::Status::STATUS_WORKING,
+    num: 40,
+    total: 100,
+    message: 'Pending task...'
+  )
 end
 
 Given(/^I have a failed analysis task$/) do
