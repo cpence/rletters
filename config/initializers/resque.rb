@@ -3,7 +3,7 @@
 # Load the server elements of Resque, resque-scheduler, resque-status
 require 'resque/server'
 require 'resque/status_server'
-require 'resque_scheduler/server'
+require 'resque/scheduler/server'
 
 # FIXME: For external job workers, we'll have to fix this.  But not just yet.
 Resque.redis = Rails.env.production? ? '127.0.0.1:6379' : MockRedis.new

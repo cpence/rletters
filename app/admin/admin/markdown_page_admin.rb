@@ -11,7 +11,7 @@ ActiveAdmin.register Admin::MarkdownPage do
 
   index do
     column :friendly_name
-    default_actions
+    actions
   end
 
   show title: :friendly_name do |page|

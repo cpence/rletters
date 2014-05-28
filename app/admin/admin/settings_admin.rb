@@ -21,7 +21,7 @@ ActiveAdmin.register Admin::Setting do
   index do
     column :friendly_name
     column :value
-    default_actions
+    actions
   end
 
   form do |f|

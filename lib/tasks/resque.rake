@@ -3,8 +3,8 @@
 # production-only gem, so don't fail if it can't be found.
 
 require 'resque/tasks'
-require 'resque_scheduler'
-require 'resque_scheduler/tasks'
+require 'resque-scheduler'
+require 'resque/scheduler/tasks'
 
 task 'resque:setup' => :environment do
   Resque.schedule = YAML.load_file(Rails.root.join('config', 'schedule.yml'))

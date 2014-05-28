@@ -7,7 +7,7 @@ ActiveAdmin.register Documents::StopList do
 
   index do
     column :display_language
-    default_actions
+    actions
   end
 
   show title: :display_language do |list|

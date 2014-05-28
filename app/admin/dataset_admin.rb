@@ -13,7 +13,7 @@ ActiveAdmin.register Dataset do
     column :analysis_tasks do |dataset|
       dataset.analysis_tasks.size
     end
-    default_actions
+    actions
   end
 
   filter :user

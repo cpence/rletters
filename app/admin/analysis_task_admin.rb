@@ -11,7 +11,7 @@ ActiveAdmin.register Datasets::AnalysisTask do
     column :created_at
     column :finished_at
     column :failed
-    default_actions
+    actions
   end
 
   filter :job_type

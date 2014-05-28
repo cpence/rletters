@@ -6,7 +6,7 @@ ActiveAdmin.register Users::CslStyle do
 
   index do
     column :name
-    default_actions
+    actions
   end
 
   # :nocov:

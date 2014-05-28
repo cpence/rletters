@@ -14,7 +14,7 @@ gem 'addressable'
 # Job scheduling
 gem 'resque'
 gem 'resque-status'
-gem 'resque-scheduler', require: 'resque_scheduler'
+gem 'resque-scheduler'
 gem 'resque_mailer'
 
 # User authentication and administration
@@ -68,7 +68,6 @@ gem 'sass-rails', '>= 4.0.2'
 gem 'foundation-rails'
 gem 'simple_form'
 
-gem 'uglifier'
 gem 'yui-compressor'
 
 # Testing

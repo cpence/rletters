@@ -8,7 +8,7 @@ ActiveAdmin.register User do
     column :email
     column :last_sign_in_at
     column :last_sign_in_ip
-    default_actions
+    actions
   end
 
   filter :name

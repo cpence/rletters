@@ -7,7 +7,7 @@ ActiveAdmin.register Admin::UploadedAsset do
 
   index do
     column :friendly_name
-    default_actions
+    actions
   end
 
   show title: :friendly_name do |asset|
