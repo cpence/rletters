@@ -80,6 +80,20 @@ class Datasets::AnalysisTask < ActiveRecord::Base
     self.class.job_class(job_type)
   end
 
+  # Get the job status hash
+  #
+  # This returns the current status hash for the job, defined by
+  # resque-status.
+  #
+  # @api public
+  # @return [OpenStruct] the status information for the job
+  # @example Print the progress message
+  #   puts task.status.message
+  #   # => 'Working on it...'
+  def status
+    Resque::Plugins::Status::Hash.get(resque_key)
+  end
+
   # Hook to be called whenever a job finishes
   #
   # This hook will set the finished attribute on the job and send a
@@ -94,20 +108,5 @@ class Datasets::AnalysisTask < ActiveRecord::Base
 
     # Send the user an e-mail
     UserMailer.job_finished_email(dataset.user.email, to_param).deliver
-  end
-
-  # Get the job status hash
-  #
-  # This returns the current status hash for the job, defined by
-  # resque-status.
-  #
-  #
-  # @api public
-  # @return [OpenStruct] the status information for the job
-  # @example Print the progress message
-  #   puts task.status.message
-  #   # => 'Working on it...'
-  def status
-    Resque::Plugins::Status::Hash.get(resque_key)
   end
 end

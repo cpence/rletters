@@ -6,15 +6,19 @@ function createCraigZetaGraph() {
   // Get the elements we need
   var dataContainer = $('#cz-graph-data');
   var graphContainer = $('#cz-graph');
-  if (graphContainer.length === 0 || dataContainer.length === 0)
+  var nameOne = $('#cz-dataset-one');
+  var nameTwo = $('#cz-dataset-two');
+
+  if (graphContainer.length === 0 || dataContainer.length === 0 ||
+      nameOne.length === 0 || nameTwo.length === 0)
     return;
 
   // Make a DataTable object for the graph
   var data = new google.visualization.DataTable();
   var rows = $.parseJSON(dataContainer.html());
 
-  data.addColumn('number', 'Fraction of A-marker Words');
-  data.addColumn('number', 'Fraction of B-marker Words');
+  data.addColumn('number', I18n.t('jobs.analysis.craig_zeta.marker_column', {name: nameOne.html()}));
+  data.addColumn('number', I18n.t('jobs.analysis.craig_zeta.marker_column', {name: nameTwo.html()}));
   data.addColumn({ type: 'string', role: 'tooltip' });
   data.addRows(rows);
 
@@ -33,8 +37,8 @@ function createCraigZetaGraph() {
 
   var options = { width: w, height: h,
                   legend: { position: 'none' },
-                  hAxis: { title: 'Fraction of A-marker Words' },
-                  vAxis: { title: 'Fraction of B-marker Words' },
+                  hAxis: { title: I18n.t('jobs.analysis.craig_zeta.marker_column', {name: nameOne.html()}) },
+                  vAxis: { title: I18n.t('jobs.analysis.craig_zeta.marker_column', {name: nameTwo.html()}) },
                   pointSize: 3 };
 
   var chart = new google.visualization.ScatterChart(graphContainer[0]);
@@ -55,8 +59,8 @@ function createCraigZetaTable() {
   var rows = $.parseJSON(dataContainer.html());
 
   // Add the data
-  data.addColumn('string', 'Word');
-  data.addColumn('number', 'Zeta Score');
+  data.addColumn('string', I18n.t('jobs.analysis.craig_zeta.word_column'));
+  data.addColumn('number', I18n.t('jobs.analysis.craig_zeta.score_column'));
   data.addRows(rows);
 
   // Make a pretty table object

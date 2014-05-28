@@ -273,6 +273,7 @@ en:
                 fraction_subheader: "Fraction of documents in %{normalization_set} found in the %{name} dataset, plotted by year"
                 number_subheader: "Number of documents, plotted by year"
                 fraction_column: Fraction of Documents
+                percent_column: Percentage of Documents
                 number_column: Number of Documents
                 entire_corpus: Entire Corpus
             collocation:
@@ -323,6 +324,8 @@ en:
                     from two (a perfect marker word indicating membership in
                     %{name_1}) to zero (a perfect anti-marker word indicating
                     membership in %{name_2}).
+                word_column: Word
+                score_column: Zeta Score
             export_citations:
                 name: Export Citations
                 short_desc: Export dataset as citations
@@ -354,6 +357,8 @@ en:
                 word: Focal word
                 subheader: "Network of associated terms surrounding word: '%{word}'"
                 download: Download in GraphML format
+                word_stem: Word Stem
+                word_forms: Forms in dataset
             term_dates:
                 name: Word Occurrences by Date
                 short_desc: Plot word occurrences by date
@@ -572,6 +577,7 @@ en:
         fetch:
             header: Fetch analysis results
             subheader: "From here, you can retrieve the data produced by your analyses.  Make sure to save it soon, because it is only preserved for 14 days."
+            terminate: Attempting to cancel all pending analysis tasks...
         fetch_xhr:
             pending_header: Pending analysis tasks
             no_pending: "You have no analysis tasks currently in progress."
@@ -587,7 +593,6 @@ en:
                 [e-mail the site administrators.](mailto:%{email})
             completed_header: Completed analysis tasks
             no_completed: "You have no analysis tasks already completed."
-            terminate: Attempting to cancel all pending analysis tasks...
         index:
             sign_up_button: Sign up to get started!
             screenshots_header: What can it do?

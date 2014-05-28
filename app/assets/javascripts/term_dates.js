@@ -15,8 +15,8 @@ function createTermDatesGraph() {
   var data = new google.visualization.DataTable();
   var rows = $.parseJSON(dataContainer.html());
 
-  data.addColumn('number', 'Year');
-  data.addColumn('number', 'Occurrences of Term');
+  data.addColumn('number', I18n.t('activemodel.attributes.document.year'));
+  data.addColumn('number', I18n.t('jobs.analysis.term_dates.number_column'));
   data.addRows(rows);
 
   // Make the line chart object
@@ -35,8 +35,8 @@ function createTermDatesGraph() {
   var options = { width: w, height: h,
                   legend: { position: 'none' },
                   hAxis: { format: '####',
-                           title: 'Year of publication' },
-                  vAxis: { title: 'Occurrences of term' },
+                           title: I18n.t('activemodel.attributes.document.year') },
+                  vAxis: { title: I18n.t('jobs.analysis.term_dates.number_column') },
                   pointSize: 3 };
 
   var chart = new google.visualization.LineChart(graphContainer[0]);

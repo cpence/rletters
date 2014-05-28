@@ -36,8 +36,10 @@ function createNetworkGraph() {
 
     d3.select('.network_graph_box').style('display', 'block');
     d3.select('.network_graph_box p').html(
-      '<b>Word Stem:</b> ' + circle.data()[0].name + '<br>' +
-      'Forms in dataset: ' + circle.data()[0].forms.join(' '));
+      '<b>' + I18n.t('jobs.analysis.network.word_stem') + ':</b> ' +
+      circle.data()[0].name + '<br>' +
+      I18n.t('jobs.analysis.network.word_forms') + ': ' +
+      circle.data()[0].forms.join(' '));
   }
 
   var mouseOutFunction = function() {

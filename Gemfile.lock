@@ -196,6 +196,8 @@ GEM
     hike (1.2.3)
     http_accept_language (2.0.1)
     i18n (0.6.9)
+    i18n-js-pika (3.0.0.rc9)
+      i18n (~> 0.6)
     inherited_resources (1.4.1)
       has_scope (~> 0.6.0.rc)
       responders (~> 1.0.0.rc)
@@ -438,6 +440,7 @@ DEPENDENCIES
   haml
   haml-rails
   http_accept_language
+  i18n-js-pika (>= 3.0.0.rc1)
   jquery-rails
   kramdown
   marc

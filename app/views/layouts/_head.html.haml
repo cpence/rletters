@@ -20,4 +20,11 @@
   - if Admin::Setting.google_analytics_key.present?
     = render partial: 'layouts/google'
 
+  -# Set the current locale
+  :javascript
+    I18n = {}
+    I18n.defaultLocale = '#{I18n.default_locale}';
+    I18n.locale = '#{I18n.locale}';
+    I18n.fallbacks = true;
+
   = content_for :head_tags
