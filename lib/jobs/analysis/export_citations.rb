@@ -45,7 +45,7 @@ module Jobs
       #     format: 'json')
       def perform
         options.clean_options!
-        at(0, 1, 'Initializing...')
+        at(0, 1, t('common.progress_initializing'))
 
         user = User.find(options[:user_id])
         dataset = user.datasets.active.find(options[:dataset_id])
@@ -66,7 +66,7 @@ module Jobs
         ios = ::Zip::OutputStream.write_buffer(StringIO.new('')) do |zos|
           enum = RLetters::Datasets::DocumentEnumerator.new(dataset)
           enum.each_with_index do |doc, i|
-            at(i, total, "Creating citations: #{i}/#{total}...")
+            at(i, total, t('.progress_creating', progress: "#{i}/#{total}"))
 
             zos.put_next_entry "#{doc.uid.html_id}.#{options[:format].to_s}"
             zos.print klass.new(doc).serialize
@@ -75,7 +75,7 @@ module Jobs
         ios.rewind
 
         # Save it out
-        at(total, total, 'Finished, generating output...')
+        at(total, total, t('common.progress_finished'))
         file = Paperclip.io_adapters.for(ios)
         file.original_filename = 'export_citations.zip'
         file.content_type = 'application/zip'

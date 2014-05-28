@@ -44,7 +44,7 @@ module Jobs
       #                                        task_id: task.to_param)
       def perform
         options.clean_options!
-        at(0, 100, 'Initializing...')
+        at(0, 100, t('common.progress_initializing'))
 
         user = User.find(options[:user_id])
         dataset = user.datasets.active.find(options[:dataset_id])
@@ -55,10 +55,10 @@ module Jobs
 
         analyzer = RLetters::Analysis::NamedEntities.new(
           dataset,
-          ->(p) { at(p, 100, 'Finding named entities...') })
+          ->(p) { at(p, 100, t('.progress_finding')) })
 
         # Write it out
-        at(100, 100, 'Finished, generating output...')
+        at(100, 100, t('common.progress_finished'))
         ios = StringIO.new(analyzer.entity_references.to_json)
         file = Paperclip.io_adapters.for(ios)
         file.original_filename = 'named_entites.json'

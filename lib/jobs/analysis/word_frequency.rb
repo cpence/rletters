@@ -50,7 +50,7 @@ module Jobs
       #                                        [concern arguments])
       def perform
         options.clean_options!
-        at(0, 100, 'Initializing...')
+        at(0, 100, t('common.progress_initializing'))
 
         user = User.find(options[:user_id])
         dataset = user.datasets.active.find(options[:dataset_id])
@@ -62,12 +62,12 @@ module Jobs
         # Do the analysis
         analyzer = compute_word_frequencies(
           dataset,
-          ->(p) { at(p, 100, 'Calculating word frequencies...') },
+          ->(p) { at(p, 100, t('.progress_calculating')) },
           options)
         corpus_size = RLetters::Solr::CorpusStats.new.size
 
         # Create some CSV
-        at(100, 100, 'Finished, generating output...')
+        at(100, 100, t('common.progress_finished'))
         csv_string = CSV.generate do |csv|
           csv << [t('.csv_header', name: dataset.name)]
           csv << ['']

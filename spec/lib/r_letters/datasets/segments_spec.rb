@@ -66,8 +66,8 @@ describe RLetters::Datasets::Segments do
     end
 
     it 'names the blocks' do
-      expect(@segments[0].name).to start_with('Block #1/1 (within document doi:10.')
-      expect(@segments[1].name).to start_with('Block #1/1 (within document doi:10.')
+      expect(@segments[0].name).to start_with("Block #1/1 (within 'doi:10.")
+      expect(@segments[1].name).to start_with("Block #1/1 (within 'doi:10.")
     end
 
     it 'sets dfs correctly' do
@@ -147,8 +147,8 @@ describe RLetters::Datasets::Segments do
     end
 
     it 'names the blocks' do
-      expect(@segments[0].name).to start_with('Block #1 of 10 words (within document doi:')
-      expect(@segments[1].name).to start_with('Block #1 of 10 words (within document doi:')
+      expect(@segments[0].name).to start_with("Block #1 of 10 words (within 'doi:")
+      expect(@segments[1].name).to start_with("Block #1 of 10 words (within 'doi:")
     end
 
     it 'sets dfs correctly' do

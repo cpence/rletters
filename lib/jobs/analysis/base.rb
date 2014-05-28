@@ -46,11 +46,14 @@ module Jobs
 
       # Returns a translated string for this job
       #
-      # This handles the i18n scoping for analysis job classes.
+      # This handles the i18n scoping for analysis job classes.  It will
+      # pass fully scoped translation keys along unaltered.
       #
       # @param [String] key the translation to look up (e.g., '.short_desc')
       # @return [String] the translated message
       def self.t(key, opts = {})
+        return I18n.t(key, opts) unless key[0] == '.'
+
         I18n.t("#{name.underscore.gsub('/', '.')}#{key.to_s}", opts)
       end
 

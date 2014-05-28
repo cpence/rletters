@@ -105,7 +105,7 @@ module RLetters
               @segmenter.add(entry.uid)
               add_to_dfs(@segmenter.words_for_last)
               @segmenter.blocks.each do |b|
-                b.name += " (within document #{entry.uid})"
+                b.name += I18n.t('lib.frequency.block_doc_suffix', title: entry.uid)
                 ret << b
               end
 

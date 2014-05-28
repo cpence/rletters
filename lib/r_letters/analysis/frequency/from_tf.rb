@@ -72,7 +72,8 @@ module RLetters
           # be analyzed
           @blocks = [@tf_in_dataset.reject { |k, v| !@word_list.include?(k) }]
           @block_stats = [{
-            name: 'Block #1/1',
+            name: I18n.t('lib.frequency.block_count_dataset',
+                         num: 1, total: 1),
             types: @num_dataset_types,
             tokens: @num_dataset_tokens
           }]
@@ -102,7 +103,8 @@ module RLetters
             progress.call((i.to_f / total * 20.0).to_i + 80) if progress
 
             {
-              name: "Block #1/1 (within document #{d.uid})",
+              name: I18n.t('lib.frequency.block_count_doc',
+                           num: 1, total: 1, title: d.uid),
               types: d.term_vectors.size,
               tokens: d.term_vectors.map { |k, v| v[:tf] }.reduce(:+)
             }

@@ -34,7 +34,7 @@ module Jobs
     #                              def_type: 'lucene')
     def perform
       options.symbolize_keys!
-      at(0, 1, 'Initializing...')
+      at(0, 1, I18n.t('common.progress_initializing'))
 
       user = User.find(options[:user_id])
       dataset = user.datasets.find(options[:dataset_id])
@@ -44,13 +44,13 @@ module Jobs
         options[:q],
         options[:fq],
         options[:def_type],
-        ->(p) { at(p, 100, "Fetching documents...") }
+        ->(p) { at(p, 100, I18n.t('jobs.create_dataset.progress_fetching')) }
       )
 
       adder.call
 
       # Link this to the user's workflow if there's one active
-      at(100, 100, 'Finished creating, saving dataset...')
+      at(100, 100, I18n.t('jobs.create_dataset.progress_finished'))
       user.reload
       if user.workflow_active
         user.workflow_datasets ||= []

@@ -45,7 +45,7 @@ module Jobs
       #                                    other_dataset_id: dataset2.to_param)
       def perform
         options.clean_options!
-        at(0, 100, 'Initializing...')
+        at(0, 100, t('common.progress_initializing'))
 
         user = User.find(options[:user_id])
         dataset_1 = user.datasets.active.find(options[:dataset_id])
@@ -72,17 +72,17 @@ module Jobs
                                                            split_across: true)
         analyzer_1 = RLetters::Analysis::Frequency::FromPosition.new(
           set_segmenter_1,
-          ->(p) { at((p.to_f * 25.0).to_i, 100, 'Analyzing words in first dataset...') })
+          ->(p) { at((p.to_f * 25.0).to_i, 100, t('.progress_analyzing', name: dataset_1.name)) })
 
         set_segmenter_2 = RLetters::Datasets::Segments.new(dataset_2,
                                                            doc_segmenter,
                                                            split_across: true)
         analyzer_2 = RLetters::Analysis::Frequency::FromPosition.new(
           set_segmenter_2,
-          ->(p) { at((p.to_f * 25.0).to_i + 25, 100, 'Analyzing words in second dataset...') })
+          ->(p) { at((p.to_f * 25.0).to_i + 25, 100, t('.progress_analyzing', name: dataset_2.name)) })
 
         # 2) Cull any word that appears in *every* block.
-        at(50, 100, 'Removing words that appear in all blocks...')
+        at(50, 100, t('.progress_culling'))
         block_counts = {}
         analyzer_1.blocks.each do |b|
           b.keys.each do |k|
@@ -108,7 +108,7 @@ module Jobs
         total = block_counts.size
         block_counts.each_with_index do |(word, v), i|
           at(50 + (i.to_f / total.to_f * 25.0).to_i, 100,
-             "Computing Zeta scores: #{i}/#{total}...")
+             t('.progress_computing', progress: "#{i}/#{total}"))
 
           a_count = analyzer_1.blocks.map { |b| b[word] ? 1 : 0 }.reduce(:+)
           not_b_count = analyzer_2.blocks.map { |b| b[word] ? 0 : 1 }.reduce(:+)
@@ -120,13 +120,13 @@ module Jobs
         end
 
         # 4) Output words and Zeta scores, sorted descending by score.
-        at(75, 100, 'Sorting Zeta scores...')
+        at(75, 100, t('.progress_sorting'))
         zeta_array = zeta_scores.to_a.sort { |a, b| b[1] <=> a[1] }
 
         # 5) Take the first 1k and last 1k rows here (or split the list
         # clean in half if there's <2k types), and those are your marker word
         # lists.
-        at(78, 100, 'Taking marker words for each dataset...')
+        at(78, 100, t('.progress_words'))
         size = [(zeta_array.size / 2).floor, 1000].min
 
         marker_words = zeta_array.take(size).map { |a| a[0] }
@@ -139,7 +139,9 @@ module Jobs
         graph_points = []
         analyzer_1.blocks.each_with_index do |b, i|
           at(80 + (i.to_f / analyzer_1.blocks.size.to_f * 10.0).to_i, 100,
-             "Calculating separation graph points for first dataset: #{i}/#{analyzer_1.blocks.size}")
+             t('.progress_graph_points',
+               name: dataset_1.name,
+               progress: "#{i}/#{analyzer_1.blocks.size}"))
 
           x_val = Float((marker_words & b.keys).size) / Float(b.keys.size)
           y_val = Float((anti_marker_words & b.keys).size) / Float(b.keys.size)
@@ -148,7 +150,9 @@ module Jobs
         end
         analyzer_2.blocks.each_with_index do |b, i|
           at(90 + (i.to_f / analyzer_2.blocks.size.to_f * 10.0).to_i, 100,
-             "Calculating separation graph points for second dataset: #{i}/#{analyzer_2.blocks.size}")
+             t('.progress_graph_points',
+               name: dataset_2.name,
+               progress: "#{i}/#{analyzer_2.blocks.size}"))
 
           x_val = Float((marker_words & b.keys).size) / Float(b.keys.size)
           y_val = Float((anti_marker_words & b.keys).size) / Float(b.keys.size)
@@ -157,7 +161,7 @@ module Jobs
         end
 
         # Save out all the data
-        at(100, 100, 'Finished, generating output...')
+        at(100, 100, t('common.progress_finished'))
         data = {}
         data[:name_1] = dataset_1.name
         data[:name_2] = dataset_2.name

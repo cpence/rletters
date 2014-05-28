@@ -134,7 +134,8 @@ module RLetters
         # document and return
         if @last_block == :truncate_all
           if @blocks.empty?
-            name = "Block ##{@blocks.size + 1} of #{@block_size} words"
+            name = I18n.t('lib.frequency.block_size_dataset',
+                          num: @blocks.size + 1, size: @block_size)
             @blocks << Block.new(words[0...@block_size], name)
           end
           return
@@ -142,7 +143,8 @@ module RLetters
 
         # Make the first block, if needed
         unless @blocks.last
-          @blocks << Block.new([], "Block #1 of #{@block_size} words")
+          @blocks << Block.new([], I18n.t('lib.frequency.block_size_dataset',
+                                          num: 1, size: @block_size))
         end
 
         # Fill up the last block
@@ -154,7 +156,8 @@ module RLetters
 
         # Turn the remaining words into blocks and append
         words.in_groups_of(@block_size, false).each do |b|
-          name = "Block ##{@blocks.size + 1} of #{@block_size} words"
+          name = I18n.t('lib.frequency.block_size_dataset',
+                        num: @blocks.size + 1, size: @block_size)
           @blocks << Block.new(b, name)
         end
       end
@@ -169,7 +172,8 @@ module RLetters
 
         # Split the single block into the right size and return
         @single_block.in_groups(@num_blocks, false).each_with_object([]) do |b, ret|
-          ret << Block.new(b, "Block ##{ret.size + 1}/#{@num_blocks}")
+          ret << Block.new(b, I18n.t('lib.frequency.block_count_dataset',
+                                     num: ret.size + 1, total: @num_blocks))
         end
       end
 

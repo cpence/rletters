@@ -51,7 +51,7 @@ module Jobs
       #                                      num_pairs: '50')
       def perform
         options.clean_options!
-        at(0, 100, 'Initializing...')
+        at(0, 100, t('common.progress_initializing'))
 
         user = User.find(options[:user_id])
         @dataset = user.datasets.active.find(options[:dataset_id])
@@ -94,12 +94,12 @@ module Jobs
           @dataset,
           num_pairs,
           focal_word,
-          ->(p) { at(p, 100, 'Computing collocations for dataset...') }
+          ->(p) { at(p, 100, t('.progress_computing')) }
         )
         grams = analyzer.call
 
         # Save out all the data
-        at(100, 100, 'Finished, generating output...')
+        at(100, 100, t('common.progress_finished'))
         csv_string = CSV.generate do |csv|
           csv << [t('.header', name: @dataset.name)]
           csv << [t('.subheader', test: algorithm)]

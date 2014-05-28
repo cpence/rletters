@@ -44,7 +44,7 @@ module Jobs
       #                                       task_id: task.to_param)
       def perform
         options.clean_options!
-        at(0, 100, 'Initializing...')
+        at(0, 100, t('common.progress_initializing'))
 
         user = User.find(options[:user_id])
         dataset = user.datasets.active.find(options[:dataset_id])
@@ -57,24 +57,24 @@ module Jobs
         analyzer = RLetters::Analysis::CountArticlesByField.new(
           dataset,
           ->(p) { at((p.to_f / 100.0 * 90.0).to_i, 100,
-                     'Counting articles by year...') })
+                     t('.progress_counting')) })
         dates = analyzer.counts_for(:year)
 
-        at(90, 100, 'Normalizing document counts to frequencies...')
+        at(90, 100, t('.progress_normalizing'))
         dates = normalize_document_counts(user, :year, dates, options)
 
         dates = dates.to_a
         dates.each { |d| d[0] = Integer(d[0]) }
 
         # Fill in zeroes for any years that are missing
-        at(95, 100, 'Filling missing years...')
+        at(95, 100, t('.progress_missing'))
         dates = Range.new(*(dates.map { |d| d[0] }.minmax)).each.map do |y|
           dates.assoc(y) || [ y, 0 ]
         end
 
         # Save out the data, including getting the name of the normalization
         # set for pretty display
-        at(100, 100, 'Finished, generating output...')
+        at(100, 100, t('common.progress_finished'))
 
         norm_set_name = ''
         if options[:normalize_doc_counts] == '1'

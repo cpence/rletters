@@ -25,7 +25,7 @@ module Jobs
     #                               dataset_id: dataset.to_param)
     def perform
       options.symbolize_keys!
-      tick('Destroying dataset...')
+      tick(I18n.t('jobs.destroy_dataset.progress_destroying'))
 
       user = User.find(options[:user_id])
       dataset = user.datasets.find(options[:dataset_id])

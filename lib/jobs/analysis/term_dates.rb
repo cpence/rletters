@@ -45,7 +45,7 @@ module Jobs
       #                                    term: 'test')
       def perform
         options.clean_options!
-        at(0, 100, 'Initializing...')
+        at(0, 100, t('common.progress_initializing'))
 
         user = User.find(options[:user_id])
         dataset = user.datasets.active.find(options[:dataset_id])
@@ -59,14 +59,14 @@ module Jobs
         analyzer = RLetters::Analysis::CountTermsByField.new(
           term,
           dataset,
-          ->(p) { at(p, 100, 'Querying term frequency counts...') })
+          ->(p) { at(p, 100, t('.progress_computing')) })
         dates = analyzer.counts_for(:year)
 
         dates = dates.to_a
         dates.each { |d| d[0] = Integer(d[0]) }
 
         # Fill in zeroes for any years that are missing
-        at(100, 100, 'Normalizing and saving data...')
+        at(100, 100, t('common.progress_finished'))
         dates = Range.new(*(dates.map { |d| d[0] }.minmax)).each.map do |y|
           dates.assoc(y) || [ y, 0 ]
         end

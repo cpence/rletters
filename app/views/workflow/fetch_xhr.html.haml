@@ -15,11 +15,7 @@
             %tr
               %td.label-cell= t.name
               %td.label-cell= t.dataset.name
-              %td.label-cell
-                - if t.status_message
-                  = t.status_message
-                - else
-                  = t('.no_status')
+              %td.label-cell= t.status_message || t('.no_status')
 
       .panel
         %p= t_md('.pending_cancel_markdown', terminate_url: workflow_fetch_path(terminate: 'true'), email: Admin::Setting.app_email)

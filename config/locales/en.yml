@@ -1,7 +1,9 @@
 en:
     common:
-        download_csv: Download in CSV format
         cancel: Cancel
+        download_csv: Download in CSV format
+        progress_initializing: "Initializing..."
+        progress_finished: "Finished, generating output..."
     simple_form:
         "yes": 'Yes'
         "no": 'No'
@@ -226,6 +228,13 @@ en:
             sign_in: Sign in
             sign_up: Sign up
     jobs:
+        create_dataset:
+            progress_fetching: "Fetching documents..."
+            progress_finished: "Finished creating, saving dataset..."
+        destroy_dataset:
+            progress_destroying: "Destroying dataset..."
+        expire_analysis_tasks:
+            progress_expiring: "Destroying all old analysis tasks..."
         concerns:
             compute_word_frequencies:
                 ngram_method: Analyze single words or n-grams?
@@ -276,6 +285,9 @@ en:
                 percent_column: Percentage of Documents
                 number_column: Number of Documents
                 entire_corpus: Entire Corpus
+                progress_counting: "Counting articles by year..."
+                progress_normalizing: "Normalizing document counts to frequencies..."
+                progress_missing: "Filling missing years..."
             collocation:
                 name: Collocation Analysis
                 short_desc: Determine significant associations between word pairs
@@ -297,6 +309,7 @@ en:
                 header: "Collocation analysis for %{name}"
                 subheader: "Significance test: %{test}"
                 pair: 'Collocation pair'
+                progress_computing: "Computing collocations for dataset..."
             craig_zeta:
                 name: Craig Zeta
                 short_desc: Determine words that differentiate two datasets (Craig Zeta)
@@ -326,6 +339,12 @@ en:
                     membership in %{name_2}).
                 word_column: Word
                 score_column: Zeta Score
+                progress_analyzing: "Analyzing words in dataset: %{name}..."
+                progress_culling: "Removing words that appear in all blocks..."
+                progress_computing: "Computing Zeta scores: %{progress}..."
+                progress_sorting: "Sorting Zeta scores..."
+                progress_words: "Taking marker words for each dataset..."
+                progress_graph_points: "Calculating separation graph points for %{name}: %{progress}..."
             export_citations:
                 name: Export Citations
                 short_desc: Export dataset as citations
@@ -333,6 +352,7 @@ en:
                     Can I export a set of articles to my favorite format or
                     reference manager?
                 format: Format for export
+                progress_creating: "Creating citations: %{progress}..."
             named_entities:
                 name: Extract Proper Names
                 short_desc: Extract references to proper names
@@ -348,6 +368,7 @@ en:
                 other_category: Other
                 type_column: Type
                 hit_column: Hit
+                progress_finding: "Finding named entities..."
             network:
                 name: Compute Term Network
                 short_desc: Compute network of associated terms
@@ -359,6 +380,11 @@ en:
                 download: Download in GraphML format
                 word_stem: Word Stem
                 word_forms: Forms in dataset
+                progress_word_list: "Generating list of words for documents..."
+                progress_cleaning: "Cleaning and stemming list of words..."
+                progress_two_word: "Scanning network with two-word gap: %{progress}..."
+                progress_five_word: "Scanning network with five-word gap: %{progress}..."
+                progress_converting: "Cleaning list of words and converting to graph..."
             term_dates:
                 name: Word Occurrences by Date
                 short_desc: Plot word occurrences by date
@@ -369,6 +395,7 @@ en:
                 word: Focal word
                 subheader: "Occurrences of %{term}, plotted by year"
                 number_column: Occurrences of Word
+                progress_computing: "Querying term frequency counts..."
             word_frequency:
                 name: Word Frequency
                 short_desc: Analyze word frequency in dataset
@@ -389,12 +416,14 @@ en:
                 tfidf_dataset_header: TF/IDF (vs. dataset)
                 tfidf_corpus_header: TF/IDF (vs. corpus)
                 df_header: DF (in corpus)
+                progress_calculating: "Calculating word frequencies..."
     lib:
-        wfa:
-            block_count_dataset: "Block %{num}/%{total} (across dataset)"
-            block_size_dataset: "Block %{num} of %{size} words (across dataset)"
-            block_count_doc: "Block %{num}/%{total} (within '%{title}')"
-            block_size_doc: "Block %{num} of %{size} words (within '%{title}')"
+        frequency:
+            block_count_dataset: "Block #%{num}/%{total}"
+            block_size_dataset: "Block #%{num} of %{size} words"
+            block_count_doc: "Block #%{num}/%{total} (within '%{title}')"
+            block_size_doc: "Block #%{num} of %{size} words (within '%{title}')"
+            block_doc_suffix: " (within '%{title}')"
     search:
         document:
             untitled: "[untitled]"
