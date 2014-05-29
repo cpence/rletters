@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>He can go about his business.</title>
+  <title><%= t('.header') %></title>
   <style type="text/css">
     body { background-color: #fff; color: #333; text-align: center; font-family: arial, sans-serif; }
     img { position: absolute; left: 0; bottom: 0; }
@@ -14,8 +14,8 @@
   <img src="<%= Admin::UploadedAsset.url_for('error-watermark') %>">
 
   <div>
-    <h1>404: Not Found</h1>
-    <p>As you can see, things seem to be falling apart over here.  Either we've moved a page, or you've mis-typed a link, as there doesn't seem to be anything here.  Head back to <a href="/">the front page,</a> and if you see this error message again, let us know and we'll try to fix it.</p>
+    <h1><%= t('.header') %></h1>
+    <p><%= t('.message') %></p>
   </div>
 </body>
 </html>

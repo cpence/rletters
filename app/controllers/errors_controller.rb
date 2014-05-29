@@ -11,8 +11,10 @@ class ErrorsController < ApplicationController
   # @api public
   # @return [undefined]
   def not_found
-    render template: 'errors/404', layout: false,
-           formats: [:html], status: 404
+    respond_to do |format|
+      format.html { render(template: 'errors/404', layout: false, status: 404) }
+      format.any { render(text: "404 Not Found", status: 404) }
+    end
   end
 
   # Render a 422 error page
@@ -24,8 +26,10 @@ class ErrorsController < ApplicationController
   # @return [undefined]
   # :nocov:
   def unprocessable
-    render template: 'errors/422', layout: false,
-           formats: [:html], status: 422
+    respond_to do |format|
+      format.html { render(template: 'errors/422', layout: false, status: 422) }
+      format.any { render(text: "422 Unprocessable Entity", status: 422) }
+    end
   end
   # :nocov:
 
@@ -34,7 +38,7 @@ class ErrorsController < ApplicationController
   # @api public
   # @return [undefined]
   def internal_error
-    render template: 'errors/500', layout: false,
-           formats: [:html], status: 500
+    render(template: 'errors/500', layout: false,
+           formats: [:html], status: 500)
   end
 end
