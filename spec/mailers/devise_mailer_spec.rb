@@ -1,14 +1,15 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe Devise::Mailer do
+describe DeviseMailer do
   # I've customized this view, so here's a spec for it
   describe '#reset_password_instructions' do
     before(:each) do
       @user = mock_model(User,
+                         name: 'Name of the User',
                          email: 'user@user.com',
                          reset_password_token: 'resettoken')
-      @mail = Devise::Mailer.reset_password_instructions(@user, 'resettoken')
+      @mail = DeviseMailer.reset_password_instructions(@user, 'resettoken')
     end
 
     it 'sets the to e-mail' do
@@ -19,8 +20,8 @@ describe Devise::Mailer do
       expect(@mail.body.encoded).to include(edit_user_password_url(@user, reset_password_token: 'resettoken'))
     end
 
-    it 'mention the user email' do
-      expect(@mail.body.encoded).to include('user@user.com')
+    it 'mentions the user name' do
+      expect(@mail.body.encoded).to include('Name of the User')
     end
   end
 end

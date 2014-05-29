@@ -8,6 +8,8 @@ class UserMailer < ActionMailer::Base
   include Resque::Mailer
   default from: 'noreply@example.com'
 
+  layout 'ink_email'
+
   def job_finished_email(email, task_id)
     @task = Datasets::AnalysisTask.find(task_id)
 

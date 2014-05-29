@@ -1,10 +1,5 @@
-!!! 5
-%html
-  %head
-    %meta{ content: 'text/html; charset=UTF-8', http_equiv: 'Content-Type' }
-  %body
-    %h2= t('user_mailer.job_finished.header')
-    %p= t('user_mailer.job_finished.intro', task: @task.name, dataset: @task.dataset.name)
-    %p
-      %a{ href: workflow_fetch_url }= t('user_mailer.job_finished.link')
-    %p= t('user_mailer.job_finished.warning')
+%h1= t('user_mailer.job_finished.header')
+%p.lead= t('user_mailer.job_finished.intro', task: @task.name, dataset: @task.dataset.name)
+%p
+  %a{ href: workflow_fetch_url }= t('user_mailer.job_finished.link')
+%p= t('user_mailer.job_finished.warning')

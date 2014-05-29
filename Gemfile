@@ -69,12 +69,16 @@ gem 'foundation-rails'
 gem 'simple_form'
 
 gem 'yui-compressor'
+gem 'roadie', '~> 2'
 
 # Testing
 group :test, :development do
   gem 'rspec-rails'
 
+  # Some of these need to be here to enable proper use of the development
+  # server, including mailer previews
   gem 'mock_redis'
+  gem 'factory_girl_rails'
 end
 
 group :test do
@@ -83,7 +87,6 @@ group :test do
   gem 'poltergeist', require: false
   gem 'database_cleaner'
 
-  gem 'factory_girl_rails'
   gem 'webmock', require: false
   gem 'resque_spec'
 

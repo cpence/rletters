@@ -4,6 +4,11 @@ en:
         download_csv: Download in CSV format
         progress_initializing: "Initializing..."
         progress_finished: "Finished, generating output..."
+    ink_email:
+        visit: "Visit %{app_name}:"
+        contact: "Contact Us:"
+        email: "E-mail:"
+        one_time: This is a one-time message. There is no need to unsubscribe.
     simple_form:
         "yes": 'Yes'
         "no": 'No'
@@ -532,10 +537,11 @@ en:
                 submit: Sign up
         mailer:
             reset:
-                intro: "Hello %{email}!"
+                intro: "Hello %{name}!"
                 instructions: >
                     Someone has requested a link to change your password,
                     and you can do this through the link below.
+                link: "Reset your password"
                 ignore: "If you didn't request this, please ignore this email."
                 no_change: "Your password won't change until you access the link above and create a new one."
         libraries:
