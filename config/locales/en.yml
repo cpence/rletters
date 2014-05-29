@@ -684,7 +684,6 @@ en:
                 subheader: This job has some more options that you can configure before you get started.
             create:
                 workflow: "Running analysis now, check back soon for results..."
-                success: Analysis job started!
     settings:
         app_name: Application Name
         app_email: Contact E-mail
