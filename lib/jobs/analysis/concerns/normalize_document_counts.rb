@@ -49,7 +49,7 @@ module Jobs
 
           normalize_counts = RLetters::Analysis::CountArticlesByField.new(normalization_set).counts_for(field)
 
-          counts.each_with_object({}) do |(k, v), ret|
+          ret = counts.each_with_object({}) do |(k, v), ret|
             if normalize_counts[k] && normalize_counts[k] > 0
               ret[k] = v.to_f / normalize_counts[k]
             else
@@ -60,6 +60,14 @@ module Jobs
               ret[k] = 0.0
             end
           end
+
+          # Fill in zero values for any missing years in the counts
+          range = (ret.keys + normalize_counts.keys).minmax
+          Range.new(*range).each do |y|
+            ret[y] ||= 0
+          end
+
+          ret
         end
       end
     end

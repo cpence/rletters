@@ -92,8 +92,14 @@ describe Jobs::Analysis::ArticleDates do
     it 'fills in some values' do
       arr = JSON.load(@dataset.analysis_tasks[0].result.file_contents(:original))['data']
       pair = arr[0]
-      expect((1990..2012)).to cover(pair[0])
+      expect((1895..2012)).to cover(pair[0])
       expect((0..1)).to cover(pair[1])
+    end
+
+    it 'expands the range of zeroes to include the entire corpus range' do
+      arr = JSON.load(@dataset.analysis_tasks[0].result.file_contents(:original))['data']
+      expect(arr.assoc(1910)).to be
+      expect(arr.assoc(1910)[1]).to eq(0)
     end
   end
 
