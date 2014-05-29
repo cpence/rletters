@@ -555,6 +555,8 @@ en:
                 success: Library was successfully connected.
             update:
                 success: Library was successfully updated.
+    user_mailer:
+        subject: "%{app_name} analysis job completed"
     workflow:
         activate:
             header: Collect data
