@@ -9,6 +9,7 @@
 *   The date-plotting jobs now include intervening years with a "zero" value in the downloaded CSV and graph, instead of leaving them out of the analysis entirely.
 *   Fix several significant bugs in the collocation analyzer, including one that meant that most of the returned weighting values were incorrect.
 *   Fix a bug in the computation of DF values within datasets.
+*   Fix a bug that shows the wrong status message when starting an analysis job.
 *   Change the way in which RLetters communicates with the Stanford NLP Java package, increasing reliability of parts-of-speech tagging, lemmatization, and named entity extraction.
 *   Fix a bug preventing the "normalize" mode from being activated in ArticleDates.
 *   Fix a bug in facet display code that could cause the facet display to cut off early.
