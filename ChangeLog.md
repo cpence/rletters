@@ -2,8 +2,16 @@
 
 ## Version 1.3 (beta, unreleased)
 
+*   The fetch results page now shows progress updates for unfinished jobs, as well as live-updates.
+    -   This also includes support for terminating all pending jobs, as well as terminating jobs while they're running.
+*   The plot-dates task has been split into two analysis task types, one of which counts the number of articles in each year in the dataset, and one of which counts the number of occurrences of a particular term in the articles within a dataset, and graphs those occurrences by year.
 *   Add an optimized WordFrequencyAnalyzer that can be called when only a single block is requested.
+*   The date-plotting jobs now include intervening years with a "zero" value in the downloaded CSV and graph, instead of leaving them out of the analysis entirely.
+*   Fix several significant bugs in the collocation analyzer, including one that meant that most of the returned weighting values were incorrect.
 *   Fix a bug in the computation of DF values within datasets.
+*   Change the way in which RLetters communicates with the Stanford NLP Java package, increasing reliability of parts-of-speech tagging, lemmatization, and named entity extraction.
+*   Fix a bug preventing the "normalize" mode from being activated in ArticleDates.
+*   Fix a bug in facet display code that could cause the facet display to cut off early.
 *   Update Rails, which fixes two potential DoS vulnerabilities.
 *   Fix a potential DoS vulnerability from symbol conversion in the export code.
 

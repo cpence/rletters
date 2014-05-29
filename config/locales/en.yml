@@ -612,9 +612,6 @@ en:
             no_pending: "You have no analysis tasks currently in progress."
             progress: Task Progress
             no_status: "Working... (no status available)"
-            pending_count: >
-                You have %{count} analysis tasks that have yet to finish. Come
-                back to this page later to collect their results.
             pending_cancel_markdown: >
                 Are these tasks taking too long to finish?  We can try to
                 [terminate all pending jobs,](%{terminate_url}) though that
@@ -622,6 +619,7 @@ en:
                 [e-mail the site administrators.](mailto:%{email})
             completed_header: Completed analysis tasks
             no_completed: "You have no analysis tasks already completed."
+            finished_column: Completed At
         index:
             sign_up_button: Sign up to get started!
             screenshots_header: What can it do?

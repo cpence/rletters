@@ -91,8 +91,8 @@ class WorkflowController < ApplicationController
     }
     tasks = Datasets::AnalysisTask.joins(:dataset).where(analysis_criteria)
 
-    @pending_tasks = tasks.where(finished_at: nil)
-    @finished_tasks = tasks.where.not(finished_at: nil)
+    @pending_tasks = tasks.where(finished_at: nil).order(:created_at)
+    @finished_tasks = tasks.where.not(finished_at: nil).order(finished_at: :desc)
 
     if params[:terminate]
       # Try to knock any currently running analysis tasks for this user out

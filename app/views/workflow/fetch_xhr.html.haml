@@ -31,12 +31,14 @@
           %tr
             %th.label-cell= t('datasets.analysis_tasks.index.task_column')
             %th.label-cell= Dataset.model_name.human
+            %th.label-cell= t('.finished_column')
             %th.button-cell= t('datasets.analysis_tasks.index.results_column')
         %tbody
           - @finished_tasks.each do |t|
             %tr
               %td.label-cell= t.name
               %td.label-cell= t.dataset.name
+              %td.label-cell= l t.finished_at, format: :short
               %td.button-cell
                 - if t.job_class.download?
                   = link_to t('datasets.analysis_tasks.index.download_button'), dataset_analysis_task_path(t.dataset, t), class: 'button success tiny'
