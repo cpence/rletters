@@ -530,6 +530,14 @@ en:
                 header: Sign up
                 subheader: "Welcome!  Enter some information about yourself and we'll get you off and running with a new user account."
                 submit: Sign up
+        mailer:
+            reset:
+                intro: "Hello %{email}!"
+                instructions: >
+                    Someone has requested a link to change your password,
+                    and you can do this through the link below.
+                ignore: "If you didn't request this, please ignore this email."
+                no_change: "Your password won't change until you access the link above and create a new one."
         libraries:
             edit:
                 header: Edit your library details
@@ -556,7 +564,12 @@ en:
             update:
                 success: Library was successfully updated.
     user_mailer:
-        subject: "%{app_name} analysis job completed"
+        job_finished:
+            subject: "%{app_name} analysis job completed"
+            header: Analysis job complete!
+            intro: "Your analysis task (%{task}, analyzing dataset %{dataset}) has finished."
+            link: "Click here to see the results of the analysis, on the 'Fetch Results' page."
+            warning: "Analysis task results are only kept for 14 days after job completion; please download your files before then."
     workflow:
         activate:
             header: Collect data

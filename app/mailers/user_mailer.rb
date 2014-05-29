@@ -14,7 +14,7 @@ class UserMailer < ActionMailer::Base
     mail(from: Admin::Setting.app_email,
          to: email,
          task: @task,
-         subject: I18n.t('user_mailer.subject',
+         subject: I18n.t('user_mailer.job_finished.subject',
                          app_name: Admin::Setting.app_name))
   end
 end

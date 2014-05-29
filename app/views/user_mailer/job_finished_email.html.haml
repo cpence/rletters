@@ -3,12 +3,8 @@
   %head
     %meta{ content: 'text/html; charset=UTF-8', http_equiv: 'Content-Type' }
   %body
-    %h2 Analysis job complete!
+    %h2= t('user_mailer.job_finished.header')
+    %p= t('user_mailer.job_finished.intro', task: @task.name, dataset: @task.dataset.name)
     %p
-      Your analysis task (#{@task.name}, analyzing dataset #{@task.dataset.name}) has finished.
-    %p
-      You may see the results of the analysis by visiting the
-      %a{ href: dataset_url(@task.dataset) } page for your dataset
-      and clicking on the link in the task list.
-    %p
-      Analysis task results are only kept for 14 days after job completion; please visit #{Admin::Setting.app_name} and download your files before then.
+      %a{ href: workflow_fetch_url }= t('user_mailer.job_finished.link')
+    %p= t('user_mailer.job_finished.warning')

@@ -29,8 +29,8 @@ describe UserMailer do
       expect(@mail.body.encoded).to match(@task.dataset.name)
     end
 
-    it 'includes the link to the dataset' do
-      expect(@mail.body.encoded).to match(dataset_url(@task.dataset))
+    it 'includes the link to the fetch page' do
+      expect(@mail.body.encoded).to match(workflow_fetch_url)
     end
   end
 end
