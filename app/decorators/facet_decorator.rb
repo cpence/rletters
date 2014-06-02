@@ -4,7 +4,16 @@ class FacetDecorator < Draper::Decorator
   decorates RLetters::Solr::Facet
   delegate_all
 
+  # Get a human-readable version of the +value+ attribute
+  #
+  # The facets for years are returned in Solr format, looking something
+  # like [1900 TO 1910]. This function makes sure we convert from those to
+  # a readable format for display
+  #
+  # @api public
   # @return [String] the +value+ attribute, in human-readable form
+  # @example Show the field and label for this facet
+  #   %span== #{f.field_label}: #{f.label}
   def label
     case field
     when :authors_facet
@@ -18,7 +27,12 @@ class FacetDecorator < Draper::Decorator
     end
   end
 
+  # Get a translated version of the +field+ attribute
+  #
+  # @api public
   # @return [String] the +field+ attribute, in human-readable form
+  # @example Show the field and label for this facet
+  #   %span== #{f.field_label}: #{f.label}
   def field_label
     case field
     when :authors_facet
@@ -36,9 +50,8 @@ class FacetDecorator < Draper::Decorator
 
   # Format a label suitable for displaying a year facet
   #
-  # Requires @value to be set, and will set @label and @field_label.
-  #
   # @api private
+  # @return [String] the human-readable form of a year facet query
   def year_label
     @year_label ||= begin
       # We need to parse the decade out of "[X TO Y]"

@@ -2,6 +2,9 @@
 
 class CategoriesDecorator < Draper::CollectionDecorator
   # Decorate elements with the category decorator
+  #
+  # @api private
+  # @return [Class] the class used to decorate collection elements
   def decorator_class
     CategoryDecorator
   end

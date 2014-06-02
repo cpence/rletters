@@ -122,6 +122,7 @@ class Datasets::AnalysisTasksController < ApplicationController
 
   # Get the task, dataset, and class objects from the params
   #
+  # @api private
   # @return [undefined]
   def set_task
     @dataset = current_user.datasets.active.find(params[:dataset_id])
@@ -131,6 +132,7 @@ class Datasets::AnalysisTasksController < ApplicationController
 
   # Get the current parameters hash from the params
   #
+  # @api private
   # @return [undefined]
   def set_current_params
     @current_params = params[:job_params].to_hash if params[:job_params]
@@ -140,6 +142,7 @@ class Datasets::AnalysisTasksController < ApplicationController
 
   # Render a job view, given the class name and view name
   #
+  # @api private
   # @param [Class] klass the job class
   # @param [String] view the view to render
   # @return [undefined]

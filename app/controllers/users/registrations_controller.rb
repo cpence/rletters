@@ -6,6 +6,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
   #
   # We override this method in order to set some default parameters that
   # are only available at the time of the request.
+  #
+  # @api public
+  # @return [undefined]
   def new
     # Override the default value for language, if the user has set one in
     # their browser

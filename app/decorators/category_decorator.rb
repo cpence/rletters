@@ -8,6 +8,10 @@ class CategoryDecorator < Draper::Decorator
   #
   # @api public
   # @return [String] a definition tag for removing this category
+  # @example Display a link to remove the given category
+  #   %dl
+  #     = f.removal_link
+  #     -# ...
   def removal_link
     h.content_tag(:dd, class: 'active') do
       new_params = toggle_params
@@ -21,6 +25,9 @@ class CategoryDecorator < Draper::Decorator
   #
   # @api public
   # @return [String] a list item for this category and its descendants
+  # @example Display this category and its descendants
+  #   %ul
+  #     %li= c.link_tree
   def link_tree
     ''.html_safe.tap do |content|
       content << toggle_link
@@ -35,15 +42,28 @@ class CategoryDecorator < Draper::Decorator
     end
   end
 
+  # Returns true if this category is currently enabled
+  #
+  # This is determined solely from the current value of params.
+  #
   # @api public
   # @return [Boolean] true if the category is currently enabled
+  # @example Find an enabled category
+  #   Documents::Category.all.detect { |c| c.enabled }
   def enabled
     h.params[:categories] && h.params[:categories].include?(to_param)
   end
 
-  # Create a link to facet by a journal category
+  # Create a link to enable or disable this journal category
   #
-  # @api private
+  # This method returns the correct link to toggle the state of this category,
+  # either to enable or disable it.
+  #
+  # @api public
+  # @return [String] a link to enable/disable this category
+  # @example Show a toggle link for this category
+  #   %ul
+  #     %li= cat.toggle_link
   def toggle_link
     new_params = toggle_params
 
@@ -65,9 +85,11 @@ class CategoryDecorator < Draper::Decorator
   # Get the params for enabling or disabling a category
   #
   # We want to enable or disable the category as well as all its descendants
-  # with a single click, so do that here.
+  # with a single click, so this will toggle not only this category, but also
+  # its descendants.
   #
   # @api private
+  # @return [Hash] the parameters suitable for toggling this category
   def toggle_params
     h.params.deep_dup.tap do |ret|
       ret[:categories] ||= []

@@ -48,7 +48,7 @@ class WorkflowController < ApplicationController
   # @api public
   # @return [undefined]
   def info
-    load_workflow_parameters
+    set_workflow_parameters
   end
 
   # Get the user to collect datasets for a job
@@ -56,7 +56,7 @@ class WorkflowController < ApplicationController
   # @api public
   # @return [undefined]
   def activate
-    load_workflow_parameters
+    set_workflow_parameters
 
     # Write out the class that the user has chosen
     current_user.workflow_active = true
@@ -150,7 +150,11 @@ class WorkflowController < ApplicationController
 
   private
 
-  def load_workflow_parameters
+  # Get the current workflow details from the params
+  #
+  # @api private
+  # @return [undefined]
+  def set_workflow_parameters
     fail ActiveRecord::RecordNotFound unless params[:class]
     @klass = ('Jobs::Analysis::' + params[:class]).safe_constantize
     fail ActiveRecord::RecordNotFound unless @klass

@@ -111,6 +111,7 @@ class Users::LibrariesController < ApplicationController
 
   # Whitelist acceptable library parameters
   #
+  # @api private
   # @return [ActionController::Parameters] acceptable parameters for
   #   mass-assignment
   def library_params

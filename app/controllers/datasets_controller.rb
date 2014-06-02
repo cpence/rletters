@@ -115,6 +115,7 @@ class DatasetsController < ApplicationController
 
   # Whitelist acceptable dataset parameters
   #
+  # @api private
   # @return [ActionController::Parameters] acceptable parameters for
   #   mass-assignment
   def dataset_params
