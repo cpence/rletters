@@ -1,12 +1,12 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe FacetsDecorator do
+RSpec.describe FacetsDecorator, type: :decorator do
   include Capybara::RSpecMatchers
 
   describe '#removal_links' do
     context 'with no active facets' do
-      before(:each) do
+      before(:example) do
         @result = RLetters::Solr::Connection.search(q: '*:*', def_type: 'lucene')
         @ret = described_class.decorate(@result.facets).removal_links
       end
@@ -17,7 +17,7 @@ describe FacetsDecorator do
     end
 
     context 'with active facets' do
-      before(:each) do
+      before(:example) do
         @result = RLetters::Solr::Connection.search(
           q: '*:*',
           def_type: 'lucene',
@@ -36,7 +36,7 @@ describe FacetsDecorator do
 
   describe '#addition_links' do
     context 'with some facets' do
-      before(:each) do
+      before(:example) do
         @result = RLetters::Solr::Connection.search(q: '*:*', def_type: 'lucene')
         @ret = described_class.decorate(@result.facets).addition_links
       end

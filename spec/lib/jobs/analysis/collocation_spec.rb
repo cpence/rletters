@@ -1,11 +1,11 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe Jobs::Analysis::Collocation do
+RSpec.describe Jobs::Analysis::Collocation do
 
   it_should_behave_like 'an analysis job'
 
-  before(:each) do
+  before(:example) do
     @user = create(:user)
     @dataset = create(:full_dataset, entries_count: 10, working: true,
                                      user: @user)

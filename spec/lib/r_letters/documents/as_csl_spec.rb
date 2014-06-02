@@ -2,14 +2,14 @@
 require 'spec_helper'
 require 'support/doubles/document_basic'
 
-describe RLetters::Documents::AsCSL do
-  before(:each) do
+RSpec.describe RLetters::Documents::AsCSL do
+  before(:example) do
     @doc = double_document_basic
     @as_csl = described_class.new(@doc)
   end
 
   context 'when fetching a single document' do
-    before(:each) do
+    before(:example) do
       @csl = @as_csl.citeproc_item
     end
 
@@ -27,7 +27,7 @@ describe RLetters::Documents::AsCSL do
   end
 
   context 'when formatting CSL citations' do
-    before(:each) do
+    before(:example) do
       @style = double(style: <<eos)
 <style xmlns="http://purl.org/net/xbiblio/csl"  class="in-text" version="1.0">
   <info>

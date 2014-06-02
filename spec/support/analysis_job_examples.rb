@@ -1,8 +1,8 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-shared_context 'create job with params' do
-  before(:each) do
+RSpec.shared_context 'create job with params' do
+  before(:example) do
     @user ||= create(:user)
     @dataset ||= create(
       :full_dataset,
@@ -17,15 +17,15 @@ shared_context 'create job with params' do
   end
 end
 
-shared_context 'create job with params and perform' do
+RSpec.shared_context 'create job with params and perform' do
   include_context 'create job with params'
 
-  before(:each) do
+  before(:example) do
     described_class.perform('123', @perform_args)
   end
 end
 
-shared_examples_for 'an analysis job' do
+RSpec.shared_examples_for 'an analysis job' do
   # Defaults for the configuration parameters -- specify these in a
   # customization block if you need extra/different parameters to create
   # your job or dataset.

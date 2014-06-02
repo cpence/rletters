@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe ErrorsController do
+RSpec.describe ErrorsController, type: :routing do
 
   describe 'routing' do
     it 'routes to #not_found' do

@@ -2,9 +2,9 @@
 require 'spec_helper'
 require 'support/doubles/document_basic'
 
-describe RLetters::Documents::AsOpenURL do
+RSpec.describe RLetters::Documents::AsOpenURL do
   context 'when getting OpenURL link for a single document' do
-    before(:each) do
+    before(:example) do
       @doc = double_document_basic
       @params = described_class.new(@doc).params
     end

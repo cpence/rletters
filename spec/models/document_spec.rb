@@ -1,12 +1,12 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe Document do
+RSpec.describe Document, type: :model do
   it_should_behave_like 'ActiveModel'
 
   describe '#valid' do
     context 'when no uid is specified' do
-      before(:each) do
+      before(:example) do
         @doc = build(:document, uid: nil)
       end
 
@@ -16,7 +16,7 @@ describe Document do
     end
 
     context 'when a good uid is specified' do
-      before(:each) do
+      before(:example) do
         @doc = build(:document)
       end
 
@@ -29,7 +29,7 @@ describe Document do
   describe '.find' do
     context 'without fulltext' do
       context 'when loading one document' do
-        before(:each) do
+        before(:example) do
           @doc = Document.find('doi:10.1111/j.1439-0310.2008.01576.x')
         end
 
@@ -54,7 +54,7 @@ describe Document do
 
     context 'with fulltext' do
       context 'when loading one document with fulltext' do
-        before(:each) do
+        before(:example) do
           @doc = Document.find('doi:10.1111/j.1439-0310.2008.01576.x', fulltext: true)
         end
 
@@ -78,7 +78,7 @@ describe Document do
     end
 
     context 'with external fulltext (HTTP)' do
-      before(:each) do
+      before(:example) do
         stub_connection('http://www.gutenberg.org/cache/epub/3172/pg3172.txt', 'gutenberg')
         @doc = Document.find('gutenberg:3172', fulltext: true, term_vectors: true)
       end
@@ -104,7 +104,7 @@ describe Document do
   describe '.find_by' do
     context 'without fulltext' do
       context 'when loading one document' do
-        before(:each) do
+        before(:example) do
           @doc = Document.find_by(uid: 'doi:10.1111/j.1439-0310.2008.01576.x')
         end
 
@@ -124,7 +124,7 @@ describe Document do
       end
 
       context 'with a field other than uid' do
-        before(:each) do
+        before(:example) do
           @doc = Document.find_by(authors: 'C. Alaux')
         end
 
@@ -136,7 +136,7 @@ describe Document do
 
     context 'with fulltext' do
       context 'when loading one document with fulltext' do
-        before(:each) do
+        before(:example) do
           @doc = Document.find_by(uid: 'doi:10.1111/j.1439-0310.2008.01576.x', fulltext: true)
         end
 
@@ -176,7 +176,7 @@ describe Document do
   # tested at the same time
   describe 'attributes' do
     context 'when loading one document' do
-      before(:each) do
+      before(:example) do
         @doc = Document.find('doi:10.1111/j.1439-0310.2008.01576.x')
       end
 
@@ -190,7 +190,7 @@ describe Document do
     end
 
     context 'when loading one document with fulltext' do
-      before(:each) do
+      before(:example) do
         @doc = Document.find('doi:10.1111/j.1439-0310.2008.01576.x', fulltext: true)
       end
 
@@ -208,7 +208,7 @@ describe Document do
     end
 
     context 'when loading a set of documents' do
-      before(:each) do
+      before(:example) do
         @result = RLetters::Solr::Connection.search(q: '*:*', def_type: 'lucene')
         @docs = @result.documents
       end
@@ -263,7 +263,7 @@ describe Document do
 
   describe '#start_page and #end_page' do
     context 'when loading one document' do
-      before(:each) do
+      before(:example) do
         @doc = Document.find('doi:10.1111/j.1439-0310.2008.01576.x')
       end
 
@@ -277,7 +277,7 @@ describe Document do
     end
 
     context 'when loading a document with funny page ranges' do
-      before(:each) do
+      before(:example) do
         @doc = build(:document, pages: '1483-92')
       end
 
@@ -293,7 +293,7 @@ describe Document do
 
   describe '#term_vectors' do
     context 'when loading one document' do
-      before(:each) do
+      before(:example) do
         @doc = Document.find('doi:10.1111/j.1439-0310.2008.01576.x')
       end
 
@@ -303,7 +303,7 @@ describe Document do
     end
 
     context 'when loading one document with term vectors' do
-      before(:each) do
+      before(:example) do
         @doc = Document.find('doi:10.1111/j.1439-0310.2008.01576.x', term_vectors: true)
       end
 
@@ -333,7 +333,7 @@ describe Document do
     end
 
     context 'when loading one document with offsets' do
-      before(:each) do
+      before(:example) do
         query = { q: 'uid:"doi:10.1111/j.1439-0310.2008.01576.x"',
                   def_type: 'lucene',
                   fields: RLetters::Solr::Connection::DEFAULT_FIELDS_FULLTEXT,

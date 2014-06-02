@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe RLetters::Documents::Authors do
+RSpec.describe RLetters::Documents::Authors do
   describe '.from_list' do
     it 'calls the appropriate constructor' do
       expect(RLetters::Documents::Author).to receive(:new).with('A One').and_call_original

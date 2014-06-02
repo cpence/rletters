@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe ApplicationController do
+RSpec.describe ApplicationController, type: :controller do
   controller do
     def index
       render nothing: true
@@ -10,7 +10,7 @@ describe ApplicationController do
 
   describe '#set_locale' do
     context 'with no user' do
-      before(:each) do
+      before(:example) do
         sign_out :user
 
         get :index
@@ -22,7 +22,7 @@ describe ApplicationController do
     end
 
     context 'with a user' do
-      before(:each) do
+      before(:example) do
         @user = create(:user, language: 'es-MX')
         sign_in @user
 
@@ -37,7 +37,7 @@ describe ApplicationController do
 
   describe '#set_timezone' do
     context 'with no user' do
-      before(:each) do
+      before(:example) do
         sign_out :user
 
         get :index
@@ -49,7 +49,7 @@ describe ApplicationController do
     end
 
     context 'with a user' do
-      before(:each) do
+      before(:example) do
         @user = create(:user, timezone: 'Mexico City')
         sign_in @user
 
@@ -64,7 +64,7 @@ describe ApplicationController do
 
   describe '#render_localized_markdown' do
     context 'with a locale that exists' do
-      before(:each) do
+      before(:example) do
         I18n.locale = :en
       end
 
@@ -76,11 +76,11 @@ describe ApplicationController do
     end
 
     context 'with a missing locale' do
-      before(:each) do
+      before(:example) do
         I18n.locale = :az
       end
 
-      after(:each) do
+      after(:example) do
         I18n.locale = :en
       end
 

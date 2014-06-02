@@ -1,8 +1,8 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe FacetDecorator do
-  before(:each) do
+RSpec.describe FacetDecorator, type: :decorator do
+  before(:example) do
     @facets = [
       described_class.decorate(RLetters::Solr::Facet.new(name: 'authors_facet', value: '"W. Shatner"', hits: 10)),
       described_class.decorate(RLetters::Solr::Facet.new(name: 'journal_facet', value: '"The Journal"', hits: 10)),

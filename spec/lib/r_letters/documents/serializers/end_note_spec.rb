@@ -2,10 +2,10 @@
 require 'spec_helper'
 require 'support/doubles/document_basic'
 
-describe RLetters::Documents::Serializers::EndNote do
+RSpec.describe RLetters::Documents::Serializers::EndNote do
 
   context 'when serializing a single document' do
-    before(:each) do
+    before(:example) do
       @doc = double_document_basic
       @str = described_class.new(@doc).serialize
     end
@@ -28,7 +28,7 @@ describe RLetters::Documents::Serializers::EndNote do
   end
 
   context 'when serializing an array of documents' do
-    before(:each) do
+    before(:example) do
       doc = double_document_basic
       @docs = [doc, doc]
       @str = described_class.new(@docs).serialize

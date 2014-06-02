@@ -1,14 +1,14 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe RLetters::Documents::Segments do
-  before(:each) do
+RSpec.describe RLetters::Documents::Segments do
+  before(:example) do
     @doc = build(:full_document)
     @word_list = RLetters::Documents::WordList.new
   end
 
   context 'with no options' do
-    before(:each) do
+    before(:example) do
       @segmenter = described_class.new(@list)
       @segmenter.add(@doc.uid)
       @blocks = @segmenter.blocks
@@ -29,7 +29,7 @@ describe RLetters::Documents::Segments do
   end
 
   context 'with a single block' do
-    before(:each) do
+    before(:example) do
       @segmenter = described_class.new(@list, num_blocks: 1)
       @segmenter.add(@doc.uid)
       @blocks = @segmenter.blocks
@@ -55,7 +55,7 @@ describe RLetters::Documents::Segments do
   end
 
   context 'with multiple blocks' do
-    before(:each) do
+    before(:example) do
       @segmenter = described_class.new(@list, num_blocks: 5)
       @segmenter.add(@doc.uid)
       @blocks = @segmenter.blocks
@@ -80,7 +80,7 @@ describe RLetters::Documents::Segments do
   end
 
   context 'with word-size blocks, big_last' do
-    before(:each) do
+    before(:example) do
       @segmenter = described_class.new(@list, block_size: 3,
                                               last_block: :big_last)
       @segmenter.add(@doc.uid)
@@ -105,7 +105,7 @@ describe RLetters::Documents::Segments do
   end
 
   context 'with word-size blocks, small_last' do
-    before(:each) do
+    before(:example) do
       @segmenter = described_class.new(@list, block_size: 3,
                                               last_block: :small_last)
       @segmenter.add(@doc.uid)
@@ -130,7 +130,7 @@ describe RLetters::Documents::Segments do
   end
 
   context 'with word-size blocks, truncate_last' do
-    before(:each) do
+    before(:example) do
       @segmenter = described_class.new(@list, block_size: 3,
                                               last_block: :truncate_last)
       @segmenter.add(@doc.uid)
@@ -155,7 +155,7 @@ describe RLetters::Documents::Segments do
   end
 
   context 'with word-size blocks, truncate_all' do
-    before(:each) do
+    before(:example) do
       @segmenter = described_class.new(@list, block_size: 3,
                                               last_block: :truncate_all)
       @segmenter.add(@doc.uid)

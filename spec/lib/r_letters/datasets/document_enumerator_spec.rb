@@ -1,15 +1,15 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe RLetters::Datasets::DocumentEnumerator do
-  before(:each) do
+RSpec.describe RLetters::Datasets::DocumentEnumerator do
+  before(:example) do
     @user = create(:user)
     @dataset = create(:full_dataset, entries_count: 10, working: true,
                                      user: @user)
   end
 
   context 'with no custom fields' do
-    before(:each) do
+    before(:example) do
       @enum = RLetters::Datasets::DocumentEnumerator.new(@dataset)
     end
 
@@ -34,7 +34,7 @@ describe RLetters::Datasets::DocumentEnumerator do
   end
 
   context 'with term vectors' do
-    before(:each) do
+    before(:example) do
       @enum = RLetters::Datasets::DocumentEnumerator.new(@dataset, term_vectors: true)
     end
 
@@ -48,7 +48,7 @@ describe RLetters::Datasets::DocumentEnumerator do
   end
 
   context 'with fulltext fields' do
-    before(:each) do
+    before(:example) do
       @enum = RLetters::Datasets::DocumentEnumerator.new(@dataset, fulltext: true)
     end
 
@@ -62,7 +62,7 @@ describe RLetters::Datasets::DocumentEnumerator do
   end
 
   context 'with custom fields' do
-    before(:each) do
+    before(:example) do
       @enum = RLetters::Datasets::DocumentEnumerator.new(@dataset, fl: 'year')
     end
 

@@ -1,9 +1,9 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe Hash do
+RSpec.describe Hash do
   describe '#clean_options!' do
-    before(:each) do
+    before(:example) do
       @hash = {
         nil_key: nil,
         blank_key: '',

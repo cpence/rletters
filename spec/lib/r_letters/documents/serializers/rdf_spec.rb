@@ -2,10 +2,10 @@
 require 'spec_helper'
 require 'support/doubles/document_basic'
 
-describe RLetters::Documents::Serializers::RDF do
+RSpec.describe RLetters::Documents::Serializers::RDF do
 
   context 'when serializing a single document' do
-    before(:each) do
+    before(:example) do
       @doc = double_document_basic
       @graph = described_class.new(@doc).serialize
     end

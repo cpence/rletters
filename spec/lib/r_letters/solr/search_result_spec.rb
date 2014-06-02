@@ -1,8 +1,8 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe RLetters::Solr::SearchResult do
-  before(:each) do
+RSpec.describe RLetters::Solr::SearchResult do
+  before(:example) do
     stub_const('Document', Class.new)
     allow(Document).to receive(:new).with(any_args())
 
@@ -87,7 +87,7 @@ describe RLetters::Solr::SearchResult do
   end
 
   describe '#facets' do
-    before(:each) do
+    before(:example) do
       allow(@mock_response).to receive(:facets).and_return(123)
       allow(@mock_response).to receive(:facet_queries).and_return(456)
     end

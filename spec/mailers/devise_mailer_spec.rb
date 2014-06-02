@@ -1,10 +1,10 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe DeviseMailer do
+RSpec.describe DeviseMailer, type: :mailer do
   # I've customized this view, so here's a spec for it
   describe '#reset_password_instructions' do
-    before(:each) do
+    before(:example) do
       @user = build(:user, reset_password_token: 'resettoken')
       @mail = DeviseMailer.reset_password_instructions(@user, 'resettoken')
     end

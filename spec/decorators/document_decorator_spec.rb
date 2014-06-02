@@ -1,12 +1,12 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe DocumentDecorator do
+RSpec.describe DocumentDecorator, type: :decorator do
   include Capybara::RSpecMatchers
 
   describe '#citation' do
     context 'when no user is logged in' do
-      before(:each) do
+      before(:example) do
         @doc = described_class.decorate(Document.find(generate(:working_uid)))
 
         allow(Draper::ViewContext.current).to receive(:current_user).and_return(nil)
@@ -22,7 +22,7 @@ describe DocumentDecorator do
     end
 
     context 'when the user has no CSL style set' do
-      before(:each) do
+      before(:example) do
         @doc = described_class.decorate(Document.find(generate(:working_uid)))
 
         @user = create(:user)
@@ -39,7 +39,7 @@ describe DocumentDecorator do
     end
 
     context 'when the user has a CSL style set, for a normal document' do
-      before(:each) do
+      before(:example) do
         @doc = described_class.decorate(Document.find(generate(:working_uid)))
 
         @csl_style = Users::CslStyle.find_by!(name: 'American Psychological Association 6th Edition')
@@ -55,7 +55,7 @@ describe DocumentDecorator do
     end
 
     context 'when the user has a CSL style set, for a remote document' do
-      before(:each) do
+      before(:example) do
         @doc = described_class.decorate(Document.find('gutenberg:3172'))
 
         @csl_style = Users::CslStyle.find_by!(name: 'American Psychological Association 6th Edition')

@@ -1,11 +1,11 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe Users::Library do
+RSpec.describe Users::Library, type: :model do
 
   describe '#valid?' do
     context 'when no name spcified' do
-      before(:each) do
+      before(:example) do
         @library = build(:library, name: nil)
       end
 
@@ -15,7 +15,7 @@ describe Users::Library do
     end
 
     context 'when no user specified' do
-      before(:each) do
+      before(:example) do
         @library = build(:library, user: nil)
       end
 
@@ -25,7 +25,7 @@ describe Users::Library do
     end
 
     context 'when no URL specified' do
-      before(:each) do
+      before(:example) do
         @library = build(:library, url: nil)
       end
 
@@ -35,7 +35,7 @@ describe Users::Library do
     end
 
     context 'with a complete URL' do
-      before(:each) do
+      before(:example) do
         @library = create(:library, url: 'http://google.com/wut?')
       end
 
@@ -47,7 +47,7 @@ describe Users::Library do
 
   describe 'URL parsing' do
     context 'when given a URL without protocol' do
-      before(:each) do
+      before(:example) do
         @library = create(:library, url: 'google.com/wut?')
       end
 
@@ -62,7 +62,7 @@ describe Users::Library do
     end
 
     context 'when given a URL with no trailing question mark' do
-      before(:each) do
+      before(:example) do
         @library = create(:library, url: 'http://google.com')
       end
 
@@ -77,7 +77,7 @@ describe Users::Library do
     end
 
     context 'when given a URL with a bad protocol' do
-      before(:each) do
+      before(:example) do
         @library = build(:library, url: 'file:///usr/share/pwned')
       end
 

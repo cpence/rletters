@@ -1,13 +1,13 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe RLetters::Documents::WordList do
-  before(:each) do
+RSpec.describe RLetters::Documents::WordList do
+  before(:example) do
     @doc = build(:full_document)
   end
 
   context 'with 1-grams' do
-    before(:each) do
+    before(:example) do
       @stemmer = described_class.new
       @list = @stemmer.words_for(@doc.uid)
     end
@@ -22,7 +22,7 @@ describe RLetters::Documents::WordList do
   end
 
   context 'with 2-grams' do
-    before(:each) do
+    before(:example) do
       @stemmer = described_class.new(ngrams: 2)
       @list = @stemmer.words_for(@doc.uid)
     end
@@ -40,7 +40,7 @@ describe RLetters::Documents::WordList do
   end
 
   context 'with stemming' do
-    before(:each) do
+    before(:example) do
       @stemmer = described_class.new(stemming: :stem)
       @list = @stemmer.words_for(@doc.uid)
     end

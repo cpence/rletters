@@ -1,8 +1,8 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe RLetters::Solr::CorpusStats do
-  before(:each) do
+RSpec.describe RLetters::Solr::CorpusStats do
+  before(:example) do
     @stats = described_class.new
   end
 

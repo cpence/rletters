@@ -1,10 +1,10 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe RLetters::Analysis::CountTermsByField do
+RSpec.describe RLetters::Analysis::CountTermsByField do
   describe '#counts_for' do
     context 'without a dataset' do
-      before(:each) do
+      before(:example) do
         @counts = described_class.new('blackwell').counts_for(:year)
       end
 
@@ -46,7 +46,7 @@ describe RLetters::Analysis::CountTermsByField do
     end
 
     context 'with a dataset' do
-      before(:each) do
+      before(:example) do
         @user = create(:user)
         @dataset = create(:full_dataset, entries_count: 10, working: true,
                                          user: @user)

@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe I18n do
+RSpec.describe I18n do
   describe '#available_locales' do
     describe '#translated' do
       it 'includes locales without country codes' do

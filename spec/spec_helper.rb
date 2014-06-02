@@ -58,8 +58,8 @@ RSpec.configure do |config|
   # fixture support
   config.use_transactional_fixtures = false
 
-  # Automatically make Rails specs take the right types
-  config.infer_spec_type_from_file_location!
+  # RSpec's new monkey-patch-free mode (preparing for RSpec 4)
+  config.expose_dsl_globally = false
 
   # For testing, the NLP tool must be present in vendor/nlp/nlp-tool
   if File.exist?(Rails.root.join('vendor', 'nlp', 'nlp-tool'))
@@ -78,7 +78,7 @@ RSpec.configure do |config|
     DatabaseCleaner.strategy = :transaction
   end
 
-  config.before(:each) do
+  config.before(:example) do
     # Reset the locale and timezone to defaults on each new test
     I18n.locale = I18n.default_locale
     Time.zone = 'Eastern Time (US & Canada)'
@@ -87,7 +87,7 @@ RSpec.configure do |config|
     DatabaseCleaner.start
   end
 
-  config.after(:each) do
+  config.after(:example) do
     # Clean the database after each test
     DatabaseCleaner.clean
   end

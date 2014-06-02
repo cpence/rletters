@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe DocumentsController do
+RSpec.describe DocumentsController, type: :controller do
   describe '#export' do
     context 'when displaying as HTML' do
       it 'will not load' do
@@ -27,11 +27,11 @@ describe DocumentsController do
 
   describe '#mendeley' do
     context 'when request succeeds' do
-      before(:all) do
+      before(:context) do
         Admin::Setting.mendeley_key = '5ba3606d28aa1be94e9c58502b90a49c04dc17289'
       end
 
-      after(:all) do
+      after(:context) do
         Admin::Setting.mendeley_key = ''
       end
 
@@ -43,15 +43,15 @@ describe DocumentsController do
     end
 
     context 'when request times out' do
-      before(:all) do
+      before(:context) do
         Admin::Setting.mendeley_key = '5ba3606d28aa1be94e9c58502b90a49c04dc17289'
       end
 
-      after(:all) do
+      after(:context) do
         Admin::Setting.mendeley_key = ''
       end
 
-      before(:each) do
+      before(:example) do
         stub_request(:any, /api\.mendeley\.com\/.*/).to_timeout
       end
 
@@ -73,7 +73,7 @@ describe DocumentsController do
     end
 
     context 'when request times out' do
-      before(:each) do
+      before(:example) do
         stub_request(:any, %r{www\.citeulike\.org/json/.*}).to_timeout
       end
 

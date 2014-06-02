@@ -8,7 +8,7 @@ SimpleCov.command_name 'spec:helpers' if defined?(SimpleCov)
 # helper. Just define something right here for the purpose of testing.
 module ApplicationHelper; end
 
-describe ApplicationHelper do
+RSpec.describe ApplicationHelper, type: :helper do
   # This is a test for I18n.translate_markdown and its associated helper patch,
   # lib/core_ext/i18n/translate_markdown.rb
   #
@@ -33,7 +33,7 @@ describe ApplicationHelper do
     end
 
     context 'with a shortcut' do
-      before(:all) do
+      before(:context) do
         I18n.backend.store_translations(
           :en,
           workflow: { spectest: { testing: '# Testing #' } }
@@ -45,7 +45,7 @@ describe ApplicationHelper do
         end
       end
 
-      after(:all) do
+      after(:context) do
         File.delete(@custom_filename)
       end
 

@@ -1,11 +1,11 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe Admin::MarkdownPage do
+RSpec.describe Admin::MarkdownPage, type: :model do
 
   describe '#valid?' do
     context 'when no name spcified' do
-      before(:each) do
+      before(:example) do
         @page = build(:markdown_page, name: nil)
       end
 
@@ -15,7 +15,7 @@ describe Admin::MarkdownPage do
     end
 
     context 'when all parameters are valid' do
-      before(:each) do
+      before(:example) do
         @page = build(:markdown_page)
       end
 
@@ -26,7 +26,7 @@ describe Admin::MarkdownPage do
   end
 
   describe '#friendly_name' do
-    before(:each) do
+    before(:example) do
       @page = create(:markdown_page)
     end
 
@@ -42,7 +42,7 @@ describe Admin::MarkdownPage do
   end
 
   describe '.render' do
-    before(:each) do
+    before(:example) do
       @page = create(:markdown_page)
     end
 

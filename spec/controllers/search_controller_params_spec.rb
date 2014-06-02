@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe SearchController do
+RSpec.describe SearchController, type: :controller do
 
   describe '#search_params_to_solr_query' do
     it 'correctly eliminates blank params' do

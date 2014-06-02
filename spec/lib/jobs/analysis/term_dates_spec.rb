@@ -1,11 +1,11 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe Jobs::Analysis::TermDates do
+RSpec.describe Jobs::Analysis::TermDates do
 
   it_should_behave_like 'an analysis job'
 
-  before(:each) do
+  before(:example) do
     @user = create(:user)
     @dataset = create(:full_dataset, working: true, user: @user)
     @task = create(:analysis_task, dataset: @dataset)
@@ -23,7 +23,7 @@ describe Jobs::Analysis::TermDates do
     end
   end
 
-  before(:each) do
+  before(:example) do
     Jobs::Analysis::TermDates.perform(
       '123',
       user_id: @user.to_param,

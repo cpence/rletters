@@ -10,12 +10,12 @@ module Jobs
   end
 end
 
-describe WorkflowController do
+RSpec.describe WorkflowController, type: :controller do
 
   describe '#index' do
     context 'given Solr results' do
       context 'when logged in' do
-        before(:each) do
+        before(:example) do
           @user = create(:user)
           sign_in @user
 
@@ -37,7 +37,7 @@ describe WorkflowController do
       end
 
       context 'when not logged in' do
-        before(:each) do
+        before(:example) do
           get :index
         end
 
@@ -62,7 +62,7 @@ describe WorkflowController do
   end
 
   describe 'workflow actions' do
-    before(:each) do
+    before(:example) do
       @user = create(:user)
       sign_in @user
 
@@ -87,7 +87,7 @@ describe WorkflowController do
     end
 
     describe '#destroy' do
-      before(:each) do
+      before(:example) do
         @user.workflow_active = true
         @user.workflow_class = 'ArticleDates'
         @user.workflow_datasets = [@dataset]
@@ -107,7 +107,7 @@ describe WorkflowController do
 
     describe '#activate' do
       context 'with no datasets linked' do
-        before(:each) do
+        before(:example) do
           get :activate, class: 'ArticleDates'
           @user.reload
         end
@@ -120,7 +120,7 @@ describe WorkflowController do
       end
 
       context 'when asked to link a dataset' do
-        before(:each) do
+        before(:example) do
           get :activate, class: 'ArticleDates', link_dataset_id: @dataset.to_param
           @user.reload
         end
@@ -133,7 +133,7 @@ describe WorkflowController do
       end
 
       context 'when asked to unlink a dataset with one dataset' do
-        before(:each) do
+        before(:example) do
           @user.workflow_active = true
           @user.workflow_class = 'ArticleDates'
           @user.workflow_datasets = [@dataset]
@@ -149,7 +149,7 @@ describe WorkflowController do
       end
 
       context 'when asked to unlink a dataset with multiple datasets' do
-        before(:each) do
+        before(:example) do
           @dataset_2 = create(:dataset, user: @user)
 
           @user.workflow_active = true
@@ -186,7 +186,7 @@ describe WorkflowController do
       task
     end
 
-    before(:each) do
+    before(:example) do
       @user = create(:user)
       @user2 = create(:user)
       sign_in @user
@@ -223,7 +223,7 @@ describe WorkflowController do
     end
 
     context 'with terminate set' do
-      before(:each) do
+      before(:example) do
         @uuid = @working_task.resque_key
         get :fetch, terminate: true
       end
@@ -259,7 +259,7 @@ describe WorkflowController do
     end
 
     context 'with a valid id' do
-      before(:each) do
+      before(:example) do
         @asset = Admin::UploadedAsset.find_by(name: 'splash-low').to_param
         @id = @asset.to_param
 

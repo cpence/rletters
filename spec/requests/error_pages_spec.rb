@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe 'Error pages' do
+RSpec.describe 'Error pages', type: :request do
 
   it 'renders the 404 template' do
     get_via_redirect '/asdf/notapage'

@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe Jobs::Analysis::NamedEntities, nlp: false do
+RSpec.describe Jobs::Analysis::NamedEntities, nlp: false do
   describe '.available?' do
     it 'is false' do
       expect(Jobs::Analysis::NamedEntities.available?).to be false
@@ -9,7 +9,7 @@ describe Jobs::Analysis::NamedEntities, nlp: false do
   end
 end
 
-describe Jobs::Analysis::NamedEntities, nlp: true do
+RSpec.describe Jobs::Analysis::NamedEntities, nlp: true do
   it_should_behave_like 'an analysis job'
 
   describe '.download?' do

@@ -1,11 +1,11 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe Datasets::Entry do
+RSpec.describe Datasets::Entry, type: :model do
 
   describe '#valid?' do
     context 'when no uid is specified' do
-      before(:each) do
+      before(:example) do
         @entry = build(:entry, uid: nil)
       end
 
@@ -15,7 +15,7 @@ describe Datasets::Entry do
     end
 
     context 'when a good uid is specified' do
-      before(:each) do
+      before(:example) do
         @entry = create(:entry)
       end
 

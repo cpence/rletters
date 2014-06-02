@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe RLetters::Solr::Facet do
+RSpec.describe RLetters::Solr::Facet do
   describe '#initialize' do
     context 'with facet.query but without hits' do
       it 'raises an exception' do
@@ -28,7 +28,7 @@ describe RLetters::Solr::Facet do
     end
 
     context 'with valid two-parameter form' do
-      before(:each) do
+      before(:example) do
         @facet = described_class.new(query: 'year:[1960 TO 1969]', hits: 10)
       end
 
@@ -70,7 +70,7 @@ describe RLetters::Solr::Facet do
     end
 
     context 'with valid three-parameter form' do
-      before(:each) do
+      before(:example) do
         @facet = described_class.new(name: 'authors_facet',
                                      value: '"W. Shatner"',
                                      hits: 10)

@@ -1,9 +1,9 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe DatasetsController do
+RSpec.describe DatasetsController, type: :controller do
 
-  before(:each) do
+  before(:example) do
     @user = create(:user)
     sign_in @user
 
@@ -13,7 +13,7 @@ describe DatasetsController do
   describe '#index' do
     context 'standard GET request' do
       context 'when not logged in' do
-        before(:each) do
+        before(:example) do
           sign_out :user
         end
 
@@ -64,21 +64,21 @@ describe DatasetsController do
 
   describe '#create' do
     context 'with no workflow active' do
-      before(:all) do
+      before(:context) do
         Resque.inline = false
       end
 
-      after(:all) do
+      after(:context) do
         Resque.inline = true
       end
 
-      before(:each) do
+      before(:example) do
         post :create, dataset: { name: 'Disabled Dataset' },
                       q: '*:*', fq: nil, def_type: 'lucene'
         @user.datasets.reload
       end
 
-      after(:each) do
+      after(:example) do
         Resque.remove_queue(:ui)
       end
 
@@ -132,7 +132,7 @@ describe DatasetsController do
     end
 
     context 'with a disabled dataset' do
-      before(:each) do
+      before(:example) do
         @disabled = create(:dataset, user: @user, name: 'Disabled',
                                      disabled: true)
       end
@@ -145,7 +145,7 @@ describe DatasetsController do
     end
 
     context 'with clear_failed' do
-      before(:each) do
+      before(:example) do
         task = build(:analysis_task, dataset: @dataset)
         task.failed = true
         expect(task.save).to be true
@@ -168,19 +168,19 @@ describe DatasetsController do
   end
 
   describe '#destroy' do
-    before(:all) do
+    before(:context) do
       Resque.inline = false
     end
 
-    after(:all) do
+    after(:context) do
       Resque.inline = true
     end
 
-    before(:each) do
+    before(:example) do
       delete :destroy, id: @dataset.to_param
     end
 
-    after(:each) do
+    after(:example) do
       Resque.remove_queue(:ui)
     end
 
@@ -212,7 +212,7 @@ describe DatasetsController do
     end
 
     context 'with a disabled dataset' do
-      before(:each) do
+      before(:example) do
         @disabled = create(:dataset, user: @user, name: 'Disabled',
                                      disabled: true)
       end

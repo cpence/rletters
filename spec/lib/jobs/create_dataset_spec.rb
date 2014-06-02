@@ -3,9 +3,9 @@ require 'spec_helper'
 
 SimpleCov.command_name 'spec:lib' if defined?(SimpleCov)
 
-describe Jobs::CreateDataset do
+RSpec.describe Jobs::CreateDataset do
 
-  before(:each) do
+  before(:example) do
     @user = create(:user)
     @dataset = @user.datasets.create(name: 'test', disabled: true)
   end
@@ -39,7 +39,7 @@ describe Jobs::CreateDataset do
   end
 
   context 'given a standard search' do
-    before(:each) do
+    before(:example) do
       Jobs::CreateDataset.perform(
         '123',
         user_id: @user.to_param,
@@ -67,7 +67,7 @@ describe Jobs::CreateDataset do
   end
 
   context 'when the user has an active workflow' do
-    before(:each) do
+    before(:example) do
       @user.workflow_active = true
       @user.save
 
@@ -89,7 +89,7 @@ describe Jobs::CreateDataset do
   end
 
   context 'given large Solr dataset' do
-    before(:each) do
+    before(:example) do
       Jobs::CreateDataset.perform(
         '123',
         user_id: @user.to_param,
@@ -115,7 +115,7 @@ describe Jobs::CreateDataset do
   end
 
   context 'when Solr fails' do
-    before(:each) do
+    before(:example) do
       stub_request(:any, /(127\.0\.0\.1|localhost)/).to_timeout
     end
 

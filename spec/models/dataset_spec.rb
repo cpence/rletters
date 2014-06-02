@@ -1,11 +1,11 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe Dataset do
+RSpec.describe Dataset, type: :model do
 
   describe '#valid?' do
     context 'when name is not specified' do
-      before(:each) do
+      before(:example) do
         @dataset = build(:dataset, name: nil)
       end
 
@@ -15,7 +15,7 @@ describe Dataset do
     end
 
     context 'when user is not specified' do
-      before(:each) do
+      before(:example) do
         @dataset = build(:dataset, user: nil)
       end
 
@@ -25,7 +25,7 @@ describe Dataset do
     end
 
     context 'when user and name are specified' do
-      before(:each) do
+      before(:example) do
         @dataset = create(:dataset)
       end
 
@@ -37,12 +37,12 @@ describe Dataset do
 
   describe '#analysis_tasks' do
     context 'when an analysis task is created' do
-      before(:each) do
+      before(:example) do
         @dataset = create(:dataset)
         @task = create(:analysis_task, dataset: @dataset, name: 'test')
       end
 
-      after(:each) do
+      after(:example) do
         @task.destroy
         @dataset.destroy
       end
@@ -59,7 +59,7 @@ describe Dataset do
 
   describe '#entries' do
     context 'when creating a new dataset' do
-      before(:each) do
+      before(:example) do
         @user = create(:user)
         @dataset = create(:full_dataset, user: @user, entries_count: 2)
       end

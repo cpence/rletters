@@ -1,15 +1,15 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe RLetters::Datasets::Segments do
-  before(:each) do
+RSpec.describe RLetters::Datasets::Segments do
+  before(:example) do
     @user = create(:user)
     @dataset = create(:full_dataset, entries_count: 10, working: true,
                                      user: @user)
   end
 
   context 'one block for the dataset, splitting across' do
-    before(:each) do
+    before(:example) do
       @analyzer = described_class.new(@dataset)
       @segments = @analyzer.segments
     end
@@ -51,7 +51,7 @@ describe RLetters::Datasets::Segments do
   end
 
   context 'one block per document, not splitting across' do
-    before(:each) do
+    before(:example) do
       @analyzer = described_class.new(@dataset, nil, split_across: false)
       @segments = @analyzer.segments
     end
@@ -77,7 +77,7 @@ describe RLetters::Datasets::Segments do
   end
 
   context 'five total blocks, splitting across' do
-    before(:each) do
+    before(:example) do
       @doc_segmenter = RLetters::Documents::Segments.new(nil, num_blocks: 5)
       @analyzer = described_class.new(@dataset, @doc_segmenter)
       @segments = @analyzer.segments
@@ -102,7 +102,7 @@ describe RLetters::Datasets::Segments do
   end
 
   context 'truncate_all, splitting across' do
-    before(:each) do
+    before(:example) do
       @doc_segmenter = RLetters::Documents::Segments.new(nil, block_size: 10,
                                                               last_block: :truncate_all)
       @analyzer = described_class.new(@dataset, @doc_segmenter)
@@ -128,7 +128,7 @@ describe RLetters::Datasets::Segments do
   end
 
   context 'truncate_all, not splitting across' do
-    before(:each) do
+    before(:example) do
       @doc_segmenter = RLetters::Documents::Segments.new(nil, block_size: 10,
                                                               last_block: :truncate_all)
       @analyzer = described_class.new(@dataset,

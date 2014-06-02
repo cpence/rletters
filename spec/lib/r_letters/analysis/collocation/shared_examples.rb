@@ -1,14 +1,14 @@
 # -*- encoding : utf-8 -*-
 
-shared_examples_for 'a collocation analyzer' do
-  before(:all) do
+RSpec.shared_examples_for 'a collocation analyzer' do
+  before(:context) do
     @user = create(:user)
     @dataset = create(:full_dataset, entries_count: 10, working: true,
                                      user: @user)
   end
 
   context 'without a focal word' do
-    before(:all) do
+    before(:context) do
       @grams = described_class.new(@dataset, 10).call
     end
 
@@ -26,7 +26,7 @@ shared_examples_for 'a collocation analyzer' do
   end
 
   context 'with a focal word' do
-    before(:all) do
+    before(:context) do
       @grams = described_class.new(@dataset, 10, 'university').call
     end
 

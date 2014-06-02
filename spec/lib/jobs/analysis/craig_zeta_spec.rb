@@ -1,13 +1,13 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe Jobs::Analysis::CraigZeta do
+RSpec.describe Jobs::Analysis::CraigZeta do
 
   it_should_behave_like 'an analysis job' do
     let(:job_params) { { other_datasets: [@dataset_2.id] } }
   end
 
-  before(:each) do
+  before(:example) do
     @user = create(:user)
     @dataset = create(:full_dataset, working: true, user: @user)
     @dataset_2 = create(:full_dataset, working: true, user: @user)
@@ -27,7 +27,7 @@ describe Jobs::Analysis::CraigZeta do
   end
 
   context 'when all parameters are valid' do
-    before(:each) do
+    before(:example) do
       Jobs::Analysis::CraigZeta.perform(
         '123',
         user_id: @user.to_param,

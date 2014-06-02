@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe Numeric do
+RSpec.describe Numeric do
   describe '#lbound' do
     it 'works' do
       expect(-3.lbound(0)).to eq(0)

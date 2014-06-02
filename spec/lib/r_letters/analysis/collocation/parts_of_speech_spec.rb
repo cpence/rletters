@@ -2,6 +2,6 @@
 require 'spec_helper'
 require_relative './shared_examples'
 
-describe RLetters::Analysis::Collocation::PartsOfSpeech, nlp: true do
+RSpec.describe RLetters::Analysis::Collocation::PartsOfSpeech, nlp: true do
   it_should_behave_like 'a collocation analyzer'
 end

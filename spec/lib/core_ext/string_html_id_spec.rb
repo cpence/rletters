@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe String do
+RSpec.describe String do
   describe '#html_id' do
     it 'sanitizes illegal characters' do
       expect('a$#%/_=-+32'.html_id).to eq('a______-_32')

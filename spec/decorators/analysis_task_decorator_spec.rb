@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe AnalysisTaskDecorator do
+RSpec.describe AnalysisTaskDecorator, type: :decorator do
   describe '#status_message' do
     it 'works with both percent and message' do
       task = double("Datasets::AnalysisTask",

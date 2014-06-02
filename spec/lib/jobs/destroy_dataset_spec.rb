@@ -1,9 +1,9 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe Jobs::DestroyDataset do
+RSpec.describe Jobs::DestroyDataset do
 
-  before(:each) do
+  before(:example) do
     @user = create(:user)
     @dataset = create(:dataset, user: @user)
   end

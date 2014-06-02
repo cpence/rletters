@@ -1,12 +1,12 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe SearchResultDecorator do
+RSpec.describe SearchResultDecorator, type: :decorator do
   include Capybara::RSpecMatchers
 
   describe '#filter_removal_links' do
     context 'with nothing active' do
-      before(:each) do
+      before(:example) do
         params = {
           q: '*:*',
           defType: 'lucene'
@@ -22,7 +22,7 @@ describe SearchResultDecorator do
     end
 
     context 'with a facet active' do
-      before(:each) do
+      before(:example) do
         params = {
           q: '*:*',
           defType: 'lucene',
@@ -40,7 +40,7 @@ describe SearchResultDecorator do
     end
 
     context 'with a category active' do
-      before(:each) do
+      before(:example) do
         @category = create(:category)
         params = {
           q: '*:*',
@@ -60,7 +60,7 @@ describe SearchResultDecorator do
     end
 
     context 'with overlapping facet and category active' do
-      before(:each) do
+      before(:example) do
         @category = create(:category)
         params = {
           q: '*:*',
@@ -87,7 +87,7 @@ describe SearchResultDecorator do
 
   describe '#num_hits' do
     context 'when no search has been performed' do
-      before(:each) do
+      before(:example) do
         @result = described_class.decorate(double("RLetters::Solr::SearchResult", num_hits: 100, params: {}))
       end
 
@@ -97,7 +97,7 @@ describe SearchResultDecorator do
     end
 
     context 'when a search has been performed' do
-      before(:each) do
+      before(:example) do
         @result = described_class.decorate(double(
           "RLetters::Solr::SearchResult",
           num_hits: 100,
@@ -111,7 +111,7 @@ describe SearchResultDecorator do
     end
 
     context 'when a faceted query has been performed' do
-      before(:each) do
+      before(:example) do
         @result = described_class.decorate(double(
           "RLetters::Solr::SearchResult",
           num_hits: 100,
@@ -127,7 +127,7 @@ describe SearchResultDecorator do
 
   describe '#pagination' do
     context 'when we only have one page of results' do
-      before(:each) do
+      before(:example) do
         @result = described_class.decorate(double("RLetters::Solr::SearchResult", num_hits: 1, params: { 'rows' => 10 }))
       end
 
@@ -137,7 +137,7 @@ describe SearchResultDecorator do
     end
 
     context 'when we have only one flat range of results' do
-      before(:each) do
+      before(:example) do
         @result = described_class.decorate(double("RLetters::Solr::SearchResult", num_hits: 49, params: { 'rows' => 10 }))
         @ret = @result.pagination
       end
@@ -152,7 +152,7 @@ describe SearchResultDecorator do
 
     context 'when we have more than one page of results' do
       context 'when we are on the first page' do
-        before(:each) do
+        before(:example) do
           @result = described_class.decorate(double("RLetters::Solr::SearchResult", num_hits: 100, params: { 'rows' => 10 }))
           @ret = @result.pagination
         end
@@ -168,7 +168,7 @@ describe SearchResultDecorator do
       end
 
       context 'when we are in the middle' do
-        before(:each) do
+        before(:example) do
           @result = described_class.decorate(double("RLetters::Solr::SearchResult", num_hits: 100, params: { 'start' => 50, 'rows' => 10 }))
           @ret = @result.pagination
         end
@@ -185,7 +185,7 @@ describe SearchResultDecorator do
       end
 
       context 'when we are on the last page' do
-        before(:each) do
+        before(:example) do
           @result = described_class.decorate(double("RLetters::Solr::SearchResult", num_hits: 100, params: { 'start' => 90, 'rows' => 10 }))
           @ret = @result.pagination
         end
@@ -203,7 +203,7 @@ describe SearchResultDecorator do
   end
 
   describe '#sort' do
-    before(:each) do
+    before(:example) do
       @result = described_class.decorate(double("RLetters::Solr::SearchResult", params: { 'sort' => 'score desc' }))
     end
 

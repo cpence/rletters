@@ -1,11 +1,11 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe Jobs::Analysis::ArticleDates do
+RSpec.describe Jobs::Analysis::ArticleDates do
 
   it_should_behave_like 'an analysis job'
 
-  before(:each) do
+  before(:example) do
     @user = create(:user)
     @dataset = create(:full_dataset, working: true, user: @user)
     @task = create(:analysis_task, dataset: @dataset)
@@ -24,7 +24,7 @@ describe Jobs::Analysis::ArticleDates do
   end
 
   context 'when not normalizing' do
-    before(:each) do
+    before(:example) do
       Jobs::Analysis::ArticleDates.perform(
         '123',
         user_id: @user.to_param,
@@ -56,7 +56,7 @@ describe Jobs::Analysis::ArticleDates do
   end
 
   context 'when normalizing to the corpus' do
-    before(:each) do
+    before(:example) do
       Jobs::Analysis::ArticleDates.perform(
         '123',
         user_id: @user.to_param,
@@ -66,7 +66,7 @@ describe Jobs::Analysis::ArticleDates do
         normalize_doc_dataset: '')
     end
 
-    after(:each) do
+    after(:example) do
       @task
     end
 
@@ -104,7 +104,7 @@ describe Jobs::Analysis::ArticleDates do
   end
 
   context 'when normalizing to a dataset' do
-    before(:each) do
+    before(:example) do
       @normalization_set = create(:full_dataset, working: true,
                                                  entries_count: 10,
                                                  user: @user)

@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe RLetters::Solr::Connection do
+RSpec.describe RLetters::Solr::Connection do
   describe '.search' do
     it 'wraps results in a search result object' do
       expect(described_class.search(q: '*:*')).to be_a(RLetters::Solr::SearchResult)

@@ -3,11 +3,11 @@ require 'spec_helper'
 
 SimpleCov.command_name 'spec:models' if defined?(SimpleCov)
 
-describe User do
+RSpec.describe User, type: :model do
 
   describe '#valid' do
     context 'when no name is specified' do
-      before(:each) do
+      before(:example) do
         @user = build(:user, name: nil)
       end
 
@@ -17,7 +17,7 @@ describe User do
     end
 
     context 'when no email is specified' do
-      before(:each) do
+      before(:example) do
         @user = build(:user, email: nil)
       end
 
@@ -27,7 +27,7 @@ describe User do
     end
 
     context 'when a duplicate email is specified' do
-      before(:each) do
+      before(:example) do
         @dupe = create(:user)
         @user = build(:user, email: @dupe.email)
       end
@@ -38,7 +38,7 @@ describe User do
     end
 
     context 'when a bad email is specified' do
-      before(:each) do
+      before(:example) do
         @user = build(:user, email: 'asdf-not-an-email.com')
       end
 
@@ -48,7 +48,7 @@ describe User do
     end
 
     context 'when a non-numeric per_page is specified' do
-      before(:each) do
+      before(:example) do
         @user = build(:user, per_page: 'asdfasdf')
       end
 
@@ -58,7 +58,7 @@ describe User do
     end
 
     context 'when a non-integer per_page is specified' do
-      before(:each) do
+      before(:example) do
         @user = build(:user, per_page: 3.14159)
       end
 
@@ -68,7 +68,7 @@ describe User do
     end
 
     context 'when a negative per_page is specified' do
-      before(:each) do
+      before(:example) do
         @user = build(:user, per_page: -20)
       end
 
@@ -78,7 +78,7 @@ describe User do
     end
 
     context 'when per_page is zero' do
-      before(:each) do
+      before(:example) do
         @user = build(:user, per_page: 0)
       end
 
@@ -88,7 +88,7 @@ describe User do
     end
 
     context 'when language is invalid' do
-      before(:each) do
+      before(:example) do
         @user = build(:user, language: 'notalocaleCODE123')
       end
 
@@ -98,7 +98,7 @@ describe User do
     end
 
     context 'when all attributes are set correctly' do
-      before(:each) do
+      before(:example) do
         @user = create(:user)
       end
 

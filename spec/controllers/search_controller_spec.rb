@@ -1,10 +1,10 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe SearchController do
+RSpec.describe SearchController, type: :controller do
   describe '#index' do
     context 'with empty search results' do
-      before(:each) do
+      before(:example) do
         get :index, q: 'fail'
       end
 
@@ -14,7 +14,7 @@ describe SearchController do
     end
 
     context 'with precise search results' do
-      before(:each) do
+      before(:example) do
         get :index
       end
 

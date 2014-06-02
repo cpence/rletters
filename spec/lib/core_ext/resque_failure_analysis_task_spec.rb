@@ -37,18 +37,18 @@ module Jobs
   end
 end
 
-describe Resque::Failure::AnalysisTask do
-  before(:all) do
+RSpec.describe Resque::Failure::AnalysisTask do
+  before(:context) do
     Resque.inline = false
   end
 
-  after(:all) do
+  after(:context) do
     Resque.inline = true
   end
 
   describe '#save' do
     context 'with good parameters' do
-      before(:each) do
+      before(:example) do
         @user = create(:user)
         @dataset = create(:full_dataset, user: @user)
         @task = create(:analysis_task, dataset: @dataset, name: 'Failing task',

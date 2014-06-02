@@ -6,7 +6,7 @@ def query_to_array(str)
   str[1..-2].split(' OR ').map { |n| n[1..-2] }
 end
 
-describe RLetters::Documents::Author do
+RSpec.describe RLetters::Documents::Author do
   describe '#full' do
     it 'returns whatever was passed into the constructor' do
       au = described_class.new('Greebleflotz, Johannes van der 123 Jr.')

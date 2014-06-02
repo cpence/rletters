@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe RLetters::Analysis::NamedEntities do
+RSpec.describe RLetters::Analysis::NamedEntities do
   # FIXME: rework a double for this
   # describe '#entity_references' do
   #   before(:each) do

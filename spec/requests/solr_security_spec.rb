@@ -1,14 +1,14 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe RLetters::Solr::Connection do
+RSpec.describe RLetters::Solr::Connection, type: :request do
   # This is such a vital security requirement that we test it even though
   # it's really an integration test
   #
   # FIXME: This is probably stupid, but I'm keeping it for the moment.
   describe '.search_raw' do
     context 'when fetching external fulltext for a single document' do
-      before(:each) do
+      before(:example) do
         @result = described_class.search_raw(q: 'uid:"gutenberg:3172"',
                                              def_type: 'lucene',
                                              tv: 'true',

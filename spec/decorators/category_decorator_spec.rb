@@ -1,8 +1,8 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe CategoryDecorator do
-  before(:each) do
+RSpec.describe CategoryDecorator, type: :decorator do
+  before(:example) do
     @category = create(:category)
     @decorated = described_class.decorate(@category)
   end
@@ -17,7 +17,7 @@ describe CategoryDecorator do
   end
 
   describe '#link_tree' do
-    before(:each) do
+    before(:example) do
       allow(@decorated).to receive(:toggle_params).and_return({ toggle: true })
 
       @subcat = create(:category)

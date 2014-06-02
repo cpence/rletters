@@ -2,9 +2,9 @@
 require 'spec_helper'
 
 # Force this to be a helper spec, so that we get access to helper.render
-describe MarkdownHandler, type: :helper do
+RSpec.describe MarkdownHandler, type: :helper do
   context 'with a Markdown template including ERB' do
-    before(:each) do
+    before(:example) do
       @path = Rails.root.join('app', 'views', 'search', 'test_spec.md')
       $spec_markdown_global = 'things'
       File.open(@path, 'w') do |file|
@@ -12,7 +12,7 @@ describe MarkdownHandler, type: :helper do
       end
     end
 
-    after(:each) do
+    after(:example) do
       File.delete(@path)
     end
 

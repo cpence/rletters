@@ -3,15 +3,15 @@ require 'spec_helper'
 require 'support/doubles/document_basic'
 require 'nokogiri'
 
-describe RLetters::Documents::Serializers::MODS do
-  before(:each) do
+RSpec.describe RLetters::Documents::Serializers::MODS do
+  before(:example) do
     spec_fast_dir = File.dirname(File.dirname(File.dirname(File.dirname(File.dirname(__FILE__)))))
     @mods_schema_path = File.join(spec_fast_dir, 'support', 'xsd', 'mods-3-4.xsd')
     @mods_schema = Nokogiri::XML::Schema.new(File.open(@mods_schema_path))
   end
 
   context 'when serializing a single document' do
-    before(:each) do
+    before(:example) do
       @doc = double_document_basic
       @xml = Nokogiri::XML::Document.parse(described_class.new(@doc).serialize)
     end
@@ -37,7 +37,7 @@ describe RLetters::Documents::Serializers::MODS do
   end
 
   context 'when serializing an array of documents' do
-    before(:each) do
+    before(:example) do
       doc = double_document_basic
       doc2 = double_document_basic(uid: 'somethingelse')
 

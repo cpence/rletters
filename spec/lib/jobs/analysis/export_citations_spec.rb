@@ -1,13 +1,13 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe Jobs::Analysis::ExportCitations do
+RSpec.describe Jobs::Analysis::ExportCitations do
 
   it_should_behave_like 'an analysis job' do
     let(:job_params) { { format: 'bibtex' } }
   end
 
-  before(:each) do
+  before(:example) do
     @user = create(:user)
     @dataset = create(:full_dataset, entries_count: 10, working: true,
                                      user: @user)
@@ -40,7 +40,7 @@ describe Jobs::Analysis::ExportCitations do
   end
 
   context 'when all parameters are valid' do
-    before(:each) do
+    before(:example) do
       Jobs::Analysis::ExportCitations.perform(
         '123',
         user_id: @user.to_param,

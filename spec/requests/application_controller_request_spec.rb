@@ -1,11 +1,11 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe ApplicationController do
+RSpec.describe ApplicationController, type: :request do
 
   describe '#after_sign_in_path_for' do
     context 'with a regular user' do
-      before(:each) do
+      before(:example) do
         @user = create(:user)
       end
 
@@ -21,7 +21,7 @@ describe ApplicationController do
     end
 
     context 'with an admin user' do
-      before(:each) do
+      before(:example) do
         @user = create(:administrator)
       end
 
@@ -38,7 +38,7 @@ describe ApplicationController do
   end
 
   describe '#after_sign_out_path_for' do
-    before(:each) do
+    before(:example) do
       @user = create(:user)
       post(user_session_path,
            user: { email: @user.email,

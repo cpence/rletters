@@ -2,8 +2,8 @@
 require 'spec_helper'
 require 'support/doubles/rsolr_facets'
 
-describe RLetters::Solr::Facets do
-  before(:each) do
+RSpec.describe RLetters::Solr::Facets do
+  before(:example) do
     @facets = described_class.new(double_rsolr_facets,
                                   double_rsolr_facet_queries)
   end

@@ -1,9 +1,9 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe Hash do
+RSpec.describe Hash do
   describe '#to_utf8!' do
-    before(:each) do
+    before(:example) do
       @hash = {
         one: 'asdf'.encode('iso-8859-1'),
         two: [{ three: 'ghjk'.encode('iso-8859-1') }]

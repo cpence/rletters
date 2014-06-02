@@ -1,9 +1,9 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe Datasets::AnalysisTasksController do
+RSpec.describe Datasets::AnalysisTasksController, type: :controller do
 
-  before(:each) do
+  before(:example) do
     @user = create(:user)
     sign_in @user
 
@@ -24,7 +24,7 @@ describe Datasets::AnalysisTasksController do
     end
 
     context 'with a disabled dataset' do
-      before(:each) do
+      before(:example) do
         @disabled = create(:dataset, user: @user, name: 'Disabled',
                                      disabled: true)
       end
@@ -63,7 +63,7 @@ describe Datasets::AnalysisTasksController do
     end
 
     context 'with a disabled dataset' do
-      before(:each) do
+      before(:example) do
         @disabled = create(:dataset, user: @user, name: 'Disabled',
                                      disabled: true)
       end
@@ -103,7 +103,7 @@ describe Datasets::AnalysisTasksController do
     end
 
     context 'with a disabled dataset' do
-      before(:each) do
+      before(:example) do
         @disabled = create(:dataset, user: @user, name: 'Disabled',
                                      disabled: true)
       end
@@ -116,11 +116,11 @@ describe Datasets::AnalysisTasksController do
     end
 
     context 'when a valid class and params are passed' do
-      before(:all) do
+      before(:context) do
         Resque.inline = false
       end
 
-      after(:all) do
+      after(:context) do
         Resque.remove_queue(:analysis)
         Resque.inline = true
       end
@@ -153,7 +153,7 @@ describe Datasets::AnalysisTasksController do
     end
 
     context 'when a valid class/params are passed at the end of a workflow' do
-      before(:each) do
+      before(:example) do
         @user.workflow_active = true
         @user.workflow_datasets = [@dataset]
         @user.workflow_class = 'ExportCitations'
@@ -178,7 +178,7 @@ describe Datasets::AnalysisTasksController do
   end
 
   describe '#show' do
-    before(:each) do
+    before(:example) do
       @task = create(:analysis_task, dataset: @dataset,
                                      job_type: 'ExportCitations')
     end
@@ -193,7 +193,7 @@ describe Datasets::AnalysisTasksController do
     end
 
     context 'with a disabled dataset' do
-      before(:each) do
+      before(:example) do
         @disabled = create(:dataset, user: @user, name: 'Disabled',
                                      disabled: true)
       end
@@ -232,7 +232,7 @@ describe Datasets::AnalysisTasksController do
     end
 
     context 'when fetching a task download' do
-      before(:each) do
+      before(:example) do
         Jobs::Analysis::ExportCitations.perform(
           '123',
           user_id: @user.to_param,
@@ -269,7 +269,7 @@ describe Datasets::AnalysisTasksController do
     end
 
     context 'with a disabled dataset' do
-      before(:each) do
+      before(:example) do
         @disabled = create(:dataset, user: @user, name: 'Disabled',
                                      disabled: true)
         @task = create(:analysis_task, dataset: @disabled,
@@ -284,7 +284,7 @@ describe Datasets::AnalysisTasksController do
     end
 
     context 'when a valid task ID is passed' do
-      before(:each) do
+      before(:example) do
         request.env['HTTP_REFERER'] = workflow_fetch_path
         @task = create(:analysis_task, dataset: @dataset,
                                        job_type: 'ExportCitations')

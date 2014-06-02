@@ -1,9 +1,9 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe UserMailer do
+RSpec.describe UserMailer, type: :mailer do
   describe '#job_finished_email' do
-    before(:each) do
+    before(:example) do
       @task = create(:analysis_task)
 
       @mail = UserMailer.job_finished_email('user@user.com', @task.to_param)

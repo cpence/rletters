@@ -1,11 +1,11 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe Admin::UploadedAsset do
+RSpec.describe Admin::UploadedAsset, type: :model do
 
   describe '#valid?' do
     context 'when no name spcified' do
-      before(:each) do
+      before(:example) do
         @asset = build(:uploaded_asset, name: nil)
       end
 
@@ -15,7 +15,7 @@ describe Admin::UploadedAsset do
     end
 
     context 'when all parameters are valid' do
-      before(:each) do
+      before(:example) do
         @asset = build(:uploaded_asset)
       end
 
@@ -26,7 +26,7 @@ describe Admin::UploadedAsset do
   end
 
   describe '#friendly_name' do
-    before(:each) do
+    before(:example) do
       @asset = create(:uploaded_asset)
     end
 
@@ -42,7 +42,7 @@ describe Admin::UploadedAsset do
   end
 
   describe '.url_for' do
-    before(:each) do
+    before(:example) do
       @asset = create(:uploaded_asset)
     end
 

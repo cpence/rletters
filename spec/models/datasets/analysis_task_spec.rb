@@ -1,11 +1,11 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe Datasets::AnalysisTask do
+RSpec.describe Datasets::AnalysisTask, type: :model do
 
   describe '#valid?' do
     context 'when no name is specified' do
-      before(:each) do
+      before(:example) do
         @task = build(:analysis_task, name: nil)
       end
 
@@ -15,7 +15,7 @@ describe Datasets::AnalysisTask do
     end
 
     context 'when no dataset is specified' do
-      before(:each) do
+      before(:example) do
         @task = build(:analysis_task, dataset: nil)
       end
 
@@ -25,7 +25,7 @@ describe Datasets::AnalysisTask do
     end
 
     context 'when no type is specified' do
-      before(:each) do
+      before(:example) do
         @task = build(:analysis_task, job_type: nil)
       end
 
@@ -35,7 +35,7 @@ describe Datasets::AnalysisTask do
     end
 
     context 'when dataset, type, and name are specified' do
-      before(:each) do
+      before(:example) do
         @task = create(:analysis_task)
       end
 
@@ -47,7 +47,7 @@ describe Datasets::AnalysisTask do
 
   describe '#finished_at' do
     context 'when newly created' do
-      before(:each) do
+      before(:example) do
         @task = create(:analysis_task)
       end
 
@@ -59,7 +59,7 @@ describe Datasets::AnalysisTask do
 
   describe '#failed' do
     context 'when newly created' do
-      before(:each) do
+      before(:example) do
         @task = create(:analysis_task)
       end
 
@@ -83,11 +83,11 @@ describe Datasets::AnalysisTask do
 
   describe '#result_file' do
     context 'when a file is created' do
-      before(:each) do
+      before(:example) do
         create_task_with_file
       end
 
-      after(:each) do
+      after(:example) do
         @task.destroy
       end
 

@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe Admin::DashboardController do
+RSpec.describe Admin::DashboardController, type: :controller do
   # Normally I hate turning this on, but in ActiveAdmin, the view logic *is*
   # defined in the same place where I define the controller.
   render_views
@@ -16,7 +16,7 @@ describe Admin::DashboardController do
   end
 
   context 'when an admin user is logged in' do
-    before(:each) do
+    before(:example) do
       @administrator = create(:administrator)
       sign_in :administrator, @administrator
 
@@ -27,13 +27,13 @@ describe Admin::DashboardController do
       @analysis_task = create(:analysis_task, dataset: @dataset)
     end
 
-    after(:each) do
+    after(:example) do
       sign_out :administrator
     end
 
     describe '#index' do
       context 'with no connection to Solr' do
-        before(:each) do
+        before(:example) do
           stub_request(:any, /(127\.0\.0\.1|localhost)/).to_timeout
           get :index
         end
@@ -60,7 +60,7 @@ describe Admin::DashboardController do
       end
 
       context 'with a connection to Solr' do
-        before(:each) do
+        before(:example) do
           get :index
         end
 

@@ -1,18 +1,18 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe Admin::AdminUploadedAssetsController do
+RSpec.describe Admin::AdminUploadedAssetsController, type: :controller do
   # Normally I hate turning this on, but in ActiveAdmin, the view logic *is*
   # defined in the same place where I define the controller.
   render_views
 
-  before(:each) do
+  before(:example) do
     @administrator = create(:administrator)
     sign_in :administrator, @administrator
   end
 
   describe '#index' do
-    before(:each) do
+    before(:example) do
       get :index
     end
 
@@ -27,7 +27,7 @@ describe Admin::AdminUploadedAssetsController do
   end
 
   describe '#show' do
-    before(:each) do
+    before(:example) do
       @asset = Admin::UploadedAsset.find_by!(name: 'apple-touch-icon-precomposed-low')
       get :show, id: @asset.to_param
     end
@@ -42,7 +42,7 @@ describe Admin::AdminUploadedAssetsController do
   end
 
   describe '#edit' do
-    before(:each) do
+    before(:example) do
       @asset = Admin::UploadedAsset.find_by!(name: 'apple-touch-icon-precomposed-low')
       get :edit, id: @asset.to_param
     end

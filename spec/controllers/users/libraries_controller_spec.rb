@@ -1,9 +1,9 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe Users::LibrariesController do
+RSpec.describe Users::LibrariesController, type: :controller do
 
-  before(:each) do
+  before(:example) do
     @user = create(:user)
     sign_in @user
 

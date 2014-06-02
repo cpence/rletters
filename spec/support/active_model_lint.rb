@@ -2,7 +2,7 @@
 # spec/support/active_model_lint.rb
 # adapted from rspec-rails
 
-shared_examples_for 'ActiveModel' do
+RSpec.shared_examples_for 'ActiveModel' do
   include ActiveModel::Lint::Tests
 
   methods = ActiveModel::Lint::Tests.public_instance_methods

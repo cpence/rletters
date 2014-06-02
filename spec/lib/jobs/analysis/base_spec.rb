@@ -8,7 +8,7 @@ module Jobs
   end
 end
 
-describe Jobs::Analysis::Base do
+RSpec.describe Jobs::Analysis::Base do
 
   describe '.t' do
     it 'queries the right keys' do
@@ -18,7 +18,7 @@ describe Jobs::Analysis::Base do
   end
 
   describe '.add_concern' do
-    before(:all) do
+    before(:context) do
       # Only do this once; doing it twice raises a NameError
       Jobs::Analysis::MockJob.add_concern 'NormalizeDocumentCounts'
     end
@@ -80,7 +80,7 @@ describe Jobs::Analysis::Base do
   end
 
   describe '.job_list' do
-    before(:each) do
+    before(:example) do
       @jobs = Jobs::Analysis::Base.job_list
     end
 

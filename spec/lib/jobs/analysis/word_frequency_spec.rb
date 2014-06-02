@@ -1,11 +1,11 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe Jobs::Analysis::WordFrequency do
+RSpec.describe Jobs::Analysis::WordFrequency do
 
   it_should_behave_like 'an analysis job'
 
-  before(:each) do
+  before(:example) do
     @user = create(:user)
     @dataset = create(:full_dataset, entries_count: 10,
                                      working: true, user: @user)
@@ -75,7 +75,7 @@ describe Jobs::Analysis::WordFrequency do
     end
 
     context 'when all parameters are valid' do
-      before(:each) do
+      before(:example) do
         Jobs::Analysis::WordFrequency.perform(
           '123',
           user_id: @user.to_param,

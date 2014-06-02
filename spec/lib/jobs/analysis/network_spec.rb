@@ -1,13 +1,13 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe Jobs::Analysis::Network do
+RSpec.describe Jobs::Analysis::Network do
 
   it_should_behave_like 'an analysis job' do
     let(:job_params) { { word: 'ethology' } }
   end
 
-  before(:each) do
+  before(:example) do
     @user = create(:user)
     @dataset = create(:full_dataset, working: true, user: @user)
     @task = create(:analysis_task, dataset: @dataset)
@@ -26,7 +26,7 @@ describe Jobs::Analysis::Network do
   end
 
   context 'when all parameters are valid' do
-    before(:each) do
+    before(:example) do
       Jobs::Analysis::Network.perform(
         '123',
         user_id: @user.to_param,

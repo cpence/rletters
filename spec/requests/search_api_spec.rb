@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe 'Search API' do
+RSpec.describe 'Search API', type: :request do
   it 'loads a basic search successfully' do
     get '/search', format: :json
 

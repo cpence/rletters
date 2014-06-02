@@ -1,8 +1,8 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe RLetters::Analysis::Frequency::FromPosition do
-  before(:each) do
+RSpec.describe RLetters::Analysis::Frequency::FromPosition do
+  before(:example) do
     @user = create(:user)
     @dataset = create(:full_dataset, entries_count: 10, working: true,
                                      user: @user)
@@ -16,7 +16,7 @@ describe RLetters::Analysis::Frequency::FromPosition do
 
   describe '#num_words' do
     context 'without num_words set' do
-      before(:each) do
+      before(:example) do
         @analyzer = described_class.new(@onegram_ss)
       end
 
@@ -47,7 +47,7 @@ describe RLetters::Analysis::Frequency::FromPosition do
     end
 
     context 'with num_words negative' do
-      before(:each) do
+      before(:example) do
         @analyzer = described_class.new(@onegram_ss, nil, num_words: -1)
       end
 
@@ -57,7 +57,7 @@ describe RLetters::Analysis::Frequency::FromPosition do
     end
 
     context 'with num_words set to 10' do
-      before(:each) do
+      before(:example) do
         @analyzer = described_class.new(@onegram_ss, nil, num_words: 10)
       end
 
@@ -71,7 +71,7 @@ describe RLetters::Analysis::Frequency::FromPosition do
 
   describe '#inclusion_list' do
     context 'with one-grams' do
-      before(:each) do
+      before(:example) do
         @analyzer = described_class.new(@onegram_ss, nil, inclusion_list: 'blackwell stiver')
       end
 
@@ -81,7 +81,7 @@ describe RLetters::Analysis::Frequency::FromPosition do
     end
 
     context 'with n-grams' do
-      before(:each) do
+      before(:example) do
         @analyzer = described_class.new(@ngram_ss, nil, inclusion_list: 'stiver')
       end
 
@@ -96,7 +96,7 @@ describe RLetters::Analysis::Frequency::FromPosition do
 
   describe '#exclusion_list' do
     context 'with one-grams' do
-      before(:each) do
+      before(:example) do
         @analyzer = described_class.new(@onegram_ss, nil, exclusion_list: 'a the')
       end
 
@@ -111,7 +111,7 @@ describe RLetters::Analysis::Frequency::FromPosition do
     end
 
     context 'with n-grams' do
-      before(:each) do
+      before(:example) do
         @analyzer = described_class.new(@ngram_ss, nil, exclusion_list: 'brain')
       end
 
@@ -124,7 +124,7 @@ describe RLetters::Analysis::Frequency::FromPosition do
   end
 
   describe '#stop_list' do
-    before(:each) do
+    before(:example) do
       @list = Documents::StopList.find_by(language: 'en')
       @analyzer = described_class.new(@onegram_ss, nil, stop_list: @list)
     end
@@ -140,7 +140,7 @@ describe RLetters::Analysis::Frequency::FromPosition do
   end
 
   describe '#block_stats' do
-    before(:each) do
+    before(:example) do
       @analyzer = described_class.new(@onegram_ss)
     end
 
@@ -152,7 +152,7 @@ describe RLetters::Analysis::Frequency::FromPosition do
   end
 
   describe '#word_list' do
-    before(:each) do
+    before(:example) do
       @analyzer = described_class.new(@onegram_ss, nil, num_words: 10)
     end
 
@@ -168,7 +168,7 @@ describe RLetters::Analysis::Frequency::FromPosition do
   end
 
   describe '#tf_in_dataset' do
-    before(:each) do
+    before(:example) do
       @analyzer = described_class.new(@onegram_ss)
     end
 
@@ -186,7 +186,7 @@ describe RLetters::Analysis::Frequency::FromPosition do
   end
 
   describe '#df_in_dataset' do
-    before(:each) do
+    before(:example) do
       @analyzer = described_class.new(@onegram_ss)
     end
 
@@ -203,7 +203,7 @@ describe RLetters::Analysis::Frequency::FromPosition do
   end
 
   describe '#df_in_corpus' do
-    before(:each) do
+    before(:example) do
       @analyzer = described_class.new(@onegram_ss)
     end
 

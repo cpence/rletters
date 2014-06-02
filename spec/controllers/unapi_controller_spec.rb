@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe UnapiController do
+RSpec.describe UnapiController, type: :controller do
 
   # We're not testing the views separately here, since what matters is how
   # the externally facing API works.
