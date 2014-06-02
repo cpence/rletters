@@ -73,7 +73,7 @@ gem 'roadie', '~> 2'
 
 # Testing
 group :test, :development do
-  gem 'rspec-rails'
+  gem 'rspec-rails', '~> 3'
 
   # Some of these need to be here to enable proper use of the development
   # server, including mailer previews
@@ -88,7 +88,6 @@ group :test do
   gem 'database_cleaner'
 
   gem 'webmock', require: false
-  gem 'resque_spec'
 
   gem 'coveralls', require: false
 end

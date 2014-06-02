@@ -33,8 +33,6 @@ When(/^I create a dataset from the current search$/) do
     click_button 'Create Dataset'
   end
 
-  ResqueSpec.perform_all(:ui)
-
   find_dataset
   expect(@dataset).to be
   expect(@dataset.disabled).to be false
@@ -75,8 +73,6 @@ end
 When(/^I delete the dataset$/) do
   find_dataset
   click_link 'Delete'
-
-  ResqueSpec.perform_all(:ui)
 end
 
 ### THEN ###

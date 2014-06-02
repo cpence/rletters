@@ -42,7 +42,6 @@ end
 ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
 require 'rspec/rails'
-require 'rspec/autorun'
 
 Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 
@@ -51,17 +50,16 @@ RSpec.configure do |config|
   config.expect_with(:rspec) { |e| e.syntax = :expect }
   config.mock_with(:rspec) { |m| m.syntax = :expect }
 
-  config.color_enabled = true
+  config.color = true
   config.tty = true
-  config.order = 'random'
-
-  config.infer_base_class_for_anonymous_controllers = true
-  # Remove the next line for RSpec 3
-  config.treat_symbols_as_metadata_keys_with_true_values = true
+  config.order = 'rand'
 
   # We're going to use database_cleaner, so we don't need RSpec's transactional
   # fixture support
   config.use_transactional_fixtures = false
+
+  # Automatically make Rails specs take the right types
+  config.infer_spec_type_from_file_location!
 
   # For testing, the NLP tool must be present in vendor/nlp/nlp-tool
   if File.exist?(Rails.root.join('vendor', 'nlp', 'nlp-tool'))

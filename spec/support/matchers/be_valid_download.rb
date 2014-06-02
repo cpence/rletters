@@ -4,11 +4,11 @@ RSpec::Matchers.define :be_valid_download do |mime|
     actual.success? == true && actual.content_type == mime && actual.body.length != 0
   end
 
-  failure_message_for_should do |actual|
+  failure_message do |actual|
     "expected that response would be a non-zero-length download of mime type #{expected}"
   end
 
-  failure_message_for_should_not do |actual|
+  failure_message_when_negated do |actual|
     "expected that response would not be a non-zero-length download of mime type #{expected}"
   end
 

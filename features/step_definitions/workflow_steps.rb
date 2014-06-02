@@ -56,7 +56,6 @@ When(/^I confirm the data$/) do
   within('.main') do
     if page.has_link? 'Start Analysis'
       click_link 'Start Analysis'
-      ResqueSpec.perform_all(:analysis)
     else
       click_link 'Set Job Options'
     end

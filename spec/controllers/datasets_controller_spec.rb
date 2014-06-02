@@ -64,22 +64,26 @@ describe DatasetsController do
 
   describe '#create' do
     context 'with no workflow active' do
+      before(:all) do
+        Resque.inline = false
+      end
+
+      after(:all) do
+        Resque.inline = true
+      end
+
       before(:each) do
         post :create, dataset: { name: 'Disabled Dataset' },
                       q: '*:*', fq: nil, def_type: 'lucene'
         @user.datasets.reload
       end
 
-      it 'creates a delayed job' do
-        dataset = @user.datasets.inactive[0]
+      after(:each) do
+        Resque.remove_queue(:ui)
+      end
 
-        expect(Jobs::CreateDataset).to have_queued(
-          kind_of(String),
-          user_id: @user.to_param,
-          dataset_id: @user.datasets.inactive[0].to_param,
-          q: '*:*',
-          fq: nil,
-          def_type: 'lucene')
+      it 'creates a delayed job' do
+        expect(Resque.size(:ui)).to eq(1)
       end
 
       it 'creates a skeleton dataset' do
@@ -164,15 +168,24 @@ describe DatasetsController do
   end
 
   describe '#destroy' do
+    before(:all) do
+      Resque.inline = false
+    end
+
+    after(:all) do
+      Resque.inline = true
+    end
+
     before(:each) do
       delete :destroy, id: @dataset.to_param
     end
 
+    after(:each) do
+      Resque.remove_queue(:ui)
+    end
+
     it 'creates a delayed job' do
-      expect(Jobs::DestroyDataset).to have_queued(
-        kind_of(String),
-        user_id: @user.to_param,
-        dataset_id: @dataset.to_param)
+      expect(Resque.size(:ui)).to eq(1)
     end
 
     it 'redirects to the index when done' do

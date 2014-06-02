@@ -16,8 +16,6 @@ module Jobs
       end
 
       def self.run_with_worker(task, job_params)
-        ResqueSpec.disable_ext = true
-
         # We have to do this in a funny way to actually call the failure
         # handlers.  Thanks to Matt Conway (github/wr0ngway/graylog2-resque)
         # for this code.
@@ -34,14 +32,19 @@ module Jobs
 
         job = worker.reserve
         worker.perform(job)
-
-        ResqueSpec.disable_ext = false
       end
     end
   end
 end
 
 describe Resque::Failure::AnalysisTask do
+  before(:all) do
+    Resque.inline = false
+  end
+
+  after(:all) do
+    Resque.inline = true
+  end
 
   describe '#save' do
     context 'with good parameters' do

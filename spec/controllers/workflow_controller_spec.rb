@@ -5,6 +5,7 @@ module Jobs
   module Analysis
     class WorkflowJob < Jobs::Analysis::Base
       include Resque::Plugins::Status
+      def perform; end
     end
   end
 end
@@ -230,10 +231,6 @@ describe WorkflowController do
       it 'destroys the tasks' do
         expect(Datasets::AnalysisTask.exists?(@pending_task)).to be false
         expect(Datasets::AnalysisTask.exists?(@working_task)).to be false
-      end
-
-      it 'kills a working job when it calls tick' do
-        expect(Resque::Plugins::Status::Hash.should_kill?(@uuid)).to be true
       end
 
       it 'leaves everything else alone' do

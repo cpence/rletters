@@ -116,6 +116,15 @@ describe Datasets::AnalysisTasksController do
     end
 
     context 'when a valid class and params are passed' do
+      before(:all) do
+        Resque.inline = false
+      end
+
+      after(:all) do
+        Resque.remove_queue(:analysis)
+        Resque.inline = true
+      end
+
       it 'does not raise an exception' do
         expect {
           post :create, dataset_id: @dataset.to_param,
@@ -125,18 +134,15 @@ describe Datasets::AnalysisTasksController do
       end
 
       it 'enqueues a job' do
+        Resque.remove_queue(:analysis)
+
         post :create, dataset_id: @dataset.to_param, class: 'ExportCitations',
                       job_params: { format: 'bibtex' }
 
         @dataset.analysis_tasks.reload
         task_id = @dataset.analysis_tasks.first.to_param
 
-        expect(Jobs::Analysis::ExportCitations).to have_queued(
-          @dataset.analysis_tasks.first.resque_key,
-          user_id: @user.to_param,
-          dataset_id: @dataset.to_param,
-          task_id: task_id,
-          format: 'bibtex')
+        expect(Resque.size(:analysis)).to eq(1)
       end
 
       it 'redirects to the dataset page' do
