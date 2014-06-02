@@ -8,52 +8,42 @@ lv:
     ady: adigu
     ae: avesta
     af: afrikandu
-    afa: "afroaziātu valodas"
     afh: afrihili
     agq: aghemu
     ain: ainu
     ak: akanu
     akk: akadiešu
     ale: aleutu
-    alg: "algonkinu valodas"
     alt: dienvidaltajiešu
     am: amharu
     an: aragoniešu
     ang: senangļu
     anp: angika
-    apa: "apaču valodas"
     ar: arābu
+    ar-001: "mūsdienu standarta arābu"
     arc: aramiešu
     arn: araukāņu
     arp: arapahu
-    art: "mākslīgās valodas"
     arw: aravaku
     as: asamiešu
     asa: asu
     ast: astūriešu
-    ath: "atapasku valodas"
-    aus: "austrāliešu valodas"
     av: avāru
     awa: avadhu
     ay: aimaru
     az: azerbaidžāņu
     ba: baškīru
-    bad: bandu
-    bai: "bamileku valodas"
     bal: beludžu
     ban: baliešu
     bas: basu
-    bat: "baltu valodas"
     bax: bamumu
     bbj: gomalu
     be: baltkrievu
     bej: bedžu
     bem: bembu
-    ber: berberu
     bez: bena
     bfd: bafutu
     bg: bulgāru
-    bh: biharu
     bho: bhodžpūru
     bi: bišlamā
     bik: bikolu
@@ -62,14 +52,12 @@ lv:
     bla: siksiku
     bm: bambaru
     bn: bengāļu
-    bnt: bantu
     bo: tibetiešu
     br: bretoņu
     bra: bradžiešu
     brx: bodo
     bs: bosniešu
     bss: nkosi
-    btk: bataku
     bua: burjatu
     bug: bugu
     bum: bulu
@@ -77,14 +65,11 @@ lv:
     byv: medumbu
     ca: katalāņu
     cad: kadu
-    cai: "Centrālamerikas indiāņu valodas"
     car: karību
-    cau: "kaukāziešu valodas"
     cay: kajuga
     cch: atsamu
     ce: čečenu
     ceb: sebuāņu
-    cel: "ķeltu valoda"
     cgg: kiga
     ch: čamorru
     chb: čibču
@@ -97,26 +82,19 @@ lv:
     chr: čiroku
     chy: šejenu
     ckb: "kurdu (Sorani)"
-    cmc: "čamiešu valodas"
     co: korsikāņu
     cop: koptu
-    cpe: "angliskās kreoliskās valodas un pidžinvalodas"
-    cpf: "franciskās kreoliskās valodas un pidžinvalodas"
-    cpp: "portugāliskās kreoliskās valodas un pidžinvalodas"
     cr: krī
     crh: "Krimas tatāru"
-    crp: "kreoliskās valodas un pidžinvalodas"
     cs: čehu
     csb: kašubu
     cu: baznīcslāvu
-    cus: "kušītu valodas"
     cv: čuvašu
     cy: velsiešu
     da: dāņu
     dak: dakotu
     dar: dargu
     dav: taitu
-    day: dajaku
     de: vācu
     de-AT: "Austrijas vācu"
     de-CH: "Šveices augšvācu"
@@ -126,7 +104,6 @@ lv:
     din: dinku
     dje: zarmu
     doi: dogru
-    dra: "dravīdu valodas"
     dsb: lejassorbu
     dua: dualu
     dum: vidusholandiešu
@@ -146,12 +123,13 @@ lv:
     en-AU: "Austrālijas angļu"
     en-CA: "Kanādas angļu"
     en-GB: "Lielbritānijas angļu"
-    en-US: "ASV angļu"
+    en-US: "angļu (ASV)"
     enm: vidusangļu
     eo: esperanto
     es: spāņu
     es-419: "Latīņamerikas spāņu"
     es-ES: "Eiropas spāņu"
+    es-MX: "Meksikas spāņu"
     et: igauņu
     eu: basku
     ewo: evondu
@@ -161,7 +139,6 @@ lv:
     ff: fulu
     fi: somu
     tl: filipīniešu
-    fiu: "somugru valodas"
     fj: fidžiešu
     fo: fēru
     fon: fonu
@@ -179,7 +156,6 @@ lv:
     gay: gajo
     gba: gbaju
     gd: gēlu
-    gem: "ģermāņu valodas"
     gez: gēzu
     gil: kiribatiešu
     gl: galisiešu
@@ -202,7 +178,6 @@ lv:
     he: ivrits
     hi: hindi
     hil: hiligainonu
-    him: himačali
     hit: hetu
     hmn: hmongu
     ho: hirimotu
@@ -220,20 +195,16 @@ lv:
     ie: interlingve
     ig: igbo
     ii: "Sičuaņas ji"
-    ijo: idžbu
     ik: inupiaku
     ilo: iloku
-    inc: "indoāriešu valodas"
-    ine: "indoeiropiešu valodas"
     inh: ingušu
     io: ido
-    ira: "irāņu valodas"
-    iro: "irokēzu valodas"
     is: īslandiešu
     it: itāļu
     iu: inuītu
     ja: japāņu
     jbo: ložbans
+    jgo: jgo
     jmc: mačamu
     jpr: jūdpersiešu
     jrb: jūdarābu
@@ -244,7 +215,6 @@ lv:
     kac: kačinu
     kaj: kadži
     kam: kambu
-    kar: karenu
     kaw: kāvi
     kbd: kabardiešu
     kbl: kaņembu
@@ -254,7 +224,6 @@ lv:
     kfo: koru
     kg: kongu
     kha: khasu
-    khi: "hosjanu valodas"
     kho: hotaniešu
     khq: koiračiinī
     ki: kikuju
@@ -273,7 +242,6 @@ lv:
     kr: kanuru
     krc: "karačaju un balkāru"
     krl: karēļu
-    kro: krū
     kru: kuruhu
     ks: kašmiriešu
     ksb: šambalu
@@ -313,7 +281,6 @@ lv:
     mai: maithili
     mak: makasaru
     man: mandingu
-    map: "austronēziešu valoda"
     mas: masaju
     mde: mabu
     mdf: mokšu
@@ -324,19 +291,16 @@ lv:
     mg: malagasu
     mga: vidusīru
     mgh: makua-meetto
+    mgo: mgo
     mh: māršaliešu
     mi: maoru
     mic: mikmaku
     min: minangkabavu
-    mis: "dažādas valodas"
     mk: maķedoniešu
-    mkh: "monkhmeru valodas"
     ml: malajalu
     mn: mongoļu
     mnc: mandžūru
     mni: manipūru
-    mno: "manobu valodas"
-    mo: moldāvu
     moh: mohauku
     mos: mosu
     mr: maratu
@@ -344,17 +308,13 @@ lv:
     mt: maltiešu
     mua: mundangu
     mul: "vairākas valodas"
-    mun: "mundu valodas"
     mus: krīku
     mwl: mirandiešu
     mwr: marvaru
     my: birmiešu
     mye: mjenu
-    myn: "maiju valodas"
     myv: erzju
     na: nauruiešu
-    nah: navatlu
-    nai: "Ziemeļamerikas indiāņu valodas"
     nap: neapoliešu
     naq: nama
     nb: "norvēģu bukmols"
@@ -364,7 +324,6 @@ lv:
     new: nevaru
     ng: ndongu
     nia: njasu
-    nic: "nigēriešu-kordofāņu valodas"
     niu: niuāņu
     nl: holandiešu
     nl-BE: flāmu
@@ -377,7 +336,6 @@ lv:
     nqo: nko
     nr: dienvidndebelu
     nso: ziemeļsotu
-    nub: "nūbiešu valodas"
     nus: nueru
     nv: navahu
     nwc: "klasiskā nevaru"
@@ -393,21 +351,17 @@ lv:
     os: osetīnu
     osa: važāžu
     ota: "turku osmaņu"
-    oto: "otomu valodas"
     pa: pandžabu
-    paa: "papuasu valodas"
     pag: pangasinanu
     pal: pehlevi
     pam: pampanganu
     pap: papjamento
     pau: palaviešu
     peo: senpersu
-    phi: "filipīniešu valodas"
     phn: feniķiešu
     pi: pāli
     pl: poļu
     pon: ponapiešu
-    pra: "prākrita valodas"
     pro: senprovansiešu
     ps: puštu
     pt: portugāļu
@@ -420,7 +374,7 @@ lv:
     rm: retoromāņu
     rn: rundu
     ro: rumāņu
-    roa: "romāņu valoda"
+    ro-MD: moldāvu
     rof: rombo
     rom: čigānu
     root: sakne
@@ -431,8 +385,6 @@ lv:
     sa: sanskrits
     sad: sandavu
     sah: jakutu
-    sai: "Dienvidamerikas indiāņu"
-    sal: "sališu valodas"
     sam: "samārijas aramiešu"
     saq: samburu
     sas: sasaku
@@ -447,25 +399,19 @@ lv:
     see: seneku
     seh: senu
     sel: selkupu
-    sem: "semītu valodas"
     ses: "koiraboro senni"
     sg: sango
     sga: senīru
-    sgn: "zīmju valodas"
     sh: serbu-horvātu
     shi: šilhu
     shn: šanu
     shu: "Čadas arābu"
     si: singāļu
     sid: sidamu
-    sio: "siū valodas"
-    sit: "sinotibetiešu valodas"
     sk: slovāku
     sl: slovēņu
-    sla: slāvu
     sm: samoāņu
     sma: dienvidsāmu
-    smi: "sāmu valodas"
     smj: "luleo sāmu"
     smn: "inari sāmu"
     sms: skoltsāmu
@@ -473,13 +419,11 @@ lv:
     snk: soninku
     so: somāļu
     sog: sogdiešu
-    son: songaju
     sq: albāņu
     sr: serbu
     srn: sranantogo
     srr: serēru
     ss: svatu
-    ssa: "nīlas-sahāras valodas"
     ssy: saho
     st: dienvidsotu
     su: sundaniešu
@@ -493,7 +437,6 @@ lv:
     syc: "klasiskā sīriešu"
     syr: sīriešu
     ta: tamilu
-    tai: "taju valodas"
     te: telugu
     tem: temnu
     teo: teso
@@ -520,8 +463,6 @@ lv:
     tsi: cimšiāņu
     tt: tatāru
     tum: tumbuku
-    tup: "tupu valodas"
-    tut: "altajiešu valodas"
     tvl: tuvaliešu
     tw: tvī
     twq: tasavaku
@@ -544,11 +485,9 @@ lv:
     vun: vundžo
     wa: valoņu
     wae: "Vallisas vācu"
-    wak: "vakašu valodas"
     wal: valamu
     war: varaju
     was: vašo
-    wen: sorbu
     wo: volofu
     xal: kalmiku
     xh: khosu
@@ -559,16 +498,15 @@ lv:
     ybb: jembu
     yi: jidišs
     yo: jorubu
-    ypk: "jopiku valodas"
     yue: kantoniešu
     za: džuanu
     zap: sapoteku
     zbl: blissimbolika
     zen: zenagu
+    zgh: "standarta marokāņu berberu"
     zh: ķīniešu
     zh-CN: "ķīniešu vienkāršotā"
     zh-TW: "ķīniešu tradicionālā"
-    znd: zandē
     zu: zulu
     zun: zunju
     zxx: "bez lingvistiska satura"

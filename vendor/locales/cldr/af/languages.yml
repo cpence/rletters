@@ -3,27 +3,22 @@ af:
     ab: Abkasies
     ach: Akoli
     af: Afrikaans
-    afa: "Ander Afro-Asiaties"
     ak: Akan
     am: Amharies
     ar: Arabies
+    ar-001: "Moderne Standaard Arabies"
     arc: Aramees
-    art: "Kunsmatige taal"
     as: Assamees
     ay: Aymara
     az: Azeri
     be: Wit-Russies
     bem: Bemba
-    ber: Berbers
     bg: Bulgaars
-    bh: Bihari
     bn: Bengaals
-    bnt: Bantoe
     bo: Tibettaans
     br: Bretons
     bs: Bosnies
     ca: Katalaans
-    cel: "Keltiese taal"
     chr: Cherokees
     ckb: "Sorani Koerdies"
     co: Korsikaans
@@ -42,12 +37,13 @@ af:
     en: Engels
     en-AU: "Australiese Engels"
     en-CA: "Kanadese Engels"
-    en-GB: "Britse Engels"
-    en-US: "Amerikaanse Engels"
+    en-GB: "Engels (GB)"
+    en-US: "Engels (US)"
     eo: Esperanto
     es: Spaans
     es-419: "Latyns-Amerikaanse Spaans"
     es-ES: "Europese Spaans"
+    es-MX: "Meksikaanse Spaans"
     et: Estnies
     eu: Baskies
     fa: Persies
@@ -62,7 +58,6 @@ af:
     ga: Iers
     gaa: Gaa
     gd: "Skotse Gallies"
-    gem: "Germaanse taal"
     gl: Galisies
     gn: Guarani
     got: Goties
@@ -70,7 +65,7 @@ af:
     gsw: "Switserse Duits"
     gu: Gudjarati
     ha: Hausa
-    haw: Hawaies
+    haw: Hawaiies
     he: Hebreeus
     hi: Hindi
     hr: Kroaties
@@ -81,7 +76,6 @@ af:
     id: Indonesies
     ie: Interlingue
     ig: Igbo
-    ine: "Indo-Europese taal"
     is: Yslands
     it: Italiaans
     ja: Japannees
@@ -148,7 +142,6 @@ af:
     si: Sinhala
     sk: Slowaaks
     sl: Sloweens
-    sla: "Slawiese taal"
     sm: Samoaans
     sn: Shona
     so: Somalies
@@ -186,6 +179,7 @@ af:
     xh: Xhosa
     yi: Jiddisj
     yo: Yoruba
+    zgh: "Standaard Marokkaanse Tamazight"
     zh: Sjinees
     zh-CN: "Vereenvoudigde Chinees"
     zh-TW: "Tradisionele Chinees"

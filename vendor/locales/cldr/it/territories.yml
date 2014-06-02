@@ -107,12 +107,12 @@ it:
     EU: "Unione Europea"
     FI: Finlandia
     FJ: Figi
-    FK: "Isole Falkland [isole Malvine]"
+    FK: "Isole Falkland (isole Malvine)"
     FM: Micronesia
     FO: "Isole Faroe"
     FR: Francia
     GA: Gabon
-    GB: "Regno Unito"
+    GB: GB
     GD: Grenada
     GE: Georgia
     GF: "Guiana Francese"
@@ -217,7 +217,7 @@ it:
     PK: Pakistan
     PL: Polonia
     PM: "Saint Pierre e Miquelon"
-    PN: Pitcairn
+    PN: "Isole Pitcairn"
     PR: Portorico
     PS: Palestina
     PT: Portogallo
@@ -270,8 +270,8 @@ it:
     TZ: Tanzania
     UA: Ucraina
     UG: Uganda
-    UM: "Isole periferiche agli USA"
-    US: "Stati Uniti"
+    UM: "Isole minori lontane dagli USA"
+    US: USA
     UY: Uruguay
     UZ: Uzbekistan
     VA: "Città del Vaticano"

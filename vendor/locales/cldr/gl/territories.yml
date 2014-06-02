@@ -70,10 +70,10 @@ gl:
     BY: Bielorrusia
     BZ: Belice
     CA: Canadá
-    CC: "Illas Cocos [Keeling]"
-    CD: "Congo [República Democrática do]"
+    CC: "Illas Cocos (Keeling)"
+    CD: "Congo (RDC)"
     CF: "República Africana Central"
-    CG: "Congo [República]"
+    CG: "Congo (RC)"
     CH: Suíza
     CI: "Costa do Marfil"
     CK: "Illas Cook"
@@ -107,7 +107,7 @@ gl:
     EU: "Unión Europea"
     FI: Finlandia
     FJ: Fixi
-    FK: "Illas Malvinas"
+    FK: "Illas Malvinas (Falkland)"
     FM: Micronesia
     FO: "Illas Feroe"
     FR: Francia
@@ -180,9 +180,9 @@ gl:
     MF: "San Martiño"
     MG: Madagascar
     MH: "Illas Marshall"
-    MK: "Macedonia [Antiga República Iugoslava de Macedonia]"
+    MK: "Macedonia (ARIM)"
     ML: Mali
-    MM: "Myanmar [Birmania]"
+    MM: "Myanmar (Birmania)"
     MN: Mongolia
     MO: Macau
     MP: "Illas Marianas do norte"
@@ -246,7 +246,7 @@ gl:
     SO: Somalia
     SR: Surinam
     SS: "Sudán do sur"
-    ST: "Santo Tomé e Príncipe"
+    ST: "San Tomé e Príncipe"
     SV: "El Salvador"
     SX: "Sint Maarten"
     SY: Siria
@@ -259,7 +259,7 @@ gl:
     TH: Tailandia
     TJ: Taxiquistán
     TK: Tokelau
-    TL: Timor-Leste
+    TL: "Timor Leste"
     TM: Turkmenistán
     TN: Tunisia
     TO: Tonga

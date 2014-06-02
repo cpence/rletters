@@ -8,52 +8,42 @@ nb:
     ady: adyghe
     ae: avestisk
     af: afrikaans
-    afa: "afroasiatisk språk"
     afh: afrihili
     agq: aghem
     ain: ainu
     ak: akan
     akk: akkadisk
     ale: aleutisk
-    alg: "algonkinsk språk"
     alt: søraltaisk
     am: amharisk
     an: aragonsk
     ang: gammelengelsk
     anp: angika
-    apa: apachespråk
     ar: arabisk
+    ar-001: "moderne standard arabisk"
     arc: arameisk
     arn: araukansk
     arp: arapaho
-    art: "kunstig språk"
     arw: arawak
     as: assamisk
     asa: asu
     ast: asturisk
-    ath: "athapaskansk språk"
-    aus: "australsk språk"
     av: avarisk
     awa: awadhi
     ay: aymara
-    az: aserbajdsjansk
+    az: azeri
     ba: basjkirsk
-    bad: banda
-    bai: "bamilekisk språk"
     bal: baluchi
     ban: balinesisk
     bas: basa
-    bat: "baltisk språk"
     bax: bamun
     bbj: ghomala
     be: hviterussisk
     bej: beja
     bem: bemba
-    ber: berbisk
     bez: bena
     bfd: bafut
     bg: bulgarsk
-    bh: bihari
     bho: bhojpuri
     bi: bislama
     bik: bikol
@@ -62,13 +52,12 @@ nb:
     bla: siksika
     bm: bambara
     bn: bengali
-    bnt: bantu
     bo: tibetansk
     br: bretonsk
     bra: braj
     brx: bodo
     bs: bosnisk
-    btk: batak
+    bss: akose
     bua: buriat
     bug: buginesisk
     bum: bulu
@@ -76,14 +65,11 @@ nb:
     byv: medumba
     ca: katalansk
     cad: caddo
-    cai: "sentralamerikansk indiansk språk"
     car: karibisk
-    cau: "kaukasisk språk"
     cay: cayuga
     cch: atsam
     ce: tsjetsjensk
     ceb: cebuansk
-    cel: "keltisk språk"
     cgg: kiga
     ch: chamorro
     chb: chibcha
@@ -96,26 +82,19 @@ nb:
     chr: cherokee
     chy: cheyenne
     ckb: "kurdisk (sorani)"
-    cmc: "kamisk språk"
     co: korsikansk
     cop: koptisk
-    cpe: "engelskbasert kreol- eller pidginspråk"
-    cpf: "franskbasert kreol- eller pidginspråk"
-    cpp: "portugisiskbasert kreol- eller pidginspråk"
     cr: cree
     crh: krimtatarisk
-    crp: "kreol- eller pidginspråk"
     cs: tsjekkisk
     csb: kasjubisk
     cu: kirkeslavisk
-    cus: "kusjitisk språk"
     cv: tsjuvansk
     cy: walisisk
     da: dansk
     dak: dakota
     dar: dargwa
     dav: taita
-    day: dayak
     de: tysk
     de-AT: "østerriksk tysk"
     de-CH: "sveitsisk høytysk"
@@ -125,7 +104,6 @@ nb:
     din: dinka
     dje: zarma
     doi: dogri
-    dra: "dravidisk språk"
     dsb: lavsorbisk
     dua: duala
     dum: mellomnederlandsk
@@ -144,13 +122,14 @@ nb:
     en: engelsk
     en-AU: "australsk engelsk"
     en-CA: "canadisk engelsk"
-    en-GB: "britisk engelsk"
-    en-US: "amerikansk engelsk"
+    en-GB: "engelsk – britisk"
+    en-US: "engelsk – USA"
     enm: mellomengelsk
     eo: esperanto
     es: spansk
     es-419: "latinamerikansk spansk"
     es-ES: "europeisk spansk"
+    es-MX: "meksikansk spansk"
     et: estisk
     eu: baskisk
     ewo: ewondo
@@ -160,7 +139,6 @@ nb:
     ff: fulani
     fi: finsk
     tl: filippinsk
-    fiu: "finsk-ugrisk språk"
     fj: fijiansk
     fo: færøysk
     fon: fon
@@ -178,7 +156,6 @@ nb:
     gay: gayo
     gba: gbaya
     gd: "skotsk gælisk"
-    gem: "germansk språk"
     gez: ges
     gil: kiribatisk
     gl: galisisk
@@ -201,7 +178,6 @@ nb:
     he: hebraisk
     hi: hindi
     hil: hiligaynon
-    him: himachali
     hit: hettittisk
     hmn: hmong
     ho: "hiri motu"
@@ -214,24 +190,21 @@ nb:
     hz: herero
     ia: interlingua
     iba: iban
+    ibb: ibibio
     id: indonesisk
     ie: interlingue
     ig: ibo
     ii: sichuan-yi
-    ijo: ijo
     ik: inupiak
     ilo: iloko
-    inc: "indisk språk"
-    ine: "indoeuropeisk språk"
     inh: ingusjisk
     io: ido
-    ira: "iransk språk"
-    iro: "irokansk språk"
     is: islandsk
     it: italiensk
     iu: inuktitut
     ja: japansk
     jbo: lojban
+    jgo: ngomba
     jmc: machame
     jpr: jødepersisk
     jrb: jødearabisk
@@ -242,7 +215,6 @@ nb:
     kac: kachin
     kaj: jju
     kam: kamba
-    kar: karensk
     kaw: kawi
     kbd: kabardisk
     kbl: kanembu
@@ -252,12 +224,12 @@ nb:
     kfo: koro
     kg: kikongo
     kha: khasi
-    khi: khoisanspråk
     kho: khotanesisk
     khq: "koyra chiini"
     ki: kikuyu
     kj: kuanyama
     kk: kasakhisk
+    kkj: kako
     kl: grønlandsk
     kln: kalenjin
     km: khmer
@@ -270,7 +242,6 @@ nb:
     kr: kanuri
     krc: karachay-balkar
     krl: karelsk
-    kro: kru
     kru: kurukh
     ks: kasjmiri
     ksb: shambala
@@ -310,7 +281,6 @@ nb:
     mai: maithili
     mak: makasar
     man: mandingo
-    map: "austronesisk språk"
     mas: masai
     mde: maba
     mdf: moksha
@@ -321,19 +291,16 @@ nb:
     mg: madagassisk
     mga: mellomirsk
     mgh: makhuwa-meetto
+    mgo: meta'
     mh: marshallesisk
     mi: maori
     mic: micmac
     min: minangkabau
-    mis: "annet språk"
     mk: makedonsk
-    mkh: mon-khmerspråk
     ml: malayalam
     mn: mongolsk
     mnc: mandsju
     mni: manipuri
-    mno: manobospråk
-    mo: moldavisk
     moh: mohawk
     mos: mossi
     mr: marathi
@@ -341,17 +308,13 @@ nb:
     mt: maltesisk
     mua: mundang
     mul: "flere språk"
-    mun: mundaspråk
     mus: creek
     mwl: mirandesisk
     mwr: marwari
     my: burmesisk
     mye: myene
-    myn: mayaspråk
     myv: erzya
     na: nauru
-    nah: nahuatl
-    nai: "nordamerikansk indiansk språk"
     nap: napolitansk
     naq: nama
     nb: "norsk bokmål"
@@ -361,7 +324,6 @@ nb:
     new: newari
     ng: ndonga
     nia: nias
-    nic: "niger-kordofiansk språk"
     niu: niueansk
     nl: nederlandsk
     nl-BE: flamsk
@@ -374,7 +336,6 @@ nb:
     nqo: nkå
     nr: sør-ndebele
     nso: nord-sotho
-    nub: "nubisk språk"
     nus: nuer
     nv: navajo
     nwc: "klassisk newari"
@@ -390,21 +351,17 @@ nb:
     os: ossetisk
     osa: osage
     ota: "ottomansk tyrkisk"
-    oto: "otomisk språk"
     pa: panjabi
-    paa: "papuisk språk"
     pag: pangasinan
     pal: pahlavi
     pam: pampanga
     pap: papiamento
     pau: palauisk
     peo: gammelpersisk
-    phi: "filippinsk språk"
     phn: fønikisk
     pi: pali
     pl: polsk
     pon: ponapisk
-    pra: prakritspråk
     pro: gammelprovençalsk
     ps: pushto
     pt: portugisisk
@@ -417,7 +374,7 @@ nb:
     rm: retoromansk
     rn: rundi
     ro: rumensk
-    roa: "romansk språk"
+    ro-MD: moldavisk
     rof: rombo
     rom: romani
     root: rot
@@ -428,8 +385,6 @@ nb:
     sa: sanskrit
     sad: sandawe
     sah: jakutsk
-    sai: "søramerikansk indiansk språk"
-    sal: "salishansk språk"
     sam: "samaritansk arameisk"
     saq: samburu
     sas: sasak
@@ -444,25 +399,19 @@ nb:
     see: seneca
     seh: sena
     sel: selkupisk
-    sem: "semittisk språk"
     ses: "koyraboro senni"
     sg: sango
     sga: gammelirsk
-    sgn: tegnspråk
     sh: serbokroatisk
     shi: tachelhit
     shn: shan
     shu: Tsjad-arabisk
     si: singalesisk
     sid: sidamo
-    sio: siouxspråk
-    sit: "sino-tibetansk språk"
     sk: slovakisk
     sl: slovensk
-    sla: "slavisk språk"
     sm: samoansk
     sma: sørsamisk
-    smi: "samisk språk"
     smj: lulesamisk
     smn: enaresamisk
     sms: skoltesamisk
@@ -470,13 +419,11 @@ nb:
     snk: soninke
     so: somali
     sog: sogdisk
-    son: songhai
     sq: albansk
     sr: serbisk
     srn: "sranan tongo"
     srr: serer
     ss: swati
-    ssa: nilo-saharaspråk
     ssy: saho
     st: sør-sotho
     su: sundanesisk
@@ -490,7 +437,6 @@ nb:
     syc: "klassisk syrisk"
     syr: syrisk
     ta: tamil
-    tai: taispråk
     te: telugu
     tem: temne
     teo: teso
@@ -517,8 +463,6 @@ nb:
     tsi: tsimshian
     tt: tatarisk
     tum: tumbuka
-    tup: tupispråk
-    tut: "altaisk språk"
     tvl: tuvalu
     tw: twi
     twq: tasawaq
@@ -540,11 +484,10 @@ nb:
     vot: votisk
     vun: vunjo
     wa: vallonsk
-    wak: "wakasjansk språk"
+    wae: walser
     wal: walamo
     war: waray
     was: washo
-    wen: "sorbisk språk"
     wo: wolof
     xal: kalmyk
     xh: xhosa
@@ -555,16 +498,15 @@ nb:
     ybb: yemba
     yi: jiddisk
     yo: joruba
-    ypk: "jupisk språk"
     yue: kantonesisk
     za: zhuang
     zap: zapotec
     zbl: blissymboler
     zen: zenaga
+    zgh: "standard marrokansk tamazight"
     zh: kinesisk
     zh-CN: "forenklet kinesisk"
     zh-TW: "tradisjonell kinesisk"
-    znd: zande
     zu: zulu
     zun: zuni
     zxx: "uten språklig innhold"

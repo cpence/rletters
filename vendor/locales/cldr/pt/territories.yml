@@ -18,7 +18,7 @@ pt:
     034: "Ásia do Sul"
     035: "Ásia Centro-Oriental"
     039: "Europa do Sul"
-    053: "Austrália e Nova Zelândia"
+    053: Australásia
     054: Melanésia
     057: "Região da Micronésia"
     061: Polinésia
@@ -46,28 +46,28 @@ pt:
     AT: Áustria
     AU: Austrália
     AW: Aruba
-    AX: "Ilhas Aland"
+    AX: "Ilhas Åland"
     AZ: Azerbaijão
-    BA: Bósnia-Herzegovina
+    BA: "Bósnia e Herzegovina"
     BB: Barbados
     BD: Bangladesh
     BE: Bélgica
     BF: "Burquina Faso"
     BG: Bulgária
-    BH: Bahrain
+    BH: Bahrein
     BI: Burundi
     BJ: Benin
     BL: "São Bartolomeu"
     BM: Bermudas
     BN: Brunei
     BO: Bolívia
-    BQ: "Antilhas Caribenhas"
+    BQ: "Países Baixos Caribenhos"
     BR: Brasil
     BS: Bahamas
     BT: Butão
     BV: "Ilha Bouvet"
     BW: Botsuana
-    BY: Belarus
+    BY: Bielorrússia
     BZ: Belize
     CA: Canadá
     CC: "Ilhas Coco"
@@ -112,7 +112,7 @@ pt:
     FO: "Ilhas Faroe"
     FR: França
     GA: Gabão
-    GB: "Reino Unido"
+    GB: GB
     GD: Granada
     GE: Geórgia
     GF: "Guiana Francesa"
@@ -161,7 +161,7 @@ pt:
     KR: "Coreia do Sul"
     KW: Kuwait
     KY: "Ilhas Caiman"
-    KZ: Casaquistão
+    KZ: Cazaquistão
     LA: Laos
     LB: Líbano
     LC: "Santa Lúcia"
@@ -180,9 +180,9 @@ pt:
     MF: "São Martinho"
     MG: Madagascar
     MH: "Ilhas Marshall"
-    MK: "Macedônia [Antiga República Iugoslava da Macedônia - ARIM]"
+    MK: "Macedônia (Antiga República Iugoslava da Macedônia - ARIM)"
     ML: Mali
-    MM: "Mianmar [Birmânia]"
+    MM: "Mianmar (Birmânia)"
     MN: Mongólia
     MO: Macau
     MP: "Ilhas Marianas do Norte"
@@ -271,10 +271,10 @@ pt:
     UA: Ucrânia
     UG: Uganda
     UM: "Ilhas Distantes dos EUA"
-    US: "Estados Unidos"
+    US: EUA
     UY: Uruguai
     UZ: Uzbequistão
-    VA: Vaticano
+    VA: "Cidade do Vaticano"
     VC: "São Vicente e Granadinas"
     VE: Venezuela
     VG: "Ilhas Virgens Britânicas"

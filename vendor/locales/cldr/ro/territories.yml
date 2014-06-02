@@ -46,7 +46,7 @@ ro:
     AT: Austria
     AU: Australia
     AW: Aruba
-    AX: "Insulele Aland"
+    AX: "Insulele Åland"
     AZ: Azerbaidjan
     BA: "Bosnia și Herțegovina"
     BB: Barbados
@@ -67,15 +67,15 @@ ro:
     BT: Bhutan
     BV: "Insula Bouvet"
     BW: Botswana
-    BY: Bielorusia
+    BY: Belarus
     BZ: Belize
     CA: Canada
-    CC: "Insulele Cocos"
-    CD: "Congo [RDC]"
+    CC: "Insulele Cocos (Keeling)"
+    CD: "Congo (RDC)"
     CF: "Republica Centrafricană"
-    CG: "Congo [Republică]"
+    CG: "Congo (Republică)"
     CH: Elveția
-    CI: "Coasta de Fildeş"
+    CI: "Coasta de Fildeș"
     CK: "Insulele Cook"
     CL: Chile
     CM: Camerun
@@ -96,7 +96,7 @@ ro:
     DM: Dominica
     DO: "Republica Dominicană"
     DZ: Algeria
-    EA: "Ceuta şi Melilla"
+    EA: "Ceuta și Melilla"
     EC: Ecuador
     EE: Estonia
     EG: Egipt
@@ -107,12 +107,12 @@ ro:
     EU: "Uniunea Europeană"
     FI: Finlanda
     FJ: Fiji
-    FK: "Insulele Falkland [Insulele Malvine]"
+    FK: "Insulele Falkland (Insulele Malvine)"
     FM: Micronezia
     FO: "Insulele Feroe"
     FR: Franța
     GA: Gabon
-    GB: "Marea Britanie"
+    GB: "Regatul Unit"
     GD: Grenada
     GE: Georgia
     GF: "Guyana Franceză"
@@ -125,7 +125,7 @@ ro:
     GP: Guadelupa
     GQ: "Guineea Ecuatorială"
     GR: Grecia
-    GS: "Georgia de Sud şi Insulele Sandwich de Sud"
+    GS: "Georgia de Sud și Insulele Sandwich de Sud"
     GT: Guatemala
     GU: Guam
     GW: Guineea-Bissau
@@ -156,7 +156,7 @@ ro:
     KH: Cambodgia
     KI: Kiribati
     KM: Comore
-    KN: "Sfântul Kitts și Nevis"
+    KN: "Saint Kitts și Nevis"
     KP: "Coreea de Nord"
     KR: "Coreea de Sud"
     KW: Kuweit
@@ -180,9 +180,9 @@ ro:
     MF: "Sfântul Martin"
     MG: Madagascar
     MH: "Insulele Marshall"
-    MK: "Macedonia [FYROM]"
+    MK: "Macedonia (FRIM)"
     ML: Mali
-    MM: Myanmar
+    MM: "Myanmar (Birmania)"
     MN: Mongolia
     MO: Macao
     MP: "Insulele Mariane de Nord"
@@ -202,7 +202,7 @@ ro:
     NF: "Insulele Norfolk"
     NG: Nigeria
     NI: Nicaragua
-    NL: Olanda
+    NL: "Țările de Jos"
     "NO": Norvegia
     NP: Nepal
     NR: Nauru
@@ -212,20 +212,20 @@ ro:
     PA: Panama
     PE: Peru
     PF: "Polinezia Franceză"
-    PG: "Papua Noua Guinee"
+    PG: "Papua-Noua Guinee"
     PH: Filipine
     PK: Pakistan
     PL: Polonia
-    PM: "Sfântul Pierre și Miquelon"
-    PN: Pitcairn
-    PR: "Porto Rico"
+    PM: "Saint-Pierre și Miquelon"
+    PN: "Insulele Pitcairn"
+    PR: "Puerto Rico"
     PS: Palestina
     PT: Portugalia
     PW: Palau
     PY: Paraguay
     QA: Qatar
     QO: "Oceania Periferică"
-    RE: Reunion
+    RE: Réunion
     RO: România
     RS: Serbia
     RU: Rusia
@@ -248,7 +248,7 @@ ro:
     SS: "Sudanul de Sud"
     ST: "Sao Tome și Principe"
     SV: "El Salvador"
-    SX: "Sint Maarten"
+    SX: Sint-Maarten
     SY: Siria
     SZ: Swaziland
     TA: "Tristan da Cunha"
@@ -264,18 +264,18 @@ ro:
     TN: Tunisia
     TO: Tonga
     TR: Turcia
-    TT: Trinidad-Tobago
+    TT: "Trinidad și Tobago"
     TV: Tuvalu
     TW: Taiwan
     TZ: Tanzania
     UA: Ucraina
     UG: Uganda
     UM: "Insulele Minore Îndepărtate ale Statelor Unite ale Americii"
-    US: "Statele Unite ale Americii"
+    US: S.U.A.
     UY: Uruguay
     UZ: Uzbekistan
-    VA: Vatican
-    VC: "Sfântul Vincent și Grenadine"
+    VA: "Statul Cetății Vaticanului"
+    VC: "Saint Vincent și Grenadine"
     VE: Venezuela
     VG: "Insulele Virgine Britanice"
     VI: "Insulele Virgine S.U.A."

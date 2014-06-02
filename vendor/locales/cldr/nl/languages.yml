@@ -8,52 +8,42 @@ nl:
     ady: Adyghe
     ae: Avestisch
     af: Afrikaans
-    afa: "Afro-Aziatische taal"
     afh: Afrihili
     agq: Aghem
     ain: Ainu
     ak: Akan
     akk: Akkadisch
     ale: Aleut
-    alg: Algonkium-taal
     alt: Zuid-Altaïsch
     am: Amhaars
     an: Aragonees
     ang: Oudengels
     anp: Angika
-    apa: Apache-taal
     ar: Arabisch
+    ar-001: "Modern standaard Arabisch"
     arc: Aramees
     arn: Araukaans
     arp: Arapaho
-    art: "Kunstmatige taal"
     arw: Arawak
     as: Assamees
     asa: Asu
     ast: Asturisch
-    ath: "Athapascaanse taal"
-    aus: "Australische taal"
     av: Avarisch
     awa: Awadhi
     ay: Aymara
     az: Azeri
     ba: Basjkiers
-    bad: Banda
-    bai: Bamileke-taal
     bal: Baloetsji
     ban: Balinees
     bas: Basa
-    bat: "Baltische taal"
-    bax: Bamun
-    bbj: Ghomala
+    bax: Bamoun
+    bbj: Ghomala'
     be: Wit-Russisch
     bej: Beja
     bem: Bemba
-    ber: Berber
     bez: Bena
     bfd: Bafut
     bg: Bulgaars
-    bh: Bihari
     bho: Bhojpuri
     bi: Bislama
     bik: Bikol
@@ -61,15 +51,13 @@ nl:
     bkm: Kom
     bla: Siksika
     bm: Bambara
-    bn: Bengalees
-    bnt: Bantoe
+    bn: Bengaals
     bo: Tibetaans
     br: Bretons
     bra: Braj
     brx: Bodo
     bs: Bosnisch
     bss: Akoose
-    btk: Batak
     bua: Buriat
     bug: Buginees
     bum: Bulu
@@ -77,14 +65,11 @@ nl:
     byv: Medumba
     ca: Catalaans
     cad: Caddo
-    cai: "Midden-Amerikaans Indiaanse taal"
     car: Caribisch
-    cau: "Kaukasische taal"
     cay: Cayuga
     cch: Atsam
     ce: Tsjetsjeens
     ceb: Cebuano
-    cel: "Keltische taal"
     cgg: Chiga
     ch: Chamorro
     chb: Chibcha
@@ -97,26 +82,19 @@ nl:
     chr: Cherokee
     chy: Cheyenne
     ckb: Soranî
-    cmc: "Chamische taal"
     co: Corsicaans
     cop: Koptisch
-    cpe: "Op Engels gebaseerd Creools of Pidgin"
-    cpf: "Op Frans gebaseerd Creools of Pidgin"
-    cpp: "Op Portugees gebaseerd Creools of Pidgin"
     cr: Cree
     crh: Krim-Tataars
-    crp: "Creools of Pidgin"
     cs: Tsjechisch
     csb: Kasjoebisch
     cu: Kerkslavisch
-    cus: "Koesjitische taal"
     cv: Tsjoevasjisch
     cy: Welsh
     da: Deens
     dak: Dakota
     dar: Dargwa
     dav: Taita
-    day: Dajak
     de: Duits
     de-AT: "Oostenrijks Duits"
     de-CH: "Zwitsers Hoogduits"
@@ -126,7 +104,6 @@ nl:
     din: Dinka
     dje: Zarma
     doi: Dogri
-    dra: "Dravidische taal"
     dsb: Nedersorbisch
     dua: Duala
     dum: Middelnederlands
@@ -152,6 +129,7 @@ nl:
     es: Spaans
     es-419: "Latijns-Amerikaans Spaans"
     es-ES: "Europees Spaans"
+    es-MX: "Mexicaans Spaans"
     et: Estlands
     eu: Baskisch
     ewo: Ewondo
@@ -161,7 +139,6 @@ nl:
     ff: Fulah
     fi: Fins
     tl: Filipijns
-    fiu: "Fins-Oegrische taal"
     fj: Fijisch
     fo: Faeröers
     fon: Fon
@@ -179,7 +156,6 @@ nl:
     gay: Gayo
     gba: Gbaya
     gd: "Schots Gaelic"
-    gem: "Germaanse taal"
     gez: Geez
     gil: Gilbertees
     gl: Galicisch
@@ -202,7 +178,6 @@ nl:
     he: Hebreeuws
     hi: Hindi
     hil: Hiligaynon
-    him: Himachali
     hit: Hettitisch
     hmn: Hmong
     ho: "Hiri Motu"
@@ -220,20 +195,16 @@ nl:
     ie: Interlingue
     ig: Igbo
     ii: "Sichuan Yi"
-    ijo: Ijo
     ik: Inupiaq
     ilo: Iloko
-    inc: "Indische taal"
-    ine: "Indo-Europese taal"
     inh: Ingoesj
     io: Ido
-    ira: "Iraanse taal"
-    iro: "Irokese taal"
     is: IJslands
     it: Italiaans
     iu: Inuktitut
     ja: Japans
     jbo: Lojban
+    jgo: Ngomba
     jmc: Machame
     jpr: Judeo-Perzisch
     jrb: Judeo-Arabisch
@@ -244,17 +215,15 @@ nl:
     kac: Kachin
     kaj: Jju
     kam: Kamba
-    kar: Karen
     kaw: Kawi
     kbd: Kabardisch
     kbl: Kanembu
     kcg: Tyap
     kde: Makonde
-    kea: Kabuverdianu
+    kea: "Kaapverdisch Creools"
     kfo: Koro
     kg: Kongo
     kha: Khasi
-    khi: Khoisan-taal
     kho: Khotanees
     khq: "Koyra Chiini"
     ki: Kikuyu
@@ -273,7 +242,6 @@ nl:
     kr: Kanuri
     krc: Karachay-Balkar
     krl: Karelisch
-    kro: Kru
     kru: Kurukh
     ks: Kasjmiri
     ksb: Shambala
@@ -294,6 +262,7 @@ nl:
     lez: Lezgisch
     lg: Ganda
     li: Limburgs
+    lkt: Lakota
     ln: Lingala
     lo: Laotiaans
     lol: Mongo
@@ -313,7 +282,6 @@ nl:
     mai: Maithili
     mak: Makassaars
     man: Mandingo
-    map: Austronesisch
     mas: Masai
     mde: Maba
     mdf: Moksha
@@ -324,19 +292,16 @@ nl:
     mg: Malagasisch
     mga: Middeliers
     mgh: Makhuwa-Meetto
+    mgo: Meta'
     mh: Marshallees
     mi: Maori
     mic: Mi'kmaq
     min: Minangkabau
-    mis: "Diverse talen"
     mk: Macedonisch
-    mkh: Mon-Khmer-taal
     ml: Malayalam
     mn: Mongools
     mnc: Mantsjoe
     mni: Manipoeri
-    mno: Manobo-taal
-    mo: Moldavisch
     moh: Mohawk
     mos: Mossi
     mr: Marathi
@@ -344,17 +309,13 @@ nl:
     mt: Maltees
     mua: Mundang
     mul: "Meerdere talen"
-    mun: Munda-taal
     mus: Creek
     mwl: Mirandees
     mwr: Marwari
     my: Birmees
     mye: Myene
-    myn: Mayan-taal
     myv: Erzja
     na: Nauruaans
-    nah: Nahuatl
-    nai: "Noord-Amerikaans Indiaanse taal"
     nap: Napolitaans
     naq: Nama
     nb: "Noors - Bokmål"
@@ -364,11 +325,10 @@ nl:
     new: Newari
     ng: Ndonga
     nia: Nias
-    nic: "Niger-Kordofanische taal"
     niu: Niueaans
     nl: Nederlands
     nl-BE: Vlaams
-    nmg: Kwasio
+    nmg: Ngumba
     nn: "Noors - Nynorsk"
     nnh: Ngiemboon
     "no": Noors
@@ -377,7 +337,6 @@ nl:
     nqo: N’ko
     nr: Zuid-Ndbele
     nso: Noord-Sotho
-    nub: "Nubische taal"
     nus: Nuer
     nv: Navajo
     nwc: "Klassiek Newari"
@@ -393,21 +352,17 @@ nl:
     os: Ossetisch
     osa: Osage
     ota: Ottomaans-Turks
-    oto: Otomi-taal
     pa: Punjabi
-    paa: Papoeataal
     pag: Pangasinan
     pal: Pahlavi
     pam: Pampanga
     pap: Papiaments
     pau: Palauaans
     peo: Oudperzisch
-    phi: "Filippijnse taal"
     phn: Foenicisch
     pi: Pali
     pl: Pools
     pon: Pohnpeiaans
-    pra: Prakrit-taal
     pro: Oudprovençaals
     ps: Pashto
     pt: Portugees
@@ -420,7 +375,7 @@ nl:
     rm: Reto-Romaans
     rn: Kirundi
     ro: Roemeens
-    roa: "Romaanse taal"
+    ro-MD: Moldavisch
     rof: Rombo
     rom: Romani
     root: Root
@@ -431,8 +386,6 @@ nl:
     sa: Sanskriet
     sad: Sandawe
     sah: Jakoets
-    sai: "Zuid-Amerikaans Indiaanse taal"
-    sal: Salishan-taal
     sam: Samaritaans-Aramees
     saq: Samburu
     sas: Sasak
@@ -447,25 +400,19 @@ nl:
     see: Seneca
     seh: Sena
     sel: Selkup
-    sem: "Semitische taal"
     ses: "Koyraboro Senni"
     sg: Sango
     sga: Oudiers
-    sgn: Gebarentaal
     sh: Servokroatisch
-    shi: Tachelhit
+    shi: Tashelhiyt
     shn: Shan
     shu: "Tsjadisch Arabisch"
     si: Singalees
     sid: Sidamo
-    sio: "Siouaanse talen"
-    sit: "Sino-Tibetaanse taal"
     sk: Slowaaks
     sl: Sloveens
-    sla: "Slavische taal"
     sm: Samoaans
     sma: Zuid-Samisch
-    smi: Sami-taal
     smj: "Lule Sami"
     smn: "Inari Sami"
     sms: "Skolt Sami"
@@ -473,13 +420,11 @@ nl:
     snk: Soninke
     so: Somalisch
     sog: Sogdisch
-    son: Songhai
     sq: Albanees
     sr: Servisch
     srn: Sranantongo
     srr: Serer
     ss: Swazi
-    ssa: "Nilo-Saharaanse taal"
     ssy: Saho
     st: Zuid-Sotho
     su: Soendanees
@@ -493,7 +438,6 @@ nl:
     syc: "Klassiek Syrisch"
     syr: Syrisch
     ta: Tamil
-    tai: Tai-taal
     te: Telugu
     tem: Timne
     teo: Teso
@@ -520,8 +464,6 @@ nl:
     tsi: Tsimshian
     tt: Tataars
     tum: Toemboeka
-    tup: Tupi-taal
-    tut: "Altaïsche taal"
     tvl: Tuvaluaans
     tw: Twi
     twq: Tasawaq
@@ -544,11 +486,9 @@ nl:
     vun: Vunjo
     wa: Waals
     wae: Walser
-    wak: Wakashan-taal
     wal: Walamo
     war: Waray
     was: Washo
-    wen: "Sorbische taal"
     wo: Wolof
     xal: Kalmyk
     xh: Xhosa
@@ -559,16 +499,15 @@ nl:
     ybb: Yemba
     yi: Jiddisch
     yo: Yoruba
-    ypk: Yupik-talen
     yue: Kantonees
     za: Zhuang
     zap: Zapotec
     zbl: Blissymbolen
     zen: Zenaga
+    zgh: "Standaard Marokkaanse Tamazight"
     zh: Chinees
     zh-CN: "Vereenvoudigd Chinees"
     zh-TW: "Traditioneel Chinees"
-    znd: Zande
     zu: Zulu
     zun: Zuni
     zxx: "Geen linguïstische inhoud"

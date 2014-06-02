@@ -2,25 +2,20 @@ cy:
   languages:
     ab: Abchaseg
     af: Affricâneg
-    afa: "Iaith Affro-Asiaidd"
     am: Amhareg
     ang: "Hen Saesneg"
     ar: Arabeg
+    ar-001: "Arabeg Modern Safonol"
     arc: Aramaeg
-    art: "Iaith Artiffisial"
     as: Asameg
-    ath: "Iaith Athabasgaidd"
-    aus: "Iaith Awstralaidd"
     az: Aserbaijaneg
     be: Belarwseg
     bg: Bwlgareg
-    bh: Bihari
     bn: Bengaleg
     bo: Tibeteg
     br: Llydaweg
     bs: Bosnieg
     ca: Catalaneg
-    cel: "Iaith Geltaidd"
     cs: Tsieceg
     cy: Cymraeg
     da: Daneg
@@ -33,21 +28,21 @@ cy:
     en: Saesneg
     en-AU: "Saesneg Awstralia"
     en-CA: "Saesneg Canada"
-    en-GB: "Saesneg Prydain"
+    en-GB: "Saesneg (DU)"
     en-US: "Saesneg UDA"
     enm: "Saesneg Canol"
     eo: Esperanto
     es: Sbaeneg
     es-419: "Sbaeneg America Ladin"
     es-ES: "Sbaeneg Ewrop"
+    es-MX: "Sbaeneg Mecsico"
     et: Estoneg
     eu: Basgeg
     fa: Perseg
     fi: Ffinneg
     tl: Ffilipineg
-    fiu: "Iaith Ffinno-Wgrig"
     fj: Ffijïeg
-    fo: Ffaroeg
+    fo: Ffaröeg
     fr: Ffrangeg
     fr-CA: "Ffrangeg Canada"
     fr-CH: "Ffrangeg y Swistir"
@@ -57,8 +52,7 @@ cy:
     fy: "Ffriseg y Gorllewin"
     ga: Gwyddeleg
     gd: "Gaeleg yr Alban"
-    gem: "Iaith Germanaidd"
-    gl: Galiseg
+    gl: Galisieg
     gn: Guaraní
     got: Gotheg
     grc: "Hen Roeg"
@@ -77,7 +71,6 @@ cy:
     id: Indoneseg
     ie: Interlingue
     ig: Igbo
-    ine: "Iaith Indo-Ewropeaidd"
     is: Islandeg
     it: Eidaleg
     ja: Japaneeg
@@ -85,8 +78,8 @@ cy:
     ka: Georgeg
     kk: Casacheg
     km: Chmereg
-    kn: Canareg
-    ko: Corëeg
+    kn: Kannada
+    ko: Coreeg
     ks: Cashmireg
     ku: Cwrdeg
     kw: Cernyweg
@@ -101,11 +94,9 @@ cy:
     mga: "Gwyddeleg Canol"
     mi: Maori
     mic: Micmaceg
-    mis: "Iaith Amrywiol"
     mk: Macedoneg
     ml: Malayalam
     mn: Mongoleg
-    mo: Moldofeg
     mr: Marathi
     ms: Maleieg
     mt: Malteg
@@ -130,6 +121,7 @@ cy:
     qu: Quechua
     rm: Romaunsch
     ro: Rwmaneg
+    ro-MD: Moldofeg
     ru: Rwseg
     sa: Sansgrit
     sco: Sgoteg
@@ -139,7 +131,6 @@ cy:
     si: Sinhaleg
     sk: Slofaceg
     sl: Slofeneg
-    sla: "Iaith Slafig"
     so: Somaleg
     sq: Albaneg
     sr: Serbeg
@@ -152,7 +143,7 @@ cy:
     te: Telugu
     tg: Tajiceg
     th: Thai
-    ti: Tigriniaeg
+    ti: Tigrinya
     tk: Twrcmeneg
     tlh: Klingon
     to: Tongeg
@@ -168,6 +159,7 @@ cy:
     xh: Xhosa
     yo: Iorwba
     yue: Cantoneeg
+    zgh: "Tamazight Safonol Moroco"
     zh: Tsieineeg
     zh-CN: "Tsieineeg Symledig"
     zh-TW: "Tsieineeg Traddodiadol"

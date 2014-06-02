@@ -8,52 +8,42 @@ ca:
     ady: adigué
     ae: avèstic
     af: afrikaans
-    afa: "llengua afroasiàtica"
     afh: afrihili
     agq: aghem
     ain: ainu
     ak: àkan
     akk: accadi
     ale: aleuta
-    alg: "llengua algonquina"
     alt: "altaic meridional"
     am: amhàric
     an: aragonès
     ang: "anglès antic"
     anp: angika
-    apa: "llengua apatxe"
     ar: àrab
+    ar-001: "àrab estàndard modern"
     arc: arameu
     arn: araucà
     arp: arapaho
-    art: "llengua artificial"
     arw: arauac
     as: assamès
     asa: pare
     ast: asturià
-    ath: "llengua atapascana"
-    aus: "llengua australiana"
     av: àvar
     awa: awadhi
     ay: aimara
     az: àzeri
     ba: baixkir
-    bad: banda
-    bai: bamileké
     bal: balutxi
     ban: balinès
     bas: basa
-    bat: "llengua bàltica"
     bax: bamun
     bbj: ghomala
     be: bielorús
     bej: beja
     bem: bemba
-    ber: berber
     bez: bena
     bfd: bafut
     bg: búlgar
-    bh: bihari
     bho: bhojpuri
     bi: bislama
     bik: bicol
@@ -62,14 +52,12 @@ ca:
     bla: blackfoot
     bm: bambara
     bn: bengalí
-    bnt: bantu
     bo: tibetà
     br: bretó
     bra: braj
     brx: bodo
     bs: bosnià
     bss: akoose
-    btk: batak
     bua: buriat
     bug: bugui
     bum: seki
@@ -77,14 +65,11 @@ ca:
     byv: medumba
     ca: català
     cad: caddo
-    cai: "llengua ameríndia d'Amèrica Central"
     car: carib
-    cau: "llengua caucàsica"
     cay: cayuga
     cch: atsam
     ce: txetxè
     ceb: cebuà
-    cel: "llengua cèltica"
     cgg: chiga
     ch: chamorro
     chb: txibtxa
@@ -97,26 +82,19 @@ ca:
     chr: cherokee
     chy: xeienne
     ckb: "kurd sorani"
-    cmc: txam
     co: cors
     cop: copte
-    cpe: "llengua criolla o pidgin basada en l'anglès"
-    cpf: "llengua criolla o pidgin basada en el francès"
-    cpp: "llengua criolla o pidgin basada en el portuguès"
     cr: cree
     crh: "tàtar de Crimea"
-    crp: "llengua criolla o pidgin"
     cs: txec
     csb: caixubi
     cu: "eslau eclesiàstic"
-    cus: "llengua cuixítica"
     cv: txuvaix
     cy: gal·lès
     da: danès
     dak: dakota
     dar: darguà
     dav: taita
-    day: daiak
     de: alemany
     de-AT: "alemany austríac"
     de-CH: "alt alemany suís"
@@ -126,7 +104,6 @@ ca:
     din: dinka
     dje: zarma
     doi: dogri
-    dra: "llengua dravídica"
     dsb: "baix sòrab"
     dua: duala
     dum: "neerlandès mitjà"
@@ -145,13 +122,14 @@ ca:
     en: anglès
     en-AU: "anglès australià"
     en-CA: "anglès canadenc"
-    en-GB: "anglès britànic"
-    en-US: "anglès americà"
+    en-GB: "anglès (GB)"
+    en-US: "anglès (EUA)"
     enm: "anglès mitjà"
     eo: esperanto
     es: espanyol
-    es-419: "espanyol d'Hispanoamèrica"
-    es-ES: "espanyol d'Espanya"
+    es-419: "espanyol hispanoamericà"
+    es-ES: "espanyol europeu"
+    es-MX: "espanyol de Mèxic"
     et: estonià
     eu: basc
     ewo: ewondo
@@ -161,7 +139,6 @@ ca:
     ff: ful
     fi: finès
     tl: filipí
-    fiu: "llengua finoúgrica"
     fj: fijià
     fo: feroès
     fon: fon
@@ -179,7 +156,6 @@ ca:
     gay: gayo
     gba: gbaya
     gd: "gaèlic escocès"
-    gem: "llengua germànica"
     gez: gueez
     gil: gilbertès
     gl: gallec
@@ -202,7 +178,6 @@ ca:
     he: hebreu
     hi: hindi
     hil: hiligainon
-    him: himachali
     hit: hitita
     hmn: hmong
     ho: "hiri motu"
@@ -220,20 +195,16 @@ ca:
     ie: interlingue
     ig: igbo
     ii: "yi sichuan"
-    ijo: ijo
     ik: inupiak
     ilo: ilocà
-    inc: "llengua índica"
-    ine: "llengua indoeuropea"
     inh: ingúix
     io: ido
-    ira: "llengua irànica"
-    iro: iroquès
     is: islandès
     it: italià
     iu: inuktitut
     ja: japonès
     jbo: lojban
+    jgo: ngomba
     jmc: machame
     jpr: judeopersa
     jrb: judeoàrab
@@ -244,7 +215,6 @@ ca:
     kac: katxin
     kaj: jju
     kam: kamba
-    kar: karen
     kaw: kawi
     kbd: kabardí
     kbl: kanembu
@@ -254,7 +224,6 @@ ca:
     kfo: koro
     kg: kongo
     kha: khasi
-    khi: "llengua khoisan"
     kho: khotanès
     khq: "koyra chiini"
     ki: kikuiu
@@ -273,7 +242,6 @@ ca:
     kr: kanuri
     krc: karatxai
     krl: carelià
-    kro: kru
     kru: kurukh
     ks: caixmiri
     ksb: shambala
@@ -294,6 +262,7 @@ ca:
     lez: lesguià
     lg: ganda
     li: limburguès
+    lkt: lakota
     ln: lingala
     lo: laosià
     lol: mongo
@@ -313,7 +282,6 @@ ca:
     mai: maithili
     mak: makassar
     man: mandinga
-    map: "llengua austronèsia"
     mas: massai
     mde: maba
     mdf: "mordovià moksa"
@@ -324,19 +292,16 @@ ca:
     mg: malgaix
     mga: "gaèlic irlandès mitjà"
     mgh: makhuwa-metto
+    mgo: meta'
     mh: marshallès
     mi: maori
     mic: micmac
     min: minangkabau
-    mis: "llengua miscel·lània"
     mk: macedoni
-    mkh: "llengua monkhmer"
-    ml: malaialam
+    ml: malaiàlam
     mn: mongol
     mnc: manxú
     mni: manipurí
-    mno: "llengua manobo"
-    mo: moldau
     moh: mohawk
     mos: moré
     mr: marathi
@@ -344,17 +309,13 @@ ca:
     mt: maltès
     mua: mundang
     mul: "llengües vàries"
-    mun: "llengua munda"
     mus: creek
     mwl: mirandès
     mwr: marwari
     my: birmà
     mye: myene
-    myn: "llengua maia"
     myv: "mordovià erza"
     na: nauruà
-    nah: nàhuatl
-    nai: "llengua ameríndia septentrional"
     nap: napolità
     naq: nama
     nb: "noruec bokmål"
@@ -364,7 +325,6 @@ ca:
     new: newari
     ng: ndonga
     nia: nias
-    nic: "llengua nigerokurdufaniana"
     niu: niueà
     nl: neerlandès
     nl-BE: flamenc
@@ -377,7 +337,6 @@ ca:
     nqo: n’Ko
     nr: "ndebele meridional"
     nso: "sotho septentrional"
-    nub: "llengua nubiana"
     nus: nuer
     nv: navaho
     nwc: "newari clàssic"
@@ -393,25 +352,21 @@ ca:
     os: osset
     osa: osage
     ota: "turc otomà"
-    oto: "llengua otomangueana"
     pa: panjabi
-    paa: "llengua papú"
     pag: pangasi
     pal: pahlavi
     pam: pampangà
     pap: papiamento
     pau: palauà
     peo: "persa antic"
-    phi: "llengua filipina"
     phn: fenici
     pi: pali
     pl: polonès
     pon: ponapeà
-    pra: pràcrit
     pro: "provençal antic"
     ps: pushtu
     pt: portuguès
-    pt-BR: "portuguès de Brasil"
+    pt-BR: "portuguès del Brasil"
     pt-PT: "portuguès de Portugal"
     qu: quítxua
     raj: rajasthani
@@ -420,7 +375,7 @@ ca:
     rm: retoromànic
     rn: rundi
     ro: romanès
-    roa: "llengua romànica"
+    ro-MD: moldau
     rof: rombo
     rom: romaní
     root: arrel
@@ -431,8 +386,6 @@ ca:
     sa: sànscrit
     sad: sandawe
     sah: iacut
-    sai: "llengua ameríndia meridional"
-    sal: "llengua salish"
     sam: "arameu samarità"
     saq: samburu
     sas: sasak
@@ -447,25 +400,19 @@ ca:
     see: seneca
     seh: sena
     sel: selkup
-    sem: "llengua semítica"
     ses: "koyraboro senni"
     sg: sango
     sga: "irlandès antic"
-    sgn: "llengua de signes"
     sh: serbocroat
     shi: tachelhit
     shn: xan
     shu: "àrab txadià"
     si: singalès
     sid: sidamo
-    sio: "llengua sioux"
-    sit: "llengua sinotibetana"
     sk: eslovac
     sl: eslovè
-    sla: "llengua eslava"
     sm: samoà
     sma: "sami meridional"
-    smi: "llengua sami"
     smj: "sami lule"
     smn: "sami d'Inari"
     sms: "sami skolt"
@@ -473,13 +420,11 @@ ca:
     snk: soninke
     so: somali
     sog: sogdià
-    son: songhai
     sq: albanès
     sr: serbi
     srn: sranan
     srr: serer
     ss: siswati
-    ssa: "llengua nilosahariana"
     ssy: saho
     st: "sotho meridional"
     su: sundanès
@@ -493,7 +438,6 @@ ca:
     syc: "siríac clàssic"
     syr: siríac
     ta: tàmil
-    tai: "llengua tai"
     te: telugu
     tem: temne
     teo: teso
@@ -520,8 +464,6 @@ ca:
     tsi: tsimshià
     tt: tàtar
     tum: tumbuka
-    tup: "llengua tupí"
-    tut: "llengua altaica"
     tvl: tuvaluà
     tw: twi
     twq: tasawaq
@@ -544,11 +486,9 @@ ca:
     vun: vunjo
     wa: való
     wae: walser
-    wak: "llengua wakash"
     wal: ameto
     war: waray-waray
     was: washo
-    wen: sòrab
     wo: wòlof
     xal: calmuc
     xh: xosa
@@ -559,16 +499,15 @@ ca:
     ybb: yemba
     yi: jiddisch
     yo: ioruba
-    ypk: "llengua iupik"
     yue: cantonès
     za: zhuang
     zap: zapoteca
     zbl: "símbols Bliss"
     zen: zenaga
+    zgh: "amazic estàndard marroquí"
     zh: xinès
     zh-CN: "xinès simplificat"
     zh-TW: "xinès tradicional"
-    znd: zande
     zu: zulu
     zun: zuni
     zxx: "sense contingut lingüístic"

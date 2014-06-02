@@ -1,38 +1,29 @@
 gl:
   languages:
     ab: abkhazo
-    ach: Acoli
+    ach: acoli
     af: afrikaans
-    afa: "lingua afro-asiática"
-    ak: Akán
-    alg: "lingua algonquina"
+    ak: akán
     am: amárico
     an: aragonés
-    apa: "lingua apache"
     ar: árabe
+    ar-001: "árabe estándar moderno"
     arc: arameo
-    art: "lingua artificial"
     as: assamés
     ast: asturiano
-    aus: "lingua australiana"
     ay: aimará
     az: acerbaixano
-    bat: "lingua báltica"
     be: bielorruso
-    bem: Bemba
+    bem: bemba
     bg: búlgaro
-    bh: Bihariano
     bn: bengalí
     bo: tibetano
-    br: Bretón
+    br: bretón
     bs: bosnio
     ca: catalán
-    cai: "lingua india centroamericana"
-    cau: "lingua caucásica"
-    cel: "lingua céltica"
-    chr: Cheroqui
-    ckb: "Kurdo soraní"
-    co: Corso
+    chr: cheroqui
+    ckb: "curdo soraní"
+    co: corso
     cs: checo
     cu: "eslavo eclesiástico"
     cy: galés
@@ -42,25 +33,25 @@ gl:
     de-CH: "alto alemán suízo"
     dv: divehi
     dz: dzongkha
-    ee: Ewé
+    ee: ewé
     efi: ibibio
     egy: "exipcio antigo"
     el: grego
     en: inglés
     en-AU: "inglés australiano"
     en-CA: "inglés canadiano"
-    en-GB: "inglés británico"
-    en-US: "inglés americano"
+    en-GB: "inglés R.U."
+    en-US: "inglés EUA"
     eo: esperanto
     es: español
     es-419: "español latinoamericano"
     es-ES: castelán
+    es-MX: "español de México"
     et: estoniano
     eu: éuscaro
     fa: persa
     fi: finés
     tl: filipino
-    fiu: "lingua finno-úgrica"
     fj: fixiano
     fo: faroés
     fr: francés
@@ -68,9 +59,8 @@ gl:
     fr-CH: "francés suízo"
     fy: frisón
     ga: irlandés
-    gaa: Ga
+    gaa: ga
     gd: "gaélico escocés"
-    gem: "lingua xermánica"
     gl: galego
     gn: guaraní
     grc: "grego antigo"
@@ -84,37 +74,34 @@ gl:
     ht: haitiano
     hu: húngaro
     hy: armenio
-    ia: Interlingua
+    ia: interlingua
     id: indonesio
     ig: ibo
-    inc: "lingua índica"
-    ine: "lingua indoeuropea"
     is: islandés
     it: italiano
     ja: xaponés
     jv: xavanés
     ka: xeorxiano
-    kg: Congolés
+    kg: kongo
     kk: casaco
     km: cambodiano
     kn: kannada
     ko: coreano
     ks: cachemir
     ku: kurdo
-    ky: kyrgiz
+    ky: quirguiz
     la: latín
     lb: luxemburgués
-    lg: Ganda
+    lg: ganda
     ln: lingala
     lo: laotiano
-    loz: Lozi
+    loz: lozi
     lt: lituano
-    lua: Luba-Lulua
+    lua: luba-lulua
     lv: letón
-    mfe: "Crioulo mauritano"
+    mfe: "crioulo mauritano"
     mg: malgaxe
     mi: maorí
-    mis: "lingua miscelánea"
     mk: macedonio
     ml: malabar
     mn: mongol
@@ -123,7 +110,6 @@ gl:
     mt: maltés
     mul: "varias linguas"
     my: birmano
-    nai: "lingua india norteamericana"
     nb: "noruegués bokmal"
     nd: "ndebele do norte"
     ne: nepalí
@@ -131,47 +117,39 @@ gl:
     nl-BE: flamenco
     nn: "noruegués nynorsk"
     "no": noruegués
-    nso: "Sesotho sa leboa"
-    nub: "lingua nubia"
+    nso: "sesotho sa leboa"
     ny: chewa
-    nyn: Nyankole
-    oc: Occitano
-    om: Oromo
+    nyn: nyankole
+    oc: occitano
+    om: oromo
     or: oriya
     os: osetio
     pa: punjabi
-    phi: "lingua filipina"
     pl: polaco
     ps: paxtún
     pt: portugués
     pt-BR: "portugués brasileiro"
-    pt-PT: "Portugués europeo"
+    pt-PT: "portugués europeo"
     qu: quechua
     rm: romanche
     rn: rundi
     ro: romanés
-    roa: "lingua románica"
     ru: ruso
     rw: ruandés
     sa: sánscrito
-    sai: "lingua india sudamericana"
     sd: sindhi
     se: "sami do norte"
-    sem: "lingua semita"
     sg: sango
-    sgn: "lingua de signos"
     sh: serbocroata
     si: cingalés
     sk: eslovaco
     sl: esloveno
-    sla: "lingua eslávica"
     sm: samoano
     sn: shona
     so: somalí
     sq: albanés
     sr: serbio
     ss: swati
-    ssa: "lingua do nilo-sáhara"
     st: sesoto
     su: sondanés
     sv: sueco
@@ -184,15 +162,14 @@ gl:
     ti: tigriña
     tk: turcomano
     tl: tagalo
-    tlh: Clingon
+    tlh: klingon
     tn: tswana
     to: tonganés
     tpi: "tok pisin"
     tr: turco
     ts: xitsonga
     tt: tártaro
-    tum: Tumbuka
-    tut: "lingua altaica"
+    tum: tumbuka
     ty: tahitiano
     ug: uigur
     uk: ucraíno
@@ -203,8 +180,9 @@ gl:
     vi: vietnamita
     wo: wólof
     xh: xhosa
-    yi: Yiddish
+    yi: yiddish
     yo: ioruba
+    zgh: "tamazight de Marrocos estándar"
     zh: chinés
     zh-CN: "chinés simplificado"
     zh-TW: "chinés tradicional"

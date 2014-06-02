@@ -71,9 +71,9 @@ sl:
     BZ: Belize
     CA: Kanada
     CC: "Kokosovi otoki"
-    CD: "Kongo [Demokratična republika Kongo]"
+    CD: "Kongo (Demokratična republika Kongo)"
     CF: "Centralnoafriška republika"
-    CG: "Kongo [Republika]"
+    CG: "Kongo (Republika)"
     CH: Švica
     CI: "Slonokoščena obala"
     CK: "Cookovo otočje"
@@ -107,12 +107,12 @@ sl:
     EU: "Evropska unija"
     FI: Finska
     FJ: Fidži
-    FK: "Falklandski otoki [Malvinski otoki]"
+    FK: "Falklandski otoki (Malvinski otoki)"
     FM: Mikronezija
     FO: "Ferski otoki"
     FR: Francija
     GA: Gabon
-    GB: "Velika Britanija"
+    GB: ZK
     GD: Grenada
     GE: Gruzija
     GF: "Francoska Gvajana"
@@ -180,9 +180,9 @@ sl:
     MF: "Saint Martin"
     MG: Madagaskar
     MH: "Marshallovi otoki"
-    MK: "Makedonija [FYROM]"
+    MK: "Makedonija (FYROM)"
     ML: Mali
-    MM: "Mjanmar [Burma]"
+    MM: "Mjanmar (Burma)"
     MN: Mongolija
     MO: Macao
     MP: "Severni Marianski otoki"
@@ -271,7 +271,7 @@ sl:
     UA: Ukrajina
     UG: Uganda
     UM: "Druga ameriška ozemlja v Tihem oceanu"
-    US: "Združene države Amerike"
+    US: ZDA
     UY: Urugvaj
     UZ: Uzbekistan
     VA: Vatikan

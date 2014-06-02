@@ -2,17 +2,17 @@ eu:
   languages:
     ab: abkhazera
     ach: Acholiera
-    af: afrikaans
+    af: afrikaansa
     ak: Akanera
-    am: amharikera
+    am: amharera
     ar: arabiera
+    ar-001: "arabiera moderno estandarra"
     as: assamera
     ay: aimara
-    az: azerbaijanera
+    az: azeriera
     be: bielorrusiera
     bem: Bembera
     bg: bulgariera
-    bh: Bihariera
     bn: bengalera
     bo: tibetera
     br: Bretoiera
@@ -34,14 +34,13 @@ eu:
     en: ingelesa
     en-US: "ingelesa (AEB)"
     eo: esperantoa
-    es: gaztelania
-    es-419: "espainiera (Latinoamerika)"
+    es: espainiera
     es-ES: "espainiera (Europa)"
     et: estoniera
     eu: euskara
-    fa: pertsiera
+    fa: persiera
     fi: finlandiera
-    tl: tagalo
+    tl: tagaloga
     fj: fijiera
     fo: faroera
     fr: frantsesa
@@ -73,7 +72,7 @@ eu:
     kg: Kikongoa
     kk: kazakhera
     km: khemerera
-    kn: kannada
+    kn: kannadera
     ko: koreera
     ks: kashmirera
     ku: kurduera
@@ -88,7 +87,7 @@ eu:
     lua: Luba-lulua
     lv: letoniera
     mfe: "Mauritaniako kreolera"
-    mg: malgaxea
+    mg: malagasyera
     mi: maoriera
     mk: mazedoniera
     ml: malayalamera
@@ -110,7 +109,7 @@ eu:
     nyn: Ankolera
     oc: Okzitaniera
     om: Oromoera
-    or: oriya
+    or: oriyera
     os: osetiera
     pa: punjabera
     pl: poloniera
@@ -142,11 +141,11 @@ eu:
     sv: suediera
     sw: swahili
     ta: tamilera
-    te: telugua
+    te: teluguera
     tet: tetuma
     tg: tajikistanera
     th: thailandiera
-    ti: tigrinya
+    ti: tigriñera
     tk: turkmeniera
     tl: tagalog
     tlh: Klingonera
@@ -159,19 +158,20 @@ eu:
     tum: Tumbukera
     tw: twia
     ty: tahitiera
-    ug: uyghurera
+    ug: uigurrera
     uk: ukrainera
     und: "hizkuntza ezezaguna"
-    ur: urdu
+    ur: urdua
     uz: uzbekera
     ve: vendera
     vi: vietnamera
     wo: wolofera
-    xh: xhosa
+    xh: xhosera
     yi: Jiddisha
     yo: yorubera
+    zgh: "tamazight estandarra"
     zh: txinera
-    zh-CN: "txinera (soildua)"
-    zh-TW: "txinera (tradizionala)"
+    zh-CN: "txinera soildua"
+    zh-TW: "txinera tradizionala"
     zu: zuluera
     zxx: "ez dago eduki linguistikorik"

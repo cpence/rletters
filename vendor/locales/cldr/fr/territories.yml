@@ -18,7 +18,7 @@ fr:
     034: "Asie du Sud"
     035: "Asie du Sud-Est"
     039: "Europe méridionale"
-    053: "Australie et Nouvelle-Zélande"
+    053: Australasie
     054: Mélanésie
     057: "région micronésienne"
     061: Polynésie
@@ -57,7 +57,7 @@ fr:
     BH: Bahreïn
     BI: Burundi
     BJ: Bénin
-    BL: Saint-Barthélémy
+    BL: Saint-Barthélemy
     BM: Bermudes
     BN: "Brunéi Darussalam"
     BO: Bolivie
@@ -67,11 +67,11 @@ fr:
     BT: Bhoutan
     BV: "Île Bouvet"
     BW: Botswana
-    BY: Bélarus
+    BY: Biélorussie
     BZ: Belize
     CA: Canada
-    CC: "Îles Cocos [Keeling]"
-    CD: "Congo [RDC]"
+    CC: "Îles Cocos (Keeling)"
+    CD: "Congo (RDC)"
     CF: "République centrafricaine"
     CG: "République du Congo"
     CH: Suisse
@@ -112,7 +112,7 @@ fr:
     FO: "Îles Féroé"
     FR: France
     GA: Gabon
-    GB: Royaume-Uni
+    GB: R.-U.
     GD: Grenade
     GE: Géorgie
     GF: "Guyane française"
@@ -142,7 +142,7 @@ fr:
     IL: Israël
     IM: "Île de Man"
     IN: Inde
-    IO: "Territoire britannique de l'océan Indien"
+    IO: "Territoire britannique de l’océan Indien"
     IQ: Irak
     IR: Iran
     IS: Islande
@@ -177,10 +177,10 @@ fr:
     MC: Monaco
     MD: Moldavie
     ME: Monténégro
-    MF: "Saint-Martin [partie française]"
+    MF: "Saint-Martin (partie française)"
     MG: Madagascar
     MH: "Îles Marshall"
-    MK: "Macédoine [ARYM]"
+    MK: "Macédoine (ARYM)"
     ML: Mali
     MM: Myanmar
     MN: Mongolie
@@ -225,7 +225,7 @@ fr:
     PY: Paraguay
     QA: Qatar
     QO: "régions éloignées de l’Océanie"
-    RE: Réunion
+    RE: "La Réunion"
     RO: Roumanie
     RS: Serbie
     RU: Russie
@@ -238,7 +238,7 @@ fr:
     SG: Singapour
     SH: Sainte-Hélène
     SI: Slovénie
-    SJ: "Svalbard et Île Jan Mayen"
+    SJ: "Svalbard et Jan Mayen"
     SK: Slovaquie
     SL: "Sierra Leone"
     SM: Saint-Marin
@@ -246,13 +246,13 @@ fr:
     SO: Somalie
     SR: Suriname
     SS: "Soudan du Sud"
-    ST: "Sao Tomé-et-Príncipe"
+    ST: "Sao Tomé-et-Principe"
     SV: "El Salvador"
-    SX: "Saint-Martin [partie néerlandaise]"
+    SX: "Saint-Martin (partie néerlandaise)"
     SY: Syrie
     SZ: Swaziland
     TA: "Tristan da Cunha"
-    TC: "Îles Turks et Caïques"
+    TC: "Îles Turques-et-Caïques"
     TD: Tchad
     TF: "Terres australes françaises"
     TG: Togo
@@ -270,8 +270,8 @@ fr:
     TZ: Tanzanie
     UA: Ukraine
     UG: Ouganda
-    UM: "Îles éloignées des États-Unis"
-    US: É-U
+    UM: "Îles mineures éloignées des États-Unis"
+    US: É.-U.
     UY: Uruguay
     UZ: Ouzbékistan
     VA: "État de la Cité du Vatican"
@@ -279,7 +279,7 @@ fr:
     VE: Venezuela
     VG: "Îles Vierges britanniques"
     VI: "Îles Vierges des États-Unis"
-    VN: "Viêt Nam"
+    VN: Vietnam
     VU: Vanuatu
     WF: Wallis-et-Futuna
     WS: Samoa

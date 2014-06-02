@@ -70,7 +70,7 @@ fi:
     BY: Valko-Venäjä
     BZ: Belize
     CA: Kanada
-    CC: "Kookossaaret [Keelingsaaret]"
+    CC: "Kookossaaret (Keelingsaaret)"
     CD: Kongo-Kinshasa
     CF: "Keski-Afrikan tasavalta"
     CG: Kongo-Brazzaville
@@ -107,7 +107,7 @@ fi:
     EU: "Euroopan unioni"
     FI: Suomi
     FJ: Fidži
-    FK: "Falklandinsaaret [Malvinassaaret]"
+    FK: "Falklandinsaaret (Malvinassaaret)"
     FM: "Mikronesian liittovaltio"
     FO: Färsaaret
     FR: Ranska
@@ -131,7 +131,7 @@ fi:
     GW: Guinea-Bissau
     GY: Guyana
     HK: Hongkong
-    HM: "Heard- ja McDonaldinsaaret"
+    HM: "Heard ja McDonaldinsaaret"
     HN: Honduras
     HR: Kroatia
     HT: Haiti
@@ -182,7 +182,7 @@ fi:
     MH: Marshallinsaaret
     MK: "EJT Makedonia"
     ML: Mali
-    MM: "Myanmar [Burma]"
+    MM: "Myanmar (Burma)"
     MN: Mongolia
     MO: Macao
     MP: Pohjois-Mariaanit
@@ -270,8 +270,8 @@ fi:
     TZ: Tansania
     UA: Ukraina
     UG: Uganda
-    UM: "Yhdysvaltain pienet erillissaaret"
-    US: Yhdysvallat
+    UM: "Yhdysvaltain erillissaaret"
+    US: USA
     UY: Uruguay
     UZ: Uzbekistan
     VA: Vatikaani

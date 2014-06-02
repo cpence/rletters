@@ -1,6 +1,6 @@
 pl:
   territories:
-    001: Świat
+    001: świat
     002: Afryka
     003: "Ameryka Północna"
     005: "Ameryka Południowa"
@@ -12,7 +12,7 @@ pl:
     017: "Afryka Środkowa"
     018: "Afryka Południowa"
     019: Ameryka
-    021: "Ameryka Północna - Kanada, USA"
+    021: "Ameryka Północna (USA, Kanada)"
     029: Karaiby
     030: "Azja Wschodnia"
     034: "Azja Południowa"
@@ -20,7 +20,7 @@ pl:
     039: "Europa Południowa"
     053: Australazja
     054: Melanezja
-    057: Mikronezja
+    057: "Region Mikronezji"
     061: Polinezja
     142: Azja
     143: "Azja Środkowa"
@@ -73,7 +73,7 @@ pl:
     CC: "Wyspy Kokosowe"
     CD: "Demokratyczna Republika Konga"
     CF: "Republika Środkowoafrykańska"
-    CG: Kongo
+    CG: "Republika Konga"
     CH: Szwajcaria
     CI: "Wybrzeże Kości Słoniowej"
     CK: "Wyspy Cooka"
@@ -94,7 +94,7 @@ pl:
     DJ: Dżibuti
     DK: Dania
     DM: Dominika
-    DO: "Republika Dominikańska"
+    DO: Dominikana
     DZ: Algieria
     EA: "Ceuta i Melilla"
     EC: Ekwador
@@ -107,12 +107,12 @@ pl:
     EU: "Unia Europejska"
     FI: Finlandia
     FJ: Fidżi
-    FK: "Falklandy [Malwiny]"
-    FM: "Federalne Stany Mikronezji"
+    FK: "Falklandy (Malwiny)"
+    FM: Mikronezja
     FO: "Wyspy Owcze"
     FR: Francja
     GA: Gabon
-    GB: "Wielka Brytania"
+    GB: GB
     GD: Grenada
     GE: Gruzja
     GF: "Gujana Francuska"
@@ -142,7 +142,7 @@ pl:
     IL: Izrael
     IM: "Wyspa Man"
     IN: Indie
-    IO: "Terytorium Brytyjskie Oceanu Indyjskiego"
+    IO: "Brytyjskie Terytorium Oceanu Indyjskiego"
     IQ: Irak
     IR: Iran
     IS: Islandia
@@ -182,7 +182,7 @@ pl:
     MH: "Wyspy Marshalla"
     MK: Macedonia
     ML: Mali
-    MM: Birma
+    MM: "Mjanma (Birma)"
     MN: Mongolia
     MO: Makau
     MP: "Mariany Północne"
@@ -212,7 +212,7 @@ pl:
     PA: Panama
     PE: Peru
     PF: "Polinezja Francuska"
-    PG: "Papua Nowa Gwinea"
+    PG: "Papua-Nowa Gwinea"
     PH: Filipiny
     PK: Pakistan
     PL: Polska
@@ -271,7 +271,7 @@ pl:
     UA: Ukraina
     UG: Uganda
     UM: "Dalekie Wyspy Mniejsze Stanów Zjednoczonych"
-    US: "Stany Zjednoczone"
+    US: USA
     UY: Urugwaj
     UZ: Uzbekistan
     VA: Watykan

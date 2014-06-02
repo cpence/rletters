@@ -8,71 +8,69 @@ pl:
     ady: adygejski
     ae: awestyjski
     af: afrikaans
-    afa: afro-azjatycki
     afh: afrihili
+    agq: aghem
     ain: ajnu
     ak: akan
     akk: akadyjski
     ale: aleucki
-    alg: "języki algonkin"
     alt: południowoałtajski
     am: amharski
     an: aragoński
     ang: staroangielski
     anp: angika
-    apa: "język Apaczów"
     ar: arabski
+    ar-001: "współczesny arabski"
     arc: aramejski
     arn: araukański
     arp: arapaho
-    art: sztuczny
     arw: arawak
     as: asamski
+    asa: asu
     ast: asturyjski
-    ath: "język Atapasków"
-    aus: "język australijski"
     av: awarski
     awa: awadhi
     ay: ajmara
     az: azerski
     ba: baszkirski
-    bad: "język banda"
-    bai: "język bamileke"
     bal: beludżi
     ban: balijski
     bas: basa
-    bat: bałtycki
+    bax: bamum
+    bbj: ghomala
     be: białoruski
     bej: bedża
     bem: bemba
-    ber: berberski
+    bez: bena
+    bfd: bafut
     bg: bułgarski
-    bh: biharski
     bho: bhodźpuri
     bi: bislama
     bik: bikol
     bin: bini
+    bkm: kom
     bla: siksika
     bm: bambara
     bn: bengalski
-    bnt: bantu
     bo: tybetański
     br: bretoński
     bra: bradź
+    brx: bodo
     bs: bośniacki
-    btk: batak
+    bss: akose
     bua: buriacki
     bug: bugiński
+    bum: bulu
     byn: blin
+    byv: medumba
     ca: kataloński
     cad: kaddo
-    cai: "język Indian środkowoamerykańskich"
     car: karibi
-    cau: kaukaski
+    cay: kajuga
     cch: atsam
     ce: czeczeński
     ceb: cebuano
-    cel: celtycki
+    cgg: chiga
     ch: chamorro
     chb: czibcza
     chg: czagatajski
@@ -84,25 +82,19 @@ pl:
     chr: czirokeski
     chy: "język Czejenów"
     ckb: "sorani kurdyjski"
-    cmc: czam
     co: korsykański
     cop: koptyjski
-    cpe: "angielski kreolski lub pidżin"
-    cpf: "francuski kreolski lub pidżin"
-    cpp: "portugalski kreolski lub pidżin"
     cr: kri
     crh: "krymski turecki"
-    crp: "kreolski lub pidżin"
     cs: czeski
     csb: kaszubski
     cu: staro-cerkiewno-słowiański
-    cus: kuszycki
     cv: czuwaski
     cy: walijski
     da: duński
     dak: dakota
     dar: dargwijski
-    day: dajak
+    dav: taita
     de: niemiecki
     de-AT: "austriacki niemiecki"
     de-CH: "wysokoniemiecki (Szwajcaria)"
@@ -110,14 +102,17 @@ pl:
     den: slave
     dgr: dogrib
     din: dinka
+    dje: dżerma
     doi: dogri
-    dra: drawidyjski
     dsb: dolnołużycki
     dua: duala
     dum: "średniowieczny niderlandzki"
     dv: malediwski
+    dyo: diola
     dyu: dyula
     dz: dzongkha
+    dzg: dazaga
+    ebu: embu
     ee: ewe
     efi: efik
     egy: "starożytny egipski"
@@ -134,6 +129,7 @@ pl:
     es: hiszpański
     es-419: "amerykański hiszpański"
     es-ES: "europejski hiszpański"
+    es-MX: "meksykański hiszpański"
     et: estoński
     eu: baskijski
     ewo: ewondo
@@ -143,7 +139,6 @@ pl:
     ff: fulani
     fi: fiński
     tl: filipino
-    fiu: ugrofiński
     fj: fidżijski
     fo: farerski
     fon: fon
@@ -161,10 +156,9 @@ pl:
     gay: gayo
     gba: gbaya
     gd: "szkocki gaelicki"
-    gem: germański
     gez: gyyz
     gil: gilbertański
-    gl: galisyjski
+    gl: galicyjski
     gmh: średnio-wysoko-niemiecki
     gn: guarani
     goh: staro-wysoko-niemiecki
@@ -175,6 +169,7 @@ pl:
     grc: starogrecki
     gsw: "szwajcarski niemiecki"
     gu: gudźaracki
+    guz: gusii
     gv: manx
     gwi: gwichʼin
     ha: hausa
@@ -183,7 +178,6 @@ pl:
     he: hebrajski
     hi: hindi
     hil: hiligajnon
-    him: himachali
     hit: hetycki
     hmn: hmongijski
     ho: "hiri motu"
@@ -196,24 +190,22 @@ pl:
     hz: herero
     ia: interlingua
     iba: ibanag
+    ibb: ibibio
     id: indonezyjski
     ie: interlingue
     ig: igbo
     ii: syczuański
-    ijo: ijo
     ik: inupiak
     ilo: ilokano
-    inc: indoaryjski
-    ine: indoeuropejski
     inh: inguski
     io: ido
-    ira: irański
-    iro: irokeski
     is: islandzki
     it: włoski
     iu: inuktitut
     ja: japoński
     jbo: lojban
+    jgo: ngombe
+    jmc: machame
     jpr: judeoperski
     jrb: judeoarabski
     jv: jawajski
@@ -223,19 +215,23 @@ pl:
     kac: kaczin
     kaj: jju
     kam: kamba
-    kar: kareński
     kaw: kawi
     kbd: kabardyjski
+    kbl: kanembu
     kcg: tyap
+    kde: makonde
+    kea: "kreolski Wysp Zielonego Przylądka"
     kfo: koro
     kg: kongo
     kha: khasi
-    khi: khoisan
     kho: chotański
+    khq: "koyra chini"
     ki: kikuju
     kj: kwanyama
     kk: kazachski
+    kkj: kako
     kl: grenlandzki
+    kln: kalenjin
     km: khmerski
     kmb: kimbundu
     kn: kannada
@@ -246,9 +242,11 @@ pl:
     kr: kanuri
     krc: karaczajsko-bałkarski
     krl: karelski
-    kro: kru
     kru: kurukh
     ks: kaszmirski
+    ksb: sambala
+    ksf: bafia
+    ksh: "gwara kolońska"
     ku: kurdyjski
     kum: kumycki
     kut: kutenai
@@ -257,6 +255,7 @@ pl:
     ky: kirgiski
     la: łaciński
     lad: ladyński
+    lag: langi
     lah: lahnda
     lam: lamba
     lb: luksemburski
@@ -274,69 +273,70 @@ pl:
     lun: lunda
     luo: luo
     lus: lushai
+    luy: luhya
     lv: łotewski
     mad: madurajski
+    maf: mafa
     mag: magahi
     mai: maithili
     mak: makasar
     man: mandingo
-    map: austronezyjski
     mas: masajski
+    mde: maba
     mdf: moksha
     mdr: mandar
     men: mende
+    mer: meru
     mfe: "kreolski Mauritiusa"
     mg: malgaski
     mga: średnioirlandzki
+    mgh: makua
+    mgo: meta
     mh: marshall
     mi: maoryjski
     mic: micmac
     min: minangkabu
-    mis: "inny język"
     mk: macedoński
-    mkh: mon-khmer
     ml: malajalam
     mn: mongolski
     mnc: manchu
     mni: manipuryjski
-    mno: manobo
-    mo: mołdawski
     moh: mohawk
     mos: mossi
     mr: marathi
     ms: malajski
     mt: maltański
+    mua: mundang
     mul: "wiele języków"
-    mun: mundajski
     mus: creek
     mwl: mirandese
     mwr: marwari
     my: birmański
-    myn: "język Majów"
+    mye: myene
     myv: erzya
     na: nauru
-    nah: nahuatl
-    nai: "język Indian północnoamerykańskich"
     nap: neapolitański
-    nb: "norweski Bokmål"
+    naq: nama
+    nb: "norweski (bokmål)"
     nd: "ndebele północny"
     nds: dolnosaksoński
     ne: nepalski
     new: newarski
     ng: ndonga
     nia: nias
-    nic: nigrokordofański
     niu: niue
     nl: niderlandzki
     nl-BE: "flamandzki (Belgia)"
-    nn: "norweski Nynorsk"
+    nmg: ngumba
+    nn: "norweski (nynorsk)"
+    nnh: ngiemboon
     "no": norweski
     nog: nogajski
     non: staronordyjski
     nqo: n’ko
     nr: "ndebele południowy"
     nso: "sotho północny"
-    nub: nubijski
+    nus: nuer
     nv: nawaho
     nwc: "newarski klasyczny"
     ny: njandża
@@ -351,21 +351,17 @@ pl:
     os: osetyjski
     osa: osage
     ota: osmańsko-turecki
-    oto: otomi
     pa: pendżabski
-    paa: papuaski
     pag: pangasino
     pal: pahlavi
     pam: pampango
     pap: papiamento
     pau: palau
     peo: staroperski
-    phi: filipiński
     phn: fenicki
     pi: palijski
     pl: polski
     pon: ponpejski
-    pra: prakryty
     pro: staroprowansalski
     ps: pasztuński
     pt: portugalski
@@ -378,42 +374,44 @@ pl:
     rm: retoromański
     rn: rundi
     ro: rumuński
-    roa: romański
+    ro-MD: mołdawski
+    rof: rombo
     rom: cygański
     root: "język rdzenny"
     ru: rosyjski
     rup: arumuński
     rw: kinya-ruanda
+    rwk: rwa
     sa: sanskryt
     sad: sandawe
     sah: jakucki
-    sai: "język Indian południowoamerykańskich"
-    sal: salisz
     sam: "samarytański aramejski"
+    saq: samburu
     sas: sasak
     sat: santali
+    sba: ngambay
+    sbp: sangu
     sc: sardyński
     scn: sycylijski
     sco: szkocki
     sd: sindhi
     se: "lapoński północny"
+    see: seneka
+    seh: sena
     sel: selkupski
-    sem: semicki
+    ses: "koyraboro senni"
     sg: sango
     sga: staroirlandzki
-    sgn: migowy
     sh: serbsko-chorwacki
+    shi: tashelhiyt
     shn: shan
+    shu: "arabski (Czad)"
     si: syngaleski
     sid: sidamo
-    sio: siouański
-    sit: chińsko-tybetański
     sk: słowacki
     sl: słoweński
-    sla: słowiański
     sm: samoański
     sma: "lapoński południowy"
-    smi: lapoński
     smj: "lapoński Lule"
     smn: "lapoński Inari"
     sms: "lapoński Skolt"
@@ -421,13 +419,12 @@ pl:
     snk: soninke
     so: somalijski
     sog: sogdyjski
-    son: songhaj
     sq: albański
     sr: serbski
     srn: "sranan tongo"
     srr: serer
     ss: siswati
-    ssa: nilosaharyjski
+    ssy: saho
     st: "sotho południowy"
     su: sundajski
     suk: sukuma
@@ -436,11 +433,13 @@ pl:
     sv: szwedzki
     sw: suahili
     swb: komoryjski
+    swc: "kongijski suahili"
     syc: syriacki
     syr: syryjski
     ta: tamilski
     te: telugu
     tem: temne
+    teo: ateso
     ter: tereno
     tet: tetum
     tg: tadżycki
@@ -459,16 +458,17 @@ pl:
     tog: "tonga (Niasa)"
     tpi: "tok pisin"
     tr: turecki
+    trv: taroko
     ts: tsonga
     tsi: tsimshian
     tt: tatarski
     tum: tumbuka
-    tup: tupi
-    tut: ałtajski
     tvl: tuvalu
     tw: twi
+    twq: tasawaq
     ty: tahitański
     tyv: tuwiński
+    tzm: "centralnomarokański tamazight"
     udm: udmurcki
     ug: ujgurski
     uga: ugarycki
@@ -482,30 +482,32 @@ pl:
     vi: wietnamski
     vo: volapuk
     vot: wotiacki
+    vun: vunjo
     wa: waloński
-    wak: wakasz
+    wae: walser
     wal: walamo
     war: waraj
     was: washo
-    wen: łużycki
     wo: wolof
     xal: kałmucki
     xh: khosa
+    xog: soga
     yao: yao
     yap: japski
+    yav: yangben
+    ybb: yemba
     yi: jidysz
     yo: joruba
-    ypk: jupik
     yue: kantoński
     za: czuang
     zap: zapotecki
     zbl: bliss
     zen: zenaga
+    zgh: zgh
     zh: chiński
     zh-CN: "chiński (uproszczony)"
     zh-TW: "chiński (tradycyjny)"
-    znd: azande
     zu: zulu
     zun: zuni
-    zxx: "brak treści o charakterze lingwistycznym"
+    zxx: "brak treści o charakterze językowym"
     zza: zazaki

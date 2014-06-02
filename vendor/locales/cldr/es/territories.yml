@@ -11,7 +11,7 @@ es:
     015: "África septentrional"
     017: "África central"
     018: "África meridional"
-    019: Américas
+    019: América
     021: Norteamérica
     029: Caribe
     030: "Asia oriental"
@@ -48,13 +48,13 @@ es:
     AW: Aruba
     AX: "Islas Åland"
     AZ: Azerbaiyán
-    BA: Bosnia-Herzegovina
+    BA: "Bosnia y Herzegovina"
     BB: Barbados
-    BD: Bangladesh
+    BD: Bangladés
     BE: Bélgica
     BF: "Burkina Faso"
     BG: Bulgaria
-    BH: Bahréin
+    BH: Baréin
     BI: Burundi
     BJ: Benín
     BL: "San Bartolomé"
@@ -71,9 +71,9 @@ es:
     BZ: Belice
     CA: Canadá
     CC: "Islas Cocos"
-    CD: "Congo [República Democrática del Congo]"
+    CD: "Congo (República Democrática del Congo)"
     CF: "República Centroafricana"
-    CG: "Congo [República]"
+    CG: "Congo (República)"
     CH: Suiza
     CI: "Costa de Marfil"
     CK: "Islas Cook"
@@ -107,16 +107,16 @@ es:
     EU: "Unión Europea"
     FI: Finlandia
     FJ: Fiyi
-    FK: "Islas Malvinas [Islas Falkland]"
+    FK: "Islas Malvinas (Islas Falkland)"
     FM: Micronesia
     FO: "Islas Feroe"
     FR: Francia
     GA: Gabón
-    GB: "Reino Unido"
+    GB: UK
     GD: Granada
     GE: Georgia
     GF: "Guayana Francesa"
-    GG: Guernsey
+    GG: Guernesey
     GH: Ghana
     GI: Gibraltar
     GL: Groenlandia
@@ -128,7 +128,7 @@ es:
     GS: "Islas Georgia del Sur y Sandwich del Sur"
     GT: Guatemala
     GU: Guam
-    GW: Guinea-Bissau
+    GW: Guinea-Bisáu
     GY: Guyana
     HK: "Hong Kong"
     HM: "Islas Heard y McDonald"
@@ -136,7 +136,7 @@ es:
     HR: Croacia
     HT: Haití
     HU: Hungría
-    IC: "Islas Canarias"
+    IC: "islas Canarias"
     ID: Indonesia
     IE: Irlanda
     IL: Israel
@@ -180,9 +180,9 @@ es:
     MF: "San Martín"
     MG: Madagascar
     MH: "Islas Marshall"
-    MK: "Macedonia [ERYM]"
+    MK: "Macedonia (ERYM)"
     ML: Mali
-    MM: "Myanmar [Birmania]"
+    MM: "Myanmar (Birmania)"
     MN: Mongolia
     MO: Macao
     MP: "Islas Marianas del Norte"
@@ -223,7 +223,7 @@ es:
     PT: Portugal
     PW: Palau
     PY: Paraguay
-    QA: Qatar
+    QA: Catar
     QO: "Territorios alejados de Oceanía"
     RE: Reunión
     RO: Rumanía
@@ -270,7 +270,7 @@ es:
     TZ: Tanzania
     UA: Ucrania
     UG: Uganda
-    UM: "Islas menores alejadas de los Estados Unidos"
+    UM: "Islas menores alejadas de EE. UU."
     US: "EE. UU."
     UY: Uruguay
     UZ: Uzbekistán
@@ -278,7 +278,7 @@ es:
     VC: "San Vicente y las Granadinas"
     VE: Venezuela
     VG: "Islas Vírgenes Británicas"
-    VI: "Islas Vírgenes de los Estados Unidos"
+    VI: "Islas Vírgenes de EE. UU."
     VN: Vietnam
     VU: Vanuatu
     WF: "Wallis y Futuna"

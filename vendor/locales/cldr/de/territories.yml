@@ -18,7 +18,7 @@ de:
     034: Südasien
     035: Südostasien
     039: Südeuropa
-    053: "Australien und Neuseeland"
+    053: Australasien
     054: Melanesien
     057: "Mikronesisches Inselgebiet"
     061: Polynesien
@@ -46,7 +46,7 @@ de:
     AT: Österreich
     AU: Australien
     AW: Aruba
-    AX: Alandinseln
+    AX: Åland-Inseln
     AZ: Aserbaidschan
     BA: "Bosnien und Herzegowina"
     BB: Barbados
@@ -71,9 +71,9 @@ de:
     BZ: Belize
     CA: Kanada
     CC: Kokosinseln
-    CD: "Kongo [Demokratische Republik]"
+    CD: "Kongo (Demokratische Republik)"
     CF: "Zentralafrikanische Republik"
-    CG: "Kongo [Republik]"
+    CG: "Kongo (Republik)"
     CH: Schweiz
     CI: Elfenbeinküste
     CK: Cookinseln
@@ -112,7 +112,7 @@ de:
     FO: Färöer
     FR: Frankreich
     GA: Gabun
-    GB: "Vereinigtes Königreich"
+    GB: UK
     GD: Grenada
     GE: Georgien
     GF: Französisch-Guayana
@@ -180,7 +180,7 @@ de:
     MF: "St. Martin"
     MG: Madagaskar
     MH: Marshallinseln
-    MK: "Mazedonien [EJR]"
+    MK: "Mazedonien (EJR)"
     ML: Mali
     MM: Myanmar
     MN: Mongolei

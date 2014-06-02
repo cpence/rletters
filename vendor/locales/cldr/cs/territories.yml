@@ -20,7 +20,7 @@ cs:
     039: "Jižní Evropa"
     053: Australasie
     054: Melanésie
-    057: "Mikronésie oblast"
+    057: "Mikronésie (region)"
     061: Polynésie
     142: Asie
     143: "Střední Asie"
@@ -30,7 +30,7 @@ cs:
     154: "Severní Evropa"
     155: "Západní Evropa"
     419: "Latinská Amerika"
-    AC: "Ostrov Ascension"
+    AC: Ascension
     AD: Andorra
     AE: "Spojené arabské emiráty"
     AF: Afghánistán
@@ -46,7 +46,7 @@ cs:
     AT: Rakousko
     AU: Austrálie
     AW: Aruba
-    AX: Alandy
+    AX: Ålandy
     AZ: Ázerbájdžán
     BA: "Bosna a Hercegovina"
     BB: Barbados
@@ -71,9 +71,9 @@ cs:
     BZ: Belize
     CA: Kanada
     CC: "Kokosové ostrovy"
-    CD: "Kongo - DRK"
+    CD: "Kongo (DRK)"
     CF: "Středoafrická republika"
-    CG: "Kongo - republika"
+    CG: "Kongo (republika)"
     CH: Švýcarsko
     CI: "Pobřeží slonoviny"
     CK: "Cookovy ostrovy"
@@ -86,7 +86,7 @@ cs:
     CU: Kuba
     CV: Kapverdy
     CW: Curaçao
-    CX: "Vánoční ostrovy"
+    CX: "Vánoční ostrov"
     CY: Kypr
     CZ: "Česká republika"
     DE: Německo
@@ -107,12 +107,12 @@ cs:
     EU: "Evropská unie"
     FI: Finsko
     FJ: Fidži
-    FK: "Falklandské ostrovy [Malvíny]"
+    FK: "Falklandské ostrovy (Malvíny)"
     FM: Mikronésie
     FO: "Faerské ostrovy"
     FR: Francie
     GA: Gabon
-    GB: "Velká Británie"
+    GB: VB
     GD: Grenada
     GE: Gruzie
     GF: "Francouzská Guyana"
@@ -156,7 +156,7 @@ cs:
     KH: Kambodža
     KI: Kiribati
     KM: Komory
-    KN: "Svatý Kitts a Nevis"
+    KN: "Svatý Kryštof a Nevis"
     KP: "Severní Korea"
     KR: "Jižní Korea"
     KW: Kuvajt
@@ -180,9 +180,9 @@ cs:
     MF: "Svatý Martin"
     MG: Madagaskar
     MH: "Marshallovy ostrovy"
-    MK: Makedonie
+    MK: "Makedonie (FYROM)"
     ML: Mali
-    MM: Myanmar
+    MM: "Myanmar (Barma)"
     MN: Mongolsko
     MO: Macao
     MP: "Severní Mariany"
@@ -216,7 +216,7 @@ cs:
     PH: Filipíny
     PK: Pákistán
     PL: Polsko
-    PM: "Svatý Pierre a Miquelon"
+    PM: "Saint-Pierre a Miquelon"
     PN: "Pitcairnovy ostrovy"
     PR: Portoriko
     PS: Palestina
@@ -252,9 +252,9 @@ cs:
     SY: Sýrie
     SZ: Svazijsko
     TA: "Tristan da Cunha"
-    TC: "Ostrovy Turks a Caicos"
+    TC: "Turks a Caicos"
     TD: Čad
-    TF: "Francouzská jižní teritoria"
+    TF: "Francouzská jižní území"
     TG: Togo
     TH: Thajsko
     TJ: Tádžikistán
@@ -271,7 +271,7 @@ cs:
     UA: Ukrajina
     UG: Uganda
     UM: "Menší odlehlé ostrovy USA"
-    US: "Spojené státy"
+    US: USA
     UY: Uruguay
     UZ: Uzbekistán
     VA: Vatikán

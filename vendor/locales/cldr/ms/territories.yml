@@ -40,13 +40,13 @@ ms:
     AM: Armenia
     AN: "Netherlands Antilles"
     AO: Angola
-    AQ: Antarctica
+    AQ: Antartika
     AR: Argentina
     AS: "American Samoa"
     AT: Austria
     AU: Australia
     AW: Aruba
-    AX: "Kepulauan Åland"
+    AX: "Kepulauan Aland"
     AZ: Azerbaijan
     BA: "Bosnia dan Herzegovina"
     BB: Barbados
@@ -61,41 +61,41 @@ ms:
     BM: Bermuda
     BN: Brunei
     BO: Bolivia
-    BQ: "Caribbean Belanda"
+    BQ: "Belanda Caribbean"
     BR: Brazil
     BS: Bahamas
     BT: Bhutan
-    BV: "Bouvet Island"
+    BV: "Pulau Bouvet"
     BW: Botswana
     BY: Belarus
     BZ: Belize
     CA: Kanada
-    CC: "Cocos [Keeling] Islands"
-    CD: "Congo [DRC]"
+    CC: "Kepulauan Cocos (Keeling)"
+    CD: "Congo (DRC)"
     CF: "Republik Afrika Tengah"
-    CG: "Congo [Republik]"
+    CG: "Congo (Republik)"
     CH: Switzerland
     CI: "Ivory Coast"
-    CK: "Cook Islands"
-    CL: Cile
-    CM: Kamerun
+    CK: "Kepulauan Cook"
+    CL: Chile
+    CM: Cameroon
     CN: China
     CO: Colombia
     CP: "Pulau Clipperton"
-    CR: "Kosta Rika"
+    CR: "Costa Rica"
     CU: Cuba
     CV: "Cape Verde"
     CW: Curacao
-    CX: "Christmas Island"
-    CY: Kibris
+    CX: "Pulau Krismas"
+    CY: Cyprus
     CZ: "Republik Czech"
     DE: Jerman
     DG: "Diego Garcia"
-    DJ: Jibouti
+    DJ: Djibouti
     DK: Denmark
     DM: Dominica
-    DO: "Republik Dominican"
-    DZ: Aljazair
+    DO: "Republik Dominica"
+    DZ: Algeria
     EA: "Ceuta dan Melilla"
     EC: Ecuador
     EE: Estonia
@@ -107,15 +107,15 @@ ms:
     EU: "Kesatuan Eropah"
     FI: Finland
     FJ: Fiji
-    FK: "Kepulauan Falkland [Islas Malvinas]"
+    FK: "Kepulauan Falkland (Islas Malvinas)"
     FM: Micronesia
-    FO: "Faroe Islands"
+    FO: "Kepulauan Faroe"
     FR: Perancis
     GA: Gabon
-    GB: "United Kingdom"
+    GB: GB
     GD: Grenada
     GE: Georgia
-    GF: "French Guiana"
+    GF: "Guiana Perancis"
     GG: Guernsey
     GH: Ghana
     GI: Gibraltar
@@ -123,32 +123,32 @@ ms:
     GM: Gambia
     GN: Guinea
     GP: Guadeloupe
-    GQ: "Equatorial Guinea"
+    GQ: "Guinea Khatulistiwa"
     GR: Yunani
-    GS: "South Georgia and the South Sandwich Islands"
+    GS: "Kepualaun Georgia Selatan dan Sandwich Selatan"
     GT: Guatemala
     GU: Guam
     GW: "Guinea Bissau"
     GY: Guyana
     HK: "Hong Kong"
-    HM: "Heard Island and McDonald Islands"
+    HM: "Pulau Heard dan Kepulauan McDonald"
     HN: Honduras
     HR: Croatia
     HT: Haiti
-    HU: Hungari
+    HU: Hungary
     IC: "Kepulauan Canary"
     ID: Indonesia
     IE: Ireland
     IL: Israel
     IM: "Isle of Man"
     IN: India
-    IO: "British Indian Ocean Territory"
+    IO: "Wilayah Lautan Hindi British"
     IQ: Iraq
     IR: Iran
     IS: Iceland
     IT: Itali
     JE: Jersey
-    JM: Jamaika
+    JM: Jamaica
     JO: Jordan
     JP: Jepun
     KE: Kenya
@@ -157,10 +157,10 @@ ms:
     KI: Kiribati
     KM: Comoros
     KN: "Saint Kitts dan Nevis"
-    KP: "Utara Korea"
-    KR: "Selatan Korea"
+    KP: "Korea Utara"
+    KR: "Korea Selatan"
     KW: Kuwait
-    KY: "Cayman Islands"
+    KY: "Kepulauan Cayman"
     KZ: Kazakhstan
     LA: Laos
     LB: Lubnan
@@ -170,7 +170,7 @@ ms:
     LR: Liberia
     LS: Lesotho
     LT: Lithuania
-    LU: Luksembourg
+    LU: Luxembourg
     LV: Latvia
     LY: Libya
     MA: Maghribi
@@ -180,20 +180,20 @@ ms:
     MF: "Saint Martin"
     MG: Madagaskar
     MH: "Kepulauan Marshall"
-    MK: "Macedonia [FYROM]"
+    MK: "Macedonia (FYROM)"
     ML: Mali
-    MM: "Myanmar [Burma]"
+    MM: "Myanmar (Burma)"
     MN: Mongolia
     MO: Macau
-    MP: "Northern Mariana Islands"
+    MP: "Kepulauan Mariana Utara"
     MQ: Martinique
     MR: Mauritania
     MS: Montserrat
     MT: Malta
     MU: Mauritius
-    MV: Maldiv
+    MV: Maldives
     MW: Malawi
-    MX: Meksiko
+    MX: Mexico
     MY: Malaysia
     MZ: Mozambik
     NA: Namibia
@@ -216,16 +216,16 @@ ms:
     PH: Filipina
     PK: Pakistan
     PL: Poland
-    PM: "Saint Pierre and Miquelon"
+    PM: "Saint Pierre dan Miquelon"
     PN: "Kepulauan Pitcairn"
     PR: "Puerto Rico"
     PS: Palestin
-    PT: Feringgi
+    PT: Portugal
     PW: Palau
     PY: Paraguay
     QA: Qatar
     QO: "Oceania Terpencil"
-    RE: Réunion
+    RE: Reunion
     RO: Romania
     RS: Serbia
     RU: Rusia
@@ -238,26 +238,26 @@ ms:
     SG: Singapura
     SH: "Saint Helena"
     SI: Slovenia
-    SJ: "Svalbard and Jan Mayen"
+    SJ: "Svalbard dan Jan Mayen"
     SK: Slovakia
-    SL: "Siera Leon"
+    SL: "Sierra Leone"
     SM: "San Marino"
     SN: Senegal
     SO: Somalia
     SR: Surinam
     SS: "Sudan Selatan"
-    ST: "São Tomé dan Príncipe"
+    ST: "Sao Tome dan Principe"
     SV: "El Salvador"
     SX: "Sint Maarten"
     SY: Syria
     SZ: Swaziland
     TA: "Tristan da Cunha"
-    TC: "Turks and Caicos Islands"
-    TD: Cad
-    TF: "French Southern Territories"
+    TC: "Kepulauan Turks dan Caicos"
+    TD: Chad
+    TF: "Wilayah Selatan Perancis"
     TG: Togo
     TH: Thailand
-    TJ: Tadjikistan
+    TJ: Tajikistan
     TK: Tokelau
     TL: "Timor Timur"
     TM: Turkmenistan
@@ -270,18 +270,18 @@ ms:
     TZ: Tanzania
     UA: Ukraine
     UG: Uganda
-    UM: "United States Minor Outlying Islands"
-    US: "Amerika Syarikat"
+    UM: "Kepulauan Terpencil A.S."
+    US: A.S
     UY: Uruguay
     UZ: Uzbekistan
     VA: "Kota Vatican"
     VC: "Saint Vincent dan Grenadines"
     VE: Venezuela
-    VG: "British Virgin Islands"
-    VI: "U.S. Virgin Islands"
+    VG: "Kepulauan Virgin British"
+    VI: "Kepulauan Virgin A.S."
     VN: Vietnam
     VU: Vanuatu
-    WF: "Wallis and Futuna"
+    WF: "Wallis dan Futuna"
     WS: Samoa
     XK: Kosovo
     YE: Yaman

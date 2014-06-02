@@ -59,13 +59,13 @@ da:
     BJ: Benin
     BL: "Saint Barthélemy"
     BM: Bermuda
-    BN: "Brunei Darussalam"
+    BN: Brunei
     BO: Bolivia
     BQ: "Nederlandske antiller"
     BR: Brasilien
     BS: Bahamas
     BT: Bhutan
-    BV: Bouvetø
+    BV: Bouvetøen
     BW: Botswana
     BY: Hviderusland
     BZ: Belize
@@ -85,7 +85,7 @@ da:
     CR: "Costa Rica"
     CU: Cuba
     CV: "Kap Verde"
-    CW: Curacao
+    CW: Curaçao
     CX: Juleøen
     CY: Cypern
     CZ: Tjekkiet
@@ -107,12 +107,12 @@ da:
     EU: "Den Europæiske Union"
     FI: Finland
     FJ: Fiji
-    FK: "Falklandsøerne [Islas Malvinas]"
+    FK: "Falklandsøerne (Islas Malvinas)"
     FM: "Mikronesiens Forenede Stater"
     FO: Færøerne
     FR: Frankrig
     GA: Gabon
-    GB: Storbritannien
+    GB: UK
     GD: Grenada
     GE: Georgien
     GF: "Fransk Guyana"
@@ -142,7 +142,7 @@ da:
     IL: Israel
     IM: "Isle of Man"
     IN: Indien
-    IO: "Det Britiske Territorium i Det Indiske Ocean"
+    IO: "Det britiske territorium i Det Indiske Ocean"
     IQ: Irak
     IR: Iran
     IS: Island
@@ -180,9 +180,9 @@ da:
     MF: "Saint Martin"
     MG: Madagaskar
     MH: Marshalløerne
-    MK: "Makedonien [Den Tidligere Jugoslaviske Republik Makedonien]"
+    MK: "Makedonien (Den Tidligere Jugoslaviske Republik Makedonien)"
     ML: Mali
-    MM: "Myanmar [Burma]"
+    MM: "Myanmar (Burma)"
     MN: Mongoliet
     MO: Macao
     MP: Nordmarianerne
@@ -225,7 +225,7 @@ da:
     PY: Paraguay
     QA: Qatar
     QO: "Ydre Oceanien"
-    RE: Reunion
+    RE: Réunion
     RO: Rumænien
     RS: Serbien
     RU: Rusland
@@ -254,7 +254,7 @@ da:
     TA: "Tristan da Cunha"
     TC: "Turks- og Caicosøerne"
     TD: Tchad
-    TF: "Franske Besiddelser i Det Sydlige Indiske Ocean"
+    TF: "De franske besiddelser i Det Sydlige Indiske Ocean"
     TG: Togo
     TH: Thailand
     TJ: Tadsjikistan
@@ -275,10 +275,10 @@ da:
     UY: Uruguay
     UZ: Usbekistan
     VA: Vatikanstaten
-    VC: "St. Vincent og Grenadinerne"
+    VC: "Saint Vincent og Grenadinerne"
     VE: Venezuela
-    VG: "De britiske jomfruøer"
-    VI: "De amerikanske jomfruøer"
+    VG: "De Britiske Jomfruøer"
+    VI: "De Amerikanske Jomfruøer"
     VN: Vietnam
     VU: Vanuatu
     WF: "Wallis og Futuna"

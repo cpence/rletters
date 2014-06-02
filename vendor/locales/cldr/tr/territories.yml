@@ -70,7 +70,7 @@ tr:
     BY: "Beyaz Rusya"
     BZ: Belize
     CA: Kanada
-    CC: "Cocos [Keeling] Adaları"
+    CC: "Cocos (Keeling) Adaları"
     CD: "Demokratik Kongo Cumhuriyeti"
     CF: "Orta Afrika Cumhuriyeti"
     CG: "Kongo Cumhuriyeti"
@@ -107,12 +107,12 @@ tr:
     EU: "Avrupa Birliği"
     FI: Finlandiya
     FJ: Fiji
-    FK: "Falkland Adaları [Malvinas Adaları]"
+    FK: "Falkland Adaları (Malvinas Adaları)"
     FM: "Mikronezya Federal Eyaletleri"
     FO: "Faroe Adaları"
     FR: Fransa
     GA: Gabon
-    GB: "Birleşik Krallık"
+    GB: BK
     GD: Grenada
     GE: Gürcistan
     GF: "Fransız Guyanası"
@@ -180,9 +180,9 @@ tr:
     MF: "Saint Martin"
     MG: Madagaskar
     MH: "Marshall Adaları"
-    MK: "Makedonya [EYMC]"
+    MK: "Makedonya (EYMC)"
     ML: Mali
-    MM: "Myanmar [Burma]"
+    MM: "Myanmar (Burma)"
     MN: Moğolistan
     MO: Makao
     MP: "Kuzey Mariana Adaları"

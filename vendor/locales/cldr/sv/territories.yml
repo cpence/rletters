@@ -71,9 +71,9 @@ sv:
     BZ: Belize
     CA: Kanada
     CC: Kokosöarna
-    CD: Kongo-Kinshasa
+    CD: "Demokratiska republiken Kongo"
     CF: "Centralafrikanska republiken"
-    CG: Kongo-Brazzaville
+    CG: "Republiken Kongo"
     CH: Schweiz
     CI: Elfenbenskusten
     CK: Cooköarna
@@ -107,7 +107,7 @@ sv:
     EU: "Europeiska unionen"
     FI: Finland
     FJ: Fiji
-    FK: Falklandsöarna
+    FK: "Falklandsöarna (Malvinerna)"
     FM: Mikronesien
     FO: Färöarna
     FR: Frankrike
@@ -131,7 +131,7 @@ sv:
     GW: Guinea-Bissau
     GY: Guyana
     HK: Hongkong
-    HM: "Heard- och McDonaldöarna"
+    HM: "Heardön och McDonaldöarna"
     HN: Honduras
     HR: Kroatien
     HT: Haiti
@@ -142,7 +142,7 @@ sv:
     IL: Israel
     IM: "Isle of Man"
     IN: Indien
-    IO: "Brittiska Indiska oceanöarna"
+    IO: "Brittiska territoriet i Indiska oceanen"
     IQ: Irak
     IR: Iran
     IS: Island
@@ -180,9 +180,9 @@ sv:
     MF: "S:t Martin"
     MG: Madagaskar
     MH: Marshallöarna
-    MK: Makedonien
+    MK: "Makedonien (FYROM)"
     ML: Mali
-    MM: Myanmar
+    MM: "Myanmar (Burma)"
     MN: Mongoliet
     MO: Macao
     MP: Nordmarianerna
@@ -224,7 +224,7 @@ sv:
     PW: Palau
     PY: Paraguay
     QA: Qatar
-    QO: "Yttre öar i Oceanien"
+    QO: "yttre öar i Oceanien"
     RE: Réunion
     RO: Rumänien
     RS: Serbien
@@ -248,13 +248,13 @@ sv:
     SS: Sydsudan
     ST: "São Tomé och Príncipe"
     SV: "El Salvador"
-    SX: "S:t Martin (nederländska delen)"
+    SX: "Sint Maarten"
     SY: Syrien
     SZ: Swaziland
     TA: "Tristan da Cunha"
     TC: "Turks- och Caicosöarna"
     TD: Tchad
-    TF: "Franska Sydterritorierna"
+    TF: "Franska sydterritorierna"
     TG: Togo
     TH: Thailand
     TJ: Tadzjikistan

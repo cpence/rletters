@@ -3,44 +3,63 @@ ms:
     ab: Abkhazia
     ach: Akoli
     af: Afrikaans
+    agq: Aghem
     ak: Akan
     am: Amharic
     ar: Arab
+    ar-001: "Arab Standard Moden"
     as: Assam
+    asa: Asu
     ay: Aymara
     az: Azeri
+    bax: Bamun
+    bbj: Ghomala
     be: Belarus
     bem: Bemba
+    bez: Bena
+    bfd: Bafut
     bg: Bulgaria
-    bh: Bihari
+    bkm: Kom
     bn: Benggala
     bo: Tibet
     br: Breton
+    brx: Bodo
     bs: Bosnia
+    bss: Akoose
+    bum: Bulu
+    byv: Medumba
     ca: Catalonia
+    cay: Cayuga
+    cgg: Chiga
     chr: Cherokee
     ckb: "Kurdi Sorani"
     co: Corsica
     cs: Czech
     cy: Wales
     da: Denmark
+    dav: Taita
     de: Jerman
     de-AT: "Jerman Austria"
     de-CH: "Jerman Halus Switzerland"
+    dje: Zarma
     dv: Divehi
+    dyo: Jola-Fonyi
     dz: Dzongkha
+    dzg: Dazaga
+    ebu: Embu
     ee: Ewe
     efi: Efik
     el: Greek
     en: Inggeris
     en-AU: "Inggeris Australia"
     en-CA: "Inggeris Kanada"
-    en-GB: "Inggeris British"
-    en-US: "Bahasa Inggeris AS"
+    en-GB: "Inggeris U.K."
+    en-US: "Inggeris A.S."
     eo: Esperanto
     es: Sepanyol
     es-419: "Sepanyol Amerika Latin"
     es-ES: "Sepanyol Eropah"
+    es-MX: "Sepanyol Mexico"
     et: Estonia
     eu: Basque
     fa: Parsi
@@ -59,6 +78,7 @@ ms:
     gn: Guarani
     gsw: "Jerman Switzerland"
     gu: Gujerat
+    guz: Gusii
     ha: Hausa
     haw: Hawaii
     he: Ibrani
@@ -68,32 +88,53 @@ ms:
     hu: Hungary
     hy: Armenia
     ia: Interlingua
+    ibb: Ibibio
     id: Indonesia
+    ie: Interlingue
     ig: Igbo
     is: Iceland
     it: Itali
     ja: Jepun
+    jgo: Ngomba
+    jmc: Machame
     jv: Jawa
     ka: Georgia
+    kbl: Kanembu
+    kde: Makonde
+    kea: Kabuverdianu
     kg: Kongo
+    khq: "Koyra Chiini"
     kk: Kazakhstan
+    kkj: Kako
+    kln: Kalenjin
     km: Khmer
     kn: Kannada
     ko: Korea
     ks: Kashmir
+    ksb: Shambala
+    ksf: Bafia
+    ksh: Colognian
     ku: Kurdish
     ky: Kirghiz
     la: Latin
+    lag: Langi
     lb: Luxembourg
     lg: Ganda
+    lkt: Lakota
     ln: Lingala
     lo: Laos
     loz: Lozi
     lt: Lithuania
     lua: Luba-Lulua
+    luy: Luyia
     lv: Latvia
+    maf: Mafa
+    mde: Maba
+    mer: Meru
     mfe: Morisyen
     mg: Malagasy
+    mgh: Makhuwa-Meetto
+    mgo: Meta'
     mi: Maori
     mk: Macedonia
     ml: Malayalam
@@ -101,14 +142,20 @@ ms:
     mr: Marathi
     ms: "Bahasa Melayu"
     mt: Malta
+    mua: Mundang
     my: Burma
+    mye: Myene
+    naq: Nama
     nb: "Bokmål Norway"
     nd: "Ndebele Utara"
     ne: Nepal
     nl: Belanda
     nl-BE: Flemish
+    nmg: Kwasio
     nn: "Nynorsk Norway"
+    "no": Norway
     nso: "Sotho Utara"
+    nus: Nuer
     ny: Nyanja
     nyn: Nyankole
     oc: Occitania
@@ -125,13 +172,23 @@ ms:
     rm: Romansh
     rn: Rundi
     ro: Romania
+    rof: Rombo
     ru: Rusia
     rw: Kinyarwanda
+    rwk: Rwa
     sa: Sanskrit
+    saq: Samburu
+    sba: Ngambay
+    sbp: Sangu
     sd: Sindhi
     se: "Sami Utara"
+    see: Seneca
+    seh: Sena
+    ses: "Koyraboro Senni"
     sg: Sango
     sh: SerboCroatia
+    shi: Tachelhit
+    shu: "Chadian Arab"
     si: Sinhala
     sk: Slovak
     sl: Slovenia
@@ -141,12 +198,15 @@ ms:
     sq: Albania
     sr: Serbia
     ss: Swati
+    ssy: Saho
     st: "Sotho Selatan"
     su: Sunda
     sv: Sweden
     sw: Swahili
+    swc: "Congo Swahili"
     ta: Tamil
     te: Telugu
+    teo: Teso
     tet: Tetum
     tg: Tajik
     th: Thai
@@ -157,10 +217,14 @@ ms:
     to: Tonga
     tpi: "Tok Pisin"
     tr: Turki
+    trv: Taroko
     ts: Tsonga
     tt: Tatar
     tum: Tumbuka
+    tw: Twi
+    twq: Tasawaq
     ty: Tahiti
+    tzm: "Tamazight Atlas Tengah"
     ug: Uyghur
     uk: Ukraine
     und: "Bahasa Tidak Diketahui"
@@ -168,12 +232,19 @@ ms:
     uz: Uzbekistan
     ve: Venda
     vi: Vietnam
+    vun: Vunjo
+    wae: Walser
     wo: Wolof
     xh: Xhosa
+    xog: Soga
+    yav: Yangben
+    ybb: Yemba
     yi: Yiddish
     yo: Yoruba
+    zgh: "Tamazight Maghribi Standard"
     zh: Cina
     zh-CN: "Cina Ringkas"
     zh-TW: "Cina Tradisional"
     zu: Zulu
-    zxx: "Tidak kandungan linguistik"
+    zxx: "Tiada kandungan linguistik"
+    zza: Zaza

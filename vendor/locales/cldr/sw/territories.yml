@@ -70,12 +70,12 @@ sw:
     BY: Belarusi
     BZ: Belize
     CA: Kanada
-    CC: "Visiwa vya Cocos [Keeling]"
-    CD: "Kongo [Jamhuri ya Kidemokrasia]"
+    CC: "Visiwa vya Cocos (Keeling)"
+    CD: "Kongo (Jamhuri ya Kidemokrasia)"
     CF: "Jamhuri ya Afrika ya Kati"
-    CG: "Kongo [Jamhuri ya]"
+    CG: "Kongo (Jamhuri ya)"
     CH: Uswisi
-    CI: "Cote d'Ivoire"
+    CI: "Côte d’Ivoire"
     CK: "Visiwa vya Cook"
     CL: Chile
     CM: Kameruni
@@ -107,7 +107,7 @@ sw:
     EU: "Umoja wa Ulaya"
     FI: Ufini
     FJ: Fiji
-    FK: "Visiwa vya Falklandi [Islas Malvinas]"
+    FK: "Visiwa vya Falkland (Islas Malvinas)"
     FM: Mikronesia
     FO: "Visiwa vya Faroe"
     FR: Ufaransa
@@ -180,9 +180,9 @@ sw:
     MF: "Saint Martin"
     MG: Bukini
     MH: "Visiwa vya Marshal"
-    MK: "Masedonia [FYROM]"
+    MK: "Masedonia (FYROM)"
     ML: Mali
-    MM: Myama
+    MM: "Myanmar (Burma)"
     MN: Mongolia
     MO: Macau
     MP: "Visiwa vya Mariana vya Kaskazini"
@@ -200,7 +200,7 @@ sw:
     NC: Nyukaledonia
     NE: Nijeri
     NF: "Kisiwa cha Norfok"
-    NG: Nijeria
+    NG: Nigeria
     NI: Nikaragwa
     NL: Uholanzi
     "NO": Norwe
@@ -246,7 +246,7 @@ sw:
     SO: Somalia
     SR: Surinamu
     SS: "Sudani Kusini"
-    ST: "Sao Tome na Principe"
+    ST: "São Tomé na Príncipe"
     SV: Elsavado
     SX: Santamatini
     SY: Siria
@@ -259,7 +259,7 @@ sw:
     TH: Tailandi
     TJ: Tajikistani
     TK: Tokelau
-    TL: "Timori Mashariki"
+    TL: "Timor ya Mashariki"
     TM: Turukimenistani
     TN: Tunisia
     TO: Tonga

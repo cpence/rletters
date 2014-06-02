@@ -8,67 +8,56 @@ cs:
     ady: adygejština
     ae: avestánština
     af: afrikánština
-    afa: "afroasijské jazyky"
     afh: afrihili
     agq: aghem
     ain: ainština
     ak: akanština
     akk: akkadština
     ale: aleutština
-    alg: "algonkinské jazyky"
     alt: "altajština (jižní)"
     am: amharština
     an: aragonština
     ang: staroangličtina
     anp: angika
-    apa: "apačské jazyky"
     ar: arabština
+    ar-001: "arabština (moderní standardní)"
     arc: aramejština
     arn: araukánština
     arp: arapažština
-    art: "umělé jazyky"
     arw: "arawacké jazyky"
     as: asámština
     asa: asu
     ast: asturština
-    ath: "athapaskánské jazyky"
-    aus: "australské jazyky"
     av: avarština
     awa: awadhština
     ay: ajmarština
     az: ázerbájdžánština
     ba: baškirština
-    bad: banda
-    bai: bamilek
     bal: balúčština
     ban: balijština
     bas: basa
-    bat: "baltské jazyky"
     bax: bamun
     bbj: ghomala
     be: běloruština
     bej: bedža
     bem: bembština
-    ber: "berberské jazyky"
     bez: bena
     bfd: bafut
     bg: bulharština
-    bh: bihárština
     bho: bhojpurština
     bi: bislamština
     bik: bikolština
     bin: bini
+    bkm: kom
     bla: siksika
     bm: bambarština
     bn: bengálština
-    bnt: "bantuské jazyky"
     bo: tibetština
     br: bretonština
     bra: bradžština
     brx: bodoština
     bs: bosenština
     bss: akoose
-    btk: batačtina
     bua: burjatština
     bug: bugiština
     bum: bulu
@@ -76,14 +65,11 @@ cs:
     byv: medumba
     ca: katalánština
     cad: caddo
-    cai: "středoamerické indiánské jazyky"
     car: karibština
-    cau: "kavkazské jazyky"
     cay: kajugština
     cch: atsam
     ce: čečenština
     ceb: cebuánština
-    cel: "keltské jazyky"
     cgg: kiga
     ch: čamoro
     chb: čibča
@@ -96,39 +82,31 @@ cs:
     chr: čerokézština
     chy: čejenština
     ckb: "kurdština (sorání)"
-    cmc: čamština
     co: korsičtina
     cop: koptština
-    cpe: "anglická kreolština či pidgin"
-    cpf: "francouzská kreolština či pidgin"
-    cpp: "portugalská kreolština či pidgin"
     cr: kríjština
     crh: "krymská turečtina"
-    crp: "kreolština či pidgin"
     cs: čeština
     csb: kašubština
     cu: staroslověnština
-    cus: "kúšitské jazyky"
     cv: čuvaština
     cy: velština
     da: dánština
     dak: dakotština
     dar: dargština
     dav: taita
-    day: dajáčtina
     de: němčina
     de-CH: "němčina standardní (Švýcarsko)"
     del: delawarština
-    den: slave
+    den: "slejvština (athabaský jazyk)"
     dgr: dogrib
     din: dinkština
     dje: zarmština
     doi: dogarština
-    dra: "drávidské jazyky"
     dsb: "dolnolužická srbština"
     dua: dualština
-    dum: středoholandština
-    dv: divehi
+    dum: "holandština (středověká)"
+    dv: maledivština
     dyo: jola-fonyi
     dyu: djula
     dz: dzongkä
@@ -141,8 +119,9 @@ cs:
     el: řečtina
     elx: elamitština
     en: angličtina
+    en-GB: "angličtina (VB)"
     en-US: "angličtina (USA)"
-    enm: "středověká angličtina"
+    enm: "angličtina (středověká)"
     eo: esperanto
     es: španělština
     es-ES: "španělština (Evropa)"
@@ -152,26 +131,24 @@ cs:
     fa: perština
     fan: fang
     fat: fantština
-    ff: fulahština
+    ff: fulbština
     fi: finština
     tl: filipínština
-    fiu: "ugrofinské jazyky"
     fj: fidžijština
     fo: faerština
     fon: fonština
     fr: francouzština
-    frm: "středověká francouzština"
-    fro: starofrancouzština
+    frm: "francouzština (středověká)"
+    fro: "francouzština (stará)"
     frr: "fríština (severní)"
     frs: "fríština (východní)"
-    fur: furlandština
+    fur: furlanština
     fy: fríština
     ga: irština
     gaa: gaština
     gay: gayo
     gba: gbaja
     gd: "skotská gaelština"
-    gem: "germánské jazyky"
     gez: geez
     gil: kiribatština
     gl: galicijština
@@ -193,8 +170,7 @@ cs:
     haw: havajština
     he: hebrejština
     hi: hindština
-    hil: hiligaynonština
-    him: himáčalština
+    hil: hiligajnonština
     hit: chetitština
     hmn: hmongština
     ho: "hiri motu"
@@ -211,21 +187,18 @@ cs:
     id: indonéština
     ie: interlingue
     ig: igboština
-    ijo: idžo
+    ii: "s'-čchuan i"
     ik: inupiakština
     ilo: ilokánština
-    inc: "indické jazyky"
-    ine: "indoevropské jazyky"
     inh: inguština
     io: ido
-    ira: "íránské jazyky"
-    iro: "irokézské jazyky"
     is: islandština
     it: italština
     iu: inuktitutština
     ja: japonština
     jbo: lojban
-    jmc: machame
+    jgo: ngomba
+    jmc: mašame
     jpr: judeoperština
     jrb: judeoarabština
     jv: javánština
@@ -235,7 +208,6 @@ cs:
     kac: kačijština
     kaj: jju
     kam: kambština
-    kar: karenština
     kaw: kawi
     kbd: kabardinština
     kbl: kanembu
@@ -245,13 +217,14 @@ cs:
     kfo: koro
     kg: konžština
     kha: khásí
-    khi: "kojsanské jazyky"
     kho: chotánština
+    khq: "koyra chiini"
     ki: kikujština
     kj: kuaňamština
     kk: kazaština
     kkj: kako
     kl: grónština
+    kln: kalendžin
     km: khmérština
     kmb: kimbundština
     kn: kannadština
@@ -262,15 +235,14 @@ cs:
     kr: kanuri
     krc: karačajevo-balkarština
     krl: karelština
-    kro: kru
     kru: kuruchština
     ks: kašmírština
     ksb: shambala
     ksf: bafia
-    ksh: kölsch
+    ksh: kolínština
     ku: kurdština
     kum: kumyčtina
-    kut: kutenai
+    kut: kutenajština
     kv: komijština
     kw: kornština
     ky: kyrgyzština
@@ -293,7 +265,7 @@ cs:
     lui: luiseňo
     lun: lundština
     luo: luoština
-    lus: lišáí
+    lus: mizoština
     luy: luhja
     lv: lotyština
     mad: madurština
@@ -302,7 +274,6 @@ cs:
     mai: maithiliština
     mak: makasarština
     man: mandingština
-    map: "austronéské jazyky"
     mas: masajština
     mde: maba
     mdf: mokšanština
@@ -311,20 +282,18 @@ cs:
     mer: meru
     mfe: "mauricijská kreolština"
     mg: malgaština
-    mga: středoirština
+    mga: "irština (středověká)"
+    mgh: makhuwa-meetto
+    mgo: meta'
     mh: maršálština
     mi: maorština
     mic: micmac
     min: minangkabau
-    mis: "různé jazyky"
     mk: makedonština
-    mkh: "mon-khmerské jazyky"
-    ml: malabarština
+    ml: malajálamština
     mn: mongolština
     mnc: mandžuština
     mni: manipurština
-    mno: "manobo jazyky"
-    mo: moldavština
     moh: mohawk
     mos: mosi
     mr: maráthština
@@ -332,17 +301,15 @@ cs:
     mt: maltština
     mua: mundang
     mul: "složené (víceřádkové) jazyky"
-    mun: "mundské jazyky"
+    mus: kríkština
     mwl: mirandština
     mwr: márvárština
     my: barmština
     mye: myene
-    myn: "mayské jazyky"
     myv: erzjanština
     na: naurština
-    nah: nahuatl
-    nai: "severoamerické indiánské jazyky"
     nap: neapolština
+    naq: nama
     nb: "norština (bokmål)"
     nd: "ndebele (Zimbabwe)"
     nds: dolnoněmčina
@@ -350,10 +317,10 @@ cs:
     new: névárština
     ng: ndondština
     nia: nias
-    nic: "nigero-kordofánské jazyky"
     niu: niueština
     nl: nizozemština
     nl-BE: vlámština
+    nmg: kwasio
     nn: "norština (nynorsk)"
     nnh: ngiemboon
     "no": norština
@@ -362,14 +329,13 @@ cs:
     nqo: n’ko
     nr: "ndebele (Jižní Afrika)"
     nso: "sotština (severní)"
-    nub: "núbijské jazyky"
     nus: nuerština
     nv: navažština
     nwc: "newarština (klasická)"
     ny: ňandžština
     nym: ňamwežština
-    nyn: nyankole
-    nyo: nyorština
+    nyn: ňankolština
+    nyo: ňorština
     nzi: nzima
     oc: okcitánština
     oj: odžibvejština
@@ -378,44 +344,38 @@ cs:
     os: osetština
     osa: osage
     ota: "osmanská turečtina"
-    oto: "otomijské jazyky"
     pa: paňdžábština
-    paa: "papuánské jazyky"
     pag: pangasinanština
     pal: pahlavština
     pam: papangau
     pap: papiamento
     pau: palauština
     peo: staroperština
-    phi: "filipínské jazyky"
     phn: féničtina
     pi: pálí
     pl: polština
     pon: pohnpeiština
-    pra: "prákrtské jazyky"
     pro: provensálština
     ps: paštština
     pt: portugalština
     pt-PT: "portugalština (Evropa)"
     qu: kečuánština
     raj: rádžastánština
-    rap: rapanuiština
-    rar: rarotongaština
+    rap: rapanujština
+    rar: rarotongánština
     rm: rétorománština
     rn: kirundština
     ro: rumunština
-    roa: "románské jazyky"
+    ro-MD: moldavština
     rof: rombo
     rom: romština
     ru: ruština
     rup: arumunština
-    rw: kinyarwandština
+    rw: kiňarwandština
     rwk: rwa
     sa: sanskrt
     sad: sandawština
     sah: jakutština
-    sai: "jihoamerické indiánské jazyky"
-    sal: "sališské jazyky"
     sam: samarština
     saq: samburu
     sas: sasakština
@@ -430,24 +390,19 @@ cs:
     see: seneca
     seh: sena
     sel: selkupština
-    sem: "semitské jazyky"
     ses: "koyraboro senni"
     sg: sangština
-    sga: staroirština
-    sgn: "znakové jazyky"
+    sga: "irština (stará)"
     sh: srbochorvatština
+    shi: tachelhit
     shn: šanština
     shu: "arabština (čadská)"
     si: sinhálština
     sid: sidamo
-    sio: "siouxské jazyky"
-    sit: "tibetočínské jazyky"
     sk: slovenština
     sl: slovinština
-    sla: "slovanský jazyk"
     sm: samojština
     sma: "sámština (jižní)"
-    smi: "sámské jazyky"
     smj: "sámština (lulejská)"
     smn: "sámština (inarijská)"
     sms: "sámština (skoltská)"
@@ -455,13 +410,11 @@ cs:
     snk: sonikština
     so: somálština
     sog: sogdština
-    son: songhajština
     sq: albánština
     sr: srbština
     srn: "sranan tongo"
     srr: sererština
     ss: siswatština
-    ssa: "nilosaharské jazyky"
     ssy: saho
     st: "sotština (jižní)"
     su: sundanština
@@ -475,7 +428,6 @@ cs:
     syc: "syrština (klasická)"
     syr: syrština
     ta: tamilština
-    tai: "thajské jazyky"
     te: telugština
     tem: temne
     teo: teso
@@ -494,6 +446,7 @@ cs:
     tmh: tamašek
     tn: setswanština
     to: tongánština
+    tog: "tonžština (nyasa)"
     tpi: "tok pisin"
     tr: turečtina
     trv: taroko
@@ -501,13 +454,12 @@ cs:
     tsi: "tsimšijské jazyky"
     tt: tatarština
     tum: tumbukština
-    tup: "tupijské jazyky"
-    tut: "altajské jazyky"
     tvl: tuvalština
     tw: twi
+    twq: tasawaq
     ty: tahitština
     tyv: tuvinština
-    tzm: "tamazight (Střední Maroko)"
+    tzm: "tamazight (střední Maroko)"
     udm: udmurtština
     ug: ujgurština
     uga: ugaritština
@@ -520,33 +472,31 @@ cs:
     ve: venda
     vi: vietnamština
     vo: volapuk
-    vot: votiatština
+    vot: votština
+    vun: vunjo
     wa: valonština
     wae: "němčina (walser)"
-    wak: "wakašské jazyky"
-    wal: walamština
-    war: waray
+    wal: wolajtština
+    war: warajština
     was: waština
-    wen: "lužickosrbské jazyky"
     wo: wolofština
     xal: kalmyčtina
     xh: xhoština
     xog: sogština
     yao: jaoština
-    yap: yapese
-    yav: yangben
+    yap: japština
+    yav: jangbenština
     ybb: yemba
     yi: jidiš
     yo: jorubština
-    ypk: yupik
     yue: kantonština
     za: čuangština
     zap: zapotéčtina
     zbl: "bliss systém"
     zen: zenaga
+    zgh: "tamazight (standardní marocký)"
     zh: čínština
     zh-CN: "čínština (zjednodušená)"
-    znd: zandština
     zu: zuluština
     zun: zunijština
     zxx: "žádný jazykový obsah"

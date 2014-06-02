@@ -34,7 +34,7 @@ sk:
     AD: Andorra
     AE: "Spojené arabské emiráty"
     AF: Afganistan
-    AG: "Antigua a Barbados"
+    AG: "Antigua a Barbuda"
     AI: Anguilla
     AL: Albánsko
     AM: Arménsko
@@ -71,9 +71,9 @@ sk:
     BZ: Belize
     CA: Kanada
     CC: "Kokosové ostrovy"
-    CD: "Kongo [DRK]"
+    CD: "Kongo (DRK)"
     CF: "Stredoafrická republika"
-    CG: "Kongo [republika]"
+    CG: "Kongo (republika)"
     CH: Švajčiarsko
     CI: "Pobrežie Slonoviny"
     CK: "Cookove ostrovy"
@@ -107,12 +107,12 @@ sk:
     EU: "Európska únia"
     FI: Fínsko
     FJ: Fidži
-    FK: "Falklandy [Islas Malvinas]"
+    FK: "Falklandy (Islas Malvinas)"
     FM: Mikronézia
     FO: "Faerské ostrovy"
     FR: Francúzsko
     GA: Gabon
-    GB: "Spojené kráľovstvo"
+    GB: UK
     GD: Grenada
     GE: Gruzínsko
     GF: "Francúzska Guayana"
@@ -130,7 +130,7 @@ sk:
     GU: Guam
     GW: Guinea-Bissau
     GY: Guayana
-    HK: "Hong Kong"
+    HK: Hongkong
     HM: "Heardov ostrov a McDonaldove ostrovy"
     HN: Honduras
     HR: Chorvátsko
@@ -142,7 +142,7 @@ sk:
     IL: Izrael
     IM: "Ostrov Man"
     IN: India
-    IO: "Britské územie v Indickom oceáne"
+    IO: "Britské indickooceánske územie"
     IQ: Irak
     IR: Irán
     IS: Island
@@ -157,10 +157,10 @@ sk:
     KI: Kiribati
     KM: Komory
     KN: "Saint Kitts a Nevis"
-    KP: "Kórejská ľudovodemokratická republika"
+    KP: "Severná Kórea"
     KR: "Južná Kórea"
     KW: Kuvajt
-    KY: "Kajmanské ostrovy"
+    KY: "Kajmanie ostrovy"
     KZ: Kazachstan
     LA: Laos
     LB: Libanon
@@ -180,7 +180,7 @@ sk:
     MF: "Saint Martin"
     MG: Madagaskar
     MH: "Marshallove ostrovy"
-    MK: "Macedónsko [FYROM]"
+    MK: "Macedónsko (BJRM)"
     ML: Mali
     MM: Mjanmarsko
     MN: Mongolsko
@@ -225,7 +225,7 @@ sk:
     PY: Paraguaj
     QA: Katar
     QO: "Tichomorie - ostatné"
-    RE: Reunion
+    RE: Réunion
     RO: Rumunsko
     RS: Srbsko
     RU: Rusko
@@ -254,7 +254,7 @@ sk:
     TA: "Tristan da Cunha"
     TC: "Turks a Caicos"
     TD: Čad
-    TF: "Francúzske južné územia"
+    TF: "Francúzske južné a antarktické územia"
     TG: Togo
     TH: Thajsko
     TJ: Tadžikistan
@@ -271,7 +271,7 @@ sk:
     UA: Ukrajina
     UG: Uganda
     UM: "Menšie odľahlé ostrovy USA"
-    US: "Spojené štáty"
+    US: USA
     UY: Uruguaj
     UZ: Uzbekistan
     VA: Vatikán

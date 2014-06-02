@@ -18,8 +18,8 @@ eu:
     034: "Asia hegoaldea"
     035: "Asia hego-ekialdea"
     039: "Europa hegoaldea"
-    053: "Australia eta Zeelanda Berria"
-    054: Melanesiera
+    053: Australasia
+    054: Melanesia
     057: "Mikronesia eskualdea"
     061: Polinesia
     142: Asia
@@ -30,7 +30,7 @@ eu:
     154: "Europa iparraldea"
     155: "Europa mendebaldea"
     419: Latinoamerika
-    AC: "Ascension Uhartea"
+    AC: "Ascension uhartea"
     AD: Andorra
     AE: "Arabiar Emirrerri Batuak"
     AF: Afganistan
@@ -60,8 +60,8 @@ eu:
     BL: "San Bartolome"
     BM: Bermuda
     BN: Brunei
-    BO: Bolibia
-    BQ: "Karibeko Holanda"
+    BO: Bolivia
+    BQ: "Karibeko Herbehereak"
     BR: Brasil
     BS: Bahamak
     BT: Bhutan
@@ -70,12 +70,12 @@ eu:
     BY: Bielorrusia
     BZ: Belize
     CA: Kanada
-    CC: "Cocos [Keeling] uharteak"
-    CD: "Kongo [KED]"
+    CC: "Cocos (Keeling) uharteak"
+    CD: "Kongo (KED)"
     CF: "Afrika Erdiko Errepublika"
-    CG: "Kongo [errepublika]"
+    CG: "Kongo (errepublika)"
     CH: Suitza
-    CI: BK
+    CI: "Boli Kosta"
     CK: "Cook uharteak"
     CL: Txile
     CM: Kamerun
@@ -88,7 +88,7 @@ eu:
     CW: Curaçao
     CX: "Christmas uhartea"
     CY: Zipre
-    CZ: "Txekiar errepublika"
+    CZ: "Txekiar Errepublika"
     DE: Alemania
     DG: "Diego Garcia"
     DJ: Djibuti
@@ -107,9 +107,9 @@ eu:
     EU: "Europar Batasuna"
     FI: Finlandia
     FJ: Fiji
-    FK: "Falkland uharteak [Malvina uharteak]"
+    FK: "Falkland uharteak (Malvina uharteak)"
     FM: Mikronesia
-    FO: "Faroe Uharteak"
+    FO: "Faroe uharteak"
     FR: Frantzia
     GA: Gabon
     GB: "Erresuma Batua"
@@ -131,7 +131,7 @@ eu:
     GW: Ginea-Bissau
     GY: Guyana
     HK: "Hong Kong"
-    HM: "Heard eta McDonald Uharteak"
+    HM: "Heard eta McDonald uharteak"
     HN: Honduras
     HR: Kroazia
     HT: Haiti
@@ -142,7 +142,7 @@ eu:
     IL: Israel
     IM: "Man uhartea"
     IN: India
-    IO: "Indiako Ozeanoko Britainiar Lurraldea"
+    IO: "Indiako Ozeanoko lurralde britainiarra"
     IQ: Irak
     IR: Iran
     IS: Islandia
@@ -151,7 +151,7 @@ eu:
     JM: Jamaika
     JO: Jordania
     JP: Japonia
-    KE: Kenia
+    KE: Kenya
     KG: Kirgizistan
     KH: Kanbodia
     KI: Kiribati
@@ -160,7 +160,7 @@ eu:
     KP: "Ipar Korea"
     KR: "Hego Korea"
     KW: Kuwait
-    KY: "Kaiman Uharteak"
+    KY: "Kaiman uharteak"
     KZ: Kazakhstan
     LA: Laos
     LB: Libano
@@ -180,7 +180,7 @@ eu:
     MF: "Saint Martin"
     MG: Madagaskar
     MH: "Marshall uharteak"
-    MK: "Mazedonia [FYROM]"
+    MK: "Mazedonia (Mazedoniako Yugoslaviar Errepublika ohia)"
     ML: Mali
     MM: Myanmar
     MN: Mongolia
@@ -194,7 +194,7 @@ eu:
     MV: Maldivak
     MW: Malawi
     MX: Mexiko
-    MY: Malasia
+    MY: Malaysia
     MZ: Mozambike
     NA: Namibia
     NC: "Kaledonia Berria"
@@ -223,7 +223,7 @@ eu:
     PT: Portugal
     PW: Palau
     PY: Paraguai
-    QA: Katar
+    QA: Qatar
     QO: "Mugaz kanpoko Ozeania"
     RE: Reunion
     RO: Errumania
@@ -254,9 +254,9 @@ eu:
     TA: "Tristan da Cunha"
     TC: "Turk eta Caicos uharteak"
     TD: Txad
-    TF: "Frantziaren Lurralde Australak"
+    TF: "Hegoaldeko lurralde frantsesak"
     TG: Togo
-    TH: Tailandia
+    TH: Thailandia
     TJ: Tadjikistan
     TK: Tokelau
     TL: "Timor ekialdea"
@@ -270,8 +270,8 @@ eu:
     TZ: Tanzania
     UA: Ukraina
     UG: Uganda
-    UM: "Estatu Batuetatik urruti dauden uharte txikiak"
-    US: "Ameriketako Estatu Batuak"
+    UM: "Ameriketako Estatu Batuetako Kanpoaldeko Uharte Txikiak"
+    US: AEB
     UY: Uruguai
     UZ: Uzbekistan
     VA: "Vatikano Hiria"

@@ -6,13 +6,13 @@ tl:
     ak: Akan
     am: Amharic
     ar: Arabic
+    ar-001: "Modern Standard Arabic"
     as: Assamese
     ay: Aymara
     az: Azeri
     be: Belarusian
     bem: Bemba
     bg: Bulgarian
-    bh: Bihari
     bn: Bengali
     bo: Tibetan
     br: Breton
@@ -31,24 +31,25 @@ tl:
     dz: Dzongkha
     ee: Ewe
     efi: Efik
-    el: Griyego
+    el: Greek
     en: Ingles
     en-AU: "Ingles sa Australia"
     en-CA: "Ingles sa Canada"
-    en-GB: "Ingles (UK)"
-    en-US: "Ingles sa U.S."
+    en-GB: "Ingles (U.K.)"
+    en-US: "Ingles (U.S.)"
     eo: Esperanto
-    es: Espanyol
-    es-419: "Espanyol sa Latin America"
+    es: Spanish
+    es-419: "Latin American Spanish"
     es-ES: "European Spanish"
+    es-MX: "Mexican Spanish"
     et: Estonian
     eu: Basque
     fa: Persian
     fi: Finnish
     tl: Filipino
     fj: Fijian
-    fo: Faroeso
-    fr: Pranses
+    fo: Faroese
+    fr: French
     fr-CA: "Canadian French"
     fr-CH: "Swiss French"
     fy: "Western Frisian"
@@ -61,7 +62,7 @@ tl:
     gu: Gujarati
     ha: Hausa
     haw: Hawaiian
-    he: Hebreo
+    he: Hebrew
     hi: Hindi
     hr: Croatian
     ht: Haitian
@@ -72,7 +73,7 @@ tl:
     ie: Interlingue
     ig: Igbo
     is: Icelandic
-    it: Italyano
+    it: Italian
     ja: Japanese
     jv: Javanese
     ka: Georgian
@@ -120,11 +121,11 @@ tl:
     pa: Punjabi
     pl: Polish
     ps: Pushto
-    pt: Portuges
-    pt-BR: "Portuges sa Brazil"
+    pt: Portuguese
+    pt-BR: "Brazilian Portuguese"
     pt-PT: "European Portuguese"
     qu: Quechua
-    rm: Rhaeto-Romance
+    rm: Romansh
     rn: Rundi
     ro: Romanian
     ru: Russian
@@ -166,7 +167,7 @@ tl:
     tum: Tumbuka
     tw: Twi
     ty: Tahitian
-    ug: Uyghur
+    ug: Uighur
     uk: Ukranian
     und: "Hindi Kilalang Wika"
     ur: Urdu
@@ -178,8 +179,9 @@ tl:
     yi: Yiddish
     yo: Yoruba
     yue: Cantonese
+    zgh: "Standard Moroccan Tamazight"
     zh: Chinese
-    zh-CN: "Chinese (pinasimple)"
-    zh-TW: "Chinese (tradisyunal)"
+    zh-CN: "Simplified Chinese"
+    zh-TW: "Traditional Chinese"
     zu: Zulu
     zxx: "Walang nilalamang linguistic"

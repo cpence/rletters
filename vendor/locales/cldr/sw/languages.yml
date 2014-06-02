@@ -12,7 +12,6 @@ sw:
     be: Kibelarusi
     bem: Kibemba
     bg: Kibulgaria
-    bh: Kibihari
     bn: Kibangla
     bo: Kitibeti
     br: Kibretoni
@@ -41,6 +40,7 @@ sw:
     es: Kihispania
     es-419: "Kihispania cha Amerika ya Kilatinini"
     es-ES: "Kihispania cha Ulaya"
+    es-MX: "Kihispania cha Meksiko"
     et: Kiestonia
     eu: Kibasque
     fa: Kiajemi
@@ -171,6 +171,7 @@ sw:
     xh: Kixhosa
     yi: Kiyidi
     yo: Kiyoruba
+    zgh: "Tamaziti Msingi ya Kimoroko"
     zh: Kichina
     zh-CN: "Kichina Rahisi"
     zh-TW: "Kichina cha Jadi"

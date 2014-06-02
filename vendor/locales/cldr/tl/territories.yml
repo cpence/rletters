@@ -5,30 +5,30 @@ tl:
     003: "North America"
     005: "South America"
     009: Oceania
-    011: "Kanlurang Africa"
-    013: "Gitnang Amerika"
-    014: "Silangang Africa"
-    015: "Hilagang Africa"
-    017: "Gitnang Africa"
-    018: "Katimugang Africa"
+    011: "Western Africa"
+    013: "Central America"
+    014: "Eastern Africa"
+    015: "Northern Africa"
+    017: "Middle Africa"
+    018: "Southern Africa"
     019: Americas
-    021: "Hilagang Amerika"
+    021: "Northern America"
     029: Carribbean
-    030: "Silangang Asya"
-    034: "Katimugang Asya"
-    035: "Timog-Silangang Asya"
-    039: "Katimugang Europa"
-    053: "Australia at New Zealand"
+    030: "Eastern Asia"
+    034: "Southern Asia"
+    035: "South-Eastern Asia"
+    039: "Southern Europe"
+    053: Australasia
     054: Melanesia
-    057: "Rehiyong Micronesia"
+    057: "Micronesian Region"
     061: Polynesia
-    142: Asya
-    143: "Gitnang Asya"
-    145: "Kanlurang Asya"
-    150: Europa
-    151: "Silangang Europa"
-    154: "Hilagang Europa"
-    155: "Kanlurang Europa"
+    142: Asia
+    143: "Central Asia"
+    145: "Western Asia"
+    150: Europe
+    151: "Eastern Europe"
+    154: "Northern Europe"
+    155: "Western Europe"
     419: "Latin America"
     AC: "Acsencion island"
     AD: Andorra
@@ -40,13 +40,13 @@ tl:
     AM: Armenia
     AN: "Netherlands Antilles"
     AO: Angola
-    AQ: Antartica
+    AQ: Antarctica
     AR: Argentina
     AS: "American Samoa"
     AT: Austria
     AU: Australia
     AW: Aruba
-    AX: "Aland Islands"
+    AX: "Åland Islands"
     AZ: Azerbaijan
     BA: "Bosnia and Herzegovina"
     BB: Barbados
@@ -70,10 +70,10 @@ tl:
     BY: Belarus
     BZ: Belize
     CA: Canada
-    CC: "Cocos [Keeling] Islands"
-    CD: "Congo [DRC]"
+    CC: "Cocos (Keeling) Islands"
+    CD: "Congo (DRC)"
     CF: "Central African Republic"
-    CG: "Congo [Republic]"
+    CG: "Congo (Republic)"
     CH: Switzerland
     CI: "Ivory Coast"
     CK: "Cook Islands"
@@ -85,7 +85,7 @@ tl:
     CR: "Costa Rica"
     CU: Cuba
     CV: "Cape Verde"
-    CW: Curacao
+    CW: Curaçao
     CX: "Christmas Island"
     CY: Cyprus
     CZ: "Czech Republic"
@@ -102,17 +102,17 @@ tl:
     EG: Egypt
     EH: "Western Sahara"
     ER: Eritrea
-    ES: Espanya
+    ES: Spain
     ET: Ethiopia
     EU: "European Union"
     FI: Finland
     FJ: Fiji
-    FK: "Falkland Islands [Islas Malvinas]"
+    FK: "Falkland Islands (Islas Malvinas)"
     FM: Micronesia
     FO: "Faroe Islands"
     FR: France
     GA: Gabon
-    GB: "United Kingdom"
+    GB: U.K.
     GD: Grenada
     GE: Georgia
     GF: "French Guiana"
@@ -125,7 +125,7 @@ tl:
     GP: Guadeloupe
     GQ: "Equatorial Guinea"
     GR: Greece
-    GS: "South Georgia and The South Sandwich Islands"
+    GS: "South Georgia and the South Sandwich Islands"
     GT: Guatemala
     GU: Guam
     GW: Guinea-Bissau
@@ -146,7 +146,7 @@ tl:
     IQ: Iraq
     IR: Iran
     IS: Iceland
-    IT: Italya
+    IT: Italy
     JE: Jersey
     JM: Jamaica
     JO: Jordan
@@ -180,9 +180,9 @@ tl:
     MF: "Saint Martin"
     MG: Madagascar
     MH: "Marshall Islands"
-    MK: "Macedonia [FYROM]"
+    MK: "Macedonia (FYROM)"
     ML: Mali
-    MM: "Myanmar [Burma]"
+    MM: "Myanmar (Burma)"
     MN: Mongolia
     MO: Macau
     MP: "Northern Mariana Islands"
@@ -217,18 +217,18 @@ tl:
     PK: Pakistan
     PL: Poland
     PM: "Saint Pierre and Miquelon"
-    PN: Pitcairn
+    PN: "Pitcairn Islands"
     PR: "Puerto Rico"
     PS: Palestine
     PT: Portugal
     PW: Palau
     PY: Paraguay
     QA: Qatar
-    QO: "Malayong bahagi ng Oceania"
+    QO: "Outlying Oceania"
     RE: Réunion
     RO: Romania
     RS: Serbia
-    RU: "Russian Federation"
+    RU: Russia
     RW: Rwanda
     SA: "Saudi Arabia"
     SB: "Solomon Islands"
@@ -236,9 +236,9 @@ tl:
     SD: Sudan
     SE: Sweden
     SG: Singapore
-    SH: "St. Helena"
+    SH: "Saint Helena"
     SI: Slovenia
-    SJ: "Svalbard and Jan Mayen Islands"
+    SJ: "Svalbard and Jan Mayen"
     SK: Slovakia
     SL: "Sierra Leone"
     SM: "San Marino"
@@ -246,7 +246,7 @@ tl:
     SO: Somalia
     SR: Suriname
     SS: "South Sudan"
-    ST: "Sao Tome and Principe"
+    ST: "São Tomé and Príncipe"
     SV: "El Salvador"
     SX: "Sint Maarten"
     SY: Syria
@@ -271,7 +271,7 @@ tl:
     UA: Ukraine
     UG: Uganda
     UM: "U.S. Outlying Islands"
-    US: "Estados Unidos"
+    US: U.S.
     UY: Uruguay
     UZ: Uzbekistan
     VA: "Vatican City"
@@ -281,7 +281,7 @@ tl:
     VI: "U.S. Virgin Islands"
     VN: Vietnam
     VU: Vanuatu
-    WF: "Wallis and the Futuna Islands"
+    WF: "Wallis and Futuna"
     WS: Samoa
     XK: Kosovo
     YE: Yemen
@@ -289,4 +289,4 @@ tl:
     ZA: "South Africa"
     ZM: Zambia
     ZW: Zimbabwe
-    ZZ: "Hindi kilala o Hindi wastong Rehiyon"
+    ZZ: "Hindi Kilalang Rehiyon"

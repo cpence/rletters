@@ -29,8 +29,8 @@ af:
     151: Oos-Europa
     154: Noord-Europa
     155: Wes-Europa
-    419: "Latyns Amerika"
-    AC: Ascension-eiland
+    419: Latyns-Amerika
+    AC: Ascensioneiland
     AD: Andorra
     AE: "Verenigde Arabiese Emirate"
     AF: Afganistan
@@ -42,17 +42,17 @@ af:
     AO: Angola
     AQ: Antarktika
     AR: Argentinië
-    AS: "Amerikaans Samoa"
+    AS: Amerikaans-Samoa
     AT: Oostenryk
     AU: Australië
     AW: Aruba
-    AX: Åland-eilande
-    AZ: Aserbeidjan
+    AX: Ålandeilande
+    AZ: Azerbeidjan
     BA: "Bosnië en Herzegowina"
     BB: Barbados
     BD: Bangladesj
     BE: België
-    BF: "Boerkina Fasso"
+    BF: "Burkina Faso"
     BG: Bulgarye
     BH: Bahrein
     BI: Burundi
@@ -70,30 +70,30 @@ af:
     BY: Wit-Rusland
     BZ: Belize
     CA: Kanada
-    CC: "Cocos- [Keeling] eilande"
+    CC: "Cocos- (Keeling) eilande"
     CD: "Kongo (DRK)"
     CF: "Sentraal-Afrikaanse Republiek"
-    CG: "Kongo [Republiek]"
+    CG: "Kongo (Republiek)"
     CH: Switserland
     CI: Ivoorkus
     CK: Cookeilande
     CL: Chili
     CM: Kameroen
     CN: Sjina
-    CO: Kolombië
-    CP: Clipperton-eiland
+    CO: Colombië
+    CP: Clippertoneiland
     CR: "Costa Rica"
     CU: Kuba
     CV: "Kaap Verde"
     CW: Curaçao
     CX: Kerseiland
-    CY: Ciprus
+    CY: Siprus
     CZ: "Tjeggiese Republiek"
     DE: Duitsland
     DG: "Diego Garcia"
     DJ: Djiboeti
     DK: Denemarke
-    DM: Dominika
+    DM: Dominica
     DO: "Dominikaanse Republiek"
     DZ: Algerië
     EA: "Ceuta en Melilla"
@@ -107,12 +107,12 @@ af:
     EU: "Europese Unie"
     FI: Finland
     FJ: Fidji
-    FK: "Falkland-eilande [Malvinas]"
+    FK: "Falkland-eilande (Malvinas)"
     FM: Mikronesië
     FO: Faroëreilande
     FR: Frankryk
     GA: Gaboen
-    GB: Groot-Brittanje
+    GB: VK
     GD: Grenada
     GE: Georgië
     GF: Frans-Guyana
@@ -125,13 +125,13 @@ af:
     GP: Guadeloupe
     GQ: Ekwatoriaal-Guinee
     GR: Griekeland
-    GS: "Suid-Georgië en die Suid-Sandwich-eilande"
+    GS: "Suid-Georgië en die Suidelike Sandwicheilande"
     GT: Guatemala
     GU: Guam
     GW: Guinee-Bissau
     GY: Guyana
     HK: Hongkong
-    HM: "Heard-eiland en McDonald-eilande"
+    HM: "Heard- en McDonaldeilande"
     HN: Honduras
     HR: Kroasië
     HT: Haïti
@@ -142,7 +142,7 @@ af:
     IL: Israel
     IM: "Eiland Man"
     IN: Indië
-    IO: "Britse Indiese Oseaan Gebied"
+    IO: "Britse Indiese Oseaangebied"
     IQ: Irak
     IR: Iran
     IS: Ysland
@@ -156,7 +156,7 @@ af:
     KH: Kambodja
     KI: Kiribati
     KM: Comore
-    KN: "Saint Kitts en Nevis"
+    KN: "Sint Kitts en Nevis"
     KP: Noord-Korea
     KR: Suid-Korea
     KW: Koeweit
@@ -179,15 +179,15 @@ af:
     ME: Montenegro
     MF: "Sint Martin"
     MG: Madagaskar
-    MH: Marshall-eilande
-    MK: Macedonië
+    MH: Marshalleilande
+    MK: "Macedonië (VYRM)"
     ML: Mali
     MM: Mianmar
     MN: Mongolië
     MO: Macau
-    MP: "Noordelike Marianaeilande"
+    MP: "Noordelike Mariana-eilande"
     MQ: Martinique
-    MR: Mouritanië
+    MR: Mauritanië
     MS: Montserrat
     MT: Malta
     MU: Mauritius
@@ -199,25 +199,25 @@ af:
     NA: Namibië
     NC: Nieu-Kaledonië
     NE: Niger
-    NF: Norfolk-eiland
+    NF: Norfolkeiland
     NG: Nigerië
     NI: Nicaragua
     NL: Nederland
     "NO": Noorweë
     NP: Nepal
-    NR: Naoeroe
+    NR: Nauru
     NU: Niue
     NZ: Nieu-Seeland
     OM: Oman
     PA: Panama
     PE: Peru
     PF: Frans-Polinesië
-    PG: "Papoea Nieu-Guinee"
+    PG: Papoea-Nieu-Guinee
     PH: Filippyne
     PK: Pakistan
     PL: Pole
-    PM: "Sint-Pierre en Miquelon"
-    PN: Pitcairn
+    PM: "Sint Pierre en Miquelon"
+    PN: Pitcairneilande
     PR: "Puerto Rico"
     PS: Palestina
     PT: Portugal
@@ -231,7 +231,7 @@ af:
     RU: Rusland
     RW: Rwanda
     SA: Saoedi-Arabië
-    SB: "Solomon Eilande"
+    SB: Solomoneilande
     SC: Seychelle
     SD: Soedan
     SE: Swede
@@ -247,13 +247,13 @@ af:
     SR: Suriname
     SS: Suid-Soedan
     ST: "Sao Tome en Principe"
-    SV: Salvador
+    SV: "El Salvador"
     SX: "Sint Maarten"
     SY: Sirië
     SZ: Swaziland
     TA: "Tristan da Cunha"
-    TC: "Turks en Caicos Eilande"
-    TD: Tsjaad
+    TC: "Turks- en Caicoseilande"
+    TD: Tsjad
     TF: "Franse Suidelike Gebiede"
     TG: Togo
     TH: Thailand
@@ -268,17 +268,17 @@ af:
     TV: Tuvalu
     TW: Taiwan
     TZ: Tanzanië
-    UA: Oekraine
+    UA: Oekraïne
     UG: Uganda
     UM: "VS klein omliggende eilande"
-    US: "Verenigde State van Amerika"
+    US: VSA
     UY: Uruguay
     UZ: Oesbekistan
-    VA: Vatikaan
-    VC: "Saint Vincent en die Grenadine"
+    VA: Vatikaanstad
+    VC: "Sint Vincent en die Grenadine"
     VE: Venezuela
     VG: "Britse Maagde-eilande"
-    VI: "V.S. Maagde-eilande"
+    VI: "Amerikaanse Maagde-eilande"
     VN: Viëtnam
     VU: Vanuatu
     WF: "Wallis en Futuna"
@@ -289,4 +289,4 @@ af:
     ZA: Suid-Afrika
     ZM: Zambië
     ZW: Zimbabwe
-    ZZ: "Onbekend gebied"
+    ZZ: "Onbekende gebied"

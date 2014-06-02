@@ -46,7 +46,7 @@ nl:
     AT: Oostenrijk
     AU: Australië
     AW: Aruba
-    AX: Ålandeilanden
+    AX: Åland
     AZ: Azerbeidzjan
     BA: "Bosnië en Herzegovina"
     BB: Barbados
@@ -71,9 +71,9 @@ nl:
     BZ: Belize
     CA: Canada
     CC: Cocoseilanden
-    CD: "Congo [DRC]"
+    CD: "Congo (DRC)"
     CF: "Centraal-Afrikaanse Republiek"
-    CG: "Congo [Republiek]"
+    CG: "Congo (Republiek)"
     CH: Zwitserland
     CI: Ivoorkust
     CK: Cookeilanden
@@ -107,12 +107,12 @@ nl:
     EU: "Europese Unie"
     FI: Finland
     FJ: Fiji
-    FK: "Falklandeilanden [Islas Malvinas]"
+    FK: "Falklandeilanden (Islas Malvinas)"
     FM: Micronesië
     FO: Faeröer
     FR: Frankrijk
     GA: Gabon
-    GB: "Verenigd Koninkrijk"
+    GB: VK
     GD: Grenada
     GE: Georgië
     GF: Frans-Guyana
@@ -180,9 +180,9 @@ nl:
     MF: Saint-Martin
     MG: Madagaskar
     MH: Marshalleilanden
-    MK: "Macedonië [FYROM]"
+    MK: "Macedonië (FYROM)"
     ML: Mali
-    MM: Myanmar
+    MM: "Myanmar (Birma)"
     MN: Mongolië
     MO: Macao
     MP: "Noordelijke Marianeneilanden"
@@ -216,7 +216,7 @@ nl:
     PH: Filipijnen
     PK: Pakistan
     PL: Polen
-    PM: "Saint Pierre en Miquelon"
+    PM: "Saint-Pierre en Miquelon"
     PN: Pitcairneilanden
     PR: "Puerto Rico"
     PS: Palestina
@@ -238,7 +238,7 @@ nl:
     SG: Singapore
     SH: Sint-Helena
     SI: Slovenië
-    SJ: "Svalbard en Jan Mayen"
+    SJ: "Spitsbergen en Jan Mayen"
     SK: Slowakije
     SL: "Sierra Leone"
     SM: "San Marino"
@@ -271,7 +271,7 @@ nl:
     UA: Oekraïne
     UG: Oeganda
     UM: "Kleine afgelegen eilanden van de Verenigde Staten"
-    US: "Verenigde Staten"
+    US: VS
     UY: Uruguay
     UZ: Oezbekistan
     VA: Vaticaanstad

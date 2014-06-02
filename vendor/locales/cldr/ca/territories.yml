@@ -8,17 +8,17 @@ ca:
     011: "Àfrica Occidental"
     013: "Amèrica Central"
     014: "Àfrica Oriental"
-    015: "Àfrica septentrional"
+    015: "Àfrica Septentrional"
     017: "Àfrica Central"
-    018: "Àfrica meridional"
+    018: "Àfrica Meridional"
     019: Amèrica
-    021: "Amèrica septentrional"
+    021: "Amèrica Septentrional"
     029: Carib
     030: "Àsia Oriental"
-    034: "Àsia meridional"
+    034: "Àsia Meridional"
     035: "Àsia Sud-oriental"
-    039: "Europa meridional"
-    053: "Austràlia i Nova Zelanda"
+    039: "Europa Meridional"
+    053: Australàsia
     054: Melanèsia
     057: "Regió de la Micronèsia"
     061: Polinèsia
@@ -27,12 +27,12 @@ ca:
     145: "Àsia Occidental"
     150: Europa
     151: "Europa Oriental"
-    154: "Europa septentrional"
+    154: "Europa Septentrional"
     155: "Europa Occidental"
     419: "Amèrica Llatina"
     AC: "Illa de l'Ascensió"
     AD: Andorra
-    AE: "Unió dels Emirats Àrabs"
+    AE: "Emirats Àrabs Units"
     AF: Afganistan
     AG: "Antigua i Barbuda"
     AI: Anguilla
@@ -42,7 +42,7 @@ ca:
     AO: Angola
     AQ: Antàrtida
     AR: Argentina
-    AS: "Samoa Americana"
+    AS: "Samoa Nord-americana"
     AT: Àustria
     AU: Austràlia
     AW: Aruba
@@ -65,15 +65,15 @@ ca:
     BR: Brasil
     BS: Bahames
     BT: Bhutan
-    BV: "Illa Bouvet"
+    BV: Bouvet
     BW: Botswana
     BY: Bielorússia
     BZ: Belize
     CA: Canadà
     CC: "Illes Cocos"
-    CD: "Congo [República Democràtica del Congo]"
+    CD: "Congo (República Democràtica del Congo)"
     CF: "República Centreafricana"
-    CG: "Congo [República del Congo]"
+    CG: "Congo (República del Congo)"
     CH: Suïssa
     CI: "Costa d’Ivori"
     CK: "Illes Cook"
@@ -107,12 +107,12 @@ ca:
     EU: "Unió Europea"
     FI: Finlàndia
     FJ: Fiji
-    FK: "Illes Malvines [Illes Falkland]"
+    FK: "Illes Malvines (Illes Falkland)"
     FM: Micronèsia
     FO: "Illes Fèroe"
     FR: França
     GA: Gabon
-    GB: "Regne Unit"
+    GB: GB
     GD: Grenada
     GE: Geòrgia
     GF: "Guaiana Francesa"
@@ -180,9 +180,9 @@ ca:
     MF: "Saint Martin"
     MG: Madagascar
     MH: "Illes Marshall"
-    MK: "Macedònia [Exrepública Iugoslava de Macedònia]"
+    MK: "Macedònia (Exrepública Iugoslava de Macedònia)"
     ML: Mali
-    MM: "Myanmar [Birmània]"
+    MM: "Myanmar (Birmània)"
     MN: Mongòlia
     MO: Macau
     MP: "Illes Mariannes del Nord"
@@ -199,7 +199,7 @@ ca:
     NA: Namíbia
     NC: "Nova Caledònia"
     NE: Níger
-    NF: "Illa Norfolk"
+    NF: Norfolk
     NG: Nigèria
     NI: Nicaragua
     NL: "Països Baixos"
@@ -271,10 +271,10 @@ ca:
     UA: Ucraïna
     UG: Uganda
     UM: "Illes Perifèriques Menors dels EUA"
-    US: "Estats Units"
+    US: EUA
     UY: Uruguai
     UZ: Uzbekistan
-    VA: Vaticà
+    VA: "Ciutat del Vaticà"
     VC: "Saint Vincent i les Grenadines"
     VE: Veneçuela
     VG: "Illes Verges Britàniques"
