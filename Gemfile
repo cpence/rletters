@@ -28,7 +28,7 @@ gem 'activeadmin-sortable-tree',
 gem 'druthers'
 
 # Internationalization
-gem 'rails-i18n', '= 4.0.1'
+gem 'rails-i18n', '= 4.0.2'
 gem 'i18n-js-pika', '>= 3.0.0.rc1', require: 'i18n-js'
 gem 'http_accept_language'
 

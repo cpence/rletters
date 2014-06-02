@@ -15,6 +15,7 @@
 *   Fix a bug in facet display code that could cause the facet display to cut off early.
 *   Update Rails, which fixes two potential DoS vulnerabilities.
 *   Fix a potential DoS vulnerability from symbol conversion in the export code.
+*   Update to Rails' internationalization means we can now be translated into Tamil and several more regional dialects of Spanish, among others.
 
 
 ## Version 1.2 (beta, 2013-12-24)
