@@ -4,19 +4,19 @@
 [![External API Docs][apiary_img]][apiary] [![Code Docs][rubydoc_img]][rubydoc] [![Feature Docs][relish_img]][relish]
 
 [travis]: http://travis-ci.org/rletters/rletters
-[travis_img]: https://secure.travis-ci.org/rletters/rletters.png?branch=master
+[travis_img]: http://img.shields.io/travis/rletters/rletters.svg
 [coveralls]: https://coveralls.io/r/rletters/rletters
-[coveralls_img]: https://coveralls.io/repos/rletters/rletters/badge.png?branch=master
+[coveralls_img]: http://img.shields.io/coveralls/rletters/rletters.svg
 [codeclimate]: https://codeclimate.com/github/rletters/rletters
-[codeclimate_img]: https://codeclimate.com/github/rletters/rletters.png
+[codeclimate_img]: http://img.shields.io/codeclimate/github/rletters/rletters.svg
 [gemnasium]: https://gemnasium.com/rletters/rletters
-[gemnasium_img]: https://gemnasium.com/rletters/rletters.png
+[gemnasium_img]: http://img.shields.io/gemnasium/rletters/rletters.svg
 [apiary]: http://docs.rletters.apiary.io/
-[apiary_img]: http://rletters.net/images/apiary.png
+[apiary_img]: http://img.shields.io/badge/api%20docs-apiary-brightgreen.svg
 [rubydoc]: http://rubydoc.info/github/rletters/rletters
-[rubydoc_img]: http://rletters.net/images/rubydoc.png
+[rubydoc_img]: http://img.shields.io/badge/code%20docs-rubydoc-brightgreen.svg
 [relish]: https://www.relishapp.com/rletters/rletters/docs
-[relish_img]: http://rletters.net/images/relish.png
+[relish_img]: http://img.shields.io/badge/feature%20docs-relish-brightgreen.svg
 
 **Homepage:** [http://rletters.net](http://rletters.net)  
 **Git:** [http://github.com/rletters/rletters](http://github.com/rletters/rletters)  
