@@ -25,7 +25,7 @@ class Resque::Failure::AnalysisTask < Resque::Failure::Base
   # bit.  Do that here.
   #
   # @api private
-  # @return [undefined]
+  # @return [void]
   def save
     klass = payload['class'].safe_constantize
     return unless klass

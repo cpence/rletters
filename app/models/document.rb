@@ -22,7 +22,7 @@
 #
 # @!attribute [r] authors
 #   @return [RLetters::Documents::Authors] the document's authors, parsed into
-#     +Author+ objects
+#     `Author` objects
 #
 # @!attribute [r] title
 #   @return [String] the title of this document
@@ -41,15 +41,15 @@
 #     format 'start-end'
 #
 # @!attribute [r] fulltext
-#   If +fulltext_url+ is set, this variable will be transparently set to the
+#   If `fulltext_url` is set, this variable will be transparently set to the
 #   fetched text when a document is retrieved from the server with fulltext
 #   requested.
 #
-#   @return [String] the full text of this document.  May be +nil+ if the query
+#   @return [String] the full text of this document.  May be `nil` if the query
 #     type used to retrieve the document does not provide the full text
 # @!attribute [r] fulltext_url
 #   @return [URI] if present, the URL from which to fetch the full text.  May
-#     be +nil+ if the text is stored locally
+#     be `nil` if the text is stored locally
 #
 # @!attribute [r] term_vectors
 #   Term vectors for this document
@@ -58,25 +58,25 @@
 #   document.  The following data is provided (based on Solr server
 #   configuration):
 #
-#   - +:tf+, term frequency: the number of times this term appears in
+#   - `:tf`, term frequency: the number of times this term appears in
 #     the given document
-#   - +:offsets+, term offsets: the start and end character offsets for
-#     this word within +fulltext+.  Note that these offsets can be
+#   - `:offsets`, term offsets: the start and end character offsets for
+#     this word within `fulltext`.  Note that these offsets can be
 #     complicated by string encoding issues, be careful when using them!
-#   - +:positions+, term positions: the position of this word (in
-#     _number of words_) within +fulltext+.  Note that these positions
+#   - `:positions`, term positions: the position of this word (in
+#     *number of words*) within `fulltext`.  Note that these positions
 #     rely on the precise way in which Solr splits words, which is specified
-#     by {Unicode UAX #29.}[http://unicode.org/reports/tr29/]
-#   - +:df+, document frequency: the number of documents in the collection
+#     by [Unicode UAX #29.](http://unicode.org/reports/tr29/)
+#   - `:df`, document frequency: the number of documents in the collection
 #     that contain this word
-#   - +:tfidf+, term frequency-inverse document frequency: equal to (term
+#   - `:tfidf`, term frequency-inverse document frequency: equal to `(term
 #     frequency / number of words in this document) * log(size of collection
-#     / document frequency).  A measure of how "significant" or "important"
+#     / document frequency)`.  A measure of how "significant" or "important"
 #     a given word is within a document, which gives high weight to words
 #     that occur frequently in a given document but do _not_ occur in other
 #     documents.
 #
-#   @note This attribute may be +nil+, if the query type requested from
+#   @note This attribute may be `nil`, if the query type requested from
 #     the Solr server does not return term vectors.
 #
 #   @api public
@@ -113,8 +113,8 @@ class Document
   # @api public
   # @param [String] uid uid of the document to be retrieved
   # @param [Hash] options options which modify the behavior of the search
-  # @option options [Boolean] fulltext if true, return document full text
-  # @option options [Boolean] term_vectors if true, return term vectors
+  # @option options [Boolean] :fulltext if true, return document full text
+  # @option options [Boolean] :term_vectors if true, return term vectors
   # @return [Document] the document requested
   # @raise [RLetters::Solr::ConnectionError] thrown if there is an error
   #   querying Solr
@@ -131,10 +131,10 @@ class Document
   #
   # @api public
   # @api public
-  # @option args [Boolean] fulltext if true, return the full text of the
+  # @option args [Boolean] :fulltext if true, return the full text of the
   #   document if found
-  # @option args [Boolean] term_vectors if true, return term vectors
-  # @option args [String] field any document field may be queried here as a
+  # @option args [Boolean] :term_vectors if true, return term vectors
+  # @option args [String] :field any document field may be queried here as a
   #   search query (see example)
   # @return [Document] the document requested, or nil if not found
   # @raise [RLetters::Solr::ConnectionError] thrown if there is an error
@@ -150,10 +150,10 @@ class Document
   # Query a document and return it (or nil)
   #
   # @api public
-  # @option args [Boolean] fulltext if true, return the full text of the
+  # @option args [Boolean] :fulltext if true, return the full text of the
   #   document if found
-  # @option args [Boolean] term_vectors if true, return term vectors
-  # @option args [String] field any document field may be queried here as a
+  # @option args [Boolean] :term_vectors if true, return term vectors
+  # @option args [String] :field any document field may be queried here as a
   #   search query (see example)
   # @return [Document] the document requested, or nil if not found
   # @raise [RLetters::Solr::ConnectionError] thrown if there is an error
@@ -243,7 +243,7 @@ class Document
   # Set all attributes and create author lists
   #
   # This constructor copies in all attributes, as well as splitting the
-  # +authors+ value.
+  # `authors` value.
   #
   # @api public
   # @param [Hash] attributes attributes for this document

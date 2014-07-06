@@ -2,7 +2,7 @@
 
 # Model containing all of our global settings
 #
-# This model (via the +druthers+ gem) is the single source for
+# This model (via the `druthers` gem) is the single source for
 # all of our global application settings (such as the URL for the Solr server,
 # the site title, etc.).
 #
@@ -40,23 +40,38 @@ class Admin::Setting < ActiveRecord::Base
 
   def_druthers(*VALID_KEYS)
 
+  # @api private
+  # @return [String] The default application name
   def self.default_app_name
     'RLetters'
   end
+
+  # @api private
+  # @return [String] The default application e-mail address
   def self.default_app_email
     'not@an.email.com'
   end
+
+  # @api private
+  # @return [String] The default application hosting domain
   def self.default_app_domain
     'not.a.web.site.com'
   end
+
+  # @api private
+  # @return [String] The default URL for the Solr server
   def self.default_solr_server_url
     'http://127.0.0.1:8983/'
   end
+
+  # @api private
+  # @return [Integer] The default timeout value for Solr, in seconds
   def self.default_solr_timeout
     120
   end
 
-  # @return [String] Friendly name of this asset (looked up in locale)
+  # @api private
+  # @return [String] Friendly name of this setting (looked up in locale)
   def friendly_name
     ret = I18n.t("settings.#{key}", default: '')
     return key.to_s if ret == ''

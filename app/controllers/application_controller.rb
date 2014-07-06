@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
   # This method is called by Devise.
   #
   # @api private
-  # @return [undefined]
+  # @return [void]
   def after_sign_in_path_for(resource)
     if resource.is_a?(Admin::Administrator)
       admin_root_url
@@ -26,7 +26,7 @@ class ApplicationController < ActionController::Base
   # This method is called by Devise.
   #
   # @api private
-  # @return [undefined]
+  # @return [void]
   def after_sign_out_path_for(resource)
     root_url
   end
@@ -40,7 +40,7 @@ class ApplicationController < ActionController::Base
   # @param [String] file the document to be rendered
   # @return [SafeBuffer] the rendering result
   # @example Render config/locales/test/test.en.md
-  #   <%= render_localized_markdown :test %>
+  #   %div= render_localized_markdown(:test)
   def render_localized_markdown(file)
     path = Rails.root.join('config', 'locales', file.to_s,
                            "#{file}.#{I18n.locale}.md")
@@ -70,12 +70,12 @@ class ApplicationController < ActionController::Base
 
   # Set the locale if the user is logged in
   #
-  # This function is called as a +before_action+ in all controllers, you do
+  # This function is called as a `before_action` in all controllers, you do
   # not need to call it yourself.  Do not disable it, or the locale system
   # will go haywire.
   #
   # @api private
-  # @return [undefined]
+  # @return [void]
   def set_locale
     if user_signed_in?
       I18n.locale = current_user.language.to_sym
@@ -86,12 +86,12 @@ class ApplicationController < ActionController::Base
 
   # Set the timezone if the user is logged in
   #
-  # This function is called as a +before_action+ in all controllers, you do
+  # This function is called as a `before_action` in all controllers, you do
   # not need to call it yourself.  Do not disable it, or the timezone system
   # will go haywire.
   #
   # @api private
-  # @return [undefined]
+  # @return [void]
   def set_timezone
     if user_signed_in?
       Time.zone = current_user.timezone
@@ -105,11 +105,11 @@ class ApplicationController < ActionController::Base
   # Set cache control headers
   #
   # This helper can be called when we want a page to expire.  This is similar
-  # to Rails' +expires_now+ function, but sets more headers to work with more
+  # to Rails' `expires_now` function, but sets more headers to work with more
   # browsers.
   #
   # @api private
-  # @return [undefined]
+  # @return [void]
   def disable_browser_cache
     response.cache_control[:no_cache] = true
     response.cache_control[:extras] = ['no-store', 'max-age=0', 'must-revalidate']

@@ -29,11 +29,12 @@ module Jobs
       # Examine the network of words associated with a focal term.
       #
       # @param [Hash] options parameters for this job
-      # @option options [String] user_id the user whose dataset we are to work on
-      # @option options [String] dataset_id the dataset to operate on
-      # @option options [String] task_id the analysis task we're working from
-      # @option options [String] word the focal word to analyze
-      # @return [undefined]
+      # @option options [String] :user_id the user whose dataset we are to
+      #   work on
+      # @option options [String] :dataset_id the dataset to operate on
+      # @option options [String] :task_id the analysis task we're working from
+      # @option options [String] :word the focal word to analyze
+      # @return [void]
       # @example Start a job for examining a word network
       #   Jobs::Analysis::Collocation.create(user_id: current_user.to_param,
       #                                      dataset_id: dataset.to_param,

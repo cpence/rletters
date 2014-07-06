@@ -18,7 +18,7 @@ class UnapiController < ApplicationController
   # suite.
   #
   # @api public
-  # @return [undefined]
+  # @return [void]
   def index
     if params[:id].blank?
       render template: 'unapi/formats',

@@ -29,7 +29,7 @@ module RLetters
 
       # Add the results of the query to the dataset
       #
-      # @return [undefined]
+      # @return [void]
       def call
         # Add batches until we run out (FIXME: a more ruby way to do this?)
         while add_batch do

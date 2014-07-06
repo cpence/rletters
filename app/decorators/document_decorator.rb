@@ -1,5 +1,9 @@
 # -*- encoding : utf-8 -*-
 
+# Decorate document objects
+#
+# A few presentation methods for documents, particularly those that mix in
+# features from the current user's settings.
 class DocumentDecorator < Draper::Decorator
   delegate_all
 

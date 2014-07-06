@@ -17,7 +17,7 @@ class Documents::StopList < ActiveRecord::Base
   validates :language, presence: true
   validates :list, presence: true
 
-  # @return [String] the +language+ parameter, translated into the user's
+  # @return [String] the `language` parameter, translated into the user's
   #   selected language
   def display_language
     I18n.t("languages.#{language}")

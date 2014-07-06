@@ -1,5 +1,10 @@
 # -*- encoding : utf-8 -*-
 
+# Decorate a search result object
+#
+# This adds methods to access the documents and facets returned as part of
+# a search, as well as unified ways to deal with the facets and categories
+# (together, called "filters") that users may utilize.
 class SearchResultDecorator < Draper::Decorator
   decorates RLetters::Solr::SearchResult
   delegate_all
@@ -55,6 +60,8 @@ class SearchResultDecorator < Draper::Decorator
   #
   # @api public
   # @return [String] removal links for all filters
+  # @example Show removal links for all filters
+  #   %dl= @result.filter_removal_links
   def filter_removal_links
     if h.params[:fq].blank? && active_categories.blank?
       return h.content_tag(:dd) do
@@ -80,7 +87,7 @@ class SearchResultDecorator < Draper::Decorator
   # @api public
   # @return [String] number of hits for the search
   # @example Print the number of hits for the search (in HAML)
-  #   = result.num_hits
+  #   == #{@result.num_hits} documents found
   def num_hits
     if (object.params[:q] && object.params[:q] != '*:*') || object.params[:fq]
       I18n.t 'search.index.num_hits_found', count: object.num_hits
@@ -94,7 +101,7 @@ class SearchResultDecorator < Draper::Decorator
   # @api public
   # @return [String] full set of pagination links for the current page
   # @example Put the current pagination links in a paragraph element
-  #   <p><%= result.pagination %></p>
+  #   %p= result.pagination
   def pagination
     # Extract page and per_page from the Solr query that we called
     per_page = (object.params['rows'] || 10).to_i
@@ -144,8 +151,8 @@ class SearchResultDecorator < Draper::Decorator
   # @api public
   # @return [Array<String>] all possible sorting strings
   # @example Create links to all the sort methods
-  #   <%= sort_methods.each do |s| %>
-  #     <%= link_to ... %>
+  #   - sort_methods.each do |s|
+  #     = link_to ...
   def sort_methods
     SORT_METHODS.map { |m| [m, sort_string_for(m)] }
   end
@@ -155,7 +162,7 @@ class SearchResultDecorator < Draper::Decorator
   # @api public
   # @return [String] user-friendly representation of current sort method
   # @example Get the current search's sort method
-  #   result.sort
+  #   @result.sort
   #   # => 'Sort: Relevance'
   def sort
     sort_string_for object.params['sort']
@@ -165,13 +172,13 @@ class SearchResultDecorator < Draper::Decorator
 
   # Make a link to a page for the pagination widget
   #
-  # @api public
+  # @api private
   # @param [String] text text for this link
   # @param [Integer] num the page number (0-based)
   # @param [String] klass class to put on the <li> tag
   # @return [String] the requested link
   # @example Get a link to the 3rd page of results
-  #   page_link('Page 3!', 2)
+  #   @result.page_link('Page 3!', 2)
   def page_link(text, num, klass)
     if num.nil?
       href = '#'

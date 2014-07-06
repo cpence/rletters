@@ -13,41 +13,41 @@ module Jobs
 
         # Compute word frequency data for a given dataset
         #
-        # @param [Dataset] datset the dataset for which to compute
+        # @param [Dataset] dataset the dataset for which to compute
         #   frequencies
         # @param [Proc] progress If set, a function to call with a percentage
         #   of completion (one Integer parameter)
         # @param [Hash] args parameters for frequency analysis
-        # @option args [String] block_size block size, in words
+        # @option args [String] :block_size block size, in words
         #
-        #   If this attribute is zero, then we will read from +num_blocks+
+        #   If this attribute is zero, then we will read from `num_blocks`
         #   instead.  Defaults to zero.
-        # @option args [String] num_blocks number of blocks for splitting
+        # @option args [String] :num_blocks number of blocks for splitting
         #
-        #   If this attribute is zero, we will read from +block_size+ instead.
+        #   If this attribute is zero, we will read from `block_size` instead.
         #   Defaults to zero.
-        # @option args [String] split_across whether to split blocks across
+        # @option args [String] :split_across whether to split blocks across
         #   documents
         #
         #   If this is set to true, then we will effectively concatenate all
         #   the documents before splitting into blocks.  If false, we'll
         #   split blocks on a per-document basis.  Defaults to true.
-        # @option args [String] num_words how many words to keep in the list
+        # @option args [String] :num_words how many words to keep in the list
         #
         #   If greater than the number of types in the dataset (or zero),
         #   then return all the words.  Defaults to zero.
-        # @option args [String] last_block how to treat the last block
+        # @option args [String] :last_block how to treat the last block
         #
         #   Can be set to big_last, small_last, truncate_last, or
         #   truncate_all.  See the RLetters::Analysis::WordFrequency docs for
         #   more information.
-        # @option args [String] inclusion_list if set, list of words to find
+        # @option args [String] :inclusion_list if set, list of words to find
         #
         #   If this attribute is set, then we'll only analyze the words that
         #   are specified here (separated by spaces), and no others.
-        # @option args [String] stop_list if set, language of stop list
+        # @option args [String] :stop_list if set, language of stop list
         #   to use
-        # @option args [String] exclusion_list if set, list of words to
+        # @option args [String] :exclusion_list if set, list of words to
         #   exclude from analysis
         # @return [RLetters::Analysis::WordFrequency] the computed analysis
         def compute_word_frequencies(dataset, progress = nil, args = {})
@@ -103,6 +103,10 @@ module Jobs
         #
         # Since the params are coming in from a form, they'll all be strings.
         # We need them as integer or boolean types, so convert them here.
+        #
+        # @api private
+        # @param [Hash] args the original arguments to the job
+        # @return [Hash] args the arguments, with typecast parameters
         def convert_args!(args)
           args.clean_options!
 

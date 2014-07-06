@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 
+# The module containing all domain-specific logic for RLetters
 module RLetters
   # Code that connects RLetters to a Solr server and parses its responses
   module Solr
@@ -133,7 +134,7 @@ module RLetters
       # and reconnect to Solr when required.
       #
       # @api private
-      # @return [undefined]
+      # @return [void]
       def self.ensure_connected!
         Connection.url ||= Admin::Setting.solr_server_url
         Connection.solr ||= connect

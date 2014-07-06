@@ -1,5 +1,8 @@
 # -*- encoding : utf-8 -*-
 
+# Decorate analysis task objects
+#
+# This class adds methods to display the results from analysis tasks.
 class AnalysisTaskDecorator < Draper::Decorator
   decorates Datasets::AnalysisTask
   delegate_all

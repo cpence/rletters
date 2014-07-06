@@ -2,9 +2,25 @@
 
 module RLetters
   module Analysis
+    # Various analyzers for word collocations
+    #
+    # Collocations are pairs of words with particular significance or
+    # meaning in language.  Linguists use them to point out particular
+    # features of a language -- for example, speakers of English use the
+    # phrase "strong tea" but would never say "strong computers", preferring
+    # instead "powerful computers" (but never "powerful tea").
     module Collocation
       # Base methods common to all collocation analyzers
       class Base
+        # Create a new collocation analyzer
+        #
+        # @api public
+        # @param [Dataset] dataset the dataset to analyze
+        # @param [Integer] num_pairs the number of collocations to return
+        # @param [String] focal_word if set, all collocations returned will
+        #   include this word
+        # @param [Proc] progress If set, a function to call with a percentage
+        #   of completion (one Integer parameter)
         def initialize(dataset, num_pairs, focal_word = nil, progress = nil)
           @dataset = dataset
           @num_pairs = num_pairs

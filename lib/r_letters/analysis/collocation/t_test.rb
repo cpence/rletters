@@ -3,17 +3,30 @@
 module RLetters
   module Analysis
     module Collocation
+      # Analyze collocations using T tests as the significance measure
       class TTest < Base
+        # Perform T-test analysis
+        #
+        # To turn frequencies and counts into p values:
+        #
+        # ```
+        # Pr(a) = f(a) / N
+        # Pr(b) = f(b) / N
+        # H0 = independent occurrences A and B = Pr(a) * Pr(b)
+        # x = f(a b) / N
+        # s^2 = H0 * (1 - H0)
+        # t = (x - H0) / sqrt(s^2 / N)
+        # p = 1 - Distribution::T.cdf(t, N-1)
+        # ```
+        #
+        # @api public
+        # @return [Array<Array(String, Float)>] a set of words and their
+        #   associated significance values, sorted in order of significance
+        #   (most significant first)
+        # @example Run a t-test analysis of a dataset
+        #   an = RLetters::Analysis::Collocation::TTest.new(d, 30)
+        #   result = an.call
         def call
-          # T-TEST
-          # Pr(a) = f(a) / N
-          # Pr(b) = f(b) / N
-          # H0 = independent occurrences A and B = Pr(a) * Pr(b)
-          # x = f(a b) / N
-          # s^2 = H0 * (1 - H0)
-          # t = (x - H0) / sqrt(s^2 / N)
-          # convert t to a p-value based on N
-          #   1 - Distribution::T.cdf(t, N-1)
           analyzers = get_analyzers
 
           word_f = analyzers[0].blocks[0]

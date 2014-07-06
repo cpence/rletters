@@ -6,12 +6,12 @@
 # results by journal type.  This is the class for each category in the tree.
 #
 # @!attribute parent_id
-#   @return [Integer] id of parent node, or +nil+ (internal, used by
-#     +closure_tree+)
+#   @return [Integer] id of parent node, or `nil` (internal, used by
+#     `closure_tree`)
 # @!attribute sort_order
-#   @return [Integer] sort order field (internal, used by +closure_tree+)
+#   @return [Integer] sort order field (internal, used by `closure_tree`)
 # @!attribute name
-#   @raise [RecordInvalid] if the name is missing (validates :presence)
+#   @raise [RecordInvalid] if the name is missing (`validates :presence`)
 #   @return [String] name of the category
 # @!attribute journals
 #   @return [Array<String>] list of journals in this category

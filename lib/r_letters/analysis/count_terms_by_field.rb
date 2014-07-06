@@ -7,7 +7,7 @@ module RLetters
       # Create a new object for counting terms in a datset by field
       #
       # Pass the term that you're interested to analyze, and the dataset that
-      # you'd like to draw the term from (or +nil+ to indicate the entire
+      # you'd like to draw the term from (or `nil` to indicate the entire
       # corpus).
       #
       # @param [String] term the term of interest

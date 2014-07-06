@@ -12,31 +12,34 @@ class Users::LibrariesController < ApplicationController
   # Display the list of the user's libraries
   #
   # @api public
-  # @return [undefined]
+  # @return [void]
   def index
     @libraries = current_user.libraries
     render layout: false
   end
 
   # Show the form for creating a new library link
+  #
   # @api public
-  # @return [undefined]
+  # @return [void]
   def new
     @library = current_user.libraries.build
     render layout: false
   end
 
   # Show the form for editing a library link
+  #
   # @api public
-  # @return [undefined]
+  # @return [void]
   def edit
     @library = current_user.libraries.find(params[:id])
     render layout: false
   end
 
   # Create a new library link in the database
+  #
   # @api public
-  # @return [undefined]
+  # @return [void]
   def create
     @library = Users::Library.new(library_params)
     @library.user = current_user
@@ -51,8 +54,9 @@ class Users::LibrariesController < ApplicationController
   end
 
   # Update the attributes of a library link in the database
+  #
   # @api public
-  # @return [undefined]
+  # @return [void]
   def update
     @library = current_user.libraries.find(params[:id])
 
@@ -66,8 +70,9 @@ class Users::LibrariesController < ApplicationController
   end
 
   # Delete a library link from the database
+  #
   # @api public
-  # @return [undefined]
+  # @return [void]
   def destroy
     @library = current_user.libraries.find(params[:id])
 
@@ -79,11 +84,11 @@ class Users::LibrariesController < ApplicationController
 
   # Query the list of available libraries from OCLC
   #
-  # This function sets +@libraries+ to the list of all available libraries
+  # This function sets `@libraries` to the list of all available libraries
   # for the client's IP address, according to the WorldCat library database.
   #
   # @api public
-  # @return [undefined]
+  # @return [void]
   def query
     @libraries = []
 

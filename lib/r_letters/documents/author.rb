@@ -1,6 +1,7 @@
 # -*- encoding : utf-8 -*-
 
 module RLetters
+  # Code for manipulating and parsing documents and their contents
   module Documents
     # One of the authors of a document
     #

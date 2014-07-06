@@ -9,7 +9,7 @@ class ErrorsController < ApplicationController
   # Render a 404 error page
   #
   # @api public
-  # @return [undefined]
+  # @return [void]
   def not_found
     respond_to do |format|
       format.html { render(template: 'errors/404', layout: false, status: 404) }
@@ -23,7 +23,7 @@ class ErrorsController < ApplicationController
   # a 422 error in an RSpec request spec.
   #
   # @api public
-  # @return [undefined]
+  # @return [void]
   # :nocov:
   def unprocessable
     respond_to do |format|
@@ -36,7 +36,7 @@ class ErrorsController < ApplicationController
   # Render a 500 error page
   #
   # @api public
-  # @return [undefined]
+  # @return [void]
   def internal_error
     render(template: 'errors/500', layout: false,
            formats: [:html], status: 500)

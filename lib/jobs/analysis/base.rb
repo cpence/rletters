@@ -8,20 +8,20 @@ module Jobs
     # Analysis jobs have two special partials that can be implemented to
     # engage novel behavior:
     #
-    # - +_params.html.haml+ (optional): If this view is present, then after the
+    # - `_params.html.haml` (optional): If this view is present, then after the
     #   task has collected the appropriate number of datasets, the user will be
     #   presented with this form in order to set special parameters for the
     #   task.  This partial should consist of a form that submits to
-    #   +dataset_analysis_tasks_path+ with +:post+
-    #   (+datasets/analysis_tasks#create+).
-    # - +results.html.haml+ (optional): Tasks may report their results in two
+    #   `dataset_analysis_tasks_path` with `:post`
+    #   (`datasets/analysis_tasks#create`).
+    # - `results.html.haml` (optional): Tasks may report their results in two
     #   different ways.  Some tasks (e.g., ExportCitations) just dump all of
-    #   their results into a file (see +AnalysisTask#result_file+) for the
-    #   user to download.  This is the default, for which +#download?+ returns
-    #   +true+.  If +#download?+ is overridden to return +false+, then the
-    #   job is expected to implement the +results+ view, which will show the
+    #   their results into a file (see `AnalysisTask#result_file`) for the
+    #   user to download.  This is the default, for which `#download?` returns
+    #   `true`.  If `#download?` is overridden to return `false`, then the
+    #   job is expected to implement the `results` view, which will show the
     #   user the results of the job in HTML form.  The standard way to do this
-    #   is to write the job results out as JSON in +AnalysisTask#result_file+,
+    #   is to write the job results out as JSON in `AnalysisTask#result_file`,
     #   and then to parse this JSON into HAML in the view.
     class Base
       # Returns true if this job can be run right now
@@ -49,7 +49,9 @@ module Jobs
       # This handles the i18n scoping for analysis job classes.  It will
       # pass fully scoped translation keys along unaltered.
       #
+      # @api public
       # @param [String] key the translation to look up (e.g., '.short_desc')
+      # @param [Hash] opts the options for the translation
       # @return [String] the translated message
       def self.t(key, opts = {})
         return I18n.t(key, opts) unless key[0] == '.'
@@ -90,7 +92,7 @@ module Jobs
 
       # Get a list of all classes that are analysis jobs
       #
-      # This method looks up all the defined job classes in +lib/jobs/analysis+
+      # This method looks up all the defined job classes in `lib/jobs/analysis`
       # and returns them in a list so that we may loop over them (e.g., when
       # including all job-start markup).
       #
@@ -132,7 +134,7 @@ module Jobs
       #
       # @api public
       # @param [String] concern the concern to mix in
-      # @return [undefined]
+      # @return [void]
       # @example Mix the 'Normalization' concern into this job class
       #   class MyJob < Jobs::Analysis::Base
       #     add_concern 'Normalization'
@@ -187,12 +189,12 @@ module Jobs
       # Returns the path to a particular view on the filesystem
       #
       # The arguments to this function are somewhat like the Rails render call.
-      # One of either +:template+ or +:partial+ must be specified
+      # One of either `:template` or `:partial` must be specified
       #
       # @param [Hash] args options for finding view
-      # @options args [String] template if specified, template to search for
-      # @options args [String] partial if specified, partial to search for
-      # @options args [String] format if specified, format to render (deafults
+      # @option args [String] :template if specified, template to search for
+      # @option args [String] :partial if specified, partial to search for
+      # @option args [String] :format if specified, format to render (deafults
       #   to HTML)
       def self.view_path(args)
         if args[:template]
@@ -219,8 +221,8 @@ module Jobs
       # Returns true if the given view exists for this job class
       #
       # @api public
-      # @param String view the view to search for
-      # @param String format the format to search for
+      # @param [String] view the view to search for
+      # @param [String] format the format to search for
       # @return [Boolean] true if the given job has the view requested
       def self.has_view?(view, format = 'html')
         !view_path(template: view, format: format).nil?

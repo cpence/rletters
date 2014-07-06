@@ -1,6 +1,7 @@
 # -*- encoding : utf-8 -*-
 
 module RLetters
+  # Code for performing various analyses on document text
   module Analysis
     # Compute named entity references for a given dataset
     #

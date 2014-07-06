@@ -33,11 +33,12 @@ module Jobs
       #
       # @api public
       # @param [Hash] options parameters for this job
-      # @option options [String] user_id the user whose dataset we are to work on
-      # @option options [String] dataset_id the dataset to operate on
-      # @option options [String] task_id the analysis task we're working from
-      # @option options [String] term the focal word to analyze
-      # @return [undefined]
+      # @option options [String] :user_id the user whose dataset we are to
+      #   work on
+      # @option options [String] :dataset_id the dataset to operate on
+      # @option options [String] :task_id the analysis task we're working from
+      # @option options [String] :term the focal word to analyze
+      # @return [void]
       # @example Start a job for plotting a dataset by year
       #   Jobs::Analysis::TermDates.create(user_id: current_user.to_param,
       #                                    dataset_id: dataset.to_param,

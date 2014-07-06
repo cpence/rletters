@@ -29,7 +29,7 @@ class DeviseFailure < Devise::FailureApp
   # because we don't want that.
   #
   # @api private
-  # @return [undefined]
+  # @return [void]
   def respond
     redirect
   end

@@ -13,7 +13,7 @@ class DocumentsController < ApplicationController
   # export back, as a download.
   #
   # @api public
-  # @return [undefined]
+  # @return [void]
   def export
     @document = Document.find(params[:uid])
 
@@ -40,8 +40,9 @@ class DocumentsController < ApplicationController
   end
 
   # Redirect to the Mendeley page for a document
+  #
   # @api public
-  # @return [undefined]
+  # @return [void]
   def mendeley
     fail ActiveRecord::RecordNotFound if Admin::Setting.mendeley_key.blank?
 
@@ -64,8 +65,9 @@ class DocumentsController < ApplicationController
   end
 
   # Redirect to the Citeulike page for a document
+  #
   # @api public
-  # @return [undefined]
+  # @return [void]
   def citeulike
     @document = Document.find(params[:uid])
 

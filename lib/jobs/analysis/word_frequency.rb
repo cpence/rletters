@@ -34,15 +34,18 @@ module Jobs
       # data is so complex that you'll want to pull it up on a spreadsheet.
       #
       # Note that there are also parameters to be passed in to the
-      # +ComputeWordFrequencies+ concern; see that concern's documentation for
+      # `ComputeWordFrequencies` concern; see that concern's documentation for
       # the specification of those arguments.
       #
-      # @param [Hash] options parameters for this job
-      # @option options [String] user_id the user whose dataset we are to work on
-      # @option options [String] dataset_id the dataset to operate on
-      # @option options [String] task_id the analysis task we're working from
       # @see Jobs::Analysis::Concerns::ComputeWordFrequencies
-      # @return [undefined]
+      #
+      # @param [Hash] options parameters for this job
+      # @option options [String] :user_id the user whose dataset we are to
+      #   work on
+      # @option options [String] :dataset_id the dataset to operate on
+      # @option options [String] :task_id the analysis task we're working from
+      # @see Jobs::Analysis::Concerns::ComputeWordFrequencies
+      # @return [void]
       # @example Start a job for computing a dataset's word frequencies
       #   Jobs::Analysis::WordFrequency.create(user_id: current_user.to_param,
       #                                        dataset_id: dataset.to_param,

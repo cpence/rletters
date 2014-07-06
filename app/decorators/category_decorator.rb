@@ -1,10 +1,14 @@
 # -*- encoding : utf-8 -*-
 
+# Decorate a category object
+#
+# This class adds methods to display links related to adding and removing
+# a category from search results.
 class CategoryDecorator < Draper::Decorator
   decorates Documents::Category
   delegate_all
 
-  # Return a +<dd>+ tag for removing this category
+  # Return a `<dd>` tag for removing this category
   #
   # @api public
   # @return [String] a definition tag for removing this category
@@ -85,8 +89,7 @@ class CategoryDecorator < Draper::Decorator
   # Get the params for enabling or disabling a category
   #
   # We want to enable or disable the category as well as all its descendants
-  # with a single click, so this will toggle not only this category, but also
-  # its descendants.
+  # with a single click, so this will toggle all of them.
   #
   # @api private
   # @return [Hash] the parameters suitable for toggling this category

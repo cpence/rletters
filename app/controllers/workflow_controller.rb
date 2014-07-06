@@ -12,7 +12,7 @@ class WorkflowController < ApplicationController
   # Show the introduction page or the user dashboard
   #
   # @api public
-  # @return [undefined]
+  # @return [void]
   def index
     @database_size = RLetters::Solr::CorpusStats.new.size || 0
 
@@ -26,14 +26,14 @@ class WorkflowController < ApplicationController
   # Start running a new analysis
   #
   # @api public
-  # @return [undefined]
+  # @return [void]
   def start
   end
 
   # Destroy the currently building analysis, leaving workflow mode
   #
   # @api public
-  # @return [undefined]
+  # @return [void]
   def destroy
     current_user.workflow_active = false
     current_user.workflow_class = nil
@@ -46,7 +46,7 @@ class WorkflowController < ApplicationController
   # Show information about a job
   #
   # @api public
-  # @return [undefined]
+  # @return [void]
   def info
     set_workflow_parameters
   end
@@ -54,7 +54,7 @@ class WorkflowController < ApplicationController
   # Get the user to collect datasets for a job
   #
   # @api public
-  # @return [undefined]
+  # @return [void]
   def activate
     set_workflow_parameters
 
@@ -84,7 +84,7 @@ class WorkflowController < ApplicationController
   # Allow the user to pick up data from all of their analysis tasks
   #
   # @api public
-  # @return [undefined]
+  # @return [void]
   def fetch
     analysis_criteria = {
       datasets: { user_id: current_user.to_param, disabled: false }
@@ -139,7 +139,7 @@ class WorkflowController < ApplicationController
   # Return one of the uploaded-asset images
   #
   # @api public
-  # @return [undefined]
+  # @return [void]
   def image
     model = Admin::UploadedAsset.find(params[:id])
     style = params[:style] ? params[:style] : 'original'
@@ -153,7 +153,7 @@ class WorkflowController < ApplicationController
   # Get the current workflow details from the params
   #
   # @api private
-  # @return [undefined]
+  # @return [void]
   def set_workflow_parameters
     fail ActiveRecord::RecordNotFound unless params[:class]
     @klass = ('Jobs::Analysis::' + params[:class]).safe_constantize

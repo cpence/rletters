@@ -3,14 +3,30 @@
 module RLetters
   module Analysis
     module Collocation
+      # Analyze collocations using log likelihood as the significance measure
       class LogLikelihood < Base
+        # Perform log-likelihood analysis
+        #
+        # The formula for the log-likelihood of a collocation pair is:
+        #
+        # ```
+        # L(k, n, x) = x^k (1 - x)^(n - k)
+        # Log-lambda = log L(f(a b), f(a), f(a) / N) +
+        #              log L(f(b) - f(a b), N - f(a), f(a) / N) -
+        #              log L(f(a b), f(a), f(a b) / f(a)) -
+        #              log L(f(b) - f(a b), N - f(a),
+        #                    (f(b) - f(a b)) / (N - f(a)))
+        # sort by -2 log-lambda
+        # ```
+        #
+        # @api public
+        # @return [Array<Array(String, Float)>] a set of words and their
+        #   associated significance values, sorted in order of significance
+        #   (most significant first)
+        # @example Run a log-likelihood analysis of a dataset
+        #   an = RLetters::Analysis::Collocation::LogLikelihood.new(d, 30)
+        #   result = an.call
         def call
-          # LIKELIHOOD RATIO
-          # Log-lambda = log L(f(a b), f(a), f(a) / N) +
-          #              log L(f(b) - f(a b), N - f(a), f(a) / N) -
-          #              log L(f(a b), f(a), f(a b) / f(a)) -
-          #              log L(f(b) - f(a b), N - f(a), (f(b) - f(a b)) / (N - f(a)))
-          # sort by -2 log-lambda
           analyzers = get_analyzers
 
           word_f = analyzers[0].blocks[0]
@@ -41,6 +57,14 @@ module RLetters
 
         private
 
+        # The L-function required in the log-likelihood calculation
+        #
+        # @api private
+        # @return [Float] the log-likelihood of obtaining the outcome x in
+        #   the binomial distribution defined by n and k
+        # @param [Integer] k number of successes
+        # @param [Integer] n number of trials
+        # @param [Float] x the observed outcome
         def log_l(k, n, x)
           # L(k, n, x) = x^k (1 - x)^(n - k)
           l = x**k * ((1 - x)**(n - k))

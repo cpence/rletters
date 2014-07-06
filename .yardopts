@@ -2,7 +2,9 @@
 --private
 --main README.md
 --charset utf-8
---title 'RLetters API Documentation'
+--title 'RLetters Code Documentation'
+--markup markdown
+config/doc_macros.rb
 app/**/*.rb
 lib/**/*.rb
 -

@@ -27,14 +27,14 @@ module Jobs
         #
         # @param [User] user the user whose datasets we're querying
         # @param [Symbol] field the field against which to normalize.  This
-        #   must obviously match the keys in +counts+.  Can be set to any
+        #   must obviously match the keys in `counts`.  Can be set to any
         #   Solr field.
         # @param [Hash<String, Integer>] counts the counts of documents,
-        #   grouped by +field+ values
+        #   grouped by `field` values
         # @param [Hash] args parameters specifying normalization behavior
-        # @option args [String] normalize_doc_coutns if '1', perform
+        # @option args [String] :normalize_doc_counts if '1', perform
         #   normalization
-        # @option args [String] normalize_doc_dataset the id of the dataset
+        # @option args [String] :normalize_doc_dataset the id of the dataset
         #   against which to normalize, or blank if the entire corpus
         # @return [Hash<String, Float>] the counts of documents, normalized
         def normalize_document_counts(user, field, counts, args)

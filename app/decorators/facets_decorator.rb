@@ -1,5 +1,9 @@
 # -*- encoding : utf-8 -*-
 
+# Decorate an array of facet objects
+#
+# This class aggregates the decoration methods on individual facets for
+# an entire collection of facets.
 class FacetsDecorator < Draper::Decorator
   decorates RLetters::Solr::Facets
   delegate_all
@@ -8,7 +12,7 @@ class FacetsDecorator < Draper::Decorator
   #
   # This function queries both the active facets on the current search and the
   # available facets for authors, journals, and years.  It returns a set of
-  # <li> elements (_not_ a <ul>), including list dividers.
+  # <li> elements (*not* a <ul>), including list dividers.
   #
   # @api public
   # @return [String] set of list items for faceted browsing
@@ -36,7 +40,7 @@ class FacetsDecorator < Draper::Decorator
   # Return a set of tags for removing the active facets
   #
   # This function turns the list of active facets into a list of facet-removing
-  # links.  It returns a set of <dd> tags, desgined to be put into a <dl>.
+  # links.  It returns a set of `<dd>` tags, desgined to be put into a `<dl>`.
   #
   # @api public
   # @return [String] set of list items for faceted browsing
@@ -65,10 +69,11 @@ class FacetsDecorator < Draper::Decorator
 
   # Convert the active facet queries to facets
   #
-  # This function converts the +params[:fq]+ string into a list of Facet
+  # This function converts the `params[:fq]` string into a list of Facet
   # objects.  It is used by several parts of the facet-display code.
   #
   # @api private
+  # @return [Array<Facet>] the active facets
   def active_facets
     return [] if object.blank?
 
@@ -85,11 +90,14 @@ class FacetsDecorator < Draper::Decorator
   # Create a link to the given set of facets
   #
   # This function converts an array of facets to a link (generated via
-  # +link_to+) to the search page for that filtered query.  All
-  # parameters other than +:fq+ are simply duplicated (including the search
-  # query itself, +:q+).
+  # `link_to`) to the search page for that filtered query.  All
+  # parameters other than `:fq` are simply duplicated (including the search
+  # query itself, `:q`).
   #
   # @api private
+  # @param [String] text the string to display for the link
+  # @param [Array<Facet>] facets the facets to link to
+  # @return [String] text link to a search for these facets
   def link_to_facets(text, facets)
     new_params = h.params.deep_dup
 
@@ -105,11 +113,15 @@ class FacetsDecorator < Draper::Decorator
 
   # Get the list of facet links for one particular field
   #
-  # This function takes the facets from the +Document+ class, checks them
-  # against +active_facets+, and creates a set of list items.  It is used
-  # by +links_for_addition+.
+  # This function takes the facets from the `Document` class, checks them
+  # against `active_facets`, and creates a set of list items.  It is used
+  # by `links_for_addition`.
   #
   # @api private
+  # @param [Symbol] field the field to return links for
+  # @param [String] header the text to display at the head of the list of links
+  # @param [Array<Facet>] active_facets the currently active facets
+  # @return [String] the built markup of addition links for this field
   def addition_links_for_field(field, header, active_facets)
     # Get the facets for this field
     facets = (sorted_for_field(field) - active_facets).take(5)

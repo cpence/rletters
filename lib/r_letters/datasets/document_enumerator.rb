@@ -13,9 +13,9 @@ module RLetters
       #
       # @param [Dataset] dataset the dataset to enumerate
       # @param [Hash] options options for finding the documents
-      # @option options [String] fl fields to return in documents
-      # @option options [Boolean] fulltext if true, return document full text
-      # @option options [Booelan] term_vectors if true, return term vectors
+      # @option options [String] :fl fields to return in documents
+      # @option options [Boolean] :fulltext if true, return document full text
+      # @option options [Booelan] :term_vectors if true, return term vectors
       def initialize(dataset, options = {})
         @dataset = dataset
         @options = options
@@ -39,7 +39,7 @@ module RLetters
       # Iterate over the documents in the dataset
       #
       # @yield [Document] Gives each document in the dataset to the block.
-      # @return [undefined]
+      # @return [void]
       def each
         return to_enum(:each) unless block_given?
 
@@ -60,7 +60,7 @@ module RLetters
 
       # Generate a Solr query for looking up this group
       #
-      # @params [Array<Datasets::Entry>] group group of results to query
+      # @param [Array<Datasets::Entry>] group group of results to query
       # @return [Hash] Solr query parameters
       # @api private
       def search_query_for(group)

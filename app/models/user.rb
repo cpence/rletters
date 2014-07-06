@@ -6,30 +6,22 @@
 # background jobs and keep a set of customizable user options.
 #
 # @!attribute name
-#   @raise [RecordInvalid] if the name is missing (validates :presence)
+#   @raise [RecordInvalid] if the name is missing (`validates :presence`)
 #   @return [String] Full name
-# @!attribute email
-#   @return [String] E-mail address
-# @!attribute password
-#   @return [String] Password (encrypted, from Devise)
-# @!attribute password_confirmation
-#   @return [String] Password confirmation field (encrypted, from Devise)
-# @!attribute remember_me
-#   @return [Boolean] Whether to keep user logged in (from Devise)
 #
 # @!attribute per_page
-#   @raise [RecordInvalid] if per_page is missing (validates :presence)
-#   @raise [RecordInvalid] if per_page is not an integer (validates
-#     :numericality)
-#   @raise [RecordInvalid] if per_page is negative (validates :inclusion)
+#   @raise [RecordInvalid] if per_page is missing (`validates :presence`)
+#   @raise [RecordInvalid] if per_page is not an integer (`validates
+#     :numericality`)
+#   @raise [RecordInvalid] if per_page is negative (`validates :inclusion`)
 #   @return [Integer] Number of search results to display per page
 # @!attribute language
-#   @raise [RecordInvalid] if the language is missing (validates :presence)
+#   @raise [RecordInvalid] if the language is missing (`validates :presence`)
 #   @raise [RecordInvalid] if the language is not a valid language code
-#     (validates :format)
+#     (`validates :format`)
 #   @return [String] Locale code of user's preferred language
 # @!attribute timezone
-#   @raise [RecordInvalid] if the timezone is missing (validates :presence)
+#   @raise [RecordInvalid] if the timezone is missing (`validates :presence`)
 #   @return [String] User's timezone, in Rails' format
 # @!attribute csl_style_id
 #   @return [Integer] User's preferred citation style (id of a
@@ -37,13 +29,13 @@
 #
 # @!attribute datasets
 #   @raise [RecordInvalid] if any of the datasets are invalid
-#     (validates_associated)
-#   @return [Array<Dataset>] All datasets created by the user (+has_many+)
+#     (`validates_associated`)
+#   @return [Array<Dataset>] All datasets created by the user (`has_many`)
 # @!attribute libraries
 #   @raise [RecordInvalid] if any of the libraries are invalid
-#     (validates_associated)
+#     (`validates_associated`)
 #   @return [Array<Users::Library>] All library links added by the user
-#     (+has_many+)
+#     (`has_many`)
 #
 # @!attribute workflow_active
 #   @return [Boolean] True if the user is currently building a query in the
@@ -54,6 +46,8 @@
 # @!attribute workflow_datasets
 #   @return [Array<Dataset>] An array of the datasets the user has selected
 #     to perform in the workflow controller
+#
+# @!macro devise_user
 class User < ActiveRecord::Base
   devise :async, :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
@@ -78,7 +72,7 @@ class User < ActiveRecord::Base
 
   serialize :workflow_datasets, Array
 
-  # Convert the +csl_style_id+ to a CslStyle (or nil)
+  # Convert the `csl_style_id` to a CslStyle (or nil)
   #
   # @api public
   # @return [Users::CslStyle] the user's CSL style (or nil)
@@ -93,7 +87,7 @@ class User < ActiveRecord::Base
   #
   # Attributes that can be edited by the user (in the user options form)
   # should be whitelisted here.  This should be kept in sync with the views
-  # in users/registrations/{edit,new}.html.
+  # in users/registrations/{ edit, new }.html.
   #
   # This class is not tested, as it's only ever called from within the
   # internals of Devise.

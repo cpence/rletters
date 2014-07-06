@@ -1,5 +1,9 @@
 # -*- encoding : utf-8 -*-
 
+# Decorate an array of category objects
+#
+# This class aggregates the decoration methods on individual categories for
+# an entire collection of categories.
 class CategoriesDecorator < Draper::CollectionDecorator
   # Decorate elements with the category decorator
   #
@@ -11,13 +15,13 @@ class CategoriesDecorator < Draper::CollectionDecorator
 
   # Return a list of removal links
   #
-  # Convert this array of categories into an array of +<dd>+ tag removal
+  # Convert this array of categories into an array of `<dd>` tag removal
   # links.
   #
   # @api public
   # @return [String] removal links for this collection of categories
   # @example Removal links for all active categories
-  #   = result.active_categories.removal_links
+  #   %li= result.active_categories.removal_links
   def removal_links
     map { |c| c.removal_link }.reduce(&:+)
   end
@@ -31,8 +35,8 @@ class CategoriesDecorator < Draper::CollectionDecorator
   # @api public
   # @return [String] journal categories, formatted for display
   # @example Display the journal categories
-  #   <%= result.categories.link_tree %>
-  #   # "<ul><li>Category<ul>..."
+  #   %div= result.categories.link_tree
+  #   # => "<ul><li>Category<ul>..."
   def link_tree
     return ''.html_safe if object.size == 0
 

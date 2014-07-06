@@ -32,17 +32,18 @@ module Jobs
       # later.
       #
       # @param [Hash] options parameters for this job
-      # @option options [String] user_id the user whose dataset we are to work on
-      # @option options [String] dataset_id the dataset to operate on
-      # @option options [String] task_id the analysis task we're working from
-      # @option options [String] analysis_type the algorithm to use to analyze the
-      #   significance of collocations.  Can be 'mi' (for mutual
-      #   information), 't' (for t-test), 'likelihood' (for log-likelihood),
-      #   or 'pos' (for part-of-speech biased frequencies).
-      # @option options [String] num_pairs number of collocations to return
-      # @option options [String] word if present, return only collocations
+      # @option options [String] :user_id the user whose dataset we are to
+      #   work on
+      # @option options [String] :dataset_id the dataset to operate on
+      # @option options [String] :task_id the analysis task we're working from
+      # @option options [String] :analysis_type the algorithm to use to
+      #   analyze the significance of collocations.  Can be `'mi'` (for mutual
+      #   information), `'t'` (for t-test), `'likelihood'` (for
+      #   log-likelihood), or `'pos'` (for part-of-speech biased frequencies).
+      # @option options [String] :num_pairs number of collocations to return
+      # @option options [String] :word if present, return only collocations
       #   including this word
-      # @return [undefined]
+      # @return [void]
       # @example Start a job for locating collocations
       #   Jobs::Analysis::Collocation.create(user_id: current_user.to_param,
       #                                      dataset_id: dataset.to_param,

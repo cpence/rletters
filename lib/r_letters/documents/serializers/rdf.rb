@@ -33,8 +33,8 @@ module RLetters
         #
         # For the moment, we provide only metadata items for the basic Dublin
         # Core elements, and for the Dublin Core
-        # {"bibliographicCitation"
-        # element.}[http://dublincore.org/documents/dc-citation-guidelines/]
+        # ["bibliographicCitation"
+        # element.](http://dublincore.org/documents/dc-citation-guidelines/)
         # We also encode an OpenURL reference (using the standard OpenURL
         # namespace), in a second bibliographicCitation element.  The precise way
         # to encode journal articles in DC is in serious flux, but this should

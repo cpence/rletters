@@ -3,15 +3,37 @@
 module RLetters
   module Analysis
     module Collocation
+      # Analyze collocations by selecting part-of-speech patterns
       class PartsOfSpeech < Base
-        # No coverage here, as we don't install Stanford NLP on Travis
+        # Perform parts-of-speech analysis
+        #
+        # We select the following patterns of parts of speech, when those
+        # appear:
+        #
+        # - Adjective Noun
+        # - Noun Noun
+        # - Adjective Adjective Noun
+        # - Adjective Noun Noun
+        # - Noun Adjective Noun
+        # - Noun Noun Noun
+        # - Noun Preposition Noun
+        #
+        # Then, we sort by frequency of occurrence and take the top matches.
+        #
+        # @note No test coverage here, as we don't install the Stanford
+        # NLP on Travis
+        #
+        #
+        # @api public
+        # @return [Array<Array(String, Float)>] a set of words and their
+        #   associated significance values, sorted in order of significance
+        #   (most significant first)
+        # @example Run a parts-of-speecgh analysis of a dataset
+        #   an = RLetters::Analysis::Collocation::PartsOfSpeech.new(d, 30)
+        #   result = an.call
+        #
         # :nocov:
-
         def call
-          # PoS + FREQUENCY
-          # Take only those that match the following patterns:
-          # A N, N N, A A N, A N N, N A N, N N N, N P N
-          # sort by frequency
           if Admin::Setting.nlp_tool_path.blank?
             fail ArgumentError, 'NLP tool not available'
           end
@@ -66,10 +88,13 @@ module RLetters
 
         private
 
+        # Regular expressions which match bigram part-of-speech patterns
         POS_BI_REGEXES = [
           /[^\s]+_JJ[^\s]?\s+[^\s]+_NN[^\s]{0,2}/, # ADJ NOUN
           /[^\s]+_NN[^\s]{0,2}\s+[^\s]+_NN[^\s]{0,2}/ # NOUN NOUN
         ]
+
+        # Regular expressions which match trigram part-of-speech patterns
         POS_TRI_REGEXES = [
           /[^\s]+_JJ[^\s]?\s+[^\s]+_JJ[^\s]?\s+[^\s]+_NN[^\s]{0,2}/, # ADJ ADJ NOUN
           /[^\s]+_JJ[^\s]?\s+[^\s]+_NN[^\s]{0,2}\s+[^\s]+_NN[^\s]{0,2}/, # ADJ NOUN NOUN

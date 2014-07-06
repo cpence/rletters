@@ -5,18 +5,20 @@
 # This controller displays both traditional and advanced search pages and the
 # resulting lists of documents.  Its main function is to convert the
 # user's provided search criteria into Solr queries for
-# +RLetters::Solr::Connection.search+.
+# `RLetters::Solr::Connection.search`.
+#
+# @see RLetters::Solr::Connection.search
 class SearchController < ApplicationController
   decorates_assigned :result, with: SearchResultDecorator
 
   # Show the main search index page
   #
   # The controller just passes the search parameters through
-  # +search_params_to_solr_query+, then sends this solr query on to the
-  # server using +RLetters::Solr::Connection.search+.
+  # `search_params_to_solr_query`, then sends this solr query on to the
+  # server using `RLetters::Solr::Connection.search`.
   #
   # @api public
-  # @return [undefined]
+  # @return [void]
   def index
     page = params[:page].to_i.lbound(0)
     per_page = (current_user.try(:per_page) ||
@@ -42,7 +44,7 @@ class SearchController < ApplicationController
   # Show the advanced search page
   #
   # @api public
-  # @return [undefined]
+  # @return [void]
   def advanced; end
 
   private
@@ -58,7 +60,7 @@ class SearchController < ApplicationController
   # @return [Hash] Solr-format query parameters
   # @example Convert an advanced search to Solr format
   #   search_params_to_solr_query({ precise: 'true', title: 'test' })
-  #   # => { :def_type => 'lucene', :q => 'title:(test)' }
+  #   # => { :def_type => 'lucene', :q => 'title:"test"' }
   def search_params_to_solr_query(params)
     # Remove any blank values (you get these on form submissions, for
     # example)

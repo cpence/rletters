@@ -13,7 +13,7 @@ module Jobs
     # Expire old analysis tasks
     #
     # @api public
-    # @return [undefined]
+    # @return [void]
     # @example Start a job for expiring all old analysis tasks
     #   id = Jobs::ExpireAnalysis.create
     def perform

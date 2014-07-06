@@ -3,11 +3,27 @@
 module RLetters
   module Analysis
     module Collocation
+      # Analyze collocations using mutual information as the significance
+      # measure
       class MutualInformation < Base
+        # Perform mutual information analysis
+        #
+        # The formula for the mutual information present in a given collocation
+        # pair is:
+        #
+        # ```
+        # PMI(a, b) = log [ (f(a b) / N) / (f(a) f(b) / N^2) ]
+        # (with N the number of single-word tokens)
+        # ```
+        #
+        # @api public
+        # @return [Array<Array(String, Float)>] a set of words and their
+        #   associated significance values, sorted in order of significance
+        #   (most significant first)
+        # @example Run a log-likelihood analysis of a dataset
+        #   an = RLetters::Analysis::Collocation::MutualInformation.new(d, 30)
+        #   result = an.call
         def call
-          # MUTUAL INFORMATION
-          # PMI(a, b) = log [ (f(a b) / N) / (f(a) f(b) / N^2) ]
-          # with N the number of single-word tokens
           analyzers = get_analyzers
 
           word_f = analyzers[0].blocks[0]

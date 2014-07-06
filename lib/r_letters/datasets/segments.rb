@@ -1,6 +1,7 @@
 # -*- encoding : utf-8 -*-
 
 module RLetters
+  # Code for manipulating datasets and the documents they contain
   module Datasets
     # Splits a dataset into text segments
     class Segments
@@ -54,7 +55,7 @@ module RLetters
       # @api private
       # @param [Array<String>] words the words in one of the dataset's
       #   documents
-      # @return [undefined]
+      # @return [void]
       def add_to_dfs(words)
         words.each do |w|
           @dfs[w] ||= 0

@@ -6,7 +6,7 @@ module RLetters
     class CountArticlesByField
       # Create a new object for counting articles in a datset by field
       #
-      # Pass the dataset you'd like to count, or +nil+ to indicate the entire
+      # Pass the dataset you'd like to count, or `nil` to indicate the entire
       # corpus.
       #
       # @param [Dataset] dataset the dataset to analyze (or nil)

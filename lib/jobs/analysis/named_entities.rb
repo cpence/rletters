@@ -34,10 +34,11 @@ module Jobs
       # in a number of different ways by the job views.
       #
       # @param [Hash] options parameters for this job
-      # @option options [String] user_id the user whose dataset we are to work on
-      # @option options [String] dataset_id the dataset to operate on
-      # @option options [String] task_id the analysis task we're working from
-      # @return [undefined]
+      # @option options [String] :user_id the user whose dataset we are to
+      #   work on
+      # @option options [String] :dataset_id the dataset to operate on
+      # @option options [String] :task_id the analysis task we're working from
+      # @return [void]
       # @example Start a job for computing a dataset's named entities
       #   Jobs::Analysis::NamedEntities.create(user_id: current_user.to_param,
       #                                        dataset_id: dataset.to_param,

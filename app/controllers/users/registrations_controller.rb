@@ -8,7 +8,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # are only available at the time of the request.
   #
   # @api public
-  # @return [undefined]
+  # @return [void]
   def new
     # Override the default value for language, if the user has set one in
     # their browser

@@ -12,8 +12,8 @@ module I18n
     # @api public
     # @param [String] key the lookup key for the translation requested
     # @return [String] the requested translation, parsed as Markdown
-    # @example Parse the translation for +error.not_found+ as Markdown
-    #   <%= translate_markdown(:"error.not_found") %>
+    # @example Parse the translation for `error.not_found` as Markdown
+    #   %span= translate_markdown(:"error.not_found")
     def translate_markdown(key, options = {})
       Kramdown::Document.new(I18n.t(key, options)).to_html.html_safe
     end
@@ -35,8 +35,8 @@ module ActionView::Helpers::TranslationHelper
   # @api public
   # @param [String] key the lookup key for the translation requested
   # @return [String] the requested translation, parsed as Markdown
-  # @example Parse the translation for +error.not_found+ as Markdown
-  #   <%= translate_markdown(:"error.not_found") %>
+  # @example Parse the translation for `error.not_found` as Markdown
+  #   %span= translate_markdown(:"error.not_found")
   def translate_markdown(key, options = {})
     # This method is private, but it's what maps the ".not_found" shortcut
     # style keys to their full equivalents

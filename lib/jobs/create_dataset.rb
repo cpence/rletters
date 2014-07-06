@@ -17,13 +17,13 @@ module Jobs
     #
     # @api public
     # @param [Hash] options the arguments for this job
-    # @option options [String] user_id the user that created this dataset
-    # @option options [String] dataset_id the dataset to fill in
-    # @option options [String] q the Solr query for this search
-    # @option options [Array<String>] fq faceted browsing parameters for
+    # @option options [String] :user_id the user that created this dataset
+    # @option options [String] :dataset_id the dataset to fill in
+    # @option options [String] :q the Solr query for this search
+    # @option options [Array<String>] :fq faceted browsing parameters for
     #   this search
-    # @option options [String] def_type parser type for this search
-    # @return [undefined]
+    # @option options [String] :def_type parser type for this search
+    # @return [void]
     # @example Start a job for creating a dataset
     #   dataset = users(:john).datasets.create(disabled: true,
     #                                          name: 'A Dataset')

@@ -66,7 +66,7 @@ module RLetters
         # entire dataset.
         #
         # @api private
-        # @return [undefined]
+        # @return [void]
         def single_block_analysis
           # Just copy everything out, rejecting any words not in the list to
           # be analyzed
@@ -85,7 +85,7 @@ module RLetters
         # dataset, including only the words specified in +@word_list+.
         #
         # @api private
-        # @return [undefined]
+        # @return [void]
         def doc_block_analysis(progress)
           total = @documents.size.to_f
 
@@ -130,7 +130,7 @@ module RLetters
         # @api private
         # @param [Proc] progress If set, a function to call with a percentage
         #   of completion (one Integer parameter)
-        # @return [undefined]
+        # @return [void]
         def compute_df_tf(progress)
           @tf_in_dataset = {}
           @df_in_dataset = {}

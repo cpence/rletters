@@ -12,7 +12,7 @@
 # @!attribute params
 #   @return [Hash] The parameters used to start this task with Resque
 # @!attribute resque_key
-#   @return [String] The UUID of this job (from +resque-status+)
+#   @return [String] The UUID of this job (from `resque-status`)
 # @!attribute created_at
 #   @return [DateTime] The time at which this task was started
 # @!attribute finished_at
@@ -24,7 +24,7 @@
 #   @return [String] The class name of the job this task contains
 # @!attribute dataset
 #   @raise [RecordInvalid] if the dataset is missing (validates :presence)
-#   @return [Dataset] The dataset to which this task belongs (+belongs_to+)
+#   @return [Dataset] The dataset to which this task belongs (`belongs_to`)
 # @!attribute result_file_name
 #   @return [String] The filename of the result file (from Paperclip)
 # @!attribute result_file_size
@@ -100,7 +100,7 @@ class Datasets::AnalysisTask < ActiveRecord::Base
   # notification e-mail to the user.
   #
   # @api private
-  # @return [undefined]
+  # @return [void]
   def finish!
     # Make sure the task is saved, setting 'finished_at'
     self.finished_at = DateTime.current

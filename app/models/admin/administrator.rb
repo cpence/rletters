@@ -6,14 +6,7 @@
 # the standard signup users (it's impossible for a "normal" user to promote
 # themself to administrator).
 #
-# @!attribute email
-#   @return [String] E-mail address (from Devise)
-# @!attribute password
-#   @return [String] Password (encrypted, from Devise)
-# @!attribute password_confirmation
-#   @return [String] Password confirmation field (encrypted, from Devise)
-# @!attribute remember_me
-#   @return [Boolean] Whether to keep user logged in (from Devise)
+# @!macro devise_user
 class Admin::Administrator < ActiveRecord::Base
   self.table_name = 'admin_administrators'
 

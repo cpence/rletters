@@ -1,17 +1,21 @@
 # -*- encoding : utf-8 -*-
 
+# Decorate a facet object
+#
+# This class adds methods to display links related to adding and removing
+# a facet from search results.
 class FacetDecorator < Draper::Decorator
   decorates RLetters::Solr::Facet
   delegate_all
 
-  # Get a human-readable version of the +value+ attribute
+  # Get a human-readable version of the `value` attribute
   #
   # The facets for years are returned in Solr format, looking something
-  # like [1900 TO 1910]. This function makes sure we convert from those to
+  # like `[1900 TO 1910]`. This function makes sure we convert from those to
   # a readable format for display
   #
   # @api public
-  # @return [String] the +value+ attribute, in human-readable form
+  # @return [String] the `value` attribute, in human-readable form
   # @example Show the field and label for this facet
   #   %span== #{f.field_label}: #{f.label}
   def label
@@ -27,10 +31,10 @@ class FacetDecorator < Draper::Decorator
     end
   end
 
-  # Get a translated version of the +field+ attribute
+  # Get a translated version of the `field` attribute
   #
   # @api public
-  # @return [String] the +field+ attribute, in human-readable form
+  # @return [String] the `field` attribute, in human-readable form
   # @example Show the field and label for this facet
   #   %span== #{f.field_label}: #{f.label}
   def field_label

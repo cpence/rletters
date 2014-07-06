@@ -3,12 +3,13 @@
 module RLetters
   module Documents
     # A text block resulting from dataset segmentation
-    #
-    # @!attribute [r] words
-    #   @return [Array<String>] The list of words in this block
-    # @!attribute [r] name
-    #   @return [String] A user-friendly name for this block
-    Block = Struct.new(:words, :name)
+    class Block
+      # @return [Array<String>] The list of words in this block
+      attr_accessor :words
+
+      # @return [String] A user-friendly name for this block
+      attr_accessor :name
+    end
 
     # Splits a group of documents into configurable blocks
     class Segments
@@ -72,7 +73,7 @@ module RLetters
       #
       # @api public
       # @param [String] uid the UID of the document to add to the segmenter
-      # @return [undefined]
+      # @return [void]
       def add(uid)
         words = @word_list.words_for(uid)
         @words_for_last = words.uniq
@@ -117,7 +118,7 @@ module RLetters
       #
       # @api private
       # @param [Array<String>] words the word list to add to the blocks
-      # @return [undefined]
+      # @return [void]
       def add_for_num_blocks(words)
         # We just add to the single block, and we split this when we call
         # #blocks
@@ -128,7 +129,7 @@ module RLetters
       #
       # @api private
       # @param [Array<String>] words the word list to add to the blocks
-      # @return [undefined]
+      # @return [void]
       def add_for_block_size(words)
         # If we're running :truncate_all, then just append the block for this
         # document and return

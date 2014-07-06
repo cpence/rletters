@@ -11,10 +11,10 @@ class Datasets::AnalysisTasksController < ApplicationController
   # Show the list of analysis tasks for this dataset
   #
   # This list needs to be updated live, as the tasks are running in the
-  # background.
+  # background, so this is rendered without a layout for AJAX purposes.
   #
   # @api public
-  # @return [undefined]
+  # @return [void]
   def index
     render layout: false
   end
@@ -24,7 +24,7 @@ class Datasets::AnalysisTasksController < ApplicationController
   # This action collects parameters and data for starting a new dataset.
   #
   # @api public
-  # @return [undefined]
+  # @return [void]
   def new
     # Make sure we have enough other datasets, if those are required
     if @klass.num_datasets > 1
@@ -43,7 +43,7 @@ class Datasets::AnalysisTasksController < ApplicationController
   # and starts it.
   #
   # @api public
-  # @return [undefined]
+  # @return [void]
   def create
     # Create an analysis task
     task = @dataset.analysis_tasks.create(name: params[:class],
@@ -80,14 +80,14 @@ class Datasets::AnalysisTasksController < ApplicationController
 
   # Show a view from an analysis task, or download its results
   #
-  # If this action is called with +params[:view]+ set, then it will render
+  # If this action is called with `params[:view]` set, then it will render
   # a view that comes packaged with a background job.  Without that parameter,
   # if this job has a result file saved, the file will be sent as a download.
-  # If neither +params[:view]+ nor a download is available, it will raise
-  # +ActiveRecord::RecordNotFound+.
+  # If neither `params[:view]` nor a download is available, it will raise
+  # `ActiveRecord::RecordNotFound`.
   #
   # @api public
-  # @return [undefined]
+  # @return [void]
   def show
     if params[:view]
       render_job_view(@task.job_class, params[:view], params[:format] || 'html')
@@ -109,7 +109,7 @@ class Datasets::AnalysisTasksController < ApplicationController
   # This action deletes a given analysis task and its associated files.
   #
   # @api public
-  # @return [undefined]
+  # @return [void]
   def destroy
     @task.destroy
 
@@ -123,7 +123,7 @@ class Datasets::AnalysisTasksController < ApplicationController
   # Get the task, dataset, and class objects from the params
   #
   # @api private
-  # @return [undefined]
+  # @return [void]
   def set_task
     @dataset = current_user.datasets.active.find(params[:dataset_id])
     @task = @dataset.analysis_tasks.find(params[:id]) if params[:id].present?
@@ -133,7 +133,7 @@ class Datasets::AnalysisTasksController < ApplicationController
   # Get the current parameters hash from the params
   #
   # @api private
-  # @return [undefined]
+  # @return [void]
   def set_current_params
     @current_params = params[:job_params].to_hash if params[:job_params]
     @current_params ||= {}
@@ -145,7 +145,8 @@ class Datasets::AnalysisTasksController < ApplicationController
   # @api private
   # @param [Class] klass the job class
   # @param [String] view the view to render
-  # @return [undefined]
+  # @param [String] format the file format for the view (e.g., `csv` or `html`)
+  # @return [void]
   def render_job_view(klass, view, format = 'html')
     path = klass.view_path(template: view, format: format)
     fail ActiveRecord::RecordNotFound unless path

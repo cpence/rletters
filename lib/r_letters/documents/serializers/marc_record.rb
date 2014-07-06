@@ -33,7 +33,8 @@ module RLetters
         # Support for individual-article MARC records is spotty at best -- this
         # is a use case for which the MARC format was not intended.  To
         # generate these records, we primarily follow the advice as presented
-        # in {PROPOSAL 2003-03}[http://www.loc.gov/marc/marbi/2003/2003-03.html],
+        # in
+        # [PROPOSAL 2003-03](http://www.loc.gov/marc/marbi/2003/2003-03.html),
         # "Definition of Data Elements for Article Level Descsription."  We
         # also adhere to the prior standard of providing a "free-form" citation
         # entry in field, 773, subfield $g (Host Item Entry, Related Parts).
@@ -162,7 +163,7 @@ module RLetters
 
         # Convert the given author to MARC's format
         # @api private
-        # @param [RLetters::Documents::Author] an author
+        # @param [RLetters::Documents::Author] a an author
         # @return [String] author formatted as MARC expects it
         def author_to_marc(a)
           author = ''

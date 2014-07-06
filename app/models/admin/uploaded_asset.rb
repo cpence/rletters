@@ -32,6 +32,8 @@ class Admin::UploadedAsset < ActiveRecord::Base
     ret
   end
 
+  # Get the URL that points to a given asset
+  #
   # @param [String] name The asset to look up
   # @return [String] The URL for the given asset name (or blank)
   def self.url_for(name)

@@ -32,11 +32,12 @@ module Jobs
       #
       # @api public
       # @param [Hash] options parameters for this job
-      # @option options [String] user_id the user whose dataset we are to work on
-      # @option options [String] dataset_id the dataset to operate on
-      # @option options [String] task_id the analysis task we're working from
-      # @option options [String] format the format in which to export
-      # @return [undefined]
+      # @option options [String] :user_id the user whose dataset we are to
+      #   work on
+      # @option options [String] :dataset_id the dataset to operate on
+      # @option options [String] :task_id the analysis task we're working from
+      # @option options [String] :format the format in which to export
+      # @return [void]
       # @example Start a job for exporting a datset as JSON
       #   Jobs::Analysis::ExportCitations.create(
       #     user_id: current_user.to_param,

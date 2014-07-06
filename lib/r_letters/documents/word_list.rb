@@ -110,7 +110,7 @@ module RLetters
       #
       # @api private
       # @param [Document] doc the document to add
-      # @return [undefined]
+      # @return [void]
       def add_dfs(doc)
         doc.term_vectors.each do |word, hash|
           next if @dfs.include?(word)

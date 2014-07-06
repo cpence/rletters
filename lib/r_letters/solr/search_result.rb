@@ -41,6 +41,9 @@ module RLetters
     #   @return [Array<Document>] the documents found by the last search
     # @!attribute [r] solr_response
     #   @return [RSolr::Ext::Response] the raw Solr search response
+    # @!attribute [r] params
+    #   @return [Hash] the parameters used for this search, as parsed and
+    #     returned by Solr
     class SearchResult
       attr_reader :facets, :num_hits, :documents, :solr_response, :params
 

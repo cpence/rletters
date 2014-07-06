@@ -33,11 +33,12 @@ module Jobs
       # data is so complex that you'll want to pull it up on a spreadsheet.
       #
       # @param [Hash] options parameters for this job
-      # @option options [String] user_id the user whose dataset we are to work on
-      # @option options [String] dataset_id the dataset to operate on
-      # @option options [String] task_id the analysis task we're working from
-      # @option options [String] other_dataset_id the dataset to compare with
-      # @return [undefined]
+      # @option options [String] :user_id the user whose dataset we are to
+      #   work on
+      # @option options [String] :dataset_id the dataset to operate on
+      # @option options [String] :task_id the analysis task we're working from
+      # @option options [String] :other_dataset_id the dataset to compare with
+      # @return [void]
       # @example Start a job for comparing two datasets
       #   Jobs::Analysis::CraigZeta.create(user_id: current_user.to_param,
       #                                    dataset_id: dataset.to_param,

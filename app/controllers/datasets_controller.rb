@@ -12,8 +12,9 @@ class DatasetsController < ApplicationController
   before_action :authenticate_user!
 
   # Show all of the current user's datasets
+  #
   # @api public
-  # @return [undefined]
+  # @return [void]
   def index
     @datasets = current_user.datasets.active
 
@@ -32,7 +33,7 @@ class DatasetsController < ApplicationController
   # tasks on the dataset.
   #
   # @api public
-  # @return [undefined]
+  # @return [void]
   def show
     @dataset = current_user.datasets.active.find(params[:id])
 
@@ -43,16 +44,18 @@ class DatasetsController < ApplicationController
   end
 
   # Show the form for creating a new dataset
+  #
   # @api public
-  # @return [undefined]
+  # @return [void]
   def new
     @dataset = current_user.datasets.build
     render layout: false
   end
 
   # Create a new dataset in the database
+  #
   # @api public
-  # @return [undefined]
+  # @return [void]
   def create
     dataset = current_user.datasets.create(name: dataset_params[:name],
                                            disabled: true)
@@ -73,8 +76,9 @@ class DatasetsController < ApplicationController
   end
 
   # Delete a dataset from the database
+  #
   # @api public
-  # @return [undefined]
+  # @return [void]
   def destroy
     @dataset = current_user.datasets.find(params[:id])
     @dataset.disabled = true
@@ -93,7 +97,7 @@ class DatasetsController < ApplicationController
   # Any other attempts to PATCH dataset attributes will be silently ignored.
   #
   # @api public
-  # @return [undefined]
+  # @return [void]
   def update
     fail ActionController::ParameterMissing.new(:uid) unless params[:uid]
 
