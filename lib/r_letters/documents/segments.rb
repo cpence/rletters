@@ -9,6 +9,17 @@ module RLetters
 
       # @return [String] A user-friendly name for this block
       attr_accessor :name
+
+      # Create a new block
+      #
+      # @api public
+      # @param [Array<String>] words The list of words in this block
+      # @param [String] name A user-friendly name for this block
+      # @return [Block] A new block object
+      def initialize(words, name)
+        self.words = words
+        self.name = name
+      end
     end
 
     # Splits a group of documents into configurable blocks
