@@ -63,6 +63,7 @@ gem 'nokogiri'
 gem 'rabl'
 
 gem 'jquery-rails'
+gem 'jquery-ui-rails', '~> 4.2.1' # Waiting on active_admin#3257 for this
 gem 'compass-rails'
 gem 'sass-rails', '>= 4.0.2'
 gem 'foundation-rails'
