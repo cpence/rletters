@@ -52,7 +52,11 @@ module RLetters
 
         private
 
-        # :nodoc:
+        # Do the serialization for an individual document
+        #
+        # @api private
+        # @param [Document] doc the document to serialize
+        # @return [String] single document serialized to BibTeX format
         def do_serialize(doc)
           # We don't have a concept of cite keys, so we're forced to just use
           # AuthorYear and hope it doesn't collide

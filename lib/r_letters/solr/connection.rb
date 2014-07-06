@@ -165,6 +165,10 @@ module RLetters
       #
       # We want to allow users to pass 'Ruby-esque' symbols to this class, so
       # coerce all of the parameter keys to Java-style 'lowerCamelCase' here.
+      #
+      # @api private
+      # @param [Hash] params the parameters to convert
+      # @return [Hash] those parameters, converted from snake_case to camelCase
       def self.camelize_params!(params)
         params.keys.each do |k|
           if k.to_s.include? '_'

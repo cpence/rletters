@@ -10,10 +10,17 @@ module RLetters
       # you'd like to draw the term from (or `nil` to indicate the entire
       # corpus).
       #
+      # @api public
       # @param [String] term the term of interest
-      # @param [Dataset] dataset the dataset to analyze (or nil)
+      # @param [Dataset] dataset the dataset to analyze (or `nil`)
       # @param [Proc] progress If set, a function to call with a percentage of
-      #   completion (one Integer parameter)
+      #   completion (one `Integer` parameter)
+      # @example Create a new analyzer to count 'test' in the whole corpus
+      #   analyzer = RLetters::Analysis::CountTermsByField.new(
+      #     'test',
+      #     nil,
+      #     ->(p) { puts "PROGRESS IS NOW #{p}%" }
+      #   )
       def initialize(term, dataset = nil, progress = nil)
         @term = term
         @dataset = dataset
@@ -28,8 +35,8 @@ module RLetters
       # field of interest (e.g., by year, by journal, etc.).  The result is
       # returned in a hash.
       #
-      # FIXME: This function should support the same kind of work with names
-      # that we have in RLetters::Documents::Author.
+      # @todo This function should support the same kind of work with names
+      #   that we have in RLetters::Documents::Author.
       #
       # @param [Symbol] field field to group by
       # @return [Hash<String, Integer>] number of documents in each grouping

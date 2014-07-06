@@ -10,7 +10,7 @@ class Hash
   # any nils.
   #
   # @api public
-  # @return [Hash] self
+  # @return [self]
   # @example Clean a hash to make it suitable for use as options
   #   opts.clean_options!
   def clean_options!

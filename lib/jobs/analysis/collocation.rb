@@ -8,6 +8,8 @@ module Jobs
       include Resque::Plugins::Status
 
       # Set the queue for this task
+      #
+      # @return [Symbol] the queue on which this job should run
       def self.queue
         :analysis
       end
@@ -137,7 +139,12 @@ module Jobs
 
       # Helper method for creating the job parameters view
       #
-      # This method returns the list of available significance test methods.
+      # This method returns the list of available significance test methods
+      # along with their translated user-friendly names, useful for looping
+      # over to display them for the user to choose from.
+      #
+      # @return [Array<(String, Symbol)>] pairs of test method names and their
+      #   associated symbols
       def self.significance_tests
         [:mi, :t, :likelihood, :pos].map do |sym|
           [t(".#{sym}"), sym]

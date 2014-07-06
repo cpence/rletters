@@ -61,6 +61,7 @@ module RLetters
         #
         # @api private
         # @param [Hash] options Parameters for how to compute word frequency
+        # @return [void]
         def normalize_options(options)
           # Lower bound on number of words, default to zero
           @num_words = [0, options[:num_words] || 0].max
@@ -93,6 +94,7 @@ module RLetters
         # analyzed (which is saved into `@word_list`, which is overwritten).
         #
         # @api private
+        # @return [void]
         def cull_words
           # Exclusion list takes precedence over stop list, if both are somehow
           # specified

@@ -96,6 +96,7 @@ module RLetters
       # This method hits doc.fulltext.
       #
       # @api private
+      # @param [String] uid the document to get lemmatized words for
       # @return [Array<String>] list of lemmatized words for document
       def get_lemmatized_words(uid)
         doc = Document.find(uid, fulltext: true, term_vectors: true)

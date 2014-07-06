@@ -66,7 +66,11 @@ module RLetters
 
         private
 
-        # :nodoc:
+        # Do the serialization for an individual document
+        #
+        # @api private
+        # @param [Document] doc the document to serialize
+        # @return [Nokogiri::XML::Node] single document serialized to MODS
         def do_serialize(doc, include_namespace = true)
           xml_doc = Nokogiri::XML::Document.new
           mods = Nokogiri::XML::Node.new('mods', xml_doc)

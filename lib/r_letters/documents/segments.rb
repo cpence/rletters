@@ -29,9 +29,10 @@ module RLetters
 
       # Split some number of documents into text segments
       #
+      # @api public
       # @param word_list [RLetters::Documents::WordList] a word list generator
       #   to use (if +nil+, create default)
-      # @param options [Hash] options for the text segmentation
+      # @param [Hash] options options for the text segmentation
       # @option options [Integer] :num_blocks if set, split the text into this
       #   number of blocks (defaults to 1)
       # @option options [Integer] :block_size if set, split the text into blocks
@@ -71,6 +72,9 @@ module RLetters
       # Reset this segmenter
       #
       # Delete all blocks and clear to original configuration
+      #
+      # @api public
+      # @return [void]
       def reset!
         @blocks = []
         @single_block = []

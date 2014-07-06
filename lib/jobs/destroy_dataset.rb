@@ -9,6 +9,8 @@ module Jobs
     include Resque::Plugins::Status
 
     # Set the queue for this task
+    #
+    # @return [Symbol] the queue on which this job should run
     def self.queue
       :ui
     end
@@ -16,7 +18,7 @@ module Jobs
     # Destroy a dataset
     #
     # @api public
-    # @param options parameters for this job
+    # @param [Hash] options parameters for this job
     # @option options [String] :user_id the user that owns this dataset
     # @option options [String] :dataset_id the id of the dataset to be destroyed
     # @return [void]

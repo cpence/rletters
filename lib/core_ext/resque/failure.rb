@@ -9,7 +9,10 @@ class Resque::Failure::AnalysisTask < Resque::Failure::Base
   # global number of failures (borrowed from the Airbrake adapter)
   #
   # @api private
+  # @param [Symbol] queue unused
+  # @param [String] class_name unused
   # @return [Integer] number of failed tasks
+  #
   # :nocov:
   def self.count(queue = nil, class_name = nil)
     # This is a yes-or-no failure adapter, we don't actually keep track of

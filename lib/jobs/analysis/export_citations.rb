@@ -10,6 +10,8 @@ module Jobs
       include Resque::Plugins::Status
 
       # Set the queue for this task
+      #
+      # @return [Symbol] the queue on which this job should run
       def self.queue
         :analysis
       end

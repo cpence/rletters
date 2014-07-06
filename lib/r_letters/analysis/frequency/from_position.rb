@@ -105,6 +105,7 @@ module RLetters
         # incredibly, prohibitively expensive and is not provided by Solr.
         #
         # @api private
+        # @return [void]
         def compute_df_tf
           @tf_in_dataset = {}
           @word_blocks.each do |b|

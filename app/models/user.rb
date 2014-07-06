@@ -119,6 +119,9 @@ class User < ActiveRecord::Base
   # If we serialize the full datasets into YAML, that will also serialize the
   # entire list of dataset entries, which is massive.  This pair of callbacks
   # prevents that, by converting to a simple array of ids on save.
+  #
+  # @api private
+  # @return [void]
   def workflow_datasets_to_ids
     if workflow_datasets
       workflow_datasets.map!(&:to_param)
@@ -130,6 +133,9 @@ class User < ActiveRecord::Base
   # If we serialize the full datasets into YAML, that will also serialize the
   # entire list of dataset entries, which is massive.  This pair of callbacks
   # prevents that, by converting to a simple array of ids on save.
+  #
+  # @api private
+  # @return [void]
   def workflow_datasets_from_ids
     if workflow_datasets
       workflow_datasets.map! { |id| datasets.find(id) }

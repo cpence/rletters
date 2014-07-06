@@ -9,6 +9,8 @@ module Jobs
       add_concern 'ComputeWordFrequencies'
 
       # Set the queue for this task
+      #
+      # @return [Symbol] the queue on which this job should run
       def self.queue
         :analysis
       end

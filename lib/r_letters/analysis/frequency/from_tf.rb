@@ -85,6 +85,8 @@ module RLetters
         # dataset, including only the words specified in +@word_list+.
         #
         # @api private
+        # @param [Proc] progress If set, a function to call with a percentage
+        #   of completion (one Integer parameter)
         # @return [void]
         def doc_block_analysis(progress)
           total = @documents.size.to_f

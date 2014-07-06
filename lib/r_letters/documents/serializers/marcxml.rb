@@ -58,7 +58,13 @@ module RLetters
 
         private
 
-        # :nodoc:
+        # Do the serialization for an individual document
+        #
+        # @api private
+        # @param [Document] doc the document to serialize
+        # @return [Nokogiri::XML::Node] single document serialized as a MARCXML
+        #   element
+        #
         # :nocov:
         def do_serialize(doc, include_namespace = true)
           # This uses REXML, and there's nothing for it but to write it out and

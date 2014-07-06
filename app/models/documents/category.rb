@@ -32,6 +32,9 @@ class Documents::Category < ActiveRecord::Base
   # To support empty arrays, ActiveAdmin will send us a blank item when
   # a new category is created.  We want to prune that before the object is
   # saved.
+  #
+  # @api private
+  # @return [void]
   def clean_journals
     journals.delete('')
   end

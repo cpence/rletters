@@ -12,6 +12,7 @@ class ApplicationController < ActionController::Base
   # This method is called by Devise.
   #
   # @api private
+  # @param [User, Admin::Administrator] resource the user that just signed in
   # @return [void]
   def after_sign_in_path_for(resource)
     if resource.is_a?(Admin::Administrator)
@@ -26,6 +27,7 @@ class ApplicationController < ActionController::Base
   # This method is called by Devise.
   #
   # @api private
+  # @param [User, Admin::Administrator] resource the user that just signed out
   # @return [void]
   def after_sign_out_path_for(resource)
     root_url

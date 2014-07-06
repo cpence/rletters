@@ -13,6 +13,7 @@ module MarkdownHandler
   # Render a Markdown template
   #
   # @api private
+  # @param [String] template the Markdown/ERB source to render
   # @return [String] the HTML source
   def self.call(template)
     compiled_source = erb.call(template)

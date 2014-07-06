@@ -47,7 +47,11 @@ module RLetters
 
         private
 
-        # :nodoc:
+        # Do the serialization for an individual document
+        #
+        # @api private
+        # @param [Document] doc the document to serialize
+        # @return [String] single document serialized to RIS format
         def do_serialize(doc)
           ret  = "TY  - JOUR\n"
           doc.authors.each do |a|
