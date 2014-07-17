@@ -385,11 +385,7 @@ en:
                 download: Download in GraphML format
                 word_stem: Word Stem
                 word_forms: Forms in dataset
-                progress_word_list: "Generating list of words for documents..."
-                progress_cleaning: "Cleaning and stemming list of words..."
-                progress_two_word: "Scanning network with two-word gap: %{progress}..."
-                progress_five_word: "Scanning network with five-word gap: %{progress}..."
-                progress_converting: "Cleaning list of words and converting to graph..."
+                progress_network: "Generating word network..."
             term_dates:
                 name: Word Occurrences by Date
                 short_desc: Plot word occurrences by date

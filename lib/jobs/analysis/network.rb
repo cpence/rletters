@@ -55,116 +55,27 @@ module Jobs
 
         # Fetch the focal word
         word = options[:word].mb_chars.downcase.to_s
-        fail ArgumentError, 'Focal word not specified' unless word
-        word_stem = word.stem
+        fail ArgumentError, 'Focal word not specified' unless options[:word]
 
-        # Get the stop word list
-        stop_words = Documents::StopList.find_by!(language: 'en').list.split
-
-        # Create a list of lowercase words
-        at(1, 100, t('.progress_word_list'))
-        enum = RLetters::Datasets::DocumentEnumerator.new(dataset, fulltext: true)
-        words = enum.map do |doc|
-          doc.fulltext.gsub(/[^A-Za-z ]/, '').downcase.split
-        end
-
-        # Remove stop words and stem
-        at(17, 100, t('.progress_cleaning'))
-        words = words.flatten - stop_words
-        words_stem = words.map { |w| w.stem }
-
-        # Storage for the graph
-        nodes = []
-        forms = {}
-        edges = []
-        total = words.size
-
-        # Scan with two-word gap
-        words.each_cons(2).each_with_index do |gap, i|
-          at(33 + ((i.to_f / (total - 1).to_f) * 33.0).to_i, 100,
-             t('.progress_two_word', progress: "#{i}/#{total - 1}"))
-
-          gap_stem = words_stem[i, 2]
-          next unless gap_stem.include? word_stem
-
-          w_1 = nodes.find_index(gap_stem[0])
-          if w_1.nil?
-            nodes << gap_stem[0]
-            w_1 = nodes.size - 1
-          end
-
-          forms[gap_stem[0]] ||= []
-          forms[gap_stem[0]] << gap[0]
-
-          w_2 = nodes.find_index(gap_stem[1])
-          if w_2.nil?
-            nodes << gap_stem[1]
-            w_2 = nodes.size - 1
-          end
-
-          forms[gap_stem[1]] ||= []
-          forms[gap_stem[1]] << gap[1]
-
-          edge = edges.find { |e| e[0] == w_1 && e[1] == w_2 }
-          if edge
-            edge[2] += 1
-          else
-            edges << [w_1, w_2, 1]
-          end
-        end
-
-        # Scan with five-word gap
-        words.each_cons(5).each_with_index do |gap, i|
-          at(66 + ((i.to_f / (total - 4).to_f) * 33.0).to_i, 100,
-             t('.progress_five_word', progress: "#{i}/#{total - 4}"))
-
-          gap_stem = words_stem[i, 5]
-          next unless gap_stem.include? word_stem
-
-          # Now pairwise through the gap
-          (0...3).each do |j|
-            w_1 = nodes.find_index(gap_stem[j])
-            if w_1.nil?
-              nodes << gap_stem[j]
-              w_1 = nodes.size - 1
-            end
-
-            forms[gap_stem[j]] ||= []
-            forms[gap_stem[j]] << gap[j]
-
-            w_2 = nodes.find_index(gap_stem[j + 1])
-            if w_2.nil?
-              nodes << gap_stem[j + 1]
-              w_2 = nodes.size - 1
-            end
-
-            forms[gap_stem[j + 1]] ||= []
-            forms[gap_stem[j + 1]] << gap[j + 1]
-
-            edge = edges.find { |e| e[0] == w_1 && e[1] == w_2 }
-            if edge
-              edge[2] += 1
-            else
-              edges << [w_1, w_2, 1]
-            end
-          end
-        end
-
-        # Trim the forms of duplicates
-        at(99, 100, t('.progress_converting'))
-        forms.each { |k, v| v.uniq! }
+        graph = RLetters::Analysis::Network::Graph.new(
+          dataset,
+          options[:word],
+          [2, 5],
+          'en',
+          ->(p) { at(p, 100, t('.progress_network')) }
+        )
 
         # Convert to D3-able format
-        d3_nodes = nodes.map do |n|
-          { name: n,
-            forms: forms[n] }
+        d3_nodes = graph.nodes.map do |n|
+          { name: n.id,
+            forms: n.words }
         end
 
-        max_weight = edges.map { |e| e[2] }.max.to_f
-        d3_links = edges.map do |e|
-          { source: e[0],
-            target: e[1],
-            strength: e[2].to_f / max_weight }
+        max_weight = graph.max_edge_weight.to_f
+        d3_links = graph.edges.map do |e|
+          { source: d3_nodes.find_index { |n| e.one == n[:name] },
+            target: d3_nodes.find_index { |n| e.two == n[:name] },
+            strength: e.weight.to_f / max_weight }
         end
 
         # Save out all the data
