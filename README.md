@@ -1,6 +1,6 @@
 # RLetters #
 
-[![Build Status][travis_img]][travis] [![Dependency Status][gemnasium_img]][gemnasium] [![Coverage Status][coveralls_img]][coveralls] [![Code Metrics][codeclimate_img]][codeclimate]  
+[![Build Status][travis_img]][travis] [![Dependency Status][gemnasium_img]][gemnasium] [![Coverage Status][coveralls_img]][coveralls] [![Code Metrics][codeclimate_img]][codeclimate] [![Inline docs][inch_img]][inch]
 [![External API Docs][apiary_img]][apiary] [![Code Docs][rubydoc_img]][rubydoc] [![Feature Docs][relish_img]][relish]
 
 [travis]: http://travis-ci.org/rletters/rletters
@@ -9,6 +9,8 @@
 [coveralls_img]: http://img.shields.io/coveralls/rletters/rletters.svg
 [codeclimate]: https://codeclimate.com/github/rletters/rletters
 [codeclimate_img]: http://img.shields.io/codeclimate/github/rletters/rletters.svg
+[inch]: http://inch-ci.org/github/rletters/rletters
+[inch_img]: http://inch-ci.org/github/rletters/rletters.svg?branch=master
 [gemnasium]: https://gemnasium.com/rletters/rletters
 [gemnasium_img]: http://img.shields.io/gemnasium/rletters/rletters.svg
 [apiary]: http://docs.rletters.apiary.io/
