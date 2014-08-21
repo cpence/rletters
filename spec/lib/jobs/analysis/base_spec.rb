@@ -4,6 +4,11 @@ require 'spec_helper'
 module Jobs
   module Analysis
     class MockJob < Jobs::Analysis::Base
+      def get_opts
+        standard_options!
+      end
+
+      attr_accessor :options
     end
   end
 end
@@ -91,6 +96,65 @@ RSpec.describe Jobs::Analysis::Base do
     it 'contains a class we know exists' do
       expect(@jobs).to include(Jobs::Analysis::ExportCitations)
     end
+  end
+
+  describe '#standard_options!' do
+    before(:each) do
+      @user = create(:user)
+      @dataset = create(:full_dataset, user: @user)
+      @task = create(:analysis_task, dataset: @dataset)
+
+      @job = Jobs::Analysis::MockJob.new(
+        'asdf',
+        user_id: @user.to_param,
+        dataset_id: @dataset.to_param,
+        task_id: @task.to_param
+      )
+    end
+
+    context 'with the wrong user' do
+      it 'raises an exception' do
+        @job.options[:user_id] = create(:user).to_param
+        expect { @job.get_opts }.to raise_error(ActiveRecord::RecordNotFound)
+      end
+    end
+
+    context 'with an invalid user' do
+      it 'raises an exception' do
+        @job.options[:user_id] = '123456'
+        expect { @job.get_opts }.to raise_error(ActiveRecord::RecordNotFound)
+      end
+    end
+
+    context 'with an invalid dataset' do
+      it 'raises an exception' do
+        @job.options[:dataset_id] = '12345678'
+        expect { @job.get_opts }.to raise_error(ActiveRecord::RecordNotFound)
+      end
+    end
+
+    context 'with an invalid task' do
+      it 'raises an exception' do
+        @job.options[:task_id] = '12345678'
+        expect { @job.get_opts }.to raise_error(ActiveRecord::RecordNotFound)
+      end
+    end
+  end
+
+  describe '.queue' do
+    it 'is set' do
+      expect(Jobs::Analysis::MockJob.queue).to eq(:analysis)
+    end
+  end
+
+  describe '.available?' do
+    it 'is true by default' do
+      expect(Jobs::Analysis::MockJob.available?).to be true
+    end
+  end
+
+  it 'includes the resque-status methods' do
+    expect(Jobs::Analysis::MockJob.methods).to include(:create)
   end
 
 end

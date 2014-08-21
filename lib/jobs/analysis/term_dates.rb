@@ -4,29 +4,6 @@ module Jobs
   module Analysis
     # Plot occurrences of a term in a dataset by year
     class TermDates < Jobs::Analysis::Base
-      include Resque::Plugins::Status
-
-      # Set the queue for this task
-      #
-      # @return [Symbol] the queue on which this job should run
-      def self.queue
-        :analysis
-      end
-
-      # Returns true if this job can be started now
-      #
-      # @return [Boolean] true
-      def self.available?
-        true
-      end
-
-      # Return how many datasets this job requires
-      #
-      # @return [Integer] number of datasets needed to perform this job
-      def self.num_datasets
-        1
-      end
-
       # Export the date format data
       #
       # Like all view/multiexport jobs, this job saves its data out as a JSON
@@ -47,21 +24,14 @@ module Jobs
       #                                    task_id: task.to_param,
       #                                    term: 'test')
       def perform
-        options.clean_options!
         at(0, 100, t('common.progress_initializing'))
-
-        user = User.find(options[:user_id])
-        dataset = user.datasets.active.find(options[:dataset_id])
-        task = dataset.analysis_tasks.find(options[:task_id])
-
-        task.name = t('.short_desc')
-        task.save
+        standard_options!
 
         # Get the counts and normalize if requested
         term = options[:term]
         analyzer = RLetters::Analysis::CountTermsByField.new(
           term,
-          dataset,
+          @dataset,
           ->(p) { at(p, 100, t('.progress_computing')) })
         dates = analyzer.counts_for(:year)
 
@@ -83,10 +53,10 @@ module Jobs
         file.original_filename = 'term_dates.json'
         file.content_type = 'application/json'
 
-        task.result = file
+        @task.result = file
 
         # We're done here
-        task.finish!
+        @task.finish!
 
         completed
       end

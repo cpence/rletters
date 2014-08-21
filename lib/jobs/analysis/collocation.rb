@@ -5,29 +5,6 @@ module Jobs
   module Analysis
     # Determine statistically significant collocations in text
     class Collocation < Jobs::Analysis::Base
-      include Resque::Plugins::Status
-
-      # Set the queue for this task
-      #
-      # @return [Symbol] the queue on which this job should run
-      def self.queue
-        :analysis
-      end
-
-      # Returns true if this job can be started now
-      #
-      # @return [Boolean] true
-      def self.available?
-        true
-      end
-
-      # Return how many datasets this job requires
-      #
-      # @return [Integer] number of datasets needed to perform this job
-      def self.num_datasets
-        1
-      end
-
       # Locate significant associations between words.
       #
       # This saves its data out as a CSV file to be downloaded by the user
@@ -53,15 +30,8 @@ module Jobs
       #                                      analysis_type: 't',
       #                                      num_pairs: '50')
       def perform
-        options.clean_options!
         at(0, 100, t('common.progress_initializing'))
-
-        user = User.find(options[:user_id])
-        @dataset = user.datasets.active.find(options[:dataset_id])
-        task = @dataset.analysis_tasks.find(options[:task_id])
-
-        task.name = t('.short_desc')
-        task.save
+        standard_options!
 
         analysis_type = (options[:analysis_type] || :mi).to_sym
         num_pairs = (options[:num_pairs] || 50).to_i
@@ -124,10 +94,10 @@ module Jobs
         file.original_filename = 'collocation.csv'
         file.content_type = 'text/csv'
 
-        task.result = file
+        @task.result = file
 
         # We're done here
-        task.finish!
+        @task.finish!
 
         completed
       end

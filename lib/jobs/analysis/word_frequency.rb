@@ -5,29 +5,7 @@ module Jobs
   module Analysis
     # Produce a parallel word frequency list for a dataset
     class WordFrequency < Jobs::Analysis::Base
-      include Resque::Plugins::Status
       add_concern 'ComputeWordFrequencies'
-
-      # Set the queue for this task
-      #
-      # @return [Symbol] the queue on which this job should run
-      def self.queue
-        :analysis
-      end
-
-      # Returns true if this job can be started now
-      #
-      # @return [Boolean] true
-      def self.available?
-        true
-      end
-
-      # Return how many datasets this job requires
-      #
-      # @return [Integer] number of datasets needed to perform this job
-      def self.num_datasets
-        1
-      end
 
       # Export the word frequency data.
       #
@@ -54,19 +32,12 @@ module Jobs
       #                                        task_id: task.to_param,
       #                                        [concern arguments])
       def perform
-        options.clean_options!
         at(0, 100, t('common.progress_initializing'))
-
-        user = User.find(options[:user_id])
-        dataset = user.datasets.active.find(options[:dataset_id])
-        task = dataset.analysis_tasks.find(options[:task_id])
-
-        task.name = t('.short_desc')
-        task.save
+        standard_options!
 
         # Do the analysis
         analyzer = compute_word_frequencies(
-          dataset,
+          @dataset,
           ->(p) { at(p, 100, t('.progress_calculating')) },
           options)
         corpus_size = RLetters::Solr::CorpusStats.new.size
@@ -74,7 +45,7 @@ module Jobs
         # Create some CSV
         at(100, 100, t('common.progress_finished'))
         csv_string = CSV.generate do |csv|
-          csv << [t('.csv_header', name: dataset.name)]
+          csv << [t('.csv_header', name: @dataset.name)]
           csv << ['']
 
           # Output the block data
@@ -107,7 +78,7 @@ module Jobs
 
                 r << Math.tfidf((b[word] || 0).to_f / s[:tokens].to_f,
                                 analyzer.df_in_dataset[word],
-                                dataset.entries.size)
+                                @dataset.entries.size)
                 if analyzer.df_in_corpus.present?
                   r << Math.tfidf((b[word] || 0).to_f / s[:tokens].to_f,
                                   analyzer.df_in_corpus[word],
@@ -166,10 +137,10 @@ module Jobs
         file.original_filename = 'word_frequency.csv'
         file.content_type = 'text/csv'
 
-        task.result = file
+        @task.result = file
 
         # We're done here
-        task.finish!
+        @task.finish!
 
         completed
       end

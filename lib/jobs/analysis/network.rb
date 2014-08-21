@@ -4,29 +4,7 @@ module Jobs
   module Analysis
     # Examine the network of words associated with a focal term
     class Network < Jobs::Analysis::Base
-      include Resque::Plugins::Status
       add_concern 'ComputeWordFrequencies'
-
-      # Set the queue for this task
-      #
-      # @return [Symbol] the queue on which this job should run
-      def self.queue
-        :analysis
-      end
-
-      # Returns true if this job can be started now
-      #
-      # @return [Boolean] true
-      def self.available?
-        true
-      end
-
-      # Return how many datasets this job requires
-      #
-      # @return [Integer] number of datasets needed to perform this job
-      def self.num_datasets
-        1
-      end
 
       # Examine the network of words associated with a focal term.
       #
@@ -43,22 +21,15 @@ module Jobs
       #                                      task_id: task.to_param,
       #                                      word: 'test')
       def perform
-        options.clean_options!
         at(0, 1, t('common.progress_initializing'))
-
-        user = User.find(options[:user_id])
-        dataset = user.datasets.active.find(options[:dataset_id])
-        task = dataset.analysis_tasks.find(options[:task_id])
-
-        task.name = t('.short_desc')
-        task.save
+        standard_options!
 
         # Fetch the focal word
         word = options[:word].mb_chars.downcase.to_s
         fail ArgumentError, 'Focal word not specified' unless options[:word]
 
         graph = RLetters::Analysis::Network::Graph.new(
-          dataset,
+          @dataset,
           options[:word],
           [2, 5],
           'en',
@@ -81,7 +52,7 @@ module Jobs
         # Save out all the data
         at(100, 100, t('common.progress_finished'))
         data = {
-          name: dataset.name,
+          name: @dataset.name,
           word: word,
           d3_nodes: d3_nodes,
           d3_links: d3_links
@@ -93,10 +64,10 @@ module Jobs
         file.original_filename = 'network.json'
         file.content_type = 'application/json'
 
-        task.result = file
+        @task.result = file
 
         # We're done here
-        task.finish!
+        @task.finish!
 
         completed
       end

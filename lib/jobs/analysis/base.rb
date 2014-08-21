@@ -24,25 +24,38 @@ module Jobs
     #   is to write the job results out as JSON in `AnalysisTask#result_file`,
     #   and then to parse this JSON into HAML in the view.
     class Base
+      include Resque::Plugins::Status
+
+      # All analysis jobs should be placed in the analysis queue
+      #
+      # This method is queried by Resque to determine which queue the job
+      # should be placed in.
+      #
+      # @return [Symbol] `:analysis`
+      def self.queue
+        :analysis
+      end
+
       # Returns true if this job can be run right now
       #
       # In general, this checks if all required external tools are available.
+      # It defaults to true in the base class, and can be overridden by jobs
+      # which are sometimes not available.
       #
       # @return [Boolean] true if this job can be run now
-      # :nocov:
       def self.available?
-        fail NotImplementedError, 'Classes deriving from Jobs::Analysis::Base should implement .available?'
+        true
       end
-      # :nocov:
 
       # Return how many datasets this job requires
       #
+      # This method defaults to 1 in the base class, and can be overridden by
+      # jobs which require more than one dataset to operate.
+      #
       # @return [Integer] number of datasets needed to perform this job
-      # :nocov:
       def self.num_datasets
-        fail NotImplementedError, 'Classes deriving from Jobs::Analysis::Base should implement .num_datasets'
+        1
       end
-      # :nocov:
 
       # Returns a translated string for this job
       #
@@ -226,6 +239,32 @@ module Jobs
       # @return [Boolean] true if the given job has the view requested
       def self.has_view?(view, format = 'html')
         !view_path(template: view, format: format).nil?
+      end
+
+      protected
+
+      # Sets a variety of standard option variables
+      #
+      # Almost all analysis jobs have a `user_id`, `dataset_id`, and `task_id`
+      # parameter.  This function cleans the options variables, and then loads
+      # those three classes into the `@user`, `@dataset`, and `@task`
+      # variables.  Finally, it sets and saves the name of the task to the
+      # content of the `.short_desc` translation key.
+      #
+      # If any of those three variables is absent or invalid, this function
+      # will throw an exception.
+      #
+      # @api private
+      # @return [undefined]
+      def standard_options!
+        options.clean_options!
+
+        @user = User.find(options[:user_id])
+        @dataset = @user.datasets.find(options[:dataset_id])
+        @task = @dataset.analysis_tasks.find(options[:task_id])
+
+        @task.name = t('.short_desc')
+        @task.save
       end
 
       private

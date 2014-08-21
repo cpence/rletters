@@ -4,29 +4,7 @@ module Jobs
   module Analysis
     # Plot a dataset's members by year
     class ArticleDates < Jobs::Analysis::Base
-      include Resque::Plugins::Status
       add_concern 'NormalizeDocumentCounts'
-
-      # Set the queue for this task
-      #
-      # @return [Symbol] the queue on which this job should run
-      def self.queue
-        :analysis
-      end
-
-      # Returns true if this job can be started now
-      #
-      # @return [Boolean] true
-      def self.available?
-        true
-      end
-
-      # Return how many datasets this job requires
-      #
-      # @return [Integer] number of datasets needed to perform this job
-      def self.num_datasets
-        1
-      end
 
       # Export the date format data
       #
@@ -45,25 +23,18 @@ module Jobs
       #                                       dataset_id: dataset.to_param,
       #                                       task_id: task.to_param)
       def perform
-        options.clean_options!
         at(0, 100, t('common.progress_initializing'))
-
-        user = User.find(options[:user_id])
-        dataset = user.datasets.active.find(options[:dataset_id])
-        task = dataset.analysis_tasks.find(options[:task_id])
-
-        task.name = t('.short_desc')
-        task.save
+        standard_options!
 
         # Get the counts and normalize if requested
         analyzer = RLetters::Analysis::CountArticlesByField.new(
-          dataset,
+          @dataset,
           ->(p) { at((p.to_f / 100.0 * 90.0).to_i, 100,
                      t('.progress_counting')) })
         dates = analyzer.counts_for(:year)
 
         at(90, 100, t('.progress_normalizing'))
-        dates = normalize_document_counts(user, :year, dates, options)
+        dates = normalize_document_counts(@user, :year, dates, options)
 
         dates = dates.to_a
         dates.each { |d| d[0] = Integer(d[0]) }
@@ -81,7 +52,7 @@ module Jobs
         norm_set_name = ''
         if options[:normalize_doc_counts] == '1'
           if options[:normalize_doc_dataset]
-            norm_set = user.datasets.active.find(options[:normalize_doc_dataset])
+            norm_set = @user.datasets.active.find(options[:normalize_doc_dataset])
             norm_set_name = norm_set.name
           else
             norm_set_name = t('.entire_corpus')
@@ -99,10 +70,10 @@ module Jobs
         file.original_filename = 'article_dates.json'
         file.content_type = 'application/json'
 
-        task.result = file
+        @task.result = file
 
         # We're done here
-        task.finish!
+        @task.finish!
 
         completed
       end

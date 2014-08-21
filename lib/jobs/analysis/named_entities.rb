@@ -9,25 +9,11 @@ module Jobs
     class NamedEntities < Jobs::Analysis::Base
       include Resque::Plugins::Status
 
-      # Set the queue for this task
-      #
-      # @return [Symbol] the queue on which this job should run
-      def self.queue
-        :analysis
-      end
-
       # Returns true if this job can be started now
       #
       # @return [Boolean] true if the Stanford NLP toolkit is available
       def self.available?
         Admin::Setting.nlp_tool_path.present?
-      end
-
-      # Return how many datasets this job requires
-      #
-      # @return [Integer] number of datasets needed to perform this job
-      def self.num_datasets
-        1
       end
 
       # Export the named entity data
@@ -46,18 +32,11 @@ module Jobs
       #                                        dataset_id: dataset.to_param,
       #                                        task_id: task.to_param)
       def perform
-        options.clean_options!
         at(0, 100, t('common.progress_initializing'))
-
-        user = User.find(options[:user_id])
-        dataset = user.datasets.active.find(options[:dataset_id])
-        task = dataset.analysis_tasks.find(options[:task_id])
-
-        task.name = t('.short_desc')
-        task.save
+        standard_options!
 
         analyzer = RLetters::Analysis::NamedEntities.new(
-          dataset,
+          @dataset,
           ->(p) { at(p, 100, t('.progress_finding')) })
 
         # Write it out
@@ -67,10 +46,10 @@ module Jobs
         file.original_filename = 'named_entites.json'
         file.content_type = 'application/json'
 
-        task.result = file
+        @task.result = file
 
         # We're done here
-        task.finish!
+        @task.finish!
 
         completed
       end

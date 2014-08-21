@@ -9,6 +9,14 @@ GIT
       mime-types
 
 GIT
+  remote: https://github.com/nebirhos/activeadmin-sortable-tree.git
+  revision: 77a59c351e3f4d4ba2429188da3ff6f677092140
+  specs:
+    activeadmin-sortable-tree (0.0.1)
+      activeadmin
+      rails (>= 3.2)
+
+GIT
   remote: https://github.com/gregbell/active_admin.git
   revision: 2ae0a9e09bf9fab7fd95e245b6c46d5c7fc2a953
   specs:
@@ -24,14 +32,6 @@ GIT
       rails (>= 3.2, < 4.2)
       ransack (~> 1.0)
       sass-rails
-
-GIT
-  remote: https://github.com/nebirhos/activeadmin-sortable-tree.git
-  revision: 77a59c351e3f4d4ba2429188da3ff6f677092140
-  specs:
-    activeadmin-sortable-tree (0.0.1)
-      activeadmin
-      rails (>= 3.2)
 
 GEM
   remote: https://rubygems.org/

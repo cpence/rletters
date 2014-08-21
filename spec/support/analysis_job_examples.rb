@@ -37,70 +37,8 @@ RSpec.shared_examples_for 'an analysis job' do
     {}
   end
 
-  context 'when the wrong user is specified' do
-    it 'raises an exception' do
-      expect {
-        described_class.perform(
-          '123',
-          job_params.merge(
-            user_id: create(:user).to_param,
-            dataset_id: @dataset.to_param,
-            task_id: @task.to_param))
-      }.to raise_error(ActiveRecord::RecordNotFound)
-    end
-  end
-
-  context 'when an invalid user is specified' do
-    it 'raises an exception' do
-      expect {
-        described_class.perform(
-          '123',
-          job_params.merge(
-            user_id: '12345678',
-            dataset_id: @dataset.to_param,
-            task_id: @task.to_param))
-      }.to raise_error(ActiveRecord::RecordNotFound)
-    end
-  end
-
-  context 'when an invalid dataset is specified' do
-    it 'raises an exception' do
-      expect {
-        described_class.perform(
-          '123',
-          job_params.merge(
-            user_id: @user.to_param,
-            dataset_id: '12345678',
-            task_id: @task.to_param))
-      }.to raise_error(ActiveRecord::RecordNotFound)
-    end
-  end
-
-  context 'when an invalid task is specified' do
-    it 'raises an exception' do
-      expect {
-        described_class.perform(
-          '123',
-          job_params.merge(
-            user_id: @user.to_param,
-            dataset_id: @dataset.to_param,
-            task_id: '12345678'))
-      }.to raise_error(ActiveRecord::RecordNotFound)
-    end
-  end
-
   context 'when the job is finished' do
     include_context 'create job with params'
-
-    it 'sets the queue' do
-      expect(described_class.methods).to include(:queue)
-      expect(described_class.queue).to be_a(Symbol)
-      expect(described_class.queue).to_not eq(:statused)
-    end
-
-    it 'includes the resque-status methods' do
-      expect(described_class.methods).to include(:create)
-    end
 
     it 'calls the finish! method on the task' do
       described_class.perform('123', @perform_args)
@@ -123,12 +61,6 @@ RSpec.shared_examples_for 'an analysis job' do
     it 'makes a file for the task' do
       @task.reload
       expect(@task.result_file_size).to be > 0
-    end
-  end
-
-  describe '.available?' do
-    it 'is true' do
-      expect(described_class.available?).to be true
     end
   end
 end

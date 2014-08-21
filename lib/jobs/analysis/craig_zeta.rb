@@ -5,22 +5,6 @@ module Jobs
   module Analysis
     # Compare two datasets using the Craig Zeta algorithm
     class CraigZeta < Jobs::Analysis::Base
-      include Resque::Plugins::Status
-
-      # Set the queue for this task
-      #
-      # @return [Symbol] the queue on which this job should run
-      def self.queue
-        :analysis
-      end
-
-      # Returns true if this job can be started now
-      #
-      # @return [Boolean] true
-      def self.available?
-        true
-      end
-
       # Return how many datasets this job requires
       #
       # @return [Integer] number of datasets needed to perform this job
@@ -47,19 +31,14 @@ module Jobs
       #                                    task_id: task.to_param,
       #                                    other_dataset_id: dataset2.to_param)
       def perform
-        options.clean_options!
         at(0, 100, t('common.progress_initializing'))
+        standard_options!
 
-        user = User.find(options[:user_id])
-        dataset_1 = user.datasets.active.find(options[:dataset_id])
+        dataset_1 = @dataset
 
         other_datasets = options[:other_datasets]
         fail ArgumentError, 'Wrong number of other datasets provided' unless other_datasets.size == 1
-        dataset_2 = user.datasets.active.find(other_datasets[0])
-
-        task = dataset_1.analysis_tasks.find(options[:task_id])
-        task.name = t('.short_desc')
-        task.save
+        dataset_2 = @user.datasets.active.find(other_datasets[0])
 
         # Do the analysis
 
@@ -179,10 +158,10 @@ module Jobs
         file.original_filename = 'craig_zeta.json'
         file.content_type = 'application/json'
 
-        task.result = file
+        @task.result = file
 
         # We're done here
-        task.finish!
+        @task.finish!
 
         completed
       end
