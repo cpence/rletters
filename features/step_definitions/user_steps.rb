@@ -194,11 +194,11 @@ Then(/^I should see a signed out message$/) do
 end
 
 Then(/^I see an invalid login message$/) do
-  expect(page).to have_content('Invalid email or password.')
+  expect(page).to have_content(/Invalid e-?mail( address)? or password./)
 end
 
 Then(/^I should see an account edited message$/) do
-  expect(page).to have_content('You updated your account successfully.')
+  expect(page).to have_content('Your account has been updated successfully.')
 end
 
 Then(/^I should see the library in the list$/) do
