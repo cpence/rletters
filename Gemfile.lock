@@ -440,6 +440,7 @@ DEPENDENCIES
   http_accept_language
   i18n-js-pika (>= 3.0.0.rc1)
   jquery-rails
+  jquery-ui-rails
   kramdown
   marc
   mock_redis

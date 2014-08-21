@@ -62,6 +62,7 @@ gem 'nokogiri'
 gem 'rabl'
 
 gem 'jquery-rails'
+gem 'jquery-ui-rails'
 gem 'compass-rails'
 gem 'sass-rails', '>= 4.0.2'
 gem 'foundation-rails'
