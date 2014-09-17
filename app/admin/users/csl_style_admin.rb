@@ -4,16 +4,11 @@ ActiveAdmin.register Users::CslStyle do
   menu parent: 'admin_settings'
   filter :name
 
+  permit_params :name, :style
+
   index do
+    selectable_column
     column :name
     actions
   end
-
-  # :nocov:
-  controller do
-    def permitted_params
-      params.permit users_csl_style: [:name, :style]
-    end
-  end
-  # :nocov:
 end

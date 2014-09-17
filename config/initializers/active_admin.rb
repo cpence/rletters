@@ -10,11 +10,6 @@ ActiveAdmin.setup do |config|
   config.batch_actions = true
   config.allow_comments = false
 
-  # Permit all parameters on all models in the administration interface
-  config.before_filter do
-    params.permit!
-  end
-
   # Add a link to the job queue page from the ActiveAdmin menu
   config.namespace :admin do |admin|
     admin.build_menu do |menu|
@@ -22,6 +17,3 @@ ActiveAdmin.setup do |config|
     end
   end
 end
-
-# Precompile the ActiveAdmin CSS and JS files
-Rails.application.config.assets.precompile += [/active_admin.(css|js)$/]

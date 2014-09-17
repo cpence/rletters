@@ -4,6 +4,8 @@ ActiveAdmin.register Documents::Category do
   menu parent: 'admin_settings'
   config.filters = false
 
+  permit_params :parent_id, :sort_order, :name, journals: []
+
   sortable tree: true,
            sorting_attribute: :sort_order,
            parent_method: :parent,
@@ -17,6 +19,8 @@ ActiveAdmin.register Documents::Category do
   end
 
   form do |f|
+    f.semantic_errors *f.object.errors.keys
+
     # Get the journals from Solr
     result = RLetters::Analysis::CountArticlesByField.new.counts_for(:journal_facet)
     journals = result.keys.compact
@@ -27,12 +31,4 @@ ActiveAdmin.register Documents::Category do
     end
     f.actions
   end
-
-  # :nocov:
-  controller do
-    def permitted_params
-      params.permit(documents_category: [:parent_id, :sort_order, :name, journals: []])
-    end
-  end
-  # :nocov:
 end

@@ -3,7 +3,10 @@
 ActiveAdmin.register Admin::Administrator do
   menu parent: 'users'
 
+  permit_params :email, :password, :password_confirmation
+
   index do
+    selectable_column
     column :email
     column :current_sign_in_at
     column :last_sign_in_at
@@ -14,6 +17,8 @@ ActiveAdmin.register Admin::Administrator do
   filter :email
 
   form do |f|
+    f.semantic_errors *f.object.errors.keys
+
     f.inputs I18n.t('admin.administrator.admin_details') do
       f.input :email
       f.input :password
@@ -21,12 +26,4 @@ ActiveAdmin.register Admin::Administrator do
     end
     f.actions
   end
-
-  # :nocov:
-  controller do
-    def permitted_params
-      params.permit admin_administrator: [:email, :password, :password_confirmation]
-    end
-  end
-  # :nocov:
 end

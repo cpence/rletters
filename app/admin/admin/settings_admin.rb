@@ -2,8 +2,11 @@
 
 ActiveAdmin.register Admin::Setting do
   actions :index, :update, :edit
+
   config.filters = false
   config.batch_actions = false
+
+  permit_params :key, :value
 
   controller do
     def scoped_collection
@@ -25,17 +28,11 @@ ActiveAdmin.register Admin::Setting do
   end
 
   form do |f|
+    f.semantic_errors *f.object.errors.keys
+
     f.inputs "Setting: #{admin_setting.friendly_name}" do
       f.input :value
     end
     f.actions
   end
-
-  # :nocov:
-  controller do
-    def permitted_params
-      params.permit admin_setting: [:key, :value]
-    end
-  end
-  # :nocov:
 end

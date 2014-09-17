@@ -3,7 +3,11 @@
 ActiveAdmin.register Admin::MarkdownPage do
   actions :index, :update, :edit, :show
   menu parent: 'admin_settings'
+
   filter :name
+  config.batch_actions = false
+
+  permit_params :name, :content
 
   sidebar :markdown, only: :edit do
     para I18n.t_md('admin.markdown_page.markdown_info_markdown').html_safe
@@ -30,18 +34,12 @@ ActiveAdmin.register Admin::MarkdownPage do
   end
 
   form do |f|
+    f.semantic_errors *f.object.errors.keys
+
     f.inputs I18n.t('admin.markdown_page.page_header',
                     name: admin_markdown_page.friendly_name) do
       f.input :content, input_html: { rows: 30 }
     end
     f.actions
   end
-
-  # :nocov:
-  controller do
-    def permitted_params
-      params.permit admin_markdown_page: [:name, :content]
-    end
-  end
-  # :nocov:
 end

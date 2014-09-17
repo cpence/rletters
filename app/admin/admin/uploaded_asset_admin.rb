@@ -3,7 +3,11 @@
 ActiveAdmin.register Admin::UploadedAsset do
   actions :index, :update, :edit, :show
   menu parent: 'admin_settings'
+
   filter :name
+  config.batch_actions = false
+
+  permit_params :name, :file
 
   index do
     column :friendly_name
@@ -33,18 +37,12 @@ ActiveAdmin.register Admin::UploadedAsset do
   end
 
   form do |f|
+    f.semantic_errors *f.object.errors.keys
+
     f.inputs I18n.t('admin.uploaded_asset.asset_header',
                     name: admin_uploaded_asset.friendly_name) do
       f.input :file
     end
     f.actions
   end
-
-  # :nocov:
-  controller do
-    def permitted_params
-      params.permit admin_uploaded_asset: [:name, :file]
-    end
-  end
-  # :nocov:
 end
