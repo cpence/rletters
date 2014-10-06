@@ -21,10 +21,8 @@ gem 'resque_mailer'
 gem 'devise'
 gem 'devise-i18n'
 gem 'devise-async'
-gem 'activeadmin',
-  git: 'https://github.com/gregbell/active_admin.git'
-gem 'activeadmin-sortable-tree',
-  git: 'https://github.com/nebirhos/activeadmin-sortable-tree.git'
+gem 'activeadmin', github: 'activeadmin'
+gem 'activeadmin-sortable-tree', github: 'nebirhos/activeadmin-sortable-tree'
 gem 'druthers'
 
 # Internationalization
@@ -64,7 +62,8 @@ gem 'rabl'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'compass-rails'
-gem 'sass-rails', '>= 4.0.2'
+gem 'sass', '~> 3.2'
+gem 'sass-rails', '~> 4.0.3'
 gem 'foundation-rails'
 gem 'simple_form'
 
@@ -82,7 +81,8 @@ group :test, :development do
 end
 
 group :test do
-  gem 'cucumber-rails', require: false
+  # Will go away when 1.4.2 is released, but it's not out yet
+  gem 'cucumber-rails', github: 'cucumber/cucumber-rails', require: false
   gem 'capybara', require: false
   gem 'poltergeist', require: false
   gem 'database_cleaner'
