@@ -15,7 +15,7 @@
 *   Fix a bug in facet display code that could cause the facet display to cut off early.
 *   Update Rails, which fixes two potential DoS vulnerabilities.
 *   Fix a potential DoS vulnerability from symbol conversion in the export code.
-*   Update to Rails' internationalization means we can now be translated into Tamil and several more regional dialects of Spanish, among others.
+*   Update to Rails' internationalization means we can now be translated into Tamil, Khmer, and several more regional dialects of Spanish, among others.
     -   We have also updated our Unicode CLDR dataset to version 25, providing more recent data about pluralization and international language names.
 
 
