@@ -15,8 +15,9 @@ RLetters::Application.configure do
   config.serve_static_assets = false
 
   # Compress JavaScripts and CSS
-  config.assets.js_compressor = :yui
-  config.assets.css_compressor = :yui
+  config.assets.js_compressor = :uglify
+  # Leave unset to use sass-rails
+  #config.assets.css_compressor =
 
   # Do not fallback to assets pipeline if a precompiled asset is missed.
   config.assets.compile = false

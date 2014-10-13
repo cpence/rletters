@@ -61,14 +61,12 @@ gem 'rabl'
 
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
-gem 'compass-rails'
-gem 'sass', '~> 3.2'
-gem 'sass-rails', '~> 4.0.3'
+gem 'sass-rails', '>= 4.0.3'
 gem 'foundation-rails'
 gem 'simple_form'
 
-gem 'yui-compressor'
-gem 'roadie', '~> 2'
+gem 'uglifier'
+gem 'roadie-rails'
 
 # Testing
 group :test, :development do
@@ -81,8 +79,7 @@ group :test, :development do
 end
 
 group :test do
-  # Will go away when 1.4.2 is released, but it's not out yet
-  gem 'cucumber-rails', github: 'cucumber/cucumber-rails', require: false
+  gem 'cucumber-rails', '>= 1.4.2'
   gem 'capybara', require: false
   gem 'poltergeist', require: false
   gem 'database_cleaner'
