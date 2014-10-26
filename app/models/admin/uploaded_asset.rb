@@ -23,7 +23,8 @@ class Admin::UploadedAsset < ActiveRecord::Base
                        content_type: { content_type: %w(image/png
                                                         image/jpeg
                                                         image/jpg
-                                                        image/x-icon) }
+                                                        image/x-icon
+                                                        image/x-ico) }
 
   # @return [String] Friendly name of this asset (looked up in locale)
   def friendly_name

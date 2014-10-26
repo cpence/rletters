@@ -79,7 +79,7 @@ group :test, :development do
 end
 
 group :test do
-  gem 'cucumber-rails', '>= 1.4.2'
+  gem 'cucumber-rails', '>= 1.4.2', require: false
   gem 'capybara', require: false
   gem 'poltergeist', require: false
   gem 'database_cleaner'
