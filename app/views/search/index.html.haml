@@ -38,6 +38,7 @@
 
             .btn-group
               - if user_signed_in?
+                -# FIXME THIS IS AN AJAX MODAL DIALOG BOX
                 = link_to t('.create_dataset'), new_dataset_path(q: result.params['q'], def_type: result.params['defType'], fq: result.params['fq']), class: 'btn btn-success'
               - else
                 %button{ type: 'button', class: 'btn btn-success', disabled: 'disabled' }= t('.create_dataset')
@@ -48,20 +49,29 @@
       .container-fluid
         .navbar-left
           %p.navbar-text= result.num_hits
-          -# = result.filter_removal_links
+          .btn-group
+            = result.filter_removal_links
 
-    %ul.pagination{ style: 'text-align: center' }= result.pagination
+    .text-center
+      %ul.pagination.top-pagination= result.pagination
 
-    %table.table.table-striped
+    %table.table.table-striped.document-list
       - result.documents.each do |d|
         %tr
-          %td{ 'data-dropdown' => "drop-#{d.uid.html_id}" }
+          %td
             %abbr{ class: 'unapi-id', title: d.uid }= ''
-            = d.citation
-    .pagination-centered= result.pagination
 
-    - result.documents.each do |d|
-      %div.f-dropdown.medium.content{ 'data-dropdown-content' => true, id: "drop-#{d.uid.html_id}" }= render partial: 'dropdown', locals: { document: d }
+            .dropdown.pull-right
+              %button.btn.btn-default.dropdown-toggle{ type: 'button', id: "drop-#{d.uid.html_id}", data: { toggle: 'dropdown' } }
+                Details
+                %span.caret
+              %ul.dropdown-menu.dropdown-menu-right{ role: 'menu', aria: { labelledby: "drop-#{d.uid.html_id}" } }
+                =render partial: 'dropdown', locals: { document: d }
+
+            = d.citation
+
+    .text-center
+      %ul.pagination.bottom-pagination= result.pagination
 
   .small-12.large-3.columns
     .panel

@@ -1,43 +1,42 @@
 - if user_signed_in?
-  .row
-    .small-6.columns= link_to t('.single_dataset'), new_dataset_path(q: "uid:\"#{document.uid}\"", def_type: 'lucene', fq: nil), data: { reveal_id: "single-#{document.uid.html_id}-modal", reveal_ajax: 'true' }, class: 'button success small expand'
-    .small-6.columns= link_to t('.add_to_dataset'), '#', data: { reveal_id: "add-#{document.uid.html_id}-modal" }, class: 'button success small expand'
-    .reveal-modal{ id: "single-#{document.uid.html_id}-modal", data: { reveal: true } }
-      .preloader
-    .reveal-modal{ id: "add-#{document.uid.html_id}-modal", data: { reveal: true } }= render partial: 'add', locals: { document: document }
+  %li.dropdown-header{ role: 'presentation' } Datasets
+  -# FIXME AJAX MODAL
+  %li{ role: 'presentation' }= link_to t('.single_dataset'), new_dataset_path(q: "uid:\"#{document.uid}\"", def_type: 'lucene', fq: nil), data: { reveal_id: "single-#{document.uid.html_id}-modal", reveal_ajax: 'true' }
+  -# FIXME REGULAR MODAL
+  %li{ role: 'presentation' }= link_to t('.add_to_dataset'), '#', data: { reveal_id: "add-#{document.uid.html_id}-modal" }
+  -#     .reveal-modal{ id: "add-#{document.uid.html_id}-modal", data: { reveal: true } }= render partial: 'add', locals: { document: document }
+
+  %li.divider{ role: 'presentation' }
 
 - if document.doi
-  .row
-    .small-6.columns= link_to t('.journal'), "http://dx.doi.org/#{document.doi}", class: 'button primary small expand'
+  %li{ role: 'presentation' }= link_to t('.journal'), "http://dx.doi.org/#{document.doi}"
+  %li.divider{ role: 'presentation' }
 
-.row
-  .small-6.columns
-    %strong= t('.library')
-    %ul.no-bullet
-      - if user_signed_in?
-        - current_user.libraries.each do |library|
-          %li= link_to t('.yours') + ' ' + library.name, "#{library.url}#{RLetters::Documents::AsOpenURL.new(document).params}"
-      %li= link_to t('.worldcat'), "http://worldcatlibraries.org/registry/gateway?#{RLetters::Documents::AsOpenURL.new(document).params}"
-      %li= link_to t('.uk_openurl'), "http://openurl.ac.uk/?#{RLetters::Documents::AsOpenURL.new(document).params}"
-  .small-6.columns
-    %strong= t('.online')
-    %ul.no-bullet
-      - if document.title
-        %li= link_to t('.google'), "http://scholar.google.com/scholar?q=#{CGI.escape(document.title)}"
-      - if Admin::Setting.mendeley_key.present?
-        %li= link_to t('.mendeley'), documents_mendeley_path(document.uid)
-      %li= link_to t('.citeulike'), documents_citeulike_path(document.uid)
+%li.dropdown-header{ role: 'presentation' }= t('.library')
 
-.row
-  .small-12.columns
-    %p.document-details
-      - if document.doi
-        %small= link_to "DOI: #{document.doi}", "http://dx.doi.org/#{document.doi}"
-        %br
-      - if document.license_url
-        %small= link_to t('.license', license: document.license || t('.no_license')), document.license_url
-      - else
-        %small= t('.license', license: document.license || t('.no_license'))
-      - if document.data_source
-        %br
-        %small= t('.data_source', source: document.data_source)
+- if user_signed_in?
+  - current_user.libraries.each do |library|
+    %li{ role: 'presentation' }= link_to t('.yours') + ' ' + library.name, "#{library.url}#{RLetters::Documents::AsOpenURL.new(document).params}"
+%li{ role: 'presentation' }= link_to t('.worldcat'), "http://worldcatlibraries.org/registry/gateway?#{RLetters::Documents::AsOpenURL.new(document).params}"
+%li{ role: 'presentation' }= link_to t('.uk_openurl'), "http://openurl.ac.uk/?#{RLetters::Documents::AsOpenURL.new(document).params}"
+%li.divider{ role: 'presentation' }
+
+%li.dropdown-header{ role: 'presentation' }= t('.online')
+
+- if document.title
+  %li{ role: 'presentation' }= link_to t('.google'), "http://scholar.google.com/scholar?q=#{CGI.escape(document.title)}"
+- if Admin::Setting.mendeley_key.present?
+  %li{ role: 'presentation' }= link_to t('.mendeley'), documents_mendeley_path(document.uid)
+%li{ role: 'presentation' }= link_to t('.citeulike'), documents_citeulike_path(document.uid)
+
+%li.divider{ role: 'presentation' }
+%li.dropdown-header{ role: 'presentation' } Details
+
+- if document.doi
+  %li.small{ role: 'presentation' }= link_to "DOI: #{document.doi}", "http://dx.doi.org/#{document.doi}"
+- if document.license_url
+  %li.small{ role: 'presentation' }= link_to t('.license', license: document.license || t('.no_license')), document.license_url
+- else
+  %li.dropdown-header{ role: 'presentation' }= t('.license', license: document.license || t('.no_license'))
+- if document.data_source
+  %li.dropdown-header{ role: 'presentation' }= t('.data_source', source: document.data_source)
