@@ -1,25 +1,31 @@
-- content_for :breadcrumbs do
-  %li.current= link_to t('breadcrumbs.root'), root_path
-
-#markdown-landing= Admin::MarkdownPage.render('landing')
+.row
+  #markdown-landing.col-sm-8.col-sm-offset-2= Admin::MarkdownPage.render('landing')
 
 .row
-  .small-5.small-centered.columns
-    = link_to t('.sign_up_button'), new_user_registration_path, id: 'landing-login'
+  #landing-login.col-sm-4.col-sm-offset-4
+    .btn-group.btn-group-justified
+      = link_to t('.sign_up_button'), new_user_registration_path, class: 'btn btn-primary btn-lg'
 
 .row
-  .small-6.small-centered.columns
-    %h3
+  .col-sm-6.col-sm-offset-3
+    #screenshot-carousel.carousel.slide{ data: { ride: 'carousel' } }
+      %ol.carousel-indicators
+        %li.active{ data: { "target" => '#screenshot-carousel', "slide-to" => "0" }}
+        %li{ data: { "target" => '#screenshot-carousel', "slide-to" => "1" }}
+        %li{ data: { "target" => '#screenshot-carousel', "slide-to" => "2" }}
 
-    .slideshow-wrapper
-      .preloader
-      %ul#screenshots{ 'data-orbit' => true }
-        %li{ 'data-orbit-slide' => 'screenshot-1' }
+      .carousel-inner
+        .item.active
           %img{ src: Admin::UploadedAsset.url_for('screenshot-one') }
-          .orbit-caption= Admin::MarkdownPage.render('caption-one')
-        %li{ 'data-orbit-slide' => 'screenshot-2' }
+          .carousel-caption= Admin::MarkdownPage.render('caption-one')
+        .item
           %img{ src: Admin::UploadedAsset.url_for('screenshot-two') }
-          .orbit-caption= Admin::MarkdownPage.render('caption-two')
-        %li{ 'data-orbit-slide' => 'screenshot-3' }
+          .carousel-caption= Admin::MarkdownPage.render('caption-two')
+        .item
           %img{ src: Admin::UploadedAsset.url_for('screenshot-three') }
-          .orbit-caption= Admin::MarkdownPage.render('caption-three')
+          .carousel-caption= Admin::MarkdownPage.render('caption-three')
+
+      = link_to '#screenshot-carousel', class: 'left carousel-control', role: 'button', data: { slide: 'prev' } do
+        %span.glyphicon.glyphicon-chevron-left
+      = link_to '#screenshot-carousel', class: 'right carousel-control', role: 'button', data: { slide: 'next' } do
+        %span.glyphicon.glyphicon-chevron-right

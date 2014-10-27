@@ -1,48 +1,22 @@
 
-#login-dropdown {
-  @include dropdown-container(content, true, 300px);
-  padding: $f-dropdown-content-padding / 4;
-}
-.login-label {
-  @include grid-column(4);
+// section.main {
+//   @include grid-row;
+//   padding-top: 2em;
+// }
+// .full-content { @include grid-column(12); }
 
-  // Tighten up the login form substantially on the vertical axis
-  & > label.inline {
-    margin: 0;
-    padding: 0.625em 0 0 0;
-  }
-}
-.login-control { @include grid-column(8); }
-.login-shift, .login-submit { @include grid-column(8, false, false, 4); }
-.login-submit { padding-top: 1em; }
+// header {
+//   @include grid-row;
+//   margin-bottom: 2em;
 
-section.main {
-  @include grid-row;
-  padding-top: 2em;
-}
-.full-content { @include grid-column(12); }
+//   & > section { @include grid-column(12); }
+// }
 
-header {
-  @include grid-row;
-  margin-bottom: 2em;
-
-  & > section { @include grid-column(12); }
-}
-
-.flash-generic, .flash-notice, .flash-success, .flash-alert {
-  @include alert-base;
-  .close { @include alert-close; }
-}
-
-.flash-notice { @include alert-style($secondary-color); }
-.flash-success { @include alert-style($success-color); }
-.flash-alert { @include alert-style($alert-color); }
-
-// Scoot the flash up next to the breadcrumbs
-.breadcrumbs + .flash-generic, .breadcrumbs + .flash-notice,
-.breadcrumbs + .flash-success, .breadcrumbs + .flash-alert {
-  margin-top: -1.5em;
-}
+// // Scoot the flash up next to the breadcrumbs
+// .breadcrumbs + .flash-generic, .breadcrumbs + .flash-notice,
+// .breadcrumbs + .flash-success, .breadcrumbs + .flash-alert {
+//   margin-top: -1.5em;
+// }
 
 // Styling for our various "manage" tables with a right-hand button
 // column
@@ -53,29 +27,8 @@ table.button-table {
   td.button-cell, th.button-cell { width: 1px; white-space: nowrap; }
 }
 
-footer {
-  @include grid-row;
+.footer {
   padding: 3em 0;
 
-  & > section {
-    @include grid-column(12);
-
-    color: lighten($header-font-color, 30%);
-
-    dl.sitemap {
-      @include sub-nav(inherit, 100%);
-
-      font-size: 75%;
-
-      dd, dt, li {
-        margin-left: 2em;
-        margin-right: 2em;
-      }
-    }
-
-    p {
-      font-size: 75%;
-      margin: 0 0 0 0.5em;
-    }
-  }
+  p { margin: 0 0 0 0.5em; }
 }

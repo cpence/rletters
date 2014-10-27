@@ -1,12 +1,12 @@
-@import "foundation_settings";
-@import "foundation";
+@import "bootstrap-sprockets";
+@import "bootstrap";
+@import "bootstrap_settings";
 
 // Google Fonts: Source Sans Pro
 @import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic);
 
 // Styles that apply to the entire application
 @import "global";
-@import "icons";
 
 // Individual stylesheets for each of the controllers
 @import "search";

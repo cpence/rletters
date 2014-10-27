@@ -4,9 +4,9 @@
   %body
     = render partial: 'layouts/nav'
 
-    %div
+    .container
       - if content_for? :breadcrumbs
-        %ul.breadcrumbs= yield(:breadcrumbs)
+        %ol.breadcrumb= yield(:breadcrumbs)
       = render partial: 'layouts/flashes'
 
       = content_for?(:content) ? yield(:content) : yield

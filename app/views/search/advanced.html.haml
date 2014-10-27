@@ -5,7 +5,7 @@
     %li= link_to t('breadcrumbs.workflow_info'), workflow_info_path(current_user.workflow_class)
     %li= link_to t('breadcrumbs.workflow_activate'), workflow_activate_path(current_user.workflow_class)
   %li= link_to t('breadcrumbs.search_index'), search_path
-  %li.current= link_to t('breadcrumbs.search_advanced'), search_advanced_path
+  %li.active= t('breadcrumbs.search_advanced')
 
 %section.main
   %header

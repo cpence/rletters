@@ -1,7 +1,7 @@
 - content_for :breadcrumbs do
   %li= link_to t('breadcrumbs.root'), root_path
   %li= link_to t('breadcrumbs.workflow_start'), workflow_start_path
-  %li.current= link_to t('breadcrumbs.workflow_info'), workflow_info_path(params[:class])
+  %li.active= t('breadcrumbs.workflow_info')
 
 .row
   #markdown-info.small-12.columns= render_localized_markdown(@klass.name.demodulize.underscore)

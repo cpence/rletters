@@ -1,7 +1,18 @@
 //= require jquery
 //= require jquery_ujs
+//= require turbolinks
+//= require bootstrap-sprockets
 //= require i18n/translations
-//= require foundation
+
+$(function() {
+  // Setup drop down menu
+  $('.dropdown-toggle').dropdown();
+
+  // Fix input element click problem
+  $('.dropdown input, .dropdown label').click(function(e) {
+    e.stopPropagation();
+  });
+});
 
 function hideAndDisable(selector) {
   $(selector).hide();
@@ -25,5 +36,3 @@ function toggleVisAndDisabled(selector) {
   $(selector + ' select').prop('disabled', !visible);
   $(selector + ' textarea').prop('disabled', !visible);
 }
-
-$(document).foundation();

@@ -1,25 +1,22 @@
-#login-dropdown
-  -# We're not using simple_form_for here, because I want precise control over
-  -# the layout of this inline form.
-  = form_for(:user, url: user_session_path) do |f|
+-# We're not using simple_form_for here, because I want precise control over
+-# the layout of this inline form.
+= form_for(:user, url: user_session_path, class: 'form-horizontal') do |f|
 
-    .row
-      .login-label= f.label :email, class: 'right inline'
-      .login-control= f.email_field :email
-    .row
-      .login-label= f.label :password, class: 'right inline'
-      .login-control= f.password_field :password
-    .row
-      .login-shift
-        = f.check_box :remember_me
-        = f.label :remember_me
+  .form-group
+    = f.label :email, class: 'sr-only'
+    = f.email_field :email, class: 'form-control', placeholder: User.human_attribute_name(:email)
+  .form-group
+    = f.label :password, class: 'sr-only'
+    = f.password_field :password, class: 'form-control', placeholder: User.human_attribute_name(:password)
+  .checkbox
+    = f.label :remember_me do
+      = f.check_box :remember_me
+      = User.human_attribute_name(:remember_me)
 
-    .row
-      .login-shift
-        %small= link_to t('layouts.sign_in.forgot_password'), new_user_password_path
+  .form-group
+    .btn-group.btn-group-justified
+      = link_to t('layouts.sign_in.sign_in'), '#', onclick: "$(this).closest('form').submit(); return false", class: 'btn btn-primary'
+      = link_to t('layouts.sign_in.sign_up'), new_user_registration_path, class: 'btn btn-info'
 
-    .row
-      .login-submit= f.submit t('layouts.sign_in.sign_in'), class: 'button primary small expand'
-
-    .row
-      .login-shift= link_to t('layouts.sign_in.sign_up'), new_user_registration_path, class: 'button success small expand'
+  .col-sm-12.text-right
+    %small= link_to t('layouts.sign_in.forgot_password'), new_user_password_path

@@ -1,6 +1,6 @@
 - content_for :breadcrumbs do
   %li= link_to t('breadcrumbs.root'), root_path
-  %li.current= link_to t('breadcrumbs.users_passwords_new'), new_user_password_path
+  %li.active= t('breadcrumbs.users_passwords_new')
 
 %header
   %section

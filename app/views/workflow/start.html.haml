@@ -1,6 +1,6 @@
 - content_for :breadcrumbs do
   %li= link_to t('breadcrumbs.root'), root_path
-  %li.current= link_to t('breadcrumbs.workflow_start'), workflow_start_path
+  %li.active= t('breadcrumbs.workflow_start')
 
 %header
   %section

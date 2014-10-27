@@ -1,20 +1,15 @@
 
 #markdown-landing {
-  width: 90%;
-  margin-left: 5%;
-
   h1 {
-    padding-top: 1.5em;
+    padding-top: 2em;
     text-align: center;
   }
 
   h4 {
-    line-height: $subheader-line-height;
-    color: $subheader-font-color;
-    font-weight: $subheader-font-weight;
+    @extend .text-muted;
 
-    margin-top: 1em;
-    margin-bottom: 2em;
+    margin-top: 1.5em;
+    margin-bottom: 2.5em;
     text-align: center;
 
     width: 70%;
@@ -22,38 +17,38 @@
   }
 
   blockquote {
-    @include panel;
+    @extend .well;
 
-    width: 60%;
-    margin-left: 20%;
+    width: 75%;
+    margin-left: 12%;
     margin-bottom: 2em;
+  }
+
+  h5 {
+    font-size: 130%;
   }
 }
 
 #landing-login {
-  @include button($button-med, $primary-color, false, true);
-  @include single-transition;
-  @include inset-shadow;
-
   margin-top: 3em;
   margin-bottom: 3em;
 }
 
 .job-question {
-  @include button($button-med, $secondary-color, false, true);
-  @include single-transition;
-  @include inset-shadow;
+  // @include button($button-med, $secondary-color, false, true);
+  // @include single-transition;
+  // @include inset-shadow;
 }
 
 #markdown-info {
   h4 {
-    line-height: $subheader-line-height;
-    color: $subheader-font-color;
-    font-weight: $subheader-font-weight;
+    // line-height: $subheader-line-height;
+    // color: $subheader-font-color;
+    // font-weight: $subheader-font-weight;
   }
 
   blockquote {
-    @include panel;
+    // @include panel;
 
     width: 60%;
     margin-left: 20%;

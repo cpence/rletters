@@ -478,12 +478,13 @@ en:
         index:
             placeholder: Search for articles...
             adv_search_placeholder: (advanced search)
+            sort: "Sort"
             sort_prefix: "Sort:"
             sort_unknown: "Unknown"
             sort_asc: "(ascending)"
             sort_desc: "(descending)"
             sort_score: "Relevance"
-            create_dataset: Create dataset from search
+            create_dataset: Save Results
             num_hits_found:
                 zero: no articles found
                 one: 1 article found
