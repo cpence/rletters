@@ -46,7 +46,7 @@ module RLetters
             @dataset,
             ->(p) {
               if @progress
-                @progress.call((p.to_f / 100.0 * 33.0).to_i + 33)
+                @progress.call((p.to_f / 100.0 * 33.0).to_i)
               end
             })
 
@@ -62,7 +62,7 @@ module RLetters
             ss,
             ->(p) {
               if @progress
-                @progress.call((p.to_f / 100.0 * 33.0).to_i + 66)
+                @progress.call((p.to_f / 100.0 * 33.0).to_i + 33)
               end
             },
             bigram_opts)

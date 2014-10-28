@@ -1,8 +1,10 @@
 ## Analyze collocations
 
-#### This analysis job finds a list of statistically significant pairs of words.
+#### This analysis job finds a list of statistically significant immediate pairs of words.
 
-In natural language processing, a [collocation](https://en.wikipedia.org/wiki/Collocation) is a statistically significant association between a pair of words.  For example, while English speakers use the phrases "strong tea" and "powerful computers," it would not be idiomatic English to use "powerful tea" or "strong computers."
+In natural language processing, a [collocation](https://en.wikipedia.org/wiki/Collocation) is a statistically significant association between a pair of words that appear directly next to one another.  For example, while English speakers use the phrases "strong tea" and "powerful computers," it would not be idiomatic English to use "powerful tea" or "strong computers."
+
+(If you would like to determine statistically significant associations between words that are farther apart than immediate neighbors, check out the cooccurrence analysis.)
 
 This analysis task can use the following four different methods for determining significant pairs of words:
 

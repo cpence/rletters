@@ -1,9 +1,11 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-RSpec.describe Jobs::Analysis::Collocation do
+RSpec.describe Jobs::Analysis::Cooccurrence do
 
-  it_should_behave_like 'an analysis job'
+  it_should_behave_like 'an analysis job' do
+    let(:job_params) { { word: 'ethology' } }
+  end
 
   before(:example) do
     @user = create(:user)
@@ -14,33 +16,32 @@ RSpec.describe Jobs::Analysis::Collocation do
 
   describe '.download?' do
     it 'is true' do
-      expect(Jobs::Analysis::Collocation.download?).to be true
+      expect(Jobs::Analysis::Cooccurrence.download?).to be true
     end
   end
 
   describe '.num_datasets' do
     it 'is 1' do
-      expect(Jobs::Analysis::Collocation.num_datasets).to eq(1)
+      expect(Jobs::Analysis::Cooccurrence.num_datasets).to eq(1)
     end
   end
 
   describe '.perform' do
     it 'accepts all the valid parameters' do
-      valid_params = [:mi, :t, :likelihood]
-      valid_params << :pos if Admin::Setting.nlp_tool_path.present?
-
-      valid_params.each do |p|
+      [:mi, :t].each do |p|
         expect {
-          Jobs::Analysis::Collocation.perform(
+          Jobs::Analysis::Cooccurrence.perform(
             '123',
             user_id: @user.to_param,
             dataset_id: @dataset.to_param,
             task_id: @task.to_param,
             analysis_type: p.to_s,
-            num_pairs: '10')
+            num_pairs: '10',
+            window: 25,
+            word: 'ethology')
         }.to_not raise_error
 
-        expect(@dataset.analysis_tasks[0].name).to eq('Determine significant associations between immediate pairs of words')
+        expect(@dataset.analysis_tasks[0].name).to eq('Determine significant associations between distant pairs of words')
 
         @output = CSV.parse(@dataset.analysis_tasks[0].result.file_contents(:original))
         expect(@output).to be_an(Array)

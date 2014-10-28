@@ -5,6 +5,7 @@
 *   The fetch results page now shows progress updates for unfinished jobs, as well as live-updates.
     -   This also includes support for terminating all pending jobs, as well as terminating jobs while they're running.
 *   The plot-dates task has been split into two analysis task types, one of which counts the number of articles in each year in the dataset, and one of which counts the number of occurrences of a particular term in the articles within a dataset, and graphs those occurrences by year.
+*   There is now a cooccurrence analyzer that will return significant cooccurrences that occur at some distance from one another, as opposed to collocations, which are immediate neighbors.
 *   Add an optimized WordFrequencyAnalyzer that can be called when only a single block is requested.
 *   The date-plotting jobs now include intervening years with a "zero" value in the downloaded CSV and graph, instead of leaving them out of the analysis entirely.
 *   Fix several significant bugs in the collocation analyzer, including one that meant that most of the returned weighting values were incorrect.

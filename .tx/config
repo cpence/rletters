@@ -12,6 +12,12 @@ source_file = config/locales/collocation/collocation.en.md
 source_lang = en
 type = TXT
 
+[rletters.cooccurrence]
+file_filter = config/locales/cooccurrence/cooccurrence.<lang>.md
+source_file = config/locales/cooccurrence/cooccurrence.en.md
+source_lang = en
+type = TXT
+
 [rletters.craig_zeta]
 file_filter = config/locales/craig_zeta/craig_zeta.<lang>.md
 source_file = config/locales/craig_zeta/craig_zeta.en.md

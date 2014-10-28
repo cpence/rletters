@@ -295,9 +295,9 @@ en:
                 progress_missing: "Filling missing years..."
             collocation:
                 name: Collocation Analysis
-                short_desc: Determine significant associations between word pairs
+                short_desc: Determine significant associations between immediate pairs of words
                 question: >
-                    What pairs of words often appear together?
+                    What pairs of words often appear directly together?
 
                     What technical terms or phrases appear in the literature?
                 mi: Mutual Information
@@ -315,6 +315,24 @@ en:
                 subheader: "Significance test: %{test}"
                 pair: 'Collocation pair'
                 progress_computing: "Computing collocations for dataset..."
+            cooccurrence:
+                name: Cooccurrence Analysis
+                short_desc: Determine significant associations between distant pairs of words
+                question: >
+                    What pairs of words often appear in the same sentece,
+                    paragraph, section, or article?
+                mi: Mutual Information
+                mi_column: Mutual Information
+                t: T-test
+                t_column: p-value
+                analysis_type: Test to use for significance
+                num_pairs: Number of cooccurrences to find
+                word: Return coocurrences including this word
+                window: Return cooccurrences that occur within this number of words
+                header: "Cooccurrence analysis for %{name}"
+                subheader: "Significance test: %{test}"
+                pair: 'Cooccurrence pair'
+                progress_computing: "Computing cooccurrences for dataset..."
             craig_zeta:
                 name: Craig Zeta
                 short_desc: Determine words that differentiate two datasets (Craig Zeta)
