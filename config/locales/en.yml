@@ -435,6 +435,7 @@ en:
             number_abbr: "No. %{number}"
             pages_abbr: "pp. %{pages}"
         dropdown:
+            dataset_header: Dataset tools
             single_dataset: Create a dataset from only this document
             add_to_dataset: Add this document to an existing dataset
             journal: Download from journal
@@ -446,6 +447,7 @@ en:
             google: Find on Google Scholar
             mendeley: Find on Mendeley
             citeulike: Find on CiteULike
+            details_header: Document details
             data_source: "Data source: %{source}"
             license: "Document license: %{license}"
             license_url_only: Document license
@@ -504,6 +506,7 @@ en:
             year_facet_short: Year
             year_before_1800: Before 1800
             year_after_2010: 2010 and later
+            dropdown_button: More
             categories: Journal Categories
             advanced_search: Advanced search
     users:

@@ -74,12 +74,12 @@ class CategoryDecorator < ApplicationDecorator
     if enabled
       h.link_to(h.search_path(new_params)) do
         h.check_box_tag("category_#{to_param}", '1', true, disabled: true) +
-          h.content_tag(:span, name)
+          h.html_escape(name)
       end
     else
       h.link_to(h.search_path(new_params)) do
         h.check_box_tag("category_#{to_param}", '1', false, disabled: true) +
-          h.content_tag(:span, name)
+          h.html_escape(name)
       end
     end
   end

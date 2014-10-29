@@ -132,18 +132,17 @@ class FacetsDecorator < ApplicationDecorator
     ret = ''.html_safe
     return ret if facets.empty?
 
-    # Slight hack; :authors_facet is first, so for all others, put a divider
-    # between the various kinds of facet
-    ret << h.content_tag(:li, '', class: 'divider') if field != :authors_facet
-
     # Build the return value
-    ret << h.content_tag(:li, h.content_tag(:strong, header))
+    ret << h.content_tag(:li,
+                         h.content_tag(:strong, header),
+                         class: 'filter-header')
+
     facets.each do |f|
       ret << h.content_tag(:li) do
         f = FacetDecorator.decorate(f)
 
         # Get a label into the link as well
-        count = h.content_tag(:span, f.hits.to_s, class: 'round secondary label')
+        count = h.content_tag(:span, f.hits.to_s, class: 'label label-default')
         text = ''.html_safe + f.label + '&nbsp;&nbsp;'.html_safe + count
 
         # Link to whatever the current facets are, plus the new one

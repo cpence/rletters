@@ -59,7 +59,7 @@
 
             .dropdown.pull-right
               %button.btn.btn-default.dropdown-toggle{ type: 'button', id: "drop-#{d.uid.html_id}", data: { toggle: 'dropdown' } }
-                Details
+                = t('.dropdown_button')
                 %span.caret
               %ul.dropdown-menu.dropdown-menu-right{ role: 'menu', aria: { labelledby: "drop-#{d.uid.html_id}" } }
                 =render partial: 'dropdown', locals: { document: d }
@@ -69,17 +69,19 @@
     .text-center
       %ul.pagination.bottom-pagination= result.pagination
 
-  .small-12.large-3.columns
-    .panel
-      %h5= t('.filters')
-      %ul.side-nav
-        - if result.facets
-          = result.facets.addition_links
-        %li.divider
-        - if result.categories
-          = result.categories.link_tree
+  .col-sm-12.col-lg-3
+    .well
+      - if result.facets || result.categories
+        %h4= t('.filters')
 
-      %p= link_to t('.advanced_search'), search_advanced_path, class: 'button secondary small expand'
+        %ul.nav.nav-pills.nav-stacked.filter-list
+          - if result.facets
+            = result.facets.addition_links
+          - if result.categories
+            = result.categories.link_tree
+
+      .btn-group.btn-group-justified
+        = link_to t('.advanced_search'), search_advanced_path, class: 'btn btn-default'
 
 - content_for :modal do
   #ajax-modal.modal.fade{ tabindex: '-1', role: 'dialog', aria: { hidden: 'true' } }

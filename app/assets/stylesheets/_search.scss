@@ -9,11 +9,35 @@ table.document-list {
   td h5 { font-weight: bold; }
 }
 
-// Make the nested lists in the side nav look right
-.side-nav li li { margin-bottom: 0; }
-.side-nav ul { list-style-type: none; }
-.side-nav li.documents_category input { position: relative; top: 2px; }
-.side-nav li.documents_category a span { margin-left: 0.5em; }
+ul.filter-list {
+  margin-bottom: 1em;
+
+  li.filter-header {
+    border-bottom: 1px solid #ddd;
+    margin-top: 1em !important;
+  }
+
+  li input {
+    margin-right: 0.5em;
+  }
+
+  ul {
+    list-style-type: none;
+    padding-left: 20px;
+  }
+  li > a {
+    // This is copied from the relevant nav style in Bootstrap, which is
+    // unfortunate, but necessary.
+    position: relative;
+    display: block;
+    padding: 10px 15px 10px 0;
+
+    &:hover, &:focus {
+      text-decoration: none;
+      background-color: #eee;
+    }
+  }
+}
 
 .advanced-shift { padding-top: 1em; }
 
