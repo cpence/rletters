@@ -1,27 +1,9 @@
 
-// section.main {
-//   @include grid-row;
-//   padding-top: 2em;
-// }
-// .full-content { @include grid-column(12); }
-
-// header {
-//   @include grid-row;
-//   margin-bottom: 2em;
-
-//   & > section { @include grid-column(12); }
-// }
-
-// // Scoot the flash up next to the breadcrumbs
-// .breadcrumbs + .flash-generic, .breadcrumbs + .flash-notice,
-// .breadcrumbs + .flash-success, .breadcrumbs + .flash-alert {
-//   margin-top: -1.5em;
-// }
-
 // Styling for our various "manage" tables with a right-hand button
 // column
 table.button-table {
   width: 100%;
+  margin-top: 1em;
 
   td .button, td button { margin-bottom: 0; }
   td.button-cell, th.button-cell { width: 1px; white-space: nowrap; }

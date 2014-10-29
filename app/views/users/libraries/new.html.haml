@@ -1,5 +1,12 @@
-%h4= t('.header')
-%h6.subheader= t('.subheader')
+.modal-dialog
+  .modal-content
+    .modal-header
+      %button.close{ type: 'button', data: { dismiss: 'modal' } }
+        %span{ aria: { hidden: 'true' } } &times;
+        %span.sr-only Close
 
-= render partial: 'form', locals: { url: libraries_path }
-%a.close-reveal-modal &#215;
+      %h4.modal-title= t('.header')
+      %h6.text-muted= t('.subheader')
+
+      .modal-body
+        = render partial: 'form', locals: { url: libraries_path }

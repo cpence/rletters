@@ -9,9 +9,6 @@
   %li.active= t('breadcrumbs.search_index')
 
 .row
-  .col-sm-12
-    &nbsp;
-.row
   .col-sm-12.col-lg-9
     .row
       = form_tag(search_path, method: :get, id: 'search_form', role: 'form') do
@@ -38,8 +35,7 @@
 
             .btn-group
               - if user_signed_in?
-                -# FIXME THIS IS AN AJAX MODAL DIALOG BOX
-                = link_to t('.create_dataset'), new_dataset_path(q: result.params['q'], def_type: result.params['defType'], fq: result.params['fq']), class: 'btn btn-success'
+                = link_to t('.create_dataset'), new_dataset_path(q: result.params['q'], def_type: result.params['defType'], fq: result.params['fq']), class: 'btn btn-success ajax-modal', data: { toggle: 'modal', target: "#ajax-modal" }
               - else
                 %button{ type: 'button', class: 'btn btn-success', disabled: 'disabled' }= t('.create_dataset')
 
@@ -84,3 +80,6 @@
           = result.categories.link_tree
 
       %p= link_to t('.advanced_search'), search_advanced_path, class: 'button secondary small expand'
+
+- content_for :modal do
+  #ajax-modal.modal.fade{ tabindex: '-1', role: 'dialog', aria: { hidden: 'true' } }

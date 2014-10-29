@@ -12,6 +12,23 @@ $(function() {
   $('.dropdown input, .dropdown label').click(function(e) {
     e.stopPropagation();
   });
+
+  // Load via jQuery any modal dialog boxes that are suitably marked up
+  $(document).on('click', '.ajax-modal', function(e) {
+    e.preventDefault();
+
+    var modal = $('#ajax-modal');
+    var url = $(this).attr('href');
+
+    if (url.indexOf('#') == 0) {
+      $(url).modal('show');
+    } else {
+      $.get(url, function(data) {
+        modal.html(data);
+        modal.modal();
+      });
+    }
+  });
 });
 
 function hideAndDisable(selector) {

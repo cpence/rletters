@@ -3,13 +3,11 @@
   %li= link_to t('breadcrumbs.root'), root_path
   %li.active= t('breadcrumbs.users_registrations_edit')
 
-%header
-  %section
-    %h3= t('.header')
-    %h5.subheader= t('.subheader')
+%h1= t('.header')
+%h4.text-muted= t('.subheader')
 
 .row
-  .large-6.columns
+  .col-sm-6
     = simple_form_for(resource, as: resource_name, url: user_registration_path, html: { method: :put }) do |f|
       = f.error_notification
 
@@ -27,16 +25,18 @@
         = f.input :per_page, as: :radio_buttons, collection: [10, 25, 50, 100]
         = f.input :csl_style_id, collection: Users::CslStyle.all, label_method: :name, value_method: :to_param
 
+      = link_to t('.cancel'), registration_path(resource_name), data: { confirm: t('.cancel_confirm') }, method: :delete, class: 'btn btn-danger pull-right'
+
       = f.button :submit, t('.submit')
-      %br
-      = link_to t('.cancel'), registration_path(resource_name), data: { confirm: t('.cancel_confirm') }, method: :delete, class: 'button alert'
 
 .row
-  .small-12.columns
+  .col-sm-12
     %hr
 
-    %h3= t('.library_links_header')
-    %h5.subheader= t('.library_links_subheader')
+    %h2= t('.library_links_header')
+    %h5.text-muted= t('.library_links_subheader')
 
     %div#library-list{ data: { fetch_url: libraries_path } }
-      .preloader
+
+- content_for :modal do
+  #ajax-modal.modal.fade{ tabindex: '-1', role: 'dialog', aria: { hidden: 'true' } }

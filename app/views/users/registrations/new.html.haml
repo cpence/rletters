@@ -2,13 +2,11 @@
   %li= link_to t('breadcrumbs.root'), root_path
   %li.active= t('breadcrumbs.users_registrations_new')
 
-%header
-  %section
-    %h3= t('.header')
-    %h5.subheader= t('.subheader')
+%h1= t('.header')
+%h4.text-muted= t('.subheader')
 
 .row
-  .large-6.columns
+  .col-sm-6
     = simple_form_for(resource, as: resource_name, url: user_registration_path) do |f|
       = f.error_notification
 
