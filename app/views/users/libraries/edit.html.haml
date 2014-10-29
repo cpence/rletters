@@ -8,5 +8,4 @@
       %h4.modal-title= t('.header')
       %h6.text-muted= t('.subheader')
 
-      .modal-body
-        = render partial: 'form', locals: { url: library_path(@library) }
+      = render partial: 'form', locals: { url: library_path(@library) }
