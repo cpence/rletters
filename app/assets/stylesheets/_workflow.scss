@@ -34,21 +34,20 @@
   margin-bottom: 3em;
 }
 
-.job-question {
-  // @include button($button-med, $secondary-color, false, true);
-  // @include single-transition;
-  // @include inset-shadow;
+.row.dashboard {
+  padding-top: 2em;
+  &:nth-of-type(2) { padding-top: 4em; }
+
+  p { margin-top: 1em; }
 }
 
 #markdown-info {
   h4 {
-    // line-height: $subheader-line-height;
-    // color: $subheader-font-color;
-    // font-weight: $subheader-font-weight;
+    @extend .text-muted;
   }
 
   blockquote {
-    // @include panel;
+    @extend .well;
 
     width: 60%;
     margin-left: 20%;

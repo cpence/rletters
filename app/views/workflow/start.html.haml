@@ -9,4 +9,4 @@
 
 - Jobs::Analysis::Base.job_list.each do |klass|
   - next unless klass.available?
-  = link_to simple_format(klass.t('.question'), {}, wrapper_tag: 'span'), workflow_info_path(klass.name.demodulize.to_s), class: 'job-question'
+  = link_to simple_format(klass.t('.question'), {}, wrapper_tag: 'span'), workflow_info_path(klass.name.demodulize.to_s), class: 'btn btn-default'
