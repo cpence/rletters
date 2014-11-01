@@ -453,6 +453,7 @@ en:
             number_abbr: "No. %{number}"
             pages_abbr: "pp. %{pages}"
         dropdown:
+            dataset_header: Dataset tools
             single_dataset: Create a dataset from only this document
             add_to_dataset: Add this document to an existing dataset
             journal: Download from journal
@@ -464,6 +465,7 @@ en:
             google: Find on Google Scholar
             mendeley: Find on Mendeley
             citeulike: Find on CiteULike
+            details_header: Document details
             data_source: "Data source: %{source}"
             license: "Document license: %{license}"
             license_url_only: Document license
@@ -496,12 +498,13 @@ en:
         index:
             placeholder: Search for articles...
             adv_search_placeholder: (advanced search)
+            sort: "Sort"
             sort_prefix: "Sort:"
             sort_unknown: "Unknown"
             sort_asc: "(ascending)"
             sort_desc: "(descending)"
             sort_score: "Relevance"
-            create_dataset: Create dataset from search
+            create_dataset: Save Results
             num_hits_found:
                 zero: no articles found
                 one: 1 article found
@@ -521,6 +524,7 @@ en:
             year_facet_short: Year
             year_before_1800: Before 1800
             year_after_2010: 2010 and later
+            dropdown_button: More
             categories: Journal Categories
             advanced_search: Advanced search
     users:

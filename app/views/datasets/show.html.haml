@@ -2,7 +2,7 @@
 - content_for :breadcrumbs do
   %li= link_to t('breadcrumbs.root'), root_path
   %li= link_to t('breadcrumbs.datasets_index'), datasets_path
-  %li.current= link_to t('breadcrumbs.datasets_show', name: @dataset.name), dataset_path(@dataset)
+  %li.active= t('breadcrumbs.datasets_show', name: @dataset.name)
 
 %header
   %section

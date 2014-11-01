@@ -4,7 +4,7 @@
 #
 # This class adds methods to display links related to adding and removing
 # a category from search results.
-class CategoryDecorator < Draper::Decorator
+class CategoryDecorator < ApplicationDecorator
   decorates Documents::Category
   delegate_all
 
@@ -17,10 +17,10 @@ class CategoryDecorator < Draper::Decorator
   #     = f.removal_link
   #     -# ...
   def removal_link
-    h.content_tag(:dd, class: 'active') do
-      new_params = toggle_params
-      h.link_to("#{Documents::Category.model_name.human}: #{name}",
-              h.search_path(new_params))
+    new_params = toggle_params
+    h.link_to(h.search_path(new_params), class: 'btn navbar-btn btn-primary') do
+      h.html_escape("#{Documents::Category.model_name.human}: #{name}") +
+        close_icon
     end
   end
 
@@ -74,12 +74,12 @@ class CategoryDecorator < Draper::Decorator
     if enabled
       h.link_to(h.search_path(new_params)) do
         h.check_box_tag("category_#{to_param}", '1', true, disabled: true) +
-          h.content_tag(:span, name)
+          h.html_escape(name)
       end
     else
       h.link_to(h.search_path(new_params)) do
         h.check_box_tag("category_#{to_param}", '1', false, disabled: true) +
-          h.content_tag(:span, name)
+          h.html_escape(name)
       end
     end
   end

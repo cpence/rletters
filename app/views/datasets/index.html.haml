@@ -1,7 +1,7 @@
 - content_for :javascript, javascript_include_tag('datasets_index')
 - content_for :breadcrumbs do
   %li= link_to t('breadcrumbs.root'), root_path
-  %li.current= link_to t('breadcrumbs.datasets_index'), datasets_path
+  %li.active= t('breadcrumbs.datasets_index')
 
 %header
   %section

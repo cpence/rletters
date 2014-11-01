@@ -5,81 +5,89 @@
     %li= link_to t('breadcrumbs.workflow_info'), workflow_info_path(current_user.workflow_class)
     %li= link_to t('breadcrumbs.workflow_activate'), workflow_activate_path(current_user.workflow_class)
   %li= link_to t('breadcrumbs.search_index'), search_path
-  %li.current= link_to t('breadcrumbs.search_advanced'), search_advanced_path
-
-%section.main
-  %header
-    %h2= t('.header')
-    %h4.subheader= t_md('.subheader_markdown')
+  %li.active= t('breadcrumbs.search_advanced')
 
 .row
-  .large-12.columns
-    %h4= t('.search_header')
+  .col-sm-6
+    %h1= t('.header')
+    %h4.text-muted= t_md('.subheader_markdown')
 
-    = form_tag search_path, method: 'get' do
+.row
+  .col-sm-12
+    %h4= t('.search_header')
+    %hr
+
+    = form_tag search_path, method: 'get', role: 'form' do
       = hidden_field_tag :precise, true
 
       .row
-        .large-6.columns
+        .col-md-6
           = label_tag(:fulltext, Document.human_attribute_name('fulltext'))
-          = text_field_tag(:fulltext)
-        .large-6.columns.advanced-shift
-          = label_tag(:fulltext_type_fuzzy) do
-            = radio_button_tag(:fulltext_type, 'fuzzy', true)
-            = t('.type_fuzzy')
-          = label_tag(:fulltext_type_exact) do
-            = radio_button_tag(:fulltext_type, 'exact', false)
-            = t('.type_exact')
+          = text_field_tag(:fulltext, nil, class: 'form-control')
+        .col-md-6.advanced-right
+          .radio
+            = label_tag(:fulltext_type_fuzzy) do
+              = radio_button_tag(:fulltext_type, 'fuzzy', true)
+              = t('.type_fuzzy')
+          .radio
+            = label_tag(:fulltext_type_exact) do
+              = radio_button_tag(:fulltext_type, 'exact', false)
+              = t('.type_exact')
 
       .row
-        .small-6.columns
+        .col-md-6.advanced-pad
           = label_tag :authors, Document.human_attribute_name('authors')
-          = text_field_tag :authors, nil, placeholder: t('.authors_placeholder')
+          = text_field_tag :authors, nil, placeholder: t('.authors_placeholder'), class: 'form-control'
 
       .row
-        .large-6.columns
+        .col-md-6
           = label_tag :title, Document.human_attribute_name('title')
-          = text_field_tag :title
-        .large-6.columns.advanced-shift
-          = label_tag(:title_type_fuzzy) do
-            = radio_button_tag(:title_type, 'fuzzy', true, id: :title_type_fuzzy)
-            = t('.type_fuzzy')
-          = label_tag(:title_type_exact) do
-            = radio_button_tag(:title_type, 'exact', false, id: :title_type_exact)
-            = t('.type_exact')
+          = text_field_tag(:title, nil, class: 'form-control')
+        .col-md-6.advanced-right
+          .radio
+            = label_tag(:title_type_fuzzy) do
+              = radio_button_tag(:title_type, 'fuzzy', true, id: :title_type_fuzzy)
+              = t('.type_fuzzy')
+          .radio
+            = label_tag(:title_type_exact) do
+              = radio_button_tag(:title_type, 'exact', false, id: :title_type_exact)
+              = t('.type_exact')
 
       .row
-        .large-6.columns
+        .col-md-6
           = label_tag :journal, Document.human_attribute_name('journal')
-          = text_field_tag(:journal)
-        .large-6.columns.advanced-shift
-          = label_tag(:journal_type_fuzzy) do
-            = radio_button_tag(:journal_type, 'fuzzy', true, id: :journal_type_fuzzy)
-            = t('.type_fuzzy')
-          = label_tag(:journal_type_exact) do
-            = radio_button_tag(:journal_type, 'exact', false, id: :journal_type_exact)
-            = t('.type_exact')
+          = text_field_tag(:journal, nil, class: 'form-control')
+        .col-md-6.advanced-right
+          .radio
+            = label_tag(:journal_type_fuzzy) do
+              = radio_button_tag(:journal_type, 'fuzzy', true, id: :journal_type_fuzzy)
+              = t('.type_fuzzy')
+          .radio
+            = label_tag(:journal_type_exact) do
+              = radio_button_tag(:journal_type, 'exact', false, id: :journal_type_exact)
+              = t('.type_exact')
 
       .row
-        .large-6.columns
+        .col-md-2.advanced-pad
+          = label_tag(:volume, Document.human_attribute_name('volume'), class: 'sr-only')
+          = text_field_tag(:volume, nil, placeholder: Document.human_attribute_name('volume'), class: 'form-control')
+        .col-md-2.advanced-pad
+          = label_tag(:number, Document.human_attribute_name('number'), class: 'sr-only')
+          = text_field_tag(:number, nil, placeholder: Document.human_attribute_name('number'), class: 'form-control')
+        .col-md-2.advanced-pad
+          = label_tag(:pages, Document.human_attribute_name('pages'), class: 'sr-only')
+          = text_field_tag(:pages, nil, placeholder: Document.human_attribute_name('pages') + h(' (') + t('.pages_placeholder') + h(')'), class: 'form-control')
+
+      .row
+        .col-md-6.advanced-pad
           = label_tag :year_ranges, t('.year_ranges')
-          = text_field_tag(:year_ranges, nil, placeholder: t('.year_ranges_placeholder'))
+          = text_field_tag(:year_ranges, nil, placeholder: t('.year_ranges_placeholder'), class: 'form-control')
 
-      .row
-        .large-6.columns
-          = label_tag :volume, Document.human_attribute_name('volume')
-          = text_field_tag(:volume)
-
-          = label_tag :number, Document.human_attribute_name('number')
-          = text_field_tag(:number)
-
-          = label_tag :pages, Document.human_attribute_name('pages')
-          = text_field_tag(:pages, nil, placeholder: t('.pages_placeholder'))
-
-          = submit_tag t('.search_button'), class: 'button'
+      .form-group
+        = submit_tag t('.search_button'), class: 'btn btn-default'
 
 .row
-  .large-6.columns
+  .col-sm-6
     %hr
 
     %h4= t('.solr_header')
@@ -87,7 +95,9 @@
     = form_tag search_path, method: 'get' do
       = hidden_field_tag :precise, true
 
-      = label_tag :q, t('.solr_label')
-      = text_area_tag(:q, nil, { escape: false })
+      .form-group
+        = label_tag :q, t('.solr_label'), class: 'sr-only'
+        = text_area_tag(:q, nil, escape: false, class: 'form-control')
 
-      = submit_tag t('.solr_button'), class: 'button'
+      .form-group
+        = submit_tag t('.solr_button'), class: 'btn btn-default'

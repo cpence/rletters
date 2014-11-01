@@ -1,7 +1,7 @@
 - content_for :javascript, javascript_include_tag('workflow_fetch')
 - content_for :breadcrumbs do
   %li= link_to t('breadcrumbs.root'), root_path
-  %li.current= link_to t('breadcrumbs.workflow_fetch'), workflow_fetch_path
+  %li.active= t('breadcrumbs.workflow_fetch')
 
 %header
   %section

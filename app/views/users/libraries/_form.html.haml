@@ -1,8 +1,9 @@
-.row
-  .large-6.columns
-    = simple_form_for(@library, url: url) do |f|
-      = f.error_notification
+= simple_form_for(@library, url: url) do |f|
+  .modal-body
+    = f.error_notification
 
-      = f.input :name
-      = f.input :url
-      = f.button :submit
+    = f.input :name
+    = f.input :url
+
+  .modal-footer
+    = f.button :submit
