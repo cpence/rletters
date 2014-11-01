@@ -4,25 +4,25 @@
   %li= link_to t('breadcrumbs.datasets_index'), datasets_path
   %li.active= t('breadcrumbs.datasets_show', name: @dataset.name)
 
-%header
-  %section
-    %h2
+.row
+  .col-sm-12
+    %h1
       = t('.header') + ' — ' + @dataset.name
       - if @dataset.fetch
-        %span.icon.fi-upload-cloud.has-tip{ data: { tooltip: true }, title: t('datasets.index_xhr.cloud_tooltip') }
-    %h4.subheader= t('.subheader')
+          %span.cloud-tooltip{ data: { toggle: 'tooltip' }, title: t('datasets.index_xhr.cloud_tooltip') }
+            %span.glyphicon.glyphicon-cloud
+    %h4.text-muted= t('.subheader')
 
 .row
-  .small-12.columns
+  .col-sm-12
     = t('.num_entries', count: @dataset.entries.size)
     |
     = t('.created_at', date: @dataset.created_at.to_formatted_s(:long))
 
 .row
-  .small-12.columns
+  .col-sm-12
     %hr
 
     %h4= t('.tasks')
 
     #dataset-task-list{ data: { fetch_url: dataset_analysis_tasks_path(@dataset) } }
-      .preloader

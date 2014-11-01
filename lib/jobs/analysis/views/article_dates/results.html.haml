@@ -6,19 +6,19 @@
 - percent = data['percent']
 
 .row
-  .large-8.columns
-    %h2== #{Dataset.model_name.human}: #{@dataset.name}
+  .col-md-8
+    %h1== #{Dataset.model_name.human}: #{@dataset.name}
 
     - if percent
-      %h4.subheader= t('jobs.analysis.article_dates.fraction_subheader', name: @dataset.name, normalization_set: data['normalization_set'])
+      %h4.text-muted= t('jobs.analysis.article_dates.fraction_subheader', name: @dataset.name, normalization_set: data['normalization_set'])
     - else
-      %h4.subheader= t('jobs.analysis.article_dates.number_subheader')
+      %h4.text-muted= t('jobs.analysis.article_dates.number_subheader')
 
-  .large-4.columns.job-header-button
-    = link_to t('common.download_csv'), dataset_analysis_task_path(@dataset, @task, view: 'download', format: 'csv'), class: 'button secondary expand'
+  .col-md-4.job-header-button
+    = link_to t('common.download_csv'), dataset_analysis_task_path(@dataset, @task, view: 'download', format: 'csv'), class: 'btn btn-default'
 
 .row
-  .small-12.columns
+  .col-xs-12
     %hr
 
     .article_dates_data= dates.to_json

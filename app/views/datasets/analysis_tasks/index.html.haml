@@ -1,9 +1,9 @@
 -# Unfinished (active/failed) analysis tasks
 - if @dataset.analysis_tasks.not_finished.size > 0
   - if @dataset.analysis_tasks.active.size > 0
-    .alert-box= t('.pending', count: @dataset.analysis_tasks.active.size)
+    .alert.alert-warning= t('.pending', count: @dataset.analysis_tasks.active.size)
   - if @dataset.analysis_tasks.failed.size > 0
-    .alert-box.alert= link_to t('.failed', count: @dataset.analysis_tasks.failed.size), dataset_path(@dataset, clear_failed: true)
+    .alert.alert-danger= link_to t('.failed', count: @dataset.analysis_tasks.failed.size), dataset_path(@dataset, clear_failed: true)
 
 -# Finished analysis tasks: link to download results and to delete
 %table.button-table
@@ -22,7 +22,7 @@
           %td.label-cell= task.name
           %td.button-cell
             - if task.job_class.download?
-              = link_to t('.download_button'), dataset_analysis_task_path(@dataset, task), class: 'button success tiny'
+              = link_to t('.download_button'), dataset_analysis_task_path(@dataset, task), class: 'btn btn-xs btn-success'
             - else
-              = link_to t('.view_button'), dataset_analysis_task_path(@dataset, task, view: 'results'), class: 'button success tiny'
-            = link_to t('.delete_button'), dataset_analysis_task_path(@dataset, task), method: :delete, class: 'button alert tiny'
+              = link_to t('.view_button'), dataset_analysis_task_path(@dataset, task, view: 'results'), class: 'btn btn-xs btn-success'
+            = link_to t('.delete_button'), dataset_analysis_task_path(@dataset, task), method: :delete, class: 'btn btn-xs btn-danger'

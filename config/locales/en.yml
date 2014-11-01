@@ -614,7 +614,7 @@ en:
                 one: 1 dataset still needs to be added
                 other: "%{count} datasets still need to be added"
             dataset_list: "Datasets for this job:"
-            name_coulmn: Dataset Name
+            name_column: Dataset Name
             no_datasets: No datasets specified
             delete_button: Remove
             delete_confirm: Are you sure?

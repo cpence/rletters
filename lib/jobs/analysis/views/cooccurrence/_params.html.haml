@@ -1,5 +1,5 @@
 .row
-  .large-6.columns
+  .col-md-6
     = simple_form_for :job_params, url: dataset_analysis_tasks_path(@dataset, class: 'Cooccurrence'), method: :post do |f|
       = f.error_notification
 
@@ -8,4 +8,4 @@
       = f.input :window, as: :integer, required: true, label: t('jobs.analysis.cooccurrence.window')
       = f.input :word, required: true, label: t('jobs.analysis.cooccurrence.word')
       = f.button :submit
-      = link_to(t('common.cancel'), @dataset, class: 'button secondary')
+      = link_to(t('common.cancel'), @dataset, class: 'btn btn-default')

@@ -4,37 +4,38 @@
   %li= link_to t('breadcrumbs.workflow_info'), workflow_info_path(params[:class])
   %li.active= t('breadcrumbs.workflow_activate')
 
-%header
-  %section
-    %h2= t('.header')
+.row
+  .col-sm-12
+    %h1= t('.header')
     - if current_user.workflow_datasets.size < @num_datasets
-      %h4.subheader= t('.subheader_pending')
+      %h4.text-muted= t('.subheader_pending')
     - else
-      %h4.subheader= t('.subheader_done')
+      %h4.text-muted= t('.subheader_done')
 
 - if current_user.workflow_datasets.size < @num_datasets
-  .row
-    .small-12.columns
+  .row.activate-pad
+    .col-sm-12
       %p= t('.pending_instructions', count: @num_datasets)
 - else
-  .row
-    .large-5.large-centered.columns
-      - button_params = { class: params[:class], job_params: { other_datasets: current_user.workflow_datasets[1..-1].map(&:to_param) } }
-      - if @klass.has_view? '_params'
-        = link_to t('.button_params'), new_dataset_analysis_task_path(current_user.workflow_datasets[0], button_params), class: 'button primary expand'
-      - else
-        = link_to t('.button_start'), dataset_analysis_tasks_path(current_user.workflow_datasets[0], button_params), method: :post, class: 'button success expand'
+  .row.activate-pad
+    .col-lg-6.col-lg-offset-3
+      .btn-group.btn-group-justified
+        - button_params = { class: params[:class], job_params: { other_datasets: current_user.workflow_datasets[1..-1].map(&:to_param) } }
+        - if @klass.has_view? '_params'
+          = link_to t('.button_params'), new_dataset_analysis_task_path(current_user.workflow_datasets[0], button_params), class: 'btn btn-primary'
+        - else
+          = link_to t('.button_start'), dataset_analysis_tasks_path(current_user.workflow_datasets[0], button_params), method: :post, class: 'btn btn-success'
 
 .row
-  .small-12.columns
+  .col-sm-12
     %hr
 
     - if current_user.workflow_datasets.size < @num_datasets
-      .alert-box.alert= t('.pending_count', count: (@num_datasets - current_user.workflow_datasets.size))
+      .alert.alert-danger= t('.pending_count', count: (@num_datasets - current_user.workflow_datasets.size))
 
     %h3= t('.dataset_list')
 
-    %table.button-table
+    %table.table.button-table
       %thead
         %tr
           %th.label-cell= t('.name_column')
@@ -50,29 +51,39 @@
               %td.label-cell
                 = d.name
                 - if d.fetch
-                  %span.icon.fi-upload-cloud.has-tip{ data: { tooltip: true }, title: t('datasets.index_xhr.cloud_tooltip') }
-              %td.button-cell= link_to t('.delete_button'), workflow_activate_path(params[:class], unlink_dataset_id: d.to_param), data: { confirm: t('.delete_confirm') }, class: 'button alert tiny'
+                  %span.cloud-tooltip{ data: { toggle: 'tooltip' }, title: t('datasets.index_xhr.cloud_tooltip') }
+                    %span.glyphicon.glyphicon-cloud
+              %td.button-cell= link_to t('.delete_button'), workflow_activate_path(params[:class], unlink_dataset_id: d.to_param), data: { confirm: t('.delete_confirm') }, class: 'btn btn-xs btn-danger'
 
 - if current_user.workflow_datasets.size < @num_datasets
   .row
-    .large-12.columns
-      %ul.button-group.even-2
-        %li= link_to t('.create_button'), search_path, class: 'button success'
-        %li= link_to t('.link_button'), '#', data: { reveal_id: 'link-modal' }, class: 'button secondary'
-        #link-modal.reveal-modal{ data: { reveal: true } }
-          %h4= t('.link_header')
-          %h6.subheader= t('.link_subheader')
+    .col-lg-12
+      .btn-group
+        = link_to t('.create_button'), search_path, class: 'btn btn-success'
+        = link_to t('.link_button'), '#', data: { toggle: 'modal', target: '#link-modal' }, class: 'btn btn-default'
+
+- content_for :modal do
+  .modal.fade#link-modal{ tabindex: '-1', role: 'dialog', aria: { hidden: 'true' } }
+    .modal-dialog
+      .modal-content
+        .modal-header
+          %button.close{ type: 'button', data: { dismiss: 'modal' } }
+            %span{ aria: { hidden: 'true' } } &times;
+            %span.sr-only Close
+
+          %h4.modal-title= t('.link_header')
+          %h6.text-muted= t('.link_subheader')
 
           - unless current_user.datasets.active.size
-            %p= t('.link_no_datasets')
+            .modal-body
+              %p= t('.link_no_datasets')
           - else
-            #link-form-modal
-              = form_tag workflow_activate_path(params[:class]), method: :get do
+            = form_tag workflow_activate_path(params[:class]), method: :get do
+              .modal-body
                 .row
-                  .large-6.columns
+                  .col-sm-6
                     = label_tag :link_dataset_id, Dataset.model_name.human
-                    = select_tag :link_dataset_id, options_from_collection_for_select(current_user.datasets.active, 'to_param', 'name')
-                .row
-                  .large-6.columns= submit_tag t('.link_submit'), class: 'button success small'
+                    = select_tag :link_dataset_id, options_from_collection_for_select(current_user.datasets.active, 'to_param', 'name'), class: 'form-control'
 
-          %a.close-reveal-modal &#215;
+              .modal-footer
+                = submit_tag t('.link_submit'), class: 'btn btn-success'

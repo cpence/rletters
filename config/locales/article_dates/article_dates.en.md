@@ -1,4 +1,4 @@
-## Plot number of articles in a dataset by dateS
+## Plot number of articles in a dataset by dates
 
 #### This analysis job takes a single dataset and plots it by publication date.
 

@@ -13,6 +13,9 @@ $(function() {
     e.stopPropagation();
   });
 
+  // Load tooltips for cloud references
+  $('.cloud-tooltip').tooltip();
+
   // Load via jQuery any modal dialog boxes that are suitably marked up
   $(document).on('click', '.ajax-modal', function(e) {
     e.preventDefault();

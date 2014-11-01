@@ -4,10 +4,10 @@
   %li.active= t('breadcrumbs.workflow_info')
 
 .row
-  #markdown-info.small-12.columns= render_localized_markdown(@klass.name.demodulize.underscore)
+  #markdown-info.col-sm-12= render_localized_markdown(@klass.name.demodulize.underscore)
 
 .row
-  .large-6.large-offset-6.columns
-    %ul.button-group.even-2
-      %li= link_to t('.back'), workflow_start_path, class: 'button secondary'
-      %li= link_to t('.start'), workflow_activate_path(params[:class]), class: 'button success'
+  .col-lg-6.col-lg-offset-6
+    .btn-group.btn-group-justified
+      = link_to t('.back'), workflow_start_path, class: 'btn btn-default'
+      = link_to t('.start'), workflow_activate_path(params[:class]), class: 'btn btn-success'

@@ -4,49 +4,64 @@
 - data = JSON.load(@task.result.file_contents(:original))
 
 .row
-  .large-8.columns
-    %h2== #{Dataset.model_name.human}: #{@dataset.name}
-    %h4.subheader= t('jobs.analysis.named_entities.subheader')
-  .large-4.columns.job-header-button= link_to t('common.download_csv'), dataset_analysis_task_path(@dataset, @task, view: 'download', format: 'csv'), class: 'button secondary expand'
+  .col-md-8
+    %h1== #{Dataset.model_name.human}: #{@dataset.name}
+    %h4.text-muted= t('jobs.analysis.named_entities.subheader')
+  .col-md-4.job-header-button= link_to t('common.download_csv'), dataset_analysis_task_path(@dataset, @task, view: 'download', format: 'csv'), class: 'btn btn-default'
 
 .row
-  .small-12.columns
+  .col-xs-12
     %hr
 
-    .section-container.auto{ data: { section: true } }
+    .panel-group#accordion{ role: 'tablist', aria: { multiselectable: 'true' } }
       - if data['PERSON']
-        %section
-          %p.title{ data: { section_title: true } }= link_to t('jobs.analysis.named_entities.people_category'), '#panel1'
-          .content{ data: { section_content: true } }
-            %ul.no-bullet
-              - data['PERSON'].uniq.sort.each do |p|
-                %li= link_to p, t('jobs.analysis.named_entities.wikipedia_link', query: CGI.escape(p))
+        .panel.panel-default
+          .panel-heading#heading1{ role: 'tab' }
+            %h4.panel-title
+              = link_to t('jobs.analysis.named_entities.people_category'), '#collapse1', data: { toggle: 'collapse', parent: '#accordion' }, aria: { expanded: 'true', controls: 'collapse1' }
+          .panel-collapse.collapse.in#collapse1{ role: 'tabpanel', aria: { labelledby: 'heading1' } }
+            .panel-body
+              %ul
+                - data['PERSON'].uniq.sort.each do |p|
+                  %li= link_to p, t('jobs.analysis.named_entities.wikipedia_link', query: CGI.escape(p))
       - if data['ORGANIZATION']
-        %section
-          %p.title{ data: { section_title: true } }= link_to t('jobs.analysis.named_entities.organization_category'), '#panel2'
-          .content{ data: { section_content: true } }
-            %ul.no-bullet
-              - data['ORGANIZATION'].uniq.sort.each do |o|
-                %li= link_to o, t('jobs.analysis.named_entities.wikipedia_link', query: CGI.escape(o))
-      - if data['LOCATION']
-        %section#ne-map-section
-          %p.title{ data: { section_title: true } }= link_to t('jobs.analysis.named_entities.location_map'), '#panel3'
-          .content{ data: { section_content: true } }
-            #ne-map-data= data['LOCATION'].uniq.sort.to_json
-            #ne-map
-        %section
-          %p.title{ data: { section_title: true } }= link_to t('jobs.analysis.named_entities.location_list'), '#panel4'
-          .content{ data: { section_content: true } }
-            %ul.no-bullet
-              - data['LOCATION'].uniq.sort.each do |l|
-                %li= link_to l, t('jobs.analysis.named_entities.wikipedia_link', query: CGI.escape(l))
-      - unless data.reject { |c| %w{PERSON ORGANIZATION LOCATION}.include?(c) }.empty?
-        %section
-          %p.title{ data: { section_title: true } }= link_to t('jobs.analysis.named_entities.other_category'), '#panel4'
-          .content{ data: { section_content: true } }
-            - data.reject { |c| %w{PERSON ORGANIZATION LOCATION}.include?(c) }.each do |c|
-              %p
-                %strong= c
-              %ul.no-bullet
-                - c.uniq.sort.each do |o|
+        .panel-panel-default
+          .panel-heading#heading2{ role: 'tab' }
+            %h4.panel-title
+              = link_to t('jobs.analysis.named_entities.organization_category'), '#collapse2', class: 'collapsed', data: { toggle: 'collapse', parent: '#accordion' }, aria: { expanded: 'false', controls: 'collapse2' }
+          .panel-collapse.collapse{ role: 'tabpanel', aria: { labelledby: 'heading2' } }
+            .panel-body
+              %ul
+                - data['ORGANIZATION'].uniq.sort.each do |o|
                   %li= link_to o, t('jobs.analysis.named_entities.wikipedia_link', query: CGI.escape(o))
+      - if data['LOCATION']
+        .panel.panel-deafult#ne-map-panel
+          .panel-heading#heading3{ role: 'tab' }
+            %h4.panel-title
+              = link_to t('jobs.analysis.named_entities.location_map'), '#collapse3', class: 'collapsed', data: { toggle: 'collapse', parent: '#accordion' }, aria: { expanded: 'false', controls: 'collapse3' }
+          .panel-collapse.collapse{ role: 'tabpanel', aria: { labelledby: 'heading3' } }
+            .panel-body
+              #ne-map-data= data['LOCATION'].uniq.sort.to_json
+              #ne-map
+        .panel.panel-default
+          .panel-heading#heading4{ role: 'tab' }
+            %h4.panel-title
+              = link_to t('jobs.analysis.named_entities.location_list'), '#collapse4', class: 'collapsed', data: { toggle: 'collapse', parent: '#accordion' }, aria: { expanded: 'false', controls: 'collapse4' }
+          .panel-collapse.collapse{ role: 'tabpanel', aria: { labelledby: 'heading4' } }
+            .panel-body
+              %ul
+                - data['LOCATION'].uniq.sort.each do |l|
+                  %li= link_to l, t('jobs.analysis.named_entities.wikipedia_link', query: CGI.escape(l))
+      - unless data.reject { |c| %w{PERSON ORGANIZATION LOCATION}.include?(c) }.empty?
+        .panel.panel-default
+          .panel-heading#heading5{ role: 'tab' }
+            %h4.panel-title
+              = link_to t('jobs.analysis.named_entities.other_category'), '#collapse5', class: 'collapsed', data: { toggle: 'collapse', parent: '#accordion' }, aria: { expanded: 'false', controls: 'collapse5' }
+          .panel-collapse.collapse{ role: 'tabpanel', aria: { labelledby: 'heading5' } }
+            .panel-body
+              - data.reject { |c| %w{PERSON ORGANIZATION LOCATION}.include?(c) }.each do |c|
+                %p
+                  %strong= c
+                %ul
+                  - c.uniq.sort.each do |o|
+                    %li= link_to o, t('jobs.analysis.named_entities.wikipedia_link', query: CGI.escape(o))
