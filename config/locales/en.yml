@@ -13,8 +13,7 @@ en:
         "yes": 'Yes'
         "no": 'No'
         required:
-            text: required
-            mark: '*'
+            html: "<abbr class='required-icon' title='required'><span class='glyphicon glyphicon-asterisk'></span></abbr>"
         error_notification:
             default_message: "Please review the problems below:"
         labels:
