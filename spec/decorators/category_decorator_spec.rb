@@ -10,9 +10,9 @@ RSpec.describe CategoryDecorator, type: :decorator do
   describe '#removal_link' do
     it 'works' do
       allow(@decorated).to receive(:toggle_params).and_return({ toggle: true })
-      ret = @decorated.removal_link
+      ret = Capybara.string(@decorated.removal_link)
 
-      expect(ret).to include('<a href="/search?toggle=true">Category: Test Category</a>')
+      expect(ret).to have_css('a[href="/search?toggle=true"]', text: 'Category: Test Category')
     end
   end
 

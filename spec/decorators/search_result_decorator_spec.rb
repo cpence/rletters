@@ -13,11 +13,11 @@ RSpec.describe SearchResultDecorator, type: :decorator do
         }
         @result = RLetters::Solr::Connection.search(params)
         @decorated = described_class.decorate(@result)
-        @ret = @decorated.filter_removal_links
+        @ret = Capybara.string(@decorated.filter_removal_links)
       end
 
       it 'includes the no-facet text' do
-        expect(@ret).to include('No filters active')
+        expect(@ret).to have_content('No filters active')
       end
     end
 
@@ -31,11 +31,12 @@ RSpec.describe SearchResultDecorator, type: :decorator do
         Draper::ViewContext.current.params[:fq] = ['journal_facet:"Ethology"']
         @result = RLetters::Solr::Connection.search(params)
         @decorated = described_class.decorate(@result)
-        @ret = @decorated.filter_removal_links
+        @ret = Capybara.string(@decorated.filter_removal_links)
       end
 
       it 'includes the removal link' do
-        expect(@ret).to include('<a href="/search">Journal: Ethology</a>')
+        expect(@ret).to have_css('a[href="/search"]',
+                                 text: 'Journal: Ethology')
       end
     end
 
@@ -51,11 +52,12 @@ RSpec.describe SearchResultDecorator, type: :decorator do
         Draper::ViewContext.current.params[:categories] = [@category.to_param]
         @result = RLetters::Solr::Connection.search(params)
         @decorated = described_class.decorate(@result)
-        @ret = @decorated.filter_removal_links
+        @ret = Capybara.string(@decorated.filter_removal_links)
       end
 
       it 'includes the removal link' do
-        expect(@ret).to include('<a href="/search">Category: Test Category</a>')
+        expect(@ret).to have_css('a[href="/search"]',
+                                 text: 'Category: Test Category')
       end
     end
 
@@ -72,15 +74,17 @@ RSpec.describe SearchResultDecorator, type: :decorator do
         Draper::ViewContext.current.params[:fq] = ['journal_facet:"Ethology"']
         @result = RLetters::Solr::Connection.search(params)
         @decorated = described_class.decorate(@result)
-        @ret = @decorated.filter_removal_links
+        @ret = Capybara.string(@decorated.filter_removal_links)
       end
 
       it 'includes the category removal link (with facet)' do
-        expect(@ret).to include('<a href="/search?fq%5B%5D=journal_facet%3A%22Ethology%22">Category: Test Category</a>')
+        expect(@ret).to have_css('a[href="/search?fq%5B%5D=journal_facet%3A%22Ethology%22"]',
+                                 text: 'Category: Test Category')
       end
 
       it 'includes the facet removal link (with category)' do
-        expect(@ret).to include("<a href=\"/search?categories%5B%5D=#{@category.to_param}\">Journal: Ethology</a>")
+        expect(@ret).to have_css("a[href='/search?categories%5B%5D=#{@category.to_param}']",
+                                 text: 'Journal: Ethology')
       end
     end
   end
