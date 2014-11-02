@@ -1,13 +1,10 @@
 es:
   common:
-    download_csv: Descargar en formato CSV
     cancel: Cancelar
+    download_csv: Descargar en formato CSV
   simple_form:
     'yes': 'Sí'
     'no': 'No'
-    required:
-      text: obligatorio
-      mark: '*'
     error_notification:
       default_message: "Por favor, subsane los siguientes problemas:"
     labels:
@@ -111,7 +108,7 @@ es:
         journals: Lista de revistas
       documents/stop_list:
         language: Idioma
-        list: Lista de palabras vacías
+        list: Lista de palabras no significativas
       user:
         email: Correo-e
         name: Nombre
@@ -211,7 +208,7 @@ es:
       new_analysis: Nuevo análisis
       fetch_results: Buscar resultados
       advanced: Herramientas avanzadas
-      browse: Buscar/Examinar base de datos
+      browse: Buscar o examinar base de datos
       manage: Administrar conjuntos de datos
       current: Análisis en curso
       abort: Cancelar el análisis en curso
@@ -261,6 +258,34 @@ es:
         dataset_label: Normalizar contra conjunto de datos
         all: Todo el corpus
     analysis:
+      article_dates:
+        fraction_subheader: "Fracción de documentos en %{normalization_set} encontrados en el conjunto de datos %{name}, trazada por año"
+        number_subheader: "Número de documentos, trazados por año"
+        fraction_column: Fracción de documentos
+        number_column: Número de documentos
+        entire_corpus: Todo el corpus
+      collocation:
+        name: Análisis de colocaciones
+        mi: Información común
+        mi_column: Información común
+        t: Prueba t de student
+        t_column: Valor p
+        likelihood: Logaritmo de verosimilitud
+        likelihood_column: "-2*logaritmo de verosimilitud"
+        pos: Frecuencia (filtrada por partes del discurso)
+        pos_column: Frecuencia
+        analysis_type: Prueba para importancia
+        num_pairs: Número de colocaciones para buscar
+        header: "Análisis de colocaciones para %{name}"
+        subheader: "Prueba de importancia: %{test}"
+        pair: 'Par de colocaciones'
+      cooccurrence:
+        mi: Información común
+        mi_column: Información común
+        t: Prueba t de student
+        t_column: Valor p
+        analysis_type: Prueba para importancia
+        subheader: "Prueba de importancia: %{test}"
       craig_zeta:
         name: Craig Zeta
         short_desc: Determina palabras que diferencian dos bases de datos (Craig Zeta)
@@ -271,13 +296,13 @@ es:
         subheader: (Algoritmo Craig Zeta)
         csv_header: "Comparación de Craig Zeta para el conjunto de datos %{name_1} con %{name_2}"
         marker_header: "Palabras indicadoras para miembros en el conjunto de datos %{name}"
-        graph_header: Gráfico de separación para todos los bloques de texto analizados
+        graph_header: Gráfica de separación para todos los bloques de texto analizados
         graph_explanation: >
-          Este gráfico traza la fracción de palabras en cada bloque de texto individual
-          analizado con las coordenadas correspondientes a la fracción de palabras
-          en cada bloque que pertenezcan a los dos conjuntos identificados. Si el
+          Esta gráfica traza la fracción de palabras, en cada bloque de texto individual
+          analizado, con las coordenadas correspondientes a la fracción de palabras,
+          en cada bloque, que pertenezcan a los dos conjuntos identificados. Si el
           análisis se realiza con éxito, debería poder ver dos nubes de puntos claramente
-          separadas por una pequeña superposición, la cual muestra que las palabras
+          separadas por una pequeña superposición, lo cual muestra que las palabras
           indicadoras pueden distinguir bloques de texto de cada conjunto de datos
           fácilmente.
         block_name_column: Nombre del bloque de texto
@@ -294,6 +319,7 @@ es:
         question: >
           ¿Puedo exportar un conjunto de artículos a mi formato favorito o al administrador
           de referencias?
+        format: Formato de exportación
       named_entities:
         name: Extraer nombres propios
         short_desc: Extraer referencias a nombres propios
@@ -309,18 +335,17 @@ es:
         other_category: Otros
         type_column: Tipo
         hit_column: Coincidencia
-      article_dates:
-        name: Trazar por fecha
-        short_desc: Trazar conjunto de datos por fecha
+      network:
+        name: Calcular red de términos
+        short_desc: Calcular red de términos asociados
         question: >
-          ¿Cómo ha cambiado la frecuencia de un término con el tiempo?
-
-          ¿Cuándo se publicaron un conjunto de artículos dados?
-        fraction_subheader: "Fracción de documentos en %{normalization_set} encontrados en el conjunto de datos %{name}, trazada por año"
-        number_subheader: "Número de documentos, trazados por año"
-        fraction_column: Fracción de documentos
-        number_column: Número de documentos
-        entire_corpus: Todo el corpus
+          ¿Qué mayor red de palabras se encuentra a menudo con una palabra importante
+          de interés?
+        word: Palabra importante
+        subheader: "Red de términos asociados que rodean a la palabra: '%{word}'"
+        download: Descargar en formato GraphML
+      term_dates:
+        word: Palabra importante
       word_frequency:
         name: Frecuencia de palabras
         short_desc: Analizar la frecuencia de palabras en el conjunto de datos
@@ -340,12 +365,6 @@ es:
         tfidf_dataset_header: TF/IDF (Frecuencia de términos/Frecuencia inversa de documentos contra conjunto de datos)
         tfidf_corpus_header: TF/DF (Frecuencia de términos/Frecuencia de documentos contra corpus)
         df_header: DF (Frecuencia de documentos en el corpus)
-  lib:
-    wfa:
-      block_count_dataset: "Bloque %{num}/%{total} (en todo el conjunto de datos)"
-      block_size_dataset: "Bloque %{num} de %{size} palabras (en todo el conjunto de datos)"
-      block_count_doc: "Bloque %{num}/%{total} (dentro de  '%{title}'}"
-      block_size_doc: "Bloque %{num} de %{size} palabras (dentrod e '%{title}')"
   search:
     document:
       untitled: "[sin título]"
@@ -368,6 +387,7 @@ es:
       google: Buscar en Google Académico
       mendeley: Buscar en Mendeley
       citeulike: Buscar en CiteULike
+      details_header: Detalles del documento
       data_source: "Fuente de datos: %{source}"
       license: "Licencia del documento: %{license}"
       license_url_only: Licencia del documento
@@ -403,7 +423,6 @@ es:
       sort_asc: "(ascendente)"
       sort_desc: "(descendente)"
       sort_score: "Importancia"
-      create_dataset: Cree base de datos a partir de la búsqueda
       num_hits_found:
         zero: No se encontraron artículos.
         one: Se encontró un artículo.
@@ -496,9 +515,8 @@ es:
         one: Todavía debe añadirse 1 conjuntos de datos
         other: Todavía deben añadirse %{count} conjuntos de datos
       dataset_list: "Conjuntos de datos para esta tarea:"
-      name_coulmn: Nombre del conjunto de datos
+      name_column: Nombre del conjunto de datos
       no_datasets: No se especificó ningún conjunto de datos
-      delete_button: Eliminar
       delete_confirm: ¿Está seguro?
       create_button: Crear otro conjunto de datos
       link_button: Enlazar un conjunto de datos ya creado
@@ -527,17 +545,14 @@ es:
     fetch:
       header: Buscar resultados de análisis
       subheader: "Aquí podrá recuperar los datos generados por los análisis. Asegúrese de guardarlos al poco tiempo, pues sólo estarán disponibles durante 14 días."
+      terminate: Intentando cancelar todas las tareas de análisis pendientes...
+    fetch_xhr:
       pending_header: Tareas de análisis pendientes
-      pending_count: >
-        Ya tiene %{count} tareas de análisis finalizadas. Vuelva más tarde a esta
-        página para recopilar los resultados.
       pending_cancel_markdown: >
         ¿Los análisis tardan mucho en finalizar? Podemos intentar [interrumpir todas
         la tareas pendientes,](%{terminate_url}) pero puede no funcionar. Si falla,
         [envíe un correo-e a los administradores de la página.](mailto:%{email})
       completed_header: Tareas de análisis completadas
-      no_completed: "No tiene tareas de análisis completadas. ¡Comience una nueva y vuelva aquí para recopilar los datos!"
-      terminate: Intentando cancelar todas las tareas de análisis pendientes...
     index:
       sign_up_button: ¡Regístrese para comenzar!
       screenshots_header: ¿Qué puedo hacer?
@@ -548,8 +563,8 @@ es:
       header: Comenzar un nuevo análisis
       subheader: >
         Comience ejecutando un nuevo análisis al decidir qué tipo de pregunta quiere
-        realizar sobre la literatura. Haga clic sobre la pregunta que sea explorar
-        para continuar.
+        realizar sobre literatura. Haga clic sobre la pregunta que sea explorar para
+        continuar.
     destroy:
       success: ¡inicio de análisis abortado!
   datasets:
@@ -593,15 +608,12 @@ es:
           other: "¡Fallaron %{count} tareas de análisis para este conjunto de datos! Haga clic aquí para eliminar las tareas fallidas."
         task_column: Tarea de análisis
         no_tasks: No se encontraron tareas de análisis
-        download_button: Descargar resultados
-        view_button: Ver resultados
-        delete_button: Eliminar tarea
+        delete_button: Eliminar
       new:
         header: Preferencias de tarea
         subheader: Esta tarea tiene más prefereferias que puede configurar antes de comenzarla.
       create:
         workflow: "Ejecutando análisis, vuelva más tarde para ver los resultados..."
-        success: ¡Tarea de análisis iniciada!
   settings:
     app_name: Nombre de la aplicación
     app_email: Correo-e de contacto
