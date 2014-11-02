@@ -38,7 +38,7 @@ FactoryGirl.define do
   end
 
   factory :dataset do
-    ignore do
+    transient do
       working false
     end
 
@@ -47,7 +47,7 @@ FactoryGirl.define do
     disabled false
 
     factory :full_dataset do
-      ignore do
+      transient do
         working false
         entries_count 5
       end
@@ -62,7 +62,7 @@ FactoryGirl.define do
   end
 
   factory :entry, class: Datasets::Entry do
-    ignore do
+    transient do
       working false
     end
 
@@ -78,7 +78,7 @@ FactoryGirl.define do
   end
 
   factory :document do
-    ignore do
+    transient do
       uid 'doi:10.1234/this.is.a.doi'
       doi nil
       license nil
@@ -94,7 +94,7 @@ FactoryGirl.define do
     end
 
     factory :full_document do
-      ignore do
+      transient do
         uid 'doi:10.1111/j.1439-0310.2008.01576.x'
         doi '10.1111/j.1439-0310.2008.01576.x'
         license '© Blackwell Verlag GmbH'
