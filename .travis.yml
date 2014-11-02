@@ -1,6 +1,9 @@
 language: ruby
-rvm:
-  - 2.1.1
+rvm: 2.1.1
+
+env:
+  - RAKE_TASK=spec
+  - RAKE_TASK=cucumber
 
 bundler_args: --without production development
 before_script:
@@ -9,9 +12,6 @@ before_script:
   - 'pushd vendor/solr && ./start && popd'
   - bundle exec rake db:create db:schema:load
 
-script:
-  - bundle exec rake spec
-  - bundle exec rake cucumber
+script: 'bundle exec rake $RAKE_TASK'
 
-after_script:
-  - 'pushd vendor/solr && ./stop && popd'
+after_script: 'pushd vendor/solr && ./stop && popd'
