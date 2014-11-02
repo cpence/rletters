@@ -9,8 +9,8 @@
     %h1
       = t('.header') + ' — ' + @dataset.name
       - if @dataset.fetch
-          %span.cloud-tooltip{ data: { toggle: 'tooltip' }, title: t('datasets.index_xhr.cloud_tooltip') }
-            %span.glyphicon.glyphicon-cloud
+        %span.cloud-tooltip{ data: { toggle: 'tooltip' }, title: t('datasets.index_xhr.cloud_tooltip') }
+          %span.glyphicon.glyphicon-cloud
     %h4.text-muted= t('.subheader')
 
 .row

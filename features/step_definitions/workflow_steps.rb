@@ -53,8 +53,8 @@ When(/^I confirm the data$/) do
     visit good_path
   end
 
-  within('.main') do
-    if page.has_link? 'Start Analysis'
+  within('.main .row', match: :first) do
+    if page.has_link?('Start Analysis')
       click_link 'Start Analysis'
     else
       click_link 'Set Job Options'
@@ -67,7 +67,7 @@ When(/^I abort the workflow$/) do
 end
 
 When(/^I visit the status page$/) do
-  within('nav') { click_link 'Fetch' }
+  within('.navbar') { click_link 'Fetch' }
 end
 
 ### THEN ###
@@ -76,7 +76,7 @@ Then(/^I should see the status of my task$/) do
 end
 
 Then(/^I should be able to fetch the workflow results$/) do
-  within('nav') { click_link 'Fetch' }
+  within('.navbar') { click_link 'Fetch' }
   expect(page).to have_selector('td', text: @dataset.name)
 end
 

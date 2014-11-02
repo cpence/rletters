@@ -42,10 +42,10 @@ end
 def sign_in
   visit '/'
   click_link 'Sign In'
-  within('#login-dropdown') do
+  within('.dropdown-menu') do
     fill_in 'user_email', with: @visitor[:email]
     fill_in 'user_password', with: @visitor[:password]
-    click_button 'Sign in'
+    click_link 'Sign in'
   end
 end
 
@@ -114,14 +114,14 @@ When(/^I sign in with a wrong password$/) do
 end
 
 When(/^I edit my account details$/) do
-  within('nav') { click_link 'My Account' }
+  within('.navbar-right') { click_link 'My Account' }
   fill_in 'user_email', with: 'new@example.com'
   fill_in 'user_current_password', with: @visitor[:password]
   click_button 'Update settings'
 end
 
 When(/^I visit my account page$/) do
-  within('nav') { click_link 'My Account' }
+  within('.navbar-right') { click_link 'My Account' }
 end
 
 When(/^I add a library automatically$/) do
@@ -147,7 +147,7 @@ When(/^I manually add the library "(.*?)" with URL "(.*?)"$/) do |name, url|
 end
 
 When(/^I select a custom citation style$/) do
-  within('nav') { click_link 'My Account' }
+  within('.navbar-right') { click_link 'My Account' }
   select 'Chicago Manual of Style (Author-Date format)', from: 'user_csl_style_id'
   fill_in 'user_current_password', with: @visitor[:password]
   click_button 'Update settings'
@@ -173,19 +173,19 @@ Then(/^I should see a successful sign up message$/) do
 end
 
 Then(/^I should see an invalid email message$/) do
-  expect(page).to have_selector('.user_email.error')
+  expect(page).to have_selector('.user_email.has-error')
 end
 
 Then(/^I should see a missing password message$/) do
-  expect(page).to have_selector('.user_password.error')
+  expect(page).to have_selector('.user_password.has-error')
 end
 
 Then(/^I should see a missing password confirmation message$/) do
-  expect(page).to have_selector('.user_password_confirmation.error')
+  expect(page).to have_selector('.user_password_confirmation.has-error')
 end
 
 Then(/^I should see a mismatched password message$/) do
-  expect(page).to have_selector('.user_password_confirmation.error small',
+  expect(page).to have_selector('.user_password_confirmation.has-error .help-block',
                                 text: "doesn't match Password")
 end
 
