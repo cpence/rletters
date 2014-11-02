@@ -69,13 +69,13 @@ function createNamedEntitiesMap() {
 
 $(function() {
   lookUpMarkers();
-  Foundation.libs.section.settings.callback = neSectionCallback;
-});
 
-function neSectionCallback(section) {
-  var active = section.find('section.active');
-  if (active.attr('id') == 'ne-map-section') {
-    createNamedEntitiesMap();
-    google.maps.event.trigger(global_named_entity_map, 'resize');
-  }
-}
+  $('#accordion').on('show.bs.collapse', function() {
+    var openAnchor = $(this).find('a[data-toggle=collapse]:not(.collapsed)');
+    if (openAnchor.attr('href') == '#collapse3') {
+      // This is the ID of the map collapse panel
+      createNamedEntitiesMap();
+      google.maps.event.trigger(global_named_entity_map, 'resize');
+    }
+  });
+});

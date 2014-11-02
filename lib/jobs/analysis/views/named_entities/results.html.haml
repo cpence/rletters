@@ -29,17 +29,17 @@
           .panel-heading#heading2{ role: 'tab' }
             %h4.panel-title
               = link_to t('jobs.analysis.named_entities.organization_category'), '#collapse2', class: 'collapsed', data: { toggle: 'collapse', parent: '#accordion' }, aria: { expanded: 'false', controls: 'collapse2' }
-          .panel-collapse.collapse{ role: 'tabpanel', aria: { labelledby: 'heading2' } }
+          .panel-collapse.collapse#collapse2{ role: 'tabpanel', aria: { labelledby: 'heading2' } }
             .panel-body
               %ul
                 - data['ORGANIZATION'].uniq.sort.each do |o|
                   %li= link_to o, t('jobs.analysis.named_entities.wikipedia_link', query: CGI.escape(o))
       - if data['LOCATION']
-        .panel.panel-deafult#ne-map-panel
+        .panel.panel-deafult
           .panel-heading#heading3{ role: 'tab' }
             %h4.panel-title
               = link_to t('jobs.analysis.named_entities.location_map'), '#collapse3', class: 'collapsed', data: { toggle: 'collapse', parent: '#accordion' }, aria: { expanded: 'false', controls: 'collapse3' }
-          .panel-collapse.collapse{ role: 'tabpanel', aria: { labelledby: 'heading3' } }
+          .panel-collapse.collapse#collapse3{ role: 'tabpanel', aria: { labelledby: 'heading3' } }
             .panel-body
               #ne-map-data= data['LOCATION'].uniq.sort.to_json
               #ne-map
@@ -47,7 +47,7 @@
           .panel-heading#heading4{ role: 'tab' }
             %h4.panel-title
               = link_to t('jobs.analysis.named_entities.location_list'), '#collapse4', class: 'collapsed', data: { toggle: 'collapse', parent: '#accordion' }, aria: { expanded: 'false', controls: 'collapse4' }
-          .panel-collapse.collapse{ role: 'tabpanel', aria: { labelledby: 'heading4' } }
+          .panel-collapse.collapse#collapse4{ role: 'tabpanel', aria: { labelledby: 'heading4' } }
             .panel-body
               %ul
                 - data['LOCATION'].uniq.sort.each do |l|
@@ -57,7 +57,7 @@
           .panel-heading#heading5{ role: 'tab' }
             %h4.panel-title
               = link_to t('jobs.analysis.named_entities.other_category'), '#collapse5', class: 'collapsed', data: { toggle: 'collapse', parent: '#accordion' }, aria: { expanded: 'false', controls: 'collapse5' }
-          .panel-collapse.collapse{ role: 'tabpanel', aria: { labelledby: 'heading5' } }
+          .panel-collapse.collapse#collapse5{ role: 'tabpanel', aria: { labelledby: 'heading5' } }
             .panel-body
               - data.reject { |c| %w{PERSON ORGANIZATION LOCATION}.include?(c) }.each do |c|
                 %p
