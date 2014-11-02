@@ -4,7 +4,7 @@
 #
 # This class aggregates the decoration methods on individual facets for
 # an entire collection of facets.
-class FacetsDecorator < Draper::Decorator
+class FacetsDecorator < ApplicationDecorator
   decorates RLetters::Solr::Facets
   delegate_all
 
@@ -53,12 +53,13 @@ class FacetsDecorator < Draper::Decorator
 
     if active_facets
       active_facets.each do |f|
-        ret << h.content_tag(:dd, class: 'active') do
-          other_facets = active_facets.reject { |x| x == f }
+        other_facets = active_facets.reject { |x| x == f }
 
-          f = FacetDecorator.decorate(f)
-          link_to_facets("#{f.field_label}: #{f.label}", other_facets)
-        end
+        f = FacetDecorator.decorate(f)
+        ret << link_to_facets(h.html_escape("#{f.field_label}: #{f.label}") +
+                                close_icon,
+                              other_facets,
+                              class: 'btn navbar-btn btn-primary')
       end
     end
 
@@ -97,18 +98,19 @@ class FacetsDecorator < Draper::Decorator
   # @api private
   # @param [String] text the string to display for the link
   # @param [Array<Facet>] facets the facets to link to
+  # @param [Hash] link_params extra HTML parameters for the link
   # @return [String] text link to a search for these facets
-  def link_to_facets(text, facets)
+  def link_to_facets(text, facets, link_params = {})
     new_params = h.params.deep_dup
 
     if facets.empty?
       new_params[:fq] = nil
-      return h.link_to(text, h.search_path(new_params))
+      return h.link_to(text, h.search_path(new_params), link_params)
     end
 
     new_params[:fq] = []
     facets.each { |f| new_params[:fq] << f.query }
-    h.link_to(text, h.search_path(new_params))
+    h.link_to(text, h.search_path(new_params), link_params)
   end
 
   # Get the list of facet links for one particular field
@@ -130,18 +132,17 @@ class FacetsDecorator < Draper::Decorator
     ret = ''.html_safe
     return ret if facets.empty?
 
-    # Slight hack; :authors_facet is first, so for all others, put a divider
-    # between the various kinds of facet
-    ret << h.content_tag(:li, '', class: 'divider') if field != :authors_facet
-
     # Build the return value
-    ret << h.content_tag(:li, h.content_tag(:strong, header))
+    ret << h.content_tag(:li,
+                         h.content_tag(:strong, header),
+                         class: 'filter-header')
+
     facets.each do |f|
       ret << h.content_tag(:li) do
         f = FacetDecorator.decorate(f)
 
         # Get a label into the link as well
-        count = h.content_tag(:span, f.hits.to_s, class: 'round secondary label')
+        count = h.content_tag(:span, f.hits.to_s, class: 'label label-default')
         text = ''.html_safe + f.label + '&nbsp;&nbsp;'.html_safe + count
 
         # Link to whatever the current facets are, plus the new one

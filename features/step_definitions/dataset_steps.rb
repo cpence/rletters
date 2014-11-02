@@ -28,7 +28,7 @@ end
 When(/^I create a dataset from the current search$/) do
   expect(current_path).to eq(search_path)
 
-  in_modal_dialog 'Create dataset from search' do
+  in_modal_dialog 'Save Results' do
     fill_in 'dataset_name', with: 'Cucumber Dataset'
     click_button 'Create Dataset'
   end
@@ -119,13 +119,13 @@ Then(/^I should see the list of analysis tasks$/) do
 end
 
 Then(/^I should see an alert for the pending task$/) do
-  expect(page).to have_selector('.alert-box', text: '1 analysis task pending for this dataset...')
+  expect(page).to have_selector('.alert', text: '1 analysis task pending for this dataset...')
 end
 
 Then(/^I should see an alert for the failed task$/) do
-  expect(page).to have_selector('.alert-box.alert', text: '1 analysis task failed for this dataset! Click here to clear failed tasks.')
+  expect(page).to have_selector('.alert.alert-danger', text: '1 analysis task failed for this dataset! Click here to clear failed tasks.')
 end
 
 Then(/^I should see no alert for the failed task$/) do
-  expect(page).not_to have_selector('.alert-box.alert')
+  expect(page).not_to have_selector('.alert.alert-danger')
 end

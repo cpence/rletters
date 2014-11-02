@@ -4,14 +4,16 @@
   %body
     = render partial: 'layouts/nav'
 
-    %div
+    .container.main
       - if content_for? :breadcrumbs
-        %ul.breadcrumbs= yield(:breadcrumbs)
+        %ol.breadcrumb= yield(:breadcrumbs)
       = render partial: 'layouts/flashes'
 
       = content_for?(:content) ? yield(:content) : yield
 
       = render partial: 'layouts/footer'
+
+    = yield(:modal) if content_for?(:modal)
 
     = javascript_include_tag 'application'
     = yield(:javascript) if content_for?(:javascript)

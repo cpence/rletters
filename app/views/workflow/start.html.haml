@@ -1,12 +1,15 @@
 - content_for :breadcrumbs do
   %li= link_to t('breadcrumbs.root'), root_path
-  %li.current= link_to t('breadcrumbs.workflow_start'), workflow_start_path
+  %li.active= t('breadcrumbs.workflow_start')
 
-%header
-  %section
-    %h2= t('.header')
-    %h4.subheader= t('.subheader')
+.row
+  .col-sm-12
+    %h1= t('.header')
+    %h4.text-muted= t('.subheader')
 
 - Jobs::Analysis::Base.job_list.each do |klass|
   - next unless klass.available?
-  = link_to simple_format(klass.t('.question'), {}, wrapper_tag: 'span'), workflow_info_path(klass.name.demodulize.to_s), class: 'job-question'
+  .row.questions
+    .col-sm-12
+      .btn-group.btn-group-justified
+        = link_to simple_format(klass.t('.question'), {}, wrapper_tag: 'span'), workflow_info_path(klass.name.demodulize.to_s), class: 'btn btn-default'

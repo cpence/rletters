@@ -5,7 +5,7 @@
 # This adds methods to access the documents and facets returned as part of
 # a search, as well as unified ways to deal with the facets and categories
 # (together, called "filters") that users may utilize.
-class SearchResultDecorator < Draper::Decorator
+class SearchResultDecorator < ApplicationDecorator
   decorates RLetters::Solr::SearchResult
   delegate_all
 
@@ -64,16 +64,16 @@ class SearchResultDecorator < Draper::Decorator
   #   %dl= @result.filter_removal_links
   def filter_removal_links
     if h.params[:fq].blank? && active_categories.blank?
-      return h.content_tag(:dd) do
-        h.link_to I18n.t('search.index.no_filters'), '#'
-      end
+      return h.link_to(I18n.t('search.index.no_filters'), '#',
+                       class: 'btn navbar-btn btn-default disabled')
     end
 
     ''.html_safe.tap do |ret|
       # Remove all
-      ret << h.content_tag(:dd) do
-        new_params = h.params.deep_dup.except!(:categories, :fq)
-        h.link_to I18n.t('search.index.remove_all'), h.search_path(new_params)
+      new_params = h.params.deep_dup.except!(:categories, :fq)
+      ret << h.link_to(h.search_path(new_params),
+                       class: 'btn navbar-btn btn-primary') do
+        h.html_escape(I18n.t('search.index.remove_all')) + close_icon
       end
 
       # Categories and facets
@@ -112,38 +112,36 @@ class SearchResultDecorator < Draper::Decorator
     num_pages = Integer(num_pages.ceil)
     return ''.html_safe if num_pages <= 1
 
-    h.content_tag :ul, class: 'pagination' do
-      content = page_link('&laquo;'.html_safe,
-                          page == 0 ? nil : page - 1,
-                          page == 0 ? 'unavailable' : nil)
+    content = page_link('&laquo;'.html_safe,
+                        page == 0 ? nil : page - 1,
+                        page == 0 ? 'unavailable' : nil)
 
-      # Render at most seven pagination links
-      if num_pages < 7
-        range_to_render = (0..num_pages).to_a
-      elsif page < 3
-        range_to_render = [0, 1, 2, 3, nil, num_pages - 2, num_pages - 1]
-      elsif page >= num_pages - 3
-        range_to_render = [0, 1, nil, num_pages - 4, num_pages - 3,
-                           num_pages - 2, num_pages - 1]
-      else
-        range_to_render = [0, nil, page - 1, page, page + 1, nil,
-                           num_pages - 1]
-      end
-
-      range_to_render.each do |p|
-        if p.nil?
-          content << page_link('&hellip;'.html_safe, nil, 'unavailable')
-        else
-          content << page_link((p + 1).to_s, p, page == p ? 'current' : nil)
-        end
-      end
-
-      content << page_link('&raquo;'.html_safe,
-                           page == num_pages - 1 ? nil : page + 1,
-                           page == num_pages - 1 ? 'unavailable' : nil)
-
-      content
+    # Render at most seven pagination links
+    if num_pages < 7
+      range_to_render = (0..num_pages).to_a
+    elsif page < 3
+      range_to_render = [0, 1, 2, 3, nil, num_pages - 2, num_pages - 1]
+    elsif page >= num_pages - 3
+      range_to_render = [0, 1, nil, num_pages - 4, num_pages - 3,
+                         num_pages - 2, num_pages - 1]
+    else
+      range_to_render = [0, nil, page - 1, page, page + 1, nil,
+                         num_pages - 1]
     end
+
+    range_to_render.each do |p|
+      if p.nil?
+        content << page_link('&hellip;'.html_safe, nil, 'unavailable')
+      else
+        content << page_link((p + 1).to_s, p, page == p ? 'current' : nil)
+      end
+    end
+
+    content << page_link('&raquo;'.html_safe,
+                         page == num_pages - 1 ? nil : page + 1,
+                         page == num_pages - 1 ? 'unavailable' : nil)
+
+    content
   end
 
   # Return an array of all sort methods

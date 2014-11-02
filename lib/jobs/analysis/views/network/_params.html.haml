@@ -1,8 +1,8 @@
 .row
-  .large-6.columns
+  .col-md-6
     = simple_form_for :job_params, url: dataset_analysis_tasks_path(@dataset, class: 'Network'), method: :post do |f|
       = f.error_notification
 
       = f.input :word, label: I18n.t('jobs.analysis.network.word')
       = f.button :submit
-      = link_to(t('common.cancel'), @dataset, class: 'button secondary')
+      = link_to(t('common.cancel'), @dataset, class: 'btn btn-default')

@@ -40,7 +40,9 @@ class CategoriesDecorator < Draper::CollectionDecorator
   def link_tree
     return ''.html_safe if object.size == 0
 
-    h.content_tag(:li, h.content_tag(:strong, I18n.t('search.index.categories'))) +
+    h.content_tag(:li,
+                  h.content_tag(:strong, I18n.t('search.index.categories')),
+                  class: 'filter-header') +
       h.content_tag_for(:li, Documents::Category.roots) do |root|
         CategoryDecorator.decorate(root).link_tree
       end

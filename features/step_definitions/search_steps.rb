@@ -39,37 +39,37 @@ When(/^I run a Solr query search for '(.*)'$/) do |query|
 end
 
 When(/^I facet by the ([a-z_]+) (.*)$/) do |field, content|
-  within('.side-nav') do
+  within('.well .nav') do
     click_link content
   end
 end
 
 When(/^I remove the facet "(.*?)"$/) do |facet|
-  within('dl.sub-nav') do
+  within('.main .navbar') do
     click_link facet
   end
 end
 
 When(/^I select the journal category "(.*?)"$/) do |category|
-  within('.side-nav') do
+  within('.well .nav') do
     click_link(category)
   end
 end
 
 When(/^I remove the category "(.*?)"$/) do |category|
-  within('.side-nav') do
+  within('.well .nav') do
     click_link(category)
   end
 end
 
 When(/^I remove all filters$/) do
-  within('dl.sub-nav') do
+  within('.main .navbar') do
     click_link('Remove All')
   end
 end
 
 When(/^I sort by ([a-z_]+) \((ascending|descending)\)$/) do |field, dir|
-  click_link('Sort: Year (descending)', match: :first)
+  click_link('Sort', match: :first)
   click_link("Sort: #{field.titlecase} (#{dir})")
 end
 
@@ -96,9 +96,9 @@ Then(/^I should see (\d+) articles$/) do |num|
 end
 
 Then(/^I should see "(.*?)" in the list of active filters$/) do |facet|
-  expect(page).to have_selector('dd a', text: /#{facet}/)
+  expect(page).to have_selector('.main .navbar .navbar-btn', text: /#{facet}/)
 end
 
 Then(/^there should be no filters active$/) do
-  expect(page).to have_selector('dd a', text: 'No filters active')
+  expect(page).to have_selector('.main .navbar .navbar-btn', text: 'No filters active')
 end

@@ -6,57 +6,82 @@
     %li= link_to t('breadcrumbs.workflow_start'), workflow_start_path
     %li= link_to t('breadcrumbs.workflow_info'), workflow_info_path(current_user.workflow_class)
     %li= link_to t('breadcrumbs.workflow_activate'), workflow_activate_path(current_user.workflow_class)
-  %li.current= link_to t('breadcrumbs.search_index'), search_path
+  %li.active= t('breadcrumbs.search_index')
 
 .row
-  .small-12.columns
-    &nbsp;
+  .col-sm-12.col-lg-9
+    .row
+      = form_tag(search_path, method: :get, id: 'search_form', role: 'form') do
+        - if result.params['fq']
+          - [result.params['fq']].flatten.each do |p|
+            = hidden_field_tag "fq[]", p
+        .col-sm-8
+          .form-group
+            %label.sr-only{ for: 'q' }= t('.placeholder')
+            = search_field_tag :q, (params[:precise] ? t('.adv_search_placeholder') : params[:q]), placeholder: t('.placeholder'), class: 'form-control'
+
+        .col-sm-4
+          .btn-group.btn-group-justified
+            .btn-group
+              = link_to('#', class: 'btn btn-default dropdown-toggle', 'data-toggle' => 'dropdown') do
+                = t('.sort')
+                %span.caret
+              %ul.dropdown-menu{ role: 'menu' }
+                - result.sort_methods.each do |(param, desc)|
+                  %li
+                    = link_to search_path(params.merge({ sort: param })) do
+                      %span{ style: (param == result.params['sort'] ? nil : 'visibility: hidden') } &check;
+                      = desc
+
+            .btn-group
+              - if user_signed_in?
+                = link_to t('.create_dataset'), new_dataset_path(q: result.params['q'], def_type: result.params['defType'], fq: result.params['fq']), class: 'btn btn-success ajax-modal', data: { toggle: 'modal', target: "#ajax-modal" }
+              - else
+                %button{ type: 'button', class: 'btn btn-success', disabled: 'disabled' }= t('.create_dataset')
+
 .row
-  .small-12.large-9.columns
-    = form_tag(search_path, method: :get, id: 'search_form') do
-      - if result.params['fq']
-        - [result.params['fq']].flatten.each do |p|
-          = hidden_field_tag "fq[]", p
-      .row
-        .small-12.columns
-          = search_field_tag :q, (params[:precise] ? t('.adv_search_placeholder') : params[:q]), placeholder: t('.placeholder')
-          %ul.button-group.even-2
-            %li= link_to(result.sort, '#', class: 'button secondary dropdown small', 'data-dropdown' => 'sort-dropdown')
-            - if user_signed_in?
-              %li= link_to t('.create_dataset'), new_dataset_path(q: result.params['q'], def_type: result.params['defType'], fq: result.params['fq']), class: 'button success small', data: { reveal_id: 'new-modal', reveal_ajax: 'true' }
-            - else
-              %li= link_to t('.create_dataset'), '#', class: 'button success small disabled'
-          %ul#sort-dropdown.f-dropdown{ data: { dropdown_content: true } }
-            - result.sort_methods.each do |(param, desc)|
-              %li= link_to desc, search_path(params.merge({ sort: param }))
+  .col-sm-12.col-lg-9
+    .navbar.navbar-default{ role: 'navigation' }
+      .container-fluid
+        .navbar-left
+          %p.navbar-text= result.num_hits
+          .btn-group
+            = result.filter_removal_links
 
-    %dl.sub-nav
-      %dt= result.num_hits
-      = result.filter_removal_links
+    .text-center
+      %ul.pagination.top-pagination= result.pagination
 
-    .pagination-centered= result.pagination
-    %table.document-list
+    %table.table.table-striped.document-list
       - result.documents.each do |d|
         %tr
-          %td{ 'data-dropdown' => "drop-#{d.uid.html_id}" }
+          %td
             %abbr{ class: 'unapi-id', title: d.uid }= ''
+
+            .dropdown.pull-right
+              %button.btn.btn-default.dropdown-toggle{ type: 'button', id: "drop-#{d.uid.html_id}", data: { toggle: 'dropdown' } }
+                = t('.dropdown_button')
+                %span.caret
+              %ul.dropdown-menu.dropdown-menu-right{ role: 'menu', aria: { labelledby: "drop-#{d.uid.html_id}" } }
+                =render partial: 'dropdown', locals: { document: d }
+
             = d.citation
-    .pagination-centered= result.pagination
 
-    - result.documents.each do |d|
-      %div.f-dropdown.medium.content{ 'data-dropdown-content' => true, id: "drop-#{d.uid.html_id}" }= render partial: 'dropdown', locals: { document: d }
+    .text-center
+      %ul.pagination.bottom-pagination= result.pagination
 
-  .small-12.large-3.columns
-    .panel
-      %h5= t('.filters')
-      %ul.side-nav
-        - if result.facets
-          = result.facets.addition_links
-        %li.divider
-        - if result.categories
-          = result.categories.link_tree
+  .col-sm-12.col-lg-3
+    .well
+      - if result.facets || result.categories
+        %h4= t('.filters')
 
-      %p= link_to t('.advanced_search'), search_advanced_path, class: 'button secondary small expand'
+        %ul.nav.nav-pills.nav-stacked.filter-list
+          - if result.facets
+            = result.facets.addition_links
+          - if result.categories
+            = result.categories.link_tree
 
-#new-modal.reveal-modal{ data: { reveal: true } }
-  .preloader
+      .btn-group.btn-group-justified
+        = link_to t('.advanced_search'), search_advanced_path, class: 'btn btn-default'
+
+- content_for :modal do
+  #ajax-modal.modal.fade{ tabindex: '-1', role: 'dialog', aria: { hidden: 'true' } }

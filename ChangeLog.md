@@ -14,7 +14,8 @@
 *   Change the way in which RLetters communicates with the Stanford NLP Java package, increasing reliability of parts-of-speech tagging, lemmatization, and named entity extraction.
 *   Fix a bug preventing the "normalize" mode from being activated in ArticleDates.
 *   Fix a bug in facet display code that could cause the facet display to cut off early.
-*   Update Rails, which fixes two potential DoS vulnerabilities.
+*   UI refresh/rewrite to increase stability and reduce development time.
+*   Update Rails, which fixes four potential DoS vulnerabilities.
 *   Fix a potential DoS vulnerability from symbol conversion in the export code.
 *   Update to Rails' internationalization means we can now be translated into Tamil, Khmer, and several more regional dialects of Spanish, among others.
     -   We have also updated our Unicode CLDR dataset to version 25, providing more recent data about pluralization and international language names.

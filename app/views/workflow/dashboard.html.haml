@@ -1,25 +1,20 @@
-- content_for :breadcrumbs do
-  %li.current= link_to t('breadcrumbs.root'), root_path
-
-%header
-  %section
-    %h2= t('.header', app_name: Admin::Setting.app_name)
-    %h4.subheader= t('.subheader', app_name: Admin::Setting.app_name)
-
 .row
-  .large-6.columns
-    = link_to t('.start_button'), workflow_start_path, class: 'button success expand'
-  .large-6.columns
+  .col-sm-9.col-sm-offset-1
+    %h1= t('.header', app_name: Admin::Setting.app_name)
+    %h4.text-muted= t('.subheader', app_name: Admin::Setting.app_name)
+
+.row.dashboard
+  .col-sm-4.col-sm-offset-1
+    .btn-group.btn-group-justified
+      = link_to t('.start_button'), workflow_start_path, class: 'btn btn-success'
     %p= t('.start_explanation')
-
-.row
-  .large-6.columns
-    = link_to t('.fetch_button'), workflow_fetch_path, class: 'button secondary expand'
-  .large-6.columns
+  .col-sm-4
+    .btn-group.btn-group-justified
+      = link_to t('.fetch_button'), workflow_fetch_path, class: 'btn btn-default'
     %p= t('.fetch_explanation')
 
-.row
-  .large-6.columns
-    = link_to t('.advanced_button'), search_path, class: 'button secondary expand'
-  .large-6.columns
+.row.dashboard
+  .col-sm-4.col-sm-offset-3
+    .btn-group.btn-group-justified
+      = link_to t('.advanced_button'), search_path, class: 'btn btn-default'
     %p= t('.advanced_explanation')

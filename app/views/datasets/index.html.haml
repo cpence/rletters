@@ -1,13 +1,12 @@
 - content_for :javascript, javascript_include_tag('datasets_index')
 - content_for :breadcrumbs do
   %li= link_to t('breadcrumbs.root'), root_path
-  %li.current= link_to t('breadcrumbs.datasets_index'), datasets_path
-
-%header
-  %section
-    %h2= t('.header')
-    %h4.subheader= t('.subheader')
+  %li.active= t('breadcrumbs.datasets_index')
 
 .row
-  #dataset-list.small-12.columns{ data: { fetch_url: datasets_path } }
-    .preloader
+  .col-sm-12
+    %h1= t('.header')
+    %h4.text-muted= t('.subheader')
+
+.row
+  #dataset-list.col-sm-12{ data: { fetch_url: datasets_path } }

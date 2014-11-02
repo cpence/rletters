@@ -1,18 +1,24 @@
-%h4= t('.header')
-%h6.subheader= t('.subheader')
+.modal-dialog
+  .modal-content
+    .modal-header
+      %button.close{ type: 'button', data: { dismiss: 'modal' } }
+        %span{ aria: { hidden: 'true' } } &times;
+        %span.sr-only Close
 
-.row
-  .large-6.columns#new-dataset-modal
-    = simple_form_for(@dataset) do |f|
-      = f.error_notification
+      %h4.modal-title= t('.header')
+      %h6.text-muted= t('.subheader')
 
-      = hidden_field_tag :q, params[:q]
-      = hidden_field_tag :def_type, params[:def_type]
-      - if params[:fq]
-        - [params[:fq]].flatten.each do |fq|
-          = hidden_field_tag 'fq[]', fq
+      = simple_form_for(@dataset) do |f|
+        .modal-body
+          = f.error_notification
 
-      = f.input :name
-      = f.button :submit
+          = hidden_field_tag :q, params[:q]
+          = hidden_field_tag :def_type, params[:def_type]
+          - if params[:fq]
+            - [params[:fq]].flatten.each do |fq|
+              = hidden_field_tag 'fq[]', fq
 
-%a.close-reveal-modal &#215;
+          = f.input :name
+
+        .modal-footer
+          = f.button :submit, class: 'btn btn-primary'

@@ -1,5 +1,5 @@
 .row
-  .small-12.columns
+  .col-sm-12
     %h4= t('.pending_header')
     - if @pending_tasks.empty?
       %p= t('.no_pending')
@@ -41,7 +41,7 @@
               %td.label-cell= l t.finished_at, format: :short
               %td.button-cell
                 - if t.job_class.download?
-                  = link_to t('datasets.analysis_tasks.index.download_button'), dataset_analysis_task_path(t.dataset, t), class: 'button success tiny'
+                  = link_to t('datasets.analysis_tasks.index.download_button'), dataset_analysis_task_path(t.dataset, t), class: 'btn btn-xs btn-success'
                 - else
-                  = link_to t('datasets.analysis_tasks.index.view_button'), dataset_analysis_task_path(t.dataset, t, view: 'results'), class: 'button success tiny'
-                = link_to t('datasets.analysis_tasks.index.delete_button'), dataset_analysis_task_path(t.dataset, t), method: :delete, class: 'button alert tiny'
+                  = link_to t('datasets.analysis_tasks.index.view_button'), dataset_analysis_task_path(t.dataset, t, view: 'results'), class: 'btn btn-xs btn-success'
+                = link_to t('datasets.analysis_tasks.index.delete_button'), dataset_analysis_task_path(t.dataset, t), method: :delete, class: 'btn btn-xs btn-danger'

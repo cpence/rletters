@@ -3,13 +3,13 @@
 - data = JSON.load(@task.result.file_contents(:original))
 
 .row
-  .large-8.columns
-    %h2= t('jobs.analysis.craig_zeta.header', name_1: data['name_1'], name_2: data['name_2'])
-    %h4.subheader= t('jobs.analysis.craig_zeta.subheader')
-  .large-4.columns.job-header-button= link_to t('common.download_csv'), dataset_analysis_task_path(@dataset, @task, view: 'download', format: 'csv'), class: 'button secondary expand'
+  .col-md-8
+    %h1= t('jobs.analysis.craig_zeta.header', name_1: data['name_1'], name_2: data['name_2'])
+    %h4.text-muted= t('jobs.analysis.craig_zeta.subheader')
+  .col-md-4.job-header-button= link_to t('common.download_csv'), dataset_analysis_task_path(@dataset, @task, view: 'download', format: 'csv'), class: 'btn btn-default'
 
 .row
-  .small-12.columns
+  .col-xs-12
     %hr
 
     %h5= t('jobs.analysis.craig_zeta.graph_header')

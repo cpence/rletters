@@ -1,5 +1,5 @@
 .row
-  .large-6.columns
+  .col-md-6
     = simple_form_for :job_params, url: dataset_analysis_tasks_path(@dataset, class: 'Collocation'), method: :post do |f|
       = f.error_notification
 
@@ -7,4 +7,4 @@
       = f.input :num_pairs, as: :integer, label: t('jobs.analysis.collocation.num_pairs'), required: true, input_html: { value: 50 }
       = f.input :word, required: false, label: t('jobs.analysis.collocation.word')
       = f.button :submit
-      = link_to(t('common.cancel'), @dataset, class: 'button secondary')
+      = link_to(t('common.cancel'), @dataset, class: 'btn btn-default')

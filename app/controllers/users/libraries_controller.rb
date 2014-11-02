@@ -47,7 +47,7 @@ class Users::LibrariesController < ApplicationController
     if @library.save
       current_user.libraries.reload
       redirect_to edit_user_registration_path,
-                  flash: { success: I18n.t('libraries.create.success') }
+                  flash: { success: I18n.t('users.libraries.create.success') }
     else
       render action: 'new', layout: false
     end

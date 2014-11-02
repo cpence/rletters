@@ -1,23 +1,30 @@
-%h4= t('.header')
-%h6.subheader= t('.subheader')
+.modal-dialog
+  .modal-content
+    .modal-header
+      %button.close{ type: 'button', data: { dismiss: 'modal' } }
+        %span{ aria: { hidden: 'true' } } &times;
+        %span.sr-only Close
 
-- if current_user.datasets.active.blank?
-  %p= t('.no_datasets')
-- else
-  = form_tag dataset_path(current_user.datasets.first), method: :patch, id: "add-form-#{document.uid.html_id}" do
-    = hidden_field_tag :uid, document.uid
-    .row
-      .large-6.columns
-        = label_tag :dataset_id, Dataset.model_name.human
-        = select_tag :dataset_id, options_from_collection_for_select(current_user.datasets.active, 'to_param', 'name'), id: "add-select-#{document.uid.html_id}"
-    .row
-      .large-6.columns= submit_tag t('.submit'), class: 'button success small'
+      %h4.modal-title= t('.header')
+      %h6.text-muted= t('.subheader')
 
-  - content_for(:javascript) do
-    :javascript
-      $('#add-select-#{document.uid.html_id}').change(function() {
-        $('#add-form-#{document.uid.html_id}').attr('action', '#{datasets_path(trailing_slash: true)}' + $('#add-select-#{document.uid.html_id}').val() + '/');
-      });
-      $('#add-select-#{document.uid.html_id}').trigger('change');
+      - if current_user.datasets.active.blank?
+        .modal-body
+          %p= t('.no_datasets')
+      - else
+        = form_tag dataset_path(current_user.datasets.first), method: :patch, id: "add-form-#{document.uid.html_id}" do
+          = hidden_field_tag :uid, document.uid
+          .modal-body
+            .form-group
+              = label_tag :dataset_id, Dataset.model_name.human
+              = select_tag :dataset_id, options_from_collection_for_select(current_user.datasets.active, 'to_param', 'name'), id: "add-select-#{document.uid.html_id}", class: 'form-control'
 
-%a.close-reveal-modal &#215;
+          .modal-footer
+            %button.btn.btn-success{ type: 'submit' }= t('.submit')
+
+- content_for(:javascript) do
+  :javascript
+    $('#add-select-#{document.uid.html_id}').change(function() {
+      $('#add-form-#{document.uid.html_id}').attr('action', '#{datasets_path(trailing_slash: true)}' + $('#add-select-#{document.uid.html_id}').val() + '/');
+    });
+    $('#add-select-#{document.uid.html_id}').trigger('change');
