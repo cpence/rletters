@@ -63,6 +63,20 @@ RSpec.describe RLetters::Analysis::Frequency::FromTF do
     end
   end
 
+  describe '#split_across' do
+    before(:example) do
+      @analyzer = described_class.new(@dataset)
+    end
+
+    it 'includes all words in all blocks' do
+      @analyzer.blocks.each do |b|
+        expect(b.size).to eq(@analyzer.blocks[0].size)
+      end
+
+      expect(@analyzer.num_dataset_types).to eq(@analyzer.blocks[0].size)
+    end
+  end
+
   describe '#inclusion_list' do
     before(:example) do
       @analyzer = described_class.new(@dataset, nil, inclusion_list: 'blackwell stiver')

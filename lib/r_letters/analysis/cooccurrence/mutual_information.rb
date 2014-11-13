@@ -47,11 +47,11 @@ module RLetters
             f_ab = blocks.count { |b| b[@word].to_i != 0 &&
                                       b[word_2].to_i != 0 }
 
-            # Somehow, it seems to be possible that f_a and f_b are *both*
-            # zero. This shouldn't happen, because it *should* be the case that
+            # Somehow, it seems to be possible that f_b is zero. This
+            # shouldn't happen, because it *should* be the case that
             # words that don't occur anywhere at all aren't included in the
             # parallel word list.
-            next if f_a == 0 && f_b == 0
+            next if f_b == 0
 
             l = (f_ab * n) / (f_a * f_b)
             l = Math.log(l) unless l.abs < 0.001

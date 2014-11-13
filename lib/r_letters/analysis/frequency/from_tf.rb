@@ -99,6 +99,15 @@ module RLetters
               ret[k] = v[:tf]
             end
           end
+
+          # Make sure to add zero values for words that are missing from the
+          # current document.
+          @blocks.each do |b|
+            @word_list.each do |w|
+              b[w] ||= 0
+            end
+          end
+
           progress.call(80) if progress
 
           @block_stats = @documents.each_with_index.map do |d, i|

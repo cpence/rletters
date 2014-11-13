@@ -71,10 +71,18 @@ module RLetters
           progress.call(93) if progress
 
           # Convert from word blocks to the returned blocks by culling anything
-          # not in the list of words to keep
+          # not in the list of words to keep and adding zero values for words
+          # that aren't present
           @blocks = @word_blocks.map do |b|
             b.words.reject { |k, v| !@word_list.include?(k) }
           end
+
+          @blocks.each do |b|
+            @word_list.each do |w|
+              b[w] ||= 0
+            end
+          end
+
           progress.call(97) if progress
 
           # Build block statistics

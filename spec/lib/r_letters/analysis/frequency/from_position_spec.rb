@@ -7,11 +7,18 @@ RSpec.describe RLetters::Analysis::Frequency::FromPosition do
     @dataset = create(:full_dataset, entries_count: 10, working: true,
                                      user: @user)
 
-    @onegram_ss = RLetters::Datasets::Segments.new(@dataset)
+    @oneblock_ss = RLetters::Datasets::Segments.new(@dataset)
+
+    onegram_lister = RLetters::Documents::WordList.new
+    onegram_ds = RLetters::Documents::Segments.new(onegram_lister)
+    @onegram_ss = RLetters::Datasets::Segments.new(@dataset,
+                                                   onegram_ds,
+                                                   split_across: false)
 
     ngram_lister = RLetters::Documents::WordList.new(ngrams: 3)
     ngram_ds = RLetters::Documents::Segments.new(ngram_lister)
-    @ngram_ss = RLetters::Datasets::Segments.new(@dataset, ngram_ds)
+    @ngram_ss = RLetters::Datasets::Segments.new(@dataset,
+                                                 ngram_ds)
   end
 
   describe '#num_words' do
@@ -20,8 +27,12 @@ RSpec.describe RLetters::Analysis::Frequency::FromPosition do
         @analyzer = described_class.new(@onegram_ss)
       end
 
-      it 'includes all words' do
-        expect(@analyzer.block_stats[0][:types]).to eq(@analyzer.blocks[0].size)
+      it 'includes all words in all blocks' do
+        @analyzer.blocks.each do |b|
+          expect(b.size).to eq(@analyzer.blocks[0].size)
+        end
+
+        expect(@analyzer.num_dataset_types).to eq(@analyzer.blocks[0].size)
       end
 
       it 'saves blocks' do
@@ -39,11 +50,6 @@ RSpec.describe RLetters::Analysis::Frequency::FromPosition do
           expect(b.keys & @analyzer.word_list).to eq(b.keys)
         end
       end
-
-      it 'is the same as the dataset stats' do
-        expect(@analyzer.block_stats[0][:types]).to eq(@analyzer.num_dataset_types)
-        expect(@analyzer.block_stats[0][:tokens]).to eq(@analyzer.num_dataset_tokens)
-      end
     end
 
     context 'with num_words negative' do
@@ -52,7 +58,7 @@ RSpec.describe RLetters::Analysis::Frequency::FromPosition do
       end
 
       it 'acts like it was not set at all' do
-        expect(@analyzer.block_stats[0][:types]).to eq(@analyzer.blocks[0].size)
+        expect(@analyzer.num_dataset_types).to eq(@analyzer.blocks[0].size)
       end
     end
 
@@ -76,7 +82,8 @@ RSpec.describe RLetters::Analysis::Frequency::FromPosition do
       end
 
       it 'only includes those words' do
-        expect(@analyzer.blocks[0].keys).to match_array(%w(blackwell stiver))
+        diff = @analyzer.blocks[0].keys - %w(blackwell stiver)
+        expect(diff).to be_empty
       end
     end
 
@@ -169,7 +176,7 @@ RSpec.describe RLetters::Analysis::Frequency::FromPosition do
 
   describe '#tf_in_dataset' do
     before(:example) do
-      @analyzer = described_class.new(@onegram_ss)
+      @analyzer = described_class.new(@oneblock_ss)
     end
 
     it 'includes (at least) all the words in the list' do
