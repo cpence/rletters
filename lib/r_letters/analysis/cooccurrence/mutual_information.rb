@@ -29,8 +29,15 @@ module RLetters
           blocks = analyzer.blocks
           total = analyzer.blocks[0].size
 
-          n = blocks.size.to_f
-          f_a = blocks.count { |b| b[@word].to_i != 0 }
+          n = analyzer.word_list.size.to_f
+
+          # Nuke all zero elements in the blocks to make the rest of this much
+          # faster
+          blocks.each do |b|
+            b.delete_if { |k, v| v == 0 }
+          end
+
+          f_a = blocks.count { |b| b[@word] }
 
           # Notably, if the requested word doesn't appear anywhere at all, we
           # should just quit while we're ahead
@@ -40,13 +47,12 @@ module RLetters
             return []
           end
 
-          ret = blocks[0].each_with_index.map { |(word_2, count), i|
+          ret = analyzer.word_list.each_with_index.map { |word_2, i|
             @progress.call((i.to_f / total.to_f * 50.0).to_i + 50) if @progress
             next if word_2 == @word
 
-            f_b = blocks.count { |b| b[word_2].to_i != 0 }
-            f_ab = blocks.count { |b| b[@word].to_i != 0 &&
-                                      b[word_2].to_i != 0 }
+            f_b = blocks.count { |b| b[word_2] }
+            f_ab = blocks.count { |b| b[@word] && b[word_2] }
 
             # Somehow, it seems to be possible that f_b is zero. This
             # shouldn't happen, because it *should* be the case that
@@ -58,7 +64,7 @@ module RLetters
             l = Math.log(l) unless l.abs < 0.001
 
             [@word + ' ' + word_2, l]
-          }.sort { |a, b| b[1] <=> a[1] }.take(@num_pairs)
+          }.compact.sort { |a, b| b[1] <=> a[1] }.take(@num_pairs)
 
           @progress.call(100) if @progress
 
