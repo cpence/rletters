@@ -18,6 +18,8 @@
 // Styling for our various "manage" tables with a right-hand button
 // column
 table.button-table {
+  @extend .table-striped;
+
   width: 100%;
   margin-top: 1em;
 

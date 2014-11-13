@@ -6,7 +6,7 @@
     .alert.alert-danger= link_to t('.failed', count: @dataset.analysis_tasks.failed.size), dataset_path(@dataset, clear_failed: true)
 
 -# Finished analysis tasks: link to download results and to delete
-%table.button-table
+%table.table.button-table
   %thead
     %tr
       %th.label-cell= t('.task_column')
@@ -25,4 +25,4 @@
               = link_to t('.download_button'), dataset_analysis_task_path(@dataset, task), class: 'btn btn-xs btn-success'
             - else
               = link_to t('.view_button'), dataset_analysis_task_path(@dataset, task, view: 'results'), class: 'btn btn-xs btn-success'
-            = link_to t('.delete_button'), dataset_analysis_task_path(@dataset, task), method: :delete, class: 'btn btn-xs btn-danger'
+            = link_to t('.delete_button'), dataset_analysis_task_path(@dataset, task), method: :delete, class: 'btn btn-xs btn-danger', data: { confirm: t('.delete_confirm') }

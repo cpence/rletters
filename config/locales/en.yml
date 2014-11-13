@@ -717,6 +717,7 @@ en:
                 download_button: Download
                 view_button: View
                 delete_button: Delete
+                delete_confirm: Are you sure?
             new:
                 header: Job options
                 subheader: This job has some more options that you can configure before you get started.
