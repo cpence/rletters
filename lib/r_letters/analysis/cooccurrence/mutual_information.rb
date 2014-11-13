@@ -42,6 +42,7 @@ module RLetters
 
           ret = blocks[0].each_with_index.map { |(word_2, count), i|
             @progress.call((i.to_f / total.to_f * 50.0).to_i + 50) if @progress
+            next if word_2 == @word
 
             f_b = blocks.count { |b| b[word_2].to_i != 0 }
             f_ab = blocks.count { |b| b[@word].to_i != 0 &&
