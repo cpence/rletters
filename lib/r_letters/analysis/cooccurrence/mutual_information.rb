@@ -33,7 +33,7 @@ module RLetters
           # Nuke all zero elements in the blocks to make the rest of this much
           # faster
           blocks.each do |b|
-            b.delete_if { |k, v| v == 0 }
+            b.reject! { |k, v| v == 0 }
           end
 
           f_a = blocks.count { |b| b[@word] }
