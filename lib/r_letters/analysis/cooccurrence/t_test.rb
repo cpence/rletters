@@ -32,9 +32,8 @@ module RLetters
         def call
           analyzer = get_analyzer
           blocks = analyzer.blocks
-          total = analyzer.blocks[0].size
-
-          n = analyzer.word_list.size.to_f
+          total = analyzer.word_list.size
+          n = analyzer.blocks.size.to_f
 
           # Nuke all zero elements in the blocks to make the rest of this much
           # faster
