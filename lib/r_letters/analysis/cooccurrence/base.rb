@@ -68,14 +68,18 @@ module RLetters
             })
 
           # Combine all the block hashes, summing the values
-          base_frequencies = analyzer.blocks.inject do |ret, block|
-            ret.merge(block) { |key, old_val, new_val| old_val + new_val }
+          base_frequencies = analyzer.blocks.inject(Hash.new(0)) do |ret, b|
+            ret.merge(b) do |key, old_val, new_val|
+              old_val + (new_val && new_val > 0 ? 1 : 0)
+            end
           end
 
           # Get the frequencies of cooccurrence with the word in question
-          joint_frequencies = analyzer.blocks.inject({}) do |ret, block|
-            if block[@word] && block[@word] > 0
-              ret.merge(block) { |key, old_val, new_val| old_val + new_val }
+          joint_frequencies = analyzer.blocks.inject(Hash.new(0)) do |ret, b|
+            if b[@word] && b[@word] > 0
+              ret.merge(b) do |key, old_val, new_val|
+                old_val + (new_val && new_val > 0 ? 1 : 0)
+              end
             else
               ret
             end
