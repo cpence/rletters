@@ -35,14 +35,22 @@ module RLetters
 
         protected
 
-        # Return the analyzer for cooccurrence analysis
+        # Return frequency counts
         #
-        # Since the window is set per-job, all the cooccurrence analyzers use
-        # the same frequency analyzer. This function builds it.
+        # All cooccurrence analyzers use the same input data -- the frequency
+        # of words in bins of the given window size. This function computes
+        # that data.
+        #
+        # Also, putting this in its own function *should* encourage the GC to
+        # clean up the analyzer object after this function returns.
         #
         # @api private
-        # @return [RLetters::Analysis::Frequency::Base] word frequency analyzer
-        def get_analyzer
+        # @return [Array<(Hash<String, Integer>, Hash<String, Integer>, Integer)]
+        #   First, the number of bins in which every word in the dataset
+        #   appears (the +base_frequencies+). Second, the number of bins in
+        #   which every word *and* the word at issue both appear (the
+        #   +joint_frequencies+). Lastly, the number of bins (+n+).
+        def get_frequencies
           wl = RLetters::Documents::WordList.new
           ds = RLetters::Documents::Segments.new(wl,
                                                  block_size: @window,
@@ -51,13 +59,33 @@ module RLetters
                                                 ds,
                                                 split_across: false)
 
-          RLetters::Analysis::Frequency::FromPosition.new(
+          analyzer = RLetters::Analysis::Frequency::FromPosition.new(
             ss,
             ->(p) {
               if @progress
                 @progress.call((p.to_f / 100.0 * 50.0).to_i)
               end
             })
+
+          # Combine all the block hashes, summing the values
+          base_frequencies = analyzer.blocks.inject do |ret, block|
+            ret.merge(block) { |key, old_val, new_val| old_val + new_val }
+          end
+
+          # Get the frequencies of cooccurrence with the word in question
+          joint_frequencies = analyzer.blocks.inject({}) do |ret, block|
+            if block[@word] && block[@word] > 0
+              ret.merge(block) { |key, old_val, new_val| old_val + new_val }
+            else
+              ret
+            end
+          end
+
+          # Prune any zero values to make analysis easier later
+          base_frequencies.reject! { |k, v| v == 0 }
+          joint_frequencies.reject! { |k, v| v == 0 }
+
+          [base_frequencies, joint_frequencies, analyzer.blocks.size]
         end
       end
     end

@@ -30,18 +30,10 @@ module RLetters
         #     d, 30, 'evolutionary')
         #   result = an.call
         def call
-          analyzer = get_analyzer
-          blocks = analyzer.blocks
-          total = analyzer.word_list.size
-          n = analyzer.blocks.size.to_f
+          base_frequencies, joint_frequencies, n = get_frequencies
+          total = base_frequencies.size
 
-          # Nuke all zero elements in the blocks to make the rest of this much
-          # faster
-          blocks.each do |b|
-            b.reject! { |k, v| v == 0 }
-          end
-
-          f_a = blocks.count { |b| b[@word] }
+          f_a = base_frequencies[@word]
 
           # Notably, if the requested word doesn't appear anywhere at all, we
           # should just quit while we're ahead
@@ -51,12 +43,11 @@ module RLetters
             return []
           end
 
-          ret = blocks[0].each_with_index.map { |(word_2, count), i|
+          ret = base_frequencies.each_with_index.map { |(word_2, f_b), i|
             @progress.call((i.to_f / total.to_f * 50.0).to_i + 50) if @progress
             next if word_2 == @word
 
-            f_b = blocks.count { |b| b[word_2] }
-            f_ab = blocks.count { |b| b[@word] && b[word_2] }
+            f_ab = joint_frequencies[word_2] || 0.0
 
             h_0 = (f_a.to_f / n) * (f_b.to_f / n)
             t = ((f_ab.to_f / n) - h_0) / Math.sqrt((h_0 * (1.0 - h_0)) / n)

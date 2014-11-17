@@ -25,39 +25,16 @@ module RLetters
         #     d, 30, 'evolutionary')
         #   result = an.call
         def call
-          analyzer = get_analyzer
-          blocks = analyzer.blocks
-          total = analyzer.word_list.size
-          n = analyzer.blocks.size.to_f
+          base_frequencies, joint_frequencies, n = get_frequencies
+          total = base_frequencies.size
 
-          # Nuke all zero elements in the blocks to make the rest of this much
-          # faster
-          blocks.each do |b|
-            b.reject! { |k, v| v == 0 }
-          end
+          f_a = base_frequencies[@word]
 
-          f_a = blocks.count { |b| b[@word] }
-
-          # Notably, if the requested word doesn't appear anywhere at all, we
-          # should just quit while we're ahead
-          if f_a == 0
-            @progress.call(100) if @progress
-
-            return []
-          end
-
-          ret = analyzer.word_list.each_with_index.map { |word_2, i|
+          ret = base_frequencies.each_with_index.map { |(word_2, f_b), i|
             @progress.call((i.to_f / total.to_f * 50.0).to_i + 50) if @progress
             next if word_2 == @word
 
-            f_b = blocks.count { |b| b[word_2] }
-            f_ab = blocks.count { |b| b[@word] && b[word_2] }
-
-            # Somehow, it seems to be possible that f_b is zero. This
-            # shouldn't happen, because it *should* be the case that
-            # words that don't occur anywhere at all aren't included in the
-            # parallel word list.
-            next if f_b == 0
+            f_ab = joint_frequencies[word_2] || 0.0
 
             l = (f_ab * n) / (f_a * f_b)
             l = Math.log(l) unless l.abs < 0.001
