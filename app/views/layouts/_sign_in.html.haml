@@ -18,5 +18,5 @@
       = link_to t('layouts.sign_in.sign_in'), '#', onclick: "$(this).closest('form').submit(); return false", class: 'btn btn-primary'
       = link_to t('layouts.sign_in.sign_up'), new_user_registration_path, class: 'btn btn-info'
 
-  .col-sm-12.text-right
+  .form-group.text-right
     %small= link_to t('layouts.sign_in.forgot_password'), new_user_password_path
