@@ -63,19 +63,29 @@ module RLetters
             ss,
             ->(p) {
               if @progress
-                @progress.call((p.to_f / 100.0 * 50.0).to_i)
+                @progress.call((p.to_f / 100.0 * 33.0).to_i)
               end
             })
 
           # Combine all the block hashes, summing the values
-          base_frequencies = analyzer.blocks.inject(Hash.new(0)) do |ret, b|
+          total = analyzer.blocks.size.to_f
+
+          base_frequencies = analyzer.blocks.each_with_index.inject(Hash.new(0)) do |ret, (b, i)|
+            if @progress
+              @progress.call((i.to_f / total * 16.0).to_i + 33)
+            end
+
             ret.merge(b) do |key, old_val, new_val|
               old_val + (new_val && new_val > 0 ? 1 : 0)
             end
           end
 
           # Get the frequencies of cooccurrence with the word in question
-          joint_frequencies = analyzer.blocks.inject(Hash.new(0)) do |ret, b|
+          joint_frequencies = analyzer.blocks.each_with_index.inject(Hash.new(0)) do |ret, (b, i)|
+            if @progress
+              @progress.call((i.to_f / total * 17.0).to_i + 49)
+            end
+
             if b[@word] && b[@word] > 0
               ret.merge(b) do |key, old_val, new_val|
                 old_val + (new_val && new_val > 0 ? 1 : 0)

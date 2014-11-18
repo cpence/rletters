@@ -44,7 +44,7 @@ module RLetters
           end
 
           ret = base_frequencies.each_with_index.map { |(word_2, f_b), i|
-            @progress.call((i.to_f / total.to_f * 50.0).to_i + 50) if @progress
+            @progress.call((i.to_f / total.to_f * 33.0).to_i + 66) if @progress
             next if word_2 == @word
 
             f_ab = joint_frequencies[word_2] || 0.0
