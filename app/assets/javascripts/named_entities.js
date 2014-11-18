@@ -70,13 +70,13 @@ function createNamedEntitiesMap() {
 
 $(function() {
   lookUpMarkers();
+});
 
-  $('#accordion').on('show.bs.collapse', function() {
-    var openAnchor = $(this).find('a[data-toggle=collapse]:not(.collapsed)');
-    if (openAnchor.attr('href') == '#collapse3') {
-      // This is the ID of the map collapse panel
-      createNamedEntitiesMap();
-      google.maps.event.trigger(global_named_entity_map, 'resize');
-    }
-  });
+$(document).on('show.bs.collapse', '#accordion', function() {
+  var openAnchor = $(this).find('a[data-toggle=collapse]:not(.collapsed)');
+  if (openAnchor.attr('href') == '#collapse3') {
+    // This is the ID of the map collapse panel
+    createNamedEntitiesMap();
+    google.maps.event.trigger(global_named_entity_map, 'resize');
+  }
 });
