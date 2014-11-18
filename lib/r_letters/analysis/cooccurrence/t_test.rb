@@ -33,7 +33,8 @@ module RLetters
           base_frequencies, joint_frequencies, n = get_frequencies
           total = base_frequencies.size
 
-          f_a = base_frequencies[@word]
+          n = n.to_f
+          f_a = base_frequencies[@word].to_f
 
           # Notably, if the requested word doesn't appear anywhere at all, we
           # should just quit while we're ahead
@@ -47,10 +48,10 @@ module RLetters
             @progress.call((i.to_f / total.to_f * 33.0).to_i + 66) if @progress
             next if word_2 == @word
 
-            f_ab = joint_frequencies[word_2] || 0.0
+            f_ab = joint_frequencies[word_2].to_f || 0.0
 
-            h_0 = (f_a.to_f / n) * (f_b.to_f / n)
-            t = ((f_ab.to_f / n) - h_0) / Math.sqrt((h_0 * (1.0 - h_0)) / n)
+            h_0 = (f_a / n) * (f_b.to_f / n)
+            t = ((f_ab / n) - h_0) / Math.sqrt((h_0 * (1.0 - h_0)) / n)
             p = 1.0 - Distribution::T.cdf(t, n - 1)
 
             [@word + ' ' + word_2, p]

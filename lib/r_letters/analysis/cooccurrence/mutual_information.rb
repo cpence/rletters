@@ -28,15 +28,16 @@ module RLetters
           base_frequencies, joint_frequencies, n = get_frequencies
           total = base_frequencies.size
 
-          f_a = base_frequencies[@word]
+          n = n.to_f
+          f_a = base_frequencies[@word].to_f
 
           ret = base_frequencies.each_with_index.map { |(word_2, f_b), i|
             @progress.call((i.to_f / total.to_f * 33.0).to_i + 66) if @progress
             next if word_2 == @word
 
-            f_ab = joint_frequencies[word_2] || 0.0
+            f_ab = joint_frequencies[word_2].to_f || 0.0
 
-            l = (f_ab * n) / (f_a * f_b)
+            l = (f_ab * n) / (f_a * f_b.to_f)
             l = Math.log(l) unless l.abs < 0.001
 
             [@word + ' ' + word_2, l]
