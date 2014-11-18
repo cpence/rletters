@@ -25,19 +25,21 @@ end
 When(/^I link the dataset$/) do
   expect(@dataset).to be
 
-  # This is an unfortunate hack, but modal dialogs will be the death of me
-  @user.reload
-  visit workflow_activate_path(class: @user.workflow_class,
-                               link_dataset_id: @dataset.to_param)
+  click_link 'Link an already created dataset'
+  find('.modal-dialog')
+
+  find("option[value='#{@dataset.to_param}']").select_option
+  click_button 'Link dataset'
 end
 
 When(/^I link the other dataset$/) do
   expect(@other_dataset).to be
 
-  # This is an unfortunate hack, but modal dialogs will be the death of me
-  @user.reload
-  visit workflow_activate_path(class: @user.workflow_class,
-                               link_dataset_id: @other_dataset.to_param)
+  click_link 'Link an already created dataset'
+  find('.modal-dialog')
+
+  find("option[value='#{@other_dataset.to_param}']").select_option
+  click_button 'Link dataset'
 end
 
 When(/^I choose to create a new dataset$/) do
@@ -46,12 +48,9 @@ end
 
 When(/^I confirm the data$/) do
   @user.reload
-  good_path = workflow_activate_path(class: @user.workflow_class)
-  if current_path != good_path
-    # This can occasionally be called without being on the activation page,
-    # for example, when creating new datasets for workflows
-    visit good_path
-  end
+  # This can occasionally be called without being on the activation page,
+  # for example, when creating new datasets for workflows
+  click_link 'Current Analysis'
 
   within('.main .row', match: :first) do
     if page.has_link?('Start Analysis')

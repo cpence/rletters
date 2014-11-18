@@ -1,37 +1,46 @@
 //= require jquery
+//= require jquery.turbolinks
 //= require jquery_ujs
-//= require turbolinks
+
 //= require bootstrap-sprockets
 //= require i18n/translations
 
-$(function() {
-  // Setup drop down menu
-  $('.dropdown-toggle').dropdown();
+//= require_self
 
-  // Fix input element click problem
-  $('.dropdown input, .dropdown label').click(function(e) {
-    e.stopPropagation();
+//= require turbolinks
+//= require turbolinks_settings
+
+// Fix input element click problem
+$(document).on('click', '.dropdown input, .dropdown label', function(e) {
+  e.stopPropagation();
+});
+
+// Load via jQuery any modal dialog boxes that are suitably marked up
+$(document).on('click', '.ajax-modal', function(e) {
+  e.preventDefault();
+
+  var id = $(this).attr('id');
+  var url = $(this).attr('href');
+  var modal = $('#ajax-' + id + '-modal');
+
+  if (modal.length == 0) {
+    var container = $('#modal-container');
+    container.append(
+      "<div id='ajax-" + id +
+      "-modal' class='modal fade' tabindex='-1' role='dialog' aria-hidden='true'></div>");
+
+    modal = $('#ajax-' + id + '-modal');
+  }
+
+  $.get(url, function(data) {
+    modal.html(data);
+    modal.modal('show');
   });
+});
 
+$(function() {
   // Load tooltips for cloud references
   $('.cloud-tooltip').tooltip();
-
-  // Load via jQuery any modal dialog boxes that are suitably marked up
-  $(document).on('click', '.ajax-modal', function(e) {
-    e.preventDefault();
-
-    var modal = $('#ajax-modal');
-    var url = $(this).attr('href');
-
-    if (url.indexOf('#') == 0) {
-      $(url).modal('show');
-    } else {
-      $.get(url, function(data) {
-        modal.html(data);
-        modal.modal();
-      });
-    }
-  });
 });
 
 function hideAndDisable(selector) {

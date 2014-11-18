@@ -11,33 +11,32 @@
 .row
   .col-sm-12.col-lg-9
     .row
-      = form_tag(search_path, method: :get, id: 'search_form', role: 'form') do
-        - if result.params['fq']
-          - [result.params['fq']].flatten.each do |p|
-            = hidden_field_tag "fq[]", p
-        .col-sm-8
+      .col-sm-8
+        = form_tag(search_path, method: :get, role: 'form') do
+          - if result.params['fq']
+            - [result.params['fq']].flatten.each do |p|
+              = hidden_field_tag "fq[]", p
           .form-group
             %label.sr-only{ for: 'q' }= t('.placeholder')
             = search_field_tag :q, (params[:precise] ? t('.adv_search_placeholder') : params[:q]), placeholder: t('.placeholder'), class: 'form-control'
 
-        .col-sm-4
-          .btn-group.btn-group-justified
-            .btn-group
-              = link_to('#', class: 'btn btn-default dropdown-toggle', 'data-toggle' => 'dropdown') do
-                = t('.sort')
-                %span.caret
-              %ul.dropdown-menu{ role: 'menu' }
-                - result.sort_methods.each do |(param, desc)|
-                  %li
-                    = link_to search_path(params.merge({ sort: param })) do
-                      %span{ style: (param == result.params['sort'] ? nil : 'visibility: hidden') } &check;
-                      = desc
+      .col-sm-4
+        .btn-group.btn-group-justified{ role: 'group' }
+          .btn-group
+            = link_to('#', class: 'btn btn-default dropdown-toggle', data: { toggle: 'dropdown' }, role: 'button') do
+              = t('.sort')
+              %span.caret
+            %ul.dropdown-menu{ role: 'menu' }
+              - result.sort_methods.each do |(param, desc)|
+                %li
+                  = link_to search_path(params.merge({ sort: param })) do
+                    %span{ style: (param == result.params['sort'] ? nil : 'visibility: hidden') } &check;
+                    = desc
 
-            .btn-group
-              - if user_signed_in?
-                = link_to t('.create_dataset'), new_dataset_path(q: result.params['q'], def_type: result.params['defType'], fq: result.params['fq']), class: 'btn btn-success ajax-modal', data: { toggle: 'modal', target: "#ajax-modal" }
-              - else
-                %button{ type: 'button', class: 'btn btn-success', disabled: 'disabled' }= t('.create_dataset')
+          - if user_signed_in?
+            = link_to t('.create_dataset'), new_dataset_path(q: result.params['q'], def_type: result.params['defType'], fq: result.params['fq']), class: 'btn btn-success ajax-modal', id: 'create-dataset'
+          - else
+            = link_to t('.create_dataset'), '#', class: 'btn btn-success disabled'
 
 .row
   .col-sm-12.col-lg-9
@@ -82,6 +81,3 @@
 
       .btn-group.btn-group-justified
         = link_to t('.advanced_search'), search_advanced_path, class: 'btn btn-default'
-
-- content_for :modal do
-  #ajax-modal.modal.fade{ tabindex: '-1', role: 'dialog', aria: { hidden: 'true' } }

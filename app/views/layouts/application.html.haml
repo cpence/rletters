@@ -13,7 +13,5 @@
 
       = render partial: 'layouts/footer'
 
-    = yield(:modal) if content_for?(:modal)
-
-    = javascript_include_tag 'application'
-    = yield(:javascript) if content_for?(:javascript)
+    #modal-container
+      = yield(:modal) if content_for?(:modal)

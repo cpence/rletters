@@ -22,8 +22,10 @@ end
 
 When(/^I search for articles$/) do
   visit '/search'
-  fill_in 'q', with: 'test'
-  submit_form 'search_form'
+
+  q = find('input#q')
+  q.set('test')
+  q.native.send_key(:Enter)
 end
 
 When(/^I run an advanced search for the ([a-z_]+) (.*)$/) do |field, content|

@@ -1,7 +1,7 @@
 
 .btn-group
-  = link_to t('.query'), query_libraries_path, class: 'btn btn-default btn-sm ajax-modal', data: { toggle: 'modal', target: '#ajax-modal' }
-  = link_to t('.add_new'), new_library_path, class: 'btn btn-default btn-sm ajax-modal', data: { toggle: 'modal', target: "#ajax-modal" }
+  = link_to t('.query'), query_libraries_path, class: 'btn btn-default btn-sm ajax-modal', id: 'query-libraries'
+  = link_to t('.add_new'), new_library_path, class: 'btn btn-default btn-sm ajax-modal', id: 'new-library'
 
 %table.table.button-table
   %thead
@@ -9,11 +9,11 @@
       %th.label-cell= t('.name_column')
       %th.button-cell
   %tbody
-    - @libraries.each do |library|
+    - @libraries.each_with_index do |library, i|
       %tr
         %td.label-cell= library.name
         %td.button-cell
-          = link_to t('.edit_button'), edit_library_path(library), class: 'btn btn-xs btn-default ajax-modal', data: { toggle: 'modal', target: '#ajax-modal' }
+          = link_to t('.edit_button'), edit_library_path(library), class: 'btn btn-xs btn-default ajax-modal', id: "edit-library-#{i}"
           = link_to t('.delete_button'), library_path(library), method: 'delete', data: { confirm: t('.delete_confirm') }, class: 'btn btn-xs btn-danger'
     - if @libraries.size == 0
       %tr

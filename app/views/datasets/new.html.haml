@@ -8,17 +8,17 @@
       %h4.modal-title= t('.header')
       %h6.text-muted= t('.subheader')
 
-      = simple_form_for(@dataset) do |f|
-        .modal-body
-          = f.error_notification
+    = simple_form_for(@dataset) do |f|
+      .modal-body
+        = f.error_notification
 
-          = hidden_field_tag :q, params[:q]
-          = hidden_field_tag :def_type, params[:def_type]
-          - if params[:fq]
-            - [params[:fq]].flatten.each do |fq|
-              = hidden_field_tag 'fq[]', fq
+        = hidden_field_tag :q, params[:q]
+        = hidden_field_tag :def_type, params[:def_type]
+        - if params[:fq]
+          - [params[:fq]].flatten.each do |fq|
+            = hidden_field_tag 'fq[]', fq
 
-          = f.input :name
+        = f.input :name
 
-        .modal-footer
-          = f.button :submit, class: 'btn btn-primary'
+      .modal-footer
+        = f.button :submit, class: 'btn btn-primary'

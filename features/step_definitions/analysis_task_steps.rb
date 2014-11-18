@@ -29,12 +29,8 @@ Given(/^I complete an analysis task for the dataset$/) do
   click_link 'Start a new analysis'
   click_link 'When were a given set of articles published?'
   click_link 'Start'
-
-  # This is an unfortunate hack, but modal dialogs will be the death of me
-  @user.reload
-  visit workflow_activate_path(class: @user.workflow_class,
-                               link_dataset_id: @dataset.to_param)
-
+  click_link 'Link an already created dataset'
+  click_button 'Link dataset'
   click_link 'Set Job Options'
   click_button 'Start analysis job'
 

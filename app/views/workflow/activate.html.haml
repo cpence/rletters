@@ -74,16 +74,16 @@
           %h4.modal-title= t('.link_header')
           %h6.text-muted= t('.link_subheader')
 
-          - unless current_user.datasets.active.size
+        - unless current_user.datasets.active.size
+          .modal-body
+            %p= t('.link_no_datasets')
+        - else
+          = form_tag workflow_activate_path(params[:class]), method: :get do
             .modal-body
-              %p= t('.link_no_datasets')
-          - else
-            = form_tag workflow_activate_path(params[:class]), method: :get do
-              .modal-body
-                .row
-                  .col-sm-6
-                    = label_tag :link_dataset_id, Dataset.model_name.human
-                    = select_tag :link_dataset_id, options_from_collection_for_select(current_user.datasets.active, 'to_param', 'name'), class: 'form-control'
+              .row
+                .col-sm-6
+                  = label_tag :link_dataset_id, Dataset.model_name.human
+                  = select_tag :link_dataset_id, options_from_collection_for_select(current_user.datasets.active, 'to_param', 'name'), class: 'form-control'
 
-              .modal-footer
-                = submit_tag t('.link_submit'), class: 'btn btn-success'
+            .modal-footer
+              = submit_tag t('.link_submit'), class: 'btn btn-success'

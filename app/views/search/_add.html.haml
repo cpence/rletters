@@ -8,19 +8,19 @@
       %h4.modal-title= t('.header')
       %h6.text-muted= t('.subheader')
 
-      - if current_user.datasets.active.blank?
+    - if current_user.datasets.active.blank?
+      .modal-body
+        %p= t('.no_datasets')
+    - else
+      = form_tag dataset_path(current_user.datasets.first), method: :patch, id: "add-form-#{document.uid.html_id}" do
+        = hidden_field_tag :uid, document.uid
         .modal-body
-          %p= t('.no_datasets')
-      - else
-        = form_tag dataset_path(current_user.datasets.first), method: :patch, id: "add-form-#{document.uid.html_id}" do
-          = hidden_field_tag :uid, document.uid
-          .modal-body
-            .form-group
-              = label_tag :dataset_id, Dataset.model_name.human
-              = select_tag :dataset_id, options_from_collection_for_select(current_user.datasets.active, 'to_param', 'name'), id: "add-select-#{document.uid.html_id}", class: 'form-control'
+          .form-group
+            = label_tag :dataset_id, Dataset.model_name.human
+            = select_tag :dataset_id, options_from_collection_for_select(current_user.datasets.active, 'to_param', 'name'), id: "add-select-#{document.uid.html_id}", class: 'form-control'
 
-          .modal-footer
-            %button.btn.btn-success{ type: 'submit' }= t('.submit')
+        .modal-footer
+          %button.btn.btn-success{ type: 'submit' }= t('.submit')
 
 - content_for(:javascript) do
   :javascript

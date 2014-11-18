@@ -28,10 +28,15 @@ end
 When(/^I create a dataset from the current search$/) do
   expect(current_path).to eq(search_path)
 
-  in_modal_dialog 'Save Results' do
-    fill_in 'dataset_name', with: 'Cucumber Dataset'
-    click_button 'Create Dataset'
-  end
+  # No clue why this (the correct code here) is failing
+  # click_link 'Save Results'
+  # find('.modal-dialog')
+
+  link = find(:link, 'Save Results')
+  visit(link[:href])
+
+  fill_in 'dataset_name', with: 'Cucumber Dataset'
+  click_button 'Create Dataset'
 
   find_dataset
   expect(@dataset).to be
@@ -42,21 +47,11 @@ When(/^I add the first article to the dataset$/) do
   expect(current_path).to eq(search_path)
   expect(@dataset).to be
 
-  abbr = first('table.document-list td abbr.unapi-id')
-  uid = abbr[:title]
+  first(:button, 'More').click
+  click_link('Add this document to an existing dataset')
+  find('.modal-dialog')
 
-  # This is an unfortunate hack, but modal dialogs will be the death of me
-  params = "uid=#{Rack::Utils.escape(uid)}&_method=PATCH"
-  script = <<EOS
-var x = new XMLHttpRequest();
-x.open('POST', '#{dataset_path(@dataset)}', false);
-x.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-x.send('#{params}');
-EOS
-  page.execute_script(script)
-
-  # The redirect here often doesn't work, patch it manually
-  visit dataset_path(@dataset)
+  click_button('Add')
 
   expect(page).to have_content("Information for dataset — #{@dataset.name}")
 end

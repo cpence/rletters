@@ -30,4 +30,11 @@
     I18n.locale = '#{I18n.locale}';
     I18n.fallbacks = true;
 
+  = javascript_include_tag 'application'
+  = yield(:javascript) if content_for?(:javascript)
+
   = content_for :head_tags
+
+  -# Load some extra styles and JS for testing
+  - if Rails.env.test?
+    = render partial: 'layouts/test'

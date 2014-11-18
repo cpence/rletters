@@ -1,4 +1,4 @@
-@javascript
+@javascript @modal
 Feature: Run an analysis on new data
   As a registered user
   I want to be able to use the workflow tools to analyze new datasets

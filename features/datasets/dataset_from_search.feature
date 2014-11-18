@@ -1,4 +1,4 @@
-@javascript
+@javascript @modal
 Feature: Create dataset from search
   As a registered user
   I want to be able to save the results of a search as a dataset

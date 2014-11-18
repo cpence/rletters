@@ -8,12 +8,12 @@
       %h4.modal-title= t('.header')
       %h6.text-muted= t('.subheader')
 
-      .modal-body
-        - if @libraries.empty?
-          %p= t('.no_libraries')
-        - else
-          - @libraries.each do |library|
-            = form_tag(libraries_path, method: :post) do
-              = hidden_field_tag 'users_library[name]', library[:name]
-              = hidden_field_tag 'users_library[url]', library[:url]
-              = submit_tag library[:name], class: 'button small secondary'
+    .modal-body
+      - if @libraries.empty?
+        %p= t('.no_libraries')
+      - else
+        - @libraries.each do |library|
+          = form_tag(libraries_path, method: :post) do
+            = hidden_field_tag 'users_library[name]', library[:name]
+            = hidden_field_tag 'users_library[url]', library[:url]
+            = submit_tag library[:name], class: 'button small secondary'

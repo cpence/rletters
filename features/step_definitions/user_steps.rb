@@ -125,9 +125,10 @@ When(/^I visit my account page$/) do
 end
 
 When(/^I add a library automatically$/) do
-  in_modal_dialog('Look up your library automatically') do
-    click_button 'Drupal Link Resolver Module Test Institution for Functional Tests'
-  end
+  click_link 'Look up your library automatically'
+  find('.modal-dialog')
+
+  click_button 'Drupal Link Resolver Module Test Institution for Functional Tests'
 
   visit libraries_path
   expect(page).to have_content('Drupal Link Resolver Module Test Institution for Functional Tests')
@@ -135,11 +136,12 @@ When(/^I add a library automatically$/) do
 end
 
 When(/^I manually add the library "(.*?)" with URL "(.*?)"$/) do |name, url|
-  in_modal_dialog('Add your library manually') do
-    fill_in 'users_library_name', with: name
-    fill_in 'users_library_url', with: url
-    click_button 'Create Library'
-  end
+  click_link('Add your library manually')
+  find('.modal-dialog')
+
+  fill_in 'users_library_name', with: name
+  fill_in 'users_library_url', with: url
+  click_button 'Create Library'
 
   visit libraries_path
   expect(page).to have_content(name)

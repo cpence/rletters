@@ -1,6 +1,6 @@
 - if user_signed_in?
   %li.dropdown-header{ role: 'presentation' }= t('.dataset_header')
-  %li{ role: 'presentation' }= link_to t('.single_dataset'), new_dataset_path(q: "uid:\"#{document.uid}\"", def_type: 'lucene', fq: nil), class: 'ajax-modal', data: { toggle: 'modal', target: "#ajax-modal" }
+  %li{ role: 'presentation' }= link_to t('.single_dataset'), new_dataset_path(q: "uid:\"#{document.uid}\"", def_type: 'lucene', fq: nil), class: 'ajax-modal', id: "single-#{document.uid.html_id}"
   %li{ role: 'presentation' }= link_to t('.add_to_dataset'), '#', data: { toggle: 'modal', target: "#add-#{document.uid.html_id}-modal" }
 
   %li.divider{ role: 'presentation' }
