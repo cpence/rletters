@@ -24,8 +24,20 @@ unless Rails.env.production?
       t.profile = 'rerun'
     end
 
-    desc 'Run all features'
-    task all: [:ok, :wip]
+    Cucumber::Rake::Task.new({ first: 'test:prepare' }, 'Run a first features pass') do |t|
+      t.binary = vendored_cucumber_bin # If nil, the gem's binary is used.
+      t.fork = true # You may get faster startup if you set this to false
+      t.profile = 'first_try'
+    end
+
+    Cucumber::Rake::Task.new({ second: 'test:prepare' }, 'Run a second features pass') do |t|
+      t.binary = vendored_cucumber_bin # If nil, the gem's binary is used.
+      t.fork = true # You may get faster startup if you set this to false
+      t.profile = 'second_try'
+    end
+
+    desc 'Run all features, retrying failures once'
+    task all: [:first, :second]
 
     task :statsetup do
       require 'rails/code_statistics'
@@ -34,8 +46,8 @@ unless Rails.env.production?
     end
   end
 
-  desc 'Alias for cucumber:ok'
-  task cucumber: 'cucumber:ok'
+  desc 'Alias for cucumber:all'
+  task cucumber: 'cucumber:all'
 
   task stats: 'cucumber:statsetup'
 end

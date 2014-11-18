@@ -1,12 +1,10 @@
 <%
 rerun_tests = File.file?('tmp/cucumber-rerun.txt') ?
-  IO.read('tmp/cucumber-rerun.txt') :
-  ""
-
+  IO.read('tmp/cucumber-rerun.txt') : ""
 rerun_opts = if rerun_tests.to_s.strip.empty?
-  "--tags @none_so_will_pass --strict"
+  "--tags @pass_without_doing_anything --strict"
 else
-  "--format #{ENV['CUCUMBER_FORMAT'] || 'pretty'} --strict #{rerun_tests}"
+  "--format #{ENV['CUCUMBER_FORMAT'] || 'pretty'} --strict -r features #{rerun_tests}"
 end
 
 first_try = '--format rerun --out tmp/cucumber-rerun.txt'
