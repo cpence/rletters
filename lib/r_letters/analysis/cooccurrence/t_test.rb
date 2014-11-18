@@ -48,7 +48,7 @@ module RLetters
             @progress.call((i.to_f / total.to_f * 33.0).to_i + 66) if @progress
             next if word_2 == @word
 
-            f_ab = joint_frequencies[word_2].to_f || 0.0
+            f_ab = joint_frequencies[word_2].to_f
 
             h_0 = (f_a / n) * (f_b.to_f / n)
             t = ((f_ab / n) - h_0) / Math.sqrt((h_0 * (1.0 - h_0)) / n)
