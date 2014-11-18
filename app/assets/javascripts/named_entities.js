@@ -1,3 +1,4 @@
+google.load('maps', '3', {other_params: 'sensor=false'});
 
 var global_named_entity_map;
 var global_named_entity_markers = [];

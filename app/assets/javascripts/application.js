@@ -7,6 +7,18 @@
 
 //= require_self
 
+//= require article_dates
+//= require compute_word_frequencies
+//= require craig_zeta
+//= require datasets_index
+//= require datasets_show
+//= require named_entities
+//= require network
+//= require normalize_document_counts
+//= require term_dates
+//= require users_edit
+//= require workflow_fetch
+
 //= require turbolinks
 //= require turbolinks_settings
 

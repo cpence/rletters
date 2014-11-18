@@ -1,5 +1,3 @@
-- content_for :head_tags do
-  %link{ rel: 'unapi-server', type: 'application/xml', title: 'unAPI', href: unapi_url }/
 - content_for :breadcrumbs do
   %li= link_to t('breadcrumbs.root'), root_path
   - if user_signed_in? && current_user.workflow_active
