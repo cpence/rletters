@@ -77,12 +77,6 @@ module RLetters
             b.words.reject { |k, v| !@word_list.include?(k) }
           end
 
-          @blocks.each do |b|
-            @word_list.each do |w|
-              b[w] ||= 0
-            end
-          end
-
           progress.call(97) if progress
 
           # Build block statistics

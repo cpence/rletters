@@ -100,18 +100,17 @@ module RLetters
             end
           end
 
-          # Make sure to add zero values for words that are missing from the
-          # current document.
-          @blocks.each do |b|
-            @word_list.each do |w|
-              b[w] ||= 0
-            end
-          end
-
           progress.call(80) if progress
 
+          # Clean out zero values from the blocks
+          @blocks.map! do |b|
+            b.reject! { |k, v| v.to_i == 0 }
+          end
+
+          progress.call(90) if progress
+
           @block_stats = @documents.each_with_index.map do |d, i|
-            progress.call((i.to_f / total * 20.0).to_i + 80) if progress
+            progress.call((i.to_f / total * 10.0).to_i + 90) if progress
 
             {
               name: I18n.t('lib.frequency.block_count_doc',

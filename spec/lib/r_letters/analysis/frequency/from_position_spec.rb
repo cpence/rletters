@@ -27,14 +27,6 @@ RSpec.describe RLetters::Analysis::Frequency::FromPosition do
         @analyzer = described_class.new(@onegram_ss)
       end
 
-      it 'includes all words in all blocks' do
-        @analyzer.blocks.each do |b|
-          expect(b.size).to eq(@analyzer.blocks[0].size)
-        end
-
-        expect(@analyzer.num_dataset_types).to eq(@analyzer.blocks[0].size)
-      end
-
       it 'saves blocks' do
         expect(@analyzer.blocks).to be_an(Array)
         expect(@analyzer.blocks[0]).to be_a(Hash)
@@ -45,20 +37,30 @@ RSpec.describe RLetters::Analysis::Frequency::FromPosition do
         expect(@analyzer.num_dataset_tokens).to be
       end
 
-      it 'creates a parallel list (same words in all blocks)' do
+      it 'analyzes every word' do
+        num_words = @analyzer.blocks.map { |b| b.keys }.flatten.uniq.count
+        expect(num_words).to eq(@analyzer.num_dataset_types)
+      end
+
+      it 'does not include words without hits' do
         @analyzer.blocks.each do |b|
-          expect(b.keys & @analyzer.word_list).to eq(b.keys)
+          b.values.each do |v|
+            expect(v.to_i).not_to eq(0)
+          end
         end
       end
     end
 
     context 'with num_words negative' do
       before(:example) do
-        @analyzer = described_class.new(@onegram_ss, nil, num_words: -1)
+        @analyzer = described_class.new(@onegram_ss, nil,
+                                        num_words: -1,
+                                        num_blocks: 1)
       end
 
       it 'acts like it was not set at all' do
-        expect(@analyzer.num_dataset_types).to eq(@analyzer.blocks[0].size)
+        num_words = @analyzer.blocks.map { |b| b.keys }.flatten.uniq.count
+        expect(num_words).to eq(@analyzer.num_dataset_types)
       end
     end
 
@@ -67,10 +69,8 @@ RSpec.describe RLetters::Analysis::Frequency::FromPosition do
         @analyzer = described_class.new(@onegram_ss, nil, num_words: 10)
       end
 
-      it 'only includes ten words' do
-        @analyzer.blocks.each do |b|
-          expect(b.size).to eq(10)
-        end
+      it 'includes a total of ten words' do
+        expect(@analyzer.blocks.map { |b| b.keys }.flatten.uniq.count).to eq(10)
       end
     end
   end
@@ -167,9 +167,9 @@ RSpec.describe RLetters::Analysis::Frequency::FromPosition do
       expect(@analyzer.word_list.size).to eq(10)
     end
 
-    it 'analyzes those words in the blocks' do
-      @analyzer.word_list.each do |w|
-        expect(@analyzer.blocks[0][w]).to be
+    it 'analyzes those words in the blocks when present' do
+      @analyzer.blocks.each do |b|
+        expect(b.keys - @analyzer.word_list).to be_empty
       end
     end
   end
