@@ -149,8 +149,10 @@ When(/^I manually add the library "(.*?)" with URL "(.*?)"$/) do |name, url|
 end
 
 When(/^I select a custom citation style$/) do
+  @style = create(:csl_style)
+
   within('.navbar-right') { click_link 'My Account' }
-  select 'Chicago Manual of Style (Author-Date format)', from: 'user_csl_style_id'
+  select @style.name, from: 'user_csl_style_id'
   fill_in 'user_current_password', with: @visitor[:password]
   click_button 'Update settings'
 end
