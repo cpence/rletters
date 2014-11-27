@@ -53,7 +53,7 @@ When(/^I confirm the data$/) do
   click_link 'Current Analysis'
 
   within('.main .row', match: :first) do
-    if page.has_link?('Start Analysis')
+    if page.all('a', text: 'Start Analysis').any?
       click_link 'Start Analysis'
     else
       click_link 'Set Job Options'

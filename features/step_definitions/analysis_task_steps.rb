@@ -64,7 +64,7 @@ Then(/^I should be able to start the task$/) do
 
     # If the first page was task_datasets, then this could be task_params, in
     # which case we have to click the button again
-    if page.has_button? 'Start analysis job'
+    if page.all('button', text: 'Start analysis job').any?
       click_button 'Start analysis job'
     end
   end
