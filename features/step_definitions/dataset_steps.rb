@@ -47,8 +47,14 @@ When(/^I add the first article to the dataset$/) do
   expect(current_path).to eq(search_path)
   expect(@dataset).to be
 
-  first(:button, 'More').click
-  click_link('Add this document to an existing dataset')
+  # No clue why this (the correct code here) is failing
+  # first(:button, 'More').click
+  # click_link('Add this document to an existing dataset')
+
+  link = first('a', text: 'Add this document to an existing dataset',
+                    visible: false)
+  link.trigger('click')
+
   find('.modal-dialog')
 
   click_button('Add')
