@@ -12,6 +12,6 @@ before_script:
   - 'pushd vendor/solr && ./start && popd'
   - bundle exec rake db:create db:schema:load
 
-script: 'bundle exec $RAKE_TASK'
+script: 'bundle exec $TASK'
 
 after_script: 'pushd vendor/solr && ./stop && popd'
