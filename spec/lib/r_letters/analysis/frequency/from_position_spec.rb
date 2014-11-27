@@ -132,7 +132,7 @@ RSpec.describe RLetters::Analysis::Frequency::FromPosition do
 
   describe '#stop_list' do
     before(:example) do
-      @list = Documents::StopList.find_by(language: 'en')
+      @list = create(:stop_list)
       @analyzer = described_class.new(@onegram_ss, nil, stop_list: @list)
     end
 

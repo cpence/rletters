@@ -104,7 +104,7 @@ RSpec.describe RLetters::Analysis::Frequency::FromTF do
 
   describe '#stop_list' do
     before(:example) do
-      @list = Documents::StopList.find_by(language: 'en')
+      @list = create(:stop_list)
       @analyzer = described_class.new(@dataset, nil, stop_list: @list)
     end
 

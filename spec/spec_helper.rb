@@ -72,24 +72,19 @@ RSpec.configure do |config|
   config.before(:suite) do
     # Prepare the database
     DatabaseCleaner.clean_with(:truncation)
-    load Rails.root.join('db', 'seeds.rb')
 
     # Use transactions to clean database
     DatabaseCleaner.strategy = :transaction
   end
 
-  config.before(:example) do
+  config.around(:example) do |example|
     # Reset the locale and timezone to defaults on each new test
     I18n.locale = I18n.default_locale
     Time.zone = 'Eastern Time (US & Canada)'
 
-    # Reset database after each test
-    DatabaseCleaner.start
-  end
-
-  config.after(:example) do
-    # Clean the database after each test
-    DatabaseCleaner.clean
+    DatabaseCleaner.cleaning do
+      example.run
+    end
   end
 
   # Add a variety of test helpers

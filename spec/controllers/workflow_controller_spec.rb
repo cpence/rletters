@@ -260,7 +260,7 @@ RSpec.describe WorkflowController, type: :controller do
 
     context 'with a valid id' do
       before(:example) do
-        @asset = Admin::UploadedAsset.find_by(name: 'splash-low').to_param
+        @asset = create(:uploaded_asset).to_param
         @id = @asset.to_param
 
         get :image, id: @id

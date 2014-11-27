@@ -7,6 +7,7 @@ RSpec.describe Admin::UsersCslStylesController, type: :controller do
   render_views
 
   before(:example) do
+    @style = create(:csl_style)
     @administrator = create(:administrator)
     sign_in :administrator, @administrator
   end
@@ -20,9 +21,8 @@ RSpec.describe Admin::UsersCslStylesController, type: :controller do
       expect(response).to be_success
     end
 
-    it 'includes some standard CSL styles' do
-      expect(response.body).to include('American Sociological Association')
-      expect(response.body).to include('Harvard Reference format 1 (Author-Date)')
+    it 'includes the CSL style in the list' do
+      expect(response.body).to include(@style.name)
     end
   end
 

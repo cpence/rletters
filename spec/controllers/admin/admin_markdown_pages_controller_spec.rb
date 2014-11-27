@@ -7,6 +7,7 @@ RSpec.describe Admin::AdminMarkdownPagesController, type: :controller do
   render_views
 
   before(:example) do
+    @page = create(:markdown_page)
     @administrator = create(:administrator)
     sign_in :administrator, @administrator
   end
@@ -20,14 +21,14 @@ RSpec.describe Admin::AdminMarkdownPagesController, type: :controller do
       expect(response).to be_success
     end
 
-    it 'includes one of the markdown pages' do
-      expect(response.body).to include('Landing Page')
+    it 'includes the Markdown page in the list' do
+      expect(response.body).to satisfy { |s| s.include?(@page.name) ||
+                                             s.include?('The Friendly Name') }
     end
   end
 
   describe '#show' do
     before(:example) do
-      @page = Admin::MarkdownPage.find_by!(name: 'landing')
       get :show, id: @page.to_param
     end
 
@@ -42,7 +43,6 @@ RSpec.describe Admin::AdminMarkdownPagesController, type: :controller do
 
   describe '#edit' do
     before(:example) do
-      @page = Admin::MarkdownPage.find_by!(name: 'landing')
       get :edit, id: @page.to_param
     end
 

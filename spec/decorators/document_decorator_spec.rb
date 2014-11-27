@@ -42,7 +42,7 @@ RSpec.describe DocumentDecorator, type: :decorator do
       before(:example) do
         @doc = described_class.decorate(Document.find(generate(:working_uid)))
 
-        @csl_style = Users::CslStyle.find_by!(name: 'American Psychological Association 6th Edition')
+        @csl_style = create(:csl_style)
         @user = create(:user, csl_style_id: @csl_style.id)
         allow(Draper::ViewContext.current).to receive(:current_user).and_return(@user)
         allow(Draper::ViewContext.current).to receive(:user_signed_in?).and_return(true)
@@ -58,7 +58,7 @@ RSpec.describe DocumentDecorator, type: :decorator do
       before(:example) do
         @doc = described_class.decorate(Document.find('gutenberg:3172'))
 
-        @csl_style = Users::CslStyle.find_by!(name: 'American Psychological Association 6th Edition')
+        @csl_style = create(:csl_style)
         @user = create(:user, csl_style_id: @csl_style.id)
         allow(Draper::ViewContext.current).to receive(:current_user).and_return(@user)
         allow(Draper::ViewContext.current).to receive(:user_signed_in?).and_return(true)

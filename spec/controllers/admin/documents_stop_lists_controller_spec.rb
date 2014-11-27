@@ -7,6 +7,7 @@ RSpec.describe Admin::DocumentsStopListsController, type: :controller do
   render_views
 
   before(:example) do
+    @list = create(:stop_list)
     @administrator = create(:administrator)
     sign_in :administrator, @administrator
   end
@@ -21,13 +22,12 @@ RSpec.describe Admin::DocumentsStopListsController, type: :controller do
     end
 
     it 'includes one of the stop lists' do
-      expect(response.body).to include('French')
+      expect(response.body).to include(@list.language)
     end
   end
 
   describe '#show' do
     before(:example) do
-      @list = Documents::StopList.find_by!(language: 'fr')
       get :show, id: @list.to_param
     end
 
@@ -38,7 +38,6 @@ RSpec.describe Admin::DocumentsStopListsController, type: :controller do
 
   describe '#edit' do
     before(:example) do
-      @list = Documents::StopList.find_by!(language: 'fr')
       get :edit, id: @list.to_param
     end
 

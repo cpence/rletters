@@ -11,6 +11,9 @@ RSpec.describe Jobs::Analysis::Network do
     @user = create(:user)
     @dataset = create(:full_dataset, working: true, user: @user)
     @task = create(:analysis_task, dataset: @dataset)
+
+    # The network code loads the English stop list
+    @stop_list = create(:stop_list)
   end
 
   describe '.download?' do

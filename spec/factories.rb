@@ -13,6 +13,8 @@ WORKING_UIDS = [
                 'doi:10.1111/j.1439-0310.2007.01421.x'.freeze
                ].freeze
 
+CSL_DATA = File.read(Rails.root.join('spec', 'support', 'factories', 'nature.csl'))
+
 FactoryGirl.define do
 
   sequence :working_uid do |n|
@@ -35,6 +37,11 @@ FactoryGirl.define do
   factory :category, class: Documents::Category do
     name 'Test Category'
     journals ['Ethology']
+  end
+
+  factory :csl_style, class: Users::CslStyle do
+    name 'Nature'
+    style CSL_DATA
   end
 
   factory :dataset do
@@ -135,7 +142,12 @@ FactoryGirl.define do
 
   factory :uploaded_asset, class: Admin::UploadedAsset do
     name 'test_asset'
-    file { File.new(Rails.root.join('db', 'seeds', 'images', 'favicon.ico')) }
+    file { File.new(Rails.root.join('spec', 'support', 'factories', '1x1.png')) }
+  end
+
+  factory :stop_list, class: Documents::StopList do
+    language 'en'
+    list 'a an the'
   end
 
   factory :user do
