@@ -1,5 +1,4 @@
 //= require jquery
-//= require jquery.turbolinks
 //= require jquery_ujs
 
 //= require bootstrap-sprockets
@@ -19,9 +18,6 @@
 //= require users_edit
 //= require workflow_fetch
 
-//= require turbolinks
-//= require turbolinks_settings
-
 // Fix input element click problem
 $(document).on('click', '.dropdown input, .dropdown label', function(e) {
   e.stopPropagation();
@@ -35,7 +31,7 @@ $(document).on('click', '.ajax-modal', function(e) {
   var url = $(this).attr('href');
   var modal = $('#ajax-' + id + '-modal');
 
-  if (modal.length == 0) {
+  if (modal.length === 0) {
     var container = $('#modal-container');
     container.append(
       "<div id='ajax-" + id +
@@ -50,7 +46,7 @@ $(document).on('click', '.ajax-modal', function(e) {
   });
 });
 
-$(function() {
+$(document).ready(function() {
   // Load tooltips for cloud references
   $('.cloud-tooltip').tooltip();
 });

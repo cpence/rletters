@@ -61,8 +61,6 @@ gem 'rabl'
 
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
-gem 'turbolinks'
-gem 'jquery-turbolinks'
 gem 'sass-rails', '>= 4.0.3'
 gem 'bootstrap-sass'
 gem 'simple_form', '>= 3.1.0.rc1'

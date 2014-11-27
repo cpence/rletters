@@ -14,4 +14,4 @@ function updateDatasetList() {
     });
 }
 
-$(updateDatasetList);
+$(document).ready(updateDatasetList);

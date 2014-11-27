@@ -23,4 +23,4 @@ function checkLibraryList() {
   });
 }
 
-$(checkLibraryList);
+$(document).ready(checkLibraryList);

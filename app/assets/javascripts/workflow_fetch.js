@@ -1,8 +1,8 @@
 // ---------------------------------------------------------------------------
 // AJAX support for workflow#fetch
 
-function updateTaskList() {
-  var datasetList = $('#task-list');
+function updateWorkflowTaskList() {
+  var datasetList = $('#workflow-task-list');
   if (datasetList.length === 0)
     return;
 
@@ -10,8 +10,8 @@ function updateTaskList() {
 
   datasetList.load(ajax_url,
     function() {
-      $(this).data('timeout', window.setTimeout(updateTaskList, 4000));
+      $(this).data('timeout', window.setTimeout(updateWorkflowTaskList, 4000));
     });
 }
 
-$(updateTaskList);
+$(document).ready(updateWorkflowTaskList);

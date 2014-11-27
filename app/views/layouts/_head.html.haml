@@ -34,9 +34,6 @@
     I18n.locale = '#{I18n.locale}';
     I18n.fallbacks = true;
 
-  -# Include all of the application JS
-  = javascript_include_tag 'application'
-
   -# Reference the unAPI server, if we need to
   - if params[:controller] == 'search'
     %link{ rel: 'unapi-server', type: 'application/xml', title: 'unAPI', href: unapi_url }/

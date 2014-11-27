@@ -59,4 +59,4 @@ function createArticleDatesGraph() {
   table.draw(data, { page: true, pageSize: 20, sortColumn: 0, width: '20em' });
 }
 
-$(createArticleDatesGraph);
+$(document).ready(createArticleDatesGraph);

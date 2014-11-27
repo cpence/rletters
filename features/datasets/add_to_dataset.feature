@@ -1,4 +1,4 @@
-@javascript @modal
+@javascript
 Feature: Add single document to dataset
   As a registered user
   I want to be able to add an individual document to a dataset

@@ -68,5 +68,5 @@ function createCraigZetaTable() {
   table.draw(data, { page: 'enable', pageSize: 20, sort: 'disable', width: '20em' });
 }
 
-$(createCraigZetaGraph);
-$(createCraigZetaTable);
+$(document).ready(createCraigZetaGraph);
+$(document).ready(createCraigZetaTable);

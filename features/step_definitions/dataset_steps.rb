@@ -63,6 +63,9 @@ end
 When(/^I visit the page for the dataset$/) do
   expect(@dataset).to be
   visit dataset_path(@dataset)
+
+  expect(page).to have_selector('div#dataset-task-list')
+  expect(page).to have_selector('div#dataset-task-list table.button-table')
 end
 
 When(/^I delete the dataset$/) do

@@ -21,7 +21,8 @@
     display: none !important;
   }
 
-:javascript
-  $(function() {
-    $('.fade').removeClass('fade');
-  });
+- content_for :javascript do
+  :javascript
+    $(document).ready(function() {
+      $('.fade').removeClass('fade');
+    });

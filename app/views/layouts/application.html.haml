@@ -15,3 +15,9 @@
 
     #modal-container
       = yield(:modal) if content_for?(:modal)
+
+    -# Include all of the application JS
+    = javascript_include_tag 'application'
+
+    - if content_for?(:javascript)
+      = yield(:javascript)

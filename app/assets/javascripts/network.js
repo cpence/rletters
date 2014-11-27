@@ -40,25 +40,25 @@ function createNetworkGraph() {
       circle.data()[0].name + '<br>' +
       I18n.t('jobs.analysis.network.word_forms') + ': ' +
       circle.data()[0].forms.join(' '));
-  }
+  };
 
   var mouseOutFunction = function() {
     var circle = d3.select(this);
     circle.attr('fill', 'black');
 
     d3.select('.network_graph_box').style('display', 'none');
-  }
+  };
 
   var mouseMoveFunction = function() {
     var coord = d3.mouse(this);
     d3.select('.network_graph_box')
       .style('left', coord[0] + 15 + 'px')
       .style('top', coord[1] + 'px');
-  }
+  };
 
   var zoom = function() {
     svg.attr('transform', 'translate(' + d3.event.translate + ')scale(' + d3.event.scale + ')');
-  }
+  };
 
   // The layout code here follows http://bl.ocks.org/mbostock/1667139
   var force = d3.layout.force()
@@ -74,7 +74,7 @@ function createNetworkGraph() {
     .attr('height', h)
   .append('g')
     .call(d3.behavior.zoom().on('zoom', zoom))
-  .append('g')
+  .append('g');
 
   svg.append('rect')
     .attr('class', 'overlay')
@@ -82,10 +82,11 @@ function createNetworkGraph() {
     .attr('height', h);
 
   setTimeout(function() {
+    var i;
 
     // Run the layout a fixed number of times
     force.start();
-    for (var i = n ; i > 0 ; i--) force.tick();
+    for (i = n ; i > 0 ; i--) force.tick();
     force.stop();
 
     svg.selectAll('line')
@@ -99,7 +100,7 @@ function createNetworkGraph() {
 
     // Get the maximum node weight
     var max_weight = 0;
-    for (var i = 0 ; i < force.nodes().length ; i++) {
+    for (i = 0 ; i < force.nodes().length ; i++) {
       if (force.nodes()[i].weight > max_weight) {
         max_weight = force.nodes()[i].weight;
       }
@@ -117,4 +118,4 @@ function createNetworkGraph() {
   }, 10);
 }
 
-$(createNetworkGraph);
+$(document).ready(createNetworkGraph);

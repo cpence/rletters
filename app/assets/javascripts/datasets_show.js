@@ -1,8 +1,8 @@
 // ---------------------------------------------------------------------------
-// AJAX support for datasets##show
+// AJAX support for datasets#show
 
-function updateTaskList() {
-  var taskList = $('div#dataset-task-list');
+function updateDatasetTaskList() {
+  var taskList = $('#dataset-task-list');
   if (taskList.length === 0)
     return;
 
@@ -10,8 +10,8 @@ function updateTaskList() {
 
   taskList.load(ajax_url,
     function() {
-      window.setTimeout(updateTaskList, 4000);
+      $(this).data('timeout', window.setTimeout(updateDatasetTaskList, 4000));
     });
 }
 
-$(updateTaskList);
+$(document).ready(updateDatasetTaskList);

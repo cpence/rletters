@@ -42,8 +42,8 @@ function createNamedEntitiesMap() {
   if (mapContainer.length === 0)
     return;
 
-  width = mapContainer.width();
-  height = width;
+  var width = mapContainer.width();
+  var height = width;
   if (height > 500) {
     height = 500;
   }
@@ -68,10 +68,7 @@ function createNamedEntitiesMap() {
   global_named_entity_map = map;
 }
 
-$(function() {
-  lookUpMarkers();
-});
-
+$(document).ready(lookUpMarkers);
 $(document).on('show.bs.collapse', '#accordion', function() {
   var openAnchor = $(this).find('a[data-toggle=collapse]:not(.collapsed)');
   if (openAnchor.attr('href') == '#collapse3') {
