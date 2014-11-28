@@ -61,6 +61,10 @@ RSpec.describe RLetters::Analysis::CraigZeta do
                                    l.include?('Second Dataset') }
       end
     end
+
+    it 'creates a graph point for every block' do
+      expect(@analyzer.graph_points.size).to eq(2)
+    end
   end
 
   describe 'progress reporting' do

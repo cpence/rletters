@@ -97,16 +97,12 @@ module RLetters
 
         # Convert to numbers of blocks in which each word appears
         @block_counts = {}
-        @analyzer_1.blocks.each do |b|
-          b.keys.each do |k|
-            @block_counts[k] ||= 0
-            @block_counts[k] += 1
-          end
-        end
-        @analyzer_2.blocks.each do |b|
-          b.keys.each do |k|
-            @block_counts[k] ||= 0
-            @block_counts[k] += 1
+        [@analyzer_1.blocks, @analyzer_2.blocks].each do |blocks|
+          blocks.each do |b|
+            b.keys.each do |k|
+              @block_counts[k] ||= 0
+              @block_counts[k] += 1
+            end
           end
         end
 
@@ -168,27 +164,21 @@ module RLetters
       # @api private
       # @return [undefined]
       def get_graph_points
-        @graph_points = []
-        @analyzer_1.blocks.each_with_index do |b, i|
-          if @progress
-            @progress.call(80 + (i.to_f / @analyzer_1.blocks.size.to_f * 10.0).to_i)
-          end
-
-          x_val = (@dataset_1_markers & b.keys).size.to_f / b.keys.size.to_f
-          y_val = (@dataset_2_markers & b.keys).size.to_f / b.keys.size.to_f
-
-          @graph_points << [x_val, y_val, "#{@dataset_1.name}: #{i + 1}"]
+        if @progress
+          @progress.call(80)
         end
 
-        @analyzer_2.blocks.each_with_index do |b, i|
-          if @progress
-            @progress.call(90 + (i.to_f / @analyzer_2.blocks.size.to_f * 10.0).to_i)
+        @graph_points = []
+        total = (@analyzer_1.blocks.size + @analyzer_2.blocks.size).to_f
+
+        [[@analyzer_1.blocks, @dataset_1.name],
+         [@analyzer_2.blocks, @dataset_2.name]].each do |(blocks, name)|
+          blocks.each_with_index do |b, i|
+            x_val = (@dataset_1_markers & b.keys).size.to_f / b.keys.size.to_f
+            y_val = (@dataset_2_markers & b.keys).size.to_f / b.keys.size.to_f
+
+            @graph_points << [x_val, y_val, "#{name}: #{i + 1}"]
           end
-
-          x_val = (@dataset_1_markers & b.keys).size.to_f / b.keys.size.to_f
-          y_val = (@dataset_2_markers & b.keys).size.to_f / b.keys.size.to_f
-
-          @graph_points << [x_val, y_val, "#{@dataset_2.name}: #{i + 1}"]
         end
       end
     end
