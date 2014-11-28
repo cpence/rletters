@@ -26,8 +26,8 @@ gem 'activeadmin-sortable-tree', github: 'nebirhos/activeadmin-sortable-tree'
 gem 'druthers'
 
 # Internationalization
-gem 'rails-i18n', '= 4.0.2'
-gem 'i18n-js-pika', '>= 3.0.0.rc1', require: 'i18n-js'
+gem 'rails-i18n', '= 4.0.3'
+gem 'i18n-js', '>= 3.0.0.rc1'
 gem 'http_accept_language'
 
 # Textual analysis

@@ -15,7 +15,7 @@ function createTermDatesGraph() {
   var data = new google.visualization.DataTable();
   var rows = $.parseJSON(dataContainer.html());
 
-  data.addColumn('number', I18n.t('activemodel.attributes.document.year'));
+  data.addColumn('number', I18n.t('attributes.document.year'));
   data.addColumn('number', I18n.t('jobs.analysis.term_dates.number_column'));
   data.addRows(rows);
 
@@ -35,7 +35,7 @@ function createTermDatesGraph() {
   var options = { width: w, height: h,
                   legend: { position: 'none' },
                   hAxis: { format: '####',
-                           title: I18n.t('activemodel.attributes.document.year') },
+                           title: I18n.t('attributes.document.year') },
                   vAxis: { title: I18n.t('jobs.analysis.term_dates.number_column') },
                   pointSize: 3 };
 
