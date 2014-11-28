@@ -2,8 +2,8 @@ language: ruby
 rvm: 2.1.1
 
 env:
-  - TASK=rspec
-  - TASK='rake cucumber:with_retry'
+  - TASK='bundle exec rspec'
+  - TASK='bundle exec cucumber --profile first_try || bundle exec cucumber --profile second_try'
 
 bundler_args: --without production development
 before_script:
@@ -12,6 +12,6 @@ before_script:
   - 'pushd vendor/solr && ./start && popd'
   - bundle exec rake db:create db:schema:load
 
-script: 'bundle exec $TASK'
+script: $TASK
 
 after_script: 'pushd vendor/solr && ./stop && popd'
