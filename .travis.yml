@@ -3,7 +3,7 @@ rvm: 2.1.1
 
 env:
   - TASK='bundle exec rspec'
-  - TASK="sh -c 'bundle exec cucumber --profile first_try || bundle exec cucumber --profile second_try'"
+  - TASK='bundle exec cucumber --profile first_try || bundle exec cucumber --profile second_try'
 
 bundler_args: --without production development
 before_script:
@@ -12,6 +12,6 @@ before_script:
   - 'pushd vendor/solr && ./start && popd'
   - bundle exec rake db:create db:schema:load
 
-script: $TASK
+script: sh -c "$TASK"
 
 after_script: 'pushd vendor/solr && ./stop && popd'
