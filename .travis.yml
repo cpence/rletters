@@ -3,7 +3,7 @@ rvm: 2.1.1
 
 env:
   - TASK='bundle exec rspec'
-  - TASK='bundle exec cucumber --profile first_try || bundle exec cucumber --profile second_try'
+  - TASK="sh -c 'bundle exec cucumber --profile first_try || bundle exec cucumber --profile second_try'"
 
 bundler_args: --without production development
 before_script:
