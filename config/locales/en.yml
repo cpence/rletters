@@ -25,163 +25,169 @@ en:
         submit:
             job_params:
                 submit: Start analysis job
-    models:
-        'admin/administrator':
-            one: Administrator
-            other: Administrators
-        'admin/uploaded_asset':
-            one: Custom Asset
-            other: Custom Assets
-        'admin/markdown_page':
-            one: Custom Page
-            other: Custom Pages
-        'admin/setting':
-            one: Setting
-            other: Settings
-        dataset:
-            one: Dataset
-            other: Datasets
-        'datasets/analysis_task':
-            one: Analysis Task
-            other: Analysis Tasks
-        'datasets/entry':
-            one: Dataset Entry
-            other: Dataset Entries
-        document:
-            one: Document
-            other: Documents
-        'documents/category':
-            one: Category
-            other: Categories
-        'documents/stop_list':
-            one: Stop List
-            other: Stop Lists
-        user:
-            one: User
-            other: Users
-        'users/csl_style':
-            one: CSL Style
-            other: CSL Styles
-        'users/library':
-            one: Library
-            other: Libraries
-    attributes:
-        'admin/administrator':
-            email: E-mail
-            name: Name
-            password: Password
-            password_confirmation: Confirm password
-            remember_me: Remember me?
-        'admin/markdown_page':
-            friendly_name: Name
-            name: Name
-            content: Content
-        'admin/setting':
-            key: Key
-            value: Value
-        'admin/uploaded_asset':
-            friendly_name: Name
-            name: Name
-            file: Attachment
-        dataset:
-            name: Name
-        'datasets/analysis_task':
-            name: Name
-            created_at: Creation time
-            finished_at: Completion time
-        'datasets/entry':
-            uid: Unique identifier
-        document:
-            uid: Unique identifier
-            doi: DOI
-            authors: Authors
-            title: Title
-            journal: Journal
-            year: Year
-            volume: Volume
-            number: Number
-            pages: Pages
-            fulltext: Full text
-            term_vectors: Term vectors
-        'documents/category':
-            name: Name
-            journals: List of Journals
-        'documents/stop_list':
-            language: Language
-            list: List of Stop Words
-        user:
-            email: E-mail
-            name: Name
-            password: Password
-            password_confirmation: Confirm password
-            remember_me: Remember me?
-            per_page: Number of search results per page
-            language: Preferred language
-            timezone: Time zone
-            csl_style_id: Citation style
-        'users/csl_style':
-            name: Name
-            style: Style (XML)
-        'users/library':
-            name: Name
-            url: Base URL
-    errors:
+    activemodel:
         models:
-            'admin/markdown_page':
-                name:
-                    blank: Name was not specified (internal error)
-            'admin/uploaded_asset':
-                name:
-                    blank: Name was not specified (internal error)
-            dataset:
-                name:
-                    blank: You must specify a name for this dataset
-                user_id:
-                    blank: Dataset must have a user ID specified (internal error)
-            'datasets/analysis_task':
-                name:
-                    blank: You must specify a name for this analysis task
-                dataset:
-                    blank: Analysis task not connected to dataset (internal error)
-            'datasets/entry':
-                uid:
-                    blank: Unique ID was not specified (internal error)
             document:
-                uid:
-                    blank: "Unique ID was not specified (internal error)"
+                one: Document
+                other: Documents
+        attributes:
+            document:
+                uid: Unique identifier
+                doi: DOI
+                authors: Authors
+                title: Title
+                journal: Journal
+                year: Year
+                volume: Volume
+                number: Number
+                pages: Pages
+                fulltext: Full text
+                term_vectors: Term vectors
+        errors:
+            models:
+                document:
+                    uid:
+                        blank: "Unique ID was not specified (internal error)"
+    activerecord:
+        models:
+            'admin/administrator':
+                one: Administrator
+                other: Administrators
+            'admin/uploaded_asset':
+                one: Custom Asset
+                other: Custom Assets
+            'admin/markdown_page':
+                one: Custom Page
+                other: Custom Pages
+            'admin/setting':
+                one: Setting
+                other: Settings
+            dataset:
+                one: Dataset
+                other: Datasets
+            'datasets/analysis_task':
+                one: Analysis Task
+                other: Analysis Tasks
+            'datasets/entry':
+                one: Dataset Entry
+                other: Dataset Entries
             'documents/category':
-                name:
-                    blank: You must specify a name for this category
+                one: Category
+                other: Categories
             'documents/stop_list':
-                language:
-                    blank: Language was not specified (internal error)
-                list:
-                    blank: Stop list was not specified (internal error)
+                one: Stop List
+                other: Stop Lists
             user:
-                name:
-                    blank: You must specify a name
-                per_page:
-                    blank: Number of search results per page must be specified (internal error)
-                    not_a_number: Number of search results per page must be an integer
-                    inclusion: Number of search results must be greater than zero
-                language:
-                    blank: Preferred language must be specified (internal error)
-                    invalid: Preferred language must be a valid locale code (internal error)
-                timezone:
-                    blank: Timezone must be specified (internal error)
+                one: User
+                other: Users
             'users/csl_style':
-                name:
-                    blank: Name was not specified (internal error)
-                style:
-                    blank: Style was not specified (internal error)
+                one: CSL Style
+                other: CSL Styles
             'users/library':
-                name:
-                    blank: You must specify a name for this library entry
-                url:
-                    blank: You must specify a URL for this library entry
-                    invalid: Library base URL must be a URL
-                user_id:
-                    blank: Library must be associated with user (internal error)
+                one: Library
+                other: Libraries
+        attributes:
+            'admin/administrator':
+                email: E-mail
+                name: Name
+                password: Password
+                password_confirmation: Confirm password
+                remember_me: Remember me?
+            'admin/markdown_page':
+                friendly_name: Name
+                name: Name
+                content: Content
+            'admin/setting':
+                key: Key
+                value: Value
+            'admin/uploaded_asset':
+                friendly_name: Name
+                name: Name
+                file: Attachment
+            dataset:
+                name: Name
+            'datasets/analysis_task':
+                name: Name
+                created_at: Creation time
+                finished_at: Completion time
+            'datasets/entry':
+                uid: Unique identifier
+            'documents/category':
+                name: Name
+                journals: List of Journals
+            'documents/stop_list':
+                language: Language
+                list: List of Stop Words
+            user:
+                email: E-mail
+                name: Name
+                password: Password
+                password_confirmation: Confirm password
+                remember_me: Remember me?
+                per_page: Number of search results per page
+                language: Preferred language
+                timezone: Time zone
+                csl_style_id: Citation style
+            'users/csl_style':
+                name: Name
+                style: Style (XML)
+            'users/library':
+                name: Name
+                url: Base URL
+        errors:
+            models:
+                'admin/markdown_page':
+                    name:
+                        blank: Name was not specified (internal error)
+                'admin/uploaded_asset':
+                    name:
+                        blank: Name was not specified (internal error)
+                dataset:
+                    name:
+                        blank: You must specify a name for this dataset
+                    user_id:
+                        blank: Dataset must have a user ID specified (internal error)
+                'datasets/analysis_task':
+                    name:
+                        blank: You must specify a name for this analysis task
+                    dataset:
+                        blank: Analysis task not connected to dataset (internal error)
+                'datasets/entry':
+                    uid:
+                        blank: Unique ID was not specified (internal error)
+                'documents/category':
+                    name:
+                        blank: You must specify a name for this category
+                'documents/stop_list':
+                    language:
+                        blank: Language was not specified (internal error)
+                    list:
+                        blank: Stop list was not specified (internal error)
+                user:
+                    name:
+                        blank: You must specify a name
+                    per_page:
+                        blank: Number of search results per page must be specified (internal error)
+                        not_a_number: Number of search results per page must be an integer
+                        inclusion: Number of search results must be greater than zero
+                    language:
+                        blank: Preferred language must be specified (internal error)
+                        invalid: Preferred language must be a valid locale code (internal error)
+                    timezone:
+                        blank: Timezone must be specified (internal error)
+                'users/csl_style':
+                    name:
+                        blank: Name was not specified (internal error)
+                    style:
+                        blank: Style was not specified (internal error)
+                'users/library':
+                    name:
+                        blank: You must specify a name for this library entry
+                    url:
+                        blank: You must specify a URL for this library entry
+                        invalid: Library base URL must be a URL
+                    user_id:
+                        blank: Library must be associated with user (internal error)
     breadcrumbs:
         root: Home
         datasets_index: Manage Datasets

@@ -17,7 +17,7 @@ function createArticleDatesGraph() {
   var rows = $.parseJSON(dataContainer.html());
   var percent = percentContainer.html() == 'true';
 
-  data.addColumn('number', I18n.t('attributes.document.year'));
+  data.addColumn('number', I18n.t('activemodel.attributes.document.year'));
   if (percent) {
     data.addColumn('number', I18n.t('jobs.analysis.article_dates.fraction_column'));
   } else {
@@ -41,7 +41,7 @@ function createArticleDatesGraph() {
   var options = { width: w, height: h,
                   legend: { position: 'none' },
                   hAxis: { format: '####',
-                           title: I18n.t('attributes.document.year') },
+                           title: I18n.t('activemodel.attributes.document.year') },
                   vAxis: { title: I18n.t('jobs.analysis.article_dates.number_column') },
                   pointSize: 3 };
   if (percent) {
