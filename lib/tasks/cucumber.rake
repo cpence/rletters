@@ -36,8 +36,23 @@ unless Rails.env.production?
       t.profile = 'second_try'
     end
 
+    desc 'Run all features'
+    task all: [:ok, :wip]
+
     desc 'Run all features, retrying failures once'
-    task all: [:first, :second]
+    task :with_retry do
+      success = false
+
+      begin
+        Rake::Task['cucumber:first'].execute
+        success = true
+      rescue
+      end
+
+      unless success
+        Rake::Task['cucumber:second'].invoke
+      end
+    end
 
     task :statsetup do
       require 'rails/code_statistics'
