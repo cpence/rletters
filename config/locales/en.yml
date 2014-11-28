@@ -361,12 +361,7 @@ en:
                     membership in %{name_2}).
                 word_column: Word
                 score_column: Zeta Score
-                progress_analyzing: "Analyzing words in dataset: %{name}..."
-                progress_culling: "Removing words that appear in all blocks..."
-                progress_computing: "Computing Zeta scores: %{progress}..."
-                progress_sorting: "Sorting Zeta scores..."
-                progress_words: "Taking marker words for each dataset..."
-                progress_graph_points: "Calculating separation graph points for %{name}: %{progress}..."
+                progress_computing: "Computing zeta scores for dataset..."
             export_citations:
                 name: Export Citations
                 short_desc: Export dataset as citations

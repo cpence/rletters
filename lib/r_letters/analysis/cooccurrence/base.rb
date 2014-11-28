@@ -51,8 +51,7 @@ module RLetters
         #   which every word *and* the word at issue both appear (the
         #   +joint_frequencies+). Lastly, the number of bins (+n+).
         def get_frequencies
-          wl = RLetters::Documents::WordList.new
-          ds = RLetters::Documents::Segments.new(wl,
+          ds = RLetters::Documents::Segments.new(nil,
                                                  block_size: @window,
                                                  last_block: :small_last)
           ss = RLetters::Datasets::Segments.new(@dataset,
@@ -70,34 +69,32 @@ module RLetters
           # Combine all the block hashes, summing the values
           total = analyzer.blocks.size.to_f
 
-          base_frequencies = analyzer.blocks.each_with_index.inject(Hash.new(0)) do |ret, (b, i)|
+          base_frequencies = {}
+          analyzer.blocks.each_with_index do |b, i|
             if @progress
               @progress.call((i.to_f / total * 16.0).to_i + 33)
             end
 
-            ret.merge(b) do |key, old_val, new_val|
-              old_val + (new_val && new_val > 0 ? 1 : 0)
+            b.keys.each do |k|
+              base_frequencies[k] ||= 0
+              base_frequencies[k] += 1
             end
           end
 
           # Get the frequencies of cooccurrence with the word in question
-          joint_frequencies = analyzer.blocks.each_with_index.inject(Hash.new(0)) do |ret, (b, i)|
+          joint_frequencies = {}
+          analyzer.blocks.each_with_index do |b, i|
             if @progress
               @progress.call((i.to_f / total * 17.0).to_i + 49)
             end
 
-            if b[@word] && b[@word] > 0
-              ret.merge(b) do |key, old_val, new_val|
-                old_val + (new_val && new_val > 0 ? 1 : 0)
-              end
-            else
-              ret
+            next unless b[@word] && b[@word] > 0
+
+            b.keys.each do |k|
+              joint_frequencies[k] ||= 0
+              joint_frequencies[k] += 1
             end
           end
-
-          # Prune any zero values to make analysis easier later
-          base_frequencies.reject! { |k, v| v == 0 }
-          joint_frequencies.reject! { |k, v| v == 0 }
 
           [base_frequencies, joint_frequencies, analyzer.blocks.size]
         end
