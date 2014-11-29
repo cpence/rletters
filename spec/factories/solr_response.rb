@@ -286,8 +286,8 @@ FactoryGirl.define do
            "year:[1960 TO 1969]"=>0,
            "year:[1970 TO 1979]"=>0,
            "year:[1980 TO 1989]"=>0,
-           "year:[1990 TO 1999]"=>0,
-           "year:[2000 TO 2009]"=>0,
+           "year:[1990 TO 1999]"=>1,
+           "year:[2000 TO 2009]"=>1,
            "year:[2010 TO *]"=>1},
          "facet_fields"=>
           {"authors_facet"=>["A. One", 1, "B. Two", 1],

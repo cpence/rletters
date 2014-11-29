@@ -1,11 +1,12 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
-require 'support/doubles/rsolr_facets'
 
 RSpec.describe RLetters::Solr::Facets do
   before(:example) do
-    @facets = described_class.new(double_rsolr_facets,
-                                  double_rsolr_facet_queries)
+    solr_response = build(:solr_response).response
+    rsolr = RSolr::Ext::Response::Base.new(solr_response, 'search', nil)
+
+    @facets = described_class.new(rsolr.facets, rsolr.facet_queries)
   end
 
   describe '#for_field' do
@@ -38,9 +39,9 @@ RSpec.describe RLetters::Solr::Facets do
     end
 
     it 'parses year facet queries correctly' do
-      f = @facets.for_field(:year).find { |o| o.value == '[2000 TO 2009]' }
+      f = @facets.for_field(:year).find { |o| o.value == '[2010 TO *]' }
       expect(f).to be
-      expect(f.hits).to eq(10)
+      expect(f.hits).to eq(1)
     end
 
     it 'does not include year facet queries for non-present years' do
@@ -51,13 +52,14 @@ RSpec.describe RLetters::Solr::Facets do
 
   describe '#sorted_for_field' do
     it 'sorts them appropriately when asked' do
-      expect(@facets.sorted_for_field(:year).first.value).to eq('[1990 TO 1999]')
+      expect(@facets.sorted_for_field(:year).first.value).to eq('[2010 TO *]')
+      expect(@facets.sorted_for_field(:year).last.value).to eq('[1990 TO 1999]')
     end
   end
 
   describe '#for_query' do
     it 'can pick out facets by query' do
-      expect(@facets.for_query('year:[2000 TO 2009]')).to be
+      expect(@facets.for_query('year:[2010 TO *]')).to be
       expect(@facets.for_query('authors_facet:"B. Two"')).to be
     end
   end
