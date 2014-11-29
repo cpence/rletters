@@ -1,6 +1,5 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
-require 'support/doubles/document_basic'
 require 'nokogiri'
 
 RSpec.describe RLetters::Documents::Serializers::MODS do
@@ -12,7 +11,7 @@ RSpec.describe RLetters::Documents::Serializers::MODS do
 
   context 'when serializing a single document' do
     before(:example) do
-      @doc = double_document_basic
+      @doc = build(:full_document)
       @xml = Nokogiri::XML::Document.parse(described_class.new(@doc).serialize)
     end
 
@@ -38,8 +37,8 @@ RSpec.describe RLetters::Documents::Serializers::MODS do
 
   context 'when serializing an array of documents' do
     before(:example) do
-      doc = double_document_basic
-      doc2 = double_document_basic(uid: 'somethingelse')
+      doc = build(:full_document)
+      doc2 = build(:full_document, uid: 'doi:10.2345/6789')
 
       @docs = [doc, doc2]
       @xml = Nokogiri::XML::Document.parse(described_class.new(@docs).serialize)

@@ -1,12 +1,11 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
-require 'support/doubles/document_basic'
 
 RSpec.describe RLetters::Documents::Serializers::MARCRecord do
 
   context 'when serializing a single document' do
     before(:example) do
-      @doc = double_document_basic
+      @doc = build(:full_document)
       @record = described_class.new(@doc).serialize
     end
 
@@ -87,7 +86,7 @@ RSpec.describe RLetters::Documents::Serializers::MARCRecord do
 
   context 'when serializing a document with no year' do
     before(:example) do
-      @doc = double_document_basic(year: nil)
+      @doc = build(:full_document, year: nil)
       @record = described_class.new(@doc).serialize
     end
 

@@ -1,11 +1,10 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
-require 'support/doubles/document_basic'
 
 RSpec.describe RLetters::Documents::AsOpenURL do
   context 'when getting OpenURL link for a single document' do
     before(:example) do
-      @doc = double_document_basic
+      @doc = build(:full_document)
       @params = described_class.new(@doc).params
     end
 

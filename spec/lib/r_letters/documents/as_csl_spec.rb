@@ -1,10 +1,9 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
-require 'support/doubles/document_basic'
 
 RSpec.describe RLetters::Documents::AsCSL do
   before(:example) do
-    @doc = double_document_basic
+    @doc = build(:full_document)
     @as_csl = described_class.new(@doc)
   end
 

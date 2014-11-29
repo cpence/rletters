@@ -1,12 +1,11 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
-require 'support/doubles/document_basic'
 
 RSpec.describe RLetters::Documents::Serializers::BibTex do
 
   context 'when serializing a single document' do
     before(:example) do
-      @doc = double_document_basic
+      @doc = build(:full_document)
       @str = described_class.new(@doc).serialize
     end
 
@@ -25,7 +24,7 @@ RSpec.describe RLetters::Documents::Serializers::BibTex do
 
   context 'when serializing an array of documents' do
     before(:example) do
-      doc = double_document_basic
+      doc = build(:full_document)
       @docs = [doc, doc]
       @str = described_class.new(@docs).serialize
     end
@@ -38,7 +37,7 @@ RSpec.describe RLetters::Documents::Serializers::BibTex do
 
   context 'when serializing an anonymous document' do
     before(:example) do
-      @doc = double_document_basic(authors: [])
+      @doc = build(:full_document, authors: nil)
       @str = described_class.new(@doc).serialize
     end
 

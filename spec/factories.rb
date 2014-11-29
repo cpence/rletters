@@ -13,7 +13,7 @@ WORKING_UIDS = [
                 'doi:10.1111/j.1439-0310.2007.01421.x'.freeze
                ].freeze
 
-CSL_DATA = File.read(Rails.root.join('spec', 'support', 'factories', 'nature.csl'))
+CSL_DATA = File.read(Rails.root.join('spec', 'factories', 'nature.csl'))
 
 FactoryGirl.define do
 
@@ -84,46 +84,6 @@ FactoryGirl.define do
     dataset
   end
 
-  factory :document do
-    transient do
-      uid 'doi:10.1234/this.is.a.doi'
-      doi nil
-      license nil
-      license_url nil
-      authors nil
-      title nil
-      journal nil
-      year nil
-      volume nil
-      number nil
-      pages nil
-      fulltext nil
-    end
-
-    factory :full_document do
-      transient do
-        uid 'doi:10.1111/j.1439-0310.2008.01576.x'
-        doi '10.1111/j.1439-0310.2008.01576.x'
-        license '© Blackwell Verlag GmbH'
-        license_url 'http://onlinelibrary.wiley.com/journal/10.1111/(ISSN)1439-0310/homepage/Permissions.html'
-        authors 'Carlos A. Botero, Andrew E. Mudge, Amanda M. Koltz, Wesley M. Hochachka, Sandra L. Vehrencamp'
-        title 'How Reliable are the Methods for Estimating Repertoire Size?'
-        journal 'Ethology'
-        year '2008'
-        volume '114'
-        pages '1227-1238'
-        fulltext 'Ethology How Reliable are the Methods for Estimating Repertoire Size?'
-      end
-    end
-
-    initialize_with do
-      Document.new(uid: uid, doi: doi, license: license,
-                   license_url: license_url, authors: authors, title: title,
-                   journal: journal, year: year, volume: volume,
-                   number: number, pages: pages, fulltext: fulltext)
-    end
-  end
-
   factory :download do
     filename 'test.txt'
     analysis_task
@@ -142,7 +102,7 @@ FactoryGirl.define do
 
   factory :uploaded_asset, class: Admin::UploadedAsset do
     name 'test_asset'
-    file { File.new(Rails.root.join('spec', 'support', 'factories', '1x1.png')) }
+    file { File.new(Rails.root.join('spec', 'factories', '1x1.png')) }
   end
 
   factory :stop_list, class: Documents::StopList do

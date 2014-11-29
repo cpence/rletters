@@ -4,6 +4,7 @@ require 'spec_helper'
 RSpec.describe RLetters::Documents::WordList do
   before(:example) do
     @doc = build(:full_document)
+    allow(Document).to receive(:find_by!).and_return(@doc)
   end
 
   context 'with 1-grams' do
@@ -13,11 +14,13 @@ RSpec.describe RLetters::Documents::WordList do
     end
 
     it 'provides the words in order' do
-      expect(@list.take(6)).to eq(['ethology', 'how', 'reliable', 'are', 'the', 'methods'])
+      expect(@list.take(5)).to eq(['lorem', 'ipsum', 'dolor', 'sit', 'amet'])
     end
 
     it 'gets the corpus dfs' do
-      expect(@stemmer.corpus_dfs['ethology']).to eq(579)
+      # All of these are 1 in our fixture, as they were generated in a single
+      # document Solr server.
+      expect(@stemmer.corpus_dfs['lorem']).to eq(1)
     end
   end
 
@@ -28,8 +31,8 @@ RSpec.describe RLetters::Documents::WordList do
     end
 
     it 'provides a list of two-grams' do
-      expect(@list.first).to eq('ethology how')
-      expect(@list.second).to eq('how reliable')
+      expect(@list.first).to eq('lorem ipsum')
+      expect(@list.second).to eq('ipsum dolor')
     end
 
     it 'does not make any non-2-grams' do
@@ -46,38 +49,30 @@ RSpec.describe RLetters::Documents::WordList do
     end
 
     it 'calls #stem on each word' do
-      expect(@list).to include('etholog')
-      expect(@list).to include('method')
+      expect(@list).to include('exercit')
     end
 
     it 'calls #stem on the corpus dfs' do
-      expect(@stemmer.corpus_dfs['etholog']).to be
-      expect(@stemmer.corpus_dfs['method']).to be
+      expect(@stemmer.corpus_dfs['exercit']).to be
     end
   end
 
-  # FIXME: fix the double for this
-    # context 'with lemmatization' do
-    #   before(:each) do
-    #     stub_stanford_nlp_lemmatizer
-    #     @stemmer = described_class.new(stemming: :lemma)
-    #     @list = @stemmer.words_for(@doc.uid)
-    #   end
+  context 'with lemmatization' do
+    before(:each) do
+      @stemmer = described_class.new(stemming: :lemma)
+      words = build(:lemmatizer).words
+      expect(@stemmer).to receive(:get_lemmatized_words).and_return(words)
 
-    #   it 'calls the lemmatizer' do
-    #     expect(@list).to include('be')
-    #   end
+      @list = @stemmer.words_for(@doc.uid)
+    end
 
-    #   it 'does not leave un-lemmatized words' do
-    #     expect(@list).not_to include('was')
-    #   end
+    it 'calls the lemmatizer' do
+      expect(@list).to include('varem')
+      expect(@list).to include('opsom')
+    end
 
-    #   it 'calls the lemmatizer when setting the corpus dfs' do
-    #     # Patch into the mocked lemmatizer and make sure it gets called
-    #     expect(StanfordCoreNLP::Annotation).to receive(:new).with('it').and_call_original
-    #     expect(StanfordCoreNLP::Annotation).to receive(:new).at_least(1).times.and_call_original
-
-    #     @stemmer.corpus_dfs
-    #   end
-    # end
+    it 'does not leave un-lemmatized words' do
+      expect(@list).not_to include('lorem')
+    end
+  end
 end
