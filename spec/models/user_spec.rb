@@ -8,7 +8,7 @@ RSpec.describe User, type: :model do
   describe '#valid' do
     context 'when no name is specified' do
       before(:example) do
-        @user = build(:user, name: nil)
+        @user = build_stubbed(:user, name: nil)
       end
 
       it 'is not valid' do
@@ -18,7 +18,7 @@ RSpec.describe User, type: :model do
 
     context 'when no email is specified' do
       before(:example) do
-        @user = build(:user, email: nil)
+        @user = build_stubbed(:user, email: nil)
       end
 
       it 'is not valid' do
@@ -29,7 +29,7 @@ RSpec.describe User, type: :model do
     context 'when a duplicate email is specified' do
       before(:example) do
         @dupe = create(:user)
-        @user = build(:user, email: @dupe.email)
+        @user = build_stubbed(:user, email: @dupe.email)
       end
 
       it 'is not valid' do
@@ -39,7 +39,7 @@ RSpec.describe User, type: :model do
 
     context 'when a bad email is specified' do
       before(:example) do
-        @user = build(:user, email: 'asdf-not-an-email.com')
+        @user = build_stubbed(:user, email: 'asdf-not-an-email.com')
       end
 
       it 'is not valid' do
@@ -49,7 +49,7 @@ RSpec.describe User, type: :model do
 
     context 'when a non-numeric per_page is specified' do
       before(:example) do
-        @user = build(:user, per_page: 'asdfasdf')
+        @user = build_stubbed(:user, per_page: 'asdfasdf')
       end
 
       it 'is not valid' do
@@ -59,7 +59,7 @@ RSpec.describe User, type: :model do
 
     context 'when a non-integer per_page is specified' do
       before(:example) do
-        @user = build(:user, per_page: 3.14159)
+        @user = build_stubbed(:user, per_page: 3.14159)
       end
 
       it 'is not valid' do
@@ -69,7 +69,7 @@ RSpec.describe User, type: :model do
 
     context 'when a negative per_page is specified' do
       before(:example) do
-        @user = build(:user, per_page: -20)
+        @user = build_stubbed(:user, per_page: -20)
       end
 
       it 'is not valid' do
@@ -79,7 +79,7 @@ RSpec.describe User, type: :model do
 
     context 'when per_page is zero' do
       before(:example) do
-        @user = build(:user, per_page: 0)
+        @user = build_stubbed(:user, per_page: 0)
       end
 
       it 'is not valid' do
@@ -89,7 +89,7 @@ RSpec.describe User, type: :model do
 
     context 'when language is invalid' do
       before(:example) do
-        @user = build(:user, language: 'notalocaleCODE123')
+        @user = build_stubbed(:user, language: 'notalocaleCODE123')
       end
 
       it 'is not valid' do

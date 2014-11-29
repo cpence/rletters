@@ -146,9 +146,7 @@ RSpec.describe DatasetsController, type: :controller do
 
     context 'with clear_failed' do
       before(:example) do
-        task = build(:analysis_task, dataset: @dataset)
-        task.failed = true
-        expect(task.save).to be true
+        task = create(:analysis_task, dataset: @dataset, failed: true)
 
         get :show, id: @dataset.to_param, clear_failed: true
       end

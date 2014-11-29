@@ -6,7 +6,7 @@ RSpec.describe Datasets::Entry, type: :model do
   describe '#valid?' do
     context 'when no uid is specified' do
       before(:example) do
-        @entry = build(:entry, uid: nil)
+        @entry = build_stubbed(:entry, uid: nil)
       end
 
       it 'is not valid' do

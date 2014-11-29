@@ -6,7 +6,7 @@ RSpec.describe Admin::MarkdownPage, type: :model do
   describe '#valid?' do
     context 'when no name spcified' do
       before(:example) do
-        @page = build(:markdown_page, name: nil)
+        @page = build_stubbed(:markdown_page, name: nil)
       end
 
       it 'is not valid' do
@@ -16,7 +16,7 @@ RSpec.describe Admin::MarkdownPage, type: :model do
 
     context 'when all parameters are valid' do
       before(:example) do
-        @page = build(:markdown_page)
+        @page = build_stubbed(:markdown_page)
       end
 
       it 'is valid' do

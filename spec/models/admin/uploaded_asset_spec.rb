@@ -6,7 +6,7 @@ RSpec.describe Admin::UploadedAsset, type: :model do
   describe '#valid?' do
     context 'when no name spcified' do
       before(:example) do
-        @asset = build(:uploaded_asset, name: nil)
+        @asset = build_stubbed(:uploaded_asset, name: nil)
       end
 
       it 'is not valid' do
@@ -16,7 +16,7 @@ RSpec.describe Admin::UploadedAsset, type: :model do
 
     context 'when all parameters are valid' do
       before(:example) do
-        @asset = build(:uploaded_asset)
+        @asset = build_stubbed(:uploaded_asset)
       end
 
       it 'is valid' do

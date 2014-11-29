@@ -6,7 +6,7 @@ RSpec.describe Users::Library, type: :model do
   describe '#valid?' do
     context 'when no name spcified' do
       before(:example) do
-        @library = build(:library, name: nil)
+        @library = build_stubbed(:library, name: nil)
       end
 
       it 'is not valid' do
@@ -16,7 +16,7 @@ RSpec.describe Users::Library, type: :model do
 
     context 'when no user specified' do
       before(:example) do
-        @library = build(:library, user: nil)
+        @library = build_stubbed(:library, user: nil)
       end
 
       it 'is not valid' do
@@ -26,7 +26,7 @@ RSpec.describe Users::Library, type: :model do
 
     context 'when no URL specified' do
       before(:example) do
-        @library = build(:library, url: nil)
+        @library = build_stubbed(:library, url: nil)
       end
 
       it 'is not valid' do
@@ -78,7 +78,7 @@ RSpec.describe Users::Library, type: :model do
 
     context 'when given a URL with a bad protocol' do
       before(:example) do
-        @library = build(:library, url: 'file:///usr/share/pwned')
+        @library = build_stubbed(:library, url: 'file:///usr/share/pwned')
       end
 
       it 'is not valid' do

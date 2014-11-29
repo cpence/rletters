@@ -6,7 +6,7 @@ RSpec.describe Dataset, type: :model do
   describe '#valid?' do
     context 'when name is not specified' do
       before(:example) do
-        @dataset = build(:dataset, name: nil)
+        @dataset = build_stubbed(:dataset, name: nil)
       end
 
       it 'is not valid' do
@@ -16,7 +16,7 @@ RSpec.describe Dataset, type: :model do
 
     context 'when user is not specified' do
       before(:example) do
-        @dataset = build(:dataset, user: nil)
+        @dataset = build_stubbed(:dataset, user: nil)
       end
 
       it 'is not valid' do

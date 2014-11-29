@@ -6,7 +6,7 @@ RSpec.describe Datasets::AnalysisTask, type: :model do
   describe '#valid?' do
     context 'when no name is specified' do
       before(:example) do
-        @task = build(:analysis_task, name: nil)
+        @task = build_stubbed(:analysis_task, name: nil)
       end
 
       it 'is not valid' do
@@ -16,7 +16,7 @@ RSpec.describe Datasets::AnalysisTask, type: :model do
 
     context 'when no dataset is specified' do
       before(:example) do
-        @task = build(:analysis_task, dataset: nil)
+        @task = build_stubbed(:analysis_task, dataset: nil)
       end
 
       it 'is not valid' do
@@ -26,7 +26,7 @@ RSpec.describe Datasets::AnalysisTask, type: :model do
 
     context 'when no type is specified' do
       before(:example) do
-        @task = build(:analysis_task, job_type: nil)
+        @task = build_stubbed(:analysis_task, job_type: nil)
       end
 
       it 'is not valid' do
