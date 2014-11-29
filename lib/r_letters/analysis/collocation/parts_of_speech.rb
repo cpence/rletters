@@ -44,7 +44,9 @@ module RLetters
           # accuracy.
           enum = RLetters::Datasets::DocumentEnumerator.new(@dataset,
                                                             fulltext: true)
-          ret = enum.each_with_index.each_with_object({}) { |(doc, i), result|
+
+          @result = {}
+          enum.each_with_index do |doc, i|
             @progress.call((i.to_f / total.to_f * 100.0).to_i) if @progress
 
             yml = Cheetah.run(Admin::Setting.nlp_tool_path, '-p',
@@ -52,38 +54,12 @@ module RLetters
                               stdout: :capture)
             tagged = YAML.load(yml)
 
-            tagged.each_cons(2).map do |t|
-              if @word
-                next unless t.any? { |w| w.start_with?("#{@word}_") }
-              end
-
-              bigram = t.join(' ')
-              if POS_BI_REGEXES.any? { |r| bigram =~ r }
-                stripped = bigram.gsub(/_(JJ[^\s]?|NN[^\s]{0,2}|IN)(\s+|\Z)/, '\2')
-
-                result[stripped] ||= 0
-                result[stripped] += 1
-              end
-            end
-
-            tagged.each_cons(3).map do |t|
-              if @word
-                next unless t.any? { |w| w.start_with?("#{@word}_") }
-              end
-
-              trigram = t.join(' ')
-              if POS_TRI_REGEXES.any? { |r| trigram =~ r }
-                stripped = trigram.gsub(/_(JJ[^\s]?|NN[^\s]{0,2}|IN)(\s+|\Z)/, '\2')
-
-                result[stripped] ||= 0
-                result[stripped] += 1
-              end
-            end
-          }.sort { |a, b| b[1] <=> a[1] }.take(@num_pairs)
+            search_for_regexes(tagged, 2, POS_BI_REGEXES)
+            search_for_regexes(tagged, 3, POS_TRI_REGEXES)
+          end
 
           @progress.call(100) if @progress
-
-          ret
+          @result.sort { |a, b| b[1] <=> a[1] }.take(@num_pairs)
         end
 
         private
@@ -102,6 +78,33 @@ module RLetters
           /[^\s]+_NN[^\s]{0,2}\s+[^\s]+_NN[^\s]{0,2}\s+[^\s]+_NN[^\s]{0,2}/, # NOUN NOUN NOUN
           /[^\s]+_NN[^\s]{0,2}\s+[^\s]+_IN\s+[^\s]+_NN[^\s]{0,2}/ # NOUN PREP NOUN
         ]
+
+        # Search for regexes of a given number of words
+        #
+        # This function detects collocations which match the given array of
+        # regular expressions, and saves the results in the +@result+ hash.
+        #
+        # @param [Array<String>] tagged The words, tagged by the NLP parts of
+        #   speech tagger
+        # @param [Integer] size The size of n-grams to be detected by these
+        #   regular expressions
+        # @param [Array<Regexp>] regexes The array of regexes to match
+        # @return [undefined]
+        def search_for_regexes(tagged_words, size, regexes)
+          tagged_words.each_cons(size).map do |t|
+            if @word
+              next unless t.any? { |w| w.start_with?("#{@word}_") }
+            end
+
+            gram = t.join(' ')
+            if regexes.any? { |r| gram =~ r }
+              stripped = gram.gsub(/_(JJ[^\s]?|NN[^\s]{0,2}|IN)(\s+|\Z)/, '\2')
+
+              @result[stripped] ||= 0
+              @result[stripped] += 1
+            end
+          end
+        end
 
         # :nocov:
       end
