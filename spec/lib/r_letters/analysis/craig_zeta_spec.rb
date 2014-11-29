@@ -11,6 +11,7 @@ RSpec.describe RLetters::Analysis::CraigZeta do
     @dataset_2 = create(:full_dataset, entries_count: 5, working: true,
                                        user: @user, name: 'Second Dataset')
     @analyzer = described_class.new(@dataset_1, @dataset_2)
+    @analyzer.call
   end
 
   describe '#zeta_scores' do
@@ -72,13 +73,14 @@ RSpec.describe RLetters::Analysis::CraigZeta do
       called_sub_100 = false
       called_100 = false
 
-      described_class.new(@dataset_1, @dataset_2, ->(p) {
+      analyzer = described_class.new(@dataset_1, @dataset_2, ->(p) {
         if p < 100
           called_sub_100 = true
         else
           called_100 = true
         end
       })
+      analyzer.call
 
       expect(called_sub_100).to be true
       expect(called_100).to be true

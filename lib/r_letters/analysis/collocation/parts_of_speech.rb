@@ -47,7 +47,7 @@ module RLetters
 
           @result = {}
           enum.each_with_index do |doc, i|
-            @progress.call((i.to_f / total.to_f * 100.0).to_i) if @progress
+            @progress && @progress.call((i.to_f / total.to_f * 100.0).to_i)
 
             yml = Cheetah.run(Admin::Setting.nlp_tool_path, '-p',
                               stdin: doc.fulltext.mb_chars.downcase.to_s,
@@ -58,7 +58,8 @@ module RLetters
             search_for_regexes(tagged, 3, POS_TRI_REGEXES)
           end
 
-          @progress.call(100) if @progress
+          @progress && @progress.call(100)
+
           @result.sort { |a, b| b[1] <=> a[1] }.take(@num_pairs)
         end
 

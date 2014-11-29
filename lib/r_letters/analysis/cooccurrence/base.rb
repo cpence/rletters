@@ -60,20 +60,14 @@ module RLetters
 
           analyzer = RLetters::Analysis::Frequency::FromPosition.new(
             ss,
-            ->(p) {
-              if @progress
-                @progress.call((p.to_f / 100.0 * 33.0).to_i)
-              end
-            })
+            ->(p) { @progress && @progress.call((p.to_f / 100.0 * 33.0).to_i) })
 
           # Combine all the block hashes, summing the values
           total = analyzer.blocks.size.to_f
 
           base_frequencies = {}
           analyzer.blocks.each_with_index do |b, i|
-            if @progress
-              @progress.call((i.to_f / total * 16.0).to_i + 33)
-            end
+            @progress && @progress.call((i.to_f / total * 16.0).to_i + 33)
 
             b.keys.each do |k|
               base_frequencies[k] ||= 0
@@ -84,9 +78,7 @@ module RLetters
           # Get the frequencies of cooccurrence with the word in question
           joint_frequencies = {}
           analyzer.blocks.each_with_index do |b, i|
-            if @progress
-              @progress.call((i.to_f / total * 17.0).to_i + 49)
-            end
+            @progress && @progress.call((i.to_f / total * 17.0).to_i + 49)
 
             next unless b[@word] && b[@word] > 0
 

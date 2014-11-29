@@ -38,6 +38,7 @@ module Jobs
         analyzer = RLetters::Analysis::NamedEntities.new(
           @dataset,
           ->(p) { at(p, 100, t('.progress_finding')) })
+        analyzer.call
 
         # Write it out
         at(100, 100, t('common.progress_finished'))

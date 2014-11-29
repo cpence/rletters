@@ -26,14 +26,26 @@ module RLetters
       # @param [Proc] progress If set, a function to call with a percentage of
       #   completion (one Integer parameter)
       def initialize(dataset, progress = nil)
+        @dataset = dataset
+        @progress = progress
+      end
+
+      # Perform the NER analysis
+      #
+      # This function fills out the +entity_references+ attribute.
+      #
+      # @api public
+      # @return [undefined]
+      def call
         return if Admin::Setting.nlp_tool_path.blank?
 
-        total = dataset.entries.size
+        total = @dataset.entries.size
         text_cache = ""
 
-        enum = RLetters::Datasets::DocumentEnumerator.new(dataset, fulltext: true)
+        enum = RLetters::Datasets::DocumentEnumerator.new(@dataset,
+                                                          fulltext: true)
         enum.each_with_index do |doc, i|
-          progress.call((i.to_f / total.to_f * 50.0).to_i) if progress
+          @progress && @progress.call((i.to_f / total.to_f * 50.0).to_i)
 
           text_cache += doc.fulltext
         end
@@ -42,7 +54,7 @@ module RLetters
                           stdin: text_cache, stdout: :capture)
         @entity_references = YAML.load(yml)
 
-        progress.call(100) if progress
+        @progress && @progress.call(100)
       end
     end
   end

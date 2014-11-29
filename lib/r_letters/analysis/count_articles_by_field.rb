@@ -52,10 +52,10 @@ module RLetters
           ret[key] ||= 0
           ret[key] += 1
 
-          @progress.call((i.to_f / total.to_f * 100.0).to_i) if @progress
+          @progress && @progress.call((i.to_f / total.to_f * 100.0).to_i)
         end
 
-        @progress.call(100) if @progress
+        @progress && @progress.call(100)
 
         ret
       end
@@ -116,7 +116,7 @@ module RLetters
           start = start + 100
         end
 
-        @progress.call(100) if @progress
+        @progress && @progress.call(100)
 
         ret
       end

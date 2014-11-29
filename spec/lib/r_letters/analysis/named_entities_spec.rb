@@ -7,6 +7,7 @@ RSpec.describe RLetters::Analysis::NamedEntities do
   #   before(:each) do
   #     @dataset = stub_stanford_ner_classifier
   #     @analyzer = described_class.new(@dataset)
+  #     @analyzer.call
   #   end
 
   #   it 'works as expected' do

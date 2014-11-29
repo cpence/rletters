@@ -42,6 +42,7 @@ module Jobs
         analyzer = RLetters::Analysis::CraigZeta.new(
           @dataset, dataset_2,
           -> (p) { at(p, 100, t('.progress_computing')) })
+        analyzer.call
 
         # Save out all the data
         at(100, 100, t('common.progress_finished'))

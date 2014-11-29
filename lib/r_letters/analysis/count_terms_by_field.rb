@@ -68,10 +68,10 @@ module RLetters
           ret[key] ||= []
           ret[key] << doc.uid
 
-          @progress.call((i.to_f / total.to_f * 50.0).to_i) if @progress
+          @progress && @progress.call((i.to_f / total.to_f * 50.0).to_i)
         end
 
-        @progress.call(50) if @progress
+        @progress && @progress.call(50)
 
         ret
       end
@@ -154,7 +154,7 @@ module RLetters
           end
         end
 
-        @progress.call(50) if @progress
+        @progress && @progress.call(50)
 
         ret
       end
@@ -198,10 +198,10 @@ module RLetters
             ret[key] += vec[:tf] if vec
           end
 
-          @progress.call(50 + (i.to_f / total.to_f * 50.0).to_i) if @progress
+          @progress && @progress.call(50 + (i.to_f / total.to_f * 50.0).to_i)
         end
 
-        @progress.call(100) if @progress
+        @progress && @progress.call(100)
 
         ret
       end

@@ -44,11 +44,7 @@ module RLetters
           # The onegram analyzer can use TFs
           onegram_analyzer = RLetters::Analysis::Frequency::FromTF.new(
             @dataset,
-            ->(p) {
-              if @progress
-                @progress.call((p.to_f / 100.0 * 33.0).to_i)
-              end
-            })
+            ->(p) { @progress && @progress.call((p.to_f / 100.0 * 33.0).to_i) })
 
           # The bigrams should only include the focal word, if the user has
           # restricted the analysis
@@ -60,11 +56,7 @@ module RLetters
           ss = RLetters::Datasets::Segments.new(@dataset, ds, split_across: true)
           bigram_analyzer = RLetters::Analysis::Frequency::FromPosition.new(
             ss,
-            ->(p) {
-              if @progress
-                @progress.call((p.to_f / 100.0 * 33.0).to_i + 33)
-              end
-            },
+            ->(p) { @progress && @progress.call((p.to_f / 100.0 * 33.0).to_i + 33) },
             bigram_opts)
 
           [onegram_analyzer, bigram_analyzer]

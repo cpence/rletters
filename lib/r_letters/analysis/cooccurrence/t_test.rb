@@ -39,13 +39,13 @@ module RLetters
           # Notably, if the requested word doesn't appear anywhere at all, we
           # should just quit while we're ahead
           if f_a == 0
-            @progress.call(100) if @progress
+            @progress && @progress.call(100)
 
             return []
           end
 
           ret = base_frequencies.each_with_index.map { |(word_2, f_b), i|
-            @progress.call((i.to_f / total.to_f * 33.0).to_i + 66) if @progress
+            @progress && @progress.call((i.to_f / total.to_f * 33.0).to_i + 66)
             next if word_2 == @word
 
             f_ab = joint_frequencies[word_2].to_f
@@ -57,7 +57,7 @@ module RLetters
             [@word + ' ' + word_2, p]
           }.compact.sort { |a, b| a[1] <=> b[1] }.take(@num_pairs)
 
-          @progress.call(100) if @progress
+          @progress && @progress.call(100)
 
           ret
         end

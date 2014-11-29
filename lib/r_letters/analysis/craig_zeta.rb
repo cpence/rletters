@@ -39,7 +39,15 @@ module RLetters
         @dataset_1 = dataset_1
         @dataset_2 = dataset_2
         @progress = progress
+      end
 
+      # Perform the Craig Zeta marker word analysis
+      #
+      # All results are returned in the member attributes.
+      #
+      # @api public
+      # @return undefined
+      def call
         create_analyzers
         get_block_counts
         get_zeta_scores
@@ -68,19 +76,13 @@ module RLetters
                                                split_across: true)
         @analyzer_1 = RLetters::Analysis::Frequency::FromPosition.new(
           ss1,
-          ->(p) {
-            if @progress
-              @progress.call((p.to_f * 25.0).to_i)
-            end })
+          ->(p) { @progress && @progress.call((p.to_f * 25.0).to_i) })
 
         ss2 = RLetters::Datasets::Segments.new(@dataset_2, ds,
                                                split_across: true)
         @analyzer_2 = RLetters::Analysis::Frequency::FromPosition.new(
           ss2,
-          ->(p) {
-            if @progress
-              @progress.call((p.to_f * 25.0).to_i + 25)
-            end })
+          ->(p) { @progress && @progress.call((p.to_f * 25.0).to_i + 25) })
       end
 
       # Convert from word blocks to counts of blocks
@@ -91,9 +93,7 @@ module RLetters
       # @api private
       # @return [undefined]
       def get_block_counts
-        if @progress
-          @progress.call(50)
-        end
+        @progress && @progress.call(50)
 
         # Convert to numbers of blocks in which each word appears
         @block_counts = {}
@@ -127,9 +127,7 @@ module RLetters
         zeta_hash = {}
         total = @block_counts.size
         @block_counts.each_with_index do |(word, v), i|
-          if @progress
-            @progress.call(50 + (i.to_f / total.to_f * 25.0).to_i)
-          end
+          @progress && @progress.call(50 + (i.to_f / total.to_f * 25.0).to_i)
 
           a_count = @analyzer_1.blocks.map { |b| b[word] ? 1 : 0 }.reduce(:+)
           not_b_count = @analyzer_2.blocks.map { |b| b[word] ? 0 : 1 }.reduce(:+)
@@ -140,9 +138,7 @@ module RLetters
           zeta_hash[word] = a_frac + not_b_frac
         end
 
-        if @progress
-          @progress.call(75)
-        end
+        @progress && @progress.call(75)
 
         # Sort
         @zeta_scores = zeta_hash.to_a.sort { |a, b| b[1] <=> a[1] }
@@ -164,9 +160,7 @@ module RLetters
       # @api private
       # @return [undefined]
       def get_graph_points
-        if @progress
-          @progress.call(80)
-        end
+        @progress && @progress.call(80)
 
         @graph_points = []
         total = (@analyzer_1.blocks.size + @analyzer_2.blocks.size).to_f

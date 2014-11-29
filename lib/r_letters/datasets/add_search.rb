@@ -57,7 +57,7 @@ module RLetters
 
         # Call the progress function
         @total ||= result.num_hits
-        @progress.call((@start.to_f / @total.to_f * 100).to_i) if @progress
+        @progress && @progress.call((@start.to_f / @total.to_f * 100).to_i)
 
         # Import the dataset entries (quickly)
         ::Datasets::Entry.import([:uid, :dataset_id],
