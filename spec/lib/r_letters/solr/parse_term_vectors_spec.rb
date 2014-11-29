@@ -1,17 +1,19 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
-require 'support/doubles/term_vector_solr_array'
-require 'support/doubles/term_vector_hash'
 
 RSpec.describe RLetters::Solr::ParseTermVectors do
   before(:example) do
-    @array = term_vector_solr_array
-    @parser = described_class.new(@array)
+    solr_result = build(:solr_response).response
+    array = solr_result['termVectors']
+
+    @parser = described_class.new(array)
     @result = @parser.for_document('doi:10.1234/5678')
+
+    @doc = build(:full_document)
   end
 
   it 'parses as expected' do
-    expect(@result).to eq(term_vector_hash)
+    expect(@result.deep_stringify_keys).to eq(@doc.term_vectors.deep_stringify_keys)
   end
 
   it 'returns an empty hash for missing documents' do
