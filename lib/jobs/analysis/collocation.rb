@@ -1,10 +1,9 @@
 # -*- encoding : utf-8 -*-
-require 'csv'
 
 module Jobs
   module Analysis
     # Determine statistically significant collocations in text
-    class Collocation < Jobs::Analysis::Base
+    class Collocation < Jobs::Analysis::CSVJob
       # Locate significant associations between words.
       #
       # This saves its data out as a CSV file to be downloaded by the user
@@ -75,26 +74,12 @@ module Jobs
 
         # Save out all the data
         at(100, 100, t('common.progress_finished'))
-        csv_string = CSV.generate do |csv|
-          csv << [t('.header', name: @dataset.name)]
-          csv << [t('.subheader', test: algorithm)]
-          csv << ['']
-
+        write_csv(nil, t('.subheader', test: algorithm)) do |csv|
           csv << [t('.pair'), column]
           grams.each do |w, v|
             csv << [w, v]
           end
-
-          csv << ['']
         end
-
-        # Write it out
-        ios = StringIO.new(csv_string)
-        file = Paperclip.io_adapters.for(ios)
-        file.original_filename = 'collocation.csv'
-        file.content_type = 'text/csv'
-
-        @task.result = file
 
         # We're done here
         @task.finish!

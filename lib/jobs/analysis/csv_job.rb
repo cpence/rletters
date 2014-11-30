@@ -1,0 +1,49 @@
+# -*- encoding : utf-8 -*-
+require 'csv'
+
+module Jobs
+  module Analysis
+    # Base code for all jobs that write code out to CSV
+    class CSVJob < Jobs::Analysis::Base
+      protected
+
+      # Write out the results of a job as a CSV file
+      #
+      # This function writes a CSV header, yields out to a block to write the
+      # data, and then saves the file. The two parameters let you override the
+      # default header and subheader.
+      #
+      # @api public
+      # @param [String] header The header to write. If not specified, defaults
+      #   to +t('.header', name: @dataset.name)+.
+      # @param [String] subheader The subheader to write. If not specified,
+      #   defaults to +t('.subheader')+.
+      # @return [undefined]
+      # @yield [csv] Yields a +CSV+ object to the block, for writing out
+      #   the data
+      # @yieldparam [CSV] csv The object to write data into
+      # @yieldreturn [undefined] Unused
+      def write_csv(header = nil, subheader = nil)
+        # Generate the base CSV
+        csv_string = CSV.generate do |csv|
+          csv << [header || t('.header', name: @dataset.name)]
+          csv << [subheader || t('.subheader')]
+          csv << ['']
+
+          yield(csv)
+
+          # Always end CSVs with a blank row
+          csv << ['']
+        end
+
+        # Write out the CSV to a file
+        ios = StringIO.new(csv_string)
+        file = Paperclip.io_adapters.for(ios)
+        file.original_filename = 'results.csv'
+        file.content_type = 'text/csv'
+
+        @task.result = file
+      end
+    end
+  end
+end

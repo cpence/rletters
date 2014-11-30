@@ -59,6 +59,7 @@ RSpec.describe RLetters::Documents::WordList do
 
   context 'with lemmatization' do
     before(:each) do
+      @old_path = Admin::Setting.nlp_tool_path
       Admin::Setting.nlp_tool_path = 'stubbed'
 
       @stemmer = described_class.new(stemming: :lemma)
@@ -69,7 +70,7 @@ RSpec.describe RLetters::Documents::WordList do
     end
 
     after(:each) do
-      Admin::Setting.nlp_tool_path = nil
+      Admin::Setting.nlp_tool_path = @old_path
     end
 
     it 'calls the lemmatizer' do

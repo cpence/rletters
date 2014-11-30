@@ -123,6 +123,7 @@ module Jobs
                                              '*.rb')]
         classes = analysis_files.map do |f|
           next if File.basename(f) == 'base.rb'
+          next if File.basename(f) == 'csv_job.rb'
 
           # This will raise a NameError if the class doesn't exist, but we want
           # that, because that means there's a file in lib/jobs/analysis that

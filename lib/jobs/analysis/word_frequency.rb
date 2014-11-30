@@ -1,10 +1,9 @@
 # -*- encoding : utf-8 -*-
-require 'csv'
 
 module Jobs
   module Analysis
     # Produce a parallel word frequency list for a dataset
-    class WordFrequency < Jobs::Analysis::Base
+    class WordFrequency < Jobs::Analysis::CSVJob
       add_concern 'ComputeWordFrequencies'
 
       # Export the word frequency data.
@@ -44,10 +43,7 @@ module Jobs
 
         # Create some CSV
         at(100, 100, t('common.progress_finished'))
-        csv_string = CSV.generate do |csv|
-          csv << [t('.csv_header', name: @dataset.name)]
-          csv << ['']
-
+        write_csv(t('.csv_header', name: @dataset.name), '') do |csv|
           # Output the block data
           if analyzer.blocks.size > 1
             csv << [t('.each_block')]
@@ -128,16 +124,7 @@ module Jobs
           csv << [t('.tokens_header'), analyzer.num_dataset_tokens.to_s]
           csv << [t('.ttr_header'), (analyzer.num_dataset_types.to_f /
                                      analyzer.num_dataset_tokens).to_s]
-          csv << ['']
         end
-
-        # Write it out
-        ios = StringIO.new(csv_string)
-        file = Paperclip.io_adapters.for(ios)
-        file.original_filename = 'word_frequency.csv'
-        file.content_type = 'text/csv'
-
-        @task.result = file
 
         # We're done here
         @task.finish!
