@@ -52,24 +52,27 @@ $(document).ready(function() {
 });
 
 function hideAndDisable(selector) {
-  $(selector).hide();
-  $(selector + ' input').prop('disabled', true);
-  $(selector + ' select').prop('disabled', true);
-  $(selector + ' textarea').prop('disabled', true);
+  $(selector).hide().addClass('disabled');
+  $(selector + ' div').addClass('disabled');
+  $(selector + ' input').prop('disabled', true).addClass('disabled');
+  $(selector + ' select').prop('disabled', true).addClass('disabled');
+  $(selector + ' textarea').prop('disabled', true).addClass('disabled');
 }
 
 function showAndEnable(selector) {
-  $(selector).show();
-  $(selector + ' input').prop('disabled', false);
-  $(selector + ' select').prop('disabled', false);
-  $(selector + ' textarea').prop('disabled', false);
+  $(selector).show().removeClass('disabled');
+  $(selector + ' div').removeClass('disabled');
+  $(selector + ' input').prop('disabled', false).removeClass('disabled');
+  $(selector + ' select').prop('disabled', false).removeClass('disabled');
+  $(selector + ' textarea').prop('disabled', false).removeClass('disabled') ;
 }
 
 function toggleVisAndDisabled(selector) {
   $(selector).toggle();
 
   var visible = $(selector).is(':visible');
-  $(selector + ' input').prop('disabled', !visible);
-  $(selector + ' select').prop('disabled', !visible);
-  $(selector + ' textarea').prop('disabled', !visible);
+  $(selector + ' div').toggleClass('disabled', !visible);
+  $(selector + ' input').prop('disabled', !visible).toggleClass('disabled', !visible);
+  $(selector + ' select').prop('disabled', !visible).toggleClass('disabled', !visible);
+  $(selector + ' textarea').prop('disabled', !visible).toggleClass('disabled', !visible);
 }
