@@ -18,6 +18,8 @@ module Jobs
       #   analyze the significance of coocurrences.  Can be `'mi'` (for mutual
       #   information), or `'t'` (for t-test).
       # @option options [String] :num_pairs number of coccurrences to return
+      # @option options [String] :stemming the stemming method to use. Can be
+      #   +:stem+, +:lemma+, or +:no+.
       # @option options [String] :window the window for searching for
       #   cooccurrences
       # @option options [String] :word the word to search for cooccurrences
@@ -40,9 +42,8 @@ module Jobs
         num_pairs = (options[:num_pairs] || 50).to_i
         word = options[:word].mb_chars.downcase.to_s
         window = (options[:window] || 200).to_i
-        stem = nil
-        stem = options[:stem].to_sym if options[:stem]
-        stem = nil if stem == :no
+        stemming = options[:stemming].to_sym if options[:stemming]
+        stemming = nil if stemming == :no
 
         case analysis_type
         when :mi
@@ -62,7 +63,7 @@ module Jobs
           num_pairs,
           word,
           window,
-          stem,
+          stemming,
           ->(p) { at(p, 100, t('.progress_computing')) }
         )
         grams = analyzer.call

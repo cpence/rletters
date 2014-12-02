@@ -13,6 +13,7 @@
 *   Fix a bug that shows the wrong status message when starting an analysis job.
 *   Change the way in which RLetters communicates with the Stanford NLP Java package, increasing reliability of parts-of-speech tagging, lemmatization, and named entity extraction.
 *   Fix a bug preventing the "normalize" mode from being activated in ArticleDates.
+*   Fix a bug preventing stemming from being activated in the WordFrequencyAnalyzer.
 *   Fix a bug in facet display code that could cause the facet display to cut off early.
 *   UI refresh/rewrite to increase stability and reduce development time.
 *   Update Rails, which fixes four potential DoS vulnerabilities.
