@@ -22,15 +22,28 @@ module RLetters
         # @param [Integer] window the window size to use for analysis
         #   The default size of 200 approximates "paragraph-level" cooccurrence
         #   analysis.
+        # @param [Symbol] stemming the stemming method to use; can be +nil+ for
+        #   no stemming, +:stem+ for basic Porter stemming, or +:lemma+ for
+        #   full lemmatization
         # @param [Proc] progress If set, a function to call with a percentage
         #   of completion (one Integer parameter)
-        def initialize(dataset, num_pairs, word, window = 200,
+        def initialize(dataset, num_pairs, word, window = 200, stemming = nil,
                        progress = nil)
           @dataset = dataset
           @num_pairs = num_pairs
           @word = word.mb_chars.downcase.to_s
           @window = window.to_i
+          @stemming = stemming
           @progress = progress
+
+          # Lemmatize or stem the target word
+          if @stemming == :lemma && Admin::Setting.nlp_tool_path.present?
+            yml = Cheetah.run(Admin::Setting.nlp_tool_path, '-l',
+                              stdin: @word, stdout: :capture)
+            @word = YAML.load(yml)[0]
+          elsif @stemming == :stem
+            @word = @word.stem
+          end
         end
 
         protected
@@ -51,7 +64,8 @@ module RLetters
         #   which every word *and* the word at issue both appear (the
         #   +joint_frequencies+). Lastly, the number of bins (+n+).
         def get_frequencies
-          ds = RLetters::Documents::Segments.new(nil,
+          wl = RLetters::Documents::WordList.new(stemming: @stemming)
+          ds = RLetters::Documents::Segments.new(wl,
                                                  block_size: @window,
                                                  last_block: :small_last)
           ss = RLetters::Datasets::Segments.new(@dataset,

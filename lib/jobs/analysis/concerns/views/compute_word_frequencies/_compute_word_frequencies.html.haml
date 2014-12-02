@@ -15,7 +15,7 @@
   = f.input :exclusion_list, label: t('jobs.concerns.compute_word_frequencies.exclusion_list'), as: :text, required: false, disabled: true
 #inclusion_list_controls{ style: 'display: none;' }
   = f.input :inclusion_list, label: t('jobs.concerns.compute_word_frequencies.inclusion_list'), as: :text, required: false, disabled: true
-= f.input :stem, label: t('jobs.concerns.compute_word_frequencies.stem_method'), collection: [[t('simple_form.no'), :no], [t('jobs.concerns.compute_word_frequencies.stemming'), :stem], [t('jobs.concerns.compute_word_frequencies.lemmatization'), :lemma]], include_blank: false
+= f.input :stem, label: t('common.stemming.label'), collection: [[t('simple_form.no'), :no], [t('common.stemming.stem'), :stem], [t('common.stemming.lemma'), :lemma]], include_blank: false
 = f.input :block_method, label: t('jobs.concerns.compute_word_frequencies.block_method'), collection: [[:count, t('jobs.concerns.compute_word_frequencies.num_words_split')], [:blocks, t('jobs.concerns.compute_word_frequencies.num_blocks_split')]], value_method: :first, label_method: :last, include_blank: false
 #count_controls
   = f.input :block_size, label: t('jobs.concerns.compute_word_frequencies.block_size'), as: :integer, required: false, input_html: { value: 250 }

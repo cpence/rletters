@@ -4,6 +4,10 @@ en:
         download_csv: Download in CSV format
         progress_initializing: "Initializing..."
         progress_finished: "Finished, generating output..."
+        stemming:
+            label: Stem words?
+            stem: Basic stemming (fast)
+            lemma: "Lemmatization (more accurate, slow)"
     ink_email:
         visit: "Visit %{app_name}:"
         contact: "Contact Us:"
@@ -258,9 +262,6 @@ en:
                 stop_language: Language of text (for stop word list)
                 exclusion_list: Words to exclude (space-separated)
                 inclusion_list: Words to analyze (space-separated)
-                stem_method: Stem words?
-                stemming: Basic stemming (fast)
-                lemmatization: "Lemmatization (more accurate, slow)"
                 block_method: Text block method
                 num_words_split: By number of words
                 num_blocks_split: By number of blocks

@@ -40,6 +40,9 @@ module Jobs
         num_pairs = (options[:num_pairs] || 50).to_i
         word = options[:word].mb_chars.downcase.to_s
         window = (options[:window] || 200).to_i
+        stem = nil
+        stem = options[:stem].to_sym if options[:stem]
+        stem = nil if stem == :no
 
         case analysis_type
         when :mi
@@ -59,6 +62,7 @@ module Jobs
           num_pairs,
           word,
           window,
+          stem,
           ->(p) { at(p, 100, t('.progress_computing')) }
         )
         grams = analyzer.call
