@@ -25,7 +25,7 @@ RSpec.shared_examples_for 'a cooccurrence analyzer' do
       called_sub_100 = false
       called_100 = false
 
-      grams = described_class.new(@dataset, 10, 'the', 250, ->(p) {
+      grams = described_class.new(@dataset, 10, 'the', 250, nil, ->(p) {
         if p < 100
           called_sub_100 = true
         else
