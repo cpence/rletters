@@ -6,7 +6,7 @@
 module Jobs
   module Analysis
     # Extract proper noun named entities from documents
-    class NamedEntities < Jobs::Analysis::Base
+    class NamedEntities < Jobs::Analysis::CSVJob
       include Resque::Plugins::Status
 
       # Returns true if this job can be started now
@@ -40,9 +40,21 @@ module Jobs
           ->(p) { at(p, 100, t('.progress_finding')) })
         analyzer.call
 
+        csv = write_csv(nil, '') do |csv|
+          csv << [ t('.type_column'), t('.hit_column') ]
+          analyzer.entity_references.each do |category, list|
+            list.each do |hit|
+              csv << [ category, hit ]
+            end
+          end
+        end
+
+        output = { data: analyzer.entity_references,
+                   csv: csv }
+
         # Write it out
         at(100, 100, t('common.progress_finished'))
-        ios = StringIO.new(analyzer.entity_references.to_json)
+        ios = StringIO.new(output.to_json)
         file = Paperclip.io_adapters.for(ios)
         file.original_filename = 'named_entites.json'
         file.content_type = 'application/json'

@@ -1,7 +1,2 @@
-- require 'csv'
 - data = JSON.load(@task.result.file_contents(:original))
-!= CSV.generate do |csv|
-  - csv << [ t('jobs.analysis.named_entities.type_column'), t('jobs.analysis.named_entities.hit_column') ]
-  - data.each do |category, list|
-    - list.each do |hit|
-      - csv << [ category, hit ]
+= data['csv']

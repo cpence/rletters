@@ -3,7 +3,7 @@
 module Jobs
   module Analysis
     # Plot occurrences of a term in a dataset by year
-    class TermDates < Jobs::Analysis::Base
+    class TermDates < Jobs::Analysis::CSVJob
       # Export the date format data
       #
       # Like all view/multiexport jobs, this job saves its data out as a JSON
@@ -44,8 +44,15 @@ module Jobs
           dates.assoc(y) || [ y, 0 ]
         end
 
+        csv = write_csv(nil, t('.subheader', term: term)) do |csv|
+          csv << [ Document.human_attribute_name(:year), t('.number_column') ]
+          dates.each do |d|
+            csv << d
+          end
+        end
+
         # Save out the data
-        output = { data: dates, term: term }
+        output = { data: dates, term: term, csv: csv }
 
         # Serialize out to JSON
         ios = StringIO.new(output.to_json)

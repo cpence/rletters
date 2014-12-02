@@ -74,7 +74,7 @@ module Jobs
 
         # Save out all the data
         at(100, 100, t('common.progress_finished'))
-        write_csv(nil, t('.subheader', test: algorithm)) do |csv|
+        write_csv_and_save(nil, t('.subheader', test: algorithm)) do |csv|
           csv << [t('.pair'), column]
           grams.each do |w, v|
             csv << [w, v]

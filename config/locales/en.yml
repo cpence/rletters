@@ -285,6 +285,7 @@ en:
                     When were a given set of articles published?
                 fraction_subheader: "Fraction of documents in %{normalization_set} found in the %{name} dataset, plotted by year"
                 number_subheader: "Number of documents, plotted by year"
+                header: "Article dates analysis for %{name}"
                 fraction_column: Fraction of Documents
                 percent_column: Percentage of Documents
                 number_column: Number of Documents
@@ -383,6 +384,7 @@ en:
                 location_map: Locations (Map)
                 location_category: Locations (List)
                 other_category: Other
+                header: "Named entity analysis for %{name}"
                 type_column: Type
                 hit_column: Hit
                 progress_finding: "Finding named entities..."
@@ -406,6 +408,7 @@ en:
 
                     When was a word used within a particular dataset?
                 word: Focal word
+                header: "Term frequency date analysis for %{name}"
                 subheader: "Occurrences of %{term}, plotted by year"
                 number_column: Occurrences of Word
                 progress_computing: "Querying term frequency counts..."

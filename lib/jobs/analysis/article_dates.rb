@@ -3,7 +3,7 @@
 module Jobs
   module Analysis
     # Plot a dataset's members by year
-    class ArticleDates < Jobs::Analysis::Base
+    class ArticleDates < Jobs::Analysis::CSVJob
       add_concern 'NormalizeDocumentCounts'
 
       # Export the date format data
@@ -59,10 +59,19 @@ module Jobs
           end
         end
 
+        csv = write_csv(nil, '') do |csv|
+          csv << [ Document.human_attribute_name(:year),
+                   options[:normalize_doc_counts] == '1' ?
+                     t('.fraction_column') : t('.number_column') ]
+          dates.each do |d|
+            csv << d
+          end
+        end
+
         output = { data: dates,
+                   csv: csv,
                    percent: (options[:normalize_doc_counts] == '1'),
-                   normalization_set: norm_set_name
-                 }
+                   normalization_set: norm_set_name }
 
         # Serialize out to JSON
         ios = StringIO.new(output.to_json)

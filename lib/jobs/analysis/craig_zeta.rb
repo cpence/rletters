@@ -3,7 +3,7 @@
 module Jobs
   module Analysis
     # Compare two datasets using the Craig Zeta algorithm
-    class CraigZeta < Jobs::Analysis::Base
+    class CraigZeta < Jobs::Analysis::CSVJob
       # Return how many datasets this job requires
       #
       # @return [Integer] number of datasets needed to perform this job
@@ -44,6 +44,33 @@ module Jobs
         analyzer.call
 
         # Save out all the data
+        csv = write_csv(t('.csv_header', name_1: @dataset.name,
+                                         name_2: dataset_2.name), '') do |csv|
+          # Output the marker words
+          csv << [t('.marker_header', name: @dataset.name),
+                  t('.marker_header', name: dataset_2.name)]
+
+          analyzer.dataset_1_markers.each_with_index do |w, i|
+            csv << [w, analyzer.dataset_2_markers.at(i)]
+          end
+
+          csv << [''] << ['']
+
+          # Output the graphing points
+          csv << [t('.graph_header')]
+          csv << ['']
+          csv << [t('.marker_column', name: @dataset.name),
+                  t('.marker_column', name: dataset_2.name),
+                  t('.block_name_column')]
+          analyzer.graph_points.each { |l| csv << l }
+
+          csv << [''] << ['']
+
+          # Output the Zeta scores
+          csv << [t('.zeta_score_header')]
+          analyzer.zeta_scores.each { |(w, s)| csv << [w, s] }
+        end
+
         at(100, 100, t('common.progress_finished'))
         data = {}
         data[:name_1] = @dataset.name
@@ -52,6 +79,7 @@ module Jobs
         data[:markers_2] = analyzer.dataset_2_markers
         data[:graph_points] = analyzer.graph_points
         data[:zeta_scores] = analyzer.zeta_scores
+        data[:csv] = csv
 
         # Write it out
         ios = StringIO.new(data.to_json)

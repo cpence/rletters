@@ -43,7 +43,7 @@ module Jobs
 
         # Create some CSV
         at(100, 100, t('common.progress_finished'))
-        write_csv(t('.csv_header', name: @dataset.name), '') do |csv|
+        write_csv_and_save(t('.csv_header', name: @dataset.name), '') do |csv|
           # Output the block data
           if analyzer.blocks.size > 1
             csv << [t('.each_block')]

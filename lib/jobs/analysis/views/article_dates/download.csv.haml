@@ -1,8 +1,2 @@
-- require 'csv'
 - data = JSON.load(@task.result.file_contents(:original))
-- dates = data['data']
-- percent = data['percent']
-!= CSV.generate do |csv|
-  - csv << [ Document.human_attribute_name(:year), percent ? t('jobs.analysis.article_dates.fraction_column') : t('jobs.analysis.article_dates.number_column') ]
-  - dates.each do |d|
-    - csv << d
+= data['csv']
