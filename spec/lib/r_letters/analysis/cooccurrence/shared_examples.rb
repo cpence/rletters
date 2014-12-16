@@ -1,22 +1,48 @@
 # -*- encoding : utf-8 -*-
 
 RSpec.shared_examples_for 'a cooccurrence analyzer' do
-  before(:context) do
+  before(:each) do
     @user = create(:user)
     @dataset = create(:full_dataset, entries_count: 10, working: true,
                                      user: @user)
-    @grams = described_class.new(@dataset, 10, 'the').call
   end
 
-  it 'returns the correct number of grams' do
-    expect(@grams.size).to eq(10)
+  describe 'single word analysis' do
+    before(:each) do
+      @grams = described_class.new(@dataset, 10, 'the').call
+    end
+
+    it 'returns the correct number of grams' do
+      expect(@grams.size).to eq(10)
+    end
+
+    it 'returns reasonable values for the weights' do
+      @grams.each do |g|
+        expect(g[1]).to be_a(Numeric)
+        expect(g[1]).to be > 0 if g[1].is_a?(Integer)
+        expect(g[1]).to be_finite if g[1].is_a?(Float)
+      end
+    end
   end
 
-  it 'returns reasonable values for the weights' do
-    @grams.each do |g|
-      expect(g[1]).to be_a(Numeric)
-      expect(g[1]).to be > 0 if g[1].is_a?(Integer)
-      expect(g[1]).to be_finite if g[1].is_a?(Float)
+  describe 'multiple word analysis' do
+    before(:each) do
+      @user = create(:user)
+      @dataset = create(:full_dataset, entries_count: 10, working: true,
+                                       user: @user)
+      @grams = described_class.new(@dataset, 10, 'the, relation, neurobiology').call
+    end
+
+    it 'returns the correct number of grams' do
+      expect(@grams.size).to eq(3)
+    end
+
+    it 'returns reasonable values for the weights' do
+      @grams.each do |g|
+        expect(g[1]).to be_a(Numeric)
+        expect(g[1]).to be > 0 if g[1].is_a?(Integer)
+        expect(g[1]).to be_finite if g[1].is_a?(Float)
+      end
     end
   end
 
@@ -38,7 +64,7 @@ RSpec.shared_examples_for 'a cooccurrence analyzer' do
     end
   end
 
-  context 'with an uppercase word' do
+  context 'with a single uppercase word' do
     it 'still works' do
       grams = described_class.new(@dataset, 10, 'THE').call
       expect(grams[0][0].split).to include('the')

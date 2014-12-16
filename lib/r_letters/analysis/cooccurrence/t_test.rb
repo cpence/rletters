@@ -5,7 +5,9 @@ module RLetters
     module Cooccurrence
       # Analyze cooccurrences using T tests as the significance measure
       class TTest < Base
-        # Perform T-test analysis
+        private
+
+        # Compute t-test score
         #
         # To turn frequencies and counts into p values:
         #
@@ -21,45 +23,19 @@ module RLetters
         # p = 1 - Distribution::T.cdf(t, N-1)
         # ```
         #
-        # @api public
-        # @return [Array<Array(String, Float)>] a set of words and their
-        #   associated significance values, sorted in order of significance
-        #   (most significant first)
-        # @example Run a t-test analysis of a dataset
-        #   an = RLetters::Analysis::Cooccurrence::TTest.new(
-        #     d, 30, 'evolutionary')
-        #   result = an.call
-        def call
-          base_frequencies, joint_frequencies, n = get_frequencies
-          total = base_frequencies.size
+        # @api private
+        # @return [Float] the score for this pair
+        # @param [Float] f_a the frequency of word A's appearance in blocks
+        # @param [Float] f_b the frequency of word B's appearance in blocks
+        # @param [Float] f_ab the frequency of joint appearance of A and B in
+        #   blocks
+        # @param [Float] n the number of blocks
+        def score(f_a, f_b, f_ab, n)
+          h_0 = (f_a / n) * (f_b / n)
+          t = ((f_ab / n) - h_0) / Math.sqrt((h_0 * (1.0 - h_0)) / n)
+          p = 1.0 - Distribution::T.cdf(t, n - 1)
 
-          n = n.to_f
-          f_a = base_frequencies[@word].to_f
-
-          # Notably, if the requested word doesn't appear anywhere at all, we
-          # should just quit while we're ahead
-          if f_a == 0
-            @progress && @progress.call(100)
-
-            return []
-          end
-
-          ret = base_frequencies.each_with_index.map { |(word_2, f_b), i|
-            @progress && @progress.call((i.to_f / total.to_f * 33.0).to_i + 66)
-            next if word_2 == @word
-
-            f_ab = joint_frequencies[word_2].to_f
-
-            h_0 = (f_a / n) * (f_b.to_f / n)
-            t = ((f_ab / n) - h_0) / Math.sqrt((h_0 * (1.0 - h_0)) / n)
-            p = 1.0 - Distribution::T.cdf(t, n - 1)
-
-            [@word + ' ' + word_2, p]
-          }.compact.sort { |a, b| a[1] <=> b[1] }.take(@num_pairs)
-
-          @progress && @progress.call(100)
-
-          ret
+          p
         end
       end
     end
