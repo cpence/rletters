@@ -175,9 +175,18 @@ module RLetters
 
               next unless b[word] && b[word] > 0
 
-              b.keys.each do |k|
-                joint_frequencies[word][k] ||= 0
-                joint_frequencies[word][k] += 1
+              if word_2_array.empty?
+                b.keys.each do |k|
+                  joint_frequencies[word][k] ||= 0
+                  joint_frequencies[word][k] += 1
+                end
+              else
+                word_2_array.each do |w|
+                  if b.keys.include?(w)
+                    joint_frequencies[word][w] ||= 0
+                    joint_frequencies[word][w] += 1
+                  end
+                end
               end
             end
           end
