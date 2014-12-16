@@ -3,13 +3,12 @@
 RSpec.shared_examples_for 'a cooccurrence analyzer' do
   before(:each) do
     @user = create(:user)
-    @dataset = create(:full_dataset, entries_count: 10, working: true,
-                                     user: @user)
+    @dataset = create(:full_dataset, stub: true, english: true, user: @user)
   end
 
   describe 'single word analysis' do
     before(:each) do
-      @grams = described_class.new(@dataset, 10, 'the').call
+      @grams = described_class.new(@dataset, 10, 'the', 6).call
     end
 
     it 'returns the correct number of grams' do
@@ -30,7 +29,7 @@ RSpec.shared_examples_for 'a cooccurrence analyzer' do
       @user = create(:user)
       @dataset = create(:full_dataset, entries_count: 10, working: true,
                                        user: @user)
-      @grams = described_class.new(@dataset, 10, 'the, relation, neurobiology').call
+      @grams = described_class.new(@dataset, 10, 'it, was, the', 6).call
     end
 
     it 'returns the correct number of grams' do
@@ -51,7 +50,7 @@ RSpec.shared_examples_for 'a cooccurrence analyzer' do
       called_sub_100 = false
       called_100 = false
 
-      grams = described_class.new(@dataset, 10, 'the', 250, nil, ->(p) {
+      grams = described_class.new(@dataset, 10, 'the', 6, nil, ->(p) {
         if p < 100
           called_sub_100 = true
         else
@@ -66,7 +65,7 @@ RSpec.shared_examples_for 'a cooccurrence analyzer' do
 
   context 'with a single uppercase word' do
     it 'still works' do
-      grams = described_class.new(@dataset, 10, 'THE').call
+      grams = described_class.new(@dataset, 10, 'THE', 6).call
       expect(grams[0][0].split).to include('the')
     end
   end
