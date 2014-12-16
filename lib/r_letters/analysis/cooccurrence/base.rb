@@ -37,19 +37,12 @@ module RLetters
           @stemming = stemming
           @progress = progress
 
+          # Split into an array if required
           @words = words.mb_chars.downcase.to_s
           if @words.include?(',')
             @words = @words.split.map { |w| w.gsub(',', '').strip }
-            @num_pairs = nil
-
-            @pairs = {}
-            combos = @words.combination(2).to_a
-            combos.group_by(&:first).each { |k, v| @pairs[k] = v.map(&:last) }
           else
-            # Just one word, use the most frequent num_pairs
             @words = [@words]
-            @num_pairs = num_pairs
-            @pairs = { @words[0] => [] }
           end
 
           # Lemmatize or stem the target words
@@ -59,6 +52,19 @@ module RLetters
             @words = YAML.load(yml)
           elsif @stemming == :stem
             @words = @words.map! { |w| w.stem }
+          end
+
+          if @words.size > 1
+            # Don't go by count, take all the pairs
+            @num_pairs = nil
+
+            @pairs = {}
+            combos = @words.combination(2).to_a
+            combos.group_by(&:first).each { |k, v| @pairs[k] = v.map(&:last) }
+          else
+            # Just one word, use the most frequent num_pairs
+            @num_pairs = num_pairs
+            @pairs = { @words[0] => [] }
           end
         end
 
@@ -206,7 +212,7 @@ module RLetters
         # @param [Float] f_ab the frequency of joint appearance of A and B in
         #   blocks
         # @param [Float] n the number of blocks
-        def compute_score(f_a, f_b, f_ab, n)
+        def score(f_a, f_b, f_ab, n)
           fail NotImplementedError
         end
       end
