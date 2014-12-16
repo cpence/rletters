@@ -31,8 +31,6 @@ module RLetters
         # @example Run a parts-of-speecgh analysis of a dataset
         #   an = RLetters::Analysis::Collocation::PartsOfSpeech.new(d, 30)
         #   result = an.call
-        #
-        # :nocov:
         def call
           if Admin::Setting.nlp_tool_path.blank?
             fail ArgumentError, 'NLP tool not available'
@@ -49,10 +47,7 @@ module RLetters
           enum.each_with_index do |doc, i|
             @progress && @progress.call((i.to_f / total.to_f * 100.0).to_i)
 
-            yml = Cheetah.run(Admin::Setting.nlp_tool_path, '-p',
-                              stdin: doc.fulltext.mb_chars.downcase.to_s,
-                              stdout: :capture)
-            tagged = YAML.load(yml)
+            tagged = tagged_words_for(doc)
 
             search_for_regexes(tagged, 2, POS_BI_REGEXES)
             search_for_regexes(tagged, 3, POS_TRI_REGEXES)
@@ -107,7 +102,18 @@ module RLetters
           end
         end
 
-        # :nocov:
+        # Get the output from the NLP tool for parts of speech
+        #
+        # We put this in a separate function call so that we can stub it out
+        # during testing.
+        #
+        # @param [Document] doc The document whose text we want to retrieve
+        def tagged_words_for(doc)
+          yml = Cheetah.run(Admin::Setting.nlp_tool_path, '-p',
+                  stdin: doc.fulltext.mb_chars.downcase.to_s,
+                  stdout: :capture)
+          YAML.load(yml)
+        end
       end
     end
   end

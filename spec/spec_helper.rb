@@ -94,3 +94,5 @@ RSpec.configure do |config|
   config.include ParseJson, type: :request
   config.include StubConnection
 end
+
+FactoryGirl::SyntaxRunner.include(RSpec::Mocks::ExampleMethods)

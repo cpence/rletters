@@ -1,14 +1,13 @@
 # -*- encoding : utf-8 -*-
 
 RSpec.shared_examples_for 'a collocation analyzer' do
-  before(:context) do
+  before(:each) do
     @user = create(:user)
-    @dataset = create(:full_dataset, entries_count: 10, working: true,
-                                     user: @user)
+    @dataset = create(:full_dataset, stub: true, english: true)
   end
 
   context 'without a focal word' do
-    before(:context) do
+    before(:each) do
       @grams = described_class.new(@dataset, 10).call
     end
 
@@ -26,8 +25,8 @@ RSpec.shared_examples_for 'a collocation analyzer' do
   end
 
   context 'with a focal word' do
-    before(:context) do
-      @grams = described_class.new(@dataset, 10, 'university').call
+    before(:each) do
+      @grams = described_class.new(@dataset, 10, 'period').call
     end
 
     it 'returns some grams' do
@@ -36,7 +35,7 @@ RSpec.shared_examples_for 'a collocation analyzer' do
 
     it 'only returns grams containing the focal word' do
       @grams.each do |g|
-        expect(g[0].split).to include('university')
+        expect(g[0].split).to include('period')
       end
     end
 
@@ -69,8 +68,8 @@ RSpec.shared_examples_for 'a collocation analyzer' do
 
   context 'with an uppercase focal word' do
     it 'still works' do
-      grams = described_class.new(@dataset, 10, 'UNIVERSITY').call
-      expect(grams[0][0].split).to include('university')
+      grams = described_class.new(@dataset, 10, 'PERIOD').call
+      expect(grams[0][0].split).to include('period')
     end
   end
 end
