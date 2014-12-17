@@ -6,7 +6,10 @@ module RLetters
       # Analyze collocations using mutual information as the significance
       # measure
       class MutualInformation < Base
-        # Perform mutual information analysis
+        private
+
+        # A method to compute the score for this pair on the basis of the
+        # individual and joint frequencies.
         #
         # The formula for the mutual information present in a given collocation
         # pair is:
@@ -16,37 +19,29 @@ module RLetters
         # (with N the number of single-word tokens)
         # ```
         #
-        # @api public
-        # @return [Array<Array(String, Float)>] a set of words and their
-        #   associated significance values, sorted in order of significance
-        #   (most significant first)
-        # @example Run a log-likelihood analysis of a dataset
-        #   an = RLetters::Analysis::Collocation::MutualInformation.new(d, 30)
-        #   result = an.call
-        def call
-          analyzers = get_analyzers
+        # @api private
+        # @return [Float] the score for this pair
+        # @param [Float] f_a the frequency of word A's appearance in blocks
+        # @param [Float] f_b the frequency of word B's appearance in blocks
+        # @param [Float] f_ab the frequency of joint appearance of A and B in
+        #   blocks
+        # @param [Float] n the number of blocks
+        def score(f_a, f_b, f_ab, n)
+          l = (f_ab * n) / (f_a * f_b)
+          l = Math.log(l) unless l.abs < 0.001
 
-          word_f = analyzers[0].blocks[0]
-          bigram_f = analyzers[1].blocks[0]
-          total = bigram_f.size
+          l
+        end
 
-          n = analyzers[0].num_dataset_tokens.to_f
-          n_2 = n * n
-
-          ret = bigram_f.each_with_index.map { |b, i|
-            @progress && @progress.call((i.to_f / total.to_f * 33.0).to_i + 66)
-
-            bigram_words = b[0].split
-            l = (b[1].to_f / n) /
-                (word_f[bigram_words[0]].to_f * word_f[bigram_words[1]].to_f / n_2)
-            l = Math.log(l) unless l.abs < 0.001
-
-            [b[0], l]
-          }.sort { |a, b| b[1] <=> a[1] }.take(@num_pairs)
-
-          @progress && @progress.call(100)
-
-          ret
+        # Sort results by the score
+        #
+        # Higher mutual information scores indicate more significant grams.
+        #
+        # @api private
+        # @param [Array<Array<(String, Float)>>] grams grams in unsorted order
+        # @return [Array<Array<(String, Float)>>] grams in sorted order
+        def sort_results(grams)
+          grams.sort { |a, b| b[1] <=> a[1] }
         end
       end
     end

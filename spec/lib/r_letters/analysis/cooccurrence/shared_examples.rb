@@ -54,10 +54,17 @@ RSpec.shared_examples_for 'a cooccurrence analyzer' do
 
   describe 'lemmatization' do
     before(:each) do
+      @old_path = Admin::Setting.nlp_tool_path
+      Admin::Setting.nlp_tool_path = 'stubbed'
+
       expect(RLetters::Analysis::NLP).to receive(:lemmatize_words).with(['the']).and_return(['was'])
       allow(RLetters::Analysis::NLP).to receive(:lemmatize_words) { |array| array }
 
       @grams = described_class.new(@dataset, 10, 'the', 6, :lemma).call
+    end
+
+    after(:each) do
+      Admin::Setting.nlp_tool_path = @old_path
     end
 
     it 'returns grams with the lemmatized words' do

@@ -28,6 +28,45 @@ module RLetters
           @progress = progress
         end
 
+        # Perform collocation analysis
+        #
+        # Don't call this on the base class, but on one of the child classes
+        # that implements a pair-scoring method.
+        #
+        # @api public
+        # @return [Array<Array(String, Float)>] a set of words and their
+        #   associated significance values, sorted in order of significance
+        #   (most significant first)
+        # @example Run a log-likelihood analysis of a dataset
+        #   an = RLetters::Analysis::Collocation::LogLikelihood.new(d, 30)
+        #   result = an.call
+        def call
+          analyzers = get_analyzers
+
+          word_f = analyzers[0].blocks[0]
+          bigram_f = analyzers[1].blocks[0]
+          total = bigram_f.size
+
+          n = analyzers[0].num_dataset_tokens.to_f
+
+          ret = bigram_f.each_with_index.map do |b, i|
+            @progress && @progress.call((i.to_f / total.to_f * 33.0).to_i + 66)
+
+            bigram_words = b[0].split
+            f_ab = b[1].to_f
+            f_a = word_f[bigram_words[0]].to_f
+            f_b = word_f[bigram_words[1]].to_f
+
+            [b[0], score(f_a, f_b, f_ab, n)]
+          end
+
+          ret = sort_results(ret).take(@num_pairs)
+
+          @progress && @progress.call(100)
+
+          ret
+        end
+
         protected
 
         # Return two analyzers for doing collocation analysis
@@ -60,6 +99,33 @@ module RLetters
             bigram_opts)
 
           [onegram_analyzer, bigram_analyzer]
+        end
+
+        # A method to compute the score for this pair on the basis of the
+        # individual and joint frequencies.
+        #
+        # Not implemented in the base class.
+        #
+        # @api private
+        # @return [Float] the score for this pair
+        # @param [Float] f_a the frequency of word A's appearance in blocks
+        # @param [Float] f_b the frequency of word B's appearance in blocks
+        # @param [Float] f_ab the frequency of joint appearance of A and B in
+        #   blocks
+        # @param [Float] n the number of blocks
+        def score(f_a, f_b, f_ab, n)
+          fail NotImplementedError
+        end
+
+        # Sort results by the score
+        #
+        # Not implemented in the base class.
+        #
+        # @api private
+        # @param [Array<Array<(String, Float)>>] grams grams in unsorted order
+        # @return [Array<Array<(String, Float)>>] grams in sorted order
+        def sort_results(grams)
+          fail NotImplementedError
         end
       end
     end

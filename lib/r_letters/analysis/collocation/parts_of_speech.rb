@@ -7,6 +7,9 @@ module RLetters
       class PartsOfSpeech < Base
         # Perform parts-of-speech analysis
         #
+        # This analyzer overrides the call method, as its main loop is entirely
+        # different from that of the other collocation scanners.
+        #
         # We select the following patterns of parts of speech, when those
         # appear:
         #
@@ -19,10 +22,6 @@ module RLetters
         # - Noun Preposition Noun
         #
         # Then, we sort by frequency of occurrence and take the top matches.
-        #
-        # @note No test coverage here, as we don't install the Stanford
-        # NLP on Travis
-        #
         #
         # @api public
         # @return [Array<Array(String, Float)>] a set of words and their
@@ -47,7 +46,7 @@ module RLetters
           enum.each_with_index do |doc, i|
             @progress && @progress.call((i.to_f / total.to_f * 100.0).to_i)
 
-            tagged = tagged_words_for(doc)
+            tagged = NLP::parts_of_speech(doc.fulltext.mb_chars.downcase.to_s)
 
             search_for_regexes(tagged, 2, POS_BI_REGEXES)
             search_for_regexes(tagged, 3, POS_TRI_REGEXES)
@@ -100,19 +99,6 @@ module RLetters
               @result[stripped] += 1
             end
           end
-        end
-
-        # Get the output from the NLP tool for parts of speech
-        #
-        # We put this in a separate function call so that we can stub it out
-        # during testing.
-        #
-        # @param [Document] doc The document whose text we want to retrieve
-        def tagged_words_for(doc)
-          yml = Cheetah.run(Admin::Setting.nlp_tool_path, '-p',
-                  stdin: doc.fulltext.mb_chars.downcase.to_s,
-                  stdout: :capture)
-          YAML.load(yml)
         end
       end
     end
