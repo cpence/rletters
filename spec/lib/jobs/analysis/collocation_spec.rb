@@ -7,8 +7,7 @@ RSpec.describe Jobs::Analysis::Collocation do
 
   before(:example) do
     @user = create(:user)
-    @dataset = create(:full_dataset, entries_count: 10, working: true,
-                                     user: @user)
+    @dataset = create(:full_dataset, stub: true, english: true, user: @user)
     @task = create(:analysis_task, dataset: @dataset)
   end
 

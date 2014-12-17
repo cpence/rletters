@@ -4,13 +4,12 @@ require 'spec_helper'
 RSpec.describe Jobs::Analysis::Cooccurrence do
 
   it_should_behave_like 'an analysis job' do
-    let(:job_params) { { word: 'ethology' } }
+    let(:job_params) { { word: 'was', window: '6' } }
   end
 
-  before(:example) do
+  before(:each) do
     @user = create(:user)
-    @dataset = create(:full_dataset, entries_count: 10, working: true,
-                                     user: @user)
+    @dataset = create(:full_dataset, stub: true, english: true, user: @user)
     @task = create(:analysis_task, dataset: @dataset)
   end
 
@@ -28,7 +27,7 @@ RSpec.describe Jobs::Analysis::Cooccurrence do
 
   describe '.perform' do
     types = [:mi, :t, :likelihood]
-    words = ['ethology', 'ethology, university']
+    words = ['was', 'it, was']
 
     types.product(words).each do |(type, words)|
       it "runs with type '#{type}' and words '#{words}'" do
