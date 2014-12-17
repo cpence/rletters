@@ -46,10 +46,8 @@ module RLetters
           end
 
           # Lemmatize or stem the target words
-          if @stemming == :lemma && Admin::Setting.nlp_tool_path.present?
-            yml = Cheetah.run(Admin::Setting.nlp_tool_path, '-l',
-                              stdin: @words.join(' '), stdout: :capture)
-            @words = YAML.load(yml)
+          if @stemming == :lemma
+            @words = NLP.lemmatize_words(@words)
           elsif @stemming == :stem
             @words = @words.map! { |w| w.stem }
           end
@@ -116,7 +114,7 @@ module RLetters
 
           ret.compact!
           if @num_pairs
-            ret = ret.sort { |a, b| b[1] <=> a[1] }.take(@num_pairs)
+            ret = sort_results(ret).take(@num_pairs)
           end
 
           @progress && @progress.call(100)
@@ -213,6 +211,17 @@ module RLetters
         #   blocks
         # @param [Float] n the number of blocks
         def score(f_a, f_b, f_ab, n)
+          fail NotImplementedError
+        end
+
+        # Sort results by the score
+        #
+        # Not implemented in the base class.
+        #
+        # @api private
+        # @param [Array<Array<(String, Float)>>] grams grams in unsorted order
+        # @return [Array<Array<(String, Float)>>] grams in sorted order
+        def sort_results(grams)
           fail NotImplementedError
         end
       end

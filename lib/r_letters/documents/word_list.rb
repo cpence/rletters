@@ -102,9 +102,7 @@ module RLetters
         doc = Document.find(uid, fulltext: true, term_vectors: true)
         add_dfs(doc)
 
-        yml = Cheetah.run(Admin::Setting.nlp_tool_path, '-l',
-                          stdin: doc.fulltext, stdout: :capture)
-        YAML.load(yml)
+        Analysis::NLP.lemmatize_words(doc.fulltext.split)
       end
 
       # Add the DFs to our cache for this document
@@ -145,11 +143,7 @@ module RLetters
           # engine, but it's better than not trying anything at all
           {}.tap do |ret|
             @dfs.each do |k, v|
-              yml = Cheetah.run(Admin::Setting.nlp_tool_path, '-l',
-                  stdin: k, stdout: :capture)
-              result = YAML.load(yml)
-
-              lemma = result[0]
+              lemma = Analysis::NLP.lemmatize_words(k)[0]
 
               ret[lemma] ||= 0
               ret[lemma] += v

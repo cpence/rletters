@@ -31,6 +31,17 @@ module RLetters
 
           l
         end
+
+        # Sort results by the score
+        #
+        # High mutual information means a more significant gram.
+        #
+        # @api private
+        # @param [Array<Array<(String, Float)>>] grams grams in unsorted order
+        # @return [Array<Array<(String, Float)>>] grams in sorted order
+        def sort_results(grams)
+          grams.sort { |a, b| b[1] <=> a[1] }
+        end
       end
     end
   end

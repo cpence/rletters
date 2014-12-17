@@ -37,6 +37,17 @@ module RLetters
 
           p
         end
+
+        # Sort results by the score
+        #
+        # Lower p-values means a more significant gram.
+        #
+        # @api private
+        # @param [Array<Array<(String, Float)>>] grams grams in unsorted order
+        # @return [Array<Array<(String, Float)>>] grams in sorted order
+        def sort_results(grams)
+          grams.sort { |a, b| a[1] <=> b[1] }
+        end
       end
     end
   end
