@@ -20,7 +20,7 @@ ActiveAdmin.register Admin::UploadedAsset do
       row :friendly_name
       if asset.file_content_type.start_with? 'image/'
         row :preview do
-          image_tag asset.file
+          image_tag asset.file.url
         end
       end
       row :filename do

@@ -8,7 +8,7 @@ ActiveAdmin.setup do |config|
   config.logout_link_path = :destroy_administrator_session_path
 
   config.batch_actions = true
-  config.allow_comments = false
+  config.comments = false
 
   # Add a link to the job queue page from the ActiveAdmin menu
   config.namespace :admin do |admin|

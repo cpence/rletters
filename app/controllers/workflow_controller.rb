@@ -142,8 +142,7 @@ class WorkflowController < ApplicationController
   # @return [void]
   def image
     model = Admin::UploadedAsset.find(params[:id])
-    style = params[:style] ? params[:style] : 'original'
-    send_data model.file.file_contents(style),
+    send_data model.file.file_contents(:original),
               filename: model.file_file_name,
               content_type: model.file_content_type
   end

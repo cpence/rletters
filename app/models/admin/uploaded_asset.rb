@@ -18,7 +18,7 @@ class Admin::UploadedAsset < ActiveRecord::Base
   # Store these assets in the database
   has_attached_file :file,
                     database_table: 'admin_uploaded_asset_files',
-                    url: '/workflow/image/:id?style=:style'
+                    url: '/workflow/image/:id'
   validates_attachment :file,
                        content_type: { content_type: %w(image/png
                                                         image/jpeg

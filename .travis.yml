@@ -1,6 +1,7 @@
 language: ruby
 cache: bundler
-rvm: 2.1.1
+rvm: 2.1.5
+sudo: false
 
 env:
   - TASK='bundle exec rspec'
