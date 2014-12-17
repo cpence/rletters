@@ -27,18 +27,21 @@ RSpec.describe Jobs::Analysis::Cooccurrence do
   end
 
   describe '.perform' do
-    it 'accepts all the valid parameters' do
-      [:mi, :t].each do |p|
+    types = [:mi, :t, :likelihood]
+    words = ['ethology', 'ethology, university']
+
+    types.product(words).each do |(type, words)|
+      it "runs with type '#{type}' and words '#{words}'" do
         expect {
           Jobs::Analysis::Cooccurrence.perform(
             '123',
             user_id: @user.to_param,
             dataset_id: @dataset.to_param,
             task_id: @task.to_param,
-            analysis_type: p.to_s,
+            analysis_type: type.to_s,
             num_pairs: '10',
             window: 25,
-            word: 'ethology')
+            word: words)
         }.to_not raise_error
 
         expect(@dataset.analysis_tasks[0].name).to eq('Determine significant associations between distant pairs of words')

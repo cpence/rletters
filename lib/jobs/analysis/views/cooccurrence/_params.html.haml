@@ -3,7 +3,7 @@
     = simple_form_for :job_params, url: dataset_analysis_tasks_path(@dataset, class: 'Cooccurrence'), method: :post do |f|
       = f.error_notification
 
-      = f.input :analysis_type, label: t('jobs.analysis.cooccurrence.analysis_type'), collection: Jobs::Analysis::Cooccurrence.significance_tests, include_blank: false
+      = f.input :analysis_type, label: t('common.scoring.label'), collection: Jobs::Analysis::Cooccurrence.significance_tests, include_blank: false
       = f.input :num_pairs, as: :integer, label: t('jobs.analysis.cooccurrence.num_pairs'), required: true, input_html: { value: 50 }
       = f.input :window, as: :integer, required: true, label: t('jobs.analysis.cooccurrence.window')
       = f.input :word, required: true, label: t('jobs.analysis.cooccurrence.word')

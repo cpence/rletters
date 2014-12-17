@@ -47,13 +47,17 @@ module Jobs
 
         case analysis_type
         when :mi
-          algorithm = t('.mi')
-          column = t('.mi_column')
+          algorithm = t('common.scoring.mi')
+          column = t('common.scoring.mi_header')
           klass = RLetters::Analysis::Cooccurrence::MutualInformation
         when :t
-          algorithm = t('.t')
-          column = t('.t_column')
+          algorithm = t('common.scoring.t')
+          column = t('common.scoring.t_header')
           klass = RLetters::Analysis::Cooccurrence::TTest
+        when :likelihood
+          algorithm = t('common.scoring.likelihood')
+          column = t('common.scoring.likelihood_header')
+          klass = RLetters::Analysis::Cooccurrence::LogLikelihood
         else
           fail ArgumentError, 'Invalid value for analysis_type'
         end
@@ -97,8 +101,8 @@ module Jobs
       # @return [Array<(String, Symbol)>] pairs of test method names and their
       #   associated symbols
       def self.significance_tests
-        [:mi, :t].map do |sym|
-          [t(".#{sym}"), sym]
+        [:mi, :t, :likelihood].map do |sym|
+          [t("common.scoring.#{sym}"), sym]
         end
       end
     end

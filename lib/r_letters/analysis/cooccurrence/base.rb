@@ -197,33 +197,6 @@ module RLetters
 
           [base_frequencies, joint_frequencies, analyzer.blocks.size]
         end
-
-        # A method to compute the score for this pair on the basis of the
-        # individual and joint frequencies.
-        #
-        # Not implemented in the base class.
-        #
-        # @api private
-        # @return [Float] the score for this pair
-        # @param [Float] f_a the frequency of word A's appearance in blocks
-        # @param [Float] f_b the frequency of word B's appearance in blocks
-        # @param [Float] f_ab the frequency of joint appearance of A and B in
-        #   blocks
-        # @param [Float] n the number of blocks
-        def score(f_a, f_b, f_ab, n)
-          fail NotImplementedError
-        end
-
-        # Sort results by the score
-        #
-        # Not implemented in the base class.
-        #
-        # @api private
-        # @param [Array<Array<(String, Float)>>] grams grams in unsorted order
-        # @return [Array<Array<(String, Float)>>] grams in sorted order
-        def sort_results(grams)
-          fail NotImplementedError
-        end
       end
     end
   end

@@ -25,11 +25,11 @@ RSpec.describe Jobs::Analysis::Collocation do
   end
 
   describe '.perform' do
-    it 'accepts all the valid parameters' do
-      valid_params = [:mi, :t, :likelihood]
-      valid_params << :pos if Admin::Setting.nlp_tool_path.present?
+    valid_params = [:mi, :t, :likelihood]
+    valid_params << :pos if Admin::Setting.nlp_tool_path.present?
 
-      valid_params.each do |p|
+    valid_params.each do |p|
+      it "runs with analysis_type '#{p}'" do
         expect {
           Jobs::Analysis::Collocation.perform(
             '123',

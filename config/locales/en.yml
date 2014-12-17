@@ -8,6 +8,14 @@ en:
             label: Stem words?
             stem: Basic stemming (fast)
             lemma: "Lemmatization (more accurate, slow)"
+        scoring:
+            label: Test to use for significance
+            mi: Mutual Information
+            mi_header: Mutual Information
+            t: T-test
+            t_header: p-value
+            likelihood: Log-likelihood
+            likelihood_header: "-2*log-likelihood"
     ink_email:
         visit: "Visit %{app_name}:"
         contact: "Contact Us:"
@@ -301,15 +309,8 @@ en:
                     What pairs of words often appear directly together?
 
                     What technical terms or phrases appear in the literature?
-                mi: Mutual Information
-                mi_column: Mutual Information
-                t: T-test
-                t_column: p-value
-                likelihood: Log-likelihood
-                likelihood_column: "-2*log-likelihood"
                 pos: Frequency (filtered by parts of speech)
-                pos_column: Frequency
-                analysis_type: Test to use for significance
+                pos_header: Frequency
                 num_pairs: Number of collocations to find
                 word: Return only collocations including this word (blank for all)
                 header: "Collocation analysis for %{name}"
@@ -322,11 +323,6 @@ en:
                 question: >
                     What pairs of words often appear in the same sentece,
                     paragraph, section, or article?
-                mi: Mutual Information
-                mi_column: Mutual Information
-                t: T-test
-                t_column: p-value
-                analysis_type: Test to use for significance
                 num_pairs: Number of cooccurrences to find
                 word: Return coocurrences including this word
                 window: Return cooccurrences that occur within this number of words

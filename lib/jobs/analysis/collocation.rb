@@ -43,21 +43,21 @@ module Jobs
 
         case analysis_type
         when :mi
-          algorithm = t('.mi')
-          column = t('.mi_column')
+          algorithm = t('common.scoring.mi')
+          column = t('common.scoring.mi_header')
           klass = RLetters::Analysis::Collocation::MutualInformation
         when :t
-          algorithm = t('.t')
-          column = t('.t_column')
+          algorithm = t('common.scoring.t')
+          column = t('common.scoring.t_header')
           klass = RLetters::Analysis::Collocation::TTest
         when :likelihood
-          algorithm = t('.likelihood')
-          column = t('.likelihood_column')
+          algorithm = t('common.scoring.likelihood')
+          column = t('common.scoring.likelihood_header')
           klass = RLetters::Analysis::Collocation::LogLikelihood
         when :pos
           # :nocov:
           algorithm = t('.pos')
-          column = t('.pos_column')
+          column = t('.pos_header')
           klass = RLetters::Analysis::Collocation::PartsOfSpeech
           # :nocov:
         else
@@ -102,7 +102,11 @@ module Jobs
       #   associated symbols
       def self.significance_tests
         [:mi, :t, :likelihood, :pos].map do |sym|
-          [t(".#{sym}"), sym]
+          if sym == :pos
+            [t('.pos'), :pos]
+          else
+            [t("common.scoring.#{sym}"), sym]
+          end
         end
       end
     end

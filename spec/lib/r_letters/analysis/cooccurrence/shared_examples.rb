@@ -44,7 +44,7 @@ RSpec.shared_examples_for 'a cooccurrence analyzer' do
 
   describe 'stemming' do
     before(:each) do
-      @grams = described_class.new(@dataset, 10, 'the', 6, :stem).call
+      @grams = described_class.new(@dataset, 9999, 'the', 6, :stem).call
     end
 
     it 'returns stemmed grams' do
