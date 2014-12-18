@@ -17,6 +17,8 @@ if ENV['TRAVIS']
     add_filter '.haml'
     add_filter '.erb'
     add_filter '.builder'
+
+    skip_token CodeClimate::TestReporter.configuration.skip_token
   end
 
   SimpleCov.at_exit do
