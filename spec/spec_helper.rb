@@ -3,7 +3,7 @@
 require 'rubygems'
 
 # Coverage setup
-if ENV['COVERAGE'] || (ENV['TRAVIS'] && ENV['TRAVIS_RUBY_VERSION'] == '2.0')
+if ENV['COVERAGE'] || ENV['TRAVIS']
   require 'simplecov'
 
   if ENV['TRAVIS']
@@ -25,16 +25,13 @@ if ENV['COVERAGE'] || (ENV['TRAVIS'] && ENV['TRAVIS_RUBY_VERSION'] == '2.0')
     add_filter '.erb'
     add_filter '.builder'
 
-    # Filter the few classes we explicitly can't get coverage for
-    add_filter '/lib/ner_analyzer.rb'
-    add_filter '/lib/jobs/analysis/named_entities.rb'
-
     add_group 'Models', '/app/models/'
     add_group 'Controllers', '/app/controllers/'
+    add_group 'Domain Logic', '/lib/r_letters'
+    add_group 'Jobs', '/lib/jobs'
     add_group 'Mailers', '/app/mailers/'
-    add_group 'Helpers', '/app/helpers/'
     add_group 'Administration', '/app/admin/'
-    add_group 'Libraries', '/lib/'
+    add_group 'Core Extensions', '/lib/core_ext'
   end
 end
 
