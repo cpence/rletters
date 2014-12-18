@@ -46,8 +46,22 @@ RSpec.describe Jobs::Analysis::Collocation do
       }.to raise_error(ArgumentError)
     end
 
+    it 'falls back to MI if POS is selected but unavailable' do
+      Admin::Setting.nlp_tool_path = nil
+
+      expect(RLetters::Analysis::Collocation::MutualInformation).to receive(:new).and_call_original
+      expect(RLetters::Analysis::Collocation::PartsOfSpeech).not_to receive(:new)
+
+      Jobs::Analysis::Collocation.perform(
+        '123',
+        user_id: @user.to_param,
+        dataset_id: @dataset.to_param,
+        task_id: @task.to_param,
+        analysis_type: 'pos',
+        num_pairs: '10')
+    end
+
     valid_params = [:mi, :t, :likelihood, :pos]
-    valid_params << :pos if Admin::Setting.nlp_tool_path.present?
 
     valid_params.each do |p|
       it "runs with analysis_type '#{p}'" do
