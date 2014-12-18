@@ -6,7 +6,7 @@ class CreateLibraries < ActiveRecord::Migration
       t.string :url
       t.references :user
 
-      t.timestamps
+      t.timestamps null: true
     end
     add_index :libraries, :user_id
   end

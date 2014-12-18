@@ -10,7 +10,7 @@ class CreateDelayedJobs < ActiveRecord::Migration
       table.datetime :locked_at
       table.datetime :failed_at
       table.string   :locked_by
-      table.timestamps
+      table.timestamps null: true
     end
 
     add_index :delayed_jobs,

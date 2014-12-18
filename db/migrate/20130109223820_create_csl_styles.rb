@@ -5,7 +5,7 @@ class CreateCslStyles < ActiveRecord::Migration
       t.string :name
       t.text :style
 
-      t.timestamps
+      t.timestamps null: true
     end
   end
 end

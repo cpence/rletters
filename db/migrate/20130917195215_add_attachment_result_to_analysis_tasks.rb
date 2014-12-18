@@ -13,7 +13,7 @@ class AddAttachmentResultToAnalysisTasks < ActiveRecord::Migration
       t.string :filename
       t.references :analysis_task
 
-      t.timestamps
+      t.timestamps null: true
     end
     add_index :downloads, :analysis_task_id
 

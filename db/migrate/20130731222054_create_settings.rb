@@ -5,7 +5,7 @@ class CreateSettings < ActiveRecord::Migration
       t.string :key
       t.text :value
 
-      t.timestamps
+      t.timestamps null: true
     end
     add_index :settings, [:key], unique: true, name: 'key_udx'
   end

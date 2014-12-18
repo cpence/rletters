@@ -6,7 +6,7 @@ class CreateUploadedAssets < ActiveRecord::Migration
       t.attachment :file
       t.text :file_meta
       t.string :file_fingerprint
-      t.timestamps
+      t.timestamps null: true
     end
   end
 end

@@ -7,7 +7,7 @@ class CreateDocumentsCategories < ActiveRecord::Migration
       t.string :name
       t.text :journals
 
-      t.timestamps
+      t.timestamps null: true
     end
 
     # The following comes directly from closure_table

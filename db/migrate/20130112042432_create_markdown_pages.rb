@@ -5,7 +5,7 @@ class CreateMarkdownPages < ActiveRecord::Migration
       t.string :name
       t.text :content
 
-      t.timestamps
+      t.timestamps null: true
     end
   end
 end

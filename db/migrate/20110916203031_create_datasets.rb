@@ -5,7 +5,7 @@ class CreateDatasets < ActiveRecord::Migration
       t.string :name
       t.references :user
 
-      t.timestamps
+      t.timestamps null: true
     end
     add_index :datasets, :user_id
   end

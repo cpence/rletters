@@ -6,7 +6,7 @@ class CreateAnalysisTasks < ActiveRecord::Migration
       t.datetime :finished_at
       t.references :dataset
 
-      t.timestamps
+      t.timestamps null: true
     end
     add_index :analysis_tasks, :dataset_id
 

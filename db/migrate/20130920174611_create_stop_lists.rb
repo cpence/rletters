@@ -5,7 +5,7 @@ class CreateStopLists < ActiveRecord::Migration
       t.string :language
       t.text :list
 
-      t.timestamps
+      t.timestamps null: true
     end
   end
 end

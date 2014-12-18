@@ -5,7 +5,7 @@ class CreateDatasetEntries < ActiveRecord::Migration
       t.string :shasum
       t.references :dataset
 
-      t.timestamps
+      t.timestamps null: true
     end
     add_index :dataset_entries, :dataset_id
   end

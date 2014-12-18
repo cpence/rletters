@@ -183,8 +183,6 @@ GEM
       factory_girl (~> 4.5.0)
       railties (>= 3.0.0)
     fast-stemmer (1.0.2)
-    foreigner (1.7.1)
-      activerecord (>= 3.0.0)
     formtastic (3.1.2)
       actionpack (>= 3.2.13)
     formtastic_i18n (0.1.1)
@@ -479,7 +477,6 @@ DEPENDENCIES
   druthers
   factory_girl_rails
   fast-stemmer
-  foreigner
   haml
   haml-rails
   http_accept_language

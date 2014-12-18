@@ -4,7 +4,7 @@ class CreateDownloads < ActiveRecord::Migration
     create_table :downloads do |t|
       t.string :filename
 
-      t.timestamps
+      t.timestamps null: true
     end
   end
 end

@@ -6,7 +6,6 @@ gem 'rails', '>= 4.2.0.beta1' # FIXME: '~> 4.2'
 # Database and related tools
 gem 'pg'
 gem 'activerecord-import', github: 'zdennis/activerecord-import' # FIXME: '>= 0.6.1'?
-gem 'foreigner'
 gem 'closure_tree'
 gem 'validate_url'
 gem 'addressable'
