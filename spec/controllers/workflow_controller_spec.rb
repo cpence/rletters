@@ -229,14 +229,14 @@ RSpec.describe WorkflowController, type: :controller do
       end
 
       it 'destroys the tasks' do
-        expect(Datasets::AnalysisTask.exists?(@pending_task)).to be false
-        expect(Datasets::AnalysisTask.exists?(@working_task)).to be false
+        expect(Datasets::AnalysisTask.exists?(@pending_task.id)).to be false
+        expect(Datasets::AnalysisTask.exists?(@working_task.id)).to be false
       end
 
       it 'leaves everything else alone' do
-        expect(Datasets::AnalysisTask.exists?(@finished_task)).to be true
-        expect(Datasets::AnalysisTask.exists?(@disabled_task)).to be true
-        expect(Datasets::AnalysisTask.exists?(@other_task)).to be true
+        expect(Datasets::AnalysisTask.exists?(@finished_task.id)).to be true
+        expect(Datasets::AnalysisTask.exists?(@disabled_task.id)).to be true
+        expect(Datasets::AnalysisTask.exists?(@other_task.id)).to be true
       end
 
       it 'redirects to the workflow index' do

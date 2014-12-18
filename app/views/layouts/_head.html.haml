@@ -27,13 +27,6 @@
     %script{ src: 'https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js' }/
     %script{ src: 'https://oss.maxcdn.com/respond/1.4.2/respond.min.js' }/
 
-  -# Set the current locale
-  :javascript
-    I18n = {}
-    I18n.defaultLocale = '#{I18n.default_locale}';
-    I18n.locale = '#{I18n.locale}';
-    I18n.fallbacks = true;
-
   -# Reference the unAPI server, if we need to
   - if params[:controller] == 'search'
     %link{ rel: 'unapi-server', type: 'application/xml', title: 'unAPI', href: unapi_url }/

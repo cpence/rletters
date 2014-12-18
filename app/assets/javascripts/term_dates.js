@@ -4,19 +4,19 @@ google.load('visualization', '1.0', {'packages':['corechart','table']});
 
 function createTermDatesGraph() {
   // Get the elements we need
-  var dataContainer = $('.term_dates_data');
   var graphContainer = $('.term_dates_graph');
   var tableContainer = $('.term_dates_table');
-  if (graphContainer.length === 0 || dataContainer.length === 0 ||
-      tableContainer.length === 0)
+  if (graphContainer.length === 0 || tableContainer.length === 0)
     return;
+
+  var results = $.parseJSON(window.json_data);
 
   // Make a DataTable object
   var data = new google.visualization.DataTable();
-  var rows = $.parseJSON(dataContainer.html());
+  var rows = results.data;
 
-  data.addColumn('number', I18n.t('activemodel.attributes.document.year'));
-  data.addColumn('number', I18n.t('jobs.analysis.term_dates.number_column'));
+  data.addColumn('number', results.year_header);
+  data.addColumn('number', results.value_header);
   data.addRows(rows);
 
   // Make the line chart object
@@ -35,8 +35,8 @@ function createTermDatesGraph() {
   var options = { width: w, height: h,
                   legend: { position: 'none' },
                   hAxis: { format: '####',
-                           title: I18n.t('activemodel.attributes.document.year') },
-                  vAxis: { title: I18n.t('jobs.analysis.term_dates.number_column') },
+                           title: results.year_header },
+                  vAxis: { title: results.value_header },
                   pointSize: 3 };
 
   var chart = new google.visualization.LineChart(graphContainer[0]);

@@ -1,12 +1,10 @@
 - data = JSON.load(@task.result.file_contents(:original))
-- dates = data['data']
-- percent = data['percent']
 
 .row
   .col-md-8
     %h1== #{Dataset.model_name.human}: #{@dataset.name}
 
-    - if percent
+    - if data['percent']
       %h4.text-muted= t('jobs.analysis.article_dates.fraction_subheader', name: @dataset.name, normalization_set: data['normalization_set'])
     - else
       %h4.text-muted= t('jobs.analysis.article_dates.number_subheader')
@@ -18,9 +16,8 @@
   .col-xs-12
     %hr
 
-    .article_dates_data= dates.to_json
-    .article_dates_percent= percent ? 'true' : 'false'
-
+    %script{ type: 'text/javascript' }
+      == window.json_data = '#{@json_escaped}';
     .article_dates_graph
 
     %hr

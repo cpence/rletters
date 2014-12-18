@@ -52,7 +52,12 @@ module Jobs
         end
 
         # Save out the data
-        output = { data: dates, term: term, csv: csv }
+        output = {
+          data: dates,
+          term: term,
+          csv: csv,
+          year_header: Document.human_attribute_name(:year),
+          value_header: t('.number_column') }
 
         # Serialize out to JSON
         ios = StringIO.new(output.to_json)

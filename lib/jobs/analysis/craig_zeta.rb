@@ -79,6 +79,10 @@ module Jobs
         data[:markers_2] = analyzer.dataset_2_markers
         data[:graph_points] = analyzer.graph_points
         data[:zeta_scores] = analyzer.zeta_scores
+        data[:marker_1_header] = t('.marker_column', name: @dataset.name)
+        data[:marker_2_header] = t('.marker_column', name: dataset_2.name)
+        data[:word_header] = t('.word_column')
+        data[:score_header] = t('.score_column')
         data[:csv] = csv
 
         # Write it out

@@ -57,12 +57,14 @@ module Jobs
           else
             norm_set_name = t('.entire_corpus')
           end
+          value_header = t('.fraction_column')
+        else
+          value_header = t('.number_column')
         end
+        year_header = Document.human_attribute_name(:year)
 
         csv = write_csv(nil, '') do |csv|
-          csv << [ Document.human_attribute_name(:year),
-                   options[:normalize_doc_counts] == '1' ?
-                     t('.fraction_column') : t('.number_column') ]
+          csv << [ year_header, value_header ]
           dates.each do |d|
             csv << d
           end
@@ -71,7 +73,9 @@ module Jobs
         output = { data: dates,
                    csv: csv,
                    percent: (options[:normalize_doc_counts] == '1'),
-                   normalization_set: norm_set_name }
+                   normalization_set: norm_set_name,
+                   year_header: year_header,
+                   value_header: value_header }
 
         # Serialize out to JSON
         ios = StringIO.new(output.to_json)

@@ -12,9 +12,8 @@
   .col-xs-12
     %hr
 
-    .network_graph_nodes= data['d3_nodes'].to_json
-    .network_graph_links= data['d3_links'].to_json
-
+    %script{ type: 'text/javascript' }
+      == window.json_data = '#{@json_escaped}';
     .network_graph
       .network_graph_box
         %p ...

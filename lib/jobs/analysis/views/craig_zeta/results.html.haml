@@ -13,10 +13,8 @@
     %h5= t('jobs.analysis.craig_zeta.graph_header')
     %p= t('jobs.analysis.craig_zeta.graph_explanation')
 
-    #cz-dataset-one= data['name_1']
-    #cz-dataset-two= data['name_2']
-
-    #cz-graph-data= data['graph_points'].to_json
+    %script{ type: 'text/javascript' }
+      == window.json_data = '#{@json_escaped}';
     #cz-graph
 
     %hr
@@ -24,5 +22,4 @@
     %h5= t('jobs.analysis.craig_zeta.zeta_score_header')
     %p= t('jobs.analysis.craig_zeta.zeta_score_explanation', name_1: data['name_1'], name_2: data['name_2'])
 
-    #cz-table-data= data['zeta_scores'].to_json
     #cz-table

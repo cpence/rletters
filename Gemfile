@@ -1,11 +1,11 @@
 source 'https://rubygems.org'
 
 # Rails
-gem 'rails', '~> 4.0'
+gem 'rails', '>= 4.2.0.beta1' # FIXME: '~> 4.2'
 
 # Database and related tools
 gem 'pg'
-gem 'activerecord-import', '>= 0.4.0'
+gem 'activerecord-import', github: 'zdennis/activerecord-import' # FIXME: '>= 0.6.1'?
 gem 'foreigner'
 gem 'closure_tree'
 gem 'validate_url'
@@ -22,12 +22,13 @@ gem 'devise'
 gem 'devise-i18n'
 gem 'devise-async'
 gem 'activeadmin', github: 'activeadmin'
+gem 'inherited_resources', github: 'josevalim/inherited_resources', branch: 'rails-4-2' # TEMPORARY until released
+gem 'responders', '~> 2.0' # FIXME temporary until inherited_resources release
 gem 'activeadmin-sortable-tree', github: 'nebirhos/activeadmin-sortable-tree'
 gem 'druthers'
 
 # Internationalization
 gem 'rails-i18n', '= 4.0.3'
-gem 'i18n-js', '>= 3.0.0.rc1'
 gem 'http_accept_language'
 
 # Textual analysis
@@ -61,11 +62,11 @@ gem 'rabl'
 
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
-gem 'sass-rails', '>= 4.0.3'
+gem 'sass-rails', '>= 5.0'
 gem 'bootstrap-sass'
 gem 'simple_form', '>= 3.1.0.rc1'
 
-gem 'uglifier'
+gem 'uglifier', '>= 1.3.0'
 gem 'roadie-rails'
 
 group :development do
@@ -82,6 +83,7 @@ group :test, :development do
   # server, including mailer previews
   gem 'mock_redis'
   gem 'factory_girl_rails'
+  gem 'web-console', '~> 2.0'
 end
 
 group :test do

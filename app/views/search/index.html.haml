@@ -27,7 +27,7 @@
             %ul.dropdown-menu{ role: 'menu' }
               - result.sort_methods.each do |(param, desc)|
                 %li
-                  = link_to search_path(params.merge({ sort: param })) do
+                  = link_to search_path(params.merge({ sort: param }).symbolize_keys) do
                     %span{ style: (param == result.params['sort'] ? nil : 'visibility: hidden') } &check;
                     = desc
 

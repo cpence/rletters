@@ -110,7 +110,7 @@ class FacetsDecorator < ApplicationDecorator
 
     new_params[:fq] = []
     facets.each { |f| new_params[:fq] << f.query }
-    h.link_to(text, h.search_path(new_params), link_params)
+    h.link_to(text, h.search_path(new_params.symbolize_keys), link_params)
   end
 
   # Get the list of facet links for one particular field

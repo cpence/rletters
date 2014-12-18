@@ -4,21 +4,19 @@ google.load('visualization', '1.0', {'packages':['corechart','table']});
 
 function createCraigZetaGraph() {
   // Get the elements we need
-  var dataContainer = $('#cz-graph-data');
   var graphContainer = $('#cz-graph');
-  var nameOne = $('#cz-dataset-one');
-  var nameTwo = $('#cz-dataset-two');
-
-  if (graphContainer.length === 0 || dataContainer.length === 0 ||
-      nameOne.length === 0 || nameTwo.length === 0)
+  var tableContainer = $('#cz-table');
+  if (graphContainer.length === 0 || tableContainer.length === 0)
     return;
+
+  var results = $.parseJSON(window.json_data);
 
   // Make a DataTable object for the graph
   var data = new google.visualization.DataTable();
-  var rows = $.parseJSON(dataContainer.html());
+  var rows = results.graph_points;
 
-  data.addColumn('number', I18n.t('jobs.analysis.craig_zeta.marker_column', {name: nameOne.html()}));
-  data.addColumn('number', I18n.t('jobs.analysis.craig_zeta.marker_column', {name: nameTwo.html()}));
+  data.addColumn('number', results.marker_1_header);
+  data.addColumn('number', results.marker_2_header);
   data.addColumn({ type: 'string', role: 'tooltip' });
   data.addRows(rows);
 
@@ -37,30 +35,22 @@ function createCraigZetaGraph() {
 
   var options = { width: w, height: h,
                   legend: { position: 'none' },
-                  hAxis: { title: I18n.t('jobs.analysis.craig_zeta.marker_column', {name: nameOne.html()}) },
-                  vAxis: { title: I18n.t('jobs.analysis.craig_zeta.marker_column', {name: nameTwo.html()}) },
+                  hAxis: { title: results.marker_1_header },
+                  vAxis: { title: results.marker_2_header },
                   pointSize: 3 };
 
   var chart = new google.visualization.ScatterChart(graphContainer[0]);
   chart.draw(data, options);
 
   graphContainer.trigger('updatelayout');
-}
-
-function createCraigZetaTable() {
-  // Get the elements we need
-  var dataContainer = $('#cz-table-data');
-  var tableContainer = $('#cz-table');
-  if (tableContainer.length === 0 || dataContainer.length === 0)
-    return;
 
   // Make a DataTable object for the table
-  var data = new google.visualization.DataTable();
-  var rows = $.parseJSON(dataContainer.html());
+  data = new google.visualization.DataTable();
+  rows = results.zeta_scores;
 
   // Add the data
-  data.addColumn('string', I18n.t('jobs.analysis.craig_zeta.word_column'));
-  data.addColumn('number', I18n.t('jobs.analysis.craig_zeta.score_column'));
+  data.addColumn('string', results.word_header);
+  data.addColumn('number', results.score_header);
   data.addRows(rows);
 
   // Make a pretty table object
@@ -69,4 +59,3 @@ function createCraigZetaTable() {
 }
 
 $(document).ready(createCraigZetaGraph);
-$(document).ready(createCraigZetaTable);

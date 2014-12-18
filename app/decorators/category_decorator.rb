@@ -94,7 +94,7 @@ class CategoryDecorator < ApplicationDecorator
   # @api private
   # @return [Hash] the parameters suitable for toggling this category
   def toggle_params
-    h.params.deep_dup.tap do |ret|
+    h.params.deep_dup.tap { |ret|
       ret[:categories] ||= []
 
       if enabled
@@ -106,6 +106,6 @@ class CategoryDecorator < ApplicationDecorator
 
       ret[:categories].uniq!
       ret.delete(:categories) if ret[:categories].empty?
-    end
+    }.symbolize_keys
   end
 end

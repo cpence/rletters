@@ -71,7 +71,7 @@ class SearchResultDecorator < ApplicationDecorator
     ''.html_safe.tap do |ret|
       # Remove all
       new_params = h.params.deep_dup.except!(:categories, :fq)
-      ret << h.link_to(h.search_path(new_params),
+      ret << h.link_to(h.search_path(new_params.symbolize_keys),
                        class: 'btn navbar-btn btn-primary') do
         h.html_escape(I18n.t('search.index.remove_all')) + close_icon
       end
@@ -187,7 +187,7 @@ class SearchResultDecorator < ApplicationDecorator
       else
         new_params[:page] = num
       end
-      href = h.search_path(new_params)
+      href = h.search_path(new_params.symbolize_keys)
     end
 
     h.content_tag(:li, h.link_to(text, href), class: klass)

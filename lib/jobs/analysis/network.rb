@@ -55,7 +55,9 @@ module Jobs
           name: @dataset.name,
           word: word,
           d3_nodes: d3_nodes,
-          d3_links: d3_links
+          d3_links: d3_links,
+          word_stem: t('.word_stem'),
+          word_forms: t('.word_forms')
         }
 
         # Write it out

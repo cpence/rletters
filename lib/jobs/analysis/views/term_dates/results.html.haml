@@ -1,5 +1,4 @@
 - data = JSON.load(@task.result.file_contents(:original))
-- dates = data['data']
 
 .row
   .col-md-8
@@ -13,8 +12,8 @@
   .col-xs-12
     %hr
 
-    .term_dates_data= dates.to_json
-
+    %script{ type: 'text/javascript' }
+      == window.json_data = '#{@json_escaped}';
     .term_dates_graph
 
     %hr

@@ -2,12 +2,11 @@
 
 function createNetworkGraph() {
   // Get the elements we need
-  var nodesContainer = $('.network_graph_nodes');
-  var linksContainer = $('.network_graph_links');
   var graphContainer = $('.network_graph');
-  if (graphContainer.length === 0 || nodesContainer.length === 0 ||
-      linksContainer.length === 0)
+  if (graphContainer.length === 0)
     return;
+
+  var results = $.parseJSON(window.json_data);
 
   // Make the vis object
   var w = $(window).width();
@@ -25,8 +24,8 @@ function createNetworkGraph() {
   // Tunable for graph complexity (10_000 = default from mbostock, for
   // 100 nodes (N^2))
   var n = 10000;
-  var nodes = $.parseJSON(nodesContainer.html());
-  var links = $.parseJSON(linksContainer.html());
+  var nodes = results.d3_nodes;
+  var links = results.d3_links;
 
   // Thanks to https://gist.github.com/sfrdmn/1437516 for this mouseover code,
   // tweaked for our purposes
@@ -36,10 +35,8 @@ function createNetworkGraph() {
 
     d3.select('.network_graph_box').style('display', 'block');
     d3.select('.network_graph_box p').html(
-      '<b>' + I18n.t('jobs.analysis.network.word_stem') + ':</b> ' +
-      circle.data()[0].name + '<br>' +
-      I18n.t('jobs.analysis.network.word_forms') + ': ' +
-      circle.data()[0].forms.join(' '));
+      '<b>' + results.word_stem + ':</b> ' + circle.data()[0].name + '<br>' +
+      results.word_forms + ': ' + circle.data()[0].forms.join(' '));
   };
 
   var mouseOutFunction = function() {

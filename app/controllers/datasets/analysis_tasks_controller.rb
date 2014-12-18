@@ -151,6 +151,11 @@ class Datasets::AnalysisTasksController < ApplicationController
     path = klass.view_path(template: view, format: format)
     fail ActiveRecord::RecordNotFound unless path
 
+    if @task.result_file_size
+      @json = @task.result.file_contents(:original).force_encoding('utf-8')
+      @json_escaped = @json.gsub('\\', '\\\\').gsub("'", "\\\\'").gsub('\n', '\\\\\\\\n').gsub('"', '\\\\"').html_safe
+    end
+
     render file: path, locals: { klass: klass }
   end
 end
