@@ -55,11 +55,9 @@ module Jobs
           column = t('common.scoring.likelihood_header')
           klass = RLetters::Analysis::Collocation::LogLikelihood
         when :pos
-          # :nocov:
           algorithm = t('.pos')
           column = t('.pos_header')
           klass = RLetters::Analysis::Collocation::PartsOfSpeech
-          # :nocov:
         else
           fail ArgumentError, 'Invalid value for analysis_type'
         end

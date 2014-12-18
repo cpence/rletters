@@ -5,10 +5,20 @@ RSpec.describe Jobs::Analysis::Collocation do
 
   it_should_behave_like 'an analysis job'
 
-  before(:example) do
+  before(:each) do
     @user = create(:user)
     @dataset = create(:full_dataset, stub: true, english: true, user: @user)
     @task = create(:analysis_task, dataset: @dataset)
+
+    @old_path = Admin::Setting.nlp_tool_path
+    Admin::Setting.nlp_tool_path = 'stubbed'
+
+    @words = build(:parts_of_speech)
+    allow(RLetters::Analysis::NLP).to receive(:parts_of_speech).and_return(@words)
+  end
+
+  after(:each) do
+    Admin::Setting.nlp_tool_path = @old_path
   end
 
   describe '.download?' do
@@ -24,7 +34,7 @@ RSpec.describe Jobs::Analysis::Collocation do
   end
 
   describe '.perform' do
-    valid_params = [:mi, :t, :likelihood]
+    valid_params = [:mi, :t, :likelihood, :pos]
     valid_params << :pos if Admin::Setting.nlp_tool_path.present?
 
     valid_params.each do |p|

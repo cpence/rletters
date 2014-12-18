@@ -50,9 +50,7 @@ module RLetters
           text_cache += doc.fulltext
         end
 
-        yml = Cheetah.run(Admin::Setting.nlp_tool_path, '-n',
-                          stdin: text_cache, stdout: :capture)
-        @entity_references = YAML.load(yml)
+        @entity_references = NLP.named_entities(text_cache)
 
         @progress && @progress.call(100)
       end

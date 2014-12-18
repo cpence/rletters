@@ -2,36 +2,48 @@
 require 'spec_helper'
 
 RSpec.describe RLetters::Analysis::NamedEntities do
-  # FIXME: rework a double for this
-  # describe '#entity_references' do
-  #   before(:each) do
-  #     @dataset = stub_stanford_ner_classifier
-  #     @analyzer = described_class.new(@dataset)
-  #     @analyzer.call
-  #   end
+  before(:each) do
+    @old_path = Admin::Setting.nlp_tool_path
+    Admin::Setting.nlp_tool_path = 'stubbed'
 
-  #   it 'works as expected' do
-  #     expect(@analyzer.entity_references['PERSON']).to include('Susan G. Brown')
-  #     expect(@analyzer.entity_references['LOCATION']).to include('London')
-  #   end
-  # end
+    @entities = build(:named_entities)
+    expect(RLetters::Analysis::NLP).to receive(:named_entities).and_return(@entities)
+  end
 
-  # describe '#progress' do
-  #   it 'calls the progress function with under and equal to 100' do
-  #     called_sub_100 = false
-  #     called_100 = false
+  after(:each) do
+    Admin::Setting.nlp_tool_path = @old_path
+  end
 
-  #     @dataset = stub_stanford_ner_classifier
-  #     @analyzer = described_class.new(@dataset, ->(p) {
-  #       if p < 100
-  #         called_sub_100 = true
-  #       else
-  #         called_100 = true
-  #       end
-  #     })
+  describe '#entity_references' do
+    before(:each) do
+      @dataset = build(:full_dataset, stub: true, user: @user)
+      @analyzer = described_class.new(@dataset)
+      @analyzer.call
+    end
 
-  #     expect(called_sub_100).to be true
-  #     expect(called_100).to be true
-  #   end
-  # end
+    it 'works as expected' do
+      expect(@analyzer.entity_references['PERSON']).to include('Nam')
+    end
+  end
+
+  describe '#progress' do
+    it 'calls the progress function with under and equal to 100' do
+      called_sub_100 = false
+      called_100 = false
+
+      @dataset = build(:full_dataset, stub: true, user: @user)
+      @analyzer = described_class.new(@dataset, ->(p) {
+        if p < 100
+          called_sub_100 = true
+        else
+          called_100 = true
+        end
+      })
+
+      @analyzer.call
+
+      expect(called_sub_100).to be true
+      expect(called_100).to be true
+    end
+  end
 end

@@ -13,8 +13,35 @@ WORKING_UIDS ||= [
   'doi:10.1111/j.1439-0310.2007.01421.x'.freeze
 ].freeze
 
-FactoryGirl.define do
+def stubs_for_dataset(method, dataset, evaluator)
+  if evaluator.stub
+    doc = if evaluator.english
+            FactoryGirl.build(:full_document_english)
+          else
+            FactoryGirl.build(:full_document)
+          end
 
+    allow(Document).to receive(:find).and_return(doc)
+    allow(Document).to receive(:find_by).and_return(doc)
+    allow(Document).to receive(:find_by!).and_return(doc)
+
+    # Just include the one document N times
+    if (method == :create)
+      dataset.entries = FactoryGirl.create_list(:entry, evaluator.entries_count,
+                                                dataset: dataset, uid: doc.uid)
+    elsif (method == :build)
+      dataset.entries = FactoryGirl.build_list(:entry, evaluator.entries_count,
+                                               dataset: dataset, uid: doc.uid)
+    end
+
+    # Stub out the enumerator, too
+    allow_any_instance_of(RLetters::Datasets::DocumentEnumerator).to receive(:each) do |&arg|
+      evaluator.entries_count.times { arg.call(doc) }
+    end
+  end
+end
+
+FactoryGirl.define do
   sequence :working_uid do |n|
     WORKING_UIDS[n % WORKING_UIDS.size]
   end
@@ -37,35 +64,15 @@ FactoryGirl.define do
       end
 
       after(:build) do |dataset, evaluator|
-        if evaluator.stub
-          doc = if evaluator.english
-                  FactoryGirl.build(:full_document_english)
-                else
-                  FactoryGirl.build(:full_document)
-                end
-
-          allow(Document).to receive(:find).and_return(doc)
-          allow(Document).to receive(:find_by).and_return(doc)
-          allow(Document).to receive(:find_by!).and_return(doc)
-
-          # Just include the one document N times
-          dataset.entries = evaluator.entries_count.times.map do
-            FactoryGirl.create(:entry, dataset: dataset, uid: doc.uid)
-          end
-
-          # Stub out the enumerator, too
-          allow_any_instance_of(RLetters::Datasets::DocumentEnumerator).to receive(:each) do |&arg|
-            evaluator.entries_count.times { arg.call(doc) }
-          end
-        end
+        stubs_for_dataset(:create, dataset, evaluator)
       end
 
       after(:create) do |dataset, evaluator|
         unless evaluator.stub
-          dataset.entries = evaluator.entries_count.times.map do
-            FactoryGirl.create(:entry, dataset: dataset,
-                                       working: evaluator.working)
-          end
+          dataset.entries = FactoryGirl.create_list(:entry,
+                                                    evaluator.entries_count,
+                                                    dataset: dataset,
+                                                    working: evaluator.working)
         end
       end
     end

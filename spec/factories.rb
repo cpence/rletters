@@ -44,6 +44,18 @@ FactoryGirl.define do
     content '# Header'
   end
 
+  factory :named_entities, class: Hash do
+    transient do
+      entity_hash {
+        { 'PERSON' => ['Aenean mollis', 'Nam'] }
+      }
+    end
+
+    initialize_with do
+      entity_hash
+    end
+  end
+
   factory :parts_of_speech, class: Array do
     transient do
       yml POS_YAML

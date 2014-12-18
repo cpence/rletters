@@ -3,6 +3,11 @@
 module RLetters
   module Analysis
     # Code for communicating with our external Stanford NLP tool
+    #
+    # @note No test coverage here, as this is a file full of functions that we
+    # will stub out in testing.
+    #
+    # :nocov:
     class NLP
       # Return an array of lemmatized words
       #
@@ -47,6 +52,27 @@ module RLetters
 
         # Call the external tool
         yml = Cheetah.run(Admin::Setting.nlp_tool_path, '-p',
+                          stdin: text, stdout: :capture)
+        YAML.load(yml)
+      end
+
+      # Returns an array of named entity references
+      #
+      # @api public
+      # @param [String] text the text to obtain named entities for
+      # @return [Hash] a hash of named entities, grouped by type
+      # @example Get parts of speech tags for a sentence
+      #   RLetters::Analysis::NLP.parts_of_speech('Saint Petersburg was '
+      #     'founded by Tsar Peter the Great on May 27 1703.')
+      #   # => { 'PERSON' => ['Petersburg', 'Tsar Peter'] }
+      def self.named_entities(text)
+        # Return no references if the nlp_tool isn't available
+        if Admin::Setting.nlp_tool_path.blank?
+          return []
+        end
+
+        # Call the external tool
+        yml = Cheetah.run(Admin::Setting.nlp_tool_path, '-n',
                           stdin: text, stdout: :capture)
         YAML.load(yml)
       end
