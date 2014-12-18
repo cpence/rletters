@@ -4,10 +4,13 @@ rvm: 2.1.5
 sudo: false
 
 env:
-  - TASK='bin/rspec'
-  - TASK='bin/cucumber --profile first_try || bin/cucumber --profile second_try'
+  matrix:
+    - TASK='bin/rspec'
+    - TASK='bin/cucumber --profile first_try || bin/cucumber --profile second_try'
+  global:
+    secure: Lv1neEs259UnYFTpbBOja4qhbdDnDCryGiZ8ycLkBGlc7PioiSiVqCo1Py+pJrpYenA3xrguv/Z5hdNjJ3fm4dl8GDrV9kgjtNe8E388kitISpimAi5QuwvxfJS8YiRPKm9VSfs3laMlSVXjhMdlAW1PPcrcElddv+r+jMpJ9uM=
 
-bundler_args: --without production development --jobs 3 --retry 3
+bundler_args: "--without production development --jobs 3 --retry 3"
 before_script:
   - cp config/database.yml.travis config/database.yml
   - git clone --depth=1 https://github.com/rletters/solr-example.git vendor/solr

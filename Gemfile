@@ -93,7 +93,7 @@ group :test do
 
   gem 'webmock', require: false
 
-  gem 'coveralls', require: false
+  gem 'codeclimate-test-reporter', require: false
 end
 
 # Deployment gems

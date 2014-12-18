@@ -7,9 +7,9 @@ if ENV['COVERAGE'] || ENV['TRAVIS']
   require 'simplecov'
 
   if ENV['TRAVIS']
-    # Store coverage with Coveralls
-    require 'coveralls'
-    SimpleCov.formatter = Coveralls::SimpleCov::Formatter
+    # Store coverage with Code Climate
+    require 'codeclimate-test-reporter'
+    SimpleCov.formatter = CodeClimate::TestReporter::Formatter
   else
     # Output our own report
     SimpleCov.coverage_dir('/spec/coverage')
@@ -24,14 +24,6 @@ if ENV['COVERAGE'] || ENV['TRAVIS']
     add_filter '.haml'
     add_filter '.erb'
     add_filter '.builder'
-
-    add_group 'Models', '/app/models/'
-    add_group 'Controllers', '/app/controllers/'
-    add_group 'Domain Logic', '/lib/r_letters'
-    add_group 'Jobs', '/lib/jobs'
-    add_group 'Mailers', '/app/mailers/'
-    add_group 'Administration', '/app/admin/'
-    add_group 'Core Extensions', '/lib/core_ext'
   end
 end
 
