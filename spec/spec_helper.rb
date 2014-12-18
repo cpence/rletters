@@ -22,7 +22,7 @@ if ENV['TRAVIS']
   SimpleCov.at_exit do
     # We want to disable WebMock before we send results to Code Climate, or
     # it'll block the request
-    WebMock.enable_net_connect!
+    WebMock.allow_net_connect!
 
     SimpleCov.result.format!
   end
