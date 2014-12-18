@@ -34,6 +34,18 @@ RSpec.describe Jobs::Analysis::Collocation do
   end
 
   describe '.perform' do
+    it 'throws an exception if the type is invalid' do
+      expect {
+        Jobs::Analysis::Collocation.perform(
+          '123',
+          user_id: @user.to_param,
+          dataset_id: @dataset.to_param,
+          task_id: @task.to_param,
+          analysis_type: 'nope',
+          num_pairs: '10')
+      }.to raise_error(ArgumentError)
+    end
+
     valid_params = [:mi, :t, :likelihood, :pos]
     valid_params << :pos if Admin::Setting.nlp_tool_path.present?
 
@@ -59,6 +71,13 @@ RSpec.describe Jobs::Analysis::Collocation do
         expect(words.split.count).to eq(2)
         expect(sig.to_f).to be_finite
       end
+    end
+  end
+
+  describe '.significance_tests' do
+    it 'gives a reasonable answer' do
+      tests = described_class.significance_tests
+      expect(tests).to include(['Log-likelihood', :likelihood])
     end
   end
 end

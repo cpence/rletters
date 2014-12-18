@@ -26,6 +26,20 @@ RSpec.describe Jobs::Analysis::Cooccurrence do
   end
 
   describe '.perform' do
+    it 'throws an exception if the type is invalid' do
+      expect {
+        Jobs::Analysis::Cooccurrence.perform(
+          '123',
+          user_id: @user.to_param,
+          dataset_id: @dataset.to_param,
+          task_id: @task.to_param,
+          analysis_type: 'nope',
+          num_pairs: '10',
+          window: 25,
+          word: 'ethology')
+      }.to raise_error(ArgumentError)
+    end
+
     types = [:mi, :t, :likelihood]
     words = ['was', 'it, was']
 
@@ -53,6 +67,13 @@ RSpec.describe Jobs::Analysis::Cooccurrence do
         expect(words.split.count).to eq(2)
         expect(sig.to_f).to be_finite
       end
+    end
+  end
+
+  describe '.significance_tests' do
+    it 'gives a reasonable answer' do
+      tests = described_class.significance_tests
+      expect(tests).to include(['Log-likelihood', :likelihood])
     end
   end
 end
