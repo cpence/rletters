@@ -77,5 +77,6 @@ module RLetters
         YAML.load(yml)
       end
     end
+    # :nocov:
   end
 end
