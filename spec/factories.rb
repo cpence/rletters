@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 
-CSL_DATA = File.read(Rails.root.join('spec', 'factories', 'nature.csl'))
-POS_YAML = File.read(Rails.root.join('spec', 'factories', 'parts_of_speech.yml'))
+CSL_DATA ||= File.read(Rails.root.join('spec', 'factories', 'nature.csl'))
+POS_YAML ||= File.read(Rails.root.join('spec', 'factories', 'parts_of_speech.yml'))
 
 FactoryGirl.define do
 

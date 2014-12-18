@@ -45,21 +45,26 @@ require 'rspec/rails'
 
 Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 
+# Double-check that the schema is current
+ActiveRecord::Migration.maintain_test_schema!
+
 RSpec.configure do |config|
   # Switch to the new RSpec syntax
-  config.expect_with(:rspec) { |e| e.syntax = :expect }
-  config.mock_with(:rspec) { |m| m.syntax = :expect }
+  config.expect_with(:rspec) do |e|
+    e.include_chain_clauses_in_custom_matcher_descriptions = true
+  end
+  config.mock_with(:rspec) do |m|
+    m.verify_partial_doubles = true
+  end
 
+  config.disable_monkey_patching!
   config.color = true
   config.tty = true
-  config.order = 'rand'
+  config.order = :random
 
   # We're going to use database_cleaner, so we don't need RSpec's transactional
   # fixture support
   config.use_transactional_fixtures = false
-
-  # RSpec's new monkey-patch-free mode (preparing for RSpec 4)
-  config.expose_dsl_globally = false
 
   # For testing, the NLP tool must be present in vendor/nlp/nlp-tool
   if File.exist?(Rails.root.join('vendor', 'nlp', 'nlp-tool'))
@@ -81,6 +86,11 @@ RSpec.configure do |config|
     # Reset the locale and timezone to defaults on each new test
     I18n.locale = I18n.default_locale
     Time.zone = 'Eastern Time (US & Canada)'
+
+    # I'm not sure why this has stopped being called, but call it manually
+    if example.metadata[:type].in?([:controller, :mailer, :decorator])
+      Draper::ViewContext.clear!
+    end
 
     DatabaseCleaner.cleaning do
       example.run

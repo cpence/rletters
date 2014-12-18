@@ -48,7 +48,7 @@ RSpec.describe CategoryDecorator, type: :decorator do
   describe '#toggle_link' do
     context 'when enabled' do
       it 'works' do
-        Draper::ViewContext.current.params[:categories] = [@category.to_param]
+      Draper::ViewContext.current.params[:categories] = [@category.to_param]
         expect(@decorated.toggle_link).to include('<a href="/search">')
       end
     end

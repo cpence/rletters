@@ -68,6 +68,12 @@ gem 'simple_form', '>= 3.1.0.rc1'
 gem 'uglifier'
 gem 'roadie-rails'
 
+group :development do
+  gem 'spring'
+  gem 'spring-commands-rspec'
+  gem 'spring-commands-cucumber'
+end
+
 # Testing
 group :test, :development do
   gem 'rspec-rails', '~> 3'

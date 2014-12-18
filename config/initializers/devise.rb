@@ -134,3 +134,12 @@ Devise::Async.setup do |config|
   config.backend = :resque
   config.queue = :maintenance
 end
+
+# Use the 'full_page' layout for all Devise views
+Rails.application.config.to_prepare do
+  Devise::SessionsController.layout 'full_page'
+  Devise::RegistrationsController.layout 'full_page'
+  Devise::ConfirmationsController.layout 'full_page'
+  Devise::UnlocksController.layout 'full_page'
+  Devise::PasswordsController.layout 'full_page'
+end

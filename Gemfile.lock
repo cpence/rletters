@@ -362,6 +362,11 @@ GEM
       rack (~> 1.4)
       rack-protection (~> 1.4)
       tilt (~> 1.3, >= 1.3.4)
+    spring (1.2.0)
+    spring-commands-cucumber (1.0.1)
+      spring (>= 0.9.1)
+    spring-commands-rspec (1.0.4)
+      spring (>= 0.9.1)
     sprockets (2.12.3)
       hike (~> 1.2)
       multi_json (~> 1.0)
@@ -475,6 +480,9 @@ DEPENDENCIES
   rubyzip (>= 1.1.0)
   sass-rails (>= 4.0.3)
   simple_form (>= 3.1.0.rc1)
+  spring
+  spring-commands-cucumber
+  spring-commands-rspec
   uglifier
   unicorn
   validate_url

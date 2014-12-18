@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-RLetters::Application.routes.draw do
+Rails.application.routes.draw do
 
   # The user workflow
   get 'workflow' => 'workflow#index'

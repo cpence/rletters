@@ -4,15 +4,15 @@ rvm: 2.1.5
 sudo: false
 
 env:
-  - TASK='bundle exec rspec'
-  - TASK='bundle exec cucumber --profile first_try || bundle exec cucumber --profile second_try'
+  - TASK='bin/spring rspec'
+  - TASK='bin/spring cucumber --profile first_try || bin/spring cucumber --profile second_try'
 
 bundler_args: --without production development --jobs 3 --retry 3
 before_script:
   - cp config/database.yml.travis config/database.yml
   - git clone --depth=1 https://github.com/rletters/solr-example.git vendor/solr
   - 'pushd vendor/solr && ./start && popd'
-  - bundle exec rake db:create db:schema:load
+  - bin/rake db:create db:schema:load
 
 script: sh -c "$TASK"
 

@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 
 # Set the list of available locales ('en' ships with Rails)
-RLetters::Application.config.i18n.available_locales = ['en']
+Rails.application.config.i18n.available_locales = ['en']
 
 # This exact line is taken from the README file of the rails-i18n gem, which
 # supplies localizations for all our Rails defaults.
@@ -34,5 +34,5 @@ RLetters::Application.config.i18n.available_locales = ['en']
 "lo, lt, lv, mk, mn, ms, nb, ne, nl, nn, or, pl, pt, pt-BR, rm, ro, ru, sk, " \
 "sl, sr, sv, sw, ta, th, tl, tr, uk, ur, uz, vi, zh-CN, zh-HK, " \
 "zh-TW".split(',').each do |loc|
-  RLetters::Application.config.i18n.available_locales << loc.strip
+  Rails.application.config.i18n.available_locales << loc.strip
 end

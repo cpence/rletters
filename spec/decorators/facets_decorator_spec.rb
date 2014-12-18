@@ -22,7 +22,7 @@ RSpec.describe FacetsDecorator, type: :decorator do
           q: '*:*',
           def_type: 'lucene',
           fq: ['authors_facet:"Elisa Lobato"', 'year:[2010 TO *]'])
-        # HACK alert
+
         Draper::ViewContext.current.params[:fq] = ['authors_facet:"Elisa Lobato"', 'year:[2010 TO *]']
         @ret = described_class.decorate(@result.facets).removal_links
       end

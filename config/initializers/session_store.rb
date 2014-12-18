@@ -8,4 +8,4 @@ else
   key = '_rletters_session'
 end
 
-RLetters::Application.config.session_store(:cookie_store, key: key)
+Rails.application.config.session_store(:cookie_store, key: key)
