@@ -3,17 +3,10 @@
 require 'rubygems'
 
 # Coverage setup
-if ENV['COVERAGE'] || ENV['TRAVIS']
+if ENV['TRAVIS']
   require 'simplecov'
-
-  if ENV['TRAVIS']
-    # Store coverage with Code Climate
-    require 'codeclimate-test-reporter'
-    SimpleCov.formatter = CodeClimate::TestReporter::Formatter
-  else
-    # Output our own report
-    SimpleCov.coverage_dir('/spec/coverage')
-  end
+  require 'codeclimate-test-reporter'
+  SimpleCov.formatter = CodeClimate::TestReporter::Formatter
 
   SimpleCov.start do
     add_filter '/spec/'
@@ -24,6 +17,14 @@ if ENV['COVERAGE'] || ENV['TRAVIS']
     add_filter '.haml'
     add_filter '.erb'
     add_filter '.builder'
+  end
+
+  SimpleCov.at_exit do
+    # We want to disable WebMock before we send results to Code Climate, or
+    # it'll block the request
+    WebMock.enable_net_connect!
+
+    SimpleCov.result.format!
   end
 end
 
