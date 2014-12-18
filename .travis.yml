@@ -4,8 +4,8 @@ rvm: 2.1.5
 sudo: false
 
 env:
-  - TASK='bin/spring rspec'
-  - TASK='bin/spring cucumber --profile first_try || bin/spring cucumber --profile second_try'
+  - TASK='bin/rspec'
+  - TASK='bin/cucumber --profile first_try || bin/cucumber --profile second_try'
 
 bundler_args: --without production development --jobs 3 --retry 3
 before_script:
