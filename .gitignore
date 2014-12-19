@@ -3,14 +3,16 @@
 .sass-cache
 .yardoc
 
-config/database.yml
-doc
-log/*.log*
-public/assets
-spec/coverage
-tmp/*
-!tmp/.gitkeep
-vendor/bundle
-vendor/nlp/*
-!vendor/nlp/.gitkeep
-vendor/solr
+/coverage
+/config/database.yml
+/doc
+/log/*
+!/log/.gitkeep
+/public/assets
+/spec/coverage
+/tmp/*
+!/tmp/.gitkeep
+/vendor/bundle
+/vendor/nlp
+!/vendor/nlp/.gitkeep
+/vendor/solr

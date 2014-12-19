@@ -3,17 +3,39 @@ require 'spec_helper'
 require_relative './shared_examples'
 
 RSpec.describe RLetters::Analysis::Collocation::PartsOfSpeech do
-  before(:each) do
-    @old_path = Admin::Setting.nlp_tool_path
-    Admin::Setting.nlp_tool_path = 'stubbed'
+  context 'without the NLP tool available' do
+    before(:each) do
+      @old_path = Admin::Setting.nlp_tool_path
+      Admin::Setting.nlp_tool_path = nil
 
-    @words = build(:parts_of_speech)
-    expect(RLetters::Analysis::NLP).to receive(:parts_of_speech).at_least(:once).and_return(@words)
+      @user = create(:user)
+      @dataset = create(:full_dataset, stub: true, english: true)
+    end
+
+    after(:each) do
+      Admin::Setting.nlp_tool_path = @old_path
+    end
+
+    it 'raises an error when called' do
+      expect {
+        @grams = described_class.new(@dataset, 10).call
+      }.to raise_error(ArgumentError)
+    end
   end
 
-  after(:each) do
-    Admin::Setting.nlp_tool_path = @old_path
-  end
+  context 'with the NLP tool available' do
+    before(:each) do
+      @old_path = Admin::Setting.nlp_tool_path
+      Admin::Setting.nlp_tool_path = 'stubbed'
 
-  it_should_behave_like 'a collocation analyzer'
+      @words = build(:parts_of_speech)
+      expect(RLetters::Analysis::NLP).to receive(:parts_of_speech).at_least(:once).and_return(@words)
+    end
+
+    after(:each) do
+      Admin::Setting.nlp_tool_path = @old_path
+    end
+
+    it_should_behave_like 'a collocation analyzer'
+  end
 end

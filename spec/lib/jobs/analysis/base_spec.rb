@@ -40,6 +40,13 @@ RSpec.describe Jobs::Analysis::Base do
     end
   end
 
+  describe '.has_view?' do
+    it 'returns correct values' do
+      expect(Jobs::Analysis::ArticleDates).to have_view('_params')
+      expect(Jobs::Analysis::CraigZeta).not_to have_view('_params')
+    end
+  end
+
   describe '.view_paths' do
     it 'returns the base path' do
       expected = Rails.root.join('lib', 'jobs', 'analysis', 'views', 'mock_job')

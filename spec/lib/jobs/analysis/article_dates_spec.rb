@@ -145,4 +145,30 @@ RSpec.describe Jobs::Analysis::ArticleDates do
     end
   end
 
+  # We want to make sure it still works when we normalize to a dataset where
+  # the dataset of interest isn't a subset
+  context 'when normalizing incorrectly' do
+    before(:each) do
+      @normalization_set = create(:full_dataset, entries_count: 0, user: @user)
+      @normalization_set.entries = [
+        create(:entry, dataset: @normalization_set, uid: 'gutenberg:3172')
+      ]
+      @normalization_set.save
+
+      Jobs::Analysis::ArticleDates.perform(
+        '123',
+        user_id: @user.to_param,
+        dataset_id: @dataset.to_param,
+        task_id: @task.to_param,
+        normalize_doc_counts: '1',
+        normalize_doc_dataset: @normalization_set.to_param)
+    end
+
+    it 'fills in zeros for all the values' do
+      arr = JSON.load(@dataset.analysis_tasks[0].result.file_contents(:original))['data']
+      arr.each do |a|
+        expect(a[1]).to eq(0)
+      end
+    end
+  end
 end
