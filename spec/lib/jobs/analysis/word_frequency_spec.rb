@@ -12,12 +12,25 @@ RSpec.describe Jobs::Analysis::WordFrequency do
     @task = create(:analysis_task, dataset: @dataset)
 
     # Don't perform the analysis
-    mock_analyzer = OpenStruct.new(blocks: [], block_stats: [],
-                                   word_list: [], tf_in_dataset: {},
-                                   df_in_dataset: {}, num_dataset_tokens: 0,
-                                   num_dataset_types: 0, df_in_corpus: {})
-    allow(RLetters::Analysis::Frequency::FromTF).to receive(:new).and_return(mock_analyzer)
-    allow(RLetters::Analysis::Frequency::FromPosition).to receive(:new).and_return(mock_analyzer)
+    mock_analyzer = OpenStruct.new(
+      blocks: [{'word' => 2, 'other' => 5}, {'word' => 1, 'other' => 6}],
+      block_stats: [
+        {name: 'first block', tokens: 7, types: 2},
+        {name: 'second block', tokens: 7, types: 2}],
+      word_list: ['word', 'other'],
+      tf_in_dataset: {'word' => 3, 'other' => 11},
+      df_in_dataset: {'word' => 2, 'other' => 3},
+      num_dataset_tokens: 14,
+      num_dataset_types: 2,
+      df_in_corpus: {'word' => 123, 'other' => 456})
+    allow(RLetters::Analysis::Frequency::FromTF).to receive(:new) do |d, p, a|
+      p.call(100)
+      mock_analyzer
+    end
+    allow(RLetters::Analysis::Frequency::FromPosition).to receive(:new) do |d, p, a|
+      p.call(100)
+      mock_analyzer
+    end
   end
 
   describe '.download?' do
@@ -101,6 +114,45 @@ RSpec.describe Jobs::Analysis::WordFrequency do
       end
 
       it 'creates good CSV' do
+        expect(@output).to be_an(Array)
+      end
+    end
+
+    context 'when no corpus dfs are returned' do
+      before(:example) do
+        mock_analyzer = OpenStruct.new(
+          blocks: [{'word' => 2, 'other' => 5}, {'word' => 1, 'other' => 6}],
+          block_stats: [
+            {name: 'first block', tokens: 7, types: 2},
+            {name: 'second block', tokens: 7, types: 2}],
+          word_list: ['word', 'other'],
+          tf_in_dataset: {'word' => 3, 'other' => 11},
+          df_in_dataset: {'word' => 2, 'other' => 3},
+          num_dataset_tokens: 14,
+          num_dataset_types: 2,
+          df_in_corpus: nil)
+        allow(RLetters::Analysis::Frequency::FromTF).to receive(:new) do |d, p, a|
+          p.call(100)
+          mock_analyzer
+        end
+        allow(RLetters::Analysis::Frequency::FromPosition).to receive(:new) do |d, p, a|
+          p.call(100)
+          mock_analyzer
+        end
+
+        Jobs::Analysis::WordFrequency.perform(
+          '123',
+          user_id: @user.to_param,
+          dataset_id: @dataset.to_param,
+          task_id: @task.to_param,
+          block_size: '100',
+          split_across: 'true',
+          num_words: '0')
+        @task.reload
+        @output = CSV.parse(@task.result.file_contents(:original))
+      end
+
+      it 'still works' do
         expect(@output).to be_an(Array)
       end
     end
