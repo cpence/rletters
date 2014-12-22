@@ -121,8 +121,6 @@ module RLetters
 
         return nil if !result || result.empty?
         result ['responseHeader']['QTime']
-      rescue *EXCEPTIONS
-        nil
       end
 
       private

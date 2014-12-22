@@ -28,18 +28,25 @@ RSpec.describe DocumentsController, type: :controller do
   describe '#citeulike' do
     context 'when request succeeds' do
       it 'redirects to citeulike' do
-        stub_connection(/www.citeulike.org/, 'citeulike')
+        stub_connection(/www\.citeulike\.org/, 'citeulike')
         get :citeulike, uid: 'doi:10.1371/journal.pntd.0000534'
         expect(response).to redirect_to('http://www.citeulike.org/article/10443922')
       end
     end
 
-    context 'when request times out' do
-      before(:example) do
-        stub_request(:any, %r{www\.citeulike\.org/json/.*}).to_timeout
-      end
-
+    context 'when no documents are found' do
       it 'raises an exception' do
+        stub_connection(/www\.citeulike\.org/, 'citeulike_failure')
+        expect {
+          get :citeulike, uid: 'doi:10.1371/journal.pntd.0000534'
+        }.to raise_error(ActiveRecord::RecordNotFound)
+      end
+    end
+
+    context 'when request times out' do
+      it 'raises an exception' do
+        stub_request(:any, %r{www\.citeulike\.org/json/.*}).to_timeout
+
         expect {
           get :citeulike, uid: 'doi:10.1371/journal.pntd.0000534'
         }.to raise_error(ActiveRecord::RecordNotFound)

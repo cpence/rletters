@@ -10,7 +10,11 @@ RSpec.describe Jobs::Analysis::Cooccurrence do
 
   before(:example) do
     # Don't run the analyses
-    allow_any_instance_of(RLetters::Analysis::Cooccurrence::Base).to receive(:call).and_return([])
+    allow_any_instance_of(RLetters::Analysis::Cooccurrence::Base).to receive(:call) do |analyzer|
+      p = analyzer.instance_variable_get(:@progress)
+      p && p.call(100)
+      [['word other', 1]]
+    end
   end
 
   it_should_behave_like 'an analysis job' do

@@ -102,11 +102,14 @@ class WorkflowController < ApplicationController
           status = Resque::Plugins::Status::Hash.get(t.resque_key)
           next unless status
 
+          # Don't touch completed tasks, should they make it here
+          next if status.completed?
+
           if status.working?
             # Signal the job to terminate the next time it calls at() or tick()
             Resque::Plugins::Status::Hash.kill(t.resque_key)
-          elsif status.failed?
-            # Just delete the record; we've already got a failed job
+          elsif status.failed? || status.killed?
+            # Just delete the record; we've already got a failed/killed job
             Resque::Plugins::Status::Hash.remove(t.resque_key)
           else
             # Pull from the queue and delete

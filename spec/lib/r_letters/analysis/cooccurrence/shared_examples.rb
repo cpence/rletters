@@ -12,7 +12,7 @@ RSpec.shared_examples_for 'a cooccurrence analyzer' do
       @called_sub_100 = false
       @called_100 = false
 
-      @grams = described_class.new(@dataset, 10, 'abstract', 6, nil, ->(p) {
+      @grams = described_class.new(@dataset, 10, 'abstract', 50, nil, ->(p) {
         if p < 100
           @called_sub_100 = true
         else
@@ -41,7 +41,7 @@ RSpec.shared_examples_for 'a cooccurrence analyzer' do
 
   describe 'multiple word analysis' do
     before(:context) do
-      @grams = described_class.new(@dataset, 10, 'disease, abstract', 6).call
+      @grams = described_class.new(@dataset, 10, 'abstract, background', 50).call
     end
 
     it 'returns the correct number of grams' do
@@ -59,7 +59,7 @@ RSpec.shared_examples_for 'a cooccurrence analyzer' do
 
   describe 'stemming' do
     before(:context) do
-      @grams = described_class.new(@dataset, 9999, 'abstract', 6, :stem).call
+      @grams = described_class.new(@dataset, 9999, 'abstract', 50, :stem).call
     end
 
     it 'returns stemmed grams' do
@@ -75,7 +75,7 @@ RSpec.shared_examples_for 'a cooccurrence analyzer' do
       expect(RLetters::Analysis::NLP).to receive(:lemmatize_words).with(['abstract']).and_return(['the'])
       allow(RLetters::Analysis::NLP).to receive(:lemmatize_words) { |array| array }
 
-      @grams = described_class.new(@dataset, 10, 'abstract', 6, :lemma).call
+      @grams = described_class.new(@dataset, 10, 'abstract', 50, :lemma).call
     end
 
     after(:example) do
@@ -91,7 +91,7 @@ RSpec.shared_examples_for 'a cooccurrence analyzer' do
 
   context 'with a single uppercase word' do
     it 'still works' do
-      grams = described_class.new(@dataset, 10, 'ABSTRACT', 6).call
+      grams = described_class.new(@dataset, 10, 'ABSTRACT', 50).call
       expect(grams[0][0].split).to include('abstract')
     end
   end

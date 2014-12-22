@@ -20,6 +20,13 @@ RSpec.describe RLetters::Documents::Author do
     end
   end
 
+  describe '#to_s' do
+    it 'is the same as #full' do
+      au = described_class.new('Greebleflotz, Johannes van der 123 Jr.')
+      expect(au.to_s).to eq(au.full)
+    end
+  end
+
   describe '#first' do
     it 'returns nothing with just one name' do
       au = described_class.new('Asdf')

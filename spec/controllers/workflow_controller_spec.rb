@@ -11,7 +11,6 @@ module Jobs
 end
 
 RSpec.describe WorkflowController, type: :controller do
-
   describe '#index' do
     context 'given Solr results' do
       context 'when logged in' do
@@ -197,13 +196,28 @@ RSpec.describe WorkflowController, type: :controller do
       @other_dataset = create(:dataset, user: @user2, name: 'OtherUser')
 
       @finished_task = make_task(@dataset, DateTime.now)
+      Resque::Plugins::Status::Hash.set(@finished_task.resque_key,
+        Resque::Plugins::Status::Hash.get(@finished_task.resque_key),
+        { 'status' => 'completed',
+          'name' => 'WorkflowJob' })
+
       @pending_task = make_task(@dataset, nil)
+      Resque::Plugins::Status::Hash.set(@pending_task.resque_key,
+        Resque::Plugins::Status::Hash.get(@pending_task.resque_key),
+        { 'status' => 'queued',
+          'name' => 'WorkflowJob' })
 
       @working_task = make_task(@dataset, nil)
       @uuid = @working_task.resque_key
       Resque::Plugins::Status::Hash.set(@uuid,
         Resque::Plugins::Status::Hash.get(@uuid),
         { 'status' => 'working',
+          'name' => 'WorkflowJob' })
+
+      @failed_task = make_task(@dataset, nil)
+      Resque::Plugins::Status::Hash.set(@failed_task.resque_key,
+        Resque::Plugins::Status::Hash.get(@failed_task.resque_key),
+        { 'status' => 'failed',
           'name' => 'WorkflowJob' })
 
       @disabled_task = make_task(@disabled, DateTime.now)
@@ -219,6 +233,7 @@ RSpec.describe WorkflowController, type: :controller do
     it 'assigns the pending tasks' do
       expect(assigns(:pending_tasks).to_a).to match_array(
         [@pending_task,
+         @failed_task,
          @working_task])
     end
 
@@ -231,6 +246,7 @@ RSpec.describe WorkflowController, type: :controller do
       it 'destroys the tasks' do
         expect(Datasets::AnalysisTask.exists?(@pending_task.id)).to be false
         expect(Datasets::AnalysisTask.exists?(@working_task.id)).to be false
+        expect(Datasets::AnalysisTask.exists?(@failed_task.id)).to be false
       end
 
       it 'leaves everything else alone' do
@@ -245,6 +261,43 @@ RSpec.describe WorkflowController, type: :controller do
 
       it 'sets a flash alert' do
         expect(flash[:alert]).to be
+      end
+    end
+
+    context 'with terminate set and live Resque' do
+      before(:context) do
+        Resque.inline = false
+      end
+
+      after(:context) do
+        Resque.inline = true
+      end
+
+      it 'calls the right Resque methods for each task' do
+        expect(Resque::Plugins::Status::Hash).to receive(:kill).with(@working_task.resque_key)
+        expect(Resque::Plugins::Status::Hash).to receive(:remove).with(@failed_task.resque_key)
+        expect(Jobs::Analysis::WorkflowJob).to receive(:dequeue).with(Jobs::Analysis::WorkflowJob, @pending_task.resque_key)
+        expect(Resque::Plugins::Status::Hash).to receive(:remove).with(@pending_task.resque_key)
+
+        get :fetch, terminate: true
+      end
+    end
+
+    context 'with an XHR request' do
+      before do
+        xhr :get, :fetch
+      end
+
+      it 'loads successfully' do
+        expect(response).to be_success
+      end
+
+      it 'renders the XHR version of the template' do
+        expect(response).to render_template(:fetch_xhr)
+      end
+
+      it 'doesn\'t render a layout' do
+        expect(response.body).not_to include('<html')
       end
     end
   end
@@ -279,5 +332,4 @@ RSpec.describe WorkflowController, type: :controller do
       end
     end
   end
-
 end

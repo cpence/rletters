@@ -13,41 +13,30 @@ RSpec.describe RLetters::Analysis::Frequency::FromTF do
       @analyzer = described_class.new(@dataset)
     end
 
-    describe '#num_words' do
-      it 'includes all words' do
-        expect(@analyzer.block_stats[0][:types]).to eq(@analyzer.blocks[0].size)
-      end
+    it 'includes all words' do
+      expect(@analyzer.block_stats[0][:types]).to eq(@analyzer.blocks[0].size)
+    end
 
-      it 'saves blocks' do
-        expect(@analyzer.blocks).to be_an(Array)
-        expect(@analyzer.blocks[0]).to be_a(Hash)
-        expect(@analyzer.blocks[0].first[0]).to be_a(String)
-        expect(@analyzer.blocks[0].first[1]).to be_an(Integer)
+    it 'saves blocks' do
+      expect(@analyzer.blocks).to be_an(Array)
+      expect(@analyzer.blocks[0]).to be_a(Hash)
+      expect(@analyzer.blocks[0].first[0]).to be_a(String)
+      expect(@analyzer.blocks[0].first[1]).to be_an(Integer)
 
-        expect(@analyzer.num_dataset_types).to be
-        expect(@analyzer.num_dataset_tokens).to be
-      end
+      expect(@analyzer.num_dataset_types).to be
+      expect(@analyzer.num_dataset_tokens).to be
+    end
 
-      it 'creates a parallel list (same words in all blocks)' do
-        @analyzer.blocks.each do |b|
-          expect(b.keys & @analyzer.word_list).to eq(b.keys)
-        end
-      end
-
-      it 'is the same as the dataset stats' do
-        expect(@analyzer.block_stats[0][:types]).to eq(@analyzer.num_dataset_types)
-        expect(@analyzer.block_stats[0][:tokens]).to eq(@analyzer.num_dataset_tokens)
+    it 'creates a parallel list (same words in all blocks)' do
+      @analyzer.blocks.each do |b|
+        expect(b.keys & @analyzer.word_list).to eq(b.keys)
       end
     end
 
-    describe '#split_across' do
-      it 'includes all words in all blocks' do
-        @analyzer.blocks.each do |b|
-          expect(b.size).to eq(@analyzer.blocks[0].size)
-        end
-
-        expect(@analyzer.num_dataset_types).to eq(@analyzer.blocks[0].size)
-      end
+    it 'is the same as the dataset stats' do
+      expect(@analyzer.blocks[0].size).to eq(@analyzer.num_dataset_types)
+      expect(@analyzer.block_stats[0][:types]).to eq(@analyzer.num_dataset_types)
+      expect(@analyzer.block_stats[0][:tokens]).to eq(@analyzer.num_dataset_tokens)
     end
 
     describe '#block_stats' do
@@ -68,6 +57,72 @@ RSpec.describe RLetters::Analysis::Frequency::FromTF do
       it 'returns the same values as a single-block analysis' do
         @analyzer.word_list.each do |w|
           expect(@analyzer.blocks[0][w]).to eq(@analyzer.tf_in_dataset[w])
+        end
+      end
+    end
+
+    describe '#df_in_dataset' do
+      it 'includes (at least) all the words in the list' do
+        @analyzer.word_list.each do |w|
+          expect(@analyzer.df_in_dataset[w]).to be
+        end
+      end
+
+      it 'returns correct values for every word' do
+        expect(@analyzer.df_in_dataset['malaria']).to eq(1)
+        expect(@analyzer.df_in_dataset['disease']).to eq(8)
+      end
+    end
+
+    describe '#df_in_corpus' do
+      it 'includes (at least) all the words in the list' do
+        @analyzer.word_list.each do |w|
+          expect(@analyzer.df_in_corpus[w]).to be
+        end
+      end
+
+      it 'returns correct values' do
+        expect(@analyzer.df_in_corpus['malaria']).to eq(128)
+        expect(@analyzer.df_in_corpus['disease']).to eq(1104)
+      end
+    end
+  end
+
+  context 'when not splitting across documents' do
+    before(:context) do
+      @analyzer = described_class.new(@dataset, nil, split_across: false)
+    end
+
+    it 'saves blocks' do
+      expect(@analyzer.blocks).to be_an(Array)
+      expect(@analyzer.blocks[0]).to be_a(Hash)
+      expect(@analyzer.blocks[0].first[0]).to be_a(String)
+      expect(@analyzer.blocks[0].first[1]).to be_an(Integer)
+
+      expect(@analyzer.num_dataset_types).to be
+      expect(@analyzer.num_dataset_tokens).to be
+    end
+
+    it 'returns as many blocks as entries in the dataset' do
+      expect(@analyzer.blocks.size).to eq(@dataset.entries.size)
+    end
+
+    it 'includes all words' do
+      expect(@analyzer.block_stats[0][:types]).to eq(@analyzer.blocks[0].size)
+    end
+
+    describe '#block_stats' do
+      it 'includes name, types, and tokens' do
+        expect(@analyzer.block_stats[0][:name]).to be
+        expect(@analyzer.block_stats[0][:types]).to be
+        expect(@analyzer.block_stats[0][:tokens]).to be
+      end
+    end
+
+    describe '#tf_in_dataset' do
+      it 'includes (at least) all the words in the list' do
+        @analyzer.word_list.each do |w|
+          expect(@analyzer.tf_in_dataset[w]).to be
         end
       end
     end

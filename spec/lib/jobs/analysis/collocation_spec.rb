@@ -18,10 +18,26 @@ RSpec.describe Jobs::Analysis::Collocation do
     allow(RLetters::Analysis::NLP).to receive(:parts_of_speech).and_return(@words)
 
     # Don't run the analyses
-    allow_any_instance_of(RLetters::Analysis::Collocation::LogLikelihood).to receive(:call).and_return([])
-    allow_any_instance_of(RLetters::Analysis::Collocation::TTest).to receive(:call).and_return([])
-    allow_any_instance_of(RLetters::Analysis::Collocation::MutualInformation).to receive(:call).and_return([])
-    allow_any_instance_of(RLetters::Analysis::Collocation::PartsOfSpeech).to receive(:call).and_return([])
+    allow_any_instance_of(RLetters::Analysis::Collocation::LogLikelihood).to receive(:call) do |analyzer|
+      p = analyzer.instance_variable_get(:@progress)
+      p && p.call(100)
+      [['word other', 1]]
+    end
+    allow_any_instance_of(RLetters::Analysis::Collocation::TTest).to receive(:call) do |analyzer|
+      p = analyzer.instance_variable_get(:@progress)
+      p && p.call(100)
+      [['word other', 1]]
+    end
+    allow_any_instance_of(RLetters::Analysis::Collocation::MutualInformation).to receive(:call) do |analyzer|
+      p = analyzer.instance_variable_get(:@progress)
+      p && p.call(100)
+      [['word other', 1]]
+    end
+    allow_any_instance_of(RLetters::Analysis::Collocation::PartsOfSpeech).to receive(:call) do |analyzer|
+      p = analyzer.instance_variable_get(:@progress)
+      p && p.call(100)
+      [['word other', 1]]
+    end
   end
 
   after(:example) do

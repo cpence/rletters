@@ -11,7 +11,7 @@ RSpec.describe RLetters::Documents::Serializers::MODS do
 
   context 'when serializing a single document' do
     before(:example) do
-      @doc = build(:full_document)
+      @doc = build(:full_document, pages: '123-456')
       @xml = Nokogiri::XML::Document.parse(described_class.new(@doc).serialize)
     end
 
@@ -24,7 +24,8 @@ RSpec.describe RLetters::Documents::Serializers::MODS do
       expect(@xml.at_css('mods relatedItem originInfo dateIssued').content).to eq('1859')
       expect(@xml.at_css('mods relatedItem part detail number:contains("1")')).to be
       expect(@xml.at_css('mods relatedItem part detail number:contains("1")')).to be
-      expect(@xml.at_css('mods relatedItem part extent start').content).to eq('1')
+      expect(@xml.at_css('mods relatedItem part extent start').content).to eq('123')
+      expect(@xml.at_css('mods relatedItem part extent end').content).to eq('456')
       expect(@xml.at_css('mods relatedItem part date').content).to eq('1859')
       expect(@xml.at_css('mods identifier').content).to eq('10.5678/dickens')
     end

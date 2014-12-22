@@ -59,6 +59,11 @@ RSpec.describe RLetters::Solr::Connection do
   end
 
   describe '.ping' do
+    it 'returns nil when Solr fails' do
+      stub_request(:any, /(127\.0\.0\.1|localhost)/).to_timeout
+      expect(described_class.ping).to be_nil
+    end
+
     it 'works' do
       expect(described_class.ping).to be_an(Integer)
     end

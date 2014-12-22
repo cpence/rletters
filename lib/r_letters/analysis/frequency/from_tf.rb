@@ -28,7 +28,7 @@ module RLetters
         # @option options [Documents::StopList] :stop_list If specified, then
         #   the analyzer will *not* compute frequency information for the words
         #   that appear within this stop list.
-        # @option options [String] split_across whether to split blocks across
+        # @option options [Boolean] :split_across whether to split blocks across
         #   documents
         #
         #   If this is set to true, then we will effectively concatenate all
@@ -37,7 +37,13 @@ module RLetters
         def initialize(dataset, progress = nil, options = {})
           # Save the options
           normalize_options(options)
-          @split_across = options[:split_across] || true
+          if options[:split_across].nil?
+            @split_across = true
+          else
+            # Do *not* test this with || or you'll wind up never being able
+            # to set split_across to false.
+            @split_across = options[:split_across]
+          end
           @documents = RLetters::Datasets::DocumentEnumerator.new(
             dataset,
             term_vectors: true
@@ -94,7 +100,7 @@ module RLetters
           @blocks = @documents.each_with_index.map do |d, i|
             progress.call((i.to_f / total * 40.0).to_i + 40) if progress
 
-            d.term_vectors.each_with_object do |(k, v), ret|
+            d.term_vectors.each_with_object({}) do |(k, v), ret|
               next unless @word_list.include?(k)
               ret[k] = v[:tf]
             end
@@ -104,7 +110,7 @@ module RLetters
 
           # Clean out zero values from the blocks
           @blocks.map! do |b|
-            b.reject! { |k, v| v.to_i == 0 }
+            b.reject { |k, v| v.to_i == 0 }
           end
 
           progress.call(90) if progress

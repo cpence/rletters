@@ -20,6 +20,17 @@ RSpec.describe Jobs::Analysis::NamedEntities do
     Admin::Setting.nlp_tool_path = @old_path
   end
 
+  describe '.available?' do
+    it 'is true with NLP available' do
+      expect(Jobs::Analysis::NamedEntities.available?).to be true
+    end
+
+    it 'is false with no NLP available' do
+      Admin::Setting.nlp_tool_path = nil
+      expect(Jobs::Analysis::NamedEntities.available?).to be false
+    end
+  end
+
   describe '.download?' do
     it 'is false' do
       expect(Jobs::Analysis::NamedEntities.download?).to be false

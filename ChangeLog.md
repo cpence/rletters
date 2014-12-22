@@ -9,6 +9,7 @@
 *   Add an optimized WordFrequencyAnalyzer that can be called when only a single block is requested.
 *   The date-plotting jobs now include intervening years with a "zero" value in the downloaded CSV and graph, instead of leaving them out of the analysis entirely.
 *   Fix several significant bugs in the collocation analyzer, including one that meant that most of the returned weighting values were incorrect.
+*   Fix a significant bug in one of the frequency analyzers, which meant that the 'split across' user parameter was being ignored.
 *   Fix a bug in the computation of DF values within datasets.
 *   Fix a bug that shows the wrong status message when starting an analysis job.
 *   Change the way in which RLetters communicates with the Stanford NLP Java package, increasing reliability of parts-of-speech tagging, lemmatization, and named entity extraction.

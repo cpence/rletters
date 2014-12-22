@@ -4,3 +4,4 @@ curl -is "https://raw.github.com/citation-style-language/styles/master/science.c
 curl -is "http://worldcatlibraries.org/registry/lookup?IP=255.255.255.254" > worldcat_no_libraries.curl
 curl -is "http://worldcatlibraries.org/registry/lookup?IP=129.74.223.212" > worldcat_notre_dame.curl
 curl -is "http://www.citeulike.org/json/search/all?page=1&per_page=1&q=title:(A%20Pilot%20Study%20for%20Control%20of%20Hyperendemic%20Cystic%20Hydatid%20Disease%20in%20China)" > citeulike.curl
+curl -is "http://www.gutenberg.org/ebooks/3172.txt.utf-8" > gutenberg.curl

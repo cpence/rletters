@@ -26,6 +26,12 @@ module RLetters
         #   blocks
         # @param [Float] n the number of blocks
         def score(f_a, f_b, f_ab, n)
+          # Hard to know what to do with cases where A or B basically don't
+          # appear -- but we certainly shouldn't return NaN
+          if f_a.abs < 0.001 || f_b.abs < 0.001
+            return 0.0
+          end
+
           l = (f_ab * n) / (f_a * f_b)
           l = Math.log(l) unless l.abs < 0.001
 

@@ -31,7 +31,15 @@ module RLetters
         # @param [Float] n the number of blocks
         def score(f_a, f_b, f_ab, n)
           h_0 = (f_a / n) * (f_b / n)
-          t = ((f_ab / n) - h_0) / Math.sqrt((h_0 * (1.0 - h_0)) / n)
+          denom = Math.sqrt((h_0 * (1.0 - h_0)) / n)
+
+          # Hard to know the right answer here, but we certainly shouldn't
+          # divide by zero
+          if denom.abs < 0.001
+            denom = 0.001
+          end
+
+          t = ((f_ab / n) - h_0) / denom
           p = 1.0 - Distribution::T.cdf(t, n - 1)
 
           p

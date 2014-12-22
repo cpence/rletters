@@ -14,20 +14,6 @@ module RLetters
           @doc = document
         end
 
-        # Return the user-friendly name of the serializer
-        #
-        # @return [String] name of the serializer
-        def self.format
-          'MARC::Record'
-        end
-
-        # Return a URL where information about this serializer can be found
-        #
-        # @return [String] URL for information about this format
-        def self.url
-          'https://github.com/ruby-marc/ruby-marc'
-        end
-
         # Returns this document as a MARC::Record object
         #
         # Support for individual-article MARC records is spotty at best -- this

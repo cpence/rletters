@@ -87,8 +87,13 @@ RSpec.describe Document, type: :model do
         expect(@doc).to be
       end
 
+      it 'sets the URL' do
+        expect(@doc.fulltext_url.to_s).to include('www.gutenberg.org')
+      end
+
       it 'loads the fulltext' do
         expect(@doc.fulltext).to start_with('The Project Gutenberg EBook of')
+        expect(WebMock).to have_requested(:get, 'http://www.gutenberg.org/cache/epub/3172/pg3172.txt')
       end
 
       it 'loads the term vectors' do
@@ -97,6 +102,28 @@ RSpec.describe Document, type: :model do
 
       it 'fills in term vectors with reasonable quantites' do
         expect(@doc.term_vectors['cooper']['tf']).to be(44)
+      end
+    end
+
+    context 'with external fulltext (HTTP) with BOM' do
+      before(:example) do
+        stub_request(:get, /www\.gutenberg\.org/).to_return(
+          body: "\xEF\xBB\xBFStart of Response",
+          status: 200,
+          headers: { 'Content-Length' => 20 })
+        @doc = Document.find('gutenberg:3172', fulltext: true, term_vectors: true)
+      end
+
+      it 'loads successfully' do
+        expect(@doc).to be
+      end
+
+      it 'sets the URL' do
+        expect(@doc.fulltext_url.to_s).to include('www.gutenberg.org')
+      end
+
+      it 'loads the fulltext and strips off the BOM' do
+        expect(@doc.fulltext).to start_with('Start of Response')
       end
     end
   end
@@ -265,6 +292,20 @@ RSpec.describe Document, type: :model do
         expect(@docs[1].fulltext).not_to be
       end
     end
+
+    context 'when loading a document with blank attributes' do
+      before do
+        @doc = build(:full_document, volume: '', number: '   ')
+      end
+
+      it 'nils out empty strings' do
+        expect(@doc.volume).to be_nil
+      end
+
+      it 'nils out blank strings' do
+        expect(@doc.number).to be_nil
+      end
+    end
   end
 
   describe '#start_page and #end_page' do
@@ -368,5 +409,4 @@ RSpec.describe Document, type: :model do
       end
     end
   end
-
 end
