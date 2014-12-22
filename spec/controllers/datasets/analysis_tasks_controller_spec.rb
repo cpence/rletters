@@ -1,6 +1,15 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
+module Jobs
+  module Analysis
+    class ATControllerJob < Jobs::Analysis::Base
+      include Resque::Plugins::Status
+      def perform; end
+    end
+  end
+end
+
 RSpec.describe Datasets::AnalysisTasksController, type: :controller do
 
   before(:example) do
@@ -81,6 +90,25 @@ RSpec.describe Datasets::AnalysisTasksController, type: :controller do
                   job_params: { format: 'bibtex' }
 
         expect(response).to be_success
+      end
+    end
+
+    context 'when two datasets are needed and two are provided' do
+      it 'loads successfully' do
+        @dataset_2 = create(:full_dataset, user: @user, working: true)
+        get :new, dataset_id: @dataset.to_param, class: 'CraigZeta',
+                  job_params: { other_datasets: [ @dataset_2.to_param ] }
+
+        expect(response).to be_success
+      end
+    end
+
+    context 'when two datasets are needed and one is provided' do
+      it 'loads successfully' do
+        @dataset_2 = create(:full_dataset, user: @user, working: true)
+        expect {
+          get :new, dataset_id: @dataset.to_param, class: 'CraigZeta'
+        }.to raise_error
       end
     end
   end
@@ -229,6 +257,25 @@ RSpec.describe Datasets::AnalysisTasksController, type: :controller do
                    id: @task.to_param, view: '_params'
         expect(response.body).to include('<option')
       end
+
+      it 'escapes JSON if some is available' do
+        @task_2 = create(:analysis_task, dataset: @dataset,
+                                         job_type: 'ExportCitations')
+
+        ios = StringIO.new('abc"123')
+        file = Paperclip.io_adapters.for(ios)
+        file.original_filename = 'test.txt'
+        file.content_type = 'text/plain'
+
+        @task_2.result = file
+        @task_2.save
+
+        get :show, dataset_id: @dataset.to_param,
+                   id: @task_2.to_param, view: '_params'
+
+        expect(assigns(:json)).to eq('abc"123')
+        expect(assigns(:json_escaped)).to eq('abc\"123')
+      end
     end
 
     context 'when fetching a task download' do
@@ -255,6 +302,19 @@ RSpec.describe Datasets::AnalysisTasksController, type: :controller do
       it 'sends some data' do
         get :show, dataset_id: @dataset.to_param, id: @task.to_param
         expect(response.body.length).to be > 0
+      end
+    end
+
+    context 'with neither a view nor a download' do
+      before(:example) do
+        @task_2 = create(:analysis_task, dataset: @dataset,
+                                         job_type: 'ATControllerJob')
+      end
+
+      it 'raises an error' do
+        expect {
+          get :show, dataset_id: @dataset.to_param, id: @task.to_param
+        }.to raise_error
       end
     end
   end

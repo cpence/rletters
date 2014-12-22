@@ -93,7 +93,7 @@ module RLetters
           end
 
           unless options[:word] || options[:id]
-            throw ArgumentError('no find option specified')
+            fail ArgumentError, 'no find option specified'
           end
 
           if options[:word]

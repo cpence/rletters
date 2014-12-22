@@ -56,6 +56,12 @@ RSpec.describe RLetters::Analysis::Network::Graph do
       it 'finds by word' do
         expect(@graph.find_node(word: 'disease')).to eq(@node)
       end
+
+      it 'throws an error when no find options are specified' do
+        expect {
+          @graph.find_node(nothing: 'doing')
+        }.to raise_error(ArgumentError)
+      end
     end
 
     describe '#find_edge' do

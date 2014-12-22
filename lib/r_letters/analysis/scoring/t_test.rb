@@ -35,9 +35,7 @@ module RLetters
 
           # Hard to know the right answer here, but we certainly shouldn't
           # divide by zero
-          if denom.abs < 0.001
-            denom = 0.001
-          end
+          denom = 0.001 if denom.abs < 0.001
 
           t = ((f_ab / n) - h_0) / denom
           p = 1.0 - Distribution::T.cdf(t, n - 1)

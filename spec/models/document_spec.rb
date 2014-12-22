@@ -392,21 +392,5 @@ RSpec.describe Document, type: :model do
         expect(@doc.term_vectors['zuzax']).not_to be
       end
     end
-
-    context 'when loading one document with offsets' do
-      before(:example) do
-        query = { q: 'uid:"doi:10.1371/journal.pntd.0000534"',
-                  def_type: 'lucene',
-                  fields: RLetters::Solr::Connection::DEFAULT_FIELDS_FULLTEXT,
-                  tv: 'true',
-                  'tv.offsets' => 'true' }
-        @result = RLetters::Solr::Connection.search(query)
-        @doc = @result.documents[0]
-      end
-
-      it 'sets offsets' do
-        expect(@doc.term_vectors['on'][:offsets][0]).to eq(440...442)
-      end
-    end
   end
 end

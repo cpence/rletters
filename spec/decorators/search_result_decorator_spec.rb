@@ -226,4 +226,57 @@ RSpec.describe SearchResultDecorator, type: :decorator do
       expect(@result.sort_methods.assoc('authors_sort desc')[1]).to eq('Sort: Authors (descending)')
     end
   end
+
+  describe '#documents' do
+    before(:context) do
+      params = {
+        q: '*:*',
+        defType: 'lucene'
+      }
+      @result = RLetters::Solr::Connection.search(params)
+      @decorated = described_class.decorate(@result)
+    end
+
+    it 'returns a set of decorated documents' do
+      expect(@decorated.documents).to be_an(Array)
+      expect(@decorated.documents[0]).to be_decorated
+    end
+  end
+
+  describe '#categories' do
+    context 'with categories' do
+      before do
+        params = {
+          q: '*:*',
+          defType: 'lucene'
+        }
+        @result = RLetters::Solr::Connection.search(params)
+        @decorated = described_class.decorate(@result)
+      end
+
+      it 'returns a categories decorator for all' do
+        @category = create(:category)
+        expect(Documents::Category).to receive(:all).at_least(:once).and_return([@category])
+        expect(@decorated.categories).to be_decorated
+        expect(@decorated.categories[0]).to eq(@category)
+        expect(@decorated.categories[0]).to be_decorated
+      end
+    end
+
+    context 'without categories' do
+      before do
+        params = {
+          q: '*:*',
+          defType: 'lucene'
+        }
+        @result = RLetters::Solr::Connection.search(params)
+        @decorated = described_class.decorate(@result)
+      end
+
+      it 'returns nil' do
+        expect(Documents::Category).to receive(:all).and_return([])
+        expect(@decorated.categories).to be_nil
+      end
+    end
+  end
 end

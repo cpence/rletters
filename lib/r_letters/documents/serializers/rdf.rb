@@ -15,20 +15,6 @@ module RLetters
           @doc = document
         end
 
-        # Return the user-friendly name of the serializer
-        #
-        # @return [String] name of the serializer
-        def self.format
-          'RDF::Graph'
-        end
-
-        # Return a URL where information about this serializer can be found
-        #
-        # @return [String] URL for information about this format
-        def self.url
-          'https://github.com/ruby-rdf/rdf'
-        end
-
         # Returns this document as a RDF::Graph object
         #
         # For the moment, we provide only metadata items for the basic Dublin

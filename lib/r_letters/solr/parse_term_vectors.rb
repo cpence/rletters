@@ -61,9 +61,13 @@ module RLetters
 
       # Parse the term vector array format returned by Solr
       #
-      # This function expects to be passed the array following 'fulltext' in the
-      # above example, present for each document in the search at
+      # This function expects to be passed the array following 'fulltext' in
+      # the above example, present for each document in the search at
       # +solr_response['termVectors'][N + 1][3]+.
+      #
+      # @note Right now, the function does not parse the +offsets+ or +tfidf+
+      # values here, because those are disabled in the default RLetters
+      # schema. Uncomment them here if you need them.
       #
       # @api private
       # @param [Array] array the Solr term vector array
@@ -76,14 +80,14 @@ module RLetters
               case key
               when 'tf'
                 hash[:tf] = Integer(val)
-              when 'offsets'
-                hash[:offsets] = parse_offset_list(val)
+              # when 'offsets'
+              #   hash[:offsets] = parse_offset_list(val)
               when 'positions'
                 hash[:positions] = parse_position_list(val)
               when 'df'
                 hash[:df] = Float(val)
-              when 'tf-idf'
-                hash[:tfidf] = Float(val)
+              # when 'tf-idf'
+              #   hash[:tfidf] = Float(val)
               end
             end
           end
@@ -96,13 +100,17 @@ module RLetters
       #   ['start', 12, 'end', 34, 'start', 56, 'end', 78, ...]
       # We parse that into Range values here.
       #
+      # @note This function is commented out as we're not currently using
+      # the offsets anywhere in RLetters. They're disabled in the default
+      # schema.
+      #
       # @param [Array] val the values to parse
       # @return [Array<Range>]  the array of offset ranges
-      def parse_offset_list(val)
-        val.each_slice(4).map do |(label, s, label2, e)|
-          (Integer(s)...Integer(e))
-        end
-      end
+      # def parse_offset_list(val)
+      #   val.each_slice(4).map do |(label, s, label2, e)|
+      #     (Integer(s)...Integer(e))
+      #   end
+      # end
 
       # Parse a list of term positions as returned by Solr
       #

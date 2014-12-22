@@ -30,11 +30,25 @@ RSpec.describe FacetDecorator, type: :decorator do
         expect(described_class.decorate(facet).label).to eq('2010 and later')
       end
     end
+
+    it 'throws for invalid fields' do
+      facet = double(RLetters::Solr::Facet, field: :space_facet, value: 'Spaceman Spiff', hits: 10)
+      expect {
+        described_class.decorate(facet).label
+      }.to raise_error(ArgumentError)
+    end
   end
 
   describe '#field_label' do
     it 'has labels for all fields' do
       expect(@facets.map(&:field_label)).to eq(['Authors', 'Journal', 'Year'])
+    end
+
+    it 'throws for invalid fields' do
+      facet = double(RLetters::Solr::Facet, field: :space_facet, value: 'Spaceman Spiff', hits: 10)
+      expect {
+        described_class.decorate(facet).field_label
+      }.to raise_error(ArgumentError)
     end
   end
 end
