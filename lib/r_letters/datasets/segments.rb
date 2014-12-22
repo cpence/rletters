@@ -16,6 +16,7 @@ module RLetters
       def initialize(dataset, segmenter = nil, options = {})
         @dataset = dataset
         @segmenter = segmenter || RLetters::Documents::Segments.new
+        @segmenter.reset!
         @dfs = {}
 
         @options = options.compact.reverse_merge(split_across: true)
@@ -43,6 +44,12 @@ module RLetters
       #   create these segments
       def document_segmenter
         @segmenter
+      end
+
+      # Reset the dataset segmenter
+      def reset!
+        @dfs = {}
+        @segmenter.reset!
       end
 
       private

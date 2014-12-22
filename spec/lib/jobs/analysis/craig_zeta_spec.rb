@@ -2,16 +2,26 @@
 require 'spec_helper'
 
 RSpec.describe Jobs::Analysis::CraigZeta do
-
-  it_should_behave_like 'an analysis job' do
-    let(:job_params) { { other_datasets: [@dataset_2.id] } }
+  before(:all) do
+    @user = create(:user)
+    @dataset = create(:full_dataset, working: true, user: @user,
+                      entries_count: 2)
+    @dataset_2 = create(:full_dataset, working: true, user: @user,
+                        entries_count: 2)
+    @task = create(:analysis_task, dataset: @dataset)
   end
 
   before(:example) do
-    @user = create(:user)
-    @dataset = create(:full_dataset, working: true, user: @user)
-    @dataset_2 = create(:full_dataset, working: true, user: @user)
-    @task = create(:analysis_task, dataset: @dataset)
+    # Don't run the analyses
+    mock = double(RLetters::Analysis::CraigZeta, zeta_scores: [],
+                  dataset_1_markers: [], dataset_2_markers: [],
+                  graph_points: [])
+    allow(mock).to receive(:call)
+    allow(RLetters::Analysis::CraigZeta).to receive(:new).and_return(mock)
+  end
+
+  it_should_behave_like 'an analysis job' do
+    let(:job_params) { { other_datasets: [@dataset_2.id] } }
   end
 
   describe '.download?' do
@@ -27,7 +37,7 @@ RSpec.describe Jobs::Analysis::CraigZeta do
   end
 
   context 'when all parameters are valid' do
-    before(:example) do
+    before(:context) do
       Jobs::Analysis::CraigZeta.perform(
         '123',
         user_id: @user.to_param,
@@ -35,34 +45,25 @@ RSpec.describe Jobs::Analysis::CraigZeta do
         task_id: @task.to_param,
         other_datasets: [@dataset_2.to_param],
         normalize_doc_counts: 'off')
+      @task.reload
+      @data = JSON.load(@task.result.file_contents(:original))
     end
 
     it 'names the task correctly' do
-      expect(@dataset.analysis_tasks[0].name).to eq('Determine words that differentiate two datasets (Craig Zeta)')
+      expect(@task.name).to eq('Determine words that differentiate two datasets (Craig Zeta)')
     end
 
     it 'creates good JSON' do
-      data = JSON.load(@dataset.analysis_tasks[0].result.file_contents(:original))
-      expect(data).to be_a(Hash)
+      expect(@data).to be_a(Hash)
     end
 
     it 'fills in some values' do
-      hash = JSON.load(@dataset.analysis_tasks[0].result.file_contents(:original))
-      expect(hash['name_1']).to eq('Dataset')
-      expect(hash['name_2']).to eq('Dataset')
-      expect(hash['markers_1']).to be_an(Array)
-      expect(hash['markers_1'][0]).to be_a(String)
-      expect(hash['markers_2']).to be_an(Array)
-      expect(hash['markers_2'][0]).to be_a(String)
-      expect(hash['graph_points']).to be_an(Array)
-      expect(hash['graph_points'][0]).to be_an(Array)
-      expect(hash['graph_points'][0][0]).to be_a(Float)
-      expect(hash['graph_points'][0][1]).to be_a(Float)
-      expect(hash['graph_points'][0][2]).to be_a(String)
-      expect(hash['zeta_scores']).to be_an(Array)
-      expect(hash['zeta_scores'][0][0]).to be_a(String)
-      expect(hash['zeta_scores'][0][1]).to be_a(Float)
+      expect(@data['name_1']).to eq('Dataset')
+      expect(@data['name_2']).to eq('Dataset')
+      expect(@data['markers_1']).to be_an(Array)
+      expect(@data['markers_2']).to be_an(Array)
+      expect(@data['graph_points']).to be_an(Array)
+      expect(@data['zeta_scores']).to be_an(Array)
     end
   end
-
 end

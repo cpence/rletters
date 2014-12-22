@@ -32,7 +32,7 @@ RSpec.describe WorkflowController, type: :controller do
 
         it 'sets the number of documents' do
           expect(assigns(:database_size)).to be
-          expect(assigns(:database_size)).to eq(1043)
+          expect(assigns(:database_size)).to eq(1502)
         end
       end
 

@@ -20,8 +20,6 @@ Rails.application.routes.draw do
   # Documents
   get 'documents/:uid/export' => 'documents#export',
       as: 'documents_export', constraints: { uid: /.*/ }
-  get 'documents/:uid/mendeley' => 'documents#mendeley',
-      as: 'documents_mendeley', constraints: { uid: /.*/ }
   get 'documents/:uid/citeulike' => 'documents#citeulike',
       as: 'documents_citeulike', constraints: { uid: /.*/ }
 

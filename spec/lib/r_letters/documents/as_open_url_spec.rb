@@ -11,14 +11,11 @@ RSpec.describe RLetters::Documents::AsOpenURL do
     it 'creates good OpenURL params' do
       expect(@params).to eq(
         'ctx_ver=Z39.88-2004&rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3A' \
-        'mtx%3Ajournal&rft.genre=article' \
-        '&rft_id=info:doi%2F10.1234%2F5678' \
-        '&rft.atitle=Test+Title' \
-        '&rft.title=Journal&rft.date=2010' \
-        '&rft.volume=10&rft.issue=20' \
-        '&rft.spage=100&rft.epage=200' \
-        '&rft.aufirst=A.&rft.aulast=One' \
-        '&rft.au=B.+Two'
+        'mtx%3Ajournal&rft.genre=article&' \
+        'rft_id=info:doi%2F10.5678%2Fdickens&' \
+        'rft.atitle=A+Tale+of+Two+Cities&rft.title=Actually+a+Novel&' \
+        'rft.date=1859&rft.volume=1&rft.issue=1&rft.spage=1&rft.aufirst=C.&' \
+        'rft.aulast=Dickens'
       )
     end
   end

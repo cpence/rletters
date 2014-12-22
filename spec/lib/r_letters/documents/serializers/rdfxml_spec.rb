@@ -28,7 +28,7 @@ RSpec.describe RLetters::Documents::Serializers::RDFXML do
   context 'with an array of documents' do
     before(:example) do
       doc = build(:full_document)
-      doc2 = build(:full_document, uid: 'doi:10.2345/6789')
+      doc2 = build(:full_document, uid: 'doi:10.5678/otherdickens')
 
       @docs = [doc, doc2]
       @xml = Nokogiri::XML::Document.parse(described_class.new(@docs).serialize)

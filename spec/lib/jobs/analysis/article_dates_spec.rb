@@ -2,14 +2,13 @@
 require 'spec_helper'
 
 RSpec.describe Jobs::Analysis::ArticleDates do
-
-  it_should_behave_like 'an analysis job'
-
-  before(:example) do
+  before(:context) do
     @user = create(:user)
     @dataset = create(:full_dataset, working: true, user: @user)
     @task = create(:analysis_task, dataset: @dataset)
   end
+
+  it_should_behave_like 'an analysis job'
 
   describe '.download?' do
     it 'is false' do
@@ -24,39 +23,42 @@ RSpec.describe Jobs::Analysis::ArticleDates do
   end
 
   context 'when not normalizing' do
-    before(:example) do
+    before(:context) do
+      @dataset_2 = create(:full_dataset, working: true, user: @user)
+      @dataset_2.entries += [create(:entry, dataset: @dataset_2, uid: 'gutenberg:3172')]
+      @task_2 = create(:analysis_task, dataset: @dataset_2)
+
       Jobs::Analysis::ArticleDates.perform(
         '123',
         user_id: @user.to_param,
-        dataset_id: @dataset.to_param,
-        task_id: @task.to_param,
+        dataset_id: @dataset_2.to_param,
+        task_id: @task_2.to_param,
         normalize_doc_counts: 'off')
+      @task_2.reload
+      @data = JSON.load(@task_2.result.file_contents(:original))
     end
 
     it 'names the task correctly' do
-      expect(@dataset.analysis_tasks[0].name).to eq('Plot number of articles by date')
+      expect(@task_2.name).to eq('Plot number of articles by date')
     end
 
     it 'creates good JSON' do
-      data = JSON.load(@dataset.analysis_tasks[0].result.file_contents(:original))
-      expect(data).to be_a(Hash)
+      expect(@data).to be_a(Hash)
     end
 
     it 'fills in some values' do
-      arr = JSON.load(@dataset.analysis_tasks[0].result.file_contents(:original))['data']
-      expect((1990..2012)).to cover(arr[0][0])
-      expect((1..5)).to cover(arr[0][1])
+      expect(@data['data'][0][0]).to be_in([2009, 1895])
+      expect((1..5)).to cover(@data['data'][0][1])
     end
 
     it 'fills in some zeroes in intervening years' do
-      arr = JSON.load(@dataset.analysis_tasks[0].result.file_contents(:original))['data']
-      elt = arr.find { |y| y[1] == 0 }
+      elt = @data['data'].find { |y| y[1] == 0 }
       expect(elt).to be
     end
   end
 
   context 'when normalizing to the corpus' do
-    before(:example) do
+    before(:context) do
       Jobs::Analysis::ArticleDates.perform(
         '123',
         user_id: @user.to_param,
@@ -64,47 +66,40 @@ RSpec.describe Jobs::Analysis::ArticleDates do
         task_id: @task.to_param,
         normalize_doc_counts: '1',
         normalize_doc_dataset: '')
-    end
-
-    after(:example) do
-      @task
+      @task.reload
+      @data = JSON.load(@task.result.file_contents(:original))
     end
 
     it 'names the task correctly' do
-      expect(@dataset.analysis_tasks[0].name).to eq('Plot number of articles by date')
+      expect(@task.name).to eq('Plot number of articles by date')
     end
 
     it 'creates good JSON' do
-      arr = JSON.load(@dataset.analysis_tasks[0].result.file_contents(:original))
-      expect(arr).to be_a(Hash)
+      expect(@data).to be_a(Hash)
     end
 
     it 'sets the normalization set properly' do
-      data = JSON.load(@dataset.analysis_tasks[0].result.file_contents(:original))
-      expect(data['normalization_set']).to eq('Entire Corpus')
+      expect(@data['normalization_set']).to eq('Entire Corpus')
     end
 
     it 'marks that this was a normalized count' do
-      data = JSON.load(@dataset.analysis_tasks[0].result.file_contents(:original))
-      expect(data['percent']).to be true
+      expect(@data['percent']).to be true
     end
 
     it 'fills in some values' do
-      arr = JSON.load(@dataset.analysis_tasks[0].result.file_contents(:original))['data']
-      pair = arr[0]
-      expect((1895..2012)).to cover(pair[0])
+      pair = @data['data'][0]
+      expect((1859..2012)).to cover(pair[0])
       expect((0..1)).to cover(pair[1])
     end
 
     it 'expands the range of zeroes to include the entire corpus range' do
-      arr = JSON.load(@dataset.analysis_tasks[0].result.file_contents(:original))['data']
-      expect(arr.assoc(1910)).to be
-      expect(arr.assoc(1910)[1]).to eq(0)
+      expect(@data['data'].assoc(1910)).to be
+      expect(@data['data'].assoc(1910)[1]).to eq(0)
     end
   end
 
   context 'when normalizing to a dataset' do
-    before(:example) do
+    before(:context) do
       @normalization_set = create(:full_dataset, working: true,
                                                  entries_count: 10,
                                                  user: @user)
@@ -116,31 +111,29 @@ RSpec.describe Jobs::Analysis::ArticleDates do
         task_id: @task.to_param,
         normalize_doc_counts: '1',
         normalize_doc_dataset: @normalization_set.to_param)
+      @task.reload
+      @data = JSON.load(@task.result.file_contents(:original))
     end
 
     it 'names the task correctly' do
-      expect(@dataset.analysis_tasks[0].name).to eq('Plot number of articles by date')
+      expect(@task.name).to eq('Plot number of articles by date')
     end
 
     it 'creates good JSON' do
-      data = JSON.load(@dataset.analysis_tasks[0].result.file_contents(:original))
-      expect(data).to be_a(Hash)
+      expect(@data).to be_a(Hash)
     end
 
     it 'sets the normalization set properly' do
-      data = JSON.load(@dataset.analysis_tasks[0].result.file_contents(:original))
-      expect(data['normalization_set']).to eq(@normalization_set.name)
+      expect(@data['normalization_set']).to eq(@normalization_set.name)
     end
 
     it 'marks that this was a normalized count' do
-      data = JSON.load(@dataset.analysis_tasks[0].result.file_contents(:original))
-      expect(data['percent']).to be true
+      expect(@data['percent']).to be true
     end
 
     it 'fills in some values' do
-      arr = JSON.load(@dataset.analysis_tasks[0].result.file_contents(:original))['data']
-      pair = arr[0]
-      expect((1990..2012)).to cover(pair[0])
+      pair = @data['data'][0]
+      expect((1859..2012)).to cover(pair[0])
       expect((0..1)).to cover(pair[1])
     end
   end
@@ -148,7 +141,7 @@ RSpec.describe Jobs::Analysis::ArticleDates do
   # We want to make sure it still works when we normalize to a dataset where
   # the dataset of interest isn't a subset
   context 'when normalizing incorrectly' do
-    before(:each) do
+    before(:context) do
       @normalization_set = create(:full_dataset, entries_count: 0, user: @user)
       @normalization_set.entries = [
         create(:entry, dataset: @normalization_set, uid: 'gutenberg:3172')
@@ -162,11 +155,12 @@ RSpec.describe Jobs::Analysis::ArticleDates do
         task_id: @task.to_param,
         normalize_doc_counts: '1',
         normalize_doc_dataset: @normalization_set.to_param)
+      @task.reload
+      @data = JSON.load(@task.result.file_contents(:original))
     end
 
     it 'fills in zeros for all the values' do
-      arr = JSON.load(@dataset.analysis_tasks[0].result.file_contents(:original))['data']
-      arr.each do |a|
+      @data['data'].each do |a|
         expect(a[1]).to eq(0)
       end
     end

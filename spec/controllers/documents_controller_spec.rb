@@ -25,50 +25,12 @@ RSpec.describe DocumentsController, type: :controller do
     end
   end
 
-  describe '#mendeley' do
-    context 'when request succeeds' do
-      before(:context) do
-        Admin::Setting.mendeley_key = '5ba3606d28aa1be94e9c58502b90a49c04dc17289'
-      end
-
-      after(:context) do
-        Admin::Setting.mendeley_key = ''
-      end
-
-      it 'redirects to Mendeley' do
-        stub_connection(/api.mendeley.com/, 'mendeley')
-        get :mendeley, uid: 'doi:10.1111/j.1439-0310.2008.01576.x'
-        expect(response).to redirect_to('http://www.mendeley.com/catalog/choose-good-scientific-problem-1/')
-      end
-    end
-
-    context 'when request times out' do
-      before(:context) do
-        Admin::Setting.mendeley_key = '5ba3606d28aa1be94e9c58502b90a49c04dc17289'
-      end
-
-      after(:context) do
-        Admin::Setting.mendeley_key = ''
-      end
-
-      before(:example) do
-        stub_request(:any, /api\.mendeley\.com\/.*/).to_timeout
-      end
-
-      it 'raises an exception' do
-        expect {
-          get :mendeley, uid: 'doi:10.1111/j.1439-0310.2008.01576.x'
-        }.to raise_error(ActiveRecord::RecordNotFound)
-      end
-    end
-  end
-
   describe '#citeulike' do
     context 'when request succeeds' do
       it 'redirects to citeulike' do
         stub_connection(/www.citeulike.org/, 'citeulike')
-        get :citeulike, uid: 'doi:10.1111/j.1439-0310.2008.01576.x'
-        expect(response).to redirect_to('http://www.citeulike.org/article/3509563')
+        get :citeulike, uid: 'doi:10.1371/journal.pntd.0000534'
+        expect(response).to redirect_to('http://www.citeulike.org/article/10443922')
       end
     end
 
@@ -79,7 +41,7 @@ RSpec.describe DocumentsController, type: :controller do
 
       it 'raises an exception' do
         expect {
-          get :citeulike, uid: 'doi:10.1111/j.1439-0310.2008.01576.x'
+          get :citeulike, uid: 'doi:10.1371/journal.pntd.0000534'
         }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end

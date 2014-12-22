@@ -8,6 +8,6 @@ Feature: Solr query searching
       Given I am not logged in
 
     Scenario: Perform a Solr query search
-      When I run a Solr query search for 'authors:"Ferkin" OR journal:"Genes"'
+      When I run a Solr query search for 'authors:"Hotez" OR journal:"Gutenberg"'
       Then I should see a list of articles
-        And I should see 457 articles
+        And I should see 52 articles

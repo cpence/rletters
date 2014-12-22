@@ -5,9 +5,10 @@ RSpec.describe Jobs::Analysis::Collocation do
 
   it_should_behave_like 'an analysis job'
 
-  before(:each) do
+  before(:example) do
     @user = create(:user)
-    @dataset = create(:full_dataset, stub: true, english: true, user: @user)
+    @dataset = create(:full_dataset, working: true, entries_count: 2,
+                      user: @user)
     @task = create(:analysis_task, dataset: @dataset)
 
     @old_path = Admin::Setting.nlp_tool_path
@@ -15,9 +16,15 @@ RSpec.describe Jobs::Analysis::Collocation do
 
     @words = build(:parts_of_speech)
     allow(RLetters::Analysis::NLP).to receive(:parts_of_speech).and_return(@words)
+
+    # Don't run the analyses
+    allow_any_instance_of(RLetters::Analysis::Collocation::LogLikelihood).to receive(:call).and_return([])
+    allow_any_instance_of(RLetters::Analysis::Collocation::TTest).to receive(:call).and_return([])
+    allow_any_instance_of(RLetters::Analysis::Collocation::MutualInformation).to receive(:call).and_return([])
+    allow_any_instance_of(RLetters::Analysis::Collocation::PartsOfSpeech).to receive(:call).and_return([])
   end
 
-  after(:each) do
+  after(:example) do
     Admin::Setting.nlp_tool_path = @old_path
   end
 
@@ -75,15 +82,8 @@ RSpec.describe Jobs::Analysis::Collocation do
             num_pairs: '10')
         }.to_not raise_error
 
+        # Just a quick sanity check to make sure some code was called
         expect(@dataset.analysis_tasks[0].name).to eq('Determine significant associations between immediate pairs of words')
-
-        @output = CSV.parse(@dataset.analysis_tasks[0].result.file_contents(:original))
-        expect(@output).to be_an(Array)
-
-        words, sig = @output[4]
-
-        expect(words.split.count).to eq(2)
-        expect(sig.to_f).to be_finite
       end
     end
   end

@@ -21,15 +21,15 @@ RSpec.describe FacetsDecorator, type: :decorator do
         @result = RLetters::Solr::Connection.search(
           q: '*:*',
           def_type: 'lucene',
-          fq: ['authors_facet:"Elisa Lobato"', 'year:[2010 TO *]'])
+          fq: ['authors_facet:"Alan Fenwick"', 'year:[2000 TO 2009]'])
 
-        Draper::ViewContext.current.params[:fq] = ['authors_facet:"Elisa Lobato"', 'year:[2010 TO *]']
+        Draper::ViewContext.current.params[:fq] = ['authors_facet:"Alan Fenwick"', 'year:[2000 TO 2009]']
         @ret = described_class.decorate(@result.facets).removal_links
       end
 
       it 'includes a link to remove an individual facet' do
-        url = '/search?' + CGI.escape('fq[]=year:[2010 TO *]').gsub('%26', '&').gsub('%3D', '=')
-        expect(@ret).to have_selector("a[href=\"#{url}\"]", text: 'Authors: Elisa Lobato')
+        url = '/search?' + CGI.escape('fq[]=year:[2000 TO 2009]').gsub('%26', '&').gsub('%3D', '=')
+        expect(@ret).to have_selector("a[href=\"#{url}\"]", text: 'Authors: Alan Fenwick')
       end
     end
   end
@@ -48,12 +48,12 @@ RSpec.describe FacetsDecorator, type: :decorator do
       end
 
       it 'includes a link to add an author facet' do
-        url = '/search?' + CGI.escape('fq[]=authors_facet:"J. C. Crabbe"').gsub('%26', '&').gsub('%3D', '=')
+        url = '/search?' + CGI.escape('fq[]=authors_facet:"Peter J. Hotez"').gsub('%26', '&').gsub('%3D', '=')
         expect(@ret).to have_selector("a[href=\"#{url}\"]")
       end
 
       it 'includes a link to add a journal facet' do
-        url = '/search?' + CGI.escape('fq[]=journal_facet:"Ethology"').gsub('%26', '&').gsub('%3D', '=')
+        url = '/search?' + CGI.escape('fq[]=journal_facet:"PLoS Neglected Tropical Diseases"').gsub('%26', '&').gsub('%3D', '=')
         expect(@ret).to have_selector("a[href=\"#{url}\"]")
       end
 

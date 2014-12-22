@@ -4,7 +4,7 @@ require 'spec_helper'
 RSpec.describe RLetters::Datasets::DocumentEnumerator do
   before(:example) do
     @user = create(:user)
-    @dataset = create(:full_dataset, entries_count: 10, working: true,
+    @dataset = create(:full_dataset, entries_count: 2, working: true,
                                      user: @user)
   end
 

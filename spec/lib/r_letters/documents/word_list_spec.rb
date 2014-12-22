@@ -14,13 +14,11 @@ RSpec.describe RLetters::Documents::WordList do
     end
 
     it 'provides the words in order' do
-      expect(@list.take(5)).to eq(['lorem', 'ipsum', 'dolor', 'sit', 'amet'])
+      expect(@list.take(5)).to eq(['it', 'was', 'the', 'best', 'of'])
     end
 
     it 'gets the corpus dfs' do
-      # All of these are 1 in our fixture, as they were generated in a single
-      # document Solr server.
-      expect(@stemmer.corpus_dfs['lorem']).to eq(1)
+      expect(@stemmer.corpus_dfs['it']).to eq(1486)
     end
   end
 
@@ -31,8 +29,8 @@ RSpec.describe RLetters::Documents::WordList do
     end
 
     it 'provides a list of two-grams' do
-      expect(@list.first).to eq('lorem ipsum')
-      expect(@list.second).to eq('ipsum dolor')
+      expect(@list.first).to eq('it was')
+      expect(@list.second).to eq('was the')
     end
 
     it 'does not make any non-2-grams' do
@@ -49,16 +47,17 @@ RSpec.describe RLetters::Documents::WordList do
     end
 
     it 'calls #stem on each word' do
-      expect(@list).to include('exercit')
+      expect(@list).to include('wa')
+      expect(@list).not_to include('was')
     end
 
     it 'calls #stem on the corpus dfs' do
-      expect(@stemmer.corpus_dfs['exercit']).to be
+      expect(@stemmer.corpus_dfs['wa']).to be
     end
   end
 
   context 'with lemmatization' do
-    before(:each) do
+    before(:example) do
       @old_path = Admin::Setting.nlp_tool_path
       Admin::Setting.nlp_tool_path = 'stubbed'
 
@@ -69,17 +68,16 @@ RSpec.describe RLetters::Documents::WordList do
       @list = @stemmer.words_for(@doc.uid)
     end
 
-    after(:each) do
+    after(:example) do
       Admin::Setting.nlp_tool_path = @old_path
     end
 
     it 'calls the lemmatizer' do
-      expect(@list).to include('varem')
-      expect(@list).to include('opsom')
+      expect(@list.take(3)).to eq(['it', 'be', 'the'])
     end
 
     it 'does not leave un-lemmatized words' do
-      expect(@list).not_to include('lorem')
+      expect(@list).not_to include('was')
     end
   end
 end

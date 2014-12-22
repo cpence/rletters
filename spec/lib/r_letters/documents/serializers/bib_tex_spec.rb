@@ -10,15 +10,15 @@ RSpec.describe RLetters::Documents::Serializers::BibTex do
     end
 
     it 'creates good BibTeX' do
-      expect(@str).to be_start_with('@article{One2010,')
-      expect(@str).to include('author = {A. One and B. Two}')
-      expect(@str).to include('title = {Test Title}')
-      expect(@str).to include('journal = {Journal}')
-      expect(@str).to include('volume = {10}')
-      expect(@str).to include('number = {20}')
-      expect(@str).to include('pages = {100-200}')
-      expect(@str).to include('doi = {10.1234/5678}')
-      expect(@str).to include('year = {2010}')
+      expect(@str).to start_with('@article{Dickens1859,')
+      expect(@str).to include('author = {C. Dickens}')
+      expect(@str).to include('title = {A Tale of Two Cities}')
+      expect(@str).to include('journal = {Actually a Novel}')
+      expect(@str).to include('volume = {1}')
+      expect(@str).to include('number = {1}')
+      expect(@str).to include('pages = {1}')
+      expect(@str).to include('doi = {10.5678/dickens}')
+      expect(@str).to include('year = {1859}')
     end
   end
 
@@ -30,8 +30,8 @@ RSpec.describe RLetters::Documents::Serializers::BibTex do
     end
 
     it 'creates good BibTeX' do
-      expect(@str).to be_start_with('@article{One2010,')
-      expect(@str).to include("}\n@article{One2010,")
+      expect(@str).to start_with('@article{Dickens1859,')
+      expect(@str).to include("}\n@article{Dickens1859,")
     end
   end
 
@@ -42,7 +42,7 @@ RSpec.describe RLetters::Documents::Serializers::BibTex do
     end
 
     it 'creates cite keys correctly' do
-      expect(@str).to be_start_with('@article{Anon2010,')
+      expect(@str).to start_with('@article{Anon1859,')
     end
   end
 end

@@ -25,7 +25,7 @@ RSpec.describe RLetters::Documents::Segments do
 
     it 'puts all the words in the block' do
       expect(@blocks[0].words.size).to eq(@doc.fulltext.split.count)
-      expect(@blocks[0].words.take(5)).to eq(['lorem', 'ipsum', 'dolor', 'sit', 'amet'])
+      expect(@blocks[0].words.take(5)).to eq(['it', 'was', 'the', 'best', 'of'])
     end
   end
 
@@ -46,12 +46,12 @@ RSpec.describe RLetters::Documents::Segments do
 
     it 'puts all the words in the block' do
       expect(@blocks[0].words.size).to eq(@doc.fulltext.split.size)
-      expect(@blocks[0].words.take(5)).to eq(['lorem', 'ipsum', 'dolor', 'sit', 'amet'])
+      expect(@blocks[0].words.take(5)).to eq(['it', 'was', 'the', 'best', 'of'])
     end
 
     it 'sets the words_for_last correctly' do
-      expect(@segmenter.words_for_last).to include('lorem')
-      expect(@segmenter.words_for_last).to include('ipsum')
+      expect(@segmenter.words_for_last).to include('it')
+      expect(@segmenter.words_for_last).to include('was')
     end
   end
 
@@ -71,12 +71,12 @@ RSpec.describe RLetters::Documents::Segments do
     end
 
     it 'gives the blocks the right sizes' do
-      expect(@blocks.map(&:words).map(&:size)).to match_array([89, 89, 89, 89, 90])
+      expect(@blocks.map(&:words).map(&:size)).to match_array([24, 24, 24, 24, 23])
     end
 
     it 'still sets the words_for_last correctly' do
-      expect(@segmenter.words_for_last).to include('lorem')
-      expect(@segmenter.words_for_last).to include('ipsum')
+      expect(@segmenter.words_for_last).to include('it')
+      expect(@segmenter.words_for_last).to include('was')
     end
   end
 
@@ -97,7 +97,7 @@ RSpec.describe RLetters::Documents::Segments do
     end
 
     it 'makes correctly sized early blocks' do
-      expect(@blocks.first.words).to eq(['lorem', 'ipsum', 'dolor'])
+      expect(@blocks.first.words).to eq(['it', 'was', 'the'])
     end
 
     it 'makes a big last block' do
@@ -122,7 +122,7 @@ RSpec.describe RLetters::Documents::Segments do
     end
 
     it 'makes correctly sized early blocks' do
-      expect(@blocks.first.words).to eq(['lorem', 'ipsum', 'dolor'])
+      expect(@blocks.first.words).to eq(['it', 'was', 'the'])
     end
 
     it 'makes a small last block' do
@@ -147,7 +147,7 @@ RSpec.describe RLetters::Documents::Segments do
     end
 
     it 'makes correctly sized early blocks' do
-      expect(@blocks.first.words).to eq(['lorem', 'ipsum', 'dolor'])
+      expect(@blocks.first.words).to eq(['it', 'was', 'the'])
     end
 
     it 'truncates leftover words' do
@@ -172,7 +172,7 @@ RSpec.describe RLetters::Documents::Segments do
     end
 
     it 'makes a single sized block' do
-      expect(@blocks.first.words).to eq(['lorem', 'ipsum', 'dolor'])
+      expect(@blocks.first.words).to eq(['it', 'was', 'the'])
     end
   end
 

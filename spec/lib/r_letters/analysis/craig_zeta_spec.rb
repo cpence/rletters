@@ -2,15 +2,26 @@
 require 'spec_helper'
 
 RSpec.describe RLetters::Analysis::CraigZeta do
-  before(:example) do
+  before(:context) do
     @user = create(:user)
     # N.B.: If you do 10-doc datasets here, all the words are in common, and
     # there's no zeta scores.
-    @dataset_1 = create(:full_dataset, entries_count: 5, working: true,
+    @dataset_1 = create(:full_dataset, entries_count: 2, working: true,
                                        user: @user, name: 'First Dataset')
-    @dataset_2 = create(:full_dataset, entries_count: 5, working: true,
+    @dataset_2 = create(:full_dataset, entries_count: 2, working: true,
                                        user: @user, name: 'Second Dataset')
     @analyzer = described_class.new(@dataset_1, @dataset_2)
+
+    @called_sub_100 = false
+    @called_100 = false
+
+    @analyzer = described_class.new(@dataset_1, @dataset_2, ->(p) {
+      if p < 100
+        @called_sub_100 = true
+      else
+        @called_100 = true
+      end
+    })
     @analyzer.call
   end
 
@@ -62,28 +73,12 @@ RSpec.describe RLetters::Analysis::CraigZeta do
                                    l.include?('Second Dataset') }
       end
     end
-
-    it 'creates a graph point for every block' do
-      expect(@analyzer.graph_points.size).to eq(2)
-    end
   end
 
   describe 'progress reporting' do
     it 'calls the progress function with under and equal to 100' do
-      called_sub_100 = false
-      called_100 = false
-
-      analyzer = described_class.new(@dataset_1, @dataset_2, ->(p) {
-        if p < 100
-          called_sub_100 = true
-        else
-          called_100 = true
-        end
-      })
-      analyzer.call
-
-      expect(called_sub_100).to be true
-      expect(called_100).to be true
+      expect(@called_sub_100).to be true
+      expect(@called_100).to be true
     end
   end
 end

@@ -8,7 +8,7 @@ RSpec.describe RLetters::Solr::CorpusStats do
 
   describe '#size' do
     it 'works' do
-      expect(@stats.size).to eq(1043)
+      expect(@stats.size).to eq(1502)
     end
   end
 end

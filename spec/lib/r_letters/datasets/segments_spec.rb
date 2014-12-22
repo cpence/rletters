@@ -19,7 +19,7 @@ RSpec.describe RLetters::Datasets::Segments do
     end
 
     it 'puts all the words in the block' do
-      expect(@segments[0].words.size).to eq(276)
+      expect(@segments[0].words.size).to eq(4791)
     end
 
     it 'names the block' do
@@ -27,8 +27,8 @@ RSpec.describe RLetters::Datasets::Segments do
     end
 
     it 'sets dfs correctly' do
-      expect(@analyzer.dfs['blackwell']).to eq(4)
-      expect(@analyzer.dfs['behavioural']).to eq(1)
+      expect(@analyzer.dfs['disease']).to eq(8)
+      expect(@analyzer.dfs['malaria']).to eq(1)
     end
   end
 
@@ -60,19 +60,14 @@ RSpec.describe RLetters::Datasets::Segments do
       expect(@segments.size).to eq(10)
     end
 
-    it 'puts all the words in each block' do
-      expect([25, 26, 27, 28, 29, 30]).to include(@segments[0].words.size)
-      expect([25, 26, 27, 28, 29, 30]).to include(@segments[1].words.size)
-    end
-
     it 'names the blocks' do
       expect(@segments[0].name).to start_with("Block #1/1 (within 'doi:10.")
       expect(@segments[1].name).to start_with("Block #1/1 (within 'doi:10.")
     end
 
     it 'sets dfs correctly' do
-      expect(@analyzer.dfs['blackwell']).to eq(4)
-      expect(@analyzer.dfs['behavioural']).to eq(1)
+      expect(@analyzer.dfs['disease']).to eq(8)
+      expect(@analyzer.dfs['malaria']).to eq(1)
     end
   end
 
@@ -88,7 +83,7 @@ RSpec.describe RLetters::Datasets::Segments do
     end
 
     it 'splits the words evenly' do
-      expect(@segments.map(&:words).map(&:size)).to match_array([55, 55, 55, 55, 56])
+      expect(@segments.map(&:words).map(&:size)).to match_array([959, 958, 958, 958, 958])
     end
 
     it 'names the blocks' do
@@ -96,8 +91,8 @@ RSpec.describe RLetters::Datasets::Segments do
     end
 
     it 'sets dfs correctly' do
-      expect(@analyzer.dfs['blackwell']).to eq(4)
-      expect(@analyzer.dfs['behavioural']).to eq(1)
+      expect(@analyzer.dfs['disease']).to eq(8)
+      expect(@analyzer.dfs['malaria']).to eq(1)
     end
   end
 
@@ -122,8 +117,8 @@ RSpec.describe RLetters::Datasets::Segments do
     end
 
     it 'sets dfs correctly' do
-      expect(@analyzer.dfs['blackwell']).to eq(4)
-      expect(@analyzer.dfs['behavioural']).to eq(1)
+      expect(@analyzer.dfs['disease']).to eq(8)
+      expect(@analyzer.dfs['malaria']).to eq(1)
     end
   end
 
@@ -152,8 +147,8 @@ RSpec.describe RLetters::Datasets::Segments do
     end
 
     it 'sets dfs correctly' do
-      expect(@analyzer.dfs['blackwell']).to eq(4)
-      expect(@analyzer.dfs['behavioural']).to eq(1)
+      expect(@analyzer.dfs['disease']).to eq(8)
+      expect(@analyzer.dfs['malaria']).to eq(1)
     end
   end
 end

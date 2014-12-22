@@ -1,6 +1,6 @@
 HTTP/1.1 200 OK
 Server: nginx/0.8.31
-Date: Sun, 27 Oct 2013 21:55:29 GMT
+Date: Fri, 19 Dec 2014 15:16:02 GMT
 Content-Type: application/json; charset=utf-8
 Connection: keep-alive
 Vary: Accept-Encoding
@@ -8,32 +8,27 @@ Max-Age: 0
 Expires: 0
 Cache-Control: no-cache
 MIME-Version: 1.0
-Content-Length: 1016
+Content-Length: 2080
 
 [
 {
-"article_id": "3509563",
-"date": "2008-11-13 18:39:29",
-"href": "http:\/\/www.citeulike.org\/article\/3509563",
+"article_id": "10443922",
+"date": "2012-03-12 20:41:16",
+"href": "http:\/\/www.citeulike.org\/article\/10443922",
 "type": "JOUR",
-"title": "How Reliable are the Methods for Estimating Repertoire Size?",
-"volume": "114",
-"issue": "12",
-"start_page": "1227",
-"end_page": "1238",
-"journal": "Ethology",
-"publisher": "Blackwell Publishing",
-"issn": "0179-1613",
+"title": "Challenges for diagnosis and control of cystic hydatid disease",
+"journal": "Acta Tropica",
+"abstract": "This paper is based on the experience of the authors, with the aim to define the challenges for Echinococcus granulosus (E.g.\/CE) diagnosis and control for those countries that may now or in the future be contemplating control of hydatid disease. A variety of methods are available for diagnosis in humans but a universal gold standard is lacking. Diagnosis in definitive hosts can avoid necropsy by the use of methods such as coproantigen detection but test performance is variable between populations. A sylvatic cycle adds challenges in some countries and the epidemiology of the parasite in these hosts is poorly understood. Control by solely administering praziquantel to dogs is not effective in developing countries where the disease is endemic. Additional avenues to pursue include the instigation of participatory planning, use of an existing vaccination for intermediate hosts and development of a vaccine and long-acting anthelmitic implants for definitive hosts. Promoting public acceptance of control of the dog population by humane euthanasia and reduced reproduction is also essential. Challenges are identified for future control programs for Echinococcus granulosus and E. multilocularis. Full report of workshop proceedings at ICOPA XII, Melbourne, August 2010. ",
+"issn": "0001706X",
 "is_unchecked": "N",
-"published": ["2008","12"],
-"authors": [ " Botero", "A. Carlos", " Mudge", "E. Andrew", " Koltz", "M. Amanda", " Hochachka", "M. Wesley", " Vehrencamp", "L. Sandra" ],
+"published": ["2012","03"],
+"authors": [ "T. S. Barnes", "P. Deplazes", "B. Gottstein", "D. J. Jenkins", "A. Mathis", "M. Siles-Lucas", "P. R. Torgerson", "I. Ziadinov", "D. D. Heath" ],
 "linkouts": [
-	{"type": "DOI", "url": "http:\/\/dx.doi.org\/10.1111\/j.1439-0310.2008.01576.x"},
-	{"type": "IngentaConnect", "url": "http:\/\/www.ingentaconnect.com\/content\/bsc\/eth\/2008\/00000114\/00000012\/art00010"}
+	{"type": "DOI", "url": "http:\/\/dx.doi.org\/10.1016\/j.actatropica.2012.02.066"}
 ],
-"doi": "10.1111\/j.1439-0310.2008.01576.x",
-"citation": "Ethology, Vol. 114, No. 12. (December 2008), pp. 1227-1238, doi:10.1111\/j.1439-0310.2008.01576.x",
+"doi": "10.1016\/j.actatropica.2012.02.066",
+"citation": "Acta Tropica (March 2012), doi:10.1016\/j.actatropica.2012.02.066",
 "posted_count": 0,
-"citation_keys": ["citeulike:3509563", "Botero2008How", null]
+"citation_keys": ["citeulike:10443922", "Barnes2012Challenges", null]
 }
 ]

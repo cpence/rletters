@@ -7,9 +7,17 @@ RSpec.describe Jobs::Analysis::WordFrequency do
 
   before(:example) do
     @user = create(:user)
-    @dataset = create(:full_dataset, entries_count: 10,
-                                     working: true, user: @user)
+    @dataset = create(:full_dataset, entries_count: 2, working: true,
+                      user: @user)
     @task = create(:analysis_task, dataset: @dataset)
+
+    # Don't perform the analysis
+    mock_analyzer = OpenStruct.new(blocks: [], block_stats: [],
+                                   word_list: [], tf_in_dataset: {},
+                                   df_in_dataset: {}, num_dataset_tokens: 0,
+                                   num_dataset_types: 0, df_in_corpus: {})
+    allow(RLetters::Analysis::Frequency::FromTF).to receive(:new).and_return(mock_analyzer)
+    allow(RLetters::Analysis::Frequency::FromPosition).to receive(:new).and_return(mock_analyzer)
   end
 
   describe '.download?' do
@@ -84,8 +92,8 @@ RSpec.describe Jobs::Analysis::WordFrequency do
           block_size: '100',
           split_across: 'true',
           num_words: '0')
-
-        @output = CSV.parse(@dataset.analysis_tasks[0].result.file_contents(:original))
+        @task.reload
+        @output = CSV.parse(@task.result.file_contents(:original))
       end
 
       it 'names the task correctly' do

@@ -15,7 +15,7 @@ module RLetters
     # @!attribute [r] dataset_1_markers
     #   @return [Array<String>] The list of words that indicate a paper would
     #     be likely to be a member of dataset 1 (as opposed to 2)
-    # @!attribute [r] dataset_2_members
+    # @!attribute [r] dataset_2_markers
     #   @return [Array<String>] The list of words that indicate a paper would
     #     be likely to be a member of dataset 2 (as opposed to 1)
     # @!attribute [r] graph_points

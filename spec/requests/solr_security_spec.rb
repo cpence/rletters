@@ -40,7 +40,8 @@ RSpec.describe RLetters::Solr::Connection, type: :request do
         @result = described_class.search_raw(q: 'fulltext_search:personage',
                                              def_type: 'lucene',
                                              fl: '*')
-        expect(@result['response']['docs'][0]['uid']).to eq('gutenberg:3172')
+        uids = @result['response']['docs'].map { |d| d['uid'] }
+        expect(uids).to include('gutenberg:3172')
       end
 
       it 'is searchable through fulltext_stem' do
@@ -48,7 +49,8 @@ RSpec.describe RLetters::Solr::Connection, type: :request do
         @result = described_class.search_raw(q: 'fulltext_stem:violate',
                                              def_type: 'lucene',
                                              fl: '*')
-        expect(@result['response']['docs'][0]['uid']).to eq('gutenberg:3172')
+        uids = @result['response']['docs'].map { |d| d['uid'] }
+        expect(uids).to include('gutenberg:3172')
       end
     end
   end

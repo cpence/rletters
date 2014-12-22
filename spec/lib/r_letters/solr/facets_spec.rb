@@ -17,7 +17,7 @@ RSpec.describe RLetters::Solr::Facets do
     end
 
     it 'parses authors_facet correctly' do
-      f = @facets.for_field(:authors_facet).find { |o| o.value == 'A. One' }
+      f = @facets.for_field(:authors_facet).find { |o| o.value == 'C. Dickens' }
       expect(f).to be
       expect(f.hits).to eq(1)
     end
@@ -28,7 +28,7 @@ RSpec.describe RLetters::Solr::Facets do
     end
 
     it 'parses journal_facet correctly' do
-      f = @facets.for_field(:journal_facet).find { |o| o.value == 'Journal' }
+      f = @facets.for_field(:journal_facet).find { |o| o.value == 'Actually a Novel' }
       expect(f).to be
       expect(f.hits).to eq(1)
     end
@@ -53,14 +53,14 @@ RSpec.describe RLetters::Solr::Facets do
   describe '#sorted_for_field' do
     it 'sorts them appropriately when asked' do
       expect(@facets.sorted_for_field(:year).first.value).to eq('[2010 TO *]')
-      expect(@facets.sorted_for_field(:year).last.value).to eq('[1990 TO 1999]')
+      expect(@facets.sorted_for_field(:year).last.value).to eq('[1850 TO 1859]')
     end
   end
 
   describe '#for_query' do
     it 'can pick out facets by query' do
-      expect(@facets.for_query('year:[2010 TO *]')).to be
-      expect(@facets.for_query('authors_facet:"B. Two"')).to be
+      expect(@facets.for_query('year:[1850 TO 1859]')).to be
+      expect(@facets.for_query('authors_facet:"C. Dickens"')).to be
     end
   end
 end

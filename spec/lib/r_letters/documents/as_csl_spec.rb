@@ -14,14 +14,14 @@ RSpec.describe RLetters::Documents::AsCSL do
 
     it 'creates good CSL' do
       expect(@csl.type).to eq('article-journal')
-      expect(@csl.author[0].family).to eq('One')
-      expect(@csl.author[1].given).to eq('B.')
-      expect(@csl.title).to eq('Test Title')
-      expect(@csl.container_title).to eq('Journal')
-      expect(@csl.issued.to_date).to eq(Date.new(2010))
-      expect(@csl.volume).to eq('10')
-      expect(@csl.issue).to eq('20')
-      expect(@csl.page).to eq('100-200')
+      expect(@csl.author[0].family).to eq('Dickens')
+      expect(@csl.author[0].given).to eq('C.')
+      expect(@csl.title).to eq('A Tale of Two Cities')
+      expect(@csl.container_title).to eq('Actually a Novel')
+      expect(@csl.issued.to_date).to eq(Date.new(1859))
+      expect(@csl.volume).to eq('1')
+      expect(@csl.issue).to eq('1')
+      expect(@csl.page).to eq('1')
     end
   end
 
@@ -53,7 +53,7 @@ eos
     end
 
     it 'formats with a CSL style' do
-      expect(@as_csl.entry(@style)).to eq('A. One, B. Two')
+      expect(@as_csl.entry(@style)).to eq('C. Dickens')
     end
 
     it 'throws an error if you provide a strange argument' do

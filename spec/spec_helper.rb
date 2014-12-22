@@ -5,8 +5,8 @@ require 'rubygems'
 # Coverage setup
 if ENV['TRAVIS']
   require 'simplecov'
-  require 'codeclimate-test-reporter'
-  SimpleCov.formatter = CodeClimate::TestReporter::Formatter
+#  require 'codeclimate-test-reporter'
+#  SimpleCov.formatter = CodeClimate::TestReporter::Formatter
 
   SimpleCov.start do
     add_filter '/spec/'
@@ -17,8 +17,6 @@ if ENV['TRAVIS']
     add_filter '.haml'
     add_filter '.erb'
     add_filter '.builder'
-
-    skip_token CodeClimate::TestReporter.configuration.skip_token
   end
 
   SimpleCov.at_exit do

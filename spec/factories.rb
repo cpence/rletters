@@ -20,7 +20,7 @@ FactoryGirl.define do
 
   factory :category, class: Documents::Category do
     name 'Test Category'
-    journals ['Ethology']
+    journals ['PLoS Neglected Tropical Diseases']
   end
 
   factory :csl_style, class: Users::CslStyle do
@@ -47,7 +47,7 @@ FactoryGirl.define do
   factory :named_entities, class: Hash do
     transient do
       entity_hash {
-        { 'PERSON' => ['Aenean mollis', 'Nam'] }
+        { 'PERSON' => ['Tom', 'Dick', 'Harry'] }
       }
     end
 

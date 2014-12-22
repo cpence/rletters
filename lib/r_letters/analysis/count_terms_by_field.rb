@@ -90,7 +90,7 @@ module RLetters
 
         loop do
           group_result = RLetters::Solr::Connection.search_raw({
-            q: '*:*',
+            q: "fulltext:\"#{@term}\"",
             def_type: 'lucene',
             group: 'true',
             'group.field' => field.to_s,
@@ -122,7 +122,7 @@ module RLetters
           group_size = group['doclist']['numFound']
 
           uids_result = RLetters::Solr::Connection.search_raw({
-            q: '*:*',
+            q: "fulltext:\"#{@term}\"",
             def_type: 'lucene',
             group: 'true',
             'group.field' => field.to_s,

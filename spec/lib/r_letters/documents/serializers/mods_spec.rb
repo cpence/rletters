@@ -17,16 +17,16 @@ RSpec.describe RLetters::Documents::Serializers::MODS do
 
     it 'creates good MODS documents' do
       # This test is incomplete, but we'll validate the schema in the next test
-      expect(@xml.at_css('mods titleInfo title').content).to eq('Test Title')
-      expect(@xml.at_css('mods name namePart').content).to eq('A.')
-      expect(@xml.at_css('mods originInfo dateIssued').content).to eq('2010')
-      expect(@xml.at_css('mods relatedItem titleInfo title').content).to eq('Journal')
-      expect(@xml.at_css('mods relatedItem originInfo dateIssued').content).to eq('2010')
-      expect(@xml.at_css('mods relatedItem part detail number:contains("10")')).to be
-      expect(@xml.at_css('mods relatedItem part detail number:contains("20")')).to be
-      expect(@xml.at_css('mods relatedItem part extent start').content).to eq('100')
-      expect(@xml.at_css('mods relatedItem part date').content).to eq('2010')
-      expect(@xml.at_css('mods identifier').content).to eq('10.1234/5678')
+      expect(@xml.at_css('mods titleInfo title').content).to eq('A Tale of Two Cities')
+      expect(@xml.at_css('mods name namePart').content).to eq('C.')
+      expect(@xml.at_css('mods originInfo dateIssued').content).to eq('1859')
+      expect(@xml.at_css('mods relatedItem titleInfo title').content).to eq('Actually a Novel')
+      expect(@xml.at_css('mods relatedItem originInfo dateIssued').content).to eq('1859')
+      expect(@xml.at_css('mods relatedItem part detail number:contains("1")')).to be
+      expect(@xml.at_css('mods relatedItem part detail number:contains("1")')).to be
+      expect(@xml.at_css('mods relatedItem part extent start').content).to eq('1')
+      expect(@xml.at_css('mods relatedItem part date').content).to eq('1859')
+      expect(@xml.at_css('mods identifier').content).to eq('10.5678/dickens')
     end
 
     it 'creates MODS documents that are valid against the schema' do
@@ -38,14 +38,14 @@ RSpec.describe RLetters::Documents::Serializers::MODS do
   context 'when serializing an array of documents' do
     before(:example) do
       doc = build(:full_document)
-      doc2 = build(:full_document, uid: 'doi:10.2345/6789')
+      doc2 = build(:full_document, uid: 'doi:10.5678/dickens2')
 
       @docs = [doc, doc2]
       @xml = Nokogiri::XML::Document.parse(described_class.new(@docs).serialize)
     end
 
     it 'creates good MODS collections' do
-      expect(@xml.at_css('modsCollection mods titleInfo title').content).to eq('Test Title')
+      expect(@xml.at_css('modsCollection mods titleInfo title').content).to eq('A Tale of Two Cities')
       expect(@xml.css('modsCollection mods').size).to eq(2)
     end
 

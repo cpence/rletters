@@ -7,7 +7,7 @@ RSpec.describe RLetters::Solr::ParseTermVectors do
     array = solr_result['termVectors']
 
     @parser = described_class.new(array)
-    @result = @parser.for_document('doi:10.1234/5678')
+    @result = @parser.for_document('doi:10.5678/dickens')
 
     @doc = build(:full_document)
   end

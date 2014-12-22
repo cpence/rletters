@@ -4,15 +4,15 @@ require_relative './shared_examples'
 
 RSpec.describe RLetters::Analysis::Collocation::PartsOfSpeech do
   context 'without the NLP tool available' do
-    before(:each) do
+    before(:context) do
       @old_path = Admin::Setting.nlp_tool_path
       Admin::Setting.nlp_tool_path = nil
 
       @user = create(:user)
-      @dataset = create(:full_dataset, stub: true, english: true)
+      @dataset = create(:full_dataset, working: true)
     end
 
-    after(:each) do
+    after(:context) do
       Admin::Setting.nlp_tool_path = @old_path
     end
 
@@ -24,7 +24,7 @@ RSpec.describe RLetters::Analysis::Collocation::PartsOfSpeech do
   end
 
   context 'with the NLP tool available' do
-    before(:each) do
+    before(:example) do
       @old_path = Admin::Setting.nlp_tool_path
       Admin::Setting.nlp_tool_path = 'stubbed'
 
@@ -32,10 +32,10 @@ RSpec.describe RLetters::Analysis::Collocation::PartsOfSpeech do
       expect(RLetters::Analysis::NLP).to receive(:parts_of_speech).at_least(:once).and_return(@words)
     end
 
-    after(:each) do
+    after(:example) do
       Admin::Setting.nlp_tool_path = @old_path
     end
 
-    it_should_behave_like 'a collocation analyzer'
+    it_should_behave_like 'a collocation analyzer (before example)'
   end
 end

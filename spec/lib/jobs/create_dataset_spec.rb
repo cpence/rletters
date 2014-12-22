@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
+require 'r_letters/solr/connection'
 
 RSpec.describe Jobs::CreateDataset do
 
@@ -104,7 +105,7 @@ RSpec.describe Jobs::CreateDataset do
     end
 
     it 'puts the right number of items in the dataset' do
-      expect(@dataset.entries.size).to eq(1043)
+      expect(@dataset.entries.size).to eq(1502)
     end
 
     it 'sets the fetch attribute' do

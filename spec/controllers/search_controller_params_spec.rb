@@ -21,10 +21,10 @@ RSpec.describe SearchController, type: :controller do
     end
 
     it 'does the right thing with categories' do
-      category = Documents::Category.create(name: 'Test Category', journals: ['Ethology', 'Genes, Brain and Behavior'])
+      category = Documents::Category.create(name: 'Test Category', journals: ['Gutenberg', 'PLoS Neglected Tropical Diseases'])
       params = { q: '*:*', precise: 'true', categories: [category.to_param] }
       ret = controller.send(:search_params_to_solr_query, params)
-      expect(ret[:fq][0]).to eq('journal_facet:("Ethology" OR "Genes, Brain and Behavior")')
+      expect(ret[:fq][0]).to eq('journal_facet:("Gutenberg" OR "PLoS Neglected Tropical Diseases")')
     end
 
     it 'puts together empty precise search correctly' do

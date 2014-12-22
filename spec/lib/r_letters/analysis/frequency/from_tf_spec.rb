@@ -2,18 +2,18 @@
 require 'spec_helper'
 
 RSpec.describe RLetters::Analysis::Frequency::FromTF do
-  before(:example) do
+  before(:context) do
     @user = create(:user)
     @dataset = create(:full_dataset, entries_count: 10, working: true,
                                      user: @user)
   end
 
-  describe '#num_words' do
-    context 'without num_words set' do
-      before(:example) do
-        @analyzer = described_class.new(@dataset)
-      end
+  context 'with the basic analyzer' do
+    before(:context) do
+      @analyzer = described_class.new(@dataset)
+    end
 
+    describe '#num_words' do
       it 'includes all words' do
         expect(@analyzer.block_stats[0][:types]).to eq(@analyzer.blocks[0].size)
       end
@@ -40,8 +40,68 @@ RSpec.describe RLetters::Analysis::Frequency::FromTF do
       end
     end
 
+    describe '#split_across' do
+      it 'includes all words in all blocks' do
+        @analyzer.blocks.each do |b|
+          expect(b.size).to eq(@analyzer.blocks[0].size)
+        end
+
+        expect(@analyzer.num_dataset_types).to eq(@analyzer.blocks[0].size)
+      end
+    end
+
+    describe '#block_stats' do
+      it 'includes name, types, and tokens' do
+        expect(@analyzer.block_stats[0][:name]).to be
+        expect(@analyzer.block_stats[0][:types]).to be
+        expect(@analyzer.block_stats[0][:tokens]).to be
+      end
+    end
+
+    describe '#tf_in_dataset' do
+      it 'includes (at least) all the words in the list' do
+        @analyzer.word_list.each do |w|
+          expect(@analyzer.tf_in_dataset[w]).to be
+        end
+      end
+
+      it 'returns the same values as a single-block analysis' do
+        @analyzer.word_list.each do |w|
+          expect(@analyzer.blocks[0][w]).to eq(@analyzer.tf_in_dataset[w])
+        end
+      end
+    end
+
+    describe '#df_in_dataset' do
+      it 'includes (at least) all the words in the list' do
+        @analyzer.word_list.each do |w|
+          expect(@analyzer.df_in_dataset[w]).to be
+        end
+      end
+
+      it 'returns correct values for every word' do
+        expect(@analyzer.df_in_dataset['malaria']).to eq(1)
+        expect(@analyzer.df_in_dataset['disease']).to eq(8)
+      end
+    end
+
+    describe '#df_in_corpus' do
+      it 'includes (at least) all the words in the list' do
+        @analyzer.word_list.each do |w|
+          expect(@analyzer.df_in_corpus[w]).to be
+        end
+      end
+
+      it 'returns correct values' do
+        expect(@analyzer.df_in_corpus['malaria']).to eq(128)
+        expect(@analyzer.df_in_corpus['disease']).to eq(1104)
+      end
+    end
+  end
+
+  describe '#num_words' do
     context 'with num_words negative' do
-      before(:example) do
+      before(:context) do
         @analyzer = described_class.new(@dataset, nil, num_words: -1)
       end
 
@@ -51,7 +111,7 @@ RSpec.describe RLetters::Analysis::Frequency::FromTF do
     end
 
     context 'with num_words set to 10' do
-      before(:example) do
+      before(:context) do
         @analyzer = described_class.new(@dataset, nil, num_words: 10)
       end
 
@@ -63,32 +123,18 @@ RSpec.describe RLetters::Analysis::Frequency::FromTF do
     end
   end
 
-  describe '#split_across' do
-    before(:example) do
-      @analyzer = described_class.new(@dataset)
-    end
-
-    it 'includes all words in all blocks' do
-      @analyzer.blocks.each do |b|
-        expect(b.size).to eq(@analyzer.blocks[0].size)
-      end
-
-      expect(@analyzer.num_dataset_types).to eq(@analyzer.blocks[0].size)
-    end
-  end
-
   describe '#inclusion_list' do
-    before(:example) do
-      @analyzer = described_class.new(@dataset, nil, inclusion_list: 'blackwell stiver')
+    before(:context) do
+      @analyzer = described_class.new(@dataset, nil, inclusion_list: 'malaria disease')
     end
 
     it 'only includes those words' do
-      expect(@analyzer.blocks[0].keys).to match_array(%w(blackwell stiver))
+      expect(@analyzer.blocks[0].keys).to match_array(%w(malaria disease))
     end
   end
 
   describe '#exclusion_list' do
-    before(:example) do
+    before(:context) do
       @analyzer = described_class.new(@dataset, nil, exclusion_list: 'a the')
     end
 
@@ -103,7 +149,7 @@ RSpec.describe RLetters::Analysis::Frequency::FromTF do
   end
 
   describe '#stop_list' do
-    before(:example) do
+    before(:context) do
       @list = create(:stop_list)
       @analyzer = described_class.new(@dataset, nil, stop_list: @list)
     end
@@ -118,20 +164,8 @@ RSpec.describe RLetters::Analysis::Frequency::FromTF do
     end
   end
 
-  describe '#block_stats' do
-    before(:example) do
-      @analyzer = described_class.new(@dataset)
-    end
-
-    it 'includes name, types, and tokens' do
-      expect(@analyzer.block_stats[0][:name]).to be
-      expect(@analyzer.block_stats[0][:types]).to be
-      expect(@analyzer.block_stats[0][:tokens]).to be
-    end
-  end
-
   describe '#word_list' do
-    before(:example) do
+    before(:context) do
       @analyzer = described_class.new(@dataset, nil, num_words: 10)
     end
 
@@ -143,58 +177,6 @@ RSpec.describe RLetters::Analysis::Frequency::FromTF do
       @analyzer.word_list.each do |w|
         expect(@analyzer.blocks[0][w]).to be
       end
-    end
-  end
-
-  describe '#tf_in_dataset' do
-    before(:example) do
-      @analyzer = described_class.new(@dataset)
-    end
-
-    it 'includes (at least) all the words in the list' do
-      @analyzer.word_list.each do |w|
-        expect(@analyzer.tf_in_dataset[w]).to be
-      end
-    end
-
-    it 'returns the same values as a single-block analysis' do
-      @analyzer.word_list.each do |w|
-        expect(@analyzer.blocks[0][w]).to eq(@analyzer.tf_in_dataset[w])
-      end
-    end
-  end
-
-  describe '#df_in_dataset' do
-    before(:example) do
-      @analyzer = described_class.new(@dataset)
-    end
-
-    it 'includes (at least) all the words in the list' do
-      @analyzer.word_list.each do |w|
-        expect(@analyzer.df_in_dataset[w]).to be
-      end
-    end
-
-    it 'returns correct values for every word' do
-      expect(@analyzer.df_in_dataset['blackwell']).to eq(4)
-      expect(@analyzer.df_in_dataset['anthropology']).to eq(1)
-    end
-  end
-
-  describe '#df_in_corpus' do
-    before(:example) do
-      @analyzer = described_class.new(@dataset)
-    end
-
-    it 'includes (at least) all the words in the list' do
-      @analyzer.word_list.each do |w|
-        expect(@analyzer.df_in_corpus[w]).to be
-      end
-    end
-
-    it 'returns correct values' do
-      expect(@analyzer.df_in_corpus['blackwell']).to eq(573)
-      expect(@analyzer.df_in_corpus['anthropology']).to eq(4)
     end
   end
 

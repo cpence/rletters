@@ -8,6 +8,12 @@ end
 
 RSpec.describe RLetters::Documents::Author do
   describe '#full' do
+    it 'raises nothing for some problematic values' do
+      expect {
+        described_class.new('for the Leishmaniasis East Africa Platform (LEAP) group')
+      }.not_to raise_error
+    end
+
     it 'returns whatever was passed into the constructor' do
       au = described_class.new('Greebleflotz, Johannes van der 123 Jr.')
       expect(au.full).to eq('Greebleflotz, Johannes van der 123 Jr.')

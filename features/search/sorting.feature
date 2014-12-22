@@ -10,4 +10,4 @@ Feature: Sorting the list of results
     Scenario: Choosing a new sort method
       Given I visit the search page
       When I sort by authors (ascending)
-      Then the article list should contain Expression of Thanks
+      Then the article list should contain Why Arboviruses Can Be Neglected

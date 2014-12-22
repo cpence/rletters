@@ -105,7 +105,8 @@ class FacetsDecorator < ApplicationDecorator
 
     if facets.empty?
       new_params[:fq] = nil
-      return h.link_to(text, h.search_path(new_params), link_params)
+      return h.link_to(text, h.search_path(new_params.symbolize_keys),
+                       link_params)
     end
 
     new_params[:fq] = []

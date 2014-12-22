@@ -77,7 +77,7 @@ RSpec.describe Admin::DashboardController, type: :controller do
         end
 
         it 'includes the database size' do
-          expect(response.body).to include('1043 items')
+          expect(response.body).to include('1502 items')
         end
       end
     end

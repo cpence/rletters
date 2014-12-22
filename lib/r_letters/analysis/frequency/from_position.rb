@@ -44,6 +44,9 @@ module RLetters
           # Save the options
           normalize_options(options)
 
+          # Reset in case this is reused
+          dataset_segments.reset!
+
           # Get the word blocks from the segmenter
           @word_blocks = dataset_segments.segments(->(p) { progress.call((p * 0.8).to_i) if progress })
 

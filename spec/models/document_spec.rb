@@ -30,7 +30,7 @@ RSpec.describe Document, type: :model do
     context 'without fulltext' do
       context 'when loading one document' do
         before(:example) do
-          @doc = Document.find('doi:10.1111/j.1439-0310.2008.01576.x')
+          @doc = Document.find('doi:10.1371/journal.pntd.0000534')
         end
 
         it 'loads the document successfully' do
@@ -55,7 +55,7 @@ RSpec.describe Document, type: :model do
     context 'with fulltext' do
       context 'when loading one document with fulltext' do
         before(:example) do
-          @doc = Document.find('doi:10.1111/j.1439-0310.2008.01576.x', fulltext: true)
+          @doc = Document.find('doi:10.1371/journal.pntd.0000534', fulltext: true)
         end
 
         it 'loads the document successfully' do
@@ -105,7 +105,7 @@ RSpec.describe Document, type: :model do
     context 'without fulltext' do
       context 'when loading one document' do
         before(:example) do
-          @doc = Document.find_by(uid: 'doi:10.1111/j.1439-0310.2008.01576.x')
+          @doc = Document.find_by(uid: 'doi:10.1371/journal.pntd.0000534')
         end
 
         it 'loads the document successfully' do
@@ -125,7 +125,7 @@ RSpec.describe Document, type: :model do
 
       context 'with a field other than uid' do
         before(:example) do
-          @doc = Document.find_by(authors: 'C. Alaux')
+          @doc = Document.find_by(authors: 'Alan Fenwick')
         end
 
         it 'loads the document successfully' do
@@ -137,7 +137,7 @@ RSpec.describe Document, type: :model do
     context 'with fulltext' do
       context 'when loading one document with fulltext' do
         before(:example) do
-          @doc = Document.find_by(uid: 'doi:10.1111/j.1439-0310.2008.01576.x', fulltext: true)
+          @doc = Document.find_by(uid: 'doi:10.1371/journal.pntd.0000534', fulltext: true)
         end
 
         it 'loads the document successfully' do
@@ -177,11 +177,11 @@ RSpec.describe Document, type: :model do
   describe 'attributes' do
     context 'when loading one document' do
       before(:example) do
-        @doc = Document.find('doi:10.1111/j.1439-0310.2008.01576.x')
+        @doc = Document.find('doi:10.1371/journal.pntd.0000534')
       end
 
       it 'gets the right uid' do
-        expect(@doc.uid).to eq('doi:10.1111/j.1439-0310.2008.01576.x')
+        expect(@doc.uid).to eq('doi:10.1371/journal.pntd.0000534')
       end
 
       it 'does not have any fulltext' do
@@ -191,11 +191,11 @@ RSpec.describe Document, type: :model do
 
     context 'when loading one document with fulltext' do
       before(:example) do
-        @doc = Document.find('doi:10.1111/j.1439-0310.2008.01576.x', fulltext: true)
+        @doc = Document.find('doi:10.1371/journal.pntd.0000534', fulltext: true)
       end
 
       it 'gets the right uid' do
-        expect(@doc.uid).to eq('doi:10.1111/j.1439-0310.2008.01576.x')
+        expect(@doc.uid).to eq('doi:10.1371/journal.pntd.0000534')
       end
 
       it 'loads the fulltext' do
@@ -214,45 +214,51 @@ RSpec.describe Document, type: :model do
       end
 
       it 'sets the uid' do
-        expect(@docs[0].uid).to eq('doi:10.1111/j.1601-183X.2009.00525.x')
+        expect(@docs[0].uid).to eq('doi:10.1371/journal.pntd.0000503')
       end
 
       it 'sets the doi' do
-        expect(@docs[3].doi).to eq('10.1111/j.1439-0310.2010.01811.x')
+        expect(@docs[3].doi).to eq('10.1371/journal.pntd.0000506')
       end
 
       it 'sets the license' do
-        expect(@docs[0].license).to eq('© Blackwell Publishing Ltd/International Behavioural and Neural Genetics Society')
+        expect(@docs[0].license).to eq('Creative Commons Attribution (CC BY)')
       end
 
-      it 'does not set the license URL (none specified)' do
-        expect(@docs[2].license_url).not_to be
+      it 'sets the license URL' do
+        expect(@docs[2].license_url).to eq('http://creativecommons.org/licenses/by/3.0/')
       end
 
       it 'sets the authors' do
-        authors = ['Christian T. Vlautin', 'Nicholas J. Hobbs',
-                   'Michael H. Ferkin']
+        authors = [
+          'Ana Thereza Chaves', 'Andrea Teixeira-Carvalho',
+          'Fernanda Fortes de Araújo', 'Guilherme Grossi Lopes Cançado',
+          'Jacqueline Araújo Fiuza', 'Juliana Assis Silva Gomes',
+          'Manoel Otávio das Costa Rocha', 'Olindo de Assis Martins-Filho',
+          'Rafaelle Christine Gomes Fares', 'Ricardo Toshio Fujiwara',
+          'Rodrigo Correa-Oliveira'
+        ]
         expect(@docs[9].authors.map { |a| a.full }).to match_array(authors)
       end
 
       it 'sets the title' do
-        expect(@docs[2].title).to eq('Defining the dopamine transporter proteome by convergent biochemical and in silico analyses')
+        expect(@docs[2].title).to eq('A Schistosome cAMP-Dependent Protein Kinase Catalytic Subunit Is Essential for Parasite Viability')
       end
 
       it 'sets the journal' do
-        expect(@docs[0].journal).to eq('Genes, Brain and Behavior')
+        expect(@docs[0].journal).to eq('PLoS Neglected Tropical Diseases')
       end
 
       it 'sets the year' do
-        expect(@docs[5].year).to eq('1998')
+        expect(@docs[5].year).to eq('2009')
       end
 
       it 'sets the volume' do
-        expect(@docs[7].volume).to eq('6')
+        expect(@docs[7].volume).to eq('3')
       end
 
       it 'sets the pages' do
-        expect(@docs[8].pages).to eq('113-126')
+        expect(@docs[8].pages).to eq('e511')
       end
 
       it 'does not set the fulltext' do
@@ -264,7 +270,7 @@ RSpec.describe Document, type: :model do
   describe '#start_page and #end_page' do
     context 'when loading one document' do
       before(:example) do
-        @doc = Document.find('doi:10.1111/j.1439-0310.2008.01576.x')
+        @doc = build(:document, pages: '1227-1238')
       end
 
       it 'parses start_page correctly' do
@@ -289,12 +295,26 @@ RSpec.describe Document, type: :model do
         expect(@doc.end_page).to eq('1492')
       end
     end
+
+    context 'when loading a document without a range' do
+      before(:example) do
+        @doc = build(:document, pages: 'e1234')
+      end
+
+      it 'parses start_page correctly' do
+        expect(@doc.start_page).to eq('e1234')
+      end
+
+      it 'parses end_page correctly' do
+        expect(@doc.end_page).not_to be
+      end
+    end
   end
 
   describe '#term_vectors' do
     context 'when loading one document' do
       before(:example) do
-        @doc = Document.find('doi:10.1111/j.1439-0310.2008.01576.x')
+        @doc = Document.find('doi:10.1371/journal.pntd.0000534')
       end
 
       it 'does not set any term vectors' do
@@ -304,7 +324,7 @@ RSpec.describe Document, type: :model do
 
     context 'when loading one document with term vectors' do
       before(:example) do
-        @doc = Document.find('doi:10.1111/j.1439-0310.2008.01576.x', term_vectors: true)
+        @doc = Document.find('doi:10.1371/journal.pntd.0000534', term_vectors: true)
       end
 
       it 'does not load the fulltext' do
@@ -316,15 +336,15 @@ RSpec.describe Document, type: :model do
       end
 
       it 'sets tf' do
-        expect(@doc.term_vectors['m'][:tf]).to eq(2)
+        expect(@doc.term_vectors['decrease'][:tf]).to eq(2)
       end
 
       it 'sets positions' do
-        expect(@doc.term_vectors['center'][:positions][0]).to eq(26)
+        expect(@doc.term_vectors['hyperendemic'][:positions][0]).to eq(21)
       end
 
       it 'sets df' do
-        expect(@doc.term_vectors['reliable'][:df]).to eq(1.0)
+        expect(@doc.term_vectors['population'][:df]).to eq(389)
       end
 
       it 'does not set anything for terms that do not appear' do
@@ -334,7 +354,7 @@ RSpec.describe Document, type: :model do
 
     context 'when loading one document with offsets' do
       before(:example) do
-        query = { q: 'uid:"doi:10.1111/j.1439-0310.2008.01576.x"',
+        query = { q: 'uid:"doi:10.1371/journal.pntd.0000534"',
                   def_type: 'lucene',
                   fields: RLetters::Solr::Connection::DEFAULT_FIELDS_FULLTEXT,
                   tv: 'true',
@@ -344,7 +364,7 @@ RSpec.describe Document, type: :model do
       end
 
       it 'sets offsets' do
-        expect(@doc.term_vectors['vehrencampf'][:offsets][0]).to eq(162...173)
+        expect(@doc.term_vectors['on'][:offsets][0]).to eq(440...442)
       end
     end
   end

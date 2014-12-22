@@ -2,16 +2,15 @@
 require 'spec_helper'
 
 RSpec.describe Jobs::Analysis::ExportCitations do
-
-  it_should_behave_like 'an analysis job' do
-    let(:job_params) { { format: 'bibtex' } }
-  end
-
-  before(:example) do
+  before(:context) do
     @user = create(:user)
     @dataset = create(:full_dataset, entries_count: 10, working: true,
                                      user: @user)
     @task = create(:analysis_task, dataset: @dataset)
+  end
+
+  it_should_behave_like 'an analysis job' do
+    let(:job_params) { { format: 'bibtex' } }
   end
 
   describe '.download?' do
@@ -40,21 +39,22 @@ RSpec.describe Jobs::Analysis::ExportCitations do
   end
 
   context 'when all parameters are valid' do
-    before(:example) do
+    before(:context) do
       Jobs::Analysis::ExportCitations.perform(
         '123',
         user_id: @user.to_param,
         dataset_id: @dataset.to_param,
         task_id: @task.to_param,
         format: 'bibtex')
+      @task.reload
     end
 
     it 'names the task correctly' do
-      expect(@dataset.analysis_tasks[0].name).to eq('Export dataset as citations')
+      expect(@task.name).to eq('Export dataset as citations')
     end
 
     it 'creates a proper ZIP file' do
-      data = @dataset.analysis_tasks[0].result.file_contents('original')
+      data = @task.result.file_contents('original')
       entries = 0
       ::Zip::InputStream.open(StringIO.new(data)) do |zis|
         entries += 1 while zis.get_next_entry

@@ -8,7 +8,7 @@ RSpec.describe 'Search API', type: :request do
     expect(response).to be_success
     expect(response.content_type).to eq('application/json')
 
-    expect(json['results']['num_hits']).to eq(1043)
+    expect(json['results']['num_hits']).to eq(1502)
     expect(json['results']['documents'].size).to eq(10)
 
     expect(json['results']['solr_params']['q']).to eq('*:*')
@@ -18,15 +18,15 @@ RSpec.describe 'Search API', type: :request do
   end
 
   it 'loads faceted searches correctly' do
-    get '/search', fq: ['authors_facet:"J. C. Crabbe"'], format: :json
+    get '/search', fq: ['authors_facet:"Alan Fenwick"'], format: :json
 
     expect(response).to be_success
     expect(json['results']['num_hits']).to eq(9)
-    expect(json['results']['solr_params']['fq']).to eq('authors_facet:"J. C. Crabbe"')
+    expect(json['results']['solr_params']['fq']).to eq('authors_facet:"Alan Fenwick"')
   end
 
   it 'loads document details correctly' do
-    get '/search', q: 'doi:"10.1111/j.1439-0310.2010.01865.x"',
+    get '/search', q: 'doi:"10.1371/journal.pntd.0000534"',
                    precise: true,
                    format: :json
 
@@ -35,12 +35,12 @@ RSpec.describe 'Search API', type: :request do
 
     doc = json['results']['documents'][0]
     expect(doc).to be
-    expect(doc['doi']).to eq('10.1111/j.1439-0310.2010.01865.x')
-    expect(doc['license']).to eq('© Blackwell Verlag GmbH')
-    expect(doc['authors'].size).to eq(2)
-    expect(doc['authors'][0]['full']).to eq('Petr Kovařík')
-    expect(doc['authors'][1]['first']).to eq('Václav')
-    expect(doc['journal']).to eq('Ethology')
-    expect(doc['volume']).to eq('117')
+    expect(doc['doi']).to eq('10.1371/journal.pntd.0000534')
+    expect(doc['license']).to eq('Creative Commons Attribution (CC BY)')
+    expect(doc['authors'].size).to eq(11)
+    expect(doc['authors'][0]['full']).to eq('Wenbao Zhang')
+    expect(doc['authors'][1]['first']).to eq('Zhuangzhi')
+    expect(doc['journal']).to eq('PLoS Neglected Tropical Diseases')
+    expect(doc['volume']).to eq('3')
   end
 end

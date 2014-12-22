@@ -26,9 +26,9 @@ RSpec.describe SearchResultDecorator, type: :decorator do
         params = {
           q: '*:*',
           defType: 'lucene',
-          fq: ['journal_facet:"Ethology"']
+          fq: ['journal_facet:"PLoS Neglected Tropical Diseases"']
         }
-        Draper::ViewContext.current.params[:fq] = ['journal_facet:"Ethology"']
+        Draper::ViewContext.current.params[:fq] = ['journal_facet:"PLoS Neglected Tropical Diseases"']
         @result = RLetters::Solr::Connection.search(params)
         @decorated = described_class.decorate(@result)
         @ret = Capybara.string(@decorated.filter_removal_links)
@@ -36,7 +36,7 @@ RSpec.describe SearchResultDecorator, type: :decorator do
 
       it 'includes the removal link' do
         expect(@ret).to have_css('a[href="/search"]',
-                                 text: 'Journal: Ethology')
+                                 text: 'Journal: PLoS Neglected Tropical Diseases')
       end
     end
 
@@ -47,7 +47,7 @@ RSpec.describe SearchResultDecorator, type: :decorator do
           q: '*:*',
           defType: 'lucene',
           categories: [@category.to_param],
-          fq: ['journal_facet:("Ethology")']
+          fq: ['journal_facet:("PLoS Neglected Tropical Diseases")']
         }
         Draper::ViewContext.current.params[:categories] = [@category.to_param]
         @result = RLetters::Solr::Connection.search(params)
@@ -68,23 +68,23 @@ RSpec.describe SearchResultDecorator, type: :decorator do
           q: '*:*',
           defType: 'lucene',
           categories: [@category.to_param],
-          fq: ['journal_facet:("Ethology")', 'journal_facet:"Ethology"']
+          fq: ['journal_facet:("PLoS Neglected Tropical Diseases")', 'journal_facet:"PLoS Neglected Tropical Diseases"']
         }
         Draper::ViewContext.current.params[:categories] = [@category.to_param]
-        Draper::ViewContext.current.params[:fq] = ['journal_facet:"Ethology"']
+        Draper::ViewContext.current.params[:fq] = ['journal_facet:"PLoS Neglected Tropical Diseases"']
         @result = RLetters::Solr::Connection.search(params)
         @decorated = described_class.decorate(@result)
         @ret = Capybara.string(@decorated.filter_removal_links)
       end
 
       it 'includes the category removal link (with facet)' do
-        expect(@ret).to have_css('a[href="/search?fq%5B%5D=journal_facet%3A%22Ethology%22"]',
+        expect(@ret).to have_css('a[href="/search?fq%5B%5D=journal_facet%3A%22PLoS+Neglected+Tropical+Diseases%22"]',
                                  text: 'Category: Test Category')
       end
 
       it 'includes the facet removal link (with category)' do
         expect(@ret).to have_css("a[href='/search?categories%5B%5D=#{@category.to_param}']",
-                                 text: 'Journal: Ethology')
+                                 text: 'Journal: PLoS Neglected Tropical Diseases')
       end
     end
   end
@@ -119,7 +119,7 @@ RSpec.describe SearchResultDecorator, type: :decorator do
         @result = described_class.decorate(double(
           "RLetters::Solr::SearchResult",
           num_hits: 100,
-          params: { fq: ['journal:(Ethology)'] }
+          params: { fq: ['journal:(PLoS Neglected Tropical Diseases)'] }
         ))
       end
 

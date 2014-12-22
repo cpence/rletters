@@ -457,7 +457,6 @@ en:
             uk_openurl: Find with UK OpenURL Resolver
             online: Find online
             google: Find on Google Scholar
-            mendeley: Find on Mendeley
             citeulike: Find on CiteULike
             details_header: Document details
             data_source: "Data source: %{source}"
@@ -751,7 +750,6 @@ en:
         solr_server_url: Solr URL
         solr_timeout: Solr Timeout (sec)
         nlp_tool_path: Path to RLetters nlp-tool
-        mendeley_key: Mendeley Consumer Key
         airbrake_key: Airbrake API Key
         google_analytics_key: Google Analytics Tracking ID
         secret_token: Rails Secret Token

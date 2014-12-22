@@ -10,19 +10,18 @@ RSpec.describe RLetters::Documents::Serializers::EndNote do
     end
 
     it 'creates good EndNote' do
-      expect(@str).to be_start_with("%0 Journal Article\n")
-      expect(@str).to include('%A One, A.')
-      expect(@str).to include('%A Two, B.')
-      expect(@str).to include('%T Test Title')
-      expect(@str).to include('%J Journal')
-      expect(@str).to include('%V 10')
-      expect(@str).to include('%N 20')
-      expect(@str).to include('%P 100-200')
-      expect(@str).to include('%M 10.1234/5678')
-      expect(@str).to include('%D 2010')
+      expect(@str).to start_with("%0 Journal Article\n")
+      expect(@str).to include('%A Dickens, C.')
+      expect(@str).to include('%T A Tale of Two Cities')
+      expect(@str).to include('%J Actually a Novel')
+      expect(@str).to include('%V 1')
+      expect(@str).to include('%N 1')
+      expect(@str).to include('%P 1')
+      expect(@str).to include('%M 10.5678/dickens')
+      expect(@str).to include('%D 1859')
       # This extra carriage return is the item separator, and is thus very
       # important
-      expect(@str).to be_end_with("\n\n")
+      expect(@str).to end_with("\n\n")
     end
   end
 
@@ -34,7 +33,7 @@ RSpec.describe RLetters::Documents::Serializers::EndNote do
     end
 
     it 'creates good EndNote' do
-      expect(@str).to be_start_with("%0 Journal Article\n")
+      expect(@str).to start_with("%0 Journal Article\n")
       expect(@str).to include("\n\n%0 Journal Article\n")
     end
   end

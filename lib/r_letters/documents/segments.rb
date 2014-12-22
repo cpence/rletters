@@ -52,6 +52,7 @@ module RLetters
       #   The default is +:big_last+.
       def initialize(word_list = nil, options = {})
         @word_list = word_list || WordList.new
+        @word_list.reset!
         @num_blocks = options[:num_blocks] || 0
         @block_size = options[:block_size] || 0
         @last_block = options[:last_block] || :big_last
@@ -76,6 +77,7 @@ module RLetters
       # @api public
       # @return [void]
       def reset!
+        @words_for_last = []
         @blocks = []
         @single_block = []
       end

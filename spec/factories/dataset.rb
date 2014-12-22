@@ -1,45 +1,17 @@
 # -*- encoding : utf-8 -*-
 
 WORKING_UIDS ||= [
-  'doi:10.1111/j.1439-0310.2009.01707.x'.freeze,
-  'doi:10.1046/j.0179-1613.2003.00929.x'.freeze,
-  'doi:10.1046/j.1439-0310.2000.00539.x'.freeze,
-  'doi:10.1111/j.1439-0310.2009.01716.x'.freeze,
-  'doi:10.1111/j.1439-0310.2008.01576.x'.freeze,
-  'doi:10.1046/j.1439-0310.2001.00723.x'.freeze,
-  'doi:10.1111/j.1439-0310.2011.01898.x'.freeze,
-  'doi:10.1111/j.1439-0310.1998.tb00103.x'.freeze,
-  'doi:10.1111/j.1439-0310.2006.01139.x'.freeze,
-  'doi:10.1111/j.1439-0310.2007.01421.x'.freeze
+  'doi:10.1371/journal.pntd.0000534'.freeze,
+  'doi:10.1371/journal.pntd.0000535'.freeze,
+  'doi:10.1371/journal.pntd.0000536'.freeze,
+  'doi:10.1371/journal.pntd.0000537'.freeze,
+  'doi:10.1371/journal.pntd.0000538'.freeze,
+  'doi:10.1371/journal.pntd.0000539'.freeze,
+  'doi:10.1371/journal.pntd.0000540'.freeze,
+  'doi:10.1371/journal.pntd.0000541'.freeze,
+  'doi:10.1371/journal.pntd.0000542'.freeze,
+  'doi:10.1371/journal.pntd.0000543'.freeze
 ].freeze
-
-def stubs_for_dataset(method, dataset, evaluator)
-  if evaluator.stub
-    doc = if evaluator.english
-            FactoryGirl.build(:full_document_english)
-          else
-            FactoryGirl.build(:full_document)
-          end
-
-    allow(Document).to receive(:find).and_return(doc)
-    allow(Document).to receive(:find_by).and_return(doc)
-    allow(Document).to receive(:find_by!).and_return(doc)
-
-    # Just include the one document N times
-    if (method == :create)
-      dataset.entries = FactoryGirl.create_list(:entry, evaluator.entries_count,
-                                                dataset: dataset, uid: doc.uid)
-    elsif (method == :build)
-      dataset.entries = FactoryGirl.build_list(:entry, evaluator.entries_count,
-                                               dataset: dataset, uid: doc.uid)
-    end
-
-    # Stub out the enumerator, too
-    allow_any_instance_of(RLetters::Datasets::DocumentEnumerator).to receive(:each) do |&arg|
-      evaluator.entries_count.times { arg.call(doc) }
-    end
-  end
-end
 
 FactoryGirl.define do
   sequence :working_uid do |n|
@@ -58,22 +30,14 @@ FactoryGirl.define do
     factory :full_dataset do
       transient do
         working false
-        stub false
-        english false
         entries_count 5
       end
 
-      after(:build) do |dataset, evaluator|
-        stubs_for_dataset(:create, dataset, evaluator)
-      end
-
       after(:create) do |dataset, evaluator|
-        unless evaluator.stub
-          dataset.entries = FactoryGirl.create_list(:entry,
-                                                    evaluator.entries_count,
-                                                    dataset: dataset,
-                                                    working: evaluator.working)
-        end
+        dataset.entries = FactoryGirl.create_list(:entry,
+                                                  evaluator.entries_count,
+                                                  dataset: dataset,
+                                                  working: evaluator.working)
       end
     end
   end

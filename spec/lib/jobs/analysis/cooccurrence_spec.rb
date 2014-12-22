@@ -2,15 +2,19 @@
 require 'spec_helper'
 
 RSpec.describe Jobs::Analysis::Cooccurrence do
+  before(:context) do
+    @user = create(:user)
+    @dataset = create(:full_dataset, working: true, user: @user)
+    @task = create(:analysis_task, dataset: @dataset)
+  end
+
+  before(:example) do
+    # Don't run the analyses
+    allow_any_instance_of(RLetters::Analysis::Cooccurrence::Base).to receive(:call).and_return([])
+  end
 
   it_should_behave_like 'an analysis job' do
     let(:job_params) { { word: 'was', window: '6' } }
-  end
-
-  before(:each) do
-    @user = create(:user)
-    @dataset = create(:full_dataset, stub: true, english: true, user: @user)
-    @task = create(:analysis_task, dataset: @dataset)
   end
 
   describe '.download?' do
@@ -36,12 +40,12 @@ RSpec.describe Jobs::Analysis::Cooccurrence do
           analysis_type: 'nope',
           num_pairs: '10',
           window: 25,
-          word: 'ethology')
+          word: 'disease')
       }.to raise_error(ArgumentError)
     end
 
     types = [:mi, :t, :likelihood]
-    words = ['was', 'it, was']
+    words = ['disease', 'tropical, disease']
 
     types.product(words).each do |(type, words)|
       it "runs with type '#{type}' and words '#{words}'" do
@@ -57,15 +61,8 @@ RSpec.describe Jobs::Analysis::Cooccurrence do
             word: words)
         }.to_not raise_error
 
+        # Just a quick sanity check to make sure some code was called
         expect(@dataset.analysis_tasks[0].name).to eq('Determine significant associations between distant pairs of words')
-
-        @output = CSV.parse(@dataset.analysis_tasks[0].result.file_contents(:original))
-        expect(@output).to be_an(Array)
-
-        words, sig = @output[4]
-
-        expect(words.split.count).to eq(2)
-        expect(sig.to_f).to be_finite
       end
     end
   end

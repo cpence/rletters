@@ -2,7 +2,7 @@
 require 'spec_helper'
 
 RSpec.describe RLetters::Analysis::Frequency::FromPosition do
-  before(:example) do
+  before(:context) do
     @user = create(:user)
     @dataset = create(:full_dataset, entries_count: 10, working: true,
                                      user: @user)
@@ -18,12 +18,21 @@ RSpec.describe RLetters::Analysis::Frequency::FromPosition do
                                                  ngram_ds)
   end
 
-  describe '#num_words' do
-    context 'without num_words set' do
-      before(:example) do
-        @analyzer = described_class.new(@onegram_ss)
-      end
+  context 'with plain onegrams analysis' do
+    before(:context) do
+      @called_sub_100 = false
+      @called_100 = false
 
+      @analyzer = described_class.new(@onegram_ss, ->(p) {
+        if p < 100
+          @called_sub_100 = true
+        else
+          @called_100 = true
+        end
+      })
+    end
+
+    describe '#num_words' do
       it 'saves blocks' do
         expect(@analyzer.blocks).to be_an(Array)
         expect(@analyzer.blocks[0]).to be_a(Hash)
@@ -48,8 +57,51 @@ RSpec.describe RLetters::Analysis::Frequency::FromPosition do
       end
     end
 
+    describe '#block_stats' do
+      it 'includes name, types, and tokens' do
+        expect(@analyzer.block_stats[0][:name]).to be
+        expect(@analyzer.block_stats[0][:types]).to be
+        expect(@analyzer.block_stats[0][:tokens]).to be
+      end
+    end
+
+    describe '#df_in_dataset' do
+      it 'includes (at least) all the words in the list' do
+        @analyzer.word_list.each do |w|
+          expect(@analyzer.df_in_dataset[w]).to be
+        end
+      end
+
+      it 'returns correct values' do
+        expect(@analyzer.df_in_dataset['malaria']).to eq(1)
+        expect(@analyzer.df_in_dataset['disease']).to eq(8)
+      end
+    end
+
+    describe '#df_in_corpus' do
+      it 'includes (at least) all the words in the list' do
+        @analyzer.word_list.each do |w|
+          expect(@analyzer.df_in_corpus[w]).to be
+        end
+      end
+
+      it 'returns the right corpus values' do
+        expect(@analyzer.df_in_corpus['malaria']).to eq(128)
+        expect(@analyzer.df_in_corpus['disease']).to eq(1104)
+      end
+    end
+
+    describe 'progress reporting' do
+      it 'calls the progress function with under and equal to 100' do
+        expect(@called_sub_100).to be true
+        expect(@called_100).to be true
+      end
+    end
+  end
+
+  describe '#num_words' do
     context 'with num_words negative' do
-      before(:example) do
+      before(:context) do
         @analyzer = described_class.new(@onegram_ss, nil,
                                         num_words: -1,
                                         num_blocks: 1)
@@ -62,7 +114,7 @@ RSpec.describe RLetters::Analysis::Frequency::FromPosition do
     end
 
     context 'with num_words set to 10' do
-      before(:example) do
+      before(:context) do
         @analyzer = described_class.new(@onegram_ss, nil, num_words: 10)
       end
 
@@ -74,25 +126,24 @@ RSpec.describe RLetters::Analysis::Frequency::FromPosition do
 
   describe '#inclusion_list' do
     context 'with one-grams' do
-      before(:example) do
-        @analyzer = described_class.new(@onegram_ss, nil, inclusion_list: 'blackwell stiver')
+      before(:context) do
+        @analyzer = described_class.new(@onegram_ss, nil, inclusion_list: 'malaria disease')
       end
 
       it 'only includes those words' do
-        diff = @analyzer.blocks[0].keys - %w(blackwell stiver)
-        expect(diff).to be_empty
+        expect(@analyzer.blocks[0].keys - %w(malaria disease)).to be_empty
       end
     end
 
     context 'with n-grams' do
-      before(:example) do
-        @analyzer = described_class.new(@ngram_ss, nil, inclusion_list: 'stiver')
+      before(:context) do
+        @analyzer = described_class.new(@ngram_ss, nil, inclusion_list: 'malaria')
       end
 
-      it 'produces ngrams that all contain stiver' do
+      it 'produces ngrams that all contain malaria' do
         expect(@analyzer.blocks[0].size).to be > 0
         @analyzer.blocks[0].each do |k, v|
-          expect(k).to include('stiver')
+          expect(k).to include('malaria')
         end
       end
     end
@@ -100,7 +151,7 @@ RSpec.describe RLetters::Analysis::Frequency::FromPosition do
 
   describe '#exclusion_list' do
     context 'with one-grams' do
-      before(:example) do
+      before(:context) do
         @analyzer = described_class.new(@onegram_ss, nil, exclusion_list: 'a the')
       end
 
@@ -115,20 +166,20 @@ RSpec.describe RLetters::Analysis::Frequency::FromPosition do
     end
 
     context 'with n-grams' do
-      before(:example) do
-        @analyzer = described_class.new(@ngram_ss, nil, exclusion_list: 'brain')
+      before(:context) do
+        @analyzer = described_class.new(@ngram_ss, nil, exclusion_list: 'diseases')
       end
 
-      it 'produces ngrams that do not contain brain' do
+      it 'produces ngrams that do not contain diseases' do
         @analyzer.blocks[0].each do |k, v|
-          expect(k).not_to include('brain')
+          expect(k).not_to include('diseases')
         end
       end
     end
   end
 
   describe '#stop_list' do
-    before(:example) do
+    before(:context) do
       @list = create(:stop_list)
       @analyzer = described_class.new(@onegram_ss, nil, stop_list: @list)
     end
@@ -143,20 +194,8 @@ RSpec.describe RLetters::Analysis::Frequency::FromPosition do
     end
   end
 
-  describe '#block_stats' do
-    before(:example) do
-      @analyzer = described_class.new(@onegram_ss)
-    end
-
-    it 'includes name, types, and tokens' do
-      expect(@analyzer.block_stats[0][:name]).to be
-      expect(@analyzer.block_stats[0][:types]).to be
-      expect(@analyzer.block_stats[0][:tokens]).to be
-    end
-  end
-
   describe '#word_list' do
-    before(:example) do
+    before(:context) do
       @analyzer = described_class.new(@onegram_ss, nil, num_words: 10)
     end
 
@@ -172,7 +211,7 @@ RSpec.describe RLetters::Analysis::Frequency::FromPosition do
   end
 
   describe '#tf_in_dataset' do
-    before(:example) do
+    before(:context) do
       @analyzer = described_class.new(@oneblock_ss)
     end
 
@@ -186,58 +225,6 @@ RSpec.describe RLetters::Analysis::Frequency::FromPosition do
       @analyzer.word_list.each do |w|
         expect(@analyzer.blocks[0][w]).to eq(@analyzer.tf_in_dataset[w])
       end
-    end
-  end
-
-  describe '#df_in_dataset' do
-    before(:example) do
-      @analyzer = described_class.new(@onegram_ss)
-    end
-
-    it 'includes (at least) all the words in the list' do
-      @analyzer.word_list.each do |w|
-        expect(@analyzer.df_in_dataset[w]).to be
-      end
-    end
-
-    it 'returns correct values' do
-      expect(@analyzer.df_in_dataset['blackwell']).to eq(4)
-      expect(@analyzer.df_in_dataset['anthropology']).to eq(1)
-    end
-  end
-
-  describe '#df_in_corpus' do
-    before(:example) do
-      @analyzer = described_class.new(@onegram_ss)
-    end
-
-    it 'includes (at least) all the words in the list' do
-      @analyzer.word_list.each do |w|
-        expect(@analyzer.df_in_corpus[w]).to be
-      end
-    end
-
-    it 'returns the right corpus values' do
-      expect(@analyzer.df_in_corpus['blackwell']).to eq(573)
-      expect(@analyzer.df_in_corpus['anthropology']).to eq(4)
-    end
-  end
-
-  describe 'progress reporting' do
-    it 'calls the progress function with under and equal to 100' do
-      called_sub_100 = false
-      called_100 = false
-
-      described_class.new(@onegram_ss, ->(p) {
-        if p < 100
-          called_sub_100 = true
-        else
-          called_100 = true
-        end
-      })
-
-      expect(called_sub_100).to be true
-      expect(called_100).to be true
     end
   end
 end

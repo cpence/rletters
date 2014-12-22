@@ -10,17 +10,16 @@ RSpec.describe RLetters::Documents::Serializers::RIS do
     end
 
     it 'creates good RIS' do
-      expect(@str).to be_start_with("TY  - JOUR\n")
-      expect(@str).to include('AU  - One,A.')
-      expect(@str).to include('AU  - Two,B.')
-      expect(@str).to include('TI  - Test Title')
-      expect(@str).to include('JO  - Journal')
-      expect(@str).to include('VL  - 10')
-      expect(@str).to include('IS  - 20')
-      expect(@str).to include('SP  - 100')
-      expect(@str).to include('EP  - 200')
-      expect(@str).to include('PY  - 2010')
-      expect(@str).to be_end_with("ER  - \n")
+      expect(@str).to start_with("TY  - JOUR\n")
+      expect(@str).to include('AU  - Dickens,C.')
+      expect(@str).to include('TI  - A Tale of Two Cities')
+      expect(@str).to include('JO  - Actually a Novel')
+      expect(@str).to include('VL  - 1')
+      expect(@str).to include('IS  - 1')
+      expect(@str).to include('SP  - 1')
+      expect(@str).not_to include('EP  - ')
+      expect(@str).to include('PY  - 1859')
+      expect(@str).to end_with("ER  - \n")
     end
   end
 
@@ -32,7 +31,7 @@ RSpec.describe RLetters::Documents::Serializers::RIS do
     end
 
     it 'creates good RIS' do
-      expect(@str).to be_start_with("TY  - JOUR\n")
+      expect(@str).to start_with("TY  - JOUR\n")
       expect(@str).to include("ER  - \nTY  - JOUR\n")
     end
   end

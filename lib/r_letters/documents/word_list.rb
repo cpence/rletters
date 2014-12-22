@@ -29,6 +29,15 @@ module RLetters
         @dfs = {}
       end
 
+      # Reset to initial state in the word lister
+      #
+      # @return [undefined]
+      # @example Reset this word lister
+      #   word_list.reset!
+      def reset!
+        @dfs = {}
+      end
+
       # The word list for this document
       #
       # @param [String] uid the UID of the document to operate on

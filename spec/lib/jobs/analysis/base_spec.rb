@@ -106,7 +106,7 @@ RSpec.describe Jobs::Analysis::Base do
   end
 
   describe '#standard_options!' do
-    before(:each) do
+    before(:example) do
       @user = create(:user)
       @dataset = create(:full_dataset, user: @user)
       @task = create(:analysis_task, dataset: @dataset)

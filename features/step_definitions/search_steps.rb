@@ -90,7 +90,7 @@ Then(/^the article list should contain (.*)$/) do |content|
 end
 
 Then(/^I should see the documents formatted with my style$/) do
-  expect(page).to have_content('Woodward, R.L., Schmick, M.K. & Ferkin, M.H. Response of Prairie Voles, Microtus ochrogaster (Rodentia, Arvicolidae), to Scent Over-marks of Two Same-sex Conspecifics: A Test of the Scent-masking Hypothesis. Ethology 105, 1009–1017 (1999).')
+  expect(page).to have_content('Díaz, R., Casanova, A., Ariza, J. & Moriyón, I. The Rose Bengal Test in Human Brucellosis: A Neglected Test for the Diagnosis of a Neglected Disease. PLoS Neglected Tropical Diseases 5, e950 (2011).')
 end
 
 Then(/^I should see (\d+) articles$/) do |num|
