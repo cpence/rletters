@@ -1,11 +1,11 @@
 source 'https://rubygems.org'
 
 # Rails
-gem 'rails', '>= 4.2.0.beta1' # FIXME: '~> 4.2'
+gem 'rails', '~> 4.2'
 
 # Database and related tools
 gem 'pg'
-gem 'activerecord-import', github: 'zdennis/activerecord-import' # FIXME: '>= 0.6.1'?
+gem 'activerecord-import', '>= 0.7.0'
 gem 'closure_tree'
 gem 'validate_url'
 gem 'addressable'
@@ -20,8 +20,8 @@ gem 'resque_mailer'
 gem 'devise'
 gem 'devise-i18n'
 gem 'devise-async'
-gem 'activeadmin', github: 'activeadmin'
-gem 'inherited_resources', github: 'josevalim/inherited_resources', branch: 'rails-4-2' # TEMPORARY until released
+gem 'activeadmin', github: 'activeadmin', branch: 'rails-4-2'
+gem 'inherited_resources', github: 'josevalim/inherited_resources', branch: 'rails-4-2' # FIXME: TEMPORARY until released
 gem 'responders', '~> 2.0' # FIXME: temporary until inherited_resources release
 gem 'activeadmin-sortable-tree', github: 'nebirhos/activeadmin-sortable-tree'
 gem 'druthers'
