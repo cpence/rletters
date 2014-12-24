@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 
 module RLetters
   # Code for performing various analyses on document text
@@ -40,7 +39,7 @@ module RLetters
         return if Admin::Setting.nlp_tool_path.blank?
 
         total = @dataset.entries.size
-        text_cache = ""
+        text_cache = ''
 
         enum = RLetters::Datasets::DocumentEnumerator.new(@dataset,
                                                           fulltext: true)

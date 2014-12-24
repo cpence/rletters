@@ -1,10 +1,9 @@
-# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
 RSpec.describe RLetters::Solr::SearchResult do
   before(:example) do
     stub_const('Document', Class.new)
-    allow(Document).to receive(:new).with(any_args())
+    allow(Document).to receive(:new).with(any_args)
 
     document_solr_hash = {
       'data_source' => 'Test fixture',

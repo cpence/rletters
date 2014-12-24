@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 
 module RLetters
   module Analysis
@@ -46,7 +45,7 @@ module RLetters
           enum.each_with_index do |doc, i|
             @progress && @progress.call((i.to_f / total.to_f * 100.0).to_i)
 
-            tagged = NLP::parts_of_speech(doc.fulltext.mb_chars.downcase.to_s)
+            tagged = NLP.parts_of_speech(doc.fulltext.mb_chars.downcase.to_s)
 
             search_for_regexes(tagged, 2, POS_BI_REGEXES)
             search_for_regexes(tagged, 3, POS_TRI_REGEXES)
@@ -87,17 +86,15 @@ module RLetters
         # @return [undefined]
         def search_for_regexes(tagged_words, size, regexes)
           tagged_words.each_cons(size).map do |t|
-            if @word
-              next unless t.any? { |w| w.start_with?("#{@word}_") }
-            end
+            next if @word && !t.any? { |w| w.start_with?("#{@word}_") }
 
             gram = t.join(' ')
-            if regexes.any? { |r| gram =~ r }
-              stripped = gram.gsub(/_(JJ[^\s]?|NN[^\s]{0,2}|IN)(\s+|\Z)/, '\2')
+            next unless regexes.any? { |r| gram =~ r }
 
-              @result[stripped] ||= 0
-              @result[stripped] += 1
-            end
+            stripped = gram.gsub(/_(JJ[^\s]?|NN[^\s]{0,2}|IN)(\s+|\Z)/, '\2')
+
+            @result[stripped] ||= 0
+            @result[stripped] += 1
           end
         end
       end

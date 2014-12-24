@@ -8,9 +8,7 @@ class ChangeWorkflowDatasetsType < ActiveRecord::Migration
     # Save the current value of the parameter
     workflow_datasets = {}
     User.all.each do |u|
-      if u.workflow_datasets.present?
-        workflow_datasets[u] = u.workflow_datasets
-      end
+      workflow_datasets[u] = u.workflow_datasets if u.workflow_datasets.present?
     end
 
     change_column :users, :workflow_datasets, :text
@@ -26,9 +24,7 @@ class ChangeWorkflowDatasetsType < ActiveRecord::Migration
     # Save the current value of the parameter
     workflow_datasets = {}
     User.all.each do |u|
-      if u.workflow_datasets.present?
-        workflow_datasets[u] = u.workflow_datasets
-      end
+      workflow_datasets[u] = u.workflow_datasets if u.workflow_datasets.present?
     end
 
     change_column :users, :workflow_datasets, :string

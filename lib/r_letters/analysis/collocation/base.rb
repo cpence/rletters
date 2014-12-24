@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 
 module RLetters
   module Analysis
@@ -41,13 +40,13 @@ module RLetters
         #   an = RLetters::Analysis::Collocation::LogLikelihood.new(d, 30)
         #   result = an.call
         def call
-          analyzers = get_analyzers
+          an = analyzers
 
-          word_f = analyzers[0].blocks[0]
-          bigram_f = analyzers[1].blocks[0]
+          word_f = an[0].blocks[0]
+          bigram_f = an[1].blocks[0]
           total = bigram_f.size
 
-          n = analyzers[0].num_dataset_tokens.to_f
+          n = an[0].num_dataset_tokens.to_f
 
           ret = bigram_f.each_with_index.map do |b, i|
             @progress && @progress.call((i.to_f / total.to_f * 33.0).to_i + 66)
@@ -79,7 +78,7 @@ module RLetters
         # @api private
         # @return [Array<RLetters::Analysis::Frequency::Base>] two analyzers,
         #   first one-gram and second bi-gram
-        def get_analyzers
+        def analyzers
           # The onegram analyzer can use TFs
           onegram_analyzer = RLetters::Analysis::Frequency::FromTF.new(
             @dataset,

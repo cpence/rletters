@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 
 # Load the server elements of Resque, resque-scheduler, resque-status
 require 'resque/server'
@@ -17,9 +16,11 @@ Resque::Mailer.default_queue_name = 'maintenance'
 Resque::Mailer.excluded_environments = []
 
 # Thanks to Brian Clapper for the idea here.
-class Resque::Server
-  get '/back to admin interface' do
-    redirect '/admin'
+module Resque
+  class Server
+    get '/back to admin interface' do
+      redirect '/admin'
+    end
   end
 end
 

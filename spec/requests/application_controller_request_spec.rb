@@ -1,8 +1,6 @@
-# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
 RSpec.describe ApplicationController, type: :request do
-
   describe '#after_sign_in_path_for' do
     context 'with a regular user' do
       before(:example) do
@@ -54,5 +52,4 @@ RSpec.describe ApplicationController, type: :request do
       expect(flash[:alert]).not_to be
     end
   end
-
 end

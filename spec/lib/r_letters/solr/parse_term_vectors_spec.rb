@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
 RSpec.describe RLetters::Solr::ParseTermVectors do
@@ -25,8 +24,8 @@ RSpec.describe RLetters::Solr::ParseTermVectors do
   context 'with empty document vectors' do
     before(:example) do
       empty_array = [
-        'uniqueKeyFieldName','uid',
-        'nope', ['uniqueKey','nope','fulltext',[]]
+        'uniqueKeyFieldName', 'uid',
+        'nope', ['uniqueKey', 'nope', 'fulltext', []]
       ]
 
       @parser = described_class.new(empty_array)

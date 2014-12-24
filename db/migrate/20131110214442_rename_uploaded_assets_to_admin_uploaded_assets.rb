@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 class RenameUploadedAssetsToAdminUploadedAssets < ActiveRecord::Migration
   def change
     rename_table 'uploaded_assets', 'admin_uploaded_assets'

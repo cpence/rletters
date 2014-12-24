@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 
 ActiveAdmin.setup do |config|
   config.site_title = 'RLetters Backend'

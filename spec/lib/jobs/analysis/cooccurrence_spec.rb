@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
 RSpec.describe Jobs::Analysis::Cooccurrence do
@@ -49,9 +48,9 @@ RSpec.describe Jobs::Analysis::Cooccurrence do
     end
 
     types = [:mi, :t, :likelihood]
-    words = ['disease', 'tropical, disease']
+    words_list = ['disease', 'tropical, disease']
 
-    types.product(words).each do |(type, words)|
+    types.product(words_list).each do |(type, words)|
       it "runs with type '#{type}' and words '#{words}'" do
         expect {
           Jobs::Analysis::Cooccurrence.perform(

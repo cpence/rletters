@@ -1,8 +1,6 @@
-# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
 RSpec.describe SearchController, type: :controller do
-
   describe '#search_params_to_solr_query' do
     it 'correctly eliminates blank params' do
       params = { q: '', precise: '' }
@@ -141,5 +139,4 @@ RSpec.describe SearchController, type: :controller do
       expect(ret[:def_type]).to eq('dismax')
     end
   end
-
 end

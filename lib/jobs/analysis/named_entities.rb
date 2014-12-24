@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 
 module Jobs
   module Analysis
@@ -37,11 +36,11 @@ module Jobs
           ->(p) { at(p, 100, t('.progress_finding')) })
         analyzer.call
 
-        csv = write_csv(nil, '') do |csv|
-          csv << [ t('.type_column'), t('.hit_column') ]
+        csv = write_csv(nil, '') do |out|
+          out << [t('.type_column'), t('.hit_column')]
           analyzer.entity_references.each do |category, list|
             list.each do |hit|
-              csv << [ category, hit ]
+              out << [category, hit]
             end
           end
         end

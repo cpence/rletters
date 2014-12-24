@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 
 # Ruby's base Numeric class
 class Numeric
@@ -43,6 +42,14 @@ class Numeric
   #   30.bound(5, 10)
   #   # => 10
   def bound(min, max)
-    self < min ? min : (self > max ? max : self)
+    if self < min
+      min
+    else
+      if self > max
+        max
+      else
+        self
+      end
+    end
   end
 end

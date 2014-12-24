@@ -1,6 +1,4 @@
 
-# -*- encoding : utf-8 -*-
-
 module RLetters
   module Analysis
     module Frequency
@@ -76,7 +74,7 @@ module RLetters
         def single_block_analysis
           # Just copy everything out, rejecting any words not in the list to
           # be analyzed
-          @blocks = [@tf_in_dataset.reject { |k, v| !@word_list.include?(k) }]
+          @blocks = [@tf_in_dataset.reject { |k, _| !@word_list.include?(k) }]
           @block_stats = [{
             name: I18n.t('lib.frequency.block_count_dataset',
                          num: 1, total: 1),
@@ -110,7 +108,7 @@ module RLetters
 
           # Clean out zero values from the blocks
           @blocks.map! do |b|
-            b.reject { |k, v| v.to_i == 0 }
+            b.reject { |_, v| v.to_i == 0 }
           end
 
           progress.call(90) if progress
@@ -122,7 +120,7 @@ module RLetters
               name: I18n.t('lib.frequency.block_count_doc',
                            num: 1, total: 1, title: d.uid),
               types: d.term_vectors.size,
-              tokens: d.term_vectors.map { |k, v| v[:tf] }.reduce(:+)
+              tokens: d.term_vectors.map { |_, v| v[:tf] }.reduce(:+)
             }
           end
         end
@@ -162,17 +160,14 @@ module RLetters
               @df_in_dataset[k] ||= 0
               @df_in_dataset[k] += 1
 
-              if !@df_in_corpus[k] && v[:df] > 0
-                @df_in_corpus[k] = v[:df]
-              end
+              @df_in_corpus[k] = v[:df] if !@df_in_corpus[k] && v[:df] > 0
             end
 
             # Call the progress function appropriately
-            if progress
-              p = i.to_f / total
-              p *= @split_across ? 90.0 : 40.0
-              progress.call(p.to_i)
-            end
+            next unless progress
+            p = i.to_f / total
+            p *= @split_across ? 90.0 : 40.0
+            progress.call(p.to_i)
           end
 
           @num_dataset_types = @tf_in_dataset.size

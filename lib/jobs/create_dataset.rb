@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 
 module Jobs
   # Create a dataset from a Solr query for a given user

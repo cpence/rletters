@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 
 # Template handler for Markdown-based templates
 #

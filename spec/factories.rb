@@ -1,10 +1,8 @@
-# -*- encoding : utf-8 -*-
 
 CSL_DATA ||= File.read(Rails.root.join('spec', 'factories', 'nature.csl'))
 POS_YAML ||= File.read(Rails.root.join('spec', 'factories', 'parts_of_speech.yml'))
 
 FactoryGirl.define do
-
   factory :administrator, class: Admin::Administrator do
     sequence(:email) { |n| "admin#{n}@example.com" }
     password 'password'
@@ -47,7 +45,7 @@ FactoryGirl.define do
   factory :named_entities, class: Hash do
     transient do
       entity_hash {
-        { 'PERSON' => ['Tom', 'Dick', 'Harry'] }
+        { 'PERSON' => %w(Tom Dick Harry) }
       }
     end
 
@@ -86,5 +84,4 @@ FactoryGirl.define do
     language 'en'
     timezone 'Eastern Time (US & Canada)'
   end
-
 end

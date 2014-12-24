@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 
 module RLetters
   module Analysis
@@ -73,7 +72,7 @@ module RLetters
         total_docs = RLetters::Solr::CorpusStats.new.size
 
         loop do
-          search_result = RLetters::Solr::Connection.search_raw({
+          search_result = RLetters::Solr::Connection.search_raw(
             q: '*:*',
             def_type: 'lucene',
             group: 'true',
@@ -81,8 +80,7 @@ module RLetters
             fl: 'uid',
             facet: 'false',
             start: start.to_s,
-            rows: 100
-          })
+            rows: 100)
 
           # These conditions would indicate a malformed Solr response
           break unless search_result['grouped'] &&
@@ -113,7 +111,7 @@ module RLetters
           end
 
           # Get the next batch of groups
-          start = start + 100
+          start += 100
         end
 
         @progress && @progress.call(100)

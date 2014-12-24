@@ -1,8 +1,6 @@
-# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
 RSpec.describe 'Error pages', type: :request do
-
   it 'renders the 404 template' do
     get_via_redirect '/asdf/notapage'
 
@@ -17,5 +15,4 @@ RSpec.describe 'Error pages', type: :request do
     expect(response.code.to_i).to eq(500)
     expect(response).to have_rendered('500')
   end
-
 end

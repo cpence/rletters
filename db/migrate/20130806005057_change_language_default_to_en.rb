@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 class ChangeLanguageDefaultToEn < ActiveRecord::Migration
   def up
     change_column :users, :language, :string, default: 'en'

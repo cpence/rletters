@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 
 module RLetters
   module Analysis
@@ -77,7 +76,7 @@ module RLetters
           # not in the list of words to keep and adding zero values for words
           # that aren't present
           @blocks = @word_blocks.map do |b|
-            b.words.reject { |k, v| !@word_list.include?(k) }
+            b.words.reject { |k, _| !@word_list.include?(k) }
           end
 
           progress.call(97) if progress
@@ -114,7 +113,7 @@ module RLetters
         def compute_df_tf
           @tf_in_dataset = {}
           @word_blocks.each do |b|
-            @tf_in_dataset.merge!(b.words) { |w, v1, v2| v1 + v2 }
+            @tf_in_dataset.merge!(b.words) { |_, v1, v2| v1 + v2 }
           end
 
           @num_dataset_types = @tf_in_dataset.size

@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
 RSpec.describe RLetters::Documents::WordList do
@@ -14,7 +13,7 @@ RSpec.describe RLetters::Documents::WordList do
     end
 
     it 'provides the words in order' do
-      expect(@list.take(5)).to eq(['it', 'was', 'the', 'best', 'of'])
+      expect(@list.take(5)).to eq(%w(it was the best of))
     end
 
     it 'gets the corpus dfs' do
@@ -73,7 +72,7 @@ RSpec.describe RLetters::Documents::WordList do
     end
 
     it 'calls the lemmatizer' do
-      expect(@list.take(3)).to eq(['it', 'be', 'the'])
+      expect(@list.take(3)).to eq(%w(it be the))
     end
 
     it 'does not leave un-lemmatized words' do

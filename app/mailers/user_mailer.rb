@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 
 # Send notification e-mails to users
 #

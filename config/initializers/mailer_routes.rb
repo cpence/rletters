@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 
 # Set mailer defaults
 if ActiveRecord::Base.connection.tables.include?('admin_settings')

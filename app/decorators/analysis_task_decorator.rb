@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 
 # Decorate analysis task objects
 #
@@ -20,13 +19,9 @@ class AnalysisTaskDecorator < Draper::Decorator
     if hash
       if hash.pct_complete
         ret += "#{hash.pct_complete}%"
-        if hash.message
-          ret += ": "
-        end
+        ret += ': ' if hash.message
       end
-      if hash.message
-        ret += hash.message
-      end
+      ret += hash.message if hash.message
     end
 
     ret

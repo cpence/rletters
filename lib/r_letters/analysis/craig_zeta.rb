@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 
 module RLetters
   module Analysis
@@ -49,9 +48,9 @@ module RLetters
       # @return undefined
       def call
         create_analyzers
-        get_block_counts
-        get_zeta_scores
-        get_graph_points
+        compute_block_counts
+        compute_zeta_scores
+        compute_graph_points
       end
 
       private
@@ -92,7 +91,7 @@ module RLetters
       #
       # @api private
       # @return [undefined]
-      def get_block_counts
+      def compute_block_counts
         @progress && @progress.call(50)
 
         # Convert to numbers of blocks in which each word appears
@@ -108,7 +107,7 @@ module RLetters
 
         # Delete from the blocks any word which appears in *every* block
         max_count = @analyzer_1.blocks.size + @analyzer_2.blocks.size
-        @block_counts.delete_if { |k, v| v == max_count }
+        @block_counts.delete_if { |_, v| v == max_count }
       end
 
       # Convert the block counts to zeta scores
@@ -123,10 +122,10 @@ module RLetters
       #
       # @api private
       # @return [undefined]
-      def get_zeta_scores
+      def compute_zeta_scores
         zeta_hash = {}
         total = @block_counts.size
-        @block_counts.each_with_index do |(word, v), i|
+        @block_counts.each_with_index do |(word, _), i|
           @progress && @progress.call(50 + (i.to_f / total.to_f * 25.0).to_i)
 
           a_count = @analyzer_1.blocks.map { |b| b[word] ? 1 : 0 }.reduce(:+)
@@ -159,11 +158,10 @@ module RLetters
       #
       # @api private
       # @return [undefined]
-      def get_graph_points
+      def compute_graph_points
         @progress && @progress.call(80)
 
         @graph_points = []
-        total = (@analyzer_1.blocks.size + @analyzer_2.blocks.size).to_f
 
         [[@analyzer_1.blocks, @dataset_1.name],
          [@analyzer_2.blocks, @dataset_2.name]].each do |(blocks, name)|

@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 require 'net/http'
 
 # Ruby's standard networking module

@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 
 # Preview the output from the UserMailer
 class UserMailerPreview < ActionMailer::Preview

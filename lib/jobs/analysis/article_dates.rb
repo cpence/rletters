@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 
 module Jobs
   module Analysis
@@ -29,8 +28,9 @@ module Jobs
         # Get the counts and normalize if requested
         analyzer = RLetters::Analysis::CountArticlesByField.new(
           @dataset,
-          ->(p) { at((p.to_f / 100.0 * 90.0).to_i, 100,
-                     t('.progress_counting')) })
+          lambda do |p|
+            at((p.to_f / 100.0 * 90.0).to_i, 100, t('.progress_counting'))
+          end)
         dates = analyzer.counts_for(:year)
 
         at(90, 100, t('.progress_normalizing'))
@@ -42,7 +42,7 @@ module Jobs
         # Fill in zeroes for any years that are missing
         at(95, 100, t('.progress_missing'))
         dates = Range.new(*(dates.map { |d| d[0] }.minmax)).each.map do |y|
-          dates.assoc(y) || [ y, 0 ]
+          dates.assoc(y) || [y, 0]
         end
 
         # Save out the data, including getting the name of the normalization
@@ -63,10 +63,10 @@ module Jobs
         end
         year_header = Document.human_attribute_name(:year)
 
-        csv = write_csv(nil, '') do |csv|
-          csv << [ year_header, value_header ]
+        csv = write_csv(nil, '') do |out|
+          out << [year_header, value_header]
           dates.each do |d|
-            csv << d
+            out << d
           end
         end
 

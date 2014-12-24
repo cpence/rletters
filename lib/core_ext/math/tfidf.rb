@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 
 # Ruby's standard Math module
 module Math

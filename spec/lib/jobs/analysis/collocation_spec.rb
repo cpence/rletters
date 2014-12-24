@@ -1,14 +1,12 @@
-# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
 RSpec.describe Jobs::Analysis::Collocation do
-
   it_should_behave_like 'an analysis job'
 
   before(:example) do
     @user = create(:user)
     @dataset = create(:full_dataset, working: true, entries_count: 2,
-                      user: @user)
+                                     user: @user)
     @task = create(:analysis_task, dataset: @dataset)
 
     @old_path = Admin::Setting.nlp_tool_path

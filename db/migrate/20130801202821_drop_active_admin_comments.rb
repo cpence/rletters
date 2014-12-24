@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 class DropActiveAdminComments < ActiveRecord::Migration
   def up
     drop_table :active_admin_comments
@@ -7,7 +6,7 @@ class DropActiveAdminComments < ActiveRecord::Migration
   def down
     create_table :active_admin_comments do |t|
       t.string :namespace
-      t.text   :body
+      t.text :body
       t.string :resource_id,   null: false
       t.string :resource_type, null: false
       t.references :author, polymorphic: true

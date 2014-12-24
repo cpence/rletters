@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 
 # Ruby's standard Hash class
 class Hash
@@ -15,12 +14,12 @@ class Hash
   #   opts.clean_options!
   def clean_options!
     symbolize_keys!
-    each { |k, v|
+    each do |k, v|
       if v.is_a? String
         self[k] = v.strip
         delete(k) if self[k].empty?
       end
-    }
+    end
     compact!
   end
 end

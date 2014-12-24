@@ -1,10 +1,10 @@
-# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
 module Jobs
   module Analysis
+    # A mock job for testing the base code
     class MockJob < Jobs::Analysis::Base
-      def get_opts
+      def call_standard_options
         standard_options!
       end
 
@@ -14,7 +14,6 @@ module Jobs
 end
 
 RSpec.describe Jobs::Analysis::Base do
-
   describe '.t' do
     it 'queries the right keys' do
       expect(I18n).to receive(:t).with('jobs.analysis.mock_job.testing', {})
@@ -29,7 +28,8 @@ RSpec.describe Jobs::Analysis::Base do
     end
 
     it 'adds to the view path' do
-      expected = Rails.root.join('lib', 'jobs', 'analysis', 'concerns', 'views', 'normalize_document_counts')
+      expected = Rails.root.join('lib', 'jobs', 'analysis', 'concerns',
+                                 'views', 'normalize_document_counts')
       expect(Jobs::Analysis::MockJob.view_paths).to include(expected)
     end
 
@@ -40,16 +40,17 @@ RSpec.describe Jobs::Analysis::Base do
     end
   end
 
-  describe '.has_view?' do
+  describe '.view?' do
     it 'returns correct values' do
-      expect(Jobs::Analysis::ArticleDates).to have_view('_params')
-      expect(Jobs::Analysis::CraigZeta).not_to have_view('_params')
+      expect(Jobs::Analysis::ArticleDates.view?('_params')).to be true
+      expect(Jobs::Analysis::CraigZeta.view?('_params')).to be false
     end
   end
 
   describe '.view_paths' do
     it 'returns the base path' do
-      expected = Rails.root.join('lib', 'jobs', 'analysis', 'views', 'mock_job')
+      expected = Rails.root.join('lib', 'jobs', 'analysis',
+                                 'views', 'mock_job')
       expect(Jobs::Analysis::MockJob.view_paths).to include(expected)
     end
   end
@@ -69,7 +70,8 @@ RSpec.describe Jobs::Analysis::Base do
       end
 
       it 'returns path for available views' do
-        expected = Rails.root.join('lib', 'jobs', 'analysis', 'views', 'named_entities', 'results.html.haml').to_s
+        expected = Rails.root.join('lib', 'jobs', 'analysis', 'views',
+                                   'named_entities', 'results.html.haml').to_s
         expect(Jobs::Analysis::NamedEntities.view_path(template: 'results')).to eq(expected)
       end
     end
@@ -80,12 +82,15 @@ RSpec.describe Jobs::Analysis::Base do
       end
 
       it 'returns path for available views' do
-        expected = Rails.root.join('lib', 'jobs', 'analysis', 'views', 'article_dates', '_params.html.haml').to_s
+        expected = Rails.root.join('lib', 'jobs', 'analysis', 'views',
+                                   'article_dates', '_params.html.haml').to_s
         expect(Jobs::Analysis::ArticleDates.view_path(partial: 'params')).to eq(expected)
       end
 
       it 'returns path for concern views' do
-        expected = Rails.root.join('lib', 'jobs', 'analysis', 'concerns', 'views', 'normalize_document_counts', '_normalize_document_counts.html.haml').to_s
+        expected = Rails.root.join('lib', 'jobs', 'analysis', 'concerns',
+                                   'views', 'normalize_document_counts',
+                                   '_normalize_document_counts.html.haml').to_s
         expect(Jobs::Analysis::ArticleDates.view_path(partial: 'normalize_document_counts')).to eq(expected)
       end
     end
@@ -122,28 +127,28 @@ RSpec.describe Jobs::Analysis::Base do
     context 'with the wrong user' do
       it 'raises an exception' do
         @job.options[:user_id] = create(:user).to_param
-        expect { @job.get_opts }.to raise_error(ActiveRecord::RecordNotFound)
+        expect { @job.call_standard_options }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
 
     context 'with an invalid user' do
       it 'raises an exception' do
         @job.options[:user_id] = '123456'
-        expect { @job.get_opts }.to raise_error(ActiveRecord::RecordNotFound)
+        expect { @job.call_standard_options }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
 
     context 'with an invalid dataset' do
       it 'raises an exception' do
         @job.options[:dataset_id] = '12345678'
-        expect { @job.get_opts }.to raise_error(ActiveRecord::RecordNotFound)
+        expect { @job.call_standard_options }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
 
     context 'with an invalid task' do
       it 'raises an exception' do
         @job.options[:task_id] = '12345678'
-        expect { @job.get_opts }.to raise_error(ActiveRecord::RecordNotFound)
+        expect { @job.call_standard_options }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
   end
@@ -163,5 +168,4 @@ RSpec.describe Jobs::Analysis::Base do
   it 'includes the resque-status methods' do
     expect(Jobs::Analysis::MockJob.methods).to include(:create)
   end
-
 end

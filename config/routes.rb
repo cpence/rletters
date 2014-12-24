@@ -1,7 +1,5 @@
-# -*- encoding : utf-8 -*-
 
 Rails.application.routes.draw do
-
   # The user workflow
   get 'workflow' => 'workflow#index'
   get 'workflow/image/:id' => 'workflow#image', as: 'workflow_image'

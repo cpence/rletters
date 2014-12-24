@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 
 WORKING_UIDS ||= [
   'doi:10.1371/journal.pntd.0000534'.freeze,

@@ -1,8 +1,6 @@
-# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
 RSpec.describe RLetters::Documents::Serializers::BibTex do
-
   context 'when serializing a single document' do
     before(:example) do
       @doc = build(:full_document)

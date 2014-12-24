@@ -1,8 +1,6 @@
-# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
 RSpec.describe Datasets::AnalysisTask, type: :model do
-
   describe '#valid?' do
     context 'when no name is specified' do
       before(:example) do
@@ -140,5 +138,4 @@ RSpec.describe Datasets::AnalysisTask, type: :model do
       end
     end
   end
-
 end

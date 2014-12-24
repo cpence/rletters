@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 
 # Ruby's base String class
 class String

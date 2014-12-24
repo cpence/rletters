@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 unless Rails.env.production?
   namespace :security do
     desc 'Run security audits against the codebase'

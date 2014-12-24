@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 # Be sure to restart your server when you modify this file.
 
 # Use cookies for sessions, keeping them out of the database

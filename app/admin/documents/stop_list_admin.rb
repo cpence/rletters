@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 
 ActiveAdmin.register Documents::StopList do
   actions :index, :update, :edit, :show
@@ -14,7 +13,7 @@ ActiveAdmin.register Documents::StopList do
     actions
   end
 
-  show title: :display_language do |list|
+  show title: :display_language do
     attributes_table do
       row :id
       row :language
@@ -24,7 +23,7 @@ ActiveAdmin.register Documents::StopList do
   end
 
   form do |f|
-    f.semantic_errors *f.object.errors.keys
+    f.semantic_errors(*f.object.errors.keys)
 
     f.inputs I18n.t('admin.stop_list.header',
                     language: documents_stop_list.display_language) do

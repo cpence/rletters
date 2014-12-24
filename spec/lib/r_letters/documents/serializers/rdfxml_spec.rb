@@ -1,9 +1,7 @@
-# -*- encoding : utf-8 -*-
 require 'spec_helper'
 require 'nokogiri'
 
 RSpec.describe RLetters::Documents::Serializers::RDFXML do
-
   context 'with a single document' do
     before(:example) do
       @doc = build(:full_document)
@@ -38,5 +36,4 @@ RSpec.describe RLetters::Documents::Serializers::RDFXML do
       expect(@xml.css('Description').size).to eq(2)
     end
   end
-
 end

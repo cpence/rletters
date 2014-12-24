@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 
 ActiveAdmin.register Dataset do
   actions :index, :show

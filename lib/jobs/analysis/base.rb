@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 
 module Jobs
   # Module containing all analysis jobs
@@ -69,7 +68,7 @@ module Jobs
       def self.t(key, opts = {})
         return I18n.t(key, opts) unless key[0] == '.'
 
-        I18n.t("#{name.underscore.gsub('/', '.')}#{key.to_s}", opts)
+        I18n.t("#{name.underscore.gsub('/', '.')}#{key}", opts)
       end
 
       # Returns a translated string for this job
@@ -238,7 +237,7 @@ module Jobs
       # @param [String] view the view to search for
       # @param [String] format the format to search for
       # @return [Boolean] true if the given job has the view requested
-      def self.has_view?(view, format = 'html')
+      def self.view?(view, format = 'html')
         !view_path(template: view, format: format).nil?
       end
 
@@ -267,8 +266,6 @@ module Jobs
         @task.name = t('.short_desc')
         @task.save
       end
-
-      private
 
       class << self
         # @return [Array<String>] the concerns mixed into this job class

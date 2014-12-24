@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
 RSpec.describe SearchController, type: :controller do
@@ -38,7 +37,7 @@ RSpec.describe SearchController, type: :controller do
           rows: 10
         }
 
-        expect(RLetters::Solr::Connection).to receive(:search).with(params).and_return(double("RLetters::Solr::SearchResult", documents: [], facets: nil, params: params.stringify_keys))
+        expect(RLetters::Solr::Connection).to receive(:search).with(params).and_return(double('RLetters::Solr::SearchResult', documents: [], facets: nil, params: params.stringify_keys))
         get :index, fq: ['journal_facet:"Journal of Nothing"']
       end
     end
@@ -53,7 +52,7 @@ RSpec.describe SearchController, type: :controller do
           rows: 10
         }
 
-        expect(RLetters::Solr::Connection).to receive(:search).with(params).and_return(double("RLetters::Solr::SearchResult", documents: [], facets: nil, params: params.stringify_keys))
+        expect(RLetters::Solr::Connection).to receive(:search).with(params).and_return(double('RLetters::Solr::SearchResult', documents: [], facets: nil, params: params.stringify_keys))
         get :index, q: 'testing'
       end
     end
@@ -61,7 +60,7 @@ RSpec.describe SearchController, type: :controller do
     context 'with offset and limit parameters' do
       it 'successfully parses those parameters' do
         default_sq = { q: '*:*', def_type: 'lucene', sort: 'year_sort desc', start: 20, rows: 20 }
-        expect(RLetters::Solr::Connection).to receive(:search).with(default_sq).and_return(double("RLetters::Solr::SearchResult", documents: [], facets: nil, params: default_sq.stringify_keys))
+        expect(RLetters::Solr::Connection).to receive(:search).with(default_sq).and_return(double('RLetters::Solr::SearchResult', documents: [], facets: nil, params: default_sq.stringify_keys))
 
         get :index, page: '1', per_page: '20'
 
@@ -70,7 +69,7 @@ RSpec.describe SearchController, type: :controller do
 
       it 'does not throw an exception on non-integral page values' do
         default_sq = { q: '*:*', def_type: 'lucene', sort: 'year_sort desc', start: 0, rows: 20 }
-        expect(RLetters::Solr::Connection).to receive(:search).with(default_sq).and_return(double("RLetters::Solr::SearchResult", documents: [], facets: nil, params: default_sq.stringify_keys))
+        expect(RLetters::Solr::Connection).to receive(:search).with(default_sq).and_return(double('RLetters::Solr::SearchResult', documents: [], facets: nil, params: default_sq.stringify_keys))
 
         expect {
           get :index, page: 'zzyzzy', per_page: '20'
@@ -79,7 +78,7 @@ RSpec.describe SearchController, type: :controller do
 
       it 'does not throw an exception on non-integral per_page values' do
         default_sq = { q: '*:*', def_type: 'lucene', sort: 'year_sort desc', start: 10, rows: 10 }
-        expect(RLetters::Solr::Connection).to receive(:search).with(default_sq).and_return(double("RLetters::Solr::SearchResult", documents: [], facets: nil, params: default_sq.stringify_keys))
+        expect(RLetters::Solr::Connection).to receive(:search).with(default_sq).and_return(double('RLetters::Solr::SearchResult', documents: [], facets: nil, params: default_sq.stringify_keys))
 
         expect {
           get :index, page: '1', per_page: 'zzyzzy'
@@ -88,7 +87,7 @@ RSpec.describe SearchController, type: :controller do
 
       it 'does not let the user specify zero items per page' do
         default_sq = { q: '*:*', def_type: 'lucene', sort: 'year_sort desc', start: 10, rows: 10 }
-        expect(RLetters::Solr::Connection).to receive(:search).with(default_sq).and_return(double("RLetters::Solr::SearchResult", documents: [], facets: nil, params: default_sq.stringify_keys))
+        expect(RLetters::Solr::Connection).to receive(:search).with(default_sq).and_return(double('RLetters::Solr::SearchResult', documents: [], facets: nil, params: default_sq.stringify_keys))
 
         get :index, page: '1', per_page: '0'
       end

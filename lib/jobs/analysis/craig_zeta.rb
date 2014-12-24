@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 
 module Jobs
   module Analysis
@@ -45,30 +44,30 @@ module Jobs
 
         # Save out all the data
         csv = write_csv(t('.csv_header', name_1: @dataset.name,
-                                         name_2: dataset_2.name), '') do |csv|
+                                         name_2: dataset_2.name), '') do |out|
           # Output the marker words
-          csv << [t('.marker_header', name: @dataset.name),
+          out << [t('.marker_header', name: @dataset.name),
                   t('.marker_header', name: dataset_2.name)]
 
           analyzer.dataset_1_markers.each_with_index do |w, i|
-            csv << [w, analyzer.dataset_2_markers.at(i)]
+            out << [w, analyzer.dataset_2_markers.at(i)]
           end
 
-          csv << [''] << ['']
+          out << [''] << ['']
 
           # Output the graphing points
-          csv << [t('.graph_header')]
-          csv << ['']
-          csv << [t('.marker_column', name: @dataset.name),
+          out << [t('.graph_header')]
+          out << ['']
+          out << [t('.marker_column', name: @dataset.name),
                   t('.marker_column', name: dataset_2.name),
                   t('.block_name_column')]
-          analyzer.graph_points.each { |l| csv << l }
+          analyzer.graph_points.each { |l| out << l }
 
-          csv << [''] << ['']
+          out << [''] << ['']
 
           # Output the Zeta scores
-          csv << [t('.zeta_score_header')]
-          analyzer.zeta_scores.each { |(w, s)| csv << [w, s] }
+          out << [t('.zeta_score_header')]
+          analyzer.zeta_scores.each { |(w, s)| out << [w, s] }
         end
 
         at(100, 100, t('common.progress_finished'))

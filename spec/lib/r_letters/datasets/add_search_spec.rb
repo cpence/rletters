@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
 RSpec.describe RLetters::Datasets::AddSearch do
@@ -13,13 +12,14 @@ RSpec.describe RLetters::Datasets::AddSearch do
       @called_100 = false
 
       @search = RLetters::Solr::Connection.search(q: '*:*', def_type: 'lucene')
-      @adder = described_class.new(@dataset, '*:*', nil, 'lucene', ->(p) {
-        if p < 100
-          @called_sub_100 = true
-        else
-          @called_100 = true
-        end
-      })
+      @adder = described_class.new(@dataset, '*:*', nil, 'lucene',
+                                   lambda do |p|
+                                     if p < 100
+                                       @called_sub_100 = true
+                                     else
+                                       @called_100 = true
+                                     end
+                                   end)
 
       @adder.call
     end

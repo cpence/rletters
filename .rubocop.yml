@@ -1,21 +1,40 @@
 AllCops:
-  Includes:
+  Include:
     - '**/*.rake'
     - 'Gemfile'
-  Excludes:
-    - 'vendor/**'
-    - 'public/**'
+  Exclude:
+    - 'vendor/**/*'
+    - 'public/**/*'
     - 'db/schema.rb'
-    - 'bin/**'
+    - 'bin/**/*'
 
 # We have to have UTF-8 in several of our comments, because we're returning
 # UTF-8 data.  It's fine.
 AsciiComments:
   Enabled: false
 
-# FIXME: This one's bad.
+# Lots of these metrics are being taken care of by CodeClimate, I don't need
+# Rubocop warning me about them, too.
+Metrics/AbcSize:
+  Enabled: false
+Metrics/CyclomaticComplexity:
+  Enabled: false
+Metrics/PerceivedComplexity:
+  Enabled: false
+
+# Related: Inch and Yardstick take care of our documentation completeness.
+Style/Documentation:
+  Enabled: false
+
+# FIXME: These should probably be replaced by keyword arguments!
+Metrics/ParameterLists:
+  Enabled: false
+
+# FIXME: These are bad.
 MethodLength:
-  Max: 125
+  Max: 150
+Metrics/ClassLength:
+  Max: 250
 
 # FIXME: This is bad.
 LineLength:

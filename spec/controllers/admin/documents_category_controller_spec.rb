@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
 RSpec.describe Admin::DocumentsCategoriesController, type: :controller do
@@ -49,5 +48,4 @@ RSpec.describe Admin::DocumentsCategoriesController, type: :controller do
       expect(response.body).to have_selector('input#documents_category_journals_plos_neglected_tropical_diseases[name="documents_category[journals][]"]')
     end
   end
-
 end

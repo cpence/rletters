@@ -1,8 +1,6 @@
-# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
 RSpec.describe Users::Library, type: :model do
-
   describe '#valid?' do
     context 'when no name spcified' do
       before(:example) do
@@ -86,5 +84,4 @@ RSpec.describe Users::Library, type: :model do
       end
     end
   end
-
 end

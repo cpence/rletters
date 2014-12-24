@@ -1,8 +1,6 @@
-# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
 RSpec.describe RLetters::Documents::Serializers::EndNote do
-
   context 'when serializing a single document' do
     before(:example) do
       @doc = build(:full_document)
@@ -37,5 +35,4 @@ RSpec.describe RLetters::Documents::Serializers::EndNote do
       expect(@str).to include("\n\n%0 Journal Article\n")
     end
   end
-
 end

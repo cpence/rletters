@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 
 # Representation of a user in the database
 #
@@ -123,9 +122,7 @@ class User < ActiveRecord::Base
   # @api private
   # @return [void]
   def workflow_datasets_to_ids
-    if workflow_datasets
-      workflow_datasets.map!(&:to_param)
-    end
+    workflow_datasets.map!(&:to_param) if workflow_datasets
   end
 
   # Convert array of ids to workflow datasets
@@ -137,8 +134,6 @@ class User < ActiveRecord::Base
   # @api private
   # @return [void]
   def workflow_datasets_from_ids
-    if workflow_datasets
-      workflow_datasets.map! { |id| datasets.find(id) }
-    end
+    workflow_datasets.map! { |id| datasets.find(id) } if workflow_datasets
   end
 end

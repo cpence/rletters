@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 class AddAttachmentResultToAnalysisTasks < ActiveRecord::Migration
   def self.up
     change_table :analysis_tasks do |t|

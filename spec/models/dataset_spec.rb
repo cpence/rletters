@@ -1,8 +1,6 @@
-# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
 RSpec.describe Dataset, type: :model do
-
   describe '#valid?' do
     context 'when name is not specified' do
       before(:example) do

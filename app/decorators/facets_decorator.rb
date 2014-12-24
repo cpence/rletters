@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 
 # Decorate an array of facet objects
 #
@@ -21,7 +20,6 @@ class FacetsDecorator < ApplicationDecorator
   #   # "<li>Active Filters</li>...<li>Authors</li><li>"
   #     "<a href='...'>Johnson</a></li>..."
   def addition_links
-    active = active_facets
     ret = ''.html_safe
 
     # Run the facet-list code for all three facet fields
@@ -48,7 +46,6 @@ class FacetsDecorator < ApplicationDecorator
   #   @facets.removal_links
   #   # "<dd><a href='...'>Author: A. One</dd>..."
   def removal_links
-    active = active_facets
     ret = ''.html_safe
 
     if active_facets

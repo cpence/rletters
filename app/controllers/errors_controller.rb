@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 
 # Render server error pages
 #
@@ -13,7 +12,7 @@ class ErrorsController < ApplicationController
   def not_found
     respond_to do |format|
       format.html { render(template: 'errors/404', layout: false, status: 404) }
-      format.any { render(text: "404 Not Found", status: 404) }
+      format.any { render(text: '404 Not Found', status: 404) }
     end
   end
 
@@ -28,7 +27,7 @@ class ErrorsController < ApplicationController
   def unprocessable
     respond_to do |format|
       format.html { render(template: 'errors/422', layout: false, status: 422) }
-      format.any { render(text: "422 Unprocessable Entity", status: 422) }
+      format.any { render(text: '422 Unprocessable Entity', status: 422) }
     end
   end
   # :nocov:

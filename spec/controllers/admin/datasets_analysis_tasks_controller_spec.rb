@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
 RSpec.describe Admin::DatasetsAnalysisTasksController, type: :controller do
@@ -25,5 +24,4 @@ RSpec.describe Admin::DatasetsAnalysisTasksController, type: :controller do
       expect(response.body).to include(@task.name)
     end
   end
-
 end

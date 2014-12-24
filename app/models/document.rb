@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 
 # Representation of a document in the Solr database
 #
@@ -144,7 +143,7 @@ class Document
   # @example Look up a document by W. Shatner (raising exception if not found)
   #   doc = Document.find_by!(authors: 'W. Shatner')
   def self.find_by!(args)
-    find_by(args) or fail ActiveRecord::RecordNotFound
+    find_by(args) || fail(ActiveRecord::RecordNotFound)
   end
 
   # Query a document and return it (or nil)
@@ -171,9 +170,7 @@ class Document
     if fulltext == true
       query[:fl] = RLetters::Solr::Connection::DEFAULT_FIELDS_FULLTEXT
     end
-    if term_vectors == true
-      query[:tv] = 'true'
-    end
+    query[:tv] = 'true' if term_vectors == true
 
     # Run the search
     result = RLetters::Solr::Connection.search(query)
@@ -260,15 +257,11 @@ class Document
      :data_source, :title, :journal,
      :year, :volume, :number, :pages].each do |a|
       value = send(a)
-      if value && value.strip.empty?
-        send("#{a}=".to_sym, nil)
-      end
+      send("#{a}=".to_sym, nil) if value && value.strip.empty?
     end
 
     # Convert the fulltext_url into a URI
-    if fulltext_url
-      self.fulltext_url = URI.parse(fulltext_url)
-    end
+    self.fulltext_url = URI.parse(fulltext_url) if fulltext_url
 
     # Convert the authors into an authors object (and do this even if the
     # string is nil or blank)

@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 
 # Add vendor locales (for CLDR files)
 Rails.application.config.i18n.load_path +=

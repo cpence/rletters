@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 
 module RLetters
   module Solr
@@ -61,11 +60,10 @@ module RLetters
         end
 
         # Step through the facet queries
-        if facet_queries
-          facet_queries.each do |k, v|
-            next if Integer(v) == 0
-            @all << Facet.new(query: k, hits: v)
-          end
+        return unless facet_queries
+        facet_queries.each do |k, v|
+          next if Integer(v) == 0
+          @all << Facet.new(query: k, hits: v)
         end
       end
     end

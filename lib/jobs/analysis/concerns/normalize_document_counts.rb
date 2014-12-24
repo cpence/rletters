@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 require 'active_support/concern'
 
 module Jobs
@@ -49,15 +48,15 @@ module Jobs
 
           normalize_counts = RLetters::Analysis::CountArticlesByField.new(normalization_set).counts_for(field)
 
-          ret = counts.each_with_object({}) do |(k, v), ret|
+          ret = counts.each_with_object({}) do |(k, v), out|
             if normalize_counts[k] && normalize_counts[k] > 0
-              ret[k] = v.to_f / normalize_counts[k]
+              out[k] = v.to_f / normalize_counts[k]
             else
               # I'm not sure if this is the right thing to do when you give
               # me a dataset that can't properly normalize (i.e., you ask me
               # to compute 1/0).  But at least it won't throw a
               # divide-by-zero.
-              ret[k] = 0.0
+              out[k] = 0.0
             end
           end
 

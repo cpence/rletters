@@ -1,8 +1,6 @@
-# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
 RSpec.describe RLetters::Documents::Serializers::RIS do
-
   context 'when serializing a single document' do
     before(:example) do
       @doc = build(:full_document)
@@ -35,5 +33,4 @@ RSpec.describe RLetters::Documents::Serializers::RIS do
       expect(@str).to include("ER  - \nTY  - JOUR\n")
     end
   end
-
 end

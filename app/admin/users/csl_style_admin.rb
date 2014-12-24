@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 
 ActiveAdmin.register Users::CslStyle do
   menu parent: 'admin_settings'

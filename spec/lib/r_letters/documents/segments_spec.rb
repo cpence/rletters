@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
 RSpec.describe RLetters::Documents::Segments do
@@ -25,7 +24,7 @@ RSpec.describe RLetters::Documents::Segments do
 
     it 'puts all the words in the block' do
       expect(@blocks[0].words.size).to eq(@doc.fulltext.split.count)
-      expect(@blocks[0].words.take(5)).to eq(['it', 'was', 'the', 'best', 'of'])
+      expect(@blocks[0].words.take(5)).to eq(%w(it was the best of))
     end
   end
 
@@ -46,7 +45,7 @@ RSpec.describe RLetters::Documents::Segments do
 
     it 'puts all the words in the block' do
       expect(@blocks[0].words.size).to eq(@doc.fulltext.split.size)
-      expect(@blocks[0].words.take(5)).to eq(['it', 'was', 'the', 'best', 'of'])
+      expect(@blocks[0].words.take(5)).to eq(%w(it was the best of))
     end
 
     it 'sets the words_for_last correctly' do
@@ -97,7 +96,7 @@ RSpec.describe RLetters::Documents::Segments do
     end
 
     it 'makes correctly sized early blocks' do
-      expect(@blocks.first.words).to eq(['it', 'was', 'the'])
+      expect(@blocks.first.words).to eq(%w(it was the))
     end
 
     it 'makes a big last block' do
@@ -122,7 +121,7 @@ RSpec.describe RLetters::Documents::Segments do
     end
 
     it 'makes correctly sized early blocks' do
-      expect(@blocks.first.words).to eq(['it', 'was', 'the'])
+      expect(@blocks.first.words).to eq(%w(it was the))
     end
 
     it 'makes a small last block' do
@@ -147,7 +146,7 @@ RSpec.describe RLetters::Documents::Segments do
     end
 
     it 'makes correctly sized early blocks' do
-      expect(@blocks.first.words).to eq(['it', 'was', 'the'])
+      expect(@blocks.first.words).to eq(%w(it was the))
     end
 
     it 'truncates leftover words' do
@@ -172,7 +171,7 @@ RSpec.describe RLetters::Documents::Segments do
     end
 
     it 'makes a single sized block' do
-      expect(@blocks.first.words).to eq(['it', 'was', 'the'])
+      expect(@blocks.first.words).to eq(%w(it was the))
     end
   end
 
@@ -180,7 +179,7 @@ RSpec.describe RLetters::Documents::Segments do
     it 'resets all the parameters' do
       segmenter = described_class.new(@list)
       segmenter.add(@doc.uid)
-      blocks = segmenter.blocks
+      segmenter.blocks
 
       segmenter.reset!
       new_blocks = segmenter.blocks

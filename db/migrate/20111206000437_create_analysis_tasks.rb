@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 class CreateAnalysisTasks < ActiveRecord::Migration
   def change
     create_table :analysis_tasks do |t|

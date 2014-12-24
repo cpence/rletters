@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 
 module RLetters
   module Documents
@@ -126,9 +125,7 @@ module RLetters
           # Oddly enough, you'll get weird bogus values for words that don't
           # appear in your document back from Solr.  Not sure what's up with
           # that.
-          if hash[:df] > 0
-            @dfs[word] = hash[:df]
-          end
+          @dfs[word] = hash[:df] if hash[:df] > 0
         end
       end
 

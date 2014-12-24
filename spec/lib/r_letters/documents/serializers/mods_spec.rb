@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 require 'spec_helper'
 require 'nokogiri'
 
@@ -32,7 +31,7 @@ RSpec.describe RLetters::Documents::Serializers::MODS do
 
     it 'creates MODS documents that are valid against the schema' do
       errors = @mods_schema.validate(@xml)
-      fail(errors.map { |e| e.to_s }.join('; ')) if errors.length != 0
+      fail(errors.map(&:to_s).join('; ')) if errors.length != 0
     end
   end
 
@@ -52,8 +51,7 @@ RSpec.describe RLetters::Documents::Serializers::MODS do
 
     it 'creates MODS collections that are valid against the schema' do
       errors = @mods_schema.validate(@xml)
-      fail(errors.map { |e| e.to_s }.join('; ')) if errors.length != 0
+      fail(errors.map(&:to_s).join('; ')) if errors.length != 0
     end
   end
-
 end

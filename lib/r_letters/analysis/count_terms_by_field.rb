@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 
 module RLetters
   module Analysis
@@ -89,7 +88,7 @@ module RLetters
         total_docs = RLetters::Solr::CorpusStats.new.size
 
         loop do
-          group_result = RLetters::Solr::Connection.search_raw({
+          group_result = RLetters::Solr::Connection.search_raw(
             q: "fulltext:\"#{@term}\"",
             def_type: 'lucene',
             group: 'true',
@@ -97,8 +96,7 @@ module RLetters
             fl: 'uid',
             facet: 'false',
             start: start.to_s,
-            rows: 1
-          })
+            rows: 1)
 
           # These conditions would indicate a malformed Solr response
           break unless group_result['grouped'] &&
@@ -121,7 +119,7 @@ module RLetters
           key = group['groupValue']
           group_size = group['doclist']['numFound']
 
-          uids_result = RLetters::Solr::Connection.search_raw({
+          uids_result = RLetters::Solr::Connection.search_raw(
             q: "fulltext:\"#{@term}\"",
             def_type: 'lucene',
             group: 'true',
@@ -130,8 +128,7 @@ module RLetters
             facet: 'false',
             start: start.to_s,
             rows: 1,
-            'group.limit' => group_size
-          })
+            'group.limit' => group_size)
 
           # Malformed Solr response
           break unless uids_result['grouped'] &&

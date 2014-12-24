@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 
 # Helper methods for stubbing out HTTP queries
 module StubConnection

@@ -1,9 +1,7 @@
-# -*- encoding : utf-8 -*-
 require 'spec_helper'
 require 'nokogiri'
 
 RSpec.describe RLetters::Documents::Serializers::MARCXML do
-
   context 'when serializing an array of documents' do
     before(:example) do
       doc = build(:full_document)
@@ -15,5 +13,4 @@ RSpec.describe RLetters::Documents::Serializers::MARCXML do
       expect(@xml.css('collection record').size).to eq(2)
     end
   end
-
 end

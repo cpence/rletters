@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 
 # The module containing all domain-specific logic for RLetters
 module RLetters
@@ -83,7 +82,7 @@ module RLetters
         Connection.solr.post dest, data: params
       rescue *EXCEPTIONS => e
         Rails.logger.warn "Connection to Solr failed: #{e.inspect}"
-        Rails.logger.info "Query for failed connection: #{params.to_s}"
+        Rails.logger.info "Query for failed connection: #{params}"
         {}
       end
 

@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 class ChangeCslStyleToId < ActiveRecord::Migration
   def up
     change_table :users do |t|

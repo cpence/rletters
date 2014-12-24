@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
 RSpec.describe Admin::UsersController, type: :controller do
@@ -26,5 +25,4 @@ RSpec.describe Admin::UsersController, type: :controller do
       expect(response.body).to include(@user.name)
     end
   end
-
 end

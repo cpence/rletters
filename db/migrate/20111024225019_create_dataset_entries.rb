@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 class CreateDatasetEntries < ActiveRecord::Migration
   def change
     create_table :dataset_entries do |t|

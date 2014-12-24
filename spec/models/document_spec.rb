@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
 RSpec.describe Document, type: :model do
@@ -265,7 +264,7 @@ RSpec.describe Document, type: :model do
           'Rafaelle Christine Gomes Fares', 'Ricardo Toshio Fujiwara',
           'Rodrigo Correa-Oliveira'
         ]
-        expect(@docs[9].authors.map { |a| a.full }).to match_array(authors)
+        expect(@docs[9].authors.map(&:full)).to match_array(authors)
       end
 
       it 'sets the title' do

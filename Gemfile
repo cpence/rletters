@@ -22,7 +22,7 @@ gem 'devise-i18n'
 gem 'devise-async'
 gem 'activeadmin', github: 'activeadmin'
 gem 'inherited_resources', github: 'josevalim/inherited_resources', branch: 'rails-4-2' # TEMPORARY until released
-gem 'responders', '~> 2.0' # FIXME temporary until inherited_resources release
+gem 'responders', '~> 2.0' # FIXME: temporary until inherited_resources release
 gem 'activeadmin-sortable-tree', github: 'nebirhos/activeadmin-sortable-tree'
 gem 'druthers'
 

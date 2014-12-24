@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
 RSpec.describe RLetters::Datasets::DocumentEnumerator do
@@ -28,7 +27,7 @@ RSpec.describe RLetters::Datasets::DocumentEnumerator do
     it 'throws if the Solr server fails' do
       stub_request(:any, /(127\.0\.0\.1|localhost)/).to_timeout
       expect {
-        @enum.each { |d| }
+        @enum.each {}
       }.to raise_error(RuntimeError)
     end
   end

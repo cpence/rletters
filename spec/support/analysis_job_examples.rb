@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
 RSpec.shared_context 'create job with params' do
@@ -47,7 +46,7 @@ RSpec.shared_examples_for 'an analysis job' do
     end
 
     it 'sends an e-mail' do
-      mailer_ret = double()
+      mailer_ret = double
       expect(mailer_ret).to receive(:deliver)
 
       expect(UserMailer).to receive(:job_finished_email).with(@task.dataset.user.email, @task.to_param).and_return(mailer_ret)

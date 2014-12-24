@@ -1,8 +1,6 @@
-# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
 RSpec.describe Jobs::DestroyDataset do
-
   before(:example) do
     @user = create(:user)
     @dataset = create(:dataset, user: @user)
@@ -52,5 +50,4 @@ RSpec.describe Jobs::DestroyDataset do
       }.to change { @user.datasets.count }.by(-1)
     end
   end
-
 end

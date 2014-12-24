@@ -1,8 +1,6 @@
-# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
 RSpec.describe UnapiController, type: :controller do
-
   # We're not testing the views separately here, since what matters is how
   # the externally facing API works.
   render_views
@@ -15,10 +13,9 @@ RSpec.describe UnapiController, type: :controller do
       get :index
     end
 
-    unless format
-      @doc = Nokogiri::XML::Document.parse(response.body)
-      @formats = @doc.root.css('format').to_a
-    end
+    return if format
+    @doc = Nokogiri::XML::Document.parse(response.body)
+    @formats = @doc.root.css('format').to_a
   end
 
   it 'loads the formats page' do
@@ -98,5 +95,4 @@ RSpec.describe UnapiController, type: :controller do
       expect(response).to redirect_to(path)
     end
   end
-
 end

@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
 RSpec.describe RLetters::Analysis::CraigZeta do
@@ -15,13 +14,13 @@ RSpec.describe RLetters::Analysis::CraigZeta do
     @called_sub_100 = false
     @called_100 = false
 
-    @analyzer = described_class.new(@dataset_1, @dataset_2, ->(p) {
+    @analyzer = described_class.new(@dataset_1, @dataset_2, lambda do |p|
       if p < 100
         @called_sub_100 = true
       else
         @called_100 = true
       end
-    })
+    end)
     @analyzer.call
   end
 
@@ -31,8 +30,8 @@ RSpec.describe RLetters::Analysis::CraigZeta do
     end
 
     it 'returns scores between zero and 2' do
-      @analyzer.zeta_scores.each do |(w, s)|
-        expect(0..2).to include(s)
+      @analyzer.zeta_scores.each do |(_, score)|
+        expect(0..2).to include(score)
       end
     end
   end
@@ -61,16 +60,17 @@ RSpec.describe RLetters::Analysis::CraigZeta do
     end
 
     it 'puts graph points between 0 and 1' do
-      @analyzer.graph_points.each do |(x, y, l)|
+      @analyzer.graph_points.each do |(x, y, _)|
         expect(0..1).to include(x)
         expect(0..1).to include(y)
       end
     end
 
     it 'labels all the graph points with dataset names' do
-      @analyzer.graph_points.each do |(x, y, l)|
-        expect(l).to satisfy { |l| l.include?('First Dataset') ||
-                                   l.include?('Second Dataset') }
+      @analyzer.graph_points.each do |(_, _, label)|
+        expect(label).to satisfy do |name|
+          name.include?('First Dataset') || name.include?('Second Dataset')
+        end
       end
     end
   end

@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 
 # Base class for all decorators
 #
@@ -10,9 +9,9 @@ class ApplicationDecorator < Draper::Decorator
   # Render the Bootstrap close icon
   def close_icon
     '&nbsp;&nbsp;'.html_safe +
-    h.content_tag(:button, class: 'close', type: 'button') do
-      h.content_tag(:span, '&times;'.html_safe, 'aria-hidden' => 'true') +
-      h.content_tag(:span, 'Close', class: 'sr-only')
-    end
+      h.content_tag(:button, class: 'close', type: 'button') do
+        h.content_tag(:span, '&times;'.html_safe, 'aria-hidden' => 'true') +
+          h.content_tag(:span, 'Close', class: 'sr-only')
+      end
   end
 end

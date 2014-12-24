@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 
 # Decorate a facet object
 #
@@ -69,11 +68,11 @@ class FacetDecorator < Draper::Decorator
       decade = Integer(decade)
 
       if decade == 1790
-        label = I18n.t('search.index.year_before_1800')
+        I18n.t('search.index.year_before_1800')
       elsif decade == 2010
-        label = I18n.t('search.index.year_after_2010')
+        I18n.t('search.index.year_after_2010')
       else
-        label = "#{decade}–#{decade + 9}"
+        "#{decade}–#{decade + 9}"
       end
     end
   end

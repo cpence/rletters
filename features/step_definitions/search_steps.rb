@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 
 ### GIVEN ###
 Given(/^there are categories:$/) do |table|
@@ -40,7 +39,7 @@ When(/^I run a Solr query search for '(.*)'$/) do |query|
   click_button 'Perform Solr query'
 end
 
-When(/^I facet by the ([a-z_]+) (.*)$/) do |field, content|
+When(/^I facet by the ([a-z_]+) (.*)$/) do |_, content|
   within('.well .nav') do
     click_link content
   end

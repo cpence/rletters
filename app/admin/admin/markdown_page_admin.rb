@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 
 ActiveAdmin.register Admin::MarkdownPage do
   actions :index, :update, :edit, :show
@@ -34,7 +33,7 @@ ActiveAdmin.register Admin::MarkdownPage do
   end
 
   form do |f|
-    f.semantic_errors *f.object.errors.keys
+    f.semantic_errors(*f.object.errors.keys)
 
     f.inputs I18n.t('admin.markdown_page.page_header',
                     name: admin_markdown_page.friendly_name) do

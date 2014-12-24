@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 class CreateAdminNotes < ActiveRecord::Migration
   def self.up
     create_table :admin_notes do |t|

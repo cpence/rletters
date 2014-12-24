@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 
 # The main application controller for RLetters
 #
@@ -27,9 +26,8 @@ class ApplicationController < ActionController::Base
   # This method is called by Devise.
   #
   # @api private
-  # @param [User, Admin::Administrator] resource the user that just signed out
   # @return [void]
-  def after_sign_out_path_for(resource)
+  def after_sign_out_path_for(_)
     root_url
   end
 

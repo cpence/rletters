@@ -1,8 +1,6 @@
-# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
 RSpec.describe RLetters::Documents::Serializers::MARCJSON do
-
   context 'when serializing an array of documents' do
     before(:example) do
       doc = build(:full_document)
@@ -16,5 +14,4 @@ RSpec.describe RLetters::Documents::Serializers::MARCJSON do
       expect(@parsed.size).to eq(2)
     end
   end
-
 end

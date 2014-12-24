@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 
 # Helper methods for making complex Solr queries
 module SearchControllerQuery

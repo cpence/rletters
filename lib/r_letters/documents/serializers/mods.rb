@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 require 'r_letters/documents/serializers/marc_record'
 
 module RLetters

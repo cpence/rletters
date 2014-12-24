@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 require 'r_letters/documents/serializers/rdf'
 require 'rdf/n3'
 
@@ -44,7 +43,7 @@ module RLetters
         def serialize
           ::RDF::Writer.for(:n3).buffer do |writer|
             if @doc.is_a? Enumerable
-              writer << @doc.each { |d| RDF.new(@doc).serialize }
+              writer << @doc.each { |d| RDF.new(d).serialize }
             else
               writer << RDF.new(@doc).serialize
             end

@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
 # We need to run a variety of tests that have access to a helper context (e.g.,

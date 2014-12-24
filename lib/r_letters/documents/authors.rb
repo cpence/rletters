@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 
 module RLetters
   module Documents
@@ -26,7 +25,7 @@ module RLetters
       # @return [String] the list of authors as originally passed in to
       #   the constructor
       def to_s
-        map { |a| a.full }.join(', ')
+        map(&:full).join(', ')
       end
     end
   end

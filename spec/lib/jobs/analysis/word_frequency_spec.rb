@@ -1,33 +1,31 @@
-# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
 RSpec.describe Jobs::Analysis::WordFrequency do
-
   it_should_behave_like 'an analysis job'
 
   before(:example) do
     @user = create(:user)
     @dataset = create(:full_dataset, entries_count: 2, working: true,
-                      user: @user)
+                                     user: @user)
     @task = create(:analysis_task, dataset: @dataset)
 
     # Don't perform the analysis
     mock_analyzer = OpenStruct.new(
-      blocks: [{'word' => 2, 'other' => 5}, {'word' => 1, 'other' => 6}],
+      blocks: [{ 'word' => 2, 'other' => 5 }, { 'word' => 1, 'other' => 6 }],
       block_stats: [
-        {name: 'first block', tokens: 7, types: 2},
-        {name: 'second block', tokens: 7, types: 2}],
-      word_list: ['word', 'other'],
-      tf_in_dataset: {'word' => 3, 'other' => 11},
-      df_in_dataset: {'word' => 2, 'other' => 3},
+        { name: 'first block', tokens: 7, types: 2 },
+        { name: 'second block', tokens: 7, types: 2 }],
+      word_list: %w(word other),
+      tf_in_dataset: { 'word' => 3, 'other' => 11 },
+      df_in_dataset: { 'word' => 2, 'other' => 3 },
       num_dataset_tokens: 14,
       num_dataset_types: 2,
-      df_in_corpus: {'word' => 123, 'other' => 456})
-    allow(RLetters::Analysis::Frequency::FromTF).to receive(:new) do |d, p, a|
+      df_in_corpus: { 'word' => 123, 'other' => 456 })
+    allow(RLetters::Analysis::Frequency::FromTF).to receive(:new) do |_, p, _|
       p.call(100)
       mock_analyzer
     end
-    allow(RLetters::Analysis::Frequency::FromPosition).to receive(:new) do |d, p, a|
+    allow(RLetters::Analysis::Frequency::FromPosition).to receive(:new) do |_, p, _|
       p.call(100)
       mock_analyzer
     end
@@ -121,21 +119,22 @@ RSpec.describe Jobs::Analysis::WordFrequency do
     context 'when no corpus dfs are returned' do
       before(:example) do
         mock_analyzer = OpenStruct.new(
-          blocks: [{'word' => 2, 'other' => 5}, {'word' => 1, 'other' => 6}],
+          blocks: [{ 'word' => 2, 'other' => 5 },
+                   { 'word' => 1, 'other' => 6 }],
           block_stats: [
-            {name: 'first block', tokens: 7, types: 2},
-            {name: 'second block', tokens: 7, types: 2}],
-          word_list: ['word', 'other'],
-          tf_in_dataset: {'word' => 3, 'other' => 11},
-          df_in_dataset: {'word' => 2, 'other' => 3},
+            { name: 'first block', tokens: 7, types: 2 },
+            { name: 'second block', tokens: 7, types: 2 }],
+          word_list: %w(word other),
+          tf_in_dataset: { 'word' => 3, 'other' => 11 },
+          df_in_dataset: { 'word' => 2, 'other' => 3 },
           num_dataset_tokens: 14,
           num_dataset_types: 2,
           df_in_corpus: nil)
-        allow(RLetters::Analysis::Frequency::FromTF).to receive(:new) do |d, p, a|
+        allow(RLetters::Analysis::Frequency::FromTF).to receive(:new) do |_, p, _|
           p.call(100)
           mock_analyzer
         end
-        allow(RLetters::Analysis::Frequency::FromPosition).to receive(:new) do |d, p, a|
+        allow(RLetters::Analysis::Frequency::FromPosition).to receive(:new) do |_, p, _|
           p.call(100)
           mock_analyzer
         end

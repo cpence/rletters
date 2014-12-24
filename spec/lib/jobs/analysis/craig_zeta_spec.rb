@@ -1,21 +1,20 @@
-# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
 RSpec.describe Jobs::Analysis::CraigZeta do
   before(:all) do
     @user = create(:user)
     @dataset = create(:full_dataset, working: true, user: @user,
-                      entries_count: 2)
+                                     entries_count: 2)
     @dataset_2 = create(:full_dataset, working: true, user: @user,
-                        entries_count: 2)
+                                       entries_count: 2)
     @task = create(:analysis_task, dataset: @dataset)
   end
 
   before(:example) do
     # Don't run the analyses
-    mock = double(RLetters::Analysis::CraigZeta, zeta_scores: [],
-                  dataset_1_markers: [], dataset_2_markers: [],
-                  graph_points: [])
+    mock = double(RLetters::Analysis::CraigZeta,
+                  zeta_scores: [], dataset_1_markers: [],
+                  dataset_2_markers: [], graph_points: [])
     allow(mock).to receive(:call)
     allow(RLetters::Analysis::CraigZeta).to receive(:new).and_return(mock)
   end

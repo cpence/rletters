@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 
 ActiveAdmin.register Datasets::AnalysisTask do
   menu parent: 'datasets'

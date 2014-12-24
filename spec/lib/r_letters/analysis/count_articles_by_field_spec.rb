@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
 RSpec.describe RLetters::Analysis::CountArticlesByField do
@@ -8,13 +7,13 @@ RSpec.describe RLetters::Analysis::CountArticlesByField do
         @called_sub_100 = false
         @called_100 = false
 
-        counter = described_class.new(nil, ->(p) {
+        counter = described_class.new(nil, lambda do |p|
           if p < 100
             @called_sub_100 = true
           else
             @called_100 = true
           end
-        })
+        end)
         @counts = counter.counts_for(:year)
       end
 
@@ -45,13 +44,13 @@ RSpec.describe RLetters::Analysis::CountArticlesByField do
         @called_sub_100 = false
         @called_100 = false
 
-        counter = described_class.new(@dataset, ->(p) {
+        counter = described_class.new(@dataset, lambda do |p|
           if p < 100
             @called_sub_100 = true
           else
             @called_100 = true
           end
-        })
+        end)
         @counts = counter.counts_for(:year)
       end
 

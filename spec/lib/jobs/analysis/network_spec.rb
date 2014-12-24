@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
 RSpec.describe Jobs::Analysis::Network do
@@ -6,7 +5,7 @@ RSpec.describe Jobs::Analysis::Network do
     @user = create(:user)
     @dataset = create(:full_dataset, user: @user, entries_count: 0)
     @dataset.entries += [create(:entry, dataset: @dataset,
-                                uid: WORKING_UIDS[2])]
+                                        uid: WORKING_UIDS[2])]
     @task = create(:analysis_task, dataset: @dataset)
 
     # The network code loads the English stop list
@@ -15,8 +14,8 @@ RSpec.describe Jobs::Analysis::Network do
 
   before(:each) do
     # Don't run the analyses
-    mock = double(RLetters::Analysis::Network::Graph, nodes: [], edges: [],
-                  max_edge_weight: 0)
+    mock = double(RLetters::Analysis::Network::Graph,
+                  nodes: [], edges: [], max_edge_weight: 0)
     allow(RLetters::Analysis::Network::Graph).to receive(:new).and_return(mock)
   end
 
@@ -62,5 +61,4 @@ RSpec.describe Jobs::Analysis::Network do
       expect(hash['word']).to eq('diseases')
     end
   end
-
 end

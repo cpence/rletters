@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 class RenameAnalysisTasksToDatasetsAnalysisTasks < ActiveRecord::Migration
   def change
     rename_table 'analysis_tasks', 'datasets_analysis_tasks'

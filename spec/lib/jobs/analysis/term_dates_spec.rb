@@ -1,12 +1,12 @@
-# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
 RSpec.describe Jobs::Analysis::TermDates do
   before(:context) do
     @user = create(:user)
     @dataset = create(:full_dataset, working: true, entries_count: 1,
-                      user: @user)
-    @dataset.entries += [create(:entry, dataset: @dataset, uid: 'gutenberg:3172')]
+                                     user: @user)
+    @dataset.entries += [create(:entry, dataset: @dataset,
+                                        uid: 'gutenberg:3172')]
     @task = create(:analysis_task, dataset: @dataset)
   end
 

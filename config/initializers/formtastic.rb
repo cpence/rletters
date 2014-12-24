@@ -115,14 +115,11 @@ module Formtastic
     module Base
       module Database
         def column
-          if object.respond_to?(:column_for_attribute)
-            ActiveSupport::Deprecation.silence do
-              object.column_for_attribute(method)
-            end
-          end
+          ActiveSupport::Deprecation.silence do
+            object.column_for_attribute(method)
+          end if object.respond_to?(:column_for_attribute)
         end
       end
     end
   end
 end
-

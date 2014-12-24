@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
 RSpec.describe Admin::AdminSettingsController, type: :controller do
@@ -60,5 +59,4 @@ RSpec.describe Admin::AdminSettingsController, type: :controller do
       expect(response.body).to have_selector('textarea[name="admin_setting[value]"]')
     end
   end
-
 end

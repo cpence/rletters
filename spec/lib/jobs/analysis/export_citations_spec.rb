@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
 RSpec.describe Jobs::Analysis::ExportCitations do
@@ -62,5 +61,4 @@ RSpec.describe Jobs::Analysis::ExportCitations do
       expect(entries).to eq(10)
     end
   end
-
 end

@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 
 module RLetters
   module Solr
@@ -87,10 +86,8 @@ module RLetters
         end
 
         # See if the facets are available, and set them if so
-        if solr_response.facets || solr_response.facet_queries
-          @facets = Facets.new(solr_response.facets,
-                               solr_response.facet_queries)
-        end
+        return unless solr_response.facets && solr_response.facet_queries
+        @facets = Facets.new(solr_response.facets, solr_response.facet_queries)
       end
     end
   end

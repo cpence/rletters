@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 
 # Decorate an array of category objects
 #
@@ -23,7 +22,7 @@ class CategoriesDecorator < Draper::CollectionDecorator
   # @example Removal links for all active categories
   #   %li= result.active_categories.removal_links
   def removal_links
-    map { |c| c.removal_link }.reduce(&:+)
+    map(&:removal_link).reduce(&:+)
   end
 
   # Return a list of journal categories

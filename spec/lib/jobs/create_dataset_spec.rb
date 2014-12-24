@@ -1,9 +1,7 @@
-# -*- encoding : utf-8 -*-
 require 'spec_helper'
 require 'r_letters/solr/connection'
 
 RSpec.describe Jobs::CreateDataset do
-
   before(:example) do
     @user = create(:user)
     @dataset = @user.datasets.create(name: 'test', disabled: true)
@@ -120,7 +118,7 @@ RSpec.describe Jobs::CreateDataset do
 
     it 'does not create a dataset' do
       expect {
-        begin
+        expect {
           Jobs::CreateDataset.perform(
             '123',
             user_id: @user.to_param,
@@ -128,8 +126,7 @@ RSpec.describe Jobs::CreateDataset do
             q: 'test',
             fq: nil,
             def_type: 'dismax')
-        rescue RLetters::Solr::ConnectionError
-        end
+        }.to raise_error(RLetters::Solr::ConnectionError)
       }.to change { Dataset.all.count }.by(-1)
     end
 
@@ -145,5 +142,4 @@ RSpec.describe Jobs::CreateDataset do
       }.to raise_error(RLetters::Solr::ConnectionError)
     end
   end
-
 end

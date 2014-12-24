@@ -1,8 +1,6 @@
-# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
 RSpec.describe Users::LibrariesController, type: :controller do
-
   before(:example) do
     @user = create(:user)
     sign_in @user
@@ -133,5 +131,4 @@ RSpec.describe Users::LibrariesController, type: :controller do
       end
     end
   end
-
 end

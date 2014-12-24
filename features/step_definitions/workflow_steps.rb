@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 
 ### WHEN ###
 When(/^I start a new workflow analysis$/) do

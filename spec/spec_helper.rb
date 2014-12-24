@@ -1,5 +1,3 @@
-# -*- encoding : utf-8 -*-
-# rubocop:disable AvoidGlobalVars
 require 'rubygems'
 
 # Coverage setup

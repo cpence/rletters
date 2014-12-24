@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
 RSpec.describe Admin::AdminAdministratorsController, type: :controller do
@@ -38,5 +37,4 @@ RSpec.describe Admin::AdminAdministratorsController, type: :controller do
       expect(response.body).to have_selector('input[name="admin_administrator[email]"]')
     end
   end
-
 end

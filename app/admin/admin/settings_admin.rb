@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 
 ActiveAdmin.register Admin::Setting do
   actions :index, :update, :edit
@@ -28,7 +27,7 @@ ActiveAdmin.register Admin::Setting do
   end
 
   form do |f|
-    f.semantic_errors *f.object.errors.keys
+    f.semantic_errors(*f.object.errors.keys)
 
     f.inputs "Setting: #{admin_setting.friendly_name}" do
       f.input :value

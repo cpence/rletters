@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
 RSpec.describe Admin::DashboardController, type: :controller do
@@ -82,5 +81,4 @@ RSpec.describe Admin::DashboardController, type: :controller do
       end
     end
   end
-
 end

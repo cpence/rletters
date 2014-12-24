@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 class AddTimezoneToUsers < ActiveRecord::Migration
   def up
     add_column :users, :timezone, :string,

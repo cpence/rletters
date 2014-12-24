@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 
 # Set the Airbrake key and start up Airbrake, if available
 if ActiveRecord::Base.connection.tables.include?('admin_settings')

@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 
 # Ruby's base object class
 class Object
@@ -28,9 +27,7 @@ class Array
   #
   # @return [self]
   def to_utf8!
-    map! do |v|
-      v.to_utf8!
-    end
+    map!(&:to_utf8!)
   end
 end
 

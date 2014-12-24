@@ -1,8 +1,6 @@
-# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
 RSpec.describe RLetters::Documents::Serializers::MARCRecord do
-
   context 'when serializing a single document' do
     before(:example) do
       @doc = build(:full_document)
@@ -94,5 +92,4 @@ RSpec.describe RLetters::Documents::Serializers::MARCRecord do
       expect(@record['008'].value).to eq('110501s0000       ||||fo     ||0 0|eng d')
     end
   end
-
 end

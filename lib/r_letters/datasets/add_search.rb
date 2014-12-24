@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 
 module RLetters
   module Datasets
@@ -32,7 +31,7 @@ module RLetters
       # @return [void]
       def call
         # Add batches until we run out (FIXME: a more ruby way to do this?)
-        while add_batch do
+        while add_batch
         end
 
         # Clear the disabled attribute
@@ -68,7 +67,7 @@ module RLetters
 
         # Check to see if there's any externally fetched documents here
         unless @dataset.fetch
-          if result.documents.any? { |d| d.fulltext_url }
+          if result.documents.any?(&:fulltext_url)
             @dataset.fetch = true
             @dataset.save
           end

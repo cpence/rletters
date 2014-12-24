@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 
 # The saved results of a given search, for analysis
 #

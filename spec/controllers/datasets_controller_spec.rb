@@ -1,8 +1,6 @@
-# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
 RSpec.describe DatasetsController, type: :controller do
-
   before(:example) do
     @user = create(:user)
     sign_in @user
@@ -146,8 +144,7 @@ RSpec.describe DatasetsController, type: :controller do
 
     context 'with clear_failed' do
       before(:example) do
-        task = create(:analysis_task, dataset: @dataset, failed: true)
-
+        create(:analysis_task, dataset: @dataset, failed: true)
         get :show, id: @dataset.to_param, clear_failed: true
       end
 

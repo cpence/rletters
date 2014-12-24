@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 
 # Search and browse the document database
 #
@@ -64,7 +63,7 @@ class SearchController < ApplicationController
   def search_params_to_solr_query(params)
     # Remove any blank values (you get these on form submissions, for
     # example)
-    params.delete_if { |k, v| v.blank? }
+    params.delete_if { |_, v| v.blank? }
 
     # Initialize by copying over the faceted-browsing query
     query_params = {}
@@ -89,20 +88,20 @@ class SearchController < ApplicationController
       q_array << "#{params[:q]}" if params[:q].present?
 
       # Verbatim search fields
-      %W(volume number pages).each do |f|
+      %w(volume number pages).each do |f|
         q_array << "#{f}:\"#{params[f.to_sym]}\"" if params[f.to_sym].present?
       end
 
       # Verbatim or fuzzy search fields
-      %W(title journal).each do |f|
-        if params[f.to_sym].present?
-          field = f
+      %w(title journal).each do |f|
+        next unless params[f.to_sym].present?
 
-          param = params[(f + '_type').to_sym]
-          field += '_stem' if param && param == 'fuzzy'
+        field = f
 
-          q_array << "#{field}:\"#{params[f.to_sym]}\""
-        end
+        param = params[(f + '_type').to_sym]
+        field += '_stem' if param && param == 'fuzzy'
+
+        q_array << "#{field}:\"#{params[f.to_sym]}\""
       end
 
       # Fulltext is different, because of fulltext_search
@@ -128,28 +127,8 @@ class SearchController < ApplicationController
 
       # Handle the year separately, for range support
       if params[:year_ranges].present?
-        # Strip whitespace, split on commas
-        ranges = params[:year_ranges].gsub(/\s/, '').split(',')
-        year_queries = []
-
-        ranges.each do |r|
-          if r.include? '-'
-            range_years = r.split('-')
-            next unless range_years.size == 2
-            next if range_years[0].match(/\A\d+\z/).nil?
-            next if range_years[1].match(/\A\d+\z/).nil?
-
-            year_queries << "[#{range_years[0]} TO #{range_years[1]}]"
-          else
-            next if r.match(/\A\d+\z/).nil?
-
-            year_queries << r
-          end
-        end
-
-        unless year_queries.empty?
-          q_array << "year:(#{year_queries.join(" OR ")})"
-        end
+        range_query = query_for_year_ranges(params[:year_ranges])
+        q_array << range_query if range_query
       end
 
       # If there's no query after that, add the all-documents operator
@@ -170,5 +149,34 @@ class SearchController < ApplicationController
     end
 
     query_params
+  end
+
+  # Get the query string matching the given array of year ranges.
+  #
+  # @api private
+  # @param [Array<String>] year_ranges the array of year ranges
+  # @return [String] query string for this set of year ranges
+  def query_for_year_ranges(year_ranges)
+    # Strip whitespace, split on commas
+    ranges = year_ranges.gsub(/\s/, '').split(',')
+    year_queries = []
+
+    ranges.each do |r|
+      if r.include? '-'
+        range_years = r.split('-')
+        next unless range_years.size == 2
+        next if range_years[0].match(/\A\d+\z/).nil?
+        next if range_years[1].match(/\A\d+\z/).nil?
+
+        year_queries << "[#{range_years[0]} TO #{range_years[1]}]"
+      else
+        next if r.match(/\A\d+\z/).nil?
+
+        year_queries << r
+      end
+    end
+
+    return if year_queries.empty?
+    "year:(#{year_queries.join(' OR ')})"
   end
 end

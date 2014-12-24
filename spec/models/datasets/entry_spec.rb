@@ -1,8 +1,6 @@
-# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
 RSpec.describe Datasets::Entry, type: :model do
-
   describe '#valid?' do
     context 'when no uid is specified' do
       before(:example) do
@@ -24,5 +22,4 @@ RSpec.describe Datasets::Entry, type: :model do
       end
     end
   end
-
 end

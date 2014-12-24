@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 
 # Generator configuration
 Rails.application.config.generators do |generator|

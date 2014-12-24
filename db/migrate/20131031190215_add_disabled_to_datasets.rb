@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 class AddDisabledToDatasets < ActiveRecord::Migration
   def up
     add_column :datasets, :disabled, :boolean

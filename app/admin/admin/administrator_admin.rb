@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 
 ActiveAdmin.register Admin::Administrator do
   menu parent: 'users'
@@ -17,7 +16,7 @@ ActiveAdmin.register Admin::Administrator do
   filter :email
 
   form do |f|
-    f.semantic_errors *f.object.errors.keys
+    f.semantic_errors(*f.object.errors.keys)
 
     f.inputs I18n.t('admin.administrator.admin_details') do
       f.input :email

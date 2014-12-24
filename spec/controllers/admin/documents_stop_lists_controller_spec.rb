@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
 RSpec.describe Admin::DocumentsStopListsController, type: :controller do
@@ -49,5 +48,4 @@ RSpec.describe Admin::DocumentsStopListsController, type: :controller do
       expect(response.body).to have_selector('textarea[name="documents_stop_list[list]"]')
     end
   end
-
 end

@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
 RSpec.describe SearchResultDecorator, type: :decorator do
@@ -92,7 +91,7 @@ RSpec.describe SearchResultDecorator, type: :decorator do
   describe '#num_hits' do
     context 'when no search has been performed' do
       before(:example) do
-        @result = described_class.decorate(double("RLetters::Solr::SearchResult", num_hits: 100, params: {}))
+        @result = described_class.decorate(double('RLetters::Solr::SearchResult', num_hits: 100, params: {}))
       end
 
       it 'returns "in database"' do
@@ -103,7 +102,7 @@ RSpec.describe SearchResultDecorator, type: :decorator do
     context 'when a search has been performed' do
       before(:example) do
         @result = described_class.decorate(double(
-          "RLetters::Solr::SearchResult",
+          'RLetters::Solr::SearchResult',
           num_hits: 100,
           params: { q: 'Test search' }
         ))
@@ -117,7 +116,7 @@ RSpec.describe SearchResultDecorator, type: :decorator do
     context 'when a faceted query has been performed' do
       before(:example) do
         @result = described_class.decorate(double(
-          "RLetters::Solr::SearchResult",
+          'RLetters::Solr::SearchResult',
           num_hits: 100,
           params: { fq: ['journal:(PLoS Neglected Tropical Diseases)'] }
         ))
@@ -132,7 +131,7 @@ RSpec.describe SearchResultDecorator, type: :decorator do
   describe '#pagination' do
     context 'when we only have one page of results' do
       before(:example) do
-        @result = described_class.decorate(double("RLetters::Solr::SearchResult", num_hits: 1, params: { 'rows' => 10 }))
+        @result = described_class.decorate(double('RLetters::Solr::SearchResult', num_hits: 1, params: { 'rows' => 10 }))
       end
 
       it 'returns no links' do
@@ -142,7 +141,7 @@ RSpec.describe SearchResultDecorator, type: :decorator do
 
     context 'when we have only one flat range of results' do
       before(:example) do
-        @result = described_class.decorate(double("RLetters::Solr::SearchResult", num_hits: 49, params: { 'rows' => 10 }))
+        @result = described_class.decorate(double('RLetters::Solr::SearchResult', num_hits: 49, params: { 'rows' => 10 }))
         @ret = @result.pagination
       end
 
@@ -157,7 +156,7 @@ RSpec.describe SearchResultDecorator, type: :decorator do
     context 'when we have more than one page of results' do
       context 'when we are on the first page' do
         before(:example) do
-          @result = described_class.decorate(double("RLetters::Solr::SearchResult", num_hits: 100, params: { 'rows' => 10 }))
+          @result = described_class.decorate(double('RLetters::Solr::SearchResult', num_hits: 100, params: { 'rows' => 10 }))
           @ret = @result.pagination
         end
 
@@ -173,7 +172,7 @@ RSpec.describe SearchResultDecorator, type: :decorator do
 
       context 'when we are in the middle' do
         before(:example) do
-          @result = described_class.decorate(double("RLetters::Solr::SearchResult", num_hits: 100, params: { 'start' => 50, 'rows' => 10 }))
+          @result = described_class.decorate(double('RLetters::Solr::SearchResult', num_hits: 100, params: { 'start' => 50, 'rows' => 10 }))
           @ret = @result.pagination
         end
 
@@ -190,7 +189,7 @@ RSpec.describe SearchResultDecorator, type: :decorator do
 
       context 'when we are on the last page' do
         before(:example) do
-          @result = described_class.decorate(double("RLetters::Solr::SearchResult", num_hits: 100, params: { 'start' => 90, 'rows' => 10 }))
+          @result = described_class.decorate(double('RLetters::Solr::SearchResult', num_hits: 100, params: { 'start' => 90, 'rows' => 10 }))
           @ret = @result.pagination
         end
 
@@ -208,7 +207,7 @@ RSpec.describe SearchResultDecorator, type: :decorator do
 
   describe '#sort' do
     before(:example) do
-      @result = described_class.decorate(double("RLetters::Solr::SearchResult", params: { 'sort' => 'score desc' }))
+      @result = described_class.decorate(double('RLetters::Solr::SearchResult', params: { 'sort' => 'score desc' }))
     end
 
     it 'reads the sort method from the params' do
@@ -218,7 +217,7 @@ RSpec.describe SearchResultDecorator, type: :decorator do
 
   describe '#sort_methods' do
     it 'works as expected' do
-      @result = described_class.decorate(double("RLetters::Solr::SearchResult", params: { 'sort' => 'score desc' }))
+      @result = described_class.decorate(double('RLetters::Solr::SearchResult', params: { 'sort' => 'score desc' }))
       expect(@result.sort_methods.assoc('score desc')[1]).to eq('Sort: Relevance')
       expect(@result.sort_methods.assoc('title_sort asc')[1]).to eq('Sort: Title (ascending)')
       expect(@result.sort_methods.assoc('journal_sort desc')[1]).to eq('Sort: Journal (descending)')

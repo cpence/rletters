@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 require 'active_support/concern'
 
 module Jobs
@@ -120,14 +119,8 @@ module Jobs
           args[:stemming] = nil if args[:stemming] == :no
           args[:inclusion_list] = args[:inclusion_list].mb_chars.downcase.to_s if args[:inclusion_list]
           args[:exclusion_list] = args[:exclusion_list].mb_chars.downcase.to_s if args[:exclusion_list]
-
-          if args[:split_across]
-            if args[:split_across] == '1'
-              args[:split_across] = true
-            else
-              args[:split_across] = false
-            end
-          end
+          args[:split_across] = false
+          args[:split_across] = true if args[:split_across] && args[:split_across] == 1
         end
       end
     end

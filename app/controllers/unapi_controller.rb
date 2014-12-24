@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 
 # Access bibliographic data using unAPI
 #

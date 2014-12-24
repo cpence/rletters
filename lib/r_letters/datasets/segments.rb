@@ -1,10 +1,20 @@
-# -*- encoding : utf-8 -*-
 
 module RLetters
   # Code for manipulating datasets and the documents they contain
   module Datasets
     # Splits a dataset into text segments
+    #
+    # @!attribute [r] dfs
+    #   Return the document frequencies for the words in this dataset
+    #
+    #   @return [Hash<String, Integer>] a mapping from words to the number of
+    #     documents in this dataset in which the word appears
+    # @!attribute [r] document_segmenter
+    #   @return [RLetters::Documents::Segments] The document segmenter used to
+    #     create these segments
     class Segments
+      attr_reader :dfs, :document_segmenter
+
       # Create an object to split a dataset into text segments
       #
       # @param dataset [Dataset] the dataset to segment
@@ -15,8 +25,8 @@ module RLetters
       #   documents in the dataset, otherwise split only within documents
       def initialize(dataset, segmenter = nil, options = {})
         @dataset = dataset
-        @segmenter = segmenter || RLetters::Documents::Segments.new
-        @segmenter.reset!
+        @document_segmenter = segmenter || RLetters::Documents::Segments.new
+        @document_segmenter.reset!
         @dfs = {}
 
         @options = options.compact.reverse_merge(split_across: true)
@@ -32,24 +42,10 @@ module RLetters
                                   segments_within(progress)
       end
 
-      # Return the document frequencies for the words in this dataset
-      #
-      # @return [Hash<String, Integer>] a mapping from words to the number of
-      #   documents in this dataset in which the word appears
-      def dfs
-        @dfs
-      end
-
-      # @return [RLetters::Documents::Segments] The document segmenter used to
-      #   create these segments
-      def document_segmenter
-        @segmenter
-      end
-
       # Reset the dataset segmenter
       def reset!
         @dfs = {}
-        @segmenter.reset!
+        @document_segmenter.reset!
       end
 
       private
@@ -80,11 +76,11 @@ module RLetters
         base = 0
         total = @dataset.entries.size.to_f
 
-        @segmenter.reset!
+        @document_segmenter.reset!
         @dataset.entries.find_in_batches do |group|
           group.each_with_index do |entry, i|
-            @segmenter.add(entry.uid)
-            add_to_dfs(@segmenter.words_for_last)
+            @document_segmenter.add(entry.uid)
+            add_to_dfs(@document_segmenter.words_for_last)
             progress.call(((base + i).to_f / total * 100.0).to_i) if progress
           end
 
@@ -93,7 +89,7 @@ module RLetters
 
         progress.call(100) if progress
 
-        @segmenter.blocks
+        @document_segmenter.blocks
       end
 
       # Perform text segmentation, for splitting within documents
@@ -109,10 +105,10 @@ module RLetters
         [].tap do |ret|
           @dataset.entries.find_in_batches do |group|
             group.each_with_index do |entry, i|
-              @segmenter.reset!
-              @segmenter.add(entry.uid)
-              add_to_dfs(@segmenter.words_for_last)
-              @segmenter.blocks.each do |b|
+              @document_segmenter.reset!
+              @document_segmenter.add(entry.uid)
+              add_to_dfs(@document_segmenter.words_for_last)
+              @document_segmenter.blocks.each do |b|
                 b.name += I18n.t('lib.frequency.block_doc_suffix', title: entry.uid)
                 ret << b
               end

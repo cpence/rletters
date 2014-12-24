@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 
 # Add new mime types for use in respond_to blocks:
 Mime::Type.register 'application/marc', :marc, [], %w(mrc 001)

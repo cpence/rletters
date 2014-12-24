@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 require 'csv'
 
 module Jobs
@@ -24,7 +23,7 @@ module Jobs
       # @yieldparam [CSV] csv The object to write data into
       # @yieldreturn [undefined] Unused
       def write_csv(header = nil, subheader = nil)
-        csv_string = CSV.generate do |csv|
+        CSV.generate do |csv|
           csv << [header || t('.header', name: @dataset.name)]
           csv << [subheader || t('.subheader')]
           csv << ['']

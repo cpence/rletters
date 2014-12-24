@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 
 # Display, modify, delete, and analyze datasets belonging to a given user
 #
@@ -37,10 +36,12 @@ class DatasetsController < ApplicationController
   def show
     @dataset = current_user.datasets.active.find(params[:id])
 
-    if params[:clear_failed] && @dataset.analysis_tasks.failed.size > 0
-      @dataset.analysis_tasks.failed.destroy_all
-      flash[:notice] = t('datasets.show.deleted')
-    end
+    # Clear failed tasks if requested
+    return unless params[:clear_failed]
+    return if @dataset.analysis_tasks.failed.size == 0
+
+    @dataset.analysis_tasks.failed.destroy_all
+    flash[:notice] = t('datasets.show.deleted')
   end
 
   # Show the form for creating a new dataset
@@ -99,7 +100,7 @@ class DatasetsController < ApplicationController
   # @api public
   # @return [void]
   def update
-    fail ActionController::ParameterMissing.new(:uid) unless params[:uid]
+    fail ActionController::ParameterMissing, :uid unless params[:uid]
 
     @dataset = current_user.datasets.active.find(params[:id])
     @document = Document.find(params[:uid])

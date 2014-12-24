@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 class AddForeignKeys < ActiveRecord::Migration
   def change
     add_foreign_key 'datasets_analysis_tasks', 'datasets', name: 'datasets_analysis_tasks_dataset_id_fk'

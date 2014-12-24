@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 
 module RLetters
   # Code for manipulating and parsing documents and their contents
@@ -6,21 +5,22 @@ module RLetters
     # One of the authors of a document
     #
     # This class represents a parsed author name, useful for searching.
+    #
+    # @!attribute [rw] first
+    #   @return [String] the author's first name
+    # @!attribute [rw] last
+    #   @return [String] the author's last name
+    # @!attribute [rw] prefix
+    #   @return [String] any "von"-type strings to appear before the last name
+    # @!attribute [rw] suffix
+    #   @return [String] any "Jr."-type strings to appear after the last name
+    # @!attribute [rw] full
+    #   @return [String] the full name, as passed to the constructor
+    # @!attribute [r] citeproc
+    #    @return [Hash] the author, as a Citeproc-compatible hash
     class Author
-      # @return [String] the author's first name
-      attr_accessor :first
-
-      # @return [String] the author's last name
-      attr_accessor :last
-
-      # @return [String] any "von"-type strings to appear before the last name
-      attr_accessor :prefix
-
-      # @return [String] any "Jr."-type strings to appear after the last name
-      attr_accessor :suffix
-
-      # @return [String] the full name, as passed to the constructor
-      attr_accessor :full
+      attr_accessor :first, :last, :prefix, :suffix, :full
+      attr_reader :citeproc
 
       # Create an author from a string name
       #
@@ -49,11 +49,6 @@ module RLetters
       # @return [String] the full name, as passed to the constructor
       def to_s
         full
-      end
-
-      # @return [Hash] the author, as a Citeproc-compatible hash
-      def to_citeproc
-        @citeproc
       end
 
       # Turn an author's name into a set of Lucene queries
@@ -105,7 +100,6 @@ module RLetters
         # Compose these together and return
         "(#{queries.join(' OR ')})"
       end
-
 
       private
 
@@ -165,7 +159,7 @@ module RLetters
           # So loop over subsequences of all size == 1 and <= number of first
           # names.
           (2..(name.size - 1)).each do |n|
-            name.each_with_index do |p, i|
+            name.each_with_index do |_, i|
               # See if a part of the array at index i with size n is all initials
               portion = name[i, n]
               next unless portion.all? { |x| x.length == 1 }

@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 
 if Rails.env.development? || Rails.env.test?
   # Just set the insecure tokens, it's fine

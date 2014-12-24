@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 
 module RLetters
   module Datasets
@@ -67,10 +66,15 @@ module RLetters
         { q: "uid:(#{group.map { |e| "\"#{e.uid}\"" }.join(' OR ')})",
           def_type: 'lucene',
           facet: false,
-          fl: @options[:fl] ? @options[:fl] :
-                (@options[:fulltext] ?
-                  RLetters::Solr::Connection::DEFAULT_FIELDS_FULLTEXT :
-                  RLetters::Solr::Connection::DEFAULT_FIELDS),
+          fl: if @options[:fl]
+                @options[:fl]
+              else
+                if @options[:fulltext]
+                  RLetters::Solr::Connection::DEFAULT_FIELDS_FULLTEXT
+                else
+                  RLetters::Solr::Connection::DEFAULT_FIELDS
+                end
+              end,
           tv: @options[:term_vectors] || false,
           rows: group.size }
       end

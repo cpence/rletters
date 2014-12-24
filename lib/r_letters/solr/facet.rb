@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 
 module RLetters
   module Solr
@@ -83,7 +82,7 @@ module RLetters
         @hits = Integer(options[:hits])
 
         # Construct the query
-        @query = "#{field.to_s}:\"#{value}\""
+        @query = "#{field}:\"#{value}\""
       end
 
       include Comparable

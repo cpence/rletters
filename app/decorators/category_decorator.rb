@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 
 # Decorate a category object
 #
@@ -23,7 +22,6 @@ class CategoryDecorator < ApplicationDecorator
         close_icon
     end
   end
-
 
   # Recursively return the tree links for this category
   #
@@ -94,7 +92,7 @@ class CategoryDecorator < ApplicationDecorator
   # @api private
   # @return [Hash] the parameters suitable for toggling this category
   def toggle_params
-    h.params.deep_dup.tap { |ret|
+    h.params.deep_dup.tap do |ret|
       ret[:categories] ||= []
 
       if enabled
@@ -106,6 +104,6 @@ class CategoryDecorator < ApplicationDecorator
 
       ret[:categories].uniq!
       ret.delete(:categories) if ret[:categories].empty?
-    }.symbolize_keys
+    end.symbolize_keys
   end
 end

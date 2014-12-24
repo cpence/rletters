@@ -1,22 +1,21 @@
-# -*- encoding : utf-8 -*-
 
 def find_dataset
-  unless @user
-    @dataset = nil
-  else
+  if @user
     @dataset = @user.datasets.where(name: 'Cucumber Dataset').first
+  else
+    @dataset = nil
   end
 end
 
 ### GIVEN ###
 Given(/^I have a dataset$/) do
   @dataset = create(:full_dataset, name: 'Cucumber Dataset', working: true,
-                                                             user: @user)
+                                   user: @user)
 end
 
 Given(/^I have another dataset$/) do
   @other_dataset = create(:full_dataset, name: 'Other Dataset', working: true,
-                                                                user: @user)
+                                         user: @user)
 end
 
 Given(/^I have a dataset with (\d+) entries$/) do |entries|

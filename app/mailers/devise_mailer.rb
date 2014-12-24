@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 
 # Devise's user notification mailer
 #

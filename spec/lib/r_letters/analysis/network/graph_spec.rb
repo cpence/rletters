@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
 RSpec.describe RLetters::Analysis::Network::Graph do
@@ -14,13 +13,13 @@ RSpec.describe RLetters::Analysis::Network::Graph do
       @called_sub_100 = false
       @called_100 = false
 
-      @graph = described_class.new(@dataset, nil, [2, 5], 'en', ->(p) {
+      @graph = described_class.new(@dataset, nil, [2, 5], 'en', lambda do |p|
         if p < 100
           @called_sub_100 = true
         else
           @called_100 = true
         end
-      })
+      end)
     end
 
     it 'creates nodes and edges' do
@@ -96,7 +95,7 @@ RSpec.describe RLetters::Analysis::Network::Graph do
 
       @graph.nodes.each do |n|
         @connectivity[n.id] = @graph.edges.inject(0) do |sum, edge|
-          sum += (edge.one == n.id || edge.two == n.id) ? 1 : 0
+          sum + ((edge.one == n.id || edge.two == n.id) ? 1 : 0)
         end
       end
 

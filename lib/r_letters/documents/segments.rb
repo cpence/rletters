@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 
 module RLetters
   module Documents
@@ -23,9 +22,22 @@ module RLetters
     end
 
     # Splits a group of documents into configurable blocks
+    #
+    # @!attribute [r] words_for_last
+    #   Return the words in the last document
+    #
+    #   For generating document frequencies, this returns a uniquified list of
+    #   the words found in the last document scanned
+    #
+    #   @return [Array<String>] words in the document last scanned by +add+
+    # @!attribute [r] word_list
+    #   @return [RLetters::Documents::WordList] the word lister used to create
+    #     these segments
     class Segments
       # The valid values for the :last_block option
       VALID_LAST_BLOCK = [:big_last, :small_last, :truncate_last, :truncate_all]
+
+      attr_reader :words_for_last, :word_list
 
       # Split some number of documents into text segments
       #
@@ -97,17 +109,6 @@ module RLetters
         @num_blocks > 0 ? add_for_num_blocks(words) : add_for_block_size(words)
       end
 
-      # Return the words in the last document
-      #
-      # For generating document frequencies, this returns a uniquified list of
-      # the words found in the last document scanned
-      #
-      # @api public
-      # @return [Array<String>] words in the document last scanned by +add+
-      def words_for_last
-        @words_for_last
-      end
-
       # Return the blocks from this segmenter
       #
       # This function finalizes the segmenter's blocks and returns them.  If we
@@ -119,14 +120,6 @@ module RLetters
       def blocks
         @num_blocks > 0 ? blocks_for_num_blocks :
                           blocks_for_block_size
-      end
-
-      # Return the word lister used to create these segments
-      #
-      # @api public
-      # @return [RLetters::Documents::WordList] word list generator
-      def word_list
-        @word_list
       end
 
       private

@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 
 ActiveAdmin.register Admin::UploadedAsset do
   actions :index, :update, :edit, :show
@@ -37,7 +36,7 @@ ActiveAdmin.register Admin::UploadedAsset do
   end
 
   form do |f|
-    f.semantic_errors *f.object.errors.keys
+    f.semantic_errors(*f.object.errors.keys)
 
     f.inputs I18n.t('admin.uploaded_asset.asset_header',
                     name: admin_uploaded_asset.friendly_name) do

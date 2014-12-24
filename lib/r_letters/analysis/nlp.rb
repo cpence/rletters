@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 
 module RLetters
   module Analysis
@@ -18,14 +17,10 @@ module RLetters
       #   RLetters::Analysis::NLP.lemmatize_words('went')
       #   # => ['go']
       def self.lemmatize_words(words)
-        if words.is_a?(String)
-          words = [words]
-        end
+        words = [words] if words.is_a?(String)
 
         # No lemmatization if we don't have the nlp_tool
-        if Admin::Setting.nlp_tool_path.blank?
-          return words
-        end
+        return words if Admin::Setting.nlp_tool_path.blank?
 
         # Call the external tool
         yml = Cheetah.run(Admin::Setting.nlp_tool_path, '-l',
@@ -46,9 +41,7 @@ module RLetters
         # No tagging if we don't have the nlp_tool (FIXME: this should
         # probably be an exception, as this is going to return data that
         # the caller can't actually use)
-        if Admin::Setting.nlp_tool_path.blank?
-          return text.split
-        end
+        return text.split if Admin::Setting.nlp_tool_path.blank?
 
         # Call the external tool
         yml = Cheetah.run(Admin::Setting.nlp_tool_path, '-p',
@@ -67,9 +60,7 @@ module RLetters
       #   # => { 'PERSON' => ['Petersburg', 'Tsar Peter'] }
       def self.named_entities(text)
         # Return no references if the nlp_tool isn't available
-        if Admin::Setting.nlp_tool_path.blank?
-          return []
-        end
+        return [] if Admin::Setting.nlp_tool_path.blank?
 
         # Call the external tool
         yml = Cheetah.run(Admin::Setting.nlp_tool_path, '-n',

@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 
 module Jobs
   module Analysis
@@ -41,13 +40,13 @@ module Jobs
         # Fill in zeroes for any years that are missing
         at(100, 100, t('common.progress_finished'))
         dates = Range.new(*(dates.map { |d| d[0] }.minmax)).each.map do |y|
-          dates.assoc(y) || [ y, 0 ]
+          dates.assoc(y) || [y, 0]
         end
 
-        csv = write_csv(nil, t('.subheader', term: term)) do |csv|
-          csv << [ Document.human_attribute_name(:year), t('.number_column') ]
+        csv = write_csv(nil, t('.subheader', term: term)) do |out|
+          out << [Document.human_attribute_name(:year), t('.number_column')]
           dates.each do |d|
-            csv << d
+            out << d
           end
         end
 

@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 
 module RLetters
   module Analysis
@@ -88,9 +87,7 @@ module RLetters
         #   graph.find_node(word: 'basically')
         #   # => Node(id: 'basic', words: ['basically', ...])
         def find_node(options)
-          if options[:stem]
-            options[:id] = options.delete(:stem)
-          end
+          options[:id] = options.delete(:stem) if options[:stem]
 
           unless options[:word] || options[:id]
             fail ArgumentError, 'no find option specified'
@@ -120,8 +117,7 @@ module RLetters
         # @return [Edge] the edge connecting the two nodes, or `nil`
         def find_edge(one, two)
           edges.find do |e|
-            (e.one == one && e.two == two) ||
-            (e.two == one && e.one == two)
+            (e.one == one && e.two == two) || (e.two == one && e.one == two)
           end
         end
 
@@ -130,7 +126,7 @@ module RLetters
         # @api public
         # @return [Integer] the maximum edge weight
         def max_edge_weight
-          edges.map { |e| e.weight }.max
+          edges.map(&:weight).max
         end
 
         private
@@ -156,7 +152,7 @@ module RLetters
           # Remove stop words and stem
           @progress && @progress.call(17)
           @words = @words.flatten - stop_words
-          @words_stem = @words.map { |w| w.stem }
+          @words_stem = @words.map(&:stem)
         end
 
         # Add nodes and edges for a given gap
@@ -179,17 +175,15 @@ module RLetters
             end
 
             # Cull based on focal word (stemmed) if present
-            if @focal_word
-              next unless gap_words_stem.include? @focal_word_stem
-            end
+            next if @focal_word && !gap_words_stem.include?(@focal_word_stem)
 
             # Find or create nodes for all of these words
             nodes = gap_words_stem.zip(gap_words).map do |w|
-              node = find_or_add_node(*w)
+              find_or_add_node(*w)
             end
 
-            pairs = nodes.combination(2).each do |pair|
-              edge = find_or_add_edge(pair[0].id, pair[1].id)
+            nodes.combination(2).each do |pair|
+              find_or_add_edge(pair[0].id, pair[1].id)
             end
           end
         end
@@ -210,7 +204,7 @@ module RLetters
             node.id = id
             node.words = [word]
 
-            self.nodes << node
+            nodes << node
             node
           end
         end
@@ -232,7 +226,7 @@ module RLetters
             edge.two = two
             edge.weight = 1
 
-            self.edges << edge
+            edges << edge
             edge
           end
         end

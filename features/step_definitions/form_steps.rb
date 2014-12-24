@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 
 # Simulate pressing enter in a form that doesn't have a submit button
 def submit_form(id)

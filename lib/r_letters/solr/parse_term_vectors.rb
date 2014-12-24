@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 
 module RLetters
   module Solr
@@ -47,8 +46,8 @@ module RLetters
       # @param [String] uid the UID of the document to locate terms for
       # @return [Array] the Solr term vector array for this document
       def array_for_document(uid)
-        @term_vectors.each_slice(2).each do |(unique_key, array)|
-          label, tv_uid, field, vectors = array
+        @term_vectors.each_slice(2).each do |(_, array)|
+          _, tv_uid, _, vectors = array
           next unless tv_uid == uid
 
           if !vectors.is_a?(Array) || vectors.empty?
@@ -80,15 +79,15 @@ module RLetters
               case key
               when 'tf'
                 hash[:tf] = Integer(val)
-              # when 'offsets'
-              #   hash[:offsets] = parse_offset_list(val)
               when 'positions'
                 hash[:positions] = parse_position_list(val)
               when 'df'
                 hash[:df] = Float(val)
+              end
+              # when 'offsets'
+              #   hash[:offsets] = parse_offset_list(val)
               # when 'tf-idf'
               #   hash[:tfidf] = Float(val)
-              end
             end
           end
         end
@@ -121,7 +120,7 @@ module RLetters
       # @param [Array] val the values to parse
       # @return [Array<Integer>] the array of term positions
       def parse_position_list(val)
-        val.each_slice(2).map do |(label, position)|
+        val.each_slice(2).map do |(_, position)|
           Integer(position)
         end
       end

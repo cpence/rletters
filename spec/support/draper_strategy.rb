@@ -4,8 +4,10 @@
 # in the class.
 module DraperHelperProxyStubs
   def current_user; end
+
   def user_signed_in?; end
-  def render(h); end
+
+  def render(*); end
 end
 
 Draper::HelperProxy.include(DraperHelperProxyStubs)

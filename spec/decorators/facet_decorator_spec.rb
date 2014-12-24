@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
 RSpec.describe FacetDecorator, type: :decorator do
@@ -41,7 +40,7 @@ RSpec.describe FacetDecorator, type: :decorator do
 
   describe '#field_label' do
     it 'has labels for all fields' do
-      expect(@facets.map(&:field_label)).to eq(['Authors', 'Journal', 'Year'])
+      expect(@facets.map(&:field_label)).to eq(%w(Authors Journal Year))
     end
 
     it 'throws for invalid fields' do

@@ -1,4 +1,4 @@
-# -*- encoding : utf-8 -*-
+# rubocop:disable Style/GlobalVars
 require 'spec_helper'
 
 # Force this to be a helper spec, so that we get access to helper.render

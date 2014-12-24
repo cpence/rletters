@@ -1,8 +1,6 @@
-# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
 RSpec.describe Admin::MarkdownPage, type: :model do
-
   describe '#valid?' do
     context 'when no name spcified' do
       before(:example) do
@@ -58,5 +56,4 @@ RSpec.describe Admin::MarkdownPage, type: :model do
       end
     end
   end
-
 end

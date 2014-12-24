@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
 RSpec.describe DocumentsController, type: :controller do
@@ -12,7 +11,7 @@ RSpec.describe DocumentsController, type: :controller do
 
     context 'when exporting in other formats' do
       RLetters::Documents::Serializers::MIME_TYPES.each do |k|
-        it "exports in #{k.to_s} format" do
+        it "exports in #{k} format" do
           get :export, uid: generate(:working_uid), format: k.to_s
           expect(response).to be_valid_download(Mime::Type.lookup_by_extension(k).to_s)
         end

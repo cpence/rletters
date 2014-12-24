@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
 if defined?(Encoding) && Encoding.default_external != 'UTF-8'
@@ -15,9 +14,8 @@ RSpec.describe 'The library itself' do
       end
     end
 
-    unless failing_lines.empty?
-      "#{filename} uses inconsistent double quotes on lines #{failing_lines.join(', ')}"
-    end
+    return if failing_lines.empty?
+    "#{filename} uses inconsistent double quotes on lines #{failing_lines.join(', ')}"
   end
 
   def check_for_tab_characters(filename)
@@ -26,9 +24,8 @@ RSpec.describe 'The library itself' do
       failing_lines << number + 1 if line =~ /\t/
     end
 
-    unless failing_lines.empty?
-      "#{filename} has tab characters on lines #{failing_lines.join(', ')}"
-    end
+    return if failing_lines.empty?
+    "#{filename} has tab characters on lines #{failing_lines.join(', ')}"
   end
 
   def check_for_extra_spaces(filename)
@@ -38,9 +35,8 @@ RSpec.describe 'The library itself' do
       failing_lines << number + 1 if line =~ /\s+\n$/
     end
 
-    unless failing_lines.empty?
-      "#{filename} has spaces on the EOL on lines #{failing_lines.join(', ')}"
-    end
+    return if failing_lines.empty?
+    "#{filename} has spaces on the EOL on lines #{failing_lines.join(', ')}"
   end
 
   RSpec::Matchers.define :be_well_formed do
@@ -48,9 +44,7 @@ RSpec.describe 'The library itself' do
       actual.join("\n")
     end
 
-    match do |actual|
-      actual.empty?
-    end
+    match(&:empty?)
   end
 
   it 'has no malformed whitespace' do

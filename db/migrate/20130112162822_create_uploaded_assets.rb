@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 class CreateUploadedAssets < ActiveRecord::Migration
   def change
     create_table :uploaded_assets do |t|

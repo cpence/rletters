@@ -1,8 +1,6 @@
-# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
 RSpec.describe ErrorsController, type: :routing do
-
   describe 'routing' do
     it 'routes to #not_found' do
       expect(get('/404')).to route_to('errors#not_found')
@@ -19,5 +17,4 @@ RSpec.describe ErrorsController, type: :routing do
       expect(get('/500.html')).to route_to('errors#internal_error', format: 'html')
     end
   end
-
 end

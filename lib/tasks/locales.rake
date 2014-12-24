@@ -1,9 +1,7 @@
-# -*- encoding : utf-8 -*-
 # Rename languages that are different in the CLDR or Transifex
 require 'fileutils'
 
 namespace :locales do
-
   desc 'Pull translations from Transifex'
   task :pull do
     `tx pull -a --minimum-perc=1`

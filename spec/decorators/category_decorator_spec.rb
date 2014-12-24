@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
 RSpec.describe CategoryDecorator, type: :decorator do
@@ -9,7 +8,7 @@ RSpec.describe CategoryDecorator, type: :decorator do
 
   describe '#removal_link' do
     it 'works' do
-      allow(@decorated).to receive(:toggle_params).and_return({ toggle: true })
+      allow(@decorated).to receive(:toggle_params).and_return(toggle: true)
       ret = Capybara.string(@decorated.removal_link)
 
       expect(ret).to have_css('a[href="/search?toggle=true"]', text: 'Category: Test Category')
@@ -18,7 +17,7 @@ RSpec.describe CategoryDecorator, type: :decorator do
 
   describe '#link_tree' do
     before(:example) do
-      allow(@decorated).to receive(:toggle_params).and_return({ toggle: true })
+      allow(@decorated).to receive(:toggle_params).and_return(toggle: true)
 
       @subcat = create(:category)
       @category.children << @subcat
@@ -48,7 +47,7 @@ RSpec.describe CategoryDecorator, type: :decorator do
   describe '#toggle_link' do
     context 'when enabled' do
       it 'works' do
-      Draper::ViewContext.current.params[:categories] = [@category.to_param]
+        Draper::ViewContext.current.params[:categories] = [@category.to_param]
         expect(@decorated.toggle_link).to include('<a href="/search">')
       end
     end

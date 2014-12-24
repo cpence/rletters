@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 require 'cucumber/rails'
 
 ActionController::Base.allow_rescue = false

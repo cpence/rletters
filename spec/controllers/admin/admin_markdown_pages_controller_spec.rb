@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
 RSpec.describe Admin::AdminMarkdownPagesController, type: :controller do
@@ -22,8 +21,9 @@ RSpec.describe Admin::AdminMarkdownPagesController, type: :controller do
     end
 
     it 'includes the Markdown page in the list' do
-      expect(response.body).to satisfy { |s| s.include?(@page.name) ||
-                                             s.include?('The Friendly Name') }
+      expect(response.body).to satisfy do |s|
+        s.include?(@page.name) || s.include?('The Friendly Name')
+      end
     end
   end
 
@@ -54,5 +54,4 @@ RSpec.describe Admin::AdminMarkdownPagesController, type: :controller do
       expect(response.body).to have_selector('textarea[name="admin_markdown_page[content]"]')
     end
   end
-
 end

@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 
 module RLetters
   module Analysis
@@ -49,7 +48,7 @@ module RLetters
           if @stemming == :lemma
             @words = NLP.lemmatize_words(@words)
           elsif @stemming == :stem
-            @words = @words.map! { |w| w.stem }
+            @words = @words.map!(&:stem)
           end
 
           if @words.size > 1
@@ -80,7 +79,7 @@ module RLetters
         #     d, 30, 'evolutionary')
         #   result = an.call
         def call
-          base_frequencies, joint_frequencies, n = get_frequencies
+          base_frequencies, joint_frequencies, n = frequencies
           total_i = @pairs.size.to_f
 
           n = n.to_f
@@ -113,9 +112,7 @@ module RLetters
           end
 
           ret.compact!
-          if @num_pairs
-            ret = sort_results(ret).take(@num_pairs)
-          end
+          ret = sort_results(ret).take(@num_pairs) if @num_pairs
 
           @progress && @progress.call(100)
 
@@ -139,7 +136,7 @@ module RLetters
         #   appears (the +base_frequencies+). Second, the number of bins in
         #   which every word *and* the word at issue both appear (the
         #   +joint_frequencies+). Lastly, the number of bins (+n+).
-        def get_frequencies
+        def frequencies
           wl = RLetters::Documents::WordList.new(stemming: @stemming)
           ds = RLetters::Documents::Segments.new(wl,
                                                  block_size: @window,

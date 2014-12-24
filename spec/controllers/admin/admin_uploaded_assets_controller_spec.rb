@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
 RSpec.describe Admin::AdminUploadedAssetsController, type: :controller do
@@ -22,8 +21,9 @@ RSpec.describe Admin::AdminUploadedAssetsController, type: :controller do
     end
 
     it 'includes the uploaded assets in the list' do
-      expect(response.body).to satisfy { |s| s.include?(@asset.name) ||
-                                             s.include?('The Friendly Name') }
+      expect(response.body).to satisfy do |s|
+        s.include?(@asset.name) || s.include?('The Friendly Name')
+      end
     end
   end
 
@@ -54,5 +54,4 @@ RSpec.describe Admin::AdminUploadedAssetsController, type: :controller do
       expect(response.body).to have_selector('input[name="admin_uploaded_asset[file]"]')
     end
   end
-
 end

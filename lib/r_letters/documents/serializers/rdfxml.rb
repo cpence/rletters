@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 require 'r_letters/documents/serializers/rdf'
 require 'rdf/n3'
 
@@ -29,7 +28,6 @@ module RLetters
         def self.url
           'http://www.w3.org/TR/rdf-syntax-grammar/'
         end
-
 
         # Returns this document as RDF+XML
         #
@@ -75,7 +73,7 @@ module RLetters
             # :nocov:
             qname = statement.predicate.qname
             unless qname
-              Rails.logger.warn "Cannot get qualified name for #{statement.predicate.to_s}, skipping predicate"
+              Rails.logger.warn "Cannot get qualified name for #{statement.predicate}, skipping predicate"
               next
             end
 

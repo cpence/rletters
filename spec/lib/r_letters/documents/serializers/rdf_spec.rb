@@ -1,8 +1,6 @@
-# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
 RSpec.describe RLetters::Documents::Serializers::RDF do
-
   context 'when serializing a single document' do
     before(:example) do
       @doc = build(:full_document)
@@ -66,5 +64,4 @@ RSpec.describe RLetters::Documents::Serializers::RDF do
       expect(actual).to match_array(expected)
     end
   end
-
 end

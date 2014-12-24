@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 require 'capybara/poltergeist'
 
 Capybara.register_driver :poltergeist_debug do |app|
@@ -7,7 +6,6 @@ Capybara.register_driver :poltergeist_debug do |app|
                                     debug: true
     )
 end
-
 
 # Increase the default wait, which is a bit fast for Poltergeist
 Capybara.default_wait_time = 8

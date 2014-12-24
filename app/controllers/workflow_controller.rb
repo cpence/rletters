@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 
 # Display the user's workflow through RLetters
 #

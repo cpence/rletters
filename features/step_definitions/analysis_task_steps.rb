@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 
 ### GIVEN ###
 Given(/^I have a pending analysis task$/) do

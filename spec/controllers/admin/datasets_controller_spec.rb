@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
 RSpec.describe Admin::DatasetsController, type: :controller do
@@ -33,5 +32,4 @@ RSpec.describe Admin::DatasetsController, type: :controller do
       expect(response.body).to include(@dataset.entries.size.to_s)
     end
   end
-
 end

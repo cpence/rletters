@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
 RSpec.describe RLetters::Analysis::Frequency::FromTF do
@@ -240,13 +239,13 @@ RSpec.describe RLetters::Analysis::Frequency::FromTF do
       called_sub_100 = false
       called_100 = false
 
-      described_class.new(@dataset, ->(p) {
+      described_class.new(@dataset, lambda do |p|
         if p < 100
           called_sub_100 = true
         else
           called_100 = true
         end
-      })
+      end)
 
       expect(called_sub_100).to be true
       expect(called_100).to be true

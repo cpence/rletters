@@ -1,10 +1,9 @@
-# -*- encoding : utf-8 -*-
 
 RSpec.shared_examples_for 'a cooccurrence analyzer' do
   before(:context) do
     @user = create(:user)
-    @dataset = create(:full_dataset, entries_count: 2,
-                      working: true, user: @user)
+    @dataset = create(:full_dataset, entries_count: 2, working: true,
+                                     user: @user)
   end
 
   describe 'single word analysis' do
@@ -12,13 +11,14 @@ RSpec.shared_examples_for 'a cooccurrence analyzer' do
       @called_sub_100 = false
       @called_100 = false
 
-      @grams = described_class.new(@dataset, 10, 'abstract', 50, nil, ->(p) {
-        if p < 100
-          @called_sub_100 = true
-        else
-          @called_100 = true
-        end
-      }).call
+      @grams = described_class.new(@dataset, 10, 'abstract', 50, nil,
+                                   lambda do |p|
+                                     if p < 100
+                                       @called_sub_100 = true
+                                     else
+                                       @called_100 = true
+                                     end
+                                   end).call
     end
 
     it 'returns the correct number of grams' do

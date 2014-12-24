@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
 RSpec.describe Admin::UsersLibrariesController, type: :controller do
@@ -29,5 +28,4 @@ RSpec.describe Admin::UsersLibrariesController, type: :controller do
       expect(response.body).to include(@library.user.name)
     end
   end
-
 end

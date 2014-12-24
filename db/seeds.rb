@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 
 # If we have no administration users at all, then create the default one
 unless Admin::Administrator.exists?

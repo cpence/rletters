@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
 def query_to_array(str)
@@ -138,9 +137,9 @@ RSpec.describe RLetters::Documents::Author do
     end
   end
 
-  describe '#to_citeproc' do
+  describe '#citeproc' do
     it 'works as expected' do
-      citeproc = described_class.new('First M M Last').to_citeproc
+      citeproc = described_class.new('First M M Last').citeproc
       expect(citeproc['family']).to eq('Last')
       expect(citeproc['given']).to eq('First M M')
     end

@@ -1,8 +1,8 @@
-# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
 module Jobs
   module Analysis
+    # Mock job class for the workflow controller
     class WorkflowJob < Jobs::Analysis::Base
       include Resque::Plugins::Status
       def perform; end
@@ -196,29 +196,29 @@ RSpec.describe WorkflowController, type: :controller do
       @other_dataset = create(:dataset, user: @user2, name: 'OtherUser')
 
       @finished_task = make_task(@dataset, DateTime.now)
-      Resque::Plugins::Status::Hash.set(@finished_task.resque_key,
+      Resque::Plugins::Status::Hash.set(
+        @finished_task.resque_key,
         Resque::Plugins::Status::Hash.get(@finished_task.resque_key),
-        { 'status' => 'completed',
-          'name' => 'WorkflowJob' })
+        'status' => 'completed', 'name' => 'WorkflowJob')
 
       @pending_task = make_task(@dataset, nil)
-      Resque::Plugins::Status::Hash.set(@pending_task.resque_key,
+      Resque::Plugins::Status::Hash.set(
+        @pending_task.resque_key,
         Resque::Plugins::Status::Hash.get(@pending_task.resque_key),
-        { 'status' => 'queued',
-          'name' => 'WorkflowJob' })
+        'status' => 'queued', 'name' => 'WorkflowJob')
 
       @working_task = make_task(@dataset, nil)
       @uuid = @working_task.resque_key
-      Resque::Plugins::Status::Hash.set(@uuid,
+      Resque::Plugins::Status::Hash.set(
+        @uuid,
         Resque::Plugins::Status::Hash.get(@uuid),
-        { 'status' => 'working',
-          'name' => 'WorkflowJob' })
+        'status' => 'working', 'name' => 'WorkflowJob')
 
       @failed_task = make_task(@dataset, nil)
-      Resque::Plugins::Status::Hash.set(@failed_task.resque_key,
+      Resque::Plugins::Status::Hash.set(
+        @failed_task.resque_key,
         Resque::Plugins::Status::Hash.get(@failed_task.resque_key),
-        { 'status' => 'failed',
-          'name' => 'WorkflowJob' })
+        'status' => 'failed', 'name' => 'WorkflowJob')
 
       @disabled_task = make_task(@disabled, DateTime.now)
       @other_task = make_task(@other_dataset, DateTime.now)

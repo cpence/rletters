@@ -21,7 +21,7 @@
     .col-lg-6.col-lg-offset-3
       .btn-group.btn-group-justified
         - button_params = { class: params[:class], job_params: { other_datasets: current_user.workflow_datasets[1..-1].map(&:to_param) } }
-        - if @klass.has_view? '_params'
+        - if @klass.view? '_params'
           = link_to t('.button_params'), new_dataset_analysis_task_path(current_user.workflow_datasets[0], button_params), class: 'btn btn-primary'
         - else
           = link_to t('.button_start'), dataset_analysis_tasks_path(current_user.workflow_datasets[0], button_params), method: :post, class: 'btn btn-success'

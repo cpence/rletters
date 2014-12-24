@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 require 'r_letters/documents/as_open_url'
 require 'rdf/n3'
 

@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
 RSpec.describe RLetters::Analysis::Frequency::FromPosition do
@@ -23,13 +22,13 @@ RSpec.describe RLetters::Analysis::Frequency::FromPosition do
       @called_sub_100 = false
       @called_100 = false
 
-      @analyzer = described_class.new(@onegram_ss, ->(p) {
+      @analyzer = described_class.new(@onegram_ss, lambda do |p|
         if p < 100
           @called_sub_100 = true
         else
           @called_100 = true
         end
-      })
+      end)
     end
 
     describe '#num_words' do
@@ -44,7 +43,7 @@ RSpec.describe RLetters::Analysis::Frequency::FromPosition do
       end
 
       it 'analyzes every word' do
-        num_words = @analyzer.blocks.map { |b| b.keys }.flatten.uniq.count
+        num_words = @analyzer.blocks.map(&:keys).flatten.uniq.count
         expect(num_words).to eq(@analyzer.num_dataset_types)
       end
 
@@ -108,7 +107,7 @@ RSpec.describe RLetters::Analysis::Frequency::FromPosition do
       end
 
       it 'acts like it was not set at all' do
-        num_words = @analyzer.blocks.map { |b| b.keys }.flatten.uniq.count
+        num_words = @analyzer.blocks.map(&:keys).flatten.uniq.count
         expect(num_words).to eq(@analyzer.num_dataset_types)
       end
     end
@@ -119,7 +118,7 @@ RSpec.describe RLetters::Analysis::Frequency::FromPosition do
       end
 
       it 'includes a total of ten words' do
-        expect(@analyzer.blocks.map { |b| b.keys }.flatten.uniq.count).to eq(10)
+        expect(@analyzer.blocks.map(&:keys).flatten.uniq.count).to eq(10)
       end
     end
   end
@@ -142,7 +141,7 @@ RSpec.describe RLetters::Analysis::Frequency::FromPosition do
 
       it 'produces ngrams that all contain malaria' do
         expect(@analyzer.blocks[0].size).to be > 0
-        @analyzer.blocks[0].each do |k, v|
+        @analyzer.blocks[0].each do |k, _|
           expect(k).to include('malaria')
         end
       end
@@ -171,7 +170,7 @@ RSpec.describe RLetters::Analysis::Frequency::FromPosition do
       end
 
       it 'produces ngrams that do not contain diseases' do
-        @analyzer.blocks[0].each do |k, v|
+        @analyzer.blocks[0].each do |k, _|
           expect(k).not_to include('diseases')
         end
       end

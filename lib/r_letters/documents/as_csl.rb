@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 require 'citeproc'
 require 'csl/styles'
 
@@ -32,7 +31,7 @@ module RLetters
         unless @doc.authors.empty?
           item.author = CiteProc::Names.new
           @doc.authors.each do |a|
-            item.author << CiteProc::Name.new(a.to_citeproc)
+            item.author << CiteProc::Name.new(a.citeproc)
           end
         end
 
@@ -59,7 +58,6 @@ module RLetters
       #   # => "Doe, John. 2000. ..."
       def entry(style)
         processor = CiteProc::Processor.new(style: style.style, format: 'html')
-        item = citeproc_item
 
         processor.register(citeproc_item)
         processor.render(:bibliography, id: @doc.uid)[0]

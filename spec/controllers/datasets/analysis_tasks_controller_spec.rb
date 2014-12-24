@@ -1,8 +1,8 @@
-# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
 module Jobs
   module Analysis
+    # Mock job for analysis task controller tests
     class ATControllerJob < Jobs::Analysis::Base
       include Resque::Plugins::Status
       def perform; end
@@ -11,7 +11,6 @@ module Jobs
 end
 
 RSpec.describe Datasets::AnalysisTasksController, type: :controller do
-
   before(:example) do
     @user = create(:user)
     sign_in @user
@@ -97,7 +96,7 @@ RSpec.describe Datasets::AnalysisTasksController, type: :controller do
       it 'loads successfully' do
         @dataset_2 = create(:full_dataset, user: @user, working: true)
         get :new, dataset_id: @dataset.to_param, class: 'CraigZeta',
-                  job_params: { other_datasets: [ @dataset_2.to_param ] }
+                  job_params: { other_datasets: [@dataset_2.to_param] }
 
         expect(response).to be_success
       end
@@ -166,10 +165,6 @@ RSpec.describe Datasets::AnalysisTasksController, type: :controller do
 
         post :create, dataset_id: @dataset.to_param, class: 'ExportCitations',
                       job_params: { format: 'bibtex' }
-
-        @dataset.analysis_tasks.reload
-        task_id = @dataset.analysis_tasks.first.to_param
-
         expect(Resque.size(:analysis)).to eq(1)
       end
 

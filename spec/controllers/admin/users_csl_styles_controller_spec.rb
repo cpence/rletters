@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
 RSpec.describe Admin::UsersCslStylesController, type: :controller do
@@ -25,5 +24,4 @@ RSpec.describe Admin::UsersCslStylesController, type: :controller do
       expect(response.body).to include(@style.name)
     end
   end
-
 end

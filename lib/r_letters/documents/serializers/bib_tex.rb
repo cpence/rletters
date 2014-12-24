@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 
 module RLetters
   module Documents
@@ -68,7 +67,7 @@ module RLetters
           cite_key = "#{first_author}#{doc.year}"
 
           ret  = "@article{#{cite_key},\n"
-          ret << "    author = {#{doc.authors.map { |a| a.full }.join(' and ')}},\n" unless doc.authors.empty?
+          ret << "    author = {#{doc.authors.map(&:full).join(' and ')}},\n" unless doc.authors.empty?
           ret << "    title = {#{doc.title}},\n" if doc.title
           ret << "    journal = {#{doc.journal}},\n" if doc.journal
           ret << "    volume = {#{doc.volume}},\n" if doc.volume

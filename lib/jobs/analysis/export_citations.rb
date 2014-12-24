@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 
 module Jobs
   module Analysis
@@ -40,7 +39,7 @@ module Jobs
           enum.each_with_index do |doc, i|
             at(i, total, t('.progress_creating', progress: "#{i}/#{total}"))
 
-            zos.put_next_entry "#{doc.uid.html_id}.#{options[:format].to_s}"
+            zos.put_next_entry "#{doc.uid.html_id}.#{options[:format]}"
             zos.print klass.new(doc).serialize
           end
         end
