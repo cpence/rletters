@@ -68,6 +68,10 @@ Rails.application.routes.draw do
   # unAPI service
   get 'unapi' => 'unapi#index'
 
+  # List (autocomplete) service for the search pages
+  get 'lists/authors' => 'lists#authors'
+  get 'lists/journals' => 'lists#journals'
+
   # Start off on the landing/dashboard page
   root to: 'workflow#index'
 
