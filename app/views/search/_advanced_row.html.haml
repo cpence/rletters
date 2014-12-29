@@ -3,13 +3,16 @@
     .form-group.field-group
       = label_tag :field_0, t('.field_label'), class: 'sr-only'
       = select_tag :field_0, options_for_select(@search_fields), class: 'form-control'
-  .col-sm-7
+  .col-sm-6
     .form-group.value-group
       = label_tag :value_0, t('.value_label'), class: 'sr-only'
       = text_field_tag :value_0, nil, class: 'form-control'
-  .col-sm-2
+  .col-sm-3.form-inline
     .btn-group
       = link_to '#', class: 'btn btn-default add-button', type: 'button', aria: { label: t('.add_label') }, onclick: 'addRow($(this)); return false' do
         %span.glyphicon.glyphicon-plus{ aria: { hidden: 'true' } }
       = link_to '#', class: 'btn btn-default remove-button', type: 'button', aria: { label: t('.remove_label') }, style: 'visibility: hidden', onclick: 'removeRow($(this)); return false' do
         %span.glyphicon.glyphicon-minus{ aria: { hidden: 'true' } }
+    .form-group.bool-group
+      = label_tag :boolean_0, t('.boolean_label'), class: 'sr-only'
+      = select_tag :boolean_0, options_for_select([[t('.and'), :and], [t('.or'), :or]]), class: 'form-control', style: 'visibility: hidden'

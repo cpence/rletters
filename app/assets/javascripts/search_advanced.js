@@ -38,6 +38,10 @@ function updateAdvancedRows()
     return 'value_' + arr;
   });
 
+  // Show the boolean toggles on every row but the last one
+  $('.bool-group select').css('visibility', 'visible');
+  $('.bool-group select').last().css('visibility', 'hidden');
+
   // If there's only one row, it gets a plus button and no minus button
   if (rows.length == 1)
   {

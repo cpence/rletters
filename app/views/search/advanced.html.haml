@@ -17,7 +17,7 @@
     &nbsp;
 
 .row
-  .col-sm-8.col-sm-offset-2
+  .col-sm-10.col-sm-offset-1
     = form_tag search_path, method: 'get', role: 'form' do
       = hidden_field_tag :advanced, true
 
@@ -28,7 +28,7 @@
         = submit_tag t('.search_button'), class: 'btn btn-primary'
 
 .row.advanced-solr
-  .col-sm-8.col-sm-offset-2
+  .col-sm-10.col-sm-offset-1
     .panel-group#solr-accordion{ role: 'tablist' }
       .panel.panel-default
         .panel-heading#solr-heading{ role: 'tab' }

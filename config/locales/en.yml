@@ -474,6 +474,8 @@ en:
             no_datasets: No datasets available
             submit: Add
         advanced_row:
+            and: AND
+            or: OR
             field_label: Search field
             value_label: Search terms
             add_label: Add a search condition

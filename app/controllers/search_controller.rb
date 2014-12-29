@@ -90,15 +90,16 @@ class SearchController < ApplicationController
       query_params[:def_type] = 'lucene'
 
       # Copy the basic query across
-      q_array << "#{params[:q]}" if params[:q].present?
+      q_array << "#{params[:q]} AND " if params[:q].present?
 
       # Hard-coded limit of 100 on the number of advanced queries
       0.upto(100) do |i|
         field = params["field_#{i}".to_sym]
         value = params["value_#{i}".to_sym]
+        boolean = params["boolean_#{i}".to_sym]
         break if (field.nil? || value.nil?)
 
-        q_array << RLetters::Solr::Advanced.query_for(field, value)
+        q_array << RLetters::Solr::Advanced.query_for(field, value, boolean)
       end
 
       # Prune any empty/nil (invalid) queries
@@ -108,7 +109,8 @@ class SearchController < ApplicationController
       if q_array.empty?
         query_params[:q] = '*:*'
       else
-        query_params[:q] = q_array.join(' AND ')
+        # Remove the last trailing boolean connective
+        query_params[:q] = q_array.join.chomp(' OR ').chomp(' AND ')
       end
     else
       # Simple search

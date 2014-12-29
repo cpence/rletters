@@ -37,16 +37,30 @@ module RLetters
       # @api public
       # @param [String] field the advanced search field
       # @param [String] value the search string
+      # @param [String] boolean the boolean to combine the next search with
       # @return [String] the Solr query to add to the array
-      def self.query_for(field, value)
+      def self.query_for(field, value, boolean)
         field = parse_field(field)
 
         # Special handling for a few of these field types
-        return authors_query(value) if field == 'authors'
-        return year_ranges_query(value) if field == 'year'
+        query = if field == 'authors'
+          authors_query(value)
+        elsif field == 'year'
+          year_ranges_query(value)
+        else
+          "#{field}:\"#{value}\""
+        end
 
-        # The usual for the rest
-        "#{field}:\"#{value}\""
+        # The boolean connective
+        boolean = if boolean == 'and'
+          ' AND '
+        elsif boolean == 'or'
+          ' OR '
+        else
+          ''
+        end
+
+        query + boolean
       end
 
       private

@@ -38,17 +38,19 @@ RSpec.describe SearchController, type: :controller do
       expect(ret[:q]).to eq('test')
     end
 
-    it 'combines the search terms with AND' do
+    it 'combines the search terms with the boolean values' do
       params = { advanced: 'true', field_0: 'volume', value_0: '30',
-                 field_1: 'number', value_1: '5' }
+                 boolean_0: 'and', field_1: 'number', value_1: '5',
+                 boolean_1: 'or', field_2: 'pages', value_2: '300-301' }
       ret = controller.send(:search_params_to_solr_query, params)
-      expect(ret[:q]).to eq('volume:"30" AND number:"5"')
+      expect(ret[:q]).to eq('volume:"30" AND number:"5" OR pages:"300-301"')
     end
 
     it 'mixes in verbatim search parameters correctly' do
       params = { advanced: 'true', field_0: 'authors', value_0: 'W. Shatner',
-                 field_1: 'volume', value_1: '30', field_2: 'number',
-                 value_2: '5', field_3: 'pages', value_3: '300-301' }
+                 boolean_0: 'and', field_1: 'volume', value_1: '30',
+                 boolean_1: 'and', field_2: 'number', value_2: '5',
+                 boolean_2: 'and', field_3: 'pages', value_3: '300-301' }
       ret = controller.send(:search_params_to_solr_query, params)
       expect(ret[:q]).to include('authors:(("W* Shatner"))')
       expect(ret[:q]).to include('volume:"30"')
@@ -58,9 +60,10 @@ RSpec.describe SearchController, type: :controller do
 
     it 'handles fuzzy params with type set to verbatim' do
       params = { advanced: 'true', field_0: 'journal_exact',
-                 value_0: 'Astrobiology', field_1: 'title_exact',
-                 value_1: 'Testing with Spaces',
-                 field_2: 'fulltext_exact', value_2: 'alien' }
+                 value_0: 'Astrobiology', boolean_0: 'and',
+                 field_1: 'title_exact', value_1: 'Testing with Spaces',
+                 boolean_1: 'and', field_2: 'fulltext_exact',
+                 value_2: 'alien' }
       ret = controller.send(:search_params_to_solr_query, params)
       expect(ret[:q]).to include('journal:"Astrobiology"')
       expect(ret[:q]).to include('title:"Testing with Spaces"')
@@ -69,8 +72,9 @@ RSpec.describe SearchController, type: :controller do
 
     it 'handles fuzzy params with type set to fuzzy' do
       params = { advanced: 'true', field_0: 'journal_fuzzy',
-                 value_0: 'Astrobiology', field_1: 'title_fuzzy',
-                 value_1: 'Testing with Spaces', field_2: 'fulltext_fuzzy',
+                 value_0: 'Astrobiology', boolean_0: 'and',
+                 field_1: 'title_fuzzy', value_1: 'Testing with Spaces',
+                 boolean_1: 'and', field_2: 'fulltext_fuzzy',
                  value_2: 'alien' }
       ret = controller.send(:search_params_to_solr_query, params)
       expect(ret[:q]).to include('journal_stem:"Astrobiology"')
