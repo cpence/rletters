@@ -26,7 +26,7 @@ RSpec.describe 'Search API', type: :request do
 
   it 'loads document details correctly' do
     get '/search', q: 'doi:"10.1371/journal.pntd.0000534"',
-                   precise: true,
+                   advanced: true,
                    format: :json
 
     expect(response).to be_success

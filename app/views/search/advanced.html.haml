@@ -14,90 +14,34 @@
 
 .row
   .col-sm-12
-    %h4= t('.search_header')
-    %hr
-
-    = form_tag search_path, method: 'get', role: 'form' do
-      = hidden_field_tag :precise, true
-
-      .row
-        .col-md-6
-          = label_tag(:fulltext, Document.human_attribute_name('fulltext'))
-          = text_field_tag(:fulltext, nil, class: 'form-control')
-        .col-md-6.advanced-right
-          .radio
-            = label_tag(:fulltext_type_fuzzy) do
-              = radio_button_tag(:fulltext_type, 'fuzzy', true)
-              = t('.type_fuzzy')
-          .radio
-            = label_tag(:fulltext_type_exact) do
-              = radio_button_tag(:fulltext_type, 'exact', false)
-              = t('.type_exact')
-
-      .row
-        .col-md-6.advanced-pad
-          = label_tag :authors, Document.human_attribute_name('authors')
-          = text_field_tag :authors, nil, placeholder: t('.authors_placeholder'), class: 'form-control'
-
-      .row
-        .col-md-6
-          = label_tag :title, Document.human_attribute_name('title')
-          = text_field_tag(:title, nil, class: 'form-control')
-        .col-md-6.advanced-right
-          .radio
-            = label_tag(:title_type_fuzzy) do
-              = radio_button_tag(:title_type, 'fuzzy', true, id: :title_type_fuzzy)
-              = t('.type_fuzzy')
-          .radio
-            = label_tag(:title_type_exact) do
-              = radio_button_tag(:title_type, 'exact', false, id: :title_type_exact)
-              = t('.type_exact')
-
-      .row
-        .col-md-6
-          = label_tag :journal, Document.human_attribute_name('journal')
-          = text_field_tag(:journal, nil, class: 'form-control')
-        .col-md-6.advanced-right
-          .radio
-            = label_tag(:journal_type_fuzzy) do
-              = radio_button_tag(:journal_type, 'fuzzy', true, id: :journal_type_fuzzy)
-              = t('.type_fuzzy')
-          .radio
-            = label_tag(:journal_type_exact) do
-              = radio_button_tag(:journal_type, 'exact', false, id: :journal_type_exact)
-              = t('.type_exact')
-
-      .row
-        .col-md-2.advanced-pad
-          = label_tag(:volume, Document.human_attribute_name('volume'), class: 'sr-only')
-          = text_field_tag(:volume, nil, placeholder: Document.human_attribute_name('volume'), class: 'form-control')
-        .col-md-2.advanced-pad
-          = label_tag(:number, Document.human_attribute_name('number'), class: 'sr-only')
-          = text_field_tag(:number, nil, placeholder: Document.human_attribute_name('number'), class: 'form-control')
-        .col-md-2.advanced-pad
-          = label_tag(:pages, Document.human_attribute_name('pages'), class: 'sr-only')
-          = text_field_tag(:pages, nil, placeholder: Document.human_attribute_name('pages') + h(' (') + t('.pages_placeholder') + h(')'), class: 'form-control')
-
-      .row
-        .col-md-6.advanced-pad
-          = label_tag :year_ranges, t('.year_ranges')
-          = text_field_tag(:year_ranges, nil, placeholder: t('.year_ranges_placeholder'), class: 'form-control')
-
-      .form-group
-        = submit_tag t('.search_button'), class: 'btn btn-default'
+    &nbsp;
 
 .row
-  .col-sm-6
-    %hr
+  .col-sm-8.col-sm-offset-2
+    = form_tag search_path, method: 'get', role: 'form' do
+      = hidden_field_tag :advanced, true
 
-    %h4= t('.solr_header')
-
-    = form_tag search_path, method: 'get' do
-      = hidden_field_tag :precise, true
-
-      .form-group
-        = label_tag :q, t('.solr_label'), class: 'sr-only'
-        = text_area_tag(:q, nil, escape: false, class: 'form-control')
+      #advanced-rows
+        = render partial: 'advanced_row'
 
       .form-group
-        = submit_tag t('.solr_button'), class: 'btn btn-default'
+        = submit_tag t('.search_button'), class: 'btn btn-primary'
+
+.row.advanced-solr
+  .col-sm-8.col-sm-offset-2
+    .panel-group#solr-accordion{ role: 'tablist' }
+      .panel.panel-default
+        .panel-heading#solr-heading{ role: 'tab' }
+          %h4.panel-title
+            %a{ href: '#solr-collapse', data: { toggle: 'collapse', parent: '#solr-accordion' }, aria: { expanded: 'true', controls: 'solr-collapse' } }= t('.solr_header')
+        .panel-collapse.collapse#solr-collapse{ role: 'tabpanel', aria: { labelledby: 'solr-heading' } }
+          .panel-body
+            = form_tag search_path, method: 'get' do
+              = hidden_field_tag :advanced, true
+
+              .form-group
+                = label_tag :q, t('.solr_label'), class: 'sr-only'
+                = text_area_tag(:q, nil, escape: false, class: 'form-control')
+
+              .form-group
+                = submit_tag t('.solr_button'), class: 'btn btn-primary'

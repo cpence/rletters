@@ -27,14 +27,16 @@ When(/^I search for articles$/) do
   q.native.send_key(:Enter)
 end
 
-When(/^I run an advanced search for the ([a-z_]+) (.*)$/) do |field, content|
+When(/^I run an advanced search for "(.*?)" by the ([a-zA-Z_]+) field$/) do |content, field|
   visit '/search/advanced'
-  fill_in field, with: content
+  select field, from: 'field_0'
+  fill_in 'value_0', with: content
   click_button 'Perform advanced search'
 end
 
 When(/^I run a Solr query search for '(.*)'$/) do |query|
   visit '/search/advanced'
+  click_link 'Search with Solr syntax'
   fill_in 'q', with: query
   click_button 'Perform Solr query'
 end

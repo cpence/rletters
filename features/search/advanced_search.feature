@@ -8,6 +8,6 @@ Feature: Advanced searching
       Given I am not logged in
 
     Scenario: Perform an advanced search
-      When I run an advanced search for the authors Mark Twain
+      When I run an advanced search for "Mark Twain" by the Authors field
       Then I should see a list of articles
         And the article list should contain Fenimore Cooper

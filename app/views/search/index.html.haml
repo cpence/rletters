@@ -16,7 +16,7 @@
               = hidden_field_tag "fq[]", p
           .form-group
             %label.sr-only{ for: 'q' }= t('.placeholder')
-            = search_field_tag :q, (params[:precise] ? t('.adv_search_placeholder') : params[:q]), placeholder: t('.placeholder'), class: 'form-control'
+            = search_field_tag :q, (params[:advanced] ? t('.adv_search_placeholder') : params[:q]), placeholder: t('.placeholder'), class: 'form-control'
 
       .col-sm-4
         .btn-group.btn-group-justified{ role: 'group' }

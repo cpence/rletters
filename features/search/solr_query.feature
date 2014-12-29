@@ -1,4 +1,4 @@
-@javascript
+@javascript @wip
 Feature: Solr query searching
   As a very advanced visitor to the website
   I want to be able to search by Solr queries

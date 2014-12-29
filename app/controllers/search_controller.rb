@@ -24,7 +24,7 @@ class SearchController < ApplicationController
                 params[:per_page].try(:to_i) || 10).bound(10, 100)
 
     # Default sort to relevance if there's a search, otherwise year
-    if params[:precise] || params[:q]
+    if params[:advanced] || params[:q]
       sort = 'score desc'
     else
       sort = 'year_sort desc'
@@ -44,7 +44,9 @@ class SearchController < ApplicationController
   #
   # @api public
   # @return [void]
-  def advanced; end
+  def advanced
+    @search_fields = RLetters::Solr::Advanced.search_fields
+  end
 
   private
 
@@ -80,56 +82,27 @@ class SearchController < ApplicationController
       query_params[:fq] << "journal_facet:(#{category_journals.join(' OR ')})"
     end
 
-    if params[:precise]
+    # Advanced search support happens here
+    if params[:advanced]
       q_array = []
 
       # Advanced search, step through the fields
       query_params[:def_type] = 'lucene'
+
+      # Copy the basic query across
       q_array << "#{params[:q]}" if params[:q].present?
 
-      # Verbatim search fields
-      %w(volume number pages).each do |f|
-        q_array << "#{f}:\"#{params[f.to_sym]}\"" if params[f.to_sym].present?
+      # Hard-coded limit of 100 on the number of advanced queries
+      0.upto(100) do |i|
+        field = params["field_#{i}".to_sym]
+        value = params["value_#{i}".to_sym]
+        break if (field.nil? || value.nil?)
+
+        q_array << RLetters::Solr::Advanced.query_for(field, value)
       end
 
-      # Verbatim or fuzzy search fields
-      %w(title journal).each do |f|
-        next unless params[f.to_sym].present?
-
-        field = f
-
-        param = params[(f + '_type').to_sym]
-        field += '_stem' if param && param == 'fuzzy'
-
-        q_array << "#{field}:\"#{params[f.to_sym]}\""
-      end
-
-      # Fulltext is different, because of fulltext_search
-      if params[:fulltext].present?
-        if params[:fulltext_type] && params[:fulltext_type] == 'fuzzy'
-          field = 'fulltext_stem'
-        else
-          field = 'fulltext_search'
-        end
-        q_array << "#{field}:\"#{params[:fulltext]}\""
-      end
-
-      # Handle the authors separately, for splitting support (authors search
-      # is an AND search, not an OR search)
-      if params[:authors].present?
-        authors = params[:authors].split(',').map do |a|
-          RLetters::Documents::Author.new(a.strip).to_lucene
-        end
-        authors_str = authors.join(' AND ')
-
-        q_array << "authors:(#{authors_str})"
-      end
-
-      # Handle the year separately, for range support
-      if params[:year_ranges].present?
-        range_query = query_for_year_ranges(params[:year_ranges])
-        q_array << range_query if range_query
-      end
+      # Prune any empty/nil (invalid) queries
+      q_array.delete_if(&:blank?)
 
       # If there's no query after that, add the all-documents operator
       if q_array.empty?
@@ -149,34 +122,5 @@ class SearchController < ApplicationController
     end
 
     query_params
-  end
-
-  # Get the query string matching the given array of year ranges.
-  #
-  # @api private
-  # @param [Array<String>] year_ranges the array of year ranges
-  # @return [String] query string for this set of year ranges
-  def query_for_year_ranges(year_ranges)
-    # Strip whitespace, split on commas
-    ranges = year_ranges.gsub(/\s/, '').split(',')
-    year_queries = []
-
-    ranges.each do |r|
-      if r.include? '-'
-        range_years = r.split('-')
-        next unless range_years.size == 2
-        next if range_years[0].match(/\A\d+\z/).nil?
-        next if range_years[1].match(/\A\d+\z/).nil?
-
-        year_queries << "[#{range_years[0]} TO #{range_years[1]}]"
-      else
-        next if r.match(/\A\d+\z/).nil?
-
-        year_queries << r
-      end
-    end
-
-    return if year_queries.empty?
-    "year:(#{year_queries.join(' OR ')})"
   end
 end

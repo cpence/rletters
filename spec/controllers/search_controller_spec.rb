@@ -12,7 +12,7 @@ RSpec.describe SearchController, type: :controller do
       end
     end
 
-    context 'with precise search results' do
+    context 'with empty search results' do
       before(:example) do
         get :index
       end

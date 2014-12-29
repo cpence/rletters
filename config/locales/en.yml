@@ -437,6 +437,11 @@ en:
             block_count_doc: "Block #%{num}/%{total} (within '%{title}')"
             block_size_doc: "Block #%{num} of %{size} words (within '%{title}')"
             block_doc_suffix: " (within '%{title}')"
+        solr:
+            advanced:
+                type_fuzzy: (fuzzy)
+                type_exact: (exact)
+                year_ranges: Year ranges
     search:
         document:
             untitled: "[untitled]"
@@ -468,22 +473,15 @@ en:
             subheader: Select the dataset to which you would like to add this document.
             no_datasets: No datasets available
             submit: Add
+        advanced_row:
+            field_label: Search field
+            value_label: Search terms
+            add_label: Add a search condition
+            remove_label: Remove this search condition
         advanced:
             header: Advanced search
             subheader_markdown: >
-                This page lets you perform an advanced search of the article
-                database.  You may choose either to utilize our guided search
-                form, or to construct a query directly in [Solr's query
-                syntax](http://wiki.apache.org/solr/SolrQuerySyntax),
-                which is itself a superset of [Lucene query
-                syntax](http://lucene.apache.org/java/2_9_1/queryparsersyntax.html).
-            search_header: Guided search form
-            type_fuzzy: "Search type: Fuzzy"
-            type_exact: "Search type: Exact"
-            year_ranges: Year ranges
-            authors_placeholder: "e.g., A. Johnson, B. Smith"
-            year_ranges_placeholder: "e.g., 1999, 2005-2010, 2001"
-            pages_placeholder: "e.g., 135-150"
+                Search more precisely using the various metadata fields.
             search_button: Perform advanced search
             solr_header: Search with Solr syntax
             solr_label: Solr query

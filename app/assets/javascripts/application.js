@@ -12,6 +12,7 @@
 //= require named_entities
 //= require network
 //= require normalize_document_counts
+//= require search_advanced
 //= require term_dates
 //= require users_edit
 //= require workflow_fetch
