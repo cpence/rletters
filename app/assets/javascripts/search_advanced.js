@@ -72,15 +72,9 @@ function addRow(button)
     return;
   }
 
-  rows = container.find('.advanced-row');
-  if (rows.length === 0)
-  {
-    alert("ERROR: Could not find rows from add row button");
-    return;
-  }
-
-  first_row = rows.first();
-  new_row = first_row.clone();
+  label_row = container.find('.advanced-label-row').first().clone();
+  new_row = container.find('.advanced-row').first().clone();
+  label_row.appendTo(container);
   new_row.appendTo(container);
 
   updateAdvancedRows();
@@ -88,7 +82,9 @@ function addRow(button)
 
 function removeRow(button)
 {
-  row = button.parent().parent().parent();
+  row = button.parent().parent().parent().parent();
+  label_row = row.prev();
+  label_row.remove();
   row.remove();
 
   updateAdvancedRows();

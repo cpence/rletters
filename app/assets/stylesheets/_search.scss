@@ -39,8 +39,17 @@ ul.filter-list {
   }
 }
 
+.advanced-label-row {
+  margin-bottom: 1em;
+}
+
 .advanced-solr {
   padding-top: 5em;
+}
+
+.bool-group .form-control {
+  display: inline-block !important;
+  width: auto !important;
 }
 
 p.document-details {

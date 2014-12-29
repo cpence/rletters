@@ -476,6 +476,7 @@ en:
         advanced_row:
             and: AND
             or: OR
+            row_label: 'Search condition:'
             field_label: Search field
             value_label: Search terms
             add_label: Add a search condition
