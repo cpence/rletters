@@ -9,6 +9,7 @@
 *   Add a completely redesigned advanced search page, including autocomplete for authors and journals.
 *   Add an optimized WordFrequencyAnalyzer that can be called when only a single block is requested.
 *   The date-plotting jobs now include intervening years with a "zero" value in the downloaded CSV and graph, instead of leaving them out of the analysis entirely.
+*   Several jobs now support returning "all words" or "all pairs" when practicable.
 *   Fix several significant bugs in the collocation analyzer, including one that meant that most of the returned weighting values were incorrect.
 *   Fix a significant bug in one of the frequency analyzers, which meant that the 'split across' user parameter was being ignored.
 *   Fix a bug in the computation of DF values within datasets.
