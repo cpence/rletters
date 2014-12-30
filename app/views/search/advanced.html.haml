@@ -21,6 +21,9 @@
     = form_tag search_path, method: 'get', role: 'form' do
       = hidden_field_tag :advanced, true
 
+      %script{ type: 'text/javascript' }
+        == window.rlRowMarkup = '#{escape_javascript(@row_markup)}';
+
       #advanced-rows
         = render partial: 'advanced_row'
 

@@ -9,12 +9,7 @@ class ListsController < ApplicationController
   # @api [public]
   # @return [void]
   def authors
-    result = solr_query_for(:authors, params[:q])
-    available_facets = result.facets.for_field(:authors_facet).map do |f|
-      f.hits > 0 ? f.value : nil
-    end
-    @list = available_facets.compact
-
+    @list = list_for(:authors, :authors_facet)
     render template: 'lists/list'
   end
 
@@ -23,17 +18,39 @@ class ListsController < ApplicationController
   # @api [public]
   # @return [void]
   def journals
-    result = solr_query_for(:journal, params[:q])
-    available_facets = result.facets.for_field(:journal_facet).map do |f|
-      f.hits > 0 ? f.value : nil
-    end
-    @list = available_facets.compact
-
+    @list = list_for(:journal, :journal_facet)
     render template: 'lists/list'
   end
 
   private
 
+  # Return the list of values for this field
+  #
+  # We search one field and facet on another, so we have to pass both here.
+  #
+  # @api private
+  # @param [String] search_field the field to search the partial query on
+  # @param [String] facet_field the field to return faceted results from
+  # @return [Array<String>] the list of results
+  def list_for(search_field, facet_field)
+    result = solr_query_for(search_field, params[:q])
+
+    return [] if !result.facets
+    facets = result.facets.for_field(facet_field)
+    return [] if !facets
+
+    available_facets = facets.map do |f|
+      f.hits > 0 ? f.value : nil
+    end
+    available_facets.compact
+  end
+
+  # Get the Solr query for a partial search for the given filter
+  #
+  # @api private
+  # @param [String] field the field to search on
+  # @param [String] filter the partial query to search for
+  # @return [Hash] the Solr query parameters
   def solr_query_for(field, filter)
     if filter
       query = "#{field}:*#{filter}*"

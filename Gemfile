@@ -63,6 +63,7 @@ gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'sass-rails', '>= 5.0'
 gem 'bootstrap-sass'
+gem 'twitter-typeahead-rails'
 gem 'simple_form', '>= 3.1.0.rc1'
 
 gem 'uglifier', '>= 1.3.0'
