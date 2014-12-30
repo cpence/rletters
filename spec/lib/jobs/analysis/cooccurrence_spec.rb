@@ -49,8 +49,9 @@ RSpec.describe Jobs::Analysis::Cooccurrence do
 
     types = [:mi, :t, :likelihood]
     words_list = ['disease', 'tropical, disease']
+    nums = [[:num_pairs, '10'], [:all, '1']]
 
-    types.product(words_list).each do |(type, words)|
+    types.product(words_list).product(nums).each do |((type, words), (sym, val))|
       it "runs with type '#{type}' and words '#{words}'" do
         expect {
           Jobs::Analysis::Cooccurrence.perform(
@@ -59,8 +60,8 @@ RSpec.describe Jobs::Analysis::Cooccurrence do
             dataset_id: @dataset.to_param,
             task_id: @task.to_param,
             analysis_type: type.to_s,
-            num_pairs: '10',
-            window: 25,
+            sym => val,
+            window: '25',
             word: words)
         }.to_not raise_error
 

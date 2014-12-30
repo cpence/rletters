@@ -32,7 +32,11 @@ module Jobs
         standard_options!
 
         analysis_type = (options[:analysis_type] || :mi).to_sym
-        num_pairs = (options[:num_pairs] || 50).to_i
+        if options[:all] == '1'
+          num_pairs = 0
+        else
+          num_pairs = (options[:num_pairs] || 50).to_i
+        end
         focal_word = options[:word].mb_chars.downcase.to_s if options[:word]
 
         # Part of speech tagging requires the Stanford NLP

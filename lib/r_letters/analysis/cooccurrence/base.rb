@@ -112,7 +112,10 @@ module RLetters
           end
 
           ret.compact!
-          ret = sort_results(ret).take(@num_pairs) if @num_pairs
+          if @num_pairs
+            ret = sort_results(ret)
+            ret = ret.take(@num_pairs) if @num_pairs > 0
+          end
 
           @progress && @progress.call(100)
 

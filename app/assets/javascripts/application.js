@@ -5,6 +5,7 @@
 
 //= require_self
 
+//= require all_toggle
 //= require article_dates
 //= require compute_word_frequencies
 //= require craig_zeta

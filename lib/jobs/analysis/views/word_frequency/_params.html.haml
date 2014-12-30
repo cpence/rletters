@@ -3,6 +3,7 @@
     = simple_form_for :job_params, url: dataset_analysis_tasks_path(@dataset, class: 'WordFrequency'), method: :post do |f|
       = f.error_notification
 
-      = render file: Jobs::Analysis::WordFrequency.view_path(partial: 'compute_word_frequencies'), locals: { f: f }, layout: false, klass: Jobs::Analysis::WordFrequency
-      = f.button :submit
-      = link_to(t('common.cancel'), @dataset, class: 'btn btn-default')
+      = field_set_tag t('jobs.analysis.word_frequency.options_label') do
+        = render file: Jobs::Analysis::WordFrequency.view_path(partial: 'compute_word_frequencies'), locals: { f: f }, layout: false, klass: Jobs::Analysis::WordFrequency
+        = f.button :submit
+        = link_to(t('common.cancel'), @dataset, class: 'btn btn-default')

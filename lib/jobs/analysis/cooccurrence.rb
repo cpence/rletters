@@ -38,7 +38,11 @@ module Jobs
         fail ArgumentError, 'No cooccurrence word provided' unless options[:word]
 
         analysis_type = (options[:analysis_type] || :mi).to_sym
-        num_pairs = (options[:num_pairs] || 50).to_i
+        if options[:all] == '1'
+          num_pairs = 0
+        else
+          num_pairs = (options[:num_pairs] || 50).to_i
+        end
         word = options[:word].mb_chars.downcase.to_s
         window = (options[:window] || 200).to_i
         stemming = options[:stemming].to_sym if options[:stemming]

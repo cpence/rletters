@@ -53,7 +53,10 @@ module RLetters
 
           @progress && @progress.call(100)
 
-          @result.sort { |a, b| b[1] <=> a[1] }.take(@num_pairs)
+          @result = @result.sort { |a, b| b[1] <=> a[1] }
+          @result = @result.take(@num_pairs) if @num_pairs > 0
+
+          @result
         end
 
         private

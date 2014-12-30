@@ -109,10 +109,15 @@ module Jobs
         def convert_args!(args)
           args.clean_options!
 
+          if args[:word_method] == 'all'
+            args[:num_words] = 0
+          elsif args[:num_words]
+            args[:num_words] = Integer(args[:num_words])
+          end
+
           args[:ngrams] = Integer(args[:ngrams]) if args[:ngrams]
           args[:block_size] = Integer(args[:block_size]) if args[:block_size]
           args[:num_blocks] = Integer(args[:num_blocks]) if args[:num_blocks]
-          args[:num_words] = Integer(args[:num_words]) if args[:num_words]
           args[:last_block] = args[:last_block].to_sym if args[:last_block]
           args[:stop_list] = Documents::StopList.find_by(language: args[:stop_list]) if args[:stop_list]
           args[:stemming] = args[:stemming].to_sym if args[:stemming]

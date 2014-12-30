@@ -30,9 +30,15 @@ $(document).on('change', 'select#job_params_word_method',
     if (option == 'count') {
       showAndEnable('#num_words_controls');
       hideAndDisable('#inclusion_list_controls');
-    } else {
+      showAndEnable('#exclusion_controls');
+    } else if (option == 'list') {
       hideAndDisable('#num_words_controls');
       showAndEnable('#inclusion_list_controls');
+      hideAndDisable('#exclusion_controls');
+    } else {
+      hideAndDisable('#num_words_controls');
+      hideAndDisable('#inclusion_list_controls');
+      showAndEnable('#exclusion_controls');
     }
   });
 

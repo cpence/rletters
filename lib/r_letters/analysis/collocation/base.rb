@@ -59,7 +59,8 @@ module RLetters
             [b[0], score(f_a, f_b, f_ab, n)]
           end
 
-          ret = sort_results(ret).take(@num_pairs)
+          ret = sort_results(ret)
+          ret = ret.take(@num_pairs) if @num_pairs > 0
 
           @progress && @progress.call(100)
 

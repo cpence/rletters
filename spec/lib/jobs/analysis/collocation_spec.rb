@@ -82,18 +82,18 @@ RSpec.describe Jobs::Analysis::Collocation do
         num_pairs: '10')
     end
 
-    valid_params = [:mi, :t, :likelihood, :pos]
-
-    valid_params.each do |p|
-      it "runs with analysis_type '#{p}'" do
+    types = [:mi, :t, :likelihood, :pos]
+    nums = [[:num_pairs, '10'], [:all, '1']]
+    types.product(nums).each do |(type, (sym, val))|
+      it "runs with type '#{type}'" do
         expect {
           Jobs::Analysis::Collocation.perform(
             '123',
             user_id: @user.to_param,
             dataset_id: @dataset.to_param,
             task_id: @task.to_param,
-            analysis_type: p.to_s,
-            num_pairs: '10')
+            analysis_type: type.to_s,
+            sym => val)
         }.to_not raise_error
 
         # Just a quick sanity check to make sure some code was called
