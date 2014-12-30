@@ -218,7 +218,7 @@ en:
     layouts:
         footer:
             copyright: >
-                Copyright © 2011–2013 %{app_name} and the RLetters development
+                Copyright © 2011–2015 %{app_name} and the RLetters development
                 team.  Article content remains copyrighted as specified on
                 individual article entries.  All rights reserved.
             rletters_markdown: >
