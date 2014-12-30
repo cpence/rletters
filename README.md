@@ -51,6 +51,7 @@ While text analysis tasks are a current area of active development in RLetters, 
 
 The Solr backend on which RLetters is based allows for a number of complicated searching operations:
 
+-   Searching on the basis of particular fields ("year:2010", "authors:Johnson", or "title:fish")
 -   Boolean operators ("darwin OR huxley")
 -   Wildcard search ("*fish" or "wom?n")
 -   Text stemming ("evolution" matching "evolutionary" or "evolutionist")
