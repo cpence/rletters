@@ -93,7 +93,7 @@ module Users
       @libraries = []
 
       begin
-        res = Net::HTTP.start('worldcatlibraries.org') do |http|
+        res = Net::HTTP.start('www.worldcat.org') do |http|
           http.get("/registry/lookup?IP=#{request.remote_ip}")
         end
 
