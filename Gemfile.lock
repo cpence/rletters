@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/activeadmin/activeadmin.git
-  revision: f84dd73da5d5c1151194fa3b8942508165565801
+  revision: 7aca862c575ef0bf1ba3c781fcb4ea39f330dc07
   branch: rails-4-2
   specs:
     activeadmin (1.0.0.pre)
@@ -92,7 +92,7 @@ GEM
       debug_inspector (>= 0.0.1)
     bootstrap-sass (3.3.1.0)
       sass (~> 3.2)
-    bourbon (4.0.2)
+    bourbon (4.1.0)
       sass (~> 3.3)
       thor
     builder (3.2.2)
@@ -117,7 +117,7 @@ GEM
       with_advisory_lock (>= 3.0.0)
     cocaine (0.5.5)
       climate_control (>= 0.0.3, < 1.0)
-    codeclimate-test-reporter (0.4.3)
+    codeclimate-test-reporter (0.4.4)
       simplecov (>= 0.7.1, < 1.0.0)
     coffee-rails (4.1.0)
       coffee-script (>= 2.2.0)
@@ -209,7 +209,7 @@ GEM
       ruby_parser (~> 3.1.1)
     http_accept_language (2.0.2)
     i18n (0.7.0)
-    jquery-rails (4.0.2)
+    jquery-rails (4.0.3)
       rails-dom-testing (~> 1.0)
       railties (>= 4.2.0)
       thor (>= 0.14, < 2.0)
@@ -235,7 +235,7 @@ GEM
       scrub_rb (>= 1.0.1, < 2)
       unf
     mime-types (2.4.3)
-    mini_portile (0.6.1)
+    mini_portile (0.6.2)
     minitest (5.5.0)
     mock_redis (0.14.0)
     mono_logger (1.1.0)
@@ -365,7 +365,7 @@ GEM
       tzinfo
     safe_yaml (1.0.4)
     sass (3.4.9)
-    sass-rails (5.0.0)
+    sass-rails (5.0.1)
       railties (>= 4.0.0, < 5.0)
       sass (~> 3.1)
       sprockets (>= 2.8, < 4.0)
