@@ -108,7 +108,7 @@ RSpec.describe Users::LibrariesController, type: :controller do
   describe '#query' do
     context 'when no libraries are returned' do
       it 'assigns no libraries' do
-        stub_connection(/worldcatlibraries.org/, 'worldcat_no_libraries')
+        stub_connection(/worldcat.org/, 'worldcat_no_libraries')
         get :query
         expect(assigns(:libraries)).to be_empty
       end
@@ -116,7 +116,7 @@ RSpec.describe Users::LibrariesController, type: :controller do
 
     context 'when libraries are returned' do
       it 'assigns the libraries' do
-        stub_connection(/worldcatlibraries.org/, 'worldcat_notre_dame')
+        stub_connection(/worldcat.org/, 'worldcat_notre_dame')
         get :query
         expect(assigns(:libraries).size).to eq(1)
       end
@@ -125,7 +125,7 @@ RSpec.describe Users::LibrariesController, type: :controller do
     context 'when WorldCat times out' do
       it 'assigns no libraries' do
         stub_request(:any,
-                     %r{worldcatlibraries.org/registry/lookup.*}).to_timeout
+                     %r{worldcat.org/registry/lookup.*}).to_timeout
         get :query
         expect(assigns(:libraries)).to be_empty
       end
