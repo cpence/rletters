@@ -11,7 +11,6 @@ module RLetters
       class BibTex
         # Create a serializer
         #
-        # @api public
         # @param document_or_array [Document Array<Document>] a document or
         #   array of documents to serialize
         def initialize(document_or_array)
@@ -34,13 +33,7 @@ module RLetters
 
         # Returns this document as a BibTeX record
         #
-        # @api public
         # @return [String] document in BibTeX format
-        # @example Download this document as a enw file
-        #   controller.send_data(
-        #     RLetters::Documents::Serializers::BibTex.new(doc).serialize,
-        #     filename: 'export.bib', disposition: 'attachment'
-        #   )
         def serialize
           if @doc.is_a? Enumerable
             @doc.map { |d| do_serialize(d) }.join
@@ -53,7 +46,6 @@ module RLetters
 
         # Do the serialization for an individual document
         #
-        # @api private
         # @param [Document] doc the document to serialize
         # @return [String] single document serialized to BibTeX format
         def do_serialize(doc)

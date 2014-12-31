@@ -9,7 +9,6 @@ module RLetters
 
         # The L-function required in the log-likelihood calculation
         #
-        # @api private
         # @return [Float] the log-likelihood of obtaining the outcome x in
         #   the binomial distribution defined by n and k
         # @param [Integer] k number of successes
@@ -37,7 +36,6 @@ module RLetters
         # sort by -2 log-lambda
         # ```
         #
-        # @api private
         # @return [Float] the score for this pair
         # @param [Float] f_a the frequency of word A's appearance in blocks
         # @param [Float] f_b the frequency of word B's appearance in blocks
@@ -57,7 +55,6 @@ module RLetters
         #
         # High log-likelihood results indicate more significant grams.
         #
-        # @api private
         # @param [Array<Array<(String, Float)>>] grams grams in unsorted order
         # @return [Array<Array<(String, Float)>>] grams in sorted order
         def sort_results(grams)

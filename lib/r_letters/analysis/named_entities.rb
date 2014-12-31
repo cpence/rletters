@@ -20,7 +20,6 @@ module RLetters
 
       # Create a new NER analyzer and analyze
       #
-      # @api public
       # @param [Dataset] dataset The dataset to analyze
       # @param [Proc] progress If set, a function to call with a percentage of
       #   completion (one Integer parameter)
@@ -33,7 +32,6 @@ module RLetters
       #
       # This function fills out the +entity_references+ attribute.
       #
-      # @api public
       # @return [undefined]
       def call
         return if Admin::Setting.nlp_tool_path.blank?

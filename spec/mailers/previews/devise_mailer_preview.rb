@@ -3,7 +3,7 @@
 class DeviseMailerPreview < ActionMailer::Preview
   # Preview the reset password instructions e-mail
   #
-  # @api private
+  # @return [undefined]
   def reset_password_instructions
     user = User.first || FactoryGirl.build_stubbed(:user)
 

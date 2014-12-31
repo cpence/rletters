@@ -58,11 +58,8 @@ module Datasets
 
     # Convert class_name to a class object
     #
-    # @api public
     # @param [String] class_name the class name to convert
     # @return [Class] the job class
-    # @example Call the view_path method for ExportCitations
-    #   Datasets::AnalysisTask.job_class('ExportCitations').view_path(...)
     def self.job_class(class_name)
       "Jobs::Analysis::#{class_name}".safe_constantize.tap do |klass|
         if klass.nil? || klass == Jobs::Analysis::Base
@@ -73,10 +70,7 @@ module Datasets
 
     # Convert #job_type into a class object
     #
-    # @api public
     # @return [Class] the job class
-    # @example Call the view_path method for this task
-    #   task.job_class.view_path(...)
     def job_class
       self.class.job_class(job_type)
     end
@@ -86,11 +80,7 @@ module Datasets
     # This returns the current status hash for the job, defined by
     # resque-status.
     #
-    # @api public
     # @return [OpenStruct] the status information for the job
-    # @example Print the progress message
-    #   puts task.status.message
-    #   # => 'Working on it...'
     def status
       Resque::Plugins::Status::Hash.get(resque_key)
     end
@@ -100,7 +90,6 @@ module Datasets
     # This hook will set the finished attribute on the job and send a
     # notification e-mail to the user.
     #
-    # @api private
     # @return [void]
     def finish!
       # Make sure the task is saved, setting 'finished_at'

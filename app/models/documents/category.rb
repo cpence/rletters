@@ -33,7 +33,6 @@ module Documents
     # a new category is created.  We want to prune that before the object is
     # saved.
     #
-    # @api private
     # @return [void]
     def clean_journals
       journals.delete('')

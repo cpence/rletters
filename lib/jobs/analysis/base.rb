@@ -61,7 +61,6 @@ module Jobs
       # This handles the i18n scoping for analysis job classes.  It will
       # pass fully scoped translation keys along unaltered.
       #
-      # @api public
       # @param [String] key the translation to look up (e.g., '.short_desc')
       # @param [Hash] opts the options for the translation
       # @return [String] the translated message
@@ -89,15 +88,7 @@ module Jobs
       # task results will point to the 'results' view for this job.  Override
       # this method to return false if you want to use the 'results' view.
       #
-      # @api public
       # @return [Boolean] true if task produces a download, false otherwise
-      # @example Get a link to the results of a task
-      #   if task.job_class.download?
-      #     link_to '', datasets_analysis_task_path(dataset, task)
-      #   else
-      #     link_to '', datasets_analysis_task_path(dataset, task,
-      #                                             view: 'results')
-      #   end
       def self.download?
         true
       end
@@ -108,12 +99,7 @@ module Jobs
       # and returns them in a list so that we may loop over them (e.g., when
       # including all job-start markup).
       #
-      # @api public
       # @return [Array<Class>] array of class objects
-      # @example Render the 'start' view for all jobs
-      #   Jobs::Analysis::Base.job_list.each do |klass|
-      #     render template: klass.view_path('start'), ...
-      #   end
       def self.job_list
         # Get all the classes defined in the Jobs::Analysis module
         analysis_files = Dir[Rails.root.join('lib',
@@ -145,14 +131,8 @@ module Jobs
       # different analysis job tasks.  This is intended to support pieces of
       # functionality that will be shared across many different job types.
       #
-      # @api public
       # @param [String] concern the concern to mix in
       # @return [void]
-      # @example Mix the 'Normalization' concern into this job class
-      #   class MyJob < Jobs::Analysis::Base
-      #     add_concern 'Normalization'
-      #     # ...
-      #   end
       def self.add_concern(concern)
         # Protect against calling this more than once, though that would be
         # really daft
@@ -179,11 +159,7 @@ module Jobs
       # When a job mixes in a concern, this method also supports the addition
       # of concern views.
       #
-      # @api public
       # @return [Array<String>] the template directories to be added
-      # @example Get the path to the ExportCitations views
-      #   Jobs::Analysis::ExportCitations.view_paths
-      #   # => ['#{Rails.root}/lib/jobs/analysis/views/export_citations']
       def self.view_paths
         # This turns 'Jobs::Analysis::ExportCitations' into 'export_citations'
         class_name = name.demodulize.underscore
@@ -233,7 +209,6 @@ module Jobs
 
       # Returns true if the given view exists for this job class
       #
-      # @api public
       # @param [String] view the view to search for
       # @param [String] format the format to search for
       # @return [Boolean] true if the given job has the view requested
@@ -254,7 +229,6 @@ module Jobs
       # If any of those three variables is absent or invalid, this function
       # will throw an exception.
       #
-      # @api private
       # @return [undefined]
       def standard_options!
         options.clean_options!

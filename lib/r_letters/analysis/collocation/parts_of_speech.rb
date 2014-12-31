@@ -22,13 +22,9 @@ module RLetters
         #
         # Then, we sort by frequency of occurrence and take the top matches.
         #
-        # @api public
         # @return [Array<Array(String, Float)>] a set of words and their
         #   associated significance values, sorted in order of significance
         #   (most significant first)
-        # @example Run a parts-of-speecgh analysis of a dataset
-        #   an = RLetters::Analysis::Collocation::PartsOfSpeech.new(d, 30)
-        #   result = an.call
         def call
           if Admin::Setting.nlp_tool_path.blank?
             fail ArgumentError, 'NLP tool not available'

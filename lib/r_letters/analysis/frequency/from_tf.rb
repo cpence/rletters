@@ -69,7 +69,6 @@ module RLetters
         # This function converts +@tf_in_dataset+ into a single block for the
         # entire dataset.
         #
-        # @api private
         # @return [void]
         def single_block_analysis
           # Just copy everything out, rejecting any words not in the list to
@@ -88,7 +87,6 @@ module RLetters
         # This function creates blocks for each of the documents in the
         # dataset, including only the words specified in +@word_list+.
         #
-        # @api private
         # @param [Proc] progress If set, a function to call with a percentage
         #   of completion (one Integer parameter)
         # @return [void]
@@ -141,7 +139,6 @@ module RLetters
         # Note that there is no such thing as +tf_in_corpus+, as this would be
         # incredibly, prohibitively expensive and is not provided by Solr.
         #
-        # @api private
         # @param [Proc] progress If set, a function to call with a percentage
         #   of completion (one Integer parameter)
         # @return [void]

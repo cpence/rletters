@@ -5,11 +5,6 @@ module RLetters
     module Advanced
       # @return [Hash<String, Symbol>] a list of advanced search fields and
       #   their corresponding label strings
-      # @api public
-      # @example Create a select tag for the available advanced search fields
-      #   select_tag(:field,
-      #     options_for_select(RLetters::Solr::Advanced.search_fields),
-      #     class: 'form-control')
       def self.search_fields
         {
           Document.human_attribute_name(:fulltext) + ' ' +
@@ -34,7 +29,6 @@ module RLetters
 
       # Convert an advanced search field and value pair to a Solr query
       #
-      # @api public
       # @param [String] field the advanced search field
       # @param [String] value the search string
       # @param [String] boolean the boolean to combine the next search with
@@ -67,7 +61,6 @@ module RLetters
 
       # Convert from a passed field parameter to a Solr field parameter
       #
-      # @api private
       # @return [Symbol] the Solr field to search
       def self.parse_field(field)
         return 'year' if field == 'year_ranges'
@@ -89,7 +82,6 @@ module RLetters
       # AND query. This also utilizes the Lucene name functions we've defined
       # elsewhere.
       #
-      # @api private
       # @param [String] value the authors search string
       # @return [String] the Solr query for this list of authors
       def self.authors_query(value)
@@ -103,7 +95,6 @@ module RLetters
 
       # Get the query string matching the given array of year ranges.
       #
-      # @api private
       # @param [String] year_ranges the list of year ranges
       # @return [String] query string for this set of year ranges
       def self.year_ranges_query(year_ranges)

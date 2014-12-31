@@ -7,7 +7,6 @@
 class ErrorsController < ApplicationController
   # Render a 404 error page
   #
-  # @api public
   # @return [void]
   def not_found
     respond_to do |format|
@@ -21,7 +20,6 @@ class ErrorsController < ApplicationController
   # This isn't tested, as I can't figure out a way to programmatically generate
   # a 422 error in an RSpec request spec.
   #
-  # @api public
   # @return [void]
   # :nocov:
   def unprocessable
@@ -34,7 +32,6 @@ class ErrorsController < ApplicationController
 
   # Render a 500 error page
   #
-  # @api public
   # @return [void]
   def internal_error
     render(template: 'errors/500', layout: false,

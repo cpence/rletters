@@ -16,7 +16,6 @@ class SearchController < ApplicationController
   # `search_params_to_solr_query`, then sends this solr query on to the
   # server using `RLetters::Solr::Connection.search`.
   #
-  # @api public
   # @return [void]
   def index
     page = params[:page].to_i.lbound(0)
@@ -42,7 +41,6 @@ class SearchController < ApplicationController
 
   # Show the advanced search page
   #
-  # @api public
   # @return [void]
   def advanced
     @search_fields = RLetters::Solr::Advanced.search_fields
@@ -57,12 +55,8 @@ class SearchController < ApplicationController
   # handles converting them to the query format expected by Solr.  Primarily,
   # it is intended to support the advanced search page.
   #
-  # @api private
   # @param [Hash] params the Rails params object
   # @return [Hash] Solr-format query parameters
-  # @example Convert an advanced search to Solr format
-  #   search_params_to_solr_query({ precise: 'true', title: 'test' })
-  #   # => { :def_type => 'lucene', :q => 'title:"test"' }
   def search_params_to_solr_query(params)
     # Remove any blank values (you get these on form submissions, for
     # example)

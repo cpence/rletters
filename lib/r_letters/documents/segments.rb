@@ -11,7 +11,6 @@ module RLetters
 
       # Create a new block
       #
-      # @api public
       # @param [Array<String>] words The list of words in this block
       # @param [String] name A user-friendly name for this block
       # @return [Block] A new block object
@@ -41,7 +40,6 @@ module RLetters
 
       # Split some number of documents into text segments
       #
-      # @api public
       # @param word_list [RLetters::Documents::WordList] a word list generator
       #   to use (if +nil+, create default)
       # @param [Hash] options options for the text segmentation
@@ -86,7 +84,6 @@ module RLetters
       #
       # Delete all blocks and clear to original configuration
       #
-      # @api public
       # @return [void]
       def reset!
         @words_for_last = []
@@ -100,7 +97,6 @@ module RLetters
       # all of them in at once.  This keeps us from using twice the memory that
       # we otherwise would by reading in and *then* splitting.
       #
-      # @api public
       # @param [String] uid the UID of the document to add to the segmenter
       # @return [void]
       def add(uid)
@@ -115,7 +111,6 @@ module RLetters
       # are splitting by the *number* of blocks, that splitting is done here, as
       # we don't know how big the blocks will be until we're finished.
       #
-      # @api public
       # @return [Array<Block>] a list of blocks of words for these documents
       def blocks
         @num_blocks > 0 ? blocks_for_num_blocks :
@@ -126,7 +121,6 @@ module RLetters
 
       # Add a list of words to the blocks (for a given number of blocks)
       #
-      # @api private
       # @param [Array<String>] words the word list to add to the blocks
       # @return [void]
       def add_for_num_blocks(words)
@@ -137,7 +131,6 @@ module RLetters
 
       # Add a list of words to the blocks (for a given block size)
       #
-      # @api private
       # @param [Array<String>] words the word list to add to the blocks
       # @return [void]
       def add_for_block_size(words)
@@ -175,7 +168,6 @@ module RLetters
 
       # Get the list of blocks (for a given number of blocks)
       #
-      # @api private
       # @return [Array<Array<String>>] the blocks for this segmenter
       def blocks_for_num_blocks
         # Don't create blocks if we have no words
@@ -190,7 +182,6 @@ module RLetters
 
       # Get the list of blocks (for a given block size)
       #
-      # @api private
       # @return [Array<Array<String>>] the blocks for this segmenter
       def blocks_for_block_size
         # We're already done with the last block behavior, if we wanted a small

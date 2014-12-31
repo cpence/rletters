@@ -16,7 +16,6 @@ class UnapiController < ApplicationController
   # RSpec tests for this controller, which implement a full unAPI validation
   # suite.
   #
-  # @api public
   # @return [void]
   def index
     if params[:id].blank?

@@ -9,17 +9,10 @@ module RLetters
       # you'd like to draw the term from (or `nil` to indicate the entire
       # corpus).
       #
-      # @api public
       # @param [String] term the term of interest
       # @param [Dataset] dataset the dataset to analyze (or `nil`)
       # @param [Proc] progress If set, a function to call with a percentage of
       #   completion (one `Integer` parameter)
-      # @example Create a new analyzer to count 'test' in the whole corpus
-      #   analyzer = RLetters::Analysis::CountTermsByField.new(
-      #     'test',
-      #     nil,
-      #     ->(p) { puts "PROGRESS IS NOW #{p}%" }
-      #   )
       def initialize(term, dataset = nil, progress = nil)
         @term = term
         @dataset = dataset
@@ -39,9 +32,6 @@ module RLetters
       #
       # @param [Symbol] field field to group by
       # @return [Hash<String, Integer>] number of documents in each grouping
-      # @example Group a dataset by year of publication
-      #   RLetters::Analysis::CountArticlesByField.new(dataset).counts_for(:year)
-      #   # => { '1940' => 3, '1941' => 5, ... }
       def counts_for(field)
         uids = @dataset ? grouped_uids_dataset(@dataset, field) :
                           grouped_uids_corpus(field)
@@ -53,7 +43,6 @@ module RLetters
 
       # Group the UIDs in a dataset manually by field
       #
-      # @api private
       # @param [Dataset] dataset set to group
       # @param [Symbol] field field to group by
       # @return [Hash<String, Array<String>>] list of UIDs for each group
@@ -77,7 +66,6 @@ module RLetters
 
       # Group the UIDs in the entire corpus by field
       #
-      # @api private
       # @param [Symbol] field field to group by
       # @return [Hash<String, Array<String>>] list of UIDs for each group
       def grouped_uids_corpus(field)
@@ -160,7 +148,6 @@ module RLetters
       #
       # This implements support for strange year values.
       #
-      # @api private
       # @param [Document] doc the Solr document
       # @param [Symbol] field the field for grouping
       # @return [String] the field value
@@ -178,7 +165,6 @@ module RLetters
       # Query all the documents listed, get their counts for the term of
       # interest, and return them as a new hash.
       #
-      # @api private
       # @param [Hash<String, Array<String>>] uids the grouped UIDs to fetch
       # @return [Hash<String, Integer>] grouped term counts by field
       def uids_to_term_counts(uids)

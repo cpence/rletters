@@ -14,11 +14,6 @@ module Jobs
       # @option options [String] :task_id the analysis task we're working from
       # @option options [String] :word the focal word to analyze
       # @return [void]
-      # @example Start a job for examining a word network
-      #   Jobs::Analysis::Collocation.create(user_id: current_user.to_param,
-      #                                      dataset_id: dataset.to_param,
-      #                                      task_id: task.to_param,
-      #                                      word: 'test')
       def perform
         at(0, 1, t('common.progress_initializing'))
         standard_options!

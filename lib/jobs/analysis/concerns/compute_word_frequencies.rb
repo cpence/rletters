@@ -103,7 +103,6 @@ module Jobs
         # Since the params are coming in from a form, they'll all be strings.
         # We need them as integer or boolean types, so convert them here.
         #
-        # @api private
         # @param [Hash] args the original arguments to the job
         # @return [Hash] args the arguments, with typecast parameters
         def convert_args!(args)

@@ -43,6 +43,8 @@ module RLetters
       end
 
       # Reset the dataset segmenter
+      #
+      # @return [undefined]
       def reset!
         @dfs = {}
         @document_segmenter.reset!
@@ -55,7 +57,6 @@ module RLetters
       # This function piecewise constructs the word frequency in dataset for
       # a given document
       #
-      # @api private
       # @param [Array<String>] words the words in one of the dataset's
       #   documents
       # @return [void]
@@ -68,7 +69,6 @@ module RLetters
 
       # Perform text segmentation, for splitting across documents
       #
-      # @api private
       # @param [Proc] progress If set, a function to call with a percentage of
       #   completion (one Integer parameter)
       # @return [Array<RLetters::Documents::Block>] the text segments
@@ -94,7 +94,6 @@ module RLetters
 
       # Perform text segmentation, for splitting within documents
       #
-      # @api private
       # @param [Proc] progress If set, a function to call with a percentage of
       #   completion (one Integer parameter)
       # @return [Array<RLetters::Documents::Block>] the text segments

@@ -6,7 +6,6 @@
 class ListsController < ApplicationController
   # Build a list of authors
   #
-  # @api [public]
   # @return [void]
   def authors
     @list = list_for(:authors, :authors_facet)
@@ -15,7 +14,6 @@ class ListsController < ApplicationController
 
   # Build a list of journals
   #
-  # @api [public]
   # @return [void]
   def journals
     @list = list_for(:journal, :journal_facet)
@@ -28,7 +26,6 @@ class ListsController < ApplicationController
   #
   # We search one field and facet on another, so we have to pass both here.
   #
-  # @api private
   # @param [String] search_field the field to search the partial query on
   # @param [String] facet_field the field to return faceted results from
   # @return [Array<String>] the list of results
@@ -47,7 +44,6 @@ class ListsController < ApplicationController
 
   # Get the Solr query for a partial search for the given filter
   #
-  # @api private
   # @param [String] field the field to search on
   # @param [String] filter the partial query to search for
   # @return [Hash] the Solr query parameters

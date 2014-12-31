@@ -13,7 +13,6 @@ module RLetters
       class Base
         # Create a new collocation analyzer
         #
-        # @api public
         # @param [Dataset] dataset the dataset to analyze
         # @param [Integer] num_pairs the number of collocations to return
         # @param [String] focal_word if set, all collocations returned will
@@ -32,13 +31,9 @@ module RLetters
         # Don't call this on the base class, but on one of the child classes
         # that implements a pair-scoring method.
         #
-        # @api public
         # @return [Array<Array(String, Float)>] a set of words and their
         #   associated significance values, sorted in order of significance
         #   (most significant first)
-        # @example Run a log-likelihood analysis of a dataset
-        #   an = RLetters::Analysis::Collocation::LogLikelihood.new(d, 30)
-        #   result = an.call
         def call
           an = analyzers
 
@@ -76,7 +71,6 @@ module RLetters
         # use frequency information from each for comparison.  This function
         # builds those two analyzers.
         #
-        # @api private
         # @return [Array<RLetters::Analysis::Frequency::Base>] two analyzers,
         #   first one-gram and second bi-gram
         def analyzers

@@ -3,7 +3,7 @@
 class UserMailerPreview < ActionMailer::Preview
   # Preview the job finished e-mail
   #
-  # @api private
+  # @return [undefined]
   def job_finished
     user = User.first || FactoryGirl.build_stubbed(:user)
     dataset = Dataset.where(user_id: user.to_param).first ||

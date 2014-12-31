@@ -7,7 +7,6 @@ module Users
     # We override this method in order to set some default parameters that
     # are only available at the time of the request.
     #
-    # @api public
     # @return [void]
     def new
       # Override the default value for language, if the user has set one in

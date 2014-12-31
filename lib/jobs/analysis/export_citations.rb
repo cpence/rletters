@@ -8,7 +8,6 @@ module Jobs
     class ExportCitations < Jobs::Analysis::Base
       # Export the dataset
       #
-      # @api public
       # @param [Hash] options parameters for this job
       # @option options [String] :user_id the user whose dataset we are to
       #   work on
@@ -16,12 +15,6 @@ module Jobs
       # @option options [String] :task_id the analysis task we're working from
       # @option options [String] :format the format in which to export
       # @return [void]
-      # @example Start a job for exporting a datset as JSON
-      #   Jobs::Analysis::ExportCitations.create(
-      #     user_id: current_user.to_param,
-      #     dataset_id: dataset.to_param,
-      #     task_id: task.to_param,
-      #     format: 'json')
       def perform
         at(0, 1, t('common.progress_initializing'))
         standard_options!

@@ -12,11 +12,7 @@ module RLetters
 
       # Returns the URL parameters for an OpenURL query for this document
       #
-      # @api public
       # @return [String] article as OpenURL parameters
-      # @example Get a link to the given document in WorldCat
-      #   "http://worldcatlibraries.org/registry/gateway?" +
-      #     RLetters::Documents::AsOpenUrl.new(@document).params
       def params
         params = 'ctx_ver=Z39.88-2004&rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&rft.genre=article'
         params << "&rft_id=info:doi%2F#{CGI.escape(@doc.doi)}" if @doc.doi

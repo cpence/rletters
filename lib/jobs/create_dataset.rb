@@ -1,4 +1,5 @@
 
+# Namespace which contains all background job code
 module Jobs
   # Create a dataset from a Solr query for a given user
   #
@@ -16,7 +17,6 @@ module Jobs
 
     # Create a dataset for the user (filling in an extant template)
     #
-    # @api public
     # @param [Hash] options the arguments for this job
     # @option options [String] :user_id the user that created this dataset
     # @option options [String] :dataset_id the dataset to fill in
@@ -25,14 +25,6 @@ module Jobs
     #   this search
     # @option options [String] :def_type parser type for this search
     # @return [void]
-    # @example Start a job for creating a dataset
-    #   dataset = users(:john).datasets.create(disabled: true,
-    #                                          name: 'A Dataset')
-    #   Jobs::CreateDataset.create(user_id: users(:john).to_param,
-    #                              dataset_id: dataset.to_param,
-    #                              q: '*:*'
-    #                              fq: ['authors_facet:"Shatner"'],
-    #                              def_type: 'lucene')
     def perform
       options.symbolize_keys!
       at(0, 1, I18n.t('common.progress_initializing'))

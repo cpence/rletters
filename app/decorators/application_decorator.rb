@@ -7,6 +7,8 @@ class ApplicationDecorator < Draper::Decorator
   protected
 
   # Render the Bootstrap close icon
+  #
+  # @return [String] the HTML markup for the Bootstrap close icon
   def close_icon
     '&nbsp;&nbsp;'.html_safe +
       h.content_tag(:button, class: 'close', type: 'button') do

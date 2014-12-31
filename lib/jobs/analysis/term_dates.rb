@@ -9,7 +9,6 @@ module Jobs
       # file and then sends it to the user in various formats depending on
       # user selectons.
       #
-      # @api public
       # @param [Hash] options parameters for this job
       # @option options [String] :user_id the user whose dataset we are to
       #   work on
@@ -17,11 +16,6 @@ module Jobs
       # @option options [String] :task_id the analysis task we're working from
       # @option options [String] :term the focal word to analyze
       # @return [void]
-      # @example Start a job for plotting a dataset by year
-      #   Jobs::Analysis::TermDates.create(user_id: current_user.to_param,
-      #                                    dataset_id: dataset.to_param,
-      #                                    task_id: task.to_param,
-      #                                    term: 'test')
       def perform
         at(0, 100, t('common.progress_initializing'))
         standard_options!

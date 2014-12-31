@@ -11,7 +11,6 @@ class DocumentsController < ApplicationController
   # with one of the MIME types we can export, and you will get a citation
   # export back, as a download.
   #
-  # @api public
   # @return [void]
   def export
     @document = Document.find(params[:uid])
@@ -40,7 +39,6 @@ class DocumentsController < ApplicationController
 
   # Redirect to the Citeulike page for a document
   #
-  # @api public
   # @return [void]
   def citeulike
     @document = Document.find(params[:uid])

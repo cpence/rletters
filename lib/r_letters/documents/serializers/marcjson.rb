@@ -7,7 +7,6 @@ module RLetters
       class MARCJSON
         # Create a serializer
         #
-        # @api public
         # @param document_or_array [Document Array<Document>] a document or
         #   array of documents to serialize
         def initialize(document_or_array)
@@ -33,13 +32,7 @@ module RLetters
         # MARC in JSON is the newest and shiniest way to transmit MARC records.
         #
         # @note No tests for this method, as it is implemented by the MARC gem.
-        # @api public
         # @return [String] document in MARC JSON format
-        # @example Download this document as a MARC-JSON file
-        #   controller.send_data(
-        #     RLetters::Documents::Serializers::MARCJSON.new(doc),
-        #     filename: 'export.json', disposition: 'attachment'
-        #   )
         # :nocov
         def serialize
           if @doc.is_a? Enumerable

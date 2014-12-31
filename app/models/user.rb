@@ -73,11 +73,7 @@ class User < ActiveRecord::Base
 
   # Convert the `csl_style_id` to a CslStyle (or nil)
   #
-  # @api public
   # @return [Users::CslStyle] the user's CSL style (or nil)
-  # @example Format a document with a user's CSL style
-  #   RLetters::Documents::AsCSL.new(@doc).entry(@user.csl_style)
-  #   # Note: Do *not* call entry() with @user.csl_style_id, it will fail!
   def csl_style
     Users::CslStyle.find_by(id: csl_style_id)
   end
@@ -119,7 +115,6 @@ class User < ActiveRecord::Base
   # entire list of dataset entries, which is massive.  This pair of callbacks
   # prevents that, by converting to a simple array of ids on save.
   #
-  # @api private
   # @return [void]
   def workflow_datasets_to_ids
     workflow_datasets.map!(&:to_param) if workflow_datasets
@@ -131,7 +126,6 @@ class User < ActiveRecord::Base
   # entire list of dataset entries, which is massive.  This pair of callbacks
   # prevents that, by converting to a simple array of ids on save.
   #
-  # @api private
   # @return [void]
   def workflow_datasets_from_ids
     workflow_datasets.map! { |id| datasets.find(id) } if workflow_datasets

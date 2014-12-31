@@ -10,7 +10,6 @@ module RLetters
       class FromPosition < RLetters::Analysis::Frequency::Base
         # Create a new word frequency analyzer and analyze
         #
-        # @api public
         # @param [RLetters::Datasets::Segments] dataset_segments A segmenter
         #   for the dataset to analyze
         # @param [Proc] progress If set, a function to call with a percentage
@@ -108,7 +107,6 @@ module RLetters
         # Note that there is no such thing as +tf_in_corpus+, as this would be
         # incredibly, prohibitively expensive and is not provided by Solr.
         #
-        # @api private
         # @return [void]
         def compute_df_tf
           @tf_in_dataset = {}

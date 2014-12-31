@@ -11,7 +11,6 @@ module Users
 
     # Display the list of the user's libraries
     #
-    # @api public
     # @return [void]
     def index
       @libraries = current_user.libraries
@@ -20,7 +19,6 @@ module Users
 
     # Show the form for creating a new library link
     #
-    # @api public
     # @return [void]
     def new
       @library = current_user.libraries.build
@@ -29,7 +27,6 @@ module Users
 
     # Show the form for editing a library link
     #
-    # @api public
     # @return [void]
     def edit
       @library = current_user.libraries.find(params[:id])
@@ -38,7 +35,6 @@ module Users
 
     # Create a new library link in the database
     #
-    # @api public
     # @return [void]
     def create
       @library = Users::Library.new(library_params)
@@ -55,7 +51,6 @@ module Users
 
     # Update the attributes of a library link in the database
     #
-    # @api public
     # @return [void]
     def update
       @library = current_user.libraries.find(params[:id])
@@ -71,7 +66,6 @@ module Users
 
     # Delete a library link from the database
     #
-    # @api public
     # @return [void]
     def destroy
       @library = current_user.libraries.find(params[:id])
@@ -87,7 +81,6 @@ module Users
     # This function sets `@libraries` to the list of all available libraries
     # for the client's IP address, according to the WorldCat library database.
     #
-    # @api public
     # @return [void]
     def query
       @libraries = []
@@ -116,7 +109,6 @@ module Users
 
     # Whitelist acceptable library parameters
     #
-    # @api private
     # @return [ActionController::Parameters] acceptable parameters for
     #   mass-assignment
     def library_params

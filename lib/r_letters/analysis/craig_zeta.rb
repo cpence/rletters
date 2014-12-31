@@ -27,13 +27,10 @@ module RLetters
 
       # Create a new object for detecting Craig Zeta marker words
       #
-      # @api public
       # @param [Dataset] dataset_1 the first dataset to compare
       # @param [Dataset] dataset_2 the second dataset to compare
       # @param [Proc] progress If set, a function to call with a percentage of
       #   completion (one `Integer` parameter)
-      # @example Create a new analyzer to determine marker words
-      #   analyzer = RLetters::Analysis::CraigZeta.new(set_a, set_b)
       def initialize(dataset_1, dataset_2, progress = nil)
         @dataset_1 = dataset_1
         @dataset_2 = dataset_2
@@ -44,8 +41,7 @@ module RLetters
       #
       # All results are returned in the member attributes.
       #
-      # @api public
-      # @return undefined
+      # @return [undefined]
       def call
         create_analyzers
         compute_block_counts
@@ -64,7 +60,6 @@ module RLetters
       # This function sets the instance variables +@analyzer_1+ and
       # +@analyzer_2+, corresponding to the two datasets.
       #
-      # @api private
       # @return [undefined]
       def create_analyzers
         ds = RLetters::Documents::Segments.new(nil,
@@ -89,7 +84,6 @@ module RLetters
       # The instance variable +@block_counts+ will be filled in with the
       # number of 500-word blocks in which each word in the dataset appears.
       #
-      # @api private
       # @return [undefined]
       def compute_block_counts
         @progress && @progress.call(50)
@@ -120,7 +114,6 @@ module RLetters
       # sorted descending. The first and last 1000 marker words will be saved
       # in +@dataset_1_markers+ and +@dataset_2_markers+.
       #
-      # @api private
       # @return [undefined]
       def compute_zeta_scores
         zeta_hash = {}
@@ -156,7 +149,6 @@ module RLetters
       # dataset 2. That gives you an X-Y coordinate for a point, which when
       # graphed shows you the separation between the datasets.
       #
-      # @api private
       # @return [undefined]
       def compute_graph_points
         @progress && @progress.call(80)

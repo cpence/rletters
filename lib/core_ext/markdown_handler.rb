@@ -3,7 +3,6 @@
 #
 # This handler supports compiled ERB within Markdown templates, as well.
 module MarkdownHandler
-  # @api private
   # @return [Module] the ERB template handler
   def self.erb
     @erb ||= ActionView::Template.registered_template_handler(:erb)
@@ -11,7 +10,6 @@ module MarkdownHandler
 
   # Render a Markdown template
   #
-  # @api private
   # @param [String] template the Markdown/ERB source to render
   # @return [String] the HTML source
   def self.call(template)

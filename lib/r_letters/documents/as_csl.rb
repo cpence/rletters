@@ -19,12 +19,7 @@ module RLetters
 
       # Returns a hash representing the article in CSL format
       #
-      # @api public
       # @return [Hash] article as a CSL record
-      # @example Get the CSL entry for a given document
-      #   doc = Document.new(...)
-      #   RLetters::Documents::AsCSL.new(doc).hash
-      #   # => { 'type' => 'article-journal', 'author' => ... }
       def citeproc_item
         item = CiteProc::Item.new(id: @doc.uid, type: 'article-journal')
 
@@ -50,12 +45,8 @@ module RLetters
       # Takes a document and converts it to a bibliographic entry in the
       # specified style using CSL.
       #
-      # @api public
       # @param [CslStyle] style CSL style to use
       # @return [String] bibliographic entry in the given style
-      # @example Convert a given document to Chicago author-date format
-      #   RLetters::Documents::AsCSL.new(doc).entry(csl_style)
-      #   # => "Doe, John. 2000. ..."
       def entry(style)
         processor = CiteProc::Processor.new(style: style.style, format: 'html')
 

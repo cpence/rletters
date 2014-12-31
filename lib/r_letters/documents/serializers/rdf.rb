@@ -8,7 +8,6 @@ module RLetters
       class RDF
         # Create a serializer
         #
-        # @api public
         # @param document [Document] a document to serialize
         def initialize(document)
           @doc = document
@@ -25,12 +24,7 @@ module RLetters
         # to encode journal articles in DC is in serious flux, but this should
         # provide a reasonable solution.
         #
-        # @api public
         # @return [RDF::Graph] document as a RDF graph
-        # @example Convert this document to RDF-Turtle
-        #   RDF::Writer.for(:turtle).buffer do |writer|
-        #     writer << RLetters::Documents::Serializers::RDF.new(doc)
-        #   end
         def serialize
           graph = ::RDF::Graph.new
           doc = ::RDF::Node.new

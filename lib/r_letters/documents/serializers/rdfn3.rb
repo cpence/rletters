@@ -8,7 +8,6 @@ module RLetters
       class RDFN3
         # Create a serializer
         #
-        # @api public
         # @param document_or_array [Document Array<Document>] a document or
         #   array of documents to serialize
         def initialize(document_or_array)
@@ -32,13 +31,7 @@ module RLetters
         # Returns this document as RDF+N3
         #
         # @note No tests for this method, as it is implemented by the RDF gem.
-        # @api public
         # @return [String] document in RDF+N3 format
-        # @example Download this document as a n3 file
-        #   controller.send_data(
-        #     RLetters::Documents::Serializers::RDFN3.new(doc).serialize,
-        #     filename: 'export.n3', disposition: 'attachment'
-        #   )
         # :nocov:
         def serialize
           ::RDF::Writer.for(:n3).buffer do |writer|

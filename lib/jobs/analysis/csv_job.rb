@@ -12,7 +12,6 @@ module Jobs
       # data, and then saves the file. The two parameters let you override the
       # default header and subheader.
       #
-      # @api public
       # @param [String] header The header to write. If not specified, defaults
       #   to +t('.header', name: @dataset.name)+.
       # @param [String] subheader The subheader to write. If not specified,
@@ -40,7 +39,6 @@ module Jobs
       # This function calls +write_csv+ and then saves the result into the task
       # as its downloadable result file.
       #
-      # @api public
       # @param [String] header The header to write. If not specified, defaults
       #   to +t('.header', name: @dataset.name)+.
       # @param [String] subheader The subheader to write. If not specified,

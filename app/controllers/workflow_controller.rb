@@ -10,7 +10,6 @@ class WorkflowController < ApplicationController
 
   # Show the introduction page or the user dashboard
   #
-  # @api public
   # @return [void]
   def index
     @database_size = RLetters::Solr::CorpusStats.new.size || 0
@@ -24,14 +23,12 @@ class WorkflowController < ApplicationController
 
   # Start running a new analysis
   #
-  # @api public
   # @return [void]
   def start
   end
 
   # Destroy the currently building analysis, leaving workflow mode
   #
-  # @api public
   # @return [void]
   def destroy
     current_user.workflow_active = false
@@ -44,7 +41,6 @@ class WorkflowController < ApplicationController
 
   # Show information about a job
   #
-  # @api public
   # @return [void]
   def info
     set_workflow_parameters
@@ -52,7 +48,6 @@ class WorkflowController < ApplicationController
 
   # Get the user to collect datasets for a job
   #
-  # @api public
   # @return [void]
   def activate
     set_workflow_parameters
@@ -82,7 +77,6 @@ class WorkflowController < ApplicationController
 
   # Allow the user to pick up data from all of their analysis tasks
   #
-  # @api public
   # @return [void]
   def fetch
     analysis_criteria = {
@@ -140,7 +134,6 @@ class WorkflowController < ApplicationController
 
   # Return one of the uploaded-asset images
   #
-  # @api public
   # @return [void]
   def image
     model = Admin::UploadedAsset.find(params[:id])
@@ -153,7 +146,6 @@ class WorkflowController < ApplicationController
 
   # Get the current workflow details from the params
   #
-  # @api private
   # @return [void]
   def set_workflow_parameters
     fail ActiveRecord::RecordNotFound unless params[:class]

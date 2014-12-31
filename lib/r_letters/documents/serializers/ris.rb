@@ -6,7 +6,6 @@ module RLetters
       class RIS
         # Create a serializer
         #
-        # @api public
         # @param document_or_array [Document Array<Document>] a document or
         #   array of documents to serialize
         def initialize(document_or_array)
@@ -29,13 +28,7 @@ module RLetters
 
         # Returns this document as a RIS record
         #
-        # @api public
         # @return [String] document in RIS format
-        # @example Download this document as a ris file
-        #   controller.send_data(
-        #     RLetters::Documents::Serializers::RIS.new(doc).serialize,
-        #     filename: 'export.ris', disposition: 'attachment'
-        #   )
         def serialize
           if @doc.is_a? Enumerable
             @doc.map { |d| do_serialize(d) }.join
@@ -48,7 +41,6 @@ module RLetters
 
         # Do the serialization for an individual document
         #
-        # @api private
         # @param [Document] doc the document to serialize
         # @return [String] single document serialized to RIS format
         def do_serialize(doc)

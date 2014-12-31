@@ -59,11 +59,7 @@ module RLetters
       # provided), and last names.  It also takes into account the possiblity
       # of the user providing a compact string of initials.
       #
-      # @api public
-      # @param [String] a the name to split
       # @return [String] the Lucene query for this author name
-      # @example Add a Lucene query for W. Shatner
-      #   params[:q] += "authors:(#{author.to_lucene})"
       def to_lucene
         # Construct the last name we'll use, which is last name with von part
         # and suffix w/o period
@@ -117,7 +113,6 @@ module RLetters
       # 3. If multiple initials in a row are present, then we combine them into
       #    a single search term.
       #
-      # @api private
       # @param [Array<String>] first list of first/middle names to use
       # @param [String] last last name to use
       # @return [Array<String>] Lucene queries for this set of names

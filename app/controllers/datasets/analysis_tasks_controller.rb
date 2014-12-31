@@ -13,7 +13,6 @@ module Datasets
     # This list needs to be updated live, as the tasks are running in the
     # background, so this is rendered without a layout for AJAX purposes.
     #
-    # @api public
     # @return [void]
     def index
       render layout: false
@@ -23,7 +22,6 @@ module Datasets
     #
     # This action collects parameters and data for starting a new dataset.
     #
-    # @api public
     # @return [void]
     def new
       # Make sure we have enough other datasets, if those are required
@@ -40,7 +38,6 @@ module Datasets
     # This method dynamically determines the appropriate background job to start
     # and starts it.
     #
-    # @api public
     # @return [void]
     def create
       # Create an analysis task
@@ -84,7 +81,6 @@ module Datasets
     # If neither `params[:view]` nor a download is available, it will raise
     # `ActiveRecord::RecordNotFound`.
     #
-    # @api public
     # @return [void]
     def show
       if params[:view]
@@ -106,7 +102,6 @@ module Datasets
     #
     # This action deletes a given analysis task and its associated files.
     #
-    # @api public
     # @return [void]
     def destroy
       @task.destroy
@@ -120,7 +115,6 @@ module Datasets
 
     # Get the task, dataset, and class objects from the params
     #
-    # @api private
     # @return [void]
     def set_task
       @dataset = current_user.datasets.active.find(params[:dataset_id])
@@ -130,7 +124,6 @@ module Datasets
 
     # Get the current parameters hash from the params
     #
-    # @api private
     # @return [void]
     def set_current_params
       @current_params = params[:job_params].to_hash if params[:job_params]
@@ -140,7 +133,6 @@ module Datasets
 
     # Render a job view, given the class name and view name
     #
-    # @api private
     # @param [Class] klass the job class
     # @param [String] view the view to render
     # @param [String] format the file format for the view (e.g., `csv` or `html`)

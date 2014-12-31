@@ -12,7 +12,6 @@ class DatasetsController < ApplicationController
 
   # Show all of the current user's datasets
   #
-  # @api public
   # @return [void]
   def index
     @datasets = current_user.datasets.active
@@ -31,7 +30,6 @@ class DatasetsController < ApplicationController
   # This action also includes links for users to perform various analysis
   # tasks on the dataset.
   #
-  # @api public
   # @return [void]
   def show
     @dataset = current_user.datasets.active.find(params[:id])
@@ -46,7 +44,6 @@ class DatasetsController < ApplicationController
 
   # Show the form for creating a new dataset
   #
-  # @api public
   # @return [void]
   def new
     @dataset = current_user.datasets.build
@@ -55,7 +52,6 @@ class DatasetsController < ApplicationController
 
   # Create a new dataset in the database
   #
-  # @api public
   # @return [void]
   def create
     dataset = current_user.datasets.create(name: dataset_params[:name],
@@ -78,7 +74,6 @@ class DatasetsController < ApplicationController
 
   # Delete a dataset from the database
   #
-  # @api public
   # @return [void]
   def destroy
     @dataset = current_user.datasets.find(params[:id])
@@ -97,7 +92,6 @@ class DatasetsController < ApplicationController
   # in here is the UID of a single document to be added into the dataset.
   # Any other attempts to PATCH dataset attributes will be silently ignored.
   #
-  # @api public
   # @return [void]
   def update
     fail ActionController::ParameterMissing, :uid unless params[:uid]
@@ -120,7 +114,6 @@ class DatasetsController < ApplicationController
 
   # Whitelist acceptable dataset parameters
   #
-  # @api private
   # @return [ActionController::Parameters] acceptable parameters for
   #   mass-assignment
   def dataset_params

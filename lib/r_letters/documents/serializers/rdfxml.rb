@@ -8,7 +8,6 @@ module RLetters
       class RDFXML
         # Create a serializer
         #
-        # @api public
         # @param document_or_array [Document Array<Document>] a document or
         #   array of documents to serialize
         def initialize(document_or_array)
@@ -31,13 +30,7 @@ module RLetters
 
         # Returns this document as RDF+XML
         #
-        # @api public
         # @return [String] document in RDF+XML format
-        # @example Download this document as an XML file
-        #   controller.send_data(
-        #     RLetters::Documents::Serializers::RDFXML.new(doc).serialize,
-        #     filename: 'export.xml', disposition: 'attachment'
-        #   )
         def serialize
           doc = Nokogiri::XML::Document.new
           rdf = Nokogiri::XML::Node.new('rdf', doc)
@@ -59,7 +52,6 @@ module RLetters
 
         # Returns this document as an rdf:Description element
         #
-        # @api private
         # @param doc [Document] the document to serialize
         # @param xml_doc [Nokogiri::XML::Document] the XML document to add the
         #   node to

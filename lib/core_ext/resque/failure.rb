@@ -1,17 +1,18 @@
 require 'resque/failure/base'
 
-# A Resque failure class to set the failure bit on analysis tasks
+# Resque's namespace for all its code
 module Resque
+  # Resque's namespace for all failure adapters
   module Failure
+    # A Resque failure class to set the failure bit on analysis tasks
     class AnalysisTask < Base
       # Return the number of failures this adapter has logged
       #
       # We can't query the database to determine this, so just return Resque's
       # global number of failures (borrowed from the Airbrake adapter)
       #
-      # @api private
-      # @param [Symbol] queue unused
-      # @param [String] class_name unused
+      # @param [Symbol] _queue unused
+      # @param [String] _class unused
       # @return [Integer] number of failed tasks
       #
       # :nocov:
@@ -29,7 +30,6 @@ module Resque
       # failed, we have to look up the task object on Resque failure and set
       # the failure bit.  Do that here.
       #
-      # @api private
       # @return [void]
       def save
         klass = payload['class'].safe_constantize

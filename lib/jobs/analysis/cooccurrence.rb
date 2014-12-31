@@ -24,13 +24,6 @@ module Jobs
       # @option options [String] :word the word to search for cooccurrences
       #   with
       # @return [void]
-      # @example Start a job for locating cooccurrences
-      #   Jobs::Analysis::Cooccurrence.create(user_id: current_user.to_param,
-      #                                       dataset_id: dataset.to_param,
-      #                                       task_id: task.to_param,
-      #                                       analysis_type: 't',
-      #                                       num_pairs: '50',
-      #                                       word: 'evolutionary')
       def perform
         at(0, 100, t('common.progress_initializing'))
         standard_options!

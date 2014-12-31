@@ -38,7 +38,6 @@ module RLetters
       # This method breaks out the retrieval of a Solr response in order to
       # provide for easier testing.
       #
-      # @api public
       # @param [Hash] params
       # @option params [Integer] :start offset within the result set at which
       #   to begin returning documents
@@ -69,7 +68,6 @@ module RLetters
       #
       # Sometimes we don't want a cleaned up result, so just get the raw hash.
       #
-      # @api public
       # @param [Hash] params Solr query parameters
       # @return [Hash] Solr search result, unprocessed
       def self.search_raw(params)
@@ -91,7 +89,6 @@ module RLetters
       # This method retrieves information about the Solr server, including the
       # Solr and Java versions.
       #
-      # @api private
       # @return [Hash] Unprocessed Solr response
       def self.info
         ensure_connected!
@@ -107,9 +104,6 @@ module RLetters
       # failure.
       #
       # @return [Integer] latency of Solr connection
-      # @example Get the Solr latency
-      #   RLetters::Solr::Connection.ping
-      #   # => 6
       def self.ping
         ensure_connected!
 
@@ -130,7 +124,6 @@ module RLetters
       # administration console, this method has to watch the value of that URL
       # and reconnect to Solr when required.
       #
-      # @api private
       # @return [void]
       def self.ensure_connected!
         Connection.url ||= Admin::Setting.solr_server_url
@@ -148,7 +141,6 @@ module RLetters
       #
       # Read the appropriate settings and connect to the Solr server
       #
-      # @api private
       # @return [RSolr::Client] the Solr connection object
       def self.connect
         RSolr::Ext.connect(
@@ -163,7 +155,6 @@ module RLetters
       # We want to allow users to pass 'Ruby-esque' symbols to this class, so
       # coerce all of the parameter keys to Java-style 'lowerCamelCase' here.
       #
-      # @api private
       # @param [Hash] params the parameters to convert
       # @return [Hash] those parameters, converted from snake_case to camelCase
       def self.camelize_params!(params)

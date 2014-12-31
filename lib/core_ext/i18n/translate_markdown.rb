@@ -8,11 +8,8 @@ module I18n
     # Markdown before returning it.  Note that this method does *not* call
     # html_safe by default; if you need that you should call it yourself.
     #
-    # @api public
     # @param [String] key the lookup key for the translation requested
     # @return [String] the requested translation, parsed as Markdown
-    # @example Parse the translation for `error.not_found` as Markdown
-    #   %span= translate_markdown(:"error.not_found")
     def translate_markdown(key, options = {})
       Kramdown::Document.new(I18n.t(key, options)).to_html.html_safe
     end
@@ -20,9 +17,11 @@ module I18n
   end
 end
 
-# Rails's translation helper
+# Rails's ActionView framework
 module ActionView
+  # Rails's namespace for all helper classes
   module Helpers
+    # Rails's translation helper
     module TranslationHelper
       # Fetch a translation and run it through a Markdown parser
       #
@@ -33,11 +32,8 @@ module ActionView
       # mixed into all view contexts, so that we have this as a method on all
       # pages.
       #
-      # @api public
       # @param [String] key the lookup key for the translation requested
       # @return [String] the requested translation, parsed as Markdown
-      # @example Parse the translation for `error.not_found` as Markdown
-      #   %span= translate_markdown(:"error.not_found")
       def translate_markdown(key, options = {})
         # This method is private, but it's what maps the ".not_found" shortcut
         # style keys to their full equivalents

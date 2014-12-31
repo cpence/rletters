@@ -26,9 +26,6 @@ module RLetters
       #
       # @param [Symbol] field field to group by
       # @return [Hash<String, Integer>] number of documents in each grouping
-      # @example Group a dataset by year of publication
-      #   RLetters::Analysis::CountArticlesByField.new(dataset).counts_for(:year)
-      #   # => { '1940' => 3, '1941' => 5, ... }
       def counts_for(field)
         @dataset ? group_dataset(@dataset, field) : group_corpus(field)
       end
@@ -37,7 +34,6 @@ module RLetters
 
       # Walk a dataset manually and group it by field
       #
-      # @api private
       # @param [Dataset] dataset set to count
       # @param [Symbol] field field to group by
       # @return [Hash<String, Integer>] number of documents in each group
@@ -61,7 +57,6 @@ module RLetters
 
       # Group the entire corpus by field, using Solr's result grouping
       #
-      # @api private
       # @param [Symbol] field field to group by
       # @return [Hash<String, Integer>] number of documents in each group
       def group_corpus(field)
@@ -123,7 +118,6 @@ module RLetters
       #
       # This implements support for strange year values.
       #
-      # @api private
       # @param [Document] doc the Solr document
       # @param [Symbol] field the field for grouping
       # @return [String] the field value

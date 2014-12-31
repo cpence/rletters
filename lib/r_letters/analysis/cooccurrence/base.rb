@@ -14,7 +14,6 @@ module RLetters
       class Base
         # Create a new cooccurrence analyzer
         #
-        # @api public
         # @param [Dataset] dataset the dataset to analyze
         # @param [Integer] num_pairs the number of cooccurrences to return
         # @param [String] words one or more words to analyze. If this is a
@@ -70,14 +69,9 @@ module RLetters
         # Don't call this on the base class, but on one of the child classes
         # that implements a pair-scoring method.
         #
-        # @api public
         # @return [Array<Array(String, Float)>] a set of words and their
         #   associated significance values, sorted in order of significance
         #   (most significant first)
-        # @example Run a cooccurrence analysis of a dataset
-        #   an = RLetters::Analysis::Cooccurrence::MutualInformation.new(
-        #     d, 30, 'evolutionary')
-        #   result = an.call
         def call
           base_frequencies, joint_frequencies, n = frequencies
           total_i = @pairs.size.to_f
@@ -133,7 +127,6 @@ module RLetters
         # Also, putting this in its own function *should* encourage the GC to
         # clean up the analyzer object after this function returns.
         #
-        # @api private
         # @return [Array<(Hash<String, Integer>, Hash<String, Integer>, Integer)]
         #   First, the number of bins in which every word in the dataset
         #   appears (the +base_frequencies+). Second, the number of bins in

@@ -31,8 +31,6 @@ module RLetters
       # Reset to initial state in the word lister
       #
       # @return [undefined]
-      # @example Reset this word lister
-      #   word_list.reset!
       def reset!
         @dfs = {}
       end
@@ -42,9 +40,6 @@ module RLetters
       # @param [String] uid the UID of the document to operate on
       # @return [Array<String>] the words in the document, in word order,
       #   possibly stemmed or lemmatized
-      # @example Get the words for a given document
-      #   RLetters::Documents::WordList.new.words_for('gutenberg:3172')
-      #   # => ['the', 'project', 'gutenberg', 'ebook', 'of', ...]
       def words_for(uid)
         word_list = if @options[:stemming] == :lemma &&
                        Admin::Setting.nlp_tool_path.present?
@@ -69,8 +64,6 @@ module RLetters
       # was created.
       #
       # @return [Hash<String, Integer>] the document frequencies for each word
-      # @example Get the number of documents in which a given word appears
-      #   RLetters::Documents::WordList
       def corpus_dfs
         stem_dfs
       end
@@ -81,7 +74,6 @@ module RLetters
       #
       # This method reconstructs the word list from doc.term_vectors.
       #
-      # @api private
       # @param [Boolean] stem if true, stem words in list
       # @return [Array<String>] list of words for document
       def get_words(uid, stem = false)
@@ -103,7 +95,6 @@ module RLetters
       #
       # This method hits doc.fulltext.
       #
-      # @api private
       # @param [String] uid the document to get lemmatized words for
       # @return [Array<String>] list of lemmatized words for document
       def get_lemmatized_words(uid)
@@ -115,7 +106,6 @@ module RLetters
 
       # Add the DFs to our cache for this document
       #
-      # @api private
       # @param [Document] doc the document to add
       # @return [void]
       def add_dfs(doc)
@@ -131,7 +121,6 @@ module RLetters
 
       # Stem or lemmatize the DFs if required
       #
-      # @api private
       # @return [Hash<String, Integer>] the dfs, stemmed or lemmatized if
       #   required
       def stem_dfs

@@ -8,10 +8,7 @@ class AnalysisTaskDecorator < Draper::Decorator
 
   # A user-friendly status/percentage message
   #
-  # @api public
   # @return [String] percentage message
-  # @example Display the status of a task
-  #   = @tasks[0].status_message
   def status_message
     ret = ''
 

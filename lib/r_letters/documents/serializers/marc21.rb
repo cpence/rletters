@@ -7,7 +7,6 @@ module RLetters
       class MARC21
         # Create a serializer
         #
-        # @api public
         # @param document [Document] a document to serialize
         def initialize(document)
           @doc = document
@@ -30,13 +29,7 @@ module RLetters
         # Returns this document in MARC21 transmission format
         #
         # @note No tests for this method, as it is implemented by the MARC gem.
-        # @api public
         # @return [String] document in MARC21 transmission format
-        # @example Download this document as a marc file
-        #   controller.send_data(
-        #     RLetters::Documents::Serializers::MARC21.new(doc).serialize,
-        #     filename: 'export.marc', disposition: 'attachment'
-        #   )
         # :nocov
         def serialize
           MARCRecord.new(@doc).serialize.to_marc

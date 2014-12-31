@@ -8,9 +8,6 @@ module RLetters
       # Returns nil if there is an error connecting to the Solr database.
       #
       # @return [Integer] number of documents in the corpus
-      # @example Get the Solr corpus size
-      #   RLetters::Solr::CorpusStats.new.size
-      #   # => 1234
       def size
         solr_query = { q: '*:*',
                        def_type: 'lucene',

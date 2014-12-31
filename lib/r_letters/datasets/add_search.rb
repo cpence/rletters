@@ -48,7 +48,6 @@ module RLetters
 
       # Add another batch of documents to the dataset
       #
-      # @api private
       # @return [Boolean] true if adding should continue
       def add_batch
         result = RLetters::Solr::Connection.search(next_query)
@@ -79,7 +78,6 @@ module RLetters
 
       # Get the next batched search query
       #
-      # @api private
       # @return [Hash] parameters for the next Solr query we should run
       def next_query
         @start += 1000

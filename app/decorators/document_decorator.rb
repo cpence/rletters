@@ -14,12 +14,7 @@ class DocumentDecorator < Draper::Decorator
   # nice standard formatting.  The user can set, however, to format the
   # bibliographic entries using their favorite CSL style.
   #
-  # @api public
-  # @param [Document] doc document for which bibliographic entry is desired
   # @return [String] bibliographic entry for document
-  # @example Get the entry for a given document
-  #   decorated_document.citation
-  #   # =>  "Johnson, W. 2000. ..."
   def citation
     if h.user_signed_in? && h.current_user.csl_style
       if fulltext_url

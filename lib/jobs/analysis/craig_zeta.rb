@@ -23,11 +23,6 @@ module Jobs
       # @option options [String] :task_id the analysis task we're working from
       # @option options [String] :other_dataset_id the dataset to compare with
       # @return [void]
-      # @example Start a job for comparing two datasets
-      #   Jobs::Analysis::CraigZeta.create(user_id: current_user.to_param,
-      #                                    dataset_id: dataset.to_param,
-      #                                    task_id: task.to_param,
-      #                                    other_dataset_id: dataset2.to_param)
       def perform
         at(0, 100, t('common.progress_initializing'))
         standard_options!

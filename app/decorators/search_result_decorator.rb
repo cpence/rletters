@@ -10,10 +10,7 @@ class SearchResultDecorator < ApplicationDecorator
 
   # Decorate the documents
   #
-  # @api public
   # @return [Array<DocumentDecorator] the decorated documents
-  # @example Iterate the decorated documents
-  #   - result.documents.each { |f| ... }
   def documents
     return nil unless object.documents
     DocumentDecorator.decorate_collection(object.documents)
@@ -21,10 +18,7 @@ class SearchResultDecorator < ApplicationDecorator
 
   # Decorate the facets
   #
-  # @api public
   # @return [FacetsDecorator] the decorated facets
-  # @example Iterate the decorated facets
-  #   - result.facets.each { |f| ... }
   def facets
     return nil unless object.facets
     FacetsDecorator.decorate(object.facets)
@@ -32,10 +26,7 @@ class SearchResultDecorator < ApplicationDecorator
 
   # Decorate the complete set of categories
   #
-  # @api public
   # @return [CategoriesDecorator] all categories, decorated
-  # @example Iterate through all the categories
-  #   - result.categories.each { |c| ... }
   def categories
     return nil unless Documents::Category.count > 0
     CategoriesDecorator.decorate(Documents::Category.all)
@@ -43,10 +34,7 @@ class SearchResultDecorator < ApplicationDecorator
 
   # Decorate the active categories
   #
-  # @api public
   # @return [CategoriesDecorator] the decorated categories
-  # @example Iterate the active categories
-  #   - result.active_categories.each { |c| ... }
   def active_categories
     cats = [h.params[:categories] || []].flatten.map do |id|
       Documents::Category.find(id)
@@ -57,10 +45,7 @@ class SearchResultDecorator < ApplicationDecorator
 
   # Return a list of links to remove all active filters
   #
-  # @api public
   # @return [String] removal links for all filters
-  # @example Show removal links for all filters
-  #   %dl= @result.filter_removal_links
   def filter_removal_links
     if h.params[:fq].blank? && active_categories.blank?
       return h.link_to(I18n.t('search.index.no_filters'), '#',
@@ -83,10 +68,7 @@ class SearchResultDecorator < ApplicationDecorator
 
   # Return a formatted version of the number of hits for the last search
   #
-  # @api public
   # @return [String] number of hits for the search
-  # @example Print the number of hits for the search (in HAML)
-  #   == #{@result.num_hits} documents found
   def num_hits
     if (object.params[:q] && object.params[:q] != '*:*') || object.params[:fq]
       I18n.t 'search.index.num_hits_found', count: object.num_hits
@@ -97,10 +79,7 @@ class SearchResultDecorator < ApplicationDecorator
 
   # Render the pagination links
   #
-  # @api public
   # @return [String] full set of pagination links for the current page
-  # @example Put the current pagination links in a paragraph element
-  #   %p= result.pagination
   def pagination
     # Extract page and per_page from the Solr query that we called
     per_page = (object.params['rows'] || 10).to_i
@@ -145,22 +124,14 @@ class SearchResultDecorator < ApplicationDecorator
 
   # Return an array of all sort methods
   #
-  # @api public
   # @return [Array<String>] all possible sorting strings
-  # @example Create links to all the sort methods
-  #   - sort_methods.each do |s|
-  #     = link_to ...
   def sort_methods
     SORT_METHODS.map { |m| [m, sort_string_for(m)] }
   end
 
   # Get the current sort method as a string
   #
-  # @api public
   # @return [String] user-friendly representation of current sort method
-  # @example Get the current search's sort method
-  #   @result.sort
-  #   # => 'Sort: Relevance'
   def sort
     sort_string_for object.params['sort']
   end
@@ -169,13 +140,10 @@ class SearchResultDecorator < ApplicationDecorator
 
   # Make a link to a page for the pagination widget
   #
-  # @api private
   # @param [String] text text for this link
   # @param [Integer] num the page number (0-based)
   # @param [String] klass class to put on the <li> tag
   # @return [String] the requested link
-  # @example Get a link to the 3rd page of results
-  #   @result.page_link('Page 3!', 2)
   def page_link(text, num, klass)
     if num.nil?
       href = '#'
@@ -211,7 +179,6 @@ class SearchResultDecorator < ApplicationDecorator
   # 'journal', 'year') and sort direction ('asc' or 'desc') into a
   # user-friendly string.
   #
-  # @api private
   # @param [String] method the sort method
   # @return [String] user-friendly representation of sort method
   def sort_string_for(method)

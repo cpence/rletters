@@ -13,10 +13,7 @@ module Jobs
 
     # Expire old analysis tasks
     #
-    # @api public
     # @return [void]
-    # @example Start a job for expiring all old analysis tasks
-    #   id = Jobs::ExpireAnalysis.create
     def perform
       tick(I18n.t('jobs.expire_analysis_tasks.progress_expiring'))
       Datasets::AnalysisTask.destroy_all ['created_at < ?', 2.weeks.ago]

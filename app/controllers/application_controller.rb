@@ -10,7 +10,6 @@ class ApplicationController < ActionController::Base
   #
   # This method is called by Devise.
   #
-  # @api private
   # @param [User, Admin::Administrator] resource the user that just signed in
   # @return [void]
   def after_sign_in_path_for(resource)
@@ -25,7 +24,6 @@ class ApplicationController < ActionController::Base
   #
   # This method is called by Devise.
   #
-  # @api private
   # @return [void]
   def after_sign_out_path_for(_)
     root_url
@@ -36,11 +34,8 @@ class ApplicationController < ActionController::Base
   # This function renders a localized Markdown file located in the locales
   # tree.
   #
-  # @api public
   # @param [String] file the document to be rendered
   # @return [SafeBuffer] the rendering result
-  # @example Render config/locales/test/test.en.md
-  #   %div= render_localized_markdown(:test)
   def render_localized_markdown(file)
     path = Rails.root.join('config', 'locales', file.to_s,
                            "#{file}.#{I18n.locale}.md")
@@ -74,7 +69,6 @@ class ApplicationController < ActionController::Base
   # not need to call it yourself.  Do not disable it, or the locale system
   # will go haywire.
   #
-  # @api private
   # @return [void]
   def set_locale
     if user_signed_in?
@@ -90,7 +84,6 @@ class ApplicationController < ActionController::Base
   # not need to call it yourself.  Do not disable it, or the timezone system
   # will go haywire.
   #
-  # @api private
   # @return [void]
   def set_timezone
     if user_signed_in?
@@ -108,7 +101,6 @@ class ApplicationController < ActionController::Base
   # to Rails' `expires_now` function, but sets more headers to work with more
   # browsers.
   #
-  # @api private
   # @return [void]
   def disable_browser_cache
     response.cache_control[:no_cache] = true
@@ -128,7 +120,6 @@ class ApplicationController < ActionController::Base
   # This method is not tested, as it's only ever called from within the
   # internals of Devise.
   #
-  # @api private
   # @return [Devise::ParameterSanitizer] sanitizer to be used
   # :nocov:
   def devise_parameter_sanitizer

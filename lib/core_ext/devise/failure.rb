@@ -11,7 +11,6 @@ class DeviseFailure < Devise::FailureApp
   # for administrators, who do in fact need to be redirected to the admin
   # login page.
   #
-  # @api private
   # @return [String] the URL for redirection
   def redirect_url
     if scope == :administrator
@@ -27,7 +26,6 @@ class DeviseFailure < Devise::FailureApp
   # This does not include support for HTTP basic authentication, which is fine,
   # because we don't want that.
   #
-  # @api private
   # @return [void]
   def respond
     redirect

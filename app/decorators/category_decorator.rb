@@ -9,12 +9,7 @@ class CategoryDecorator < ApplicationDecorator
 
   # Return a `<dd>` tag for removing this category
   #
-  # @api public
   # @return [String] a definition tag for removing this category
-  # @example Display a link to remove the given category
-  #   %dl
-  #     = f.removal_link
-  #     -# ...
   def removal_link
     new_params = toggle_params
     h.link_to(h.search_path(new_params), class: 'btn navbar-btn btn-primary') do
@@ -25,11 +20,7 @@ class CategoryDecorator < ApplicationDecorator
 
   # Recursively return the tree links for this category
   #
-  # @api public
   # @return [String] a list item for this category and its descendants
-  # @example Display this category and its descendants
-  #   %ul
-  #     %li= c.link_tree
   def link_tree
     ''.html_safe.tap do |content|
       content << toggle_link
@@ -48,10 +39,7 @@ class CategoryDecorator < ApplicationDecorator
   #
   # This is determined solely from the current value of params.
   #
-  # @api public
   # @return [Boolean] true if the category is currently enabled
-  # @example Find an enabled category
-  #   Documents::Category.all.detect { |c| c.enabled }
   def enabled
     h.params[:categories] && h.params[:categories].include?(to_param)
   end
@@ -61,11 +49,7 @@ class CategoryDecorator < ApplicationDecorator
   # This method returns the correct link to toggle the state of this category,
   # either to enable or disable it.
   #
-  # @api public
   # @return [String] a link to enable/disable this category
-  # @example Show a toggle link for this category
-  #   %ul
-  #     %li= cat.toggle_link
   def toggle_link
     new_params = toggle_params
 
@@ -89,7 +73,6 @@ class CategoryDecorator < ApplicationDecorator
   # We want to enable or disable the category as well as all its descendants
   # with a single click, so this will toggle all of them.
   #
-  # @api private
   # @return [Hash] the parameters suitable for toggling this category
   def toggle_params
     h.params.deep_dup.tap do |ret|

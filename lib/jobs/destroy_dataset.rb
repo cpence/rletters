@@ -16,14 +16,10 @@ module Jobs
 
     # Destroy a dataset
     #
-    # @api public
     # @param [Hash] options parameters for this job
     # @option options [String] :user_id the user that owns this dataset
     # @option options [String] :dataset_id the id of the dataset to be destroyed
     # @return [void]
-    # @example Start a job for destroying a dataset
-    #   Jobs::DestroyDataset.create(user_id: users(:john).to_param,
-    #                               dataset_id: dataset.to_param)
     def perform
       options.symbolize_keys!
       tick(I18n.t('jobs.destroy_dataset.progress_destroying'))

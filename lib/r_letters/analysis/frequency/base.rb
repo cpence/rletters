@@ -58,7 +58,6 @@ module RLetters
         # analyzer and cleans up their values. It sets the values `@num_words`,
         # `@inclusion_list`, `@exclusion_list`, and `@stop_list`.
         #
-        # @api private
         # @param [Hash] options Parameters for how to compute word frequency
         # @return [void]
         def normalize_options(options)
@@ -97,7 +96,6 @@ module RLetters
         # `@num_words` in order to build the list of words that should be
         # analyzed (which is saved into `@word_list`, which is overwritten).
         #
-        # @api private
         # @return [void]
         def cull_words
           # Exclusion list takes precedence over stop list, if both are somehow

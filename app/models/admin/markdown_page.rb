@@ -30,12 +30,9 @@ module Admin
     # Render the Markdown page for a particular name.  This will do nothing if
     # an invalid name is passed.
     #
-    # @api public
     # @param [String] name The internal ID of the page to render (*not* the
     #   friendly name)
     # @return [String] HTML output of rendering this page to Markdown
-    # @example Render the 'faq' page
-    #   <%= Admin::MarkdownPage.render('faq') %>
     def self.render(name)
       page = find_by(name: name)
       return '' unless page

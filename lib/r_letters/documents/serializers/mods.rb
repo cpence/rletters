@@ -7,7 +7,6 @@ module RLetters
       class MODS
         # Create a serializer
         #
-        # @api public
         # @param document_or_array [Document Array<Document>] a document or
         #   array of documents to serialize
         def initialize(document_or_array)
@@ -36,15 +35,7 @@ module RLetters
         # element without namespaces, suitable for inclusion in a
         # +modsCollection+.
         #
-        # @api public
-        # @param [Boolean] include_namespace if false, put no namespace in the
-        #   root element
         # @return [String] document as a MODS XML document
-        # @example Download out this document as MODS XML
-        #   controller.send_data(
-        #     RLetters::Documents::Serializers::MODS.new(doc).serialize,
-        #     filename: 'export.xml', disposition: 'attachment'
-        #   )
         def serialize
           if @doc.is_a? Enumerable
             doc = Nokogiri::XML::Document.new
@@ -67,8 +58,9 @@ module RLetters
 
         # Do the serialization for an individual document
         #
-        # @api private
         # @param [Document] doc the document to serialize
+        # @param [Boolean] include_namespace if false, put no namespace in the
+        #   root element
         # @return [Nokogiri::XML::Node] single document serialized to MODS
         def do_serialize(doc, include_namespace = true)
           xml_doc = Nokogiri::XML::Document.new

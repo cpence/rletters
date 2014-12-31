@@ -78,7 +78,6 @@
 #   @note This attribute may be `nil`, if the query type requested from
 #     the Solr server does not return term vectors.
 #
-#   @api public
 #   @return [Hash] term vector information.  The hash contains the following
 #     keys:
 #       term_vectors['word']
@@ -93,8 +92,6 @@
 #       term_vectors['word'][:tfidf] = Float
 #       term_vectors['otherword']
 #       # ...
-#   @example Get the frequency of the term 'general' in this document
-#     doc.term_vectors['general'][:tf]
 class Document
   # Make this class act like an ActiveRecord model, though it's not backed by
   # the database (it's in Solr).
@@ -109,7 +106,6 @@ class Document
 
   # Return a document (just bibliographic data) by uid
   #
-  # @api public
   # @param [String] uid uid of the document to be retrieved
   # @param [Hash] options options which modify the behavior of the search
   # @option options [Boolean] :fulltext if true, return document full text
@@ -119,8 +115,6 @@ class Document
   #   querying Solr
   # @raise [ActiveRecord::RecordNotFound] thrown if no matching document can
   #   be found
-  # @example Look up the document with UID '1234567890abcdef1234'
-  #   doc = Document.find('1234567890abcdef1234')
   def self.find(uid, options = {})
     find_by!(uid: uid, fulltext: options[:fulltext],
              term_vectors: options[:term_vectors])
@@ -128,8 +122,6 @@ class Document
 
   # Query a document and raise an exception if it's not found
   #
-  # @api public
-  # @api public
   # @option args [Boolean] :fulltext if true, return the full text of the
   #   document if found
   # @option args [Boolean] :term_vectors if true, return term vectors
@@ -140,15 +132,12 @@ class Document
   #   querying Solr
   # @raise [ActiveRecord::RecordNotFound] thrown if no matching document can
   #   be found
-  # @example Look up a document by W. Shatner (raising exception if not found)
-  #   doc = Document.find_by!(authors: 'W. Shatner')
   def self.find_by!(args)
     find_by(args) || fail(ActiveRecord::RecordNotFound)
   end
 
   # Query a document and return it (or nil)
   #
-  # @api public
   # @option args [Boolean] :fulltext if true, return the full text of the
   #   document if found
   # @option args [Boolean] :term_vectors if true, return term vectors
@@ -157,8 +146,6 @@ class Document
   # @return [Document] the document requested, or nil if not found
   # @raise [RLetters::Solr::ConnectionError] thrown if there is an error
   #   querying Solr
-  # @example Look up a document by W. Shatner (returning nil if not found)
-  #   doc = Document.find_by(authors: 'W. Shatner')
   def self.find_by(args)
     # Delete the special arguments
     fulltext = args.delete(:fulltext)
@@ -183,10 +170,7 @@ class Document
   # This function transparently handles fetching the full document text
   # from an external URL when required.
   #
-  # @api public
   # @return [String] the document full text
-  # @example Get the document's full text
-  #   text = doc.fulltext
   def fulltext
     # If the full text is requested, fetch it if we have to
     if @fulltext.nil? && fulltext_url
@@ -242,7 +226,6 @@ class Document
   # This constructor copies in all attributes, as well as splitting the
   # `authors` value.
   #
-  # @api public
   # @param [Hash] attributes attributes for this document
   def initialize(attributes = {})
     super

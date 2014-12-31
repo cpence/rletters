@@ -42,7 +42,6 @@ module RLetters
       # returned in a search. This function extracts the one corresponding to
       # the given uid.
       #
-      # @api private
       # @param [String] uid the UID of the document to locate terms for
       # @return [Array] the Solr term vector array for this document
       def array_for_document(uid)
@@ -68,7 +67,6 @@ module RLetters
       # values here, because those are disabled in the default RLetters
       # schema. Uncomment them here if you need them.
       #
-      # @api private
       # @param [Array] array the Solr term vector array
       # @return [Hash] term vectors as stored in +Document#term_vectors+
       # @see Document#term_vectors

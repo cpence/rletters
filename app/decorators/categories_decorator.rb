@@ -6,7 +6,6 @@
 class CategoriesDecorator < Draper::CollectionDecorator
   # Decorate elements with the category decorator
   #
-  # @api private
   # @return [Class] the class used to decorate collection elements
   def decorator_class
     CategoryDecorator
@@ -17,10 +16,7 @@ class CategoriesDecorator < Draper::CollectionDecorator
   # Convert this array of categories into an array of `<dd>` tag removal
   # links.
   #
-  # @api public
   # @return [String] removal links for this collection of categories
-  # @example Removal links for all active categories
-  #   %li= result.active_categories.removal_links
   def removal_links
     map(&:removal_link).reduce(&:+)
   end
@@ -31,11 +27,7 @@ class CategoriesDecorator < Draper::CollectionDecorator
   # display in the faceting system.  Note that this starts at the global
   # root, regardless of the contents of the current array.
   #
-  # @api public
   # @return [String] journal categories, formatted for display
-  # @example Display the journal categories
-  #   %div= result.categories.link_tree
-  #   # => "<ul><li>Category<ul>..."
   def link_tree
     return ''.html_safe if object.size == 0
 

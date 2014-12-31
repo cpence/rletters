@@ -12,12 +12,9 @@ class UserMailer < ActionMailer::Base
 
   # E-mail users that their jobs have finished
   #
-  # @api public
   # @param [String] email the address to send the mail
   # @param [String] task_id the ID of the task that just finished
   # @return [void]
-  # @example Send a mail to the developers that a task has finished
-  #   job_finished_email('rletters@rletters.net', @task.to_param)
   def job_finished_email(email, task_id)
     @task = Datasets::AnalysisTask.find(task_id)
 

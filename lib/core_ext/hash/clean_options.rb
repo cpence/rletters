@@ -8,10 +8,7 @@ class Hash
   # strip all string values, remove any that are blank, and also remove
   # any nils.
   #
-  # @api public
   # @return [self]
-  # @example Clean a hash to make it suitable for use as options
-  #   opts.clean_options!
   def clean_options!
     symbolize_keys!
     each do |k, v|

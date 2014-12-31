@@ -8,7 +8,6 @@ module RLetters
 
       # Find the serializer for serializing to the given format
       #
-      # @api public
       # @param format [Symbol] the format to serialize to
       # @return [Class] an appropriate serializer class
       def self.for(format)

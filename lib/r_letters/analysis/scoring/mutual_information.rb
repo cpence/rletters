@@ -17,7 +17,6 @@ module RLetters
         # (with N the number of single-word tokens)
         # ```
         #
-        # @api private
         # @return [Float] the score for this pair
         # @param [Float] f_a the frequency of word A's appearance in blocks
         # @param [Float] f_b the frequency of word B's appearance in blocks
@@ -39,7 +38,6 @@ module RLetters
         #
         # Higher mutual information scores indicate more significant grams.
         #
-        # @api private
         # @param [Array<Array<(String, Float)>>] grams grams in unsorted order
         # @return [Array<Array<(String, Float)>>] grams in sorted order
         def sort_results(grams)

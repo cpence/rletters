@@ -16,7 +16,6 @@ module RLetters
 
         # Create a network of adjacency information from the text.
         #
-        # @api public
         # @param [Dataset] dataset the text to analyze
         # @param [String] focal_word if set, place this word at the center
         #   of the network
@@ -72,7 +71,6 @@ module RLetters
 
         # Find a word by its id or its word coverage
         #
-        # @api public
         # @param [Hash] options the find options
         # @option options [String] :id if set, find a node based on this value
         #   of its id
@@ -80,12 +78,6 @@ module RLetters
         # @option options [String] :word if set, find a node based on this
         #   unstemmed word
         # @return [Node] the requested node, or `nil` if not found
-        # @example Find the node for the stem `basic`
-        #   graph.find_node(id: 'basic')
-        #   # => Node(id: 'basic', words: ['basically', ...])
-        # @example Find the node containing the word `basically`
-        #   graph.find_node(word: 'basically')
-        #   # => Node(id: 'basic', words: ['basically', ...])
         def find_node(options)
           options[:id] = options.delete(:stem) if options[:stem]
 
@@ -111,7 +103,6 @@ module RLetters
         # Note that our edges are undirected, so the order of the parameters
         # `one` and `two` is not meaningful.
         #
-        # @api public
         # @param [String] one the first node ID
         # @param [String] two the second node ID
         # @return [Edge] the edge connecting the two nodes, or `nil`
@@ -123,7 +114,6 @@ module RLetters
 
         # Return the maximum edge weight in the graph
         #
-        # @api public
         # @return [Integer] the maximum edge weight
         def max_edge_weight
           edges.map(&:weight).max
@@ -136,7 +126,6 @@ module RLetters
         # This function creates the `@words` variable and scrubs out any
         # words listed in `stop_words`.
         #
-        # @api private
         # @param [Dataset] dataset the dataset to analyze
         # @param [Array<String>] stop_words stop words to remove, if any
         # @return [undefined]
@@ -160,7 +149,6 @@ module RLetters
         # This function adds nodes and edges to the graph for a given size of
         # sliding window.
         #
-        # @api private
         # @param [Integer] gap the gap size to use
         # @return [undefined]
         def add_nodes_for_gap(gap)
@@ -190,7 +178,6 @@ module RLetters
 
         # Find a node and return it, or add it if needed
         #
-        # @api private
         # @param [String] id the node id to add for
         # @param [String] word the word to add a node for
         # @return [Node] the new or existing node
@@ -211,7 +198,6 @@ module RLetters
 
         # Find an edge and increment its weight, or add it if needed
         #
-        # @api private
         # @param [String] one the first node on the edge
         # @param [String] two the second node on the edge
         # @return [Edge] the new or existing edge

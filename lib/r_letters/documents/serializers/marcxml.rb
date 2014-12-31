@@ -7,7 +7,6 @@ module RLetters
       class MARCXML
         # Create a serializer
         #
-        # @api public
         # @param document_or_array [Document Array<Document>] a document or
         #   array of documents to serialize
         def initialize(document_or_array)
@@ -31,13 +30,7 @@ module RLetters
         # Returns this document as MARC-XML
         #
         # @note No tests for this method, as it is implemented by the MARC gem.
-        # @api public
         # @return [String] the document as a MARC-XML document
-        # @example Download out this document as MARC-XML
-        #   controller.send_data(
-        #     RLetters::Documents::Serializers::MARCXML.new(doc).serialize,
-        #     filename: 'export.xml', disposition: 'attachment'
-        #   )
         # :nocov:
         def serialize
           if @doc.is_a? Enumerable
@@ -59,7 +52,6 @@ module RLetters
 
         # Do the serialization for an individual document
         #
-        # @api private
         # @param [Document] doc the document to serialize
         # @return [Nokogiri::XML::Node] single document serialized as a MARCXML
         #   element

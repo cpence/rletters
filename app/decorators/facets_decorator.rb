@@ -13,12 +13,7 @@ class FacetsDecorator < ApplicationDecorator
   # available facets for authors, journals, and years.  It returns a set of
   # <li> elements (*not* a <ul>), including list dividers.
   #
-  # @api public
   # @return [String] set of list items for faceted browsing
-  # @example Get all of the links for faceted browsing
-  #   @facets.addition_links
-  #   # "<li>Active Filters</li>...<li>Authors</li><li>"
-  #     "<a href='...'>Johnson</a></li>..."
   def addition_links
     ret = ''.html_safe
 
@@ -40,11 +35,7 @@ class FacetsDecorator < ApplicationDecorator
   # This function turns the list of active facets into a list of facet-removing
   # links.  It returns a set of `<dd>` tags, desgined to be put into a `<dl>`.
   #
-  # @api public
   # @return [String] set of list items for faceted browsing
-  # @example Get all of the links for faceted browsing
-  #   @facets.removal_links
-  #   # "<dd><a href='...'>Author: A. One</dd>..."
   def removal_links
     ret = ''.html_safe
 
@@ -70,7 +61,6 @@ class FacetsDecorator < ApplicationDecorator
   # This function converts the `params[:fq]` string into a list of Facet
   # objects.  It is used by several parts of the facet-display code.
   #
-  # @api private
   # @return [Array<Facet>] the active facets
   def active_facets
     return [] if object.blank?
@@ -92,7 +82,6 @@ class FacetsDecorator < ApplicationDecorator
   # parameters other than `:fq` are simply duplicated (including the search
   # query itself, `:q`).
   #
-  # @api private
   # @param [String] text the string to display for the link
   # @param [Array<Facet>] facets the facets to link to
   # @param [Hash] link_params extra HTML parameters for the link
@@ -117,7 +106,6 @@ class FacetsDecorator < ApplicationDecorator
   # against `active_facets`, and creates a set of list items.  It is used
   # by `links_for_addition`.
   #
-  # @api private
   # @param [Symbol] field the field to return links for
   # @param [String] header the text to display at the head of the list of links
   # @param [Array<Facet>] active_facets the currently active facets

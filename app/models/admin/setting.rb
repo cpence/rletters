@@ -6,10 +6,6 @@ module Admin
   # This model (via the `druthers` gem) is the single source for
   # all of our global application settings (such as the URL for the Solr server,
   # the site title, etc.).
-  #
-  # @example Get the Solr URL
-  #   Admin::Setting.solr_server_url
-  #   # => 'http://127.0.0.1:8983/solr/'
   class Setting < ActiveRecord::Base
     self.table_name = 'admin_settings'
     serialize :value
@@ -25,7 +21,6 @@ module Admin
 
     # The list of setting keys that can be used
     #
-    # @api public
     # @return [Array<Symbol>] valid setting keys
     def self.valid_keys
       VALID_KEYS
@@ -33,7 +28,6 @@ module Admin
 
     # The list of setting keys that shouldn't be shown in the admin interface
     #
-    # @api public
     # @return [Array<Symbol>] hidden setting keys
     def self.hidden_keys
       HIDDEN_KEYS
@@ -41,37 +35,31 @@ module Admin
 
     def_druthers(*VALID_KEYS)
 
-    # @api private
     # @return [String] The default application name
     def self.default_app_name
       'RLetters'
     end
 
-    # @api private
     # @return [String] The default application e-mail address
     def self.default_app_email
       'not@an.email.com'
     end
 
-    # @api private
     # @return [String] The default application hosting domain
     def self.default_app_domain
       'not.a.web.site.com'
     end
 
-    # @api private
     # @return [String] The default URL for the Solr server
     def self.default_solr_server_url
       'http://127.0.0.1:8983/'
     end
 
-    # @api private
     # @return [Integer] The default timeout value for Solr, in seconds
     def self.default_solr_timeout
       120
     end
 
-    # @api private
     # @return [String] Friendly name of this setting (looked up in locale)
     def friendly_name
       ret = I18n.t("settings.#{key}", default: '')

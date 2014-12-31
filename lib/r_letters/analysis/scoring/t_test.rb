@@ -21,7 +21,6 @@ module RLetters
         # p = 1 - Distribution::T.cdf(t, N-1)
         # ```
         #
-        # @api private
         # @return [Float] the score for this pair
         # @param [Float] f_a the frequency of word A's appearance in blocks
         # @param [Float] f_b the frequency of word B's appearance in blocks
@@ -46,7 +45,6 @@ module RLetters
         #
         # Small p-values indicate more significant grams.
         #
-        # @api private
         # @param [Array<Array<(String, Float)>>] grams grams in unsorted order
         # @return [Array<Array<(String, Float)>>] grams in sorted order
         def sort_results(grams)

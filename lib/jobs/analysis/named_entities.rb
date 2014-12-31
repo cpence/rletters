@@ -23,10 +23,6 @@ module Jobs
       # @option options [String] :dataset_id the dataset to operate on
       # @option options [String] :task_id the analysis task we're working from
       # @return [void]
-      # @example Start a job for computing a dataset's named entities
-      #   Jobs::Analysis::NamedEntities.create(user_id: current_user.to_param,
-      #                                        dataset_id: dataset.to_param,
-      #                                        task_id: task.to_param)
       def perform
         at(0, 100, t('common.progress_initializing'))
         standard_options!

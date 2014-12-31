@@ -9,7 +9,6 @@ module RLetters
     class Authors < Array
       # Create the array from a comma-separated list
       #
-      # @api public
       # @param [String] names the names of the authors, comma-separated
       # @return [Authors] a list of authors for this document
       def self.from_list(names)

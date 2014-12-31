@@ -61,7 +61,6 @@ module RLetters
       #
       # @param [Array<Datasets::Entry>] group group of results to query
       # @return [Hash] Solr query parameters
-      # @api private
       def search_query_for(group)
         { q: "uid:(#{group.map { |e| "\"#{e.uid}\"" }.join(' OR ')})",
           def_type: 'lucene',
