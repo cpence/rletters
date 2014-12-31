@@ -90,7 +90,14 @@ RSpec.describe Jobs::Analysis::WordFrequency do
            num_blocks: '1',
            split_across: '1',
            num_words: '0',
-           stop_list: 'en' }]
+           stop_list: 'en' },
+         { user_id: @user.to_param,
+           dataset_id: @dataset.to_param,
+           task_id: @task.to_param,
+           num_blocks: '1',
+           split_across: '1',
+           ngrams: '2',
+           all: '1' }]
 
       expect {
         params_to_test.each do |params|

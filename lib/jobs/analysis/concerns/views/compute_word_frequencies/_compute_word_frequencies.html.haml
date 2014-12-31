@@ -2,6 +2,7 @@
 #ngram_controls{ style: 'display: none' }
   = f.input :ngrams, collection: 2..20, label: t('jobs.concerns.compute_word_frequencies.ngram_size'), include_blank: false, disabled: true
   = f.input :num_words, as: :integer, label: t('jobs.concerns.compute_word_frequencies.num_ngrams'), required: false, input_html: { value: 100 }, disabled: true
+  = f.input :all, as: :boolean, label: t('jobs.concerns.compute_word_frequencies.all_ngrams'), required: false, disabled: true
   = f.input :inclusion_list, label: t('jobs.concerns.compute_word_frequencies.ngram_inclusion_list'), as: :text, required: false, disabled: true
   = f.input :exclusion_list, label: t('jobs.concerns.compute_word_frequencies.ngram_exclusion_list'), as: :text, required: false, disabled: true
 #single_controls

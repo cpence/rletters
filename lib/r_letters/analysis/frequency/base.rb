@@ -65,6 +65,11 @@ module RLetters
           # Lower bound on number of words, default to zero
           @num_words = [0, options[:num_words] || 0].max
 
+          # Look for the "all n-grams" option
+          if options[:all] == '1'
+            @num_words = 0
+          end
+
           # Strip and split the lists of words
           if options[:inclusion_list]
             options[:inclusion_list].strip!

@@ -258,6 +258,7 @@ en:
                 n_grams: N-grams (multiple word phrases)
                 ngram_size: Size of phrases to analyze
                 num_ngrams: Number of n-grams to analyze
+                all_ngrams: Return all n-grams
                 ngram_inclusion_list: Include only n-grams that contain one of the following words (space-separated)
                 ngram_exclusion_list: Exclude any n-grams that contain one of the following words (space-separated)
                 word_method: Word selection method
