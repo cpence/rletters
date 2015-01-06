@@ -1,6 +1,9 @@
 # RLetters ChangeLog
 
-## Version 2.0 (beta, unreleased)
+## Version 2.0.1 (unreleased)
+
+
+## Version 2.0.0 (2015-01-01)
 
 *   The fetch results page now shows progress updates for unfinished jobs, as well as live-updates.
     -   This also includes support for terminating all pending jobs, as well as terminating jobs while they're running.
