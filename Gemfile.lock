@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/activeadmin/activeadmin.git
-  revision: 7aca862c575ef0bf1ba3c781fcb4ea39f330dc07
+  revision: 990f88ba64f1f703c5d56be90c1ae136877d19fd
   branch: rails-4-2
   specs:
     activeadmin (1.0.0.pre)
@@ -19,7 +19,7 @@ GIT
 
 GIT
   remote: git://github.com/josevalim/inherited_resources.git
-  revision: 9f1c0edd6b4ceb5a1f643da5ce844ccd52364d53
+  revision: ff1c991307ff78cce98882b6986aeabbbcfd70c4
   branch: rails-4-2
   specs:
     inherited_resources (1.5.1)
@@ -117,7 +117,7 @@ GEM
       with_advisory_lock (>= 3.0.0)
     cocaine (0.5.5)
       climate_control (>= 0.0.3, < 1.0)
-    codeclimate-test-reporter (0.4.4)
+    codeclimate-test-reporter (0.4.5)
       simplecov (>= 0.7.1, < 1.0.0)
     coffee-rails (4.1.0)
       coffee-script (>= 2.2.0)
@@ -146,9 +146,9 @@ GEM
       mime-types (>= 1.16, < 3)
       nokogiri (~> 1.5)
       rails (>= 3, < 5)
-    d3_rails (3.5.2)
+    d3_rails (3.5.3)
       railties (>= 3.1.0)
-    database_cleaner (1.3.0)
+    database_cleaner (1.4.0)
     debug_inspector (0.0.2)
     devise (3.4.1)
       bcrypt (~> 3.0)
@@ -179,7 +179,7 @@ GEM
       factory_girl (~> 4.5.0)
       railties (>= 3.0.0)
     fast-stemmer (1.0.2)
-    formtastic (3.1.2)
+    formtastic (3.1.3)
       actionpack (>= 3.2.13)
     formtastic_i18n (0.1.1)
     gherkin (2.12.2)
@@ -215,8 +215,8 @@ GEM
       thor (>= 0.14, < 2.0)
     jquery-ui-rails (5.0.3)
       railties (>= 3.2.16)
-    json (1.8.1)
-    json (1.8.1-java)
+    json (1.8.2)
+    json (1.8.2-java)
     kaminari (0.16.1)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
@@ -236,7 +236,7 @@ GEM
       unf
     mime-types (2.4.3)
     mini_portile (0.6.2)
-    minitest (5.5.0)
+    minitest (5.5.1)
     mock_redis (0.14.0)
     mono_logger (1.1.0)
     multi_json (1.10.1)
@@ -253,7 +253,7 @@ GEM
       mime-types
     paperclip_database (2.3.1)
       paperclip (>= 2.3.0)
-    pg (0.17.1)
+    pg (0.18.1)
     poltergeist (1.5.1)
       capybara (~> 2.1)
       cliver (~> 0.3.1)
@@ -266,7 +266,7 @@ GEM
     rack (1.6.0)
     rack-protection (1.5.3)
       rack
-    rack-test (0.6.2)
+    rack-test (0.6.3)
       rack (>= 1.0)
     rails (4.2.0)
       actionmailer (= 4.2.0)
@@ -410,7 +410,7 @@ GEM
       railties (>= 3.1)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
-    uglifier (2.6.0)
+    uglifier (2.7.0)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
     unf (0.1.4)

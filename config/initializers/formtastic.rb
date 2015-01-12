@@ -108,18 +108,3 @@ Formtastic::FormBuilder.action_class_finder = Formtastic::ActionClassFinder
 # Define custom namespaces in which to look up your Action classes. Default is
 # to look up in the global scope and in Formtastic::Actions.
 # Formtastic::FormBuilder.action_namespaces = [ ::Object, ::MyActionsModule, ::Formtastic::Actions ]
-
-# FIXME: Formtastic bug 1117 monkey patch
-module Formtastic
-  module Inputs
-    module Base
-      module Database
-        def column
-          ActiveSupport::Deprecation.silence do
-            object.column_for_attribute(method)
-          end if object.respond_to?(:column_for_attribute)
-        end
-      end
-    end
-  end
-end
