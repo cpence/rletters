@@ -175,6 +175,16 @@ RSpec.describe RLetters::Analysis::Frequency::FromTF do
         end
       end
     end
+
+    context 'with all set' do
+      before(:context) do
+        @analyzer = described_class.new(@dataset, nil, num_words: 3, all: true)
+      end
+
+      it 'includes all the words' do
+        expect(@analyzer.block_stats[0][:types]).to eq(@analyzer.blocks[0].size)
+      end
+    end
   end
 
   describe '#inclusion_list' do

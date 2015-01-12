@@ -109,7 +109,7 @@ module Jobs
           args.clean_options!
 
           if args[:word_method] == 'all'
-            args[:num_words] = 0
+            args[:all] = true
           elsif args[:num_words]
             args[:num_words] = Integer(args[:num_words])
           end

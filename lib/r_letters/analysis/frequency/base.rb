@@ -65,7 +65,7 @@ module RLetters
           @num_words = [0, options[:num_words] || 0].max
 
           # Look for the "all n-grams" option
-          if options[:all] == '1'
+          if options[:all]
             @num_words = 0
           end
 
