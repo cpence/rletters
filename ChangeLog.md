@@ -1,6 +1,12 @@
 # RLetters ChangeLog
 
-## Version 2.0.1 (unreleased)
+## Version 2.0.2 (unreleased)
+
+
+
+## Version 2.0.1 (2015-01-12)
+
+*   Fix a bug in cookie handling that would cause major problems for an extant 1.x site upgrading to 2.0.0.
 
 
 ## Version 2.0.0 (2015-01-01)
