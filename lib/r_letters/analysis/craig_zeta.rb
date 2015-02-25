@@ -92,7 +92,7 @@ module RLetters
         @block_counts = {}
         [@analyzer_1.blocks, @analyzer_2.blocks].each do |blocks|
           blocks.each do |b|
-            b.keys.each do |k|
+            b.each_key do |k|
               @block_counts[k] ||= 0
               @block_counts[k] += 1
             end

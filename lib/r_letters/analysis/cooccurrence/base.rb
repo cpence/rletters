@@ -85,7 +85,7 @@ module RLetters
             # Loop over the right array -- either just the words that we want
             # to query, or all of them
             if word_2_array.empty?
-              enum = base_frequencies.keys.each
+              enum = base_frequencies.each_key
             else
               enum = word_2_array.each
             end
@@ -152,7 +152,7 @@ module RLetters
           analyzer.blocks.each_with_index do |b, i|
             @progress && @progress.call((i.to_f / total * 16.0).to_i + 33)
 
-            b.keys.each do |k|
+            b.each_key do |k|
               base_frequencies[k] ||= 0
               base_frequencies[k] += 1
             end
@@ -173,7 +173,7 @@ module RLetters
               next unless b[word] && b[word] > 0
 
               if word_2_array.empty?
-                b.keys.each do |k|
+                b.each_key do |k|
                   joint_frequencies[word][k] ||= 0
                   joint_frequencies[word][k] += 1
                 end

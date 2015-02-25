@@ -75,15 +75,14 @@ module RLetters
         first_names = first.gsub('.', '').split(' ')
 
         # Flatten out sequences of initials
-        first_names.map! do |n|
+        first_names = first_names.flat_map do |n|
           if n == n.upcase
             # All uppercase, so assume it's initials
             n.chars.to_a
           else
-            n
+            [n]
           end
         end
-        first_names.flatten!
 
         # Now, construct queries for "First Last" and
         # "First (all middles) Last"

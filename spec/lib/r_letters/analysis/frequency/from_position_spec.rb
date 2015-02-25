@@ -43,7 +43,7 @@ RSpec.describe RLetters::Analysis::Frequency::FromPosition do
       end
 
       it 'analyzes every word' do
-        num_words = @analyzer.blocks.map(&:keys).flatten.uniq.count
+        num_words = @analyzer.blocks.flat_map(&:keys).uniq.count
         expect(num_words).to eq(@analyzer.num_dataset_types)
       end
 
@@ -107,7 +107,7 @@ RSpec.describe RLetters::Analysis::Frequency::FromPosition do
       end
 
       it 'acts like it was not set at all' do
-        num_words = @analyzer.blocks.map(&:keys).flatten.uniq.count
+        num_words = @analyzer.blocks.flat_map(&:keys).uniq.count
         expect(num_words).to eq(@analyzer.num_dataset_types)
       end
     end
@@ -118,7 +118,7 @@ RSpec.describe RLetters::Analysis::Frequency::FromPosition do
       end
 
       it 'includes a total of ten words' do
-        expect(@analyzer.blocks.map(&:keys).flatten.uniq.count).to eq(10)
+        expect(@analyzer.blocks.flat_map(&:keys).uniq.count).to eq(10)
       end
     end
 
