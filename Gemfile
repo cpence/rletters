@@ -20,8 +20,8 @@ gem 'resque_mailer'
 gem 'devise'
 gem 'devise-i18n'
 gem 'devise-async'
-gem 'activeadmin', github: 'activeadmin', branch: 'rails-4-2'
-gem 'activeadmin-sortable-tree', github: 'nebirhos/activeadmin-sortable-tree'
+gem 'activeadmin', github: 'activeadmin'
+gem 'active_admin-sortable_tree'
 gem 'druthers'
 
 # Internationalization
