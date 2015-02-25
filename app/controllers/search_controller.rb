@@ -31,9 +31,9 @@ class SearchController < ApplicationController
     sort = params[:sort] if params[:sort]
 
     solr_query = search_params_to_solr_query(params)
-    solr_query.merge!(sort: sort,
-                      start: page * per_page,
-                      rows: per_page)
+    solr_query[:sort] = sort
+    solr_query[:start] = page * per_page
+    solr_query[:rows] = per_page
 
     # Get the documents
     @result = RLetters::Solr::Connection.search(solr_query)

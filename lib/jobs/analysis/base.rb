@@ -67,7 +67,7 @@ module Jobs
       def self.t(key, opts = {})
         return I18n.t(key, opts) unless key[0] == '.'
 
-        I18n.t("#{name.underscore.gsub('/', '.')}#{key}", opts)
+        I18n.t("#{name.underscore.tr('/', '.')}#{key}", opts)
       end
 
       # Returns a translated string for this job

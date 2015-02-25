@@ -6,7 +6,7 @@ RSpec.shared_examples_for 'ActiveModel' do
 
   methods = ActiveModel::Lint::Tests.public_instance_methods
   methods.map(&:to_s).grep(/^test/).each do |m|
-    example m.gsub('_', ' ') do
+    example m.tr('_', ' ') do
       send m
     end
   end
