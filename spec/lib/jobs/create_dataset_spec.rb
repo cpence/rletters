@@ -81,7 +81,7 @@ RSpec.describe Jobs::CreateDataset do
     end
 
     it 'links the dataset to the workflow' do
-      expect(@user.workflow_datasets).to eq(@user.datasets)
+      expect(@user.workflow_datasets).to eq(@user.datasets.map(&:to_param))
     end
   end
 

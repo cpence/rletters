@@ -33,7 +33,7 @@ class WorkflowController < ApplicationController
   def destroy
     current_user.workflow_active = false
     current_user.workflow_class = nil
-    current_user.workflow_datasets = nil
+    current_user.workflow_datasets.clear
     current_user.save
 
     redirect_to workflow_path, alert: I18n.t('workflow.destroy.success')
@@ -58,21 +58,25 @@ class WorkflowController < ApplicationController
 
     # See if we've been asked to link a dataset to this job
     if params[:link_dataset_id]
+      # Actually find it, which will raise an error if it's not actually a
+      # dataset that the user owns
       dataset = current_user.datasets.active.find(params[:link_dataset_id])
-
-      current_user.workflow_datasets ||= []
-      current_user.workflow_datasets << dataset
+      current_user.workflow_datasets << dataset.to_param
     end
 
     # Same for unlinking a dataset
     if params[:unlink_dataset_id]
-      current_user.workflow_datasets.delete_if do |d|
-        d.to_param == params[:unlink_dataset_id]
+      # Check it and raise if it's a bad dataset ID
+      if current_user.workflow_datasets.find_index(params[:unlink_dataset_id])
+        current_user.workflow_datasets.delete(params[:unlink_dataset_id])
+      else
+        fail ActiveRecord::RecordNotFound
       end
     end
 
-    # Save our changes, if any
-    current_user.save
+    # Save our changes, if any, and update the workflow parameters
+    current_user.save!
+    set_workflow_parameters
   end
 
   # Allow the user to pick up data from all of their analysis tasks
@@ -153,5 +157,6 @@ class WorkflowController < ApplicationController
     fail ActiveRecord::RecordNotFound unless @klass
 
     @num_datasets = @klass.num_datasets
+    @num_workflow_datasets = current_user.workflow_datasets.size
   end
 end

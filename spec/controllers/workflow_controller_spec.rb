@@ -89,7 +89,7 @@ RSpec.describe WorkflowController, type: :controller do
       before(:example) do
         @user.workflow_active = true
         @user.workflow_class = 'ArticleDates'
-        @user.workflow_datasets = [@dataset]
+        @user.workflow_datasets = [@dataset.to_param]
 
         @user.save
       end
@@ -127,7 +127,7 @@ RSpec.describe WorkflowController, type: :controller do
         it 'sets the right parameters' do
           expect(@user.workflow_active).to be true
           expect(@user.workflow_class).to eq('ArticleDates')
-          expect(@user.workflow_datasets).to eq([@dataset])
+          expect(@user.workflow_datasets).to eq([@dataset.to_param])
         end
       end
 
@@ -135,7 +135,7 @@ RSpec.describe WorkflowController, type: :controller do
         before(:example) do
           @user.workflow_active = true
           @user.workflow_class = 'ArticleDates'
-          @user.workflow_datasets = [@dataset]
+          @user.workflow_datasets = [@dataset.to_param]
           @user.save
 
           get :activate, class: 'ArticleDates', unlink_dataset_id: @dataset.to_param
@@ -153,7 +153,7 @@ RSpec.describe WorkflowController, type: :controller do
 
           @user.workflow_active = true
           @user.workflow_class = 'CraigZeta'
-          @user.workflow_datasets = [@dataset, @dataset_2]
+          @user.workflow_datasets = [@dataset.to_param, @dataset_2.to_param]
           @user.save
 
           get :activate, class: 'CraigZeta', unlink_dataset_id: @dataset_2.to_param
@@ -161,7 +161,7 @@ RSpec.describe WorkflowController, type: :controller do
         end
 
         it 'unlinks the dataset' do
-          expect(@user.workflow_datasets).to eq([@dataset])
+          expect(@user.workflow_datasets).to eq([@dataset.to_param])
         end
       end
     end

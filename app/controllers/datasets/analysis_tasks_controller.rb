@@ -61,7 +61,7 @@ module Datasets
         # If the user was in the workflow, they're done now
         current_user.workflow_active = false
         current_user.workflow_class = nil
-        current_user.workflow_datasets = nil
+        current_user.workflow_datasets.clear
         current_user.save
 
         redirect_to root_path,

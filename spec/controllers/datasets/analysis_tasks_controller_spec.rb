@@ -178,7 +178,7 @@ RSpec.describe Datasets::AnalysisTasksController, type: :controller do
     context 'when a valid class/params are passed at the end of a workflow' do
       before(:example) do
         @user.workflow_active = true
-        @user.workflow_datasets = [@dataset]
+        @user.workflow_datasets = [@dataset.to_param]
         @user.workflow_class = 'ExportCitations'
         @user.save
 

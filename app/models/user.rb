@@ -62,20 +62,23 @@ class User < ActiveRecord::Base
   has_many :datasets
   has_many :libraries, class_name: 'Users::Library'
 
-  # We don't want to serialize *all* of the DatasetEntries into the database
-  # with the workflow_datasets, so wrap that parameter by converting it just
-  # to dataset ids.
-  before_save :workflow_datasets_to_ids
-  after_save :workflow_datasets_from_ids
-  after_find :workflow_datasets_from_ids
-
-  serialize :workflow_datasets, Array
-
   # Convert the `csl_style_id` to a CslStyle (or nil)
   #
   # @return [Users::CslStyle] the user's CSL style (or nil)
   def csl_style
     Users::CslStyle.find_by(id: csl_style_id)
+  end
+
+  # Get a workflow dataset for this user
+  #
+  # @param [Integer] n the number of the dataset to return
+  # @return [Dataset] the given dataset
+  def workflow_dataset(n)
+    if workflow_datasets.size <= n
+      fail ActiveRecord::RecordNotFound
+    end
+
+    Dataset.find(workflow_datasets[n])
   end
 
   # Parameter sanitizer class for regular users
@@ -106,28 +109,4 @@ class User < ActiveRecord::Base
     end
   end
   # :nocov:
-
-  private
-
-  # Convert workflow datasets to an array of ids
-  #
-  # If we serialize the full datasets into YAML, that will also serialize the
-  # entire list of dataset entries, which is massive.  This pair of callbacks
-  # prevents that, by converting to a simple array of ids on save.
-  #
-  # @return [void]
-  def workflow_datasets_to_ids
-    workflow_datasets.map!(&:to_param) if workflow_datasets
-  end
-
-  # Convert array of ids to workflow datasets
-  #
-  # If we serialize the full datasets into YAML, that will also serialize the
-  # entire list of dataset entries, which is massive.  This pair of callbacks
-  # prevents that, by converting to a simple array of ids on save.
-  #
-  # @return [void]
-  def workflow_datasets_from_ids
-    workflow_datasets.map! { |id| datasets.find(id) } if workflow_datasets
-  end
 end

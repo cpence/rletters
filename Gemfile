@@ -20,7 +20,7 @@ gem 'resque_mailer'
 gem 'devise'
 gem 'devise-i18n'
 gem 'devise-async'
-gem 'activeadmin', github: 'activeadmin'
+gem 'activeadmin', '~> 1.0.0.pre1'
 gem 'active_admin-sortable_tree'
 gem 'druthers'
 

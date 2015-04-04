@@ -46,8 +46,7 @@ module Jobs
       at(100, 100, I18n.t('jobs.create_dataset.progress_finished'))
       user.reload
       if user.workflow_active
-        user.workflow_datasets ||= []
-        user.workflow_datasets << dataset
+        user.workflow_datasets << dataset.to_param
         user.save
       end
 

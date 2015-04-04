@@ -124,13 +124,16 @@ When(/^I visit my account page$/) do
 end
 
 When(/^I add a library automatically$/) do
+  path = Rails.root.join('spec', 'support', 'requests', "worldcat_notre_dame.curl")
+  stub_request(:get, /worldcat.org/).to_return(IO.read(path))
+
   click_link 'Look up your library automatically'
   find('.modal-dialog')
 
-  click_button 'Drupal Link Resolver Module Test Institution for Functional Tests'
+  click_button 'University of NotreDame'
 
   visit libraries_path
-  expect(page).to have_content('Drupal Link Resolver Module Test Institution for Functional Tests')
+  expect(page).to have_content('University of NotreDame')
   @library = @user.libraries.first
 end
 
