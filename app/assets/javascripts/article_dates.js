@@ -1,5 +1,7 @@
 // ---------------------------------------------------------------------------
 // Graph support for the ArticleDates results page
+if (window.google !== undefined) {
+
 google.load('visualization', '1.0', {'packages':['corechart','table']});
 
 function createArticleDatesGraph() {
@@ -54,3 +56,5 @@ function createArticleDatesGraph() {
 }
 
 $(document).ready(createArticleDatesGraph);
+
+}

@@ -25,7 +25,8 @@ RSpec.describe DocumentDecorator, type: :decorator do
         @doc = described_class.decorate(Document.find(generate(:working_uid)))
 
         @user = create(:user)
-        allow(Draper::ViewContext.current).to receive(:current_user).and_return(@user)
+        @decorated = UserDecorator.decorate(@user)
+        allow(Draper::ViewContext.current).to receive(:current_user).and_return(@decorated)
         allow(Draper::ViewContext.current).to receive(:user_signed_in?).and_return(true)
       end
 
@@ -43,7 +44,8 @@ RSpec.describe DocumentDecorator, type: :decorator do
 
         @csl_style = create(:csl_style)
         @user = create(:user, csl_style_id: @csl_style.id)
-        allow(Draper::ViewContext.current).to receive(:current_user).and_return(@user)
+        @decorated = UserDecorator.decorate(@user)
+        allow(Draper::ViewContext.current).to receive(:current_user).and_return(@decorated)
         allow(Draper::ViewContext.current).to receive(:user_signed_in?).and_return(true)
       end
 
@@ -59,7 +61,8 @@ RSpec.describe DocumentDecorator, type: :decorator do
 
         @csl_style = create(:csl_style)
         @user = create(:user, csl_style_id: @csl_style.id)
-        allow(Draper::ViewContext.current).to receive(:current_user).and_return(@user)
+        @decorated = UserDecorator.decorate(@user)
+        allow(Draper::ViewContext.current).to receive(:current_user).and_return(@decorated)
         allow(Draper::ViewContext.current).to receive(:user_signed_in?).and_return(true)
       end
 

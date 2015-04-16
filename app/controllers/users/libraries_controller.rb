@@ -37,11 +37,8 @@ module Users
     #
     # @return [void]
     def create
-      @library = Users::Library.new(library_params)
-      @library.user = current_user
-
+      @library = current_user.libraries.new(library_params)
       if @library.save
-        current_user.libraries.reload
         redirect_to edit_user_registration_path,
                     flash: { success: I18n.t('users.libraries.create.success') }
       else

@@ -1,3 +1,5 @@
+if (window.google !== undefined) {
+
 google.load('maps', '3', {other_params: 'sensor=false'});
 
 var global_named_entity_map;
@@ -77,3 +79,5 @@ $(document).on('show.bs.collapse', '#accordion', function() {
     google.maps.event.trigger(global_named_entity_map, 'resize');
   }
 });
+
+}

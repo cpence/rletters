@@ -62,25 +62,6 @@ class User < ActiveRecord::Base
   has_many :datasets
   has_many :libraries, class_name: 'Users::Library'
 
-  # Convert the `csl_style_id` to a CslStyle (or nil)
-  #
-  # @return [Users::CslStyle] the user's CSL style (or nil)
-  def csl_style
-    Users::CslStyle.find_by(id: csl_style_id)
-  end
-
-  # Get a workflow dataset for this user
-  #
-  # @param [Integer] n the number of the dataset to return
-  # @return [Dataset] the given dataset
-  def workflow_dataset(n)
-    if workflow_datasets.size <= n
-      fail ActiveRecord::RecordNotFound
-    end
-
-    Dataset.find(workflow_datasets[n])
-  end
-
   # Parameter sanitizer class for regular users
   #
   # Attributes that can be edited by the user (in the user options form)

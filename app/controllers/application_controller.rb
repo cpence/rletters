@@ -20,6 +20,22 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  # Return the current user, decorated by Draper
+  #
+  # @return [UserDecorator] the decorated user
+  def current_user
+    @current_user ||= warden.authenticate(scope: :user)
+    @decorated_current_user ||=
+        @current_user && UserDecorator.decorate(@current_user)
+  end
+
+  # Return the current user, not decorated
+  #
+  # @return [User] the un-decorated, original user model
+  def current_devise_user
+    @current_user ||= warden.authenticate(scope: :user)
+  end
+
   # Redirect to the root on successful sign out
   #
   # This method is called by Devise.

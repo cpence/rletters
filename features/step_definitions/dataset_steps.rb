@@ -46,18 +46,9 @@ When(/^I add the first article to the dataset$/) do
   expect(current_path).to eq(search_path)
   expect(@dataset).to be
 
-  # No clue why this (the correct code here) is failing
-  # first(:button, 'More').click
-  # click_link('Add this document to an existing dataset')
-
-  link = first('a', text: 'Add this document to an existing dataset',
-                    visible: false)
-  link.trigger('click')
-
-  find('.modal-dialog')
-
-  click_button('Add')
-
+  # Hack our way directly to the submit button on the first dataset's modal
+  # dialog, which is hanging out at the bottom of the page
+  first('#modal-container div.modal .modal-footer button', visible: false).trigger('click')
   expect(page).to have_content("Information for dataset — #{@dataset.name}")
 end
 

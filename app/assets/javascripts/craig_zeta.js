@@ -1,5 +1,7 @@
 // ---------------------------------------------------------------------------
 // Graph support for the CraigZeta results page
+if (window.google !== undefined) {
+
 google.load('visualization', '1.0', {'packages':['corechart','table']});
 
 function createCraigZetaGraph() {
@@ -59,3 +61,5 @@ function createCraigZetaGraph() {
 }
 
 $(document).ready(createCraigZetaGraph);
+
+}

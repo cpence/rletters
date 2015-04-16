@@ -1,5 +1,7 @@
 // ---------------------------------------------------------------------------
 // Graph support for the TermDates results page
+if (window.google !== undefined) {
+
 google.load('visualization', '1.0', {'packages':['corechart','table']});
 
 function createTermDatesGraph() {
@@ -50,3 +52,5 @@ function createTermDatesGraph() {
 }
 
 $(document).ready(createTermDatesGraph);
+
+}
