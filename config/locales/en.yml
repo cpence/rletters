@@ -218,9 +218,9 @@ en:
     layouts:
         footer:
             copyright: >
-                Copyright © 2011–2015 %{app_name} and the RLetters development
-                team.  Article content remains copyrighted as specified on
-                individual article entries.  All rights reserved.
+                Copyright © 2011–2015 %{app_name}, and Louisiana State
+                University.  Article content remains copyrighted as specified
+                on individual article entries.  All rights reserved.
             rletters_markdown: >
                 Built with RLetters—the Open Source article textual analysis
                 platform.  For more information, see
