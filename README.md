@@ -1,7 +1,7 @@
 # RLetters #
 
 [![Build Status][travis_img]][travis] [![Dependency Status][gemnasium_img]][gemnasium] [![Coverage Status][coveralls_img]][coveralls] [![Code Metrics][codeclimate_img]][codeclimate] [![Inline docs][inch_img]][inch]
-[![External API Docs][apiary_img]][apiary] [![Code Docs][rubydoc_img]][rubydoc] [![Feature Docs][relish_img]][relish]
+[![External API Docs][apiary_img]][apiary] [![Code Docs][rubydoc_img]][rubydoc]
 
 [travis]: http://travis-ci.org/rletters/rletters
 [travis_img]: http://img.shields.io/travis/rletters/rletters.svg
@@ -17,8 +17,6 @@
 [apiary_img]: http://img.shields.io/badge/api%20docs-apiary-brightgreen.svg
 [rubydoc]: http://rubydoc.info/github/rletters/rletters
 [rubydoc_img]: http://img.shields.io/badge/code%20docs-rubydoc-brightgreen.svg
-[relish]: https://www.relishapp.com/rletters/rletters/docs
-[relish_img]: http://img.shields.io/badge/feature%20docs-relish-brightgreen.svg
 
 **Homepage:** [http://rletters.net](http://rletters.net)  
 **Git:** [http://github.com/rletters/rletters](http://github.com/rletters/rletters)  

@@ -70,7 +70,6 @@ gem 'roadie-rails'
 group :development do
   gem 'spring'
   gem 'spring-commands-rspec'
-  gem 'spring-commands-cucumber'
 end
 
 # Testing
@@ -85,10 +84,9 @@ group :test, :development do
 end
 
 group :test do
-  gem 'cucumber-rails', '>= 1.4.2', require: false
   gem 'capybara', require: false
   # gem 'capybara-slow_finder_errors'
-  gem 'poltergeist', require: false
+  gem 'capybara-webkit'
   gem 'database_cleaner'
 
   gem 'webmock', require: false

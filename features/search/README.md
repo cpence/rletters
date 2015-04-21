@@ -1,1 +1,0 @@
-The search component is the heart of RLetters.  With it, you can use search tools in order to narrow down the entire article database to a small set of articles of interest.  These acceptance tests ensure that the basic components of searching are functional: standard searches, advanced searches, faceted browsing, and Solr-query searches.

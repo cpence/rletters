@@ -1,1 +1,0 @@
-The workflow component walks users through the process of constructing an analysis in RLetters, including collecting the required data, starting the analysis, and collecting the results.  These tests ensure that those basic elements are all present and working.

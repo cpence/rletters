@@ -2,7 +2,7 @@
 
 ## Version 2.0.2 (unreleased)
 
-
+*   Integration testing (smoke tests) ported back to RSpec feature tests, using capybara-webkit. Dramatically increased stability and maintainability.
 
 ## Version 2.0.1 (2015-01-12)
 

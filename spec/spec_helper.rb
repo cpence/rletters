@@ -59,9 +59,6 @@ RSpec.configure do |config|
   config.before(:suite) do
     # Prepare the database
     DatabaseCleaner.clean_with(:truncation)
-
-    # Use transactions to clean database
-    DatabaseCleaner.strategy = :transaction
   end
 
   config.around(:example) do |example|
@@ -72,6 +69,14 @@ RSpec.configure do |config|
     # I'm not sure why this has stopped being called, but call it manually
     if example.metadata[:type].in?([:controller, :mailer, :decorator])
       Draper::ViewContext.clear!
+    end
+
+    # Use transactions to clean database for non-feature tests, truncation for
+    # features that use capybara-webkit.
+    if example.metadata[:type] == :feature
+      DatabaseCleaner.strategy = :truncation
+    else
+      DatabaseCleaner.strategy = :transaction
     end
 
     DatabaseCleaner.cleaning do
@@ -88,3 +93,6 @@ RSpec.configure do |config|
 end
 
 FactoryGirl::SyntaxRunner.include(RSpec::Mocks::ExampleMethods)
+
+Capybara.default_driver = :webkit
+Capybara.javascript_driver = :webkit

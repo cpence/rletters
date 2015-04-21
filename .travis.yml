@@ -1,22 +1,20 @@
 language: ruby
 cache: bundler
-rvm: 2.2.1
+rvm: 2.2.2
 sudo: false
 
 env:
-  matrix:
-    - TASK='bin/rspec'
-    - TASK='bin/cucumber --profile first_try || bin/cucumber --profile second_try'
-  global:
-    secure: Lv1neEs259UnYFTpbBOja4qhbdDnDCryGiZ8ycLkBGlc7PioiSiVqCo1Py+pJrpYenA3xrguv/Z5hdNjJ3fm4dl8GDrV9kgjtNe8E388kitISpimAi5QuwvxfJS8YiRPKm9VSfs3laMlSVXjhMdlAW1PPcrcElddv+r+jMpJ9uM=
+  - DISPLAY=":99.0"
+  - secure: Lv1neEs259UnYFTpbBOja4qhbdDnDCryGiZ8ycLkBGlc7PioiSiVqCo1Py+pJrpYenA3xrguv/Z5hdNjJ3fm4dl8GDrV9kgjtNe8E388kitISpimAi5QuwvxfJS8YiRPKm9VSfs3laMlSVXjhMdlAW1PPcrcElddv+r+jMpJ9uM=
 
 bundler_args: "--without production development --jobs 3 --retry 3"
 before_script:
+  - 'sh -e /etc/init.d/xvfb start'
   - cp config/database.yml.travis config/database.yml
   - git clone --depth=1 https://github.com/rletters/solr-example.git vendor/solr
   - 'pushd vendor/solr && ./start && popd'
   - bin/rake db:create db:schema:load
 
-script: sh -c "$TASK"
+script: bin/rspec
 
 after_script: 'pushd vendor/solr && ./stop && popd'
