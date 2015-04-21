@@ -90,6 +90,8 @@ RSpec.configure do |config|
   config.include SearchControllerQuery, type: :view
   config.include ParseJson, type: :request
   config.include StubConnection
+  config.include Features::DatasetHelpers, type: :feature
+  config.include Features::UserHelpers, type: :feature
 end
 
 FactoryGirl::SyntaxRunner.include(RSpec::Mocks::ExampleMethods)
