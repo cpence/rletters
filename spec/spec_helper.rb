@@ -51,6 +51,8 @@ RSpec.configure do |config|
   config.color = true
   config.tty = true
   config.order = :random
+  #config.order = :defined
+  config.fail_fast = true
 
   # We're going to use database_cleaner, so we don't need RSpec's transactional
   # fixture support
@@ -62,14 +64,16 @@ RSpec.configure do |config|
   end
 
   config.around(:example) do |example|
+    # puts "STARTING #{example.full_description}"
+
     # Reset the locale and timezone to defaults on each new test
     I18n.locale = I18n.default_locale
     Time.zone = 'Eastern Time (US & Canada)'
 
     # I'm not sure why this has stopped being called, but call it manually
-    if example.metadata[:type].in?([:controller, :mailer, :decorator])
-      Draper::ViewContext.clear!
-    end
+    # if example.metadata[:type].in?([:controller, :mailer, :decorator])
+    #   Draper::ViewContext.clear!
+    # end
 
     # Use transactions to clean database for non-feature tests, truncation for
     # features that use capybara-webkit.
@@ -80,21 +84,22 @@ RSpec.configure do |config|
     end
 
     DatabaseCleaner.cleaning do
+      # puts "   ...CLEAN DONE, RUNNING"
       example.run
+      # puts "   ...RUN DONE"
     end
   end
 
   # Add a variety of test helpers
-  config.include Devise::TestHelpers, type: :controller
   config.include FactoryGirl::Syntax::Methods
-  config.include SearchControllerQuery, type: :view
-  config.include ParseJson, type: :request
   config.include StubConnection
+  config.include Devise::TestHelpers, type: :controller
+  config.include ParseJson, type: :request
   config.include Features::DatasetHelpers, type: :feature
   config.include Features::UserHelpers, type: :feature
 end
 
-FactoryGirl::SyntaxRunner.include(RSpec::Mocks::ExampleMethods)
+# FactoryGirl::SyntaxRunner.include(RSpec::Mocks::ExampleMethods)
 
 Capybara.default_driver = :webkit
 Capybara.javascript_driver = :webkit

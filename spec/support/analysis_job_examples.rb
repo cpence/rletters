@@ -39,18 +39,16 @@ RSpec.shared_examples_for 'an analysis job' do
   context 'when the job is finished' do
     include_context 'create job with params'
 
-    it 'calls the finish! method on the task' do
-      described_class.perform('123', @perform_args)
-      @task.reload
-      expect(@task.finished_at).to be
-    end
-
-    it 'sends an e-mail' do
+    it 'calls the finish! method on the task and sends an email' do
       mailer_ret = double
       expect(mailer_ret).to receive(:deliver)
 
       expect(UserMailer).to receive(:job_finished_email).with(@task.dataset.user.email, @task.to_param).and_return(mailer_ret)
+
       described_class.perform('123', @perform_args)
+
+      @task.reload
+      expect(@task.finished_at).to be
     end
   end
 
