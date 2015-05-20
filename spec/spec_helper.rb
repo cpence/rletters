@@ -1,5 +1,9 @@
 require 'rubygems'
 
+NO_TRUNCATE_TABLES = %w(admin_administrators admin_markdown_pages
+                        admin_uploaded_asset_files admin_uploaded_assets
+                        documents_stop_lists users_csl_styles)
+
 # Coverage setup
 if ENV['TRAVIS'] || ENV['COVERAGE']
   require 'simplecov'
@@ -64,7 +68,7 @@ RSpec.configure do |config|
   end
 
   config.around(:example) do |example|
-    # puts "STARTING #{example.full_description}"
+    puts "STARTING #{example.full_description}"
 
     # Reset the locale and timezone to defaults on each new test
     I18n.locale = I18n.default_locale
@@ -77,16 +81,16 @@ RSpec.configure do |config|
 
     # Use transactions to clean database for non-feature tests, truncation for
     # features that use capybara-webkit.
-    if example.metadata[:type] == :feature
-      DatabaseCleaner.strategy = :truncation
-    else
-      DatabaseCleaner.strategy = :transaction
-    end
+    # if example.metadata[:type] == :feature
+      DatabaseCleaner.strategy = :truncation, { except: NO_TRUNCATE_TABLES }
+    # else
+    #   DatabaseCleaner.strategy = :transaction
+    # end
 
     DatabaseCleaner.cleaning do
-      # puts "   ...CLEAN DONE, RUNNING"
+      puts "   ...CLEAN DONE, RUNNING"
       example.run
-      # puts "   ...RUN DONE"
+      puts "   ...RUN DONE"
     end
   end
 
