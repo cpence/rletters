@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 RSpec.describe RLetters::Analysis::Network::Graph do
-  before(:context) do
+  before(:example) do
     @user = create(:user)
     @dataset = create(:full_dataset, entries_count: 0, user: @user)
     @dataset.entries += [create(:entry, dataset: @dataset, uid: WORKING_UIDS[2])]
@@ -9,7 +9,7 @@ RSpec.describe RLetters::Analysis::Network::Graph do
   end
 
   context 'without a focal word' do
-    before(:context) do
+    before(:example) do
       @called_sub_100 = false
       @called_100 = false
 
@@ -40,7 +40,7 @@ RSpec.describe RLetters::Analysis::Network::Graph do
     end
 
     describe '#find_node' do
-      before(:context) do
+      before(:example) do
         @node = @graph.nodes.find { |n| n.words.include?('disease') }
       end
 
@@ -64,7 +64,7 @@ RSpec.describe RLetters::Analysis::Network::Graph do
     end
 
     describe '#find_edge' do
-      before(:context) do
+      before(:example) do
         @node_1 = @graph.find_node(word: 'disease')
         @node_2 = @graph.find_node(word: 'blood')
       end
@@ -88,7 +88,7 @@ RSpec.describe RLetters::Analysis::Network::Graph do
   end
 
   context 'with a focal word' do
-    before(:context) do
+    before(:example) do
       @graph = described_class.new(@dataset, 'disease')
 
       @connectivity = {}
@@ -108,7 +108,7 @@ RSpec.describe RLetters::Analysis::Network::Graph do
   end
 
   context 'with a different language' do
-    before(:context) do
+    before(:example) do
       create(:stop_list, language: 'de', list: 'es die der das')
       @graph = described_class.new(@dataset, nil, [2, 5], 'de')
     end

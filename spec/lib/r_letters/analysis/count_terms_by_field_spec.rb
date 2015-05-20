@@ -3,7 +3,7 @@ require 'spec_helper'
 RSpec.describe RLetters::Analysis::CountTermsByField do
   describe '#counts_for' do
     context 'without a dataset' do
-      before(:context) do
+      before(:example) do
         @called_sub_100 = false
         @called_100 = false
 
@@ -43,7 +43,7 @@ RSpec.describe RLetters::Analysis::CountTermsByField do
     end
 
     context 'with a dataset' do
-      before(:context) do
+      before(:example) do
         @user = create(:user)
         @dataset = create(:full_dataset, entries_count: 2, working: true,
                                          user: @user)

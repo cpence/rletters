@@ -1,8 +1,6 @@
 require 'spec_helper'
 
 RSpec.describe Jobs::Analysis::WordFrequency do
-  it_should_behave_like 'an analysis job'
-
   before(:example) do
     @user = create(:user)
     @dataset = create(:full_dataset, entries_count: 2, working: true,
@@ -30,6 +28,8 @@ RSpec.describe Jobs::Analysis::WordFrequency do
       mock_analyzer
     end
   end
+
+  it_should_behave_like 'an analysis job'
 
   describe '.download?' do
     it 'is true' do

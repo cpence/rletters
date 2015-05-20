@@ -6,13 +6,15 @@ RSpec.describe RLetters::Analysis::Collocation::PartsOfSpeech do
     before(:context) do
       @old_path = Admin::Setting.nlp_tool_path
       Admin::Setting.nlp_tool_path = nil
-
-      @user = create(:user)
-      @dataset = create(:full_dataset, working: true)
     end
 
     after(:context) do
       Admin::Setting.nlp_tool_path = @old_path
+    end
+
+    before(:example) do
+      @user = create(:user)
+      @dataset = create(:full_dataset, working: true)
     end
 
     it 'raises an error when called' do
@@ -35,6 +37,6 @@ RSpec.describe RLetters::Analysis::Collocation::PartsOfSpeech do
       Admin::Setting.nlp_tool_path = @old_path
     end
 
-    it_should_behave_like 'a collocation analyzer (before example)'
+    it_should_behave_like 'a collocation analyzer'
   end
 end

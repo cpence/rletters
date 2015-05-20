@@ -1,8 +1,3 @@
-require 'rubygems'
-
-NO_TRUNCATE_TABLES = %w(admin_administrators admin_markdown_pages
-                        admin_uploaded_asset_files admin_uploaded_assets
-                        documents_stop_lists users_csl_styles)
 
 # Coverage setup
 if ENV['TRAVIS'] || ENV['COVERAGE']
@@ -55,7 +50,6 @@ RSpec.configure do |config|
   config.color = true
   config.tty = true
   config.order = :random
-  #config.order = :defined
   config.fail_fast = true
 
   # We're going to use database_cleaner, so we don't need RSpec's transactional
@@ -67,31 +61,23 @@ RSpec.configure do |config|
     DatabaseCleaner.clean_with(:truncation)
   end
 
-  config.around(:example) do |example|
-    puts "STARTING #{example.full_description}"
-
+  config.before(:example) do |example|
     # Reset the locale and timezone to defaults on each new test
     I18n.locale = I18n.default_locale
     Time.zone = 'Eastern Time (US & Canada)'
 
-    # I'm not sure why this has stopped being called, but call it manually
-    # if example.metadata[:type].in?([:controller, :mailer, :decorator])
-    #   Draper::ViewContext.clear!
-    # end
-
     # Use transactions to clean database for non-feature tests, truncation for
     # features that use capybara-webkit.
-    # if example.metadata[:type] == :feature
-      DatabaseCleaner.strategy = :truncation, { except: NO_TRUNCATE_TABLES }
-    # else
-    #   DatabaseCleaner.strategy = :transaction
-    # end
-
-    DatabaseCleaner.cleaning do
-      puts "   ...CLEAN DONE, RUNNING"
-      example.run
-      puts "   ...RUN DONE"
+    if example.metadata[:type] == :feature
+      DatabaseCleaner.strategy = :truncation
+    else
+      DatabaseCleaner.strategy = :transaction
     end
+    DatabaseCleaner.start
+  end
+
+  config.after(:example) do
+    DatabaseCleaner.clean
   end
 
   # Add a variety of test helpers
@@ -102,8 +88,6 @@ RSpec.configure do |config|
   config.include Features::DatasetHelpers, type: :feature
   config.include Features::UserHelpers, type: :feature
 end
-
-# FactoryGirl::SyntaxRunner.include(RSpec::Mocks::ExampleMethods)
 
 Capybara.default_driver = :webkit
 Capybara.javascript_driver = :webkit

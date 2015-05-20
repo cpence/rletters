@@ -1,13 +1,13 @@
 require 'spec_helper'
 
 RSpec.describe RLetters::Datasets::AddSearch do
-  before(:context) do
+  before(:example) do
     @user = create(:user)
     @dataset = create(:dataset, user: @user)
   end
 
   context 'with a basic search' do
-    before(:context) do
+    before(:example) do
       @called_sub_100 = false
       @called_100 = false
 

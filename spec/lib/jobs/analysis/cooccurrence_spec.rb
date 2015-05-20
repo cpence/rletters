@@ -1,13 +1,11 @@
 require 'spec_helper'
 
 RSpec.describe Jobs::Analysis::Cooccurrence do
-  before(:context) do
+  before(:example) do
     @user = create(:user)
     @dataset = create(:full_dataset, working: true, user: @user)
     @task = create(:analysis_task, dataset: @dataset)
-  end
 
-  before(:example) do
     # Don't run the analyses
     allow_any_instance_of(RLetters::Analysis::Cooccurrence::Base).to receive(:call) do |analyzer|
       p = analyzer.instance_variable_get(:@progress)

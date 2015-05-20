@@ -1,13 +1,13 @@
 
 RSpec.shared_examples_for 'a cooccurrence analyzer' do
-  before(:context) do
+  before(:example) do
     @user = create(:user)
     @dataset = create(:full_dataset, entries_count: 2, working: true,
                                      user: @user)
   end
 
   describe 'single word analysis' do
-    before(:context) do
+    before(:example) do
       @called_sub_100 = false
       @called_100 = false
 
@@ -40,7 +40,7 @@ RSpec.shared_examples_for 'a cooccurrence analyzer' do
   end
 
   describe 'multiple word analysis' do
-    before(:context) do
+    before(:example) do
       @grams = described_class.new(@dataset, 10, 'abstract, background', 50).call
     end
 
@@ -58,7 +58,7 @@ RSpec.shared_examples_for 'a cooccurrence analyzer' do
   end
 
   describe 'stemming' do
-    before(:context) do
+    before(:example) do
       @grams = described_class.new(@dataset, 9999, 'abstract', 50, :stem).call
     end
 

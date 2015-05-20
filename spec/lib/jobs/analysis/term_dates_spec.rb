@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 RSpec.describe Jobs::Analysis::TermDates do
-  before(:context) do
+  before(:example) do
     @user = create(:user)
     @dataset = create(:full_dataset, working: true, entries_count: 1,
                                      user: @user)
@@ -25,7 +25,7 @@ RSpec.describe Jobs::Analysis::TermDates do
   end
 
   describe('.perform') do
-    before(:context) do
+    before(:example) do
       Jobs::Analysis::TermDates.perform(
         '123',
         user_id: @user.to_param,

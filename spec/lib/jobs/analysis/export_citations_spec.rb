@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 RSpec.describe Jobs::Analysis::ExportCitations do
-  before(:context) do
+  before(:example) do
     @user = create(:user)
     @dataset = create(:full_dataset, entries_count: 10, working: true,
                                      user: @user)
@@ -38,7 +38,7 @@ RSpec.describe Jobs::Analysis::ExportCitations do
   end
 
   context 'when all parameters are valid' do
-    before(:context) do
+    before(:example) do
       Jobs::Analysis::ExportCitations.perform(
         '123',
         user_id: @user.to_param,

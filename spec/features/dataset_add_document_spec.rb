@@ -6,6 +6,7 @@ RSpec.feature 'Adding a dataset to a search', type: :feature do
     create_dataset
 
     visit datasets_path
+    expect(page).to have_selector('td', text: "Integration Dataset")
     click_link 'Manage'
 
     expect(page).to have_content('Number of documents: 427')
@@ -19,6 +20,7 @@ RSpec.feature 'Adding a dataset to a search', type: :feature do
     end
 
     visit datasets_path
+    expect(page).to have_selector('td', text: "Integration Dataset")
     click_link 'Manage'
 
     expect(page).to have_content('Number of documents: 428')

@@ -1,8 +1,6 @@
 require 'spec_helper'
 
 RSpec.describe Jobs::Analysis::NamedEntities do
-  it_should_behave_like 'an analysis job'
-
   before(:example) do
     @user = create(:user)
     @dataset = create(:full_dataset, working: true, user: @user)
@@ -18,6 +16,8 @@ RSpec.describe Jobs::Analysis::NamedEntities do
   after(:example) do
     Admin::Setting.nlp_tool_path = @old_path
   end
+
+  it_should_behave_like 'an analysis job'
 
   describe '.available?' do
     it 'is true with NLP available' do

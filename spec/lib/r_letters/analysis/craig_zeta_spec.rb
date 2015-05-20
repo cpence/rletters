@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 RSpec.describe RLetters::Analysis::CraigZeta do
-  before(:context) do
+  before(:example) do
     @user = create(:user)
     # N.B.: If you do 10-doc datasets here, all the words are in common, and
     # there's no zeta scores.

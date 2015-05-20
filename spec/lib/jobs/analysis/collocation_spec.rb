@@ -1,8 +1,6 @@
 require 'spec_helper'
 
 RSpec.describe Jobs::Analysis::Collocation do
-  it_should_behave_like 'an analysis job'
-
   before(:example) do
     @user = create(:user)
     @dataset = create(:full_dataset, working: true, entries_count: 2,
@@ -41,6 +39,8 @@ RSpec.describe Jobs::Analysis::Collocation do
   after(:example) do
     Admin::Setting.nlp_tool_path = @old_path
   end
+
+  it_should_behave_like 'an analysis job'
 
   describe '.download?' do
     it 'is true' do

@@ -227,7 +227,7 @@ RSpec.describe SearchResultDecorator, type: :decorator do
   end
 
   describe '#documents' do
-    before(:context) do
+    before(:example) do
       params = {
         q: '*:*',
         defType: 'lucene'

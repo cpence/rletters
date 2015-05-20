@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 RSpec.describe Jobs::Analysis::ArticleDates do
-  before(:context) do
+  before(:example) do
     @user = create(:user)
     @dataset = create(:full_dataset, working: true, user: @user)
     @task = create(:analysis_task, dataset: @dataset)
@@ -22,7 +22,7 @@ RSpec.describe Jobs::Analysis::ArticleDates do
   end
 
   context 'when not normalizing' do
-    before(:context) do
+    before(:example) do
       @dataset_2 = create(:full_dataset, working: true, user: @user)
       @dataset_2.entries += [create(:entry, dataset: @dataset_2, uid: 'gutenberg:3172')]
       @task_2 = create(:analysis_task, dataset: @dataset_2)
@@ -57,7 +57,7 @@ RSpec.describe Jobs::Analysis::ArticleDates do
   end
 
   context 'when normalizing to the corpus' do
-    before(:context) do
+    before(:example) do
       Jobs::Analysis::ArticleDates.perform(
         '123',
         user_id: @user.to_param,
@@ -98,7 +98,7 @@ RSpec.describe Jobs::Analysis::ArticleDates do
   end
 
   context 'when normalizing to a dataset' do
-    before(:context) do
+    before(:example) do
       @normalization_set = create(:full_dataset, working: true,
                                                  entries_count: 10,
                                                  user: @user)
@@ -140,7 +140,7 @@ RSpec.describe Jobs::Analysis::ArticleDates do
   # We want to make sure it still works when we normalize to a dataset where
   # the dataset of interest isn't a subset
   context 'when normalizing incorrectly' do
-    before(:context) do
+    before(:example) do
       @normalization_set = create(:full_dataset, entries_count: 0, user: @user)
       @normalization_set.entries = [
         create(:entry, dataset: @normalization_set, uid: 'gutenberg:3172')

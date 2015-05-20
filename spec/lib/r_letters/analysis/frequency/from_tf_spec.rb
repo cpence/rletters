@@ -1,14 +1,14 @@
 require 'spec_helper'
 
 RSpec.describe RLetters::Analysis::Frequency::FromTF do
-  before(:context) do
+  before(:example) do
     @user = create(:user)
     @dataset = create(:full_dataset, entries_count: 10, working: true,
                                      user: @user)
   end
 
   context 'with the basic analyzer' do
-    before(:context) do
+    before(:example) do
       @analyzer = described_class.new(@dataset)
     end
 
@@ -88,7 +88,7 @@ RSpec.describe RLetters::Analysis::Frequency::FromTF do
   end
 
   context 'when not splitting across documents' do
-    before(:context) do
+    before(:example) do
       @analyzer = described_class.new(@dataset, nil, split_across: false)
     end
 
@@ -155,7 +155,7 @@ RSpec.describe RLetters::Analysis::Frequency::FromTF do
 
   describe '#num_words' do
     context 'with num_words negative' do
-      before(:context) do
+      before(:example) do
         @analyzer = described_class.new(@dataset, nil, num_words: -1)
       end
 
@@ -165,7 +165,7 @@ RSpec.describe RLetters::Analysis::Frequency::FromTF do
     end
 
     context 'with num_words set to 10' do
-      before(:context) do
+      before(:example) do
         @analyzer = described_class.new(@dataset, nil, num_words: 10)
       end
 
@@ -177,7 +177,7 @@ RSpec.describe RLetters::Analysis::Frequency::FromTF do
     end
 
     context 'with all set' do
-      before(:context) do
+      before(:example) do
         @analyzer = described_class.new(@dataset, nil, num_words: 3, all: true)
       end
 
@@ -188,7 +188,7 @@ RSpec.describe RLetters::Analysis::Frequency::FromTF do
   end
 
   describe '#inclusion_list' do
-    before(:context) do
+    before(:example) do
       @analyzer = described_class.new(@dataset, nil, inclusion_list: 'malaria disease')
     end
 
@@ -198,7 +198,7 @@ RSpec.describe RLetters::Analysis::Frequency::FromTF do
   end
 
   describe '#exclusion_list' do
-    before(:context) do
+    before(:example) do
       @analyzer = described_class.new(@dataset, nil, exclusion_list: 'a the')
     end
 
@@ -213,7 +213,7 @@ RSpec.describe RLetters::Analysis::Frequency::FromTF do
   end
 
   describe '#stop_list' do
-    before(:context) do
+    before(:example) do
       @list = create(:stop_list)
       @analyzer = described_class.new(@dataset, nil, stop_list: @list)
     end
@@ -229,7 +229,7 @@ RSpec.describe RLetters::Analysis::Frequency::FromTF do
   end
 
   describe '#word_list' do
-    before(:context) do
+    before(:example) do
       @analyzer = described_class.new(@dataset, nil, num_words: 10)
     end
 

@@ -5,6 +5,7 @@ RSpec.feature 'Viewing information about a dataset', type: :feature do
     sign_in_with
     create_dataset
     visit datasets_path
+    expect(page).to have_selector('td', text: "Integration Dataset")
 
     click_link 'Manage'
 
@@ -36,7 +37,12 @@ RSpec.feature 'Viewing information about a dataset', type: :feature do
     )
 
     visit datasets_path
+    expect(page).to have_selector('td', text: "Integration Dataset")
     click_link 'Manage'
+
+    # It shouldn't have a failed task, and should warn you about a pending task
+    expect(page).not_to have_selector('.alert.alert-danger')
+    expect(page).to have_selector('.alert.alert-warning')
   end
 
   scenario 'when an analysis task has failed' do
@@ -47,7 +53,12 @@ RSpec.feature 'Viewing information about a dataset', type: :feature do
     create(:analysis_task, dataset: Dataset.first, failed: true)
 
     visit datasets_path
+    expect(page).to have_selector('td', text: "Integration Dataset")
     click_link 'Manage'
+
+    # It shouldn't have a pending task, and should have a failed task
+    expect(page).not_to have_selector('.alert.alert-warning')
+    expect(page).to have_selector('.alert.alert-danger')
   end
 
   scenario 'when clearing a failed analysis task' do
@@ -58,11 +69,17 @@ RSpec.feature 'Viewing information about a dataset', type: :feature do
     create(:analysis_task, dataset: Dataset.first, failed: true)
 
     visit datasets_path
+    expect(page).to have_selector('td', text: "Integration Dataset")
     click_link 'Manage'
+
+    expect(page).to have_content('Integration Dataset')
     click_link '1 analysis task failed for this dataset! Click here to clear failed tasks.'
 
     visit datasets_path
+    expect(page).to have_selector('td', text: "Integration Dataset")
+
     click_link 'Manage'
+    expect(page).to have_content('Integration Dataset')
 
     expect(page).to have_selector('td', text: 'No analysis tasks found')
     expect(page).not_to have_selector('.alert.alert-danger')
@@ -82,16 +99,23 @@ RSpec.feature 'Viewing information about a dataset', type: :feature do
     click_button 'Start analysis job'
 
     visit datasets_path
+    expect(page).to have_selector('td', text: "Integration Dataset")
     click_link 'Manage'
+
+    expect(page).to have_content('Integration Dataset')
     click_link 'View'
 
     expect(page).to have_content('Download in CSV format')
 
     visit datasets_path
+    expect(page).to have_selector('td', text: "Integration Dataset")
     click_link 'Manage'
+
+    expect(page).to have_content('Integration Dataset')
     click_link 'Delete'
 
     visit datasets_path
+    expect(page).to have_selector('td', text: "Integration Dataset")
     click_link 'Manage'
 
     expect(page).to have_selector('td', text: 'No analysis tasks found')

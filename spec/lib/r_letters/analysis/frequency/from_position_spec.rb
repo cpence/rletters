@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 RSpec.describe RLetters::Analysis::Frequency::FromPosition do
-  before(:context) do
+  before(:example) do
     @user = create(:user)
     @dataset = create(:full_dataset, entries_count: 10, working: true,
                                      user: @user)
@@ -18,7 +18,7 @@ RSpec.describe RLetters::Analysis::Frequency::FromPosition do
   end
 
   context 'with plain onegrams analysis' do
-    before(:context) do
+    before(:example) do
       @called_sub_100 = false
       @called_100 = false
 
@@ -100,7 +100,7 @@ RSpec.describe RLetters::Analysis::Frequency::FromPosition do
 
   describe '#num_words' do
     context 'with num_words negative' do
-      before(:context) do
+      before(:example) do
         @analyzer = described_class.new(@onegram_ss, nil,
                                         num_words: -1,
                                         num_blocks: 1)
@@ -113,7 +113,7 @@ RSpec.describe RLetters::Analysis::Frequency::FromPosition do
     end
 
     context 'with num_words set to 10' do
-      before(:context) do
+      before(:example) do
         @analyzer = described_class.new(@onegram_ss, nil, num_words: 10)
       end
 
@@ -123,7 +123,7 @@ RSpec.describe RLetters::Analysis::Frequency::FromPosition do
     end
 
     context 'with all set' do
-      before(:context) do
+      before(:example) do
         @analyzer = described_class.new(@onegram_ss, nil, num_words: 3,
                                                           all: true,
                                                           num_blocks: 1)
@@ -137,7 +137,7 @@ RSpec.describe RLetters::Analysis::Frequency::FromPosition do
 
   describe '#inclusion_list' do
     context 'with one-grams' do
-      before(:context) do
+      before(:example) do
         @analyzer = described_class.new(@onegram_ss, nil, inclusion_list: 'malaria disease')
       end
 
@@ -147,7 +147,7 @@ RSpec.describe RLetters::Analysis::Frequency::FromPosition do
     end
 
     context 'with n-grams' do
-      before(:context) do
+      before(:example) do
         @analyzer = described_class.new(@ngram_ss, nil, inclusion_list: 'malaria')
       end
 
@@ -162,7 +162,7 @@ RSpec.describe RLetters::Analysis::Frequency::FromPosition do
 
   describe '#exclusion_list' do
     context 'with one-grams' do
-      before(:context) do
+      before(:example) do
         @analyzer = described_class.new(@onegram_ss, nil, exclusion_list: 'a the')
       end
 
@@ -177,7 +177,7 @@ RSpec.describe RLetters::Analysis::Frequency::FromPosition do
     end
 
     context 'with n-grams' do
-      before(:context) do
+      before(:example) do
         @analyzer = described_class.new(@ngram_ss, nil, exclusion_list: 'diseases')
       end
 
@@ -190,7 +190,7 @@ RSpec.describe RLetters::Analysis::Frequency::FromPosition do
   end
 
   describe '#stop_list' do
-    before(:context) do
+    before(:example) do
       @list = create(:stop_list)
       @analyzer = described_class.new(@onegram_ss, nil, stop_list: @list)
     end
@@ -206,7 +206,7 @@ RSpec.describe RLetters::Analysis::Frequency::FromPosition do
   end
 
   describe '#word_list' do
-    before(:context) do
+    before(:example) do
       @analyzer = described_class.new(@onegram_ss, nil, num_words: 10)
     end
 
@@ -222,7 +222,7 @@ RSpec.describe RLetters::Analysis::Frequency::FromPosition do
   end
 
   describe '#tf_in_dataset' do
-    before(:context) do
+    before(:example) do
       @analyzer = described_class.new(@oneblock_ss)
     end
 

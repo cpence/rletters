@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 RSpec.describe Jobs::Analysis::Network do
-  before(:context) do
+  before(:example) do
     @user = create(:user)
     @dataset = create(:full_dataset, user: @user, entries_count: 0)
     @dataset.entries += [create(:entry, dataset: @dataset,
@@ -36,7 +36,7 @@ RSpec.describe Jobs::Analysis::Network do
   end
 
   context 'when all parameters are valid' do
-    before(:context) do
+    before(:example) do
       Jobs::Analysis::Network.perform(
         '123',
         user_id: @user.to_param,

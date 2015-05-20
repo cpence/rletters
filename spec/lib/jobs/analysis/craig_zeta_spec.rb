@@ -1,16 +1,14 @@
 require 'spec_helper'
 
 RSpec.describe Jobs::Analysis::CraigZeta do
-  before(:all) do
+  before(:example) do
     @user = create(:user)
     @dataset = create(:full_dataset, working: true, user: @user,
                                      entries_count: 2)
     @dataset_2 = create(:full_dataset, working: true, user: @user,
                                        entries_count: 2)
     @task = create(:analysis_task, dataset: @dataset)
-  end
 
-  before(:example) do
     # Don't run the analyses
     mock = double(RLetters::Analysis::CraigZeta,
                   zeta_scores: [], dataset_1_markers: [],
@@ -36,7 +34,7 @@ RSpec.describe Jobs::Analysis::CraigZeta do
   end
 
   context 'when all parameters are valid' do
-    before(:context) do
+    before(:example) do
       Jobs::Analysis::CraigZeta.perform(
         '123',
         user_id: @user.to_param,

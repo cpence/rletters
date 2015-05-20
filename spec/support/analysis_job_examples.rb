@@ -2,14 +2,6 @@ require 'spec_helper'
 
 RSpec.shared_context 'create job with params' do
   before(:example) do
-    @user ||= create(:user)
-    @dataset ||= create(
-      :full_dataset,
-      { user: @user,
-        working: true,
-        entries_count: 10 }.merge(dataset_params)
-    )
-    @task = create(:analysis_task, dataset: @dataset)
     @perform_args = { user_id: @user.to_param,
                       dataset_id: @dataset.to_param,
                       task_id: @task.to_param }.merge(job_params)

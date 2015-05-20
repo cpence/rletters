@@ -30,7 +30,7 @@ RSpec.describe ApplicationHelper, type: :helper do
     end
 
     context 'with a shortcut' do
-      before(:context) do
+      before(:example) do
         I18n.backend.store_translations(
           :en,
           workflow: { spectest: { testing: '# Testing #' } }
@@ -42,7 +42,7 @@ RSpec.describe ApplicationHelper, type: :helper do
         end
       end
 
-      after(:context) do
+      after(:example) do
         File.delete(@custom_filename)
       end
 
