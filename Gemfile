@@ -96,7 +96,7 @@ end
 
 # Deployment gems
 group :production do
-  gem 'unicorn', require: false
+  gem 'puma', require: false
   gem 'resque-pool', require: false
   gem 'airbrake', require: false
 end
