@@ -1,12 +1,14 @@
 # RLetters #
 
-[![Build Status][travis_img]][travis] [![Dependency Status][gemnasium_img]][gemnasium] [![Code Metrics][codeclimate_img]][codeclimate] [![Inline docs][inch_img]][inch]
+[![Build Status][travis_img]][travis] [![Dependency Status][gemnasium_img]][gemnasium] [![Code Metrics][codeclimate_img]][codeclimate] [![Test Coverage][coverage_img]][coverage] [![Inline docs][inch_img]][inch]
 [![External API Docs][apiary_img]][apiary] [![Code Docs][rubydoc_img]][rubydoc]
 
-[travis]: http://travis-ci.org/rletters/rletters
-[travis_img]: http://img.shields.io/travis/rletters/rletters.svg
+[travis]: https://travis-ci.org/rletters/rletters
+[travis_img]: https://travis-ci.org/rletters/rletters.svg?branch=master
 [codeclimate]: https://codeclimate.com/github/rletters/rletters
-[codeclimate_img]: http://img.shields.io/codeclimate/github/rletters/rletters.svg
+[codeclimate_img]: https://codeclimate.com/github/rletters/rletters/badges/gpa.svg
+[coverage]: https://codeclimate.com/github/rletters/rletters/coverage
+[coverage_img]: https://codeclimate.com/github/rletters/rletters/badges/coverage.svg
 [inch]: http://inch-ci.org/github/rletters/rletters
 [inch_img]: http://inch-ci.org/github/rletters/rletters.svg?branch=master
 [gemnasium]: https://gemnasium.com/rletters/rletters
