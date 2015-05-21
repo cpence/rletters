@@ -101,11 +101,13 @@ RSpec.describe SearchResultDecorator, type: :decorator do
 
     context 'when a search has been performed' do
       before(:example) do
-        @result = described_class.decorate(double(
-          'RLetters::Solr::SearchResult',
-          num_hits: 100,
-          params: { q: 'Test search' }
-        ))
+        @result = described_class.decorate(
+          double(
+            'RLetters::Solr::SearchResult',
+            num_hits: 100,
+            params: { q: 'Test search' }
+          )
+        )
       end
 
       it 'returns "found"' do
@@ -115,11 +117,13 @@ RSpec.describe SearchResultDecorator, type: :decorator do
 
     context 'when a faceted query has been performed' do
       before(:example) do
-        @result = described_class.decorate(double(
-          'RLetters::Solr::SearchResult',
-          num_hits: 100,
-          params: { fq: ['journal:(PLoS Neglected Tropical Diseases)'] }
-        ))
+        @result = described_class.decorate(
+          double(
+            'RLetters::Solr::SearchResult',
+            num_hits: 100,
+            params: { fq: ['journal:(PLoS Neglected Tropical Diseases)'] }
+          )
+        )
       end
 
       it 'returns "found"' do

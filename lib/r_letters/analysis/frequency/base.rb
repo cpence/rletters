@@ -65,9 +65,7 @@ module RLetters
           @num_words = [0, options[:num_words] || 0].max
 
           # Look for the "all n-grams" option
-          if options[:all]
-            @num_words = 0
-          end
+          @num_words = 0 if options[:all]
 
           # Strip and split the lists of words
           if options[:inclusion_list]

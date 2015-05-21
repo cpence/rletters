@@ -5,7 +5,7 @@ RSpec.feature 'Search result is sorted', type: :feature do
     visit search_path
 
     click_link('Sort', match: :first)
-    click_link("Sort: Authors (ascending)")
+    click_link('Sort: Authors (ascending)')
 
     element = find('table.document-list')
     expect(element).to have_content('Why Arboviruses Can Be Neglected')

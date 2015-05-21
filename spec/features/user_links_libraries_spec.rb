@@ -17,7 +17,7 @@ RSpec.feature 'User adds links to their own libraries', type: :feature do
     expect(page).to have_selector('td', text: 'University of NotreDame')
 
     visit search_path
-    find_link "Your library: University of NotreDame", match: :first, visible: false
+    find_link 'Your library: University of NotreDame', match: :first, visible: false
   end
 
   scenario 'when adding manually' do
@@ -37,6 +37,6 @@ RSpec.feature 'User adds links to their own libraries', type: :feature do
     expect(page).to have_selector('td', text: 'Harvard')
 
     visit search_path
-    find_link "Your library: Harvard", match: :first, visible: false
+    find_link 'Your library: Harvard', match: :first, visible: false
   end
 end

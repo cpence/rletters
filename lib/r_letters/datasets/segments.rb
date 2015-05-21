@@ -38,8 +38,11 @@ module RLetters
       #   completion (one Integer parameter)
       # @return [Array<RLetters::Documents::Block>] the text segments
       def segments(progress = nil)
-        @options[:split_across] ? segments_across(progress) :
-                                  segments_within(progress)
+        if @options[:split_across]
+          segments_across(progress)
+        else
+          segments_within(progress)
+        end
       end
 
       # Reset the dataset segmenter

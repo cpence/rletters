@@ -126,7 +126,7 @@ module RLetters
 
         # Support Y-M-D or Y/M/D dates, even though this field is supposed to
         # be only year values
-        parts = doc.year.split(/[-\/]/)
+        parts = doc.year.split(%r{[-/]})
         parts[0]
       end
     end

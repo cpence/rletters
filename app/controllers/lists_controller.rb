@@ -32,9 +32,9 @@ class ListsController < ApplicationController
   def list_for(search_field, facet_field)
     result = solr_query_for(search_field, params[:q])
 
-    return [] if !result.facets
+    return [] unless result.facets
     facets = result.facets.for_field(facet_field)
-    return [] if !facets
+    return [] unless facets
 
     available_facets = facets.map do |f|
       f.hits > 0 ? f.value : nil
@@ -54,10 +54,6 @@ class ListsController < ApplicationController
       query = '*:*'
     end
 
-    RLetters::Solr::Connection.search({
-      q: query,
-      def_type: 'lucene',
-      rows: 1
-    })
+    RLetters::Solr::Connection.search(q: query, def_type: 'lucene', rows: 1)
   end
 end

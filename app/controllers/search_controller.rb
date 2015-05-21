@@ -44,7 +44,7 @@ class SearchController < ApplicationController
   # @return [void]
   def advanced
     @search_fields = RLetters::Solr::Advanced.search_fields
-    @row_markup = render_to_string(partial: 'advanced_row');
+    @row_markup = render_to_string(partial: 'advanced_row')
   end
 
   private
@@ -92,7 +92,7 @@ class SearchController < ApplicationController
         field = params["field_#{i}".to_sym]
         value = params["value_#{i}".to_sym]
         boolean = params["boolean_#{i}".to_sym]
-        break if (field.nil? || value.nil?)
+        break if field.nil? || value.nil?
 
         q_array << RLetters::Solr::Advanced.query_for(field, value, boolean)
       end

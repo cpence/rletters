@@ -113,8 +113,11 @@ module RLetters
       #
       # @return [Array<Block>] a list of blocks of words for these documents
       def blocks
-        @num_blocks > 0 ? blocks_for_num_blocks :
-                          blocks_for_block_size
+        if @num_blocks > 0
+          blocks_for_num_blocks
+        else
+          blocks_for_block_size
+        end
       end
 
       private

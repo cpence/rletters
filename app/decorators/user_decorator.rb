@@ -23,10 +23,7 @@ class UserDecorator < Draper::Decorator
   #   of datasets in the user's workflow
   # @return [Dataset] the given dataset
   def workflow_dataset(n)
-    if workflow_datasets.size <= n
-      fail ActiveRecord::RecordNotFound
-    end
-
+    fail ActiveRecord::RecordNotFound if workflow_datasets.size <= n
     Dataset.find(workflow_datasets[n])
   end
 end

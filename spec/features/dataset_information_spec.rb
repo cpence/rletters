@@ -5,11 +5,11 @@ RSpec.feature 'Viewing information about a dataset', type: :feature do
     sign_in_with
     create_dataset
     visit datasets_path
-    expect(page).to have_selector('td', text: "Integration Dataset")
+    expect(page).to have_selector('td', text: 'Integration Dataset')
 
     click_link 'Manage'
 
-    expect(page).to have_content("Number of documents: 427")
+    expect(page).to have_content('Number of documents: 427')
 
     expect(page).to have_selector('div#dataset-task-list')
     expect(page).to have_selector('div#dataset-task-list table.button-table')
@@ -24,9 +24,9 @@ RSpec.feature 'Viewing information about a dataset', type: :feature do
 
     # We don't normally directly touch the database, but we're here mocking the
     # way that an external Redis/Resque task would have acted.
-    task = create(:analysis_task, dataset: Dataset.first,
-                                   resque_key: 'asdf123',
-                                   finished_at: nil)
+    create(:analysis_task, dataset: Dataset.first,
+                           resque_key: 'asdf123',
+                           finished_at: nil)
 
     Resque::Plugins::Status::Hash.create(
       'asdf123',
@@ -37,7 +37,7 @@ RSpec.feature 'Viewing information about a dataset', type: :feature do
     )
 
     visit datasets_path
-    expect(page).to have_selector('td', text: "Integration Dataset")
+    expect(page).to have_selector('td', text: 'Integration Dataset')
     click_link 'Manage'
 
     # It shouldn't have a failed task, and should warn you about a pending task
@@ -53,7 +53,7 @@ RSpec.feature 'Viewing information about a dataset', type: :feature do
     create(:analysis_task, dataset: Dataset.first, failed: true)
 
     visit datasets_path
-    expect(page).to have_selector('td', text: "Integration Dataset")
+    expect(page).to have_selector('td', text: 'Integration Dataset')
     click_link 'Manage'
 
     # It shouldn't have a pending task, and should have a failed task
@@ -69,14 +69,14 @@ RSpec.feature 'Viewing information about a dataset', type: :feature do
     create(:analysis_task, dataset: Dataset.first, failed: true)
 
     visit datasets_path
-    expect(page).to have_selector('td', text: "Integration Dataset")
+    expect(page).to have_selector('td', text: 'Integration Dataset')
     click_link 'Manage'
 
     expect(page).to have_content('Integration Dataset')
     click_link '1 analysis task failed for this dataset! Click here to clear failed tasks.'
 
     visit datasets_path
-    expect(page).to have_selector('td', text: "Integration Dataset")
+    expect(page).to have_selector('td', text: 'Integration Dataset')
 
     click_link 'Manage'
     expect(page).to have_content('Integration Dataset')
@@ -99,7 +99,7 @@ RSpec.feature 'Viewing information about a dataset', type: :feature do
     click_button 'Start analysis job'
 
     visit datasets_path
-    expect(page).to have_selector('td', text: "Integration Dataset")
+    expect(page).to have_selector('td', text: 'Integration Dataset')
     click_link 'Manage'
 
     expect(page).to have_content('Integration Dataset')
@@ -108,14 +108,14 @@ RSpec.feature 'Viewing information about a dataset', type: :feature do
     expect(page).to have_content('Download in CSV format')
 
     visit datasets_path
-    expect(page).to have_selector('td', text: "Integration Dataset")
+    expect(page).to have_selector('td', text: 'Integration Dataset')
     click_link 'Manage'
 
     expect(page).to have_content('Integration Dataset')
     click_link 'Delete'
 
     visit datasets_path
-    expect(page).to have_selector('td', text: "Integration Dataset")
+    expect(page).to have_selector('td', text: 'Integration Dataset')
     click_link 'Manage'
 
     expect(page).to have_selector('td', text: 'No analysis tasks found')

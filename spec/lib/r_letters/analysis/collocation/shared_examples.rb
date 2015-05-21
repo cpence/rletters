@@ -1,5 +1,5 @@
 
-RSpec.shared_examples_for "a collocation analyzer" do
+RSpec.shared_examples_for 'a collocation analyzer' do
   before(:example) do
     @user = create(:user)
     @dataset = create(:full_dataset, working: true)

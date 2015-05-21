@@ -38,21 +38,21 @@ module RLetters
 
         # Special handling for a few of these field types
         query = if field == 'authors'
-          authors_query(value)
-        elsif field == 'year'
-          year_ranges_query(value)
-        else
-          "#{field}:\"#{value}\""
-        end
+                  authors_query(value)
+                elsif field == 'year'
+                  year_ranges_query(value)
+                else
+                  "#{field}:\"#{value}\""
+                end
 
         # The boolean connective
         boolean = if boolean == 'and'
-          ' AND '
-        elsif boolean == 'or'
-          ' OR '
-        else
-          ''
-        end
+                    ' AND '
+                  elsif boolean == 'or'
+                    ' OR '
+                  else
+                    ''
+                  end
 
         query + boolean
       end
@@ -73,7 +73,7 @@ module RLetters
         end
 
         return data if type == 'exact'
-        return "#{data}_stem"
+        "#{data}_stem"
       end
 
       # Split and clean up the authors parameter

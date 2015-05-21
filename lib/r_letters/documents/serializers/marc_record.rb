@@ -35,18 +35,22 @@ module RLetters
 
           record.append(::MARC::ControlField.new('001', @doc.uid))
           record.append(::MARC::ControlField.new('003', 'RLID'))
-          record.append(::MARC::ControlField.new(
-            '005', Time.now.strftime('%Y%m%d%H%M%S.0')
-          ))
+          record.append(
+            ::MARC::ControlField.new(
+              '005', Time.now.strftime('%Y%m%d%H%M%S.0')
+            )
+          )
 
           if @doc.year
-            year_control = sprintf '%04d', @doc.year
+            year_control = format('%04d', @doc.year)
           else
             year_control = '0000'
           end
-          record.append(::MARC::ControlField.new(
-            '008', "110501s#{year_control}       ||||fo     ||0 0|eng d"
-          ))
+          record.append(
+            ::MARC::ControlField.new(
+              '008', "110501s#{year_control}       ||||fo     ||0 0|eng d"
+            )
+          )
 
           record.append(::MARC::DataField.new('040', ' ', ' ',
                                               %w(a RLetters),
@@ -60,43 +64,53 @@ module RLetters
           end
 
           unless @doc.authors.empty?
-            record.append(::MARC::DataField.new(
-              '100', '1', ' ',
-              ::MARC::Subfield.new(
-                'a',
-                author_to_marc(@doc.authors[0])
+            record.append(
+              ::MARC::DataField.new(
+                '100', '1', ' ',
+                ::MARC::Subfield.new(
+                  'a',
+                  author_to_marc(@doc.authors[0])
+                )
               )
-            ))
+            )
 
             @doc.authors.each do |a|
-              record.append(::MARC::DataField.new(
-                '700', '1', ' ',
-                ::MARC::Subfield.new('a', author_to_marc(a))
-              ))
+              record.append(
+                ::MARC::DataField.new(
+                  '700', '1', ' ',
+                  ::MARC::Subfield.new('a', author_to_marc(a))
+                )
+              )
             end
           end
 
           if @doc.title
-            record.append(::MARC::DataField.new(
-              '245', '1', '0',
-              ['a', @doc.title + (@doc.title[-1] == '.' ? nil : '.')]
-            ))
+            record.append(
+              ::MARC::DataField.new(
+                '245', '1', '0',
+                ['a', @doc.title + (@doc.title[-1] == '.' ? nil : '.')]
+              )
+            )
           end
 
           marc_volume = ''
           marc_volume << "v. #{@doc.volume}" if @doc.volume
           marc_volume << ' ' if @doc.volume && @doc.number
           marc_volume << "no. #{@doc.number}" if @doc.number
-          record.append(::MARC::DataField.new(
-            '490', '1', ' ',
-            ::MARC::Subfield.new('a', @doc.journal),
-            ::MARC::Subfield.new('v', marc_volume)
-          ))
-          record.append(::MARC::DataField.new(
-            '830', ' ', '0',
-            ::MARC::Subfield.new('a', @doc.journal),
-            ::MARC::Subfield.new('v', marc_volume)
-          ))
+          record.append(
+            ::MARC::DataField.new(
+              '490', '1', ' ',
+              ::MARC::Subfield.new('a', @doc.journal),
+              ::MARC::Subfield.new('v', marc_volume)
+            )
+          )
+          record.append(
+            ::MARC::DataField.new(
+              '830', ' ', '0',
+              ::MARC::Subfield.new('a', @doc.journal),
+              ::MARC::Subfield.new('v', marc_volume)
+            )
+          )
 
           marc_free = ''
           if @doc.volume
@@ -112,13 +126,15 @@ module RLetters
           marc_enumeration << ":#{@doc.number}" if @doc.number
           marc_enumeration << "<#{@doc.start_page}" if @doc.start_page
 
-          record.append(::MARC::DataField.new(
-            '773', '0', ' ',
-            %W(t #{@doc.journal}),
-            %W(g #{marc_free}),
-            %W(q #{marc_enumeration}),
-            %w(7 nnas)
-          ))
+          record.append(
+            ::MARC::DataField.new(
+              '773', '0', ' ',
+              %W(t #{@doc.journal}),
+              %W(g #{marc_free}),
+              %W(q #{marc_enumeration}),
+              %w(7 nnas)
+            )
+          )
 
           subfields = []
           subfields << ['a', @doc.volume] if @doc.volume
@@ -128,10 +144,12 @@ module RLetters
           record.append(::MARC::DataField.new('363', ' ', ' ', *subfields))
 
           if @doc.year
-            record.append(::MARC::DataField.new(
-              '362', '0', ' ',
-              %W(a #{@doc.year}.)
-            ))
+            record.append(
+              ::MARC::DataField.new(
+                '362', '0', ' ',
+                %W(a #{@doc.year}.)
+              )
+            )
           end
 
           record

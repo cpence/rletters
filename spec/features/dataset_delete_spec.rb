@@ -6,7 +6,7 @@ RSpec.feature 'Deleting a dataset', type: :feature do
     create_dataset
 
     visit datasets_path
-    expect(page).to have_selector('td', text: "Integration Dataset")
+    expect(page).to have_selector('td', text: 'Integration Dataset')
 
     click_link 'Delete'
 

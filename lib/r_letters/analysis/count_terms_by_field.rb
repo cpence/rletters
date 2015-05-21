@@ -33,8 +33,11 @@ module RLetters
       # @param [Symbol] field field to group by
       # @return [Hash<String, Integer>] number of documents in each grouping
       def counts_for(field)
-        uids = @dataset ? grouped_uids_dataset(@dataset, field) :
-                          grouped_uids_corpus(field)
+        uids = if @dataset
+                 grouped_uids_dataset(@dataset, field)
+               else
+                 grouped_uids_corpus(field)
+               end
 
         uids_to_term_counts(uids)
       end
@@ -156,7 +159,7 @@ module RLetters
 
         # Support Y-M-D or Y/M/D dates, even though this field is supposed to
         # be only year values
-        parts = doc.year.split(/[-\/]/)
+        parts = doc.year.split(%r{[-/]})
         parts[0]
       end
 

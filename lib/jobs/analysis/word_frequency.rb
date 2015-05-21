@@ -56,10 +56,9 @@ module Jobs
               s = analyzer.block_stats[i]
 
               name_row << s[:name] << '' << '' << ''
-              header_row << t('.freq_header') \
-                         << t('.prop_header') \
-                         << t('.tfidf_dataset_header') \
-                         << t('.tfidf_corpus_header')
+              header_row << t('.freq_header') << t('.prop_header')
+              header_row << t('.tfidf_dataset_header')
+              header_row << t('.tfidf_corpus_header')
 
               word_rows.each do |r|
                 word = r[0]
