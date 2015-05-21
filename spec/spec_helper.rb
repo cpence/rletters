@@ -32,10 +32,10 @@ ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
 require 'rspec/rails'
 
-Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
-
 # Double-check that the schema is current
 ActiveRecord::Migration.maintain_test_schema!
+
+Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 
 RSpec.configure do |config|
   # Switch to the new RSpec syntax
@@ -52,32 +52,10 @@ RSpec.configure do |config|
   config.order = :random
   config.fail_fast = true
 
-  # We're going to use database_cleaner, so we don't need RSpec's transactional
-  # fixture support
-  config.use_transactional_fixtures = false
-
-  config.before(:suite) do
-    # Prepare the database
-    DatabaseCleaner.clean_with(:truncation)
-  end
-
-  config.before(:example) do |example|
+  config.before(:example) do
     # Reset the locale and timezone to defaults on each new test
     I18n.locale = I18n.default_locale
     Time.zone = 'Eastern Time (US & Canada)'
-
-    # Use transactions to clean database for non-feature tests, truncation for
-    # features that use capybara-webkit.
-    if example.metadata[:type] == :feature
-      DatabaseCleaner.strategy = :truncation
-    else
-      DatabaseCleaner.strategy = :transaction
-    end
-    DatabaseCleaner.start
-  end
-
-  config.after(:example) do
-    DatabaseCleaner.clean
   end
 
   # Add a variety of test helpers
@@ -88,6 +66,3 @@ RSpec.configure do |config|
   config.include Features::DatasetHelpers, type: :feature
   config.include Features::UserHelpers, type: :feature
 end
-
-Capybara.default_driver = :webkit
-Capybara.javascript_driver = :webkit
