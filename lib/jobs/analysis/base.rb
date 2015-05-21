@@ -22,6 +22,13 @@ module Jobs
     #   user the results of the job in HTML form.  The standard way to do this
     #   is to write the job results out as JSON in `AnalysisTask#result_file`,
     #   and then to parse this JSON into HAML in the view.
+    #
+    # Note that this class does several things that seem pretty hacky and
+    # involve class instance variables. All of them, however, are tied to the
+    # `.add_concern` method, which is *only* called when classes are loaded (as
+    # it should be called within the body of an analysis job class). That class
+    # loading happens during Rails boot time, which is explicitly guaranteed to
+    # be single-threaded.
     class Base
       include Resque::Plugins::Status
 

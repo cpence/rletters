@@ -21,18 +21,6 @@ module RLetters
         RLetters::Solr::ConnectionError
       ]
 
-      class << self
-        # Cache the connection to solr
-        #
-        # @return [RSolr::Client] the cached Solr connection object
-        attr_accessor :solr
-
-        # Cache the URL to Solr, to detect changes in the configuration panel
-        #
-        # @return [String] the URL for connecting to Solr
-        attr_accessor :url
-      end
-
       # Get a response from Solr
       #
       # This method breaks out the retrieval of a Solr response in order to
@@ -77,7 +65,7 @@ module RLetters
         # We have a different destination if term vectors are enabled
         dest = params[:tv] ? 'termvectors' : 'search'
 
-        Connection.solr.post dest, data: params
+        Thread.current[:solr_handle].post dest, data: params
       rescue *EXCEPTIONS => e
         Rails.logger.warn "Connection to Solr failed: #{e.inspect}"
         Rails.logger.info "Query for failed connection: #{params}"
@@ -92,7 +80,7 @@ module RLetters
       # @return [Hash] Unprocessed Solr response
       def self.info
         ensure_connected!
-        Connection.solr.get 'admin/system'
+        Thread.current[:solr_handle].get 'admin/system'
       rescue *EXCEPTIONS => e
         Rails.logger.warn "Connection to Solr failed: #{e.inspect}"
         {}
@@ -126,14 +114,14 @@ module RLetters
       #
       # @return [void]
       def self.ensure_connected!
-        Connection.url ||= Admin::Setting.solr_server_url
-        Connection.solr ||= connect
+        Thread.current[:solr_url] ||= Admin::Setting.solr_server_url
+        Thread.current[:solr_handle] ||= connect
 
         # Make sure that we update the Solr connection when we change the
         # Solr URL, since it can be dynamically modified in the admin panel
-        if Connection.url != Admin::Setting.solr_server_url
-          Connection.url = Admin::Setting.solr_server_url
-          Connection.solr = connect
+        if Thread.current[:solr_url] != Admin::Setting.solr_server_url
+          Thread.current[:solr_url] = Admin::Setting.solr_server_url
+          Thread.current[:solr_handle] = connect
         end
       end
 

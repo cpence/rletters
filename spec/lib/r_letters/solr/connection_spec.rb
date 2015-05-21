@@ -15,7 +15,7 @@ RSpec.describe RLetters::Solr::Connection do
 
     it 'successfully responds to changes in cached Solr URL' do
       # Zero out the current instance to make it reconnect
-      described_class.instance_variable_set(:@solr, nil)
+      Thread.current[:solr_handle] = nil
 
       expect(RSolr::Ext).to receive(:connect).with(url: 'http://127.0.0.1:8983/',
                                                    read_timeout: 120,
@@ -32,7 +32,7 @@ RSpec.describe RLetters::Solr::Connection do
 
       # Make damn sure it refreshes after this spec runs
       Admin::Setting.solr_server_url = 'http://127.0.0.1:8983/'
-      described_class.instance_variable_set(:@solr, nil)
+      Thread.current[:solr_handle] = nil
     end
 
     it 'converts snake_case Symbol params into camelCase String params' do
