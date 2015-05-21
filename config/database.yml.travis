@@ -2,7 +2,7 @@ base: &base
   adapter: postgresql
   username: postgres
   encoding: unicode
-  pool: 5
+  pool: 10
   min_messages: WARNING
 
 development:
