@@ -25,7 +25,7 @@ gem 'active_admin-sortable_tree'
 gem 'druthers'
 
 # Internationalization
-gem 'rails-i18n', '= 4.0.3'
+gem 'rails-i18n', '= 4.0.4'
 gem 'http_accept_language'
 
 # Textual analysis

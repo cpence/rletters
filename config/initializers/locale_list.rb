@@ -12,6 +12,7 @@ Rails.application.config.i18n.available_locales = ['en']
 # by the CLDR, as we *require* the CLDR data files (at least 'languages.yml',
 # 'plurals.rb' (if available), and 'territories.yml').  Currently this
 # excludes the following languages:
+# - tt (or tat, Tatar, not in CLDR at all)
 # - wo (or wol, Wolof, not in CLDR at all)
 # - zh-YUE (Yue Chinese, not in CLDR at all)
 #
@@ -26,12 +27,12 @@ Rails.application.config.i18n.available_locales = ['en']
 # For the moment, I've decided to manually process these languages and rename
 # them in the CLDR vendored data files.  There is a Rake task for this purpose
 # in lib/tasks/locales.rake.
-'af, ar, az, bg, bn, bs, ca, cs, cy, da, de, de-AT, de-CH, el, en-AU, '\
+'af, ar, az, be, bg, bn, bs, ca, cs, cy, da, de, de-AT, de-CH, el, en-AU, ' \
 'en-CA, en-GB, en-IE, en-IN, en-NZ, en-ZA, eo, es, es-419, es-AR, es-CL, ' \
-'es-CO, es-CR, es-MX, es-PA, es-PE, es-US, es-VE, et, eu, fa, fi, fr, ' \
-'fr-CA, fr-CH, gl, he, hi, hi-IN, hr, hu, id, is, it, it-CH, ja, kn, ko, ' \
-'lo, lt, lv, mk, mn, ms, nb, ne, nl, nn, or, pl, pt, pt-BR, rm, ro, ru, sk, ' \
-'sl, sr, sv, sw, ta, th, tl, tr, uk, ur, uz, vi, zh-CN, zh-HK, ' \
-'zh-TW'.split(',').each do |loc|
+'es-CO, es-CR, es-EC, es-MX, es-PA, es-PE, es-US, es-VE, et, eu, fa, fi, ' \
+'fr, fr-CA, fr-CH, gl, he, hi, hi-IN, hr, hu, id, is, it, it-CH, ja, km, ' \
+'kn, ko, lo, lt, lv, mk, mn, mr-IN, ms, nb, ne, nl, nn, or, pl, pt, pt-BR, ' \
+'rm, ro, ru, sk, sl, sr, sv, sw, ta, th, tl, tr, uk, ur, uz, vi, zh-CN, ' \
+'zh-HK, zh-TW'.split(',').each do |loc|
   Rails.application.config.i18n.available_locales << loc.strip
 end
