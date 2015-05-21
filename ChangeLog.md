@@ -2,6 +2,7 @@
 
 ## Version 2.0.2 (unreleased)
 
+*   Switch the web server component to Puma to avoid slow client attacks and take advantage of multithreading.
 *   Integration testing (smoke tests) ported back to RSpec feature tests, using capybara-webkit. Dramatically increased stability and maintainability.
 *   Update language support, adding Belarusian, Spanish (Ecuador), Khmer, and Marathi.
 
