@@ -103,7 +103,7 @@ RSpec.describe Jobs::Analysis::WordFrequency do
         params_to_test.each do |params|
           Jobs::Analysis::WordFrequency.perform('123', params)
         end
-      }.to_not raise_error
+      }.not_to raise_error
     end
 
     context 'when all parameters are valid' do

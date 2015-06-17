@@ -2,8 +2,13 @@ require 'spec_helper'
 
 RSpec.describe RLetters::Solr::SearchResult do
   before(:example) do
-    stub_const('Document', Class.new)
-    allow(Document).to receive(:new).with(any_args)
+    class StubDoc
+      def initialize(params)
+      end
+    end
+    allow(StubDoc).to receive(:new).with(kind_of(Hash))
+
+    stub_const('Document', StubDoc)
 
     document_solr_hash = {
       'data_source' => 'Test fixture',
@@ -64,7 +69,11 @@ RSpec.describe RLetters::Solr::SearchResult do
         mock_parser = double
         expect(mock_parser).to receive(:for_document).with('doi:10.1234/5678').twice
 
-        stub_const('RLetters::Solr::ParseTermVectors', Class.new)
+        class StubTV
+          def initialize(parm)
+          end
+        end
+        stub_const('RLetters::Solr::ParseTermVectors', StubTV)
         expect(RLetters::Solr::ParseTermVectors).to receive(:new).with(123).and_return(mock_parser)
 
         described_class.new(@mock_response)
@@ -92,7 +101,12 @@ RSpec.describe RLetters::Solr::SearchResult do
     end
 
     it 'creates a facets object with the data' do
-      stub_const('RLetters::Solr::Facets', Class.new)
+      class StubFacets
+        def initialize(a, b)
+        end
+      end
+
+      stub_const('RLetters::Solr::Facets', StubFacets)
       expect(RLetters::Solr::Facets).to receive(:new).with(123, 456).and_return(true)
 
       described_class.new(@mock_response)

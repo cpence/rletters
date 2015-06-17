@@ -94,7 +94,7 @@ RSpec.describe Jobs::Analysis::Collocation do
             task_id: @task.to_param,
             analysis_type: type.to_s,
             sym => val)
-        }.to_not raise_error
+        }.not_to raise_error
 
         # Just a quick sanity check to make sure some code was called
         expect(@dataset.analysis_tasks[0].name).to eq('Determine significant associations between immediate pairs of words')

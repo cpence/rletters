@@ -61,7 +61,7 @@ RSpec.describe Jobs::Analysis::Cooccurrence do
             sym => val,
             window: '25',
             word: words)
-        }.to_not raise_error
+        }.not_to raise_error
 
         # Just a quick sanity check to make sure some code was called
         expect(@dataset.analysis_tasks[0].name).to eq('Determine significant associations between distant pairs of words')

@@ -73,7 +73,7 @@ RSpec.describe SearchController, type: :controller do
 
         expect {
           get :index, page: 'zzyzzy', per_page: '20'
-        }.to_not raise_error
+        }.not_to raise_error
       end
 
       it 'does not throw an exception on non-integral per_page values' do
@@ -82,7 +82,7 @@ RSpec.describe SearchController, type: :controller do
 
         expect {
           get :index, page: '1', per_page: 'zzyzzy'
-        }.to_not raise_error
+        }.not_to raise_error
       end
 
       it 'does not let the user specify zero items per page' do

@@ -46,11 +46,14 @@ RSpec.configure do |config|
     m.verify_partial_doubles = true
   end
 
+  # Enable re-running failures automatically
+  status_path = Rails.root.join('spec','status.txt')
+  config.example_status_persistence_file_path = status_path
+
   config.disable_monkey_patching!
   config.color = true
   config.tty = true
   config.order = :random
-  config.fail_fast = true
 
   config.before(:example) do
     # Reset the locale and timezone to defaults on each new test

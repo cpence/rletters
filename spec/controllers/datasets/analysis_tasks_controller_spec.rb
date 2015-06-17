@@ -58,7 +58,7 @@ RSpec.describe Datasets::AnalysisTasksController, type: :controller do
       it 'raises an exception' do
         expect {
           get :new, dataset_id: @dataset.to_param, class: 'ThisIsNoClass'
-        }.to raise_error
+        }.to raise_error(ArgumentError)
       end
     end
 
@@ -66,7 +66,7 @@ RSpec.describe Datasets::AnalysisTasksController, type: :controller do
       it 'raises an exception' do
         expect {
           get :new, dataset_id: @dataset.to_param, class: 'Base'
-        }.to raise_error
+        }.to raise_error(ArgumentError)
       end
     end
 
@@ -107,7 +107,7 @@ RSpec.describe Datasets::AnalysisTasksController, type: :controller do
         @dataset_2 = create(:full_dataset, user: @user, working: true)
         expect {
           get :new, dataset_id: @dataset.to_param, class: 'CraigZeta'
-        }.to raise_error
+        }.to raise_error(ArgumentError)
       end
     end
   end
@@ -117,7 +117,7 @@ RSpec.describe Datasets::AnalysisTasksController, type: :controller do
       it 'raises an exception' do
         expect {
           post :create, dataset_id: @dataset.to_param, class: 'ThisIsNoClass'
-        }.to raise_error
+        }.to raise_error(ArgumentError)
       end
     end
 
@@ -125,7 +125,7 @@ RSpec.describe Datasets::AnalysisTasksController, type: :controller do
       it 'raises an exception' do
         expect {
           post :create, dataset_id: @dataset.to_param, class: 'Base'
-        }.to raise_error
+        }.to raise_error(ArgumentError)
       end
     end
 
@@ -157,7 +157,7 @@ RSpec.describe Datasets::AnalysisTasksController, type: :controller do
           post :create, dataset_id: @dataset.to_param,
                         class: 'ExportCitations',
                         job_params: { format: 'bibtex' }
-        }.to_not raise_error
+        }.not_to raise_error
       end
 
       it 'enqueues a job' do
@@ -244,7 +244,7 @@ RSpec.describe Datasets::AnalysisTasksController, type: :controller do
         expect {
           get :show, dataset_id: @dataset.to_param,
                      id: @task.to_param, view: '_params'
-        }.to_not raise_error
+        }.not_to raise_error
       end
 
       it 'renders the right view' do
@@ -309,7 +309,7 @@ RSpec.describe Datasets::AnalysisTasksController, type: :controller do
       it 'raises an error' do
         expect {
           get :show, dataset_id: @dataset.to_param, id: @task.to_param
-        }.to raise_error
+        }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
   end

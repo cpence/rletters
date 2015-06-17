@@ -141,7 +141,7 @@ RSpec.describe Document, type: :model do
 
       context 'when no documents are returned' do
         it 'does not raise an exception' do
-          expect { Document.find_by(uid: 'fail') }.to_not raise_error
+          expect { Document.find_by(uid: 'fail') }.not_to raise_error
         end
 
         it 'returns nil' do
@@ -173,7 +173,7 @@ RSpec.describe Document, type: :model do
 
       context 'when no documents are returned' do
         it 'does not raise an exception' do
-          expect { Document.find_by(uid: 'fail', fulltext: true) }.to_not raise_error
+          expect { Document.find_by(uid: 'fail', fulltext: true) }.not_to raise_error
         end
 
         it 'returns nil' do
