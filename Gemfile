@@ -67,11 +67,6 @@ gem 'simple_form', '>= 3.1.0.rc1'
 gem 'uglifier', '>= 1.3.0'
 gem 'roadie-rails'
 
-group :development do
-  gem 'spring'
-  gem 'spring-commands-rspec'
-end
-
 # Testing
 group :test, :development do
   gem 'rspec-rails', '~> 3'
