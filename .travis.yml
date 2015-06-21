@@ -14,8 +14,8 @@ before_script:
   - cp config/database.yml.travis config/database.yml
   - git clone --depth=1 https://github.com/rletters/solr-example.git vendor/solr
   - 'pushd vendor/solr && ./start && popd'
-  - bin/rake db:create db:schema:load
+  - bundle exec rake db:create db:schema:load
 
-script: bin/rspec
+script: bundle exec rspec
 
 after_script: 'pushd vendor/solr && ./stop && popd'
