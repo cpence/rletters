@@ -12,9 +12,8 @@ module Admin
 
     # The list of setting keys that can be used
     VALID_KEYS = [:app_name, :app_email, :app_domain, :solr_server_url,
-                  :solr_timeout, :nlp_tool_path, :airbrake_key,
-                  :google_analytics_key, :secret_token, :secret_key_base,
-                  :devise_secret_key]
+                  :solr_timeout, :nlp_tool_path, :google_analytics_key,
+                  :secret_token, :secret_key_base, :devise_secret_key]
 
     # The list of keys that shouldn't be edited by the user in the admin panel
     HIDDEN_KEYS = [:secret_token, :secret_key_base, :devise_secret_key]

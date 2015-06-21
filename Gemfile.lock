@@ -57,9 +57,6 @@ GEM
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
     addressable (2.3.8)
-    airbrake (4.2.1)
-      builder
-      multi_json
     arbre (1.0.3)
       activesupport (>= 3.0.0)
     arel (6.0.0)
@@ -405,7 +402,6 @@ DEPENDENCIES
   activeadmin (~> 1.0.0.pre1)
   activerecord-import (>= 0.7.0)
   addressable
-  airbrake
   bibtex-ruby
   bootstrap-sass
   capybara

@@ -83,7 +83,6 @@ RLetters doesn't leave your developers out in the cold, either.  We've got suppo
 -   Track page views with [Google Analytics](http://google.com/analytics)
 -   Source well-documented using [Yard](http://yardoc.org)
 -   Continuous integration support with [Travis](http://travis-ci.org/)
--   Baked-in support for error reporting using [Airbrake](http://airbrake.io/) (account registration required)
 
 
 ## Installation / Deployment ##

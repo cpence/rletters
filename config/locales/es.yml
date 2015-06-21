@@ -621,7 +621,6 @@ es:
     solr_server_url: URL Solr
     solr_timeout: Espera de Solr (seg)
     mendeley_key: Clave de Mendeley
-    airbrake_key: Clave de API de Airbrake
     google_analytics_key: Código de seguimiento de Google Analytics
     secret_token: Estructurar mediante Rails el token secreto
     secret_key_base: Estructurar mediante Rails la base de clave secreta

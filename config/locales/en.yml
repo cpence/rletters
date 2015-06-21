@@ -762,7 +762,6 @@ en:
         solr_server_url: Solr URL
         solr_timeout: Solr Timeout (sec)
         nlp_tool_path: Path to RLetters nlp-tool
-        airbrake_key: Airbrake API Key
         google_analytics_key: Google Analytics Tracking ID
         secret_token: Rails Secret Token
         secret_key_base: Rails Secret Key Base

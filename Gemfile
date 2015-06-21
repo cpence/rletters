@@ -93,5 +93,4 @@ end
 group :production do
   gem 'puma', require: false
   gem 'resque-pool', require: false
-  gem 'airbrake', require: false
 end
