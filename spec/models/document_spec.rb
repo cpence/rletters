@@ -25,6 +25,24 @@ RSpec.describe Document, type: :model do
     end
   end
 
+  describe '.to_global_id' do
+    before(:example) do
+      @doc = Document.find('doi:10.1371/journal.pntd.0000534')
+    end
+
+    it 'works' do
+      id = @doc.to_global_id
+      expect(id).to be
+      expect(id.to_s).to eq('gid://r-letters/Document/doi%3A10.1371%2Fjournal.pntd.0000534')
+    end
+
+    it 'allows lookups from GIDs' do
+      doc2 = GlobalID::Locator.locate 'gid://r-letters/Document/doi%3A10.1371%2Fjournal.pntd.0000534'
+      expect(doc2.uid).to eq(@doc.uid)
+      expect(doc2.title).to eq(@doc.title)
+    end
+  end
+
   describe '.find' do
     context 'without fulltext' do
       context 'when loading one document' do

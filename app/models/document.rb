@@ -97,12 +97,18 @@ class Document
   # the database (it's in Solr).
   include ActiveModel::Model
 
+  # And give it GlobalID support
+  include GlobalID::Identification
+
   attr_accessor :uid, :doi, :license, :license_url, :data_source, :authors,
                 :title, :journal, :year, :volume, :number, :pages, :fulltext,
                 :fulltext_url, :term_vectors
 
   # The uid attribute is the only required one
   validates :uid, presence: true
+
+  # For better Rails interoperability, allow :id to be read as well
+  alias_attribute :id, :uid
 
   # Return a document (just bibliographic data) by uid
   #
