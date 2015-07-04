@@ -2,8 +2,8 @@
 # Decorate analysis task objects
 #
 # This class adds methods to display the results from analysis tasks.
-class AnalysisTaskDecorator < Draper::Decorator
-  decorates Datasets::AnalysisTask
+class TaskDecorator < Draper::Decorator
+  decorates Datasets::Task
   delegate_all
 
   # A user-friendly status/percentage message

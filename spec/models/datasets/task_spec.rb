@@ -1,10 +1,10 @@
 require 'spec_helper'
 
-RSpec.describe Datasets::AnalysisTask, type: :model do
+RSpec.describe Datasets::Task, type: :model do
   describe '#valid?' do
     context 'when no name is specified' do
       before(:example) do
-        @task = build_stubbed(:analysis_task, name: nil)
+        @task = build_stubbed(:task, name: nil)
       end
 
       it 'is not valid' do
@@ -14,7 +14,7 @@ RSpec.describe Datasets::AnalysisTask, type: :model do
 
     context 'when no dataset is specified' do
       before(:example) do
-        @task = build_stubbed(:analysis_task, dataset: nil)
+        @task = build_stubbed(:task, dataset: nil)
       end
 
       it 'is not valid' do
@@ -24,7 +24,7 @@ RSpec.describe Datasets::AnalysisTask, type: :model do
 
     context 'when no type is specified' do
       before(:example) do
-        @task = build_stubbed(:analysis_task, job_type: nil)
+        @task = build_stubbed(:task, job_type: nil)
       end
 
       it 'is not valid' do
@@ -34,7 +34,7 @@ RSpec.describe Datasets::AnalysisTask, type: :model do
 
     context 'when dataset, type, and name are specified' do
       before(:example) do
-        @task = create(:analysis_task)
+        @task = create(:task)
       end
 
       it 'is valid' do
@@ -46,7 +46,7 @@ RSpec.describe Datasets::AnalysisTask, type: :model do
   describe '#finished_at' do
     context 'when newly created' do
       before(:example) do
-        @task = create(:analysis_task)
+        @task = create(:task)
       end
 
       it 'is not set' do
@@ -58,7 +58,7 @@ RSpec.describe Datasets::AnalysisTask, type: :model do
   describe '#failed' do
     context 'when newly created' do
       before(:example) do
-        @task = create(:analysis_task)
+        @task = create(:task)
       end
 
       it 'is false' do
@@ -68,7 +68,7 @@ RSpec.describe Datasets::AnalysisTask, type: :model do
   end
 
   def create_task_with_file
-    @task = create(:analysis_task)
+    @task = create(:task)
 
     ios = StringIO.new('test')
     file = Paperclip.io_adapters.for(ios)
@@ -106,7 +106,7 @@ RSpec.describe Datasets::AnalysisTask, type: :model do
   describe '.job_class' do
     context 'with a good class' do
       it 'returns the class' do
-        klass = Datasets::AnalysisTask.job_class('ExportCitations')
+        klass = Datasets::Task.job_class('ExportCitations')
         expect(klass).to eq(Jobs::Analysis::ExportCitations)
       end
     end
@@ -114,7 +114,7 @@ RSpec.describe Datasets::AnalysisTask, type: :model do
     context 'with a bad class' do
       it 'raises an error' do
         expect {
-          Datasets::AnalysisTask.job_class('NotClass')
+          Datasets::Task.job_class('NotClass')
         }.to raise_error(ArgumentError)
       end
     end
@@ -123,7 +123,7 @@ RSpec.describe Datasets::AnalysisTask, type: :model do
   describe '#job_class' do
     context 'with a good job_type' do
       it 'returns the class' do
-        task = create(:analysis_task, job_type: 'ExportCitations')
+        task = create(:task, job_type: 'ExportCitations')
         klass = task.job_class
         expect(klass).to eq(Jobs::Analysis::ExportCitations)
       end
@@ -131,7 +131,7 @@ RSpec.describe Datasets::AnalysisTask, type: :model do
 
     context 'with a bad class' do
       it 'raises an error' do
-        task = create(:analysis_task)
+        task = create(:task)
         expect {
           task.job_class
         }.to raise_error(ArgumentError)

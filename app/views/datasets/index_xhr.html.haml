@@ -1,4 +1,4 @@
-- user_pending_count = Datasets::AnalysisTask.joins(:dataset).where(finished_at: nil, datasets: { user_id: current_user.to_param }).size
+- user_pending_count = Datasets::Task.joins(:dataset).where(finished_at: nil, datasets: { user_id: current_user.to_param }).size
 - if user_pending_count > 0
   .alert.alert-warning= t('.tasks', count: user_pending_count)
 

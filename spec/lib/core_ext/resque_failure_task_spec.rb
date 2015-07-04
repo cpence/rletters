@@ -36,7 +36,7 @@ module Jobs
   end
 end
 
-RSpec.describe Resque::Failure::AnalysisTask do
+RSpec.describe Resque::Failure::Task do
   before(:context) do
     Resque.inline = false
   end
@@ -50,8 +50,8 @@ RSpec.describe Resque::Failure::AnalysisTask do
       before(:example) do
         @user = create(:user)
         @dataset = create(:full_dataset, user: @user)
-        @task = create(:analysis_task, dataset: @dataset, name: 'Failing task',
-                                       job_type: 'FailingJob')
+        @task = create(:task, dataset: @dataset, name: 'Failing task',
+                              job_type: 'FailingJob')
 
         job_params = {
           user_id: @user.to_param,
@@ -72,7 +72,7 @@ RSpec.describe Resque::Failure::AnalysisTask do
       it 'handles the exception gracefully' do
         expect {
           Jobs::Analysis::FailingJob.run_with_worker(
-            create(:analysis_task),
+            create(:task),
             user_id: 'asdf',
             dataset_id: 'asdf',
             task_id: 'asdf'

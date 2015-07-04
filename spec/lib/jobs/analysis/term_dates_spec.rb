@@ -7,7 +7,7 @@ RSpec.describe Jobs::Analysis::TermDates do
                                      user: @user)
     @dataset.entries += [create(:entry, dataset: @dataset,
                                         uid: 'gutenberg:3172')]
-    @task = create(:analysis_task, dataset: @dataset)
+    @task = create(:task, dataset: @dataset)
   end
 
   it_should_behave_like 'an analysis job'
@@ -37,7 +37,7 @@ RSpec.describe Jobs::Analysis::TermDates do
     end
 
     it 'names the task correctly' do
-      expect(@dataset.analysis_tasks[0].name).to eq('Plot word occurrences by date')
+      expect(@dataset.tasks[0].name).to eq('Plot word occurrences by date')
     end
 
     it 'creates good JSON' do

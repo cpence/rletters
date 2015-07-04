@@ -22,9 +22,9 @@
       .btn-group.btn-group-justified
         - button_params = { class: params[:class], job_params: { other_datasets: current_user.workflow_datasets[1..-1] } }
         - if @klass.view? '_params'
-          = link_to t('.button_params'), new_dataset_analysis_task_path(current_user.workflow_dataset(0), button_params), class: 'btn btn-primary'
+          = link_to t('.button_params'), new_dataset_task_path(current_user.workflow_dataset(0), button_params), class: 'btn btn-primary'
         - else
-          = link_to t('.button_start'), dataset_analysis_tasks_path(current_user.workflow_dataset(0), button_params), method: :post, class: 'btn btn-success'
+          = link_to t('.button_start'), dataset_tasks_path(current_user.workflow_dataset(0), button_params), method: :post, class: 'btn btn-success'
 
 .row
   .col-sm-12

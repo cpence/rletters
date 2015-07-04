@@ -3,14 +3,14 @@ require 'spec_helper'
 module Jobs
   module Analysis
     # Mock job for analysis task controller tests
-    class ATControllerJob < Jobs::Analysis::Base
+    class ControllerJob < Jobs::Analysis::Base
       include Resque::Plugins::Status
       def perform; end
     end
   end
 end
 
-RSpec.describe Datasets::AnalysisTasksController, type: :controller do
+RSpec.describe Datasets::TasksController, type: :controller do
   before(:example) do
     @user = create(:user)
     sign_in @user
@@ -202,8 +202,7 @@ RSpec.describe Datasets::AnalysisTasksController, type: :controller do
 
   describe '#show' do
     before(:example) do
-      @task = create(:analysis_task, dataset: @dataset,
-                                     job_type: 'ExportCitations')
+      @task = create(:task, dataset: @dataset, job_type: 'ExportCitations')
     end
 
     context 'when an invalid task ID is passed' do
@@ -254,8 +253,7 @@ RSpec.describe Datasets::AnalysisTasksController, type: :controller do
       end
 
       it 'escapes JSON if some is available' do
-        @task_2 = create(:analysis_task, dataset: @dataset,
-                                         job_type: 'ExportCitations')
+        @task_2 = create(:task, dataset: @dataset, job_type: 'ExportCitations')
 
         ios = StringIO.new('abc"123')
         file = Paperclip.io_adapters.for(ios)
@@ -302,8 +300,7 @@ RSpec.describe Datasets::AnalysisTasksController, type: :controller do
 
     context 'with neither a view nor a download' do
       before(:example) do
-        @task_2 = create(:analysis_task, dataset: @dataset,
-                                         job_type: 'ATControllerJob')
+        @task_2 = create(:task, dataset: @dataset, job_type: 'ControllerJob')
       end
 
       it 'raises an error' do
@@ -327,8 +324,7 @@ RSpec.describe Datasets::AnalysisTasksController, type: :controller do
       before(:example) do
         @disabled = create(:dataset, user: @user, name: 'Disabled',
                                      disabled: true)
-        @task = create(:analysis_task, dataset: @disabled,
-                                       job_type: 'ExportCitations')
+        @task = create(:task, dataset: @disabled, job_type: 'ExportCitations')
       end
 
       it 'raises an exception' do
@@ -341,14 +337,13 @@ RSpec.describe Datasets::AnalysisTasksController, type: :controller do
     context 'when a valid task ID is passed' do
       before(:example) do
         request.env['HTTP_REFERER'] = workflow_fetch_path
-        @task = create(:analysis_task, dataset: @dataset,
-                                       job_type: 'ExportCitations')
+        @task = create(:task, dataset: @dataset, job_type: 'ExportCitations')
       end
 
       it 'deletes the task' do
         expect {
           get :destroy, dataset_id: @dataset.to_param, id: @task.to_param
-        }.to change { @dataset.analysis_tasks.count }.by(-1)
+        }.to change { @dataset.tasks.count }.by(-1)
       end
 
       it 'redirects to the prior page' do

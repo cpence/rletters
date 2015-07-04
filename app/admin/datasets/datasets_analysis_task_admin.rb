@@ -1,5 +1,5 @@
 
-ActiveAdmin.register Datasets::AnalysisTask do
+ActiveAdmin.register Datasets::Task do
   menu parent: 'datasets'
   actions :index, :show
 

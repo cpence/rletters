@@ -4,7 +4,7 @@ RSpec.describe Jobs::Analysis::NamedEntities do
   before(:example) do
     @user = create(:user)
     @dataset = create(:full_dataset, working: true, user: @user)
-    @task = create(:analysis_task, dataset: @dataset)
+    @task = create(:task, dataset: @dataset)
 
     @old_path = Admin::Setting.nlp_tool_path
     Admin::Setting.nlp_tool_path = 'stubbed'

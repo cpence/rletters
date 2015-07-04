@@ -5,7 +5,7 @@ RSpec.describe Jobs::Analysis::WordFrequency do
     @user = create(:user)
     @dataset = create(:full_dataset, entries_count: 2, working: true,
                                      user: @user)
-    @task = create(:analysis_task, dataset: @dataset)
+    @task = create(:task, dataset: @dataset)
 
     # Don't perform the analysis
     mock_analyzer = OpenStruct.new(
@@ -121,7 +121,7 @@ RSpec.describe Jobs::Analysis::WordFrequency do
       end
 
       it 'names the task correctly' do
-        expect(@dataset.analysis_tasks[0].name).to eq('Analyze word frequency in dataset')
+        expect(@dataset.tasks[0].name).to eq('Analyze word frequency in dataset')
       end
 
       it 'creates good CSV' do

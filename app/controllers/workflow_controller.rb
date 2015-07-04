@@ -86,7 +86,7 @@ class WorkflowController < ApplicationController
     analysis_criteria = {
       datasets: { user_id: current_user.to_param, disabled: false }
     }
-    tasks = Datasets::AnalysisTask.joins(:dataset).where(analysis_criteria)
+    tasks = Datasets::Task.joins(:dataset).where(analysis_criteria)
 
     @pending_tasks = tasks.where(finished_at: nil).order(:created_at)
     @finished_tasks = tasks.where.not(finished_at: nil).order(finished_at: :desc)
@@ -124,8 +124,8 @@ class WorkflowController < ApplicationController
     end
 
     # Decorate
-    @pending_tasks = AnalysisTaskDecorator.decorate_collection(@pending_tasks)
-    @finished_tasks = AnalysisTaskDecorator.decorate_collection(@finished_tasks)
+    @pending_tasks = TaskDecorator.decorate_collection(@pending_tasks)
+    @finished_tasks = TaskDecorator.decorate_collection(@finished_tasks)
 
     # If this is an AJAX request, render the tasks table only
     if request.xhr?

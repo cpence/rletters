@@ -6,7 +6,7 @@ RSpec.describe Jobs::Analysis::Network do
     @dataset = create(:full_dataset, user: @user, entries_count: 0)
     @dataset.entries += [create(:entry, dataset: @dataset,
                                         uid: WORKING_UIDS[2])]
-    @task = create(:analysis_task, dataset: @dataset)
+    @task = create(:task, dataset: @dataset)
 
     # The network code loads the English stop list
     @stop_list = create(:stop_list)

@@ -5,7 +5,7 @@ RSpec.describe Jobs::Analysis::ExportCitations do
     @user = create(:user)
     @dataset = create(:full_dataset, entries_count: 10, working: true,
                                      user: @user)
-    @task = create(:analysis_task, dataset: @dataset)
+    @task = create(:task, dataset: @dataset)
   end
 
   it_should_behave_like 'an analysis job' do

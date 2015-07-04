@@ -1,7 +1,7 @@
 
-expire_analysis_tasks:
+expire_tasks:
   every: 1h
-  class: Jobs::ExpireAnalysisTasks
+  class: Jobs::ExpireTasks
   queue: maintenance
   rails_env: production
-  description: Analysis task (and download) expiration job
+  description: Task (and download) expiration job

@@ -12,8 +12,8 @@ ActiveAdmin.register Dataset do
     column :entries do |dataset|
       dataset.entries.size
     end
-    column :analysis_tasks do |dataset|
-      dataset.analysis_tasks.size
+    column :tasks do |dataset|
+      dataset.tasks.size
     end
     actions
   end

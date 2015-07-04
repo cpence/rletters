@@ -169,8 +169,8 @@ RSpec.describe WorkflowController, type: :controller do
 
   describe '#fetch' do
     def make_task(dataset, finished)
-      task = create(:analysis_task, dataset: dataset, finished_at: finished,
-                                    job_type: 'WorkflowJob')
+      task = create(:task, dataset: dataset, finished_at: finished,
+                           job_type: 'WorkflowJob')
 
       uuid = Jobs::Analysis::WorkflowJob.create(
         user_id: dataset.user.to_param,
@@ -244,15 +244,15 @@ RSpec.describe WorkflowController, type: :controller do
       end
 
       it 'destroys the tasks' do
-        expect(Datasets::AnalysisTask.exists?(@pending_task.id)).to be false
-        expect(Datasets::AnalysisTask.exists?(@working_task.id)).to be false
-        expect(Datasets::AnalysisTask.exists?(@failed_task.id)).to be false
+        expect(Datasets::Task.exists?(@pending_task.id)).to be false
+        expect(Datasets::Task.exists?(@working_task.id)).to be false
+        expect(Datasets::Task.exists?(@failed_task.id)).to be false
       end
 
       it 'leaves everything else alone' do
-        expect(Datasets::AnalysisTask.exists?(@finished_task.id)).to be true
-        expect(Datasets::AnalysisTask.exists?(@disabled_task.id)).to be true
-        expect(Datasets::AnalysisTask.exists?(@other_task.id)).to be true
+        expect(Datasets::Task.exists?(@finished_task.id)).to be true
+        expect(Datasets::Task.exists?(@disabled_task.id)).to be true
+        expect(Datasets::Task.exists?(@other_task.id)).to be true
       end
 
       it 'redirects to the workflow index' do

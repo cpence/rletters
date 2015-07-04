@@ -21,16 +21,15 @@
 #     (`validates_associated`)
 #   @return [Array<Datasets::Entry>] The documents contained in this dataset
 #     (`has_many`)
-# @!attribute analysis_tasks
-#   @return [Array<Datasets::AnalysisTask>] The analysis tasks run on this
-#     dataset (`has_many`)
+# @!attribute tasks
+#   @return [Array<Datasets::Task>] The tasks run on this dataset (`has_many`)
 class Dataset < ActiveRecord::Base
   validates :name, presence: true
   validates :user_id, presence: true
 
   belongs_to :user
   has_many :entries, class_name: 'Datasets::Entry'
-  has_many :analysis_tasks, class_name: 'Datasets::AnalysisTask', dependent: :destroy
+  has_many :tasks, class_name: 'Datasets::Task', dependent: :destroy
 
   # @return [Array<Dataset>] all datasets that are currently not disabled
   scope :active, -> { where(disabled: false) }

@@ -1,7 +1,7 @@
 
 module Jobs
   # Expire any analysis tasks older than two weeks.
-  class ExpireAnalysisTasks
+  class ExpireTasks
     include Resque::Plugins::Status
 
     # Set the queue for this task
@@ -15,8 +15,8 @@ module Jobs
     #
     # @return [void]
     def perform
-      tick(I18n.t('jobs.expire_analysis_tasks.progress_expiring'))
-      Datasets::AnalysisTask.destroy_all ['created_at < ?', 2.weeks.ago]
+      tick(I18n.t('jobs.expire_tasks.progress_expiring'))
+      Datasets::Task.destroy_all ['created_at < ?', 2.weeks.ago]
 
       completed
     end

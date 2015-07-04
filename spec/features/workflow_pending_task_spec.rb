@@ -8,9 +8,8 @@ RSpec.feature 'User fetching a pending task', type: :feature do
 
     # We don't normally directly touch the database, but we're here mocking the
     # way that an external Redis/Resque task would have acted.
-    create(:analysis_task, dataset: Dataset.first,
-                           resque_key: 'asdf123',
-                           finished_at: nil)
+    create(:task, dataset: Dataset.first, resque_key: 'asdf123',
+                  finished_at: nil)
 
     Resque::Plugins::Status::Hash.create(
       'asdf123',

@@ -144,7 +144,7 @@ RSpec.describe DatasetsController, type: :controller do
 
     context 'with clear_failed' do
       before(:example) do
-        create(:analysis_task, dataset: @dataset, failed: true)
+        create(:task, dataset: @dataset, failed: true)
         get :show, id: @dataset.to_param, clear_failed: true
       end
 
@@ -153,7 +153,7 @@ RSpec.describe DatasetsController, type: :controller do
       end
 
       it 'deletes the failed task' do
-        expect(@dataset.analysis_tasks.failed).to be_empty
+        expect(@dataset.tasks.failed).to be_empty
       end
 
       it 'sets the flash' do

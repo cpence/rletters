@@ -48,7 +48,7 @@ RSpec.describe 'The library itself' do
   end
 
   it 'has no malformed whitespace' do
-    exempt = %r{vendor|LICENSE|\.png|\.svg|\.ico|\.ttf|\.woff|\.svg|\.eot|\.md|db/seeds/|\.xsd|\.xml|\.yml|spec/support/requests/}
+    exempt = %r{vendor|LICENSE|\.png|\.svg|\.ico|\.ttf|\.woff|\.svg|\.eot|\.md|db/seeds/|\.xsd|\.xml|\.yml|spec/support/requests/|\.sql}
     error_messages = []
     Dir.chdir(File.expand_path('../..', __FILE__)) do
       `git ls-files`.split("\n").each do |filename|
@@ -73,35 +73,4 @@ RSpec.describe 'The library itself' do
     end
     expect(error_messages.compact).to be_well_formed
   end
-
-  # it 'has all of its view specs' do
-  #   included = %r{app/views/.*\.html\.(haml|erb)}
-  #   error_messages = []
-  #   Dir.chdir(File.expand_path('../..', __FILE__)) do
-  #     `git ls-files`.split("\n").each do |filename|
-  #       next unless filename =~ included
-  #       next if filename.include? 'mailer/'
-  #       next if filename.start_with? 'app/views/layouts/'
-  #       next if File.basename(filename).start_with? '_'
-  #       spec_filename = filename.sub('app/', 'spec/').sub(/\.html.*/, '_spec.rb')
-  #       next if File.exist? spec_filename
-  #       error_messages << "#{filename} has no view spec (checked for #{spec_filename})"
-  #     end
-  #     expect(error_messages.compact).to be_well_formed
-  #   end
-  # end
-
-  # it 'has all of its job view specs' do
-  #   included = %r{lib/jobs/analysis/views/.*\.(haml|erb)}
-  #   error_messages = []
-  #   Dir.chdir(File.expand_path('../..', __FILE__)) do
-  #     `git ls-files`.split("\n").each do |filename|
-  #       next unless filename =~ included
-  #       spec_filename = filename.sub('lib/jobs/analysis/views', 'spec/views/jobs/analysis').sub(/\.(html|csv).*/, '_spec.rb')
-  #       next if File.exist? spec_filename
-  #       error_messages << "#{filename} has no view spec (checked for #{spec_filename})"
-  #     end
-  #     expect(error_messages.compact).to be_well_formed
-  #   end
-  # end
 end

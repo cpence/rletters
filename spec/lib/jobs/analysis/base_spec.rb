@@ -114,7 +114,7 @@ RSpec.describe Jobs::Analysis::Base do
     before(:example) do
       @user = create(:user)
       @dataset = create(:full_dataset, user: @user)
-      @task = create(:analysis_task, dataset: @dataset)
+      @task = create(:task, dataset: @dataset)
 
       @job = Jobs::Analysis::MockJob.new(
         'asdf',

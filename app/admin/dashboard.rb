@@ -55,8 +55,8 @@ ActiveAdmin.register_page 'Dashboard' do
       end
 
       column do
-        panel I18n.t('admin.dashboard.new_analysis_tasks') do
-          table_for Datasets::AnalysisTask.order('created_at desc').limit(10) do
+        panel I18n.t('admin.dashboard.new_tasks') do
+          table_for Datasets::Task.order('created_at desc').limit(10) do
             column :name do |task|
               link_to task.name, [:admin, task]
             end

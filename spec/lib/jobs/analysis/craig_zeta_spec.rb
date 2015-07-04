@@ -7,7 +7,7 @@ RSpec.describe Jobs::Analysis::CraigZeta do
                                      entries_count: 2)
     @dataset_2 = create(:full_dataset, working: true, user: @user,
                                        entries_count: 2)
-    @task = create(:analysis_task, dataset: @dataset)
+    @task = create(:task, dataset: @dataset)
 
     # Don't run the analyses
     mock = double(RLetters::Analysis::CraigZeta,

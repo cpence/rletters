@@ -16,7 +16,7 @@ class UserMailer < ActionMailer::Base
   # @param [String] task_id the ID of the task that just finished
   # @return [void]
   def job_finished_email(email, task_id)
-    @task = Datasets::AnalysisTask.find(task_id)
+    @task = Datasets::Task.find(task_id)
 
     mail(from: Admin::Setting.app_email,
          to: email,

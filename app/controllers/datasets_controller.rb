@@ -36,9 +36,9 @@ class DatasetsController < ApplicationController
 
     # Clear failed tasks if requested
     return unless params[:clear_failed]
-    return if @dataset.analysis_tasks.failed.size == 0
+    return if @dataset.tasks.failed.size == 0
 
-    @dataset.analysis_tasks.failed.destroy_all
+    @dataset.tasks.failed.destroy_all
     flash[:notice] = t('datasets.show.deleted')
   end
 

@@ -24,9 +24,8 @@ RSpec.feature 'Viewing information about a dataset', type: :feature do
 
     # We don't normally directly touch the database, but we're here mocking the
     # way that an external Redis/Resque task would have acted.
-    create(:analysis_task, dataset: Dataset.first,
-                           resque_key: 'asdf123',
-                           finished_at: nil)
+    create(:task, dataset: Dataset.first, resque_key: 'asdf123',
+                  finished_at: nil)
 
     Resque::Plugins::Status::Hash.create(
       'asdf123',
@@ -50,7 +49,7 @@ RSpec.feature 'Viewing information about a dataset', type: :feature do
     create_dataset
     visit datasets_path
 
-    create(:analysis_task, dataset: Dataset.first, failed: true)
+    create(:task, dataset: Dataset.first, failed: true)
 
     visit datasets_path
     expect(page).to have_selector('td', text: 'Integration Dataset')
@@ -66,7 +65,7 @@ RSpec.feature 'Viewing information about a dataset', type: :feature do
     create_dataset
     visit datasets_path
 
-    create(:analysis_task, dataset: Dataset.first, failed: true)
+    create(:task, dataset: Dataset.first, failed: true)
 
     visit datasets_path
     expect(page).to have_selector('td', text: 'Integration Dataset')

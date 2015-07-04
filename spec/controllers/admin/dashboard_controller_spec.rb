@@ -23,7 +23,7 @@ RSpec.describe Admin::DashboardController, type: :controller do
       sign_in :user, @user
 
       @dataset = create(:dataset, user: @user)
-      @analysis_task = create(:analysis_task, dataset: @dataset)
+      @task = create(:task, dataset: @dataset)
     end
 
     after(:example) do
@@ -54,7 +54,7 @@ RSpec.describe Admin::DashboardController, type: :controller do
         end
 
         it 'links to the analysis task' do
-          expect(response.body).to have_selector('a', text: @analysis_task.name)
+          expect(response.body).to have_selector('a', text: @task.name)
         end
       end
 

@@ -7,7 +7,7 @@
       %table.table.button-table
         %thead
           %tr
-            %th.label-cell= t('datasets.analysis_tasks.index.task_column')
+            %th.label-cell= t('datasets.tasks.index.task_column')
             %th.label-cell= Dataset.model_name.human
             %th.label-cell= t('.progress')
         %tbody
@@ -29,10 +29,10 @@
       %table.table.button-table
         %thead
           %tr
-            %th.label-cell= t('datasets.analysis_tasks.index.task_column')
+            %th.label-cell= t('datasets.tasks.index.task_column')
             %th.label-cell= Dataset.model_name.human
             %th.label-cell= t('.finished_column')
-            %th.button-cell= t('datasets.analysis_tasks.index.results_column')
+            %th.button-cell= t('datasets.tasks.index.results_column')
         %tbody
           - @finished_tasks.each do |t|
             %tr
@@ -41,7 +41,7 @@
               %td.label-cell= l t.finished_at, format: :short
               %td.button-cell
                 - if t.job_class.download?
-                  = link_to t('datasets.analysis_tasks.index.download_button'), dataset_analysis_task_path(t.dataset, t), class: 'btn btn-xs btn-success'
+                  = link_to t('datasets.tasks.index.download_button'), dataset_task_path(t.dataset, t), class: 'btn btn-xs btn-success'
                 - else
-                  = link_to t('datasets.analysis_tasks.index.view_button'), dataset_analysis_task_path(t.dataset, t, view: 'results'), class: 'btn btn-xs btn-success'
-                = link_to t('datasets.analysis_tasks.index.delete_button'), dataset_analysis_task_path(t.dataset, t), method: :delete, class: 'btn btn-xs btn-danger', data: { confirm: t('datasets.analysis_tasks.index.delete_confirm') }
+                  = link_to t('datasets.tasks.index.view_button'), dataset_task_path(t.dataset, t, view: 'results'), class: 'btn btn-xs btn-success'
+                = link_to t('datasets.tasks.index.delete_button'), dataset_task_path(t.dataset, t), method: :delete, class: 'btn btn-xs btn-danger', data: { confirm: t('datasets.tasks.index.delete_confirm') }

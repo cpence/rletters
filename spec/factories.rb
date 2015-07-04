@@ -10,8 +10,8 @@ FactoryGirl.define do
     remember_me false
   end
 
-  factory :analysis_task, class: Datasets::AnalysisTask do
-    name 'Analysis Task'
+  factory :task, class: Datasets::Task do
+    name 'Task'
     dataset
     job_type 'FakeJob'
   end
@@ -28,7 +28,7 @@ FactoryGirl.define do
 
   factory :download do
     filename 'test.txt'
-    analysis_task
+    task
   end
 
   factory :library, class: Users::Library do

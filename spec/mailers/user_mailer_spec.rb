@@ -3,7 +3,7 @@ require 'spec_helper'
 RSpec.describe UserMailer, type: :mailer do
   describe '#job_finished_email' do
     before(:example) do
-      @task = create(:analysis_task)
+      @task = create(:task)
 
       @mail = UserMailer.job_finished_email('user@user.com', @task.to_param)
     end

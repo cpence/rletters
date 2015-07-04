@@ -1,10 +1,10 @@
 
 # Code for objects belonging to datasets
 module Datasets
-  # An analysis task run on a dataset
+  # An task run on a dataset
   #
-  # While the processing is actually occurring in a delayed job, we need a way
-  # for those delayed jobs to readily communicate with users via the web
+  # While the processing is actually occurring in a background job, we
+  # need a way for those jobs to communicate with users via the web
   # front-end.  This model is how they do so.
   #
   # @!attribute name
@@ -35,8 +35,8 @@ module Datasets
   # @!attribute result_updated_at
   #   @return [DateTime] The last updated time of the result file (from
   #     Paperclip)
-  class AnalysisTask < ActiveRecord::Base
-    self.table_name = 'datasets_analysis_tasks'
+  class Task < ActiveRecord::Base
+    self.table_name = 'datasets_tasks'
     serialize :params, Hash
 
     validates :name, presence: true
@@ -44,7 +44,7 @@ module Datasets
     validates :job_type, presence: true
 
     belongs_to :dataset
-    has_attached_file :result, database_table: 'datasets_analysis_task_results'
+    has_attached_file :result, database_table: 'datasets_task_results'
     validates_attachment :result,
                          content_type: { content_type: %w(text/csv
                                                           text/plain

@@ -23,9 +23,8 @@ Rails.application.routes.draw do
 
   # Datasets (per-user)
   resources :datasets, except: :edit do
-    resources :analysis_tasks, module: 'datasets',
-                               path: 'tasks',
-                               except: [:edit, :update]
+    resources :tasks, module: 'datasets', path: 'tasks',
+                      except: [:edit, :update]
   end
 
   # User login routes

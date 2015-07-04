@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe Admin::DatasetsAnalysisTasksController, type: :controller do
+RSpec.describe Admin::DatasetsTasksController, type: :controller do
   # Normally I hate turning this on, but in ActiveAdmin, the view logic *is*
   # defined in the same place where I define the controller.
   render_views
@@ -8,7 +8,7 @@ RSpec.describe Admin::DatasetsAnalysisTasksController, type: :controller do
   before(:example) do
     @administrator = create(:administrator)
     sign_in :administrator, @administrator
-    @task = create(:analysis_task)
+    @task = create(:task)
   end
 
   describe '#index' do

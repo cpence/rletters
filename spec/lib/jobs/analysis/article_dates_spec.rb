@@ -4,7 +4,7 @@ RSpec.describe Jobs::Analysis::ArticleDates do
   before(:example) do
     @user = create(:user)
     @dataset = create(:full_dataset, working: true, user: @user)
-    @task = create(:analysis_task, dataset: @dataset)
+    @task = create(:task, dataset: @dataset)
   end
 
   it_should_behave_like 'an analysis job'
@@ -25,7 +25,7 @@ RSpec.describe Jobs::Analysis::ArticleDates do
     before(:example) do
       @dataset_2 = create(:full_dataset, working: true, user: @user)
       @dataset_2.entries += [create(:entry, dataset: @dataset_2, uid: 'gutenberg:3172')]
-      @task_2 = create(:analysis_task, dataset: @dataset_2)
+      @task_2 = create(:task, dataset: @dataset_2)
 
       Jobs::Analysis::ArticleDates.perform(
         '123',

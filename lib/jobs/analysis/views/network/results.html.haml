@@ -6,7 +6,7 @@
     %h4.text-muted= t('jobs.analysis.network.subheader', word: data['word'])
 
   .col-md-4.job-header-button
-    = link_to t('jobs.analysis.network.download'), dataset_analysis_task_path(@dataset, @task, view: 'download', format: 'graphml'), class: 'btn btn-default'
+    = link_to t('jobs.analysis.network.download'), dataset_task_path(@dataset, @task, view: 'download', format: 'graphml'), class: 'btn btn-default'
 
 .row
   .col-xs-12

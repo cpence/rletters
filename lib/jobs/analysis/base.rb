@@ -11,16 +11,15 @@ module Jobs
     #   task has collected the appropriate number of datasets, the user will be
     #   presented with this form in order to set special parameters for the
     #   task.  This partial should consist of a form that submits to
-    #   `dataset_analysis_tasks_path` with `:post`
-    #   (`datasets/analysis_tasks#create`).
+    #   `dataset_tasks_path` with `:post` (`datasets/tasks#create`).
     # - `results.html.haml` (optional): Tasks may report their results in two
     #   different ways.  Some tasks (e.g., ExportCitations) just dump all of
-    #   their results into a file (see `AnalysisTask#result_file`) for the
+    #   their results into a file (see `Task#result_file`) for the
     #   user to download.  This is the default, for which `#download?` returns
     #   `true`.  If `#download?` is overridden to return `false`, then the
     #   job is expected to implement the `results` view, which will show the
     #   user the results of the job in HTML form.  The standard way to do this
-    #   is to write the job results out as JSON in `AnalysisTask#result_file`,
+    #   is to write the job results out as JSON in `Task#result_file`,
     #   and then to parse this JSON into HAML in the view.
     #
     # Note that this class does several things that seem pretty hacky and
@@ -242,7 +241,7 @@ module Jobs
 
         @user = User.find(options[:user_id])
         @dataset = @user.datasets.find(options[:dataset_id])
-        @task = @dataset.analysis_tasks.find(options[:task_id])
+        @task = @dataset.tasks.find(options[:task_id])
 
         @task.name = t('.short_desc')
         @task.save

@@ -4,7 +4,7 @@ RSpec.describe Jobs::Analysis::Cooccurrence do
   before(:example) do
     @user = create(:user)
     @dataset = create(:full_dataset, working: true, user: @user)
-    @task = create(:analysis_task, dataset: @dataset)
+    @task = create(:task, dataset: @dataset)
 
     # Don't run the analyses
     allow_any_instance_of(RLetters::Analysis::Cooccurrence::Base).to receive(:call) do |analyzer|
@@ -64,7 +64,7 @@ RSpec.describe Jobs::Analysis::Cooccurrence do
         }.not_to raise_error
 
         # Just a quick sanity check to make sure some code was called
-        expect(@dataset.analysis_tasks[0].name).to eq('Determine significant associations between distant pairs of words')
+        expect(@dataset.tasks[0].name).to eq('Determine significant associations between distant pairs of words')
       end
     end
   end

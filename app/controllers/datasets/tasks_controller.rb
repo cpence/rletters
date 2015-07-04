@@ -2,8 +2,8 @@
 module Datasets
   # Work with a dataset's analysis tasks
   #
-  # @see Datasets::AnalysisTask
-  class AnalysisTasksController < ApplicationController
+  # @see Datasets::Task
+  class TasksController < ApplicationController
     before_action :authenticate_user!
     before_action :set_task
     before_action :set_current_params, only: [:new, :create]
@@ -41,8 +41,8 @@ module Datasets
     # @return [void]
     def create
       # Create an analysis task
-      task = @dataset.analysis_tasks.create(name: params[:class],
-                                            job_type: params[:class])
+      task = @dataset.tasks.create(name: params[:class],
+                                   job_type: params[:class])
 
       # Force these three parameters that we always need
       @current_params[:user_id] = current_user.to_param
@@ -65,7 +65,7 @@ module Datasets
         current_user.save
 
         redirect_to root_path,
-                    flash: { success: I18n.t('datasets.analysis_tasks.create.workflow') }
+                    flash: { success: I18n.t('datasets.tasks.create.workflow') }
       else
         # Advanced mode
         redirect_to dataset_path(@dataset),
@@ -118,8 +118,8 @@ module Datasets
     # @return [void]
     def set_task
       @dataset = current_user.datasets.active.find(params[:dataset_id])
-      @task = @dataset.analysis_tasks.find(params[:id]) if params[:id].present?
-      @klass = Datasets::AnalysisTask.job_class(params[:class]) if params[:class].present?
+      @task = @dataset.tasks.find(params[:id]) if params[:id].present?
+      @klass = Datasets::Task.job_class(params[:class]) if params[:class].present?
     end
 
     # Get the current parameters hash from the params

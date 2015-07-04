@@ -5,7 +5,7 @@ module Resque
   # Resque's namespace for all failure adapters
   module Failure
     # A Resque failure class to set the failure bit on analysis tasks
-    class AnalysisTask < Base
+    class Task < Base
       # Return the number of failures this adapter has logged
       #
       # We can't query the database to determine this, so just return Resque's
@@ -47,7 +47,7 @@ module Resque
         begin
           user = User.find(args[:user_id])
           dataset = user.datasets.find(args[:dataset_id])
-          task = dataset.analysis_tasks.find(args[:task_id])
+          task = dataset.tasks.find(args[:task_id])
 
           task.failed = true
           task.save!
@@ -62,5 +62,5 @@ end
 # Enable this failure backend
 require 'resque/failure/multiple'
 require 'resque/failure/redis'
-Resque::Failure::Multiple.classes = [Resque::Failure::Redis, Resque::Failure::AnalysisTask]
+Resque::Failure::Multiple.classes = [Resque::Failure::Redis, Resque::Failure::Task]
 Resque::Failure.backend = Resque::Failure::Multiple
