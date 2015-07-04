@@ -9,6 +9,9 @@ Bundler.require(*Rails.groups)
 module RLetters
   # Central application class, started by Rails
   class Application < Rails::Application
+    # Save the schema in SQL
+    config.active_record.schema_format = :sql
+
     # Custom directories with classes and modules
     config.eager_load_paths << config.root.join('lib').to_s
 
