@@ -29,8 +29,6 @@ module Jobs
     # loading happens during Rails boot time, which is explicitly guaranteed to
     # be single-threaded.
     class Base
-      include Resque::Plugins::Status
-
       # All analysis jobs should be placed in the analysis queue
       #
       # This method is queried by Resque to determine which queue the job
@@ -149,7 +147,7 @@ module Jobs
         # We want this to throw a NameError if it doesn't work; this would be
         # a programmer's mistake
         klass = ('Jobs::Analysis::Concerns::' + concern).constantize
-        include klass
+        extend klass
 
         # Add it to the tracking list so that we'll pick up its views
         self.concerns ||= []
@@ -222,29 +220,55 @@ module Jobs
         !view_path(template: view, format: format).nil?
       end
 
+      # The exception raised when we kill a job externally
+      class JobKilledError < RuntimeError; end
+
       protected
 
       # Sets a variety of standard option variables
       #
       # Almost all analysis jobs have a `user_id`, `dataset_id`, and `task_id`
-      # parameter.  This function cleans the options variables, and then loads
-      # those three classes into the `@user`, `@dataset`, and `@task`
-      # variables.  Finally, it sets and saves the name of the task to the
-      # content of the `.short_desc` translation key.
+      # parameter.  This function ensures that they are valid, and then sets
+      # and saves the name of the task to the content of the `.short_desc`
+      # translation key. Finally, it starts the progress measurement.
       #
-      # If any of those three variables is absent or invalid, this function
-      # will throw an exception.
-      #
+      # @param [String] user_id the user whose dataset we are to work on
+      # @param [String] dataset_id the dataset to operate on
+      # @param [String] task_id the task we're working from
       # @return [undefined]
-      def standard_options!
-        options.clean_options!
+      def self.standard_options(user_id, dataset_id, task_id)
+        user = User.find(user_id)
+        dataset = user.datasets.find(dataset_id)
+        task = dataset.tasks.find(task_id)
 
-        @user = User.find(options[:user_id])
-        @dataset = @user.datasets.find(options[:dataset_id])
-        @task = @dataset.tasks.find(options[:task_id])
+        task.name = t('.short_desc')
+        task.save
 
-        @task.name = t('.short_desc')
-        @task.save
+        task.at(0, 100, t('common.progress_initializing'))
+      end
+
+      # Returns the task object, possibly throwing an exception
+      #
+      # At any point, we could get a request to kill the current task, which is
+      # expressed by deleting the task out from under us. To that end, we
+      # always check the task before using it.
+      #
+      # @return [Datasets::Task] the task, if not deleted
+      def self.get_task(task_id)
+        fail JobKilledError unless Datasets::Task.exists?(task_id)
+        Datasets::Task.find(task_id)
+      end
+
+      # Returns the dataset object, possibly throwing an exception
+      # @return [Dataset] the dataset, if we haven't been killed
+      def self.get_dataset(task_id)
+        get_task(task_id).dataset
+      end
+
+      # Returns the user object, possibly throwing an exception
+      # @return [User] the user, if we haven't been killed
+      def self.get_user(task_id)
+        get_dataset(task_id).user
       end
 
       class << self

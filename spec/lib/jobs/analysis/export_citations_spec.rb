@@ -28,10 +28,9 @@ RSpec.describe Jobs::Analysis::ExportCitations do
     it 'raises an exception' do
       expect {
         Jobs::Analysis::ExportCitations.perform(
-          '123',
-          user_id: @user.to_param,
-          dataset_id: @dataset.to_param,
-          task_id: @task.to_param,
+          @user.to_param,
+          @dataset.to_param,
+          @task.to_param,
           format: 'notaformat')
       }.to raise_error(ArgumentError)
     end
@@ -40,10 +39,9 @@ RSpec.describe Jobs::Analysis::ExportCitations do
   context 'when all parameters are valid' do
     before(:example) do
       Jobs::Analysis::ExportCitations.perform(
-        '123',
-        user_id: @user.to_param,
-        dataset_id: @dataset.to_param,
-        task_id: @task.to_param,
+        @user.to_param,
+        @dataset.to_param,
+        @task.to_param,
         format: 'bibtex')
       @task.reload
     end

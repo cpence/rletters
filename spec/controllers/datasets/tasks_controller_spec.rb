@@ -2,9 +2,8 @@ require 'spec_helper'
 
 module Jobs
   module Analysis
-    # Mock job for analysis task controller tests
+    # Mock job for task controller tests
     class ControllerJob < Jobs::Analysis::Base
-      include Resque::Plugins::Status
       def perform; end
     end
   end
@@ -274,10 +273,9 @@ RSpec.describe Datasets::TasksController, type: :controller do
     context 'when fetching a task download' do
       before(:example) do
         Jobs::Analysis::ExportCitations.perform(
-          '123',
-          user_id: @user.to_param,
-          dataset_id: @dataset.to_param,
-          task_id: @task.to_param,
+          @user.to_param,
+          @dataset.to_param,
+          @task.to_param,
           format: 'bibtex'
         )
       end

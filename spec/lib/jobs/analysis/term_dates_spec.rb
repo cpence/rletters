@@ -10,7 +10,9 @@ RSpec.describe Jobs::Analysis::TermDates do
     @task = create(:task, dataset: @dataset)
   end
 
-  it_should_behave_like 'an analysis job'
+  it_should_behave_like 'an analysis job' do
+    let(:job_params) { { term: 'disease' } }
+  end
 
   describe '.download?' do
     it 'is false' do
@@ -27,10 +29,9 @@ RSpec.describe Jobs::Analysis::TermDates do
   describe('.perform') do
     before(:example) do
       Jobs::Analysis::TermDates.perform(
-        '123',
-        user_id: @user.to_param,
-        dataset_id: @dataset.to_param,
-        task_id: @task.to_param,
+        @user.to_param,
+        @dataset.to_param,
+        @task.to_param,
         term: 'disease')
       @task.reload
       @data = JSON.load(@task.result.file_contents(:original))

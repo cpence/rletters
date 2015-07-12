@@ -1,7 +1,7 @@
 
-# Decorate analysis task objects
+# Decorate task objects
 #
-# This class adds methods to display the results from analysis tasks.
+# This class adds methods to display the results from tasks.
 class TaskDecorator < Draper::Decorator
   decorates Datasets::Task
   delegate_all
@@ -12,14 +12,11 @@ class TaskDecorator < Draper::Decorator
   def status_message
     ret = ''
 
-    hash = status
-    if hash
-      if hash.pct_complete
-        ret += "#{hash.pct_complete}%"
-        ret += ': ' if hash.message
-      end
-      ret += hash.message if hash.message
+    if progress
+      ret += "#{(progress * 100).to_i}%"
+      ret += ': ' if progress_message.present?
     end
+    ret += progress_message if progress_message.present?
 
     ret
   end

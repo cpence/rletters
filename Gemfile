@@ -13,7 +13,6 @@ gem 'addressable'
 
 # Job scheduling
 gem 'resque'
-gem 'resque-status'
 gem 'resque-scheduler'
 gem 'resque_mailer'
 

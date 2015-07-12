@@ -314,8 +314,9 @@ CREATE TABLE datasets_tasks (
     result_content_type character varying(255),
     result_file_size integer,
     result_updated_at timestamp without time zone,
-    params text,
-    resque_key character varying(255)
+    progress double precision,
+    progress_message character varying,
+    last_progress timestamp without time zone
 );
 
 
@@ -1002,4 +1003,8 @@ INSERT INTO schema_migrations (version) VALUES ('20140523162748');
 INSERT INTO schema_migrations (version) VALUES ('20150321205255');
 
 INSERT INTO schema_migrations (version) VALUES ('20150704144210');
+
+INSERT INTO schema_migrations (version) VALUES ('20150704153023');
+
+INSERT INTO schema_migrations (version) VALUES ('20150712153313');
 

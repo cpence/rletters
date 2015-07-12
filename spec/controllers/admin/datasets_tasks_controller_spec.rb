@@ -20,7 +20,7 @@ RSpec.describe Admin::DatasetsTasksController, type: :controller do
       expect(response).to be_success
     end
 
-    it 'includes the analysis task' do
+    it 'includes the task' do
       expect(response.body).to include(@task.name)
     end
   end

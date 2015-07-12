@@ -53,7 +53,7 @@ RSpec.describe Admin::DashboardController, type: :controller do
           expect(response.body).to have_selector('a', text: @user.name)
         end
 
-        it 'links to the analysis task' do
+        it 'links to the task' do
           expect(response.body).to have_selector('a', text: @task.name)
         end
       end

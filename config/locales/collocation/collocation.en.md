@@ -6,7 +6,7 @@ In natural language processing, a [collocation](https://en.wikipedia.org/wiki/Co
 
 (If you would like to determine statistically significant associations between words that are farther apart than immediate neighbors, check out the cooccurrence analysis.)
 
-This analysis task can use the following four different methods for determining significant pairs of words:
+This task can use the following four different methods for determining significant pairs of words:
 
 *   [Mutual information,](https://en.wikipedia.org/wiki/Mutual_information) which measures the extent to which being informed about the first of a pair of words provides information about the second member of the pair.
 *   [One-tailed t-test,](https://en.wikipedia.org/wiki/Student's_t-test) which determines whether or not there is significant support for the hypothesis that a given pair of words is correlated over the null hypothesis that words are independently distributed.

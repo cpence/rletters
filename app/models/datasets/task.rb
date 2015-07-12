@@ -10,16 +10,18 @@ module Datasets
   # @!attribute name
   #   @raise [RecordInvalid] if the name is missing (validates :presence)
   #   @return [String] The name of this task
-  # @!attribute params
-  #   @return [Hash] The parameters used to start this task with Resque
-  # @!attribute resque_key
-  #   @return [String] The UUID of this job (from `resque-status`)
   # @!attribute created_at
-  #   @return [DateTime] The time at which this task was started
+  #   @return [DateTime] The time at which this task was created
   # @!attribute finished_at
   #   @return [DateTime] The time at which this task was finished
   # @!attribute failed
   #   @return [Boolean] True if this job has failed
+  # @!attribute progress
+  #   @return [Float] the current progress (from zero to one) of this task
+  # @!attribute progress_message
+  #   @return [String] the last progress update message from this task
+  # @!attribute last_progress
+  #   @return [DateTime] the time of the last progress update
   # @!attribute job_type
   #   @raise [RecordInvalid] if the job type is missing (validates :presence)
   #   @return [String] The class name of the job this task contains
@@ -45,14 +47,11 @@ module Datasets
 
     belongs_to :dataset
     has_attached_file :result, database_table: 'datasets_task_results'
-    validates_attachment :result,
-                         content_type: { content_type: %w(text/csv
-                                                          text/plain
-                                                          application/json
-                                                          application/zip) }
+    validates_attachment_content_type :result,
+                                      content_type: /\A(text|application)\/.*\Z/
 
-    scope :finished, -> { where('finished_at IS NOT NULL') }
-    scope :not_finished, -> { where('finished_at IS NULL') }
+    scope :finished, -> { where.not(finished_at: nil) }
+    scope :not_finished, -> { where(finished_at: nil) }
     scope :active, -> { not_finished.where(failed: false) }
     scope :failed, -> { not_finished.where(failed: true) }
 
@@ -75,15 +74,44 @@ module Datasets
       self.class.job_class(job_type)
     end
 
-    # Get the job status hash
+    # Update the status of this task
     #
-    # This returns the current status hash for the job, defined by
-    # resque-status.
-    #
-    # @return [OpenStruct] the status information for the job
-    def status
-      Resque::Plugins::Status::Hash.get(resque_key)
+    # @param [Numeric] current the current value of the progress counter
+    # @param [Numeric] total the total value for the progress counter
+    # @param [String] message the current progress message
+    def at(current, total, message)
+      return if DateTime.now.to_i - self.last_progress.to_i < 5
+
+      self.progress = (current.to_f / total.to_f).bound(0.0, 1.0)
+      self.progress_message = message
+      self.last_progress = DateTime.now
+
+      save
     end
+
+    # Mark this task as completed
+    def mark_completed
+      self.failed = false
+      self.finished_at = DateTime.current
+
+      self.progress = 1.0
+      self.progress_message = I18n.t('common.progress_finished')
+      self.last_progress = DateTime.now
+
+      finish!
+    end
+
+    # Mark the given task as failed
+    def mark_failed(message = nil)
+      self.failed = true
+
+      self.progress_message = message || I18n.t('common.progress_generic_fail')
+      self.last_progress = DateTime.now
+
+      finish!
+    end
+
+    private
 
     # Hook to be called whenever a job finishes
     #
@@ -92,8 +120,7 @@ module Datasets
     #
     # @return [void]
     def finish!
-      # Make sure the task is saved, setting 'finished_at'
-      self.finished_at = DateTime.current
+      # Make sure the task is saved
       save
 
       # Send the user an e-mail

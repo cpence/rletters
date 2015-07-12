@@ -10,13 +10,8 @@ RSpec.describe Jobs::CreateDataset do
   context 'when user is invalid' do
     it 'raises an exception' do
       expect {
-        Jobs::CreateDataset.perform(
-          '123',
-          user_id: '12345678',
-          dataset_id: @dataset.to_param,
-          q: '*:*',
-          fq: nil,
-          def_type: 'lucene')
+        Jobs::CreateDataset.perform('12345678', @dataset.to_param,
+                                    '*:*', nil, 'lucene')
       }.to raise_error(ActiveRecord::RecordNotFound)
     end
   end
@@ -24,27 +19,16 @@ RSpec.describe Jobs::CreateDataset do
   context 'when dataset is invalid' do
     it 'raises an exception' do
       expect {
-        Jobs::CreateDataset.perform(
-          '123',
-          user_id: @user.to_param,
-          dataset_id: '12345678',
-          q: '*:*',
-          fq: nil,
-          def_type: 'lucene')
+        Jobs::CreateDataset.perform(@user.to_param, '12345678',
+                                    '*:*', nil, 'lucene')
       }.to raise_error(ActiveRecord::RecordNotFound)
     end
   end
 
   context 'given a standard search' do
     before(:example) do
-      Jobs::CreateDataset.perform(
-        '123',
-        user_id: @user.to_param,
-        dataset_id: @dataset.to_param,
-        q: 'test',
-        fq: nil,
-        def_type: 'dismax')
-
+      Jobs::CreateDataset.perform(@user.to_param, @dataset.to_param,
+                                  'test', nil, 'dismax')
       @dataset.reload
     end
 
@@ -68,13 +52,8 @@ RSpec.describe Jobs::CreateDataset do
       @user.workflow_active = true
       @user.save
 
-      Jobs::CreateDataset.perform(
-        '123',
-        user_id: @user.to_param,
-        dataset_id: @dataset.to_param,
-        q: 'test',
-        fq: nil,
-        def_type: 'dismax')
+      Jobs::CreateDataset.perform(@user.to_param, @dataset.to_param,
+                                  'test', nil, 'dismax')
 
       @user.reload
       @user.datasets.reload
@@ -87,14 +66,8 @@ RSpec.describe Jobs::CreateDataset do
 
   context 'given large Solr dataset' do
     before(:example) do
-      Jobs::CreateDataset.perform(
-        '123',
-        user_id: @user.to_param,
-        dataset_id: @dataset.to_param,
-        q: '*:*',
-        fq: nil,
-        def_type: 'lucene')
-
+      Jobs::CreateDataset.perform(@user.to_param, @dataset.to_param,
+                                  '*:*', nil, 'lucene')
       @dataset.reload
     end
 
@@ -119,26 +92,16 @@ RSpec.describe Jobs::CreateDataset do
     it 'does not create a dataset' do
       expect {
         expect {
-          Jobs::CreateDataset.perform(
-            '123',
-            user_id: @user.to_param,
-            dataset_id: @dataset.to_param,
-            q: 'test',
-            fq: nil,
-            def_type: 'dismax')
+          Jobs::CreateDataset.perform(@user.to_param, @dataset.to_param,
+                                      'test', nil, 'dismax')
         }.to raise_error(RLetters::Solr::ConnectionError)
       }.to change { Dataset.all.count }.by(-1)
     end
 
     it 'raises an exception' do
       expect {
-        Jobs::CreateDataset.perform(
-          '123',
-          user_id: @user.to_param,
-          dataset_id: @dataset.to_param,
-          q: 'test',
-          fq: nil,
-          def_type: 'dismax')
+        Jobs::CreateDataset.perform(@user.to_param, @dataset.to_param,
+                                    'test', nil, 'dismax')
       }.to raise_error(RLetters::Solr::ConnectionError)
     end
   end

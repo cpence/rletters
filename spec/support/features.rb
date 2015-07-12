@@ -8,7 +8,7 @@ RSpec.configure do |config|
     # Don't try to fetch Google Javascript, etc.
     page.driver.block_unknown_urls
 
-    # Run analysis tasks inline
+    # Run tasks inline
     Resque.inline = true
   end
 

@@ -36,10 +36,9 @@ RSpec.describe Jobs::Analysis::CraigZeta do
   context 'when all parameters are valid' do
     before(:example) do
       Jobs::Analysis::CraigZeta.perform(
-        '123',
-        user_id: @user.to_param,
-        dataset_id: @dataset.to_param,
-        task_id: @task.to_param,
+        @user.to_param,
+        @dataset.to_param,
+        @task.to_param,
         other_datasets: [@dataset_2.to_param],
         normalize_doc_counts: 'off')
       @task.reload

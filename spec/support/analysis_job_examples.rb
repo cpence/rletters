@@ -1,18 +1,13 @@
 require 'spec_helper'
 
-RSpec.shared_context 'create job with params' do
+RSpec.shared_context 'perform job with params' do
   before(:example) do
-    @perform_args = { user_id: @user.to_param,
-                      dataset_id: @dataset.to_param,
-                      task_id: @task.to_param }.merge(job_params)
-  end
-end
-
-RSpec.shared_context 'create job with params and perform' do
-  include_context 'create job with params'
-
-  before(:example) do
-    described_class.perform('123', @perform_args)
+    if job_params
+      described_class.perform(@user.to_param, @dataset.to_param,
+                              @task.to_param, job_params)
+    else
+      described_class.perform(@user.to_param, @dataset.to_param, @task.to_param)
+    end
   end
 end
 
@@ -21,23 +16,27 @@ RSpec.shared_examples_for 'an analysis job' do
   # customization block if you need extra/different parameters to create
   # your job or dataset.
   def job_params
-    {}
+    nil
   end
 
   def dataset_params
-    {}
+    nil
   end
 
   context 'when the job is finished' do
-    include_context 'create job with params'
-
     it 'calls the finish! method on the task and sends an email' do
       mailer_ret = double
       expect(mailer_ret).to receive(:deliver)
 
       expect(UserMailer).to receive(:job_finished_email).with(@task.dataset.user.email, @task.to_param).and_return(mailer_ret)
 
-      described_class.perform('123', @perform_args)
+      if job_params
+        described_class.perform(@user.to_param, @dataset.to_param,
+                                @task.to_param, job_params)
+      else
+        described_class.perform(@user.to_param, @dataset.to_param,
+                                @task.to_param)
+      end
 
       @task.reload
       expect(@task.finished_at).to be
@@ -45,7 +44,7 @@ RSpec.shared_examples_for 'an analysis job' do
   end
 
   context 'when a file is made' do
-    include_context 'create job with params and perform'
+    include_context 'perform job with params'
 
     it 'makes a file for the task' do
       @task.reload

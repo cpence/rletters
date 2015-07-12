@@ -28,10 +28,9 @@ RSpec.describe Jobs::Analysis::ArticleDates do
       @task_2 = create(:task, dataset: @dataset_2)
 
       Jobs::Analysis::ArticleDates.perform(
-        '123',
-        user_id: @user.to_param,
-        dataset_id: @dataset_2.to_param,
-        task_id: @task_2.to_param,
+        @user.to_param,
+        @dataset_2.to_param,
+        @task_2.to_param,
         normalize_doc_counts: 'off')
       @task_2.reload
       @data = JSON.load(@task_2.result.file_contents(:original))
@@ -59,10 +58,9 @@ RSpec.describe Jobs::Analysis::ArticleDates do
   context 'when normalizing to the corpus' do
     before(:example) do
       Jobs::Analysis::ArticleDates.perform(
-        '123',
-        user_id: @user.to_param,
-        dataset_id: @dataset.to_param,
-        task_id: @task.to_param,
+        @user.to_param,
+        @dataset.to_param,
+        @task.to_param,
         normalize_doc_counts: '1',
         normalize_doc_dataset: '')
       @task.reload
@@ -104,10 +102,9 @@ RSpec.describe Jobs::Analysis::ArticleDates do
                                                  user: @user)
 
       Jobs::Analysis::ArticleDates.perform(
-        '123',
-        user_id: @user.to_param,
-        dataset_id: @dataset.to_param,
-        task_id: @task.to_param,
+        @user.to_param,
+        @dataset.to_param,
+        @task.to_param,
         normalize_doc_counts: '1',
         normalize_doc_dataset: @normalization_set.to_param)
       @task.reload
@@ -148,10 +145,9 @@ RSpec.describe Jobs::Analysis::ArticleDates do
       @normalization_set.save
 
       Jobs::Analysis::ArticleDates.perform(
-        '123',
-        user_id: @user.to_param,
-        dataset_id: @dataset.to_param,
-        task_id: @task.to_param,
+        @user.to_param,
+        @dataset.to_param,
+        @task.to_param,
         normalize_doc_counts: '1',
         normalize_doc_dataset: @normalization_set.to_param)
       @task.reload

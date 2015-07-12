@@ -58,10 +58,9 @@ RSpec.describe Jobs::Analysis::Collocation do
     it 'throws an exception if the type is invalid' do
       expect {
         Jobs::Analysis::Collocation.perform(
-          '123',
-          user_id: @user.to_param,
-          dataset_id: @dataset.to_param,
-          task_id: @task.to_param,
+          @user.to_param,
+          @dataset.to_param,
+          @task.to_param,
           analysis_type: 'nope',
           num_pairs: '10')
       }.to raise_error(ArgumentError)
@@ -74,10 +73,9 @@ RSpec.describe Jobs::Analysis::Collocation do
       expect(RLetters::Analysis::Collocation::PartsOfSpeech).not_to receive(:new)
 
       Jobs::Analysis::Collocation.perform(
-        '123',
-        user_id: @user.to_param,
-        dataset_id: @dataset.to_param,
-        task_id: @task.to_param,
+        @user.to_param,
+        @dataset.to_param,
+        @task.to_param,
         analysis_type: 'pos',
         num_pairs: '10')
     end
@@ -88,10 +86,9 @@ RSpec.describe Jobs::Analysis::Collocation do
       it "runs with type '#{type}'" do
         expect {
           Jobs::Analysis::Collocation.perform(
-            '123',
-            user_id: @user.to_param,
-            dataset_id: @dataset.to_param,
-            task_id: @task.to_param,
+            @user.to_param,
+            @dataset.to_param,
+            @task.to_param,
             analysis_type: type.to_s,
             sym => val)
         }.not_to raise_error

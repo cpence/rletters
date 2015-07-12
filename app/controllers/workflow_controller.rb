@@ -79,7 +79,7 @@ class WorkflowController < ApplicationController
     set_workflow_parameters
   end
 
-  # Allow the user to pick up data from all of their analysis tasks
+  # Allow the user to pick up data from all of their tasks
   #
   # @return [void]
   def fetch
@@ -88,40 +88,16 @@ class WorkflowController < ApplicationController
     }
     tasks = Datasets::Task.joins(:dataset).where(analysis_criteria)
 
-    @pending_tasks = tasks.where(finished_at: nil).order(:created_at)
-    @finished_tasks = tasks.where.not(finished_at: nil).order(finished_at: :desc)
-
     if params[:terminate]
-      # Try to knock any currently running analysis tasks for this user out
-      # of the queue (if we're not running inline)
-      unless Resque.inline
-        @pending_tasks.each do |t|
-          status = Resque::Plugins::Status::Hash.get(t.resque_key)
-          next unless status
-
-          # Don't touch completed tasks, should they make it here
-          next if status.completed?
-
-          if status.working?
-            # Signal the job to terminate the next time it calls at() or tick()
-            Resque::Plugins::Status::Hash.kill(t.resque_key)
-          elsif status.failed? || status.killed?
-            # Just delete the record; we've already got a failed/killed job
-            Resque::Plugins::Status::Hash.remove(t.resque_key)
-          else
-            # Pull from the queue and delete
-            t.job_class.dequeue(t.job_class, t.resque_key)
-            Resque::Plugins::Status::Hash.remove(t.resque_key)
-          end
-        end
-      end
-
-      # Delete all tasks in the DB
-      @pending_tasks.readonly(false).destroy_all
-
+      # Delete all unfinished tasks in the DB. When their jobs next call at(),
+      # they will explode.
+      tasks.not_finished.readonly(false).destroy_all
       redirect_to root_path, alert: I18n.t('workflow.fetch.terminate')
       return
     end
+
+    @pending_tasks = tasks.active.order(:created_at)
+    @finished_tasks = tasks.finished.order(finished_at: :desc)
 
     # Decorate
     @pending_tasks = TaskDecorator.decorate_collection(@pending_tasks)

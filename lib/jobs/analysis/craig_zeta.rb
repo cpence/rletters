@@ -16,32 +16,34 @@ module Jobs
       # later.  As of yet, we don't offer display in the browser; I think this
       # data is so complex that you'll want to pull it up on a spreadsheet.
       #
+      # @param [String] user_id the user whose dataset we are to work on
+      # @param [String] dataset_id the dataset to operate on
+      # @param [String] task_id the task we're working from
       # @param [Hash] options parameters for this job
-      # @option options [String] :user_id the user whose dataset we are to
-      #   work on
-      # @option options [String] :dataset_id the dataset to operate on
-      # @option options [String] :task_id the analysis task we're working from
-      # @option options [String] :other_dataset_id the dataset to compare with
+      # @option options [Array<String>] :other_datasets the dataset to compare
+      #   with (should have one member in array)
       # @return [void]
-      def perform
-        at(0, 100, t('common.progress_initializing'))
-        standard_options!
+      def self.perform(user_id, dataset_id, task_id, options)
+        standard_options(user_id, dataset_id, task_id)
 
+        options.symbolize_keys!
         other_datasets = options[:other_datasets]
         fail ArgumentError, 'Wrong number of other datasets provided' unless other_datasets.size == 1
-        dataset_2 = @user.datasets.active.find(other_datasets[0])
+        dataset = get_dataset(task_id)
+        dataset_2 = get_user(task_id).datasets.active.find(other_datasets[0])
 
         # Get the data
         analyzer = RLetters::Analysis::CraigZeta.new(
-          @dataset, dataset_2,
-          -> (p) { at(p, 100, t('.progress_computing')) })
+          dataset, dataset_2,
+          -> (p) { get_task(task_id).at(p, 100, t('.progress_computing')) })
         analyzer.call
 
         # Save out all the data
-        csv = write_csv(t('.csv_header', name_1: @dataset.name,
+        csv = write_csv(task_id,
+                        t('.csv_header', name_1: dataset.name,
                                          name_2: dataset_2.name), '') do |out|
           # Output the marker words
-          out << [t('.marker_header', name: @dataset.name),
+          out << [t('.marker_header', name: dataset.name),
                   t('.marker_header', name: dataset_2.name)]
 
           analyzer.dataset_1_markers.each_with_index do |w, i|
@@ -53,7 +55,7 @@ module Jobs
           # Output the graphing points
           out << [t('.graph_header')]
           out << ['']
-          out << [t('.marker_column', name: @dataset.name),
+          out << [t('.marker_column', name: dataset.name),
                   t('.marker_column', name: dataset_2.name),
                   t('.block_name_column')]
           analyzer.graph_points.each { |l| out << l }
@@ -65,15 +67,14 @@ module Jobs
           analyzer.zeta_scores.each { |(w, s)| out << [w, s] }
         end
 
-        at(100, 100, t('common.progress_finished'))
         data = {}
-        data[:name_1] = @dataset.name
+        data[:name_1] = dataset.name
         data[:name_2] = dataset_2.name
         data[:markers_1] = analyzer.dataset_1_markers
         data[:markers_2] = analyzer.dataset_2_markers
         data[:graph_points] = analyzer.graph_points
         data[:zeta_scores] = analyzer.zeta_scores
-        data[:marker_1_header] = t('.marker_column', name: @dataset.name)
+        data[:marker_1_header] = t('.marker_column', name: dataset.name)
         data[:marker_2_header] = t('.marker_column', name: dataset_2.name)
         data[:word_header] = t('.word_column')
         data[:score_header] = t('.score_column')
@@ -85,12 +86,9 @@ module Jobs
         file.original_filename = 'craig_zeta.json'
         file.content_type = 'application/json'
 
-        @task.result = file
-
-        # We're done here
-        @task.finish!
-
-        completed
+        task = get_task(task_id)
+        task.result = file
+        task.mark_completed
       end
 
       # We don't want users to download the JSON file

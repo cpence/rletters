@@ -29,8 +29,6 @@ RSpec.describe Jobs::Analysis::WordFrequency do
     end
   end
 
-  it_should_behave_like 'an analysis job'
-
   describe '.download?' do
     it 'is true' do
       expect(Jobs::Analysis::WordFrequency.download?).to be true
@@ -46,62 +44,62 @@ RSpec.describe Jobs::Analysis::WordFrequency do
   describe '#perform' do
     it 'accepts all the various valid parameters' do
       params_to_test =
-        [{ user_id: @user.to_param,
-           dataset_id: @dataset.to_param,
-           task_id: @task.to_param,
-           block_size: '100',
-           split_across: '1',
-           num_words: '0' },
-         { user_id: @user.to_param,
-           dataset_id: @dataset.to_param,
-           task_id: @task.to_param,
-           block_size: '100',
-           split_across: '1',
-           word_method: 'all' },
-         { user_id: @user.to_param,
-           dataset_id: @dataset.to_param,
-           task_id: @task.to_param,
-           block_size: '100',
-           split_across: '0',
-           num_words: '0' },
-         { user_id: @user.to_param,
-           dataset_id: @dataset.to_param,
-           task_id: @task.to_param,
-           num_blocks: '10',
-           split_across: '1',
-           num_words: '0' },
-         { user_id: @user.to_param,
-           dataset_id: @dataset.to_param,
-           task_id: @task.to_param,
-           num_blocks: '10',
-           split_across: '1',
-           num_words: '0',
-           inclusion_list: 'asdf,sdfhj,wert' },
-         { user_id: @user.to_param,
-           dataset_id: @dataset.to_param,
-           task_id: @task.to_param,
-           num_blocks: '10',
-           split_across: '1',
-           num_words: '0',
-           exclusion_list: 'asdf,sdfgh,qwert' },
-         { user_id: @user.to_param,
-           dataset_id: @dataset.to_param,
-           task_id: @task.to_param,
-           num_blocks: '1',
-           split_across: '1',
-           num_words: '0',
-           stop_list: 'en' },
-         { user_id: @user.to_param,
-           dataset_id: @dataset.to_param,
-           task_id: @task.to_param,
-           num_blocks: '1',
-           split_across: '1',
-           ngrams: '2',
-           all: '1' }]
+        [[@user.to_param,
+          @dataset.to_param,
+          @task.to_param,
+          { block_size: '100',
+            split_across: '1',
+            num_words: '0' }],
+         [@user.to_param,
+          @dataset.to_param,
+          @task.to_param,
+          { block_size: '100',
+            split_across: '1',
+            word_method: 'all' }],
+         [@user.to_param,
+          @dataset.to_param,
+          @task.to_param,
+          { block_size: '100',
+            split_across: '0',
+            num_words: '0' }],
+         [@user.to_param,
+          @dataset.to_param,
+          @task.to_param,
+          { num_blocks: '10',
+            split_across: '1',
+            num_words: '0' }],
+         [@user.to_param,
+          @dataset.to_param,
+          @task.to_param,
+          { num_blocks: '10',
+            split_across: '1',
+            num_words: '0',
+            inclusion_list: 'asdf,sdfhj,wert' }],
+         [@user.to_param,
+          @dataset.to_param,
+          @task.to_param,
+          { num_blocks: '10',
+            split_across: '1',
+            num_words: '0',
+            exclusion_list: 'asdf,sdfgh,qwert' }],
+         [@user.to_param,
+          @dataset.to_param,
+          @task.to_param,
+          { num_blocks: '1',
+            split_across: '1',
+            num_words: '0',
+            stop_list: 'en' }],
+         [@user.to_param,
+          @dataset.to_param,
+          @task.to_param,
+          { num_blocks: '1',
+            split_across: '1',
+            ngrams: '2',
+            all: '1' }]]
 
       expect {
         params_to_test.each do |params|
-          Jobs::Analysis::WordFrequency.perform('123', params)
+          Jobs::Analysis::WordFrequency.perform(*params)
         end
       }.not_to raise_error
     end
@@ -109,10 +107,9 @@ RSpec.describe Jobs::Analysis::WordFrequency do
     context 'when all parameters are valid' do
       before(:example) do
         Jobs::Analysis::WordFrequency.perform(
-          '123',
-          user_id: @user.to_param,
-          dataset_id: @dataset.to_param,
-          task_id: @task.to_param,
+          @user.to_param,
+          @dataset.to_param,
+          @task.to_param,
           block_size: '100',
           split_across: 'true',
           num_words: '0')
@@ -153,10 +150,9 @@ RSpec.describe Jobs::Analysis::WordFrequency do
         end
 
         Jobs::Analysis::WordFrequency.perform(
-          '123',
-          user_id: @user.to_param,
-          dataset_id: @dataset.to_param,
-          task_id: @task.to_param,
+          @user.to_param,
+          @dataset.to_param,
+          @task.to_param,
           block_size: '100',
           split_across: 'true',
           num_words: '0')

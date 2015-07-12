@@ -13,27 +13,15 @@ RSpec.feature 'Viewing information about a dataset', type: :feature do
 
     expect(page).to have_selector('div#dataset-task-list')
     expect(page).to have_selector('div#dataset-task-list table.button-table')
-
-    expect(page).to have_selector('td', text: 'No analysis tasks found')
+    expect(page).to have_selector('td', text: 'No tasks found')
   end
 
-  scenario 'when an analysis task is pending' do
+  scenario 'when a task is pending' do
     sign_in_with
     create_dataset
     visit datasets_path
 
-    # We don't normally directly touch the database, but we're here mocking the
-    # way that an external Redis/Resque task would have acted.
-    create(:task, dataset: Dataset.first, resque_key: 'asdf123',
-                  finished_at: nil)
-
-    Resque::Plugins::Status::Hash.create(
-      'asdf123',
-      status: Resque::Plugins::Status::STATUS_WORKING,
-      num: 40,
-      total: 100,
-      message: 'Pending task...'
-    )
+    create(:task, dataset: Dataset.first, finished_at: nil)
 
     visit datasets_path
     expect(page).to have_selector('td', text: 'Integration Dataset')
@@ -44,7 +32,7 @@ RSpec.feature 'Viewing information about a dataset', type: :feature do
     expect(page).to have_selector('.alert.alert-warning')
   end
 
-  scenario 'when an analysis task has failed' do
+  scenario 'when a task has failed' do
     sign_in_with
     create_dataset
     visit datasets_path
@@ -60,7 +48,7 @@ RSpec.feature 'Viewing information about a dataset', type: :feature do
     expect(page).to have_selector('.alert.alert-danger')
   end
 
-  scenario 'when clearing a failed analysis task' do
+  scenario 'when clearing a failed task' do
     sign_in_with
     create_dataset
     visit datasets_path
@@ -72,7 +60,7 @@ RSpec.feature 'Viewing information about a dataset', type: :feature do
     click_link 'Manage'
 
     expect(page).to have_content('Integration Dataset')
-    click_link '1 analysis task failed for this dataset! Click here to clear failed tasks.'
+    click_link '1 task failed for this dataset! Click here to clear failed tasks.'
 
     visit datasets_path
     expect(page).to have_selector('td', text: 'Integration Dataset')
@@ -80,11 +68,11 @@ RSpec.feature 'Viewing information about a dataset', type: :feature do
     click_link 'Manage'
     expect(page).to have_content('Integration Dataset')
 
-    expect(page).to have_selector('td', text: 'No analysis tasks found')
+    expect(page).to have_selector('td', text: 'No tasks found')
     expect(page).not_to have_selector('.alert.alert-danger')
   end
 
-  scenario 'when an analysis task has finished' do
+  scenario 'when a task has finished' do
     sign_in_with
     create_dataset
 
@@ -117,7 +105,7 @@ RSpec.feature 'Viewing information about a dataset', type: :feature do
     expect(page).to have_selector('td', text: 'Integration Dataset')
     click_link 'Manage'
 
-    expect(page).to have_selector('td', text: 'No analysis tasks found')
+    expect(page).to have_selector('td', text: 'No tasks found')
     expect(page).not_to have_selector('.alert.alert-danger')
   end
 end

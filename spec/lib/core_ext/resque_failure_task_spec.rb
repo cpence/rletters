@@ -4,8 +4,6 @@ module Jobs
   module Analysis
     # A job that always throws an exception
     class FailingJob < Jobs::Analysis::Base
-      include Resque::Plugins::Status
-
       def self.queue
         :ui
       end
@@ -18,9 +16,7 @@ module Jobs
         # We have to do this in a funny way to actually call the failure
         # handlers.  Thanks to Matt Conway (github/wr0ngway/graylog2-resque)
         # for this code.
-        uuid = Jobs::Analysis::FailingJob.create(job_params)
-        task.resque_key = uuid
-        task.save
+        Resque.enqueue(Jobs::Analysis::FailingJob, *job_params)
 
         worker = Resque::Worker.new(queue)
         def worker.done_working
@@ -53,16 +49,11 @@ RSpec.describe Resque::Failure::Task do
         @task = create(:task, dataset: @dataset, name: 'Failing task',
                               job_type: 'FailingJob')
 
-        job_params = {
-          user_id: @user.to_param,
-          dataset_id: @dataset.to_param,
-          task_id: @task.to_param
-        }
-
+        job_params = [@user.to_param, @dataset.to_param, @task.to_param]
         Jobs::Analysis::FailingJob.run_with_worker(@task, job_params)
       end
 
-      it 'sets the failure bit on the analysis task' do
+      it 'sets the failure bit on the task' do
         @task.reload
         expect(@task.failed).to be true
       end
@@ -72,10 +63,7 @@ RSpec.describe Resque::Failure::Task do
       it 'handles the exception gracefully' do
         expect {
           Jobs::Analysis::FailingJob.run_with_worker(
-            create(:task),
-            user_id: 'asdf',
-            dataset_id: 'asdf',
-            task_id: 'asdf'
+            create(:task), ['asdf', 'asdf', 'asdf']
           )
         }.not_to raise_error
       end

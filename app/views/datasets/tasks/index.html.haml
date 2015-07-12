@@ -1,11 +1,11 @@
--# Unfinished (active/failed) analysis tasks
+-# Unfinished (active/failed) tasks
 - if @dataset.tasks.not_finished.size > 0
   - if @dataset.tasks.active.size > 0
     .alert.alert-warning= t('.pending', count: @dataset.tasks.active.size)
   - if @dataset.tasks.failed.size > 0
     .alert.alert-danger= link_to t('.failed', count: @dataset.tasks.failed.size), dataset_path(@dataset, clear_failed: true)
 
--# Finished analysis tasks: link to download results and to delete
+-# Finished tasks: link to download results and to delete
 %table.table.button-table
   %thead
     %tr

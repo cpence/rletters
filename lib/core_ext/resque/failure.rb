@@ -4,7 +4,7 @@ require 'resque/failure/base'
 module Resque
   # Resque's namespace for all failure adapters
   module Failure
-    # A Resque failure class to set the failure bit on analysis tasks
+    # A Resque failure class to set the failure bit on tasks
     class Task < Base
       # Return the number of failures this adapter has logged
       #
@@ -23,7 +23,7 @@ module Resque
       end
       # :nocov:
 
-      # Attempt to look up the analysis task associated with this job and
+      # Attempt to look up the task associated with this job and
       # fail it
       #
       # If we want the user interface to know that a given Resque job has
@@ -35,24 +35,23 @@ module Resque
         klass = payload['class'].safe_constantize
         return unless klass
 
-        # Only do this if we're in an analysis job of some sort
-        return unless klass <= Jobs::Analysis::Base
-        return unless payload['args'].size > 0
+        # Only do this if we have a task in the args
+        return unless payload['args'].size >= 3
+        user_id = payload['args'][0]
+        dataset_id = payload['args'][1]
+        task_id = payload['args'][2]
 
-        args = payload['args'][1].symbolize_keys
-
-        # If we can find all our parameters, save the thing
-        return unless args[:user_id] && args[:dataset_id] && args[:task_id]
+        return unless user_id && dataset_id && task_id
 
         begin
-          user = User.find(args[:user_id])
-          dataset = user.datasets.find(args[:dataset_id])
-          task = dataset.tasks.find(args[:task_id])
+          user = User.find(user_id)
+          dataset = user.datasets.find(dataset_id)
+          task = dataset.tasks.find(task_id)
 
           task.failed = true
           task.save!
         rescue ActiveRecord::RecordNotFound
-          Resque.logger.warn 'Could not set failure bit for analysis task!'
+          Resque.logger.warn 'Could not set failure bit for task!'
         end
       end
     end

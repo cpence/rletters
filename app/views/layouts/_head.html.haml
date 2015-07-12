@@ -9,10 +9,14 @@
   = csrf_meta_tags
 
   -# Home screen icons (Retina iPhone, iPad, all others/Android)
-  %link{ href: Admin::UploadedAsset.url_for('apple-touch-icon-high'), rel: "apple-touch-icon-precomposed", sizes: "114x114" }/
-  %link{ href: Admin::UploadedAsset.url_for('apple-touch-icon-med'), rel: "apple-touch-icon-precomposed", sizes: "72x72" }/
-  %link{ href: Admin::UploadedAsset.url_for('apple-touch-icon-low'), rel: "apple-touch-icon-precomposed" }/
-  %link{ href: Admin::UploadedAsset.url_for('favicon'), rel: "shortcut icon" }/
+  - if Admin::UploadedAsset.url_for('apple-touch-icon-high').present?
+    %link{ href: Admin::UploadedAsset.url_for('apple-touch-icon-high'), rel: "apple-touch-icon-precomposed", sizes: "114x114" }/
+  - if Admin::UploadedAsset.url_for('apple-touch-icon-med').present?
+    %link{ href: Admin::UploadedAsset.url_for('apple-touch-icon-med'), rel: "apple-touch-icon-precomposed", sizes: "72x72" }/
+  - if Admin::UploadedAsset.url_for('apple-touch-icon-low').present?
+    %link{ href: Admin::UploadedAsset.url_for('apple-touch-icon-low'), rel: "apple-touch-icon-precomposed" }/
+  - if Admin::UploadedAsset.url_for('favicon').present?
+    %link{ href: Admin::UploadedAsset.url_for('favicon'), rel: "shortcut icon" }/
 
   -# Load Google Analytics (if enabled)
   - if Admin::Setting.google_analytics_key.present?

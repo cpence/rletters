@@ -20,7 +20,7 @@ Dir.glob(Rails.root.join('db', 'seeds', 'csl', '*.csl')) do |csl|
 
   unless name == ''
     csl_string = IO.read(csl)
-    Users::CslStyle.where(name: name).first_or_create(style: csl_string)
+    Users::CslStyle.where(name: name).first_or_create!(style: csl_string)
     puts "Seeded csl_style:#{name}"
   end
 end
@@ -28,7 +28,7 @@ end
 # Markdown pages
 Dir.glob(Rails.root.join('db', 'seeds', 'markdown', '*.md')) do |md|
   name = File.basename(md, '.md')
-  Admin::MarkdownPage.where(name: name).first_or_create(content: IO.read(md))
+  Admin::MarkdownPage.where(name: name).first_or_create!(content: IO.read(md))
   puts "Seeded markdown_page:#{name}"
 end
 
@@ -36,7 +36,7 @@ end
 Dir.glob(Rails.root.join('db', 'seeds', 'images', '*')) do |img|
   extension = File.extname(img)
   name = File.basename(img, extension)
-  Admin::UploadedAsset.where(name: name).first_or_create do |asset|
+  record = Admin::UploadedAsset.where(name: name).first_or_create! do |asset|
     f = File.new(img)
     asset.file = f
     f.close
@@ -48,6 +48,6 @@ end
 # Stop lists
 Dir.glob(Rails.root.join('db', 'seeds', 'stoplists', '*.txt')) do |txt|
   language = File.basename(txt, '.txt')
-  Documents::StopList.where(language: language).first_or_create(list: IO.read(txt))
+  Documents::StopList.where(language: language).first_or_create!(list: IO.read(txt))
   puts "Seeded stop_list:#{language}"
 end

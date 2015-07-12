@@ -1,6 +1,6 @@
 
 module Datasets
-  # Work with a dataset's analysis tasks
+  # Work with a dataset's tasks
   #
   # @see Datasets::Task
   class TasksController < ApplicationController
@@ -8,7 +8,7 @@ module Datasets
     before_action :set_task
     before_action :set_current_params, only: [:new, :create]
 
-    # Show the list of analysis tasks for this dataset
+    # Show the list of tasks for this dataset
     #
     # This list needs to be updated live, as the tasks are running in the
     # background, so this is rendered without a layout for AJAX purposes.
@@ -33,29 +33,25 @@ module Datasets
       fail ArgumentError, "not enough datasets specified for #{params[:class]}"
     end
 
-    # Start an analysis task for this dataset
+    # Start an task for this dataset
     #
     # This method dynamically determines the appropriate background job to start
     # and starts it.
     #
     # @return [void]
     def create
-      # Create an analysis task
+      # Create a task
       task = @dataset.tasks.create(name: params[:class],
                                    job_type: params[:class])
 
-      # Force these three parameters that we always need
-      @current_params[:user_id] = current_user.to_param
-      @current_params[:dataset_id] = @dataset.to_param
-      @current_params[:task_id] = task.to_param
-
-      # Save the Resque parameters into the task, as well
-      task.params = @current_params
-      task.save
-
-      # Enqueue the job, saving the UUID for it
-      task.resque_key = @klass.create(@current_params)
-      task.save
+      # Enqueue the job
+      if @current_params.empty?
+        Resque.enqueue(@klass, current_user.to_param, @dataset.to_param,
+                       task.to_param)
+      else
+        Resque.enqueue(@klass, current_user.to_param, @dataset.to_param,
+                       task.to_param, @current_params)
+      end
 
       if current_user.workflow_active
         # If the user was in the workflow, they're done now
@@ -73,7 +69,7 @@ module Datasets
       end
     end
 
-    # Show a view from an analysis task, or download its results
+    # Show a view from a task, or download its results
     #
     # If this action is called with `params[:view]` set, then it will render
     # a view that comes packaged with a background job.  Without that parameter,
@@ -98,9 +94,9 @@ module Datasets
       fail ActiveRecord::RecordNotFound
     end
 
-    # Delete an analysis task
+    # Delete a task
     #
-    # This action deletes a given analysis task and its associated files.
+    # This action deletes a given task and its associated files.
     #
     # @return [void]
     def destroy

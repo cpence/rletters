@@ -34,10 +34,9 @@ RSpec.describe Jobs::Analysis::Cooccurrence do
     it 'throws an exception if the type is invalid' do
       expect {
         Jobs::Analysis::Cooccurrence.perform(
-          '123',
-          user_id: @user.to_param,
-          dataset_id: @dataset.to_param,
-          task_id: @task.to_param,
+          @user.to_param,
+          @dataset.to_param,
+          @task.to_param,
           analysis_type: 'nope',
           num_pairs: '10',
           window: 25,
@@ -53,10 +52,9 @@ RSpec.describe Jobs::Analysis::Cooccurrence do
       it "runs with type '#{type}' and words '#{words}'" do
         expect {
           Jobs::Analysis::Cooccurrence.perform(
-            '123',
-            user_id: @user.to_param,
-            dataset_id: @dataset.to_param,
-            task_id: @task.to_param,
+            @user.to_param,
+            @dataset.to_param,
+            @task.to_param,
             analysis_type: type.to_s,
             sym => val,
             window: '25',

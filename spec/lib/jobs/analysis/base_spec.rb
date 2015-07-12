@@ -4,11 +4,9 @@ module Jobs
   module Analysis
     # A mock job for testing the base code
     class MockJob < Jobs::Analysis::Base
-      def call_standard_options
-        standard_options!
+      def self.call_standard_options(user_id, dataset_id, task_id)
+        standard_options(user_id, dataset_id, task_id)
       end
-
-      attr_accessor :options
     end
   end
 end
@@ -115,40 +113,45 @@ RSpec.describe Jobs::Analysis::Base do
       @user = create(:user)
       @dataset = create(:full_dataset, user: @user)
       @task = create(:task, dataset: @dataset)
-
-      @job = Jobs::Analysis::MockJob.new(
-        'asdf',
-        user_id: @user.to_param,
-        dataset_id: @dataset.to_param,
-        task_id: @task.to_param
-      )
     end
 
     context 'with the wrong user' do
       it 'raises an exception' do
-        @job.options[:user_id] = create(:user).to_param
-        expect { @job.call_standard_options }.to raise_error(ActiveRecord::RecordNotFound)
+        expect {
+          Jobs::Analysis::MockJob.call_standard_options(create(:user).to_param,
+                                                        @dataset.to_param,
+                                                        @task.to_param)
+        }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
 
     context 'with an invalid user' do
       it 'raises an exception' do
-        @job.options[:user_id] = '123456'
-        expect { @job.call_standard_options }.to raise_error(ActiveRecord::RecordNotFound)
+        expect {
+          Jobs::Analysis::MockJob.call_standard_options('123456',
+                                                        @dataset.to_param,
+                                                        @task.to_param)
+        }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
 
     context 'with an invalid dataset' do
       it 'raises an exception' do
-        @job.options[:dataset_id] = '12345678'
-        expect { @job.call_standard_options }.to raise_error(ActiveRecord::RecordNotFound)
+        expect {
+          Jobs::Analysis::MockJob.call_standard_options(@user.to_param,
+                                                        '123456',
+                                                        @task.to_param)
+        }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
 
     context 'with an invalid task' do
       it 'raises an exception' do
-        @job.options[:task_id] = '12345678'
-        expect { @job.call_standard_options }.to raise_error(ActiveRecord::RecordNotFound)
+        expect {
+          Jobs::Analysis::MockJob.call_standard_options(@user.to_param,
+                                                        @dataset.to_param,
+                                                        '123456')
+        }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
   end
@@ -163,9 +166,5 @@ RSpec.describe Jobs::Analysis::Base do
     it 'is true by default' do
       expect(Jobs::Analysis::MockJob.available?).to be true
     end
-  end
-
-  it 'includes the resque-status methods' do
-    expect(Jobs::Analysis::MockJob.methods).to include(:create)
   end
 end

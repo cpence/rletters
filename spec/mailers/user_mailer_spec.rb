@@ -20,7 +20,7 @@ RSpec.describe UserMailer, type: :mailer do
       expect(@mail.to).to eq(['user@user.com'])
     end
 
-    it 'mentions the analysis task name' do
+    it 'mentions the task name' do
       expect(@mail.body.encoded).to match(@task.name)
     end
 

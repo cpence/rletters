@@ -45,10 +45,9 @@ RSpec.describe Jobs::Analysis::NamedEntities do
   context 'when all parameters are valid' do
     before(:example) do
       Jobs::Analysis::NamedEntities.perform(
-        '123',
-        user_id: @user.to_param,
-        dataset_id: @dataset.to_param,
-        task_id: @task.to_param)
+        @user.to_param,
+        @dataset.to_param,
+        @task.to_param)
       @task.reload
     end
 

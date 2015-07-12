@@ -17,27 +17,28 @@ module Jobs
       #
       # @see Jobs::Analysis::Concerns::ComputeWordFrequencies
       #
+      # @param [String] user_id the user whose dataset we are to work on
+      # @param [String] dataset_id the dataset to operate on
+      # @param [String] task_id the task we're working from
       # @param [Hash] options parameters for this job
-      # @option options [String] :user_id the user whose dataset we are to
-      #   work on
-      # @option options [String] :dataset_id the dataset to operate on
-      # @option options [String] :task_id the analysis task we're working from
       # @see Jobs::Analysis::Concerns::ComputeWordFrequencies
       # @return [void]
-      def perform
-        at(0, 100, t('common.progress_initializing'))
-        standard_options!
+      def self.perform(user_id, dataset_id, task_id, options = {})
+        standard_options(user_id, dataset_id, task_id)
 
         # Do the analysis
         analyzer = compute_word_frequencies(
-          @dataset,
-          ->(p) { at(p, 100, t('.progress_calculating')) },
-          options)
+          get_dataset(task_id),
+          ->(p) { get_task(task_id).at(p, 100, t('.progress_calculating')) },
+          options.symbolize_keys)
         corpus_size = RLetters::Solr::CorpusStats.new.size
+        dataset_size = get_dataset(task_id).entries.size
 
         # Create some CSV
-        at(100, 100, t('common.progress_finished'))
-        write_csv_and_save(t('.csv_header', name: @dataset.name), '') do |csv|
+        write_csv_and_complete(task_id,
+                               t('.csv_header',
+                                 name: get_dataset(task_id).name),
+                               '') do |csv|
           # Output the block data
           if analyzer.blocks.size > 1
             csv << [t('.each_block')]
@@ -67,7 +68,7 @@ module Jobs
 
                 r << Math.tfidf((b[word] || 0).to_f / s[:tokens].to_f,
                                 analyzer.df_in_dataset[word],
-                                @dataset.entries.size)
+                                dataset_size)
                 if analyzer.df_in_corpus.present?
                   r << Math.tfidf((b[word] || 0).to_f / s[:tokens].to_f,
                                   analyzer.df_in_corpus[word],
@@ -118,11 +119,6 @@ module Jobs
           csv << [t('.ttr_header'), (analyzer.num_dataset_types.to_f /
                                      analyzer.num_dataset_tokens).to_s]
         end
-
-        # We're done here
-        @task.finish!
-
-        completed
       end
     end
   end

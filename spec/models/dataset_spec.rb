@@ -34,7 +34,7 @@ RSpec.describe Dataset, type: :model do
   end
 
   describe '#tasks' do
-    context 'when an analysis task is created' do
+    context 'when an task is created' do
       before(:example) do
         @dataset = create(:dataset)
         @task = create(:task, dataset: @dataset, name: 'test')
@@ -45,11 +45,11 @@ RSpec.describe Dataset, type: :model do
         @dataset.destroy
       end
 
-      it 'has one analysis task' do
+      it 'has one task' do
         expect(@dataset.tasks.size).to eq(1)
       end
 
-      it 'points to the right analysis task' do
+      it 'points to the right task' do
         expect(@dataset.tasks[0].name).to eq('test')
       end
     end

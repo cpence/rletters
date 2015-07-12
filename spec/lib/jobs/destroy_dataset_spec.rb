@@ -10,10 +10,8 @@ RSpec.describe Jobs::DestroyDataset do
     it 'raises an exception and does not destroy a dataset' do
       expect {
         expect {
-          Jobs::DestroyDataset.perform(
-            '123',
-            user_id: create(:user).to_param,
-            dataset_id: @dataset.to_param)
+          Jobs::DestroyDataset.perform(create(:user).to_param,
+                                       @dataset.to_param)
         }.to raise_error(ActiveRecord::RecordNotFound)
       }.to_not change { @user.datasets.count }
     end
@@ -22,9 +20,7 @@ RSpec.describe Jobs::DestroyDataset do
   context 'when an invalid user is specified' do
     it 'raises an exception' do
       expect {
-        Jobs::DestroyDataset.perform('123',
-                                     user_id: '12345678',
-                                     dataset_id: @dataset.to_param)
+        Jobs::DestroyDataset.perform('12345678', @dataset.to_param)
       }.to raise_error(ActiveRecord::RecordNotFound)
     end
   end
@@ -33,9 +29,7 @@ RSpec.describe Jobs::DestroyDataset do
     it 'raises an exception and does not destroy a dataset' do
       expect {
         expect {
-          Jobs::DestroyDataset.perform('123',
-                                       user_id: @user.to_param,
-                                       dataset_id: '12345678')
+          Jobs::DestroyDataset.perform(@user.to_param, '12345678')
         }.to raise_error(ActiveRecord::RecordNotFound)
       }.to_not change { @user.datasets.count }
     end
@@ -44,9 +38,7 @@ RSpec.describe Jobs::DestroyDataset do
   context 'when the parameters are valid' do
     it 'destroys a dataset' do
       expect {
-        Jobs::DestroyDataset.perform('123',
-                                     user_id: @user.to_param,
-                                     dataset_id: @dataset.to_param)
+        Jobs::DestroyDataset.perform(@user.to_param, @dataset.to_param)
       }.to change { @user.datasets.count }.by(-1)
     end
   end

@@ -4,8 +4,7 @@ module Jobs
   module Analysis
     # Mock job class for the workflow controller
     class WorkflowJob < Jobs::Analysis::Base
-      include Resque::Plugins::Status
-      def perform; end
+      def self.perform(user_id, dataset_id, task_id); end
     end
   end
 end
@@ -168,19 +167,12 @@ RSpec.describe WorkflowController, type: :controller do
   end
 
   describe '#fetch' do
-    def make_task(dataset, finished)
-      task = create(:task, dataset: dataset, finished_at: finished,
-                           job_type: 'WorkflowJob')
+    def make_task(dataset, finished, args = {})
+      task = create(:task, args.merge(dataset: dataset, finished_at: finished,
+                                      job_type: 'WorkflowJob'))
 
-      uuid = Jobs::Analysis::WorkflowJob.create(
-        user_id: dataset.user.to_param,
-        dataset_id: dataset.to_param,
-        task_id: task.to_param
-      )
-
-      task.reload
-      task.resque_key = uuid
-      task.save
+      Resque.enqueue(Jobs::Analysis::WorkflowJob, dataset.user.to_param,
+                     dataset.to_param, task.to_param)
 
       task
     end
@@ -196,29 +188,9 @@ RSpec.describe WorkflowController, type: :controller do
       @other_dataset = create(:dataset, user: @user2, name: 'OtherUser')
 
       @finished_task = make_task(@dataset, DateTime.now)
-      Resque::Plugins::Status::Hash.set(
-        @finished_task.resque_key,
-        Resque::Plugins::Status::Hash.get(@finished_task.resque_key),
-        'status' => 'completed', 'name' => 'WorkflowJob')
-
       @pending_task = make_task(@dataset, nil)
-      Resque::Plugins::Status::Hash.set(
-        @pending_task.resque_key,
-        Resque::Plugins::Status::Hash.get(@pending_task.resque_key),
-        'status' => 'queued', 'name' => 'WorkflowJob')
-
-      @working_task = make_task(@dataset, nil)
-      @uuid = @working_task.resque_key
-      Resque::Plugins::Status::Hash.set(
-        @uuid,
-        Resque::Plugins::Status::Hash.get(@uuid),
-        'status' => 'working', 'name' => 'WorkflowJob')
-
-      @failed_task = make_task(@dataset, nil)
-      Resque::Plugins::Status::Hash.set(
-        @failed_task.resque_key,
-        Resque::Plugins::Status::Hash.get(@failed_task.resque_key),
-        'status' => 'failed', 'name' => 'WorkflowJob')
+      @working_task = make_task(@dataset, nil, progress: 0.3)
+      @failed_task = make_task(@dataset, nil, failed: true)
 
       @disabled_task = make_task(@disabled, DateTime.now)
       @other_task = make_task(@other_dataset, DateTime.now)
@@ -233,13 +205,11 @@ RSpec.describe WorkflowController, type: :controller do
     it 'assigns the pending tasks' do
       expect(assigns(:pending_tasks).to_a).to match_array(
         [@pending_task,
-         @failed_task,
          @working_task])
     end
 
     context 'with terminate set' do
       before(:example) do
-        @uuid = @working_task.resque_key
         get :fetch, terminate: true
       end
 
@@ -261,25 +231,6 @@ RSpec.describe WorkflowController, type: :controller do
 
       it 'sets a flash alert' do
         expect(flash[:alert]).to be
-      end
-    end
-
-    context 'with terminate set and live Resque' do
-      before(:context) do
-        Resque.inline = false
-      end
-
-      after(:context) do
-        Resque.inline = true
-      end
-
-      it 'calls the right Resque methods for each task' do
-        expect(Resque::Plugins::Status::Hash).to receive(:kill).with(@working_task.resque_key)
-        expect(Resque::Plugins::Status::Hash).to receive(:remove).with(@failed_task.resque_key)
-        expect(Jobs::Analysis::WorkflowJob).to receive(:dequeue).with(Jobs::Analysis::WorkflowJob, @pending_task.resque_key)
-        expect(Resque::Plugins::Status::Hash).to receive(:remove).with(@pending_task.resque_key)
-
-        get :fetch, terminate: true
       end
     end
 
