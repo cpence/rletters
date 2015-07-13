@@ -45,6 +45,6 @@ RLetters::Application.configure do
   # Move mailer previews into the spec folder
   config.action_mailer.preview_path = Rails.root.join('spec', 'mailers', 'previews')
 
-  # Use the inline adapter
-  ActiveJob::Base.queue_adapter = :inline
+  # Use the inine adapter in development
+  config.active_job.queue_adapter = :inline
 end

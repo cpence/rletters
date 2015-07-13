@@ -67,5 +67,5 @@ RLetters::Application.configure do
   config.active_record.dump_schema_after_migration = false
 
   # Use Que in production
-  ActiveJob::Base.queue_adapter = :que
+  config.active_job.queue_adapter = :que
 end
