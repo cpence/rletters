@@ -66,6 +66,6 @@ RLetters::Application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
-  # Use Resque in production
-  ActiveJob::Base.queue_adapter = :resque
+  # Use Que in production
+  ActiveJob::Base.queue_adapter = :que
 end

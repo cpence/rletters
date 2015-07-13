@@ -6,20 +6,18 @@ gem 'globalid', github: 'rails/globalid' # >= 0.3.6
 
 # Database and related tools
 gem 'pg'
+gem 'que'
 gem 'activerecord-import', '>= 0.7.0'
 gem 'closure_tree'
 gem 'validate_url'
 gem 'addressable'
-
-# Job scheduling
-gem 'resque'
-gem 'resque-scheduler'
 
 # User authentication and administration
 gem 'devise'
 gem 'devise-i18n'
 gem 'activeadmin', '~> 1.0.0.pre1'
 gem 'active_admin-sortable_tree'
+gem 'que-web'
 gem 'druthers'
 
 # Internationalization
@@ -91,5 +89,4 @@ end
 # Deployment gems
 group :production do
   gem 'puma', require: false
-  gem 'resque-pool', require: false
 end

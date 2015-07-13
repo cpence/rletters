@@ -60,6 +60,9 @@ Rails.application.routes.draw do
   # Administration pages
   ActiveAdmin.routes(self)
   devise_for :administrators, ActiveAdmin::Devise.config.merge(class_name: 'Admin::Administrator')
+  authenticate :administrator do
+    mount Que::Web, at: 'admin/jobs'
+  end
 
   # unAPI service
   get 'unapi' => 'unapi#index'
