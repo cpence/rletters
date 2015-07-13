@@ -1,7 +1,7 @@
 
 namespace :maintenance do
   desc 'Make sure the maintenance jobs are running'
-  task :start do
+  task :start => :environment do
     # Make sure there's at least one of every maintenance task actively
     # running in the queue
     que_stats = Que.job_stats
