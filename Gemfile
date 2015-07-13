@@ -70,7 +70,6 @@ group :test, :development do
 
   # Some of these need to be here to enable proper use of the development
   # server, including mailer previews
-  gem 'mock_redis'
   gem 'factory_girl_rails'
   gem 'web-console', '~> 2.0'
 end
