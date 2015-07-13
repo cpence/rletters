@@ -68,9 +68,12 @@ RSpec.describe ApplicationController, type: :controller do
       end
 
       it 'renders the file' do
-        path = Rails.root.join('config', 'locales', 'article_dates', 'article_dates.en.md')
-        expect(controller).to receive(:render_to_string).with(file: path, layout: false).and_return('')
-        controller.render_localized_markdown(:article_dates)
+        path = Rails.root.join('config', 'locales', 'article_dates_job',
+                               'article_dates_job.en.md')
+        expect(controller).to receive(:render_to_string)
+                                .with(file: path, layout: false)
+                                .and_return('')
+        controller.render_localized_markdown(:article_dates_job)
       end
     end
 
@@ -84,9 +87,12 @@ RSpec.describe ApplicationController, type: :controller do
       end
 
       it 'falls back to English' do
-        path = Rails.root.join('config', 'locales', 'article_dates', 'article_dates.en.md')
-        expect(controller).to receive(:render_to_string).with(file: path, layout: false).and_return('')
-        controller.render_localized_markdown(:article_dates)
+        path = Rails.root.join('config', 'locales', 'article_dates_job',
+                               'article_dates_job.en.md')
+        expect(controller).to receive(:render_to_string)
+                                .with(file: path, layout: false)
+                                .and_return('')
+        controller.render_localized_markdown(:article_dates_job)
       end
     end
 
