@@ -1,7 +1,7 @@
 
 # Plot a dataset's members by year
 class ArticleDatesJob < CSVJob
-  add_concern 'NormalizeDocumentCounts'
+  include NormalizeDocumentCounts
 
   # Export the date format data
   #

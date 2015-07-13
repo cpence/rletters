@@ -1,7 +1,7 @@
 
 # Examine the network of words associated with a focal term
 class NetworkJob < BaseJob
-  add_concern 'ComputeWordFrequencies'
+  include ComputeWordFrequencies
 
   # Examine the network of words associated with a focal term.
   #

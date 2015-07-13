@@ -4,6 +4,6 @@
       = f.error_notification
 
       = field_set_tag t('word_frequency_job.options_label') do
-        = render file: WordFrequency.Jobview_path(partial: 'compute_word_frequencies'), locals: { f: f }, layout: false, klass: WordFrequencyJob
+        = render partial: 'jobs/compute_word_frequencies/params', locals: { f: f }
         = f.button :submit
         = link_to(t('common.cancel'), @dataset, class: 'btn btn-default')

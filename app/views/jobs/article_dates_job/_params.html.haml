@@ -4,6 +4,6 @@
       = f.error_notification
 
       = field_set_tag t('article_dates_job.options_label') do
-        = render file: ArticleDatesJob.view_path(partial: 'normalize_document_counts'), locals: { f: f }, klass: ArticleDatesJob, layout: false
+        = render partial: 'jobs/normalize_document_counts/params', locals: { f: f }
         = f.button :submit
         = link_to(t('common.cancel'), @dataset, class: 'btn btn-default')

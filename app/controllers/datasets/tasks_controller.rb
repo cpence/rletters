@@ -80,7 +80,14 @@ module Datasets
     # @return [void]
     def show
       if params[:view]
-        render_job_view(@task.job_class, params[:view], params[:format] || 'html')
+        if @task.result_file_size
+          @json = @task.result.file_contents(:original).force_encoding('utf-8')
+          @json_escaped = @json.gsub('\\', '\\\\').gsub("'", "\\\\'").gsub('\n', '\\\\\\\\n').gsub('"', '\\\\"').html_safe
+        end
+
+        render("jobs/#{@task.job_class.name.underscore}/#{params[:view]}",
+               formats: [(params[:format] || :html).to_sym],
+               locals: { klass: @task.job_class })
         return
       end
 
@@ -125,24 +132,6 @@ module Datasets
       @current_params = params[:job_params].to_hash if params[:job_params]
       @current_params ||= {}
       @current_params.symbolize_keys!
-    end
-
-    # Render a job view, given the class name and view name
-    #
-    # @param [Class] klass the job class
-    # @param [String] view the view to render
-    # @param [String] format the file format for the view (e.g., `csv` or `html`)
-    # @return [void]
-    def render_job_view(klass, view, format = 'html')
-      path = klass.view_path(template: view, format: format)
-      fail ActiveRecord::RecordNotFound unless path
-
-      if @task.result_file_size
-        @json = @task.result.file_contents(:original).force_encoding('utf-8')
-        @json_escaped = @json.gsub('\\', '\\\\').gsub("'", "\\\\'").gsub('\n', '\\\\\\\\n').gsub('"', '\\\\"').html_safe
-      end
-
-      render file: path, locals: { klass: klass }
     end
   end
 end

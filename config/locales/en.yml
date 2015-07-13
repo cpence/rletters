@@ -244,44 +244,6 @@ en:
             forgot_password: Forgot password?
             sign_in: Sign in
             sign_up: Sign up
-    jobs:
-        concerns:
-            compute_word_frequencies:
-                ngram_method: Analyze single words or n-grams?
-                single_words: Single words
-                n_grams: N-grams (multiple word phrases)
-                ngram_size: Size of phrases to analyze
-                num_ngrams: Number of n-grams to analyze
-                all_ngrams: Return all n-grams
-                ngram_inclusion_list: Include only n-grams that contain one of the following words (space-separated)
-                ngram_exclusion_list: Exclude any n-grams that contain one of the following words (space-separated)
-                word_method: Word selection method
-                most_frequent: Most frequent words
-                all: All words
-                list: Explicit list of words
-                num_words: Number of words to analyze
-                exclude_method: Exclude any words?
-                none: 'No'
-                stop: Most common words (stop words)
-                stop_language: Language of text (for stop word list)
-                exclusion_list: Words to exclude (space-separated)
-                inclusion_list: Words to analyze (space-separated)
-                block_method: Text block method
-                num_words_split: By number of words
-                num_blocks_split: By number of blocks
-                block_size: Number of words per block
-                last_block: Last block method
-                big_last: Big last block
-                small_last: Small last block
-                truncate_last: Truncate leftover words
-                truncate_all: Truncate every document to given size
-                num_blocks_label: Number of blocks
-                split_across: Split blocks across documents?
-            normalize_document_counts:
-                checkbox_label: Divide counts by the number of documents in another dataset to produce relative fractions?
-                params: Normalization parameters
-                dataset_label: Dataset to divide by
-                all: Entire corpus
     lib:
         frequency:
             block_count_dataset: "Block #%{num}/%{total}"
@@ -810,3 +772,39 @@ en:
         tfidf_corpus_header: TF/IDF (vs. corpus)
         df_header: DF (in corpus)
         progress_calculating: "Calculating word frequencies..."
+    compute_word_frequencies:
+        ngram_method: Analyze single words or n-grams?
+        single_words: Single words
+        n_grams: N-grams (multiple word phrases)
+        ngram_size: Size of phrases to analyze
+        num_ngrams: Number of n-grams to analyze
+        all_ngrams: Return all n-grams
+        ngram_inclusion_list: Include only n-grams that contain one of the following words (space-separated)
+        ngram_exclusion_list: Exclude any n-grams that contain one of the following words (space-separated)
+        word_method: Word selection method
+        most_frequent: Most frequent words
+        all: All words
+        list: Explicit list of words
+        num_words: Number of words to analyze
+        exclude_method: Exclude any words?
+        none: 'No'
+        stop: Most common words (stop words)
+        stop_language: Language of text (for stop word list)
+        exclusion_list: Words to exclude (space-separated)
+        inclusion_list: Words to analyze (space-separated)
+        block_method: Text block method
+        num_words_split: By number of words
+        num_blocks_split: By number of blocks
+        block_size: Number of words per block
+        last_block: Last block method
+        big_last: Big last block
+        small_last: Small last block
+        truncate_last: Truncate leftover words
+        truncate_all: Truncate every document to given size
+        num_blocks_label: Number of blocks
+        split_across: Split blocks across documents?
+    normalize_document_counts:
+        checkbox_label: Divide counts by the number of documents in another dataset to produce relative fractions?
+        params: Normalization parameters
+        dataset_label: Dataset to divide by
+        all: Entire corpus

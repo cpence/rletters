@@ -1,7 +1,7 @@
 
 # Produce a parallel word frequency list for a dataset
 class WordFrequencyJob < CSVJob
-  add_concern 'ComputeWordFrequencies'
+  include ComputeWordFrequencies
 
   # Export the word frequency data.
   #
@@ -13,13 +13,13 @@ class WordFrequencyJob < CSVJob
   # `ComputeWordFrequencies` concern; see that concern's documentation for
   # the specification of those arguments.
   #
-  # @see Jobs::Analysis::Concerns::ComputeWordFrequencies
+  # @see ComputeWordFrequencies
   #
   # @param [String] user_id the user whose dataset we are to work on
   # @param [String] dataset_id the dataset to operate on
   # @param [String] task_id the task we're working from
   # @param [Hash] options parameters for this job
-  # @see Jobs::Analysis::Concerns::ComputeWordFrequencies
+  # @see ComputeWordFrequencies
   # @return [void]
   def perform(user_id, dataset_id, task_id, options = {})
     standard_options(user_id, dataset_id, task_id)

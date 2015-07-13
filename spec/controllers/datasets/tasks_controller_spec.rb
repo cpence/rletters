@@ -222,7 +222,7 @@ RSpec.describe Datasets::TasksController, type: :controller do
         expect {
           get :show, dataset_id: @dataset.to_param,
                      id: @task.to_param, view: 'notaview'
-        }.to raise_error(ActiveRecord::RecordNotFound)
+        }.to raise_error(ActionView::MissingTemplate)
       end
 
       it 'does not raise an exception' do

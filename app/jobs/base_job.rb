@@ -18,13 +18,6 @@
 #   user the results of the job in HTML form.  The standard way to do this
 #   is to write the job results out as JSON in `Task#result_file`,
 #   and then to parse this JSON into HAML in the view.
-#
-# Note that this class does several things that seem pretty hacky and
-# involve class instance variables. All of them, however, are tied to the
-# `.add_concern` method, which is *only* called when classes are loaded (as
-# it should be called within the body of an analysis job class). That class
-# loading happens during Rails boot time, which is explicitly guaranteed to
-# be single-threaded.
 class BaseJob < ActiveJob::Base
   queue_as :analysis
 
@@ -105,13 +98,13 @@ class BaseJob < ActiveJob::Base
 
   # Get a list of all classes that are analysis jobs
   #
-  # This method looks up all the defined job classes in `lib/jobs/analysis`
-  # and returns them in a list so that we may loop over them (e.g., when
-  # including all job-start markup).
+  # This method looks up all the defined job classes in `app/jobs` and returns
+  # them in a list so that we may loop over them (e.g., when including all
+  # job-start markup).
   #
   # @return [Array<Class>] array of class objects
   def self.job_list
-    # Get all the classes defined in the Jobs::Analysis module
+    # Get all the job files
     analysis_files = Dir[Rails.root.join('app', 'jobs', '*.rb')]
     classes = analysis_files.map do |f|
       next if %w(base_job.rb csv_job.rb
@@ -132,97 +125,6 @@ class BaseJob < ActiveJob::Base
     end
 
     classes
-  end
-
-  # Add a concern to this job class
-  #
-  # Concerns are bundles of job code and views that can be mixed into
-  # different analysis job tasks.  This is intended to support pieces of
-  # functionality that will be shared across many different job types.
-  #
-  # @param [String] concern the concern to mix in
-  # @return [void]
-  def self.add_concern(concern)
-    # Protect against calling this more than once, though that would be
-    # really daft
-    if concerns && concerns.include?(concern)
-      fail ArgumentError, "#{concern} has already been included in #{name}"
-    end
-
-    # We want this to throw a NameError if it doesn't work; this would be
-    # a programmer's mistake
-    klass = ('Jobs::Analysis::Concerns::' + concern).constantize
-    include klass
-
-    # Add it to the tracking list so that we'll pick up its views
-    self.concerns ||= []
-    self.concerns << concern
-  end
-
-  # Get the list of paths for this class's job views
-  #
-  # We let analysis jobs ship their own job view templates. This function
-  # returns the name of that directory to be prepended into the Rails
-  # view search path.
-  #
-  # When a job mixes in a concern, this method also supports the addition
-  # of concern views.
-  #
-  # @return [Array<String>] the template directories to be added
-  def self.view_paths
-    # This turns 'ExportCitationsJob' into 'export_citations'
-    class_name = name.underscore[0...-4]
-    ret = [Rails.root.join('lib', 'jobs', 'analysis', 'views', class_name)]
-
-    if @concerns
-      @concerns.each do |c|
-        ret << Rails.root.join('lib', 'jobs', 'analysis', 'concerns',
-                               'views', c.underscore)
-      end
-    end
-
-    ret
-  end
-
-  # Returns the path to a particular view on the filesystem
-  #
-  # The arguments to this function are somewhat like the Rails render call.
-  # One of either `:template` or `:partial` must be specified
-  #
-  # @param [Hash] args options for finding view
-  # @option args [String] :template if specified, template to search for
-  # @option args [String] :partial if specified, partial to search for
-  # @option args [String] :format if specified, format to render (deafults
-  #   to HTML)
-  def self.view_path(args)
-    if args[:template]
-      args[:filename] = args[:template]
-    elsif args[:partial]
-      args[:filename] = "_#{args[:partial]}"
-    else
-      fail ArgumentError, 'view_path requires at least :template or :partial'
-    end
-    args[:format] ||= 'html'
-
-    view_paths.each do |p|
-      # Look for any of the extensions that we can currently render
-      extensions = ActionView::Template.template_handler_extensions.join(',')
-      glob = "#{args[:filename]}.#{args[:format]}.{#{extensions}}"
-      matches = Dir.glob(File.join(p, glob))
-
-      return matches[0] unless matches.empty?
-    end
-
-    nil
-  end
-
-  # Returns true if the given view exists for this job class
-  #
-  # @param [String] view the view to search for
-  # @param [String] format the format to search for
-  # @return [Boolean] true if the given job has the view requested
-  def self.view?(view, format = 'html')
-    !view_path(template: view, format: format).nil?
   end
 
   # The exception raised when we kill a job externally
@@ -274,10 +176,5 @@ class BaseJob < ActiveJob::Base
   # @return [User] the user, if we haven't been killed
   def get_user(task_id)
     get_dataset(task_id).user
-  end
-
-  class << self
-    # @return [Array<String>] the concerns mixed into this job class
-    attr_accessor :concerns
   end
 end

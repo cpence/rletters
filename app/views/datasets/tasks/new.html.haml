@@ -9,4 +9,4 @@
     %h1= t('.header')
     %h4.text-muted= t('.subheader')
 
-= render file: @klass.view_path(partial: 'params'), klass: @klass, layout: false
+= render partial: "jobs/#{@klass.name.underscore}/params"
