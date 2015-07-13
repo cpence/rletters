@@ -31,6 +31,7 @@ end
 ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
 require 'rspec/rails'
+require 'rspec/active_job'
 
 # Double-check that the schema is current
 ActiveRecord::Migration.maintain_test_schema!
@@ -61,8 +62,16 @@ RSpec.configure do |config|
     Time.zone = 'Eastern Time (US & Canada)'
   end
 
+  config.after(:example) do
+    # Clean out the job queues
+    ActiveJob::Base.queue_adapter.enqueued_jobs = []
+    ActiveJob::Base.queue_adapter.performed_jobs = []
+  end
+
   # Add a variety of test helpers
   config.include FactoryGirl::Syntax::Methods
+  config.include ActiveJob::TestHelper
+  config.include RSpec::ActiveJob
   config.include StubConnection
   config.include Devise::TestHelpers, type: :controller
   config.include ParseJson, type: :request

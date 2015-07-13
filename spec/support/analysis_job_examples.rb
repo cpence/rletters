@@ -3,10 +3,11 @@ require 'spec_helper'
 RSpec.shared_context 'perform job with params' do
   before(:example) do
     if job_params
-      described_class.perform(@user.to_param, @dataset.to_param,
-                              @task.to_param, job_params)
+      described_class.new.perform(@user.to_param, @dataset.to_param,
+                                  @task.to_param, job_params)
     else
-      described_class.perform(@user.to_param, @dataset.to_param, @task.to_param)
+      described_class.new.perform(@user.to_param, @dataset.to_param,
+                                  @task.to_param)
     end
   end
 end
@@ -26,16 +27,16 @@ RSpec.shared_examples_for 'an analysis job' do
   context 'when the job is finished' do
     it 'calls the finish! method on the task and sends an email' do
       mailer_ret = double
-      expect(mailer_ret).to receive(:deliver)
+      expect(mailer_ret).to receive(:deliver_later).with(queue: :maintenance)
 
       expect(UserMailer).to receive(:job_finished_email).with(@task.dataset.user.email, @task.to_param).and_return(mailer_ret)
 
       if job_params
-        described_class.perform(@user.to_param, @dataset.to_param,
-                                @task.to_param, job_params)
+        described_class.new.perform(@user.to_param, @dataset.to_param,
+                                    @task.to_param, job_params)
       else
-        described_class.perform(@user.to_param, @dataset.to_param,
-                                @task.to_param)
+        described_class.new.perform(@user.to_param, @dataset.to_param,
+                                    @task.to_param)
       end
 
       @task.reload

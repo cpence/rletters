@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe Jobs::Analysis::NamedEntities do
+RSpec.describe NamedEntitiesJob, type: :job do
   before(:example) do
     @user = create(:user)
     @dataset = create(:full_dataset, working: true, user: @user)
@@ -21,30 +21,30 @@ RSpec.describe Jobs::Analysis::NamedEntities do
 
   describe '.available?' do
     it 'is true with NLP available' do
-      expect(Jobs::Analysis::NamedEntities.available?).to be true
+      expect(described_class.available?).to be true
     end
 
     it 'is false with no NLP available' do
       Admin::Setting.nlp_tool_path = nil
-      expect(Jobs::Analysis::NamedEntities.available?).to be false
+      expect(described_class.available?).to be false
     end
   end
 
   describe '.download?' do
     it 'is false' do
-      expect(Jobs::Analysis::NamedEntities.download?).to be false
+      expect(described_class.download?).to be false
     end
   end
 
   describe '.num_datasets' do
     it 'is 1' do
-      expect(Jobs::Analysis::NamedEntities.num_datasets).to eq(1)
+      expect(described_class.num_datasets).to eq(1)
     end
   end
 
   context 'when all parameters are valid' do
     before(:example) do
-      Jobs::Analysis::NamedEntities.perform(
+      described_class.new.perform(
         @user.to_param,
         @dataset.to_param,
         @task.to_param)

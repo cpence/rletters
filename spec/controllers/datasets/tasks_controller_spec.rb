@@ -1,12 +1,8 @@
 require 'spec_helper'
 
-module Jobs
-  module Analysis
-    # Mock job for task controller tests
-    class ControllerJob < Jobs::Analysis::Base
-      def perform; end
-    end
-  end
+# Mock job for task controller tests
+class ControllerJob < BaseJob
+  def perform; end
 end
 
 RSpec.describe Datasets::TasksController, type: :controller do
@@ -84,7 +80,7 @@ RSpec.describe Datasets::TasksController, type: :controller do
 
     context 'with valid parameters' do
       it 'loads successfully' do
-        get :new, dataset_id: @dataset.to_param, class: 'ExportCitations',
+        get :new, dataset_id: @dataset.to_param, class: 'ExportCitationsJob',
                   job_params: { format: 'bibtex' }
 
         expect(response).to be_success
@@ -94,7 +90,7 @@ RSpec.describe Datasets::TasksController, type: :controller do
     context 'when two datasets are needed and two are provided' do
       it 'loads successfully' do
         @dataset_2 = create(:full_dataset, user: @user, working: true)
-        get :new, dataset_id: @dataset.to_param, class: 'CraigZeta',
+        get :new, dataset_id: @dataset.to_param, class: 'CraigZetaJob',
                   job_params: { other_datasets: [@dataset_2.to_param] }
 
         expect(response).to be_success
@@ -142,33 +138,24 @@ RSpec.describe Datasets::TasksController, type: :controller do
     end
 
     context 'when a valid class and params are passed' do
-      before(:context) do
-        Resque.inline = false
-      end
-
-      after(:context) do
-        Resque.remove_queue(:analysis)
-        Resque.inline = true
-      end
-
       it 'does not raise an exception' do
         expect {
           post :create, dataset_id: @dataset.to_param,
-                        class: 'ExportCitations',
+                        class: 'ExportCitationsJob',
                         job_params: { format: 'bibtex' }
         }.not_to raise_error
       end
 
       it 'enqueues a job' do
-        Resque.remove_queue(:analysis)
-
-        post :create, dataset_id: @dataset.to_param, class: 'ExportCitations',
-                      job_params: { format: 'bibtex' }
-        expect(Resque.size(:analysis)).to eq(1)
+        expect {
+          post :create, dataset_id: @dataset.to_param,
+                        class: 'ExportCitationsJob',
+                        job_params: { format: 'bibtex' }
+        }.to enqueue_a(ExportCitationsJob)
       end
 
       it 'redirects to the dataset page' do
-        post :create, dataset_id: @dataset.to_param, class: 'ExportCitations',
+        post :create, dataset_id: @dataset.to_param, class: 'ExportCitationsJob',
                       job_params: { format: 'bibtex' }
         expect(response).to redirect_to(dataset_path(@dataset))
       end
@@ -178,10 +165,10 @@ RSpec.describe Datasets::TasksController, type: :controller do
       before(:example) do
         @user.workflow_active = true
         @user.workflow_datasets = [@dataset.to_param]
-        @user.workflow_class = 'ExportCitations'
+        @user.workflow_class = 'ExportCitationsJob'
         @user.save
 
-        post :create, dataset_id: @dataset.to_param, class: 'ExportCitations',
+        post :create, dataset_id: @dataset.to_param, class: 'ExportCitationsJob',
                       job_params: { format: 'bibtex' }
 
         @user.reload
@@ -201,7 +188,7 @@ RSpec.describe Datasets::TasksController, type: :controller do
 
   describe '#show' do
     before(:example) do
-      @task = create(:task, dataset: @dataset, job_type: 'ExportCitations')
+      @task = create(:task, dataset: @dataset, job_type: 'ExportCitationsJob')
     end
 
     context 'when an invalid task ID is passed' do
@@ -252,7 +239,7 @@ RSpec.describe Datasets::TasksController, type: :controller do
       end
 
       it 'escapes JSON if some is available' do
-        @task_2 = create(:task, dataset: @dataset, job_type: 'ExportCitations')
+        @task_2 = create(:task, dataset: @dataset, job_type: 'ExportCitationsJob')
 
         ios = StringIO.new('abc"123')
         file = Paperclip.io_adapters.for(ios)
@@ -272,7 +259,7 @@ RSpec.describe Datasets::TasksController, type: :controller do
 
     context 'when fetching a task download' do
       before(:example) do
-        Jobs::Analysis::ExportCitations.perform(
+        ExportCitationsJob.new.perform(
           @user.to_param,
           @dataset.to_param,
           @task.to_param,
@@ -322,7 +309,7 @@ RSpec.describe Datasets::TasksController, type: :controller do
       before(:example) do
         @disabled = create(:dataset, user: @user, name: 'Disabled',
                                      disabled: true)
-        @task = create(:task, dataset: @disabled, job_type: 'ExportCitations')
+        @task = create(:task, dataset: @disabled, job_type: 'ExportCitationsJob')
       end
 
       it 'raises an exception' do
@@ -335,7 +322,7 @@ RSpec.describe Datasets::TasksController, type: :controller do
     context 'when a valid task ID is passed' do
       before(:example) do
         request.env['HTTP_REFERER'] = workflow_fetch_path
-        @task = create(:task, dataset: @dataset, job_type: 'ExportCitations')
+        @task = create(:task, dataset: @dataset, job_type: 'ExportCitationsJob')
       end
 
       it 'deletes the task' do

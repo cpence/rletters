@@ -4,7 +4,7 @@
 .row
   .col-md-8
     %h1== #{Dataset.model_name.human}: #{@dataset.name}
-    %h4.text-muted= t('jobs.analysis.named_entities.subheader')
+    %h4.text-muted= t('named_entities_job.subheader')
   .col-md-4.job-header-button= link_to t('common.download_csv'), dataset_task_path(@dataset, @task, view: 'download', format: 'csv'), class: 'btn btn-default'
 
 .row
@@ -16,27 +16,27 @@
         .panel.panel-default
           .panel-heading#heading1{ role: 'tab' }
             %h4.panel-title
-              = link_to t('jobs.analysis.named_entities.people_category'), '#collapse1', data: { toggle: 'collapse', parent: '#accordion' }, aria: { expanded: 'true', controls: 'collapse1' }
+              = link_to t('named_entities_job.people_category'), '#collapse1', data: { toggle: 'collapse', parent: '#accordion' }, aria: { expanded: 'true', controls: 'collapse1' }
           .panel-collapse.collapse.in#collapse1{ role: 'tabpanel', aria: { labelledby: 'heading1' } }
             .panel-body
               %ul
                 - entities['PERSON'].uniq.sort.each do |p|
-                  %li= link_to p, t('jobs.analysis.named_entities.wikipedia_link', query: CGI.escape(p))
+                  %li= link_to p, t('named_entities_job.wikipedia_link', query: CGI.escape(p))
       - if entities['ORGANIZATION']
         .panel-panel-default
           .panel-heading#heading2{ role: 'tab' }
             %h4.panel-title
-              = link_to t('jobs.analysis.named_entities.organization_category'), '#collapse2', class: 'collapsed', data: { toggle: 'collapse', parent: '#accordion' }, aria: { expanded: 'false', controls: 'collapse2' }
+              = link_to t('named_entities_job.organization_category'), '#collapse2', class: 'collapsed', data: { toggle: 'collapse', parent: '#accordion' }, aria: { expanded: 'false', controls: 'collapse2' }
           .panel-collapse.collapse#collapse2{ role: 'tabpanel', aria: { labelledby: 'heading2' } }
             .panel-body
               %ul
                 - entities['ORGANIZATION'].uniq.sort.each do |o|
-                  %li= link_to o, t('jobs.analysis.named_entities.wikipedia_link', query: CGI.escape(o))
+                  %li= link_to o, t('named_entities_job.wikipedia_link', query: CGI.escape(o))
       - if entities['LOCATION']
         .panel.panel-deafult
           .panel-heading#heading3{ role: 'tab' }
             %h4.panel-title
-              = link_to t('jobs.analysis.named_entities.location_map'), '#collapse3', class: 'collapsed', data: { toggle: 'collapse', parent: '#accordion' }, aria: { expanded: 'false', controls: 'collapse3' }
+              = link_to t('named_entities_job.location_map'), '#collapse3', class: 'collapsed', data: { toggle: 'collapse', parent: '#accordion' }, aria: { expanded: 'false', controls: 'collapse3' }
           .panel-collapse.collapse#collapse3{ role: 'tabpanel', aria: { labelledby: 'heading3' } }
             .panel-body
               #ne-map-data= entities['LOCATION'].uniq.sort.to_json
@@ -44,17 +44,17 @@
         .panel.panel-default
           .panel-heading#heading4{ role: 'tab' }
             %h4.panel-title
-              = link_to t('jobs.analysis.named_entities.location_list'), '#collapse4', class: 'collapsed', data: { toggle: 'collapse', parent: '#accordion' }, aria: { expanded: 'false', controls: 'collapse4' }
+              = link_to t('named_entities_job.location_list'), '#collapse4', class: 'collapsed', data: { toggle: 'collapse', parent: '#accordion' }, aria: { expanded: 'false', controls: 'collapse4' }
           .panel-collapse.collapse#collapse4{ role: 'tabpanel', aria: { labelledby: 'heading4' } }
             .panel-body
               %ul
                 - entities['LOCATION'].uniq.sort.each do |l|
-                  %li= link_to l, t('jobs.analysis.named_entities.wikipedia_link', query: CGI.escape(l))
+                  %li= link_to l, t('named_entities_job.wikipedia_link', query: CGI.escape(l))
       - unless entities.reject { |c| %w{PERSON ORGANIZATION LOCATION}.include?(c) }.empty?
         .panel.panel-default
           .panel-heading#heading5{ role: 'tab' }
             %h4.panel-title
-              = link_to t('jobs.analysis.named_entities.other_category'), '#collapse5', class: 'collapsed', data: { toggle: 'collapse', parent: '#accordion' }, aria: { expanded: 'false', controls: 'collapse5' }
+              = link_to t('named_entities_job.other_category'), '#collapse5', class: 'collapsed', data: { toggle: 'collapse', parent: '#accordion' }, aria: { expanded: 'false', controls: 'collapse5' }
           .panel-collapse.collapse#collapse5{ role: 'tabpanel', aria: { labelledby: 'heading5' } }
             .panel-body
               - entities.reject { |c| %w{PERSON ORGANIZATION LOCATION}.include?(c) }.each do |c|
@@ -62,4 +62,4 @@
                   %strong= c
                 %ul
                   - c.uniq.sort.each do |o|
-                    %li= link_to o, t('jobs.analysis.named_entities.wikipedia_link', query: CGI.escape(o))
+                    %li= link_to o, t('named_entities_job.wikipedia_link', query: CGI.escape(o))

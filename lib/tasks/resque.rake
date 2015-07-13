@@ -1,13 +1,7 @@
-# Add the tasks for Resque, resque_pool, and the scheduler.  resque-pool is a
+# Add the tasks for Resque and resque_pool.  resque-pool is a
 # production-only gem, so don't fail if it can't be found.
 
 require 'resque/tasks'
-require 'resque-scheduler'
-require 'resque/scheduler/tasks'
-
-task 'resque:setup' => :environment do
-  Resque.schedule = YAML.load_file(Rails.root.join('config', 'schedule.yml'))
-end
 
 begin
   require 'resque/pool'

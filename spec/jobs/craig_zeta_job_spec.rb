@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe Jobs::Analysis::CraigZeta do
+RSpec.describe CraigZetaJob, type: :job do
   before(:example) do
     @user = create(:user)
     @dataset = create(:full_dataset, working: true, user: @user,
@@ -23,19 +23,19 @@ RSpec.describe Jobs::Analysis::CraigZeta do
 
   describe '.download?' do
     it 'is false' do
-      expect(Jobs::Analysis::CraigZeta.download?).to be false
+      expect(described_class.download?).to be false
     end
   end
 
   describe '.num_datasets' do
     it 'is 2' do
-      expect(Jobs::Analysis::CraigZeta.num_datasets).to eq(2)
+      expect(described_class.num_datasets).to eq(2)
     end
   end
 
   context 'when all parameters are valid' do
     before(:example) do
-      Jobs::Analysis::CraigZeta.perform(
+      described_class.new.perform(
         @user.to_param,
         @dataset.to_param,
         @task.to_param,

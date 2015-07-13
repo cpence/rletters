@@ -129,12 +129,6 @@ Devise.setup do |config|
   end
 end
 
-# Send Devise e-mails the same way we send other async emails
-Devise::Async.setup do |config|
-  config.backend = :resque
-  config.queue = :maintenance
-end
-
 # Use the 'full_page' layout for all Devise views
 Rails.application.config.to_prepare do
   Devise::SessionsController.layout 'full_page'

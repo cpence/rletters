@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe Jobs::Analysis::TermDates do
+RSpec.describe TermDatesJob, type: :job do
   before(:example) do
     @user = create(:user)
     @dataset = create(:full_dataset, working: true, entries_count: 1,
@@ -16,19 +16,19 @@ RSpec.describe Jobs::Analysis::TermDates do
 
   describe '.download?' do
     it 'is false' do
-      expect(Jobs::Analysis::TermDates.download?).to be false
+      expect(described_class.download?).to be false
     end
   end
 
   describe '.num_datasets' do
     it 'is 1' do
-      expect(Jobs::Analysis::TermDates.num_datasets).to eq(1)
+      expect(described_class.num_datasets).to eq(1)
     end
   end
 
   describe('.perform') do
     before(:example) do
-      Jobs::Analysis::TermDates.perform(
+      described_class.new.perform(
         @user.to_param,
         @dataset.to_param,
         @task.to_param,

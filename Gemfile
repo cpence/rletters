@@ -14,12 +14,10 @@ gem 'addressable'
 # Job scheduling
 gem 'resque'
 gem 'resque-scheduler'
-gem 'resque_mailer'
 
 # User authentication and administration
 gem 'devise'
 gem 'devise-i18n'
-gem 'devise-async'
 gem 'activeadmin', '~> 1.0.0.pre1'
 gem 'active_admin-sortable_tree'
 gem 'druthers'
@@ -70,6 +68,7 @@ gem 'roadie-rails'
 # Testing
 group :test, :development do
   gem 'rspec-rails', '~> 3'
+  gem 'rspec-activejob'
 
   # Some of these need to be here to enable proper use of the development
   # server, including mailer previews

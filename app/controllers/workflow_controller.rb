@@ -129,7 +129,7 @@ class WorkflowController < ApplicationController
   # @return [void]
   def set_workflow_parameters
     fail ActiveRecord::RecordNotFound unless params[:class]
-    @klass = ('Jobs::Analysis::' + params[:class]).safe_constantize
+    @klass = params[:class].safe_constantize
     fail ActiveRecord::RecordNotFound unless @klass
 
     @num_datasets = @klass.num_datasets

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe Jobs::Analysis::Network do
+RSpec.describe NetworkJob, type: :job do
   before(:example) do
     @user = create(:user)
     @dataset = create(:full_dataset, user: @user, entries_count: 0)
@@ -25,19 +25,19 @@ RSpec.describe Jobs::Analysis::Network do
 
   describe '.download?' do
     it 'is false' do
-      expect(Jobs::Analysis::Network.download?).to be false
+      expect(described_class.download?).to be false
     end
   end
 
   describe '.num_datasets' do
     it 'is 1' do
-      expect(Jobs::Analysis::Network.num_datasets).to eq(1)
+      expect(described_class.num_datasets).to eq(1)
     end
   end
 
   context 'when all parameters are valid' do
     before(:example) do
-      Jobs::Analysis::Network.perform(
+      described_class.new.perform(
         @user.to_param,
         @dataset.to_param,
         @task.to_param,

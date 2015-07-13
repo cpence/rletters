@@ -2,16 +2,16 @@
 
 .row
   .col-md-8
-    %h1= t('jobs.analysis.craig_zeta.header', name_1: data['name_1'], name_2: data['name_2'])
-    %h4.text-muted= t('jobs.analysis.craig_zeta.subheader')
+    %h1= t('craig_zeta_job.header', name_1: data['name_1'], name_2: data['name_2'])
+    %h4.text-muted= t('craig_zeta_job.subheader')
   .col-md-4.job-header-button= link_to t('common.download_csv'), dataset_task_path(@dataset, @task, view: 'download', format: 'csv'), class: 'btn btn-default'
 
 .row
   .col-xs-12
     %hr
 
-    %h5= t('jobs.analysis.craig_zeta.graph_header')
-    %p= t('jobs.analysis.craig_zeta.graph_explanation')
+    %h5= t('craig_zeta_job.graph_header')
+    %p= t('craig_zeta_job.graph_explanation')
 
     %script{ type: 'text/javascript' }
       == window.json_data = '#{@json_escaped}';
@@ -19,7 +19,7 @@
 
     %hr
 
-    %h5= t('jobs.analysis.craig_zeta.zeta_score_header')
-    %p= t('jobs.analysis.craig_zeta.zeta_score_explanation', name_1: data['name_1'], name_2: data['name_2'])
+    %h5= t('craig_zeta_job.zeta_score_header')
+    %p= t('craig_zeta_job.zeta_score_explanation', name_1: data['name_1'], name_2: data['name_2'])
 
     #cz-table

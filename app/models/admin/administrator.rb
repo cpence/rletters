@@ -10,7 +10,13 @@ module Admin
   class Administrator < ActiveRecord::Base
     self.table_name = 'admin_administrators'
 
-    devise :async, :database_authenticatable,
-           :recoverable, :rememberable, :trackable, :validatable
+    devise :database_authenticatable, :recoverable, :rememberable,
+           :trackable, :validatable
+
+    def send_devise_notification(notification, *args)
+      devise_mailer
+        .send(notification, self, *args)
+        .deliver_later(queue: :maintenance)
+    end
   end
 end

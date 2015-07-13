@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe Jobs::Analysis::ExportCitations do
+RSpec.describe ExportCitationsJob, type: :job do
   before(:example) do
     @user = create(:user)
     @dataset = create(:full_dataset, entries_count: 10, working: true,
@@ -14,20 +14,20 @@ RSpec.describe Jobs::Analysis::ExportCitations do
 
   describe '.download?' do
     it 'is true' do
-      expect(Jobs::Analysis::ExportCitations.download?).to be true
+      expect(described_class.download?).to be true
     end
   end
 
   describe '.num_datasets' do
     it 'is 1' do
-      expect(Jobs::Analysis::ExportCitations.num_datasets).to eq(1)
+      expect(described_class.num_datasets).to eq(1)
     end
   end
 
   context 'when an invalid format is specified' do
     it 'raises an exception' do
       expect {
-        Jobs::Analysis::ExportCitations.perform(
+        described_class.new.perform(
           @user.to_param,
           @dataset.to_param,
           @task.to_param,
@@ -38,7 +38,7 @@ RSpec.describe Jobs::Analysis::ExportCitations do
 
   context 'when all parameters are valid' do
     before(:example) do
-      Jobs::Analysis::ExportCitations.perform(
+      described_class.new.perform(
         @user.to_param,
         @dataset.to_param,
         @task.to_param,

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe Jobs::Analysis::WordFrequency do
+RSpec.describe WordFrequencyJob, type: :job do
   before(:example) do
     @user = create(:user)
     @dataset = create(:full_dataset, entries_count: 2, working: true,
@@ -31,13 +31,13 @@ RSpec.describe Jobs::Analysis::WordFrequency do
 
   describe '.download?' do
     it 'is true' do
-      expect(Jobs::Analysis::WordFrequency.download?).to be true
+      expect(described_class.download?).to be true
     end
   end
 
   describe '.num_datasets' do
     it 'is 1' do
-      expect(Jobs::Analysis::WordFrequency.num_datasets).to eq(1)
+      expect(described_class.num_datasets).to eq(1)
     end
   end
 
@@ -99,14 +99,14 @@ RSpec.describe Jobs::Analysis::WordFrequency do
 
       expect {
         params_to_test.each do |params|
-          Jobs::Analysis::WordFrequency.perform(*params)
+          described_class.new.perform(*params)
         end
       }.not_to raise_error
     end
 
     context 'when all parameters are valid' do
       before(:example) do
-        Jobs::Analysis::WordFrequency.perform(
+        described_class.new.perform(
           @user.to_param,
           @dataset.to_param,
           @task.to_param,
@@ -149,7 +149,7 @@ RSpec.describe Jobs::Analysis::WordFrequency do
           mock_analyzer
         end
 
-        Jobs::Analysis::WordFrequency.perform(
+        described_class.new.perform(
           @user.to_param,
           @dataset.to_param,
           @task.to_param,

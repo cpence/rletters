@@ -245,13 +245,6 @@ en:
             sign_in: Sign in
             sign_up: Sign up
     jobs:
-        create_dataset:
-            progress_fetching: "Fetching documents..."
-            progress_finished: "Finished creating, saving dataset..."
-        destroy_dataset:
-            progress_destroying: "Destroying dataset..."
-        expire_tasks:
-            progress_expiring: "Destroying all old tasks..."
         concerns:
             compute_word_frequencies:
                 ngram_method: Analyze single words or n-grams?
@@ -289,159 +282,6 @@ en:
                 params: Normalization parameters
                 dataset_label: Dataset to divide by
                 all: Entire corpus
-        analysis:
-            article_dates:
-                name: Plot Article Counts by Date
-                short_desc: Plot number of articles by date
-                question: >
-                    When were a given set of articles published?
-                options_label: Article date analysis options
-                fraction_subheader: "Fraction of documents in %{normalization_set} found in the %{name} dataset, plotted by year"
-                number_subheader: "Number of documents, plotted by year"
-                header: "Article dates analysis for %{name}"
-                fraction_column: Fraction of Documents
-                percent_column: Percentage of Documents
-                number_column: Number of Documents
-                entire_corpus: Entire Corpus
-                progress_counting: "Counting articles by year..."
-                progress_normalizing: "Normalizing document counts to frequencies..."
-                progress_missing: "Filling missing years..."
-            collocation:
-                name: Collocation Analysis
-                short_desc: Determine significant associations between immediate pairs of words
-                question: >
-                    What pairs of words often appear directly together?
-
-                    What technical terms or phrases appear in the literature?
-                options_label: Collocation analysis options
-                pos: Frequency (filtered by parts of speech)
-                pos_header: Frequency
-                num_pairs: Number of collocations to find
-                all: Report all collocations
-                word: Return only collocations including this word (or leave blank for all)
-                header: "Collocation analysis for %{name}"
-                subheader: "Significance test: %{test}"
-                pair: 'Collocation pair'
-                progress_computing: "Computing collocations for dataset..."
-            cooccurrence:
-                name: Cooccurrence Analysis
-                short_desc: Determine significant associations between distant pairs of words
-                question: >
-                    What pairs of words often appear in the same sentece,
-                    paragraph, section, or article?
-                options_label: Cooccurrence analysis options
-                num_pairs: Number of cooccurrences to find
-                all: Report all cooccurrences
-                word: Return coocurrences including this word (or a comma-separated list)
-                window: Return cooccurrences that occur within this number of words
-                header: "Cooccurrence analysis for %{name}"
-                subheader: "Significance test: %{test}"
-                pair: 'Cooccurrence pair'
-                progress_computing: "Computing cooccurrences for dataset..."
-            craig_zeta:
-                name: Craig Zeta
-                short_desc: Determine words that differentiate two datasets (Craig Zeta)
-                question: >
-                    Given two sets of articles, what words mark out an article
-                    as belonging to set A rather than to set B, or vice versa?
-                header: "Comparison of %{name_1} with %{name_2}"
-                subheader: (Craig Zeta algorithm)
-                csv_header: "Craig Zeta comparison for dataset %{name_1} with %{name_2}"
-                marker_header: "Marker words for membership in dataset %{name}"
-                graph_header: Separation graph for all analyzed text blocks
-                graph_explanation: >
-                    This graph plots the fraction of words in each individual
-                    analyzed block of text, with the coordinates corresponding
-                    to the fraction of words in each block that belong to the
-                    two identified marker sets.  If the analysis has succeeded,
-                    you should see two clearly separate clouds of points with
-                    little overlap, indicating that the marker words are able
-                    to readily distinguish blocks of text from each dataset.
-                block_name_column: Text block name
-                marker_column: "Fraction marker words for %{name}"
-                zeta_score_header: Zeta scores for all analyzed words
-                zeta_score_explanation: >
-                    Zeta scores for all analyzed words follow.  The scores range
-                    from two (a perfect marker word indicating membership in
-                    %{name_1}) to zero (a perfect anti-marker word indicating
-                    membership in %{name_2}).
-                word_column: Word
-                score_column: Zeta Score
-                progress_computing: "Computing zeta scores for dataset..."
-            export_citations:
-                name: Export Citations
-                short_desc: Export dataset as citations
-                question: >
-                    Can I export a set of articles to my favorite format or
-                    reference manager?
-                options_label: Citation export options
-                format: Format for export
-                progress_creating: "Creating citations: %{progress}..."
-            named_entities:
-                name: Extract Proper Names
-                short_desc: Extract references to proper names
-                question: >
-                    What proper names (locations, people, organizations) are
-                    mentioned in a given set of articles?
-                subheader: References to proper names
-                wikipedia_link: "https://en.wikipedia.org/w/index.php?title=Special:Search&search=%{query}&fulltext=Search"
-                people_category: People
-                organization_category: Organizations
-                location_map: Locations (Map)
-                location_category: Locations (List)
-                other_category: Other
-                header: "Named entity analysis for %{name}"
-                type_column: Type
-                hit_column: Hit
-                progress_finding: "Finding named entities..."
-            network:
-                name: Compute Term Network
-                short_desc: Compute network of associated terms
-                question: >
-                    What broader network of words is often found with one focal
-                    word of interest?
-                options_label: Network analysis options
-                word: Focal word
-                subheader: "Network of associated terms surrounding word: '%{word}'"
-                download: Download in GraphML format
-                word_stem: Word Stem
-                word_forms: Forms in dataset
-                progress_network: "Generating word network..."
-            term_dates:
-                name: Word Occurrences by Date
-                short_desc: Plot word occurrences by date
-                question: >
-                    How has the frequency of a term changed over time?
-
-                    When was a word used within a particular dataset?
-                options_label: Term frequency date analysis options
-                word: Focal word
-                header: "Term frequency date analysis for %{name}"
-                subheader: "Occurrences of %{term}, plotted by year"
-                number_column: Occurrences of Word
-                progress_computing: "Querying term frequency counts..."
-            word_frequency:
-                name: Word Frequency
-                short_desc: Analyze word frequency in dataset
-                question: >
-                    What's the frequency of word use within a given set of
-                    articles?
-
-                    What are the "most important" or "most frequent" words used
-                    in a given set?
-                options_label: Word frequency analysis options
-                csv_header: "Word frequency information for dataset %{name}"
-                each_block: "Each block of document:"
-                whole_dataset: "For the entire dataset:"
-                types_header: Number of types
-                tokens_header: Number of tokens
-                ttr_header: Type/token ratio
-                freq_header: Frequency
-                prop_header: Proportion
-                tfidf_dataset_header: TF/IDF (vs. dataset)
-                tfidf_corpus_header: TF/IDF (vs. corpus)
-                df_header: DF (in corpus)
-                progress_calculating: "Calculating word frequencies..."
     lib:
         frequency:
             block_count_dataset: "Block #%{num}/%{total}"
@@ -811,3 +651,162 @@ en:
             asset_header: "Asset: %{name}"
         stop_list:
             header: "Stop List: %{language}"
+    article_dates_job:
+        name: Plot Article Counts by Date
+        short_desc: Plot number of articles by date
+        question: >
+            When were a given set of articles published?
+        options_label: Article date analysis options
+        fraction_subheader: "Fraction of documents in %{normalization_set} found in the %{name} dataset, plotted by year"
+        number_subheader: "Number of documents, plotted by year"
+        header: "Article dates analysis for %{name}"
+        fraction_column: Fraction of Documents
+        percent_column: Percentage of Documents
+        number_column: Number of Documents
+        entire_corpus: Entire Corpus
+        progress_counting: "Counting articles by year..."
+        progress_normalizing: "Normalizing document counts to frequencies..."
+        progress_missing: "Filling missing years..."
+    collocation_job:
+        name: Collocation Analysis
+        short_desc: Determine significant associations between immediate pairs of words
+        question: >
+            What pairs of words often appear directly together?
+
+            What technical terms or phrases appear in the literature?
+        options_label: Collocation analysis options
+        pos: Frequency (filtered by parts of speech)
+        pos_header: Frequency
+        num_pairs: Number of collocations to find
+        all: Report all collocations
+        word: Return only collocations including this word (or leave blank for all)
+        header: "Collocation analysis for %{name}"
+        subheader: "Significance test: %{test}"
+        pair: 'Collocation pair'
+        progress_computing: "Computing collocations for dataset..."
+    cooccurrence_job:
+        name: Cooccurrence Analysis
+        short_desc: Determine significant associations between distant pairs of words
+        question: >
+            What pairs of words often appear in the same sentece,
+            paragraph, section, or article?
+        options_label: Cooccurrence analysis options
+        num_pairs: Number of cooccurrences to find
+        all: Report all cooccurrences
+        word: Return coocurrences including this word (or a comma-separated list)
+        window: Return cooccurrences that occur within this number of words
+        header: "Cooccurrence analysis for %{name}"
+        subheader: "Significance test: %{test}"
+        pair: 'Cooccurrence pair'
+        progress_computing: "Computing cooccurrences for dataset..."
+    craig_zeta_job:
+        name: Craig Zeta
+        short_desc: Determine words that differentiate two datasets (Craig Zeta)
+        question: >
+            Given two sets of articles, what words mark out an article
+            as belonging to set A rather than to set B, or vice versa?
+        header: "Comparison of %{name_1} with %{name_2}"
+        subheader: (Craig Zeta algorithm)
+        csv_header: "Craig Zeta comparison for dataset %{name_1} with %{name_2}"
+        marker_header: "Marker words for membership in dataset %{name}"
+        graph_header: Separation graph for all analyzed text blocks
+        graph_explanation: >
+            This graph plots the fraction of words in each individual
+            analyzed block of text, with the coordinates corresponding
+            to the fraction of words in each block that belong to the
+            two identified marker sets.  If the analysis has succeeded,
+            you should see two clearly separate clouds of points with
+            little overlap, indicating that the marker words are able
+            to readily distinguish blocks of text from each dataset.
+        block_name_column: Text block name
+        marker_column: "Fraction marker words for %{name}"
+        zeta_score_header: Zeta scores for all analyzed words
+        zeta_score_explanation: >
+            Zeta scores for all analyzed words follow.  The scores range
+            from two (a perfect marker word indicating membership in
+            %{name_1}) to zero (a perfect anti-marker word indicating
+            membership in %{name_2}).
+        word_column: Word
+        score_column: Zeta Score
+        progress_computing: "Computing zeta scores for dataset..."
+    create_dataset_job:
+        progress_fetching: "Fetching documents..."
+        progress_finished: "Finished creating, saving dataset..."
+    destroy_dataset_job:
+        progress_destroying: "Destroying dataset..."
+    expire_tasks_job:
+        progress_expiring: "Destroying all old tasks..."
+    export_citations_job:
+        name: Export Citations
+        short_desc: Export dataset as citations
+        question: >
+            Can I export a set of articles to my favorite format or
+            reference manager?
+        options_label: Citation export options
+        format: Format for export
+        progress_creating: "Creating citations: %{progress}..."
+    named_entities_job:
+        name: Extract Proper Names
+        short_desc: Extract references to proper names
+        question: >
+            What proper names (locations, people, organizations) are
+            mentioned in a given set of articles?
+        subheader: References to proper names
+        wikipedia_link: "https://en.wikipedia.org/w/index.php?title=Special:Search&search=%{query}&fulltext=Search"
+        people_category: People
+        organization_category: Organizations
+        location_map: Locations (Map)
+        location_category: Locations (List)
+        other_category: Other
+        header: "Named entity analysis for %{name}"
+        type_column: Type
+        hit_column: Hit
+        progress_finding: "Finding named entities..."
+    network_job:
+        name: Compute Term Network
+        short_desc: Compute network of associated terms
+        question: >
+            What broader network of words is often found with one focal
+            word of interest?
+        options_label: Network analysis options
+        word: Focal word
+        subheader: "Network of associated terms surrounding word: '%{word}'"
+        download: Download in GraphML format
+        word_stem: Word Stem
+        word_forms: Forms in dataset
+        progress_network: "Generating word network..."
+    term_dates_job:
+        name: Word Occurrences by Date
+        short_desc: Plot word occurrences by date
+        question: >
+            How has the frequency of a term changed over time?
+
+            When was a word used within a particular dataset?
+        options_label: Term frequency date analysis options
+        word: Focal word
+        header: "Term frequency date analysis for %{name}"
+        subheader: "Occurrences of %{term}, plotted by year"
+        number_column: Occurrences of Word
+        progress_computing: "Querying term frequency counts..."
+    word_frequency_job:
+        name: Word Frequency
+        short_desc: Analyze word frequency in dataset
+        question: >
+            What's the frequency of word use within a given set of
+            articles?
+
+            What are the "most important" or "most frequent" words used
+            in a given set?
+        options_label: Word frequency analysis options
+        csv_header: "Word frequency information for dataset %{name}"
+        each_block: "Each block of document:"
+        whole_dataset: "For the entire dataset:"
+        types_header: Number of types
+        tokens_header: Number of tokens
+        ttr_header: Type/token ratio
+        freq_header: Frequency
+        prop_header: Proportion
+        tfidf_dataset_header: TF/IDF (vs. dataset)
+        tfidf_corpus_header: TF/IDF (vs. corpus)
+        df_header: DF (in corpus)
+        progress_calculating: "Calculating word frequencies..."

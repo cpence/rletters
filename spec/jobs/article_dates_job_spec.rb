@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe Jobs::Analysis::ArticleDates do
+RSpec.describe ArticleDatesJob, type: :job do
   before(:example) do
     @user = create(:user)
     @dataset = create(:full_dataset, working: true, user: @user)
@@ -11,13 +11,13 @@ RSpec.describe Jobs::Analysis::ArticleDates do
 
   describe '.download?' do
     it 'is false' do
-      expect(Jobs::Analysis::ArticleDates.download?).to be false
+      expect(described_class.download?).to be false
     end
   end
 
   describe '.num_datasets' do
     it 'is 1' do
-      expect(Jobs::Analysis::ArticleDates.num_datasets).to eq(1)
+      expect(described_class.num_datasets).to eq(1)
     end
   end
 
@@ -27,7 +27,7 @@ RSpec.describe Jobs::Analysis::ArticleDates do
       @dataset_2.entries += [create(:entry, dataset: @dataset_2, uid: 'gutenberg:3172')]
       @task_2 = create(:task, dataset: @dataset_2)
 
-      Jobs::Analysis::ArticleDates.perform(
+      described_class.new.perform(
         @user.to_param,
         @dataset_2.to_param,
         @task_2.to_param,
@@ -57,7 +57,7 @@ RSpec.describe Jobs::Analysis::ArticleDates do
 
   context 'when normalizing to the corpus' do
     before(:example) do
-      Jobs::Analysis::ArticleDates.perform(
+      described_class.new.perform(
         @user.to_param,
         @dataset.to_param,
         @task.to_param,
@@ -101,7 +101,7 @@ RSpec.describe Jobs::Analysis::ArticleDates do
                                                  entries_count: 10,
                                                  user: @user)
 
-      Jobs::Analysis::ArticleDates.perform(
+      described_class.new.perform(
         @user.to_param,
         @dataset.to_param,
         @task.to_param,
@@ -144,7 +144,7 @@ RSpec.describe Jobs::Analysis::ArticleDates do
       ]
       @normalization_set.save
 
-      Jobs::Analysis::ArticleDates.perform(
+      described_class.new.perform(
         @user.to_param,
         @dataset.to_param,
         @task.to_param,

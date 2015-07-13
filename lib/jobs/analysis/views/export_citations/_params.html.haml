@@ -1,9 +1,9 @@
 .row
   .col-md-6
-    = simple_form_for :job_params, url: dataset_tasks_path(@dataset, class: 'ExportCitations'), method: :post do |f|
+    = simple_form_for :job_params, url: dataset_tasks_path(@dataset, class: 'ExportCitationsJob'), method: :post do |f|
       = f.error_notification
 
-      = field_set_tag t('jobs.analysis.export_citations.options_label') do
-        = f.input :format, label: I18n.t('jobs.analysis.export_citations.format'), collection: RLetters::Documents::Serializers::MIME_TYPES.map { |k| [RLetters::Documents::Serializers.for(k).format, k] }
+      = field_set_tag t('export_citations_job.options_label') do
+        = f.input :format, label: I18n.t('export_citations_job.format'), collection: RLetters::Documents::Serializers::MIME_TYPES.map { |k| [RLetters::Documents::Serializers.for(k).format, k] }
         = f.button :submit
         = link_to(t('common.cancel'), @dataset, class: 'btn btn-default')

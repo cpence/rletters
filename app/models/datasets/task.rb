@@ -55,13 +55,16 @@ module Datasets
     scope :active, -> { not_finished.where(failed: false) }
     scope :failed, -> { not_finished.where(failed: true) }
 
+    DISALLOWED_CLASSES = [BaseJob, CSVJob, CreateDatasetJob,
+                          DestroyDatasetJob, ExpireTasksJob]
+
     # Convert class_name to a class object
     #
     # @param [String] class_name the class name to convert
     # @return [Class] the job class
     def self.job_class(class_name)
-      "Jobs::Analysis::#{class_name}".safe_constantize.tap do |klass|
-        if klass.nil? || klass == Jobs::Analysis::Base
+      class_name.safe_constantize.tap do |klass|
+        if klass.nil? || DISALLOWED_CLASSES.include?(klass)
           fail ArgumentError, "#{class_name} is not a valid class"
         end
       end
@@ -124,7 +127,9 @@ module Datasets
       save
 
       # Send the user an e-mail
-      UserMailer.job_finished_email(dataset.user.email, to_param).deliver
+      UserMailer
+        .job_finished_email(dataset.user.email, to_param)
+        .deliver_later(queue: :maintenance)
     end
   end
 end

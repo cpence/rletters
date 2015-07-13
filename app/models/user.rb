@@ -48,8 +48,14 @@
 #
 # @!macro devise_user
 class User < ActiveRecord::Base
-  devise :async, :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+  devise :database_authenticatable, :registerable, :recoverable,
+         :rememberable, :trackable, :validatable
+
+  def send_devise_notification(notification, *args)
+    devise_mailer
+      .send(notification, self, *args)
+      .deliver_later(queue: :maintenance)
+  end
 
   validates :name, presence: true
   validates :per_page, presence: true,

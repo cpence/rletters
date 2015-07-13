@@ -1,12 +1,12 @@
 .row
   .col-md-6
-    = simple_form_for :job_params, url: dataset_tasks_path(@dataset, class: 'Collocation'), method: :post do |f|
+    = simple_form_for :job_params, url: dataset_tasks_path(@dataset, class: 'CollocationJob'), method: :post do |f|
       = f.error_notification
 
-      = field_set_tag t('jobs.analysis.collocation.options_label') do
-        = f.input :analysis_type, label: t('common.scoring.label'), collection: Jobs::Analysis::Collocation.significance_tests, include_blank: false
-        = f.input :num_pairs, as: :integer, label: t('jobs.analysis.collocation.num_pairs'), required: false, input_html: { value: 50 }
-        = f.input :all, label: t('jobs.analysis.collocation.all'), as: :boolean
-        = f.input :word, required: false, label: t('jobs.analysis.collocation.word')
+      = field_set_tag t('collocation_job.options_label') do
+        = f.input :analysis_type, label: t('common.scoring.label'), collection: CollocationJob.significance_tests, include_blank: false
+        = f.input :num_pairs, as: :integer, label: t('collocation_job.num_pairs'), required: false, input_html: { value: 50 }
+        = f.input :all, label: t('collocation_job.all'), as: :boolean
+        = f.input :word, required: false, label: t('collocation_job.word')
         = f.button :submit
         = link_to(t('common.cancel'), @dataset, class: 'btn btn-default')

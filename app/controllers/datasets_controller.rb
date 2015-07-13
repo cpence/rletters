@@ -57,9 +57,8 @@ class DatasetsController < ApplicationController
     dataset = current_user.datasets.create(name: dataset_params[:name],
                                            disabled: true)
 
-    Resque.enqueue(Jobs::CreateDataset, current_user.to_param,
-                   dataset.to_param, params[:q], params[:fq],
-                   params[:def_type])
+    CreateDatasetJob.perform_later(current_user.to_param, dataset.to_param,
+                                   params[:q], params[:fq], params[:def_type])
 
     if current_user.workflow_active
       redirect_to workflow_activate_path(current_user.workflow_class),
@@ -78,8 +77,7 @@ class DatasetsController < ApplicationController
     @dataset.disabled = true
     @dataset.save
 
-    Resque.enqueue(Jobs::DestroyDataset, current_user.to_param,
-                   @dataset.to_param)
+    DestroyDatasetJob.perform_later(current_user.to_param, @dataset.to_param)
 
     redirect_to datasets_path
   end

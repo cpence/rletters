@@ -46,11 +46,11 @@ module Datasets
 
       # Enqueue the job
       if @current_params.empty?
-        Resque.enqueue(@klass, current_user.to_param, @dataset.to_param,
-                       task.to_param)
+        @klass.perform_later(current_user.to_param, @dataset.to_param,
+                             task.to_param)
       else
-        Resque.enqueue(@klass, current_user.to_param, @dataset.to_param,
-                       task.to_param, @current_params)
+        @klass.perform_later(current_user.to_param, @dataset.to_param,
+                             task.to_param, @current_params)
       end
 
       if current_user.workflow_active

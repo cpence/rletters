@@ -37,7 +37,9 @@ RLetters::Application.configure do
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   # config.force_ssl = true
 
-  # Dial back the log verbosity by default in production
+  # Dial back the log verbosity by default in production (DO NOT set this any
+  # more verbose than :warn, or passwords will be leaked from Devise into the
+  # logs)
   config.log_level = :warn
 
   # Prepend all log lines with the following tags.
@@ -63,4 +65,7 @@ RLetters::Application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  # Use Resque in production
+  ActiveJob::Base.queue_adapter = :resque
 end

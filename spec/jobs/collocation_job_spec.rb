@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe Jobs::Analysis::Collocation do
+RSpec.describe CollocationJob, type: :job do
   before(:example) do
     @user = create(:user)
     @dataset = create(:full_dataset, working: true, entries_count: 2,
@@ -44,20 +44,20 @@ RSpec.describe Jobs::Analysis::Collocation do
 
   describe '.download?' do
     it 'is true' do
-      expect(Jobs::Analysis::Collocation.download?).to be true
+      expect(described_class.download?).to be true
     end
   end
 
   describe '.num_datasets' do
     it 'is 1' do
-      expect(Jobs::Analysis::Collocation.num_datasets).to eq(1)
+      expect(described_class.num_datasets).to eq(1)
     end
   end
 
   describe '.perform' do
     it 'throws an exception if the type is invalid' do
       expect {
-        Jobs::Analysis::Collocation.perform(
+        described_class.new.perform(
           @user.to_param,
           @dataset.to_param,
           @task.to_param,
@@ -72,7 +72,7 @@ RSpec.describe Jobs::Analysis::Collocation do
       expect(RLetters::Analysis::Collocation::MutualInformation).to receive(:new).and_call_original
       expect(RLetters::Analysis::Collocation::PartsOfSpeech).not_to receive(:new)
 
-      Jobs::Analysis::Collocation.perform(
+      described_class.new.perform(
         @user.to_param,
         @dataset.to_param,
         @task.to_param,
@@ -85,7 +85,7 @@ RSpec.describe Jobs::Analysis::Collocation do
     types.product(nums).each do |(type, (sym, val))|
       it "runs with type '#{type}'" do
         expect {
-          Jobs::Analysis::Collocation.perform(
+          described_class.new.perform(
             @user.to_param,
             @dataset.to_param,
             @task.to_param,

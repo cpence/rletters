@@ -1,12 +1,8 @@
 require 'spec_helper'
 
-module Jobs
-  module Analysis
-    # Mock job class for the workflow controller
-    class WorkflowJob < Jobs::Analysis::Base
-      def self.perform(user_id, dataset_id, task_id); end
-    end
-  end
+# Mock job class for the workflow controller
+class WorkflowJob < BaseJob
+  def perform(user_id, dataset_id, task_id); end
 end
 
 RSpec.describe WorkflowController, type: :controller do
@@ -72,7 +68,7 @@ RSpec.describe WorkflowController, type: :controller do
 
     describe '#info' do
       it 'loads successfully' do
-        get :info, class: 'ArticleDates'
+        get :info, class: 'ArticleDatesJob'
         expect(response).to be_success
       end
     end
@@ -87,7 +83,7 @@ RSpec.describe WorkflowController, type: :controller do
     describe '#destroy' do
       before(:example) do
         @user.workflow_active = true
-        @user.workflow_class = 'ArticleDates'
+        @user.workflow_class = 'ArticleDatesJob'
         @user.workflow_datasets = [@dataset.to_param]
 
         @user.save
@@ -106,26 +102,27 @@ RSpec.describe WorkflowController, type: :controller do
     describe '#activate' do
       context 'with no datasets linked' do
         before(:example) do
-          get :activate, class: 'ArticleDates'
+          get :activate, class: 'ArticleDatesJob'
           @user.reload
         end
 
         it 'sets the workflow parameters' do
           expect(@user.workflow_active).to be true
-          expect(@user.workflow_class).to eq('ArticleDates')
+          expect(@user.workflow_class).to eq('ArticleDatesJob')
           expect(@user.workflow_datasets).to be_blank
         end
       end
 
       context 'when asked to link a dataset' do
         before(:example) do
-          get :activate, class: 'ArticleDates', link_dataset_id: @dataset.to_param
+          get(:activate, class: 'ArticleDatesJob',
+                         link_dataset_id: @dataset.to_param)
           @user.reload
         end
 
         it 'sets the right parameters' do
           expect(@user.workflow_active).to be true
-          expect(@user.workflow_class).to eq('ArticleDates')
+          expect(@user.workflow_class).to eq('ArticleDatesJob')
           expect(@user.workflow_datasets).to eq([@dataset.to_param])
         end
       end
@@ -133,11 +130,12 @@ RSpec.describe WorkflowController, type: :controller do
       context 'when asked to unlink a dataset with one dataset' do
         before(:example) do
           @user.workflow_active = true
-          @user.workflow_class = 'ArticleDates'
+          @user.workflow_class = 'ArticleDatesJob'
           @user.workflow_datasets = [@dataset.to_param]
           @user.save
 
-          get :activate, class: 'ArticleDates', unlink_dataset_id: @dataset.to_param
+          get(:activate, class: 'ArticleDatesJob',
+                         unlink_dataset_id: @dataset.to_param)
           @user.reload
         end
 
@@ -151,11 +149,12 @@ RSpec.describe WorkflowController, type: :controller do
           @dataset_2 = create(:dataset, user: @user)
 
           @user.workflow_active = true
-          @user.workflow_class = 'CraigZeta'
+          @user.workflow_class = 'CraigZetaJob'
           @user.workflow_datasets = [@dataset.to_param, @dataset_2.to_param]
           @user.save
 
-          get :activate, class: 'CraigZeta', unlink_dataset_id: @dataset_2.to_param
+          get(:activate, class: 'CraigZetaJob',
+                         unlink_dataset_id: @dataset_2.to_param)
           @user.reload
         end
 
@@ -171,8 +170,8 @@ RSpec.describe WorkflowController, type: :controller do
       task = create(:task, args.merge(dataset: dataset, finished_at: finished,
                                       job_type: 'WorkflowJob'))
 
-      Resque.enqueue(Jobs::Analysis::WorkflowJob, dataset.user.to_param,
-                     dataset.to_param, task.to_param)
+      WorkflowJob.perform_later(dataset.user.to_param, dataset.to_param,
+                                task.to_param)
 
       task
     end

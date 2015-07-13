@@ -4,7 +4,6 @@
 # This mailer is responsible for sending e-mails to users when their analysis
 # tasks complete.
 class UserMailer < ActionMailer::Base
-  include Resque::Mailer
   include Roadie::Rails::Automatic
   default from: 'noreply@example.com'
 

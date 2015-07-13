@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe Jobs::Analysis::Cooccurrence do
+RSpec.describe CooccurrenceJob, type: :job do
   before(:example) do
     @user = create(:user)
     @dataset = create(:full_dataset, working: true, user: @user)
@@ -20,20 +20,20 @@ RSpec.describe Jobs::Analysis::Cooccurrence do
 
   describe '.download?' do
     it 'is true' do
-      expect(Jobs::Analysis::Cooccurrence.download?).to be true
+      expect(described_class.download?).to be true
     end
   end
 
   describe '.num_datasets' do
     it 'is 1' do
-      expect(Jobs::Analysis::Cooccurrence.num_datasets).to eq(1)
+      expect(described_class.num_datasets).to eq(1)
     end
   end
 
   describe '.perform' do
     it 'throws an exception if the type is invalid' do
       expect {
-        Jobs::Analysis::Cooccurrence.perform(
+        described_class.new.perform(
           @user.to_param,
           @dataset.to_param,
           @task.to_param,
@@ -51,7 +51,7 @@ RSpec.describe Jobs::Analysis::Cooccurrence do
     types.product(words_list).product(nums).each do |((type, words), (sym, val))|
       it "runs with type '#{type}' and words '#{words}'" do
         expect {
-          Jobs::Analysis::Cooccurrence.perform(
+          described_class.new.perform(
             @user.to_param,
             @dataset.to_param,
             @task.to_param,
