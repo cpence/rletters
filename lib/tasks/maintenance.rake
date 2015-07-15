@@ -11,4 +11,14 @@ namespace :maintenance do
       ExpireTasksJob.perform_later
     end
   end
+
+  desc 'Print currently running queue sizes'
+  task :queue_list => :environment do
+    puts Que.job_stats.to_json
+  end
+
+  desc 'Print current queue worker statistics'
+  task :queue_workers => :environment do
+    puts Que.worker_states.to_json
+  end
 end
