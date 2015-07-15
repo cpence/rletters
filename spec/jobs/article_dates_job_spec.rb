@@ -28,9 +28,7 @@ RSpec.describe ArticleDatesJob, type: :job do
       @task_2 = create(:task, dataset: @dataset_2)
 
       described_class.new.perform(
-        @user.to_param,
-        @dataset_2.to_param,
-        @task_2.to_param,
+        @task_2,
         normalize_doc_counts: 'off')
       @task_2.reload
       @data = JSON.load(@task_2.result.file_contents(:original))
@@ -58,9 +56,7 @@ RSpec.describe ArticleDatesJob, type: :job do
   context 'when normalizing to the corpus' do
     before(:example) do
       described_class.new.perform(
-        @user.to_param,
-        @dataset.to_param,
-        @task.to_param,
+        @task,
         normalize_doc_counts: '1',
         normalize_doc_dataset: '')
       @task.reload
@@ -102,9 +98,7 @@ RSpec.describe ArticleDatesJob, type: :job do
                                                  user: @user)
 
       described_class.new.perform(
-        @user.to_param,
-        @dataset.to_param,
-        @task.to_param,
+        @task,
         normalize_doc_counts: '1',
         normalize_doc_dataset: @normalization_set.to_param)
       @task.reload
@@ -145,9 +139,7 @@ RSpec.describe ArticleDatesJob, type: :job do
       @normalization_set.save
 
       described_class.new.perform(
-        @user.to_param,
-        @dataset.to_param,
-        @task.to_param,
+        @task,
         normalize_doc_counts: '1',
         normalize_doc_dataset: @normalization_set.to_param)
       @task.reload

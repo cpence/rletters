@@ -260,9 +260,7 @@ RSpec.describe Datasets::TasksController, type: :controller do
     context 'when fetching a task download' do
       before(:example) do
         ExportCitationsJob.new.perform(
-          @user.to_param,
-          @dataset.to_param,
-          @task.to_param,
+          @task,
           format: 'bibtex'
         )
       end

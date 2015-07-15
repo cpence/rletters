@@ -13,19 +13,17 @@ class NamedEntitiesJob < CSVJob
   # This function saves out the NER data as a JSON hash, to be visualized
   # in a number of different ways by the job views.
   #
-  # @param [String] user_id the user whose dataset we are to work on
-  # @param [String] dataset_id the dataset to operate on
-  # @param [String] task_id the task we're working from
+  # @param [Datasets::Task] task the task we're working from
   # @return [void]
-  def perform(user_id, dataset_id, task_id)
-    standard_options(user_id, dataset_id, task_id)
+  def perform(task)
+    standard_options(task)
 
     analyzer = RLetters::Analysis::NamedEntities.new(
-      get_dataset(task_id),
-      ->(p) { get_task(task_id).at(p, 100, t('.progress_finding')) })
+      dataset,
+      ->(p) { task.at(p, 100, t('.progress_finding')) })
     analyzer.call
 
-    csv = write_csv(task_id, nil, '') do |out|
+    csv = write_csv(nil, '') do |out|
       out << [t('.type_column'), t('.hit_column')]
       analyzer.entity_references.each do |category, list|
         list.each do |hit|
@@ -43,7 +41,6 @@ class NamedEntitiesJob < CSVJob
     file.original_filename = 'named_entites.json'
     file.content_type = 'application/json'
 
-    task = get_task(task_id)
     task.result = file
     task.mark_completed
   end

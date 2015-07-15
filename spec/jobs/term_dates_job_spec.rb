@@ -29,9 +29,7 @@ RSpec.describe TermDatesJob, type: :job do
   describe('.perform') do
     before(:example) do
       described_class.new.perform(
-        @user.to_param,
-        @dataset.to_param,
-        @task.to_param,
+        @task,
         term: 'disease')
       @task.reload
       @data = JSON.load(@task.result.file_contents(:original))

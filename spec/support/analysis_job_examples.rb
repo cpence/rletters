@@ -3,11 +3,9 @@ require 'spec_helper'
 RSpec.shared_context 'perform job with params' do
   before(:example) do
     if job_params
-      described_class.new.perform(@user.to_param, @dataset.to_param,
-                                  @task.to_param, job_params)
+      described_class.new.perform(@task, job_params)
     else
-      described_class.new.perform(@user.to_param, @dataset.to_param,
-                                  @task.to_param)
+      described_class.new.perform(@task)
     end
   end
 end
@@ -32,11 +30,9 @@ RSpec.shared_examples_for 'an analysis job' do
       expect(UserMailer).to receive(:job_finished_email).with(@task.dataset.user.email, @task.to_param).and_return(mailer_ret)
 
       if job_params
-        described_class.new.perform(@user.to_param, @dataset.to_param,
-                                    @task.to_param, job_params)
+        described_class.new.perform(@task, job_params)
       else
-        described_class.new.perform(@user.to_param, @dataset.to_param,
-                                    @task.to_param)
+        described_class.new.perform(@task)
       end
 
       @task.reload

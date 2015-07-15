@@ -38,9 +38,7 @@ RSpec.describe NetworkJob, type: :job do
   context 'when all parameters are valid' do
     before(:example) do
       described_class.new.perform(
-        @user.to_param,
-        @dataset.to_param,
-        @task.to_param,
+        @task,
         word: 'diseases')
       @task.reload
     end

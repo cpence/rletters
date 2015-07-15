@@ -44,10 +44,7 @@ RSpec.describe NamedEntitiesJob, type: :job do
 
   context 'when all parameters are valid' do
     before(:example) do
-      described_class.new.perform(
-        @user.to_param,
-        @dataset.to_param,
-        @task.to_param)
+      described_class.new.perform(@task)
       @task.reload
     end
 

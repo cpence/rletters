@@ -46,11 +46,9 @@ module Datasets
 
       # Enqueue the job
       if @current_params.empty?
-        @klass.perform_later(current_user.to_param, @dataset.to_param,
-                             task.to_param)
+        @klass.perform_later(task)
       else
-        @klass.perform_later(current_user.to_param, @dataset.to_param,
-                             task.to_param, @current_params)
+        @klass.perform_later(task, @current_params)
       end
 
       if current_user.workflow_active

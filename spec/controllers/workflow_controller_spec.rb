@@ -2,7 +2,7 @@ require 'spec_helper'
 
 # Mock job class for the workflow controller
 class WorkflowJob < BaseJob
-  def perform(user_id, dataset_id, task_id); end
+  def perform(task); end
 end
 
 RSpec.describe WorkflowController, type: :controller do
@@ -170,8 +170,7 @@ RSpec.describe WorkflowController, type: :controller do
       task = create(:task, args.merge(dataset: dataset, finished_at: finished,
                                       job_type: 'WorkflowJob'))
 
-      WorkflowJob.perform_later(dataset.user.to_param, dataset.to_param,
-                                task.to_param)
+      WorkflowJob.perform_later(task)
 
       task
     end

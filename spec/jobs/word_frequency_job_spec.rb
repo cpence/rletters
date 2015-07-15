@@ -44,62 +44,38 @@ RSpec.describe WordFrequencyJob, type: :job do
   describe '#perform' do
     it 'accepts all the various valid parameters' do
       params_to_test =
-        [[@user.to_param,
-          @dataset.to_param,
-          @task.to_param,
-          { block_size: '100',
-            split_across: '1',
-            num_words: '0' }],
-         [@user.to_param,
-          @dataset.to_param,
-          @task.to_param,
-          { block_size: '100',
-            split_across: '1',
-            word_method: 'all' }],
-         [@user.to_param,
-          @dataset.to_param,
-          @task.to_param,
-          { block_size: '100',
-            split_across: '0',
-            num_words: '0' }],
-         [@user.to_param,
-          @dataset.to_param,
-          @task.to_param,
-          { num_blocks: '10',
-            split_across: '1',
-            num_words: '0' }],
-         [@user.to_param,
-          @dataset.to_param,
-          @task.to_param,
-          { num_blocks: '10',
-            split_across: '1',
-            num_words: '0',
-            inclusion_list: 'asdf,sdfhj,wert' }],
-         [@user.to_param,
-          @dataset.to_param,
-          @task.to_param,
-          { num_blocks: '10',
-            split_across: '1',
-            num_words: '0',
-            exclusion_list: 'asdf,sdfgh,qwert' }],
-         [@user.to_param,
-          @dataset.to_param,
-          @task.to_param,
-          { num_blocks: '1',
-            split_across: '1',
-            num_words: '0',
-            stop_list: 'en' }],
-         [@user.to_param,
-          @dataset.to_param,
-          @task.to_param,
-          { num_blocks: '1',
-            split_across: '1',
-            ngrams: '2',
-            all: '1' }]]
+        [{ block_size: '100',
+           split_across: '1',
+           num_words: '0' },
+         { block_size: '100',
+           split_across: '1',
+           word_method: 'all' },
+         { block_size: '100',
+           split_across: '0',
+           num_words: '0' },
+         { num_blocks: '10',
+           split_across: '1',
+           num_words: '0' },
+         { num_blocks: '10',
+           split_across: '1',
+           num_words: '0',
+           inclusion_list: 'asdf,sdfhj,wert' },
+         { num_blocks: '10',
+           split_across: '1',
+           num_words: '0',
+           exclusion_list: 'asdf,sdfgh,qwert' },
+         { num_blocks: '1',
+           split_across: '1',
+           num_words: '0',
+           stop_list: 'en' },
+         { num_blocks: '1',
+           split_across: '1',
+           ngrams: '2',
+           all: '1' }]
 
       expect {
         params_to_test.each do |params|
-          described_class.new.perform(*params)
+          described_class.new.perform(@task, params)
         end
       }.not_to raise_error
     end
@@ -107,9 +83,7 @@ RSpec.describe WordFrequencyJob, type: :job do
     context 'when all parameters are valid' do
       before(:example) do
         described_class.new.perform(
-          @user.to_param,
-          @dataset.to_param,
-          @task.to_param,
+          @task,
           block_size: '100',
           split_across: 'true',
           num_words: '0')
@@ -150,9 +124,7 @@ RSpec.describe WordFrequencyJob, type: :job do
         end
 
         described_class.new.perform(
-          @user.to_param,
-          @dataset.to_param,
-          @task.to_param,
+          @task,
           block_size: '100',
           split_across: 'true',
           num_words: '0')

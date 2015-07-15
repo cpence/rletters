@@ -6,9 +6,7 @@ class CooccurrenceJob < CSVJob
   # This saves its data out as a CSV file to be downloaded by the user
   # later.
   #
-  # @param [String] user_id the user whose dataset we are to work on
-  # @param [String] dataset_id the dataset to operate on
-  # @param [String] task_id the task we're working from
+  # @param [Datasets::Task] task the task we're working from
   # @param [Hash] options parameters for this job
   # @option options [String] :analysis_type the algorithm to use to
   #   analyze the significance of coocurrences.  Can be `'mi'` (for mutual
@@ -21,8 +19,8 @@ class CooccurrenceJob < CSVJob
   # @option options [String] :word the word to search for cooccurrences
   #   with
   # @return [void]
-  def perform(user_id, dataset_id, task_id, options)
-    standard_options(user_id, dataset_id, task_id)
+  def perform(task, options)
+    standard_options(task)
 
     options.symbolize_keys!
     fail ArgumentError, 'No cooccurrence word provided' unless options[:word]
@@ -56,18 +54,17 @@ class CooccurrenceJob < CSVJob
     end
 
     analyzer = klass.new(
-      get_dataset(task_id),
+      dataset,
       num_pairs,
       word,
       window,
       stemming,
-      ->(p) { get_task(task_id).at(p, 100, t('.progress_computing')) }
+      ->(p) { task.at(p, 100, t('.progress_computing')) }
     )
     grams = analyzer.call
 
     # Save out all the data
-    write_csv_and_complete(task_id, nil,
-                           t('.subheader', test: algorithm)) do |csv|
+    write_csv_and_complete(nil, t('.subheader', test: algorithm)) do |csv|
       csv << [t('.pair'), column]
       grams.each do |w, v|
         csv << [w, v]

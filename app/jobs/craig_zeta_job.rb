@@ -14,31 +14,27 @@ class CraigZetaJob < CSVJob
   # later.  As of yet, we don't offer display in the browser; I think this
   # data is so complex that you'll want to pull it up on a spreadsheet.
   #
-  # @param [String] user_id the user whose dataset we are to work on
-  # @param [String] dataset_id the dataset to operate on
-  # @param [String] task_id the task we're working from
+  # @param [Datasets::Task] task the task we're working from
   # @param [Hash] options parameters for this job
   # @option options [Array<String>] :other_datasets the dataset to compare
   #   with (should have one member in array)
   # @return [void]
-  def perform(user_id, dataset_id, task_id, options)
-    standard_options(user_id, dataset_id, task_id)
+  def perform(task, options)
+    standard_options(task)
 
     options.symbolize_keys!
     other_datasets = options[:other_datasets]
     fail ArgumentError, 'Wrong number of other datasets provided' unless other_datasets.size == 1
-    dataset = get_dataset(task_id)
-    dataset_2 = get_user(task_id).datasets.active.find(other_datasets[0])
+    dataset_2 = user.datasets.active.find(other_datasets[0])
 
     # Get the data
     analyzer = RLetters::Analysis::CraigZeta.new(
       dataset, dataset_2,
-      -> (p) { get_task(task_id).at(p, 100, t('.progress_computing')) })
+      -> (p) { task.at(p, 100, t('.progress_computing')) })
     analyzer.call
 
     # Save out all the data
-    csv = write_csv(task_id,
-                    t('.csv_header', name_1: dataset.name,
+    csv = write_csv(t('.csv_header', name_1: dataset.name,
                                      name_2: dataset_2.name), '') do |out|
       # Output the marker words
       out << [t('.marker_header', name: dataset.name),
@@ -84,7 +80,6 @@ class CraigZetaJob < CSVJob
     file.original_filename = 'craig_zeta.json'
     file.content_type = 'application/json'
 
-    task = get_task(task_id)
     task.result = file
     task.mark_completed
   end

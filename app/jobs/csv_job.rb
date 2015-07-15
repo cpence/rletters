@@ -10,9 +10,8 @@ class CSVJob < BaseJob
   # data, and then saves the file. The two parameters let you override the
   # default header and subheader.
   #
-  # @param [String] task_id The task for which we're writing
   # @param [String] header The header to write. If not specified, defaults
-  #   to +t('.header', name: get_task(task_id).dataset.name)+.
+  #   to +t('.header', name: dataset.name)+.
   # @param [String] subheader The subheader to write. If not specified,
   #   defaults to +t('.subheader')+.
   # @return [undefined]
@@ -20,9 +19,9 @@ class CSVJob < BaseJob
   #   the data
   # @yieldparam [CSV] csv The object to write data into
   # @yieldreturn [undefined] Unused
-  def write_csv(task_id, header = nil, subheader = nil)
+  def write_csv(header = nil, subheader = nil)
     CSV.generate do |csv|
-      csv << [header || t('.header', name: get_task(task_id).dataset.name)]
+      csv << [header || t('.header', name: dataset.name)]
       csv << [subheader || t('.subheader')]
       csv << ['']
 
@@ -38,9 +37,8 @@ class CSVJob < BaseJob
   # This function calls +write_csv+ and then saves the result into the task
   # as its downloadable result file.
   #
-  # @param [String] task_id The ID of the task that we should save into
   # @param [String] header The header to write. If not specified, defaults
-  #   to +t('.header', name: get_task(task_id).dataset.name)+.
+  #   to +t('.header', name: dataset.name)+.
   # @param [String] subheader The subheader to write. If not specified,
   #   defaults to +t('.subheader')+.
   # @return [undefined]
@@ -48,8 +46,8 @@ class CSVJob < BaseJob
   #   the data
   # @yieldparam [CSV] csv The object to write data into
   # @yieldreturn [undefined] Unused
-  def write_csv_and_complete(task_id, header = nil, subheader = nil)
-    csv_string = write_csv(task_id, header, subheader) do |csv|
+  def write_csv_and_complete(header = nil, subheader = nil)
+    csv_string = write_csv(header, subheader) do |csv|
       yield(csv)
     end
 
@@ -59,7 +57,6 @@ class CSVJob < BaseJob
     file.original_filename = 'results.csv'
     file.content_type = 'text/csv'
 
-    task = get_task(task_id)
     task.result = file
     task.mark_completed
   end

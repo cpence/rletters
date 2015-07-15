@@ -28,9 +28,7 @@ RSpec.describe ExportCitationsJob, type: :job do
     it 'raises an exception' do
       expect {
         described_class.new.perform(
-          @user.to_param,
-          @dataset.to_param,
-          @task.to_param,
+          @task,
           format: 'notaformat')
       }.to raise_error(ArgumentError)
     end
@@ -39,9 +37,7 @@ RSpec.describe ExportCitationsJob, type: :job do
   context 'when all parameters are valid' do
     before(:example) do
       described_class.new.perform(
-        @user.to_param,
-        @dataset.to_param,
-        @task.to_param,
+        @task,
         format: 'bibtex')
       @task.reload
     end

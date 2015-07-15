@@ -23,19 +23,8 @@ class BaseJob < ActiveJob::Base
 
   # Try to rescue from everything, setting the failed bit
   rescue_from(Exception) do |e|
-    # Usually, the arguments are (user_id, dataset_id, task_id, ...), and so
-    # task_id is self.arguments[2]. Try that here.
-    #
-    # FIXME GLOBALID WILL BREAK THIS
-    # FIXME test this code
-    task_id = arguments[2]
-    if task_id
-      begin
-        Datasets::Task.find(task_id).mark_failed
-      rescue ActiveRecord::RecordNotFound
-        # Can't do anything, don't bother
-      end
-    end
+    task = arguments[0]
+    task.mark_failed if task.is_a?(Datasets::Task)
   end
 
   # Returns true if this job can be run right now
@@ -132,6 +121,28 @@ class BaseJob < ActiveJob::Base
 
   protected
 
+  # Access the task, but only if it hasn't been deleted
+  #
+  # @return [Datasets::Task] the task we're working on
+  def task
+    check_task
+    @task
+  end
+
+  # Access the dataset, but only if the job hasn't been deleted
+  #
+  # @return [Dataset] the dataset we are working on
+  def dataset
+    task.dataset
+  end
+
+  # Access the user, but only if the job hasn't been deleted
+  #
+  # @return [User] the user whose dataset we are working on
+  def user
+    dataset.user
+  end
+
   # Sets a variety of standard option variables
   #
   # Almost all analysis jobs have a `user_id`, `dataset_id`, and `task_id`
@@ -139,42 +150,22 @@ class BaseJob < ActiveJob::Base
   # and saves the name of the task to the content of the `.short_desc`
   # translation key. Finally, it starts the progress measurement.
   #
-  # @param [String] user_id the user whose dataset we are to work on
-  # @param [String] dataset_id the dataset to operate on
-  # @param [String] task_id the task we're working from
+  # @param [Datasets::Task] task the task we're working from
   # @return [undefined]
-  def standard_options(user_id, dataset_id, task_id)
-    user = User.find(user_id)
-    dataset = user.datasets.find(dataset_id)
-    task = dataset.tasks.find(task_id)
+  def standard_options(task)
+    @task_id = task.id
+    @task = task
 
-    task.name = t('.short_desc')
-    task.save
+    @task.name = t('.short_desc')
+    @task.save
 
-    task.at(0, 100, t('common.progress_initializing'))
+    @task.at(0, 100, t('common.progress_initializing'))
   end
 
-  # Returns the task object, possibly throwing an exception
-  #
-  # At any point, we could get a request to kill the current task, which is
-  # expressed by deleting the task out from under us. To that end, we
-  # always check the task before using it.
-  #
-  # @return [Datasets::Task] the task, if not deleted
-  def get_task(task_id)
-    fail JobKilledError unless Datasets::Task.exists?(task_id)
-    Datasets::Task.find(task_id)
-  end
+  private
 
-  # Returns the dataset object, possibly throwing an exception
-  # @return [Dataset] the dataset, if we haven't been killed
-  def get_dataset(task_id)
-    get_task(task_id).dataset
-  end
-
-  # Returns the user object, possibly throwing an exception
-  # @return [User] the user, if we haven't been killed
-  def get_user(task_id)
-    get_dataset(task_id).user
+  # Checks to see if the task has been deleted, and raises a JobKilledError
+  def check_task
+    fail JobKilledError unless Datasets::Task.exists?(@task_id)
   end
 end

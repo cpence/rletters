@@ -36,9 +36,7 @@ RSpec.describe CraigZetaJob, type: :job do
   context 'when all parameters are valid' do
     before(:example) do
       described_class.new.perform(
-        @user.to_param,
-        @dataset.to_param,
-        @task.to_param,
+        @task,
         other_datasets: [@dataset_2.to_param],
         normalize_doc_counts: 'off')
       @task.reload

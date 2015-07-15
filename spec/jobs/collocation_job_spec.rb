@@ -58,9 +58,7 @@ RSpec.describe CollocationJob, type: :job do
     it 'throws an exception if the type is invalid' do
       expect {
         described_class.new.perform(
-          @user.to_param,
-          @dataset.to_param,
-          @task.to_param,
+          @task,
           analysis_type: 'nope',
           num_pairs: '10')
       }.to raise_error(ArgumentError)
@@ -73,9 +71,7 @@ RSpec.describe CollocationJob, type: :job do
       expect(RLetters::Analysis::Collocation::PartsOfSpeech).not_to receive(:new)
 
       described_class.new.perform(
-        @user.to_param,
-        @dataset.to_param,
-        @task.to_param,
+        @task,
         analysis_type: 'pos',
         num_pairs: '10')
     end
@@ -86,9 +82,7 @@ RSpec.describe CollocationJob, type: :job do
       it "runs with type '#{type}'" do
         expect {
           described_class.new.perform(
-            @user.to_param,
-            @dataset.to_param,
-            @task.to_param,
+            @task,
             analysis_type: type.to_s,
             sym => val)
         }.not_to raise_error
