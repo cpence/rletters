@@ -27,7 +27,7 @@ RSpec.shared_examples_for 'an analysis job' do
       mailer_ret = double
       expect(mailer_ret).to receive(:deliver_later).with(queue: :maintenance)
 
-      expect(UserMailer).to receive(:job_finished_email).with(@task.dataset.user.email, @task.to_param).and_return(mailer_ret)
+      expect(UserMailer).to receive(:job_finished_email).with(@task.dataset.user.email, @task).and_return(mailer_ret)
 
       if job_params
         described_class.new.perform(@task, job_params)

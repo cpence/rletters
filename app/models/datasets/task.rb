@@ -128,7 +128,7 @@ module Datasets
 
       # Send the user an e-mail
       UserMailer
-        .job_finished_email(dataset.user.email, to_param)
+        .job_finished_email(dataset.user.email, self)
         .deliver_later(queue: :maintenance)
     end
   end

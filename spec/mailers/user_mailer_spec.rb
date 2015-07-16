@@ -5,7 +5,7 @@ RSpec.describe UserMailer, type: :mailer do
     before(:example) do
       @task = create(:task)
 
-      @mail = UserMailer.job_finished_email('user@user.com', @task.to_param)
+      @mail = UserMailer.job_finished_email('user@user.com', @task)
     end
 
     it 'sets the correct subject' do

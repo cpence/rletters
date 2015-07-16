@@ -12,14 +12,14 @@ class UserMailer < ActionMailer::Base
   # E-mail users that their jobs have finished
   #
   # @param [String] email the address to send the mail
-  # @param [String] task_id the ID of the task that just finished
+  # @param [Datasets::Task] task the task that just finished
   # @return [void]
-  def job_finished_email(email, task_id)
-    @task = Datasets::Task.find(task_id)
+  def job_finished_email(email, task)
+    # Only way to get locals into the mail templates is to set instance vars
+    @task = task
 
     mail(from: Admin::Setting.app_email,
          to: email,
-         task: @task,
          subject: I18n.t('user_mailer.job_finished.subject',
                          app_name: Admin::Setting.app_name))
   end
