@@ -127,6 +127,22 @@ RSpec.describe WorkflowController, type: :controller do
         end
       end
 
+      context 'when asked to unlink an invalid dataset' do
+        before(:example) do
+          @user.workflow_active = true
+          @user.workflow_class = 'ArticleDatesJob'
+          @user.workflow_datasets = [@dataset.to_param]
+          @user.save
+        end
+
+        it 'raises an error' do
+          expect {
+            get(:activate, class: 'ArticleDatesJob',
+                           unlink_dataset_id: '999')
+          }.to raise_error(ActiveRecord::RecordNotFound)
+        end
+      end
+
       context 'when asked to unlink a dataset with one dataset' do
         before(:example) do
           @user.workflow_active = true

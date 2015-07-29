@@ -10,13 +10,18 @@ RSpec.describe NetworkJob, type: :job do
 
     # The network code loads the English stop list
     @stop_list = create(:stop_list)
-  end
 
-  before(:each) do
     # Don't run the analyses
+    nodes = [double(RLetters::Analysis::Network::Node, id: 1, words: 'test'),
+             double(RLetters::Analysis::Network::Node, id: 2, words: 'yes')]
+    edges = [double(RLetters::Analysis::Network::Edge,
+                    one: 'test', two: 'yes', weight: 1)]
     mock = double(RLetters::Analysis::Network::Graph,
-                  nodes: [], edges: [], max_edge_weight: 0)
-    allow(RLetters::Analysis::Network::Graph).to receive(:new).and_return(mock)
+                  nodes: nodes, edges: edges, max_edge_weight: 2)
+    allow(RLetters::Analysis::Network::Graph).to receive(:new) do |_, _, _, _, p|
+      p.call(100)
+      mock
+    end
   end
 
   it_should_behave_like 'an analysis job' do
@@ -56,6 +61,7 @@ RSpec.describe NetworkJob, type: :job do
       hash = JSON.load(@task.result.file_contents(:original))
       expect(hash['name']).to eq('Dataset')
       expect(hash['word']).to eq('diseases')
+      expect(hash['d3_links'][0]['strength']).to eq(0.5)
     end
   end
 end

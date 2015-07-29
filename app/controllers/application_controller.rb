@@ -24,9 +24,8 @@ class ApplicationController < ActionController::Base
   #
   # @return [UserDecorator] the decorated user
   def current_user
-    @current_user ||= warden.authenticate(scope: :user)
-    @decorated_current_user ||=
-        @current_user && UserDecorator.decorate(@current_user)
+    return nil unless current_devise_user
+    @decorated_current_user ||= UserDecorator.decorate(current_devise_user)
   end
 
   # Return the current user, not decorated

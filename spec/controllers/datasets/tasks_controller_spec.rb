@@ -98,10 +98,10 @@ RSpec.describe Datasets::TasksController, type: :controller do
     end
 
     context 'when two datasets are needed and one is provided' do
-      it 'loads successfully' do
+      it 'raises and error' do
         @dataset_2 = create(:full_dataset, user: @user, working: true)
         expect {
-          get :new, dataset_id: @dataset.to_param, class: 'CraigZeta'
+          get :new, dataset_id: @dataset.to_param, class: 'CraigZetaJob'
         }.to raise_error(ArgumentError)
       end
     end
@@ -134,6 +134,25 @@ RSpec.describe Datasets::TasksController, type: :controller do
         expect {
           post :create, dataset_id: @disabled.to_param, class: 'ArticleDates'
         }.to raise_error(ActiveRecord::RecordNotFound)
+      end
+    end
+
+    context 'when a valid class with no params is passed' do
+      it 'does not raise an exception' do
+        expect {
+          post :create, dataset_id: @dataset.to_param, class: 'NamedEntitiesJob'
+        }.not_to raise_error
+      end
+
+      it 'enqueues a job' do
+        expect {
+          post :create, dataset_id: @dataset.to_param, class: 'NamedEntitiesJob'
+        }.to enqueue_a(NamedEntitiesJob)
+      end
+
+      it 'redirects to the dataset page' do
+        post :create, dataset_id: @dataset.to_param, class: 'NamedEntitiesJob'
+        expect(response).to redirect_to(dataset_path(@dataset))
       end
     end
 

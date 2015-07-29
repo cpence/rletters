@@ -51,12 +51,6 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable, :recoverable,
          :rememberable, :trackable, :validatable
 
-  def send_devise_notification(notification, *args)
-    devise_mailer
-      .send(notification, self, *args)
-      .deliver_later(queue: :maintenance)
-  end
-
   validates :name, presence: true
   validates :per_page, presence: true,
                        numericality: { only_integer: true },
@@ -67,6 +61,21 @@ class User < ActiveRecord::Base
 
   has_many :datasets
   has_many :libraries, class_name: 'Users::Library'
+
+  # Override the Devise e-mail delivery logic to queue mail delivery
+  #
+  # We tap into this method to make sure that e-mails from Devise are
+  # delivered in the background, on the maintenance queue.
+  #
+  # @param [Symbol] notification the notification to be sent
+  # @param [Array] args the arguments for the message
+  # :nocov:
+  def send_devise_notification(notification, *args)
+    devise_mailer
+      .send(notification, self, *args)
+      .deliver_later(queue: :maintenance)
+  end
+  # :nocov:
 
   # Parameter sanitizer class for regular users
   #
