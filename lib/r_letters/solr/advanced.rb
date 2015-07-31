@@ -61,6 +61,7 @@ module RLetters
 
       # Convert from a passed field parameter to a Solr field parameter
       #
+      # @param [String] field the field parameter from params
       # @return [Symbol] the Solr field to search
       def self.parse_field(field)
         return 'year' if field == 'year_ranges'

@@ -47,7 +47,7 @@ module RLetters
 
       # Reset the dataset segmenter
       #
-      # @return [undefined]
+      # @return [void]
       def reset!
         @dfs = {}
         @document_segmenter.reset!

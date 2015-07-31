@@ -30,7 +30,7 @@ module RLetters
 
       # Reset to initial state in the word lister
       #
-      # @return [undefined]
+      # @return [void]
       def reset!
         @dfs = {}
       end

@@ -128,7 +128,7 @@ module RLetters
         #
         # @param [Dataset] dataset the dataset to analyze
         # @param [Array<String>] stop_words stop words to remove, if any
-        # @return [undefined]
+        # @return [void]
         def create_word_list(dataset, stop_words)
           # Create a list of lowercase, stemmed words
           @progress && @progress.call(1)
@@ -150,7 +150,7 @@ module RLetters
         # sliding window.
         #
         # @param [Integer] gap the gap size to use
-        # @return [undefined]
+        # @return [void]
         def add_nodes_for_gap(gap)
           @words.each_cons(gap).each_with_index do |gap_words, i|
             # Get the stemmed words to go with the un-stemmed words

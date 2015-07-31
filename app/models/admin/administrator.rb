@@ -20,6 +20,7 @@ module Admin
     #
     # @param [Symbol] notification the notification to be sent
     # @param [Array] args the arguments for the message
+    # @return [void]
     # :nocov:
     def send_devise_notification(notification, *args)
       devise_mailer

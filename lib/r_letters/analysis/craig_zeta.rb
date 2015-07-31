@@ -41,7 +41,7 @@ module RLetters
       #
       # All results are returned in the member attributes.
       #
-      # @return [undefined]
+      # @return [void]
       def call
         create_analyzers
         compute_block_counts
@@ -60,7 +60,7 @@ module RLetters
       # This function sets the instance variables +@analyzer_1+ and
       # +@analyzer_2+, corresponding to the two datasets.
       #
-      # @return [undefined]
+      # @return [void]
       def create_analyzers
         ds = RLetters::Documents::Segments.new(nil,
                                                block_size: 500,
@@ -84,7 +84,7 @@ module RLetters
       # The instance variable +@block_counts+ will be filled in with the
       # number of 500-word blocks in which each word in the dataset appears.
       #
-      # @return [undefined]
+      # @return [void]
       def compute_block_counts
         @progress && @progress.call(50)
 
@@ -114,7 +114,7 @@ module RLetters
       # sorted descending. The first and last 1000 marker words will be saved
       # in +@dataset_1_markers+ and +@dataset_2_markers+.
       #
-      # @return [undefined]
+      # @return [void]
       def compute_zeta_scores
         zeta_hash = {}
         total = @block_counts.size
@@ -149,7 +149,7 @@ module RLetters
       # dataset 2. That gives you an X-Y coordinate for a point, which when
       # graphed shows you the separation between the datasets.
       #
-      # @return [undefined]
+      # @return [void]
       def compute_graph_points
         @progress && @progress.call(80)
 

@@ -3,7 +3,7 @@ module RLetters
   module Analysis
     # Code for counting the occurrences of a term in a dataset, grouped
     class CountTermsByField
-      # Create a new object for counting terms in a datset by field
+      # Create a new object for counting terms in a dataset by field
       #
       # Pass the term that you're interested to analyze, and the dataset that
       # you'd like to draw the term from (or `nil` to indicate the entire
@@ -11,7 +11,7 @@ module RLetters
       #
       # @param [String] term the term of interest
       # @param [Dataset] dataset the dataset to analyze (or `nil`)
-      # @param [Proc] progress If set, a function to call with a percentage of
+      # @param [Proc] progress if set, a function to call with a percentage of
       #   completion (one `Integer` parameter)
       def initialize(term, dataset = nil, progress = nil)
         @term = term

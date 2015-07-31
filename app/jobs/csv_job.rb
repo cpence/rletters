@@ -14,11 +14,10 @@ class CSVJob < BaseJob
   #   to +t('.header', name: dataset.name)+.
   # @param [String] subheader The subheader to write. If not specified,
   #   defaults to +t('.subheader')+.
-  # @return [undefined]
+  # @return [void]
   # @yield [csv] Yields a +CSV+ object to the block, for writing out
   #   the data
   # @yieldparam [CSV] csv The object to write data into
-  # @yieldreturn [undefined] Unused
   def write_csv(header = nil, subheader = nil)
     CSV.generate do |csv|
       csv << [header || t('.header', name: dataset.name)]
@@ -41,11 +40,10 @@ class CSVJob < BaseJob
   #   to +t('.header', name: dataset.name)+.
   # @param [String] subheader The subheader to write. If not specified,
   #   defaults to +t('.subheader')+.
-  # @return [undefined]
+  # @return [void]
   # @yield [csv] Yields a +CSV+ object to the block, for writing out
   #   the data
   # @yieldparam [CSV] csv The object to write data into
-  # @yieldreturn [undefined] Unused
   def write_csv_and_complete(header = nil, subheader = nil)
     csv_string = write_csv(header, subheader) do |csv|
       yield(csv)

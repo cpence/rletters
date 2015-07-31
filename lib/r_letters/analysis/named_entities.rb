@@ -32,7 +32,7 @@ module RLetters
       #
       # This function fills out the +entity_references+ attribute.
       #
-      # @return [undefined]
+      # @return [void]
       def call
         return if Admin::Setting.nlp_tool_path.blank?
 

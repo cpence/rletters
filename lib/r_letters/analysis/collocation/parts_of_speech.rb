@@ -77,12 +77,12 @@ module RLetters
         # This function detects collocations which match the given array of
         # regular expressions, and saves the results in the +@result+ hash.
         #
-        # @param [Array<String>] tagged The words, tagged by the NLP parts of
-        #   speech tagger
+        # @param [Array<String>] tagged_words The words, tagged by the NL
+        #   parts of speech tagger
         # @param [Integer] size The size of n-grams to be detected by these
         #   regular expressions
         # @param [Array<Regexp>] regexes The array of regexes to match
-        # @return [undefined]
+        # @return [void]
         def search_for_regexes(tagged_words, size, regexes)
           tagged_words.each_cons(size).map do |t|
             next if @word && !t.any? { |w| w.start_with?("#{@word}_") }

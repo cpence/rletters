@@ -55,6 +55,10 @@ module Datasets
     scope :active, -> { not_finished.where(failed: false) }
     scope :failed, -> { not_finished.where(failed: true) }
 
+    # The classes that cannot actually be started as analysis jobs.
+    #
+    # This array includes both base classes and jobs that are started by the UI
+    # or in maintenance queues.
     DISALLOWED_CLASSES = [BaseJob, CSVJob, CreateDatasetJob,
                           DestroyDatasetJob, ExpireTasksJob]
 
@@ -82,6 +86,7 @@ module Datasets
     # @param [Numeric] current the current value of the progress counter
     # @param [Numeric] total the total value for the progress counter
     # @param [String] message the current progress message
+    # @return [void]
     def at(current, total, message)
       return if DateTime.now.to_i - self.last_progress.to_i < 5
 
@@ -93,6 +98,8 @@ module Datasets
     end
 
     # Mark this task as completed
+    #
+    # @return [void]
     def mark_completed
       self.failed = false
       self.finished_at = DateTime.current
@@ -105,6 +112,9 @@ module Datasets
     end
 
     # Mark the given task as failed
+    #
+    # @param [String] message if set, will use a customized failure message
+    # @return [void]
     def mark_failed(message = nil)
       self.failed = true
 

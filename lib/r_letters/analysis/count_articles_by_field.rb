@@ -3,13 +3,13 @@ module RLetters
   module Analysis
     # Code for counting the number of articles in a dataset, grouped by a field
     class CountArticlesByField
-      # Create a new object for counting articles in a datset by field
+      # Create a new object for counting articles in a dataset by field
       #
       # Pass the dataset you'd like to count, or `nil` to indicate the entire
       # corpus.
       #
       # @param [Dataset] dataset the dataset to analyze (or nil)
-      # @param [Proc] progress If set, a function to call with a percentage of
+      # @param [Proc] progress if set, a function to call with a percentage of
       #   completion (one Integer parameter)
       def initialize(dataset = nil, progress = nil)
         @dataset = dataset

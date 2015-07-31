@@ -151,7 +151,7 @@ class BaseJob < ActiveJob::Base
   # translation key. Finally, it starts the progress measurement.
   #
   # @param [Datasets::Task] task the task we're working from
-  # @return [undefined]
+  # @return [void]
   def standard_options(task)
     @task_id = task.id
     @task = task
@@ -164,7 +164,10 @@ class BaseJob < ActiveJob::Base
 
   private
 
-  # Checks to see if the task has been deleted, and raises a JobKilledError
+  # Checks to see if the task has been deleted
+  #
+  # @raise [JobKilledError] if the task has been deleted
+  # @return [void]
   def check_task
     fail JobKilledError unless Datasets::Task.exists?(@task_id)
   end
