@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 RSpec.feature 'User edits their account settings', type: :feature do
   scenario 'when logged in' do

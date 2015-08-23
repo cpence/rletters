@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 # We need to run a variety of tests that have access to a helper context (e.g.,
 # to test core_ext patches), but we don't actually *have* an application

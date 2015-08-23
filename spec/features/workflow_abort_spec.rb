@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 RSpec.feature 'User aborts the workflow construction', type: :feature do
   scenario 'when a workflow is partially built' do

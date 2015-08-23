@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 RSpec.describe DatasetsController, type: :controller do
   before(:example) do

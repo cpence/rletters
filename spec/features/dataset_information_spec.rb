@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 RSpec.feature 'Viewing information about a dataset', type: :feature do
   scenario 'when viewing basic information' do

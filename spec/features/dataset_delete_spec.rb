@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 RSpec.feature 'Deleting a dataset', type: :feature do
   scenario 'when deleting a dataset' do

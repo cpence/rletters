@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 # Mock jobs for testing the base code
 class MockJob < BaseJob; end

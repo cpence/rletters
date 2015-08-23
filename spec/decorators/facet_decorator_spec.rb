@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 RSpec.describe FacetDecorator, type: :decorator do
   before(:example) do

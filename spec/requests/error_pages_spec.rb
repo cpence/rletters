@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 RSpec.describe 'Error pages', type: :request do
   it 'renders the 404 template' do

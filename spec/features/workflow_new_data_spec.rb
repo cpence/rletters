@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 RSpec.feature 'User runs workflow on a new dataset', type: :feature do
   scenario 'when linking one dataset' do

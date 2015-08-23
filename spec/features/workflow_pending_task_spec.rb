@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 RSpec.feature 'User fetching a pending task', type: :feature do
   scenario 'when task is not finished' do

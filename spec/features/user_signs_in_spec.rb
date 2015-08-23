@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 RSpec.feature 'User signs into their account', type: :feature do
   scenario 'when I have no account' do

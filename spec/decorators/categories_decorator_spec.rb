@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 RSpec.describe CategoriesDecorator, type: :decorator do
   include Capybara::RSpecMatchers

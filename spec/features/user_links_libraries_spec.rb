@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 RSpec.feature 'User adds links to their own libraries', type: :feature do
   scenario 'when adding automatically' do

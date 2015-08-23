@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 RSpec.feature 'Search result is sorted', type: :feature do
   scenario 'when changing the order' do

@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 RSpec.feature 'User sets a custom citation style', type: :feature do
   scenario 'when logged in' do

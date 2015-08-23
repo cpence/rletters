@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 RSpec.describe RLetters::Solr::Connection, type: :request do
   # This is such a vital security requirement that we test it even though

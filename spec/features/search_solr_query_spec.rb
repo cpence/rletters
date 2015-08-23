@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 RSpec.feature 'Searching with a Solr query', type: :feature do
   scenario 'when running an author search' do

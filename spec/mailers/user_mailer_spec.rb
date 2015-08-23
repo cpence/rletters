@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 RSpec.describe UserMailer, type: :mailer do
   describe '#job_finished_email' do

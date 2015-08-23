@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 RSpec.describe DeviseMailer, type: :mailer do
   # I've customized this view, so here's a spec for it

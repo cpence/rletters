@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 RSpec.describe ExpireTasksJob, type: :job do
   before(:example) do

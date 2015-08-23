@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 RSpec.feature 'User signs up for an account', type: :feature do
   scenario 'with valid data' do

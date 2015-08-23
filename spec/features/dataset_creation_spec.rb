@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 RSpec.feature 'Creating a dataset from a search', type: :feature do
   scenario 'when searching for articles' do

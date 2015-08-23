@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 # Mock job for task controller tests
 class ControllerJob < BaseJob

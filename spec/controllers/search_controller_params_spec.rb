@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 RSpec.describe SearchController, type: :controller do
   describe '#search_params_to_solr_query' do

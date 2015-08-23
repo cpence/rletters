@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 RSpec.describe Admin::AdminAdministratorsController, type: :controller do
   # Normally I hate turning this on, but in ActiveAdmin, the view logic *is*

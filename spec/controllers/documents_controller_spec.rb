@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 RSpec.describe DocumentsController, type: :controller do
   describe '#export' do

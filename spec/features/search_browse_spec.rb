@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 RSpec.feature 'Searching to browse the database', type: :feature do
   scenario 'when loading the default page' do

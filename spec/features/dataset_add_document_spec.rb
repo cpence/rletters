@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 RSpec.feature 'Adding a dataset to a search', type: :feature do
   scenario 'when adding a single article' do

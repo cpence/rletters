@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 RSpec.describe UnapiController, type: :controller do
   # We're not testing the views separately here, since what matters is how

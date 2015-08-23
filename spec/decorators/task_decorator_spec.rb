@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 RSpec.describe TaskDecorator, type: :decorator do
   describe '#status_message' do

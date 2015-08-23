@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 RSpec.describe 'Search API', type: :request do
   it 'loads a basic search successfully' do

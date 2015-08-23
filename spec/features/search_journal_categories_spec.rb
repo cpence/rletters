@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 RSpec.feature 'Searching with journal categories', type: :feature do
   before(:each) do

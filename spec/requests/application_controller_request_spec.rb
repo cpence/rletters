@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 RSpec.describe ApplicationController, type: :request do
   describe '#after_sign_in_path_for' do

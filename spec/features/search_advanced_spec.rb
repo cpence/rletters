@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 RSpec.feature 'Searching on the advanced page', type: :feature do
   scenario 'when searching for an author' do

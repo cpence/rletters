@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 # Mock job class for the workflow controller
 class WorkflowJob < BaseJob
