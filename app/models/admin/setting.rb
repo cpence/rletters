@@ -51,7 +51,7 @@ module Admin
 
     # @return [String] The default URL for the Solr server
     def self.default_solr_server_url
-      'http://127.0.0.1:8983/'
+      'http://127.0.0.1:8983/solr'
     end
 
     # @return [Integer] The default timeout value for Solr, in seconds
