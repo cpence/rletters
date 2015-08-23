@@ -1,5 +1,5 @@
 # SimpleCov configuration has to be the very first thing we load
-require 'coverage'
+require 'simplecov_helper'
 
 RSpec.configure do |config|
   # Switch to the new RSpec syntax

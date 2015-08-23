@@ -17,5 +17,3 @@ before_script:
   - bundle exec rake db:create db:structure:load
 
 script: bundle exec rspec
-
-after_script: 'pushd vendor/solr && ./stop && popd'
