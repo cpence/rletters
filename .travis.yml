@@ -3,10 +3,15 @@ cache: bundler
 rvm: 2.2.3
 sudo: false
 
+# Set the display value and the CodeClimate repository token
 env:
   global:
     - DISPLAY=":99.0"
     - secure: Lv1neEs259UnYFTpbBOja4qhbdDnDCryGiZ8ycLkBGlc7PioiSiVqCo1Py+pJrpYenA3xrguv/Z5hdNjJ3fm4dl8GDrV9kgjtNe8E388kitISpimAi5QuwvxfJS8YiRPKm9VSfs3laMlSVXjhMdlAW1PPcrcElddv+r+jMpJ9uM=
+
+# Enable PGSQL 9.3 so that we have the 'json' type available
+addons:
+  postgresql: 9.3
 
 bundler_args: "--without production development --jobs 3 --retry 3"
 before_script:
