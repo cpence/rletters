@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 # Rails
 gem 'rails', '~> 4.2'
-gem 'globalid', github: 'rails/globalid' # >= 0.3.6
+gem 'globalid', '>= 0.3.6'
 
 # Database and related tools
 gem 'pg'
