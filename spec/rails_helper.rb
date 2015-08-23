@@ -1,3 +1,5 @@
+# SimpleCov configuration has to be the very first thing we load
+require 'coverage'
 
 ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)

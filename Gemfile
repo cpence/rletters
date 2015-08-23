@@ -82,6 +82,7 @@ group :test do
 
   gem 'webmock', require: false
 
+  gem 'simplecov', require: false
   gem 'codeclimate-test-reporter', require: false
 end
 
