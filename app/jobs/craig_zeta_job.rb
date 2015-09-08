@@ -1,6 +1,8 @@
 
 # Compare two datasets using the Craig Zeta algorithm
-class CraigZetaJob < CSVJob
+class CraigZetaJob < BaseJob
+  include RLetters::Visualization::CSV
+
   # Return how many datasets this job requires
   #
   # @return [Integer] number of datasets needed to perform this job
@@ -34,31 +36,30 @@ class CraigZetaJob < CSVJob
     analyzer.call
 
     # Save out all the data
-    csv = write_csv(t('.csv_header', name_1: dataset.name,
-                                     name_2: dataset_2.name), '') do |out|
+    csv = csv_with_header(t('.csv_header', name_1: dataset.name,
+                                           name_2: dataset_2.name)) do |csv|
       # Output the marker words
-      out << [t('.marker_header', name: dataset.name),
-              t('.marker_header', name: dataset_2.name)]
-
-      analyzer.dataset_1_markers.each_with_index do |w, i|
-        out << [w, analyzer.dataset_2_markers.at(i)]
-      end
-
-      out << [''] << ['']
+      write_csv_data(csv,
+                     analyzer.dataset_1_markers.zip(analyzer.dataset_2_markers),
+                     { t('.marker_header', name: dataset.name) => :first,
+                       t('.marker_header', name: dataset_2.name) => :second })
+      csv << [''] << ['']
 
       # Output the graphing points
-      out << [t('.graph_header')]
-      out << ['']
-      out << [t('.marker_column', name: dataset.name),
-              t('.marker_column', name: dataset_2.name),
-              t('.block_name_column')]
-      analyzer.graph_points.each { |l| out << l }
-
-      out << [''] << ['']
+      csv << [t('.graph_header')]
+      csv << ['']
+      write_csv_data(csv, analyzer.graph_points,
+                     { t('.marker_column', name: dataset.name) => :first,
+                       t('.marker_column', name: dataset_2.name) => :second,
+                       t('.block_name_column') => :third })
+      csv << [''] << ['']
 
       # Output the Zeta scores
-      out << [t('.zeta_score_header')]
-      analyzer.zeta_scores.each { |(w, s)| out << [w, s] }
+      csv << [t('.zeta_score_header')]
+      csv << ['']
+      write_csv_data(csv, analyzer.zeta_scores,
+                     { t('.word_column') => :first,
+                       t('.score_column') => :second })
     end
 
     data = {}

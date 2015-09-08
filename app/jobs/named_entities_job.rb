@@ -1,6 +1,8 @@
 
 # Extract proper noun named entities from documents
-class NamedEntitiesJob < CSVJob
+class NamedEntitiesJob < BaseJob
+  include RLetters::Visualization::CSV
+
   # Returns true if this job can be started now
   #
   # @return [Boolean] true if the Stanford NLP toolkit is available
@@ -23,17 +25,17 @@ class NamedEntitiesJob < CSVJob
       ->(p) { task.at(p, 100, t('.progress_finding')) })
     analyzer.call
 
-    csv = write_csv(nil, '') do |out|
-      out << [t('.type_column'), t('.hit_column')]
-      analyzer.entity_references.each do |category, list|
-        list.each do |hit|
-          out << [category, hit]
-        end
-      end
+    csv_string = csv_with_header(t('.header', name: dataset.name)) do |csv|
+      write_csv_data(
+        csv,
+        # This turns {s => [a, b], ...} into [[s, a], [s, b], ...]
+        analyzer.entity_references.map { |k, v| [k].product(v) }.flatten(1),
+        { t('.type_column') => :first,
+          t('.hit_column') => :second })
     end
 
     output = { data: analyzer.entity_references,
-               csv: csv }
+               csv: csv_string }
 
     # Write it out
     ios = StringIO.new(output.to_json)

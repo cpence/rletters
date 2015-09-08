@@ -1,7 +1,8 @@
 
 # Plot a dataset's members by year
-class ArticleDatesJob < CSVJob
+class ArticleDatesJob < BaseJob
   include NormalizeDocumentCounts
+  include RLetters::Visualization::CSV
 
   # Export the date format data
   #
@@ -54,11 +55,9 @@ class ArticleDatesJob < CSVJob
     end
     year_header = Document.human_attribute_name(:year)
 
-    csv = write_csv(nil, '') do |out|
-      out << [year_header, value_header]
-      dates.each do |d|
-        out << d
-      end
+    csv = csv_with_header(t('.header', name: dataset.name)) do |csv|
+      write_csv_data(csv, dates, { year_header => :first,
+                                   value_header => :second })
     end
 
     output = { data: dates,

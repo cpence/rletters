@@ -1,6 +1,8 @@
 
 # Determine statistically significant cooccurrences in text
-class CooccurrenceJob < CSVJob
+class CooccurrenceJob < BaseJob
+  include RLetters::Visualization::CSV
+
   # Locate significant associations between words at distance.
   #
   # This saves its data out as a CSV file to be downloaded by the user
@@ -64,12 +66,20 @@ class CooccurrenceJob < CSVJob
     grams = analyzer.call
 
     # Save out all the data
-    write_csv_and_complete(nil, t('.subheader', test: algorithm)) do |csv|
-      csv << [t('.pair'), column]
-      grams.each do |w, v|
-        csv << [w, v]
-      end
+    csv_string = csv_with_header(t('.header', name: dataset.name),
+                                 t('.subheader', test: algorithm)) do |csv|
+      write_csv_data(csv, grams, { t('.pair') => :first,
+                                   column => :second })
     end
+
+    # Write out the CSV to a file
+    ios = StringIO.new(csv_string)
+    file = Paperclip.io_adapters.for(ios)
+    file.original_filename = 'results.csv'
+    file.content_type = 'text/csv'
+
+    task.result = file
+    task.mark_completed
   end
 
   # We don't want users to download the JSON file

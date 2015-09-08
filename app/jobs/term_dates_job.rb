@@ -1,6 +1,8 @@
 
 # Plot occurrences of a term in a dataset by year
-class TermDatesJob < CSVJob
+class TermDatesJob < BaseJob
+  include RLetters::Visualization::CSV
+
   # Export the date format data
   #
   # Like all view/multiexport jobs, this job saves its data out as a JSON
@@ -32,18 +34,18 @@ class TermDatesJob < CSVJob
       dates.assoc(y) || [y, 0]
     end
 
-    csv = write_csv(nil, t('.subheader', term: term)) do |out|
-      out << [Document.human_attribute_name(:year), t('.number_column')]
-      dates.each do |d|
-        out << d
-      end
+    csv_string = csv_with_header(t('.header', name: dataset.name),
+                                 t('.subheader', term: term)) do |csv|
+      write_csv_data(csv, dates,
+                     { Document.human_attribute_name(:year) => :first,
+                       t('.number_column') => :second })
     end
 
     # Save out the data
     output = {
       data: dates,
       term: term,
-      csv: csv,
+      csv: csv_string,
       year_header: Document.human_attribute_name(:year),
       value_header: t('.number_column') }
 

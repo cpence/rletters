@@ -96,7 +96,7 @@ class BaseJob < ActiveJob::Base
     # Get all the job files
     analysis_files = Dir[Rails.root.join('app', 'jobs', '*.rb')]
     classes = analysis_files.map do |f|
-      next if %w(base_job.rb csv_job.rb
+      next if %w(base_job.rb
                  create_dataset_job.rb
                  destroy_dataset_job.rb
                  expire_tasks_job.rb).include?(File.basename(f))

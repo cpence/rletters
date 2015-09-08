@@ -1,7 +1,8 @@
 
 # Produce a parallel word frequency list for a dataset
-class WordFrequencyJob < CSVJob
+class WordFrequencyJob < BaseJob
   include ComputeWordFrequencies
+  include RLetters::Visualization::CSV
 
   # Export the word frequency data.
   #
@@ -31,7 +32,7 @@ class WordFrequencyJob < CSVJob
     dataset_size = dataset.entries.size
 
     # Create some CSV
-    write_csv_and_complete(t('.csv_header', name: dataset.name), '') do |csv|
+    csv_string = csv_with_header(t('.csv_header', name: dataset.name)) do |csv|
       # Output the block data
       if analyzer.blocks.size > 1
         csv << [t('.each_block')]
@@ -112,5 +113,14 @@ class WordFrequencyJob < CSVJob
       csv << [t('.ttr_header'), (analyzer.num_dataset_types.to_f /
                                  analyzer.num_dataset_tokens).to_s]
     end
+
+    # Write out the CSV to a file
+    ios = StringIO.new(csv_string)
+    file = Paperclip.io_adapters.for(ios)
+    file.original_filename = 'results.csv'
+    file.content_type = 'text/csv'
+
+    task.result = file
+    task.mark_completed
   end
 end
