@@ -28,27 +28,15 @@ module Datasets
   # @!attribute dataset
   #   @raise [RecordInvalid] if the dataset is missing (validates :presence)
   #   @return [Dataset] The dataset to which this task belongs (`belongs_to`)
-  # @!attribute result_file_name
-  #   @return [String] The filename of the result file (from Paperclip)
-  # @!attribute result_file_size
-  #   @return [Integer] The size of the result file (from Paperclip)
-  # @!attribute result_content_type
-  #   @return [String] The content type of the result file (from Paperclip)
-  # @!attribute result_updated_at
-  #   @return [DateTime] The last updated time of the result file (from
-  #     Paperclip)
   class Task < ActiveRecord::Base
     self.table_name = 'datasets_tasks'
-    serialize :params, Hash
 
     validates :name, presence: true
     validates :dataset_id, presence: true
     validates :job_type, presence: true
 
     belongs_to :dataset
-    has_attached_file :result, database_table: 'datasets_task_results'
-    validates_attachment_content_type :result,
-                                      content_type: /\A(text|application)\/.*\Z/
+    has_many :files, class_name: 'Datasets::File', dependent: :destroy
 
     scope :finished, -> { where.not(finished_at: nil) }
     scope :not_finished, -> { where(finished_at: nil) }

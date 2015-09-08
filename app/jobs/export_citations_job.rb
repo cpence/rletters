@@ -38,7 +38,9 @@ class ExportCitationsJob < BaseJob
     file.original_filename = 'export_citations.zip'
     file.content_type = 'application/zip'
 
-    task.result = file
+    task.files.create(description: 'Exported Citations (ZIP)',
+                      short_description: 'Download',
+                      result: file)
     task.mark_completed
   end
 end

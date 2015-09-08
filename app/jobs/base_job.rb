@@ -11,12 +11,12 @@
 #   `dataset_tasks_path` with `:post` (`datasets/tasks#create`).
 # - `results.html.haml` (optional): Tasks may report their results in two
 #   different ways.  Some tasks (e.g., ExportCitations) just dump all of
-#   their results into a file (see `Task#result_file`) for the
+#   their results into a file (see `Datasets::File`) for the
 #   user to download.  This is the default, for which `#download?` returns
 #   `true`.  If `#download?` is overridden to return `false`, then the
 #   job is expected to implement the `results` view, which will show the
 #   user the results of the job in HTML form.  The standard way to do this
-#   is to write the job results out as JSON in `Task#result_file`,
+#   is to write the job results out as JSON into a `Datasets::File`,
 #   and then to parse this JSON into HAML in the view.
 class BaseJob < ActiveJob::Base
   queue_as :analysis
@@ -76,7 +76,7 @@ class BaseJob < ActiveJob::Base
   # True if this job produces a download
   #
   # If true (default), then links to results of tasks will produce links to
-  # download the result_file from that task.  If not, then the link to the
+  # download the various files from that task.  If not, then the link to the
   # task results will point to the 'results' view for this job.  Override
   # this method to return false if you want to use the 'results' view.
   #

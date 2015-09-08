@@ -10,6 +10,12 @@ FactoryGirl.define do
     remember_me false
   end
 
+  factory :file, class: Datasets::File do
+    description 'A task file'
+    short_description 'File'
+    task
+  end
+
   factory :task, class: Datasets::Task do
     name 'Task'
     dataset
@@ -24,11 +30,6 @@ FactoryGirl.define do
   factory :csl_style, class: Users::CslStyle do
     name 'Nature'
     style CSL_DATA
-  end
-
-  factory :download do
-    filename 'test.txt'
-    task
   end
 
   factory :library, class: Users::Library do

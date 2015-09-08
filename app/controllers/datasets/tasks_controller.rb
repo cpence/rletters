@@ -78,8 +78,10 @@ module Datasets
     # @return [void]
     def show
       if params[:view]
-        if @task.result_file_size
-          @json = @task.result.file_contents(:original).force_encoding('utf-8')
+        if @task.files.count > 0
+          # FIXME: We will figure out a way to actually key off of the JSON
+          # file type when you have multiple-file tasks
+          @json = @task.files[0].result.file_contents(:original).force_encoding('utf-8')
           @json_escaped = @json.gsub('\\', '\\\\').gsub("'", "\\\\'").gsub('\n', '\\\\\\\\n').gsub('"', '\\\\"').html_safe
         end
 
@@ -89,10 +91,13 @@ module Datasets
         return
       end
 
-      if @task.result_file_size
-        send_data(@task.result.file_contents(:original),
-                  filename: @task.result_file_name,
-                  type: @task.result_content_type)
+      if @task.files.count > 0
+        # FIXME: This action needs to take a parameter that tells you which
+        # file you want to download, as well as whether or not that file is
+        # allowed to be downloaded
+        send_data(@task.files[0].result.file_contents(:original),
+                  filename: @task.files[0].result_file_name,
+                  type: @task.files[0].result_content_type)
         return
       end
 

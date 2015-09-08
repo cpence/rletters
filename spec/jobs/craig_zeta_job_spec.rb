@@ -40,7 +40,7 @@ RSpec.describe CraigZetaJob, type: :job do
         other_datasets: [@dataset_2.to_param],
         normalize_doc_counts: 'off')
       @task.reload
-      @data = JSON.load(@task.result.file_contents(:original))
+      @data = JSON.load(@task.files[0].result.file_contents(:original))
     end
 
     it 'names the task correctly' do

@@ -45,7 +45,8 @@ RSpec.shared_examples_for 'an analysis job' do
 
     it 'makes a file for the task' do
       @task.reload
-      expect(@task.result_file_size).to be > 0
+      expect(@task.files.count).to be > 0
+      expect(@task.files[0].result_file_size).to be > 0
     end
   end
 end

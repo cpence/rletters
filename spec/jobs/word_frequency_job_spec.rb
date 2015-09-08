@@ -88,7 +88,7 @@ RSpec.describe WordFrequencyJob, type: :job do
           split_across: 'true',
           num_words: '0')
         @task.reload
-        @output = CSV.parse(@task.result.file_contents(:original))
+        @output = CSV.parse(@task.files[0].result.file_contents(:original))
       end
 
       it 'names the task correctly' do
@@ -129,7 +129,7 @@ RSpec.describe WordFrequencyJob, type: :job do
           split_across: 'true',
           num_words: '0')
         @task.reload
-        @output = CSV.parse(@task.result.file_contents(:original))
+        @output = CSV.parse(@task.files[0].result.file_contents(:original))
       end
 
       it 'still works' do

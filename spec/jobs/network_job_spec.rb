@@ -53,12 +53,12 @@ RSpec.describe NetworkJob, type: :job do
     end
 
     it 'creates good JSON' do
-      data = JSON.load(@task.result.file_contents(:original))
+      data = JSON.load(@task.files[0].result.file_contents(:original))
       expect(data).to be_a(Hash)
     end
 
     it 'fills in some values' do
-      hash = JSON.load(@task.result.file_contents(:original))
+      hash = JSON.load(@task.files[0].result.file_contents(:original))
       expect(hash['name']).to eq('Dataset')
       expect(hash['word']).to eq('diseases')
       expect(hash['d3_links'][0]['strength']).to eq(0.5)

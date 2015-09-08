@@ -120,7 +120,9 @@ class WordFrequencyJob < BaseJob
     file.original_filename = 'results.csv'
     file.content_type = 'text/csv'
 
-    task.result = file
+    task.files.create(description: 'CSV (Spreadsheet) Data',
+                      short_description: 'CSV',
+                      result: file)
     task.mark_completed
   end
 end

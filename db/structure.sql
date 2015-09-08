@@ -248,6 +248,74 @@ ALTER SEQUENCE datasets_entries_id_seq OWNED BY datasets_entries.id;
 
 
 --
+-- Name: datasets_file_results; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE datasets_file_results (
+    id integer NOT NULL,
+    datasets_file_id integer,
+    style character varying,
+    file_contents bytea
+);
+
+
+--
+-- Name: datasets_file_results_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE datasets_file_results_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: datasets_file_results_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE datasets_file_results_id_seq OWNED BY datasets_file_results.id;
+
+
+--
+-- Name: datasets_files; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE datasets_files (
+    id integer NOT NULL,
+    description character varying,
+    short_description character varying,
+    task_id integer,
+    result_file_name character varying,
+    result_content_type character varying,
+    result_file_size integer,
+    result_updated_at timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: datasets_files_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE datasets_files_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: datasets_files_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE datasets_files_id_seq OWNED BY datasets_files.id;
+
+
+--
 -- Name: datasets_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
@@ -267,37 +335,6 @@ ALTER SEQUENCE datasets_id_seq OWNED BY datasets.id;
 
 
 --
--- Name: datasets_task_results; Type: TABLE; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE TABLE datasets_task_results (
-    id integer NOT NULL,
-    datasets_task_id integer,
-    style character varying(255),
-    file_contents bytea
-);
-
-
---
--- Name: datasets_task_results_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE datasets_task_results_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: datasets_task_results_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE datasets_task_results_id_seq OWNED BY datasets_task_results.id;
-
-
---
 -- Name: datasets_tasks; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -310,10 +347,6 @@ CREATE TABLE datasets_tasks (
     updated_at timestamp without time zone,
     failed boolean DEFAULT false,
     job_type character varying(255),
-    result_file_name character varying(255),
-    result_content_type character varying(255),
-    result_file_size integer,
-    result_updated_at timestamp without time zone,
     progress double precision,
     progress_message character varying,
     last_progress timestamp without time zone
@@ -633,7 +666,14 @@ ALTER TABLE ONLY datasets_entries ALTER COLUMN id SET DEFAULT nextval('datasets_
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY datasets_task_results ALTER COLUMN id SET DEFAULT nextval('datasets_task_results_id_seq'::regclass);
+ALTER TABLE ONLY datasets_file_results ALTER COLUMN id SET DEFAULT nextval('datasets_file_results_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY datasets_files ALTER COLUMN id SET DEFAULT nextval('datasets_files_id_seq'::regclass);
 
 
 --
@@ -734,19 +774,27 @@ ALTER TABLE ONLY datasets_entries
 
 
 --
+-- Name: datasets_file_results_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY datasets_file_results
+    ADD CONSTRAINT datasets_file_results_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: datasets_files_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY datasets_files
+    ADD CONSTRAINT datasets_files_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: datasets_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY datasets
     ADD CONSTRAINT datasets_pkey PRIMARY KEY (id);
-
-
---
--- Name: datasets_task_results_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
---
-
-ALTER TABLE ONLY datasets_task_results
-    ADD CONSTRAINT datasets_task_results_pkey PRIMARY KEY (id);
 
 
 --
@@ -1066,4 +1114,8 @@ INSERT INTO schema_migrations (version) VALUES ('20150704153023');
 INSERT INTO schema_migrations (version) VALUES ('20150712153313');
 
 INSERT INTO schema_migrations (version) VALUES ('20150713141304');
+
+INSERT INTO schema_migrations (version) VALUES ('20150908203553');
+
+INSERT INTO schema_migrations (version) VALUES ('20150908210220');
 

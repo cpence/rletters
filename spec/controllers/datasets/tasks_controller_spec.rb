@@ -265,8 +265,9 @@ RSpec.describe Datasets::TasksController, type: :controller do
         file.original_filename = 'test.txt'
         file.content_type = 'text/plain'
 
-        @task_2.result = file
-        @task_2.save
+        @task_2.files.create(description: 'test', short_description: 'test',
+                             result: file)
+        @task_2.reload
 
         get :show, dataset_id: @dataset.to_param,
                    id: @task_2.to_param, view: '_params'

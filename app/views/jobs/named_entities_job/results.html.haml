@@ -1,4 +1,4 @@
-- data = JSON.load(@task.result.file_contents(:original))
+- data = JSON.load(@task.files[0].result.file_contents(:original))
 - entities = data['data']
 
 .row

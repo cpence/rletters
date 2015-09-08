@@ -55,7 +55,9 @@ class TermDatesJob < BaseJob
     file.original_filename = 'term_dates.json'
     file.content_type = 'application/json'
 
-    task.result = file
+    task.files.create(description: 'Raw JSON Data',
+                      short_description: 'JSON',
+                      result: file)
     task.mark_completed
   end
 

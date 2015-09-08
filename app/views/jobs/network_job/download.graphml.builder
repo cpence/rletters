@@ -1,5 +1,5 @@
 xml.instruct!
-data = JSON.load(@task.result.file_contents(:original))
+data = JSON.load(@task.files[0].result.file_contents(:original))
 nodes = data['d3_nodes']
 xml.graphml('xmlns' => 'http://graphml.graphdrawing.org/xmlns',
             'xmlns:xsi' => 'http://www.w3.org/2001/XMLSchema-instance',

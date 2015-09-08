@@ -47,7 +47,7 @@ RSpec.describe ExportCitationsJob, type: :job do
     end
 
     it 'creates a proper ZIP file' do
-      data = @task.result.file_contents('original')
+      data = @task.files[0].result.file_contents('original')
       entries = 0
       ::Zip::InputStream.open(StringIO.new(data)) do |zis|
         entries += 1 while zis.get_next_entry

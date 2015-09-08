@@ -75,11 +75,11 @@ RSpec.describe Datasets::Task, type: :model do
     file.original_filename = 'test.txt'
     file.content_type = 'text/plain'
 
-    @task.result = file
-    @task.save
+    @file = create(:file, task: @task, result: file)
+    @task.reload
   end
 
-  describe '#result_file' do
+  describe '#files' do
     context 'when a file is created' do
       before(:example) do
         create_task_with_file
@@ -90,15 +90,15 @@ RSpec.describe Datasets::Task, type: :model do
       end
 
       it 'has the right file length' do
-        expect(@task.result_file_size).to eq(4)
+        expect(@task.files[0].result_file_size).to eq(4)
       end
 
       it 'has the right contents' do
-        expect(@task.result.file_contents(:original)).to eq('test')
+        expect(@task.files[0].result.file_contents(:original)).to eq('test')
       end
 
       it 'has the right mime type' do
-        expect(@task.result_content_type.to_s).to eq('text/plain')
+        expect(@task.files[0].result_content_type.to_s).to eq('text/plain')
       end
     end
   end

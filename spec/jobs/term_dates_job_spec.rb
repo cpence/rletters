@@ -32,7 +32,7 @@ RSpec.describe TermDatesJob, type: :job do
         @task,
         term: 'disease')
       @task.reload
-      @data = JSON.load(@task.result.file_contents(:original))
+      @data = JSON.load(@task.files[0].result.file_contents(:original))
     end
 
     it 'names the task correctly' do

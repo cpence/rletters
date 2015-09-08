@@ -31,7 +31,7 @@ RSpec.describe ArticleDatesJob, type: :job do
         @task_2,
         normalize_doc_counts: 'off')
       @task_2.reload
-      @data = JSON.load(@task_2.result.file_contents(:original))
+      @data = JSON.load(@task_2.files[0].result.file_contents(:original))
     end
 
     it 'names the task correctly' do
@@ -60,7 +60,7 @@ RSpec.describe ArticleDatesJob, type: :job do
         normalize_doc_counts: '1',
         normalize_doc_dataset: '')
       @task.reload
-      @data = JSON.load(@task.result.file_contents(:original))
+      @data = JSON.load(@task.files[0].result.file_contents(:original))
     end
 
     it 'names the task correctly' do
@@ -102,7 +102,7 @@ RSpec.describe ArticleDatesJob, type: :job do
         normalize_doc_counts: '1',
         normalize_doc_dataset: @normalization_set.to_param)
       @task.reload
-      @data = JSON.load(@task.result.file_contents(:original))
+      @data = JSON.load(@task.files[0].result.file_contents(:original))
     end
 
     it 'names the task correctly' do
@@ -143,7 +143,7 @@ RSpec.describe ArticleDatesJob, type: :job do
         normalize_doc_counts: '1',
         normalize_doc_dataset: @normalization_set.to_param)
       @task.reload
-      @data = JSON.load(@task.result.file_contents(:original))
+      @data = JSON.load(@task.files[0].result.file_contents(:original))
     end
 
     it 'fills in zeros for all the values' do
