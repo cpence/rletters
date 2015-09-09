@@ -112,9 +112,9 @@ Special thanks to all contributors to the code here on GitHub. A full list of co
 
 We also have received the help of a great community of translators at [Transifex.](https://www.transifex.com/projects/p/rletters/)  Thanks especially to Alejandro León Aznar.
 
-Also, several features of RLetters wouldn't be possible without the excellent work of other Ruby programmers.  Thanks in particular to those behind [Ansible,](http://www.ansibleworks.com/) [RSolr](https://github.com/mwmitchell/rsolr) and [RSolr::Ext](https://github.com/mwmitchell/rsolr-ext), [stanford-core-nlp,](https://github.com/louismullie/stanford-core-nlp/) [citeproc-ruby,](https://github.com/inukshuk/citeproc-ruby) and [bibtex-ruby](https://github.com/inukshuk/bibtex-ruby).  The stop lists found in `db/seeds/stoplists` are released under the BSD license by the Apache Lucene project.
+Also, several features of RLetters wouldn't be possible without the excellent work of other Ruby programmers.  Thanks in particular to those behind [Ansible,](http://www.ansibleworks.com/) [RSolr](https://github.com/mwmitchell/rsolr) and [RSolr::Ext](https://github.com/mwmitchell/rsolr-ext), [stanford-core-nlp,](https://github.com/louismullie/stanford-core-nlp/) [citeproc-ruby,](https://github.com/inukshuk/citeproc-ruby) and [bibtex-ruby](https://github.com/inukshuk/bibtex-ruby).  The stop lists found in `db/seeds/stoplists` are released under the BSD license by the Apache Lucene project.  The colors in `lib/r_letters/visualization/color_brewer` are released by [the ColorBrewer project](http://www.colorbrewer.org) under the Apache license.
 
-Charles Pence and Grant Ramsey were supported in the development of RLetters by the [National Evolutionary Synthesis Center (NESCent),](http://www.nescent.org) NSF #EF-0905606.
+Charles Pence and Grant Ramsey were supported in the development of RLetters by the [National Science Foundation](http://www.nsf.gov), #1456573, and the [National Evolutionary Synthesis Center (NESCent),](http://www.nescent.org) NSF #EF-0905606.
 
 [![National Science Foundation][nsf_img]][nsf] [![National Evolutionary Synthesis Ceter][nescent_img]][nescent]
 
