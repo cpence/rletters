@@ -47,6 +47,8 @@ module ComputeWordFrequencies
   #   exclude from analysis
   # @return [RLetters::Analysis::WordFrequency] the computed analysis
   def compute_word_frequencies(dataset, progress = nil, args = {})
+    args.clean_options!
+    args = args.with_indifferent_access
     convert_args!(args)
 
     # Quick-out for the FromTF analyzer if we can: only one block,
@@ -103,8 +105,6 @@ module ComputeWordFrequencies
   # @param [Hash] args the original arguments to the job
   # @return [Hash] args the arguments, with typecast parameters
   def convert_args!(args)
-    args.clean_options!
-
     if args[:word_method] == 'all'
       args[:all] = true
     elsif args[:num_words]

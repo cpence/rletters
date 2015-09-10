@@ -21,7 +21,7 @@ class CollocationJob < BaseJob
   def perform(task, options = {})
     standard_options(task)
 
-    options.symbolize_keys!
+    options = options.with_indifferent_access
     analysis_type = (options[:analysis_type] || :mi).to_sym
     if options[:all] == '1'
       num_pairs = 0

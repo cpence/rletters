@@ -24,7 +24,7 @@ class CooccurrenceJob < BaseJob
   def perform(task, options)
     standard_options(task)
 
-    options.symbolize_keys!
+    options = options.with_indifferent_access
     fail ArgumentError, 'No cooccurrence word provided' unless options[:word]
 
     analysis_type = (options[:analysis_type] || :mi).to_sym

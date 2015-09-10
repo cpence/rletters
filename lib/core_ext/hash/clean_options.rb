@@ -10,7 +10,6 @@ class Hash
   #
   # @return [self]
   def clean_options!
-    symbolize_keys!
     each do |k, v|
       if v.is_a? String
         self[k] = v.strip

@@ -27,7 +27,7 @@ class ArticleDatesJob < BaseJob
     dates = analyzer.counts_for(:year)
 
     task.at(90, 100, t('.progress_normalizing'))
-    options.symbolize_keys!
+    options = options.with_indifferent_access
     dates = normalize_document_counts(user, :year, dates, options)
 
     dates = dates.to_a

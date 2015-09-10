@@ -24,7 +24,7 @@ class CraigZetaJob < BaseJob
   def perform(task, options)
     standard_options(task)
 
-    options.symbolize_keys!
+    options = options.with_indifferent_access
     other_datasets = options[:other_datasets]
     fail ArgumentError, 'Wrong number of other datasets provided' unless other_datasets.size == 1
     dataset_2 = user.datasets.active.find(other_datasets[0])

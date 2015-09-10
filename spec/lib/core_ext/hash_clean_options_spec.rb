@@ -29,12 +29,8 @@ RSpec.describe Hash do
       expect(@hash[:good_key]).to eq('asdf')
     end
 
-    it 'symbolizes keys' do
-      expect(@hash).to include(:string_key)
-    end
-
     it 'strips whitespace on values' do
-      expect(@hash[:string_key]).to eq('asdf')
+      expect(@hash['string_key']).to eq('asdf')
     end
   end
 end

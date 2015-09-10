@@ -17,7 +17,7 @@ class TermDatesJob < BaseJob
     standard_options(task)
 
     # Get the counts and normalize if requested
-    options.symbolize_keys!
+    options = options.with_indifferent_access
     fail ArgumentError, 'Term for plotting not specified' unless options[:term]
     term = options[:term]
     analyzer = RLetters::Analysis::CountTermsByField.new(

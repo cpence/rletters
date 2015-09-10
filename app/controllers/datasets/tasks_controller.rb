@@ -132,9 +132,10 @@ module Datasets
     #
     # @return [void]
     def set_current_params
-      @current_params = params[:job_params].to_hash if params[:job_params]
-      @current_params ||= {}
-      @current_params.symbolize_keys!
+      if params[:job_params]
+        @current_params = params[:job_params].to_hash.with_indifferent_access
+      end
+      @current_params ||= {}.with_indifferent_access
     end
   end
 end

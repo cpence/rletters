@@ -34,6 +34,7 @@ module NormalizeDocumentCounts
   # @return [Hash<String, Float>] the counts of documents, normalized
   def normalize_document_counts(user, field, counts, args)
     args.clean_options!
+    args = args.with_indifferent_access
     return counts unless args[:normalize_doc_counts] == '1'
 
     if args[:normalize_doc_dataset]

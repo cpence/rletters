@@ -13,7 +13,7 @@ class NetworkJob < BaseJob
     standard_options(task)
 
     # Fetch the focal word
-    options.symbolize_keys!
+    options = options.with_indifferent_access
     fail ArgumentError, 'Focal word not specified' unless options[:word]
     word = options[:word].mb_chars.downcase.to_s
 
