@@ -497,7 +497,7 @@ module RLetters
       # colors that are more saturated/darker/lighter than others in the
       # scheme - found at the bottom of the 'Accents' legends. Beware of
       # emphasizing unimportant classes when you use qualitative schemes.
-      QUALITATIVE_COLOR_SCHEMES => {
+      QUALITATIVE_COLOR_SCHEMES = {
         '3' => {
           'Accent' => ['#7fc97f', '#beaed4', '#fdc086'],
           'Dark2' => ['#1b9e77', '#d95f02', '#7570b3'],
