@@ -24,7 +24,7 @@ class BaseJob < ActiveJob::Base
   # Try to rescue from everything, setting the failed bit
   rescue_from(Exception) do |e|
     task = arguments[0]
-    task.mark_failed if task.is_a?(Datasets::Task)
+    task.mark_failed(e.to_s) if task.is_a?(Datasets::Task)
   end
 
   # Returns true if this job can be run right now
