@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 # Rails
 gem 'rails', '~> 4.2'
 gem 'globalid', '>= 0.3.6'
+gem 'dotenv-rails'
 
 # Database and related tools
 gem 'pg'

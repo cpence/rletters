@@ -131,6 +131,10 @@ GEM
     diff-lcs (1.2.5)
     distribution (0.7.3)
     docile (1.1.5)
+    dotenv (2.0.2)
+    dotenv-rails (2.0.2)
+      dotenv (= 2.0.2)
+      railties (~> 4.0)
     draper (2.1.0)
       actionpack (>= 3.0)
       activemodel (>= 3.0)
@@ -393,6 +397,7 @@ DEPENDENCIES
   devise
   devise-i18n
   distribution
+  dotenv-rails
   draper
   druthers
   factory_girl_rails

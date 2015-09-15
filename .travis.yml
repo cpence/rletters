@@ -7,16 +7,17 @@ sudo: false
 env:
   global:
     - DISPLAY=":99.0"
+    - DATABASE_URL="postgres://postgres@/rletters_test?pool=20&encoding=unicode"
     - secure: Lv1neEs259UnYFTpbBOja4qhbdDnDCryGiZ8ycLkBGlc7PioiSiVqCo1Py+pJrpYenA3xrguv/Z5hdNjJ3fm4dl8GDrV9kgjtNe8E388kitISpimAi5QuwvxfJS8YiRPKm9VSfs3laMlSVXjhMdlAW1PPcrcElddv+r+jMpJ9uM=
 
-# Enable PGSQL 9.3 so that we have the 'json' type available
+# Enable the latest PostgreSQL
 addons:
-  postgresql: 9.3
+  postgresql: 9.4
 
 bundler_args: "--without production development --jobs 3 --retry 3"
 before_script:
-  - 'sh -e /etc/init.d/xvfb start'
-  - cp config/database.yml.travis config/database.yml
+  - sh -e /etc/init.d/xvfb start
+  - ln -s .env.example .env
   - git clone --depth=1 https://github.com/rletters/solr-example.git vendor/solr
   - 'pushd vendor/solr && ./start && popd'
   - bundle exec rake db:setup

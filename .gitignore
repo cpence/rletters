@@ -1,5 +1,8 @@
 .bundle
 .DS_Store
+.env
+.env.production
+!.env.example
 .sass-cache
 .yardoc
 

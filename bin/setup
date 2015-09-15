@@ -36,9 +36,9 @@ END
     f.write("#!/bin/sh\njava -jar source/nlp-tool-0.1-jar-with-dependencies.jar $@")
   end
 
-  puts "\n==Copying sample files=="
-  unless File.exist?("config/database.yml")
-    system "cp config/database.yml.local config/database.yml"
+  unless File.exist?('.env')
+    puts "\n== Linking default environment =="
+    system "ln -s .env.example .env"
   end
 
   puts "\n== Preparing database =="
