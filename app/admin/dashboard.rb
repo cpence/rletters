@@ -1,4 +1,14 @@
 
+ENVIRONMENT_VARIABLES_TO_PRINT = [
+  # Important/interesting Ruby information, if available
+  'RBENV_VERSION', 'RUBYOPT', 'RUBYLIB', 'GEM_PATH', 'GEM_HOME',
+  'BUNDLE_BIN_PATH', 'BUNDLE_GEMFILE',
+  # Rails information
+  'RACK_ENV', 'RAILS_ENV',
+  # Our configuration
+  'DATABASE_URL'
+]
+
 ActiveAdmin.register_page 'Dashboard' do
   menu priority: 1, label: proc { I18n.t('active_admin.dashboard') }
 
@@ -76,6 +86,21 @@ ActiveAdmin.register_page 'Dashboard' do
             column :last_sign_in_at
           end
         end
+      end
+    end
+
+    panel 'Current Environment' do
+      AdminEnvVar = Struct.new(:name, :value)
+      env_vars = ENV.map do |k, v|
+        (ENVIRONMENT_VARIABLES_TO_PRINT.include?(k.to_s) &&
+          AdminEnvVar.new(k.to_s, v.to_s)) || nil
+      end
+      env_vars.compact!
+      env_vars.sort_by! { |var| ENVIRONMENT_VARIABLES_TO_PRINT.index(var.name) }
+
+      table_for env_vars do
+        column 'Variable', :name
+        column 'Value', :value
       end
     end
   end
