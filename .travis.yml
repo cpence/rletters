@@ -7,7 +7,7 @@ sudo: false
 env:
   global:
     - DISPLAY=":99.0"
-    - DATABASE_URL="postgres://postgres@/rletters_test?pool=20&encoding=unicode"
+    - DATABASE_URL="postgres:///rletters_test?username=postgres&pool=20&encoding=unicode"
     - secure: Lv1neEs259UnYFTpbBOja4qhbdDnDCryGiZ8ycLkBGlc7PioiSiVqCo1Py+pJrpYenA3xrguv/Z5hdNjJ3fm4dl8GDrV9kgjtNe8E388kitISpimAi5QuwvxfJS8YiRPKm9VSfs3laMlSVXjhMdlAW1PPcrcElddv+r+jMpJ9uM=
 
 # Enable the latest PostgreSQL
