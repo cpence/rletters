@@ -42,12 +42,6 @@ RLetters::Application.configure do
   # logs)
   config.log_level = :warn
 
-  # Prepend all log lines with the following tags.
-  # config.log_tags = [ :subdomain, :uuid ]
-
-  # We assume you're running under systemd in production, and want stdout logs
-  config.logger = Logger.new(STDOUT)
-
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery
   # to raise delivery errors.
@@ -59,9 +53,6 @@ RLetters::Application.configure do
 
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
-
-  # Use default logging formatter so that PID and timestamp are not suppressed.
-  config.log_formatter = ::Logger::Formatter.new
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false

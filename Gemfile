@@ -3,7 +3,10 @@ source 'https://rubygems.org'
 # Rails
 gem 'rails', '~> 4.2'
 gem 'globalid', '>= 0.3.6'
+
+# Twelve factor app glue
 gem 'dotenv-rails'
+gem 'lograge'
 
 # Database and related tools
 gem 'pg'

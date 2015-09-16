@@ -45,9 +45,8 @@ END
   system "bin/rake db:setup"
   system "bin/rake setting:set[nlp_tool_path,vendor/nlp/nlp-tool]"
 
-  puts "\n== Removing old logs and tempfiles =="
-  system "rm -f log/*"
-  system "rm -rf tmp/cache"
+  puts "\n== Removing old tempfiles =="
+  system "rm -rf tmp/cache tmp/test.log"
 
   puts "\n== Starting sample Solr instance =="
   system "./start", chdir: 'vendor/solr'

@@ -7,13 +7,9 @@
 .yardoc
 
 /coverage
-/config/database.yml
 /doc
-/log/*
-!/log/.gitkeep
 /public/assets
 /spec/status.txt
-/spec/coverage
 /tmp/*
 !/tmp/.gitkeep
 /vendor/bundle

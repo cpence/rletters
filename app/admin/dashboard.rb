@@ -1,4 +1,5 @@
 
+AdminEnvVar = Struct.new(:name, :value)
 ENVIRONMENT_VARIABLES_TO_PRINT = [
   # Important/interesting Ruby information, if available
   'RBENV_VERSION', 'RUBYOPT', 'RUBYLIB', 'GEM_PATH', 'GEM_HOME',
@@ -90,7 +91,6 @@ ActiveAdmin.register_page 'Dashboard' do
     end
 
     panel 'Current Environment' do
-      AdminEnvVar = Struct.new(:name, :value)
       env_vars = ENV.map do |k, v|
         (ENVIRONMENT_VARIABLES_TO_PRINT.include?(k.to_s) &&
           AdminEnvVar.new(k.to_s, v.to_s)) || nil
