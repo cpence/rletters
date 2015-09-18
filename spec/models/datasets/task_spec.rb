@@ -69,13 +69,9 @@ RSpec.describe Datasets::Task, type: :model do
 
   def create_task_with_file
     @task = create(:task)
-
-    ios = StringIO.new('test')
-    file = Paperclip.io_adapters.for(ios)
-    file.original_filename = 'test.txt'
-    file.content_type = 'text/plain'
-
-    @file = create(:file, task: @task, result: file)
+    @file = create(:file, task: @task) do |f|
+      f.from_string('test')
+    end
     @task.reload
   end
 

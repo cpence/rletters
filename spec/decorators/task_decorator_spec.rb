@@ -4,15 +4,13 @@ RSpec.describe TaskDecorator, type: :decorator do
   context 'with JSON available' do
     before(:each) do
       @task = create(:task, job_type: 'ExportCitationsJob')
-
-      ios = StringIO.new('{"abc":123}')
-      file = Paperclip.io_adapters.for(ios)
-      file.original_filename = 'test.json'
-      file.content_type = 'application/json'
-
-      @task.files.create!(description: 'test', short_description: 'test',
-                          result: file)
+      @task.files.create!(description: 'test',
+                          short_description: 'test') do |f|
+        f.from_string('{"abc":123}', filename: 'test.json',
+                                     content_type: 'application/json')
+      end
       @task.reload
+
       @decorated = described_class.decorate(@task)
     end
 

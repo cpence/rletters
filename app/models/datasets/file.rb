@@ -36,5 +36,23 @@ module Datasets
                       database_table: 'datasets_file_results'
     validates_attachment_content_type :result,
                                       content_type: /\A(text|application)\/.*\Z/
+
+
+    # Set the contents of the file from the given string
+    #
+    # @param [String] content the content for the file
+    # @param [Hash] options parameters for the file
+    # @option options [String] :filename the name of the file
+    # @option options [String] :content_type the file's content type
+    def from_string(content, options = {})
+      ios = StringIO.new(content)
+      file = Paperclip.io_adapters.for(ios)
+
+      file.original_filename = options[:filename] || 'download.txt'
+      file.content_type = options[:content_type] || 'text/plain'
+
+      self.result = file
+      save
+    end
   end
 end

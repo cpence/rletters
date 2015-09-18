@@ -50,14 +50,11 @@ class TermDatesJob < BaseJob
       value_header: t('.number_column') }
 
     # Serialize out to JSON
-    ios = StringIO.new(output.to_json)
-    file = Paperclip.io_adapters.for(ios)
-    file.original_filename = 'term_dates.json'
-    file.content_type = 'application/json'
-
     task.files.create(description: 'Raw JSON Data',
-                      short_description: 'JSON',
-                      result: file)
+                      short_description: 'JSON') do |f|
+      f.from_string(output.to_json, filename: 'term_dates.json',
+                                    content_type: 'application/json')
+    end
     task.mark_completed
   end
 

@@ -115,14 +115,11 @@ class WordFrequencyJob < BaseJob
     end
 
     # Write out the CSV to a file
-    ios = StringIO.new(csv_string)
-    file = Paperclip.io_adapters.for(ios)
-    file.original_filename = 'results.csv'
-    file.content_type = 'text/csv'
-
     task.files.create(description: 'CSV (Spreadsheet) Data',
-                      short_description: 'CSV',
-                      result: file)
+                      short_description: 'CSV') do |f|
+      f.from_string(csv_string, filename: 'results.csv',
+                                content_type: 'text/csv')
+    end
     task.mark_completed
   end
 end

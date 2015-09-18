@@ -76,14 +76,11 @@ class CraigZetaJob < BaseJob
     data[:csv] = csv
 
     # Write it out
-    ios = StringIO.new(data.to_json)
-    file = Paperclip.io_adapters.for(ios)
-    file.original_filename = 'craig_zeta.json'
-    file.content_type = 'application/json'
-
     task.files.create(description: 'Raw JSON Data',
-                      short_description: 'JSON',
-                      result: file)
+                      short_description: 'JSON') do |f|
+      f.from_string(data.to_json, filename: 'craig_zeta.json',
+                                  content_type: 'application/json')
+    end
     task.mark_completed
   end
 
