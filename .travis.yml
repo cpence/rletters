@@ -20,6 +20,6 @@ before_script:
   - ln -s .env.example .env
   - git clone --depth=1 https://github.com/rletters/solr-example.git vendor/solr
   - 'pushd vendor/solr && ./start && popd'
-  - bundle exec rake db:setup
+  - bundle exec rake RAILS_ENV=test db:setup assets:precompile
 
 script: bundle exec rspec

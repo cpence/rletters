@@ -31,9 +31,10 @@ module RLetters
     config.cache_classes = true
     config.eager_load = true
 
-    # Asset configuration (automatically compile assets in testing)
-    config.assets.compile = Rails.env.test?
+    # Asset configuration
+    config.assets.compile = false
     config.assets.digest = true
+    config.assets.debug = false
 
     config.assets.js_compressor = :uglifier
     # config.assets.css_compressor = :sass
