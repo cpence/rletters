@@ -205,7 +205,11 @@ RSpec.describe Datasets::TasksController, type: :controller do
     end
   end
 
-  describe '#show' do
+  describe '#view' do
+    # We want to let it render views, to make sure that the search path
+    # addition is working properly
+    render_views
+
     before(:example) do
       @task = create(:task, dataset: @dataset, job_type: 'ExportCitationsJob')
     end
@@ -213,8 +217,8 @@ RSpec.describe Datasets::TasksController, type: :controller do
     context 'when an invalid task ID is passed' do
       it 'raises an exception' do
         expect {
-          get :show, dataset_id: @dataset.to_param,
-                     id: '12345678', view: 'test'
+          get :view, dataset_id: @dataset.to_param,
+                     id: '12345678', template: 'test'
         }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
@@ -227,90 +231,100 @@ RSpec.describe Datasets::TasksController, type: :controller do
 
       it 'raises an exception' do
         expect {
-          get :show, dataset_id: @disabled.to_param, id: @task.to_param, view: '_params'
+          get :view, dataset_id: @disabled.to_param, id: @task.to_param,
+                     template: '_params'
         }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
 
-    context 'when rendering a job view' do
-      # We want to let it render views, to make sure that the search path
-      # addition is working properly
-      render_views
-
-      it 'raises an exception for missing views' do
-        expect {
-          get :show, dataset_id: @dataset.to_param,
-                     id: @task.to_param, view: 'notaview'
-        }.to raise_error(ActionView::MissingTemplate)
-      end
-
-      it 'does not raise an exception' do
-        expect {
-          get :show, dataset_id: @dataset.to_param,
-                     id: @task.to_param, view: '_params'
-        }.not_to raise_error
-      end
-
-      it 'renders the right view' do
-        get :show, dataset_id: @dataset.to_param,
-                   id: @task.to_param, view: '_params'
-        expect(response.body).to include('<option')
-      end
-
-      it 'escapes JSON if some is available' do
-        @task_2 = create(:task, dataset: @dataset, job_type: 'ExportCitationsJob')
-
-        ios = StringIO.new('abc"123')
-        file = Paperclip.io_adapters.for(ios)
-        file.original_filename = 'test.txt'
-        file.content_type = 'text/plain'
-
-        @task_2.files.create(description: 'test', short_description: 'test',
-                             result: file)
-        @task_2.reload
-
-        get :show, dataset_id: @dataset.to_param,
-                   id: @task_2.to_param, view: '_params'
-
-        expect(assigns(:json)).to eq('abc"123')
-        expect(assigns(:json_escaped)).to eq('abc\"123')
-      end
+    it 'raises an exception for missing views' do
+      expect {
+        get :view, dataset_id: @dataset.to_param,
+                   id: @task.to_param, template: 'notaview'
+      }.to raise_error(ActionView::MissingTemplate)
     end
 
-    context 'when fetching a task download' do
-      before(:example) do
-        ExportCitationsJob.new.perform(
-          @task,
-          format: 'bibtex'
-        )
-      end
-
-      it 'loads successfully' do
-        get :show, dataset_id: @dataset.to_param, id: @task.to_param
-        expect(response).to be_success
-      end
-
-      it 'has the right MIME type' do
-        get :show, dataset_id: @dataset.to_param, id: @task.to_param
-        expect(response.content_type).to eq('application/zip')
-      end
-
-      it 'sends some data' do
-        get :show, dataset_id: @dataset.to_param, id: @task.to_param
-        expect(response.body.length).to be > 0
-      end
+    it 'does not raise an exception' do
+      expect {
+        get :view, dataset_id: @dataset.to_param,
+                   id: @task.to_param, template: '_params'
+      }.not_to raise_error
     end
 
-    context 'with neither a view nor a download' do
-      before(:example) do
-        @task_2 = create(:task, dataset: @dataset, job_type: 'ControllerJob')
-      end
+    it 'renders the right view' do
+      get :view, dataset_id: @dataset.to_param,
+                 id: @task.to_param, template: '_params'
+      expect(response.body).to include('<option')
+    end
+  end
 
-      it 'raises an error' do
+  describe '#download' do
+    before(:example) do
+      @task = create(:task, dataset: @dataset, job_type: 'ExportCitationsJob')
+
+      ExportCitationsJob.new.perform(
+        @task,
+        format: 'bibtex'
+      )
+    end
+
+    context 'when an invalid task ID is passed' do
+      it 'raises an exception' do
         expect {
-          get :show, dataset_id: @dataset.to_param, id: @task.to_param
+          get :download, dataset_id: @dataset.to_param,
+                         id: '12345678', file: '0'
         }.to raise_error(ActiveRecord::RecordNotFound)
       end
+    end
+
+    context 'with a disabled dataset' do
+      before(:example) do
+        @disabled = create(:dataset, user: @user, name: 'Disabled',
+                                     disabled: true)
+      end
+
+      it 'raises an exception' do
+        expect {
+          get :download, dataset_id: @disabled.to_param, id: @task.to_param,
+                         file: '0'
+        }.to raise_error(ActiveRecord::RecordNotFound)
+      end
+    end
+
+    context 'with a bogus file number' do
+      it 'raises an exception' do
+        expect {
+          get :download, dataset_id: @dataset.to_param, id: @task.to_param,
+                         file: 'asdfasdf'
+        }.to raise_error(ArgumentError)
+      end
+    end
+
+    context 'with a too-large file number' do
+      it 'raises an exception' do
+        expect {
+          get :download, dataset_id: @dataset.to_param, id: @task.to_param,
+                         file: '99'
+        }.to raise_error(ActiveRecord::RecordNotFound)
+      end
+    end
+
+    it 'loads successfully' do
+      get :download, dataset_id: @dataset.to_param, id: @task.to_param,
+                     file: '0'
+      expect(response).to be_success
+    end
+
+    it 'has the right MIME type' do
+      get :download, dataset_id: @dataset.to_param, id: @task.to_param,
+                     file: '0'
+      expect(response.content_type).to eq('application/zip')
+    end
+
+    it 'sends some data' do
+      get :download, dataset_id: @dataset.to_param, id: @task.to_param,
+                     file: '0'
+      expect(response.body.length).to be > 0
     end
   end
 

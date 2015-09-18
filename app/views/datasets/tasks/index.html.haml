@@ -21,8 +21,9 @@
         %tr
           %td.label-cell= task.name
           %td.button-cell
+            -# FIXME FIXME FIXME MULTIPLE FILES
             - if task.job_class.download?
-              = link_to t('.download_button'), dataset_task_path(@dataset, task), class: 'btn btn-xs btn-success'
+              = link_to t('.download_button'), download_dataset_task_path(@dataset, task, file: '0'), class: 'btn btn-xs btn-success'
             - else
-              = link_to t('.view_button'), dataset_task_path(@dataset, task, view: 'results'), class: 'btn btn-xs btn-success'
+              = link_to t('.view_button'), view_dataset_task_path(@dataset, task, template: 'results'), class: 'btn btn-xs btn-success'
             = link_to t('.delete_button'), dataset_task_path(@dataset, task), method: :delete, class: 'btn btn-xs btn-danger', data: { confirm: t('.delete_confirm') }

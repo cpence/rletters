@@ -1,4 +1,4 @@
-- data = JSON.load(@task.files[0].result.file_contents(:original))
+- data = JSON.load(@task.json)
 
 .row
   .col-md-8
@@ -6,14 +6,14 @@
     %h4.text-muted= t('term_dates_job.subheader', term: data['term'])
 
   .col-md-4.job-header-button
-    = link_to t('common.download_csv'), dataset_task_path(@dataset, @task, view: 'download', format: 'csv'), class: 'btn btn-default'
+    = link_to t('common.download_csv'), view_dataset_task_path(@dataset, @task, template: 'download', format: 'csv'), class: 'btn btn-default'
 
 .row
   .col-xs-12
     %hr
 
     %script{ type: 'text/javascript' }
-      == window.json_data = '#{@json_escaped}';
+      == window.json_data = '#{@task.json_escaped}';
     .term_dates_graph
 
     %hr

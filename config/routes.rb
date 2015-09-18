@@ -24,7 +24,12 @@ Rails.application.routes.draw do
   # Datasets (per-user)
   resources :datasets, except: :edit do
     resources :tasks, module: 'datasets', path: 'tasks',
-                      except: [:edit, :update]
+                      except: [:edit, :update, :show] do
+      member do
+        get 'view/:template', action: 'view', as: 'view'
+        get 'download/:file', action: 'download', as: 'download'
+      end
+    end
   end
 
   # User login routes

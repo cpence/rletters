@@ -68,7 +68,7 @@ module RLetters
         Thread.current[:solr_handle].post dest, data: params
       rescue *EXCEPTIONS => e
         Rails.logger.warn "Connection to Solr failed: #{e.inspect}"
-        Rails.logger.info "Query for failed connection: #{params}"
+        Rails.logger.info "Query for failed connection: #{Thread.current[:solr_url]}: #{params}"
         {}
       end
 

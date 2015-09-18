@@ -67,41 +67,34 @@ module Datasets
       end
     end
 
-    # Show a view from a task, or download its results
+    # Show a view from a task
     #
-    # If this action is called with `params[:view]` set, then it will render
-    # a view that comes packaged with a background job.  Without that parameter,
-    # if this job has a result file saved, the file will be sent as a download.
-    # If neither `params[:view]` nor a download is available, it will raise
+    # This action will render a view that comes packaged with a background job.
+    #
+    # @return [void]
+    def view
+      class_folder = @task.job_class.name.underscore
+      template_file = "jobs/#{class_folder}/#{params[:template]}"
+
+      render(template_file, formats: [(params[:format] || :html).to_sym],
+                            locals: { klass: @task.job_class })
+    end
+
+    # Download a file from a task
+    #
+    # If the file is not available, this action will raise
     # `ActiveRecord::RecordNotFound`.
     #
     # @return [void]
-    def show
-      if params[:view]
-        if @task.files.count > 0
-          # FIXME: We will figure out a way to actually key off of the JSON
-          # file type when you have multiple-file tasks
-          @json = @task.files[0].result.file_contents(:original).force_encoding('utf-8')
-          @json_escaped = @json.gsub('\\', '\\\\').gsub("'", "\\\\'").gsub('\n', '\\\\\\\\n').gsub('"', '\\\\"').html_safe
-        end
+    def download
+      # This cast will throw if the conversion cannot be performed
+      file_number = Integer(params[:file])
+      fail ActiveRecord::RecordNotFound if @task.files.count <= file_number
 
-        render("jobs/#{@task.job_class.name.underscore}/#{params[:view]}",
-               formats: [(params[:format] || :html).to_sym],
-               locals: { klass: @task.job_class })
-        return
-      end
-
-      if @task.files.count > 0
-        # FIXME: This action needs to take a parameter that tells you which
-        # file you want to download, as well as whether or not that file is
-        # allowed to be downloaded
-        send_data(@task.files[0].result.file_contents(:original),
-                  filename: @task.files[0].result_file_name,
-                  type: @task.files[0].result_content_type)
-        return
-      end
-
-      fail ActiveRecord::RecordNotFound
+      @file = @task.files[file_number]
+      send_data(@file.result.file_contents(:original),
+                filename: @file.result_file_name,
+                type: @file.result_content_type)
     end
 
     # Delete a task
@@ -124,18 +117,23 @@ module Datasets
     # @return [void]
     def set_task
       @dataset = current_user.datasets.active.find(params[:dataset_id])
-      @task = @dataset.tasks.find(params[:id]) if params[:id].present?
-      @klass = Datasets::Task.job_class(params[:class]) if params[:class].present?
+
+      if params[:id].present?
+        @task = @dataset.tasks.find(params[:id])
+        @task = TaskDecorator.decorate(@task)
+      end
+
+      if params[:class].present?
+        @klass = Datasets::Task.job_class(params[:class])
+      end
     end
 
     # Get the current parameters hash from the params
     #
     # @return [void]
     def set_current_params
-      if params[:job_params]
-        @current_params = params[:job_params].to_hash.with_indifferent_access
-      end
-      @current_params ||= {}.with_indifferent_access
+      @current_params = params[:job_params] || {}
+      @current_params = @current_params.with_indifferent_access
     end
   end
 end

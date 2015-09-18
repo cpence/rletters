@@ -6,6 +6,39 @@ class TaskDecorator < Draper::Decorator
   decorates Datasets::Task
   delegate_all
 
+  # Get the JSON content from a file if available
+  #
+  # If there is no JSON file attached to this task, this method will return
+  # `nil`.
+  #
+  # @return [String] JSON data as string (or `nil`)
+  def json
+    files.each do |file|
+      if file.result_content_type == 'application/json'
+        return file.result.file_contents(:original).force_encoding('utf-8')
+      end
+    end
+
+    nil
+  end
+
+  # Get the JSON content from a file, escaped for JavaScript
+  #
+  # If there is no JSON file attached to this task, this method will return
+  # `nil`.
+  #
+  # @return [String] JSON data, escaped, as string (or `nil`)
+  def json_escaped
+    ret = json
+    return nil if ret.nil?
+
+    ret.gsub('\\', '\\\\')
+       .gsub("'", "\\\\'")
+       .gsub('\n', '\\\\\\\\n')
+       .gsub('"', '\\\\"')
+       .html_safe
+  end
+
   # A user-friendly status/percentage message
   #
   # @return [String] percentage message
