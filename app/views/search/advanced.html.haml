@@ -22,7 +22,7 @@
       = hidden_field_tag :advanced, true
 
       %script{ type: 'text/javascript' }
-        == window.rlRowMarkup = '#{escape_javascript(@row_markup)}';
+        == window.rlRowMarkup = '#{escape_javascript(render(partial: "advanced_row"))}';
 
       #advanced-rows
         = render partial: 'advanced_row'

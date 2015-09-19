@@ -1,9 +1,9 @@
 .row
   .col-md-6
-    = simple_form_for :job_params, url: dataset_tasks_path(@dataset, class: 'ArticleDatesJob'), method: :post do |f|
+    = simple_form_for :job_params, url: dataset_tasks_path(dataset, class: 'ArticleDatesJob'), method: :post do |f|
       = f.error_notification
 
       = field_set_tag t('article_dates_job.options_label') do
         = render partial: 'jobs/normalize_document_counts/params', locals: { f: f }
         = f.button :submit
-        = link_to(t('common.cancel'), @dataset, class: 'btn btn-default')
+        = link_to(t('common.cancel'), dataset, class: 'btn btn-default')

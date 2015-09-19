@@ -12,12 +12,6 @@ RSpec.describe ExportCitationsJob, type: :job do
     let(:job_params) { { format: 'bibtex' } }
   end
 
-  describe '.download?' do
-    it 'is true' do
-      expect(described_class.download?).to be true
-    end
-  end
-
   describe '.num_datasets' do
     it 'is 1' do
       expect(described_class.num_datasets).to eq(1)
@@ -47,7 +41,7 @@ RSpec.describe ExportCitationsJob, type: :job do
     end
 
     it 'creates a proper ZIP file' do
-      data = @task.files[0].result.file_contents('original')
+      data = @task.file_for('application/zip').result.file_contents('original')
       entries = 0
       ::Zip::InputStream.open(StringIO.new(data)) do |zis|
         entries += 1 while zis.get_next_entry

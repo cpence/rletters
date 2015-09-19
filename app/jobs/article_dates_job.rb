@@ -55,29 +55,28 @@ class ArticleDatesJob < BaseJob
     end
     year_header = Document.human_attribute_name(:year)
 
-    csv = csv_with_header(t('.header', name: dataset.name)) do |csv|
-      write_csv_data(csv, dates, { year_header => :first,
-                                   value_header => :second })
-    end
-
     output = { data: dates,
-               csv: csv,
                percent: (options[:normalize_doc_counts] == '1'),
                normalization_set: norm_set_name,
                year_header: year_header,
                value_header: value_header }
 
-    # Serialize out to JSON
+    # Serialize out to JSON and CSV
     task.files.create(description: 'Raw JSON Data',
                       short_description: 'JSON') do |f|
       f.from_string(output.to_json, filename: 'article_dates.json',
                                     content_type: 'application/json')
     end
-    task.mark_completed
-  end
 
-  # We don't want users to download the JSON file
-  def self.download?
-    false
+    csv = csv_with_header(t('.header', name: dataset.name)) do |csv|
+      write_csv_data(csv, dates, { year_header => :first,
+                                   value_header => :second })
+    end
+    task.files.create(description: 'Spreadsheet',
+                      short_description: 'CSV', downloadable: true) do |f|
+      f.from_string(csv, filename: 'results.csv', content_type: 'text/csv')
+    end
+
+    task.mark_completed
   end
 end

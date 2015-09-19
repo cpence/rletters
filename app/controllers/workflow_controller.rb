@@ -8,6 +8,8 @@ class WorkflowController < ApplicationController
   layout 'full_page'
   before_action :authenticate_user!, except: [:index, :image]
 
+  decorates_assigned :pending_tasks, :finished_tasks, with: TaskDecorator
+
   # Show the introduction page or the user dashboard
   #
   # @return [void]
@@ -98,10 +100,6 @@ class WorkflowController < ApplicationController
 
     @pending_tasks = tasks.active.order(:created_at)
     @finished_tasks = tasks.finished.order(finished_at: :desc)
-
-    # Decorate
-    @pending_tasks = TaskDecorator.decorate_collection(@pending_tasks)
-    @finished_tasks = TaskDecorator.decorate_collection(@finished_tasks)
 
     # If this is an AJAX request, render the tasks table only
     if request.xhr?

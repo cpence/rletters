@@ -30,12 +30,6 @@ RSpec.describe NamedEntitiesJob, type: :job do
     end
   end
 
-  describe '.download?' do
-    it 'is false' do
-      expect(described_class.download?).to be false
-    end
-  end
-
   describe '.num_datasets' do
     it 'is 1' do
       expect(described_class.num_datasets).to eq(1)
@@ -52,13 +46,19 @@ RSpec.describe NamedEntitiesJob, type: :job do
       expect(@task.name).to eq('Extract references to proper names')
     end
 
+    it 'creates two files' do
+      expect(@task.files.count).to eq(2)
+      expect(@task.file_for('application/json')).not_to be_nil
+      expect(@task.file_for('text/csv')).not_to be_nil
+    end
+
     it 'creates good JSON' do
-      data = JSON.load(@task.files[0].result.file_contents(:original))
+      data = JSON.load(@task.file_for('application/json').result.file_contents(:original))
       expect(data).to be_a(Hash)
     end
 
     it 'fills in some values' do
-      hash = JSON.load(@task.files[0].result.file_contents(:original))
+      hash = JSON.load(@task.file_for('application/json').result.file_contents(:original))
       refs = hash['data']
 
       expect(refs).to include('PERSON')

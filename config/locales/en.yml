@@ -523,6 +523,7 @@ en:
                 task_column: Task
                 results_column: Results
                 no_tasks: No tasks found
+            task_buttons:
                 download_button: Download
                 view_button: View
                 delete_button: Delete

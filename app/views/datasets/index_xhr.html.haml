@@ -8,12 +8,12 @@
       %th.label-cell= t('.name_column')
       %th.button-cell
   %tbody
-    - if @datasets.blank?
+    - if datasets.blank?
       %tr
         %td.label-cell= t('.no_datasets')
         %td.button-cell
     - else
-      - @datasets.each do |dataset|
+      - datasets.each do |dataset|
         %tr
           %td.label-cell
             = dataset.name

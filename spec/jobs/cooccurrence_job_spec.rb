@@ -18,12 +18,6 @@ RSpec.describe CooccurrenceJob, type: :job do
     let(:job_params) { { word: 'was', window: '6' } }
   end
 
-  describe '.download?' do
-    it 'is true' do
-      expect(described_class.download?).to be true
-    end
-  end
-
   describe '.num_datasets' do
     it 'is 1' do
       expect(described_class.num_datasets).to eq(1)

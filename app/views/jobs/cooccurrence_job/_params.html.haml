@@ -1,6 +1,6 @@
 .row
   .col-md-6
-    = simple_form_for :job_params, url: dataset_tasks_path(@dataset, class: 'CooccurrenceJob'), method: :post do |f|
+    = simple_form_for :job_params, url: dataset_tasks_path(dataset, class: 'CooccurrenceJob'), method: :post do |f|
       = f.error_notification
 
       = field_set_tag t('cooccurrence_job.options_label') do
@@ -11,4 +11,4 @@
         = f.input :word, required: true, label: t('cooccurrence_job.word')
         = f.input :stemming, label: t('common.stemming.label'), collection: [[t('simple_form.no'), :no], [t('common.stemming.stem'), :stem], [t('common.stemming.lemma'), :lemma]], include_blank: false
         = f.button :submit
-        = link_to(t('common.cancel'), @dataset, class: 'btn btn-default')
+        = link_to(t('common.cancel'), dataset, class: 'btn btn-default')

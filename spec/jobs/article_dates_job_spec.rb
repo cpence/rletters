@@ -9,12 +9,6 @@ RSpec.describe ArticleDatesJob, type: :job do
 
   it_should_behave_like 'an analysis job'
 
-  describe '.download?' do
-    it 'is false' do
-      expect(described_class.download?).to be false
-    end
-  end
-
   describe '.num_datasets' do
     it 'is 1' do
       expect(described_class.num_datasets).to eq(1)
@@ -31,11 +25,17 @@ RSpec.describe ArticleDatesJob, type: :job do
         @task_2,
         normalize_doc_counts: 'off')
       @task_2.reload
-      @data = JSON.load(@task_2.files[0].result.file_contents(:original))
+      @data = JSON.load(@task_2.file_for('application/json').result.file_contents(:original))
     end
 
     it 'names the task correctly' do
       expect(@task_2.name).to eq('Plot number of articles by date')
+    end
+
+    it 'creates two files' do
+      expect(@task_2.files.count).to eq(2)
+      expect(@task_2.file_for('application/json')).not_to be_nil
+      expect(@task_2.file_for('text/csv')).not_to be_nil
     end
 
     it 'creates good JSON' do
@@ -60,11 +60,17 @@ RSpec.describe ArticleDatesJob, type: :job do
         normalize_doc_counts: '1',
         normalize_doc_dataset: '')
       @task.reload
-      @data = JSON.load(@task.files[0].result.file_contents(:original))
+      @data = JSON.load(@task.file_for('application/json').result.file_contents(:original))
     end
 
     it 'names the task correctly' do
       expect(@task.name).to eq('Plot number of articles by date')
+    end
+
+    it 'creates two files' do
+      expect(@task.files.count).to eq(2)
+      expect(@task.file_for('application/json')).not_to be_nil
+      expect(@task.file_for('text/csv')).not_to be_nil
     end
 
     it 'creates good JSON' do
@@ -102,11 +108,17 @@ RSpec.describe ArticleDatesJob, type: :job do
         normalize_doc_counts: '1',
         normalize_doc_dataset: @normalization_set.to_param)
       @task.reload
-      @data = JSON.load(@task.files[0].result.file_contents(:original))
+      @data = JSON.load(@task.file_for('application/json').result.file_contents(:original))
     end
 
     it 'names the task correctly' do
       expect(@task.name).to eq('Plot number of articles by date')
+    end
+
+    it 'creates two files' do
+      expect(@task.files.count).to eq(2)
+      expect(@task.file_for('application/json')).not_to be_nil
+      expect(@task.file_for('text/csv')).not_to be_nil
     end
 
     it 'creates good JSON' do
@@ -143,7 +155,7 @@ RSpec.describe ArticleDatesJob, type: :job do
         normalize_doc_counts: '1',
         normalize_doc_dataset: @normalization_set.to_param)
       @task.reload
-      @data = JSON.load(@task.files[0].result.file_contents(:original))
+      @data = JSON.load(@task.file_for('application/json').result.file_contents(:original))
     end
 
     it 'fills in zeros for all the values' do

@@ -73,17 +73,12 @@ class CooccurrenceJob < BaseJob
     end
 
     # Write out the CSV to a file
-    task.files.create(description: 'CSV (Spreadsheet) Data',
-                      short_description: 'CSV') do |f|
+    task.files.create(description: 'Spreadsheet',
+                      short_description: 'CSV', downloadable: true) do |f|
       f.from_string(csv_string, filename: 'results.csv',
                                 content_type: 'text/csv')
     end
     task.mark_completed
-  end
-
-  # We don't want users to download the JSON file
-  def self.download?
-    true
   end
 
   # Helper method for creating the job parameters view

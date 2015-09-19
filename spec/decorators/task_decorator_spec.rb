@@ -14,6 +14,17 @@ RSpec.describe TaskDecorator, type: :decorator do
       @decorated = described_class.decorate(@task)
     end
 
+    describe '#download_path_for' do
+      it 'returns a path to the file' do
+        expect(@decorated.download_path_for('application/json')).to \
+          eq("/datasets/#{@task.dataset.to_param}/tasks/#{@task.to_param}/download/0")
+      end
+
+      it 'returns nil for missing content types' do
+        expect(@decorated.download_path_for('text/plain')).to be_nil
+      end
+    end
+
     describe '#json' do
       it 'returns the JSON' do
         expect(@decorated.json).to eq('{"abc":123}')

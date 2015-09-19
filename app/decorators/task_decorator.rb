@@ -6,6 +6,17 @@ class TaskDecorator < Draper::Decorator
   decorates Datasets::Task
   delegate_all
 
+  # Create a link to download a given file, by content type
+  #
+  # @param [String] content_type the content type to download
+  # @return [String] link to the file download (or `nil` if none)
+  def download_path_for(content_type)
+    file = file_for(content_type)
+    return nil unless file
+
+    h.download_dataset_task_path(dataset, object, file: files.index(file))
+  end
+
   # Get the JSON content from a file if available
   #
   # If there is no JSON file attached to this task, this method will return

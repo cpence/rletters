@@ -115,8 +115,8 @@ class WordFrequencyJob < BaseJob
     end
 
     # Write out the CSV to a file
-    task.files.create(description: 'CSV (Spreadsheet) Data',
-                      short_description: 'CSV') do |f|
+    task.files.create(description: 'Spreadsheet',
+                      short_description: 'CSV', downloadable: true) do |f|
       f.from_string(csv_string, filename: 'results.csv',
                                 content_type: 'text/csv')
     end

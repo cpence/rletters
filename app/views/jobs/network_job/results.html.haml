@@ -1,19 +1,19 @@
-- data = JSON.load(@task.json)
+- data = JSON.load(task.json)
 
 .row
   .col-md-8
-    %h1== #{Dataset.model_name.human}: #{@dataset.name}
+    %h1== #{Dataset.model_name.human}: #{dataset.name}
     %h4.text-muted= t('network_job.subheader', word: data['word'])
 
   .col-md-4.job-header-button
-    = link_to t('network_job.download'), view_dataset_task_path(@dataset, @task, template: 'download', format: 'graphml'), class: 'btn btn-default'
+    = link_to t('network_job.download'), view_dataset_task_path(dataset, task, template: 'download', format: 'graphml'), class: 'btn btn-default'
 
 .row
   .col-xs-12
     %hr
 
     %script{ type: 'text/javascript' }
-      == window.json_data = '#{@task.json_escaped}';
+      == window.json_data = '#{task.json_escaped}';
     .network_graph
       .network_graph_box
         %p ...

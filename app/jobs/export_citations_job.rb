@@ -40,7 +40,7 @@ class ExportCitationsJob < BaseJob
 
     task.files.create(description: 'Exported Citations (ZIP)',
                       short_description: 'Download',
-                      result: file)
+                      result: file, downloadable: true)
     task.mark_completed
   end
 end

@@ -1,0 +1,17 @@
+- if lookup_context.exists?(task.template_path('results'))
+  = link_to t('.view_button'), view_dataset_task_path(task.dataset, task, template: 'results'), class: 'btn btn-xs btn-success'
+
+-# Render a single button for the download if there's only one, or render
+-# a dropdown button if there's multiple files
+- if task.files.downloadable.count == 1
+  = link_to t('.download_button'), download_dataset_task_path(task.dataset, task, file: task.files.index(task.files.downloadable.first).to_s), class: 'btn btn-xs btn-success'
+- elsif task.files.downloadable.count > 1
+  .btn-group
+    = link_to '#', class: 'btn btn-xs btn-success dropdown-toggle', data: { toggle: 'dropdown' } do
+      = t('.download_button')
+      %span.caret
+    %ul.dropdown-menu
+      - task.files.downloadable.each do |f|
+        %li= link_to "#{f.description} (#{f.short_description})", download_dataset_task_path(task.dataset, task, file: task.files.index(f).to_s)
+
+= link_to t('.delete_button'), dataset_task_path(task.dataset, task), method: :delete, class: 'btn btn-xs btn-danger', data: { confirm: t('.delete_confirm') }

@@ -292,7 +292,8 @@ CREATE TABLE datasets_files (
     result_file_size integer,
     result_updated_at timestamp without time zone,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    downloadable boolean DEFAULT false
 );
 
 
@@ -1118,4 +1119,6 @@ INSERT INTO schema_migrations (version) VALUES ('20150713141304');
 INSERT INTO schema_migrations (version) VALUES ('20150908203553');
 
 INSERT INTO schema_migrations (version) VALUES ('20150908210220');
+
+INSERT INTO schema_migrations (version) VALUES ('20150918225229');
 

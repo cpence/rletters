@@ -1,23 +1,23 @@
-- data = JSON.load(@task.json)
+- data = JSON.load(task.json)
 
 .row
   .col-md-8
-    %h1== #{Dataset.model_name.human}: #{@dataset.name}
+    %h1== #{Dataset.model_name.human}: #{dataset.name}
 
     - if data['percent']
-      %h4.text-muted= t('article_dates_job.fraction_subheader', name: @dataset.name, normalization_set: data['normalization_set'])
+      %h4.text-muted= t('article_dates_job.fraction_subheader', name: dataset.name, normalization_set: data['normalization_set'])
     - else
       %h4.text-muted= t('article_dates_job.number_subheader')
 
   .col-md-4.job-header-button
-    = link_to t('common.download_csv'), view_dataset_task_path(@dataset, @task, template: 'download', format: 'csv'), class: 'btn btn-default'
+    = link_to t('common.download_csv'), task.download_path_for('text/csv'), class: 'btn btn-default'
 
 .row
   .col-xs-12
     %hr
 
     %script{ type: 'text/javascript' }
-      == window.json_data = '#{@task.json_escaped}';
+      == window.json_data = '#{task.json_escaped}';
     .article_dates_graph
 
     %hr

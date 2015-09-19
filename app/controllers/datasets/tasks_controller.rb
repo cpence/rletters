@@ -8,6 +8,9 @@ module Datasets
     before_action :set_task
     before_action :set_current_params, only: [:new, :create]
 
+    decorates_assigned :dataset, with: DatasetDecorator
+    decorates_assigned :task, with: TaskDecorator
+
     # Show the list of tasks for this dataset
     #
     # This list needs to be updated live, as the tasks are running in the
@@ -73,16 +76,14 @@ module Datasets
     #
     # @return [void]
     def view
-      class_folder = @task.job_class.name.underscore
-      template_file = "jobs/#{class_folder}/#{params[:template]}"
-
-      render(template_file, formats: [(params[:format] || :html).to_sym],
-                            locals: { klass: @task.job_class })
+      render(@task.template_path(params[:template]),
+             formats: [(params[:format] || :html).to_sym],
+             locals: { klass: @task.job_class })
     end
 
     # Download a file from a task
     #
-    # If the file is not available, this action will raise
+    # If the file is not available or downloadable, this action will raise
     # `ActiveRecord::RecordNotFound`.
     #
     # @return [void]
@@ -92,6 +93,8 @@ module Datasets
       fail ActiveRecord::RecordNotFound if @task.files.count <= file_number
 
       @file = @task.files[file_number]
+      fail ActiveRecord::RecordNotFound unless @file.downloadable
+
       send_data(@file.result.file_contents(:original),
                 filename: @file.result_file_name,
                 type: @file.result_content_type)
@@ -117,11 +120,7 @@ module Datasets
     # @return [void]
     def set_task
       @dataset = current_user.datasets.active.find(params[:dataset_id])
-
-      if params[:id].present?
-        @task = @dataset.tasks.find(params[:id])
-        @task = TaskDecorator.decorate(@task)
-      end
+      @task = @dataset.tasks.find(params[:id]) if params[:id].present?
 
       if params[:class].present?
         @klass = Datasets::Task.job_class(params[:class])

@@ -21,12 +21,6 @@ RSpec.describe CraigZetaJob, type: :job do
     let(:job_params) { { other_datasets: [@dataset_2.id] } }
   end
 
-  describe '.download?' do
-    it 'is false' do
-      expect(described_class.download?).to be false
-    end
-  end
-
   describe '.num_datasets' do
     it 'is 2' do
       expect(described_class.num_datasets).to eq(2)
@@ -40,11 +34,17 @@ RSpec.describe CraigZetaJob, type: :job do
         other_datasets: [@dataset_2.to_param],
         normalize_doc_counts: 'off')
       @task.reload
-      @data = JSON.load(@task.files[0].result.file_contents(:original))
+      @data = JSON.load(@task.file_for('application/json').result.file_contents(:original))
     end
 
     it 'names the task correctly' do
       expect(@task.name).to eq('Determine words that differentiate two datasets (Craig Zeta)')
+    end
+
+    it 'creates two files' do
+      expect(@task.files.count).to eq(2)
+      expect(@task.file_for('application/json')).not_to be_nil
+      expect(@task.file_for('text/csv')).not_to be_nil
     end
 
     it 'creates good JSON' do

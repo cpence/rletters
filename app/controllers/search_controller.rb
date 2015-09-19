@@ -44,7 +44,6 @@ class SearchController < ApplicationController
   # @return [void]
   def advanced
     @search_fields = RLetters::Solr::Advanced.search_fields
-    @row_markup = render_to_string(partial: 'advanced_row')
   end
 
   private

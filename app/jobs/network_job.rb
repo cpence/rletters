@@ -56,9 +56,4 @@ class NetworkJob < BaseJob
     end
     task.mark_completed
   end
-
-  # We don't want users to download the JSON file
-  def self.download?
-    false
-  end
 end

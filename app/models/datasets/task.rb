@@ -43,6 +43,23 @@ module Datasets
     scope :active, -> { not_finished.where(failed: false) }
     scope :failed, -> { not_finished.where(failed: true) }
 
+    # Get the path for a view template for this job
+    #
+    # @param [String] template the view path to generate
+    # @return [String] the template path to pass to `render`
+    def template_path(template)
+      class_folder = job_class.name.underscore
+      "jobs/#{class_folder}/#{template}"
+    end
+
+    # Get the file object with the given content type
+    #
+    # @param [String] content_type the content type to find
+    # @return [Datasets::File] the file object
+    def file_for(content_type)
+      files.detect { |f| f.result_content_type == content_type }
+    end
+
     # The classes that cannot actually be started as analysis jobs.
     #
     # This array includes both base classes and jobs that are started by the UI

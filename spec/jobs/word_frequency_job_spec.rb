@@ -29,12 +29,6 @@ RSpec.describe WordFrequencyJob, type: :job do
     end
   end
 
-  describe '.download?' do
-    it 'is true' do
-      expect(described_class.download?).to be true
-    end
-  end
-
   describe '.num_datasets' do
     it 'is 1' do
       expect(described_class.num_datasets).to eq(1)
@@ -88,7 +82,7 @@ RSpec.describe WordFrequencyJob, type: :job do
           split_across: 'true',
           num_words: '0')
         @task.reload
-        @output = CSV.parse(@task.files[0].result.file_contents(:original))
+        @output = CSV.parse(@task.file_for('text/csv').result.file_contents(:original))
       end
 
       it 'names the task correctly' do
@@ -129,7 +123,7 @@ RSpec.describe WordFrequencyJob, type: :job do
           split_across: 'true',
           num_words: '0')
         @task.reload
-        @output = CSV.parse(@task.files[0].result.file_contents(:original))
+        @output = CSV.parse(@task.file_for('text/csv').result.file_contents(:original))
       end
 
       it 'still works' do

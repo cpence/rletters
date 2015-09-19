@@ -9,6 +9,7 @@
 # @see Dataset
 class DatasetsController < ApplicationController
   before_action :authenticate_user!
+  decorates_assigned :datasets, :dataset, with: DatasetDecorator
 
   # Show all of the current user's datasets
   #
@@ -35,11 +36,10 @@ class DatasetsController < ApplicationController
     @dataset = current_user.datasets.active.find(params[:id])
 
     # Clear failed tasks if requested
-    return unless params[:clear_failed]
-    return if @dataset.tasks.failed.size == 0
-
-    @dataset.tasks.failed.destroy_all
-    flash[:notice] = t('datasets.show.deleted')
+    if params[:clear_failed] && @dataset.tasks.failed.size > 0
+      @dataset.tasks.failed.destroy_all
+      flash[:notice] = t('datasets.show.deleted')
+    end
   end
 
   # Show the form for creating a new dataset

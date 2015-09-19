@@ -45,7 +45,6 @@ class TermDatesJob < BaseJob
     output = {
       data: dates,
       term: term,
-      csv: csv_string,
       year_header: Document.human_attribute_name(:year),
       value_header: t('.number_column') }
 
@@ -55,11 +54,13 @@ class TermDatesJob < BaseJob
       f.from_string(output.to_json, filename: 'term_dates.json',
                                     content_type: 'application/json')
     end
-    task.mark_completed
-  end
 
-  # We don't want users to download the JSON file
-  def self.download?
-    false
+    task.files.create(description: 'Spreadsheet',
+                      short_description: 'CSV', downloadable: true) do |f|
+      f.from_string(csv_string, filename: 'results.csv',
+                                content_type: 'text/csv')
+    end
+
+    task.mark_completed
   end
 end

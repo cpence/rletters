@@ -9,15 +9,9 @@
 #   presented with this form in order to set special parameters for the
 #   task.  This partial should consist of a form that submits to
 #   `dataset_tasks_path` with `:post` (`datasets/tasks#create`).
-# - `results.html.haml` (optional): Tasks may report their results in two
-#   different ways.  Some tasks (e.g., ExportCitations) just dump all of
-#   their results into a file (see `Datasets::File`) for the
-#   user to download.  This is the default, for which `#download?` returns
-#   `true`.  If `#download?` is overridden to return `false`, then the
-#   job is expected to implement the `results` view, which will show the
-#   user the results of the job in HTML form.  The standard way to do this
-#   is to write the job results out as JSON into a `Datasets::File`,
-#   and then to parse this JSON into HAML in the view.
+# - `results.html.haml` (optional): If this view is present, then after the
+#   task is completed, the user will be offered a link to view this template
+#   in addition to whatever downloadable file results the task produces.
 class BaseJob < ActiveJob::Base
   queue_as :analysis
 
@@ -71,18 +65,6 @@ class BaseJob < ActiveJob::Base
   # @return [String] the translated message
   def t(key, opts = {})
     self.class.t(key, opts)
-  end
-
-  # True if this job produces a download
-  #
-  # If true (default), then links to results of tasks will produce links to
-  # download the various files from that task.  If not, then the link to the
-  # task results will point to the 'results' view for this job.  Override
-  # this method to return false if you want to use the 'results' view.
-  #
-  # @return [Boolean] true if task produces a download, false otherwise
-  def self.download?
-    true
   end
 
   # Get a list of all classes that are analysis jobs

@@ -261,11 +261,6 @@ RSpec.describe Datasets::TasksController, type: :controller do
   describe '#download' do
     before(:example) do
       @task = create(:task, dataset: @dataset, job_type: 'ExportCitationsJob')
-
-      ExportCitationsJob.new.perform(
-        @task,
-        format: 'bibtex'
-      )
     end
 
     context 'when an invalid task ID is passed' do
@@ -309,22 +304,45 @@ RSpec.describe Datasets::TasksController, type: :controller do
       end
     end
 
-    it 'loads successfully' do
-      get :download, dataset_id: @dataset.to_param, id: @task.to_param,
-                     file: '0'
-      expect(response).to be_success
+    context 'with a non-downoadable file' do
+      before(:example) do
+        @file = create(:file, task: @task, downloadable: false)
+        @file.from_string('test')
+      end
+
+      it 'raises an exception' do
+        expect {
+          get :download, dataset_id: @dataset.to_param, id: @task.to_param,
+                         file: @task.files.index(@file).to_s
+        }.to raise_error(ActiveRecord::RecordNotFound)
+      end
     end
 
-    it 'has the right MIME type' do
-      get :download, dataset_id: @dataset.to_param, id: @task.to_param,
-                     file: '0'
-      expect(response.content_type).to eq('application/zip')
-    end
+    context 'with a good file' do
+      before(:example) do
+        ExportCitationsJob.new.perform(
+          @task,
+          format: 'bibtex'
+        )
+      end
 
-    it 'sends some data' do
-      get :download, dataset_id: @dataset.to_param, id: @task.to_param,
-                     file: '0'
-      expect(response.body.length).to be > 0
+      it 'loads successfully' do
+        get :download, dataset_id: @dataset.to_param, id: @task.to_param,
+                       file: '0'
+        expect(response).to be_success
+      end
+
+      it 'has the right MIME type' do
+        get :download, dataset_id: @dataset.to_param, id: @task.to_param,
+                       file: '0'
+        expect(response.content_type).to eq('application/zip')
+      end
+
+      it 'sends some data' do
+        get :download, dataset_id: @dataset.to_param, id: @task.to_param,
+                       file: '0'
+        expect(response.body.length).to be > 0
+      end
     end
   end
 

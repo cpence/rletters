@@ -73,7 +73,6 @@ class CraigZetaJob < BaseJob
     data[:marker_2_header] = t('.marker_column', name: dataset_2.name)
     data[:word_header] = t('.word_column')
     data[:score_header] = t('.score_column')
-    data[:csv] = csv
 
     # Write it out
     task.files.create(description: 'Raw JSON Data',
@@ -81,11 +80,12 @@ class CraigZetaJob < BaseJob
       f.from_string(data.to_json, filename: 'craig_zeta.json',
                                   content_type: 'application/json')
     end
-    task.mark_completed
-  end
 
-  # We don't want users to download the JSON file
-  def self.download?
-    false
+    task.files.create(description: 'Spreadsheet',
+                      short_description: 'CSV', downloadable: true) do |f|
+      f.from_string(csv, filename: 'results.csv', content_type: 'text/csv')
+    end
+
+    task.mark_completed
   end
 end

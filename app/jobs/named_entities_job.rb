@@ -34,8 +34,7 @@ class NamedEntitiesJob < BaseJob
           t('.hit_column') => :second })
     end
 
-    output = { data: analyzer.entity_references,
-               csv: csv_string }
+    output = { data: analyzer.entity_references }
 
     # Write it out
     task.files.create(description: 'Raw JSON Data',
@@ -43,11 +42,13 @@ class NamedEntitiesJob < BaseJob
       f.from_string(output.to_json, filename: 'named_entites.json',
                                     content_type: 'application/json')
     end
-    task.mark_completed
-  end
 
-  # We don't want users to download the JSON file
-  def self.download?
-    false
+    task.files.create(description: 'Spreadsheet',
+                      short_description: 'CSV', downloadable: true) do |f|
+      f.from_string(csv_string, filename: 'results.csv',
+                                content_type: 'text/csv')
+    end
+
+    task.mark_completed
   end
 end

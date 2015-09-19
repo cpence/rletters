@@ -1,9 +1,9 @@
 .row
   .col-md-6
-    = simple_form_for :job_params, url: dataset_tasks_path(@dataset, class: 'NetworkJob'), method: :post do |f|
+    = simple_form_for :job_params, url: dataset_tasks_path(dataset, class: 'NetworkJob'), method: :post do |f|
       = f.error_notification
 
       = field_set_tag t('network_job.options_label') do
         = f.input :word, label: I18n.t('network_job.word')
         = f.button :submit
-        = link_to(t('common.cancel'), @dataset, class: 'btn btn-default')
+        = link_to(t('common.cancel'), dataset, class: 'btn btn-default')

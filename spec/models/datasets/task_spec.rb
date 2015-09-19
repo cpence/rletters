@@ -43,6 +43,13 @@ RSpec.describe Datasets::Task, type: :model do
     end
   end
 
+  describe '#template_path' do
+    it 'works' do
+      @task = create(:task, job_type: 'ExportCitationsJob')
+      expect(@task.template_path('test')).to eq('jobs/export_citations_job/test')
+    end
+  end
+
   describe '#finished_at' do
     context 'when newly created' do
       before(:example) do

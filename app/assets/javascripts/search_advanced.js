@@ -133,7 +133,10 @@ function createAutocompleteSystem()
   // Create a pair of datasets for typeahead
   window.rlBloodhoundAuthors = new Bloodhound({
     name: 'authors',
-    remote: '/lists/authors?q=%QUERY',
+    remote: {
+      url: '/lists/authors?q=%QUERY',
+      wildcard: '%QUERY'
+    },
     datumTokenizer: function(d) {
       Bloodhound.tokenizers.nonword(d.val);
     },
@@ -141,7 +144,10 @@ function createAutocompleteSystem()
   });
   window.rlBloodhoundJournals = new Bloodhound({
     name: 'journals',
-    remote: '/lists/journals?q=%QUERY',
+    remote: {
+      url: '/lists/journals?q=%QUERY',
+      wildcard: '%QUERY'
+    },
     datumTokenizer: function(d) {
       Bloodhound.tokenizers.whitespace(d.val);
     },

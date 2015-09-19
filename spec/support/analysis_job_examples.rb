@@ -39,14 +39,4 @@ RSpec.shared_examples_for 'an analysis job' do
       expect(@task.finished_at).to be
     end
   end
-
-  context 'when a file is made' do
-    include_context 'perform job with params'
-
-    it 'makes a file for the task' do
-      @task.reload
-      expect(@task.files.count).to be > 0
-      expect(@task.files[0].result_file_size).to be > 0
-    end
-  end
 end

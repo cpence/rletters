@@ -8,7 +8,7 @@
       %h4.modal-title= t('.header')
       %h6.text-muted= t('.subheader')
 
-    = simple_form_for(@dataset) do |f|
+    = simple_form_for(dataset) do |f|
       .modal-body
         = f.error_notification
 

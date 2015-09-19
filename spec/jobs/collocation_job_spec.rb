@@ -42,12 +42,6 @@ RSpec.describe CollocationJob, type: :job do
 
   it_should_behave_like 'an analysis job'
 
-  describe '.download?' do
-    it 'is true' do
-      expect(described_class.download?).to be true
-    end
-  end
-
   describe '.num_datasets' do
     it 'is 1' do
       expect(described_class.num_datasets).to eq(1)

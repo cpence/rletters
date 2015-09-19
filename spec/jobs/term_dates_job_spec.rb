@@ -14,12 +14,6 @@ RSpec.describe TermDatesJob, type: :job do
     let(:job_params) { { term: 'disease' } }
   end
 
-  describe '.download?' do
-    it 'is false' do
-      expect(described_class.download?).to be false
-    end
-  end
-
   describe '.num_datasets' do
     it 'is 1' do
       expect(described_class.num_datasets).to eq(1)
@@ -32,11 +26,17 @@ RSpec.describe TermDatesJob, type: :job do
         @task,
         term: 'disease')
       @task.reload
-      @data = JSON.load(@task.files[0].result.file_contents(:original))
+      @data = JSON.load(@task.file_for('application/json').result.file_contents(:original))
     end
 
     it 'names the task correctly' do
       expect(@dataset.tasks[0].name).to eq('Plot word occurrences by date')
+    end
+
+    it 'creates two files' do
+      expect(@task.files.count).to eq(2)
+      expect(@task.file_for('application/json')).not_to be_nil
+      expect(@task.file_for('text/csv')).not_to be_nil
     end
 
     it 'creates good JSON' do
