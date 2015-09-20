@@ -7,7 +7,7 @@
         %span.icon-bar
         %span.icon-bar
         %span.icon-bar
-      = link_to Admin::Setting.app_name, root_path, class: 'navbar-brand'
+      = link_to ENV['APP_NAME'], root_path, class: 'navbar-brand'
 
     .collapse.navbar-collapse#main-nav-collapse
       %ul.nav.navbar-nav

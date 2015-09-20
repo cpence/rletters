@@ -560,8 +560,6 @@ en:
                 we can do.  Head back to the front page, and if you see this
                 error message again, let us know and we'll try to fix it.
     settings:
-        app_name: Application Name
-        app_email: Contact E-mail
         app_domain: Application Domain Name
         solr_server_url: Solr URL
         solr_timeout: Solr Timeout (sec)

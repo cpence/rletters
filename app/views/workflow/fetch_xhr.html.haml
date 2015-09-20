@@ -18,7 +18,7 @@
               %td.label-cell= t.status_message || t('.no_status')
 
       .well
-        %p= t_md('.pending_cancel_markdown', terminate_url: workflow_fetch_path(terminate: 'true'), email: Admin::Setting.app_email)
+        %p= t_md('.pending_cancel_markdown', terminate_url: workflow_fetch_path(terminate: 'true'), email: ENV['APP_EMAIL'])
 
 .row
   .col-sm-12

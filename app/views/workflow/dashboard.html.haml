@@ -1,7 +1,7 @@
 .row
   .col-sm-9.col-sm-offset-1
-    %h1= t('.header', app_name: Admin::Setting.app_name)
-    %h4.text-muted= t('.subheader', app_name: Admin::Setting.app_name)
+    %h1= t('.header', app_name: ENV['APP_NAME'])
+    %h4.text-muted= t('.subheader', app_name: ENV['APP_NAME'])
 
 .row.dashboard
   .col-sm-4.col-sm-offset-1

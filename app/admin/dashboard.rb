@@ -1,13 +1,14 @@
 
 AdminEnvVar = Struct.new(:name, :value)
 ENVIRONMENT_VARIABLES_TO_PRINT = [
+  # Our configuration
+  'APP_NAME', 'APP_EMAIL', 'DATABASE_URL', 'VERBOSE_LOGS',
+  'MAILER_PREVIEWS',
   # Important/interesting Ruby information, if available
   'RBENV_VERSION', 'RUBYOPT', 'RUBYLIB', 'GEM_PATH', 'GEM_HOME',
   'BUNDLE_BIN_PATH', 'BUNDLE_GEMFILE',
   # Rails information
-  'RACK_ENV', 'RAILS_ENV',
-  # Our configuration
-  'DATABASE_URL'
+  'RACK_ENV', 'RAILS_ENV'
 ]
 
 ActiveAdmin.register_page 'Dashboard' do

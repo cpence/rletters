@@ -18,9 +18,8 @@ class UserMailer < ActionMailer::Base
     # Only way to get locals into the mail templates is to set instance vars
     @task = task
 
-    mail(from: Admin::Setting.app_email,
-         to: email,
+    mail(from: ENV['APP_EMAIL'], to: email,
          subject: I18n.t('user_mailer.job_finished.subject',
-                         app_name: Admin::Setting.app_name))
+                         app_name: ENV['APP_NAME']))
   end
 end

@@ -47,7 +47,7 @@ RSpec.describe Admin::AdminSettingsController, type: :controller do
 
   describe '#edit' do
     before(:example) do
-      @setting = Admin::Setting.where(key: :app_name).first_or_create(value: Admin::Setting.send(:app_name))
+      @setting = Admin::Setting.where(key: :solr_timeout).first_or_create(value: Admin::Setting.send(:solr_timeout))
       get :edit, id: @setting.to_param
     end
 

@@ -746,7 +746,7 @@
                           <table class="twelve columns">
                             <tr>
                               <td>
-                                <h1><%= Admin::Setting.app_name %></h1>
+                                <h1><%= ENV['APP_NAME'] %></h1>
                               </td>
                               <td class="expander"></td>
                             </tr>
@@ -790,7 +790,7 @@
                           <tr>
                             <td class="left-text-pad">
 
-                              <h6><%= t('ink_email.visit', app_name: Admin::Setting.app_name) %></h6>
+                              <h6><%= t('ink_email.visit', app_name: ENV['APP_NAME']) %></h6>
 
                               <table class="tiny-button">
                                 <tr>
@@ -822,7 +822,7 @@
                           <tr>
                             <td class="last right-text-pad">
                               <h6><%= t('ink_email.contact') %></h6>
-                              <p><%= t('ink_email.email') %> <a href="mailto:<%= Admin::Setting.app_email %>"><%= Admin::Setting.app_email %></a></p>
+                              <p><%= t('ink_email.email') %> <a href="mailto:<%= ENV['APP_EMAIL'] %>"><%= ENV['APP_EMAIL'] %></a></p>
                             </td>
                             <td class="expander"></td>
                           </tr>
