@@ -5,6 +5,20 @@ module RLetters
     module PDF
       extend ActiveSupport::Concern
 
+      # A list of all the available fonts and their folder names
+      FONTS = {
+        'Arvo' => 'Arvo',
+        'Exo 2' => 'Exo2',
+        'Hack' => 'Hack',
+        'Inconsolata' => 'InconsolataLGC',
+        'Josefin Slab' => 'JosefinSlab',
+        'Lato' => 'Lato',
+        'Merriweather' => 'Merriweather',
+        'Old Standard TT' => 'OldStandard',
+        'Roboto' => 'Roboto',
+        'Vollkorn' => 'Vollkorn'
+      }
+
       # Write a PDF to a string, yielding a Prawn PDF document
       #
       # When the PDF document is yielded, the cursor is guaranteed to be at
@@ -29,15 +43,60 @@ module RLetters
                                   page_layout: :landscape,
                                   margin: 72)
 
-        pdf.text header, align: :center, size: 18, style: :bold
-        pdf.move_down(20)
+        # Add all the known font families
+        FONTS.each do |name, root|
+          add_font_family(pdf, name, root)
+        end
+
+        # Draw the header
+        pdf.font('Roboto') do
+          pdf.text(header, align: :center, size: 18, style: :bold)
+          pdf.move_down(20)
+        end
 
         yield(pdf)
 
-        pdf.number_pages('<page>/<total>', at: [pdf.bounds.right - 150, -30],
-                                           width: 150,
-                                           align: :right)
+        # Number the pages
+        pdf.font('Roboto') do
+          pdf.number_pages('<page>/<total>', at: [pdf.bounds.right - 150, -30],
+                                             width: 150,
+                                             align: :right)
+        end
+
         pdf.render
+      end
+
+      private
+
+      # Add a font family to the PDF document
+      #
+      # All our fonts are stored in the same place, and all but one have all
+      # of their styles available, so we can generalize this loading code.
+      #
+      # @param [Prawn::Document] pdf The document to add fonts to
+      # @param [String] name The human-readable name of the family to add
+      # @param [String] root The font family root to add
+      # @return [void]
+      def add_font_family(pdf, name, root)
+        if root == 'OldStandard'
+          # No Bold-Italic variant in OldStandard
+          bold_italic_name = "#{root}-Bold.ttf"
+        else
+          bold_italic_name = "#{root}-BoldItalic.ttf"
+        end
+
+        pdf.font_families.update(
+          name => {
+            normal: Rails.root.join('vendor', 'fonts', root,
+                                    "#{root}-Regular.ttf").to_s,
+            italic: Rails.root.join('vendor', 'fonts', root,
+                                    "#{root}-Italic.ttf").to_s,
+            bold: Rails.root.join('vendor', 'fonts', root,
+                                  "#{root}-Bold.ttf").to_s,
+            bold_italic: Rails.root.join('vendor', 'fonts', root,
+                                         bold_italic_name).to_s
+          }
+        )
       end
     end
   end

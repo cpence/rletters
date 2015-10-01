@@ -1,8 +1,5 @@
-require 'spec_helper'
-require 'active_support/concern'
-require 'prawn'
+require 'rails_helper'
 require 'pdf/inspector'
-require 'r_letters/visualization/pdf'
 
 RSpec.describe RLetters::Visualization::PDF do
   let(:test_class) { Class.new { include RLetters::Visualization::PDF } }
@@ -24,6 +21,11 @@ RSpec.describe RLetters::Visualization::PDF do
 
     it 'numbers the pages' do
       expect(@text_analysis.strings).to include('1/1')
+    end
+
+    it 'uses the Roboto font' do
+      expect(@text_analysis.font_settings.map { |h| h[:name] }).to be_any { |s| s =~ /Roboto-Regular/ }
+      expect(@text_analysis.font_settings.map { |h| h[:name] }).to be_any { |s| s =~ /Roboto-Bold/ }
     end
   end
 end
