@@ -34,7 +34,6 @@ gem 'rsolr-ext'
 gem 'cheetah'
 gem 'distribution'
 gem 'fast-stemmer'
-gem 'd3_rails'
 
 # Citation processing
 gem 'bibtex-ruby', require: 'bibtex'
@@ -48,6 +47,8 @@ gem 'rubyzip', '>= 1.1.0', require: 'zip'
 gem 'marc'
 gem 'rdf', '>= 0.3.5'
 gem 'rdf-n3'
+gem 'prawn'
+gem 'd3_rails'
 
 # Asset tools and template generators
 gem 'draper'
@@ -85,6 +86,8 @@ group :test do
   gem 'database_cleaner'
 
   gem 'webmock', require: false
+
+  gem 'pdf-inspector', require: false
 
   gem 'simplecov', require: false
   gem 'codeclimate-test-reporter', require: false

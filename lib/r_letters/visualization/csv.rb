@@ -13,7 +13,7 @@ module RLetters
       #
       # @param [String] header The header to write
       # @param [String] subheader The subheader to write (optional)
-      # @return [void]
+      # @return [String] The CSV file, as a string
       # @yield [csv] Yields a +CSV+ object to the block, for writing out
       #   the data
       # @yieldparam [CSV] csv The object to write data into
@@ -42,6 +42,7 @@ module RLetters
       #   column of data, used as the column header) and symbols as values
       #   (which specify the method to call on each element of `data` to get
       #   the column value).
+      # @return [void]
       def write_csv_data(csv, data, data_spec)
         unless data.respond_to?(:each)
           fail ArgumentError, 'data object passed to write_data not enumerable'
