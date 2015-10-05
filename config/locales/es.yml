@@ -50,9 +50,6 @@ es:
       admin/markdown_page:
         one: Página personalizable
         other: Páginas personalizables
-      admin/setting:
-        one: Configuración
-        other: Configuración
       dataset:
         one: Conjunto de datos
         other: Conjuntos de datos
@@ -88,9 +85,6 @@ es:
         friendly_name: Nombre
         name: Nombre
         content: Índice
-      admin/setting:
-        key: Botón
-        value: Valor
       admin/uploaded_asset:
         friendly_name: Nombre
         name: Nombre

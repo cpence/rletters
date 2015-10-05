@@ -22,7 +22,6 @@ gem 'devise-i18n'
 gem 'activeadmin', '~> 1.0.0.pre1'
 gem 'active_admin-sortable_tree'
 gem 'que-web'
-gem 'druthers'
 
 # Internationalization
 gem 'rails-i18n', '= 4.0.4'

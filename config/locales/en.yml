@@ -72,9 +72,6 @@ en:
             'admin/markdown_page':
                 one: Custom Page
                 other: Custom Pages
-            'admin/setting':
-                one: Setting
-                other: Settings
             dataset:
                 one: Dataset
                 other: Datasets
@@ -110,9 +107,6 @@ en:
                 friendly_name: Name
                 name: Name
                 content: Content
-            'admin/setting':
-                key: Key
-                value: Value
             'admin/uploaded_asset':
                 friendly_name: Name
                 name: Name
@@ -586,7 +580,7 @@ en:
             backend: Backend Information
             database: Database
             db_size: "Database size: %{count} items"
-            connection_failed: Cannot connect to Solr!  Configure the Solr URL on the Settings tab.
+            connection_failed: Cannot connect to Solr!  Configure the Solr URL in the .env file.
             latency: "Local database latency: %{count} ms"
             solr: Solr Server
             solr_version: "Solr version %{solr_ver}, Lucene version %{lucene_ver}"

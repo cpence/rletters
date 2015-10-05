@@ -102,38 +102,6 @@ ALTER SEQUENCE admin_markdown_pages_id_seq OWNED BY admin_markdown_pages.id;
 
 
 --
--- Name: admin_settings; Type: TABLE; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE TABLE admin_settings (
-    id integer NOT NULL,
-    key character varying(255),
-    value text,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone
-);
-
-
---
--- Name: admin_settings_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE admin_settings_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: admin_settings_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE admin_settings_id_seq OWNED BY admin_settings.id;
-
-
---
 -- Name: admin_uploaded_asset_files; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -632,13 +600,6 @@ ALTER TABLE ONLY admin_markdown_pages ALTER COLUMN id SET DEFAULT nextval('admin
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY admin_settings ALTER COLUMN id SET DEFAULT nextval('admin_settings_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
 ALTER TABLE ONLY admin_uploaded_asset_files ALTER COLUMN id SET DEFAULT nextval('admin_uploaded_asset_files_id_seq'::regclass);
 
 
@@ -740,14 +701,6 @@ ALTER TABLE ONLY admin_administrators
 
 ALTER TABLE ONLY admin_markdown_pages
     ADD CONSTRAINT admin_markdown_pages_pkey PRIMARY KEY (id);
-
-
---
--- Name: admin_settings_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
---
-
-ALTER TABLE ONLY admin_settings
-    ADD CONSTRAINT admin_settings_pkey PRIMARY KEY (id);
 
 
 --
@@ -922,13 +875,6 @@ CREATE UNIQUE INDEX index_users_on_email ON users USING btree (email);
 --
 
 CREATE UNIQUE INDEX index_users_on_reset_password_token ON users USING btree (reset_password_token);
-
-
---
--- Name: key_udx; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE UNIQUE INDEX key_udx ON admin_settings USING btree (key);
 
 
 --
@@ -1121,4 +1067,6 @@ INSERT INTO schema_migrations (version) VALUES ('20150908203553');
 INSERT INTO schema_migrations (version) VALUES ('20150908210220');
 
 INSERT INTO schema_migrations (version) VALUES ('20150918225229');
+
+INSERT INTO schema_migrations (version) VALUES ('20151005170502');
 

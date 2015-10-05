@@ -2,8 +2,10 @@
 AdminEnvVar = Struct.new(:name, :value)
 ENVIRONMENT_VARIABLES_TO_PRINT = [
   # Our configuration
-  'APP_NAME', 'APP_EMAIL', 'DATABASE_URL', 'VERBOSE_LOGS',
-  'MAILER_PREVIEWS',
+  'APP_NAME', 'APP_EMAIL', 'APP_MAIL_DOMAIN',
+  'DATABASE_URL', 'SOLR_URL', 'SOLR_TIMEOUT',
+  'NLP_TOOL_PATH', 'GOOGLE_ANALYTICS_KEY',
+  'VERBOSE_LOGS', 'MAILER_PREVIEWS',
   # Important/interesting Ruby information, if available
   'RBENV_VERSION', 'RUBYOPT', 'RUBYLIB', 'GEM_PATH', 'GEM_HOME',
   'BUNDLE_BIN_PATH', 'BUNDLE_GEMFILE',
