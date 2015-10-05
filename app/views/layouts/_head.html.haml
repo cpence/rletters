@@ -19,7 +19,7 @@
     %link{ href: Admin::UploadedAsset.url_for('favicon'), rel: "shortcut icon" }/
 
   -# Load Google Analytics (if enabled)
-  - if Admin::Setting.google_analytics_key.present?
+  - if ENV['GOOGLE_ANALYTICS_KEY'].present?
     = render partial: 'layouts/google'
 
   -# Load the Google loader
