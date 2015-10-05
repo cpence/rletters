@@ -614,17 +614,6 @@ es:
         subheader: Esta tarea tiene más prefereferias que puede configurar antes de comenzarla.
       create:
         workflow: "Ejecutando análisis, vuelva más tarde para ver los resultados..."
-  settings:
-    app_name: Nombre de la aplicación
-    app_email: Correo-e de contacto
-    app_domain: Nombre de dominio de la aplicación
-    solr_server_url: URL Solr
-    solr_timeout: Espera de Solr (seg)
-    mendeley_key: Clave de Mendeley
-    google_analytics_key: Código de seguimiento de Google Analytics
-    secret_token: Estructurar mediante Rails el token secreto
-    secret_key_base: Estructurar mediante Rails la base de clave secreta
-    devise_secret_key: Crear clave secreta
   markdown_pages:
     landing: Página de llegada
     caption-one: Primer titular de captura de pantalla

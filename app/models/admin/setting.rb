@@ -11,7 +11,7 @@ module Admin
     serialize :value
 
     # The list of setting keys that can be used
-    VALID_KEYS = [:solr_server_url, :solr_timeout, :google_analytics_key,
+    VALID_KEYS = [:google_analytics_key,
                   :secret_token, :secret_key_base, :devise_secret_key]
 
     # The list of keys that shouldn't be edited by the user in the admin panel
@@ -32,16 +32,6 @@ module Admin
     end
 
     def_druthers(*VALID_KEYS)
-
-    # @return [String] The default URL for the Solr server
-    def self.default_solr_server_url
-      'http://127.0.0.1:8983/solr'
-    end
-
-    # @return [Integer] The default timeout value for Solr, in seconds
-    def self.default_solr_timeout
-      120
-    end
 
     # @return [String] Friendly name of this setting (looked up in locale)
     def friendly_name

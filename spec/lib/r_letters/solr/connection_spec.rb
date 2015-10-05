@@ -13,30 +13,6 @@ RSpec.describe RLetters::Solr::Connection do
       expect(described_class.search_raw(q: '')).to eq({})
     end
 
-    it 'successfully responds to changes in cached Solr URL' do
-      # Zero out the current instance to make it reconnect
-      Thread.current[:solr_handle] = nil
-
-      expect(RSolr::Ext).to receive(:connect).with(
-        url: 'http://127.0.0.1:8983/solr',
-        read_timeout: 120,
-        open_timeout: 120).and_call_original
-
-      described_class.search_raw({})
-
-      Admin::Setting.solr_server_url = 'http://127.0.0.1:8080/'
-      expect(RSolr::Ext).to receive(:connect).with(
-        url: 'http://127.0.0.1:8080/',
-        read_timeout: 120,
-        open_timeout: 120).and_call_original
-
-      described_class.search_raw({})
-
-      # Make damn sure it refreshes after this spec runs
-      Admin::Setting.solr_server_url = 'http://127.0.0.1:8983/solr'
-      Thread.current[:solr_handle] = nil
-    end
-
     it 'converts snake_case Symbol params into camelCase String params' do
       header = described_class.search_raw(def_type: 'lucene')['responseHeader']
       expect(header['params']['defType']).to eq('lucene')

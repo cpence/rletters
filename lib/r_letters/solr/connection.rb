@@ -114,15 +114,8 @@ module RLetters
       #
       # @return [void]
       def self.ensure_connected!
-        Thread.current[:solr_url] ||= Admin::Setting.solr_server_url
+        Thread.current[:solr_url] ||= ENV['SOLR_URL']
         Thread.current[:solr_handle] ||= connect
-
-        # Make sure that we update the Solr connection when we change the
-        # Solr URL, since it can be dynamically modified in the admin panel
-        if Thread.current[:solr_url] != Admin::Setting.solr_server_url
-          Thread.current[:solr_url] = Admin::Setting.solr_server_url
-          Thread.current[:solr_handle] = connect
-        end
       end
 
       # Make the actual Solr connection
@@ -132,9 +125,9 @@ module RLetters
       # @return [RSolr::Client] the Solr connection object
       def self.connect
         RSolr::Ext.connect(
-          url: Admin::Setting.solr_server_url,
-          read_timeout: Admin::Setting.solr_timeout.to_i,
-          open_timeout: Admin::Setting.solr_timeout.to_i
+          url: ENV['SOLR_URL'],
+          read_timeout: Integer(ENV['SOLR_TIMEOUT']),
+          open_timeout: Integer(ENV['SOLR_TIMEOUT'])
         )
       end
 
