@@ -19,6 +19,17 @@ class BaseJob < ActiveJob::Base
   rescue_from(Exception) do |e|
     task = arguments[0]
     task.mark_failed(e.to_s) if task.is_a?(Datasets::Task)
+
+    # Try really very hard to prevent this job from sticking in the queue and
+    # repeating until the end of time. The PostgreSQL JSON type is a thing of
+    # pure beauty.
+    active_job_id = @job_id
+    query = <<-SQL
+      DELETE FROM que_jobs
+      WHERE args -> 0 ->> 'job_id' = '#{active_job_id}'
+    SQL
+
+    ActiveRecord::Base.connection.execute(query)
   end
 
   # Returns true if this job can be run right now

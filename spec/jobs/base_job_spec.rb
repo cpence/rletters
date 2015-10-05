@@ -4,6 +4,22 @@ require 'rails_helper'
 class MockJob < BaseJob; end
 class FailJob < BaseJob
   def perform(task)
+    # Mock what this would look like in the Que jobs table
+    ActiveRecord::Base.connection.execute('DELETE FROM que_jobs')
+
+    json = [{'job_class' => 'FailingJob', 'job_id' => @job_id,
+             'queue_name' => 'maintenance', 'arguments' => [],
+             'locale' => 'en'}].to_json
+    query = <<-SQL
+      INSERT INTO que_jobs
+      (priority, run_at, job_id, job_class, args, error_count, queue) VALUES
+      (100, now(), 1, 'ActiveJob::QueueAdapters::QueAdapter::JobWrapper',
+      '#{json}', 0, 'maintenance')
+    SQL
+    ActiveRecord::Base.connection.execute(query)
+
+    expect(ActiveRecord::Base.connection.execute('SELECT * FROM que_jobs').count).to eq(1)
+
     fail ArgumentError
   end
 end
@@ -25,6 +41,16 @@ RSpec.describe BaseJob, type: :job do
 
       @task.reload
       expect(@task.failed).to be true
+    end
+
+    it 'pulls the task from the Que queue' do
+      expect {
+        perform_enqueued_jobs do
+          FailJob.perform_later(@task)
+        end
+      }.not_to raise_exception
+
+      expect(ActiveRecord::Base.connection.execute('SELECT * FROM que_jobs').count).to eq(0)
     end
   end
 
