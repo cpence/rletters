@@ -42,7 +42,7 @@ module RLetters
       #   possibly stemmed or lemmatized
       def words_for(uid)
         word_list = if @options[:stemming] == :lemma &&
-                       Admin::Setting.nlp_tool_path.present?
+                       ENV['NLP_TOOL_PATH'].present?
                       get_lemmatized_words(uid)
                     else
                       get_words(uid, @options[:stemming] == :stem)

@@ -69,8 +69,8 @@ RSpec.shared_examples_for 'a cooccurrence analyzer' do
 
   describe 'lemmatization' do
     before(:example) do
-      @old_path = Admin::Setting.nlp_tool_path
-      Admin::Setting.nlp_tool_path = 'stubbed'
+      @old_path = ENV['NLP_TOOL_PATH']
+      ENV['NLP_TOOL_PATH'] = 'stubbed'
 
       expect(RLetters::Analysis::NLP).to receive(:lemmatize_words).with(['abstract']).and_return(['the'])
       allow(RLetters::Analysis::NLP).to receive(:lemmatize_words) { |array| array }
@@ -79,7 +79,7 @@ RSpec.shared_examples_for 'a cooccurrence analyzer' do
     end
 
     after(:example) do
-      Admin::Setting.nlp_tool_path = @old_path
+      ENV['NLP_TOOL_PATH'] = @old_path
     end
 
     it 'returns grams with the lemmatized words' do

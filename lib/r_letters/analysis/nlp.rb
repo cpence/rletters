@@ -16,10 +16,10 @@ module RLetters
         words = [words] if words.is_a?(String)
 
         # No lemmatization if we don't have the nlp_tool
-        return words if Admin::Setting.nlp_tool_path.blank?
+        return words if ENV['NLP_TOOL_PATH'].blank?
 
         # Call the external tool
-        yml = Cheetah.run(Admin::Setting.nlp_tool_path, '-l',
+        yml = Cheetah.run(ENV['NLP_TOOL_PATH'], '-l',
                           stdin: words.join(' '), stdout: :capture)
         YAML.load(yml)
       end
@@ -32,10 +32,10 @@ module RLetters
         # No tagging if we don't have the nlp_tool (FIXME: this should
         # probably be an exception, as this is going to return data that
         # the caller can't actually use)
-        return text.split if Admin::Setting.nlp_tool_path.blank?
+        return text.split if ENV['NLP_TOOL_PATH'].blank?
 
         # Call the external tool
-        yml = Cheetah.run(Admin::Setting.nlp_tool_path, '-p',
+        yml = Cheetah.run(ENV['NLP_TOOL_PATH'], '-p',
                           stdin: text, stdout: :capture)
         YAML.load(yml)
       end
@@ -46,10 +46,10 @@ module RLetters
       # @return [Hash] a hash of named entities, grouped by type
       def self.named_entities(text)
         # Return no references if the nlp_tool isn't available
-        return [] if Admin::Setting.nlp_tool_path.blank?
+        return [] if ENV['NLP_TOOL_PATH'].blank?
 
         # Call the external tool
-        yml = Cheetah.run(Admin::Setting.nlp_tool_path, '-n',
+        yml = Cheetah.run(ENV['NLP_TOOL_PATH'], '-n',
                           stdin: text, stdout: :capture)
         YAML.load(yml)
       end

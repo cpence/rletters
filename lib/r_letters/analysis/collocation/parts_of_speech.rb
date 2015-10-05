@@ -26,7 +26,7 @@ module RLetters
         #   associated significance values, sorted in order of significance
         #   (most significant first)
         def call
-          if Admin::Setting.nlp_tool_path.blank?
+          if ENV['NLP_TOOL_PATH'].blank?
             fail ArgumentError, 'NLP tool not available'
           end
           total = @dataset.entries.size

@@ -34,7 +34,7 @@ module RLetters
       #
       # @return [void]
       def call
-        return if Admin::Setting.nlp_tool_path.blank?
+        return if ENV['NLP_TOOL_PATH'].blank?
 
         total = @dataset.entries.size
         text_cache = ''

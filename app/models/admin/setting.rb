@@ -11,8 +11,7 @@ module Admin
     serialize :value
 
     # The list of setting keys that can be used
-    VALID_KEYS = [:solr_server_url,
-                  :solr_timeout, :nlp_tool_path, :google_analytics_key,
+    VALID_KEYS = [:solr_server_url, :solr_timeout, :google_analytics_key,
                   :secret_token, :secret_key_base, :devise_secret_key]
 
     # The list of keys that shouldn't be edited by the user in the admin panel

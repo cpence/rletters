@@ -7,8 +7,8 @@ RSpec.describe CollocationJob, type: :job do
                                      user: @user)
     @task = create(:task, dataset: @dataset)
 
-    @old_path = Admin::Setting.nlp_tool_path
-    Admin::Setting.nlp_tool_path = 'stubbed'
+    @old_path = ENV['NLP_TOOL_PATH']
+    ENV['NLP_TOOL_PATH'] = 'stubbed'
 
     @words = build(:parts_of_speech)
     allow(RLetters::Analysis::NLP).to receive(:parts_of_speech).and_return(@words)
@@ -37,7 +37,7 @@ RSpec.describe CollocationJob, type: :job do
   end
 
   after(:example) do
-    Admin::Setting.nlp_tool_path = @old_path
+    ENV['NLP_TOOL_PATH'] = @old_path
   end
 
   it_should_behave_like 'an analysis job'
@@ -59,7 +59,7 @@ RSpec.describe CollocationJob, type: :job do
     end
 
     it 'falls back to MI if POS is selected but unavailable' do
-      Admin::Setting.nlp_tool_path = nil
+      ENV['NLP_TOOL_PATH'] = nil
 
       expect(RLetters::Analysis::Collocation::MutualInformation).to receive(:new).and_call_original
       expect(RLetters::Analysis::Collocation::PartsOfSpeech).not_to receive(:new)

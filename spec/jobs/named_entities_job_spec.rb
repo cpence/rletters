@@ -6,15 +6,15 @@ RSpec.describe NamedEntitiesJob, type: :job do
     @dataset = create(:full_dataset, working: true, user: @user)
     @task = create(:task, dataset: @dataset)
 
-    @old_path = Admin::Setting.nlp_tool_path
-    Admin::Setting.nlp_tool_path = 'stubbed'
+    @old_path = ENV['NLP_TOOL_PATH']
+    ENV['NLP_TOOL_PATH'] = 'stubbed'
 
     @entities = build(:named_entities)
     allow(RLetters::Analysis::NLP).to receive(:named_entities).and_return(@entities)
   end
 
   after(:example) do
-    Admin::Setting.nlp_tool_path = @old_path
+    ENV['NLP_TOOL_PATH'] = @old_path
   end
 
   it_should_behave_like 'an analysis job'
@@ -25,7 +25,7 @@ RSpec.describe NamedEntitiesJob, type: :job do
     end
 
     it 'is false with no NLP available' do
-      Admin::Setting.nlp_tool_path = nil
+      ENV['NLP_TOOL_PATH'] = nil
       expect(described_class.available?).to be false
     end
   end

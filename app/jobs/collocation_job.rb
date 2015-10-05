@@ -31,7 +31,7 @@ class CollocationJob < BaseJob
     focal_word = options[:word].mb_chars.downcase.to_s if options[:word]
 
     # Part of speech tagging requires the Stanford NLP
-    if analysis_type == :pos && Admin::Setting.nlp_tool_path.blank?
+    if analysis_type == :pos && ENV['NLP_TOOL_PATH'].blank?
       analysis_type = :mi
     end
 

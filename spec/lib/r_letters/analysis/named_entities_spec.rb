@@ -2,8 +2,8 @@ require 'spec_helper'
 
 RSpec.describe RLetters::Analysis::NamedEntities do
   before(:example) do
-    @old_path = Admin::Setting.nlp_tool_path
-    Admin::Setting.nlp_tool_path = 'stubbed'
+    @old_path = ENV['NLP_TOOL_PATH']
+    ENV['NLP_TOOL_PATH'] = 'stubbed'
 
     @entities = build(:named_entities)
     expect(RLetters::Analysis::NLP).to receive(:named_entities).and_return(@entities)
@@ -25,7 +25,7 @@ RSpec.describe RLetters::Analysis::NamedEntities do
   end
 
   after(:example) do
-    Admin::Setting.nlp_tool_path = @old_path
+    ENV['NLP_TOOL_PATH'] = @old_path
   end
 
   describe '#entity_references' do

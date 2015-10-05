@@ -7,7 +7,7 @@ class NamedEntitiesJob < BaseJob
   #
   # @return [Boolean] true if the Stanford NLP toolkit is available
   def self.available?
-    Admin::Setting.nlp_tool_path.present?
+    ENV['NLP_TOOL_PATH'].present?
   end
 
   # Export the named entity data
