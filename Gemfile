@@ -24,7 +24,7 @@ gem 'active_admin-sortable_tree'
 gem 'que-web'
 
 # Internationalization
-gem 'rails-i18n', '= 4.0.4'
+gem 'rails-i18n', '= 4.0.5'
 gem 'http_accept_language'
 
 # Textual analysis
