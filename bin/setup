@@ -37,8 +37,9 @@ END
   end
 
   unless File.exist?('.env')
-    puts "\n== Linking default environment =="
-    system "ln -s .env.example .env"
+    puts "\n== Copying default environment and creating new secrets =="
+    system "cp .env.example .env"
+    system "bin/rake secrets:regen"
   end
 
   puts "\n== Preparing database =="
