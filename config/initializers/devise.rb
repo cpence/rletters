@@ -8,7 +8,7 @@ Devise.setup do |config|
   if Rails.env.development? || Rails.env.test?
     config.secret_key = 'x' * 30
   else
-    config.secret_key = ENV.fetch['DEVISE_SECRET_KEY']
+    config.secret_key = ENV.fetch('DEVISE_SECRET_KEY')
   end
 
   # ==> Mailer Configuration
