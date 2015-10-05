@@ -11,7 +11,7 @@ module Admin
     serialize :value
 
     # The list of setting keys that can be used
-    VALID_KEYS = [:app_domain, :solr_server_url,
+    VALID_KEYS = [:solr_server_url,
                   :solr_timeout, :nlp_tool_path, :google_analytics_key,
                   :secret_token, :secret_key_base, :devise_secret_key]
 
@@ -33,11 +33,6 @@ module Admin
     end
 
     def_druthers(*VALID_KEYS)
-
-    # @return [String] The default application hosting domain
-    def self.default_app_domain
-      'not.a.web.site.com'
-    end
 
     # @return [String] The default URL for the Solr server
     def self.default_solr_server_url
