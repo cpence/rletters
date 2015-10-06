@@ -46,7 +46,11 @@ gem 'rubyzip', '>= 1.1.0', require: 'zip'
 gem 'marc'
 gem 'rdf', '>= 0.3.5'
 gem 'rdf-n3'
+
+# Visualization
 gem 'prawn'
+gem 'chunky_png'
+gem 'mini_magick'
 gem 'd3_rails'
 
 # Asset tools and template generators

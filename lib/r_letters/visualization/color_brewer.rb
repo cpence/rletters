@@ -32,7 +32,7 @@ module RLetters
       # high. Lightness steps dominate the look of these schemes, with light
       # colors for low data values to dark colors for high data values.
       SEQUENTIAL_COLOR_SCHEMES = {
-        '3' => {
+        3 => {
           'YellowGreen' => ['#f7fcb9', '#addd8e', '#31a354'],
           'YellowGreenBlue' => ['#edf8b1', '#7fcdbb', '#2c7fb8'],
           'GreenBlue' => ['#e0f3db', '#a8ddb5', '#43a2ca'],
@@ -52,7 +52,7 @@ module RLetters
           'Reds' => ['#fee0d2', '#fc9272', '#de2d26'],
           'Greys' => ['#f0f0f0', '#bdbdbd', '#636363']
         },
-        '4' => {
+        4 => {
           'YellowGreen' => ['#ffffcc', '#c2e699', '#78c679', '#238443'],
           'YellowGreenBlue' => ['#ffffcc', '#a1dab4', '#41b6c4', '#225ea8'],
           'GreenBlue' => ['#f0f9e8', '#bae4bc', '#7bccc4', '#2b8cbe'],
@@ -72,7 +72,7 @@ module RLetters
           'Reds' => ['#fee5d9', '#fcae91', '#fb6a4a', '#cb181d'],
           'Greys' => ['#f7f7f7', '#cccccc', '#969696', '#525252']
         },
-        '5' => {
+        5 => {
           'YellowGreen' => ['#ffffcc', '#c2e699', '#78c679', '#31a354',
                             '#006837'],
           'YellowGreenBlue' => ['#ffffcc', '#a1dab4', '#41b6c4', '#2c7fb8',
@@ -104,7 +104,7 @@ module RLetters
           'Reds' => ['#fee5d9', '#fcae91', '#fb6a4a', '#de2d26', '#a50f15'],
           'Greys' => ['#f7f7f7', '#cccccc', '#969696', '#636363', '#252525']
         },
-        '6' => {
+        6 => {
           'YellowGreen' => ['#ffffcc', '#d9f0a3', '#addd8e', '#78c679',
                             '#31a354', '#006837'],
           'YellowGreenBlue' => ['#ffffcc', '#c7e9b4', '#7fcdbb', '#41b6c4',
@@ -142,7 +142,7 @@ module RLetters
           'Greys' => ['#f7f7f7', '#d9d9d9', '#bdbdbd', '#969696', '#636363',
                       '#252525']
         },
-        '7' => {
+        7 => {
           'YellowGreen' => ['#ffffcc', '#d9f0a3', '#addd8e', '#78c679',
                             '#41ab5d', '#238443', '#005a32'],
           'YellowGreenBlue' => ['#ffffcc', '#c7e9b4', '#7fcdbb', '#41b6c4',
@@ -180,7 +180,7 @@ module RLetters
           'Greys' => ['#f7f7f7', '#d9d9d9', '#bdbdbd', '#969696', '#737373',
                       '#525252', '#252525']
         },
-        '8' => {
+        8 => {
           'YellowGreen' => ['#ffffe5', '#f7fcb9', '#d9f0a3', '#addd8e',
                             '#78c679', '#41ab5d', '#238443', '#005a32'],
           'YellowGreenBlue' => ['#ffffd9', '#edf8b1', '#c7e9b4', '#7fcdbb',
@@ -218,7 +218,7 @@ module RLetters
           'Greys' => ['#ffffff', '#f0f0f0', '#d9d9d9', '#bdbdbd', '#969696',
                       '#737373', '#525252', '#252525']
         },
-        '9' => {
+        9 => {
           'YellowGreen' => ['#ffffe5', '#f7fcb9', '#d9f0a3', '#addd8e',
                             '#78c679', '#41ab5d', '#238443', '#006837',
                             '#004529'],
@@ -288,7 +288,7 @@ module RLetters
       # differences in both directions from this meaningful mid-range value
       # in the data.
       DIVERGING_COLOR_SCHEMES = {
-        '3' => {
+        3 => {
           'PurpleOrange' => ['#f1a340', '#f7f7f7', '#998ec3'],
           'BrownBlueGreen' => ['#d8b365', '#f5f5f5', '#5ab4ac'],
           'PurpleGreen' => ['#af8dc3', '#f7f7f7', '#7fbf7b'],
@@ -299,7 +299,7 @@ module RLetters
           'Spectral' => ['#fc8d59', '#ffffbf', '#99d594'],
           'RedYellowGreen' => ['#fc8d59', '#ffffbf', '#91cf60']
         },
-        '4' => {
+        4 => {
           'PurpleOrange' => ['#e66101', '#fdb863', '#b2abd2', '#5e3c99'],
           'BrownBlueGreen' => ['#a6611a', '#dfc27d', '#80cdc1', '#018571'],
           'PurpleGreen' => ['#7b3294', '#c2a5cf', '#a6dba0', '#008837'],
@@ -310,7 +310,7 @@ module RLetters
           'Spectral' => ['#d7191c', '#fdae61', '#abdda4', '#2b83ba'],
           'RedYellowGreen' => ['#d7191c', '#fdae61', '#a6d96a', '#1a9641']
         },
-        '5' => {
+        5 => {
           'PurpleOrange' => ['#e66101', '#fdb863', '#f7f7f7', '#b2abd2',
                              '#5e3c99'],
           'BrownBlueGreen' => ['#a6611a', '#dfc27d', '#f5f5f5', '#80cdc1',
@@ -328,7 +328,7 @@ module RLetters
           'RedYellowGreen' => ['#d7191c', '#fdae61', '#ffffbf', '#a6d96a',
                                '#1a9641']
         },
-        '6' => {
+        6 => {
           'PurpleOrange' => ['#b35806', '#f1a340', '#fee0b6', '#d8daeb',
                              '#998ec3', '#542788'],
           'BrownBlueGreen' => ['#8c510a', '#d8b365', '#f6e8c3', '#c7eae5',
@@ -348,7 +348,7 @@ module RLetters
           'RedYellowGreen' => ['#d73027', '#fc8d59', '#fee08b', '#d9ef8b',
                                '#91cf60', '#1a9850']
         },
-        '7' => {
+        7 => {
           'PurpleOrange' => ['#b35806', '#f1a340', '#fee0b6', '#f7f7f7',
                              '#d8daeb', '#998ec3', '#542788'],
           'BrownBlueGreen' => ['#8c510a', '#d8b365', '#f6e8c3', '#f5f5f5',
@@ -368,7 +368,7 @@ module RLetters
           'RedYellowGreen' => ['#d73027', '#fc8d59', '#fee08b', '#ffffbf',
                                '#d9ef8b', '#91cf60', '#1a9850']
         },
-        '8' => {
+        8 => {
           'PurpleOrange' => ['#b35806', '#e08214', '#fdb863', '#fee0b6',
                              '#d8daeb', '#b2abd2', '#8073ac', '#542788'],
           'BrownBlueGreen' => ['#8c510a', '#bf812d', '#dfc27d', '#f6e8c3',
@@ -388,7 +388,7 @@ module RLetters
           'RedYellowGreen' => ['#d73027', '#f46d43', '#fdae61', '#fee08b',
                                '#d9ef8b', '#a6d96a', '#66bd63', '#1a9850']
         },
-        '9' => {
+        9 => {
           'PurpleOrange' => ['#b35806', '#e08214', '#fdb863', '#fee0b6',
                              '#f7f7f7', '#d8daeb', '#b2abd2', '#8073ac',
                              '#542788'],
@@ -414,7 +414,7 @@ module RLetters
                                '#ffffbf', '#d9ef8b', '#a6d96a', '#66bd63',
                                '#1a9850']
         },
-        '10' => {
+        10 => {
           'PurpleOrange' => ['#7f3b08', '#b35806', '#e08214', '#fdb863',
                              '#fee0b6', '#d8daeb', '#b2abd2', '#8073ac',
                              '#542788', '#2d004b'],
@@ -441,7 +441,7 @@ module RLetters
                                '#fee08b', '#d9ef8b', '#a6d96a', '#66bd63',
                                '#1a9850', '#006837']
         },
-        '11' => {
+        11 => {
           'PurpleOrange' => ['#7f3b08', '#b35806', '#e08214', '#fdb863',
                              '#fee0b6', '#f7f7f7', '#d8daeb', '#b2abd2',
                              '#8073ac', '#542788', '#2d004b'],
@@ -498,7 +498,7 @@ module RLetters
       # scheme - found at the bottom of the 'Accents' legends. Beware of
       # emphasizing unimportant classes when you use qualitative schemes.
       QUALITATIVE_COLOR_SCHEMES = {
-        '3' => {
+        3 => {
           'Accent' => ['#7fc97f', '#beaed4', '#fdc086'],
           'Dark2' => ['#1b9e77', '#d95f02', '#7570b3'],
           'Paired' => ['#a6cee3', '#1f78b4', '#b2df8a'],
@@ -508,7 +508,7 @@ module RLetters
           'Set2' => ['#66c2a5', '#fc8d62', '#8da0cb'],
           'Set3' => ['#8dd3c7', '#ffffb3', '#bebada']
         },
-        '4' => {
+        4 => {
           'Accent' => ['#7fc97f', '#beaed4', '#fdc086', '#ffff99'],
           'Dark2' => ['#1b9e77', '#d95f02', '#7570b3', '#e7298a'],
           'Paired' => ['#a6cee3', '#1f78b4', '#b2df8a', '#33a02c'],
@@ -518,7 +518,7 @@ module RLetters
           'Set2' => ['#66c2a5', '#fc8d62', '#8da0cb', '#e78ac3'],
           'Set3' => ['#8dd3c7', '#ffffb3', '#bebada', '#fb8072']
         },
-        '5' => {
+        5 => {
           'Accent' => ['#7fc97f', '#beaed4', '#fdc086', '#ffff99', '#386cb0'],
           'Dark2' => ['#1b9e77', '#d95f02', '#7570b3', '#e7298a', '#66a61e'],
           'Paired' => ['#a6cee3', '#1f78b4', '#b2df8a', '#33a02c', '#fb9a99'],
@@ -528,7 +528,7 @@ module RLetters
           'Set2' => ['#66c2a5', '#fc8d62', '#8da0cb', '#e78ac3', '#a6d854'],
           'Set3' => ['#8dd3c7', '#ffffb3', '#bebada', '#fb8072', '#80b1d3']
         },
-        '6' => {
+        6 => {
           'Accent' => ['#7fc97f', '#beaed4', '#fdc086', '#ffff99', '#386cb0',
                        '#f0027f'],
           'Dark2' => ['#1b9e77', '#d95f02', '#7570b3', '#e7298a', '#66a61e',
@@ -546,7 +546,7 @@ module RLetters
           'Set3' => ['#8dd3c7', '#ffffb3', '#bebada', '#fb8072', '#80b1d3',
                      '#fdb462']
         },
-        '7' => {
+        7 => {
           'Accent' => ['#7fc97f', '#beaed4', '#fdc086', '#ffff99', '#386cb0',
                       '#f0027f', '#bf5b17'],
           'Dark2' => ['#1b9e77', '#d95f02', '#7570b3', '#e7298a', '#66a61e',
@@ -564,7 +564,7 @@ module RLetters
           'Set3' => ['#8dd3c7', '#ffffb3', '#bebada', '#fb8072', '#80b1d3',
                      '#fdb462', '#b3de69']
         },
-        '8' => {
+        8 => {
           'Accent' => ['#7fc97f', '#beaed4', '#fdc086', '#ffff99', '#386cb0',
                       '#f0027f', '#bf5b17', '#666666'],
           'Dark2' => ['#1b9e77', '#d95f02', '#7570b3', '#e7298a', '#66a61e',
@@ -582,7 +582,7 @@ module RLetters
           'Set3' => ['#8dd3c7', '#ffffb3', '#bebada', '#fb8072', '#80b1d3',
                      '#fdb462', '#b3de69', '#fccde5']
         },
-        '9' => {
+        9 => {
           'Paired' => ['#a6cee3', '#1f78b4', '#b2df8a', '#33a02c', '#fb9a99',
                        '#e31a1c', '#fdbf6f', '#ff7f00', '#cab2d6'],
           'Pastel1' => ['#fbb4ae', '#b3cde3', '#ccebc5', '#decbe4', '#fed9a6',
@@ -592,13 +592,13 @@ module RLetters
           'Set3' => ['#8dd3c7', '#ffffb3', '#bebada', '#fb8072', '#80b1d3',
                      '#fdb462', '#b3de69', '#fccde5', '#d9d9d9']
         },
-        '10' => {
+        10 => {
           'Paired' => ['#a6cee3', '#1f78b4', '#b2df8a', '#33a02c', '#fb9a99',
                        '#e31a1c', '#fdbf6f', '#ff7f00', '#cab2d6', '#6a3d9a'],
           'Set3' => ['#8dd3c7', '#ffffb3', '#bebada', '#fb8072', '#80b1d3',
                      '#fdb462', '#b3de69', '#fccde5', '#d9d9d9', '#bc80bd']
         },
-        '11' => {
+        11 => {
           'Paired' => ['#a6cee3', '#1f78b4', '#b2df8a', '#33a02c', '#fb9a99',
                        '#e31a1c', '#fdbf6f', '#ff7f00', '#cab2d6', '#6a3d9a',
                        '#ffff99'],
@@ -606,7 +606,7 @@ module RLetters
                      '#fdb462', '#b3de69', '#fccde5', '#d9d9d9', '#bc80bd',
                      '#ccebc5']
         },
-        '12' => {
+        12 => {
           'Paired' => ['#a6cee3', '#1f78b4', '#b2df8a', '#33a02c', '#fb9a99',
                        '#e31a1c', '#fdbf6f', '#ff7f00', '#cab2d6', '#6a3d9a',
                        '#ffff99', '#b15928'],

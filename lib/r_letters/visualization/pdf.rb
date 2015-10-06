@@ -57,6 +57,7 @@ module RLetters
         yield(pdf)
 
         # Number the pages
+        pdf.fill_color('000000')
         pdf.font('Roboto') do
           pdf.number_pages('<page>/<total>', at: [pdf.bounds.right - 150, -30],
                                              width: 150,
