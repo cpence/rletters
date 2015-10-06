@@ -66,12 +66,18 @@ module RLetters
             x_offset = (space_x - scale * canvas.width) / 2
           end
 
-          # Draw all the words
+          # Draw all the words, stroked in the darkest color from the color
+          # scheme
+          pdf.stroke_color(colors.last[1, 6])
+          pdf.line_width(0.25)
+
           positions.each_with_index do |(word, (pos, size)), i|
             pdf.fill_color(colors[i % colors.size][1, 6])
-            pdf.draw_text(word, size: size * scale,
-                                at: [pos[0] * scale + x_offset,
-                                     pos[1] * scale + y_offset])
+            pdf.text_rendering_mode(:fill_stroke) do
+              pdf.draw_text(word, size: size * scale,
+                                  at: [pos[0] * scale + x_offset,
+                                       pos[1] * scale + y_offset])
+            end
           end
         end
       end

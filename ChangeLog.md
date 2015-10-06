@@ -2,6 +2,7 @@
 
 ## Version 2.0.2 (unreleased)
 
+*   Add support for PDF word cloud generation to the word frequency and Craig Zeta analysis jobs.
 *   Allow all analysis tasks to potentially generate multiple output files, enabling enhanced visualizations.
 *   Upgrade the settings handling to move application settings into the environment.
 *   Upgrade delayed job handling to use ActiveJob with Que using the database as backend, removing the need for a Redis server.

@@ -31,8 +31,7 @@ RSpec.describe CraigZetaJob, type: :job do
     before(:example) do
       described_class.new.perform(
         @task,
-        other_datasets: [@dataset_2.to_param],
-        normalize_doc_counts: 'off')
+        other_datasets: [@dataset_2.to_param])
       @task.reload
       @data = JSON.load(@task.file_for('application/json').result.file_contents(:original))
     end

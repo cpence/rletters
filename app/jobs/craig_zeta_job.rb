@@ -2,6 +2,8 @@
 # Compare two datasets using the Craig Zeta algorithm
 class CraigZetaJob < BaseJob
   include RLetters::Visualization::CSV
+  include RLetters::Visualization::PDF
+  include RLetters::Visualization::WordCloud
 
   # Return how many datasets this job requires
   #
@@ -26,13 +28,22 @@ class CraigZetaJob < BaseJob
 
     options = options.with_indifferent_access
     other_datasets = options[:other_datasets]
-    fail ArgumentError, 'Wrong number of other datasets provided' unless other_datasets.size == 1
+    unless other_datasets && other_datasets.size == 1
+      fail ArgumentError, 'Wrong number of other datasets provided'
+    end
     dataset_2 = user.datasets.active.find(other_datasets[0])
+    make_word_cloud = options[:word_cloud] == '1'
 
     # Get the data
     analyzer = RLetters::Analysis::CraigZeta.new(
       dataset, dataset_2,
-      -> (p) { task.at(p, 100, t('.progress_computing')) })
+      lambda do |p|
+        if make_word_cloud
+          task.at((p / 100) * 60, 60, t('.progress_computing'))
+        else
+          task.at(p, 100, t('.progress_computing'))
+        end
+      end)
     analyzer.call
 
     # Save out all the data
@@ -84,6 +95,43 @@ class CraigZetaJob < BaseJob
     task.files.create(description: 'Spreadsheet',
                       short_description: 'CSV', downloadable: true) do |f|
       f.from_string(csv, filename: 'results.csv', content_type: 'text/csv')
+    end
+
+    # Make word clouds if requested to do so
+    if make_word_cloud
+      task.at(60, 100, t('.progress_first_word_cloud'))
+
+      color = options[:word_cloud_color] || 'Blues'
+      font = options[:pdf_font] || 'Roboto'
+
+      # Only make relatively small word clouds; it's prohibitive to do all
+      # 1,000 marker words
+      list_size = analyzer.dataset_1_markers.size
+      list_size = 50 if list_size > 50
+
+      first_words = Hash[analyzer.zeta_scores.take(list_size)]
+
+      pdf_one = word_cloud(t('.marker_column', name: dataset.name),
+                           first_words, color, font)
+
+      task.files.create(description: "Word Cloud (#{dataset.name})",
+                        short_description: 'PDF', downloadable: true) do |f|
+        f.from_string(pdf_one, filename: 'word_cloud_one.pdf',
+                               content_type: 'application/pdf')
+      end
+
+      task.at(80, 100, t('.progress_second_word_cloud'))
+
+      second_words = Hash[analyzer.zeta_scores.reverse_each.take(list_size)]
+
+      pdf_two = word_cloud(t('.marker_column', name: dataset_2.name),
+                           second_words, color, font)
+
+      task.files.create(description: "Word Cloud (#{dataset_2.name})",
+                        short_description: 'PDF', downloadable: true) do |f|
+        f.from_string(pdf_two, filename: 'word_cloud_two.pdf',
+                               content_type: 'application/pdf')
+      end
     end
 
     task.mark_completed

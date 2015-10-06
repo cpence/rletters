@@ -651,6 +651,7 @@ en:
         question: >
             Given two sets of articles, what words mark out an article
             as belonging to set A rather than to set B, or vice versa?
+        options_label: Craig Zeta analysis options
         header: "Comparison of %{name_1} with %{name_2}"
         subheader: (Craig Zeta algorithm)
         csv_header: "Craig Zeta comparison for dataset %{name_1} with %{name_2}"
@@ -675,6 +676,8 @@ en:
         word_column: Word
         score_column: Zeta Score
         progress_computing: "Computing zeta scores for dataset..."
+        progress_first_word_cloud: "Building first word cloud..."
+        progress_second_word_cloud: "Building second word cloud..."
     create_dataset_job:
         progress_fetching: "Fetching documents..."
         progress_finished: "Finished creating, saving dataset..."

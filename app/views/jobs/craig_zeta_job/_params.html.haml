@@ -1,0 +1,14 @@
+.row
+  .col-md-6
+    = simple_form_for :job_params, url: dataset_tasks_path(dataset, class: 'CraigZetaJob'), method: :post do |f|
+      = f.error_notification
+
+      = field_set_tag t('craig_zeta_job.options_label') do
+        -# Pass through the other_datasets parameter that we've received from
+        -# the page before
+        = f.hidden_field :other_datasets, :multiple => true, value: params[:job_params][:other_datasets]
+
+        = render partial: 'jobs/word_cloud/params', locals: { f: f }
+
+        = f.button :submit
+        = link_to(t('common.cancel'), dataset, class: 'btn btn-default')

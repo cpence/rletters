@@ -145,7 +145,7 @@ module RLetters
           end
 
           @width = (root[:w] * 1.7).ceil
-          @height = (root[:h] * 1.3).ceil
+          @height = (root[:h] * 1.15).ceil
         end
 
         # Make a brand new PNG image with MiniMagick

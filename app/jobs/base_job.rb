@@ -18,7 +18,9 @@ class BaseJob < ActiveJob::Base
   # Try to rescue from everything, setting the failed bit
   rescue_from(Exception) do |e|
     task = arguments[0]
-    task.mark_failed(e.to_s) if task.is_a?(Datasets::Task)
+    if task.is_a?(Datasets::Task)
+      task.mark_failed(e.backtrace[0] + ': ' + e.to_s)
+    end
 
     # Try really very hard to prevent this job from sticking in the queue and
     # repeating until the end of time. The PostgreSQL JSON type is a thing of
