@@ -27,6 +27,13 @@ table.button-table {
   td.button-cell, th.button-cell { width: 1px; white-space: nowrap; }
 }
 
+// We often have sub-legends, or fieldsets that aren't the main fieldset;
+// style them in a less obtrusive manner
+fieldset.sub-legend legend {
+  font-size: 125%;
+  color: #777;
+}
+
 .footer {
   padding: 3em 0;
 

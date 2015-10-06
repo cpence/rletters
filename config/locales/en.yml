@@ -756,6 +756,7 @@ en:
         tfidf_corpus_header: TF/IDF (vs. corpus)
         df_header: DF (in corpus)
         progress_calculating: "Calculating word frequencies..."
+        progress_word_cloud: "Building word cloud..."
     compute_word_frequencies:
         ngram_method: Analyze single words or n-grams?
         single_words: Single words
@@ -792,3 +793,8 @@ en:
         params: Normalization parameters
         dataset_label: Dataset to divide by
         all: Entire corpus
+    pdf:
+        font: Font
+    word_cloud:
+        checkbox_label: Create a word cloud?
+        params: Word cloud parameters

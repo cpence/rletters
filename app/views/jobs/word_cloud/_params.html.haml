@@ -1,0 +1,4 @@
+= f.input :word_cloud, label: t('word_cloud.checkbox_label'), as: :boolean
+= field_set_tag t('word_cloud.params'), id: 'word_cloud_controls', style: 'display: none', class: 'sub-legend' do
+  = render partial: 'jobs/pdf/fonts', locals: { f: f, disabled: true }
+  = f.input :word_cloud_color, collection: ['Blues', 'Greens', 'Reds', 'Purples', 'Oranges', 'Greys'], include_blank: false

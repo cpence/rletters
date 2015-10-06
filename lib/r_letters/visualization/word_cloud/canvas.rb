@@ -144,8 +144,8 @@ module RLetters
             end
           end
 
-          @width = (root[:w] * 1.5).ceil
-          @height = (root[:h] * 1.1).ceil
+          @width = (root[:w] * 1.7).ceil
+          @height = (root[:h] * 1.3).ceil
         end
 
         # Make a brand new PNG image with MiniMagick
@@ -257,7 +257,7 @@ module RLetters
           script = <<-MSL
 <?xml version="1.0" encoding="UTF-8"?>
 <image>
-  <query-font-metrics text="#{word}" font="#{@font_path}" pointsize="#{size}" />
+  <query-font-metrics text=#{word.encode(xml: :attr)} font=#{@font_path.encode(xml: :attr)} pointsize="#{size}" />
   <print output="%[msl:font-metrics.width] %[msl:font-metrics.height] %[msl:font-metrics.ascent]\\n" />
 </image>
 MSL

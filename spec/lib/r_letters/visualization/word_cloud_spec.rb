@@ -4,7 +4,8 @@ require 'pdf/inspector'
 RSpec.describe RLetters::Visualization::WordCloud do
   describe '#word_cloud' do
     before(:context) do
-      words = { 'one' => 5, 'two' => 3, 'three' => 1 }
+      # Test a word with an XML special character in it
+      words = { 'one' => 5, 'two' => 3, 'th&ree' => 1 }
 
       klass = Class.new { include RLetters::Visualization::WordCloud }
       @pdf_string = klass.new.word_cloud('Test Header', words, 'Reds', 'Arvo')
@@ -27,7 +28,7 @@ RSpec.describe RLetters::Visualization::WordCloud do
     it 'lists all of the words' do
       expect(@text_analysis.strings).to include('one')
       expect(@text_analysis.strings).to include('two')
-      expect(@text_analysis.strings).to include('three')
+      expect(@text_analysis.strings).to include('th&ree')
     end
   end
 end

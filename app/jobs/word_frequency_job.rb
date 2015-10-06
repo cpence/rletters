@@ -3,6 +3,8 @@
 class WordFrequencyJob < BaseJob
   include ComputeWordFrequencies
   include RLetters::Visualization::CSV
+  include RLetters::Visualization::PDF
+  include RLetters::Visualization::WordCloud
 
   # Export the word frequency data.
   #
@@ -23,10 +25,19 @@ class WordFrequencyJob < BaseJob
   def perform(task, options = {})
     standard_options(task)
 
+    options = options.with_indifferent_access
+    make_word_cloud = options[:word_cloud] == '1'
+
     # Do the analysis
     analyzer = compute_word_frequencies(
       dataset,
-      ->(p) { task.at(p, 100, t('.progress_calculating')) },
+      lambda do |p|
+        if make_word_cloud
+          task.at((p / 100) * 75, 100, t('.progress_calculating'))
+        else
+          task.at(p, 100, t('.progress_calculating'))
+        end
+      end,
       options.symbolize_keys)
     corpus_size = RLetters::Solr::CorpusStats.new.size
     dataset_size = dataset.entries.size
@@ -120,6 +131,28 @@ class WordFrequencyJob < BaseJob
       f.from_string(csv_string, filename: 'results.csv',
                                 content_type: 'text/csv')
     end
+
+    # See if we were asked to build a word cloud, and do it if so
+    if make_word_cloud
+      task.at(75, 100, t('.progress_word_cloud'))
+
+      color = options[:word_cloud_color] || 'Blues'
+      font = options[:pdf_font] || 'Roboto'
+
+      word_cloud_words = analyzer.word_list.each_with_object({}) do |w, ret|
+        ret[w] = analyzer.tf_in_dataset[w]
+      end
+
+      pdf = word_cloud("Word Cloud for #{dataset.name}",
+                       word_cloud_words, color, font)
+
+      task.files.create(description: 'Word Cloud',
+                        short_description: 'PDF', downloadable: true) do |f|
+        f.from_string(pdf, filename: 'word_cloud.pdf',
+                           content_type: 'application/pdf')
+      end
+    end
+
     task.mark_completed
   end
 end

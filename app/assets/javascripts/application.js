@@ -17,6 +17,7 @@
 //= require search_advanced
 //= require term_dates
 //= require users_edit
+//= require word_cloud
 //= require workflow_fetch
 
 // Fix input element click problem
@@ -55,6 +56,7 @@ $(document).ready(function() {
 function hideAndDisable(selector) {
   $(selector).hide().addClass('disabled');
   $(selector + ' div').addClass('disabled');
+  $(selector + ' label').addClass('disabled');
   $(selector + ' input').prop('disabled', true).addClass('disabled');
   $(selector + ' select').prop('disabled', true).addClass('disabled');
   $(selector + ' textarea').prop('disabled', true).addClass('disabled');
@@ -63,6 +65,7 @@ function hideAndDisable(selector) {
 function showAndEnable(selector) {
   $(selector).show().removeClass('disabled');
   $(selector + ' div').removeClass('disabled');
+  $(selector + ' label').removeClass('disabled');
   $(selector + ' input').prop('disabled', false).removeClass('disabled');
   $(selector + ' select').prop('disabled', false).removeClass('disabled');
   $(selector + ' textarea').prop('disabled', false).removeClass('disabled') ;
@@ -73,6 +76,7 @@ function toggleVisAndDisabled(selector) {
 
   var visible = $(selector).is(':visible');
   $(selector + ' div').toggleClass('disabled', !visible);
+  $(selector + ' label').toggleClass('disabled', !visible);
   $(selector + ' input').prop('disabled', !visible).toggleClass('disabled', !visible);
   $(selector + ' select').prop('disabled', !visible).toggleClass('disabled', !visible);
   $(selector + ' textarea').prop('disabled', !visible).toggleClass('disabled', !visible);

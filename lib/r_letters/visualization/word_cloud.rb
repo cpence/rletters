@@ -80,11 +80,17 @@ module RLetters
 
       # Get the point size for a given word frequency
       #
+      # We return font sizes between 8 and 28, to keep the canvas from getting
+      # insanely big. This clamps the size range a bit, but that's okay.
+      #
       # @param [Range] frequency_range the range of frequencies
       # @param [Integer] frequency the frequency of this word
       # @return [Integer] the point size at which to draw this word
       def point_size_for(frequency_range, frequency)
-        (frequency - frequency_range.begin) * 2 + 8
+        relative = (frequency - frequency_range.min) /
+                   (frequency_range.max - frequency_range.min)
+
+        relative * 20.0 + 8
       end
     end
   end
