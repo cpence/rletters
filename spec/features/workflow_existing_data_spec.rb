@@ -48,7 +48,8 @@ RSpec.feature 'User runs workflow on existing datasets', type: :feature do
       click_button 'Link dataset'
     end
 
-    find('a.btn-success', text: 'Start Analysis').click
+    click_link 'Set Job Options'
+    click_button 'Start analysis job'
 
     within('.navbar') { click_link 'Fetch' }
     expect(page).to have_selector('td', text: 'Integration Dataset')
