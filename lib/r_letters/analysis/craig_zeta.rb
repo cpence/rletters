@@ -70,13 +70,17 @@ module RLetters
                                                split_across: true)
         @analyzer_1 = RLetters::Analysis::Frequency::FromPosition.new(
           ss1,
-          ->(p) { @progress && @progress.call((p.to_f * 25.0).to_i) })
+          lambda do |p|
+            @progress && @progress.call((p.to_f * 0.25).to_i)
+          end)
 
         ss2 = RLetters::Datasets::Segments.new(@dataset_2, ds,
                                                split_across: true)
         @analyzer_2 = RLetters::Analysis::Frequency::FromPosition.new(
           ss2,
-          ->(p) { @progress && @progress.call((p.to_f * 25.0).to_i + 25) })
+          lambda do |p|
+            @progress && @progress.call((p.to_f * 0.25).to_i + 25)
+          end)
       end
 
       # Convert from word blocks to counts of blocks
