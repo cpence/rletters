@@ -47,6 +47,7 @@ module RLetters
         compute_block_counts
         compute_zeta_scores
         compute_graph_points
+        @progress && @progress.call(100)
       end
 
       private
