@@ -11,7 +11,7 @@ RSpec.describe CraigZetaJob, type: :job do
 
     # Don't run the analyses
     mock = double(RLetters::Analysis::CraigZeta,
-                  zeta_scores: [], dataset_1_markers: [],
+                  zeta_scores: {}, dataset_1_markers: [],
                   dataset_2_markers: [], graph_points: [])
     allow(mock).to receive(:call)
     allow(RLetters::Analysis::CraigZeta).to receive(:new).and_return(mock)
@@ -56,7 +56,7 @@ RSpec.describe CraigZetaJob, type: :job do
       expect(@data['markers_1']).to be_an(Array)
       expect(@data['markers_2']).to be_an(Array)
       expect(@data['graph_points']).to be_an(Array)
-      expect(@data['zeta_scores']).to be_an(Array)
+      expect(@data['zeta_scores']).to be_a(Array)
     end
   end
 end

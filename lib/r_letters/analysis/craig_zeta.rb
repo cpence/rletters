@@ -1,6 +1,29 @@
 
 module RLetters
   module Analysis
+    # A class that encapsulates an X-Y point for CraigZeta
+    #
+    # @!attribute x
+    #   @return [Float] the x coordinate
+    # @!attribute y
+    #   @return [Float] the y coordinate
+    # @!attribute name
+    #   @return [String] a description of this point (its segment name)
+    class CraigZetaPoint
+      include Virtus.model(strict: true, nullify_blank: true)
+
+      attribute :x, Float, required: true
+      attribute :y, Float, required: true
+      attribute :name, String, required: true
+
+      # Return these in an `[x, y, name]` array.
+      #
+      # @return [Array<Float, Float, String>] `[x, y, name]`
+      def to_a
+        [x, y, name]
+      end
+    end
+
     # Compute significant marker words for two datasets, Craig Zeta algorithm
     #
     # Marker words for dataset 1 appears as the first words in the zeta score
@@ -8,38 +31,46 @@ module RLetters
     # words in the zeta score list. The analyzer also creates a graph that
     # demonstrates the separation between the two datasets.
     #
+    # @!attribute dataset_1
+    #   @return [Dataset] the first dataset to compare
+    # @!attribute dataset_2
+    #   @return [Dataset] the second dataset to compare
+    # @!attribute progress
+    #   @return [Proc] if set, a function to call with percentage of completion
+    #     (one integer parameter)
     # @!attribute [r] zeta_scores
-    #   @return [Array<Array(String, Float)>] The list of zeta scores for each
+    #   @return [Hash<String, Float>] the list of zeta scores for each
     #     of the words in the dataset, sorted by significance.
     # @!attribute [r] dataset_1_markers
-    #   @return [Array<String>] The list of words that indicate a paper would
+    #   @return [Array<String>] the list of words that indicate a paper would
     #     be likely to be a member of dataset 1 (as opposed to 2)
     # @!attribute [r] dataset_2_markers
-    #   @return [Array<String>] The list of words that indicate a paper would
+    #   @return [Array<String>] the list of words that indicate a paper would
     #     be likely to be a member of dataset 2 (as opposed to 1)
     # @!attribute [r] graph_points
-    #   @return [Array<Array(Float, Float, String)] The list of points for the
+    #   @return [Array<CraigZetaPoint>] the list of points for the
     #     separation graph. Arrays of X coordinate, Y coordinate, and point
     #     labels.
     class CraigZeta
-      attr_reader :zeta_scores, :dataset_1_markers,
-                  :dataset_2_markers, :graph_points
+      include Virtus.model(strict: true, nullify_blank: true)
 
-      # Create a new object for detecting Craig Zeta marker words
-      #
-      # @param [Dataset] dataset_1 the first dataset to compare
-      # @param [Dataset] dataset_2 the second dataset to compare
-      # @param [Proc] progress If set, a function to call with a percentage of
-      #   completion (one `Integer` parameter)
-      def initialize(dataset_1, dataset_2, progress = nil)
-        @dataset_1 = dataset_1
-        @dataset_2 = dataset_2
-        @progress = progress
-      end
+      attribute :dataset_1, Dataset, required: true
+      attribute :dataset_2, Dataset, required: true
+      attribute :progress, Proc
+
+      attribute :zeta_scores, Hash[String => Float], writer: :private
+      attribute :dataset_1_markers, Array[String], writer: :private
+      attribute :dataset_2_markers, Array[String], writer: :private
+      attribute :graph_points, Array[CraigZetaPoint], writer: :private
+
+      attribute :analyzer_1, RLetters::Analysis::Frequency::FromPosition,
+                reader: :private, writer: :private
+      attribute :analyzer_2, RLetters::Analysis::Frequency::FromPosition,
+                reader: :private, writer: :private
+      attribute :block_counts, Hash[String => Integer],
+                reader: :private, writer: :private
 
       # Perform the Craig Zeta marker word analysis
-      #
-      # All results are returned in the member attributes.
       #
       # @return [void]
       def call
@@ -47,7 +78,7 @@ module RLetters
         compute_block_counts
         compute_zeta_scores
         compute_graph_points
-        @progress && @progress.call(100)
+        progress && progress.call(100)
       end
 
       private
@@ -67,20 +98,20 @@ module RLetters
                                                block_size: 500,
                                                last_block: :big_last)
 
-        ss1 = RLetters::Datasets::Segments.new(@dataset_1, ds,
+        ss1 = RLetters::Datasets::Segments.new(dataset_1, ds,
                                                split_across: true)
-        @analyzer_1 = RLetters::Analysis::Frequency::FromPosition.new(
+        self.analyzer_1 = RLetters::Analysis::Frequency::FromPosition.new(
           ss1,
           lambda do |p|
-            @progress && @progress.call((p.to_f * 0.25).to_i)
+            progress && progress.call((p.to_f * 0.25).to_i)
           end)
 
-        ss2 = RLetters::Datasets::Segments.new(@dataset_2, ds,
+        ss2 = RLetters::Datasets::Segments.new(dataset_2, ds,
                                                split_across: true)
-        @analyzer_2 = RLetters::Analysis::Frequency::FromPosition.new(
+        self.analyzer_2 = RLetters::Analysis::Frequency::FromPosition.new(
           ss2,
           lambda do |p|
-            @progress && @progress.call((p.to_f * 0.25).to_i + 25)
+            progress && progress.call((p.to_f * 0.25).to_i + 25)
           end)
       end
 
@@ -91,22 +122,22 @@ module RLetters
       #
       # @return [void]
       def compute_block_counts
-        @progress && @progress.call(50)
+        progress && progress.call(50)
 
         # Convert to numbers of blocks in which each word appears
-        @block_counts = {}
-        [@analyzer_1.blocks, @analyzer_2.blocks].each do |blocks|
+        self.block_counts = {}
+        [analyzer_1.blocks, analyzer_2.blocks].each do |blocks|
           blocks.each do |b|
             b.each_key do |k|
-              @block_counts[k] ||= 0
-              @block_counts[k] += 1
+              block_counts[k] ||= 0
+              block_counts[k] += 1
             end
           end
         end
 
         # Delete from the blocks any word which appears in *every* block
-        max_count = @analyzer_1.blocks.size + @analyzer_2.blocks.size
-        @block_counts.delete_if { |_, v| v == max_count }
+        max_count = analyzer_1.blocks.size + analyzer_2.blocks.size
+        block_counts.delete_if { |_, v| v == max_count }
       end
 
       # Convert the block counts to zeta scores
@@ -115,36 +146,36 @@ module RLetters
       # word appears, and the fraction of blocks in dataset 2 in which the
       # word doesn't appear. Add the two numbers. This is the zeta score.
       #
-      # Zeta scores will be stored in the instance variable +@zeta_scores+,
+      # Zeta scores will be stored in the attribute +zeta_scores+,
       # sorted descending. The first and last 1000 marker words will be saved
-      # in +@dataset_1_markers+ and +@dataset_2_markers+.
+      # in +dataset_1_markers+ and +dataset_2_markers+.
       #
       # @return [void]
       def compute_zeta_scores
         zeta_hash = {}
-        total = @block_counts.size
-        @block_counts.each_with_index do |(word, _), i|
-          @progress && @progress.call(50 + (i.to_f / total.to_f * 25.0).to_i)
+        total = block_counts.size
+        block_counts.each_with_index do |(word, _), i|
+          progress && progress.call(50 + (i.to_f / total.to_f * 25.0).to_i)
 
-          a_count = @analyzer_1.blocks.map { |b| b[word] ? 1 : 0 }.reduce(:+)
-          not_b_count = @analyzer_2.blocks.map { |b| b[word] ? 0 : 1 }.reduce(:+)
+          a_count = analyzer_1.blocks.map { |b| b[word] ? 1 : 0 }.reduce(:+)
+          not_b_count = analyzer_2.blocks.map { |b| b[word] ? 0 : 1 }.reduce(:+)
 
-          a_frac = a_count.to_f / @analyzer_1.blocks.size.to_f
-          not_b_frac = not_b_count.to_f / @analyzer_2.blocks.size.to_f
+          a_frac = a_count.to_f / analyzer_1.blocks.size.to_f
+          not_b_frac = not_b_count.to_f / analyzer_2.blocks.size.to_f
 
           zeta_hash[word] = a_frac + not_b_frac
         end
 
-        @progress && @progress.call(75)
+        progress && progress.call(75)
 
         # Sort
-        @zeta_scores = zeta_hash.to_a.sort { |a, b| b[1] <=> a[1] }
+        self.zeta_scores = zeta_hash.sort { |a, b| b[1] <=> a[1] }
 
         # Take marker words
-        size = [(@zeta_scores.size / 2).floor, 1000].min
+        size = [(zeta_scores.size / 2).floor, 1000].min
 
-        @dataset_1_markers = @zeta_scores.take(size).map { |a| a[0] }
-        @dataset_2_markers = @zeta_scores.reverse_each.take(size).map { |a| a[0] }
+        self.dataset_1_markers = zeta_scores.take(size).map { |a| a[0] }
+        self.dataset_2_markers = zeta_scores.reverse_each.take(size).map { |a| a[0] }
       end
 
       # Create the graph points array
@@ -156,17 +187,18 @@ module RLetters
       #
       # @return [void]
       def compute_graph_points
-        @progress && @progress.call(80)
+        progress && progress.call(80)
 
-        @graph_points = []
+        self.graph_points = []
 
-        [[@analyzer_1.blocks, @dataset_1.name],
-         [@analyzer_2.blocks, @dataset_2.name]].each do |(blocks, name)|
+        [[analyzer_1.blocks, dataset_1.name],
+         [analyzer_2.blocks, dataset_2.name]].each do |(blocks, name)|
           blocks.each_with_index do |b, i|
-            x_val = (@dataset_1_markers & b.keys).size.to_f / b.keys.size.to_f
-            y_val = (@dataset_2_markers & b.keys).size.to_f / b.keys.size.to_f
+            x_val = (dataset_1_markers & b.keys).size.to_f / b.keys.size.to_f
+            y_val = (dataset_2_markers & b.keys).size.to_f / b.keys.size.to_f
 
-            @graph_points << [x_val, y_val, "#{name}: #{i + 1}"]
+            graph_points << CraigZetaPoint.new(x: x_val, y: y_val,
+                                               name: "#{name}: #{i + 1}")
           end
         end
       end

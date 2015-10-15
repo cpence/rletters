@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 RSpec.describe RLetters::Analysis::CraigZeta do
   before(:example) do
@@ -9,24 +9,26 @@ RSpec.describe RLetters::Analysis::CraigZeta do
                                        user: @user, name: 'First Dataset')
     @dataset_2 = create(:full_dataset, entries_count: 2, working: true,
                                        user: @user, name: 'Second Dataset')
-    @analyzer = described_class.new(@dataset_1, @dataset_2)
 
     @called_sub_100 = false
     @called_100 = false
 
-    @analyzer = described_class.new(@dataset_1, @dataset_2, lambda do |p|
-      if p < 100
-        @called_sub_100 = true
-      else
-        @called_100 = true
-      end
-    end)
+    @analyzer = described_class.new(
+      dataset_1: @dataset_1,
+      dataset_2: @dataset_2,
+      progress: lambda do |p|
+        if p < 100
+          @called_sub_100 = true
+        else
+          @called_100 = true
+        end
+      end)
     @analyzer.call
   end
 
   describe '#zeta_scores' do
     it 'sorts the zeta scores' do
-      expect(@analyzer.zeta_scores.first[1]).to be > @analyzer.zeta_scores.last[1]
+      expect(@analyzer.zeta_scores.first[1]).to be > @analyzer.zeta_scores.reverse_each.first[1]
     end
 
     it 'returns scores between zero and 2' do
@@ -48,27 +50,27 @@ RSpec.describe RLetters::Analysis::CraigZeta do
 
   describe '#dataset_2_markers' do
     it 'picks words from the back of the zeta score list' do
-      expect(@analyzer.zeta_scores.last[0]).to eq(@analyzer.dataset_2_markers.first)
+      expect(@analyzer.zeta_scores.reverse_each.first[0]).to eq(@analyzer.dataset_2_markers.first)
     end
   end
 
   describe '#graph_points' do
     it 'builds points the right way' do
-      expect(@analyzer.graph_points[0][0]).to be_a(Float)
-      expect(@analyzer.graph_points[0][1]).to be_a(Float)
-      expect(@analyzer.graph_points[0][2]).to be_a(String)
+      expect(@analyzer.graph_points[0].x).to be_a(Float)
+      expect(@analyzer.graph_points[0].y).to be_a(Float)
+      expect(@analyzer.graph_points[0].name).to be_a(String)
     end
 
     it 'puts graph points between 0 and 1' do
-      @analyzer.graph_points.each do |(x, y, _)|
-        expect(0..1).to include(x)
-        expect(0..1).to include(y)
+      @analyzer.graph_points.each do |p|
+        expect(0..1).to include(p.x)
+        expect(0..1).to include(p.y)
       end
     end
 
     it 'labels all the graph points with dataset names' do
-      @analyzer.graph_points.each do |(_, _, label)|
-        expect(label).to satisfy do |name|
+      @analyzer.graph_points.each do |p|
+        expect(p.name).to satisfy do |name|
           name.include?('First Dataset') || name.include?('Second Dataset')
         end
       end

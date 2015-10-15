@@ -36,14 +36,15 @@ class CraigZetaJob < BaseJob
 
     # Get the data
     analyzer = RLetters::Analysis::CraigZeta.new(
-      dataset, dataset_2,
-      lambda do |p|
-        if make_word_cloud
-          task.at((p / 100) * 60, 60, t('.progress_computing'))
-        else
-          task.at(p, 100, t('.progress_computing'))
-        end
-      end)
+      dataset_1: dataset,
+      dataset_2: dataset_2,
+      progress: lambda do |p|
+          if make_word_cloud
+            task.at((p / 100) * 60, 60, t('.progress_computing'))
+          else
+            task.at(p, 100, t('.progress_computing'))
+          end
+        end)
     analyzer.call
 
     # Save out all the data
@@ -60,9 +61,9 @@ class CraigZetaJob < BaseJob
       csv << [t('.graph_header')]
       csv << ['']
       write_csv_data(csv, analyzer.graph_points,
-                     { t('.marker_column', name: dataset.name) => :first,
-                       t('.marker_column', name: dataset_2.name) => :second,
-                       t('.block_name_column') => :third })
+                     { t('.marker_column', name: dataset.name) => :x,
+                       t('.marker_column', name: dataset_2.name) => :y,
+                       t('.block_name_column') => :name })
       csv << [''] << ['']
 
       # Output the Zeta scores
@@ -78,8 +79,8 @@ class CraigZetaJob < BaseJob
     data[:name_2] = dataset_2.name
     data[:markers_1] = analyzer.dataset_1_markers
     data[:markers_2] = analyzer.dataset_2_markers
-    data[:graph_points] = analyzer.graph_points
-    data[:zeta_scores] = analyzer.zeta_scores
+    data[:graph_points] = analyzer.graph_points.map { |p| p.to_a }
+    data[:zeta_scores] = analyzer.zeta_scores.to_a
     data[:marker_1_header] = t('.marker_column', name: dataset.name)
     data[:marker_2_header] = t('.marker_column', name: dataset_2.name)
     data[:word_header] = t('.word_column')
