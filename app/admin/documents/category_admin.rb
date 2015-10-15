@@ -21,9 +21,8 @@ ActiveAdmin.register Documents::Category do
     f.semantic_errors(*f.object.errors.keys)
 
     # Get the journals from Solr
-    analyzer = RLetters::Analysis::CountArticlesByField.new(field: :journal_facet)
-    result = analyzer.call
-    journals = result.keys.compact
+    ret = RLetters::Analysis::CountArticlesByField.call(field: :journal_facet)
+    journals = ret.keys.compact
 
     f.inputs do
       f.input :name

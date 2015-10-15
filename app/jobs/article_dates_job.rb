@@ -19,13 +19,12 @@ class ArticleDatesJob < BaseJob
     standard_options(task)
 
     # Get the counts and normalize if requested
-    analyzer = RLetters::Analysis::CountArticlesByField.new(
+    dates = RLetters::Analysis::CountArticlesByField.call(
       field: :year,
       dataset: dataset,
       progress: lambda do |p|
         task.at((p.to_f / 100.0 * 90.0).to_i, 100, t('.progress_counting'))
       end)
-    dates = analyzer.call
 
     task.at(90, 100, t('.progress_normalizing'))
     options = options.with_indifferent_access

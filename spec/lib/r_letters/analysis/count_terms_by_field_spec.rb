@@ -1,13 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe RLetters::Analysis::CountTermsByField do
-  describe '#call' do
+  describe '.call' do
     context 'without a dataset' do
       before(:example) do
         @called_sub_100 = false
         @called_100 = false
 
-        analyzer = described_class.new(
+        @counts = described_class.call(
           term: 'violence',
           field: :year,
           progress: lambda do |p|
@@ -17,7 +17,6 @@ RSpec.describe RLetters::Analysis::CountTermsByField do
               @called_100 = true
             end
           end)
-        @counts = analyzer.call
       end
 
       it 'gets the values for the whole corpus' do
@@ -26,11 +25,10 @@ RSpec.describe RLetters::Analysis::CountTermsByField do
       end
 
       it 'gets different counts than the article counts' do
-        analyzer = RLetters::Analysis::CountArticlesByField.new(field: :year)
-        article_counts = analyzer.call
-        expect(@counts['2009']).not_to eq(article_counts['2009'])
-        expect(@counts['2007']).not_to eq(article_counts['2007'])
-        expect(@counts['2010']).not_to eq(article_counts['2010'])
+        counts = RLetters::Analysis::CountArticlesByField.call(field: :year)
+        expect(@counts['2009']).not_to eq(counts['2009'])
+        expect(@counts['2007']).not_to eq(counts['2007'])
+        expect(@counts['2010']).not_to eq(counts['2010'])
       end
 
       it 'calls the progress function with under and equal to 100' do
@@ -42,7 +40,7 @@ RSpec.describe RLetters::Analysis::CountTermsByField do
     context 'without a dataset, with Solr failure' do
       it 'is empty' do
         stub_request(:any, /(127\.0\.0\.1|localhost)/).to_timeout
-        expect(described_class.new(term: 'malaria', field: :year).call).to eq({})
+        expect(described_class.call(term: 'malaria', field: :year)).to eq({})
       end
     end
 
@@ -55,7 +53,7 @@ RSpec.describe RLetters::Analysis::CountTermsByField do
         @called_sub_100 = false
         @called_100 = false
 
-        analyzer = described_class.new(
+        @counts = described_class.call(
           term: 'disease',
           field: :year,
           dataset: @dataset,
@@ -66,7 +64,6 @@ RSpec.describe RLetters::Analysis::CountTermsByField do
               @called_100 = true
             end
           end)
-        @counts = analyzer.call
       end
 
       it 'gets the values for the dataset' do
@@ -83,7 +80,7 @@ RSpec.describe RLetters::Analysis::CountTermsByField do
     context 'without a dataset, with Solr failure' do
       it 'is empty' do
         stub_request(:any, /(127\.0\.0\.1|localhost)/).to_timeout
-        expect(described_class.new(term: 'disease', field: :year, dataset: @dataset).call).to eq({})
+        expect(described_class.call(term: 'disease', field: :year, dataset: @dataset)).to eq({})
       end
     end
   end

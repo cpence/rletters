@@ -13,8 +13,7 @@ RSpec.describe CraigZetaJob, type: :job do
     mock = double(RLetters::Analysis::CraigZeta,
                   zeta_scores: {}, dataset_1_markers: [],
                   dataset_2_markers: [], graph_points: [])
-    allow(mock).to receive(:call)
-    allow(RLetters::Analysis::CraigZeta).to receive(:new).and_return(mock)
+    allow(RLetters::Analysis::CraigZeta).to receive(:call).and_return(mock)
   end
 
   it_should_behave_like 'an analysis job' do

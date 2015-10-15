@@ -13,7 +13,7 @@ RSpec.describe RLetters::Analysis::CraigZeta do
     @called_sub_100 = false
     @called_100 = false
 
-    @analyzer = described_class.new(
+    @analyzer = described_class.call(
       dataset_1: @dataset_1,
       dataset_2: @dataset_2,
       progress: lambda do |p|
@@ -23,7 +23,6 @@ RSpec.describe RLetters::Analysis::CraigZeta do
           @called_100 = true
         end
       end)
-    @analyzer.call
   end
 
   describe '#zeta_scores' do

@@ -1,13 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe RLetters::Analysis::CountArticlesByField do
-  describe '#call' do
+  describe '.call' do
     context 'without a dataset' do
       before(:example) do
         @called_sub_100 = false
         @called_100 = false
 
-        analyzer = described_class.new(
+        @counts = described_class.call(
           field: :year,
           progress: lambda do |p|
             if p < 100
@@ -16,7 +16,6 @@ RSpec.describe RLetters::Analysis::CountArticlesByField do
               @called_100 = true
             end
           end)
-        @counts = analyzer.call
       end
 
       it 'gets the values for the whole corpus' do
@@ -33,8 +32,7 @@ RSpec.describe RLetters::Analysis::CountArticlesByField do
     context 'without a dataset, with Solr failure' do
       it 'is empty' do
         stub_request(:any, /(127\.0\.0\.1|localhost)/).to_timeout
-        analyzer = described_class.new(field: :year)
-        expect(analyzer.call).to eq({})
+        expect(described_class.call(field: :year)).to eq({})
       end
     end
 
@@ -47,7 +45,7 @@ RSpec.describe RLetters::Analysis::CountArticlesByField do
         @called_sub_100 = false
         @called_100 = false
 
-        analyzer = described_class.new(
+        @counts = described_class.call(
           field: :year,
           dataset: @dataset,
           progress: lambda do |p|
@@ -57,7 +55,6 @@ RSpec.describe RLetters::Analysis::CountArticlesByField do
               @called_100 = true
             end
           end)
-        @counts = analyzer.call
       end
 
       it 'gets the values for the dataset' do
@@ -74,8 +71,7 @@ RSpec.describe RLetters::Analysis::CountArticlesByField do
     context 'without a dataset, with Solr failure' do
       it 'is empty' do
         stub_request(:any, /(127\.0\.0\.1|localhost)/).to_timeout
-        analyzer = described_class.new(field: :year, dataset: @dataset)
-        expect(analyzer.call).to eq({})
+        expect(described_class.call(field: :year, dataset: @dataset)).to eq({})
       end
     end
   end

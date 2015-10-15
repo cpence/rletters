@@ -14,6 +14,7 @@ module RLetters
     #   @return [Proc] if set, a function to call with percentage of completion
     #     (one integer parameter)
     class CountTermsByField
+      include Service
       include Virtus.model(strict: true, nullify_blank: true)
 
       attribute :term, String, required: true

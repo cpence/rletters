@@ -52,6 +52,7 @@ module RLetters
     #     separation graph. Arrays of X coordinate, Y coordinate, and point
     #     labels.
     class CraigZeta
+      include Service
       include Virtus.model(strict: true, nullify_blank: true)
 
       attribute :dataset_1, Dataset, required: true
@@ -72,13 +73,15 @@ module RLetters
 
       # Perform the Craig Zeta marker word analysis
       #
-      # @return [void]
+      # @return [self]
       def call
         create_analyzers
         compute_block_counts
         compute_zeta_scores
         compute_graph_points
         progress && progress.call(100)
+
+        self
       end
 
       private

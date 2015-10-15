@@ -20,12 +20,11 @@ class TermDatesJob < BaseJob
     options = options.with_indifferent_access
     fail ArgumentError, 'Term for plotting not specified' unless options[:term]
     term = options[:term]
-    analyzer = RLetters::Analysis::CountTermsByField.new(
+    dates = RLetters::Analysis::CountTermsByField.call(
       term: term,
       field: :year,
       dataset: dataset,
       progress: ->(p) { task.at(p, 100, t('.progress_computing')) })
-    dates = analyzer.call
 
     dates = dates.to_a
     dates.each { |d| d[0] = Integer(d[0]) }

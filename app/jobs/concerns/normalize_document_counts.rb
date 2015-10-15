@@ -43,10 +43,9 @@ module NormalizeDocumentCounts
       normalization_set = nil
     end
 
-    analyzer = RLetters::Analysis::CountArticlesByField.new(
+    normalize_counts = RLetters::Analysis::CountArticlesByField.call(
       field: field,
       dataset: normalization_set)
-    normalize_counts = analyzer.call
 
     ret = counts.each_with_object({}) do |(k, v), out|
       if normalize_counts[k] && normalize_counts[k] > 0

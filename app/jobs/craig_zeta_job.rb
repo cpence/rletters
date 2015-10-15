@@ -35,7 +35,7 @@ class CraigZetaJob < BaseJob
     make_word_cloud = options[:word_cloud] == '1'
 
     # Get the data
-    analyzer = RLetters::Analysis::CraigZeta.new(
+    analyzer = RLetters::Analysis::CraigZeta.call(
       dataset_1: dataset,
       dataset_2: dataset_2,
       progress: lambda do |p|
@@ -45,7 +45,6 @@ class CraigZetaJob < BaseJob
             task.at(p, 100, t('.progress_computing'))
           end
         end)
-    analyzer.call
 
     # Save out all the data
     csv = csv_with_header(t('.csv_header', name_1: dataset.name,
