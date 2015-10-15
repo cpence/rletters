@@ -13,7 +13,7 @@ module RLetters
     #     (one integer parameter)
     class CountArticlesByField
       include Service
-      include Virtus.model(strict: true, nullify_blank: true)
+      include Virtus.model(strict: true, required: false, nullify_blank: true)
 
       attribute :field, Symbol
       attribute :dataset, Dataset

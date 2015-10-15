@@ -15,7 +15,7 @@ module RLetters
     #     (one integer parameter)
     class CountTermsByField
       include Service
-      include Virtus.model(strict: true, nullify_blank: true)
+      include Virtus.model(strict: true, required: false, nullify_blank: true)
 
       attribute :term, String, required: true
       attribute :field, Symbol

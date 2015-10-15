@@ -7,44 +7,65 @@ module RLetters
       # This class allows for creating a network from a body of plain text.
       # The nodes are constructed from the text, and the edges from the
       # adjacency information.
+      #
+      # @!attribute dataset
+      #   @return [Dataset] the text to analyze
+      # @!attribute focal_word
+      #   @return [String] if set, place this word at the center of the network
+      # @!attribute gaps
+      #   @return [Array<Integer>] the word window sizes to use to create the
+      #     network.
+      #
+      #   The network is created by taking all adjacency information using
+      #   sliding windows of the sizes specified in this parameter.  For
+      #   example, the default value, which is `[2, 5]`, will result in the
+      #   network being created from a two-word sliding window and a
+      #   five-word sliding window.
+      # @!attribute language
+      #   @return [String] the language from which to take stop words
+      # @!attribute progress
+      #   @return [Proc] if set, a function to call with percentage of
+      #     completion (one integer parameter)
+      # @!attribute [r] nodes
+      #   @return [Array<Node>] all nodes in the graph
+      # @!attribute [r] edges
+      #   @return [Array<Edge>] all edges in the graph
       class Graph
-        # @return [Array<Node>] all nodes in the graph
-        attr_accessor :nodes
+        include Virtus.model(strict: true, required: false, nullify_blank: true)
 
-        # @return [Array<Edge>] all edges in the graph
-        attr_accessor :edges
+        attribute :dataset, Dataset, required: true
+        attribute :focal_word, String
+        attribute :gaps, Array[Integer], default: [2, 5]
+        attribute :language, String, default: 'en'
+        attribute :progress, Proc
+
+        attribute :nodes, Array[Node], writer: :private
+        attribute :edges, Array[Edge], writer: :private
+
+        attribute :words, Array[String],
+                  reader: :private, writer: :private
+        attribute :words_stem, Array[String],
+                  reader: :private, writer: :private
+        attribute :focal_word_stem, String,
+                  reader: :private, writer: :private
+        attribute :stop_words, Array[String],
+                  reader: :private, writer: :private
 
         # Create a network of adjacency information from the text.
-        #
-        # @param [Dataset] dataset the text to analyze
-        # @param [String] focal_word if set, place this word at the center
-        #   of the network
-        # @param [Array<Integer>] gaps the word window sizes to use to create
-        #   the network.
-        #
-        #   The network is created by taking all adjacency information using
-        #   sliding windows of the sizes specified in this parameter.  For
-        #   example, the default value, which is `[2, 5]`, will result in the
-        #   network being created from a two-word sliding window and a
-        #   five-word sliding window.
-        # @param [String] language the language from which to take stop words
-        # @param [Proc] progress If set, a function to call with a percentage
-        #   of completion (one `Integer` parameter)
-        def initialize(dataset, focal_word = nil, gaps = [2, 5],
-                       language = 'en', progress = nil)
+        def initialize(*args)
+          super(*args)
+
           # Save parameters
           if focal_word
-            @focal_word = focal_word.mb_chars.downcase.to_s
-            @focal_word_stem = focal_word.stem
+            self.focal_word = focal_word.mb_chars.downcase.to_s
+            self.focal_word_stem = focal_word.stem
           end
-          @gaps = gaps
-          @progress = progress
 
           # Extract the stop list if provided
-          stop_words = []
+          self.stop_words = []
           if language
             stop_list = ::Documents::StopList.find_by!(language: language)
-            stop_words = stop_list.list.split
+            self.stop_words = stop_list.list.split
           end
 
           # Clear final attributes
@@ -52,21 +73,15 @@ module RLetters
           self.edges = []
 
           # Create the word list from the provided dataset and stop words
-          create_word_list(dataset, stop_words)
-
-          # Set the parameters for the progress meter if present
-          if @progress
-            @progress_base = 33
-            @progress_size = 66 / @gaps.size
-          end
+          create_word_list
 
           # Run the analysis for each of the gaps
-          @gaps.each do |g|
+          gaps.each do |g|
             add_nodes_for_gap(g)
           end
 
           # Final progress tick
-          @progress && @progress.call(100)
+          progress && progress.call(100)
         end
 
         # Find a word by its id or its word coverage
@@ -123,25 +138,23 @@ module RLetters
 
         # Create a list of words from the provided dataset
         #
-        # This function creates the `@words` variable and scrubs out any
+        # This function fills in the `words` attributes and scrubs out any
         # words listed in `stop_words`.
         #
-        # @param [Dataset] dataset the dataset to analyze
-        # @param [Array<String>] stop_words stop words to remove, if any
         # @return [void]
-        def create_word_list(dataset, stop_words)
+        def create_word_list
           # Create a list of lowercase, stemmed words
-          @progress && @progress.call(1)
+          progress && progress.call(1)
           enum = RLetters::Datasets::DocumentEnumerator.new(dataset,
                                                             fulltext: true)
-          @words = enum.map do |doc|
+          doc_words = enum.map do |doc|
             doc.fulltext.gsub(/[^A-Za-z ]/, '').mb_chars.downcase.to_s.split
           end
 
           # Remove stop words and stem
-          @progress && @progress.call(17)
-          @words = @words.flatten - stop_words
-          @words_stem = @words.map(&:stem)
+          progress && progress.call(17)
+          self.words = doc_words.flatten - stop_words
+          self.words_stem = words.map(&:stem)
         end
 
         # Add nodes and edges for a given gap
@@ -152,18 +165,18 @@ module RLetters
         # @param [Integer] gap the gap size to use
         # @return [void]
         def add_nodes_for_gap(gap)
-          @words.each_cons(gap).each_with_index do |gap_words, i|
+          words.each_cons(gap).each_with_index do |gap_words, i|
             # Get the stemmed words to go with the un-stemmed words
-            gap_words_stem = @words_stem[i, gap]
+            gap_words_stem = words_stem[i, gap]
 
             # Update progress meter
-            if @progress
-              val = (i.to_f / (@words.size - 1).to_f) * @progress_size
-              @progress.call(@progress_base + val.to_i)
+            if progress
+              val = (i.to_f / (words.size - 1).to_f) * (66.0 / gaps.size)
+              progress.call(val.to_i + 33)
             end
 
             # Cull based on focal word (stemmed) if present
-            next if @focal_word && !gap_words_stem.include?(@focal_word_stem)
+            next if focal_word && !gap_words_stem.include?(focal_word_stem)
 
             # Find or create nodes for all of these words
             nodes = gap_words_stem.zip(gap_words).map do |w|
@@ -187,12 +200,8 @@ module RLetters
             node.words << word unless node.words.include?(word)
             node
           else
-            node = Node.new
-            node.id = id
-            node.words = [word]
-
-            nodes << node
-            node
+            nodes << Node.new(id: id, words: [word])
+            nodes.last
           end
         end
 
@@ -207,13 +216,8 @@ module RLetters
             edge.weight += 1
             edge
           else
-            edge = Edge.new
-            edge.one = one
-            edge.two = two
-            edge.weight = 1
-
-            edges << edge
-            edge
+            edges << Edge.new(one: one, two: two, weight: 1)
+            edges.last
           end
         end
       end

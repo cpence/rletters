@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 RSpec.describe RLetters::Analysis::Network::Graph do
   before(:example) do
@@ -13,13 +13,15 @@ RSpec.describe RLetters::Analysis::Network::Graph do
       @called_sub_100 = false
       @called_100 = false
 
-      @graph = described_class.new(@dataset, nil, [2, 5], 'en', lambda do |p|
-        if p < 100
-          @called_sub_100 = true
-        else
-          @called_100 = true
-        end
-      end)
+      @graph = described_class.new(
+        dataset: @dataset,
+        progress: lambda do |p|
+          if p < 100
+            @called_sub_100 = true
+          else
+            @called_100 = true
+          end
+        end)
     end
 
     it 'creates nodes and edges' do
@@ -89,7 +91,7 @@ RSpec.describe RLetters::Analysis::Network::Graph do
 
   context 'with a focal word' do
     before(:example) do
-      @graph = described_class.new(@dataset, 'disease')
+      @graph = described_class.new(dataset: @dataset, focal_word: 'disease')
 
       @connectivity = {}
 
@@ -110,7 +112,7 @@ RSpec.describe RLetters::Analysis::Network::Graph do
   context 'with a different language' do
     before(:example) do
       create(:stop_list, language: 'de', list: 'es die der das')
-      @graph = described_class.new(@dataset, nil, [2, 5], 'de')
+      @graph = described_class.new(dataset: @dataset, language: 'de')
     end
 
     it 'includes words on the English stop list' do

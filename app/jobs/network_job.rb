@@ -18,11 +18,9 @@ class NetworkJob < BaseJob
     word = options[:word].mb_chars.downcase.to_s
 
     graph = RLetters::Analysis::Network::Graph.new(
-      dataset,
-      options[:word],
-      [2, 5],
-      'en',
-      ->(p) { task.at(p, 100, t('.progress_network')) }
+      dataset: dataset,
+      focal_word: options[:word],
+      progress: ->(p) { task.at(p, 100, t('.progress_network')) }
     )
 
     # Convert to D3-able format

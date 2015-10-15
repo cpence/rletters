@@ -10,11 +10,11 @@ module RLetters
     # @!attribute name
     #   @return [String] a description of this point (its segment name)
     class CraigZetaPoint
-      include Virtus.model(strict: true, nullify_blank: true)
+      include Virtus.model(strict: true, required: true, nullify_blank: true)
 
-      attribute :x, Float, required: true
-      attribute :y, Float, required: true
-      attribute :name, String, required: true
+      attribute :x, Float
+      attribute :y, Float
+      attribute :name, String
 
       # Return these in an `[x, y, name]` array.
       #
@@ -53,7 +53,7 @@ module RLetters
     #     labels.
     class CraigZeta
       include Service
-      include Virtus.model(strict: true, nullify_blank: true)
+      include Virtus.model(strict: true, required: false, nullify_blank: true)
 
       attribute :dataset_1, Dataset, required: true
       attribute :dataset_2, Dataset, required: true

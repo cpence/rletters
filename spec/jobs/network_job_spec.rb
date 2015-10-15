@@ -18,8 +18,8 @@ RSpec.describe NetworkJob, type: :job do
                     one: 'test', two: 'yes', weight: 1)]
     mock = double(RLetters::Analysis::Network::Graph,
                   nodes: nodes, edges: edges, max_edge_weight: 2)
-    allow(RLetters::Analysis::Network::Graph).to receive(:new) do |_, _, _, _, p|
-      p.call(100)
+    allow(RLetters::Analysis::Network::Graph).to receive(:new) do |hash|
+      hash[:progress].call(100)
       mock
     end
   end

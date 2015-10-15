@@ -7,15 +7,19 @@ module RLetters
       #
       # The edges in word networks connect two node IDs, and also have a
       # weight value.
+      #
+      # @!attribute one
+      #   @return [String] the first node ID
+      # @!attribute two
+      #   @return [String] the second node ID
+      # @!attribute weight
+      #   @return [Integer] the weight of this node
       class Edge
-        # @return [String] the first node ID
-        attr_accessor :one
+        include Virtus.model(strict: true, required: true, nullify_blank: true)
 
-        # @return [String] the second node ID
-        attr_accessor :two
-
-        # @return [Integer] the weight of this node
-        attr_accessor :weight
+        attribute :one, String
+        attribute :two, String
+        attribute :weight, Integer
       end
     end
   end
