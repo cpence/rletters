@@ -20,21 +20,20 @@ class NamedEntitiesJob < BaseJob
   def perform(task)
     standard_options(task)
 
-    analyzer = RLetters::Analysis::NamedEntities.new(
-      dataset,
-      ->(p) { task.at(p, 100, t('.progress_finding')) })
-    analyzer.call
+    refs = RLetters::Analysis::NamedEntities.call(
+      dataset: dataset,
+      progress: ->(p) { task.at(p, 100, t('.progress_finding')) })
 
     csv_string = csv_with_header(t('.header', name: dataset.name)) do |csv|
       write_csv_data(
         csv,
         # This turns {s => [a, b], ...} into [[s, a], [s, b], ...]
-        analyzer.entity_references.map { |k, v| [k].product(v) }.flatten(1),
+        refs.map { |k, v| [k].product(v) }.flatten(1),
         { t('.type_column') => :first,
           t('.hit_column') => :second })
     end
 
-    output = { data: analyzer.entity_references }
+    output = { data: refs }
 
     # Write it out
     task.files.create(description: 'Raw JSON Data',

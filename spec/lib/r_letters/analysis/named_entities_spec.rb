@@ -13,15 +13,15 @@ RSpec.describe RLetters::Analysis::NamedEntities do
 
     @called_sub_100 = false
     @called_100 = false
-    @analyzer = described_class.new(@dataset, lambda do |p|
-      if p < 100
-        @called_sub_100 = true
-      else
-        @called_100 = true
-      end
-    end)
-
-    @analyzer.call
+    @refs = described_class.call(
+      dataset: @dataset,
+      progress: lambda do |p|
+        if p < 100
+          @called_sub_100 = true
+        else
+          @called_100 = true
+        end
+      end)
   end
 
   after(:example) do
@@ -30,7 +30,7 @@ RSpec.describe RLetters::Analysis::NamedEntities do
 
   describe '#entity_references' do
     it 'works as expected' do
-      expect(@analyzer.entity_references['PERSON']).to include('Harry')
+      expect(@refs['PERSON']).to include('Harry')
     end
   end
 
