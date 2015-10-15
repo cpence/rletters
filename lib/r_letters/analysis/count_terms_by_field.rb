@@ -2,22 +2,24 @@
 module RLetters
   module Analysis
     # Code for counting the occurrences of a term in a dataset, grouped
+    #
+    # @!attribute term
+    #   @return [String] the term to search for
+    # @!attribute field
+    #   @return [Symbol] the field to group by
+    # @!attribute dataset
+    #   @return [Dataset] if set, the dataset to analyze (else the entire
+    #     corpus)
+    # @!attribute progress
+    #   @return [Proc] if set, a function to call with percentage of completion
+    #     (one integer parameter)
     class CountTermsByField
-      # Create a new object for counting terms in a dataset by field
-      #
-      # Pass the term that you're interested to analyze, and the dataset that
-      # you'd like to draw the term from (or `nil` to indicate the entire
-      # corpus).
-      #
-      # @param [String] term the term of interest
-      # @param [Dataset] dataset the dataset to analyze (or `nil`)
-      # @param [Proc] progress if set, a function to call with a percentage of
-      #   completion (one `Integer` parameter)
-      def initialize(term, dataset = nil, progress = nil)
-        @term = term
-        @dataset = dataset
-        @progress = progress
-      end
+      include Virtus.model(strict: true, nullify_blank: true)
+
+      attribute :term, String, required: true
+      attribute :field, Symbol
+      attribute :dataset, Dataset
+      attribute :progress, Proc
 
       # Count term occurrences, grouping by a field
       #
@@ -30,15 +32,9 @@ module RLetters
       # @todo This function should support the same kind of work with names
       #   that we have in RLetters::Documents::Author.
       #
-      # @param [Symbol] field field to group by
       # @return [Hash<String, Integer>] number of documents in each grouping
-      def counts_for(field)
-        uids = if @dataset
-                 grouped_uids_dataset(@dataset, field)
-               else
-                 grouped_uids_corpus(field)
-               end
-
+      def call
+        uids = dataset ? grouped_uids_dataset : grouped_uids_corpus
         uids_to_term_counts(uids)
       end
 
@@ -46,32 +42,29 @@ module RLetters
 
       # Group the UIDs in a dataset manually by field
       #
-      # @param [Dataset] dataset set to group
-      # @param [Symbol] field field to group by
       # @return [Hash<String, Array<String>>] list of UIDs for each group
-      def grouped_uids_dataset(dataset, field)
+      def grouped_uids_dataset
         ret = {}
         total = dataset.entries.size
 
         enum = RLetters::Datasets::DocumentEnumerator.new(dataset)
         enum.each_with_index do |doc, i|
-          key = get_field_for_grouping(doc, field)
+          key = get_field_from_document(doc)
           ret[key] ||= []
           ret[key] << doc.uid
 
-          @progress && @progress.call((i.to_f / total.to_f * 50.0).to_i)
+          progress && progress.call((i.to_f / total.to_f * 50.0).to_i)
         end
 
-        @progress && @progress.call(50)
+        progress && progress.call(50)
 
         ret
       end
 
       # Group the UIDs in the entire corpus by field
       #
-      # @param [Symbol] field field to group by
       # @return [Hash<String, Array<String>>] list of UIDs for each group
-      def grouped_uids_corpus(field)
+      def grouped_uids_corpus
         ret = {}
         start = 0
 
@@ -80,7 +73,7 @@ module RLetters
 
         loop do
           group_result = RLetters::Solr::Connection.search_raw(
-            q: "fulltext:\"#{@term}\"",
+            q: "fulltext:\"#{term}\"",
             def_type: 'lucene',
             group: 'true',
             'group.field' => field.to_s,
@@ -111,7 +104,7 @@ module RLetters
           group_size = group['doclist']['numFound']
 
           uids_result = RLetters::Solr::Connection.search_raw(
-            q: "fulltext:\"#{@term}\"",
+            q: "fulltext:\"#{term}\"",
             def_type: 'lucene',
             group: 'true',
             'group.field' => field.to_s,
@@ -136,13 +129,13 @@ module RLetters
           start += 1
 
           # Update the progress meter
-          if @progress
+          if progress
             num_docs += group_size
-            @progress.call((num_docs.to_f / total_docs.to_f * 50.0).to_i)
+            progress.call((num_docs.to_f / total_docs.to_f * 50.0).to_i)
           end
         end
 
-        @progress && @progress.call(50)
+        progress && progress.call(50)
 
         ret
       end
@@ -152,9 +145,8 @@ module RLetters
       # This implements support for strange year values.
       #
       # @param [Document] doc the Solr document
-      # @param [Symbol] field the field for grouping
       # @return [String] the field value
-      def get_field_for_grouping(doc, field)
+      def get_field_from_document(doc)
         return doc.send(field) unless field == :year
 
         # Support Y-M-D or Y/M/D dates, even though this field is supposed to
@@ -184,10 +176,10 @@ module RLetters
             ret[key] += vec[:tf] if vec
           end
 
-          @progress && @progress.call(50 + (i.to_f / total.to_f * 50.0).to_i)
+          progress && progress.call(50 + (i.to_f / total.to_f * 50.0).to_i)
         end
 
-        @progress && @progress.call(100)
+        progress && progress.call(100)
 
         ret
       end

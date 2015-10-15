@@ -1,20 +1,22 @@
-require 'spec_helper'
+require 'rails_helper'
 
 RSpec.describe RLetters::Analysis::CountArticlesByField do
-  describe '#counts_for' do
+  describe '#call' do
     context 'without a dataset' do
       before(:example) do
         @called_sub_100 = false
         @called_100 = false
 
-        counter = described_class.new(nil, lambda do |p|
-          if p < 100
-            @called_sub_100 = true
-          else
-            @called_100 = true
-          end
-        end)
-        @counts = counter.counts_for(:year)
+        analyzer = described_class.new(
+          field: :year,
+          progress: lambda do |p|
+            if p < 100
+              @called_sub_100 = true
+            else
+              @called_100 = true
+            end
+          end)
+        @counts = analyzer.call
       end
 
       it 'gets the values for the whole corpus' do
@@ -31,7 +33,8 @@ RSpec.describe RLetters::Analysis::CountArticlesByField do
     context 'without a dataset, with Solr failure' do
       it 'is empty' do
         stub_request(:any, /(127\.0\.0\.1|localhost)/).to_timeout
-        expect(described_class.new.counts_for(:year)).to eq({})
+        analyzer = described_class.new(field: :year)
+        expect(analyzer.call).to eq({})
       end
     end
 
@@ -44,14 +47,17 @@ RSpec.describe RLetters::Analysis::CountArticlesByField do
         @called_sub_100 = false
         @called_100 = false
 
-        counter = described_class.new(@dataset, lambda do |p|
-          if p < 100
-            @called_sub_100 = true
-          else
-            @called_100 = true
-          end
-        end)
-        @counts = counter.counts_for(:year)
+        analyzer = described_class.new(
+          field: :year,
+          dataset: @dataset,
+          progress: lambda do |p|
+            if p < 100
+              @called_sub_100 = true
+            else
+              @called_100 = true
+            end
+          end)
+        @counts = analyzer.call
       end
 
       it 'gets the values for the dataset' do
@@ -68,7 +74,8 @@ RSpec.describe RLetters::Analysis::CountArticlesByField do
     context 'without a dataset, with Solr failure' do
       it 'is empty' do
         stub_request(:any, /(127\.0\.0\.1|localhost)/).to_timeout
-        expect(described_class.new(@dataset).counts_for(:year)).to eq({})
+        analyzer = described_class.new(field: :year, dataset: @dataset)
+        expect(analyzer.call).to eq({})
       end
     end
   end

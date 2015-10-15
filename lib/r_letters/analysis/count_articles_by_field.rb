@@ -2,19 +2,21 @@
 module RLetters
   module Analysis
     # Code for counting the number of articles in a dataset, grouped by a field
+    #
+    # @!attribute field
+    #   @return [Symbol] the field to group by
+    # @!attribute dataset
+    #   @return [Dataset] if set, the dataset to analyze (else the entire
+    #     corpus)
+    # @!attribute progress
+    #   @return [Proc] if set, a function to call with percentage of completion
+    #     (one integer parameter)
     class CountArticlesByField
-      # Create a new object for counting articles in a dataset by field
-      #
-      # Pass the dataset you'd like to count, or `nil` to indicate the entire
-      # corpus.
-      #
-      # @param [Dataset] dataset the dataset to analyze (or nil)
-      # @param [Proc] progress if set, a function to call with a percentage of
-      #   completion (one Integer parameter)
-      def initialize(dataset = nil, progress = nil)
-        @dataset = dataset
-        @progress = progress
-      end
+      include Virtus.model(strict: true, nullify_blank: true)
+
+      attribute :field, Symbol
+      attribute :dataset, Dataset
+      attribute :progress, Proc
 
       # Count up a dataset (or the corpus) by a field
       #
@@ -24,42 +26,38 @@ module RLetters
       # @todo This function should support the same kind of work with names
       #   that we have in RLetters::Documents::Author.
       #
-      # @param [Symbol] field field to group by
       # @return [Hash<String, Integer>] number of documents in each grouping
-      def counts_for(field)
-        @dataset ? group_dataset(@dataset, field) : group_corpus(field)
+      def call
+        dataset ? group_dataset : group_corpus
       end
 
       private
 
       # Walk a dataset manually and group it by field
       #
-      # @param [Dataset] dataset set to count
-      # @param [Symbol] field field to group by
       # @return [Hash<String, Integer>] number of documents in each group
-      def group_dataset(dataset, field)
+      def group_dataset
         ret = {}
         total = dataset.entries.size
 
         enum = RLetters::Datasets::DocumentEnumerator.new(dataset)
         enum.each_with_index do |doc, i|
-          key = get_field_for_grouping(doc, field)
+          key = get_field_from_document(doc)
           ret[key] ||= 0
           ret[key] += 1
 
-          @progress && @progress.call((i.to_f / total.to_f * 100.0).to_i)
+          progress && progress.call((i.to_f / total.to_f * 100.0).to_i)
         end
 
-        @progress && @progress.call(100)
+        progress && progress.call(100)
 
         ret
       end
 
       # Group the entire corpus by field, using Solr's result grouping
       #
-      # @param [Symbol] field field to group by
       # @return [Hash<String, Integer>] number of documents in each group
-      def group_corpus(field)
+      def group_corpus
         ret = {}
         start = 0
 
@@ -99,9 +97,9 @@ module RLetters
             ret[key] = val
 
             # Update the progress meter
-            if @progress
+            if progress
               num_docs += g['doclist']['numFound']
-              @progress.call((num_docs.to_f / total_docs.to_f * 100.0).to_i)
+              progress.call((num_docs.to_f / total_docs.to_f * 100.0).to_i)
             end
           end
 
@@ -109,19 +107,18 @@ module RLetters
           start += 100
         end
 
-        @progress && @progress.call(100)
+        progress && progress.call(100)
 
         ret
       end
 
-      # Get the value of the field for grouping
+      # Get the value of the field for grouping from a document
       #
       # This implements support for strange year values.
       #
       # @param [Document] doc the Solr document
-      # @param [Symbol] field the field for grouping
       # @return [String] the field value
-      def get_field_for_grouping(doc, field)
+      def get_field_from_document(doc)
         return doc.send(field) unless field == :year
 
         # Support Y-M-D or Y/M/D dates, even though this field is supposed to

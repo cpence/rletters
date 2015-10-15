@@ -1,20 +1,23 @@
-require 'spec_helper'
+require 'rails_helper'
 
 RSpec.describe RLetters::Analysis::CountTermsByField do
-  describe '#counts_for' do
+  describe '#call' do
     context 'without a dataset' do
       before(:example) do
         @called_sub_100 = false
         @called_100 = false
 
-        counter = described_class.new('violence', nil, lambda do |p|
-          if p < 100
-            @called_sub_100 = true
-          else
-            @called_100 = true
-          end
-        end)
-        @counts = counter.counts_for(:year)
+        analyzer = described_class.new(
+          term: 'violence',
+          field: :year,
+          progress: lambda do |p|
+            if p < 100
+              @called_sub_100 = true
+            else
+              @called_100 = true
+            end
+          end)
+        @counts = analyzer.call
       end
 
       it 'gets the values for the whole corpus' do
@@ -23,7 +26,8 @@ RSpec.describe RLetters::Analysis::CountTermsByField do
       end
 
       it 'gets different counts than the article counts' do
-        article_counts = RLetters::Analysis::CountArticlesByField.new.counts_for(:year)
+        analyzer = RLetters::Analysis::CountArticlesByField.new(field: :year)
+        article_counts = analyzer.call
         expect(@counts['2009']).not_to eq(article_counts['2009'])
         expect(@counts['2007']).not_to eq(article_counts['2007'])
         expect(@counts['2010']).not_to eq(article_counts['2010'])
@@ -38,7 +42,7 @@ RSpec.describe RLetters::Analysis::CountTermsByField do
     context 'without a dataset, with Solr failure' do
       it 'is empty' do
         stub_request(:any, /(127\.0\.0\.1|localhost)/).to_timeout
-        expect(described_class.new('malaria').counts_for(:year)).to eq({})
+        expect(described_class.new(term: 'malaria', field: :year).call).to eq({})
       end
     end
 
@@ -47,19 +51,22 @@ RSpec.describe RLetters::Analysis::CountTermsByField do
         @user = create(:user)
         @dataset = create(:full_dataset, entries_count: 2, working: true,
                                          user: @user)
-        @counts = described_class.new('disease', @dataset).counts_for(:year)
 
         @called_sub_100 = false
         @called_100 = false
 
-        counter = described_class.new('disease', @dataset, lambda do |p|
-          if p < 100
-            @called_sub_100 = true
-          else
-            @called_100 = true
-          end
-        end)
-        @counts = counter.counts_for(:year)
+        analyzer = described_class.new(
+          term: 'disease',
+          field: :year,
+          dataset: @dataset,
+          progress: lambda do |p|
+            if p < 100
+              @called_sub_100 = true
+            else
+              @called_100 = true
+            end
+          end)
+        @counts = analyzer.call
       end
 
       it 'gets the values for the dataset' do
@@ -76,7 +83,7 @@ RSpec.describe RLetters::Analysis::CountTermsByField do
     context 'without a dataset, with Solr failure' do
       it 'is empty' do
         stub_request(:any, /(127\.0\.0\.1|localhost)/).to_timeout
-        expect(described_class.new('disease', @dataset).counts_for(:year)).to eq({})
+        expect(described_class.new(term: 'disease', field: :year, dataset: @dataset).call).to eq({})
       end
     end
   end
