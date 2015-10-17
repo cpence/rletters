@@ -57,15 +57,10 @@ module ComputeWordFrequencies
        (args[:num_blocks].nil? && args[:block_size].nil?)) &&
        (args[:ngrams].nil? || args[:ngrams] == 1) &&
        (args[:stemming].nil?)
-      return RLetters::Analysis::Frequency::FromTF.new(
-        dataset,
-        progress,
-        split_across: args.delete(:split_across),
-        num_words: args.delete(:num_words),
-        inclusion_list: args.delete(:inclusion_list),
-        exclusion_list: args.delete(:exclusion_list),
-        stop_list: args.delete(:stop_list)
-      )
+      return RLetters::Analysis::Frequency::FromTF.call(args.merge(
+        dataset: dataset,
+        progress: progress
+      ))
     end
 
     # Produce a word list generator
@@ -91,8 +86,10 @@ module ComputeWordFrequencies
                                                       @doc_segmenter,
                                                       set_segmenter_options)
 
-    # Perform the position-based analysis (with the remaining args)
-    RLetters::Analysis::Frequency::FromPosition.new(@set_segmenter, progress, args)
+    # Perform the position-based analysis
+    RLetters::Analysis::Frequency::FromPosition.call(args.merge(
+      dataset_segments: @set_segmenter,
+      progress: progress))
   end
 
   private

@@ -141,9 +141,11 @@ module RLetters
                                                 ds,
                                                 split_across: false)
 
-          analyzer = RLetters::Analysis::Frequency::FromPosition.new(
-            ss,
-            ->(p) { @progress && @progress.call((p.to_f / 100.0 * 33.0).to_i) })
+          analyzer = RLetters::Analysis::Frequency::FromPosition.call(
+            dataset_segments: ss,
+            progress: lambda do |p|
+              @progress && @progress.call((p.to_f / 100.0 * 33.0).to_i)
+            end)
 
           # Combine all the block hashes, summing the values
           total = analyzer.blocks.size.to_f

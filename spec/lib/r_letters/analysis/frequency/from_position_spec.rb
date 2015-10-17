@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 RSpec.describe RLetters::Analysis::Frequency::FromPosition do
   before(:example) do
@@ -22,13 +22,15 @@ RSpec.describe RLetters::Analysis::Frequency::FromPosition do
       @called_sub_100 = false
       @called_100 = false
 
-      @analyzer = described_class.new(@onegram_ss, lambda do |p|
-        if p < 100
-          @called_sub_100 = true
-        else
-          @called_100 = true
-        end
-      end)
+      @analyzer = described_class.call(
+        dataset_segments: @onegram_ss,
+        progress: lambda do |p|
+          if p < 100
+            @called_sub_100 = true
+          else
+            @called_100 = true
+          end
+        end)
     end
 
     describe '#num_words' do
@@ -100,21 +102,20 @@ RSpec.describe RLetters::Analysis::Frequency::FromPosition do
 
   describe '#num_words' do
     context 'with num_words negative' do
-      before(:example) do
-        @analyzer = described_class.new(@onegram_ss, nil,
-                                        num_words: -1,
-                                        num_blocks: 1)
-      end
-
-      it 'acts like it was not set at all' do
-        num_words = @analyzer.blocks.flat_map(&:keys).uniq.count
-        expect(num_words).to eq(@analyzer.num_dataset_types)
+      it 'throws an error' do
+        expect {
+          @analyzer = described_class.call(
+            dataset_segments: @onegram_ss,
+            num_words: -1,
+            num_blocks: 1)
+        }.to raise_error(ArgumentError)
       end
     end
 
     context 'with num_words set to 10' do
       before(:example) do
-        @analyzer = described_class.new(@onegram_ss, nil, num_words: 10)
+        @analyzer = described_class.call(dataset_segments: @onegram_ss,
+                                         num_words: 10)
       end
 
       it 'includes a total of ten words' do
@@ -124,9 +125,10 @@ RSpec.describe RLetters::Analysis::Frequency::FromPosition do
 
     context 'with all set' do
       before(:example) do
-        @analyzer = described_class.new(@onegram_ss, nil, num_words: 3,
-                                                          all: true,
-                                                          num_blocks: 1)
+        @analyzer = described_class.call(dataset_segments: @onegram_ss,
+                                         num_words: 3,
+                                         all: true,
+                                         num_blocks: 1)
       end
 
       it 'includes all the words' do
@@ -138,7 +140,8 @@ RSpec.describe RLetters::Analysis::Frequency::FromPosition do
   describe '#inclusion_list' do
     context 'with one-grams' do
       before(:example) do
-        @analyzer = described_class.new(@onegram_ss, nil, inclusion_list: 'malaria disease')
+        @analyzer = described_class.call(dataset_segments: @onegram_ss,
+                                         inclusion_list: 'malaria disease')
       end
 
       it 'only includes those words' do
@@ -148,7 +151,8 @@ RSpec.describe RLetters::Analysis::Frequency::FromPosition do
 
     context 'with n-grams' do
       before(:example) do
-        @analyzer = described_class.new(@ngram_ss, nil, inclusion_list: 'malaria')
+        @analyzer = described_class.call(dataset_segments: @ngram_ss,
+                                         inclusion_list: 'malaria')
       end
 
       it 'produces ngrams that all contain malaria' do
@@ -163,7 +167,8 @@ RSpec.describe RLetters::Analysis::Frequency::FromPosition do
   describe '#exclusion_list' do
     context 'with one-grams' do
       before(:example) do
-        @analyzer = described_class.new(@onegram_ss, nil, exclusion_list: 'a the')
+        @analyzer = described_class.call(dataset_segments: @onegram_ss,
+                                         exclusion_list: 'a the')
       end
 
       it 'does not include those words' do
@@ -178,7 +183,8 @@ RSpec.describe RLetters::Analysis::Frequency::FromPosition do
 
     context 'with n-grams' do
       before(:example) do
-        @analyzer = described_class.new(@ngram_ss, nil, exclusion_list: 'diseases')
+        @analyzer = described_class.call(dataset_segments: @ngram_ss,
+                                         exclusion_list: 'diseases')
       end
 
       it 'produces ngrams that do not contain diseases' do
@@ -192,7 +198,8 @@ RSpec.describe RLetters::Analysis::Frequency::FromPosition do
   describe '#stop_list' do
     before(:example) do
       @list = create(:stop_list)
-      @analyzer = described_class.new(@onegram_ss, nil, stop_list: @list)
+      @analyzer = described_class.call(dataset_segments: @onegram_ss,
+                                       stop_list: @list)
     end
 
     it 'does not include "a" and "the"' do
@@ -207,7 +214,8 @@ RSpec.describe RLetters::Analysis::Frequency::FromPosition do
 
   describe '#word_list' do
     before(:example) do
-      @analyzer = described_class.new(@onegram_ss, nil, num_words: 10)
+      @analyzer = described_class.call(dataset_segments: @onegram_ss,
+                                       num_words: 10)
     end
 
     it 'only includes the requested number of words' do
@@ -223,7 +231,7 @@ RSpec.describe RLetters::Analysis::Frequency::FromPosition do
 
   describe '#tf_in_dataset' do
     before(:example) do
-      @analyzer = described_class.new(@oneblock_ss)
+      @analyzer = described_class.call(dataset_segments: @oneblock_ss)
     end
 
     it 'includes (at least) all the words in the list' do

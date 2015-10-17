@@ -76,6 +76,8 @@ gem 'roadie-rails'
 group :test, :development do
   gem 'rspec-rails', '~> 3'
   gem 'rspec-activejob'
+  gem 'pry'
+  gem 'pry-byebug'
 
   # Some of these need to be here to enable proper use of the development
   # server, including mailer previews

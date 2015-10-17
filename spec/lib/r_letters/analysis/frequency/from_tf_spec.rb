@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 RSpec.describe RLetters::Analysis::Frequency::FromTF do
   before(:example) do
@@ -9,7 +9,7 @@ RSpec.describe RLetters::Analysis::Frequency::FromTF do
 
   context 'with the basic analyzer' do
     before(:example) do
-      @analyzer = described_class.new(@dataset)
+      @analyzer = described_class.call(dataset: @dataset)
     end
 
     it 'includes all words' do
@@ -89,7 +89,7 @@ RSpec.describe RLetters::Analysis::Frequency::FromTF do
 
   context 'when not splitting across documents' do
     before(:example) do
-      @analyzer = described_class.new(@dataset, nil, split_across: false)
+      @analyzer = described_class.call(dataset: @dataset, split_across: false)
     end
 
     it 'saves blocks' do
@@ -155,18 +155,16 @@ RSpec.describe RLetters::Analysis::Frequency::FromTF do
 
   describe '#num_words' do
     context 'with num_words negative' do
-      before(:example) do
-        @analyzer = described_class.new(@dataset, nil, num_words: -1)
-      end
-
-      it 'acts like it was not set at all' do
-        expect(@analyzer.block_stats[0][:types]).to eq(@analyzer.blocks[0].size)
+      it 'throws an error' do
+        expect {
+          described_class.call(dataset: @dataset, num_words: -1)
+        }.to raise_error(ArgumentError)
       end
     end
 
     context 'with num_words set to 10' do
       before(:example) do
-        @analyzer = described_class.new(@dataset, nil, num_words: 10)
+        @analyzer = described_class.call(dataset: @dataset, num_words: 10)
       end
 
       it 'only includes ten words' do
@@ -178,7 +176,9 @@ RSpec.describe RLetters::Analysis::Frequency::FromTF do
 
     context 'with all set' do
       before(:example) do
-        @analyzer = described_class.new(@dataset, nil, num_words: 3, all: true)
+        @analyzer = described_class.call(dataset: @dataset,
+                                         num_words: 3,
+                                         all: true)
       end
 
       it 'includes all the words' do
@@ -189,7 +189,8 @@ RSpec.describe RLetters::Analysis::Frequency::FromTF do
 
   describe '#inclusion_list' do
     before(:example) do
-      @analyzer = described_class.new(@dataset, nil, inclusion_list: 'malaria disease')
+      @analyzer = described_class.call(dataset: @dataset,
+                                       inclusion_list: 'malaria disease')
     end
 
     it 'only includes those words' do
@@ -199,7 +200,8 @@ RSpec.describe RLetters::Analysis::Frequency::FromTF do
 
   describe '#exclusion_list' do
     before(:example) do
-      @analyzer = described_class.new(@dataset, nil, exclusion_list: 'a the')
+      @analyzer = described_class.call(dataset: @dataset,
+                                       exclusion_list: 'a the')
     end
 
     it 'does not include those words' do
@@ -215,7 +217,7 @@ RSpec.describe RLetters::Analysis::Frequency::FromTF do
   describe '#stop_list' do
     before(:example) do
       @list = create(:stop_list)
-      @analyzer = described_class.new(@dataset, nil, stop_list: @list)
+      @analyzer = described_class.call(dataset: @dataset, stop_list: @list)
     end
 
     it 'does not include "a" and "the"' do
@@ -230,7 +232,7 @@ RSpec.describe RLetters::Analysis::Frequency::FromTF do
 
   describe '#word_list' do
     before(:example) do
-      @analyzer = described_class.new(@dataset, nil, num_words: 10)
+      @analyzer = described_class.call(dataset: @dataset, num_words: 10)
     end
 
     it 'only includes the requested number of words' do
@@ -249,13 +251,15 @@ RSpec.describe RLetters::Analysis::Frequency::FromTF do
       called_sub_100 = false
       called_100 = false
 
-      described_class.new(@dataset, lambda do |p|
-        if p < 100
-          called_sub_100 = true
-        else
-          called_100 = true
-        end
-      end)
+      described_class.call(
+        dataset: @dataset,
+        progress: lambda do |p|
+          if p < 100
+            called_sub_100 = true
+          else
+            called_100 = true
+          end
+        end)
 
       expect(called_sub_100).to be true
       expect(called_100).to be true

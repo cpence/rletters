@@ -103,17 +103,17 @@ module RLetters
 
         ss1 = RLetters::Datasets::Segments.new(dataset_1, ds,
                                                split_across: true)
-        self.analyzer_1 = RLetters::Analysis::Frequency::FromPosition.new(
-          ss1,
-          lambda do |p|
+        self.analyzer_1 = RLetters::Analysis::Frequency::FromPosition.call(
+          dataset_segments: ss1,
+          progress: lambda do |p|
             progress && progress.call((p.to_f * 0.25).to_i)
           end)
 
         ss2 = RLetters::Datasets::Segments.new(dataset_2, ds,
                                                split_across: true)
-        self.analyzer_2 = RLetters::Analysis::Frequency::FromPosition.new(
-          ss2,
-          lambda do |p|
+        self.analyzer_2 = RLetters::Analysis::Frequency::FromPosition.call(
+          dataset_segments: ss2,
+          progress: lambda do |p|
             progress && progress.call((p.to_f * 0.25).to_i + 25)
           end)
       end
