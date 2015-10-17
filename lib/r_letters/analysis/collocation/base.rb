@@ -74,8 +74,7 @@ module RLetters
         # @return [Array<RLetters::Analysis::Frequency::Base>] two analyzers,
         #   first one-gram and second bi-gram
         def analyzers
-          # The onegram analyzer can use TFs
-          onegram_analyzer = RLetters::Analysis::Frequency::FromTF.call(
+          onegram_analyzer = Frequency.call(
             dataset: @dataset,
             progress: lambda do |p|
               @progress && @progress.call((p.to_f / 100.0 * 33.0).to_i)
@@ -83,18 +82,15 @@ module RLetters
 
           # The bigrams should only include the focal word, if the user has
           # restricted the analysis
-          bigram_opts = {}
-          bigram_opts[:inclusion_list] = @word if @word
-
-          wl = RLetters::Documents::WordList.new(ngrams: 2)
-          ds = RLetters::Documents::Segments.new(wl, num_blocks: 1)
-          ss = RLetters::Datasets::Segments.new(@dataset, ds, split_across: true)
-          bigram_analyzer = RLetters::Analysis::Frequency::FromPosition.call(
-            bigram_opts.merge(
-              dataset_segments: ss,
-              progress: lambda do |p|
-                @progress && @progress.call((p.to_f / 100.0 * 33.0).to_i + 33)
-              end))
+          bigram_analyzer = Frequency.call(
+            dataset: @dataset,
+            ngrams: 2,
+            inclusion_list: @word,
+            num_blocks: 1,
+            split_across: true,
+            progress: lambda do |p|
+              @progress && @progress.call((p.to_f / 100.0 * 33.0).to_i + 33)
+            end)
 
           [onegram_analyzer, bigram_analyzer]
         end

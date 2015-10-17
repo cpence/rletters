@@ -133,16 +133,12 @@ module RLetters
         #   which every word *and* the word at issue both appear (the
         #   +joint_frequencies+). Lastly, the number of bins (+n+).
         def frequencies
-          wl = RLetters::Documents::WordList.new(stemming: @stemming)
-          ds = RLetters::Documents::Segments.new(wl,
-                                                 block_size: @window,
-                                                 last_block: :small_last)
-          ss = RLetters::Datasets::Segments.new(@dataset,
-                                                ds,
-                                                split_across: false)
-
-          analyzer = RLetters::Analysis::Frequency::FromPosition.call(
-            dataset_segments: ss,
+          analyzer = Frequency.call(
+            dataset: @dataset,
+            stemming: @stemming,
+            block_size: @window,
+            last_block: :small_last,
+            split_across: false,
             progress: lambda do |p|
               @progress && @progress.call((p.to_f / 100.0 * 33.0).to_i)
             end)

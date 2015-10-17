@@ -7,6 +7,13 @@ module RLetters
     # the generation of parallel word frequency lists can be highly tweaked
     # and customized.
     module Frequency
+      # Syntactic sugar for calling Base.call
+      #
+      # @return [RLetters::Analysis::Frequency::Base] analyzer class
+      def self.call(*args)
+        Base.call(*args)
+      end
+
       # A class to encapsulate an attribute that can be passed as a
       # space-separated list
       class SplitList < Virtus::Attribute
@@ -18,8 +25,27 @@ module RLetters
           return nil if value.nil?
           return value if value.is_a?(Array)
           return value.list.split if value.is_a?(::Documents::StopList)
-          return value.strip.split if value.is_a?(String)
+          return value.mb_chars.downcase.to_s.strip.split if value.is_a?(String)
           fail ArgumentError, "cannot create list from #{value.class}"
+        end
+      end
+
+      # A class to coerce strings to stop lists, and then on to arrays of
+      # strings
+      class StopListAttribute < Virtus::Attribute
+        # Coerce the list into an array if it's a string
+        #
+        # @param [Object] value the object to coerce
+        # @return [Array] representation as an array
+        def coerce(value)
+          return nil if value.nil?
+          return value.list.split if value.is_a?(::Documents::StopList)
+          if value.is_a?(String)
+            dsl = ::Documents::StopList.find_by(language: value)
+            return dsl.list.split if dsl
+            return value.mb_chars.downcase.to_s.strip.split
+          end
+          fail ArgumentError, "cannot create stop list from #{value.class}"
         end
       end
 
@@ -34,13 +60,55 @@ module RLetters
       # @see FromPosition
       # @see FromTF
       #
+      # @!attribute dataset
+      #   @return [Dataset] the dataset to analyze
       # @!attribute progress
       #   @return [Proc] if set, a function to call with percentage of
       #     completion (one integer parameter)
+      # @!attribute block_size
+      #   @return [Integer] block size, in words
+      #
+      #   If this attribute is zero, then we will read from `num_blocks`
+      #   instead.  Defaults to zero.
+      # @!attribute num_blocks
+      #   @return [Integer] number of blocks for splitting
+      #
+      #   If this attribute is zero, we will read from `block_size` instead.
+      #   Defaults to zero.
+      # @!attribute split_across
+      #   @return [Boolean] whether to split blocks across documents
+      #
+      #   If this is set to true, then we will effectively concatenate all
+      #   the documents before splitting into blocks.  If false, we'll
+      #   split blocks on a per-document basis.  Defaults to true.
+      # @!attribute last_block
+      #   @return [Symbol] this parameter changes what will
+      #     happen to the "leftover" words when +block_size+ is set.
+      #
+      #     [+:big_last+]      add them to the last block, making a block
+      #       larger than +block_size+.
+      #     [+:small_last+]    make them into their own block, making a block
+      #       smaller than +block_size+.
+      #     [+:truncate_last+] truncate those leftover words, excluding them
+      #       from frequency computation.
+      #     [+:truncate_all+]  truncate _every_ text to +block_size+, creating
+      #       only one block per call to +#add+
+      #
+      #     The default is +:big_last+.
+      # @!attribute ngrams
+      #   @return [Integer] if set, return ngrams rather than single words.
+      #     Can be set to any integer >= 1.  Defaults to 1.
       # @!attribute num_words
       #   @return [Integer] if set, only return frequency data for this many
       #     words; otherwise, return all words.  If +ngrams+ is available and
       #     set, this is a number of ngrams, not a number of words.
+      # @!attribute stemming
+      #   @return [Symbol] if set to +:stem+, pass the words through a Porter
+      #     stemmer before returning them.  If set to +:lemma+, pass them
+      #     through the Stanford NLP lemmatizer, if available.  The NLP
+      #     lemmatizer is much slower, as it requires accessing the fulltext
+      #     of the document rather than reconstructing from the term vectors.
+      #     Defaults to no stemming.
       # @!attribute all
       #   @return [Boolean] if set, ignore `num_words` and simply return all
       #     words (or ngrams)
@@ -98,12 +166,19 @@ module RLetters
         include Virtus.model(strict: true, required: false,
                              nullify_blank: true)
 
+        attribute :dataset, Dataset, required: true
         attribute :progress, Proc
+        attribute :block_size, Integer, default: 0
+        attribute :num_blocks, Integer, default: 0
+        attribute :ngrams, Integer, default: 1
         attribute :num_words, Integer, default: 0
+        attribute :stemming, Symbol
+        attribute :split_across, Boolean, default: true
+        attribute :last_block, Symbol, default: :big_last
         attribute :all, Boolean, default: false
         attribute :inclusion_list, SplitList
         attribute :exclusion_list, SplitList
-        attribute :stop_list, SplitList
+        attribute :stop_list, StopListAttribute
 
         attribute :blocks, Array[Hash], writer: :private
         attribute :block_stats, Array[Hash], writer: :private
@@ -113,6 +188,27 @@ module RLetters
         attribute :num_dataset_tokens, Integer, writer: :private
         attribute :num_dataset_types, Integer, writer: :private
         attribute :df_in_corpus, Hash[String => Integer], writer: :private
+
+        # Create the correct frequency analyzer class and call it
+        #
+        # The `FromTF` analyzer is a quick-out option for a very specific set
+        # of options. Look for those options here. Otherwise, build and call
+        # `FromPosition`.
+        #
+        # @return [self]
+        def call
+          # Check for the quick-out
+          if (num_blocks == 1 || (num_blocks == 0 && block_size == 0)) &&
+             ngrams == 1 && stemming.nil?
+            return FromTF.call(attributes)
+          end
+
+          word_lister = Documents::WordList.new(attributes)
+          doc_segmenter = Documents::Segments.new(word_lister, attributes)
+          set_segmenter = Datasets::Segments.new(dataset, doc_segmenter,
+                                                 attributes)
+          FromPosition.call(attributes.merge(dataset_segments: set_segmenter))
+        end
 
         protected
 

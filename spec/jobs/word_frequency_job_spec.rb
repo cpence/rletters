@@ -19,11 +19,7 @@ RSpec.describe WordFrequencyJob, type: :job do
       num_dataset_tokens: 14,
       num_dataset_types: 2,
       df_in_corpus: { 'word' => 123, 'other' => 456 })
-    allow(RLetters::Analysis::Frequency::FromTF).to receive(:call) do |hash|
-      hash[:progress].call(100)
-      mock_analyzer
-    end
-    allow(RLetters::Analysis::Frequency::FromPosition).to receive(:call) do |hash|
+    allow(RLetters::Analysis::Frequency).to receive(:call) do |hash|
       hash[:progress].call(100)
       mock_analyzer
     end
@@ -114,11 +110,7 @@ RSpec.describe WordFrequencyJob, type: :job do
           num_dataset_tokens: 14,
           num_dataset_types: 2,
           df_in_corpus: nil)
-        allow(RLetters::Analysis::Frequency::FromTF).to receive(:call) do |hash|
-          hash[:progress].call(100)
-          mock_analyzer
-        end
-        allow(RLetters::Analysis::Frequency::FromPosition).to receive(:call) do |hash|
+        allow(RLetters::Analysis::Frequency).to receive(:call) do |hash|
           hash[:progress].call(100)
           mock_analyzer
         end

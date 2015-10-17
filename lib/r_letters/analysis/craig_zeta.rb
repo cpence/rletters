@@ -97,22 +97,20 @@ module RLetters
       #
       # @return [void]
       def create_analyzers
-        ds = RLetters::Documents::Segments.new(nil,
-                                               block_size: 500,
-                                               last_block: :big_last)
-
-        ss1 = RLetters::Datasets::Segments.new(dataset_1, ds,
-                                               split_across: true)
-        self.analyzer_1 = RLetters::Analysis::Frequency::FromPosition.call(
-          dataset_segments: ss1,
+        self.analyzer_1 = Frequency.call(
+          dataset: dataset_1,
+          block_size: 500,
+          last_block: :big_last,
+          split_across: true,
           progress: lambda do |p|
             progress && progress.call((p.to_f * 0.25).to_i)
           end)
 
-        ss2 = RLetters::Datasets::Segments.new(dataset_2, ds,
-                                               split_across: true)
-        self.analyzer_2 = RLetters::Analysis::Frequency::FromPosition.call(
-          dataset_segments: ss2,
+        self.analyzer_2 = Frequency.call(
+          dataset: dataset_2,
+          block_size: 500,
+          last_block: :big_last,
+          split_across: true,
           progress: lambda do |p|
             progress && progress.call((p.to_f * 0.25).to_i + 25)
           end)

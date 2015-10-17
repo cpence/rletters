@@ -8,19 +8,7 @@ module RLetters
       # block, then we can analyze the words simply by reading the +tf+ values
       # from the term vectors, which is much faster than reconstructing the
       # full text from the +offsets.+
-      #
-      # @!attribute dataset
-      #   @return [Dataset] the dataset to analyze
-      # @!attribute split_across
-      #   @return [Boolean] whether to split blocks across documents
-      #
-      #   If this is set to true, then we will effectively concatenate all
-      #   the documents before splitting into blocks.  If false, we'll
-      #   split blocks on a per-document basis.  Defaults to true.
       class FromTF < RLetters::Analysis::Frequency::Base
-        attribute :dataset, Dataset, required: true
-        attribute :split_across, Boolean, default: true
-
         # N.B.: Do not coerce this value, as it is an enumerator, and Virtus
         # will try to coerce it as an array of objects.
         attribute :documents, Datasets::DocumentEnumerator,
