@@ -9,32 +9,71 @@ module RLetters
     # phrase "strong tea" but would never say "strong computers", preferring
     # instead "powerful computers" (but never "powerful tea").
     module Collocation
-      # Base methods common to all collocation analyzers
-      class Base
-        # Create a new collocation analyzer
-        #
-        # @param [Dataset] dataset the dataset to analyze
-        # @param [Integer] num_pairs the number of collocations to return
-        # @param [String] focal_word if set, all collocations returned will
-        #   include this word
-        # @param [Proc] progress If set, a function to call with a percentage
-        #   of completion (one Integer parameter)
-        def initialize(dataset, num_pairs, focal_word = nil, progress = nil)
-          @dataset = dataset
-          @num_pairs = num_pairs
-          @word = focal_word.mb_chars.downcase.to_s if focal_word
-          @progress = progress
+      # Syntactic sugar for calling the appropriate analyzer
+      #
+      # @return [Array<Array(String, Float)>] a set of words and their
+      #   associated significance values, sorted in order of significance
+      #   (most significant first)
+      def self.call(*args)
+        analyzer = Base.new(*args)
+        if analyzer.scoring == :parts_of_speech
+          analyzer = PartsOfSpeech.new(*args)
         end
 
+        analyzer.call
+      end
+
+      # Base methods common to all collocation analyzers
+      #
+      # @!attribute dataset
+      #   @return [Dataset] the dataset to analyze
+      # @!attribute num_pairs
+      #   @return [Integer] the number of cooccurrences to return
+      # @!attribute all
+      #   @return [Boolean] if set to true, return all pairs
+      # @!attribute scoring
+      #   @return [Symbol] the scoring method to use. Can be `:log_likelihood`,
+      #     `:mutual_information`, `:t_test`, or `:parts_of_speech`.
+      # @!attribute focal_word
+      #   @return [String] if set, all collocations returned will
+      #     include this word
+      # @!attribute progress
+      #   @return [Proc] if set, a function to call with percentage of
+      #     completion (one integer parameter)
+      class Base
+        include Service
+        include Virtus.model(strict: true, required: false,
+                             nullify_blank: true)
+
+        attribute :dataset, Dataset, required: true
+        attribute :scoring, Symbol, required: true
+        attribute :num_pairs, Integer, default: 0
+        attribute :all, Boolean, default: false
+        attribute :focal_word, LowercaseString
+        attribute :progress, Proc
+
         # Perform collocation analysis
-        #
-        # Don't call this on the base class, but on one of the child classes
-        # that implements a pair-scoring method.
         #
         # @return [Array<Array(String, Float)>] a set of words and their
         #   associated significance values, sorted in order of significance
         #   (most significant first)
         def call
+          case scoring
+          when :log_likelihood
+            score_class = Scoring::LogLikelihood
+          when :mutual_information
+            score_class = Scoring::MutualInformation
+          when :t_test
+            score_class = Scoring::TTest
+          else
+            fail ArgumentError, "cannot score collocations with #{scoring}"
+          end
+
+          # Ignore num_pairs if we want all of the cooccurrences
+          if all
+            self.num_pairs = nil
+          end
+
           an = analyzers
 
           word_f = an[0].blocks[0]
@@ -44,20 +83,20 @@ module RLetters
           n = an[0].num_dataset_tokens.to_f
 
           ret = bigram_f.each_with_index.map do |b, i|
-            @progress && @progress.call((i.to_f / total.to_f * 33.0).to_i + 66)
+            progress && progress.call((i.to_f / total.to_f * 33.0).to_i + 66)
 
             bigram_words = b[0].split
             f_ab = b[1].to_f
             f_a = word_f[bigram_words[0]].to_f
             f_b = word_f[bigram_words[1]].to_f
 
-            [b[0], score(f_a, f_b, f_ab, n)]
+            [b[0], score_class.score(f_a, f_b, f_ab, n)]
           end
 
-          ret = sort_results(ret)
-          ret = ret.take(@num_pairs) if @num_pairs > 0
+          ret = score_class.sort_results(ret)
+          ret = ret.take(num_pairs) if num_pairs > 0
 
-          @progress && @progress.call(100)
+          progress && progress.call(100)
 
           ret
         end
@@ -75,21 +114,21 @@ module RLetters
         #   first one-gram and second bi-gram
         def analyzers
           onegram_analyzer = Frequency.call(
-            dataset: @dataset,
+            dataset: dataset,
             progress: lambda do |p|
-              @progress && @progress.call((p.to_f / 100.0 * 33.0).to_i)
+              progress && progress.call((p.to_f / 100.0 * 33.0).to_i)
             end)
 
           # The bigrams should only include the focal word, if the user has
           # restricted the analysis
           bigram_analyzer = Frequency.call(
-            dataset: @dataset,
+            dataset: dataset,
             ngrams: 2,
-            inclusion_list: @word,
+            inclusion_list: focal_word,
             num_blocks: 1,
             split_across: true,
             progress: lambda do |p|
-              @progress && @progress.call((p.to_f / 100.0 * 33.0).to_i + 33)
+              progress && progress.call((p.to_f / 100.0 * 33.0).to_i + 33)
             end)
 
           [onegram_analyzer, bigram_analyzer]

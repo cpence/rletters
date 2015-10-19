@@ -7,15 +7,16 @@ RSpec.describe CooccurrenceJob, type: :job do
     @task = create(:task, dataset: @dataset)
 
     # Don't run the analyses
-    allow_any_instance_of(RLetters::Analysis::Cooccurrence::Base).to receive(:call) do |analyzer|
-      p = analyzer.instance_variable_get(:@progress)
+    allow(RLetters::Analysis::Cooccurrence).to receive(:call) do |args|
+      p = args['progress']
       p && p.call(100)
       [['word other', 1]]
     end
   end
 
   it_should_behave_like 'an analysis job' do
-    let(:job_params) { { word: 'was', window: '6' } }
+    let(:job_params) { { 'scoring' => 't_test', 'word' => 'was',
+                         'window' => '6' } }
   end
 
   describe '.num_datasets' do
@@ -29,14 +30,14 @@ RSpec.describe CooccurrenceJob, type: :job do
       expect {
         described_class.new.perform(
           @task,
-          analysis_type: 'nope',
-          num_pairs: '10',
-          window: 25,
-          word: 'disease')
+          'scoring' => 'nope',
+          'num_pairs' => '10',
+          'window' => 25,
+          'word' => 'disease')
       }.to raise_error(ArgumentError)
     end
 
-    types = [:mi, :t, :likelihood]
+    types = [:mutual_information, :t_test, :log_likelihood]
     words_list = ['disease', 'tropical, disease']
     nums = [[:num_pairs, '10'], [:all, '1']]
 
@@ -45,10 +46,10 @@ RSpec.describe CooccurrenceJob, type: :job do
         expect {
           described_class.new.perform(
             @task,
-            analysis_type: type.to_s,
-            sym => val,
-            window: '25',
-            word: words)
+            'scoring' => type.to_s,
+            sym.to_s => val,
+            'window' => '25',
+            'word' => words)
         }.not_to raise_error
 
         # Just a quick sanity check to make sure some code was called
@@ -60,7 +61,7 @@ RSpec.describe CooccurrenceJob, type: :job do
   describe '.significance_tests' do
     it 'gives a reasonable answer' do
       tests = described_class.significance_tests
-      expect(tests).to include(['Log-likelihood', :likelihood])
+      expect(tests).to include(['Log-likelihood', :log_likelihood])
     end
   end
 end

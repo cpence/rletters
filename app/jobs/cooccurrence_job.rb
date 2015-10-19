@@ -10,9 +10,9 @@ class CooccurrenceJob < BaseJob
   #
   # @param [Datasets::Task] task the task we're working from
   # @param [Hash] options parameters for this job
-  # @option options [String] :analysis_type the algorithm to use to
-  #   analyze the significance of coocurrences.  Can be `'mi'` (for mutual
-  #   information), or `'t'` (for t-test).
+  # @option options [String] :scoring the algorithm to use to
+  #   analyze the significance of coocurrences.  Can be `'mutual_information'`,
+  #   `'log_likelihood'`, or `'t_test'`.
   # @option options [String] :num_pairs number of coccurrences to return
   # @option options [String] :stemming the stemming method to use. Can be
   #   +:stem+, +:lemma+, or +:no+.
@@ -23,47 +23,24 @@ class CooccurrenceJob < BaseJob
   # @return [void]
   def perform(task, options)
     standard_options(task)
+    options.delete('stemming') if options['stemming'] == 'no'
 
-    options = options.with_indifferent_access
-    fail ArgumentError, 'No cooccurrence word provided' unless options[:word]
-
-    analysis_type = (options[:analysis_type] || :mi).to_sym
-    if options[:all] == '1'
-      num_pairs = 0
+    case options['scoring']
+    when 'mutual_information'
+      algorithm = t('common.scoring.mutual_information')
+      column = t('common.scoring.mutual_information_header')
+    when 't_test'
+      algorithm = t('common.scoring.t_test')
+      column = t('common.scoring.t_test_header')
+    when 'log_likelihood'
+      algorithm = t('common.scoring.log_likelihood')
+      column = t('common.scoring.loglikelihood_header')
     else
-      num_pairs = (options[:num_pairs] || 50).to_i
-    end
-    word = options[:word].mb_chars.downcase.to_s
-    window = (options[:window] || 200).to_i
-    stemming = options[:stemming].to_sym if options[:stemming]
-    stemming = nil if stemming == :no
-
-    case analysis_type
-    when :mi
-      algorithm = t('common.scoring.mi')
-      column = t('common.scoring.mi_header')
-      klass = RLetters::Analysis::Cooccurrence::MutualInformation
-    when :t
-      algorithm = t('common.scoring.t')
-      column = t('common.scoring.t_header')
-      klass = RLetters::Analysis::Cooccurrence::TTest
-    when :likelihood
-      algorithm = t('common.scoring.likelihood')
-      column = t('common.scoring.likelihood_header')
-      klass = RLetters::Analysis::Cooccurrence::LogLikelihood
-    else
-      fail ArgumentError, 'Invalid value for analysis_type'
+      fail ArgumentError, 'Invalid value for scoring'
     end
 
-    analyzer = klass.new(
-      dataset,
-      num_pairs,
-      word,
-      window,
-      stemming,
-      ->(p) { task.at(p, 100, t('.progress_computing')) }
-    )
-    grams = analyzer.call
+    grams = RLetters::Analysis::Cooccurrence.call(options.merge(
+      progress: ->(p) { task.at(p, 100, t('.progress_computing')) }))
 
     # Save out all the data
     csv_string = csv_with_header(t('.header', name: dataset.name),
@@ -90,7 +67,7 @@ class CooccurrenceJob < BaseJob
   # @return [Array<(String, Symbol)>] pairs of test method names and their
   #   associated symbols
   def self.significance_tests
-    [:mi, :t, :likelihood].map do |sym|
+    [:mutual_information, :t_test, :log_likelihood].map do |sym|
       [t("common.scoring.#{sym}"), sym]
     end
   end

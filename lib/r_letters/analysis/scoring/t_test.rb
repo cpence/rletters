@@ -4,8 +4,6 @@ module RLetters
     module Scoring
       # Compute scores on the basis of T tests
       module TTest
-        private
-
         # A method to compute the score for this pair on the basis of the
         # individual and joint frequencies.
         #
@@ -27,7 +25,7 @@ module RLetters
         # @param [Float] f_ab the frequency of joint appearance of A and B in
         #   blocks
         # @param [Float] n the number of blocks
-        def score(f_a, f_b, f_ab, n)
+        def self.score(f_a, f_b, f_ab, n)
           h_0 = (f_a / n) * (f_b / n)
           denom = Math.sqrt((h_0 * (1.0 - h_0)) / n)
 
@@ -47,7 +45,7 @@ module RLetters
         #
         # @param [Array<Array<(String, Float)>>] grams grams in unsorted order
         # @return [Array<Array<(String, Float)>>] grams in sorted order
-        def sort_results(grams)
+        def self.sort_results(grams)
           grams.sort { |a, b| a[1] <=> b[1] }
         end
       end

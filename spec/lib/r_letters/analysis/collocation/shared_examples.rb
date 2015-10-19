@@ -1,5 +1,5 @@
 
-RSpec.shared_examples_for 'a collocation analyzer' do
+RSpec.shared_examples_for 'a collocation analyzer' do |scoring|
   before(:example) do
     @user = create(:user)
     @dataset = create(:full_dataset, working: true)
@@ -10,13 +10,17 @@ RSpec.shared_examples_for 'a collocation analyzer' do
       @called_sub_100 = false
       @called_100 = false
 
-      @grams = described_class.new(@dataset, 10, nil, lambda do |p|
-        if p < 100
-          @called_sub_100 = true
-        else
-          @called_100 = true
-        end
-      end).call
+      @grams = described_class.call(
+        scoring: scoring,
+        dataset: @dataset,
+        num_pairs: 10,
+        progress: lambda do |p|
+          if p < 100
+            @called_sub_100 = true
+          else
+            @called_100 = true
+          end
+        end)
     end
 
     it 'returns the correct number of grams' do
@@ -41,7 +45,11 @@ RSpec.shared_examples_for 'a collocation analyzer' do
 
   context 'with a focal word' do
     before(:example) do
-      @grams = described_class.new(@dataset, 10, 'present').call
+      @grams = described_class.call(
+        scoring: scoring,
+        dataset: @dataset,
+        num_pairs: 10,
+        focal_word: 'present')
     end
 
     it 'returns some grams' do
@@ -65,7 +73,11 @@ RSpec.shared_examples_for 'a collocation analyzer' do
 
   context 'with an uppercase focal word' do
     it 'still works' do
-      grams = described_class.new(@dataset, 10, 'PRESENT').call
+      grams = described_class.call(
+        scoring: scoring,
+        dataset: @dataset,
+        num_pairs: 10,
+        focal_word: 'PRESENT')
       expect(grams[0][0].split).to include('present')
     end
   end

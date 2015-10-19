@@ -1,25 +1,25 @@
 require 'spec_helper'
 require_relative './shared_examples'
 
-RSpec.describe RLetters::Analysis::Collocation::PartsOfSpeech do
+RSpec.describe RLetters::Analysis::Collocation do
   context 'without the NLP tool available' do
-    before(:context) do
+    before(:example) do
       @old_path = ENV['NLP_TOOL_PATH']
       ENV['NLP_TOOL_PATH'] = nil
-    end
 
-    after(:context) do
-      ENV['NLP_TOOL_PATH'] = @old_path
-    end
-
-    before(:example) do
       @user = create(:user)
       @dataset = create(:full_dataset, working: true)
     end
 
+    after(:example) do
+      ENV['NLP_TOOL_PATH'] = @old_path
+    end
+
     it 'raises an error when called' do
       expect {
-        @grams = described_class.new(@dataset, 10).call
+        @grams = described_class.call(scoring: :parts_of_speech,
+                                      dataset: @dataset,
+                                      num_pairs: 10)
       }.to raise_error(ArgumentError)
     end
   end
@@ -37,6 +37,6 @@ RSpec.describe RLetters::Analysis::Collocation::PartsOfSpeech do
       ENV['NLP_TOOL_PATH'] = @old_path
     end
 
-    it_should_behave_like 'a collocation analyzer'
+    it_should_behave_like 'a collocation analyzer', :parts_of_speech
   end
 end

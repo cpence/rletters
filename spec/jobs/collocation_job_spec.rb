@@ -14,23 +14,13 @@ RSpec.describe CollocationJob, type: :job do
     allow(RLetters::Analysis::NLP).to receive(:parts_of_speech).and_return(@words)
 
     # Don't run the analyses
-    allow_any_instance_of(RLetters::Analysis::Collocation::LogLikelihood).to receive(:call) do |analyzer|
-      p = analyzer.instance_variable_get(:@progress)
+    allow(RLetters::Analysis::Collocation::Base).to receive(:call) do |args|
+      p = args['progress']
       p && p.call(100)
       [['word other', 1]]
     end
-    allow_any_instance_of(RLetters::Analysis::Collocation::TTest).to receive(:call) do |analyzer|
-      p = analyzer.instance_variable_get(:@progress)
-      p && p.call(100)
-      [['word other', 1]]
-    end
-    allow_any_instance_of(RLetters::Analysis::Collocation::MutualInformation).to receive(:call) do |analyzer|
-      p = analyzer.instance_variable_get(:@progress)
-      p && p.call(100)
-      [['word other', 1]]
-    end
-    allow_any_instance_of(RLetters::Analysis::Collocation::PartsOfSpeech).to receive(:call) do |analyzer|
-      p = analyzer.instance_variable_get(:@progress)
+    allow(RLetters::Analysis::Collocation::PartsOfSpeech).to receive(:call) do |args|
+      p = args['progress']
       p && p.call(100)
       [['word other', 1]]
     end
@@ -40,7 +30,9 @@ RSpec.describe CollocationJob, type: :job do
     ENV['NLP_TOOL_PATH'] = @old_path
   end
 
-  it_should_behave_like 'an analysis job'
+  it_should_behave_like 'an analysis job' do
+    let(:job_params) { { 'scoring' => 't_test' } }
+  end
 
   describe '.num_datasets' do
     it 'is 1' do
@@ -53,32 +45,32 @@ RSpec.describe CollocationJob, type: :job do
       expect {
         described_class.new.perform(
           @task,
-          analysis_type: 'nope',
-          num_pairs: '10')
+          'scoring' => 'nope',
+          'num_pairs' => '10')
       }.to raise_error(ArgumentError)
     end
 
     it 'falls back to MI if POS is selected but unavailable' do
       ENV['NLP_TOOL_PATH'] = nil
 
-      expect(RLetters::Analysis::Collocation::MutualInformation).to receive(:new).and_call_original
-      expect(RLetters::Analysis::Collocation::PartsOfSpeech).not_to receive(:new)
+      expect(RLetters::Analysis::Collocation::Base).to receive(:call)
+      expect(RLetters::Analysis::Collocation::PartsOfSpeech).not_to receive(:call)
 
       described_class.new.perform(
         @task,
-        analysis_type: 'pos',
-        num_pairs: '10')
+        'scoring' => 'parts_of_speech',
+        'num_pairs' => '10')
     end
 
-    types = [:mi, :t, :likelihood, :pos]
+    types = [:mutual_information, :t_test, :log_likelihood, :parts_of_speech]
     nums = [[:num_pairs, '10'], [:all, '1']]
     types.product(nums).each do |(type, (sym, val))|
       it "runs with type '#{type}'" do
         expect {
           described_class.new.perform(
             @task,
-            analysis_type: type.to_s,
-            sym => val)
+            'scoring' => type.to_s,
+            sym.to_s => val)
         }.not_to raise_error
 
         # Just a quick sanity check to make sure some code was called
@@ -90,7 +82,7 @@ RSpec.describe CollocationJob, type: :job do
   describe '.significance_tests' do
     it 'gives a reasonable answer' do
       tests = described_class.significance_tests
-      expect(tests).to include(['Log-likelihood', :likelihood])
+      expect(tests).to include(['Log-likelihood', :log_likelihood])
     end
   end
 end

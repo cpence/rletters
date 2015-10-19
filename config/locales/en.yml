@@ -11,12 +11,12 @@ en:
             lemma: Lemmatization
         scoring:
             label: Test to use for determining pair significance
-            mi: Mutual Information
-            mi_header: Mutual Information
-            t: T-test
-            t_header: p-value
-            likelihood: Log-likelihood
-            likelihood_header: "-2*log-likelihood"
+            mutual_information: Mutual Information
+            mutual_information_header: Mutual Information
+            t_test: T-test
+            t_test_header: p-value
+            log_likelihood: Log-likelihood
+            log_likelihood_header: "-2*log-likelihood"
     ink_email:
         visit: "Visit %{app_name}:"
         contact: "Contact Us:"
@@ -621,8 +621,8 @@ en:
 
             What technical terms or phrases appear in the literature?
         options_label: Collocation analysis options
-        pos: Frequency (filtered by parts of speech)
-        pos_header: Frequency
+        parts_of_speech: Frequency (filtered by parts of speech)
+        parts_of_speech_header: Frequency
         num_pairs: Number of collocations to find
         all: Report all collocations
         word: Return only collocations including this word (or leave blank for all)
@@ -639,7 +639,7 @@ en:
         options_label: Cooccurrence analysis options
         num_pairs: Number of cooccurrences to find
         all: Report all cooccurrences
-        word: Return coocurrences including this word (or a comma-separated list)
+        word: Return coocurrences including this word (or a space-separated list)
         window: Return cooccurrences that occur within this number of words
         header: "Cooccurrence analysis for %{name}"
         subheader: "Significance test: %{test}"

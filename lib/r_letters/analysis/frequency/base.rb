@@ -14,22 +14,6 @@ module RLetters
         Base.call(*args)
       end
 
-      # A class to encapsulate an attribute that can be passed as a
-      # space-separated list
-      class SplitList < Virtus::Attribute
-        # Coerce the list into an array if it's a string
-        #
-        # @param [Object] value the object to coerce
-        # @return [Array] representation as an array
-        def coerce(value)
-          return nil if value.nil?
-          return value if value.is_a?(Array)
-          return value.list.split if value.is_a?(::Documents::StopList)
-          return value.mb_chars.downcase.to_s.strip.split if value.is_a?(String)
-          fail ArgumentError, "cannot create list from #{value.class}"
-        end
-      end
-
       # A class to coerce strings to stop lists, and then on to arrays of
       # strings
       class StopListAttribute < Virtus::Attribute

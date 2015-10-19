@@ -268,7 +268,7 @@ es:
         likelihood_column: "-2*logaritmo de verosimilitud"
         pos: Frecuencia (filtrada por partes del discurso)
         pos_column: Frecuencia
-        analysis_type: Prueba para importancia
+        scoring: Prueba para importancia
         num_pairs: Número de colocaciones para buscar
         header: "Análisis de colocaciones para %{name}"
         subheader: "Prueba de importancia: %{test}"
@@ -278,7 +278,7 @@ es:
         mi_column: Información común
         t: Prueba t de student
         t_column: Valor p
-        analysis_type: Prueba para importancia
+        scoring: Prueba para importancia
         subheader: "Prueba de importancia: %{test}"
       craig_zeta:
         name: Craig Zeta

@@ -5,22 +5,6 @@ module RLetters
     module Scoring
       # Compute scores on the basis of log likelihood
       module LogLikelihood
-        private
-
-        # The L-function required in the log-likelihood calculation
-        #
-        # @return [Float] the log-likelihood of obtaining the outcome x in
-        #   the binomial distribution defined by n and k
-        # @param [Integer] k number of successes
-        # @param [Integer] n number of trials
-        # @param [Float] x the observed outcome
-        def log_l(k, n, x)
-          # L(k, n, x) = x^k (1 - x)^(n - k)
-          l = x**k * ((1 - x)**(n - k))
-          l = Math.log(l) unless l.abs < 0.001
-          l
-        end
-
         # A method to compute the score for this pair on the basis of the
         # individual and joint frequencies.
         #
@@ -42,7 +26,7 @@ module RLetters
         # @param [Float] f_ab the frequency of joint appearance of A and B in
         #   blocks
         # @param [Float] n the number of blocks
-        def score(f_a, f_b, f_ab, n)
+        def self.score(f_a, f_b, f_ab, n)
           ll = log_l(f_ab, f_a, f_a / n) +
                log_l(f_b - f_ab, n - f_a, f_a / n) -
                log_l(f_ab, f_a, f_ab / f_a) -
@@ -57,8 +41,24 @@ module RLetters
         #
         # @param [Array<Array<(String, Float)>>] grams grams in unsorted order
         # @return [Array<Array<(String, Float)>>] grams in sorted order
-        def sort_results(grams)
+        def self.sort_results(grams)
           grams.sort { |a, b| b[1] <=> a[1] }
+        end
+
+        private
+
+        # The L-function required in the log-likelihood calculation
+        #
+        # @return [Float] the log-likelihood of obtaining the outcome x in
+        #   the binomial distribution defined by n and k
+        # @param [Integer] k number of successes
+        # @param [Integer] n number of trials
+        # @param [Float] x the observed outcome
+        def self.log_l(k, n, x)
+          # L(k, n, x) = x^k (1 - x)^(n - k)
+          l = x**k * ((1 - x)**(n - k))
+          l = Math.log(l) unless l.abs < 0.001
+          l
         end
       end
     end

@@ -10,10 +10,9 @@ class CollocationJob < BaseJob
   #
   # @param [Datasets::Task] task the task we're working from
   # @param [Hash] options parameters for this job
-  # @option options [String] :analysis_type the algorithm to use to
-  #   analyze the significance of collocations.  Can be `'mi'` (for mutual
-  #   information), `'t'` (for t-test), `'likelihood'` (for
-  #   log-likelihood), or `'pos'` (for part-of-speech biased frequencies).
+  # @option options [String] :scoring the algorithm to use to
+  #   analyze the significance of collocations.  Can be `'mutual_information'`
+  #   `'t_test'` `'log_likelihood'`, or `'parts_of_speech'`.
   # @option options [String] :num_pairs number of collocations to return
   # @option options [String] :word if present, return only collocations
   #   including this word
@@ -21,48 +20,30 @@ class CollocationJob < BaseJob
   def perform(task, options = {})
     standard_options(task)
 
-    options = options.with_indifferent_access
-    analysis_type = (options[:analysis_type] || :mi).to_sym
-    if options[:all] == '1'
-      num_pairs = 0
-    else
-      num_pairs = (options[:num_pairs] || 50).to_i
-    end
-    focal_word = options[:word].mb_chars.downcase.to_s if options[:word]
-
     # Part of speech tagging requires the Stanford NLP
-    if analysis_type == :pos && ENV['NLP_TOOL_PATH'].blank?
-      analysis_type = :mi
+    if options['scoring'] == 'parts_of_speech' && ENV['NLP_TOOL_PATH'].blank?
+      options['scoring'] = 'mutual_information'
     end
 
-    case analysis_type
-    when :mi
-      algorithm = t('common.scoring.mi')
-      column = t('common.scoring.mi_header')
-      klass = RLetters::Analysis::Collocation::MutualInformation
-    when :t
-      algorithm = t('common.scoring.t')
-      column = t('common.scoring.t_header')
-      klass = RLetters::Analysis::Collocation::TTest
-    when :likelihood
-      algorithm = t('common.scoring.likelihood')
-      column = t('common.scoring.likelihood_header')
-      klass = RLetters::Analysis::Collocation::LogLikelihood
-    when :pos
-      algorithm = t('.pos')
-      column = t('.pos_header')
-      klass = RLetters::Analysis::Collocation::PartsOfSpeech
+    case options['scoring']
+    when 'mutual_information'
+      algorithm = t('common.scoring.mutual_information')
+      column = t('common.scoring.mutual_information_header')
+    when 't_test'
+      algorithm = t('common.scoring.t_test')
+      column = t('common.scoring.t_test_header')
+    when 'log_likelihood'
+      algorithm = t('common.scoring.log_likelihood')
+      column = t('common.scoring.log_likelihood_header')
+    when 'parts_of_speech'
+      algorithm = t('.parts_of_speech')
+      column = t('.parts_of_speech_header')
     else
-      fail ArgumentError, 'Invalid value for analysis_type'
+      fail ArgumentError, "Invalid value for scoring: #{options['scoring']}"
     end
 
-    analyzer = klass.new(
-      dataset,
-      num_pairs,
-      focal_word,
-      ->(p) { task.at(p, 100, t('.progress_computing')) }
-    )
-    grams = analyzer.call
+    grams = RLetters::Analysis::Collocation.call(options.merge(
+      progress: ->(p) { task.at(p, 100, t('.progress_computing')) }))
 
     # Save out all the data
     csv_string = csv_with_header(t('.header', name: dataset.name),
@@ -89,9 +70,10 @@ class CollocationJob < BaseJob
   # @return [Array<(String, Symbol)>] pairs of test method names and their
   #   associated symbols
   def self.significance_tests
-    [:mi, :t, :likelihood, :pos].map do |sym|
-      if sym == :pos
-        [t('.pos'), :pos]
+    [:mutual_information, :t_test, :log_likelihood,
+     :parts_of_speech].map do |sym|
+      if sym == :parts_of_speech
+        [t('.parts_of_speech'), :parts_of_speech]
       else
         [t("common.scoring.#{sym}"), sym]
       end

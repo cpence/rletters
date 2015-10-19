@@ -3,7 +3,12 @@ module RLetters
   module Analysis
     module Collocation
       # Analyze collocations by selecting part-of-speech patterns
+      #
+      # @!attribute result
+      #   @return [Hash] the result currently being constructed
       class PartsOfSpeech < Base
+        attribute :result, Hash, reader: :private, writer: :private
+
         # Perform parts-of-speech analysis
         #
         # This analyzer overrides the call method, as its main loop is entirely
@@ -26,20 +31,30 @@ module RLetters
         #   associated significance values, sorted in order of significance
         #   (most significant first)
         def call
+          # Shouldn't happen, but check that the user wanted this
+          unless scoring == :parts_of_speech
+            fail ArgumentError, "called PartsOfSpeech with scoring #{scoring}"
+          end
           if ENV['NLP_TOOL_PATH'].blank?
             fail ArgumentError, 'NLP tool not available'
           end
-          total = @dataset.entries.size
+
+          # Ignore num_pairs if we want all of the cooccurrences
+          if all
+            self.num_pairs = nil
+          end
+
+          total = dataset.entries.size
 
           # We actually aren't going to use Analysis::WordFrequency here; the
           # NLP POS tagger requires us to send it full sentences for maximum
           # accuracy.
-          enum = RLetters::Datasets::DocumentEnumerator.new(@dataset,
+          enum = RLetters::Datasets::DocumentEnumerator.new(dataset,
                                                             fulltext: true)
 
-          @result = {}
+          self.result = {}
           enum.each_with_index do |doc, i|
-            @progress && @progress.call((i.to_f / total.to_f * 100.0).to_i)
+            progress && progress.call((i.to_f / total.to_f * 100.0).to_i)
 
             tagged = NLP.parts_of_speech(doc.fulltext.mb_chars.downcase.to_s)
 
@@ -47,12 +62,12 @@ module RLetters
             search_for_regexes(tagged, 3, POS_TRI_REGEXES)
           end
 
-          @progress && @progress.call(100)
+          progress && progress.call(100)
 
-          @result = @result.sort { |a, b| b[1] <=> a[1] }
-          @result = @result.take(@num_pairs) if @num_pairs > 0
+          self.result = result.sort { |a, b| b[1] <=> a[1] }
+          self.result = result.take(num_pairs) if num_pairs > 0
 
-          @result
+          result.to_a
         end
 
         private
@@ -85,15 +100,17 @@ module RLetters
         # @return [void]
         def search_for_regexes(tagged_words, size, regexes)
           tagged_words.each_cons(size).map do |t|
-            next if @word && !t.any? { |w| w.start_with?("#{@word}_") }
+            if focal_word && !t.any? { |w| w.start_with?("#{focal_word}_") }
+              next
+            end
 
             gram = t.join(' ')
             next unless regexes.any? { |r| gram =~ r }
 
             stripped = gram.gsub(/_(JJ[^\s]?|NN[^\s]{0,2}|IN)(\s+|\Z)/, '\2')
 
-            @result[stripped] ||= 0
-            @result[stripped] += 1
+            result[stripped] ||= 0
+            result[stripped] += 1
           end
         end
       end

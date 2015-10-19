@@ -24,7 +24,7 @@ module ComputeWordFrequencies
     if args['word_method'] == 'all'
       args['all'] = true
     end
-    args.delete('stemming') if args['stemming'] == :no
+    args.delete('stemming') if args['stemming'] == 'no'
 
     RLetters::Analysis::Frequency.call(args.merge(dataset: dataset,
                                                   progress: progress))
