@@ -43,6 +43,7 @@ class CollocationJob < BaseJob
     end
 
     grams = RLetters::Analysis::Collocation.call(options.merge(
+      dataset: dataset,
       progress: ->(p) { task.at(p, 100, t('.progress_computing')) }))
 
     # Save out all the data

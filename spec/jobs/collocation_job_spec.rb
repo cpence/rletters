@@ -14,12 +14,7 @@ RSpec.describe CollocationJob, type: :job do
     allow(RLetters::Analysis::NLP).to receive(:parts_of_speech).and_return(@words)
 
     # Don't run the analyses
-    allow(RLetters::Analysis::Collocation::Base).to receive(:call) do |args|
-      p = args['progress']
-      p && p.call(100)
-      [['word other', 1]]
-    end
-    allow(RLetters::Analysis::Collocation::PartsOfSpeech).to receive(:call) do |args|
+    allow(RLetters::Analysis::Collocation).to receive(:call) do |args|
       p = args['progress']
       p && p.call(100)
       [['word other', 1]]
@@ -53,9 +48,7 @@ RSpec.describe CollocationJob, type: :job do
     it 'falls back to MI if POS is selected but unavailable' do
       ENV['NLP_TOOL_PATH'] = nil
 
-      expect(RLetters::Analysis::Collocation::Base).to receive(:call)
-      expect(RLetters::Analysis::Collocation::PartsOfSpeech).not_to receive(:call)
-
+      expect(RLetters::Analysis::Collocation).to receive(:call).with(hash_including('scoring' => 'mutual_information'))
       described_class.new.perform(
         @task,
         'scoring' => 'parts_of_speech',
