@@ -10,14 +10,13 @@ RSpec.describe CollocationJob, type: :job do
     @old_path = ENV['NLP_TOOL_PATH']
     ENV['NLP_TOOL_PATH'] = 'stubbed'
 
-    @words = build(:parts_of_speech)
-    allow(RLetters::Analysis::NLP).to receive(:parts_of_speech).and_return(@words)
-
     # Don't run the analyses
     allow(RLetters::Analysis::Collocation).to receive(:call) do |args|
       p = args['progress']
       p && p.call(100)
-      [['word other', 1]]
+      RLetters::Analysis::Collocation::Result.new(
+        scoring: :t_test,
+        collocations: [['word other', 1]])
     end
   end
 
@@ -36,25 +35,6 @@ RSpec.describe CollocationJob, type: :job do
   end
 
   describe '.perform' do
-    it 'throws an exception if the type is invalid' do
-      expect {
-        described_class.new.perform(
-          @task,
-          'scoring' => 'nope',
-          'num_pairs' => '10')
-      }.to raise_error(ArgumentError)
-    end
-
-    it 'falls back to MI if POS is selected but unavailable' do
-      ENV['NLP_TOOL_PATH'] = nil
-
-      expect(RLetters::Analysis::Collocation).to receive(:call).with(hash_including('scoring' => 'mutual_information'))
-      described_class.new.perform(
-        @task,
-        'scoring' => 'parts_of_speech',
-        'num_pairs' => '10')
-    end
-
     types = [:mutual_information, :t_test, :log_likelihood, :parts_of_speech]
     nums = [[:num_pairs, '10'], [:all, '1']]
     types.product(nums).each do |(type, (sym, val))|

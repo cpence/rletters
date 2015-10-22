@@ -11,13 +11,17 @@ module RLetters
     module Collocation
       # Syntactic sugar for calling the appropriate analyzer
       #
-      # @return [Array<Array(String, Float)>] a set of words and their
-      #   associated significance values, sorted in order of significance
-      #   (most significant first)
+      # @return [RLetters::Analysis::Collocation::Result] analysis results
       def self.call(*args)
         analyzer = Base.new(*args)
+
+        # Part of speech tagging requires the Stanford NLP
         if analyzer.scoring == :parts_of_speech
-          analyzer = PartsOfSpeech.new(*args)
+          if ENV['NLP_TOOL_PATH'].blank?
+            analyzer.scoring = :mutual_information
+          else
+            analyzer = PartsOfSpeech.new(*args)
+          end
         end
 
         analyzer.call
@@ -54,9 +58,7 @@ module RLetters
 
         # Perform collocation analysis
         #
-        # @return [Array<Array(String, Float)>] a set of words and their
-        #   associated significance values, sorted in order of significance
-        #   (most significant first)
+        # @return [RLetters::Analysis::Collocation::Result] analysis results
         def call
           case scoring
           when :log_likelihood
@@ -82,7 +84,9 @@ module RLetters
 
           n = an[0].num_dataset_tokens.to_f
 
-          ret = bigram_f.each_with_index.map do |b, i|
+          ret = Result.new(scoring: scoring, collocations: [])
+
+          ret.collocations = bigram_f.each_with_index.map do |b, i|
             progress && progress.call((i.to_f / total.to_f * 33.0).to_i + 66)
 
             bigram_words = b[0].split
@@ -93,8 +97,8 @@ module RLetters
             [b[0], score_class.score(f_a, f_b, f_ab, n)]
           end
 
-          ret = score_class.sort_results(ret)
-          ret = ret.take(num_pairs) if num_pairs > 0
+          ret.collocations = score_class.sort_results(ret.collocations)
+          ret.collocations = ret.collocations.take(num_pairs) if num_pairs > 0
 
           progress && progress.call(100)
 

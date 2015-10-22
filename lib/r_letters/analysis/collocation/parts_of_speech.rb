@@ -27,9 +27,7 @@ module RLetters
         #
         # Then, we sort by frequency of occurrence and take the top matches.
         #
-        # @return [Array<Array(String, Float)>] a set of words and their
-        #   associated significance values, sorted in order of significance
-        #   (most significant first)
+        # @return [RLetters::Analysis::Collocation::Result] analysis results
         def call
           # Shouldn't happen, but check that the user wanted this
           unless scoring == :parts_of_speech
@@ -67,7 +65,7 @@ module RLetters
           self.result = result.sort { |a, b| b[1] <=> a[1] }
           self.result = result.take(num_pairs) if num_pairs > 0
 
-          result.to_a
+          Result.new(scoring: :parts_of_speech, collocations: result.to_a)
         end
 
         private

@@ -15,12 +15,11 @@ RSpec.describe RLetters::Analysis::Collocation do
       ENV['NLP_TOOL_PATH'] = @old_path
     end
 
-    it 'raises an error when called' do
-      expect {
-        @grams = described_class.call(scoring: :parts_of_speech,
-                                      dataset: @dataset,
-                                      num_pairs: 10)
-      }.to raise_error(ArgumentError)
+    it 'analyzes with mutual information instead' do
+      @result = described_class.call(scoring: :parts_of_speech,
+                                    dataset: @dataset,
+                                    num_pairs: 10)
+      expect(@result.scoring).to eq(:mutual_information)
     end
   end
 

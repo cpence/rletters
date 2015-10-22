@@ -20,37 +20,32 @@ class CollocationJob < BaseJob
   def perform(task, options = {})
     standard_options(task)
 
-    # Part of speech tagging requires the Stanford NLP
-    if options['scoring'] == 'parts_of_speech' && ENV['NLP_TOOL_PATH'].blank?
-      options['scoring'] = 'mutual_information'
-    end
+    result = RLetters::Analysis::Collocation.call(options.merge(
+      dataset: dataset,
+      progress: ->(p) { task.at(p, 100, t('.progress_computing')) }))
 
-    case options['scoring']
-    when 'mutual_information'
+    case result.scoring
+    when :mutual_information
       algorithm = t('common.scoring.mutual_information')
       column = t('common.scoring.mutual_information_header')
-    when 't_test'
+    when :t_test
       algorithm = t('common.scoring.t_test')
       column = t('common.scoring.t_test_header')
-    when 'log_likelihood'
+    when :log_likelihood
       algorithm = t('common.scoring.log_likelihood')
       column = t('common.scoring.log_likelihood_header')
-    when 'parts_of_speech'
+    when :parts_of_speech
       algorithm = t('.parts_of_speech')
       column = t('.parts_of_speech_header')
     else
       fail ArgumentError, "Invalid value for scoring: #{options['scoring']}"
     end
 
-    grams = RLetters::Analysis::Collocation.call(options.merge(
-      dataset: dataset,
-      progress: ->(p) { task.at(p, 100, t('.progress_computing')) }))
-
     # Save out all the data
     csv_string = csv_with_header(t('.header', name: dataset.name),
                                  t('.subheader', test: algorithm)) do |csv|
-      write_csv_data(csv, grams, { t('.pair') => :first,
-                                   column => :second })
+      write_csv_data(csv, result.collocations, { t('.pair') => :first,
+                                                 column => :second })
     end
 
     # Write out the CSV to a file
