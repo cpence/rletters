@@ -7,7 +7,6 @@
 
 //= require all_toggle
 //= require article_dates
-//= require compute_word_frequencies
 //= require craig_zeta
 //= require datasets_index
 //= require datasets_show
@@ -18,6 +17,7 @@
 //= require term_dates
 //= require users_edit
 //= require word_cloud
+//= require word_frequency
 //= require workflow_fetch
 
 // Fix input element click problem
