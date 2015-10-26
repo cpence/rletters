@@ -128,7 +128,24 @@ class BaseJob < ActiveJob::Base
   #
   # @return [Dataset] the dataset we are working on
   def dataset
+    if @datasets
+      fail ArgumentError, 'task was created with more than one dataset'
+    end
+
     task.dataset
+  end
+
+  # Access the datasets (if created with more than one), but only if the job
+  # hasn't been deleted
+  #
+  # @return [Array<Dataset>] the array of datasets we are working on
+  def datasets
+    unless @datasets
+      fail ArgumentError, 'task was only created with one dataset'
+    end
+
+    check_task
+    @datasets
   end
 
   # Access the user, but only if the job hasn't been deleted
@@ -140,14 +157,19 @@ class BaseJob < ActiveJob::Base
 
   # Sets a variety of standard option variables
   #
-  # Almost all analysis jobs have a `user_id`, `dataset_id`, and `task_id`
-  # parameter.  This function ensures that they are valid, and then sets
-  # and saves the name of the task to the content of the `.short_desc`
-  # translation key. Finally, it starts the progress measurement.
+  # This function checks to make sure that we have been sent a working task
+  # handle by ActiveJob, and then sets and saves the name of the task to the
+  # content of the `.short_desc` translation key. Finally, it starts the
+  # progress measurement.
+  #
+  # This also enables support for the passing of options['other_datasets'] by
+  # the job constructors. If multiple datasets are passed, they will be
+  # accessible via the datasets function.
   #
   # @param [Datasets::Task] task the task we're working from
+  # @param [Hash] options the other options sent to this job
   # @return [void]
-  def standard_options(task)
+  def standard_options(task, options = {})
     @task_id = task.id
     @task = task
 
@@ -155,6 +177,19 @@ class BaseJob < ActiveJob::Base
     @task.save
 
     @task.at(0, 100, t('common.progress_initializing'))
+
+    # Set the @datasets variable if the :other_datasets option was passed
+    if options
+      h = options.with_indifferent_access
+      other_datasets = h[:other_datasets]
+
+      if other_datasets
+        other_datasets = [other_datasets] unless other_datasets.is_a?(Array)
+        other_datasets.map! { |id| user.datasets.active.find(id) }
+
+        @datasets = [dataset] + other_datasets
+      end
+    end
   end
 
   private

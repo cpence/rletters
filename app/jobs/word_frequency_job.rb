@@ -23,7 +23,7 @@ class WordFrequencyJob < BaseJob
   # @see ComputeWordFrequencies
   # @return [void]
   def perform(task, options = {})
-    standard_options(task)
+    standard_options(task, options)
 
     options = options.with_indifferent_access
     make_word_cloud = options[:word_cloud] == '1'

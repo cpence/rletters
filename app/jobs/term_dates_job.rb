@@ -14,7 +14,7 @@ class TermDatesJob < BaseJob
   # @option options [String] :term the focal word to analyze
   # @return [void]
   def perform(task, options)
-    standard_options(task)
+    standard_options(task, options)
 
     # Get the counts and normalize if requested
     options = options.with_indifferent_access

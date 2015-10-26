@@ -10,7 +10,7 @@ class NetworkJob < BaseJob
   # @option options [String] :word the focal word to analyze
   # @return [void]
   def perform(task, options)
-    standard_options(task)
+    standard_options(task, options)
 
     # Fetch the focal word
     options = options.with_indifferent_access

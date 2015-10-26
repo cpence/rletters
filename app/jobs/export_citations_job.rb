@@ -11,7 +11,7 @@ class ExportCitationsJob < BaseJob
   # @option options [String] :format the format in which to export
   # @return [void]
   def perform(task, options)
-    standard_options(task)
+    standard_options(task, options)
 
     # Check that the format is valid (the serializer factory will throw
     # if its not)

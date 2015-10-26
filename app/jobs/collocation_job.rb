@@ -18,7 +18,7 @@ class CollocationJob < BaseJob
   #   including this word
   # @return [void]
   def perform(task, options = {})
-    standard_options(task)
+    standard_options(task, options)
 
     result = RLetters::Analysis::Collocation.call(options.merge(
       dataset: dataset,
@@ -37,8 +37,6 @@ class CollocationJob < BaseJob
     when :parts_of_speech
       algorithm = t('.parts_of_speech')
       column = t('.parts_of_speech_header')
-    else
-      fail ArgumentError, "Invalid value for scoring: #{options['scoring']}"
     end
 
     # Save out all the data

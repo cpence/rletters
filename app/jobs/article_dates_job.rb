@@ -16,7 +16,7 @@ class ArticleDatesJob < BaseJob
   # @param [Hash] options remaining job options
   # @return [void]
   def perform(task, options = {})
-    standard_options(task)
+    standard_options(task, options)
 
     # Get the counts and normalize if requested
     dates = RLetters::Analysis::CountArticlesByField.call(

@@ -24,20 +24,17 @@ class CraigZetaJob < BaseJob
   #   with (should have one member in array)
   # @return [void]
   def perform(task, options)
-    standard_options(task)
+    standard_options(task, options)
 
-    options = options.with_indifferent_access
-    other_datasets = options[:other_datasets]
-    unless other_datasets && other_datasets.size == 1
+    unless datasets.size == 2
       fail ArgumentError, 'Wrong number of other datasets provided'
     end
-    dataset_2 = user.datasets.active.find(other_datasets[0])
     make_word_cloud = options[:word_cloud] == '1'
 
     # Get the data
     analyzer = RLetters::Analysis::CraigZeta.call(
-      dataset_1: dataset,
-      dataset_2: dataset_2,
+      dataset_1: datasets[0],
+      dataset_2: datasets[1],
       progress: lambda do |p|
           if make_word_cloud
             task.at((p / 100) * 60, 60, t('.progress_computing'))
@@ -47,21 +44,22 @@ class CraigZetaJob < BaseJob
         end)
 
     # Save out all the data
-    csv = csv_with_header(t('.csv_header', name_1: dataset.name,
-                                           name_2: dataset_2.name)) do |csv|
+    csv = csv_with_header(t('.csv_header', name_1: datasets[0].name,
+                                           name_2: datasets[1].name)) do |csv|
       # Output the marker words
-      write_csv_data(csv,
-                     analyzer.dataset_1_markers.zip(analyzer.dataset_2_markers),
-                     { t('.marker_header', name: dataset.name) => :first,
-                       t('.marker_header', name: dataset_2.name) => :second })
+      write_csv_data(
+       csv,
+       analyzer.dataset_1_markers.zip(analyzer.dataset_2_markers),
+       { t('.marker_header', name: datasets[0].name) => :first,
+         t('.marker_header', name: datasets[1].name) => :second })
       csv << [''] << ['']
 
       # Output the graphing points
       csv << [t('.graph_header')]
       csv << ['']
       write_csv_data(csv, analyzer.graph_points,
-                     { t('.marker_column', name: dataset.name) => :x,
-                       t('.marker_column', name: dataset_2.name) => :y,
+                     { t('.marker_column', name: datasets[0].name) => :x,
+                       t('.marker_column', name: datasets[1].name) => :y,
                        t('.block_name_column') => :name })
       csv << [''] << ['']
 
@@ -74,14 +72,14 @@ class CraigZetaJob < BaseJob
     end
 
     data = {}
-    data[:name_1] = dataset.name
-    data[:name_2] = dataset_2.name
+    data[:name_1] = datasets[0].name
+    data[:name_2] = datasets[1].name
     data[:markers_1] = analyzer.dataset_1_markers
     data[:markers_2] = analyzer.dataset_2_markers
     data[:graph_points] = analyzer.graph_points.map { |p| p.to_a }
     data[:zeta_scores] = analyzer.zeta_scores.to_a
-    data[:marker_1_header] = t('.marker_column', name: dataset.name)
-    data[:marker_2_header] = t('.marker_column', name: dataset_2.name)
+    data[:marker_1_header] = t('.marker_column', name: datasets[0].name)
+    data[:marker_2_header] = t('.marker_column', name: datasets[1].name)
     data[:word_header] = t('.word_column')
     data[:score_header] = t('.score_column')
 
@@ -111,10 +109,10 @@ class CraigZetaJob < BaseJob
 
       first_words = Hash[analyzer.zeta_scores.take(list_size)]
 
-      pdf_one = word_cloud(t('.marker_column', name: dataset.name),
+      pdf_one = word_cloud(t('.marker_column', name: datasets[0].name),
                            first_words, color, font)
 
-      task.files.create(description: "Word Cloud (#{dataset.name})",
+      task.files.create(description: "Word Cloud (#{datasets[0].name})",
                         short_description: 'PDF', downloadable: true) do |f|
         f.from_string(pdf_one, filename: 'word_cloud_one.pdf',
                                content_type: 'application/pdf')
@@ -124,10 +122,10 @@ class CraigZetaJob < BaseJob
 
       second_words = Hash[analyzer.zeta_scores.reverse_each.take(list_size)]
 
-      pdf_two = word_cloud(t('.marker_column', name: dataset_2.name),
+      pdf_two = word_cloud(t('.marker_column', name: datasets[1].name),
                            second_words, color, font)
 
-      task.files.create(description: "Word Cloud (#{dataset_2.name})",
+      task.files.create(description: "Word Cloud (#{datasets[1].name})",
                         short_description: 'PDF', downloadable: true) do |f|
         f.from_string(pdf_two, filename: 'word_cloud_two.pdf',
                                content_type: 'application/pdf')

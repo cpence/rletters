@@ -22,7 +22,7 @@ class CooccurrenceJob < BaseJob
   #   with
   # @return [void]
   def perform(task, options)
-    standard_options(task)
+    standard_options(task, options)
     options.delete('stemming') if options['stemming'] == 'no'
 
     case options['scoring']
