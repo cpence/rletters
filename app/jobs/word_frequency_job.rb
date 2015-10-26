@@ -1,7 +1,6 @@
 
 # Produce a parallel word frequency list for a dataset
 class WordFrequencyJob < BaseJob
-  include ComputeWordFrequencies
   include RLetters::Visualization::CSV
   include RLetters::Visualization::PDF
   include RLetters::Visualization::WordCloud
@@ -12,33 +11,33 @@ class WordFrequencyJob < BaseJob
   # later.  As of yet, we don't offer display in the browser; I think this
   # data is so complex that you'll want to pull it up on a spreadsheet.
   #
-  # Note that there are also parameters to be passed in to the
-  # `ComputeWordFrequencies` concern; see that concern's documentation for
-  # the specification of those arguments.
-  #
-  # @see ComputeWordFrequencies
-  #
   # @param [Datasets::Task] task the task we're working from
   # @param [Hash] options parameters for this job
-  # @see ComputeWordFrequencies
   # @return [void]
   def perform(task, options = {})
     standard_options(task, options)
 
-    options = options.with_indifferent_access
+    options = options.symbolize_keys
     make_word_cloud = options[:word_cloud] == '1'
 
+    # Patch up the two strange arguments that don't come in the right format
+    # from the web form
+    if options[:word_method] == 'all'
+      options[:all] = true
+    end
+    options.delete(:stemming) if options[:stemming] == 'no'
+
     # Do the analysis
-    analyzer = compute_word_frequencies(
-      dataset,
-      lambda do |p|
+    analyzer = RLetters::Analysis::Frequency.call(options.merge(
+      dataset: dataset,
+      progress: lambda do |p|
         if make_word_cloud
           task.at((p / 100) * 75, 100, t('.progress_calculating'))
         else
           task.at(p, 100, t('.progress_calculating'))
         end
-      end,
-      options.symbolize_keys)
+      end))
+
     corpus_size = RLetters::Solr::CorpusStats.new.size
     dataset_size = dataset.entries.size
 
