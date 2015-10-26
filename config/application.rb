@@ -15,6 +15,7 @@ module RLetters
 
     # Configure logging to stdout (except in testing), and clean up the logs
     config.lograge.enabled = true
+    config.filter_parameters += [:password, :file_contents]
     config.active_support.deprecation = Rails.env.test? ? :stderr : :log
 
     unless Rails.env.test?
@@ -27,11 +28,17 @@ module RLetters
     # ActiveRecord configuration
     config.active_record.schema_format = :sql
 
+    # Cookie configurations
+    config.session_store(:cookie_store,
+                         key: "_#{ENV['APP_NAME'].underscore}_session")
+    config.action_dispatch.cookies_serializer = :json
+
     # Code caching and loading
     config.cache_classes = true
     config.eager_load = true
 
     # Asset configuration
+    config.assets.version = '1.0'
     config.assets.compile = false
     config.assets.digest = true
     config.assets.debug = false
@@ -43,6 +50,7 @@ module RLetters
     config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect'
 
     # Error reporting
+    config.exceptions_app = self.routes
     config.consider_all_requests_local = false
     config.action_dispatch.show_exceptions = true
     config.active_record.raise_in_transactional_callbacks = true
