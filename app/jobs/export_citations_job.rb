@@ -12,11 +12,6 @@ class ExportCitationsJob < BaseJob
   # @return [void]
   def perform(task, options)
     standard_options(task, options)
-
-    # Check that the format is valid (the serializer factory will throw
-    # if its not)
-    options = options.with_indifferent_access
-    fail ArgumentError, 'Format is not specified' unless options[:format]
     klass = RLetters::Documents::Serializers.for(options[:format])
 
     # Make a zip file for the output

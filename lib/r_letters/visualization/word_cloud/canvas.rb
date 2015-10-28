@@ -2,7 +2,7 @@
 module RLetters
   module Visualization
     # Code used only by word cloud generation
-    module WordCloud
+    class WordCloud
       # A class that handles word placement in the word cloud
       #
       # Thanks to Jake Gordon's sprite-factory gem for the rectangle-packing

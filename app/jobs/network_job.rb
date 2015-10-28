@@ -10,14 +10,9 @@ class NetworkJob < BaseJob
   def perform(task, options)
     standard_options(task, options)
 
-    # Fetch the focal word
-    options = options.with_indifferent_access
-    fail ArgumentError, 'Focal word not specified' unless options[:word]
-    word = options[:word].mb_chars.downcase.to_s
-
     graph = RLetters::Analysis::Network::Graph.new(
       dataset: dataset,
-      focal_word: options[:word],
+      focal_word: options.fetch(:word),
       progress: ->(p) { task.at(p, 100, t('.progress_network')) }
     )
 
@@ -37,7 +32,7 @@ class NetworkJob < BaseJob
     # Save out all the data
     data = {
       name: dataset.name,
-      word: word,
+      word: options[:word],
       d3_nodes: d3_nodes,
       d3_links: d3_links,
       word_stem: t('.word_stem'),

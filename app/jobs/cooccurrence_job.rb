@@ -23,7 +23,7 @@ class CooccurrenceJob < BaseJob
   # @return [void]
   def perform(task, options)
     standard_options(task, options)
-    options.delete('stemming') if options['stemming'] == 'no'
+    options.delete(:stemming) if options[:stemming] == 'no'
 
     result = RLetters::Analysis::Cooccurrence.call(options.merge(
       dataset: dataset,

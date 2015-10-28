@@ -3,7 +3,6 @@
 class CraigZetaJob < BaseJob
   include RLetters::Visualization::CSV
   include RLetters::Visualization::PDF
-  include RLetters::Visualization::WordCloud
 
   # Return how many datasets this job requires
   #
@@ -99,8 +98,10 @@ class CraigZetaJob < BaseJob
     if make_word_cloud
       task.at(60, 100, t('.progress_first_word_cloud'))
 
-      color = options[:word_cloud_color] || 'Blues'
-      font = options[:pdf_font] || 'Roboto'
+      word_cloud_options = {
+        color: options[:word_cloud_color],
+        font: options[:pdf_font]
+      }.compact
 
       # Only make relatively small word clouds; it's prohibitive to do all
       # 1,000 marker words
@@ -109,8 +110,9 @@ class CraigZetaJob < BaseJob
 
       first_words = Hash[analyzer.zeta_scores.take(list_size)]
 
-      pdf_one = word_cloud(t('.marker_column', name: datasets[0].name),
-                           first_words, color, font)
+      pdf_one = Visualization::WordCloud.call(word_cloud_options.merge(
+        header: t('.marker_column', name: datasets[0].name),
+        words: first_words))
 
       task.files.create(description: "Word Cloud (#{datasets[0].name})",
                         short_description: 'PDF', downloadable: true) do |f|
@@ -122,8 +124,9 @@ class CraigZetaJob < BaseJob
 
       second_words = Hash[analyzer.zeta_scores.reverse_each.take(list_size)]
 
-      pdf_two = word_cloud(t('.marker_column', name: datasets[1].name),
-                           second_words, color, font)
+      pdf_two = Visualization::WordCloud.call(word_cloud_options.merge(
+        header: t('.marker_column', name: datasets[1].name),
+        words: second_words))
 
       task.files.create(description: "Word Cloud (#{datasets[1].name})",
                         short_description: 'PDF', downloadable: true) do |f|

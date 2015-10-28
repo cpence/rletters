@@ -12,7 +12,7 @@ RSpec.describe CollocationJob, type: :job do
 
     # Don't run the analyses
     allow(RLetters::Analysis::Collocation).to receive(:call) do |args|
-      p = args['progress']
+      p = args[:progress]
       p && p.call(100)
       RLetters::Analysis::Collocation::Result.new(
         scoring: :t_test,

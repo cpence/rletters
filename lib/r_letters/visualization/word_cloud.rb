@@ -2,21 +2,33 @@
 module RLetters
   module Visualization
     # Code to generate a classic Wordle-style word cloud
-    module WordCloud
-      extend ActiveSupport::Concern
+    #
+    # @!attribute header
+    #   @return [String] the header to place at the top of the page
+    # @!attribute words
+    #   @return [Hash<String, Integer>] a map from words to frequencies
+    # @!attribute color
+    #   @return [String] the color palette to use to color the words
+    #     Taken from the `ColorBrewer` namespace; should probably be one of
+    #     'Purples', 'Blues', 'Greens', 'Oranges', 'Reds', or 'Greys'. Defaults
+    #     to 'Blues'.
+    # @!attribute font
+    #   @return [String] the font to use for the words (see `PDF`)
+    #     Defaults to 'Roboto'.
+    class WordCloud
+      include Service
+      include Virtus.model(strict: true, required: false, nullify_blank: true)
       include PDF
+
+      attribute :header, String, required: true
+      attribute :words, Hash[String => Integer], required: true
+      attribute :color, String, default: 'Blues'
+      attribute :font, String, default: 'Roboto'
 
       # Draw a word cloud for the given words
       #
-      # @param [String] header the header to place at the top of the page
-      # @param [Hash<String, Integer>] words a map from words to frequencies
-      # @param [String] color the color palette to use to color the words
-      #   Taken from the `ColorBrewer` namespace; should probably be one of
-      #   'Purples', 'Blues', 'Greens', 'Oranges', 'Reds', or 'Greys'. Defaults
-      #   to 'Blues'.
-      # @param [String] font the font to use for the words (see `PDF`)
-      #   Defaults to 'Roboto'.
-      def word_cloud(header, words, color = 'Blues', font = 'Roboto')
+      # @return [String] the generated PDF file (binary, do not inspect)
+      def call
         if words.size < 3
           color_size = 3
         elsif words.size > 9

@@ -11,8 +11,8 @@ RSpec.describe CooccurrenceJob, type: :job do
       p = args['progress']
       p && p.call(100)
       RLetters::Analysis::Cooccurrence::Result.new(
-        scoring: args['scoring'].to_sym,
-        stemming: (args['stemming'] && args['stemming'].to_sym) || nil,
+        scoring: args[:scoring].to_sym,
+        stemming: (args[:stemming] && args[:stemming].to_sym) || nil,
         cooccurrences: [['word other', 1]])
     end
   end

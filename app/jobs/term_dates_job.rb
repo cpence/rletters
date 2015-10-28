@@ -16,12 +16,9 @@ class TermDatesJob < BaseJob
   def perform(task, options)
     standard_options(task, options)
 
-    # Get the counts and normalize if requested
-    options = options.with_indifferent_access
-    fail ArgumentError, 'Term for plotting not specified' unless options[:term]
-    term = options[:term]
+    # Get the counts
     dates = RLetters::Analysis::CountTermsByField.call(
-      term: term,
+      term: options[:term],
       field: :year,
       dataset: dataset,
       progress: ->(p) { task.at(p, 100, t('.progress_computing')) })
@@ -35,7 +32,7 @@ class TermDatesJob < BaseJob
     end
 
     csv_string = csv_with_header(t('.header', name: dataset.name),
-                                 t('.subheader', term: term)) do |csv|
+                                 t('.subheader', term: options[:term])) do |csv|
       write_csv_data(csv, dates,
                      { Document.human_attribute_name(:year) => :first,
                        t('.number_column') => :second })
@@ -44,7 +41,7 @@ class TermDatesJob < BaseJob
     # Save out the data
     output = {
       data: dates,
-      term: term,
+      term: options[:term],
       year_header: Document.human_attribute_name(:year),
       value_header: t('.number_column') }
 

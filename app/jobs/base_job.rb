@@ -170,6 +170,10 @@ class BaseJob < ActiveJob::Base
   # @param [Hash] options the other options sent to this job
   # @return [void]
   def standard_options(task, options = {})
+    # This might be a HashWithIndifferentAccess, which doesn't have the
+    # symbolize_keys! method. Either way, we'll have symbolic key access.
+    options.symbolize_keys! if options.respond_to?(:symbolize_keys!)
+
     @task_id = task.id
     @task = task
 
@@ -179,9 +183,8 @@ class BaseJob < ActiveJob::Base
     @task.at(0, 100, t('common.progress_initializing'))
 
     # Set the @datasets variable if the :other_datasets option was passed
-    if options
-      h = options.with_indifferent_access
-      other_datasets = h[:other_datasets]
+    if options.present?
+      other_datasets = options[:other_datasets]
 
       if other_datasets
         other_datasets = [other_datasets] unless other_datasets.is_a?(Array)

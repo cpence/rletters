@@ -3,7 +3,6 @@
 class WordFrequencyJob < BaseJob
   include RLetters::Visualization::CSV
   include RLetters::Visualization::PDF
-  include RLetters::Visualization::WordCloud
 
   # Export the word frequency data.
   #
@@ -16,8 +15,6 @@ class WordFrequencyJob < BaseJob
   # @return [void]
   def perform(task, options = {})
     standard_options(task, options)
-
-    options = options.symbolize_keys
     make_word_cloud = options[:word_cloud] == '1'
 
     # Patch up the two strange arguments that don't come in the right format
@@ -135,15 +132,16 @@ class WordFrequencyJob < BaseJob
     if make_word_cloud
       task.at(75, 100, t('.progress_word_cloud'))
 
-      color = options[:word_cloud_color] || 'Blues'
-      font = options[:pdf_font] || 'Roboto'
+      word_cloud_options = {
+        header: "Word Cloud for #{dataset.name}",
+        words: analyzer.word_list.each_with_object({}) do |w, ret|
+          ret[w] = analyzer.tf_in_dataset[w]
+        end,
+        color: options[:word_cloud_color],
+        font: options[:pdf_font]
+      }.compact
 
-      word_cloud_words = analyzer.word_list.each_with_object({}) do |w, ret|
-        ret[w] = analyzer.tf_in_dataset[w]
-      end
-
-      pdf = word_cloud("Word Cloud for #{dataset.name}",
-                       word_cloud_words, color, font)
+      pdf = RLetters::Visualization::WordCloud.call(word_cloud_options)
 
       task.files.create(description: 'Word Cloud',
                         short_description: 'PDF', downloadable: true) do |f|

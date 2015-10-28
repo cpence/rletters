@@ -2,13 +2,16 @@ require 'rails_helper'
 require 'pdf/inspector'
 
 RSpec.describe RLetters::Visualization::WordCloud do
-  describe '#word_cloud' do
+  describe '#call' do
     before(:context) do
       # Test a word with an XML special character in it
       words = { 'one' => 5, 'two' => 3, 'th&ree' => 1 }
 
-      klass = Class.new { include RLetters::Visualization::WordCloud }
-      @pdf_string = klass.new.word_cloud('Test Header', words, 'Reds', 'Arvo')
+      @pdf_string = described_class.call(
+        header: 'Test Header',
+        words: words,
+        color: 'Reds',
+        font: 'Arvo')
       @text_analysis = PDF::Inspector::Text.analyze(@pdf_string)
       @page_analysis = PDF::Inspector::Page.analyze(@pdf_string)
     end
