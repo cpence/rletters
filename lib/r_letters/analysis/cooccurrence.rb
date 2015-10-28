@@ -40,7 +40,7 @@ module RLetters
       include Virtus.model(strict: true, required: false, nullify_blank: true)
 
       attribute :dataset, Dataset, required: true
-      attribute :words, SplitList, required: true
+      attribute :words, Attributes::SplitList, required: true
       attribute :scoring, Symbol, required: true
       attribute :progress, Proc
       attribute :num_pairs, Integer, default: 0

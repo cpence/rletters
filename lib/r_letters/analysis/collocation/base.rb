@@ -53,7 +53,7 @@ module RLetters
         attribute :scoring, Symbol, required: true
         attribute :num_pairs, Integer, default: 0
         attribute :all, Boolean, default: false
-        attribute :focal_word, LowercaseString
+        attribute :focal_word, Attributes::LowercaseString
         attribute :progress, Proc
 
         # Perform collocation analysis

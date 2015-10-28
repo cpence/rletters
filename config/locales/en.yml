@@ -603,6 +603,10 @@ en:
         question: >
             When were a given set of articles published?
         options_label: Article date analysis options
+        checkbox_label: Divide counts by the number of documents in another dataset to produce relative fractions?
+        params: Normalization parameters
+        dataset_label: Dataset to divide by
+        all: Entire corpus
         fraction_subheader: "Fraction of documents in %{normalization_set} found in the %{name} dataset, plotted by year"
         number_subheader: "Number of documents, plotted by year"
         header: "Article dates analysis for %{name}"
@@ -611,8 +615,6 @@ en:
         number_column: Number of Documents
         entire_corpus: Entire Corpus
         progress_counting: "Counting articles by year..."
-        progress_normalizing: "Normalizing document counts to frequencies..."
-        progress_missing: "Filling missing years..."
     collocation_job:
         name: Collocation Analysis
         short_desc: Determine significant associations between immediate pairs of words
@@ -791,11 +793,6 @@ en:
         truncate_all: Truncate every document to given size
         num_blocks_label: Number of blocks
         split_across: Split blocks across documents?
-    normalize_document_counts:
-        checkbox_label: Divide counts by the number of documents in another dataset to produce relative fractions?
-        params: Normalization parameters
-        dataset_label: Dataset to divide by
-        all: Entire corpus
     pdf:
         font: Font
     word_cloud:

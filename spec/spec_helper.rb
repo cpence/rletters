@@ -20,4 +20,9 @@ RSpec.configure do |config|
   config.disable_monkey_patching!
   config.color = true
   config.tty = true
+
+  # If specs are hanging, uncomment this to print names before running
+  # config.before :example do |x|
+  #   puts "=== running spec example #{x.metadata[:full_description].inspect}"
+  # end
 end

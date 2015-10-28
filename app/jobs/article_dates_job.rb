@@ -1,7 +1,6 @@
 
 # Plot a dataset's members by year
 class ArticleDatesJob < BaseJob
-  include NormalizeDocumentCounts
   include RLetters::Visualization::CSV
 
   # Export the date format data
@@ -18,34 +17,24 @@ class ArticleDatesJob < BaseJob
   def perform(task, options = {})
     standard_options(task, options)
 
-    # Get the counts and normalize if requested
-    dates = RLetters::Analysis::CountArticlesByField.call(
+    # Get the counts
+    result = RLetters::Analysis::CountArticlesByField.call(options.merge(
       field: :year,
       dataset: dataset,
       progress: lambda do |p|
         task.at((p.to_f / 100.0 * 90.0).to_i, 100, t('.progress_counting'))
-      end)
+      end))
 
-    task.at(90, 100, t('.progress_normalizing'))
-    options = options.with_indifferent_access
-    dates = normalize_document_counts(user, :year, dates, options)
-
-    dates = dates.to_a
+    # Convert the years to integers
+    dates = result.counts.to_a
     dates.each { |d| d[0] = Integer(d[0]) }
-
-    # Fill in zeroes for any years that are missing
-    task.at(95, 100, t('.progress_missing'))
-    dates = Range.new(*(dates.map { |d| d[0] }.minmax)).each.map do |y|
-      dates.assoc(y) || [y, 0]
-    end
 
     # Save out the data, including getting the name of the normalization
     # set for pretty display
     norm_set_name = ''
-    if options[:normalize_doc_counts] == '1'
-      if options[:normalize_doc_dataset]
-        norm_set = user.datasets.active.find(options[:normalize_doc_dataset])
-        norm_set_name = norm_set.name
+    if result.normalize
+      if result.normalization_dataset
+        norm_set_name = result.normalization_dataset.name
       else
         norm_set_name = t('.entire_corpus')
       end
@@ -56,7 +45,7 @@ class ArticleDatesJob < BaseJob
     year_header = Document.human_attribute_name(:year)
 
     output = { data: dates,
-               percent: (options[:normalize_doc_counts] == '1'),
+               percent: result.normalize,
                normalization_set: norm_set_name,
                year_header: year_header,
                value_header: value_header }

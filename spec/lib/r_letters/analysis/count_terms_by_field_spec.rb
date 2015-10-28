@@ -25,7 +25,8 @@ RSpec.describe RLetters::Analysis::CountTermsByField do
       end
 
       it 'gets different counts than the article counts' do
-        counts = RLetters::Analysis::CountArticlesByField.call(field: :year)
+        articles = RLetters::Analysis::CountArticlesByField.call(field: :year)
+        counts = articles.counts
         expect(@counts['2009']).not_to eq(counts['2009'])
         expect(@counts['2007']).not_to eq(counts['2007'])
         expect(@counts['2010']).not_to eq(counts['2010'])

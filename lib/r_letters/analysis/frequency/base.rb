@@ -14,25 +14,6 @@ module RLetters
         Base.call(*args)
       end
 
-      # A class to coerce strings to stop lists, and then on to arrays of
-      # strings
-      class StopListAttribute < Virtus::Attribute
-        # Coerce the list into an array if it's a string
-        #
-        # @param [Object] value the object to coerce
-        # @return [Array] representation as an array
-        def coerce(value)
-          return nil if value.nil?
-          return value.list.split if value.is_a?(::Documents::StopList)
-          if value.is_a?(String)
-            dsl = ::Documents::StopList.find_by(language: value)
-            return dsl.list.split if dsl
-            return value.mb_chars.downcase.to_s.strip.split
-          end
-          fail ArgumentError, "cannot create stop list from #{value.class}"
-        end
-      end
-
       # Interface for all word frequency analyzers
       #
       # This is an interface implemented by all word frequency analyzer
@@ -160,9 +141,9 @@ module RLetters
         attribute :split_across, Boolean, default: true
         attribute :last_block, Symbol, default: :big_last
         attribute :all, Boolean, default: false
-        attribute :inclusion_list, SplitList
-        attribute :exclusion_list, SplitList
-        attribute :stop_list, StopListAttribute
+        attribute :inclusion_list, Attributes::SplitList
+        attribute :exclusion_list, Attributes::SplitList
+        attribute :stop_list, Attributes::StopList
 
         attribute :blocks, Array[Hash], writer: :private
         attribute :block_stats, Array[Hash], writer: :private

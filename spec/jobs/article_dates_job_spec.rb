@@ -23,7 +23,7 @@ RSpec.describe ArticleDatesJob, type: :job do
 
       described_class.new.perform(
         @task_2,
-        normalize_doc_counts: 'off')
+        normalize: '0')
       @task_2.reload
       @data = JSON.load(@task_2.file_for('application/json').result.file_contents(:original))
     end
@@ -57,8 +57,8 @@ RSpec.describe ArticleDatesJob, type: :job do
     before(:example) do
       described_class.new.perform(
         @task,
-        normalize_doc_counts: '1',
-        normalize_doc_dataset: '')
+        normalize: '1',
+        normalization_dataset: '')
       @task.reload
       @data = JSON.load(@task.file_for('application/json').result.file_contents(:original))
     end
@@ -105,8 +105,8 @@ RSpec.describe ArticleDatesJob, type: :job do
 
       described_class.new.perform(
         @task,
-        normalize_doc_counts: '1',
-        normalize_doc_dataset: @normalization_set.to_param)
+        normalize: '1',
+        normalization_dataset: @normalization_set.to_param)
       @task.reload
       @data = JSON.load(@task.file_for('application/json').result.file_contents(:original))
     end
@@ -152,8 +152,8 @@ RSpec.describe ArticleDatesJob, type: :job do
 
       described_class.new.perform(
         @task,
-        normalize_doc_counts: '1',
-        normalize_doc_dataset: @normalization_set.to_param)
+        normalize: '1',
+        normalization_dataset: @normalization_set.to_param)
       @task.reload
       @data = JSON.load(@task.file_for('application/json').result.file_contents(:original))
     end

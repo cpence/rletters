@@ -8,6 +8,11 @@ module RLetters
     # @!attribute dataset
     #   @return [Dataset] if set, the dataset to analyze (else the entire
     #     corpus)
+    # @!attribute normalize
+    #   @return [Boolean] if true, divide the counts for `dataset` by the
+    #     counts for the same field in `normalization_dataset` before returning
+    # @!attribute normalization_dataset
+    #   @return [Dataset] dataset to normalize by (or nil for the whole corpus)
     # @!attribute progress
     #   @return [Proc] if set, a function to call with percentage of completion
     #     (one integer parameter)
@@ -17,7 +22,26 @@ module RLetters
 
       attribute :field, Symbol
       attribute :dataset, Dataset
+      attribute :normalize, Boolean, default: false
+      attribute :normalization_dataset, Attributes::DatasetID
       attribute :progress, Proc
+
+      # A class encapsulating the results from an analysis
+      #
+      # @!attribute counts
+      #   @return [Hash<String, Numeric>] the mapping of field values to counts
+      # @!attribute normalize
+      #   @return [Boolean] whether or not the counts were normalized
+      # @!attribute normalization_dataset
+      #   @return [Dataset] the dataset that was used for normalization
+      class Result
+        include Virtus.model(strict: true, required: false,
+                             nullify_blank: true)
+
+        attribute :counts, Hash[String => Numeric]
+        attribute :normalize, Boolean
+        attribute :normalization_dataset, Dataset
+      end
 
       # Count up a dataset (or the corpus) by a field
       #
@@ -27,9 +51,12 @@ module RLetters
       # @todo This function should support the same kind of work with names
       #   that we have in RLetters::Documents::Author.
       #
-      # @return [Hash<String, Integer>] number of documents in each grouping
+      # @return [Result] results of analysis
       def call
-        dataset ? group_dataset : group_corpus
+        Result.new(
+          counts: normalize_counts(dataset ? group_dataset : group_corpus),
+          normalize: normalize,
+          normalization_dataset: normalization_dataset)
       end
 
       private
@@ -115,17 +142,93 @@ module RLetters
 
       # Get the value of the field for grouping from a document
       #
-      # This implements support for strange year values.
+      # This implements support for strange year values and grouping on the
+      # facet field values. FIXME: This will probably do something very strange
+      # if you try to count on :authors_facet.
       #
       # @param [Document] doc the Solr document
       # @return [String] the field value
       def get_field_from_document(doc)
-        return doc.send(field) unless field == :year
+        # Map the 'facet' fields to normal values
+        return doc.journal if field == :journal_facet
+        return doc.authors if field == :authors_facet
 
         # Support Y-M-D or Y/M/D dates, even though this field is supposed to
         # be only year values
-        parts = doc.year.split(%r{[-/]})
-        parts[0]
+        if field == :year
+          parts = doc.year.split(%r{[-/]})
+          return parts[0]
+        end
+
+        doc.send(field)
+      end
+
+      # Fill in zeros for any missing values in the counts
+      #
+      # If counts has numeric keys, we'll actually fill in the intervening
+      # values. Otherwise, we'll just fill in any values that are present in
+      # the normalization set but missing in the counts.
+      #
+      # @param [Hash<String, Numeric>] counts the counts queried
+      # @param [Hash<String, Numeric>] normalization_counts the counts from the
+      #   normalization set, nil if we didn't normalize
+      # @return [Hash<String, Numeric>] the counts with intervening values set
+      #   to zero
+      def zero_intervening(counts, normalization_counts = nil)
+        is_numeric = false
+        begin
+          key = Integer(counts.keys.first)
+          is_numeric = true
+        rescue ArgumentError
+          is_numeric = false
+        end
+
+        # Make our array operations easier below
+        normalization_counts ||= {}
+
+        if is_numeric
+          # Actually fill in all of the numerically intervening years
+          range = (counts.keys + normalization_counts.keys).minmax
+          Range.new(*range).each do |k|
+            counts[k] ||= 0.0
+          end
+        else
+          normalization_counts.keys.each do |k|
+            counts[k] ||= 0.0
+          end
+        end
+
+        counts
+      end
+
+      # Normalize the counts against the normalization set, if it exists
+      #
+      # This function also makes sure that the field values are a contiguous
+      # range with no gaps, filling in zeros if necessary.
+      #
+      # @param [Hash<String, Integer>] counts the counts for the original set
+      # @param [Hash<String, Float>] the normalized counts
+      def normalize_counts(counts)
+        return {} if counts.empty?
+        return zero_intervening(counts) unless normalize
+
+        norm_counts = CountArticlesByField.call(
+          field: field,
+          dataset: normalization_dataset).counts
+
+        ret = counts.each_with_object({}) do |(k, v), out|
+          if norm_counts[k] && norm_counts[k] > 0
+            out[k] = v.to_f / norm_counts[k]
+          else
+            # I'm not sure if this is the right thing to do when you give
+            # me a dataset that can't properly normalize (i.e., you ask me
+            # to compute 1/0).  But at least it won't throw a
+            # divide-by-zero.
+            out[k] = 0.0
+          end
+        end
+
+        zero_intervening(ret, norm_counts)
       end
     end
   end

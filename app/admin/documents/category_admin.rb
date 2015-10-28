@@ -22,7 +22,7 @@ ActiveAdmin.register Documents::Category do
 
     # Get the journals from Solr
     ret = RLetters::Analysis::CountArticlesByField.call(field: :journal_facet)
-    journals = ret.keys.compact
+    journals = ret.counts.keys.compact
 
     f.inputs do
       f.input :name

@@ -1,4 +1,11 @@
 // ---------------------------------------------------------------------------
+// ArticleDates job parameters page
+$(document).on('change', 'input[name="job_params[normalize]"]',
+  function(event, data) {
+    toggleVisAndDisabled('#normalize_controls');
+  });
+
+// ---------------------------------------------------------------------------
 // Graph support for the ArticleDates results page
 if (window.google !== undefined) {
 
