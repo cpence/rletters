@@ -22,7 +22,7 @@ module RLetters
         if @options[:term_vectors] || @options[:fulltext]
           # We've been hitting trouble here with timeouts on these larger
           # fetches; try throttling
-          @batch_size = 10
+          @batch_size = 50
         else
           @batch_size = 1000
         end
