@@ -14,7 +14,10 @@ class CreateDatasetJob < ActiveJob::Base
   # @param [String] def_type parser type for this search
   # @return [void]
   def perform(dataset, q, fq, def_type)
-    RLetters::Datasets::AddSearch.new(dataset, q, fq, def_type).call
+    RLetters::Datasets::AddSearch.call(dataset: dataset,
+                                       q: q,
+                                       fq: fq,
+                                       def_type: def_type)
 
     # Link this to the user's workflow if there's one active
     dataset.user.reload

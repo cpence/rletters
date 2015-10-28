@@ -5,26 +5,31 @@ module RLetters
     #
     # This class batches the results of a search query and adds them to a
     # dataset.
+    #
+    # @!attribute dataset
+    #   @return [Dataset] the dataset to add results to
+    # @!attribute q
+    #   @return [String] the search query
+    # @!attribute fq
+    #   @return [Array<String>] an array of facet queries
+    # @!attribute def_type
+    #   @return [String] the search type
+    # @!attribute progress
+    #   @return [Proc] If set, a function to call with a percentage of
+    #     completion (one Integer parameter)
     class AddSearch
-      # Initialize the adder
-      #
-      # @param [Dataset] dataset the dataset to add results to
-      # @param [String] q the search query
-      # @param [Array<String>] fq an array of facet queries
-      # @param [String] def_type the search type
-      # @param [Proc] progress If set, a function to call with a percentage of
-      #   completion (one Integer parameter)
-      def initialize(dataset, q, fq, def_type, progress = nil)
-        @dataset = dataset
-        @dataset_id = dataset.to_param
-        @q = q
-        @fq = fq
-        @def_type = def_type
+      include Service
+      include Virtus.model(strict: true, required: false, nullify_blank: true)
 
-        @progress = progress
+      attribute :dataset, Dataset, required: true
+      attribute :q, String
+      attribute :fq, Array[String]
+      attribute :def_type, String, required: true
+      attribute :progress, Proc
 
-        @start = 0
-      end
+      attribute :start, Integer, default: 0,
+                reader: :private, writer: :private
+      attribute :total, Integer, reader: :private, writer: :private
 
       # Add the results of the query to the dataset
       #
@@ -35,12 +40,12 @@ module RLetters
         end
 
         # Clear the disabled attribute
-        @dataset.disabled = false
-        @dataset.save
+        dataset.disabled = false
+        dataset.save
       rescue StandardError
         # FIXME: This should probably be a finally block?
         # Don't leave an empty dataset around under any circumstances
-        @dataset.destroy
+        dataset.destroy
         raise
       end
 
@@ -54,40 +59,40 @@ module RLetters
         return false if result.num_hits == 0
 
         # Call the progress function
-        @total ||= result.num_hits
-        @progress && @progress.call((@start.to_f / @total.to_f * 100).to_i)
+        self.total ||= result.num_hits
+        progress && progress.call((start.to_f / total.to_f * 100).to_i)
 
         # Import the dataset entries (quickly)
         ::Datasets::Entry.import([:uid, :dataset_id],
                                  result.documents.map do |d|
-                                   [d.uid, @dataset_id]
+                                   [d.uid, dataset.to_param]
                                  end,
                                  validate: false)
 
         # Check to see if there's any externally fetched documents here
-        unless @dataset.fetch
+        unless dataset.fetch
           if result.documents.any?(&:fulltext_url)
-            @dataset.fetch = true
-            @dataset.save
+            dataset.fetch = true
+            dataset.save
           end
         end
 
         # Tell the caller whether or not we should continue
-        @start <= @total
+        start <= total
       end
 
       # Get the next batched search query
       #
       # @return [Hash] parameters for the next Solr query we should run
       def next_query
-        @start += 1000
+        self.start += 1000
 
         {
-          start: @start - 1000,
+          start: start - 1000,
           rows: 1000,
-          q: @q,
-          fq: @fq,
-          def_type: @def_type,
+          q: q,
+          fq: fq,
+          def_type: def_type,
           fl: 'uid,fulltext_url',
           facet: false
         }
