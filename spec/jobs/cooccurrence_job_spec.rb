@@ -10,7 +10,10 @@ RSpec.describe CooccurrenceJob, type: :job do
     allow(RLetters::Analysis::Cooccurrence).to receive(:call) do |args|
       p = args['progress']
       p && p.call(100)
-      [['word other', 1]]
+      RLetters::Analysis::Cooccurrence::Result.new(
+        scoring: args['scoring'].to_sym,
+        stemming: (args['stemming'] && args['stemming'].to_sym) || nil,
+        cooccurrences: [['word other', 1]])
     end
   end
 
@@ -26,17 +29,6 @@ RSpec.describe CooccurrenceJob, type: :job do
   end
 
   describe '.perform' do
-    it 'throws an exception if the type is invalid' do
-      expect {
-        described_class.new.perform(
-          @task,
-          'scoring' => 'nope',
-          'num_pairs' => '10',
-          'window' => 25,
-          'word' => 'disease')
-      }.to raise_error(ArgumentError)
-    end
-
     types = [:mutual_information, :t_test, :log_likelihood]
     words_list = ['disease', 'tropical, disease']
     nums = [[:num_pairs, '10'], [:all, '1']]

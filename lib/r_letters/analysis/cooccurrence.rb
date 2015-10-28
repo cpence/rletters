@@ -53,9 +53,7 @@ module RLetters
 
       # Perform cooccurrence analysis
       #
-      # @return [Array<Array(String, Float)>] a set of words and their
-      #   associated significance values, sorted in order of significance
-      #   (most significant first)
+      # @return [RLetters::Analysis::Cooccurrence::Result] the analysis results
       def call
         case scoring
         when :log_likelihood
@@ -133,7 +131,7 @@ module RLetters
 
         progress && progress.call(100)
 
-        ret
+        Result.new(cooccurrences: ret, scoring: scoring, stemming: stemming)
       end
 
       private

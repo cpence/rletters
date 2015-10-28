@@ -1,6 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe RLetters::Analysis::Cooccurrence do
+  it 'raises an error with an invalid scoring method' do
+    expect {
+      described_class.call(scoring: :nope, dataset: @dataset)
+    }.to raise_error(ArgumentError)
+  end
+
   [:log_likelihood, :mutual_information, :t_test].each do |scoring|
     before(:example) do
       @user = create(:user)
@@ -13,7 +19,7 @@ RSpec.describe RLetters::Analysis::Cooccurrence do
         @called_sub_100 = false
         @called_100 = false
 
-        @grams = described_class.call(
+        @result = described_class.call(
           scoring: scoring,
           dataset: @dataset,
           num_pairs: 10,
@@ -26,6 +32,12 @@ RSpec.describe RLetters::Analysis::Cooccurrence do
               @called_100 = true
             end
           end)
+        @grams = @result.cooccurrences
+      end
+
+      it 'returns a result object' do
+        expect(@result).to be_a(RLetters::Analysis::Cooccurrence::Result)
+        expect(@result.scoring).to eq(scoring)
       end
 
       it 'returns the correct number of grams' do
@@ -48,12 +60,18 @@ RSpec.describe RLetters::Analysis::Cooccurrence do
 
     describe 'multiple word analysis' do
       before(:example) do
-        @grams = described_class.call(
+        @result = described_class.call(
           scoring: scoring,
           dataset: @dataset,
           num_pairs: 10,
           words: 'abstract background',
           window: 50)
+        @grams = @result.cooccurrences
+      end
+
+      it 'returns a result object' do
+        expect(@result).to be_a(RLetters::Analysis::Cooccurrence::Result)
+        expect(@result.scoring).to eq(scoring)
       end
 
       it 'returns the correct number of grams' do
@@ -71,12 +89,19 @@ RSpec.describe RLetters::Analysis::Cooccurrence do
 
     describe 'stemming' do
       before(:example) do
-        @grams = described_class.call(
+        @result = described_class.call(
           scoring: scoring,
           dataset: @dataset,
           words: 'abstract',
           window: 50,
           stemming: :stem)
+        @grams = @result.cooccurrences
+      end
+
+      it 'returns a result object' do
+        expect(@result).to be_a(RLetters::Analysis::Cooccurrence::Result)
+        expect(@result.scoring).to eq(scoring)
+        expect(@result.stemming).to eq(:stem)
       end
 
       it 'returns stemmed grams' do
@@ -92,17 +117,23 @@ RSpec.describe RLetters::Analysis::Cooccurrence do
         expect(RLetters::Analysis::NLP).to receive(:lemmatize_words).with(['abstract']).and_return(['the'])
         allow(RLetters::Analysis::NLP).to receive(:lemmatize_words) { |array| array }
 
-        @grams = described_class.call(
+        @result = described_class.call(
           scoring: scoring,
           dataset: @dataset,
           num_pairs: 10,
           words: 'abstract',
           window: 50,
           stemming: :lemma)
+        @grams = @result.cooccurrences
       end
 
       after(:example) do
         ENV['NLP_TOOL_PATH'] = @old_path
+      end
+
+      it 'returns a result object' do
+        expect(@result).to be_a(RLetters::Analysis::Cooccurrence::Result)
+        expect(@result.scoring).to eq(scoring)
       end
 
       it 'returns grams with the lemmatized words' do
@@ -120,7 +151,7 @@ RSpec.describe RLetters::Analysis::Cooccurrence do
           num_pairs: 10,
           words: 'ABSTRACT',
           window: 50)
-        expect(grams[0][0].split).to include('abstract')
+        expect(grams.cooccurrences[0][0].split).to include('abstract')
       end
     end
   end

@@ -25,29 +25,29 @@ class CooccurrenceJob < BaseJob
     standard_options(task, options)
     options.delete('stemming') if options['stemming'] == 'no'
 
-    case options['scoring']
-    when 'mutual_information'
+    result = RLetters::Analysis::Cooccurrence.call(options.merge(
+      dataset: dataset,
+      progress: ->(p) { task.at(p, 100, t('.progress_computing')) }))
+
+    case result.scoring
+    when :mutual_information
       algorithm = t('common.scoring.mutual_information')
       column = t('common.scoring.mutual_information_header')
-    when 't_test'
+    when :t_test
       algorithm = t('common.scoring.t_test')
       column = t('common.scoring.t_test_header')
-    when 'log_likelihood'
+    when :log_likelihood
       algorithm = t('common.scoring.log_likelihood')
       column = t('common.scoring.loglikelihood_header')
     else
       fail ArgumentError, 'Invalid value for scoring'
     end
 
-    grams = RLetters::Analysis::Cooccurrence.call(options.merge(
-      dataset: dataset,
-      progress: ->(p) { task.at(p, 100, t('.progress_computing')) }))
-
     # Save out all the data
     csv_string = csv_with_header(t('.header', name: dataset.name),
                                  t('.subheader', test: algorithm)) do |csv|
-      write_csv_data(csv, grams, { t('.pair') => :first,
-                                   column => :second })
+      write_csv_data(csv, result.cooccurrences, { t('.pair') => :first,
+                                                  column => :second })
     end
 
     # Write out the CSV to a file
