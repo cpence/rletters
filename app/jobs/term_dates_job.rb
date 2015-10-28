@@ -26,11 +26,6 @@ class TermDatesJob < BaseJob
     dates = dates.to_a
     dates.each { |d| d[0] = Integer(d[0]) }
 
-    # Fill in zeroes for any years that are missing
-    dates = Range.new(*(dates.map { |d| d[0] }.minmax)).each.map do |y|
-      dates.assoc(y) || [y, 0]
-    end
-
     csv_string = csv_with_header(t('.header', name: dataset.name),
                                  t('.subheader', term: options[:term])) do |csv|
       write_csv_data(csv, dates,

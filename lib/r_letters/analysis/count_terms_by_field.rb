@@ -74,7 +74,7 @@ module RLetters
 
         loop do
           group_result = RLetters::Solr::Connection.search_raw(
-            q: "fulltext:\"#{term}\"",
+            q: "fulltext_search:\"#{term}\"",
             def_type: 'lucene',
             group: 'true',
             'group.field' => field.to_s,
@@ -105,7 +105,7 @@ module RLetters
           group_size = group['doclist']['numFound']
 
           uids_result = RLetters::Solr::Connection.search_raw(
-            q: "fulltext:\"#{term}\"",
+            q: "fulltext_search:\"#{term}\"",
             def_type: 'lucene',
             group: 'true',
             'group.field' => field.to_s,
@@ -156,6 +156,33 @@ module RLetters
         parts[0]
       end
 
+      # Fill in zeros for any missing values in the counts
+      #
+      # If counts has numeric keys, we'll actually fill in the intervening
+      # values.
+      #
+      # @param [Hash<String, Integer>] counts the counts queried
+      # @return [Hash<String, Integer>] the counts with intervening values set
+      #   to zero
+      def zero_intervening(counts)
+        return {} if counts.empty?
+
+        # See if we have numeric keys
+        begin
+          Integer(counts.keys.first)
+        rescue ArgumentError
+          return counts
+        end
+
+        # Actually fill in all of the numerically intervening years
+        range = counts.keys.minmax
+        Range.new(*range).each do |k|
+          counts[k] ||= 0
+        end
+
+        counts
+      end
+
       # Convert a list of grouped UIDs to term counts
       #
       # Query all the documents listed, get their counts for the term of
@@ -182,7 +209,7 @@ module RLetters
 
         progress && progress.call(100)
 
-        ret
+        zero_intervening(ret)
       end
     end
   end

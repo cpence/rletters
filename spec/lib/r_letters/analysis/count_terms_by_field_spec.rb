@@ -8,7 +8,7 @@ RSpec.describe RLetters::Analysis::CountTermsByField do
         @called_100 = false
 
         @counts = described_class.call(
-          term: 'violence',
+          term: 'online',
           field: :year,
           progress: lambda do |p|
             if p < 100
@@ -20,8 +20,12 @@ RSpec.describe RLetters::Analysis::CountTermsByField do
       end
 
       it 'gets the values for the whole corpus' do
-        expect(@counts['2009']).to eq(4)
-        expect(@counts['2008']).to eq(1)
+        expect(@counts['2009']).to eq(3)
+        expect(@counts['2011']).to eq(8)
+      end
+
+      it 'fills in intervening years' do
+        expect(@counts['1930']).to eq(0)
       end
 
       it 'gets different counts than the article counts' do

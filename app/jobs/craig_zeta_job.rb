@@ -70,17 +70,18 @@ class CraigZetaJob < BaseJob
                        t('.score_column') => :second })
     end
 
-    data = {}
-    data[:name_1] = datasets[0].name
-    data[:name_2] = datasets[1].name
-    data[:markers_1] = analyzer.dataset_1_markers
-    data[:markers_2] = analyzer.dataset_2_markers
-    data[:graph_points] = analyzer.graph_points.map { |p| p.to_a }
-    data[:zeta_scores] = analyzer.zeta_scores.to_a
-    data[:marker_1_header] = t('.marker_column', name: datasets[0].name)
-    data[:marker_2_header] = t('.marker_column', name: datasets[1].name)
-    data[:word_header] = t('.word_column')
-    data[:score_header] = t('.score_column')
+    data = {
+      name_1: datasets[0].name,
+      name_2: datasets[1].name,
+      markers_1: analyzer.dataset_1_markers,
+      markers_2: analyzer.dataset_2_markers,
+      graph_points: analyzer.graph_points.map { |p| p.to_a },
+      zeta_scores: analyzer.zeta_scores.to_a,
+      marker_1_header: t('.marker_column', name: datasets[0].name),
+      marker_2_header: t('.marker_column', name: datasets[1].name),
+      word_header: t('.word_column'),
+      score_header: t('.score_column')
+    }
 
     # Write it out
     task.files.create(description: 'Raw JSON Data',
