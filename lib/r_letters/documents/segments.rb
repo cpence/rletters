@@ -140,15 +140,18 @@ module RLetters
           if block_list.empty?
             name = I18n.t('lib.frequency.block_size_dataset',
                           num: block_list.size + 1, size: block_size)
-            block_list.push(Block.new(words[0...block_size], name))
+            block_list.push(Block.new(words: words[0...block_size],
+                                      name: name))
           end
           return
         end
 
         # Make the first block, if needed
         unless block_list.last
-          block_list.push(Block.new([], I18n.t('lib.frequency.block_size_dataset',
-                                               num: 1, size: block_size)))
+          block_list.push(Block.new(
+            words: [],
+            name: I18n.t('lib.frequency.block_size_dataset',
+                         num: 1, size: block_size)))
         end
 
         # Fill up the last block
@@ -162,7 +165,7 @@ module RLetters
         words.in_groups_of(block_size, false).each do |b|
           name = I18n.t('lib.frequency.block_size_dataset',
                         num: block_list.size + 1, size: block_size)
-          block_list.push(Block.new(b, name))
+          block_list.push(Block.new(words: b, name: name))
         end
       end
 
@@ -175,8 +178,9 @@ module RLetters
 
         # Split the single block into the right size and return
         single_block.in_groups(num_blocks, false).each_with_object([]) do |b, ret|
-          ret << Block.new(b, I18n.t('lib.frequency.block_count_dataset',
-                                     num: ret.size + 1, total: num_blocks))
+          ret << Block.new(words: b,
+                           name: I18n.t('lib.frequency.block_count_dataset',
+                                        num: ret.size + 1, total: num_blocks))
         end
       end
 
