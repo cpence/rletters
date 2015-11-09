@@ -62,7 +62,7 @@ RSpec.describe RLetters::Documents::WordList do
 
       @stemmer = described_class.new(stemming: :lemma)
       words = build(:lemmatizer).words
-      expect(RLetters::Analysis::NLP).to receive(:lemmatize_words).and_return(words)
+      expect(RLetters::Analysis::NLP).to receive(:lemmatize_words).at_least(:once).and_return(words)
 
       @list = @stemmer.words_for(@doc.uid)
     end

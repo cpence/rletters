@@ -2,38 +2,32 @@
 module RLetters
   module Documents
     # Code for generating a list of words (or ngrams) for a +Document+
+    #
+    # @!attribute ngrams
+    #   @return [Integer] If set, return ngrams rather than single words. Can
+    #     be set to any integer >= 1.  Defaults to 1.
+    # @!attribute stemming
+    #   @return [Symbol] If set to +:stem+, pass the words through a Porter
+    #     stemmer before returning them.  If set to +:lemma+, pass them through
+    #     the Stanford NLP lemmatizer, if available.  The NLP lemmatizer is
+    #     much slower, as it requires accessing the fulltext of the document
+    #     rather than reconstructing from the term vectors. Defaults to no
+    #     stemming.
+    # @!attribute corpus_dfs
+    #   @return [Hash<String, Integer>] A hash where the keys are the words in
+    #     the document and the values are the document frequencies in the
+    #     entire corpus (the number of documents in the corpus in which the
+    #     word appears).
+    #   @note This will only return values for words appearing in the
+    #     documents that have been scanned by +words_for+ since this word
+    #     lister was created.
     class WordList
-      # Initialize a word list generator for the given document
-      #
-      # This function also supports returning a stemmed or lemmatized list
-      # of words.
-      #
-      # @param [Hash] options options for generating the word list
-      # @option options [Integer] :ngrams If set, return ngrams rather than
-      #   single words.  Can be set to any integer >= 1.  Defaults to 1.
-      # @option options [Symbol] :stemming If set to +:stem+, pass the words
-      #   through a Porter stemmer before returning them.  If set to +:lemma+,
-      #   pass them through the Stanford NLP lemmatizer, if available.  The
-      #   NLP lemmatizer is much slower, as it requires accessing the fulltext
-      #   of the document rather than reconstructing from the term vectors.
-      #   Defaults to no stemming.
-      def initialize(options = {})
-        @options = options.compact.reverse_merge(ngrams: 1, stemming: nil)
+      include Virtus.model(strict: true, required: false, nullify_blank: true)
 
-        @options[:ngrams] = [@options[:ngrams], 1].max
-        unless [:stem, :lemma].include?(options[:stemming])
-          @options[:stemming] = nil
-        end
+      attribute :ngrams, Integer, default: 1
+      attribute :stemming, Symbol
 
-        @dfs = {}
-      end
-
-      # Reset to initial state in the word lister
-      #
-      # @return [void]
-      def reset!
-        @dfs = {}
-      end
+      attribute :corpus_dfs, Hash[String => Integer], writer: :private
 
       # The word list for this document
       #
@@ -41,31 +35,14 @@ module RLetters
       # @return [Array<String>] the words in the document, in word order,
       #   possibly stemmed or lemmatized
       def words_for(uid)
-        word_list = if @options[:stemming] == :lemma &&
-                       ENV['NLP_TOOL_PATH'].present?
+        word_list = if stemming == :lemma && ENV['NLP_TOOL_PATH'].present?
                       get_lemmatized_words(uid)
                     else
-                      get_words(uid, @options[:stemming] == :stem)
+                      get_words(uid)
                     end
 
-        return word_list if !@options[:ngrams] || @options[:ngrams] <= 1
-        word_list.each_cons(@options[:ngrams]).map { |a| a.join(' ') }
-      end
-
-      # The document frequency of each of the words in the corpus
-      #
-      # This function returns a hash where the keys are the words in the
-      # document and the values are the document frequencies in the entire
-      # corpus (the number of documents in the corpus in which the word
-      # appears).
-      #
-      # Note that this will only return values for words appearing in the
-      # documents that have been scanned by +words_for+ since this word lister
-      # was created.
-      #
-      # @return [Hash<String, Integer>] the document frequencies for each word
-      def corpus_dfs
-        stem_dfs
+        return word_list if ngrams <= 1
+        word_list.each_cons(ngrams).map { |a| a.join(' ') }
       end
 
       private
@@ -74,16 +51,15 @@ module RLetters
       #
       # This method reconstructs the word list from doc.term_vectors.
       #
-      # @param [Boolean] stem if true, stem words in list
       # @return [Array<String>] list of words for document
-      def get_words(uid, stem = false)
+      def get_words(uid)
         doc = Document.find(uid, term_vectors: true)
         add_dfs(doc)
 
         # This converts from a hash to an array like:
         #  [[['word', pos], ['word', pos]], [['other', pos], ...], ...]
         word_list = doc.term_vectors.map do |k, v|
-          [stem ? k.stem : k].product(v[:positions])
+          [stemming == :stem ? k.stem : k].product(v[:positions])
         end
 
         # Peel off one layer of inner arrays, sort it by the position, and
@@ -110,42 +86,21 @@ module RLetters
       # @return [void]
       def add_dfs(doc)
         doc.term_vectors.each do |word, hash|
-          next if @dfs.include?(word)
-
           # Oddly enough, you'll get weird bogus values for words that don't
           # appear in your document back from Solr.  Not sure what's up with
           # that.
-          @dfs[word] = hash[:df] if hash[:df] > 0
-        end
-      end
+          next if hash[:df] <= 0
 
-      # Stem or lemmatize the DFs if required
-      #
-      # @return [Hash<String, Integer>] the dfs, stemmed or lemmatized if
-      #   required
-      def stem_dfs
-        case @options[:stemming]
-        when :stem
-          {}.tap do |ret|
-            @dfs.each do |k, v|
-              stem = k.stem
-              ret[stem] ||= 0
-              ret[stem] += v
-            end
+          case stemming
+          when :stem
+            key = word.stem
+          when :lemma
+            key = Analysis::NLP.lemmatize_words(word)[0]
+          else
+            key = word
           end
-        when :lemma
-          # This may not work without sentential context to feed to the NLP
-          # engine, but it's better than not trying anything at all
-          {}.tap do |ret|
-            @dfs.each do |k, v|
-              lemma = Analysis::NLP.lemmatize_words(k)[0]
 
-              ret[lemma] ||= 0
-              ret[lemma] += v
-            end
-          end
-        else
-          @dfs
+          corpus_dfs[key] ||= hash[:df]
         end
       end
     end
