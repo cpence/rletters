@@ -1,15 +1,14 @@
-require 'spec_helper'
+require 'rails_helper'
 
 RSpec.describe RLetters::Documents::Segments do
   before(:example) do
     @doc = build(:full_document)
     allow(Document).to receive(:find_by!).and_return(@doc)
-    @word_list = RLetters::Documents::WordList.new
   end
 
   context 'with no options' do
     before(:example) do
-      @segmenter = described_class.new(@list)
+      @segmenter = described_class.new
       @segmenter.add(@doc.uid)
       @blocks = @segmenter.blocks
     end
@@ -26,11 +25,15 @@ RSpec.describe RLetters::Documents::Segments do
       expect(@blocks[0].words.size).to eq(@doc.fulltext.split.count)
       expect(@blocks[0].words.take(5)).to eq(%w(it was the best of))
     end
+
+    it 'gets the corpus dfs' do
+      expect(@segmenter.corpus_dfs['it']).to eq(1486)
+    end
   end
 
   context 'with a single block' do
     before(:example) do
-      @segmenter = described_class.new(@list, num_blocks: 1)
+      @segmenter = described_class.new(num_blocks: 1)
       @segmenter.add(@doc.uid)
       @blocks = @segmenter.blocks
     end
@@ -52,11 +55,15 @@ RSpec.describe RLetters::Documents::Segments do
       expect(@segmenter.words_for_last).to include('it')
       expect(@segmenter.words_for_last).to include('was')
     end
+
+    it 'gets the corpus dfs' do
+      expect(@segmenter.corpus_dfs['it']).to eq(1486)
+    end
   end
 
   context 'with multiple blocks' do
     before(:example) do
-      @segmenter = described_class.new(@list, num_blocks: 5)
+      @segmenter = described_class.new(num_blocks: 5)
       @segmenter.add(@doc.uid)
       @blocks = @segmenter.blocks
     end
@@ -77,12 +84,29 @@ RSpec.describe RLetters::Documents::Segments do
       expect(@segmenter.words_for_last).to include('it')
       expect(@segmenter.words_for_last).to include('was')
     end
+
+    it 'gets the corpus dfs' do
+      expect(@segmenter.corpus_dfs['it']).to eq(1486)
+    end
+  end
+
+  context 'with word-size blocks, invalid last_block' do
+    before(:example) do
+      @segmenter = described_class.new(block_size: 3,
+                                       last_block: :purple)
+      @segmenter.add(@doc.uid)
+      @blocks = @segmenter.blocks
+    end
+
+    it 'acts like big_last' do
+      expect(@blocks.size).to eq((@doc.fulltext.split.size.to_f / 3.0).floor)
+    end
   end
 
   context 'with word-size blocks, big_last' do
     before(:example) do
-      @segmenter = described_class.new(@list, block_size: 3,
-                                              last_block: :big_last)
+      @segmenter = described_class.new(block_size: 3,
+                                       last_block: :big_last)
       @segmenter.add(@doc.uid)
       @blocks = @segmenter.blocks
     end
@@ -102,12 +126,16 @@ RSpec.describe RLetters::Documents::Segments do
     it 'makes a big last block' do
       expect(@blocks.last.words.count).to be > 3
     end
+
+    it 'gets the corpus dfs' do
+      expect(@segmenter.corpus_dfs['it']).to eq(1486)
+    end
   end
 
   context 'with word-size blocks, small_last' do
     before(:example) do
-      @segmenter = described_class.new(@list, block_size: 3,
-                                              last_block: :small_last)
+      @segmenter = described_class.new(block_size: 3,
+                                       last_block: :small_last)
       @segmenter.add(@doc.uid)
       @blocks = @segmenter.blocks
     end
@@ -127,12 +155,16 @@ RSpec.describe RLetters::Documents::Segments do
     it 'makes a small last block' do
       expect(@blocks.last.words.count).to be < 3
     end
+
+    it 'gets the corpus dfs' do
+      expect(@segmenter.corpus_dfs['it']).to eq(1486)
+    end
   end
 
   context 'with word-size blocks, truncate_last' do
     before(:example) do
-      @segmenter = described_class.new(@list, block_size: 3,
-                                              last_block: :truncate_last)
+      @segmenter = described_class.new(block_size: 3,
+                                       last_block: :truncate_last)
       @segmenter.add(@doc.uid)
       @blocks = @segmenter.blocks
     end
@@ -152,12 +184,16 @@ RSpec.describe RLetters::Documents::Segments do
     it 'truncates leftover words' do
       expect(@blocks.last.words.count).to eq(3)
     end
+
+    it 'gets the corpus dfs' do
+      expect(@segmenter.corpus_dfs['it']).to eq(1486)
+    end
   end
 
   context 'with word-size blocks, truncate_all' do
     before(:example) do
-      @segmenter = described_class.new(@list, block_size: 3,
-                                              last_block: :truncate_all)
+      @segmenter = described_class.new(block_size: 3,
+                                       last_block: :truncate_all)
       @segmenter.add(@doc.uid)
       @blocks = @segmenter.blocks
     end
@@ -173,11 +209,15 @@ RSpec.describe RLetters::Documents::Segments do
     it 'makes a single sized block' do
       expect(@blocks.first.words).to eq(%w(it was the))
     end
+
+    it 'gets the corpus dfs' do
+      expect(@segmenter.corpus_dfs['it']).to eq(1486)
+    end
   end
 
   describe '#reset!' do
     it 'resets all the parameters' do
-      segmenter = described_class.new(@list)
+      segmenter = described_class.new
       segmenter.add(@doc.uid)
       segmenter.blocks
 

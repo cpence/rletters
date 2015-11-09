@@ -1,6 +1,6 @@
 
 module RLetters
-  module Attributes
+  module VirtusExt
     # A class to encapsulate a dataset ID, which may need to be looked up from
     # a string
     class DatasetID < Virtus::Attribute

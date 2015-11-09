@@ -1,6 +1,6 @@
 
 module RLetters
-  module Attributes
+  module VirtusExt
     # A class to encapsulate an attribute that can be passed as a space-separated
     # list
     class SplitList < Virtus::Attribute

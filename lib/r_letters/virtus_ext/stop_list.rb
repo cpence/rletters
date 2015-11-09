@@ -1,6 +1,6 @@
 
 module RLetters
-  module Attributes
+  module VirtusExt
     # A class to coerce strings to stop lists, and then on to arrays of
     # strings
     class StopList < Virtus::Attribute

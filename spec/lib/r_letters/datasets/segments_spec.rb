@@ -72,7 +72,7 @@ RSpec.describe RLetters::Datasets::Segments do
 
   context 'five total blocks, splitting across' do
     before(:example) do
-      @doc_segmenter = RLetters::Documents::Segments.new(nil, num_blocks: 5)
+      @doc_segmenter = RLetters::Documents::Segments.new(num_blocks: 5)
       @analyzer = described_class.new(@dataset, @doc_segmenter)
       @segments = @analyzer.segments
     end
@@ -97,8 +97,8 @@ RSpec.describe RLetters::Datasets::Segments do
 
   context 'truncate_all, splitting across' do
     before(:example) do
-      @doc_segmenter = RLetters::Documents::Segments.new(nil, block_size: 10,
-                                                              last_block: :truncate_all)
+      @doc_segmenter = RLetters::Documents::Segments.new(block_size: 10,
+                                                         last_block: :truncate_all)
       @analyzer = described_class.new(@dataset, @doc_segmenter)
       @segments = @analyzer.segments
     end
@@ -123,8 +123,8 @@ RSpec.describe RLetters::Datasets::Segments do
 
   context 'truncate_all, not splitting across' do
     before(:example) do
-      @doc_segmenter = RLetters::Documents::Segments.new(nil, block_size: 10,
-                                                              last_block: :truncate_all)
+      @doc_segmenter = RLetters::Documents::Segments.new(block_size: 10,
+                                                         last_block: :truncate_all)
       @analyzer = described_class.new(@dataset,
                                       @doc_segmenter,
                                       split_across: false)

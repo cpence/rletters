@@ -130,6 +130,7 @@ module RLetters
         include Service
         include Virtus.model(strict: true, required: false,
                              nullify_blank: true)
+        include VirtusExt::Validator
 
         attribute :dataset, Dataset, required: true
         attribute :progress, Proc
@@ -141,9 +142,9 @@ module RLetters
         attribute :split_across, Boolean, default: true
         attribute :last_block, Symbol, default: :big_last
         attribute :all, Boolean, default: false
-        attribute :inclusion_list, Attributes::SplitList
-        attribute :exclusion_list, Attributes::SplitList
-        attribute :stop_list, Attributes::StopList
+        attribute :inclusion_list, VirtusExt::SplitList
+        attribute :exclusion_list, VirtusExt::SplitList
+        attribute :stop_list, VirtusExt::StopList
 
         attribute :blocks, Array[Hash], writer: :private
         attribute :block_stats, Array[Hash], writer: :private
@@ -168,8 +169,7 @@ module RLetters
             return FromTF.call(attributes)
           end
 
-          word_lister = Documents::WordList.new(attributes)
-          doc_segmenter = Documents::Segments.new(word_lister, attributes)
+          doc_segmenter = Documents::Segments.new(attributes)
           set_segmenter = Datasets::Segments.new(dataset, doc_segmenter,
                                                  attributes)
           FromPosition.call(attributes.merge(dataset_segments: set_segmenter))

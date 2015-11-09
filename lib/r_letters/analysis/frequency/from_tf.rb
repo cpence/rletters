@@ -21,8 +21,6 @@ module RLetters
         #
         # @return [self]
         def call
-          validate!
-
           # Compute the DF and TF values for the whole dataset and cull the
           # word list
           compute_df_tf

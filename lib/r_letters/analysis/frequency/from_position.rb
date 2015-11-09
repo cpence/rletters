@@ -22,8 +22,6 @@ module RLetters
         #
         # @return [self]
         def call
-          validate!
-
           # Reset in case this is reused
           dataset_segments.reset!
 
@@ -35,7 +33,7 @@ module RLetters
           # Get the DFs in the dataset from the segmenter, and in the corpus
           # from the word lister
           self.df_in_dataset = dataset_segments.dfs
-          self.df_in_corpus = dataset_segments.document_segmenter.word_list.corpus_dfs
+          self.df_in_corpus = dataset_segments.document_segmenter.corpus_dfs
 
           # Convert the word arrays in the blocks from the list of words as found
           # in the document to { 'word' => count } hashes

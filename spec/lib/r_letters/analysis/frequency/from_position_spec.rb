@@ -11,8 +11,7 @@ RSpec.describe RLetters::Analysis::Frequency::FromPosition do
     @onegram_ss = RLetters::Datasets::Segments.new(@dataset, nil,
                                                    split_across: false)
 
-    ngram_lister = RLetters::Documents::WordList.new(ngrams: 3)
-    ngram_ds = RLetters::Documents::Segments.new(ngram_lister)
+    ngram_ds = RLetters::Documents::Segments.new(ngrams: 3)
     @ngram_ss = RLetters::Datasets::Segments.new(@dataset,
                                                  ngram_ds)
   end

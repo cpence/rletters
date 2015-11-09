@@ -1,8 +1,8 @@
 
 module RLetters
-  # All classes that encapsulate behavior for handing model attributes in
+  # All classes that encapsulate behavior for handing models and attributes in
   # Virtus
-  module Attributes
+  module VirtusExt
     # A class to encapsulate a string that should be lowercased when coerced
     class LowercaseString < Virtus::Attribute
       # Coerce the string to lowercase
