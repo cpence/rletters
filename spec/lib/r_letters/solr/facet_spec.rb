@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 RSpec.describe RLetters::Solr::Facet do
   describe '#initialize' do
@@ -6,7 +6,7 @@ RSpec.describe RLetters::Solr::Facet do
       it 'raises an exception' do
         expect {
           described_class.new(query: 'year:[1960 TO 1969]')
-        }.to raise_error(ArgumentError)
+        }.to raise_error(Virtus::CoercionError)
       end
     end
 
@@ -47,7 +47,7 @@ RSpec.describe RLetters::Solr::Facet do
     context 'with missing value' do
       it 'raises an exception' do
         expect {
-          described_class.new(name: 'authors_facet', hits: 10)
+          described_class.new(field: 'authors_facet', hits: 10)
         }.to raise_error(ArgumentError)
       end
     end
@@ -55,22 +55,22 @@ RSpec.describe RLetters::Solr::Facet do
     context 'with missing hits' do
       it 'raises an exception' do
         expect {
-          described_class.new(name: 'authors_facet', value: 'W. Shatner')
-        }.to raise_error(ArgumentError)
+          described_class.new(field: 'authors_facet', value: 'W. Shatner')
+        }.to raise_error(Virtus::CoercionError)
       end
     end
 
     context 'for an unknown field' do
       it 'raises an exception' do
         expect {
-          described_class.new(name: 'zuzax', value: 'W. Shatner', hits: 10)
+          described_class.new(field: 'zuzax', value: 'W. Shatner', hits: 10)
         }.to raise_error(ArgumentError)
       end
     end
 
     context 'with valid three-parameter form' do
       before(:example) do
-        @facet = described_class.new(name: 'authors_facet',
+        @facet = described_class.new(field: 'authors_facet',
                                      value: '"W. Shatner"',
                                      hits: 10)
       end
@@ -88,8 +88,8 @@ RSpec.describe RLetters::Solr::Facet do
   describe '#<=>' do
     context 'for two different-hits facets' do
       it 'sorts them in order by count first' do
-        f1 = described_class.new(name: 'authors_facet', value: '"W. Shatner"', hits: 30)
-        f2 = described_class.new(name: 'authors_facet', value: '"P. Stewart"', hits: 10)
+        f1 = described_class.new(field: 'authors_facet', value: '"W. Shatner"', hits: 30)
+        f2 = described_class.new(field: 'authors_facet', value: '"P. Stewart"', hits: 10)
 
         expect(f1).to be < f2
       end
@@ -97,8 +97,8 @@ RSpec.describe RLetters::Solr::Facet do
 
     context 'for two same-hits facets' do
       it 'sorts authors alphabetically' do
-        f1 = described_class.new(name: 'authors_facet', value: '"W. Shatner"', hits: 10)
-        f2 = described_class.new(name: 'authors_facet', value: '"P. Stewart"', hits: 10)
+        f1 = described_class.new(field: 'authors_facet', value: '"W. Shatner"', hits: 10)
+        f2 = described_class.new(field: 'authors_facet', value: '"P. Stewart"', hits: 10)
 
         expect(f1).to be > f2
       end

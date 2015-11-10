@@ -54,7 +54,7 @@ module RLetters
           facets.each do |f|
             f.items.each do |it|
               next if Integer(it.hits) == 0
-              @all << Facet.new(name: f.name, value: it.value, hits: it.hits)
+              @all << Facet.new(field: f.name, value: it.value, hits: it.hits)
             end
           end
         end

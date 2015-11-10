@@ -3,8 +3,8 @@ require 'rails_helper'
 RSpec.describe FacetDecorator, type: :decorator do
   before(:example) do
     @facets = [
-      described_class.decorate(RLetters::Solr::Facet.new(name: 'authors_facet', value: '"W. Shatner"', hits: 10)),
-      described_class.decorate(RLetters::Solr::Facet.new(name: 'journal_facet', value: '"The Journal"', hits: 10)),
+      described_class.decorate(RLetters::Solr::Facet.new(field: 'authors_facet', value: '"W. Shatner"', hits: 10)),
+      described_class.decorate(RLetters::Solr::Facet.new(field: 'journal_facet', value: '"The Journal"', hits: 10)),
       described_class.decorate(RLetters::Solr::Facet.new(query: 'year:[1960 TO 1969]', hits: 10))
     ]
   end

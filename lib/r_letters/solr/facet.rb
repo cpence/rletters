@@ -16,76 +16,15 @@ module RLetters
     # @!attribute hits
     #   @return [Integer] the number of hits for this facet
     class Facet
+      include Virtus.model(strict: true, required: false)
+      include VirtusExt::Validator
       include Draper::Decoratable
-
-      attr_accessor :query, :field, :value, :hits
-
-      # Create a new facet
-      #
-      # We can either get a string-format query, or (from RSolr::Ext) a facet
-      # object and an item object.  This handles dealing with all of that.  We
-      # will get either +:name+, +:value+, and +:hits+ (a facet parameter), or
-      # +:query+ and +:hits+ (a facet query).
-      #
-      # @param [Hash] options specification of the new facet
-      # @option options [Symbol] :name The field being faceted on
-      # @option options [String] :value The facet value
-      # @option options [Integer] :hits Number of hits for this facet
-      # @option options [String] :query Facet as a string query
-      def initialize(options = {})
-        if options[:query]
-          # We already have a query here, so go ahead and save the query
-          @query = options[:query]
-
-          unless options[:hits]
-            fail ArgumentError, 'facet query specified without hits'
-          end
-
-          @hits = Integer(options[:hits])
-
-          # Basic format: "field:QUERY"
-          parts = @query.split(':')
-          unless parts.size == 2
-            fail ArgumentError, 'facet query not separated by colon'
-          end
-
-          @field = parts[0].to_sym
-          @value = parts[1]
-
-          # We only know how to handle one field, year
-          unless @field == :year
-            fail ArgumentError, "do not know how to handle facet queries for #{@field}"
-          end
-
-          # Strip quotes from the value if present
-          @value = @value[1..-2] if @value[0] == '"' && @value[-1] == '"'
-
-          return
-        end
-
-        # We need to have name, value, and hits
-        fail ArgumentError, 'facet without name' unless options[:name]
-        @field = options[:name].to_sym
-
-        # We only know how to handle :authors_facet and :journal_facet
-        unless [:authors_facet, :journal_facet].include?(@field)
-          fail ArgumentError, "do not know how to handle facets on #{@field}"
-        end
-
-        fail ArgumentError, 'facet without value' unless options[:value]
-        @value = options[:value]
-
-        # Strip quotes from the value if present
-        @value = @value[1..-2] if @value[0] == '"' && @value[-1] == '"'
-
-        fail ArgumentError, 'facet without hits' unless options[:hits]
-        @hits = Integer(options[:hits])
-
-        # Construct the query
-        @query = "#{field}:\"#{value}\""
-      end
-
       include Comparable
+
+      attribute :query, String
+      attribute :field, Symbol
+      attribute :value, String
+      attribute :hits, Integer, required: true
 
       # Compare facet objects appropriately given their field
       #
@@ -94,11 +33,51 @@ module RLetters
       # @param [Facet] other object for comparison
       # @return [Integer] -1, 0, or 1, appropriately
       def <=>(other)
-        return -(@hits <=> other.hits) if hits != other.hits
+        return -(hits <=> other.hits) if hits != other.hits
 
         # We want years to sort inverse, while we want others normal.
-        return -(@value <=> other.value) if field == :year
-        (@value <=> other.value)
+        return -(value <=> other.value) if field == :year
+        (value <=> other.value)
+      end
+
+      private
+
+      # Make sure that the options are consistent
+      #
+      # @return [void]
+      def validate!
+        if query.present?
+          # Construct field and value from the query
+          parts = query.split(':')
+          unless parts.size == 2
+            fail ArgumentError, 'facet query not separated by colon'
+          end
+
+          self.field = parts[0].to_sym
+          self.value = parts[1]
+
+          # Strip quotes from the value if present
+          self.value = value[1..-2] if value[0] == '"' && value[-1] == '"'
+
+          # We only know how to handle one field, year
+          unless field == :year
+            fail ArgumentError, "do not know how to handle facet queries for #{field}"
+          end
+        else
+          fail ArgumentError, 'facet without field' if field.blank?
+          fail ArgumentError, 'facet without value' if value.blank?
+
+          # We only know how to handle :authors_facet and :journal_facet
+          unless [:authors_facet, :journal_facet].include?(field)
+            fail ArgumentError, "do not know how to handle facets on #{field}"
+          end
+
+          # Strip quotes from the value if present
+          self.value = value[1..-2] if value[0] == '"' && value[-1] == '"'
+
+          # Construct the query from field and value
+          self.query = "#{field}:\"#{value}\""
+        end
       end
     end
   end

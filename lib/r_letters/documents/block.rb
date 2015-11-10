@@ -7,7 +7,7 @@ module RLetters
     # @!attribute name
     #   @return [String] A user-friendly name for this block
     class Block
-      include Virtus.model(strict: true, required: false, nullify_blank: true)
+      include Virtus.model(strict: true, required: false)
 
       # Sometimes this array is overridden and filled with other things by some
       # of the analysis methods. Don't check/coerce the types.
