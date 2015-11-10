@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 RSpec.describe RLetters::Datasets::Segments do
   before(:example) do
@@ -9,7 +9,7 @@ RSpec.describe RLetters::Datasets::Segments do
 
   context 'one block for the dataset, splitting across' do
     before(:example) do
-      @analyzer = described_class.new(@dataset)
+      @analyzer = described_class.new(dataset: @dataset)
       @segments = @analyzer.segments
     end
 
@@ -29,6 +29,10 @@ RSpec.describe RLetters::Datasets::Segments do
       expect(@analyzer.dfs['disease']).to eq(8)
       expect(@analyzer.dfs['malaria']).to eq(1)
     end
+
+    it 'gets the corpus dfs' do
+      expect(@analyzer.corpus_dfs['disease']).to eq(1104)
+    end
   end
 
   context 'progress reporting' do
@@ -36,13 +40,14 @@ RSpec.describe RLetters::Datasets::Segments do
       called_sub_100 = false
       called_100 = false
 
-      described_class.new(@dataset).segments(lambda do |p|
-        if p < 100
-          called_sub_100 = true
-        else
-          called_100 = true
-        end
-      end)
+      described_class.new(dataset: @dataset,
+                          progress: lambda do |p|
+                            if p < 100
+                              called_sub_100 = true
+                            else
+                              called_100 = true
+                            end
+                          end).segments
 
       expect(called_sub_100).to be true
       expect(called_100).to be true
@@ -51,7 +56,8 @@ RSpec.describe RLetters::Datasets::Segments do
 
   context 'one block per document, not splitting across' do
     before(:example) do
-      @analyzer = described_class.new(@dataset, nil, split_across: false)
+      @analyzer = described_class.new(dataset: @dataset,
+                                      split_across: false)
       @segments = @analyzer.segments
     end
 
@@ -68,12 +74,16 @@ RSpec.describe RLetters::Datasets::Segments do
       expect(@analyzer.dfs['disease']).to eq(8)
       expect(@analyzer.dfs['malaria']).to eq(1)
     end
+
+    it 'gets the corpus dfs' do
+      expect(@analyzer.corpus_dfs['disease']).to eq(1104)
+    end
   end
 
   context 'five total blocks, splitting across' do
     before(:example) do
-      @doc_segmenter = RLetters::Documents::Segments.new(num_blocks: 5)
-      @analyzer = described_class.new(@dataset, @doc_segmenter)
+      @analyzer = described_class.new(dataset: @dataset,
+                                      num_blocks: 5)
       @segments = @analyzer.segments
     end
 
@@ -93,13 +103,17 @@ RSpec.describe RLetters::Datasets::Segments do
       expect(@analyzer.dfs['disease']).to eq(8)
       expect(@analyzer.dfs['malaria']).to eq(1)
     end
+
+    it 'gets the corpus dfs' do
+      expect(@analyzer.corpus_dfs['disease']).to eq(1104)
+    end
   end
 
   context 'truncate_all, splitting across' do
     before(:example) do
-      @doc_segmenter = RLetters::Documents::Segments.new(block_size: 10,
-                                                         last_block: :truncate_all)
-      @analyzer = described_class.new(@dataset, @doc_segmenter)
+      @analyzer = described_class.new(dataset: @dataset,
+                                      block_size: 10,
+                                      last_block: :truncate_all)
       @segments = @analyzer.segments
     end
 
@@ -119,15 +133,18 @@ RSpec.describe RLetters::Datasets::Segments do
       expect(@analyzer.dfs['disease']).to eq(8)
       expect(@analyzer.dfs['malaria']).to eq(1)
     end
+
+    it 'gets the corpus dfs' do
+      expect(@analyzer.corpus_dfs['disease']).to eq(1104)
+    end
   end
 
   context 'truncate_all, not splitting across' do
     before(:example) do
-      @doc_segmenter = RLetters::Documents::Segments.new(block_size: 10,
-                                                         last_block: :truncate_all)
-      @analyzer = described_class.new(@dataset,
-                                      @doc_segmenter,
-                                      split_across: false)
+      @analyzer = described_class.new(dataset: @dataset,
+                                      split_across: false,
+                                      block_size: 10,
+                                      last_block: :truncate_all)
       @segments = @analyzer.segments
     end
 
@@ -148,6 +165,10 @@ RSpec.describe RLetters::Datasets::Segments do
     it 'sets dfs correctly' do
       expect(@analyzer.dfs['disease']).to eq(8)
       expect(@analyzer.dfs['malaria']).to eq(1)
+    end
+
+    it 'gets the corpus dfs' do
+      expect(@analyzer.corpus_dfs['disease']).to eq(1104)
     end
   end
 end

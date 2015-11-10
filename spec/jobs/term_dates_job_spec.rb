@@ -45,7 +45,7 @@ RSpec.describe TermDatesJob, type: :job do
 
     it 'fills in some values' do
       expect(@data['data'][0][0]).to be_in([1895, 2009])
-      expect((0..5)).to cover(@data['data'][0][1])
+      expect(0..10).to cover(@data['data'][0][1])
     end
 
     it 'fills in some zeroes in intervening years' do

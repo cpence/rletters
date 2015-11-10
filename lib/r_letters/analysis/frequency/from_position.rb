@@ -13,7 +13,12 @@ module RLetters
       #     to analyze
       class FromPosition < RLetters::Analysis::Frequency::Base
         attribute :dataset_segments, RLetters::Datasets::Segments,
-                  required: true
+                  default: lambda { |analyzer, attribute|
+                    RLetters::Datasets::Segments.new(
+                      analyzer.parameter_hash.merge(progress: lambda do |p|
+                        analyzer.progress && analyzer.progress.call((p * 0.8).to_i)
+                      end))
+                  }
 
         attribute :word_blocks, Array[RLetters::Documents::Block],
                   reader: :private, writer: :private
@@ -26,14 +31,12 @@ module RLetters
           dataset_segments.reset!
 
           # Get the word blocks from the segmenter
-          self.word_blocks = dataset_segments.segments(lambda do |p|
-            progress && progress.call((p * 0.8).to_i)
-          end)
+          self.word_blocks = dataset_segments.segments
 
           # Get the DFs in the dataset from the segmenter, and in the corpus
           # from the word lister
           self.df_in_dataset = dataset_segments.dfs
-          self.df_in_corpus = dataset_segments.document_segmenter.corpus_dfs
+          self.df_in_corpus = dataset_segments.corpus_dfs
 
           # Convert the word arrays in the blocks from the list of words as found
           # in the document to { 'word' => count } hashes

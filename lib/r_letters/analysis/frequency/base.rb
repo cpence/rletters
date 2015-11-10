@@ -130,6 +130,7 @@ module RLetters
         include Service
         include Virtus.model(strict: true, required: false,
                              nullify_blank: true)
+        include VirtusExt::ParameterHash
         include VirtusExt::Validator
 
         attribute :dataset, Dataset, required: true
@@ -166,13 +167,10 @@ module RLetters
           # Check for the quick-out
           if (num_blocks == 1 || (num_blocks == 0 && block_size == 0)) &&
              ngrams == 1 && stemming.nil?
-            return FromTF.call(attributes)
+            return FromTF.call(parameter_hash)
           end
 
-          doc_segmenter = Documents::Segments.new(attributes)
-          set_segmenter = Datasets::Segments.new(dataset, doc_segmenter,
-                                                 attributes)
-          FromPosition.call(attributes.merge(dataset_segments: set_segmenter))
+          FromPosition.call(parameter_hash)
         end
 
         protected
