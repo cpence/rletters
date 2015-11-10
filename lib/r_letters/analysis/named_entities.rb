@@ -36,7 +36,7 @@ module RLetters
         total = dataset.entries.size
         text_cache = ''
 
-        enum = RLetters::Datasets::DocumentEnumerator.new(dataset,
+        enum = RLetters::Datasets::DocumentEnumerator.new(dataset: dataset,
                                                           fulltext: true)
         enum.each_with_index do |doc, i|
           progress && progress.call((i.to_f / total.to_f * 50.0).to_i)

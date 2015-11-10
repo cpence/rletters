@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 RSpec.describe RLetters::Datasets::DocumentEnumerator do
   before(:example) do
@@ -9,7 +9,7 @@ RSpec.describe RLetters::Datasets::DocumentEnumerator do
 
   context 'with no custom fields' do
     before(:example) do
-      @enum = RLetters::Datasets::DocumentEnumerator.new(@dataset)
+      @enum = RLetters::Datasets::DocumentEnumerator.new(dataset: @dataset)
     end
 
     it 'enumerates the documents as expected' do
@@ -34,7 +34,7 @@ RSpec.describe RLetters::Datasets::DocumentEnumerator do
 
   context 'with term vectors' do
     before(:example) do
-      @enum = RLetters::Datasets::DocumentEnumerator.new(@dataset, term_vectors: true)
+      @enum = RLetters::Datasets::DocumentEnumerator.new(dataset: @dataset, term_vectors: true)
     end
 
     it 'returns the term vectors' do
@@ -48,7 +48,7 @@ RSpec.describe RLetters::Datasets::DocumentEnumerator do
 
   context 'with fulltext fields' do
     before(:example) do
-      @enum = RLetters::Datasets::DocumentEnumerator.new(@dataset, fulltext: true)
+      @enum = RLetters::Datasets::DocumentEnumerator.new(dataset: @dataset, fulltext: true)
     end
 
     it 'returns the full text' do
@@ -62,7 +62,7 @@ RSpec.describe RLetters::Datasets::DocumentEnumerator do
 
   context 'with custom fields' do
     before(:example) do
-      @enum = RLetters::Datasets::DocumentEnumerator.new(@dataset, fl: 'year')
+      @enum = RLetters::Datasets::DocumentEnumerator.new(dataset: @dataset, fl: 'year')
     end
 
     it 'only includes the custom fields' do

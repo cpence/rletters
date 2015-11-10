@@ -145,7 +145,7 @@ module RLetters
         def create_word_list
           # Create a list of lowercase, stemmed words
           progress && progress.call(1)
-          enum = RLetters::Datasets::DocumentEnumerator.new(dataset,
+          enum = RLetters::Datasets::DocumentEnumerator.new(dataset: dataset,
                                                             fulltext: true)
           doc_words = enum.map do |doc|
             doc.fulltext.gsub(/[^A-Za-z ]/, '').mb_chars.downcase.to_s.split

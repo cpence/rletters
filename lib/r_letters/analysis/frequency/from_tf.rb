@@ -14,7 +14,7 @@ module RLetters
         attribute :documents, Datasets::DocumentEnumerator,
                   reader: :private, writer: :private, coerce: false,
                   default: lambda { |analyzer, attribute|
-                    Datasets::DocumentEnumerator.new(analyzer.dataset,
+                    Datasets::DocumentEnumerator.new(dataset: analyzer.dataset,
                                                      term_vectors: true) }
 
         # Run a TF-based analysis

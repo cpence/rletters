@@ -51,7 +51,7 @@ module RLetters
         ret = {}
         total = dataset.entries.size
 
-        enum = RLetters::Datasets::DocumentEnumerator.new(dataset)
+        enum = RLetters::Datasets::DocumentEnumerator.new(dataset: dataset)
         enum.each_with_index do |doc, i|
           key = get_field_from_document(doc)
           ret[key] ||= 0

@@ -18,7 +18,7 @@ class ExportCitationsJob < BaseJob
     total = dataset.entries.size
 
     ios = ::Zip::OutputStream.write_buffer(StringIO.new('')) do |zos|
-      enum = RLetters::Datasets::DocumentEnumerator.new(dataset)
+      enum = RLetters::Datasets::DocumentEnumerator.new(dataset: dataset)
       enum.each_with_index do |doc, i|
         task.at(i, total, t('.progress_creating', progress: "#{i}/#{total}"))
 

@@ -5,28 +5,24 @@ module RLetters
     #
     # This enumerator is clever enough to do its SQL finds in batches and similar
     # kinds of tricks.  It returns document objects taken from the dataset.
+    #
+    # @!attribute dataset
+    #   @return [Dataset] The dataset to enumerate
+    # @!attribute fl
+    #   @return [String] Fields to return in documents. Should be a
+    #     comma-separated list
+    # @!attribute fulltext
+    #   @return [Boolean] If true, return document full text. Defaults to false
+    # @!attribute term_vectors
+    #   @return [Boolean] If true, return term vectors
     class DocumentEnumerator
+      include Virtus.model(strict: true, required: false)
       include Enumerable
 
-      # Create a new document enumerator
-      #
-      # @param [Dataset] dataset the dataset to enumerate
-      # @param [Hash] options options for finding the documents
-      # @option options [String] :fl fields to return in documents
-      # @option options [Boolean] :fulltext if true, return document full text
-      # @option options [Booelan] :term_vectors if true, return term vectors
-      def initialize(dataset, options = {})
-        @dataset = dataset
-        @options = options
-
-        if @options[:term_vectors] || @options[:fulltext]
-          # We've been hitting trouble here with timeouts on these larger
-          # fetches; try throttling
-          @batch_size = 50
-        else
-          @batch_size = 1000
-        end
-      end
+      attribute :dataset, Dataset, required: true
+      attribute :term_vectors, Boolean, default: false
+      attribute :fulltext, Boolean, default: false
+      attribute :fl, String
 
       # How many documents are in the dataset?
       #
@@ -42,12 +38,12 @@ module RLetters
       def each
         return to_enum(:each) unless block_given?
 
-        @dataset.entries.find_in_batches(batch_size: @batch_size) do |group|
+        dataset.entries.find_in_batches(batch_size: batch_size) do |group|
           search_result = RLetters::Solr::Connection.search(search_query_for(group))
 
           # :nocov:
           unless search_result.num_hits == group.size
-            fail "Failed to get batch of results in DocumentEnumerator (wanted #{group.size} hits, got #{search_result.num_hits})"
+            fail RuntimeError, "Failed to get batch of results in DocumentEnumerator (wanted #{group.size} hits, got #{search_result.num_hits})"
           end
           # :nocov:
 
@@ -57,6 +53,21 @@ module RLetters
 
       private
 
+      # Get the batch size
+      #
+      # This function memoizes the value for speed.
+      #
+      # @return [Integer] batch size for database queries
+      def batch_size
+        @batch_size ||= if term_vectors || fulltext
+                          # We've been hitting trouble here with timeouts on
+                          # these larger fetches; try throttling
+                          50
+                        else
+                          1000
+                        end
+      end
+
       # Generate a Solr query for looking up this group
       #
       # @param [Array<Datasets::Entry>] group group of results to query
@@ -65,16 +76,16 @@ module RLetters
         { q: "uid:(#{group.map { |e| "\"#{e.uid}\"" }.join(' OR ')})",
           def_type: 'lucene',
           facet: false,
-          fl: if @options[:fl]
-                @options[:fl]
+          fl: if fl
+                fl
               else
-                if @options[:fulltext]
+                if fulltext
                   RLetters::Solr::Connection::DEFAULT_FIELDS_FULLTEXT
                 else
                   RLetters::Solr::Connection::DEFAULT_FIELDS
                 end
               end,
-          tv: @options[:term_vectors] || false,
+          tv: term_vectors,
           rows: group.size }
       end
     end

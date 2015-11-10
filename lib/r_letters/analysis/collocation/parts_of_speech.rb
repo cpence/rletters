@@ -47,7 +47,7 @@ module RLetters
           # We actually aren't going to use Analysis::WordFrequency here; the
           # NLP POS tagger requires us to send it full sentences for maximum
           # accuracy.
-          enum = RLetters::Datasets::DocumentEnumerator.new(dataset,
+          enum = RLetters::Datasets::DocumentEnumerator.new(dataset: dataset,
                                                             fulltext: true)
 
           self.result = {}

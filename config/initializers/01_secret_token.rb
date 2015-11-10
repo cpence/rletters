@@ -5,7 +5,7 @@ if Rails.env.development? || Rails.env.test?
 else
   # Load from .env, raising an exception if not found
   unless ENV['SECRET_TOKEN']
-    raise RuntimeError, "No secret tokens available in ENV. Please copy .env.example to .env, and run rake secrets:regen."
+    fail RuntimeError, "No secret tokens available in ENV. Please copy .env.example to .env, and run rake secrets:regen."
   end
 
   Rails.application.config.secret_token = ENV.fetch('SECRET_TOKEN')
