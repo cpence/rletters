@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 RSpec.describe RLetters::Documents::Serializers::BibTex do
   context 'when serializing a single document' do
@@ -17,6 +17,11 @@ RSpec.describe RLetters::Documents::Serializers::BibTex do
       expect(@str).to include('pages = {1}')
       expect(@str).to include('doi = {10.5678/dickens}')
       expect(@str).to include('year = {1859}')
+    end
+
+    it 'defines class methods' do
+      expect(described_class.format).to be_a(String)
+      expect(described_class.url).to be_a(String)
     end
   end
 

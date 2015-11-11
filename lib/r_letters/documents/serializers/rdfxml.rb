@@ -5,33 +5,9 @@ module RLetters
   module Documents
     module Serializers
       # Convert a document to an RDF/XML record
-      class RDFXML
-        # Create a serializer
-        #
-        # @param document_or_array [Document Array<Document>] a document or
-        #   array of documents to serialize
-        def initialize(document_or_array)
-          @doc = document_or_array
-        end
-
-        # Return the user-friendly name of the serializer
-        #
-        # @return [String] name of the serializer
-        def self.format
-          'RDF/XML'
-        end
-
-        # Return a URL where information about this serializer can be found
-        #
-        # @return [String] URL for information about this format
-        def self.url
-          'http://www.w3.org/TR/rdf-syntax-grammar/'
-        end
-
-        # Returns this document as RDF+XML
-        #
-        # @return [String] document in RDF+XML format
-        def serialize
+      class RDFXML < RDF
+        define_single('RDF/XML',
+                      'http://www.w3.org/TR/rdf-syntax-grammar/') do |docs|
           doc = Nokogiri::XML::Document.new
           rdf = Nokogiri::XML::Node.new('rdf', doc)
 
@@ -39,10 +15,10 @@ module RLetters
           rdf.default_namespace = 'http://www.w3.org/1999/02/22-rdf-syntax-ns#'
           rdf.add_namespace_definition('dc', 'http://purl.org/dc/terms/')
 
-          if @doc.is_a? Enumerable
-            @doc.each { |d| rdf.add_child(do_serialize(d, doc)) }
+          if docs.is_a? Enumerable
+            docs.each { |d| rdf.add_child(to_rdf_xml(d, doc)) }
           else
-            rdf.add_child(do_serialize(@doc, doc))
+            rdf.add_child(to_rdf_xml(docs, doc))
           end
 
           doc.to_xml(indent: 2)
@@ -56,10 +32,10 @@ module RLetters
         # @param xml_doc [Nokogiri::XML::Document] the XML document to add the
         #   node to
         # @return [Nokogiri::XML::Node] document in RDF+XML format
-        def do_serialize(doc, xml_doc)
+        def to_rdf_xml(doc, xml_doc)
           desc = Nokogiri::XML::Node.new('Description', xml_doc)
 
-          RDF.new(doc).serialize.each_statement do |statement|
+          to_rdf_graph(doc).each_statement do |statement|
             # I have no idea when these errors might happen, so I can't spec for
             # them, but I'm catching them just to be safe.
             # :nocov:

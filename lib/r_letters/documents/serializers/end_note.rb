@@ -3,47 +3,9 @@ module RLetters
   module Documents
     module Serializers
       # Convert a document to an EndNote record
-      class EndNote
-        # Create a serializer
-        #
-        # @param document_or_array [Document Array<Document>] a document or
-        #   array of documents to serialize
-        def initialize(document_or_array)
-          @doc = document_or_array
-        end
-
-        # Return the user-friendly name of the serializer
-        #
-        # @return [String] name of the serializer
-        def self.format
-          'EndNote'
-        end
-
-        # Return a URL where information about this serializer can be found
-        #
-        # @return [String] URL for information about this format
-        def self.url
-          'http://auditorymodels.org/jba/bibs/NetBib/Tools/bp-0.2.97/doc/endnote.html'
-        end
-
-        # Returns this document as an EndNote record
-        #
-        # @return [String] document in EndNote format
-        def serialize
-          if @doc.is_a? Enumerable
-            @doc.map { |d| do_serialize(d) }.join
-          else
-            do_serialize(@doc)
-          end
-        end
-
-        private
-
-        # Do the serialization for an individual document
-        #
-        # @param [Document] doc the document to serialize
-        # @return [String] single document serialized to EndNote format
-        def do_serialize(doc)
+      class EndNote < Base
+        define_array('EndNote',
+                     'http://auditorymodels.org/jba/bibs/NetBib/Tools/bp-0.2.97/doc/endnote.html') do |doc|
           ret  = "%0 Journal Article\n"
           doc.authors.each do |a|
             ret << "%A #{a.last}, #{a.first}"

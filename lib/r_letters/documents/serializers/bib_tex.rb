@@ -1,54 +1,11 @@
 
 module RLetters
   module Documents
-    # Serialization code for +Document+ objects
-    #
-    # This module contains helpers intended to be included by the +Document+
-    # model, which allow the document to be converted to any one of a number of
-    # export formats.
     module Serializers
       # Convert a document to a BibTeX record
-      class BibTex
-        # Create a serializer
-        #
-        # @param document_or_array [Document Array<Document>] a document or
-        #   array of documents to serialize
-        def initialize(document_or_array)
-          @doc = document_or_array
-        end
-
-        # Return the user-friendly name of the serializer
-        #
-        # @return [String] name of the serializer
-        def self.format
-          'BibTeX'
-        end
-
-        # Return a URL where information about this serializer can be found
-        #
-        # @return [String] URL for information about this format
-        def self.url
-          'http://mirrors.ctan.org/biblio/bibtex/contrib/doc/btxdoc.pdf'
-        end
-
-        # Returns this document as a BibTeX record
-        #
-        # @return [String] document in BibTeX format
-        def serialize
-          if @doc.is_a? Enumerable
-            @doc.map { |d| do_serialize(d) }.join
-          else
-            do_serialize(@doc)
-          end
-        end
-
-        private
-
-        # Do the serialization for an individual document
-        #
-        # @param [Document] doc the document to serialize
-        # @return [String] single document serialized to BibTeX format
-        def do_serialize(doc)
+      class BibTex < Base
+        define_array('BibTeX',
+                     'http://mirrors.ctan.org/biblio/bibtex/contrib/doc/btxdoc.pdf') do |doc|
           # We don't have a concept of cite keys, so we're forced to just use
           # AuthorYear and hope it doesn't collide
           if doc.authors.empty?

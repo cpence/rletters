@@ -4,40 +4,9 @@ module RLetters
   module Documents
     module Serializers
       # Convert a document to a MODS XML document
-      class MODS
-        # Create a serializer
-        #
-        # @param document_or_array [Document Array<Document>] a document or
-        #   array of documents to serialize
-        def initialize(document_or_array)
-          @doc = document_or_array
-        end
-
-        # Return the user-friendly name of the serializer
-        #
-        # @return [String] name of the serializer
-        def self.format
-          'MODS'
-        end
-
-        # Return a URL where information about this serializer can be found
-        #
-        # @return [String] URL for information about this format
-        def self.url
-          'http://www.loc.gov/standards/mods/'
-        end
-
-        # Returns this document as a MODS XML document
-        #
-        # By default, this will include the XML namespace declarations in the
-        # root +mods+ element, making this document suitable to be saved
-        # standalone.  Pass +false+ to include_namespace to get a plain root
-        # element without namespaces, suitable for inclusion in a
-        # +modsCollection+.
-        #
-        # @return [String] document as a MODS XML document
-        def serialize
-          if @doc.is_a? Enumerable
+      class MODS < Base
+        define_single('MODS', 'http://www.loc.gov/standards/mods/') do |docs|
+          if docs.is_a? Enumerable
             doc = Nokogiri::XML::Document.new
             coll = Nokogiri::XML::Node.new('modsCollection', doc)
             coll.add_namespace_definition(nil, 'http://www.loc.gov/mods/v3')
@@ -46,11 +15,11 @@ module RLetters
             coll['xsi:schemaLocation'] = 'http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-0.xsd'
             doc.root = coll
 
-            @doc.map { |d| coll.add_child(do_serialize(d, false).root) }
+            docs.map { |d| coll.add_child(to_mods(d, false).root) }
 
             doc.to_xml(indent: 2)
           else
-            do_serialize(@doc, true).to_xml(indent: 2)
+            to_mods(docs, true).to_xml(indent: 2)
           end
         end
 
@@ -62,7 +31,7 @@ module RLetters
         # @param [Boolean] include_namespace if false, put no namespace in the
         #   root element
         # @return [Nokogiri::XML::Node] single document serialized to MODS
-        def do_serialize(doc, include_namespace = true)
+        def to_mods(doc, include_namespace = true)
           xml_doc = Nokogiri::XML::Document.new
           mods = Nokogiri::XML::Node.new('mods', xml_doc)
           xml_doc.add_child(mods)
