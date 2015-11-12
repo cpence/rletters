@@ -47,7 +47,9 @@ module RLetters
     # config.assets.css_compressor = :sass
 
     config.serve_static_files = true
-    config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect'
+    unless Rails.env.test?
+      config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect'
+    end
 
     # Error reporting
     config.exceptions_app = self.routes

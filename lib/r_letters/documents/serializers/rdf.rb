@@ -31,27 +31,27 @@ module RLetters
             name << "#{a.last}"
             name << " #{a.suffix}" if a.suffix
             name << ", #{a.first}"
-            graph << [doc, ::RDF::DC.creator, name]
+            graph << [doc, ::RDF::Vocab::DC.creator, name]
           end
-          graph << [doc, ::RDF::DC.issued, d.year] if d.year
+          graph << [doc, ::RDF::Vocab::DC.issued, d.year] if d.year
 
           citation = "#{d.journal}" if d.journal
           citation << (d.volume ? " #{d.volume}" : ' ')
           citation << "(#{d.number})" if d.number
           citation << ", #{d.pages}" if d.pages
           citation << ". (#{d.year})" if d.year
-          graph << [doc, ::RDF::DC.bibliographicCitation, citation]
+          graph << [doc, ::RDF::Vocab::DC.bibliographicCitation, citation]
 
           ourl = ::RDF::Literal.new(
             '&' + RLetters::Documents::AsOpenURL.new(d).params,
             datatype: ::RDF::URI.new('info:ofi/fmt:kev:mtx:ctx')
           )
-          graph << [doc, ::RDF::DC.bibliographicCitation, ourl]
+          graph << [doc, ::RDF::Vocab::DC.bibliographicCitation, ourl]
 
-          graph << [doc, ::RDF::DC.relation, d.journal] if d.journal
-          graph << [doc, ::RDF::DC.title, d.title] if d.title
-          graph << [doc, ::RDF::DC.type, 'Journal Article']
-          graph << [doc, ::RDF::DC.identifier, "info:doi/#{d.doi}"] if d.doi
+          graph << [doc, ::RDF::Vocab::DC.relation, d.journal] if d.journal
+          graph << [doc, ::RDF::Vocab::DC.title, d.title] if d.title
+          graph << [doc, ::RDF::Vocab::DC.type, 'Journal Article']
+          graph << [doc, ::RDF::Vocab::DC.identifier, "info:doi/#{d.doi}"] if d.doi
 
           graph
         end

@@ -46,6 +46,7 @@ gem 'paperclip_database', '>= 2.2.0'
 gem 'rubyzip', '>= 1.1.0', require: 'zip'
 gem 'marc'
 gem 'rdf', '>= 0.3.5'
+gem 'rdf-vocab'
 gem 'rdf-n3'
 
 # Visualization
@@ -75,7 +76,7 @@ gem 'roadie-rails'
 # Testing
 group :test, :development do
   gem 'rspec-rails', '~> 3'
-  gem 'rspec-activejob'
+  gem 'rspec-activejob', require: false
   gem 'pry'
   gem 'pry-byebug'
 
