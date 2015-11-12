@@ -9,12 +9,30 @@ module RLetters
     module Serializers
       # Code common to all serializers
       class Base
+        # Find the serializer for serializing to the given format
+        #
+        # @param format [Symbol] the format to serialize to
+        # @return [Class] an appropriate serializer class
+        def self.for(format)
+          key = format.to_sym
+          @@serializers.fetch(key)
+        end
+
+        # Return the list of available serializer MIME types
+        #
+        # @return [Array[Symbol]] the list of MIME types
+        def self.available
+          @@serializers.keys
+        end
+
         # Create a serializer that can serialize only individual documents
         #
+        # @param [Symbol] key A symbol key for this serializer
         # @param [String] format The name of the serializer
         # @param [String] url A URL for information about this format
         # @return [void]
-        def self.define_single(format, url, &block)
+        def self.define_single(key, format, url, &block)
+          register(key, self)
           define_common_methods(format, url)
 
           define_method :serialize do
@@ -24,10 +42,12 @@ module RLetters
 
         # Create a serializer that can serialize documents or arrays
         #
+        # @param [Symbol] key A symbol key for this serializer
         # @param [String] format The name of the serializer
         # @param [String] url A URL for information about this format
         # @return [void]
-        def self.define_array(format, url, &block)
+        def self.define_array(key, format, url, &block)
+          register(key, self)
           define_common_methods(format, url)
 
           define_method :serialize do
@@ -47,6 +67,16 @@ module RLetters
         end
 
         private
+
+        # Register a serializer into the internal list
+        #
+        # @param [Symbol] key A symbol key for this serializer
+        # @param [Class] klass The class to serialize with
+        # @return [void]
+        def self.register(key, klass)
+          @@serializers ||= {}
+          @@serializers[key] = klass
+        end
 
         # Define the common `.format` and `.url` class methods, as well as
         # the `#initialize` class method.

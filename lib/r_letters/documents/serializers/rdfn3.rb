@@ -6,7 +6,7 @@ module RLetters
     module Serializers
       # Convert a document to an RDF/N3 record
       class RDFN3 < RDF
-        define_single('RDF/N3',
+        define_single(:n3, 'RDF/N3',
                       'http://www.w3.org/DesignIssues/Notation3.html') do |doc|
           ::RDF::Writer.for(:n3).buffer do |writer|
             if doc.is_a? Enumerable

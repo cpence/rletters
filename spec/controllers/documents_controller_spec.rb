@@ -10,7 +10,7 @@ RSpec.describe DocumentsController, type: :controller do
     end
 
     context 'when exporting in other formats' do
-      RLetters::Documents::Serializers::MIME_TYPES.each do |k|
+      RLetters::Documents::Serializers::Base.available.each do |k|
         it "exports in #{k} format" do
           get :export, uid: generate(:working_uid), format: k.to_s
           expect(response).to be_valid_download(Mime::Type.lookup_by_extension(k).to_s)

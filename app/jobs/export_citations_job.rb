@@ -12,7 +12,7 @@ class ExportCitationsJob < BaseJob
   # @return [void]
   def perform(task, options)
     standard_options(task, options)
-    klass = RLetters::Documents::Serializers.for(options[:format])
+    klass = RLetters::Documents::Serializers::Base.for(options[:format])
 
     # Make a zip file for the output
     total = dataset.entries.size

@@ -16,8 +16,8 @@ class DocumentsController < ApplicationController
     @document = Document.find(params[:uid])
 
     respond_to do |format|
-      format.any(*RLetters::Documents::Serializers::MIME_TYPES) do
-        klass = RLetters::Documents::Serializers.for(request.format.to_sym)
+      format.any(*RLetters::Documents::Serializers::Base.available) do
+        klass = RLetters::Documents::Serializers::Base.for(request.format)
 
         headers['Cache-Control'] = 'no-cache, must-revalidate, post-check=0, pre-check=0'
         headers['Expires'] = '0'

@@ -24,7 +24,7 @@ RSpec.describe ExportCitationsJob, type: :job do
         described_class.new.perform(
           @task,
           format: 'notaformat')
-      }.to raise_error(ArgumentError)
+      }.to raise_error(KeyError)
     end
   end
 

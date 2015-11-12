@@ -5,7 +5,7 @@ module RLetters
     module Serializers
       # Convert a document to a MARC-XML record
       class MARCXML < MARCRecord
-        define_single('MARCXML',
+        define_single(:marcxml, 'MARCXML',
                       'http://www.loc.gov/standards/marcxml/') do |docs|
           if docs.is_a? Enumerable
             doc = Nokogiri::XML::Document.new

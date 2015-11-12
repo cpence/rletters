@@ -4,7 +4,7 @@ module RLetters
     module Serializers
       # Convert a document to a BibTeX record
       class BibTex < Base
-        define_array('BibTeX',
+        define_array(:bibtex, 'BibTeX',
                      'http://mirrors.ctan.org/biblio/bibtex/contrib/doc/btxdoc.pdf') do |doc|
           # We don't have a concept of cite keys, so we're forced to just use
           # AuthorYear and hope it doesn't collide

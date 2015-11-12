@@ -5,7 +5,8 @@ module RLetters
     module Serializers
       # Convert a document to a MODS XML document
       class MODS < Base
-        define_single('MODS', 'http://www.loc.gov/standards/mods/') do |docs|
+        define_single(:mods, 'MODS',
+                      'http://www.loc.gov/standards/mods/') do |docs|
           if docs.is_a? Enumerable
             doc = Nokogiri::XML::Document.new
             coll = Nokogiri::XML::Node.new('modsCollection', doc)
