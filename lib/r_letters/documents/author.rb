@@ -19,32 +19,38 @@ module RLetters
     # @!attribute [r] citeproc
     #    @return [Hash] the author, as a Citeproc-compatible hash
     class Author
-      attr_accessor :first, :last, :prefix, :suffix, :full
-      attr_reader :citeproc
+      include Virtus.model(strict: true, required: false, nullify_blank: true)
 
-      # Create an author from a string name
-      #
-      # This function will do its best to parse a wide variety of author name
-      # formats.
-      #
-      # @param [String] name the name of the author, in any format
-      def initialize(name)
-        self.full = name
+      attribute :full, String, required: true
 
-        bibtex_name = BibTeX::Names.parse(name)[0]
+      attribute :bibtex, BibTeX::Name, lazy: true, writer: :private,
+                default: lambda { |author, attribute|
+                           BibTeX::Names.parse(author.full)[0] ||
+                             Struct.new(first: nil, last: nil,
+                                        prefix: nil, suffix: nil,
+                                        to_citeproc: {})
+                         }
 
-        unless bibtex_name
-          self.first = self.last = self.prefix = self.suffix = nil
-          @citeproc = {}
-          return
-        end
-
-        self.first = bibtex_name.first
-        self.last = bibtex_name.last
-        self.prefix = bibtex_name.prefix
-        self.suffix = bibtex_name.suffix
-        @citeproc = bibtex_name.to_citeproc
-      end
+      attribute :first, String, lazy: true, writer: :private,
+                default: lambda { |author, attribute|
+                           author.bibtex.first
+                         }
+      attribute :last, String, lazy: true, writer: :private,
+                default: lambda { |author, attribute|
+                           author.bibtex.last
+                         }
+      attribute :prefix, String, lazy: true, writer: :private,
+                default: lambda { |author, attribute|
+                           author.bibtex.prefix
+                         }
+      attribute :suffix, String, lazy: true, writer: :private,
+                default: lambda { |author, attribute|
+                           author.bibtex.suffix
+                         }
+      attribute :citeproc, Hash, lazy: true, writer: :private,
+                default: lambda { |author, attribute|
+                           author.bibtex.to_citeproc
+                         }
 
       # @return [String] the full name, as passed to the constructor
       def to_s

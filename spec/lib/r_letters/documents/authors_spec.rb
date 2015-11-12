@@ -1,10 +1,10 @@
-require 'spec_helper'
+require 'rails_helper'
 
 RSpec.describe RLetters::Documents::Authors do
   describe '.from_list' do
     it 'calls the appropriate constructor' do
-      expect(RLetters::Documents::Author).to receive(:new).with('A One').and_call_original
-      expect(RLetters::Documents::Author).to receive(:new).with('B Two').and_call_original
+      expect(RLetters::Documents::Author).to receive(:new).with(full: 'A One').and_call_original
+      expect(RLetters::Documents::Author).to receive(:new).with(full: 'B Two').and_call_original
 
       described_class.from_list('A One, B Two')
     end

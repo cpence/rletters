@@ -87,7 +87,7 @@ module RLetters
       # @return [String] the Solr query for this list of authors
       def self.authors_query(value)
         authors = value.split(',').map do |a|
-          RLetters::Documents::Author.new(a.strip).to_lucene
+          RLetters::Documents::Author.new(full: a.strip).to_lucene
         end
         authors_str = authors.join(' AND ')
 

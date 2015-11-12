@@ -15,7 +15,7 @@ module RLetters
         names ||= ''
 
         array = names.strip.split(',').map do |a|
-          RLetters::Documents::Author.new(a.strip)
+          RLetters::Documents::Author.new(full: a.strip)
         end
 
         Authors.new(array)
