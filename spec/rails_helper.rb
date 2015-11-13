@@ -33,5 +33,6 @@ RSpec.configure do |config|
   config.include Devise::TestHelpers, type: :controller
   config.include ParseJson, type: :request
   config.include Features::DatasetHelpers, type: :feature
+  config.include Features::StubHelpers, type: :feature
   config.include Features::UserHelpers, type: :feature
 end

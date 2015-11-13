@@ -28,8 +28,11 @@ RSpec.feature 'User runs workflow on existing datasets', type: :feature do
 
   scenario 'when linking two datasets' do
     sign_in_with
-    create_dataset
-    create_dataset(name: 'Other Dataset')
+    create_dataset(q: 'green')
+    create_dataset(name: 'Other Dataset', q: 'blue')
+
+    # This analysis takes ~60sec, which is an intolerable test delay
+    stub_craig_zeta!
 
     visit root_path
     click_link 'Start a new analysis'
