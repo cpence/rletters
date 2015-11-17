@@ -72,7 +72,7 @@ RSpec.describe Admin::DashboardController, type: :controller do
         end
 
         it 'includes the Solr version' do
-          expect(response.body).to include('4.4.0')
+          expect(response.body).to include('4.5.0')
         end
 
         it 'includes the database size' do
