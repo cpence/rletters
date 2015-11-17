@@ -49,6 +49,9 @@
 # @!attribute [r] fulltext_url
 #   @return [URI] if present, the URL from which to fetch the full text.  May
 #     be `nil` if the text is stored locally
+# @!attribute [r] fulltext_requested
+#   @return [Boolean] if true, the search for this document attempted to set
+#     the fulltext
 #
 # @!attribute [r] term_vectors
 #   Term vectors for this document
@@ -102,7 +105,7 @@ class Document
 
   attr_accessor :uid, :doi, :license, :license_url, :data_source, :authors,
                 :title, :journal, :year, :volume, :number, :pages, :fulltext,
-                :fulltext_url, :term_vectors
+                :fulltext_url, :fulltext_requested, :term_vectors
 
   # The uid attribute is the only required one
   validates :uid, presence: true
@@ -178,6 +181,10 @@ class Document
   #
   # @return [String] the document full text
   def fulltext
+    # Don't try to download the fulltext if it wasn't requested by the
+    # search in the first place
+    return nil unless @fulltext_requested
+
     # If the full text is requested, fetch it if we have to
     if @fulltext.nil? && fulltext_url
       @fulltext = Net::HTTP.get(fulltext_url)

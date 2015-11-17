@@ -14,6 +14,7 @@ FactoryGirl.define do
       number nil
       pages nil
       fulltext nil
+      fulltext_requested nil
       term_vectors nil
     end
 
@@ -30,6 +31,7 @@ FactoryGirl.define do
       volume '1'
       number '1'
       pages '1'
+      fulltext_requested true
       fulltext <<-eos
         It was the best of times,
         it was the worst of times,
@@ -130,7 +132,8 @@ FactoryGirl.define do
                          license_url: license_url, authors: authors,
                          title: title, journal: journal, year: year,
                          volume: volume, number: number, pages: pages,
-                         fulltext: fulltext)
+                         fulltext: fulltext,
+                         fulltext_requested: fulltext_requested)
       doc.term_vectors = term_vectors && term_vectors.with_indifferent_access
       doc
     end

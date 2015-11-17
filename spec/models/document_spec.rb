@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 RSpec.describe Document, type: :model do
   it_should_behave_like 'ActiveModel'
