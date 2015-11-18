@@ -18,7 +18,7 @@ RSpec.describe RLetters::Datasets::Segments do
     end
 
     it 'puts all the words in the block' do
-      expect(@segments[0].words.size).to eq(4791)
+      expect(@segments[0].words.size).to eq(4803)
     end
 
     it 'names the block' do
@@ -92,7 +92,7 @@ RSpec.describe RLetters::Datasets::Segments do
     end
 
     it 'splits the words evenly' do
-      expect(@segments.map(&:words).map(&:size)).to match_array([959, 958, 958, 958, 958])
+      expect(@segments.map(&:words).map(&:size)).to match_array([961, 961, 961, 960, 960])
     end
 
     it 'names the blocks' do

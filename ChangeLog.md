@@ -1,7 +1,8 @@
 # RLetters ChangeLog
 
-## Version 2.0.2 (unreleased)
+## Version 2.1 (unreleased)
 
+*   **Upgrade to bundling a more recent version of Solr (4.10.4).** This is a **significant and breaking change** for users, who *must* upgrade their Solr installations, as we are using some of the new features in later Solr versions to provide (in some cases dramatic) speed improvements. Reindexing content is not required, but is recommended when feasible.
 *   Add support for PDF word cloud generation to the word frequency and Craig Zeta analysis jobs.
 *   Allow all analysis tasks to potentially generate multiple output files, enabling enhanced visualizations.
 *   Upgrade the settings handling to move application settings into the environment.

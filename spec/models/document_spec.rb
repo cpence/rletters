@@ -258,15 +258,15 @@ RSpec.describe Document, type: :model do
       end
 
       it 'sets the uid' do
-        expect(@docs[0].uid).to eq('doi:10.1371/journal.pntd.0000503')
+        expect(@docs[0].uid).to eq('doi:10.5678/dickens')
       end
 
       it 'sets the doi' do
-        expect(@docs[3].doi).to eq('10.1371/journal.pntd.0000506')
+        expect(@docs[3].doi).to eq('10.1371/journal.pntd.0000002')
       end
 
       it 'sets the license' do
-        expect(@docs[0].license).to eq('Creative Commons Attribution (CC BY)')
+        expect(@docs[0].license).to eq('Public domain')
       end
 
       it 'sets the license URL' do
@@ -274,35 +274,29 @@ RSpec.describe Document, type: :model do
       end
 
       it 'sets the authors' do
-        authors = [
-          'Ana Thereza Chaves', 'Andrea Teixeira-Carvalho',
-          'Fernanda Fortes de Araújo', 'Guilherme Grossi Lopes Cançado',
-          'Jacqueline Araújo Fiuza', 'Juliana Assis Silva Gomes',
-          'Manoel Otávio das Costa Rocha', 'Olindo de Assis Martins-Filho',
-          'Rafaelle Christine Gomes Fares', 'Ricardo Toshio Fujiwara',
-          'Rodrigo Correa-Oliveira'
-        ]
+        authors = ['Dominique Legros', 'Florence Thomas', 'Francesco Checchi',
+                   'Gerardo Priotto', 'Harriet Ayikoru', 'Patrice Piola']
         expect(@docs[9].authors.map(&:full)).to match_array(authors)
       end
 
       it 'sets the title' do
-        expect(@docs[2].title).to eq('A Schistosome cAMP-Dependent Protein Kinase Catalytic Subunit Is Essential for Parasite Viability')
+        expect(@docs[2].title).to eq('Perturbation of the Dimer Interface of Triosephosphate Isomerase and its Effect on Trypanosoma cruzi')
       end
 
       it 'sets the journal' do
-        expect(@docs[0].journal).to eq('PLoS Neglected Tropical Diseases')
+        expect(@docs[0].journal).to eq('Actually a Novel')
       end
 
       it 'sets the year' do
-        expect(@docs[5].year).to eq('2009')
+        expect(@docs[5].year).to eq('2007')
       end
 
       it 'sets the volume' do
-        expect(@docs[7].volume).to eq('3')
+        expect(@docs[7].volume).to eq('1')
       end
 
       it 'sets the pages' do
-        expect(@docs[8].pages).to eq('e511')
+        expect(@docs[8].pages).to eq('e56')
       end
 
       it 'does not set the fulltext' do
