@@ -28,12 +28,12 @@ FactoryGirl.define do
     factory :full_dataset do
       transient do
         working false
-        entries_count 5
+        num_docs 5
       end
 
       after(:create) do |dataset, evaluator|
-        if evaluator.entries_count > 0
-          uids = (1..evaluator.entries_count).to_a.map { |n| "\"#{FactoryGirl.generate(:working_uid)}\"" }
+        if evaluator.num_docs > 0
+          uids = (1..evaluator.num_docs).to_a.map { |n| "\"#{FactoryGirl.generate(:working_uid)}\"" }
           query = "uid:(#{uids.join(' OR ')})"
 
           FactoryGirl.create(:query, dataset: dataset, q: query)

@@ -52,7 +52,7 @@ RSpec.describe RLetters::Analysis::CountTermsByField do
     context 'with a dataset' do
       before(:example) do
         @user = create(:user)
-        @dataset = create(:full_dataset, entries_count: 2, working: true,
+        @dataset = create(:full_dataset, num_docs: 2, working: true,
                                          user: @user)
 
         @called_sub_100 = false

@@ -99,8 +99,7 @@ RSpec.describe ArticleDatesJob, type: :job do
 
   context 'when normalizing to a dataset' do
     before(:example) do
-      @normalization_set = create(:full_dataset, working: true,
-                                                 entries_count: 10,
+      @normalization_set = create(:full_dataset, working: true, num_docs: 10,
                                                  user: @user)
 
       described_class.new.perform(
@@ -144,7 +143,7 @@ RSpec.describe ArticleDatesJob, type: :job do
   # the dataset of interest isn't a subset
   context 'when normalizing incorrectly' do
     before(:example) do
-      @normalization_set = create(:full_dataset, entries_count: 0, user: @user)
+      @normalization_set = create(:full_dataset, num_docs: 0, user: @user)
       create(:query, dataset: @normalization_set, q: "uid:\"gutenberg:3172\"")
       @normalization_set.save
 

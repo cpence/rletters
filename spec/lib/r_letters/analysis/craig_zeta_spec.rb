@@ -5,9 +5,9 @@ RSpec.describe RLetters::Analysis::CraigZeta do
     @user = create(:user)
     # N.B.: If you do 10-doc datasets here, all the words are in common, and
     # there's no zeta scores.
-    @dataset_1 = create(:full_dataset, entries_count: 2, working: true,
+    @dataset_1 = create(:full_dataset, num_docs: 2, working: true,
                                        user: @user, name: 'First Dataset')
-    @dataset_2 = create(:full_dataset, entries_count: 2, working: true,
+    @dataset_2 = create(:full_dataset, num_docs: 2, working: true,
                                        user: @user, name: 'Second Dataset')
 
     @called_sub_100 = false

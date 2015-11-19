@@ -28,7 +28,7 @@ RSpec.describe Admin::DatasetsController, type: :controller do
       expect(response.body).to include(@dataset.user.name)
     end
 
-    it 'includes the number of entries' do
+    it 'includes the number of documents' do
       expect(response.body).to include(@dataset.document_count.to_s)
     end
   end

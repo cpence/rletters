@@ -59,7 +59,7 @@ RSpec.describe Dataset, type: :model do
     context 'when creating a new dataset' do
       before(:example) do
         @user = create(:user)
-        @dataset = create(:full_dataset, user: @user, entries_count: 2)
+        @dataset = create(:full_dataset, user: @user, num_docs: 2)
       end
 
       it 'is connected to the user' do

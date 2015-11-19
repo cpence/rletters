@@ -3,8 +3,7 @@ require 'rails_helper'
 RSpec.describe RLetters::Analysis::Frequency::FromTF do
   before(:example) do
     @user = create(:user)
-    @dataset = create(:full_dataset, entries_count: 10, working: true,
-                                     user: @user)
+    @dataset = create(:full_dataset, num_docs: 10, working: true, user: @user)
   end
 
   context 'with the basic analyzer' do
@@ -102,7 +101,7 @@ RSpec.describe RLetters::Analysis::Frequency::FromTF do
       expect(@analyzer.num_dataset_tokens).to be
     end
 
-    it 'returns as many blocks as entries in the dataset' do
+    it 'returns as many blocks as documents in the dataset' do
       expect(@analyzer.blocks.size).to eq(@dataset.document_count)
     end
 

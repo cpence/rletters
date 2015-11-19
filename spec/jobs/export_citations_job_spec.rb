@@ -3,8 +3,7 @@ require 'rails_helper'
 RSpec.describe ExportCitationsJob, type: :job do
   before(:example) do
     @user = create(:user)
-    @dataset = create(:full_dataset, entries_count: 10, working: true,
-                                     user: @user)
+    @dataset = create(:full_dataset, num_docs: 10, working: true, user: @user)
     @task = create(:task, dataset: @dataset)
   end
 

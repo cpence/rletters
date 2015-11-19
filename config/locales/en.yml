@@ -191,9 +191,9 @@ en:
                         blank: Style was not specified (internal error)
                 'users/library':
                     name:
-                        blank: You must specify a name for this library entry
+                        blank: You must specify a name for this library record
                     url:
-                        blank: You must specify a URL for this library entry
+                        blank: You must specify a URL for this library record
                         invalid: Library base URL must be a URL
                     user_id:
                         blank: Library must be associated with user (internal error)
@@ -504,7 +504,7 @@ en:
         show:
             header: Information for dataset
             subheader: "Manage this dataset, including manually starting analyses and fetching the results of prior analyses."
-            num_entries: "Number of documents: %{count}"
+            num_documents: "Number of documents: %{count}"
             created_at: "Created at: %{date}"
             deleted: Cleared all failed analysis tasks.
             tasks: Tasks

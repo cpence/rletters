@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe RLetters::Analysis::Network::Graph do
   before(:example) do
     @user = create(:user)
-    @dataset = create(:full_dataset, entries_count: 0, user: @user)
+    @dataset = create(:full_dataset, num_docs: 0, user: @user)
     create(:query, dataset: @dataset, q: "uid:\"#{WORKING_UIDS[2]}\"")
     @stop_list = create(:stop_list)
   end

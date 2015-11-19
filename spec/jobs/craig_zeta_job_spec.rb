@@ -3,10 +3,8 @@ require 'rails_helper'
 RSpec.describe CraigZetaJob, type: :job do
   before(:example) do
     @user = create(:user)
-    @dataset = create(:full_dataset, working: true, user: @user,
-                                     entries_count: 2)
-    @dataset_2 = create(:full_dataset, working: true, user: @user,
-                                       entries_count: 2)
+    @dataset = create(:full_dataset, working: true, user: @user, num_docs: 2)
+    @dataset_2 = create(:full_dataset, working: true, user: @user, num_docs: 2)
     @task = create(:task, dataset: @dataset)
 
     # Don't run the analyses

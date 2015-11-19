@@ -4,7 +4,7 @@ RSpec.describe RLetters::Analysis::Frequency::Base do
   context 'when the quick-out is available' do
     before(:example) do
       @user = create(:user)
-      @dataset = create(:full_dataset, entries_count: 10, working: true,
+      @dataset = create(:full_dataset, num_docs: 10, working: true,
                                        user: @user)
 
       @analyzer = described_class.call(dataset: @dataset)
@@ -18,7 +18,7 @@ RSpec.describe RLetters::Analysis::Frequency::Base do
   context 'when the quick-out is not available' do
     before(:example) do
       @user = create(:user)
-      @dataset = create(:full_dataset, entries_count: 10, working: true,
+      @dataset = create(:full_dataset, num_docs: 10, working: true,
                                        user: @user)
 
       @analyzer = described_class.call(dataset: @dataset,

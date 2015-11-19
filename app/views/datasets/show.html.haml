@@ -14,7 +14,7 @@
 
 .row
   .col-sm-12
-    = t('.num_entries', count: dataset.document_count)
+    = t('.num_documents', count: dataset.document_count)
     |
     = t('.created_at', date: dataset.created_at.to_formatted_s(:long))
 

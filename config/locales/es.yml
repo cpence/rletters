@@ -588,7 +588,7 @@ es:
     show:
       header: Información para el conjunto de datos
       subheader: "Administrar este conjunto de datos, incluyendo el inicio manual de tareas de análisis y búsqueda de resultados de análisis previos."
-      num_entries: "Número de documentos: %{count}"
+      num_documents: "Número de documentos: %{count}"
       created_at: "Creado el: %{date}"
       deleted: Todas las tareas de análisis fallidas han sido eliminadas.
       tasks: Tareas de análisis

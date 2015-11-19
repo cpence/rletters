@@ -45,7 +45,7 @@ RSpec.describe RLetters::Analysis::CountArticlesByField do
     context 'with a dataset' do
       before(:example) do
         @user = create(:user)
-        @dataset = create(:full_dataset, entries_count: 10, working: true,
+        @dataset = create(:full_dataset, num_docs: 10, working: true,
                                          user: @user)
 
         @called_sub_100 = false
@@ -90,7 +90,7 @@ RSpec.describe RLetters::Analysis::CountArticlesByField do
     context 'when normalizing to a dataset' do
       before(:example) do
         @user = create(:user)
-        @dataset = create(:full_dataset, entries_count: 10, working: true,
+        @dataset = create(:full_dataset, num_docs: 10, working: true,
                                          user: @user)
 
         @called_sub_100 = false
@@ -131,7 +131,7 @@ RSpec.describe RLetters::Analysis::CountArticlesByField do
     context 'when normalizing to the corpus' do
       before(:example) do
         @user = create(:user)
-        @dataset = create(:full_dataset, entries_count: 10, working: true,
+        @dataset = create(:full_dataset, num_docs: 10, working: true,
                                          user: @user)
 
         @called_sub_100 = false
@@ -175,7 +175,7 @@ RSpec.describe RLetters::Analysis::CountArticlesByField do
     context 'with a non-numeric field' do
       before(:example) do
         @user = create(:user)
-        @dataset = create(:full_dataset, entries_count: 10, working: true,
+        @dataset = create(:full_dataset, num_docs: 10, working: true,
                                          user: @user)
 
         @result = described_class.call(

@@ -1,6 +1,6 @@
 
 module Users
-  # Work with the library entries belonging to a given user
+  # Work with the library records belonging to a given user
   #
   # This controller is responsible for the handling of the library OpenURL
   # resolvers that users are allowed to link to their accounts.

@@ -3,8 +3,7 @@ require 'rails_helper'
 RSpec.describe CollocationJob, type: :job do
   before(:example) do
     @user = create(:user)
-    @dataset = create(:full_dataset, working: true, entries_count: 2,
-                                     user: @user)
+    @dataset = create(:full_dataset, working: true, num_docs: 2, user: @user)
     @task = create(:task, dataset: @dataset)
 
     @old_path = ENV['NLP_TOOL_PATH']

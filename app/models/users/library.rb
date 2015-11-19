@@ -12,7 +12,7 @@ module Users
   #   @return [String] The base URL for its OpenURL resolver
   # @!attribute user
   #   @raise [RecordInvalid] if the user is missing (validates :presence)
-  #   @return [User] The user this library entry belongs to
+  #   @return [User] The user this library record belongs to
   class Library < ActiveRecord::Base
     self.table_name = 'users_libraries'
     belongs_to :user

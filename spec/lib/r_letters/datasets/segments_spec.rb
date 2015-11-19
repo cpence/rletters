@@ -3,8 +3,7 @@ require 'rails_helper'
 RSpec.describe RLetters::Datasets::Segments do
   before(:example) do
     @user = create(:user)
-    @dataset = create(:full_dataset, entries_count: 10, working: true,
-                                     user: @user)
+    @dataset = create(:full_dataset, num_docs: 10, working: true, user: @user)
   end
 
   context 'one block for the dataset, splitting across' do
