@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe TaskDecorator, type: :decorator do
   context 'with JSON available' do
-    before(:each) do
+    before(:example) do
       @task = create(:task, job_type: 'ExportCitationsJob')
       @task.files.create!(description: 'test',
                           short_description: 'test') do |f|
@@ -39,7 +39,7 @@ RSpec.describe TaskDecorator, type: :decorator do
   end
 
   context 'with no JSON available' do
-    before(:each) do
+    before(:example) do
       @task = create(:task, job_type: 'ExportCitationsJob')
       @decorated = described_class.decorate(@task)
     end

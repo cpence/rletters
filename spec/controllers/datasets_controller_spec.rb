@@ -79,7 +79,7 @@ RSpec.describe DatasetsController, type: :controller do
     end
 
     context 'with an active workflow' do
-      before(:each) do
+      before(:context) do
         @user.workflow_active = true
         @user.workflow_class = 'ArticleDates'
         @user.save

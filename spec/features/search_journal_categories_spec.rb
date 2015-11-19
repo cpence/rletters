@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.feature 'Searching with journal categories', type: :feature do
-  before(:each) do
+  before(:example) do
     root = Documents::Category.create(
       name: 'Root',
       journals: ['PLoS Neglected Tropical Diseases', 'Gutenberg'])
