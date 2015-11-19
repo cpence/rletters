@@ -40,13 +40,14 @@ module RLetters
         dataset.queries.each do |query|
           query_size = query.size
           fetched = 0
+          cursor_mark = '*'
 
           while fetched < query_size
             to_fetch = [query_size - fetched, batch_size].min
 
-            # FIXME CURSOR support goes here
             search_result = query.search(
-              start: fetched,
+              cursor_mark: cursor_mark,
+              sort: 'uid asc',
               rows: to_fetch,
               facet: false,
               fl: if fl
@@ -64,10 +65,15 @@ module RLetters
             unless search_result.num_hits == to_fetch
               fail RuntimeError, "Failed to get batch of results in DocumentEnumerator (wanted #{to_fetch} hits, got #{search_result.num_hits})"
             end
+
+            if cursor_mark == search_result.solr_response['nextCursorMark']
+              fail RuntimeError, "Expected more hits, but received the same cursor in response"
+            end
             # :nocov:
 
             search_result.documents.each { |doc| yield(doc) }
 
+            cursor_mark = search_result.solr_response['nextCursorMark']
             fetched += to_fetch
           end
         end
@@ -82,9 +88,9 @@ module RLetters
       # @return [Integer] batch size for database queries
       def batch_size
         @batch_size ||= if term_vectors || fulltext
-                          # We've been hitting trouble here with timeouts on
-                          # these larger fetches; try throttling
-                          # FIXME CURSOR may fix this?
+                          # These larger searches that include term vectors
+                          # and full text just take longer to transmit down
+                          # the wire, and have caused Solr timeouts.
                           50
                         else
                           1000
