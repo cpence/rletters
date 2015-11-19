@@ -79,7 +79,7 @@ RSpec.describe DatasetsController, type: :controller do
     end
 
     context 'with an active workflow' do
-      before(:context) do
+      before(:example) do
         @user.workflow_active = true
         @user.workflow_class = 'ArticleDates'
         @user.save
@@ -89,7 +89,12 @@ RSpec.describe DatasetsController, type: :controller do
         @user.reload.datasets.reload
       end
 
-      it 'redirects to the workflow activation when workflow is active' do
+      after(:example) do
+        @user.workflow_datasets = []
+        @user.save
+      end
+
+      it 'links it and redirects to the workflow activation when workflow is active' do
         expect(response).to redirect_to(workflow_activate_path('ArticleDates'))
         expect(flash[:success]).to be
       end
