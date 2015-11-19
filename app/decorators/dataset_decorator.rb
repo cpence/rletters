@@ -6,6 +6,7 @@ class DatasetDecorator < Draper::Decorator
   decorates Dataset
   delegate_all
 
+  decorates_association :queries, with: QueryDecorator
   decorates_association :tasks, with: TaskDecorator
 
   # It's a pain that we have to pass all of these scoped objects through here,

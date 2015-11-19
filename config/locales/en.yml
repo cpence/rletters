@@ -508,6 +508,9 @@ en:
             created_at: "Created at: %{date}"
             deleted: Cleared all failed analysis tasks.
             tasks: Tasks
+            queries: Searches saved to create this dataset
+            normal_search: Normal search
+            advanced_search: Advanced search
         tasks:
             index:
                 pending:

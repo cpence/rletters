@@ -22,6 +22,32 @@
   .col-sm-12
     %hr
 
+    %h4= t('.queries')
+
+    - dataset.queries.each do |q|
+      %table.table
+        %tbody
+          %tr
+            %td
+              %dl.dl-horizontal
+                %dt= Datasets::Query.human_attribute_name(:def_type)
+                %dd= q.def_type
+
+                - if q.q && q.q != '*:*'
+                  %dt= Datasets::Query.human_attribute_name(:q)
+                  %dd= q.q
+
+                - if q.fq
+                  %dt= Datasets::Query.human_attribute_name(:fq)
+                  %dd
+                    %ul
+                      - q.fq.each do |fq|
+                        %li= fq
+
+.row
+  .col-sm-12
+    %hr
+
     %h4= t('.tasks')
 
     #dataset-task-list{ data: { fetch_url: dataset_tasks_path(dataset) } }

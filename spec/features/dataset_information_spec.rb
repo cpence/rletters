@@ -10,6 +10,8 @@ RSpec.feature 'Viewing information about a dataset', type: :feature do
     click_link 'Manage'
 
     expect(page).to have_content('Number of documents: 427')
+    expect(page).to have_content('Search type Normal search')
+    expect(page).to have_content('Search query test')
 
     expect(page).to have_selector('div#dataset-task-list')
     expect(page).to have_selector('div#dataset-task-list table.button-table')
