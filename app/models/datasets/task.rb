@@ -64,8 +64,7 @@ module Datasets
     #
     # This array includes both base classes and jobs that are started by the UI
     # or in maintenance queues.
-    DISALLOWED_CLASSES = [BaseJob, CreateDatasetJob, DestroyDatasetJob,
-                          ExpireTasksJob]
+    DISALLOWED_CLASSES = [BaseJob, ExpireTasksJob]
 
     # Convert class_name to a class object
     #

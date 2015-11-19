@@ -9,9 +9,7 @@ ActiveAdmin.register Dataset do
     column :name
     column :user
     column :disabled
-    column :entries do |dataset|
-      dataset.entries.size
-    end
+    column :document_count
     column :tasks do |dataset|
       dataset.tasks.size
     end

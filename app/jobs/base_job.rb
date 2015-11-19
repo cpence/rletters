@@ -188,7 +188,7 @@ class BaseJob < ActiveJob::Base
 
       if other_datasets
         other_datasets = [other_datasets] unless other_datasets.is_a?(Array)
-        other_datasets.map! { |id| user.datasets.active.find(id) }
+        other_datasets.map! { |id| user.datasets.find(id) }
 
         @datasets = [dataset] + other_datasets
       end

@@ -42,7 +42,7 @@ module RLetters
             self.num_pairs = nil
           end
 
-          total = dataset.entries.size
+          total = dataset.document_count
 
           # We actually aren't going to use Analysis::WordFrequency here; the
           # NLP POS tagger requires us to send it full sentences for maximum

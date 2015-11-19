@@ -103,7 +103,7 @@ RSpec.describe RLetters::Analysis::Frequency::FromTF do
     end
 
     it 'returns as many blocks as entries in the dataset' do
-      expect(@analyzer.blocks.size).to eq(@dataset.entries.size)
+      expect(@analyzer.blocks.size).to eq(@dataset.document_count)
     end
 
     it 'includes all words' do

@@ -3,8 +3,7 @@ module RLetters
   module Datasets
     # An enumerator for documents in a dataset
     #
-    # This enumerator is clever enough to do its SQL finds in batches and similar
-    # kinds of tricks.  It returns document objects taken from the dataset.
+    # This enumerator returns document objects taken from the dataset.
     #
     # @!attribute dataset
     #   @return [Dataset] The dataset to enumerate
@@ -28,7 +27,7 @@ module RLetters
       #
       # @return [Integer] size of the dataset
       def size
-        @dataset.entries.size
+        @dataset.document_count
       end
 
       # Iterate over the documents in the dataset
@@ -38,16 +37,39 @@ module RLetters
       def each
         return to_enum(:each) unless block_given?
 
-        dataset.entries.find_in_batches(batch_size: batch_size) do |group|
-          search_result = RLetters::Solr::Connection.search(search_query_for(group))
+        dataset.queries.each do |query|
+          query_size = query.size
+          fetched = 0
 
-          # :nocov:
-          unless search_result.num_hits == group.size
-            fail RuntimeError, "Failed to get batch of results in DocumentEnumerator (wanted #{group.size} hits, got #{search_result.num_hits})"
+          while fetched < query_size
+            to_fetch = [query_size - fetched, batch_size].min
+
+            # FIXME CURSOR support goes here
+            search_result = query.search(
+              start: fetched,
+              rows: to_fetch,
+              facet: false,
+              fl: if fl
+                    fl
+                  else
+                    if fulltext
+                      RLetters::Solr::Connection::DEFAULT_FIELDS_FULLTEXT
+                    else
+                      RLetters::Solr::Connection::DEFAULT_FIELDS
+                    end
+                  end,
+              tv: term_vectors)
+
+            # :nocov:
+            unless search_result.num_hits == to_fetch
+              fail RuntimeError, "Failed to get batch of results in DocumentEnumerator (wanted #{to_fetch} hits, got #{search_result.num_hits})"
+            end
+            # :nocov:
+
+            search_result.documents.each { |doc| yield(doc) }
+
+            fetched += to_fetch
           end
-          # :nocov:
-
-          search_result.documents.each { |doc| yield(doc) }
         end
       end
 
@@ -62,31 +84,11 @@ module RLetters
         @batch_size ||= if term_vectors || fulltext
                           # We've been hitting trouble here with timeouts on
                           # these larger fetches; try throttling
+                          # FIXME CURSOR may fix this?
                           50
                         else
                           1000
                         end
-      end
-
-      # Generate a Solr query for looking up this group
-      #
-      # @param [Array<Datasets::Entry>] group group of results to query
-      # @return [Hash] Solr query parameters
-      def search_query_for(group)
-        { q: "uid:(#{group.map { |e| "\"#{e.uid}\"" }.join(' OR ')})",
-          def_type: 'lucene',
-          facet: false,
-          fl: if fl
-                fl
-              else
-                if fulltext
-                  RLetters::Solr::Connection::DEFAULT_FIELDS_FULLTEXT
-                else
-                  RLetters::Solr::Connection::DEFAULT_FIELDS
-                end
-              end,
-          tv: term_vectors,
-          rows: group.size }
       end
     end
   end

@@ -46,7 +46,7 @@ module RLetters
       # @return [Hash<String, Array<String>>] list of UIDs for each group
       def grouped_uids_dataset
         ret = {}
-        total = dataset.entries.size
+        total = dataset.document_count
 
         enum = RLetters::Datasets::DocumentEnumerator.new(dataset: dataset)
         enum.each_with_index do |doc, i|

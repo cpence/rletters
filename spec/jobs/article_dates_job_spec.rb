@@ -18,7 +18,7 @@ RSpec.describe ArticleDatesJob, type: :job do
   context 'when not normalizing' do
     before(:example) do
       @dataset_2 = create(:full_dataset, working: true, user: @user)
-      @dataset_2.entries += [create(:entry, dataset: @dataset_2, uid: 'gutenberg:3172')]
+      create(:query, dataset: @dataset_2, q: "uid:\"gutenberg:3172\"")
       @task_2 = create(:task, dataset: @dataset_2)
 
       described_class.new.perform(
@@ -145,9 +145,7 @@ RSpec.describe ArticleDatesJob, type: :job do
   context 'when normalizing incorrectly' do
     before(:example) do
       @normalization_set = create(:full_dataset, entries_count: 0, user: @user)
-      @normalization_set.entries = [
-        create(:entry, dataset: @normalization_set, uid: 'gutenberg:3172')
-      ]
+      create(:query, dataset: @normalization_set, q: "uid:\"gutenberg:3172\"")
       @normalization_set.save
 
       described_class.new.perform(

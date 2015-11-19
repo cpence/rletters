@@ -75,12 +75,12 @@ en:
             dataset:
                 one: Dataset
                 other: Datasets
+            'datasets/query':
+                one: Dataset Query
+                other: Dataset Queries
             'datasets/task':
                 one: Task
                 other: Tasks
-            'datasets/entry':
-                one: Dataset Entry
-                other: Dataset Entries
             'documents/category':
                 one: Category
                 other: Categories
@@ -113,12 +113,14 @@ en:
                 file: Attachment
             dataset:
                 name: Name
+            'datasets/query':
+                q: Search query
+                fq: Filter parameters
+                def_type: Search type
             'datasets/task':
                 name: Name
                 created_at: Creation time
                 finished_at: Completion time
-            'datasets/entry':
-                uid: Unique identifier
             'documents/category':
                 name: Name
                 journals: List of Journals
@@ -154,14 +156,14 @@ en:
                         blank: You must specify a name for this dataset
                     user_id:
                         blank: Dataset must have a user ID specified (internal error)
+                'datasets/query':
+                    def_type:
+                        blank: Search type was not specified (internal error)
                 'datasets/task':
                     name:
                         blank: You must specify a name for this task (internal error)
                     dataset:
                         blank: Task not connected to dataset (internal error)
-                'datasets/entry':
-                    uid:
-                        blank: Unique ID was not specified (internal error)
                 'documents/category':
                     name:
                         blank: You must specify a name for this category
@@ -497,8 +499,8 @@ en:
             header:  Create a new dataset
             subheader: "Give these search results a name, and they will be preserved as a new dataset."
         create:
-            building: "Now building dataset, please wait..."
-            building_workflow: "Building dataset, will link when completed"
+            success: "Dataset built."
+            workflow: "Dataset built and linked to analysis."
         show:
             header: Information for dataset
             subheader: "Manage this dataset, including manually starting analyses and fetching the results of prior analyses."

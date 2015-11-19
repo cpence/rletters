@@ -3,6 +3,7 @@
 ## Version 2.1 (unreleased)
 
 *   **Upgrade to bundling a more recent version of Solr (4.10.4).** This is a **significant and breaking change** for users, who *must* upgrade their Solr installations, as we are using some of the new features in later Solr versions to provide (in some cases dramatic) speed improvements. Reindexing content is not required, but is recommended when feasible.
+*   Datasets are now stored not as a list of entries, but as a list of the searches that were used to create them.
 *   Add support for PDF word cloud generation to the word frequency and Craig Zeta analysis jobs.
 *   Allow all analysis tasks to potentially generate multiple output files, enabling enhanced visualizations.
 *   Upgrade the settings handling to move application settings into the environment.

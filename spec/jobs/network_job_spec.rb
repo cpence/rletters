@@ -4,8 +4,7 @@ RSpec.describe NetworkJob, type: :job do
   before(:example) do
     @user = create(:user)
     @dataset = create(:full_dataset, user: @user, entries_count: 0)
-    @dataset.entries += [create(:entry, dataset: @dataset,
-                                        uid: WORKING_UIDS[2])]
+    create(:query, dataset: @dataset, q: "uid:\"#{WORKING_UIDS[2]}\"")
     @task = create(:task, dataset: @dataset)
 
     # The network code loads the English stop list

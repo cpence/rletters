@@ -119,7 +119,7 @@ module Datasets
     #
     # @return [void]
     def set_task
-      @dataset = current_user.datasets.active.find(params[:dataset_id])
+      @dataset = current_user.datasets.find(params[:dataset_id])
       @task = @dataset.tasks.find(params[:id]) if params[:id].present?
 
       if params[:class].present?

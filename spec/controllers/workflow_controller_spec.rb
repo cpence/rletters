@@ -62,8 +62,6 @@ RSpec.describe WorkflowController, type: :controller do
 
       @dataset = create(:dataset, name: 'Test Dataset', working: true,
                                   user: @user)
-      @disabled = create(:dataset, name: 'Disabled Dataset', disabled: true,
-                                   user: @user)
     end
 
     describe '#info' do
@@ -197,8 +195,6 @@ RSpec.describe WorkflowController, type: :controller do
       sign_in @user
 
       @dataset = create(:dataset, user: @user, name: 'Enabled')
-      @disabled = create(:dataset, user: @user, name: 'Disabled',
-                                   disabled: true)
       @other_dataset = create(:dataset, user: @user2, name: 'OtherUser')
 
       @finished_task = make_task(@dataset, DateTime.now)
@@ -206,7 +202,6 @@ RSpec.describe WorkflowController, type: :controller do
       @working_task = make_task(@dataset, nil, progress: 0.3)
       @failed_task = make_task(@dataset, nil, failed: true)
 
-      @disabled_task = make_task(@disabled, DateTime.now)
       @other_task = make_task(@other_dataset, DateTime.now)
 
       get :fetch
@@ -235,7 +230,6 @@ RSpec.describe WorkflowController, type: :controller do
 
       it 'leaves everything else alone' do
         expect(Datasets::Task.exists?(@finished_task.id)).to be true
-        expect(Datasets::Task.exists?(@disabled_task.id)).to be true
         expect(Datasets::Task.exists?(@other_task.id)).to be true
       end
 

@@ -75,7 +75,7 @@
           %h4.modal-title= t('.link_header')
           %h6.text-muted= t('.link_subheader')
 
-        - if current_user.datasets.active.empty?
+        - if current_user.datasets.empty?
           .modal-body
             %p= t('.link_no_datasets')
         - else
@@ -84,7 +84,7 @@
               .row
                 .col-sm-6
                   = label_tag :link_dataset_id, Dataset.model_name.human
-                  = select_tag :link_dataset_id, options_from_collection_for_select(current_user.datasets.active, 'to_param', 'name'), class: 'form-control'
+                  = select_tag :link_dataset_id, options_from_collection_for_select(current_user.datasets, 'to_param', 'name'), class: 'form-control'
 
             .modal-footer
               = submit_tag t('.link_submit'), class: 'btn btn-success'

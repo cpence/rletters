@@ -24,7 +24,6 @@ FactoryGirl.define do
 
     name 'Dataset'
     user
-    disabled false
 
     factory :full_dataset do
       transient do
@@ -33,27 +32,35 @@ FactoryGirl.define do
       end
 
       after(:create) do |dataset, evaluator|
-        dataset.entries = FactoryGirl.create_list(:entry,
-                                                  evaluator.entries_count,
-                                                  dataset: dataset,
-                                                  working: evaluator.working)
+        if evaluator.entries_count > 0
+          uids = (1..evaluator.entries_count).to_a.map { |n| "\"#{FactoryGirl.generate(:working_uid)}\"" }
+          query = "uid:(#{uids.join(' OR ')})"
+
+          FactoryGirl.create(:query, dataset: dataset, q: query)
+        end
       end
     end
   end
 
-  factory :entry, class: Datasets::Entry do
+  factory :query, class: Datasets::Query do
     transient do
       working false
     end
 
-    sequence(:uid) do |n|
+    sequence(:q) do |n|
       if working
-        FactoryGirl.generate(:working_uid)
+        "uid:\"#{FactoryGirl.generate(:working_uid)}\""
       else
-        "doi:10.1234/this.is.a.doi.#{n}"
+        "title:test"
       end
     end
 
     dataset
+    fq nil
+    def_type 'lucene'
+
+    after(:create) do |query, evaluator|
+      query.update_size_cache
+    end
   end
 end

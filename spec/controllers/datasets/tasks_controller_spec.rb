@@ -26,19 +26,6 @@ RSpec.describe Datasets::TasksController, type: :controller do
       end
     end
 
-    context 'with a disabled dataset' do
-      before(:example) do
-        @disabled = create(:dataset, user: @user, name: 'Disabled',
-                                     disabled: true)
-      end
-
-      it 'raises an exception' do
-        expect {
-          get :index, dataset_id: @disabled.to_param
-        }.to raise_error(ActiveRecord::RecordNotFound)
-      end
-    end
-
     context 'with an invalid dataset' do
       it 'raises an error' do
         expect {
@@ -62,19 +49,6 @@ RSpec.describe Datasets::TasksController, type: :controller do
         expect {
           get :new, dataset_id: @dataset.to_param, class: 'Base'
         }.to raise_error(ArgumentError)
-      end
-    end
-
-    context 'with a disabled dataset' do
-      before(:example) do
-        @disabled = create(:dataset, user: @user, name: 'Disabled',
-                                     disabled: true)
-      end
-
-      it 'raises an exception' do
-        expect {
-          get :new, dataset_id: @disabled.to_param, class: 'ArticleDates'
-        }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
 
@@ -121,19 +95,6 @@ RSpec.describe Datasets::TasksController, type: :controller do
         expect {
           post :create, dataset_id: @dataset.to_param, class: 'Base'
         }.to raise_error(ArgumentError)
-      end
-    end
-
-    context 'with a disabled dataset' do
-      before(:example) do
-        @disabled = create(:dataset, user: @user, name: 'Disabled',
-                                     disabled: true)
-      end
-
-      it 'raises an exception' do
-        expect {
-          post :create, dataset_id: @disabled.to_param, class: 'ArticleDates'
-        }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
 
@@ -223,20 +184,6 @@ RSpec.describe Datasets::TasksController, type: :controller do
       end
     end
 
-    context 'with a disabled dataset' do
-      before(:example) do
-        @disabled = create(:dataset, user: @user, name: 'Disabled',
-                                     disabled: true)
-      end
-
-      it 'raises an exception' do
-        expect {
-          get :view, dataset_id: @disabled.to_param, id: @task.to_param,
-                     template: '_params'
-        }.to raise_error(ActiveRecord::RecordNotFound)
-      end
-    end
-
     it 'raises an exception for missing views' do
       expect {
         get :view, dataset_id: @dataset.to_param,
@@ -268,20 +215,6 @@ RSpec.describe Datasets::TasksController, type: :controller do
         expect {
           get :download, dataset_id: @dataset.to_param,
                          id: '12345678', file: '0'
-        }.to raise_error(ActiveRecord::RecordNotFound)
-      end
-    end
-
-    context 'with a disabled dataset' do
-      before(:example) do
-        @disabled = create(:dataset, user: @user, name: 'Disabled',
-                                     disabled: true)
-      end
-
-      it 'raises an exception' do
-        expect {
-          get :download, dataset_id: @disabled.to_param, id: @task.to_param,
-                         file: '0'
         }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
@@ -351,20 +284,6 @@ RSpec.describe Datasets::TasksController, type: :controller do
       it 'raises an exception' do
         expect {
           get :destroy, dataset_id: @dataset.to_param, id: '12345678'
-        }.to raise_error(ActiveRecord::RecordNotFound)
-      end
-    end
-
-    context 'with a disabled dataset' do
-      before(:example) do
-        @disabled = create(:dataset, user: @user, name: 'Disabled',
-                                     disabled: true)
-        @task = create(:task, dataset: @disabled, job_type: 'ExportCitationsJob')
-      end
-
-      it 'raises an exception' do
-        expect {
-          get :destroy, dataset_id: @disabled.to_param, id: @task.to_param
         }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end

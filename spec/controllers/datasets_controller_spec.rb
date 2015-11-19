@@ -39,12 +39,6 @@ RSpec.describe DatasetsController, type: :controller do
         xhr :get, :index
         expect(assigns(:datasets)).to eq([@dataset])
       end
-
-      it 'ignores disabled datasets' do
-        create(:dataset, user: @user, name: 'Disabled', disabled: true)
-        xhr :get, :index
-        expect(assigns(:datasets)).to eq([@dataset])
-      end
     end
   end
 
@@ -62,34 +56,22 @@ RSpec.describe DatasetsController, type: :controller do
 
   describe '#create' do
     context 'with no workflow active' do
-      it 'creates a delayed job' do
-        expect {
-          post :create, dataset: { name: 'Disabled Dataset' },
-                q: '*:*', fq: nil, def_type: 'lucene'
-        }.to enqueue_a(CreateDatasetJob)
-      end
-
-      it 'creates a skeleton dataset' do
-        post :create, dataset: { name: 'Disabled Dataset' },
+      it 'creates the dataset' do
+        post :create, dataset: { name: 'New Dataset' },
                       q: '*:*', fq: nil, def_type: 'lucene'
         @user.datasets.reload
 
         expect(@user.datasets.size).to eq(2)
-      end
 
-      it 'makes that dataset inactive' do
-        post :create, dataset: { name: 'Disabled Dataset' },
-                      q: '*:*', fq: nil, def_type: 'lucene'
-        @user.datasets.reload
-
-        expect(@user.datasets.active.size).to eq(1)
-
-        expect(@user.datasets.inactive.size).to eq(1)
-        expect(@user.datasets.inactive[0].name).to eq('Disabled Dataset')
+        d = @user.datasets.order('created_at').last
+        expect(d.name).to eq('New Dataset')
+        expect(d.queries.size).to eq(1)
+        expect(d.queries[0].q).to eq('*:*')
+        expect(d.queries[0].def_type).to eq('lucene')
       end
 
       it 'redirects to index when done' do
-        post :create, dataset: { name: 'Disabled Dataset' },
+        post :create, dataset: { name: 'New Dataset' },
                       q: '*:*', fq: nil, def_type: 'lucene'
 
         expect(response).to redirect_to(datasets_path)
@@ -97,17 +79,24 @@ RSpec.describe DatasetsController, type: :controller do
     end
 
     context 'with an active workflow' do
-      it 'redirects to the workflow activation when workflow is active' do
+      before(:each) do
         @user.workflow_active = true
         @user.workflow_class = 'ArticleDates'
         @user.save
 
-        post :create, dataset: { name: 'Disabled Dataset' },
+        post :create, dataset: { name: 'New Dataset' },
                       q: '*:*', fq: nil, def_type: 'lucene'
-        @user.datasets.reload
+        @user.reload.datasets.reload
+      end
 
+      it 'redirects to the workflow activation when workflow is active' do
         expect(response).to redirect_to(workflow_activate_path('ArticleDates'))
         expect(flash[:success]).to be
+      end
+
+      it 'links the dataset' do
+        expect(@user.workflow_datasets.count).to eq(1)
+        expect(@user.workflow_datasets[0]).to eq(@user.datasets.first.to_param)
       end
     end
   end
@@ -122,19 +111,6 @@ RSpec.describe DatasetsController, type: :controller do
       it 'assigns dataset' do
         get :show, id: @dataset.to_param
         expect(assigns(:dataset)).to eq(@dataset)
-      end
-    end
-
-    context 'with a disabled dataset' do
-      before(:example) do
-        @disabled = create(:dataset, user: @user, name: 'Disabled',
-                                     disabled: true)
-      end
-
-      it 'raises an exception' do
-        expect {
-          get :show, id: @disabled.to_param
-        }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
 
@@ -159,25 +135,16 @@ RSpec.describe DatasetsController, type: :controller do
   end
 
   describe '#destroy' do
-    it 'creates a delayed job' do
-      expect {
-        delete :destroy, id: @dataset.to_param
-      }.to enqueue_a(DestroyDatasetJob)
+    it 'destroys the dataset' do
+      delete :destroy, id: @dataset.to_param
+
+      @user.datasets.reload
+      expect(@user.datasets).to be_empty
     end
 
     it 'redirects to the index when done' do
       delete :destroy, id: @dataset.to_param
       expect(response).to redirect_to(datasets_path)
-    end
-
-    it 'disables the dataset' do
-      delete :destroy, id: @dataset.to_param
-      @user.datasets.reload
-      @dataset.reload
-
-      expect(@user.datasets.active).to be_empty
-      expect(@user.datasets.inactive.size).to eq(1)
-      expect(@dataset.disabled).to be true
     end
   end
 
@@ -190,24 +157,11 @@ RSpec.describe DatasetsController, type: :controller do
       end
     end
 
-    context 'with a disabled dataset' do
-      before(:example) do
-        @disabled = create(:dataset, user: @user, name: 'Disabled',
-                                     disabled: true)
-      end
-
-      it 'raises an exception' do
-        expect {
-          patch :update, id: @disabled.to_param, uid: generate(:working_uid)
-        }.to raise_error(ActiveRecord::RecordNotFound)
-      end
-    end
-
     context 'when all parameters are valid' do
       it 'adds to the dataset' do
         expect {
           patch :update, id: @dataset.to_param, uid: generate(:working_uid)
-        }.to change { @dataset.entries.count }.by(1)
+        }.to change { @dataset.reload.document_count }.by(1)
       end
 
       it 'redirects to the dataset page' do

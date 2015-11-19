@@ -49,7 +49,7 @@ module RLetters
       # @return [Hash<String, Integer>] number of documents in each group
       def group_dataset
         ret = {}
-        total = dataset.entries.size
+        total = dataset.document_count
 
         enum = RLetters::Datasets::DocumentEnumerator.new(dataset: dataset)
         enum.each_with_index do |doc, i|

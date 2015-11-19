@@ -17,7 +17,7 @@
         %tr
           %td.label-cell
             = dataset.name
-            %span.label.label-default= dataset.entries.size
+            %span.label.label-default= dataset.document_count
             - if dataset.fetch
               %span.icon.fi-upload-cloud.has-tip{ data: { tooltip: true }, title: t('.cloud_tooltip') }
           %td.button-cell

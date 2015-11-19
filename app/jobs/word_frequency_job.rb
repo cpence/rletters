@@ -36,7 +36,7 @@ class WordFrequencyJob < BaseJob
       end))
 
     corpus_size = RLetters::Solr::CorpusStats.new.size
-    dataset_size = dataset.entries.size
+    dataset_size = dataset.document_count
 
     # Create some CSV
     csv_string = csv_with_header(t('.csv_header', name: dataset.name)) do |csv|

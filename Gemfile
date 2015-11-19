@@ -11,7 +11,6 @@ gem 'lograge'
 # Database and related tools
 gem 'pg'
 gem 'que'
-gem 'activerecord-import', '>= 0.7.0'
 gem 'closure_tree'
 gem 'validate_url'
 gem 'virtus'

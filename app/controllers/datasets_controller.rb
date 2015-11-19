@@ -15,7 +15,7 @@ class DatasetsController < ApplicationController
   #
   # @return [void]
   def index
-    @datasets = current_user.datasets.active
+    @datasets = current_user.datasets
 
     # If this is an AJAX request, render the dataset table only
     if request.xhr?
@@ -33,7 +33,7 @@ class DatasetsController < ApplicationController
   #
   # @return [void]
   def show
-    @dataset = current_user.datasets.active.find(params[:id])
+    @dataset = current_user.datasets.find(params[:id])
 
     # Clear failed tasks if requested
     if params[:clear_failed] && @dataset.tasks.failed.size > 0
@@ -54,18 +54,19 @@ class DatasetsController < ApplicationController
   #
   # @return [void]
   def create
-    dataset = current_user.datasets.create(name: dataset_params[:name],
-                                           disabled: true)
-
-    CreateDatasetJob.perform_later(dataset, params[:q], params[:fq],
-                                   params[:def_type])
+    dataset = current_user.datasets.create(name: dataset_params[:name])
+    dataset.queries.create(q: params[:q], fq: params[:fq],
+                           def_type: params[:def_type])
 
     if current_user.workflow_active
+      current_user.workflow_datasets << dataset.to_param
+      current_user.save
+
       redirect_to workflow_activate_path(current_user.workflow_class),
-                  flash: { success: I18n.t('datasets.create.building_workflow') }
+                  flash: { success: I18n.t('datasets.create.workflow') }
     else
       redirect_to datasets_path,
-                  flash: { success: I18n.t('datasets.create.building') }
+                  flash: { success: I18n.t('datasets.create.success') }
     end
   end
 
@@ -74,10 +75,7 @@ class DatasetsController < ApplicationController
   # @return [void]
   def destroy
     @dataset = current_user.datasets.find(params[:id])
-    @dataset.disabled = true
-    @dataset.save
-
-    DestroyDatasetJob.perform_later(@dataset)
+    @dataset.destroy
 
     redirect_to datasets_path
   end
@@ -92,7 +90,7 @@ class DatasetsController < ApplicationController
   def update
     fail ActionController::ParameterMissing, :uid unless params[:uid]
 
-    @dataset = current_user.datasets.active.find(params[:id])
+    @dataset = current_user.datasets.find(params[:id])
     @document = Document.find(params[:uid])
 
     # Set the fetch flag if required
@@ -101,8 +99,7 @@ class DatasetsController < ApplicationController
       @dataset.save
     end
 
-    # No reason for this to be a delayed job, just do the create
-    @dataset.entries.create(uid: params[:uid])
+    @dataset.queries.create(q: "uid:\"#{params[:uid]}\"", def_type: 'lucene')
     redirect_to dataset_path(@dataset)
   end
 

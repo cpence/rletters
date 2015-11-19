@@ -80,18 +80,14 @@ module RLetters
       #
       # @return [Array<RLetters::Documents::Block>] the text segments
       def segments_across
-        base = 0
-        total = dataset.entries.size.to_f
-
+        total = dataset.document_count.to_f
         document_segmenter.reset!
-        dataset.entries.find_in_batches do |group|
-          group.each_with_index do |entry, i|
-            document_segmenter.add(entry.uid)
-            add_to_dfs(document_segmenter.words_for_last)
-            progress.call(((base + i).to_f / total * 100.0).to_i) if progress
-          end
 
-          base += group.size
+        enum = DocumentEnumerator.new(dataset: dataset, fl: 'uid')
+        enum.each_with_index do |doc, i|
+          document_segmenter.add(doc.uid)
+          add_to_dfs(document_segmenter.words_for_last)
+          progress.call((i.to_f / total * 100.0).to_i) if progress
         end
 
         # Update the corpus DFs from all these documents
@@ -106,28 +102,24 @@ module RLetters
       #
       # @return [Array<RLetters::Documents::Block>] the text segments
       def segments_within
-        base = 0
-        total = dataset.entries.size.to_f
+        total = dataset.document_count.to_f
 
         [].tap do |ret|
-          dataset.entries.find_in_batches do |group|
-            group.each_with_index do |entry, i|
-              document_segmenter.reset!
-              document_segmenter.add(entry.uid)
+          enum = DocumentEnumerator.new(dataset: dataset, fl: 'uid')
+          enum.each_with_index do |doc, i|
+            document_segmenter.reset!
+            document_segmenter.add(doc.uid)
 
-              # Update the two DF variables
-              add_to_dfs(document_segmenter.words_for_last)
-              corpus_dfs.merge!(document_segmenter.corpus_dfs)
+            # Update the two DF variables
+            add_to_dfs(document_segmenter.words_for_last)
+            corpus_dfs.merge!(document_segmenter.corpus_dfs)
 
-              document_segmenter.blocks.each do |b|
-                b.name += I18n.t('lib.frequency.block_doc_suffix', title: entry.uid)
-                ret << b
-              end
-
-              progress.call(((base + i).to_f / total * 100.0).to_i) if progress
+            document_segmenter.blocks.each do |b|
+              b.name += I18n.t('lib.frequency.block_doc_suffix', title: doc.uid)
+              ret << b
             end
 
-            base += group.size
+            progress.call((i.to_f / total * 100.0).to_i) if progress
           end
 
           progress.call(100) if progress

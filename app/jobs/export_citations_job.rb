@@ -15,7 +15,7 @@ class ExportCitationsJob < BaseJob
     klass = RLetters::Documents::Serializers::Base.for(options[:format])
 
     # Make a zip file for the output
-    total = dataset.entries.size
+    total = dataset.document_count
 
     ios = ::Zip::OutputStream.write_buffer(StringIO.new('')) do |zos|
       enum = RLetters::Datasets::DocumentEnumerator.new(dataset: dataset)

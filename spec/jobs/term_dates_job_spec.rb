@@ -3,10 +3,9 @@ require 'rails_helper'
 RSpec.describe TermDatesJob, type: :job do
   before(:example) do
     @user = create(:user)
-    @dataset = create(:full_dataset, working: true, entries_count: 1,
+    @dataset = create(:full_dataset, working: true, entries_count: 0,
                                      user: @user)
-    @dataset.entries += [create(:entry, dataset: @dataset,
-                                        uid: 'gutenberg:3172')]
+    create(:query, dataset: @dataset, q: "uid:\"gutenberg:3172\"")
     @task = create(:task, dataset: @dataset)
   end
 

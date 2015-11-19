@@ -55,7 +55,7 @@ RSpec.describe Dataset, type: :model do
     end
   end
 
-  describe '#entries' do
+  describe '#queries' do
     context 'when creating a new dataset' do
       before(:example) do
         @user = create(:user)
@@ -64,11 +64,15 @@ RSpec.describe Dataset, type: :model do
 
       it 'is connected to the user' do
         @user.datasets.reload
-        expect(@user.datasets.active.size).to eq(1)
+        expect(@user.datasets.size).to eq(1)
       end
 
-      it 'has the right number of entries' do
-        expect(@dataset.entries.size).to eq(2)
+      it 'has the right number of queries' do
+        expect(@dataset.queries.size).to eq(1)
+      end
+
+      it 'has the right number of documents' do
+        expect(@dataset.document_count).to eq(2)
       end
     end
   end

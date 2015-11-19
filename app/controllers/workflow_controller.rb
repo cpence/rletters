@@ -62,7 +62,7 @@ class WorkflowController < ApplicationController
     if params[:link_dataset_id]
       # Actually find it, which will raise an error if it's not actually a
       # dataset that the user owns
-      dataset = current_user.datasets.active.find(params[:link_dataset_id])
+      dataset = current_user.datasets.find(params[:link_dataset_id])
       current_user.workflow_datasets << dataset.to_param
     end
 
@@ -85,9 +85,7 @@ class WorkflowController < ApplicationController
   #
   # @return [void]
   def fetch
-    analysis_criteria = {
-      datasets: { user_id: current_user.to_param, disabled: false }
-    }
+    analysis_criteria = { datasets: { user_id: current_user.to_param } }
     tasks = Datasets::Task.joins(:dataset).where(analysis_criteria)
 
     if params[:terminate]

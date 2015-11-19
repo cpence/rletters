@@ -33,7 +33,7 @@ module RLetters
       def call
         return nil if ENV['NLP_TOOL_PATH'].blank?
 
-        total = dataset.entries.size
+        total = dataset.document_count
         text_cache = ''
 
         enum = RLetters::Datasets::DocumentEnumerator.new(dataset: dataset,

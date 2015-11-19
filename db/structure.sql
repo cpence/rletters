@@ -178,41 +178,9 @@ CREATE TABLE datasets (
     user_id integer,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    disabled boolean,
-    "fetch" boolean DEFAULT false
+    "fetch" boolean DEFAULT false,
+    document_count integer DEFAULT 0
 );
-
-
---
--- Name: datasets_entries; Type: TABLE; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE TABLE datasets_entries (
-    id integer NOT NULL,
-    uid character varying(255),
-    dataset_id integer,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone
-);
-
-
---
--- Name: datasets_entries_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE datasets_entries_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: datasets_entries_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE datasets_entries_id_seq OWNED BY datasets_entries.id;
 
 
 --
@@ -301,6 +269,40 @@ CREATE SEQUENCE datasets_id_seq
 --
 
 ALTER SEQUENCE datasets_id_seq OWNED BY datasets.id;
+
+
+--
+-- Name: datasets_queries; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE datasets_queries (
+    id integer NOT NULL,
+    dataset_id integer,
+    q character varying,
+    fq character varying,
+    def_type character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: datasets_queries_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE datasets_queries_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: datasets_queries_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE datasets_queries_id_seq OWNED BY datasets_queries.id;
 
 
 --
@@ -621,13 +623,6 @@ ALTER TABLE ONLY datasets ALTER COLUMN id SET DEFAULT nextval('datasets_id_seq':
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY datasets_entries ALTER COLUMN id SET DEFAULT nextval('datasets_entries_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
 ALTER TABLE ONLY datasets_file_results ALTER COLUMN id SET DEFAULT nextval('datasets_file_results_id_seq'::regclass);
 
 
@@ -636,6 +631,13 @@ ALTER TABLE ONLY datasets_file_results ALTER COLUMN id SET DEFAULT nextval('data
 --
 
 ALTER TABLE ONLY datasets_files ALTER COLUMN id SET DEFAULT nextval('datasets_files_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY datasets_queries ALTER COLUMN id SET DEFAULT nextval('datasets_queries_id_seq'::regclass);
 
 
 --
@@ -720,14 +722,6 @@ ALTER TABLE ONLY admin_uploaded_assets
 
 
 --
--- Name: datasets_entries_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
---
-
-ALTER TABLE ONLY datasets_entries
-    ADD CONSTRAINT datasets_entries_pkey PRIMARY KEY (id);
-
-
---
 -- Name: datasets_file_results_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -749,6 +743,14 @@ ALTER TABLE ONLY datasets_files
 
 ALTER TABLE ONLY datasets
     ADD CONSTRAINT datasets_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: datasets_queries_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY datasets_queries
+    ADD CONSTRAINT datasets_queries_pkey PRIMARY KEY (id);
 
 
 --
@@ -836,13 +838,6 @@ CREATE UNIQUE INDEX index_admin_administrators_on_reset_password_token ON admin_
 
 
 --
--- Name: index_datasets_entries_on_dataset_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX index_datasets_entries_on_dataset_id ON datasets_entries USING btree (dataset_id);
-
-
---
 -- Name: index_datasets_on_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -890,14 +885,6 @@ CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (v
 
 ALTER TABLE ONLY datasets_tasks
     ADD CONSTRAINT datasets_analysis_tasks_dataset_id_fk FOREIGN KEY (dataset_id) REFERENCES datasets(id);
-
-
---
--- Name: datasets_entries_dataset_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY datasets_entries
-    ADD CONSTRAINT datasets_entries_dataset_id_fk FOREIGN KEY (dataset_id) REFERENCES datasets(id) ON DELETE CASCADE;
 
 
 --
@@ -1069,4 +1056,6 @@ INSERT INTO schema_migrations (version) VALUES ('20150908210220');
 INSERT INTO schema_migrations (version) VALUES ('20150918225229');
 
 INSERT INTO schema_migrations (version) VALUES ('20151005170502');
+
+INSERT INTO schema_migrations (version) VALUES ('20151118043212');
 

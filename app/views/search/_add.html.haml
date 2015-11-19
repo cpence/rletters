@@ -8,7 +8,7 @@
       %h4.modal-title= t('.header')
       %h6.text-muted= t('.subheader')
 
-    - if current_user.datasets.active.blank?
+    - if current_user.datasets.blank?
       .modal-body
         %p= t('.no_datasets')
     - else
@@ -17,7 +17,7 @@
         .modal-body
           .form-group
             = label_tag :dataset_id, Dataset.model_name.human
-            = select_tag :dataset_id, options_from_collection_for_select(current_user.datasets.active, 'to_param', 'name'), id: "add-select-#{document.uid.html_id}", class: 'form-control'
+            = select_tag :dataset_id, options_from_collection_for_select(current_user.datasets, 'to_param', 'name'), id: "add-select-#{document.uid.html_id}", class: 'form-control'
 
         .modal-footer
           %button.btn.btn-success{ type: 'submit' }= t('.submit')
