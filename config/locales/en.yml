@@ -133,7 +133,6 @@ en:
                 password: Password
                 password_confirmation: Confirm password
                 remember_me: Remember me?
-                per_page: Number of search results per page
                 language: Preferred language
                 timezone: Time zone
                 csl_style_id: Citation style
@@ -175,10 +174,6 @@ en:
                 user:
                     name:
                         blank: You must specify a name
-                    per_page:
-                        blank: Number of search results per page must be specified (internal error)
-                        not_a_number: Number of search results per page must be an integer
-                        inclusion: Number of search results must be greater than zero
                     language:
                         blank: Preferred language must be specified (internal error)
                         invalid: Preferred language must be a valid locale code (internal error)
@@ -308,7 +303,8 @@ en:
             sort_asc: "(ascending)"
             sort_desc: "(descending)"
             sort_score: "Relevance"
-            create_dataset: Save Results
+            create_dataset: Save
+            toggle_filters: Filter
             num_hits_found:
                 zero: no articles found
                 one: 1 article found
@@ -317,7 +313,7 @@ en:
                 zero: no articles in database
                 one: 1 article in database
                 other: "%{count} articles in database"
-            no_filters: No filters active
+            active_filters: Active filters
             remove_all: Remove All
             filters: Filter search
             authors_facet: Authors
@@ -331,6 +327,8 @@ en:
             dropdown_button: More
             categories: Journal Categories
             advanced_search: Advanced search
+            back_to_top: Back to top…
+            more_hits: More Results
     users:
         passwords:
             edit:

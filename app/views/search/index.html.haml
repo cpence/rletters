@@ -7,71 +7,47 @@
   %li.active= t('breadcrumbs.search_index')
 
 .row
-  .col-sm-12.col-lg-9
-    .row
-      .col-sm-8
-        = form_tag(search_path, method: :get, role: 'form') do
-          - if result.params['fq']
-            - [result.params['fq']].flatten.each do |p|
-              = hidden_field_tag "fq[]", p
-          .form-group
-            %label.sr-only{ for: 'q' }= t('.placeholder')
-            = search_field_tag :q, (params[:advanced] ? t('.adv_search_placeholder') : params[:q]), placeholder: t('.placeholder'), class: 'form-control'
+  .col-lg-9.col-sm-7
+    = form_tag(search_path, method: :get, role: 'form') do
+      - if result.params['fq']
+        - [result.params['fq']].flatten.each do |p|
+          = hidden_field_tag "fq[]", p
+      .form-group
+        %label.sr-only{ for: 'q' }= t('.placeholder')
+        = search_field_tag :q, (params[:advanced] ? t('.adv_search_placeholder') : params[:q]), placeholder: t('.placeholder'), class: 'form-control'
 
-      .col-sm-4
-        .btn-group.btn-group-justified{ role: 'group' }
-          .btn-group
-            = link_to('#', class: 'btn btn-default dropdown-toggle', data: { toggle: 'dropdown' }, role: 'button') do
-              = t('.sort')
-              %span.caret
-            %ul.dropdown-menu{ role: 'menu' }
-              - result.sort_methods.each do |(param, desc)|
-                %li
-                  = link_to search_path(params.merge(sort: param).symbolize_keys) do
-                    %span{ style: (param == result.params['sort'] ? nil : 'visibility: hidden') } &check;
-                    = desc
+  .col-lg-3.col-sm-5
+    .btn-group.btn-group-justified{ role: 'group' }
+      .btn-group
+        = link_to('#', class: 'btn btn-default dropdown-toggle', data: { toggle: 'dropdown' }, role: 'button') do
+          %span.glyphicon.glyphicon-sort{ aria: { hidden: 'true' } }
+          = t('.sort')
+          %span.caret
+        %ul.dropdown-menu{ role: 'menu' }
+          - result.sort_methods.each do |(param, desc)|
+            %li
+              = link_to search_path(params.merge(sort: param).symbolize_keys) do
+                %span{ style: (param == result.params['sort'] ? nil : 'visibility: hidden') } &check;
+                = desc
 
-          - if user_signed_in?
-            = link_to t('.create_dataset'), new_dataset_path(q: result.params['q'], def_type: result.params['defType'], fq: result.params['fq']), class: 'btn btn-success ajax-modal', id: 'create-dataset'
-          - else
-            = link_to t('.create_dataset'), '#', class: 'btn btn-success disabled'
+      %a.btn.btn-default.collapsed#filters-button{ href: '#', type: 'button', data: { toggle: 'collapse', target: '#filters' } }
+        %span.glyphicon.glyphicon-filter{ aria: { hidden: 'true' } }
+        = t('.toggle_filters')
+
+      = link_to user_signed_in? ? new_dataset_path(q: result.params['q'], def_type: result.params['defType'], fq: result.params['fq']) : '#', class: "btn btn-success #{user_signed_in? ? 'ajax-modal' : 'disabled'}" do
+        %span.glyphicon.glyphicon-floppy-disk
+        = t('.create_dataset')
 
 .row
-  .col-sm-12.col-lg-9
-    .navbar.navbar-default{ role: 'navigation' }
-      .container-fluid
-        .navbar-left
-          %p.navbar-text= result.num_hits
-          .btn-group
-            = result.filter_removal_links
+  .col-sm-12.col-lg-3.col-lg-push-9
+    %p.text-center= result.num_hits
 
-    .text-center
-      %ul.pagination.top-pagination= result.pagination
-
-    %table.table.table-striped.document-list
-      - result.documents.each do |d|
-        %tr
-          %td
-            %abbr{ class: 'unapi-id', title: d.uid }= ''
-
-            .dropdown.pull-right
-              %button.btn.btn-default.dropdown-toggle{ type: 'button', id: "drop-#{d.uid.html_id}", data: { toggle: 'dropdown' } }
-                = t('.dropdown_button')
-                %span.caret
-              %ul.dropdown-menu.dropdown-menu-right{ role: 'menu', aria: { labelledby: "drop-#{d.uid.html_id}" } }
-                =render partial: 'dropdown', locals: { document: d }
-
-            = d.citation
-
-    .text-center
-      %ul.pagination.bottom-pagination= result.pagination
-
-  .col-sm-12.col-lg-3
-    .well
+    .well.collapse#filters
       - if result.facets || result.categories
         %h4= t('.filters')
 
         %ul.nav.nav-pills.nav-stacked.filter-list
+          = result.filter_removal_links
           - if result.facets
             = result.facets.addition_links
           - if result.categories
@@ -79,3 +55,9 @@
 
       .btn-group.btn-group-justified
         = link_to t('.advanced_search'), search_advanced_path, class: 'btn btn-default'
+
+  .col-sm-12.col-lg-9.col-lg-pull-3
+    #jscroll= render partial: 'result_table', locals: { result: result }
+
+%div.text-center#back-to-top
+  = link_to t('.back_to_top'), '#', class: 'btn btn-info btn-sm'

@@ -1,0 +1,24 @@
+%table.table.table-striped.document-list
+  - result.documents.each do |d|
+    %tr
+      %td
+        %abbr{ class: 'unapi-id', title: d.uid }= ''
+
+        .dropdown.pull-right
+          %button.btn.btn-default.dropdown-toggle{ type: 'button', id: "drop-#{d.uid.html_id}", data: { toggle: 'dropdown' } }
+            = t('search.index.dropdown_button')
+            %span.caret
+          %ul.dropdown-menu.dropdown-menu-right{ role: 'menu', aria: { labelledby: "drop-#{d.uid.html_id}" } }
+            =render partial: 'dropdown', locals: { document: d }
+
+        = d.citation
+
+        -# The modal dialog box for adding this document to an existing dataset
+        -# needs to be outside the dropdown menu
+        - if user_signed_in?
+          .modal.fade{ id: "add-#{d.uid.html_id}-modal", tabindex: '-1', role: 'dialog', aria: { hidden: 'true' } }= render partial: 'add', locals: { document: d }
+
+  - if result.next_page_path
+    %tr
+      %td.text-center
+        = link_to t('search.index.more_hits'), result.next_page_path, class: 'jscroll-next'

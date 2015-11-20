@@ -8,7 +8,7 @@ RSpec.feature 'Searching on the advanced page', type: :feature do
     click_button 'Perform advanced search'
 
     expect(page).to have_selector('table.document-list tr td')
-    element = find('table.document-list')
+    element = first('table.document-list')
     expect(element).to have_content('Fenimore Cooper')
   end
 end

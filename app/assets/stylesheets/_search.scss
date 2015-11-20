@@ -1,12 +1,20 @@
 
-.top-pagination, .bottom-pagination {
-  margin-top: 0;
-}
-
 table.document-list {
   width: 100%;
+  margin-bottom: 0;
 
   td h5 { font-weight: bold; }
+}
+
+@media (min-width: $screen-lg-min) {
+  #filters {
+    display: block;
+    height: auto !important;
+  }
+
+  #filters-button {
+    display: none;
+  }
 }
 
 ul.filter-list {
@@ -27,10 +35,11 @@ ul.filter-list {
   }
   li > a {
     // This is copied from the relevant nav style in Bootstrap, which is
-    // unfortunate, but necessary.
+    // unfortunate, but necessary. It's also tweaked a bit to tighten the
+    // vertical spacing.
     position: relative;
     display: block;
-    padding: 10px 15px 10px 0;
+    padding: 5px 15px 5px 0;
 
     &:hover, &:focus {
       text-decoration: none;
@@ -55,4 +64,15 @@ ul.filter-list {
 p.document-details {
   margin-bottom: 0;
   line-height: 1;
+}
+
+#back-to-top {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+
+  width: 100%;
+  z-index: 1000;
+
+  display: none;
 }

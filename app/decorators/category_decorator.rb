@@ -7,15 +7,17 @@ class CategoryDecorator < ApplicationDecorator
   decorates Documents::Category
   delegate_all
 
-  # Return a `<dd>` tag for removing this category
+  # Return a `<li>` tag for removing this category
   #
-  # @return [String] a definition tag for removing this category
+  # @return [String] a list item tag for removing this category
   def removal_link
     new_params = toggle_params
-    h.link_to(h.search_path(new_params), class: 'btn navbar-btn btn-primary') do
-      h.html_escape("#{Documents::Category.model_name.human}: #{name}") +
-        close_icon
-    end
+
+    h.content_tag(
+      :li,
+      h.link_to(h.html_escape("#{Documents::Category.model_name.human}: #{name}") +
+                              close_icon,
+                h.search_path(new_params)))
   end
 
   # Recursively return the tree links for this category

@@ -35,7 +35,3 @@
   %li.dropdown-header{ role: 'presentation' }= t('.license', license: document.license || t('.no_license'))
 - if document.data_source
   %li.dropdown-header{ role: 'presentation' }= t('.data_source', source: document.data_source)
-
-- if user_signed_in?
-  - content_for :modal do
-    .modal.fade{ id: "add-#{document.uid.html_id}-modal", tabindex: '-1', role: 'dialog', aria: { hidden: 'true' } }= render partial: 'add', locals: { document: document }

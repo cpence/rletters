@@ -27,8 +27,6 @@ module RLetters
       # provide for easier testing.
       #
       # @param [Hash] params
-      # @option params [Integer] :start offset within the result set at which
-      #   to begin returning documents
       # @option params [Integer] :rows maximum number of results to return
       # @option params [String] :sort sorting string ('<method> <direction>')
       #

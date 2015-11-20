@@ -18,7 +18,7 @@ RSpec.feature 'Searching with journal categories', type: :feature do
     end
 
     expect(page).to have_content(/1500 articles /i)
-    expect(page).to have_selector('.main .navbar .navbar-btn', text: /Category: PNTD/)
+    expect(page).to have_selector('li', text: /Category: PNTD/)
   end
 
   scenario 'clearing a category' do
@@ -34,7 +34,7 @@ RSpec.feature 'Searching with journal categories', type: :feature do
     end
 
     expect(page).to have_content(/1500 articles /i)
-    expect(page).to have_selector('.main .navbar .navbar-btn', text: /Category: PNTD/)
+    expect(page).to have_selector('li', text: /Category: PNTD/)
   end
 
   scenario 'clearing all categories' do
@@ -44,11 +44,11 @@ RSpec.feature 'Searching with journal categories', type: :feature do
       click_link('Gutenberg')
     end
 
-    within('.main .navbar') do
+    within('#filters') do
       click_link('Remove All')
     end
 
     expect(page).to have_content(/1502 articles /i)
-    expect(page).to have_selector('.main .navbar .navbar-btn', text: 'No filters active')
+    expect(page).not_to have_selector('li', text: 'Active filters')
   end
 end

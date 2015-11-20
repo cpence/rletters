@@ -481,7 +481,6 @@ CREATE TABLE users (
     name character varying(255),
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    per_page integer DEFAULT 10,
     language character varying(255) DEFAULT 'en'::character varying,
     timezone character varying(255) DEFAULT 'Eastern Time (US & Canada)'::character varying,
     encrypted_password character varying(255) DEFAULT ''::character varying NOT NULL,
@@ -1058,4 +1057,6 @@ INSERT INTO schema_migrations (version) VALUES ('20150918225229');
 INSERT INTO schema_migrations (version) VALUES ('20151005170502');
 
 INSERT INTO schema_migrations (version) VALUES ('20151118043212');
+
+INSERT INTO schema_migrations (version) VALUES ('20151119181057');
 

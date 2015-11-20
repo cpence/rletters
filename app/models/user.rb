@@ -8,12 +8,6 @@
 #   @raise [RecordInvalid] if the name is missing (`validates :presence`)
 #   @return [String] Full name
 #
-# @!attribute per_page
-#   @raise [RecordInvalid] if per_page is missing (`validates :presence`)
-#   @raise [RecordInvalid] if per_page is not an integer (`validates
-#     :numericality`)
-#   @raise [RecordInvalid] if per_page is negative (`validates :inclusion`)
-#   @return [Integer] Number of search results to display per page
 # @!attribute language
 #   @raise [RecordInvalid] if the language is missing (`validates :presence`)
 #   @raise [RecordInvalid] if the language is not a valid language code
@@ -52,9 +46,6 @@ class User < ActiveRecord::Base
          :rememberable, :trackable, :validatable
 
   validates :name, presence: true
-  validates :per_page, presence: true,
-                       numericality: { only_integer: true },
-                       inclusion: { in: 1..999_999_999 }
   validates :language, presence: true,
                        format: { with: /\A[a-z]{2,3}(-[A-Z]{2})?\Z/ }
   validates :timezone, presence: true
@@ -101,7 +92,7 @@ class User < ActiveRecord::Base
     # @return [ActionController::Parameters] permitted parameters
     def account_update
       default_params.permit(:name, :email, :password, :password_confirmation,
-                            :current_password, :language, :timezone, :per_page,
+                            :current_password, :language, :timezone,
                             :csl_style_id)
     end
   end

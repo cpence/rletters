@@ -33,7 +33,7 @@ class FacetsDecorator < ApplicationDecorator
   # Return a set of tags for removing the active facets
   #
   # This function turns the list of active facets into a list of facet-removing
-  # links.  It returns a set of `<dd>` tags, desgined to be put into a `<dl>`.
+  # links.  It returns a set of `<li>` tags, desgined to be put into a `<ul>`.
   #
   # @return [String] set of list items for faceted browsing
   def removal_links
@@ -44,10 +44,10 @@ class FacetsDecorator < ApplicationDecorator
         other_facets = active_facets.reject { |x| x == f }
 
         f = FacetDecorator.decorate(f)
-        ret << link_to_facets(h.html_escape("#{f.field_label}: #{f.label}") +
-                                close_icon,
-                              other_facets,
-                              class: 'btn navbar-btn btn-primary')
+        ret << h.content_tag(
+          :li,
+          link_to_facets(h.html_escape("#{f.field_label}: #{f.label}") +
+                         close_icon, other_facets))
       end
     end
 

@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'Search API', type: :request do
   it 'loads a basic search successfully' do
-    get '/search', format: :json
+    get '/search', format: :json, page: 1, per_page: 10
 
     expect(response).to be_success
     expect(response.content_type).to eq('application/json')
@@ -12,7 +12,7 @@ RSpec.describe 'Search API', type: :request do
 
     expect(json['results']['solr_params']['q']).to eq('*:*')
     expect(json['results']['solr_params']['defType']).to eq('lucene')
-    expect(json['results']['solr_params']['start']).to eq('0')
+    expect(json['results']['solr_params']['start']).to eq('10')
     expect(json['results']['solr_params']['rows']).to eq('10')
   end
 

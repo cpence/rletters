@@ -43,22 +43,39 @@ class SearchResultDecorator < ApplicationDecorator
     CategoriesDecorator.decorate(cats)
   end
 
+  # Return the path to the next page of search results
+  #
+  # @return [String] path to next page of search results
+  def next_page_path
+    return nil if solr_response['nextCursorMark'] == h.params[:cursor_mark]
+
+    new_params = h.params.deep_dup.except!(:cursor_mark)
+    new_params[:cursor_mark] = solr_response['nextCursorMark']
+
+    h.search_path(new_params.symbolize_keys)
+  end
+
   # Return a list of links to remove all active filters
   #
   # @return [String] removal links for all filters
   def filter_removal_links
-    if h.params[:fq].blank? && active_categories.blank?
-      return h.link_to(I18n.t('search.index.no_filters'), '#',
-                       class: 'btn navbar-btn btn-default disabled')
-    end
+    return '' if h.params[:fq].blank? && active_categories.blank?
 
     ''.html_safe.tap do |ret|
+      # Header
+      ret << h.content_tag(:li,
+                           h.content_tag(
+                             :strong,
+                             I18n.t('search.index.active_filters')),
+                           class: 'filter-header')
+
       # Remove all
       new_params = h.params.deep_dup.except!(:categories, :fq)
-      ret << h.link_to(h.search_path(new_params.symbolize_keys),
-                       class: 'btn navbar-btn btn-primary') do
-        h.html_escape(I18n.t('search.index.remove_all')) + close_icon
-      end
+      ret << h.content_tag(
+        :li,
+        h.link_to(h.html_escape(I18n.t('search.index.remove_all')) +
+                                close_icon,
+                  h.search_path(new_params.symbolize_keys)))
 
       # Categories and facets
       ret << active_categories.removal_links unless active_categories.blank?
@@ -77,51 +94,6 @@ class SearchResultDecorator < ApplicationDecorator
     end
   end
 
-  # Render the pagination links
-  #
-  # @return [String] full set of pagination links for the current page
-  def pagination
-    # Extract page and per_page from the Solr query that we called
-    per_page = (object.params['rows'] || 10).to_i
-    start = (object.params['start'] || 0).to_i
-    page = start / per_page
-
-    num_pages = object.num_hits.to_f / per_page.to_f
-    num_pages = Integer(num_pages.ceil)
-    return ''.html_safe if num_pages <= 1
-
-    content = page_link('&laquo;'.html_safe,
-                        page == 0 ? nil : page - 1,
-                        page == 0 ? 'unavailable' : nil)
-
-    # Render at most seven pagination links
-    if num_pages < 7
-      range_to_render = (0..num_pages).to_a
-    elsif page < 3
-      range_to_render = [0, 1, 2, 3, nil, num_pages - 2, num_pages - 1]
-    elsif page >= num_pages - 3
-      range_to_render = [0, 1, nil, num_pages - 4, num_pages - 3,
-                         num_pages - 2, num_pages - 1]
-    else
-      range_to_render = [0, nil, page - 1, page, page + 1, nil,
-                         num_pages - 1]
-    end
-
-    range_to_render.each do |p|
-      if p.nil?
-        content << page_link('&hellip;'.html_safe, nil, 'unavailable')
-      else
-        content << page_link((p + 1).to_s, p, page == p ? 'current' : nil)
-      end
-    end
-
-    content << page_link('&raquo;'.html_safe,
-                         page == num_pages - 1 ? nil : page + 1,
-                         page == num_pages - 1 ? 'unavailable' : nil)
-
-    content
-  end
-
   # Return an array of all sort methods
   #
   # @return [Array<String>] all possible sorting strings
@@ -137,28 +109,6 @@ class SearchResultDecorator < ApplicationDecorator
   end
 
   private
-
-  # Make a link to a page for the pagination widget
-  #
-  # @param [String] text text for this link
-  # @param [Integer] num the page number (0-based)
-  # @param [String] klass class to put on the <li> tag
-  # @return [String] the requested link
-  def page_link(text, num, klass)
-    if num.nil?
-      href = '#'
-    else
-      new_params = h.params.deep_dup
-      if num == 0
-        new_params.delete :page
-      else
-        new_params[:page] = num
-      end
-      href = h.search_path(new_params.symbolize_keys)
-    end
-
-    h.content_tag(:li, h.link_to(text, href), class: klass)
-  end
 
   # The array of all sort methods
   SORT_METHODS = [

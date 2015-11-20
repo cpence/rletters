@@ -1,5 +1,6 @@
 //= require jquery
 //= require jquery_ujs
+//= require jquery.jscroll
 //= require bootstrap-sprockets
 //= require twitter/typeahead
 
@@ -14,6 +15,7 @@
 //= require network
 //= require normalize_document_counts
 //= require search_advanced
+//= require search_index
 //= require term_dates
 //= require users_edit
 //= require word_cloud

@@ -63,28 +63,27 @@
         = link_to t('.create_button'), search_path, class: 'btn btn-success'
         = link_to t('.link_button'), '#', data: { toggle: 'modal', target: '#link-modal' }, class: 'btn btn-default'
 
-- content_for :modal do
-  .modal.fade#link-modal{ tabindex: '-1', role: 'dialog', aria: { hidden: 'true' } }
-    .modal-dialog
-      .modal-content
-        .modal-header
-          %button.close{ type: 'button', data: { dismiss: 'modal' } }
-            %span{ aria: { hidden: 'true' } } &times;
-            %span.sr-only Close
+.modal.fade#link-modal{ tabindex: '-1', role: 'dialog', aria: { hidden: 'true' } }
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close{ type: 'button', data: { dismiss: 'modal' } }
+          %span{ aria: { hidden: 'true' } } &times;
+          %span.sr-only Close
 
-          %h4.modal-title= t('.link_header')
-          %h6.text-muted= t('.link_subheader')
+        %h4.modal-title= t('.link_header')
+        %h6.text-muted= t('.link_subheader')
 
-        - if current_user.datasets.empty?
+      - if current_user.datasets.empty?
+        .modal-body
+          %p= t('.link_no_datasets')
+      - else
+        = form_tag workflow_activate_path(params[:class]), method: :get do
           .modal-body
-            %p= t('.link_no_datasets')
-        - else
-          = form_tag workflow_activate_path(params[:class]), method: :get do
-            .modal-body
-              .row
-                .col-sm-6
-                  = label_tag :link_dataset_id, Dataset.model_name.human
-                  = select_tag :link_dataset_id, options_from_collection_for_select(current_user.datasets, 'to_param', 'name'), class: 'form-control'
+            .row
+              .col-sm-6
+                = label_tag :link_dataset_id, Dataset.model_name.human
+                = select_tag :link_dataset_id, options_from_collection_for_select(current_user.datasets, 'to_param', 'name'), class: 'form-control'
 
-            .modal-footer
-              = submit_tag t('.link_submit'), class: 'btn btn-success'
+          .modal-footer
+            = submit_tag t('.link_submit'), class: 'btn btn-success'

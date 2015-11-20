@@ -81,7 +81,6 @@ FactoryGirl.define do
     password 'password'
     password_confirmation 'password'
     remember_me false
-    per_page 10
     language 'en'
     timezone 'Eastern Time (US & Canada)'
   end
