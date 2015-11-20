@@ -24,13 +24,17 @@ class NamedEntitiesJob < BaseJob
       dataset: dataset,
       progress: ->(p) { task.at(p, 100, t('.progress_finding')) })
 
-    csv_string = csv_with_header(t('.header', name: dataset.name)) do |csv|
-      write_csv_data(
-        csv,
-        # This turns {s => [a, b], ...} into [[s, a], [s, b], ...]
-        refs.map { |k, v| [k].product(v) }.flatten(1),
-        { t('.type_column') => :first,
-          t('.hit_column') => :second })
+    if refs.blank?
+      csv_string = ''
+    else
+      csv_string = csv_with_header(t('.header', name: dataset.name)) do |csv|
+        write_csv_data(
+          csv,
+          # This turns {s => [a, b], ...} into [[s, a], [s, b], ...]
+          refs.map { |k, v| [k].product(v) }.flatten(1),
+          { t('.type_column') => :first,
+            t('.hit_column') => :second })
+      end
     end
 
     output = { data: refs }

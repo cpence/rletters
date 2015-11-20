@@ -1,6 +1,6 @@
 
 ActiveAdmin.register Users::CslStyle do
-  menu parent: 'admin_settings'
+  menu parent: 'Settings'
   filter :name
 
   permit_params :name, :style

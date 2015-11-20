@@ -1,7 +1,7 @@
 
 ActiveAdmin.register Documents::StopList do
   actions :index, :update, :edit, :show
-  menu parent: 'admin_settings'
+  menu parent: 'Settings'
 
   filter :name
   config.batch_actions = false

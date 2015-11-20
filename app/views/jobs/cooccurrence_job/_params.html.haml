@@ -8,7 +8,7 @@
         = f.input :num_pairs, as: :integer, label: t('cooccurrence_job.num_pairs'), required: false, input_html: { value: 50 }
         = f.input :all, label: t('cooccurrence_job.all'), as: :boolean, required: false
         = f.input :window, as: :integer, required: true, label: t('cooccurrence_job.window')
-        = f.input :word, required: true, label: t('cooccurrence_job.word')
+        = f.input :words, required: true, label: t('cooccurrence_job.word')
         = f.input :stemming, label: t('common.stemming.label'), collection: [[t('simple_form.no'), :no], [t('common.stemming.stem'), :stem], [t('common.stemming.lemma'), :lemma]], include_blank: false
         = f.button :submit
         = link_to(t('common.cancel'), dataset, class: 'btn btn-default')

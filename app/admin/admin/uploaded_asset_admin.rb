@@ -1,7 +1,7 @@
 
 ActiveAdmin.register Admin::UploadedAsset do
   actions :index, :update, :edit, :show
-  menu parent: 'admin_settings'
+  menu parent: 'Settings'
 
   filter :name
   config.batch_actions = false

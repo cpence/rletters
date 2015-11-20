@@ -1,6 +1,6 @@
 
 ActiveAdmin.register Documents::Category do
-  menu parent: 'admin_settings'
+  menu parent: 'Settings'
   config.filters = false
 
   permit_params :parent_id, :sort_order, :name, journals: []

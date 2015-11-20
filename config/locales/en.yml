@@ -426,6 +426,9 @@ en:
             link_subheader: Select the dataset that you would like to use for this analysis job.
             link_no_datasets: No datasets found!
             link_submit: Link dataset
+            benchmark_header: "Time estimates for this job:"
+            benchmark_size_column: Dataset Size
+            benchmark_time_column: Estimated Time
         dashboard:
             header: "%{app_name} dashboard"
             subheader: >

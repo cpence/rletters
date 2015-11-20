@@ -1,3 +1,4 @@
+require 'r_letters/analysis/collocation/base'
 
 # Determine statistically significant collocations in text
 class CollocationJob < BaseJob

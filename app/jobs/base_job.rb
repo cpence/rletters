@@ -92,8 +92,6 @@ class BaseJob < ActiveJob::Base
     analysis_files = Dir[Rails.root.join('app', 'jobs', '*.rb')]
     classes = analysis_files.map do |f|
       next if %w(base_job.rb
-                 create_dataset_job.rb
-                 destroy_dataset_job.rb
                  expire_tasks_job.rb).include?(File.basename(f))
 
       # This will raise a NameError if the class doesn't exist, but we want
@@ -109,6 +107,13 @@ class BaseJob < ActiveJob::Base
     end
 
     classes
+  end
+
+  # Get all of the available benchmarks for this job
+  #
+  # @return [Array<Admin::Benchmark>] all benchmarks for this class
+  def self.benchmarks
+    Admin::Benchmark.where(job: name).where.not(time: nil)
   end
 
   # The exception raised when we kill a job externally

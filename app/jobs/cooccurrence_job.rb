@@ -18,7 +18,7 @@ class CooccurrenceJob < BaseJob
   #   +:stem+, +:lemma+, or +:no+.
   # @option options [String] :window the window for searching for
   #   cooccurrences
-  # @option options [String] :word the word to search for cooccurrences
+  # @option options [String] :words the words to search for cooccurrences
   #   with
   # @return [void]
   def perform(task, options)

@@ -11,8 +11,11 @@ RSpec.feature 'User runs workflow on a new dataset', type: :feature do
 
     click_link 'Create another dataset'
     create_dataset
+    create_benchmark
 
     click_link 'Current Analysis'
+    expect(page).to have_selector('td', text: 'less than a minute')
+
     click_link 'Set Job Options'
     click_button 'Start analysis job'
 

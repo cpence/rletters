@@ -13,27 +13,16 @@
       %h4.text-muted= t('.subheader_done')
 
 - if @num_workflow_datasets < @num_datasets
-  .row.activate-pad
+  .row
     .col-sm-12
       %p= t('.pending_instructions', count: @num_datasets)
-- else
-  .row.activate-pad
-    .col-lg-6.col-lg-offset-3
-      .btn-group.btn-group-justified
-        - button_params = { class: params[:class], job_params: { other_datasets: current_user.workflow_datasets[1..-1] } }
-        - if lookup_context.exists?('params', "jobs/#{params[:class].underscore}", true)
-          = link_to t('.button_params'), new_dataset_task_path(current_user.workflow_dataset(0), button_params), class: 'btn btn-primary'
-        - else
-          = link_to t('.button_start'), dataset_tasks_path(current_user.workflow_dataset(0), button_params), method: :post, class: 'btn btn-success'
 
 .row
   .col-sm-12
-    %hr
+    %h3= t('.dataset_list')
 
     - if @num_workflow_datasets < @num_datasets
       .alert.alert-danger= t('.pending_count', count: (@num_datasets - @num_workflow_datasets))
-
-    %h3= t('.dataset_list')
 
     %table.table.button-table
       %thead
@@ -62,6 +51,31 @@
       .btn-group
         = link_to t('.create_button'), search_path, class: 'btn btn-success'
         = link_to t('.link_button'), '#', data: { toggle: 'modal', target: '#link-modal' }, class: 'btn btn-default'
+- else
+  .row.activate-pad
+    .col-xs-12.col-lg-6.col-lg-offset-3
+      .btn-group.btn-group-justified
+        - button_params = { class: params[:class], job_params: { other_datasets: current_user.workflow_datasets[1..-1] } }
+        - if lookup_context.exists?('params', "jobs/#{params[:class].underscore}", true)
+          = link_to t('.button_params'), new_dataset_task_path(current_user.workflow_dataset(0), button_params), class: 'btn btn-primary'
+        - else
+          = link_to t('.button_start'), dataset_tasks_path(current_user.workflow_dataset(0), button_params), method: :post, class: 'btn btn-success'
+
+  - if @klass.benchmarks.size > 0
+    .row.activate-pad
+      .col-xs-12.col-lg-6.col-lg-offset-3
+        %h4= t('.benchmark_header')
+
+        %table.table.table-striped
+          %thead
+            %tr
+              %th= t('.benchmark_size_column')
+              %th= t('.benchmark_time_column')
+          %tbody
+            - @klass.benchmarks.each do |b|
+              %tr
+                %td= b.size
+                %td= distance_of_time_in_words(b.time)
 
 .modal.fade#link-modal{ tabindex: '-1', role: 'dialog', aria: { hidden: 'true' } }
   .modal-dialog

@@ -24,6 +24,8 @@ RSpec.describe WordFrequencyJob, type: :job do
     end
   end
 
+  it_should_behave_like 'an analysis job'
+
   describe '.num_datasets' do
     it 'is 1' do
       expect(described_class.num_datasets).to eq(1)

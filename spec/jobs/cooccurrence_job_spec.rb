@@ -18,7 +18,7 @@ RSpec.describe CooccurrenceJob, type: :job do
   end
 
   it_should_behave_like 'an analysis job' do
-    let(:job_params) { { 'scoring' => 't_test', 'word' => 'was',
+    let(:job_params) { { 'scoring' => 't_test', 'words' => 'was',
                          'window' => '6' } }
   end
 
@@ -41,7 +41,7 @@ RSpec.describe CooccurrenceJob, type: :job do
             'scoring' => type.to_s,
             sym.to_s => val,
             'window' => '25',
-            'word' => words)
+            'words' => words)
         }.not_to raise_error
 
         # Just a quick sanity check to make sure some code was called

@@ -6,6 +6,7 @@
 *   The main search interface has been slightly redesigned to include support for infinite scrolling and be more functional on mobile/tablet screens.
 *   Datasets are now stored not as a list of entries, but as a list of the searches that were used to create them. This list of searches can be viewed on the dataset information page.
 *   Iterate through datasets, no matter the size, much faster, using the cursor support present in Solr >= 4.8. This is a dramatic speed improvement especially for those installations using distributed or sharded Solr servers.
+*   If server operators run `rake benchmarks:update` on their local installation, a table full of benchmarks for jobs of various sizes will be created in the database, and these benchmarks will be shown to users as an estimate of the time that a job will take to complete.
 *   Add support for PDF word cloud generation to the word frequency and Craig Zeta analysis jobs.
 *   Allow all analysis tasks to potentially generate multiple output files, enabling enhanced visualizations.
 *   Upgrade the settings handling to move application settings into the environment.
