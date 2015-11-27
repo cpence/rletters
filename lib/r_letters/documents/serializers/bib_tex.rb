@@ -11,11 +11,11 @@ module RLetters
           if doc.authors.empty?
             first_author = 'Anon'
           else
-            first_author = doc.authors[0].last.gsub(' ', '').gsub(/[^A-za-z0-9_]/, '')
+            first_author = doc.authors[0].last.delete(' ').gsub(/[^A-za-z0-9_]/, '')
           end
           cite_key = "#{first_author}#{doc.year}"
 
-          ret  = "@article{#{cite_key},\n"
+          ret = "@article{#{cite_key},\n"
           ret << "    author = {#{doc.authors.map(&:full).join(' and ')}},\n" unless doc.authors.empty?
           ret << "    title = {#{doc.title}},\n" if doc.title
           ret << "    journal = {#{doc.journal}},\n" if doc.journal

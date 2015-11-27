@@ -12,12 +12,11 @@ class CreateDatasetsFiles < ActiveRecord::Migration
 
     # Create new file objects for each of the old files in the DB
     Datasets::Task.all.each do |task|
-      if task.result_file_size
-        file = Datasets::File.new(description: 'Old Task Result',
-                                  short_description: 'Result',
-                                  task: task,
-                                  result: task.result)
-      end
+      next unless task.result_file_size
+      Datasets::File.create(description: 'Old Task Result',
+                            short_description: 'Result',
+                            task: task,
+                            result: task.result)
     end
 
     # Blow up the old storage

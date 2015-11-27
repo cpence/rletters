@@ -31,9 +31,9 @@ class NamedEntitiesJob < BaseJob
         write_csv_data(
           csv,
           # This turns {s => [a, b], ...} into [[s, a], [s, b], ...]
-          refs.map { |k, v| [k].product(v) }.flatten(1),
-          { t('.type_column') => :first,
-            t('.hit_column') => :second })
+          refs.flat_map { |k, v| [k].product(v) },
+          t('.type_column') => :first,
+          t('.hit_column') => :second)
       end
     end
 

@@ -160,7 +160,9 @@ module RLetters
       def zero_intervening(counts, normalization_counts = nil)
         is_numeric = false
         begin
-          key = Integer(counts.keys.first)
+          # Throw an exception if this isn't actually a numeric key
+          Integer(counts.keys.first)
+
           is_numeric = true
         rescue ArgumentError
           is_numeric = false

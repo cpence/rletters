@@ -45,7 +45,7 @@ module Datasets
     # @return [void]
     def update_size_cache
       dataset.queries.reload
-      dataset.document_count = dataset.queries.map { |q| q.size }.inject(:+)
+      dataset.document_count = dataset.queries.map(&:size).inject(:+)
       dataset.save
     end
 

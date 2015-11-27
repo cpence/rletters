@@ -11,11 +11,12 @@ module RLetters
       class FromTF < RLetters::Analysis::Frequency::Base
         # N.B.: Do not coerce this value, as it is an enumerator, and Virtus
         # will try to coerce it as an array of objects.
-        attribute :documents, Datasets::DocumentEnumerator,
+        attribute(:documents, Datasets::DocumentEnumerator,
                   reader: :private, writer: :private, coerce: false,
-                  default: lambda { |analyzer, attribute|
+                  default: lambda do |analyzer, _|
                     Datasets::DocumentEnumerator.new(dataset: analyzer.dataset,
-                                                     term_vectors: true) }
+                                                     term_vectors: true)
+                  end)
 
         # Run a TF-based analysis
         #

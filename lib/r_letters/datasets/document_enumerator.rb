@@ -63,11 +63,11 @@ module RLetters
 
             # :nocov:
             unless search_result.num_hits == to_fetch
-              fail RuntimeError, "Failed to get batch of results in DocumentEnumerator (wanted #{to_fetch} hits, got #{search_result.num_hits})"
+              fail "Failed to get batch of results in DocumentEnumerator (wanted #{to_fetch} hits, got #{search_result.num_hits})"
             end
 
             if cursor_mark == search_result.solr_response['nextCursorMark']
-              fail RuntimeError, "Expected more hits, but received the same cursor in response"
+              fail 'Expected more hits, but received the same cursor in response'
             end
             # :nocov:
 

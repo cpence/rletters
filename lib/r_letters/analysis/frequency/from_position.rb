@@ -12,13 +12,13 @@ module RLetters
       #   @return [RLetters::Datasets::Segments] a segmenter for the dataset
       #     to analyze
       class FromPosition < RLetters::Analysis::Frequency::Base
-        attribute :dataset_segments, RLetters::Datasets::Segments,
-                  default: lambda { |analyzer, attribute|
+        attribute(:dataset_segments, RLetters::Datasets::Segments,
+                  default: lambda do |analyzer, _|
                     RLetters::Datasets::Segments.new(
                       analyzer.parameter_hash.merge(progress: lambda do |p|
                         analyzer.progress && analyzer.progress.call((p * 0.8).to_i)
                       end))
-                  }
+                  end)
 
         attribute :word_blocks, Array[RLetters::Documents::Block],
                   reader: :private, writer: :private

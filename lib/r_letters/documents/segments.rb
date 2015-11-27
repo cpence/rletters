@@ -45,10 +45,10 @@ module RLetters
       include VirtusExt::ParameterHash
       include VirtusExt::Validator
 
-      attribute :word_lister, WordList,
-                default: lambda { |segmenter, attribute|
+      attribute(:word_lister, WordList,
+                default: lambda do |segmenter, _|
                   WordList.new(segmenter.parameter_hash)
-                }
+                end)
       attribute :num_blocks, Integer, default: 1
       attribute :block_size, Integer, default: 0
       attribute :last_block, Symbol, default: :big_last
@@ -148,10 +148,13 @@ module RLetters
 
         # Make the first block, if needed
         unless block_list.last
-          block_list.push(Block.new(
-            words: [],
-            name: I18n.t('lib.frequency.block_size_dataset',
-                         num: 1, size: block_size)))
+          block_list.push(
+            Block.new(
+              words: [],
+              name: I18n.t('lib.frequency.block_size_dataset',
+                           num: 1, size: block_size)
+            )
+          )
         end
 
         # Fill up the last block

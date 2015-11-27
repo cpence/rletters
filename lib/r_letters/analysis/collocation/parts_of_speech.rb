@@ -38,9 +38,7 @@ module RLetters
           end
 
           # Ignore num_pairs if we want all of the cooccurrences
-          if all
-            self.num_pairs = nil
-          end
+          self.num_pairs = nil if all
 
           total = dataset.document_count
 

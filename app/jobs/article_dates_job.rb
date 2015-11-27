@@ -18,12 +18,15 @@ class ArticleDatesJob < BaseJob
     standard_options(task, options)
 
     # Get the counts
-    result = RLetters::Analysis::CountArticlesByField.call(options.merge(
-      field: :year,
-      dataset: dataset,
-      progress: lambda do |p|
-        task.at((p.to_f / 100.0 * 90.0).to_i, 100, t('.progress_counting'))
-      end))
+    result = RLetters::Analysis::CountArticlesByField.call(
+      options.merge(
+        field: :year,
+        dataset: dataset,
+        progress: lambda do |p|
+          task.at((p.to_f / 100.0 * 90.0).to_i, 100, t('.progress_counting'))
+        end
+      )
+    )
 
     # Convert the years to integers
     dates = result.counts.to_a
@@ -57,13 +60,14 @@ class ArticleDatesJob < BaseJob
                                     content_type: 'application/json')
     end
 
-    csv = csv_with_header(t('.header', name: dataset.name)) do |csv|
-      write_csv_data(csv, dates, { year_header => :first,
-                                   value_header => :second })
+    csv_string = csv_with_header(t('.header', name: dataset.name)) do |csv|
+      write_csv_data(csv, dates, year_header => :first,
+                                 value_header => :second)
     end
     task.files.create(description: 'Spreadsheet',
                       short_description: 'CSV', downloadable: true) do |f|
-      f.from_string(csv, filename: 'results.csv', content_type: 'text/csv')
+      f.from_string(csv_string, filename: 'results.csv',
+                                content_type: 'text/csv')
     end
 
     task.mark_completed

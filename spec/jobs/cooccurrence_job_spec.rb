@@ -18,8 +18,9 @@ RSpec.describe CooccurrenceJob, type: :job do
   end
 
   it_should_behave_like 'an analysis job' do
-    let(:job_params) { { 'scoring' => 't_test', 'words' => 'was',
-                         'window' => '6' } }
+    let(:job_params) {
+      { 'scoring' => 't_test', 'words' => 'was', 'window' => '6' }
+    }
   end
 
   describe '.num_datasets' do

@@ -23,34 +23,30 @@ module RLetters
 
       attribute :full, String, required: true
 
-      attribute :bibtex, BibTeX::Name, lazy: true, writer: :private,
-                default: lambda { |author, attribute|
-                           BibTeX::Names.parse(author.full)[0] ||
-                             Struct.new(first: nil, last: nil,
-                                        prefix: nil, suffix: nil,
-                                        to_citeproc: {})
-                         }
+      attribute(:bibtex, BibTeX::Name,
+                lazy: true, writer: :private,
+                default: lambda do |author, _|
+                  BibTeX::Names.parse(author.full)[0] ||
+                    Struct.new(first: nil, last: nil,
+                               prefix: nil, suffix: nil,
+                               to_citeproc: {})
+                end)
 
-      attribute :first, String, lazy: true, writer: :private,
-                default: lambda { |author, attribute|
-                           author.bibtex.first
-                         }
-      attribute :last, String, lazy: true, writer: :private,
-                default: lambda { |author, attribute|
-                           author.bibtex.last
-                         }
-      attribute :prefix, String, lazy: true, writer: :private,
-                default: lambda { |author, attribute|
-                           author.bibtex.prefix
-                         }
-      attribute :suffix, String, lazy: true, writer: :private,
-                default: lambda { |author, attribute|
-                           author.bibtex.suffix
-                         }
-      attribute :citeproc, Hash, lazy: true, writer: :private,
-                default: lambda { |author, attribute|
-                           author.bibtex.to_citeproc
-                         }
+      attribute :first, String,
+                lazy: true, writer: :private,
+                default: ->(author, _) { author.bibtex.first }
+      attribute :last, String,
+                lazy: true, writer: :private,
+                default: ->(author, _) { author.bibtex.last }
+      attribute :prefix, String,
+                lazy: true, writer: :private,
+                default: ->(author, _) { author.bibtex.prefix }
+      attribute :suffix, String,
+                lazy: true, writer: :private,
+                default: ->(author, _) { author.bibtex.suffix }
+      attribute :citeproc, Hash,
+                lazy: true, writer: :private,
+                default: ->(author, _) { author.bibtex.to_citeproc }
 
       # @return [String] the full name, as passed to the constructor
       def to_s
@@ -78,7 +74,7 @@ module RLetters
         return "\"#{all_last}\"" unless first
 
         # Strip periods from first names and split
-        first_names = first.gsub('.', '').split(' ')
+        first_names = first.delete('.').split(' ')
 
         # Flatten out sequences of initials
         first_names = first_names.flat_map do |n|

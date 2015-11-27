@@ -29,7 +29,7 @@ RSpec.describe ApplicationController, type: :controller do
       end
 
       it 'sets locale to the stored language' do
-        expect(I18n.locale).to eq(:'es-MX') # rubocop:disable SymbolName
+        expect(I18n.locale).to eq(:'es-MX')
       end
     end
   end
@@ -71,8 +71,8 @@ RSpec.describe ApplicationController, type: :controller do
         path = Rails.root.join('config', 'locales', 'article_dates_job',
                                'article_dates_job.en.md')
         expect(controller).to receive(:render_to_string)
-                                .with(file: path, layout: false)
-                                .and_return('')
+          .with(file: path, layout: false)
+          .and_return('')
         controller.render_localized_markdown(:article_dates_job)
       end
     end
@@ -90,8 +90,8 @@ RSpec.describe ApplicationController, type: :controller do
         path = Rails.root.join('config', 'locales', 'article_dates_job',
                                'article_dates_job.en.md')
         expect(controller).to receive(:render_to_string)
-                                .with(file: path, layout: false)
-                                .and_return('')
+          .with(file: path, layout: false)
+          .and_return('')
         controller.render_localized_markdown(:article_dates_job)
       end
     end

@@ -9,20 +9,23 @@ module RLetters
     module Serializers
       # Code common to all serializers
       class Base
+        cattr_accessor :serializers
+        self.serializers = {}
+
         # Find the serializer for serializing to the given format
         #
         # @param format [Symbol] the format to serialize to
         # @return [Class] an appropriate serializer class
         def self.for(format)
           key = format.to_sym
-          @@serializers.fetch(key)
+          serializers.fetch(key)
         end
 
         # Return the list of available serializer MIME types
         #
         # @return [Array[Symbol]] the list of MIME types
         def self.available
-          @@serializers.keys
+          serializers.keys
         end
 
         # Create a serializer that can serialize only individual documents
@@ -66,16 +69,13 @@ module RLetters
           end
         end
 
-        private
-
         # Register a serializer into the internal list
         #
         # @param [Symbol] key A symbol key for this serializer
         # @param [Class] klass The class to serialize with
         # @return [void]
         def self.register(key, klass)
-          @@serializers ||= {}
-          @@serializers[key] = klass
+          serializers[key] = klass
         end
 
         # Define the common `.format` and `.url` class methods, as well as

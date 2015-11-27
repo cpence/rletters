@@ -182,10 +182,7 @@ module RLetters
           # Look for the "all n-grams" option and use it to override the
           # number of words
           self.num_words = 0 if all
-
-          if num_words < 0
-            fail ArgumentError, "number of words cannot be negative"
-          end
+          fail ArgumentError, 'number of words negative' if num_words < 0
         end
 
         # Cull `word_list` with the exclusion/inclusion lists

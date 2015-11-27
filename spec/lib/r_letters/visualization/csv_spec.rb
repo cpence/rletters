@@ -45,10 +45,9 @@ RSpec.describe RLetters::Visualization::CSV do
 
     it 'prints a header row' do
       csv_string = CSV.generate do |csv|
-        test_class.new.write_csv_data(
-          csv, [[1, 2]],
-          { 'first' => :first,
-            'second' => :last })
+        test_class.new.write_csv_data(csv, [[1, 2]],
+                                      'first' => :first,
+                                      'second' => :last)
       end
 
       expect(csv_string).to include("first,second\n")
@@ -56,10 +55,9 @@ RSpec.describe RLetters::Visualization::CSV do
 
     it 'prints the data' do
       csv_string = CSV.generate do |csv|
-        test_class.new.write_csv_data(
-          csv, [[1, 2]],
-          { 'first' => :first,
-            'second' => :last })
+        test_class.new.write_csv_data(csv, [[1, 2]],
+                                      'first' => :first,
+                                      'second' => :last)
       end
 
       expect(csv_string).to include("1,2\n")

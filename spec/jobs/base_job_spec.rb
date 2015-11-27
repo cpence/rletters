@@ -3,13 +3,13 @@ require 'rails_helper'
 # Mock jobs for testing the base code
 class MockJob < BaseJob; end
 class FailJob < BaseJob
-  def perform(task)
+  def perform(_)
     # Mock what this would look like in the Que jobs table
     ActiveRecord::Base.connection.execute('DELETE FROM que_jobs')
 
-    json = [{'job_class' => 'FailingJob', 'job_id' => @job_id,
-             'queue_name' => 'maintenance', 'arguments' => [],
-             'locale' => 'en'}].to_json
+    json = [{ 'job_class' => 'FailingJob', 'job_id' => @job_id,
+              'queue_name' => 'maintenance', 'arguments' => [],
+              'locale' => 'en' }].to_json
     query = <<-SQL
       INSERT INTO que_jobs
       (priority, run_at, job_id, job_class, args, error_count, queue) VALUES

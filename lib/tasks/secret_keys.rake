@@ -7,7 +7,7 @@ namespace :secrets do
     env_file = Rails.root.join('.env')
 
     # Open up the file and copy it to a temporary location
-    Tempfile.open(".env", Rails.root) do |tempfile|
+    Tempfile.open('.env', Rails.root) do |tempfile|
       File.open(env_file).each do |line|
         line = line.gsub(/^(# )?SECRET_TOKEN.*$/, "SECRET_TOKEN=#{new_token}")
         line = line.gsub(/^(# )?SECRET_KEY_BASE.*$/, "SECRET_KEY_BASE=#{new_key_base}")

@@ -11,7 +11,7 @@ FactoryGirl.define do
   end
 
   factory :benchmark, class: Admin::Benchmark do
-    job "ArticleDatesJob"
+    job 'ArticleDatesJob'
     size 10
     time 60.0
   end

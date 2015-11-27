@@ -92,7 +92,7 @@ module Datasets
     # @param [String] message the current progress message
     # @return [void]
     def at(current, total, message)
-      return if DateTime.now.to_i - self.last_progress.to_i < 5
+      return if DateTime.now.to_i - last_progress.to_i < 5
 
       self.progress = (current.to_f / total.to_f).bound(0.0, 1.0)
       self.progress_message = message

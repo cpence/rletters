@@ -86,9 +86,7 @@ module RLetters
         end
 
         # Ignore num_pairs if we want all of the cooccurrences
-        if all
-          self.num_pairs = nil
-        end
+        self.num_pairs = nil if all
 
         base_frequencies, joint_frequencies, n = frequencies
         total_i = pairs.size.to_f

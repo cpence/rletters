@@ -30,10 +30,10 @@ module RLetters
       include VirtusExt::ParameterHash
 
       attribute :dataset, Dataset, required: true
-      attribute :document_segmenter, RLetters::Documents::Segments,
-                default: lambda { |segmenter, attribute|
+      attribute(:document_segmenter, RLetters::Documents::Segments,
+                default: lambda do |segmenter, _|
                   RLetters::Documents::Segments.new(segmenter.parameter_hash)
-                }
+                end)
       attribute :split_across, Boolean, default: true
       attribute :progress, Proc
 
@@ -44,11 +44,7 @@ module RLetters
       #
       # @return [Array<RLetters::Documents::Block>] the text segments
       def segments
-        if split_across
-          segments_across
-        else
-          segments_within
-        end
+        split_across ? segments_across : segments_within
       end
 
       # Reset the dataset segmenter

@@ -1,9 +1,9 @@
 class CreateDatasetsFileResults < ActiveRecord::Migration
   def self.up
     create_table :datasets_file_results do |t|
-      t.integer    :datasets_file_id
-      t.string     :style
-      t.binary     :file_contents
+      t.integer :datasets_file_id
+      t.string :style
+      t.binary :file_contents
     end
 
     drop_table :datasets_task_results

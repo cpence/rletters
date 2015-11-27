@@ -33,7 +33,7 @@ FactoryGirl.define do
 
       after(:create) do |dataset, evaluator|
         if evaluator.num_docs > 0
-          uids = (1..evaluator.num_docs).to_a.map { |n| "\"#{FactoryGirl.generate(:working_uid)}\"" }
+          uids = (1..evaluator.num_docs).to_a.map { "\"#{FactoryGirl.generate(:working_uid)}\"" }
           query = "uid:(#{uids.join(' OR ')})"
 
           FactoryGirl.create(:query, dataset: dataset, q: query)
@@ -47,11 +47,11 @@ FactoryGirl.define do
       working false
     end
 
-    sequence(:q) do |n|
+    sequence(:q) do
       if working
         "uid:\"#{FactoryGirl.generate(:working_uid)}\""
       else
-        "title:test"
+        'title:test'
       end
     end
 
@@ -59,7 +59,7 @@ FactoryGirl.define do
     fq nil
     def_type 'lucene'
 
-    after(:create) do |query, evaluator|
+    after(:create) do |query, _|
       query.update_size_cache
     end
   end

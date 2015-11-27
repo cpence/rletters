@@ -23,7 +23,7 @@ class CreateDatasetsQueries < ActiveRecord::Migration
 
     # Add the document count cache, and set it for the first time
     add_column :datasets, :document_count, :integer, default: 0
-    update "UPDATE datasets SET document_count = (SELECT COUNT(*) FROM datasets_queries WHERE datasets_queries.dataset_id = datasets.id)"
+    update 'UPDATE datasets SET document_count = (SELECT COUNT(*) FROM datasets_queries WHERE datasets_queries.dataset_id = datasets.id)'
 
     remove_column :datasets, :disabled
   end

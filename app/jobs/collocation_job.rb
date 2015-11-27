@@ -21,9 +21,12 @@ class CollocationJob < BaseJob
   def perform(task, options = {})
     standard_options(task, options)
 
-    result = RLetters::Analysis::Collocation.call(options.merge(
-      dataset: dataset,
-      progress: ->(p) { task.at(p, 100, t('.progress_computing')) }))
+    result = RLetters::Analysis::Collocation.call(
+      options.merge(
+        dataset: dataset,
+        progress: ->(p) { task.at(p, 100, t('.progress_computing')) }
+      )
+    )
 
     case result.scoring
     when :mutual_information
@@ -43,8 +46,8 @@ class CollocationJob < BaseJob
     # Save out all the data
     csv_string = csv_with_header(t('.header', name: dataset.name),
                                  t('.subheader', test: algorithm)) do |csv|
-      write_csv_data(csv, result.collocations, { t('.pair') => :first,
-                                                 column => :second })
+      write_csv_data(csv, result.collocations, t('.pair') => :first,
+                                               column => :second)
     end
 
     # Write out the CSV to a file

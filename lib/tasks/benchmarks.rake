@@ -24,7 +24,7 @@ end
 
 namespace :benchmarks do
   desc 'Update benchmarks for all available jobs (warning: slow!)'
-  task :update => :environment do
+  task update: :environment do
     # Pipe down, logs
     Rails.application.config.log_level = 'WARN'
     Rails.logger.level = Logger::WARN
@@ -60,9 +60,9 @@ namespace :benchmarks do
         query = "uid:(#{docs.map { |d| "\"#{d.uid}\"" }.join(' OR ')})"
 
         # Build a couple datasets and some queries to fill them
-        dataset = user.datasets.create!(name: "Maintenance Dataset")
+        dataset = user.datasets.create!(name: 'Maintenance Dataset')
         dataset.queries.create!(q: query, def_type: 'lucene')
-        second_dataset = user.datasets.create!(name: "Second Maint Dataset")
+        second_dataset = user.datasets.create!(name: 'Second Maint Dataset')
         second_dataset.queries.create!(q: query, def_type: 'lucene')
 
         begin

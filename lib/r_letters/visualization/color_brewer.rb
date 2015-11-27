@@ -23,7 +23,7 @@ module RLetters
     #
     # In particular, these were adapted from Mike Bostock's bl.ocks.org code
     # listing: http://bl.ocks.org/mbostock/5577023
-    module ColorBrewer
+    module ColorBrewer # rubocop:disable ModuleLength
       # The sequential color schemes
       #
       # From the ColorBrewer page:
@@ -548,7 +548,7 @@ module RLetters
         },
         7 => {
           'Accent' => ['#7fc97f', '#beaed4', '#fdc086', '#ffff99', '#386cb0',
-                      '#f0027f', '#bf5b17'],
+                       '#f0027f', '#bf5b17'],
           'Dark2' => ['#1b9e77', '#d95f02', '#7570b3', '#e7298a', '#66a61e',
                       '#e6ab02', '#a6761d'],
           'Paired' => ['#a6cee3', '#1f78b4', '#b2df8a', '#33a02c', '#fb9a99',
@@ -566,7 +566,7 @@ module RLetters
         },
         8 => {
           'Accent' => ['#7fc97f', '#beaed4', '#fdc086', '#ffff99', '#386cb0',
-                      '#f0027f', '#bf5b17', '#666666'],
+                       '#f0027f', '#bf5b17', '#666666'],
           'Dark2' => ['#1b9e77', '#d95f02', '#7570b3', '#e7298a', '#66a61e',
                       '#e6ab02', '#a6761d', '#666666'],
           'Paired' => ['#a6cee3', '#1f78b4', '#b2df8a', '#33a02c', '#fb9a99',

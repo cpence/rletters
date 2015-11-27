@@ -20,21 +20,22 @@ class WordFrequencyJob < BaseJob
 
     # Patch up the two strange arguments that don't come in the right format
     # from the web form
-    if options[:word_method] == 'all'
-      options[:all] = true
-    end
+    options[:all] = true if options[:word_method] == 'all'
     options.delete(:stemming) if options[:stemming] == 'no'
 
     # Do the analysis
-    analyzer = RLetters::Analysis::Frequency.call(options.merge(
-      dataset: dataset,
-      progress: lambda do |p|
-        if make_word_cloud
-          task.at((p / 100) * 75, 100, t('.progress_calculating'))
-        else
-          task.at(p, 100, t('.progress_calculating'))
+    analyzer = RLetters::Analysis::Frequency.call(
+      options.merge(
+        dataset: dataset,
+        progress: lambda do |p|
+          if make_word_cloud
+            task.at((p / 100) * 75, 100, t('.progress_calculating'))
+          else
+            task.at(p, 100, t('.progress_calculating'))
+          end
         end
-      end))
+      )
+    )
 
     corpus_size = RLetters::Solr::CorpusStats.new.size
     dataset_size = dataset.document_count

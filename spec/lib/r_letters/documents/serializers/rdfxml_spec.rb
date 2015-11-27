@@ -27,7 +27,7 @@ RSpec.describe RLetters::Documents::Serializers::RDFXML do
       tags = @xml.css('dc|creator')
       expect(tags.size).to eq(1)
 
-      expect(tags.map { |t| t.content }).to match_array(['Dickens, C.'])
+      expect(tags.map(&:content)).to match_array(['Dickens, C.'])
     end
 
     it 'includes the citation elements' do
@@ -42,7 +42,7 @@ RSpec.describe RLetters::Documents::Serializers::RDFXML do
       citations = @xml.css('dc|bibliographicCitation')
       expect(citations.size).to eq(2)
 
-      expect(citations.map { |c| c.content }).to match_array(expected)
+      expect(citations.map(&:content)).to match_array(expected)
     end
   end
 

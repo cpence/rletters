@@ -36,10 +36,10 @@ class DatasetsController < ApplicationController
     @dataset = current_user.datasets.find(params[:id])
 
     # Clear failed tasks if requested
-    if params[:clear_failed] && @dataset.tasks.failed.size > 0
-      @dataset.tasks.failed.destroy_all
-      flash[:notice] = t('datasets.show.deleted')
-    end
+    return unless params[:clear_failed] && @dataset.tasks.failed.size > 0
+
+    @dataset.tasks.failed.destroy_all
+    flash[:notice] = t('datasets.show.deleted')
   end
 
   # Show the form for creating a new dataset

@@ -26,10 +26,6 @@ Metrics/PerceivedComplexity:
 Style/Documentation:
   Enabled: false
 
-# FIXME: These should probably be replaced by keyword arguments!
-Metrics/ParameterLists:
-  Enabled: false
-
 # FIXME: These are bad.
 MethodLength:
   Max: 150

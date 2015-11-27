@@ -30,7 +30,7 @@ module RLetters
         # Get the hash of parameters passed into the constructor
         #
         # @return [Hash] The set of parameters which constructed this object
-        def parameter_hash
+        def parameter_hash # rubocop:disable TrivialAccessors
           @parameter_hash
         end
       end

@@ -52,7 +52,7 @@ module RLetters
     end
 
     # Error reporting
-    config.exceptions_app = self.routes
+    config.exceptions_app = routes
     config.consider_all_requests_local = false
     config.action_dispatch.show_exceptions = true
     config.active_record.raise_in_transactional_callbacks = true

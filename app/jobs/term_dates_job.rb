@@ -29,8 +29,8 @@ class TermDatesJob < BaseJob
     csv_string = csv_with_header(t('.header', name: dataset.name),
                                  t('.subheader', term: options[:term])) do |csv|
       write_csv_data(csv, dates,
-                     { Document.human_attribute_name(:year) => :first,
-                       t('.number_column') => :second })
+                     Document.human_attribute_name(:year) => :first,
+                     t('.number_column') => :second)
     end
 
     # Save out the data

@@ -14,9 +14,9 @@ module RLetters
         # example)
         params.delete_if { |_, v| v.blank? }
 
-        parse_position(params, api).
-          merge(parse_facets_and_categories(params)).
-          merge(parse_search(params))
+        parse_position(params, api)
+          .merge(parse_facets_and_categories(params))
+          .merge(parse_search(params))
       end
 
       private

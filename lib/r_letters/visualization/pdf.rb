@@ -31,11 +31,11 @@ module RLetters
       # @yieldparam [Prawn::Document] pdf The Prawn document object
       def pdf_with_header(header)
         info = {
-          :Title        => header,
-          :Author       => ENV['APP_NAME'],
-          :Creator      => 'RLetters',
-          :Producer     => 'Prawn',
-          :CreationDate => Time.now
+          'Title':        header,
+          'Author':       ENV['APP_NAME'],
+          'Creator':      'RLetters',
+          'Producer':     'Prawn',
+          'CreationDate': Time.now
         }
 
         pdf = Prawn::Document.new(info: info,

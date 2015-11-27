@@ -44,10 +44,10 @@ class TaskDecorator < Draper::Decorator
     return nil if ret.nil?
 
     ret.gsub('\\', '\\\\')
-       .gsub("'", "\\\\'")
-       .gsub('\n', '\\\\\\\\n')
-       .gsub('"', '\\\\"')
-       .html_safe
+      .gsub("'", "\\\\'")
+      .gsub('\n', '\\\\\\\\n')
+      .gsub('"', '\\\\"')
+      .html_safe
   end
 
   # A user-friendly status/percentage message

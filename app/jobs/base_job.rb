@@ -188,16 +188,14 @@ class BaseJob < ActiveJob::Base
     @task.at(0, 100, t('common.progress_initializing'))
 
     # Set the @datasets variable if the :other_datasets option was passed
-    if options.present?
-      other_datasets = options[:other_datasets]
+    return unless options.present?
+    other_datasets = options[:other_datasets]
 
-      if other_datasets
-        other_datasets = [other_datasets] unless other_datasets.is_a?(Array)
-        other_datasets.map! { |id| user.datasets.find(id) }
+    return unless other_datasets
+    other_datasets = [other_datasets] unless other_datasets.is_a?(Array)
+    other_datasets.map! { |id| user.datasets.find(id) }
 
-        @datasets = [dataset] + other_datasets
-      end
-    end
+    @datasets = [dataset] + other_datasets
   end
 
   private

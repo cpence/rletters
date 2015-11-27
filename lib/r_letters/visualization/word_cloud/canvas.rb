@@ -46,7 +46,7 @@ module RLetters
           end
 
           # Take a guess at how much area we'll need to build the image
-          get_canvas_size
+          calculate_canvas_size
 
           # Build the image where we'll store the clipping data
           @image = create_new_image(@width, @height)
@@ -76,9 +76,9 @@ module RLetters
           @image_png = ChunkyPNG::Image.from_file(@image.path)
 
           loop do
-            if (x > 0 && x < @width - e[:w] &&
-                y > 0 && y < @height - e[:h] &&
-                word_fits_at(word, size, e, x, y))
+            if x > 0 && x < @width - e[:w] &&
+               y > 0 && y < @height - e[:h] &&
+               word_fits_at(word, e, x, y)
               # It fits, so add the word to the canvas
               paint_word(word, size, x, y)
 
@@ -96,11 +96,11 @@ module RLetters
             y = (y_0 + ((8.0 * theta * Math.sin(theta)) / (2 * Math::PI))).round
 
             # Freak out if we've left the image entirely
-            if 8.0 * theta > ([@width, @height].max * 1.8)
-              x = x_0
-              y = y_0 = Random.rand(@height).round
-              theta = 0.0
-            end
+            next unless 8.0 * theta > ([@width, @height].max * 1.8)
+
+            x = x_0
+            y = y_0 = Random.rand(@height).round
+            theta = 0.0
           end
         end
 
@@ -123,13 +123,13 @@ module RLetters
         # can successfully build the image.
         #
         # @return [void]
-        def get_canvas_size
+        def calculate_canvas_size
           sizes = @extents.values
           sizes.sort! do |a, b|
             diff = [b[:w], b[:h]].max <=> [a[:w], a[:h]].max
             diff = [b[:w], b[:h]].min <=> [a[:w], a[:h]].min if diff.zero?
             diff = b[:h] <=> a[:h] if diff.zero?
-            diff = b[:w]  <=> a[:w]  if diff.zero?
+            diff = b[:w] <=> a[:w] if diff.zero?
             diff
           end
 
@@ -179,12 +179,11 @@ module RLetters
         # words that are already there.
         #
         # @param [String] word the word to check
-        # @param [Integer] size the point size of the word
         # @param [Hash] extents the extents of this word
         # @param [Integer] x the x coordinate to check
         # @param [Integer] y the y coordinate to check
         # @return [Boolean] true if the word can fit without overlap
-        def word_fits_at(word, size, extents, x, y)
+        def word_fits_at(word, extents, x, y)
           w = extents[:w].ceil + 10
           h = extents[:h].ceil + 10
 
@@ -201,12 +200,9 @@ module RLetters
             y_off = (5 - y)
             h -= y_off
           end
-          if x - (5 - x_off) + w > @width
-            w = @width - x + (5 - x_off)
-          end
-          if y - (5 - y_off) + h > @height
-            h = @height - y + (5 - y_off)
-          end
+
+          w = @width - x + (5 - x_off) if x - (5 - x_off) + w > @width
+          h = @height - y + (5 - y_off) if y - (5 - y_off) + h > @height
 
           clip_png = @clip_pngs[word]
 
@@ -216,8 +212,8 @@ module RLetters
               clip_color = clip_png[x_off + i, y_off + j]
               canvas_color = @image_png[x - (5 - x_off) + i, y - (5 - y_off) + j]
 
-              if (ChunkyPNG::Color.r(clip_color) < 255 &&
-                  ChunkyPNG::Color.r(canvas_color) < 255)
+              if ChunkyPNG::Color.r(clip_color) < 255 &&
+                 ChunkyPNG::Color.r(canvas_color) < 255
                 return false
               end
             end
@@ -272,7 +268,7 @@ MSL
 
           temp.unlink
 
-          numbers = output.split(' ').map { |n| n.to_f }
+          numbers = output.split(' ').map(&:to_f)
 
           { w: numbers[0], h: numbers[1], ascent: numbers[2] }
         end
@@ -332,7 +328,7 @@ MSL
           elsif can_grow_down
             grow_down(root, w, h)
           else
-            fail RuntimeError, "Can't fit #{w}x#{h} into root, shouldn't happen"
+            fail "Can't fit #{w}x#{h} into root, shouldn't happen"
           end
         end
 
@@ -342,15 +338,15 @@ MSL
         # @param [Integer] w the width of the block we need to accommodate
         # @param [Integer] h the height of the block we need to accommodate
         # @return [Hash] the new root node (containing the current root)
-        def grow_right(root, w, h)
+        def grow_right(root, w, _)
           {
-            :used  => true,
-            :x     => 0,
-            :y     => 0,
-            :w     => root[:w] + w,
-            :h     => root[:h],
-            :down  => root,
-            :right => { :x => root[:w], :y => 0, :w => w, :h => root[:h] }
+            used:  true,
+            x:     0,
+            y:     0,
+            w:     root[:w] + w,
+            h:     root[:h],
+            down:  root,
+            right: { x: root[:w], y: 0, w: w, h: root[:h] }
           }
         end
 
@@ -360,15 +356,15 @@ MSL
         # @param [Integer] w the width of the block we need to accommodate
         # @param [Integer] h the height of the block we need to accommodate
         # @return [Hash] the new root node (containing the current root)
-        def grow_down(root, w, h)
+        def grow_down(root, _, h)
           {
-            :used  => true,
-            :x     => 0,
-            :y     => 0,
-            :w     => root[:w],
-            :h     => root[:h] + h,
-            :down  => { :x => 0, :y => root[:h], :w => root[:w], :h => h },
-            :right => root
+            used:  true,
+            x:     0,
+            y:     0,
+            w:     root[:w],
+            h:     root[:h] + h,
+            down:  { x: 0, y: root[:h], w: root[:w], h: h },
+            right: root
           }
         end
       end

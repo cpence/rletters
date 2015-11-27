@@ -120,11 +120,8 @@ module Datasets
     # @return [void]
     def set_task
       @dataset = current_user.datasets.find(params[:dataset_id])
-      @task = @dataset.tasks.find(params[:id]) if params[:id].present?
-
-      if params[:class].present?
-        @klass = Datasets::Task.job_class(params[:class])
-      end
+      @task = @dataset.tasks.find(params[:id]) if params[:id]
+      @klass = Datasets::Task.job_class(params[:class]) if params[:class]
     end
 
     # Get the current parameters hash from the params

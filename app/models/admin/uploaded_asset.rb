@@ -19,7 +19,7 @@ module Admin
     has_attached_file :file,
                       database_table: 'admin_uploaded_asset_files',
                       url: '/workflow/image/:id'
-    validates_attachment_content_type :file, content_type: /\Aimage\/.*\Z/
+    validates_attachment_content_type :file, content_type: %r{\Aimage/.*\Z}
 
     # @return [String] Friendly name of this asset (looked up in locale)
     def friendly_name
