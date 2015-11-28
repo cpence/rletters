@@ -12,19 +12,19 @@ RSpec.describe RLetters::VirtusExt::SplitList do
       expect(model.list).to match_array([1, 2, 3])
     end
 
-    it 'should coerce a Documents::StopList' do
+    it 'passes through a Documents::StopList' do
       stop_list = build(:stop_list)
       model = SplitTester.new(list: stop_list)
 
       expect(model.list).to match_array(['a', 'an', 'the'])
     end
 
-    it 'should coerce a string to a space-separated list' do
+    it 'loads a string to a space-separated list' do
       model = SplitTester.new(list: 'a an the')
       expect(model.list).to match_array(['a', 'an', 'the'])
     end
 
-    it 'should choke on anything else' do
+    it 'chokes on anything else' do
       expect {
         SplitTester.new(list: 37)
       }.to raise_error(ArgumentError)
