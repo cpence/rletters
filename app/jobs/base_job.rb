@@ -1,4 +1,7 @@
 
+# The exception raised when we kill a job externally
+class JobKilledError < RuntimeError; end
+
 # Base class for all jobs
 #
 # Analysis jobs have two special partials that can be implemented to
@@ -116,11 +119,6 @@ class BaseJob < ActiveJob::Base
     Admin::Benchmark.where(job: name).where.not(time: nil)
   end
 
-  # The exception raised when we kill a job externally
-  class JobKilledError < RuntimeError; end
-
-  protected
-
   # Access the task, but only if it hasn't been deleted
   #
   # @return [Datasets::Task] the task we're working on
@@ -159,6 +157,8 @@ class BaseJob < ActiveJob::Base
   def user
     dataset.user
   end
+
+  protected
 
   # Sets a variety of standard option variables
   #

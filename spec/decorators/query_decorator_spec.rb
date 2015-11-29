@@ -21,6 +21,12 @@ RSpec.describe QueryDecorator, type: :decorator do
       expect(@fq_query.fq[0]).to eq('Year: 1960–1969')
     end
 
+    it 'blows up on a bad facet' do
+      expect {
+        described_class.decorate(Datasets::Query.new(q: 'testing', fq: ['purple'])).fq
+      }.to raise_error(ArgumentError)
+    end
+
     it 'returns nil if there are no facets' do
       expect(@q_query.fq).to be_nil
     end
