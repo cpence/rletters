@@ -63,7 +63,7 @@ RSpec.describe DatasetsController, type: :controller do
 
         expect(@user.datasets.size).to eq(2)
 
-        d = @user.datasets.order('created_at').last
+        d = @user.datasets.order(:created_at).last
         expect(d.name).to eq('New Dataset')
         expect(d.queries.size).to eq(1)
         expect(d.queries[0].q).to eq('*:*')
@@ -82,7 +82,7 @@ RSpec.describe DatasetsController, type: :controller do
       before(:example) do
         @user.workflow_active = true
         @user.workflow_class = 'ArticleDates'
-        @user.save
+        @user.save!
 
         post :create, dataset: { name: 'New Dataset' },
                       q: '*:*', fq: nil, def_type: 'lucene'
@@ -90,8 +90,12 @@ RSpec.describe DatasetsController, type: :controller do
       end
 
       after(:example) do
-        @user.workflow_datasets = []
-        @user.save
+        @user.workflow_active = false
+        @user.workflow_class = nil
+        @user.workflow_datasets.clear
+        @user.save!
+
+        @user.reload
       end
 
       it 'links it and redirects to the workflow activation when workflow is active' do
@@ -101,7 +105,7 @@ RSpec.describe DatasetsController, type: :controller do
 
       it 'links the dataset' do
         expect(@user.workflow_datasets.count).to eq(1)
-        expect(@user.workflow_datasets[0]).to eq(@user.datasets.first.to_param)
+        expect(@user.workflow_datasets[0]).to eq(@user.datasets.order(:created_at).last.to_param)
       end
     end
   end
