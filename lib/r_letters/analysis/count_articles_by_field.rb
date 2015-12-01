@@ -143,7 +143,11 @@ module RLetters
           return parts[0]
         end
 
+        # We're not yet actually faceting on anything other than journal,
+        # author, or year; so this code isn't tested
+        # :nocov:
         doc.send(field)
+        # :nocov:
       end
 
       # Fill in zeros for any missing values in the counts

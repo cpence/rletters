@@ -29,14 +29,6 @@ module RLetters
         #
         # @return [RLetters::Analysis::Collocation::Result] analysis results
         def call
-          # Shouldn't happen, but check that the user wanted this
-          unless scoring == :parts_of_speech
-            fail ArgumentError, "called PartsOfSpeech with scoring #{scoring}"
-          end
-          if ENV['NLP_TOOL_PATH'].blank?
-            fail ArgumentError, 'NLP tool not available'
-          end
-
           # Ignore num_pairs if we want all of the cooccurrences
           self.num_pairs = nil if all || num_pairs.try(:<=, 0)
 

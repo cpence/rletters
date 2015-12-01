@@ -171,7 +171,11 @@ module RLetters
         begin
           Integer(counts.keys.first)
         rescue ArgumentError
+          # We aren't using this to do any non-numeric grouping yet; this code
+          # isn't tested.
+          # :nocov:
           return counts
+          # :nocov:
         end
 
         # Actually fill in all of the numerically intervening years

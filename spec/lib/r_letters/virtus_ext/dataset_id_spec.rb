@@ -36,7 +36,7 @@ RSpec.describe RLetters::VirtusExt::DatasetID do
 
     it 'chokes on anything else' do
       expect {
-        LowerStringTester.new(string: 37)
+        DsIdTester.new(dataset: 37)
       }.to raise_error(ArgumentError)
     end
   end
