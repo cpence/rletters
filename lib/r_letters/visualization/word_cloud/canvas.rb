@@ -110,9 +110,11 @@ module RLetters
         # cloud algorithm.
         #
         # @return [void]
+        # :nocov:
         def debug
           @image.write(Rails.root.join('tmp', 'debug.png'))
         end
+        # :nocov:
 
         private
 

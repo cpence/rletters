@@ -66,4 +66,14 @@ RSpec.describe NamedEntitiesJob, type: :job do
       expect(refs['PERSON']).not_to be_empty
     end
   end
+
+  context 'when NLP fails or returns nothing' do
+    it 'still works' do
+      allow(RLetters::Analysis::NLP).to receive(:named_entities).and_return({})
+
+      expect {
+        described_class.new.perform(@task)
+      }.not_to raise_error
+    end
+  end
 end

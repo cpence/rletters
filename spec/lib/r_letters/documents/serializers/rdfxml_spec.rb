@@ -1,5 +1,7 @@
 require 'rails_helper'
 
+# This tests both halves of the RDF serializers, the same code is generating
+# the N3 representation, but this is easier to spec.
 RSpec.describe RLetters::Documents::Serializers::RDFXML do
   context 'with a single document' do
     before(:example) do

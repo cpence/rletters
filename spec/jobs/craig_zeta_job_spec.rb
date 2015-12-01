@@ -26,6 +26,16 @@ RSpec.describe CraigZetaJob, type: :job do
     end
   end
 
+  context 'when too many datasets are provided' do
+    it 'raises an error' do
+      expect {
+        described_class.new.perform(
+          @task,
+          other_datasets: [@dataset_2.id, @dataset_2.id])
+      }.to raise_error(ArgumentError)
+    end
+  end
+
   context 'when all parameters are valid' do
     before(:example) do
       described_class.new.perform(
