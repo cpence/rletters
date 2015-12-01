@@ -115,7 +115,7 @@ class CraigZetaJob < BaseJob
 
       first_words = Hash[analyzer.zeta_scores.take(list_size)]
 
-      pdf_one = Visualization::WordCloud.call(
+      pdf_one = RLetters::Visualization::WordCloud.call(
         word_cloud_options.merge(
           header: t('.marker_column', name: datasets[0].name),
           words: first_words
@@ -132,7 +132,7 @@ class CraigZetaJob < BaseJob
 
       second_words = Hash[analyzer.zeta_scores.reverse_each.take(list_size)]
 
-      pdf_two = Visualization::WordCloud.call(
+      pdf_two = RLetters::Visualization::WordCloud.call(
         word_cloud_options.merge(
           header: t('.marker_column', name: datasets[1].name),
           words: second_words

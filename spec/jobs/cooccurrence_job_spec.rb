@@ -5,16 +5,6 @@ RSpec.describe CooccurrenceJob, type: :job do
     @user = create(:user)
     @dataset = create(:full_dataset, working: true, user: @user)
     @task = create(:task, dataset: @dataset)
-
-    # Don't run the analyses
-    allow(RLetters::Analysis::Cooccurrence).to receive(:call) do |args|
-      p = args['progress']
-      p && p.call(100)
-      RLetters::Analysis::Cooccurrence::Result.new(
-        scoring: args[:scoring].to_sym,
-        stemming: (args[:stemming] && args[:stemming].to_sym) || nil,
-        cooccurrences: [['word other', 1]])
-    end
   end
 
   it_should_behave_like 'an analysis job' do
@@ -45,8 +35,8 @@ RSpec.describe CooccurrenceJob, type: :job do
             'words' => words)
         }.not_to raise_error
 
-        # Just a quick sanity check to make sure some code was called
-        expect(@dataset.tasks[0].name).to eq('Determine significant associations between distant pairs of words')
+        expect(@task.name).to eq('Determine significant associations between distant pairs of words')
+        expect(@task.files[0].result.file_contents(:original)).to match(/\n"?\w+,? \w+"?,\d+(\.\d+)?/)
       end
     end
   end

@@ -38,7 +38,7 @@ module RLetters
           end
 
           # Ignore num_pairs if we want all of the cooccurrences
-          self.num_pairs = nil if all
+          self.num_pairs = nil if all || num_pairs.try(:<=, 0)
 
           total = dataset.document_count
 
@@ -61,7 +61,7 @@ module RLetters
           progress && progress.call(100)
 
           self.result = result.sort { |a, b| b[1] <=> a[1] }
-          self.result = result.take(num_pairs) if num_pairs > 0
+          self.result = result.take(num_pairs) if num_pairs
 
           Result.new(scoring: :parts_of_speech, collocations: result.to_a)
         end

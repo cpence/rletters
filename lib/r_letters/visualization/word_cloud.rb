@@ -105,10 +105,14 @@ module RLetters
       # @param [Integer] frequency the frequency of this word
       # @return [Integer] the point size at which to draw this word
       def point_size_for(frequency_range, frequency)
-        relative = (frequency - frequency_range.min) /
-                   (frequency_range.max - frequency_range.min)
+        if frequency_range.max == frequency_range.min
+          14.0
+        else
+          relative = (frequency - frequency_range.min) /
+                     (frequency_range.max - frequency_range.min)
 
-        relative * 20.0 + 8
+          relative * 20.0 + 8
+        end
       end
     end
   end

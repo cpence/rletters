@@ -42,8 +42,6 @@ class CooccurrenceJob < BaseJob
     when :log_likelihood
       algorithm = t('common.scoring.log_likelihood')
       column = t('common.scoring.loglikelihood_header')
-    else
-      fail ArgumentError, 'Invalid value for scoring'
     end
 
     # Save out all the data

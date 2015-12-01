@@ -9,14 +9,8 @@ RSpec.describe CollocationJob, type: :job do
     @old_path = ENV['NLP_TOOL_PATH']
     ENV['NLP_TOOL_PATH'] = 'stubbed'
 
-    # Don't run the analyses
-    allow(RLetters::Analysis::Collocation).to receive(:call) do |args|
-      p = args[:progress]
-      p && p.call(100)
-      RLetters::Analysis::Collocation::Result.new(
-        scoring: :t_test,
-        collocations: [['word other', 1]])
-    end
+    @words = build(:parts_of_speech)
+    allow(RLetters::Analysis::NLP).to receive(:parts_of_speech).at_least(:once).and_return(@words)
   end
 
   after(:example) do
@@ -24,7 +18,7 @@ RSpec.describe CollocationJob, type: :job do
   end
 
   it_should_behave_like 'an analysis job' do
-    let(:job_params) { { 'scoring' => 't_test' } }
+    let(:job_params) { { 'scoring' => 'mutual_information' } }
   end
 
   describe '.num_datasets' do
@@ -45,8 +39,9 @@ RSpec.describe CollocationJob, type: :job do
             sym.to_s => val)
         }.not_to raise_error
 
-        # Just a quick sanity check to make sure some code was called
-        expect(@dataset.tasks[0].name).to eq('Determine significant associations between immediate pairs of words')
+        # There should be at least one collocation in there ("word word,X.YYYY...")
+        expect(@task.name).to eq('Determine significant associations between immediate pairs of words')
+        expect(@task.files[0].result.file_contents(:original)).to match(/\n"?\w+,? \w+"?,\d+(\.\d+)?/)
       end
     end
   end

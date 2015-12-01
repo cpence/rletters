@@ -86,7 +86,7 @@ module RLetters
         end
 
         # Ignore num_pairs if we want all of the cooccurrences
-        self.num_pairs = nil if all
+        self.num_pairs = nil if all || num_pairs.try(:<=, 0)
 
         base_frequencies, joint_frequencies, n = frequencies
         total_i = pairs.size.to_f
@@ -122,10 +122,7 @@ module RLetters
         end
 
         ret.compact!
-        if num_pairs
-          ret = score_class.sort_results(ret)
-          ret = ret.take(num_pairs) if num_pairs > 0
-        end
+        ret = score_class.sort_results(ret).take(num_pairs) if num_pairs
 
         progress && progress.call(100)
 
