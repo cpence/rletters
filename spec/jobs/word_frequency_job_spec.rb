@@ -5,23 +5,6 @@ RSpec.describe WordFrequencyJob, type: :job do
     @user = create(:user)
     @dataset = create(:full_dataset, num_docs: 2, working: true, user: @user)
     @task = create(:task, dataset: @dataset)
-
-    # Don't perform the analysis
-    mock_analyzer = OpenStruct.new(
-      blocks: [{ 'word' => 2, 'other' => 5 }, { 'word' => 1, 'other' => 6 }],
-      block_stats: [
-        { name: 'first block', tokens: 7, types: 2 },
-        { name: 'second block', tokens: 7, types: 2 }],
-      word_list: %w(word other),
-      tf_in_dataset: { 'word' => 3, 'other' => 11 },
-      df_in_dataset: { 'word' => 2, 'other' => 3 },
-      num_dataset_tokens: 14,
-      num_dataset_types: 2,
-      df_in_corpus: { 'word' => 123, 'other' => 456 })
-    allow(RLetters::Analysis::Frequency).to receive(:call) do |hash|
-      hash[:progress].call(100)
-      mock_analyzer
-    end
   end
 
   it_should_behave_like 'an analysis job'
