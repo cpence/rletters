@@ -194,6 +194,9 @@ module RLetters
           x_off = 0
           y_off = 0
 
+          # Whether one of these edge conditions is triggered is stochastic, so
+          # skip them for coverage
+          # :nocov:
           if x < 5
             x_off = (5 - x)
             w -= x_off
@@ -202,6 +205,7 @@ module RLetters
             y_off = (5 - y)
             h -= y_off
           end
+          # :nocov:
 
           w = @width - x + (5 - x_off) if x - (5 - x_off) + w > @width
           h = @height - y + (5 - y_off) if y - (5 - y_off) + h > @height
@@ -321,6 +325,8 @@ MSL
           should_grow_right = can_grow_right && (root[:h] >= (root[:w] + w))
           should_grow_down = can_grow_down && (root[:w] >= (root[:h] + h))
 
+          # Where the thing can actually grow is stochastic; skip coverage
+          # :nocov:
           if should_grow_right
             grow_right(root, w, h)
           elsif should_grow_down
@@ -332,6 +338,7 @@ MSL
           else
             fail "Can't fit #{w}x#{h} into root, shouldn't happen"
           end
+          # :nocov:
         end
 
         # Make the root node larger by growing to the right.

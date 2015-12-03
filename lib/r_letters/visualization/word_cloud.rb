@@ -70,13 +70,16 @@ module RLetters
           scale_y = space_y / canvas.height
           scale = [scale_x, scale_y].min
 
-          # Center the block of text
+          # Center the block of text. Which of these dimensions is larger is
+          # stochastic, so don't care about test coverage
           x_offset = y_offset = 0
+          # :nocov:
           if scale == scale_x
             y_offset = (space_y - scale * canvas.height) / 2
           else
             x_offset = (space_x - scale * canvas.width) / 2
           end
+          # :nocov:
 
           # Draw all the words, stroked in the darkest color from the color
           # scheme
