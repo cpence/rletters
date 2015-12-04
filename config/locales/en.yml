@@ -66,12 +66,13 @@ en:
             'admin/administrator':
                 one: Administrator
                 other: Administrators
-            'admin/uploaded_asset':
-                one: Custom Asset
-                other: Custom Assets
+            'admin/feature_flags': Feature Flags
             'admin/markdown_page':
                 one: Custom Page
                 other: Custom Pages
+            'admin/uploaded_asset':
+                one: Custom Asset
+                other: Custom Assets
             dataset:
                 one: Dataset
                 other: Datasets
@@ -103,6 +104,9 @@ en:
                 password: Password
                 password_confirmation: Confirm password
                 remember_me: Remember me?
+            'admin/feature_flags':
+                var: Feature
+                value: Value
             'admin/markdown_page':
                 friendly_name: Name
                 name: Name

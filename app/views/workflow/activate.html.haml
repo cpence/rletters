@@ -22,7 +22,7 @@
     %h3= t('.dataset_list')
 
     - if @num_workflow_datasets < @num_datasets
-      .alert.alert-danger= t('.pending_count', count: (@num_datasets - @num_workflow_datasets))
+      .alert.alert-danger{ role: 'alert' }= t('.pending_count', count: (@num_datasets - @num_workflow_datasets))
 
     %table.table.button-table
       %thead

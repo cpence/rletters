@@ -103,6 +103,40 @@ ALTER SEQUENCE admin_benchmarks_id_seq OWNED BY admin_benchmarks.id;
 
 
 --
+-- Name: admin_feature_flags; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE admin_feature_flags (
+    id integer NOT NULL,
+    var character varying NOT NULL,
+    value text,
+    thing_id integer,
+    thing_type character varying(30),
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: admin_feature_flags_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE admin_feature_flags_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: admin_feature_flags_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE admin_feature_flags_id_seq OWNED BY admin_feature_flags.id;
+
+
+--
 -- Name: admin_markdown_pages; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -634,6 +668,13 @@ ALTER TABLE ONLY admin_benchmarks ALTER COLUMN id SET DEFAULT nextval('admin_ben
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY admin_feature_flags ALTER COLUMN id SET DEFAULT nextval('admin_feature_flags_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY admin_markdown_pages ALTER COLUMN id SET DEFAULT nextval('admin_markdown_pages_id_seq'::regclass);
 
 
@@ -742,6 +783,14 @@ ALTER TABLE ONLY admin_administrators
 
 ALTER TABLE ONLY admin_benchmarks
     ADD CONSTRAINT admin_benchmarks_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: admin_feature_flags_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY admin_feature_flags
+    ADD CONSTRAINT admin_feature_flags_pkey PRIMARY KEY (id);
 
 
 --
@@ -882,6 +931,13 @@ CREATE UNIQUE INDEX index_admin_administrators_on_email ON admin_administrators 
 --
 
 CREATE UNIQUE INDEX index_admin_administrators_on_reset_password_token ON admin_administrators USING btree (reset_password_token);
+
+
+--
+-- Name: index_admin_feature_flags_on_thing_type_and_thing_id_and_var; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE UNIQUE INDEX index_admin_feature_flags_on_thing_type_and_thing_id_and_var ON admin_feature_flags USING btree (thing_type, thing_id, var);
 
 
 --
@@ -1109,4 +1165,6 @@ INSERT INTO schema_migrations (version) VALUES ('20151118043212');
 INSERT INTO schema_migrations (version) VALUES ('20151119181057');
 
 INSERT INTO schema_migrations (version) VALUES ('20151120145451');
+
+INSERT INTO schema_migrations (version) VALUES ('20151204013427');
 

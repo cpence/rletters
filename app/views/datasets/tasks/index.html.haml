@@ -1,9 +1,9 @@
 -# Unfinished (active/failed) tasks
 - if dataset.not_finished_tasks.size > 0
   - if dataset.active_tasks.size > 0
-    .alert.alert-warning= t('.pending', count: dataset.active_tasks.size)
+    .alert.alert-warning{ role: 'alert' }= t('.pending', count: dataset.active_tasks.size)
   - if dataset.failed_tasks.size > 0
-    .alert.alert-danger= link_to t('.failed', count: dataset.failed_tasks.size), dataset_path(dataset, clear_failed: true)
+    .alert.alert-danger{ role: 'alert' }= link_to t('.failed', count: dataset.failed_tasks.size), dataset_path(dataset, clear_failed: true)
 
 -# Finished tasks: link to download results and to delete
 %table.table.button-table
