@@ -12,4 +12,18 @@ RSpec.feature 'User fetching a pending task', type: :feature do
     within('.navbar') { click_link 'Fetch' }
     expect(page).to have_selector('td', text: '40%: Pending task...')
   end
+
+  scenario 'when a task has failed' do
+    sign_in_with
+    create_dataset
+    visit datasets_path
+
+    create(:task, dataset: Dataset.first, finished_at: nil, failed: true,
+                  name: 'Blahdeblah')
+
+    within('.navbar') { click_link 'Fetch' }
+    expect(page).to have_selector('td', text: 'Blahdeblah')
+    puts page.source
+    expect(page).to have_selector('td', text: 'Task failed')
+  end
 end

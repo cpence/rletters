@@ -23,7 +23,7 @@
 .row
   .col-sm-12
     %h4= t('.completed_header')
-    - if finished_tasks.empty?
+    - if finished_tasks.empty? && failed_tasks.empty?
       %p= t('.no_completed')
     - else
       %table.table.button-table
@@ -34,9 +34,12 @@
             %th.label-cell= t('.finished_column')
             %th.button-cell= t('datasets.tasks.index.results_column')
         %tbody
-          - finished_tasks.each do |t|
+          - (finished_tasks + failed_tasks).each do |t|
             %tr
               %td.label-cell= t.name
               %td.label-cell= t.dataset.name
-              %td.label-cell= l t.finished_at, format: :short
-              %td.button-cell= render partial: 'datasets/tasks/task_buttons', locals: { task: t }
+              %td.label-cell= t.failed ? t('common.progress_generic_fail') : l(t.finished_at, format: :short)
+              - if t.failed
+                %td.button-cell= link_to t('datasets.index_xhr.delete_button'), dataset_task_path(t.dataset, t), method: :delete, class: 'btn btn-xs btn-danger', data: { confirm: t('datasets.index_xhr.delete_confirm') }
+              - else
+                %td.button-cell= render partial: 'datasets/tasks/task_buttons', locals: { task: t }
