@@ -62,10 +62,6 @@ module RLetters
               tv: term_vectors)
 
             # :nocov:
-            unless search_result.num_hits == to_fetch
-              fail "Failed to get batch of results in DocumentEnumerator (wanted #{to_fetch} hits, got #{search_result.num_hits})"
-            end
-
             if cursor_mark == search_result.solr_response['nextCursorMark']
               fail 'Expected more hits, but received the same cursor in response'
             end
