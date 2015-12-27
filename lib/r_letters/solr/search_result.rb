@@ -63,7 +63,13 @@ module RLetters
         return if solr_response.total == 0
 
         # Make sure that we set the encoding on all the returned Solr strings
-        solr_response.to_utf8!
+        solr_response.deep_transform_values! do |v|
+          if v.is_a?(String)
+            v.force_encoding(Encoding::UTF_8)
+          else
+            v
+          end
+        end
 
         # See if we were asked to get the full text (we need to tell the
         # Document constructor, so that we don't try to fetch URLs if we

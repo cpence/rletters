@@ -1,4 +1,9 @@
 require 'spec_helper'
+require 'rsolr'
+require 'rsolr-ext'
+require 'core_ext/net/http_exceptions'
+require 'r_letters/solr/connection'
+require 'r_letters/solr/search_result'
 
 RSpec.describe RLetters::Solr::SearchResult do
   before(:example) do
@@ -26,7 +31,7 @@ RSpec.describe RLetters::Solr::SearchResult do
 
     documents_array = [document_solr_hash, document_solr_hash]
 
-    @mock_response = double
+    @mock_response = double(RSolr::Ext::Response::Base)
     allow(@mock_response).to receive(:ok?).and_return(true)
     allow(@mock_response).to receive(:total).and_return(100)
     allow(@mock_response).to receive(:docs).and_return(documents_array)
@@ -34,6 +39,7 @@ RSpec.describe RLetters::Solr::SearchResult do
     allow(@mock_response).to receive(:facet_queries).and_return(nil)
     allow(@mock_response).to receive(:[]).with('termVectors').and_return(nil)
     allow(@mock_response).to receive(:params).and_return({})
+    allow(@mock_response).to receive(:deep_transform_values!).and_return({})
   end
 
   describe '#solr_response' do
