@@ -3,6 +3,7 @@
 ## Version 3.0 (unreleased)
 
 *   **Upgrade to bundling a more recent version of Solr (4.10.4).** This is a **significant and breaking change** for users, who *must* upgrade their Solr installations, as we are using some of the new features in later Solr versions to provide (in some cases dramatic) speed improvements. Reindexing content is not required, but is recommended when feasible.
+*   **Upgrade to use features in contemporary Ruby (2.3.0).** This is a **significant change** for users, who *must* upgrade their deployed version of Ruby.
 *   "Feature flag" support has now been implemented. This will extend to allow users to disable parts of RLetters that they do not need; for now it has only support for showing a scheduled maintenance message.
 *   The main search interface has been slightly redesigned to include support for infinite scrolling and be more functional on mobile/tablet screens.
 *   Datasets are now stored not as a list of entries, but as a list of the searches that were used to create them. This list of searches can be viewed on the dataset information page.

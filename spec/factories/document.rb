@@ -134,7 +134,7 @@ FactoryGirl.define do
                          volume: volume, number: number, pages: pages,
                          fulltext: fulltext,
                          fulltext_requested: fulltext_requested)
-      doc.term_vectors = term_vectors && term_vectors.with_indifferent_access
+      doc.term_vectors = term_vectors&.with_indifferent_access
       doc
     end
   end

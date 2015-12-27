@@ -22,11 +22,11 @@ module Users
     validates :user_id, presence: true
 
     before_validation do |library|
-      library.url = 'http://' + url if library.url && !library.url.include?('://')
+      library.url = 'http://' + (url || '') unless library.url&.include?('://')
     end
 
     after_validation do |library|
-      library.url << '?' if library.url && !library.url.end_with?('?')
+      library.url << '?' unless library.url&.end_with?('?')
     end
   end
 end

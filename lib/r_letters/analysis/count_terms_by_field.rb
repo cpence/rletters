@@ -54,11 +54,10 @@ module RLetters
           ret[key] ||= []
           ret[key] << doc.uid
 
-          progress && progress.call((i.to_f / total.to_f * 50.0).to_i)
+          progress&.call((i.to_f / total.to_f * 50.0).to_i)
         end
 
-        progress && progress.call(50)
-
+        progress&.call(50)
         ret
       end
 
@@ -84,9 +83,7 @@ module RLetters
             rows: 1)
 
           # These conditions would indicate a malformed Solr response
-          break unless group_result['grouped'] &&
-                       group_result['grouped'][field.to_s] &&
-                       group_result['grouped'][field.to_s]['matches']
+          break unless group_result.dig('grouped', field.to_s, 'matches')
 
           grouped = group_result['grouped'][field.to_s]
           break if grouped['matches'] == 0
@@ -116,9 +113,7 @@ module RLetters
             'group.limit' => group_size)
 
           # Malformed Solr response
-          break unless uids_result['grouped'] &&
-                       uids_result['grouped'][field.to_s] &&
-                       uids_result['grouped'][field.to_s]['groups']
+          break unless uids_result.dig('grouped', field.to_s, 'groups')
 
           # Turn the documents list into a UIDs list
           uid_group = uids_result['grouped'][field.to_s]['groups'][0]
@@ -136,8 +131,7 @@ module RLetters
           end
         end
 
-        progress && progress.call(50)
-
+        progress&.call(50)
         ret
       end
 
@@ -208,10 +202,10 @@ module RLetters
             ret[key] += vec[:tf] if vec
           end
 
-          progress && progress.call(50 + (i.to_f / total.to_f * 50.0).to_i)
+          progress&.call(50 + (i.to_f / total.to_f * 50.0).to_i)
         end
 
-        progress && progress.call(100)
+        progress&.call(100)
 
         zero_intervening(ret)
       end

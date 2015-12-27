@@ -68,8 +68,8 @@ module RLetters
         # See if we were asked to get the full text (we need to tell the
         # Document constructor, so that we don't try to fetch URLs if we
         # shouldn't)
-        fields = @params['fl'].try(:split, ',')
-        fulltext_requested = fields.try(:include?, 'fulltext')
+        fields = @params['fl']&.split(',')
+        fulltext_requested = fields&.include?('fulltext')
 
         # Make the documents
         term_vectors = solr_response['termVectors']

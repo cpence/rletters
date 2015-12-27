@@ -86,7 +86,7 @@ module RLetters
         end
 
         # Ignore num_pairs if we want all of the cooccurrences
-        self.num_pairs = nil if all || num_pairs.try(:<=, 0)
+        self.num_pairs = nil if all || num_pairs&.<=(0)
 
         base_frequencies, joint_frequencies, n = frequencies
         total_i = pairs.size.to_f
@@ -124,7 +124,7 @@ module RLetters
         ret.compact!
         ret = score_class.sort_results(ret).take(num_pairs) if num_pairs
 
-        progress && progress.call(100)
+        progress&.call(100)
 
         Result.new(cooccurrences: ret, scoring: scoring, stemming: stemming)
       end
@@ -152,16 +152,14 @@ module RLetters
           block_size: window,
           last_block: :small_last,
           split_across: false,
-          progress: lambda do |p|
-            progress && progress.call((p.to_f / 100.0 * 33.0).to_i)
-          end)
+          progress: lambda { |p| progress&.call((p.to_f / 100.0 * 33.0).to_i) })
 
         # Combine all the block hashes, summing the values
         total = analyzer.blocks.size.to_f
 
         base_frequencies = {}
         analyzer.blocks.each_with_index do |b, i|
-          progress && progress.call((i.to_f / total * 16.0).to_i + 33)
+          progress&.call((i.to_f / total * 16.0).to_i + 33)
 
           b.each_key do |k|
             base_frequencies[k] ||= 0
@@ -181,7 +179,7 @@ module RLetters
               progress.call((p * 17.0).to_i + 49)
             end
 
-            next unless b[word] && b[word] > 0
+            next unless b[word]&.>(0)
 
             if word_2_array.empty?
               b.each_key do |k|

@@ -81,7 +81,7 @@ module RLetters
           end
 
           # Final progress tick
-          progress && progress.call(100)
+          progress&.call(100)
         end
 
         # Find a word by its id or its word coverage
@@ -144,7 +144,7 @@ module RLetters
         # @return [void]
         def create_word_list
           # Create a list of lowercase, stemmed words
-          progress && progress.call(1)
+          progress&.call(1)
           enum = RLetters::Datasets::DocumentEnumerator.new(dataset: dataset,
                                                             fulltext: true)
           doc_words = enum.map do |doc|
@@ -152,7 +152,7 @@ module RLetters
           end
 
           # Remove stop words and stem
-          progress && progress.call(17)
+          progress&.call(17)
           self.words = doc_words.flatten - stop_words
           self.words_stem = words.map(&:stem)
         end

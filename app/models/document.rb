@@ -253,7 +253,7 @@ class Document
      :data_source, :title, :journal,
      :year, :volume, :number, :pages].each do |a|
       value = send(a)
-      send("#{a}=".to_sym, nil) if value && value.strip.empty?
+      send("#{a}=".to_sym, nil) if value&.strip&.empty?
     end
 
     # Convert the fulltext_url into a URI

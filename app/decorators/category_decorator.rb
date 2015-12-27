@@ -43,7 +43,7 @@ class CategoryDecorator < ApplicationDecorator
   #
   # @return [Boolean] true if the category is currently enabled
   def enabled
-    h.params[:categories] && h.params[:categories].include?(to_param)
+    h.params[:categories]&.include?(to_param)
   end
 
   # Create a link to enable or disable this journal category

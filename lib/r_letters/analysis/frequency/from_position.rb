@@ -16,7 +16,7 @@ module RLetters
                   default: lambda do |analyzer, _|
                     RLetters::Datasets::Segments.new(
                       analyzer.parameter_hash.merge(progress: lambda do |p|
-                        analyzer.progress && analyzer.progress.call((p * 0.8).to_i)
+                        analyzer.progress&.call((p * 0.8).to_i)
                       end))
                   end)
 
@@ -43,18 +43,18 @@ module RLetters
           word_blocks.each do |b|
             b.words = Hash[b.words.group_by { |w| w }.map { |k, v| [k, v.size] }]
           end
-          progress && progress.call(85)
+          progress&.call(85)
 
           # Compute all df and tfs, and the type/token values for the dataset,
           # from the word blocks
           compute_df_tf
-          progress && progress.call(90)
+          progress&.call(90)
 
           # Pick out the set of words we'll analyze
           sorted_pairs = tf_in_dataset.to_a.sort { |a, b| b[1] <=> a[1] }
           self.word_list = sorted_pairs.map { |a| a[0] }
           cull_words
-          progress && progress.call(93)
+          progress&.call(93)
 
           # Convert from word blocks to the returned blocks by culling anything
           # not in the list of words to keep and adding zero values for words
@@ -63,7 +63,7 @@ module RLetters
             b.words.reject { |k, _| !@word_list.include?(k) }
           end
 
-          progress && progress.call(97)
+          progress&.call(97)
 
           # Build block statistics
           self.block_stats = word_blocks.map do |b|
@@ -71,7 +71,7 @@ module RLetters
               types: b.words.size,
               tokens: b.words.values.reduce(:+) }
           end
-          progress && progress.call(100)
+          progress&.call(100)
 
           self
         end

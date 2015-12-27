@@ -10,9 +10,9 @@ ActiveAdmin.register Admin::FeatureFlags do
 
   controller do
     def update
-      var = permitted_params[:admin_feature_flags].try(:[], :var).try(:to_sym)
+      var = permitted_params.dig(:admin_feature_flags, :var)&.to_sym
       raise ActiveRecord::RecordNotFound unless var
-      value = permitted_params[:admin_feature_flags].try(:[], :value)
+      value = permitted_params.dig(:admin_feature_flags, :value)
       raise ActiveRecord::RecordNotFound unless value
 
       flag_def = Admin::FeatureFlags.all_features.detect { |f| f[:var] == var }

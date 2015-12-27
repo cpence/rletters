@@ -79,7 +79,7 @@ module RLetters
         compute_block_counts
         compute_zeta_scores
         compute_graph_points
-        progress && progress.call(100)
+        progress&.call(100)
 
         self
       end
@@ -102,18 +102,14 @@ module RLetters
           block_size: 500,
           last_block: :big_last,
           split_across: true,
-          progress: lambda do |p|
-            progress && progress.call((p.to_f * 0.25).to_i)
-          end)
+          progress: ->(p) { progress&.call((p.to_f * 0.25).to_i) })
 
         self.analyzer_2 = Frequency.call(
           dataset: dataset_2,
           block_size: 500,
           last_block: :big_last,
           split_across: true,
-          progress: lambda do |p|
-            progress && progress.call((p.to_f * 0.25).to_i + 25)
-          end)
+          progress: ->(p) { progress&.call((p.to_f * 0.25).to_i + 25) })
       end
 
       # Convert from word blocks to counts of blocks
@@ -123,7 +119,7 @@ module RLetters
       #
       # @return [void]
       def compute_block_counts
-        progress && progress.call(50)
+        progress&.call(50)
 
         # Convert to numbers of blocks in which each word appears
         self.block_counts = {}
@@ -156,7 +152,7 @@ module RLetters
         zeta_hash = {}
         total = block_counts.size
         block_counts.each_with_index do |(word, _), i|
-          progress && progress.call(50 + (i.to_f / total.to_f * 25.0).to_i)
+          progress&.call(50 + (i.to_f / total.to_f * 25.0).to_i)
 
           a_count = analyzer_1.blocks.map { |b| b[word] ? 1 : 0 }.reduce(:+)
           not_b_count = analyzer_2.blocks.map { |b| b[word] ? 0 : 1 }.reduce(:+)
@@ -167,7 +163,7 @@ module RLetters
           zeta_hash[word] = a_frac + not_b_frac
         end
 
-        progress && progress.call(75)
+        progress&.call(75)
 
         # Sort
         self.zeta_scores = zeta_hash.sort { |a, b| b[1] <=> a[1] }
@@ -188,7 +184,7 @@ module RLetters
       #
       # @return [void]
       def compute_graph_points
-        progress && progress.call(80)
+        progress&.call(80)
 
         self.graph_points = []
 

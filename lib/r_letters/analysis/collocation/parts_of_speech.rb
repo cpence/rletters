@@ -30,7 +30,7 @@ module RLetters
         # @return [RLetters::Analysis::Collocation::Result] analysis results
         def call
           # Ignore num_pairs if we want all of the cooccurrences
-          self.num_pairs = nil if all || num_pairs.try(:<=, 0)
+          self.num_pairs = nil if all || num_pairs&.<=(0)
 
           total = dataset.document_count
 
@@ -42,7 +42,7 @@ module RLetters
 
           self.result = {}
           enum.each_with_index do |doc, i|
-            progress && progress.call((i.to_f / total.to_f * 100.0).to_i)
+            progress&.call((i.to_f / total.to_f * 100).to_i)
 
             tagged = NLP.parts_of_speech(doc.fulltext.mb_chars.downcase.to_s)
 
@@ -50,7 +50,7 @@ module RLetters
             search_for_regexes(tagged, 3, POS_TRI_REGEXES)
           end
 
-          progress && progress.call(100)
+          progress&.call(100)
 
           self.result = result.sort { |a, b| b[1] <=> a[1] }
           self.result = result.take(num_pairs) if num_pairs

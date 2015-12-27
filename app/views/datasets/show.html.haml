@@ -33,7 +33,7 @@
                 %dt= Datasets::Query.human_attribute_name(:def_type)
                 %dd= q.def_type
 
-                - if q.q && q.q != '*:*'
+                - if q.q&.!=('*:*')
                   %dt= Datasets::Query.human_attribute_name(:q)
                   %dd= q.q
 

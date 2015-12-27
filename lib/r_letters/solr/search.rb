@@ -43,8 +43,8 @@ module RLetters
           # to control the start and rows values; otherwise we are using cursor
           # support
           if api
-            page = (params[:page].try(:to_i) || 0).lbound(0)
-            per_page = (params[:per_page].try(:to_i) || 10).bound(10, 100)
+            page = (params[:page]&.to_i || 0).lbound(0)
+            per_page = (params[:per_page]&.to_i || 10).bound(10, 100)
 
             ret[:start] = page * per_page
             ret[:rows] = per_page

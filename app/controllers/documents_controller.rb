@@ -50,7 +50,7 @@ class DocumentsController < ApplicationController
       json = res.body
       cul_docs = JSON.parse(json)
 
-      unless cul_docs && cul_docs.size > 0 && cul_docs[0]
+      unless cul_docs&.size > 0 && cul_docs&.first
         fail ActiveRecord::RecordNotFound
       end
 

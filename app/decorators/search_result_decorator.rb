@@ -87,7 +87,7 @@ class SearchResultDecorator < ApplicationDecorator
   #
   # @return [String] number of hits for the search
   def num_hits
-    if (object.params[:q] && object.params[:q] != '*:*') || object.params[:fq]
+    if object.params[:q]&.!=('*:*') || object.params[:fq]
       I18n.t 'search.index.num_hits_found', count: object.num_hits
     else
       I18n.t 'search.index.num_documents_database', count: object.num_hits

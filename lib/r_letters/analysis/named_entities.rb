@@ -39,14 +39,13 @@ module RLetters
         enum = RLetters::Datasets::DocumentEnumerator.new(dataset: dataset,
                                                           fulltext: true)
         enum.each_with_index do |doc, i|
-          progress && progress.call((i.to_f / total.to_f * 50.0).to_i)
+          progress&.call((i.to_f / total.to_f * 50.0).to_i)
           text_cache << doc.fulltext
         end
 
         ret = NLP.named_entities(text_cache)
 
-        progress && progress.call(100)
-
+        progress&.call(100)
         ret
       end
     end

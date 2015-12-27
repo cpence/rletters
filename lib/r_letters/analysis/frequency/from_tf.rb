@@ -34,7 +34,7 @@ module RLetters
           # We're treating either the entire dataset or individual documents
           # as a single block
           split_across ? single_block_analysis : doc_block_analysis
-          progress && progress.call(100)
+          progress&.call(100)
 
           self
         end
@@ -79,17 +79,17 @@ module RLetters
             end
           end
 
-          progress && progress.call(80)
+          progress&.call(80)
 
           # Clean out zero values from the blocks
           blocks.map! do |b|
             b.reject { |_, v| v.to_i == 0 }
           end
 
-          progress && progress.call(90)
+          progress&.call(90)
 
           self.block_stats = documents.each_with_index.map do |d, i|
-            progress && progress.call((i.to_f / total * 10.0).to_i + 90)
+            progress&.call((i.to_f / total.to_f * 10).to_i + 90)
 
             {
               name: I18n.t('lib.frequency.block_count_doc',
@@ -145,7 +145,7 @@ module RLetters
           self.num_dataset_types = tf_in_dataset.size
           self.num_dataset_tokens = tf_in_dataset.values.reduce(:+)
 
-          progress && progress.call(split_across ? 90 : 40)
+          progress&.call(split_across ? 90 : 40)
         end
       end
     end

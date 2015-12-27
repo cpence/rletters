@@ -57,11 +57,10 @@ module RLetters
           ret[key] ||= 0
           ret[key] += 1
 
-          progress && progress.call((i.to_f / total.to_f * 100.0).to_i)
+          progress&.call((i.to_f / total.to_f * 100.0).to_i)
         end
 
-        progress && progress.call(100)
-
+        progress&.call(100)
         ret
       end
 
@@ -87,9 +86,7 @@ module RLetters
             rows: 100)
 
           # These conditions would indicate a malformed Solr response
-          break unless search_result['grouped'] &&
-                       search_result['grouped'][field.to_s] &&
-                       search_result['grouped'][field.to_s]['matches']
+          break unless search_result.dig('grouped', field.to_s, 'matches')
 
           grouped = search_result['grouped'][field.to_s]
           break if grouped['matches'] == 0
@@ -118,8 +115,7 @@ module RLetters
           start += 100
         end
 
-        progress && progress.call(100)
-
+        progress&.call(100)
         ret
       end
 
@@ -206,7 +202,7 @@ module RLetters
           dataset: normalization_dataset).counts
 
         ret = counts.each_with_object({}) do |(k, v), out|
-          if norm_counts[k] && norm_counts[k] > 0
+          if norm_counts[k]&.>(0)
             out[k] = v.to_f / norm_counts[k]
           else
             # I'm not sure if this is the right thing to do when you give

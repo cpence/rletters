@@ -72,7 +72,7 @@ module RLetters
           end
 
           # Ignore num_pairs if we want all of the cooccurrences
-          self.num_pairs = nil if all || num_pairs.try(:<=, 0)
+          self.num_pairs = nil if all || num_pairs&.<=(0)
 
           an = analyzers
 
@@ -85,7 +85,7 @@ module RLetters
           ret = Result.new(scoring: scoring, collocations: [])
 
           ret.collocations = bigram_f.each_with_index.map do |b, i|
-            progress && progress.call((i.to_f / total.to_f * 33.0).to_i + 66)
+            progress&.call((i.to_f / total.to_f * 33.0).to_i + 66)
 
             bigram_words = b[0].split
             f_ab = b[1].to_f
@@ -98,8 +98,7 @@ module RLetters
           ret.collocations = score_class.sort_results(ret.collocations)
           ret.collocations = ret.collocations.take(num_pairs) if num_pairs
 
-          progress && progress.call(100)
-
+          progress&.call(100)
           ret
         end
 
@@ -117,9 +116,7 @@ module RLetters
         def analyzers
           onegram_analyzer = Frequency.call(
             dataset: dataset,
-            progress: lambda do |p|
-              progress && progress.call((p.to_f / 100.0 * 33.0).to_i)
-            end)
+            progress: ->(p) { progress&.call((p.to_f / 100 * 33).to_i) })
 
           # The bigrams should only include the focal word, if the user has
           # restricted the analysis
@@ -129,9 +126,7 @@ module RLetters
             inclusion_list: focal_word,
             num_blocks: 1,
             split_across: true,
-            progress: lambda do |p|
-              progress && progress.call((p.to_f / 100.0 * 33.0).to_i + 33)
-            end)
+            progress: ->(p) { progress&.call((p.to_f / 100 * 33).to_i + 33) })
 
           [onegram_analyzer, bigram_analyzer]
         end
