@@ -23,7 +23,6 @@ RSpec.feature 'User fetching a pending task', type: :feature do
 
     within('.navbar') { click_link 'Fetch' }
     expect(page).to have_selector('td', text: 'Blahdeblah')
-    puts page.source
     expect(page).to have_selector('td', text: 'Task failed')
   end
 end

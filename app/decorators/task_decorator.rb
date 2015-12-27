@@ -57,10 +57,10 @@ class TaskDecorator < Draper::Decorator
     ret = ''
 
     if progress
-      ret += "#{(progress * 100).to_i}%"
-      ret += ': ' if progress_message.present?
+      ret << "#{(progress * 100).to_i}%"
+      ret << ': ' if progress_message.present?
     end
-    ret += progress_message if progress_message.present?
+    ret << progress_message if progress_message.present?
 
     ret
   end

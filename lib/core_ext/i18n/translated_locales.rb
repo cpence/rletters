@@ -12,7 +12,7 @@ RLetters::Application.config.after_initialize do
 
       # Language, optionally with a territory as well
       name = I18n.t("languages.#{parts[0]}")
-      name += " (#{I18n.t("territories.#{parts[1]}")})" if parts.size == 2
+      name << " (#{I18n.t("territories.#{parts[1]}")})" if parts.size == 2
 
       [name, loc.to_s]
     end

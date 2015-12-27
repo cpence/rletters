@@ -15,7 +15,7 @@ module RLetters
 
     # Configure logging to stdout (except in testing), and clean up the logs
     config.lograge.enabled = true
-    config.filter_parameters += [:password, :file_contents]
+    config.filter_parameters.concat([:password, :file_contents])
     config.active_support.deprecation = Rails.env.test? ? :stderr : :log
 
     unless Rails.env.test?

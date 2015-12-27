@@ -26,7 +26,7 @@ module Users
     end
 
     after_validation do |library|
-      library.url += '?' if library.url && !library.url.end_with?('?')
+      library.url << '?' if library.url && !library.url.end_with?('?')
     end
   end
 end

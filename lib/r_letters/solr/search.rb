@@ -51,7 +51,7 @@ module RLetters
           else
             # We must always include uid in the sort string to use cursor
             # support
-            ret[:sort] += ',uid asc'
+            ret[:sort] << ',uid asc'
             ret[:cursor_mark] = params[:cursor_mark] || '*'
             ret[:rows] = 16
           end

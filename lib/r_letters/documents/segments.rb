@@ -126,7 +126,7 @@ module RLetters
       def add_for_num_blocks(words)
         # We just add to the single block, and we split this when we call
         # #blocks
-        self.single_block += words
+        single_block.concat(words)
       end
 
       # Add a list of words to the blocks (for a given block size)
@@ -159,7 +159,9 @@ module RLetters
 
         # Fill up the last block
         current_left = block_size - block_list.last.words.size
-        block_list.last.words += words.shift(current_left) if current_left > 0
+        if current_left > 0
+          block_list.last.words.concat(words.shift(current_left))
+        end
 
         # Bail if there weren't enough words in the document to finish that block
         return if block_list.last.words.size < block_size
@@ -204,7 +206,7 @@ module RLetters
           block_list.pop
         else # default to :big_last behavior
           last = block_list.pop
-          block_list.last.words += last.words
+          block_list.last.words.concat(last.words)
         end
 
         block_list

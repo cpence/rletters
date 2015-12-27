@@ -111,7 +111,7 @@ module RLetters
             corpus_dfs.merge!(document_segmenter.corpus_dfs)
 
             document_segmenter.blocks.each do |b|
-              b.name += I18n.t('lib.frequency.block_doc_suffix', title: doc.uid)
+              b.name << I18n.t('lib.frequency.block_doc_suffix', title: doc.uid)
               ret << b
             end
 

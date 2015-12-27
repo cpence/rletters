@@ -84,7 +84,7 @@ class CategoryDecorator < ApplicationDecorator
         ret[:categories] -= self_and_ancestors.collect(&:to_param)
         ret[:categories] -= self_and_descendants.collect(&:to_param)
       else
-        ret[:categories] += self_and_descendants.collect(&:to_param)
+        ret[:categories].concat(self_and_descendants.collect(&:to_param))
       end
 
       ret[:categories].uniq!

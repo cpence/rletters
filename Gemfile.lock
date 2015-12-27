@@ -1,3 +1,12 @@
+GIT
+  remote: git://github.com/bblimke/webmock.git
+  revision: 1405fd64ffdd2ebafc5a0fde307cb6b75b3a1c47
+  specs:
+    webmock (1.22.3)
+      addressable (>= 2.3.6)
+      crack (>= 0.3.2)
+      hashdiff
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -427,10 +436,6 @@ GEM
       binding_of_caller (>= 0.7.2)
       railties (>= 4.0)
       sprockets-rails (>= 2.0, < 4.0)
-    webmock (1.22.3)
-      addressable (>= 2.3.6)
-      crack (>= 0.3.2)
-      hashdiff
     with_advisory_lock (3.0.0)
       activerecord (>= 3.2)
       thread_safe
@@ -506,7 +511,7 @@ DEPENDENCIES
   validate_url
   virtus
   web-console (~> 2.0)
-  webmock
+  webmock!
 
 BUNDLED WITH
-   1.10.6
+   1.11.2
