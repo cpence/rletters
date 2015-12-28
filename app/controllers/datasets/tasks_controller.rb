@@ -30,7 +30,7 @@ module Datasets
       # Make sure we have enough other datasets, if those are required
       return if @klass.num_datasets == 1
       return if @current_params[:other_datasets]&.size ==
-                  (@klass.num_datasets - 1)
+                (@klass.num_datasets - 1)
 
       fail ArgumentError, "not enough datasets specified for #{params[:class]}"
     end

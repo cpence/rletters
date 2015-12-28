@@ -30,8 +30,8 @@ RSpec.describe RLetters::VirtusExt::DatasetID do
 
     it 'raises on a missing ID' do
       expect {
-        model = DsIdTester.new(dataset: '132')
-        }.to raise_error(ActiveRecord::RecordNotFound)
+        DsIdTester.new(dataset: '132')
+      }.to raise_error(ActiveRecord::RecordNotFound)
     end
 
     it 'chokes on anything else' do

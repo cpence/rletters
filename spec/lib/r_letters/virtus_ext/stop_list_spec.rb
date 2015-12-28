@@ -11,18 +11,18 @@ RSpec.describe RLetters::VirtusExt::StopList do
       stop_list = build(:stop_list)
       model = StopTester.new(list: stop_list)
 
-      expect(model.list).to match_array(['a', 'an', 'the'])
+      expect(model.list).to match_array(%w(a an the))
     end
 
     it 'loads the matching list if there is one' do
-      stop_list = create(:stop_list)
+      create(:stop_list)
       model = StopTester.new(list: 'en')
-      expect(model.list).to match_array(['a', 'an', 'the'])
+      expect(model.list).to match_array(%w(a an the))
     end
 
     it 'loads a string to a space-separated list if there is none' do
       model = StopTester.new(list: 'a an the')
-      expect(model.list).to match_array(['a', 'an', 'the'])
+      expect(model.list).to match_array(%w(a an the))
     end
 
     it 'chokes on anything else' do

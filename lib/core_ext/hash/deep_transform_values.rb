@@ -30,7 +30,7 @@ class Hash
         result[key] = _deep_transform_values_in_object(value, &block)
       end
     when Array
-      object.map {|e| _deep_transform_values_in_object(e, &block) }
+      object.map { |e| _deep_transform_values_in_object(e, &block) }
     else
       yield(object)
     end
@@ -43,7 +43,7 @@ class Hash
         object[key] = _deep_transform_values_in_object!(value, &block)
       end
     when Array
-      object.map! {|e| _deep_transform_values_in_object!(e, &block) }
+      object.map! { |e| _deep_transform_values_in_object!(e, &block) }
     else
       yield(object)
     end

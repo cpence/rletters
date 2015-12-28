@@ -152,7 +152,7 @@ module RLetters
           block_size: window,
           last_block: :small_last,
           split_across: false,
-          progress: lambda { |p| progress&.call((p.to_f / 100.0 * 33.0).to_i) })
+          progress: ->(p) { progress&.call((p.to_f / 100.0 * 33.0).to_i) })
 
         # Combine all the block hashes, summing the values
         total = analyzer.blocks.size.to_f

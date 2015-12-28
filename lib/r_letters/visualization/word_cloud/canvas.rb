@@ -67,7 +67,7 @@ module RLetters
 
           # It's possible that the initial positions will make the word hang
           # off the edges of the canvas; if so, move it.
-          x_0 = (@width - e[:width])  if x_0 + e[:width] > @width
+          x_0 = (@width - e[:width]) if x_0 + e[:width] > @width
           y_0 = (@height - e[:height]) if y_0 + e[:height] > @height
 
           # Set up our state

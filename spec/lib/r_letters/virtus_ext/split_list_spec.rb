@@ -16,12 +16,12 @@ RSpec.describe RLetters::VirtusExt::SplitList do
       stop_list = build(:stop_list)
       model = SplitTester.new(list: stop_list)
 
-      expect(model.list).to match_array(['a', 'an', 'the'])
+      expect(model.list).to match_array(%w(a an the))
     end
 
     it 'loads a string to a space-separated list' do
       model = SplitTester.new(list: 'a an the')
-      expect(model.list).to match_array(['a', 'an', 'the'])
+      expect(model.list).to match_array(%w(a an the))
     end
 
     it 'chokes on anything else' do
