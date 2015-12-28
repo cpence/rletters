@@ -41,7 +41,8 @@ class WordFrequencyJob < BaseJob
     dataset_size = dataset.document_count
 
     # Create some CSV
-    csv_string = csv_with_header(t('.csv_header', name: dataset.name)) do |csv|
+    csv_string = csv_with_header(header: t('.csv_header',
+                                           name: dataset.name)) do |csv|
       # Output the block data
       if analyzer.blocks.size > 1
         csv << [t('.each_block')]

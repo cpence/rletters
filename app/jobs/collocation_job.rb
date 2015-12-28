@@ -44,10 +44,13 @@ class CollocationJob < BaseJob
     end
 
     # Save out all the data
-    csv_string = csv_with_header(t('.header', name: dataset.name),
-                                 t('.subheader', test: algorithm)) do |csv|
-      write_csv_data(csv, result.collocations, t('.pair') => :first,
-                                               column => :second)
+    csv_string = csv_with_header(header: t('.header', name: dataset.name),
+                                 subheader: t('.subheader',
+                                              test: algorithm)) do |csv|
+      write_csv_data(csv: csv,
+                     data: result.collocations,
+                     data_spec: { t('.pair') => :first,
+                                  column => :second })
     end
 
     # Write out the CSV to a file

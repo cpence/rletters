@@ -6,7 +6,7 @@ RSpec.describe RLetters::Visualization::PDF do
 
   describe '#pdf_with_header' do
     before(:example) do
-      @pdf_string = test_class.new.pdf_with_header('Test Header') { |pdf| }
+      @pdf_string = test_class.new.pdf_with_header(header: 'Test Header') { |pdf| }
       @text_analysis = PDF::Inspector::Text.analyze(@pdf_string)
       @page_analysis = PDF::Inspector::Page.analyze(@pdf_string)
     end

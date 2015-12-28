@@ -93,7 +93,7 @@ group :test do
   gem 'database_cleaner'
 
   gem 'webmock', github: 'bblimke/webmock', require: false
-  #gem 'webmock', '> 1.22.3' require: false
+  # gem 'webmock', '> 1.22.3' require: false
 
   gem 'pdf-inspector', require: false
 

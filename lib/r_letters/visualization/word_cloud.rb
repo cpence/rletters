@@ -42,7 +42,7 @@ module RLetters
         colors = ColorBrewer::SEQUENTIAL_COLOR_SCHEMES[color_size].fetch(color)
 
         # Write out to PDF and return the PDF
-        pdf_with_header(header) do |pdf|
+        pdf_with_header(header: header) do |pdf|
           # Get the path to the font file itself. Again, it'll raise if you
           # pass a bad font.
           font_path = pdf.font_families.fetch(font)[:normal]
@@ -50,13 +50,14 @@ module RLetters
           # Get our point sizes for each word
           range = (words.values.min..words.values.max)
           words_to_points = words.each_with_object({}) do |(word, freq), ret|
-            ret[word] = point_size_for(range, freq)
+            ret[word] = point_size_for(frequency_range: range,
+                                       frequency: freq)
           end
 
           # Build the canvas and place the words
-          canvas = Canvas.new(words_to_points, font_path)
+          canvas = Canvas.new(words: words_to_points, font_path: font_path)
           positions = words_to_points.each_with_object({}) do |(word, size), ret|
-            ret[word] = [canvas.place_word(word, size), size]
+            ret[word] = [canvas.place_word(word: word, size: size), size]
           end
 
           pdf.font(font)
@@ -107,7 +108,7 @@ module RLetters
       # @param [Range] frequency_range the range of frequencies
       # @param [Integer] frequency the frequency of this word
       # @return [Integer] the point size at which to draw this word
-      def point_size_for(frequency_range, frequency)
+      def point_size_for(frequency_range:, frequency:)
         if frequency_range.max == frequency_range.min
           14.0
         else

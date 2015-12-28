@@ -26,11 +26,15 @@ class TermDatesJob < BaseJob
     dates = dates.to_a
     dates.each { |d| d[0] = Integer(d[0]) }
 
-    csv_string = csv_with_header(t('.header', name: dataset.name),
-                                 t('.subheader', term: options[:term])) do |csv|
-      write_csv_data(csv, dates,
-                     Document.human_attribute_name(:year) => :first,
-                     t('.number_column') => :second)
+    csv_string = csv_with_header(header: t('.header', name: dataset.name),
+                                 subheader: t('.subheader',
+                                              term: options[:term])) do |csv|
+      write_csv_data(csv: csv,
+                     data: dates,
+                     data_spec: {
+                       Document.human_attribute_name(:year) => :first,
+                       t('.number_column') => :second
+                     })
     end
 
     # Save out the data

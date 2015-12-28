@@ -60,9 +60,12 @@ class ArticleDatesJob < BaseJob
                                     content_type: 'application/json')
     end
 
-    csv_string = csv_with_header(t('.header', name: dataset.name)) do |csv|
-      write_csv_data(csv, dates, year_header => :first,
-                                 value_header => :second)
+    csv_string = csv_with_header(header: t('.header',
+                                           name: dataset.name)) do |csv|
+      write_csv_data(csv: csv,
+                     data: dates,
+                     data_spec: { year_header => :first,
+                                  value_header => :second })
     end
     task.files.create(description: 'Spreadsheet',
                       short_description: 'CSV', downloadable: true) do |f|

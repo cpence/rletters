@@ -17,7 +17,7 @@ module RLetters
       # @yield [csv] Yields a +CSV+ object to the block, for writing out
       #   the data
       # @yieldparam [CSV] csv The object to write data into
-      def csv_with_header(header, subheader = nil)
+      def csv_with_header(header:, subheader: nil)
         ::CSV.generate do |csv|
           csv << [header]
           csv << [subheader] if subheader
@@ -43,7 +43,7 @@ module RLetters
       #   (which specify the method to call on each element of `data` to get
       #   the column value).
       # @return [void]
-      def write_csv_data(csv, data, data_spec)
+      def write_csv_data(csv:, data:, data_spec:)
         unless data.respond_to?(:each)
           fail ArgumentError, 'data object passed to write_data not enumerable'
         end

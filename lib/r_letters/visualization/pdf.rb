@@ -29,7 +29,7 @@ module RLetters
       # @return [String] The PDF file, as a string
       # @yield [pdf] Yields a Prawn PDF document, for building a PDF
       # @yieldparam [Prawn::Document] pdf The Prawn document object
-      def pdf_with_header(header)
+      def pdf_with_header(header:)
         info = {
           'Title':        header,
           'Author':       ENV['APP_NAME'],
@@ -45,7 +45,7 @@ module RLetters
 
         # Add all the known font families
         FONTS.each do |name, root|
-          add_font_family(pdf, name, root)
+          add_font_family(pdf: pdf, name: name, root: root)
         end
 
         # Draw the header
@@ -78,7 +78,7 @@ module RLetters
       # @param [String] name The human-readable name of the family to add
       # @param [String] root The font family root to add
       # @return [void]
-      def add_font_family(pdf, name, root)
+      def add_font_family(pdf:, name:, root:)
         if root == 'OldStandard'
           # No Bold-Italic variant in OldStandard
           bold_italic_name = "#{root}-Bold.ttf"

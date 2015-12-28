@@ -27,13 +27,14 @@ class NamedEntitiesJob < BaseJob
     if refs.blank?
       csv_string = ''
     else
-      csv_string = csv_with_header(t('.header', name: dataset.name)) do |csv|
+      csv_string = csv_with_header(header: t('.header',
+                                             name: dataset.name)) do |csv|
         write_csv_data(
-          csv,
+          csv: csv,
           # This turns {s => [a, b], ...} into [[s, a], [s, b], ...]
-          refs.flat_map { |k, v| [k].product(v) },
-          t('.type_column') => :first,
-          t('.hit_column') => :second)
+          data: refs.flat_map { |k, v| [k].product(v) },
+          data_spec: { t('.type_column') => :first,
+                       t('.hit_column') => :second })
       end
     end
 

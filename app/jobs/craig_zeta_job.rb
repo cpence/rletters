@@ -44,33 +44,36 @@ class CraigZetaJob < BaseJob
     )
 
     # Save out all the data
-    csv_string = csv_with_header(t('.csv_header',
-                                   name_1: datasets[0].name,
-                                   name_2: datasets[1].name)) do |csv|
+    csv_string = csv_with_header(header: t('.csv_header',
+                                           name_1: datasets[0].name,
+                                           name_2: datasets[1].name)) do |csv|
       # Output the marker words
       write_csv_data(
-        csv,
-        analyzer.dataset_1_markers.zip(analyzer.dataset_2_markers),
-        t('.marker_header', name: datasets[0].name) => :first,
-        t('.marker_header', name: datasets[1].name) => :second
-      )
+        csv: csv,
+        data: analyzer.dataset_1_markers.zip(analyzer.dataset_2_markers),
+        data_spec: { t('.marker_header', name: datasets[0].name) => :first,
+                     t('.marker_header', name: datasets[1].name) => :second })
       csv << [''] << ['']
 
       # Output the graphing points
       csv << [t('.graph_header')]
       csv << ['']
-      write_csv_data(csv, analyzer.graph_points,
-                     t('.marker_column', name: datasets[0].name) => :x,
+      write_csv_data(
+        csv: csv,
+        data: analyzer.graph_points,
+        data_spec: { t('.marker_column', name: datasets[0].name) => :x,
                      t('.marker_column', name: datasets[1].name) => :y,
-                     t('.block_name_column') => :name)
+                     t('.block_name_column') => :name })
       csv << [''] << ['']
 
       # Output the Zeta scores
       csv << [t('.zeta_score_header')]
       csv << ['']
-      write_csv_data(csv, analyzer.zeta_scores,
-                     t('.word_column') => :first,
-                     t('.score_column') => :second)
+      write_csv_data(
+        csv: csv,
+        data: analyzer.zeta_scores,
+        data_spec: { t('.word_column') => :first,
+                     t('.score_column') => :second })
     end
 
     data = {
