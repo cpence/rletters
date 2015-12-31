@@ -45,8 +45,8 @@ Rails.application.config.i18n.available_locales = ['en']
 'en-CA, en-GB, en-IE, en-IN, en-NZ, en-ZA, eo, es, es-419, es-AR, es-CL, ' \
 'es-CO, es-CR, es-EC, es-MX, es-PA, es-PE, es-US, es-VE, et, eu, fa, fi, ' \
 'fr, fr-CA, fr-CH, gl, he, hi, hi-IN, hr, hu, id, is, it, it-CH, ja, km, ' \
-'kn, ko, lo, lt, lv, mk, mn, mr-IN, ms, nb, ne, nl, nn, or, pl, pt, pt-BR, ' \
-'rm, ro, ru, sk, sl, sr, sv, sw, ta, th, tl, tr, ug, uk, ur, uz, vi, zh-CN, ' \
-'zh-HK, zh-TW'.split(',').each do |loc|
+'kn, ko, lo, lt, lv, mk, mn, mr-IN, ms, nb, ne, nl, nn, or, pa, pl, pt, ' \
+'pt-BR, rm, ro, ru, sk, sl, sr, sv, sw, ta, th, tl, tr, ug, uk, ur, uz, vi, ' \
+'zh-CN, zh-HK, zh-TW'.split(',').each do |loc|
   Rails.application.config.i18n.available_locales << loc.strip
 end

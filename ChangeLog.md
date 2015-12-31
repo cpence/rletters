@@ -17,7 +17,7 @@
 *   Fixed a bug in the Term Dates job such that terms appearing in remotely-stored documents would not be counted.
 *   Switch the web server component to Puma to avoid slow client attacks and take advantage of multithreading.
 *   Integration testing (smoke tests) ported back to RSpec feature tests, using capybara-webkit. Dramatically increased stability and maintainability.
-*   Update language support, adding Belarusian, Spanish (Ecuador), Khmer, Marathi, and Uyghur.
+*   Update language support, adding Belarusian, Spanish (Ecuador), Khmer, Marathi, Panjabi, and Uyghur.
 
 
 ## Version 2.0.1 (2015-01-12)

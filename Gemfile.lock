@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/bblimke/webmock.git
-  revision: 1405fd64ffdd2ebafc5a0fde307cb6b75b3a1c47
+  revision: 232ebff368c085320c2a1dbd11ca4c515dbf6965
   specs:
     webmock (1.22.3)
       addressable (>= 2.3.6)
@@ -69,7 +69,7 @@ GEM
     arbre (1.0.3)
       activesupport (>= 3.0.0)
     arel (6.0.3)
-    autoprefixer-rails (6.2.0)
+    autoprefixer-rails (6.2.3)
       execjs
       json
     axiom-types (0.1.1)
@@ -309,8 +309,8 @@ GEM
       rails-deprecated_sanitizer (>= 1.0.1)
     rails-html-sanitizer (1.0.2)
       loofah (~> 2.0)
-    rails-i18n (4.0.5)
-      i18n (~> 0.6)
+    rails-i18n (4.0.8)
+      i18n (~> 0.7)
       railties (~> 4.0)
     railties (4.2.5)
       actionpack (= 4.2.5)
@@ -380,9 +380,9 @@ GEM
       activerecord (>= 3.0.0)
       rails (>= 3.0.0)
     sexp_processor (4.6.0)
-    simple_form (3.2.0)
-      actionpack (~> 4.0)
-      activemodel (~> 4.0)
+    simple_form (3.2.1)
+      actionpack (> 4, < 5.1)
+      activemodel (> 4, < 5.1)
     simplecov (0.11.1)
       docile (~> 1.1.0)
       json (~> 1.8)
@@ -492,7 +492,7 @@ DEPENDENCIES
   que-web
   rabl
   rails (~> 4.2)
-  rails-i18n (= 4.0.5)
+  rails-i18n (= 4.0.8)
   rdf (>= 0.3.5)
   rdf-n3
   rdf-vocab
