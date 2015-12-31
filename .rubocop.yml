@@ -5,7 +5,6 @@ AllCops:
   Exclude:
     - 'vendor/**/*'
     - 'public/**/*'
-    - 'db/schema.rb'
     - 'bin/**/*'
 
 # We have to have UTF-8 in several of our comments, because we're returning

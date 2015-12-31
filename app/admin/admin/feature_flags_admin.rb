@@ -11,12 +11,12 @@ ActiveAdmin.register Admin::FeatureFlags do
   controller do
     def update
       var = permitted_params.dig(:admin_feature_flags, :var)&.to_sym
-      raise ActiveRecord::RecordNotFound unless var
+      fail ActiveRecord::RecordNotFound unless var
       value = permitted_params.dig(:admin_feature_flags, :value)
-      raise ActiveRecord::RecordNotFound unless value
+      fail ActiveRecord::RecordNotFound unless value
 
-      flag_def = Admin::FeatureFlags.all_features.detect { |f| f[:var] == var }
-      raise ActiveRecord::RecordNotFound unless flag_def
+      flag_def = Admin::FeatureFlags.all_features.detect { |d| d[:var] == var }
+      fail ActiveRecord::RecordNotFound unless flag_def
 
       case flag_def[:type]
       when :boolean
@@ -51,7 +51,7 @@ ActiveAdmin.register Admin::FeatureFlags do
 
     var = admin_feature_flags.var.to_sym
     f.inputs "#{Admin::FeatureFlags.model_name.human}: #{var}" do
-      flag_def = Admin::FeatureFlags.all_features.detect { |f| f[:var] == var }
+      flag_def = Admin::FeatureFlags.all_features.detect { |d| d[:var] == var }
       next unless flag_def
 
       f.input :value, as: flag_def[:type]
