@@ -13,7 +13,7 @@ module Users
   # @!attribute user
   #   @raise [RecordInvalid] if the user is missing (validates :presence)
   #   @return [User] The user this library record belongs to
-  class Library < ActiveRecord::Base
+  class Library < ApplicationRecord
     self.table_name = 'users_libraries'
     belongs_to :user
 
@@ -27,6 +27,20 @@ module Users
 
     after_validation do |library|
       library.url << '?' unless library.url&.end_with?('?')
+    end
+
+    # @return (see ApplicationRecord.admin_attributes)
+    def self.admin_attributes
+      {
+        user: { model: true },
+        name: {},
+        url: {}
+      }
+    end
+
+    # @return [String] the name of the model
+    def to_s
+      "#{name} (#{user})"
     end
   end
 end

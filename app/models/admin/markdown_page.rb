@@ -16,9 +16,23 @@ module Admin
   #   @return [String] Name of this page (an internal ID)
   # @!attribute content
   #   @return [String] Markdown content for this page
-  class MarkdownPage < ActiveRecord::Base
+  class MarkdownPage < ApplicationRecord
     self.table_name = 'admin_markdown_pages'
     validates :name, presence: true
+
+    # @return (see ApplicationRecord.admin_attributes)
+    def self.admin_attributes
+      {
+        friendly_name: { no_form: true },
+        render: { no_form: true },
+        content: { form_options: { input_html: { rows: 30 } } }
+      }
+    end
+
+    # @return (see ApplicationRecord.admin_configuration)
+    def self.admin_configuration
+      { no_create: true, no_delete: true }
+    end
 
     # @return [String] Friendly name of this page (looked up in locale)
     def friendly_name
@@ -27,8 +41,8 @@ module Admin
       ret
     end
 
-    # Render the Markdown page for a particular name.  This will do nothing if
-    # an invalid name is passed.
+    # Render the Markdown page for a particular name.  This will return an
+    # empty string if an invalid name is passed.
     #
     # @param [String] name The internal ID of the page to render (*not* the
     #   friendly name)
@@ -37,7 +51,14 @@ module Admin
       page = find_by(name: name)
       return '' unless page
 
-      erb_page = ERB.new(page.content).result(binding)
+      page.render
+    end
+
+    # Render this Markdown page.
+    #
+    # @return [String] HTML output of rendering this page to Markdown
+    def render
+      erb_page = ERB.new(content).result(binding)
       Kramdown::Document.new(erb_page).to_html.html_safe
     end
   end

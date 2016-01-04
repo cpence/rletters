@@ -13,7 +13,7 @@ module Datasets
   #   @return [Array<String>] the faceted query parameters used in this search
   # @!attribute def_type
   #   @return [String] the search type used in this search
-  class Query < ActiveRecord::Base
+  class Query < ApplicationRecord
     self.table_name = 'datasets_queries'
     serialize :fq, Array
     validates :def_type, presence: true

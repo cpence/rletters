@@ -11,7 +11,7 @@ module Admin
   #   @return [String] Name of this asset (an internal key)
   # @!attribute file
   #   @return [Paperclip::Attachment] The asset itself
-  class UploadedAsset < ActiveRecord::Base
+  class UploadedAsset < ApplicationRecord
     self.table_name = 'admin_uploaded_assets'
     validates :name, presence: true
 
@@ -20,6 +20,22 @@ module Admin
                       database_table: 'admin_uploaded_asset_files',
                       url: '/workflow/image/:id'
     validates_attachment_content_type :file, content_type: %r{\Aimage/.*\Z}
+
+    # @return (see ApplicationRecord.admin_attributes)
+    def self.admin_attributes
+      {
+        friendly_name: { no_form: true },
+        file_file_name: { no_form: true },
+        file_file_size: { no_form: true },
+        file_content_type: { no_form: true },
+        file: { no_display: true }
+      }
+    end
+
+    # @return (see ApplicationRecord.admin_configuration)
+    def self.admin_configuration
+      { no_create: true, no_delete: true }
+    end
 
     # @return [String] Friendly name of this asset (looked up in locale)
     def friendly_name

@@ -26,7 +26,9 @@ en:
         "yes": 'Yes'
         "no": 'No'
         required:
-            html: "<abbr class='required-icon' title='required'><span class='glyphicon glyphicon-asterisk'></span></abbr>"
+            text: 'required'
+            mark: ''
+            html: ''
         error_notification:
             default_message: "Please review the problems below:"
         labels:
@@ -66,6 +68,9 @@ en:
             admin/administrator:
                 one: Administrator
                 other: Administrators
+            admin/benchmark:
+                one: Benchmark
+                other: Benchmarks
             admin/feature_flags: Feature Flags
             admin/markdown_page:
                 one: Custom Page
@@ -111,6 +116,7 @@ en:
                 friendly_name: Name
                 name: Name
                 content: Content
+                render: Preview
             admin/uploaded_asset:
                 friendly_name: Name
                 name: Name
@@ -583,6 +589,8 @@ en:
     admin:
         nav:
             accounts: Accounts
+            branding: Branding
+            settings: Settings
         index:
             header: "%{app_name} Administration"
             subheader: >
@@ -617,29 +625,11 @@ en:
             header: "Create new %{model_name}"
         item_edit:
             header: "Edit %{model_name}"
-        'admin/administrator':
-            hint_markdown: >
-                Note that the values for `password` and `password_confirmation` will
-                both be `nil`, as the user's password is only stored in encrypted
-                form in the database. You may still create a new user, however, by
-                filling in the password and confirmation on the create form.
-        user:
-            hint_markdown: >
-                Note that the values for `password` and `password_confirmation` will
-                both be `nil`, as the user's password is only stored in encrypted
-                form in the database. You may still create a new user, however, by
-                filling in the password and confirmation on the create form.
         markdown_page:
-            markdown_info_markdown: >
+            hint_markdown: >
                 Custom pages may be formatted using the Markdown syntax.  Visit the
                 [Kramdown syntax guide](http://kramdown.rubyforge.org/syntax.html)
                 for information on the permitted syntax.
-            page_header: "Page: %{name}"
-        uploaded_asset:
-            file_details: "%{size} bytes"
-            asset_header: "Asset: %{name}"
-        stop_list:
-            header: "Stop List: %{language}"
     article_dates_job:
         name: Plot Article Counts by Date
         short_desc: Plot number of articles by date

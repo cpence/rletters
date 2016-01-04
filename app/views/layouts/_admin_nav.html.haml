@@ -16,8 +16,40 @@
             = t('admin.nav.accounts')
             %span.caret
           %ul.dropdown-menu
-            %li= link_to(User.model_name.human(count: 100).capitalize, admin_collection_path(model: 'user'))
-            %li= link_to(Admin::Administrator.model_name.human(count: 100).capitalize, admin_collection_path(model: 'admin/administrator'))
+            %li= link_to User.model_name.human(count: 100), admin_collection_path(model: 'user')
+            %li= link_to "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;".html_safe + Users::Library.model_name.human(count: 100), admin_collection_path(model: 'users/library')
+            %li.divider{ role: 'separator' }
+            %li= link_to Admin::Administrator.model_name.human(count: 100), admin_collection_path(model: 'admin/administrator')
+
+        %li.dropdown
+          = link_to '#', class: 'dropdown-toggle', data: { toggle: 'dropdown' }, role: 'button', aria: { haspopup: 'true', expanded: 'false' } do
+            = t('admin.nav.content')
+            %span.caret
+          %ul.dropdown-menu
+            %li= link_to Dataset.model_name.human(count: 100), admin_collection_path(model: 'dataset')
+            %li= link_to "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;".html_safe + Datasets::Query.model_name.human(count: 100), admin_collection_path(model: 'datasets/query')
+            %li= link_to "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;".html_safe + Datasets::Task.model_name.human(count: 100), admin_collection_path(model: 'datasets/task')
+            %li.divider{ role: 'separator' }
+            %li= link_to Documents::Category.model_name.human(count: 100), admin_collection_path(model: 'documents/category')
+            %li.divider{ role: 'separator' }
+            %li= link_to Documents::StopList.model_name.human(count: 100), admin_collection_path(model: 'documents/stop_list')
+            %li= link_to Users::CslStyle.model_name.human(count: 100), admin_collection_path(model: 'users/csl_style')
+
+        %li.dropdown
+          = link_to '#', class: 'dropdown-toggle', data: { toggle: 'dropdown' }, role: 'button', aria: { haspopup: 'true', expanded: 'false' } do
+            = t('admin.nav.branding')
+            %span.caret
+          %ul.dropdown-menu
+            %li= link_to Admin::MarkdownPage.model_name.human(count: 100), admin_collection_path(model: 'admin/markdown_page')
+            %li= link_to Admin::UploadedAsset.model_name.human(count: 100), admin_collection_path(model: 'admin/uploaded_asset')
+
+        %li.dropdowm
+          = link_to '#', class: 'dropdown-toggle', data: { toggle: 'dropdown' }, role: 'button', aria: { haspopup: 'true', expanded: 'false' } do
+            = t('admin.nav.settings')
+            %span.caret
+          %ul.dropdown-menu
+            %li= link_to Admin::FeatureFlags.model_name.human(count: 100), admin_collection_path(model: 'admin/feature_flags')
+            %li= link_to Admin::Benchmark.model_name.human(count: 100), admin_collection_path(model: 'admin/benchmark')
 
       %ul.nav.navbar-nav.navbar-right
         - if administrator_signed_in?

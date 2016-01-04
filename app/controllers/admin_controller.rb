@@ -63,6 +63,8 @@ class AdminController < ApplicationController
   # @return [void]
   def item_new
     get_model
+    return head(:forbidden) if @model.admin_configuration[:no_create]
+
     @item = @model.new
   end
 
@@ -71,9 +73,10 @@ class AdminController < ApplicationController
   # @return [void]
   def item_create
     get_model
+    return head(:forbidden) if @model.admin_configuration[:no_create]
 
     @item = @model.new
-    if @item.update_attributes(params[:item].permit(*@model.admin_attributes.keys))
+    if @item.update_attributes(item_params)
       redirect_to admin_collection_path(params[:model])
     else
       render :item_new
@@ -85,6 +88,8 @@ class AdminController < ApplicationController
   # @return [void]
   def item_edit
     get_model
+    return head(:forbidden) if @model.admin_configuration[:no_edit]
+
     @item = @model.find(params[:id])
   end
 
@@ -93,9 +98,10 @@ class AdminController < ApplicationController
   # @return [void]
   def item_update
     get_model
+    return head(:forbidden) if @model.admin_configuration[:no_edit]
 
     @item = @model.find(params[:id])
-    if @item.update_attributes(params[:item].permit(*@model.admin_attributes.keys))
+    if @item.update_attributes(item_params)
       redirect_to admin_collection_path(params[:model])
     else
       render :item_edit
@@ -107,6 +113,7 @@ class AdminController < ApplicationController
   # @return [void]
   def item_delete
     get_model
+    return head(:forbidden) if @model.admin_configuration[:no_delete]
 
     @item = @model.find(params[:id])
     @item.destroy
@@ -121,8 +128,22 @@ class AdminController < ApplicationController
   # @return [void]
   def get_model
     @model = params[:model].camelize.constantize
-    unless @model.respond_to?(:admin_attributes)
-      fail ActiveRecord::RecordNotFound
+    fail ActiveRecord::RecordNotFound if @model.admin_attributes.empty?
+  end
+
+  # Permit all the right parameters through the form
+  #
+  # @return parameter object (type?)
+  def item_params
+    keys = @model.admin_attributes.map do |key, config|
+      # Models are passed in as their IDs, not as the object itself
+      if config[:model]
+        :"#{key}_id"
+      else
+        key
+      end
     end
+
+    params[:item].permit(*keys)
   end
 end

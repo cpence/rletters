@@ -1,13 +1,18 @@
 
 .row
   .col-sm-12
-    %h1= "#{@model.model_name.human.capitalize}: #{@item.to_param}"
+    %h1= "#{@model.model_name.human}: #{@item.to_param}"
+
+- unless @model.admin_configuration[:no_edit] && @model.admin_configuration[:no_delete]
+  .row
+    .col-sm-12
+      .btn-group{ role: 'group', aria: { label: t('.actions') } }
+        - unless @model.admin_configuration[:no_edit]
+          = link_to t('admin.collection_index.edit_button'), admin_edit_item_path(model: params[:model], id: @item.to_param), class: 'btn btn-primary'
+        - unless @model.admin_configuration[:no_delete]
+          = link_to t('admin.collection_index.delete_button'), admin_item_path(model: params[:model], id: @item.to_param), method: :delete, data: { confirm: t('admin.collection_index.delete_confirm') }, class: 'btn btn-danger'
 
 .row.pad-bottom
-  .col-sm-12
-    .btn-group{ role: 'group', aria: { label: t('.actions') } }
-      = link_to t('admin.collection_index.edit_button'), admin_edit_item_path(model: params[:model], id: @item.to_param), class: 'btn btn-primary'
-      = link_to t('admin.collection_index.delete_button'), admin_item_path(model: params[:model], id: @item.to_param), method: :delete, data: { confirm: t('admin.collection_index.delete_confirm') }, class: 'btn btn-danger'
 
 .row
   .col-sm-12

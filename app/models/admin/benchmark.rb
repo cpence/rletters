@@ -9,7 +9,7 @@ module Admin
   # @!attribute time
   #   @return [Float] the number of seconds this job took to execute on the
   #     given size dataset
-  class Benchmark < ActiveRecord::Base
+  class Benchmark < ApplicationRecord
     self.table_name = 'admin_benchmarks'
   end
 end

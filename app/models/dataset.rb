@@ -20,7 +20,7 @@
 #     (`has_many`)
 # @!attribute tasks
 #   @return [Array<Datasets::Task>] The tasks run on this dataset (`has_many`)
-class Dataset < ActiveRecord::Base
+class Dataset < ApplicationRecord
   validates :name, presence: true
   validates :user_id, presence: true
 

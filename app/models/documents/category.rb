@@ -15,7 +15,7 @@ module Documents
   #   @return [String] name of the category
   # @!attribute journals
   #   @return [Array<String>] list of journals in this category
-  class Category < ActiveRecord::Base
+  class Category < ApplicationRecord
     self.table_name = 'documents_categories'
     validates :name, presence: true
 

@@ -7,7 +7,7 @@ module Admin
   # themself to administrator).
   #
   # @!macro devise_user
-  class Administrator < ActiveRecord::Base
+  class Administrator < ApplicationRecord
     self.table_name = 'admin_administrators'
 
     devise :database_authenticatable, :rememberable, :trackable, :validatable

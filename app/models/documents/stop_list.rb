@@ -13,7 +13,7 @@ module Documents
   # @!attribute list
   #   @raise [RecordInvalid] if the list is missing (validates :presence)
   #   @return [String] Space-separated list of common words to exclude
-  class StopList < ActiveRecord::Base
+  class StopList < ApplicationRecord
     self.table_name = 'documents_stop_lists'
     validates :language, presence: true
     validates :list, presence: true

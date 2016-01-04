@@ -28,7 +28,7 @@ module Datasets
   # @!attribute dataset
   #   @raise [RecordInvalid] if the dataset is missing (validates :presence)
   #   @return [Dataset] The dataset to which this task belongs (`belongs_to`)
-  class Task < ActiveRecord::Base
+  class Task < ApplicationRecord
     self.table_name = 'datasets_tasks'
 
     validates :name, presence: true

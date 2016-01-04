@@ -26,7 +26,7 @@ module Datasets
   # @!attribute result_updated_at
   #   @return [DateTime] The last updated time of the result file (from
   #     Paperclip)
-  class File < ActiveRecord::Base
+  class File < ApplicationRecord
     self.table_name = 'datasets_files'
 
     validates :description, presence: true

@@ -3,9 +3,11 @@
 
   - @model.admin_attributes.each do |attrib, config|
     - next if config[:no_form]
-    - if config[:form_options]
-      = f.input attrib, config[:form_options].merge(required: false)
+    - if config[:model]
+      = f.input "#{attrib}_id", collection: @model.reflect_on_association(attrib).class_name.constantize.all, label_method: :to_s, value_method: :to_param
+    - elsif config[:form_options]
+      = f.input attrib, config[:form_options]
     - else
-      = f.input attrib, required: false
+      = f.input attrib
 
   = f.button :submit

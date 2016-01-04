@@ -41,7 +41,7 @@
 #     to perform in the workflow controller
 #
 # @!macro devise_user
-class User < ActiveRecord::Base
+class User < ApplicationRecord
   devise :database_authenticatable, :registerable, :recoverable,
          :rememberable, :trackable, :validatable
 
@@ -53,9 +53,7 @@ class User < ActiveRecord::Base
   has_many :datasets
   has_many :libraries, class_name: 'Users::Library'
 
-  # Attributes that may be edited in the administration interface
-  #
-  # @return [Hash] a list of attribute methods and configuration
+  # @return (see ApplicationRecord.admin_attributes)
   def self.admin_attributes
     { name: {},
       email: {},
@@ -72,6 +70,11 @@ class User < ActiveRecord::Base
                                       label_method: :name,
                                       value_method: :to_param } }
     }
+  end
+
+  # @return [String] the name of the user
+  def to_s
+    "#{name} <#{email}>"
   end
 
   # Override the Devise e-mail delivery logic to queue mail delivery
