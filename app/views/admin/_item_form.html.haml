@@ -1,0 +1,11 @@
+= simple_form_for(@item, as: 'item', url: url) do |f|
+  = f.error_notification
+
+  - @model.admin_attributes.each do |attrib, config|
+    - next if config[:no_form]
+    - if config[:form_options]
+      = f.input attrib, config[:form_options].merge(required: false)
+    - else
+      = f.input attrib, required: false
+
+  = f.button :submit

@@ -16,8 +16,13 @@ module Admin
     #
     # @return [Array<Symbol>] a list of attribute methods
     def self.admin_attributes
-      [:email, :password, :password_confirmation, :last_sign_in_at,
-       :last_sign_in_ip]
+      {
+        email: {},
+        password: { no_display: true },
+        password_confirmation: { no_display: true },
+        last_sign_in_at: { no_form: true },
+        last_sign_in_ip: { no_form: true }
+      }
     end
 
     # Override the Devise e-mail delivery logic to queue mail delivery

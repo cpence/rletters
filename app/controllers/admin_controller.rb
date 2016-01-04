@@ -65,6 +65,35 @@ class AdminController < ApplicationController
     @item = @model.find(params[:id])
   end
 
+  # Show the form for building an item to add to the collection
+  #
+  # @return [void]
+  def item_new
+    @model = params[:model].camelize.constantize
+    unless @model.respond_to?(:admin_attributes)
+      fail ActiveRecord::RecordNotFound
+    end
+
+    @item = @model.new
+  end
+
+  # Create an item and add it to the collection
+  #
+  # @return [void]
+  def item_create
+    @model = params[:model].camelize.constantize
+    unless @model.respond_to?(:admin_attributes)
+      fail ActiveRecord::RecordNotFound
+    end
+
+    @item = @model.new
+    if @item.update_attributes(params[:item].permit(*@model.admin_attributes))
+      redirect_to admin_collection_path(params[:model])
+    else
+      render :item_new
+    end
+  end
+
   # Delete a single item from the database
   #
   # @return [void]

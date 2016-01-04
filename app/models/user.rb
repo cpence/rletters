@@ -55,10 +55,23 @@ class User < ActiveRecord::Base
 
   # Attributes that may be edited in the administration interface
   #
-  # @return [Array<Symbol>] a list of attribute methods
+  # @return [Hash] a list of attribute methods and configuration
   def self.admin_attributes
-    [:name, :email, :password, :password_confirmation, :last_sign_in_at,
-     :last_sign_in_ip, :language, :timezone, :csl_style_id]
+    { name: {},
+      email: {},
+      password: { no_display: true },
+      password_confirmation: { no_display: true },
+      last_sign_in_at: { no_form: true },
+      last_sign_in_ip: { no_form: true },
+      language: {
+        form_options: { collection: I18n.available_locales.translated }
+      },
+      timezone: { form_options: { collection: ActiveSupport::TimeZone.all,
+                                  label_method: :to_s, value_method: :name } },
+      csl_style_id: { form_options: { collection: Users::CslStyle.all,
+                                      label_method: :name,
+                                      value_method: :to_param } }
+    }
   end
 
   # Override the Devise e-mail delivery logic to queue mail delivery

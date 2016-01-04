@@ -67,6 +67,8 @@ Rails.application.routes.draw do
     constraints: { id: /[0-9]+/ }
   delete 'admin/:model/:id' => 'admin#item_delete',
     constraints: { id: /[0-9]+/ }
+  get 'admin/:model/new' => 'admin#item_new', as: 'admin_new_item'
+  post 'admin/:model' => 'admin#item_create'
 
   authenticate :administrator do
     mount Que::Web, at: 'admin/jobs'

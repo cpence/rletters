@@ -605,11 +605,15 @@ en:
             value: Value
         collection_index:
             header: "Edit %{model_name}"
+            actions: Collection actions
+            new_button: "Create New"
             show_button: "Details"
             delete_button: "Delete"
             delete_confirm: "Are you sure? This action cannot be reversed!"
         item_index:
             actions: Item actions
+        item_new:
+            header: "Create new %{model_name}"
         'admin/administrator':
             hint_markdown: >
                 Note that the values for `password` and `password_confirmation` will

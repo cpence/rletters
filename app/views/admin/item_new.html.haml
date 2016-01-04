@@ -1,0 +1,8 @@
+
+.row
+  .col-sm-12
+    %h1= t('.header', model_name: @model.model_name.human.capitalize)
+
+.row
+  .col-sm-12
+    = render partial: 'item_form', locals: { url: admin_collection_path(model: params[:model]) }
