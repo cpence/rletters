@@ -10,8 +10,15 @@ module Admin
   class Administrator < ActiveRecord::Base
     self.table_name = 'admin_administrators'
 
-    devise :database_authenticatable, :recoverable, :rememberable,
-           :trackable, :validatable
+    devise :database_authenticatable, :rememberable, :trackable, :validatable
+
+    # Attributes that may be edited in the administration interface
+    #
+    # @return [Array<Symbol>] a list of attribute methods
+    def self.admin_attributes
+      [:email, :password, :password_confirmation, :last_sign_in_at,
+       :last_sign_in_ip]
+    end
 
     # Override the Devise e-mail delivery logic to queue mail delivery
     #

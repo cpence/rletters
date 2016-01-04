@@ -1,0 +1,26 @@
+.navbar.navbar-default.navbar-static-top.navbar-inverse{ role: 'navigation' }
+  .container
+    .navbar-header
+      %button.navbar-toggle.collapsed{ type: 'button', data: { toggle: 'collapse', target: '#main-nav-collapse' }}
+        %span.sr-only Toggle navigation
+
+        %span.icon-bar
+        %span.icon-bar
+        %span.icon-bar
+      = link_to t('admin.index.header', app_name: ENV['APP_NAME']), admin_path, class: 'navbar-brand'
+
+    .collapse.navbar-collapse#main-nav-collapse
+      %ul.nav.navbar-nav
+        %li.dropdown
+          = link_to '#', class: 'dropdown-toggle', data: { toggle: 'dropdown' }, role: 'button', aria: { haspopup: 'true', expanded: 'false' } do
+            = t('admin.nav.accounts')
+            %span.caret
+          %ul.dropdown-menu
+            %li= link_to(User.model_name.human(count: 100).capitalize, admin_collection_path(model: 'user'))
+            %li= link_to(Admin::Administrator.model_name.human(count: 100).capitalize, admin_collection_path(model: 'admin/administrator'))
+
+      %ul.nav.navbar-nav.navbar-right
+        - if administrator_signed_in?
+          %li= link_to t('layouts.nav.sign_out'), destroy_administrator_session_path, method: :delete
+        - else
+          %li= link_to t('layouts.nav.sign_in'), new_administrator_session_path

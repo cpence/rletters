@@ -36,18 +36,13 @@ Rails.application.routes.draw do
   devise_for :users, skip: [:sessions], controllers: {
     registrations: 'users/registrations'
   }
-  as :user do
+  devise_scope :user do
     # We only want users to sign in using the dropdown box on the main page,
     # not by visiting /users/sign_in, so we don't create a get 'sign_in' route
     # here.
     post 'users/sign_in' => 'devise/sessions#create', as: :user_session
-    if Rails.env.test?
-      get 'users/sign_out' => 'devise/sessions#destroy',
-          as: :destroy_user_session
-    else
-      delete 'users/sign_out' => 'devise/sessions#destroy',
-             as: :destroy_user_session
-    end
+    match 'users/sign_out' => 'devise/sessions#destroy',
+          as: :destroy_user_session, via: Devise.mappings[:user].sign_out_via
 
     # Redirect to the root after a successful user edit
     get 'users' => 'workflow#index'
@@ -63,8 +58,16 @@ Rails.application.routes.draw do
   end
 
   # Administration pages
-  ActiveAdmin.routes(self)
-  devise_for :administrators, ActiveAdmin::Devise.config.merge(class_name: 'Admin::Administrator')
+  devise_for :administrators, path: 'admin', class_name: 'Admin::Administrator',
+                              only: ['sessions']
+
+  get 'admin' => 'admin#index'
+  get 'admin/:model' => 'admin#collection_index', as: 'admin_collection'
+  get 'admin/:model/:id' => 'admin#item_index', as: 'admin_item',
+    constraints: { id: /[0-9]+/ }
+  delete 'admin/:model/:id' => 'admin#item_delete',
+    constraints: { id: /[0-9]+/ }
+
   authenticate :administrator do
     mount Que::Web, at: 'admin/jobs'
   end

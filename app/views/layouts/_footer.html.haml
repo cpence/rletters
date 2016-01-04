@@ -11,5 +11,4 @@
       %li= link_to t('breadcrumbs.users_registrations_new'), new_user_registration_path
       %li= link_to t('layouts.nav.help'), 'http://rletters.net/help'
 
-    %p= t('layouts.footer.copyright', app_name: ENV['APP_NAME'])
-    = t_md('layouts.footer.rletters_markdown')
+    = render partial: 'layouts/copyright'

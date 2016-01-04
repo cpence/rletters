@@ -53,6 +53,14 @@ class User < ActiveRecord::Base
   has_many :datasets
   has_many :libraries, class_name: 'Users::Library'
 
+  # Attributes that may be edited in the administration interface
+  #
+  # @return [Array<Symbol>] a list of attribute methods
+  def self.admin_attributes
+    [:name, :email, :password, :password_confirmation, :last_sign_in_at,
+     :last_sign_in_ip, :language, :timezone, :csl_style_id]
+  end
+
   # Override the Devise e-mail delivery logic to queue mail delivery
   #
   # We tap into this method to make sure that e-mails from Devise are

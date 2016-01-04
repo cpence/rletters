@@ -1,6 +1,11 @@
 
 /* None for now. */
 
+// Fix a bug in Bootstrap regarding padding on the last paragraph in a well
+.well p:last-child {
+  margin-bottom: 0;
+}
+
 /*
  * typehead.js-bootstrap3.less
  * @version 0.2.3

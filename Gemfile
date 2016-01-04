@@ -19,8 +19,6 @@ gem 'addressable'
 # User authentication and administration
 gem 'devise'
 gem 'devise-i18n'
-gem 'activeadmin', '~> 1.0.0.pre1'
-gem 'active_admin-sortable_tree'
 gem 'que-web'
 gem 'setler'
 

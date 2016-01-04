@@ -1,0 +1,27 @@
+!!! 5
+%html{ lang: I18n.locale }
+  = render partial: 'layouts/head'
+  %body
+    = render partial: 'layouts/admin_nav'
+
+    .container.main
+      - if content_for? :breadcrumbs
+        %ol.breadcrumb= yield(:breadcrumbs)
+      = render partial: 'layouts/flashes'
+
+      .row
+        .col-sm-12
+          = content_for?(:content) ? yield(:content) : yield
+
+      .row.footer.text-muted.small
+        .col-xs-12
+          %hr
+          = render partial: 'layouts/copyright'
+
+    #modal-container
+
+    -# Include all of the application JS
+    = javascript_include_tag 'application'
+
+    - if content_for?(:javascript)
+      = yield(:javascript)

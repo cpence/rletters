@@ -28,7 +28,7 @@ RSpec.describe ApplicationController, type: :request do
              administrator: { email: @user.email,
                               password: @user.password,
                               password_confirmation: @user.password })
-        expect(response).to redirect_to(admin_root_path)
+        expect(response).to redirect_to(admin_path)
         expect(flash[:notice]).to be
         expect(flash[:alert]).not_to be
       end

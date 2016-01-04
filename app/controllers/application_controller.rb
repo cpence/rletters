@@ -5,6 +5,7 @@
 # RLetters site.
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
+  layout :layout_for
 
   # Redirect to the root on successful sign in
   #
@@ -14,7 +15,7 @@ class ApplicationController < ActionController::Base
   # @return [void]
   def after_sign_in_path_for(resource)
     if resource.is_a?(Admin::Administrator)
-      admin_root_url
+      admin_url
     else
       root_url
     end
@@ -42,6 +43,18 @@ class ApplicationController < ActionController::Base
   # @return [void]
   def after_sign_out_path_for(_)
     root_url
+  end
+
+  def layout_for
+    if devise_controller?
+      if resource_name == :administrator
+        'admin'
+      else
+        'full_page'
+      end
+    else
+      'application'
+    end
   end
 
   # Render a localized Markdown document

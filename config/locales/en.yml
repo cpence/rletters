@@ -63,72 +63,72 @@ en:
                         blank: "Unique ID was not specified (internal error)"
     activerecord:
         models:
-            'admin/administrator':
+            admin/administrator:
                 one: Administrator
                 other: Administrators
-            'admin/feature_flags': Feature Flags
-            'admin/markdown_page':
+            admin/feature_flags: Feature Flags
+            admin/markdown_page:
                 one: Custom Page
                 other: Custom Pages
-            'admin/uploaded_asset':
+            admin/uploaded_asset:
                 one: Custom Asset
                 other: Custom Assets
             dataset:
                 one: Dataset
                 other: Datasets
-            'datasets/query':
+            datasets/query:
                 one: Dataset Query
                 other: Dataset Queries
-            'datasets/task':
+            datasets/task:
                 one: Task
                 other: Tasks
-            'documents/category':
+            documents/category:
                 one: Category
                 other: Categories
-            'documents/stop_list':
+            documents/stop_list:
                 one: Stop List
                 other: Stop Lists
             user:
                 one: User
                 other: Users
-            'users/csl_style':
+            users/csl_style:
                 one: CSL Style
                 other: CSL Styles
-            'users/library':
+            users/library:
                 one: Library
                 other: Libraries
         attributes:
-            'admin/administrator':
+            admin/administrator:
                 email: E-mail
                 name: Name
                 password: Password
                 password_confirmation: Confirm password
                 remember_me: Remember me?
-            'admin/feature_flags':
+            admin/feature_flags:
                 var: Feature
                 value: Value
-            'admin/markdown_page':
+            admin/markdown_page:
                 friendly_name: Name
                 name: Name
                 content: Content
-            'admin/uploaded_asset':
+            admin/uploaded_asset:
                 friendly_name: Name
                 name: Name
                 file: Attachment
             dataset:
                 name: Name
-            'datasets/query':
+            datasets/query:
                 q: Search query
                 fq: Filter parameters
                 def_type: Search type
-            'datasets/task':
+            datasets/task:
                 name: Name
                 created_at: Creation time
                 finished_at: Completion time
-            'documents/category':
+            documents/category:
                 name: Name
                 journals: List of Journals
-            'documents/stop_list':
+            documents/stop_list:
                 language: Language
                 list: List of Stop Words
             user:
@@ -140,18 +140,18 @@ en:
                 language: Preferred language
                 timezone: Time zone
                 csl_style_id: Citation style
-            'users/csl_style':
+            users/csl_style:
                 name: Name
                 style: Style (XML)
-            'users/library':
+            users/library:
                 name: Name
                 url: Base URL
         errors:
             models:
-                'admin/markdown_page':
+                admin/markdown_page:
                     name:
                         blank: Name was not specified (internal error)
-                'admin/uploaded_asset':
+                admin/uploaded_asset:
                     name:
                         blank: Name was not specified (internal error)
                 dataset:
@@ -159,18 +159,18 @@ en:
                         blank: You must specify a name for this dataset
                     user_id:
                         blank: Dataset must have a user ID specified (internal error)
-                'datasets/query':
+                datasets/query:
                     def_type:
                         blank: Search type was not specified (internal error)
-                'datasets/task':
+                datasets/task:
                     name:
                         blank: You must specify a name for this task (internal error)
                     dataset:
                         blank: Task not connected to dataset (internal error)
-                'documents/category':
+                documents/category:
                     name:
                         blank: You must specify a name for this category
-                'documents/stop_list':
+                documents/stop_list:
                     language:
                         blank: Language was not specified (internal error)
                     list:
@@ -183,12 +183,12 @@ en:
                         invalid: Preferred language must be a valid locale code (internal error)
                     timezone:
                         blank: Timezone must be specified (internal error)
-                'users/csl_style':
+                users/csl_style:
                     name:
                         blank: Name was not specified (internal error)
                     style:
                         blank: Style was not specified (internal error)
-                'users/library':
+                users/library:
                     name:
                         blank: You must specify a name for this library record
                     url:
@@ -581,9 +581,13 @@ en:
         screenshot-two: Second Screenshot
         screenshot-three: Third Screenshot
     admin:
-        administrator:
-            admin_details: Administrator Details
-        dashboard:
+        nav:
+            accounts: Accounts
+        index:
+            header: "%{app_name} Administration"
+            subheader: >
+                The administration interface for %{app_name}. You can edit
+                a variety of user data, control feature flags, and so on.
             new_datasets: Newest Datasets
             new_tasks: Newest Tasks
             recent_users: Recently Seen Users
@@ -596,6 +600,28 @@ en:
             solr_version: "Solr version %{solr_ver}, Lucene version %{lucene_ver}"
             java_version: "Java version %{java_ver}"
             memory_info: "Memory: %{used} used, with %{free} free of %{total}; %{max} max"
+            environment: Environment Variables
+            variable: Variable
+            value: Value
+        collection_index:
+            header: "Edit %{model_name}"
+            show_button: "Details"
+            delete_button: "Delete"
+            delete_confirm: "Are you sure? This action cannot be reversed!"
+        item_index:
+            actions: Item actions
+        'admin/administrator':
+            hint_markdown: >
+                Note that the values for `password` and `password_confirmation` will
+                both be `nil`, as the user's password is only stored in encrypted
+                form in the database. You may still create a new user, however, by
+                filling in the password and confirmation on the create form.
+        user:
+            hint_markdown: >
+                Note that the values for `password` and `password_confirmation` will
+                both be `nil`, as the user's password is only stored in encrypted
+                form in the database. You may still create a new user, however, by
+                filling in the password and confirmation on the create form.
         markdown_page:
             markdown_info_markdown: >
                 Custom pages may be formatted using the Markdown syntax.  Visit the

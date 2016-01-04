@@ -1,0 +1,98 @@
+
+.row.pad-bottom
+  .col-sm-12
+    %h1= t('.header', app_name: ENV['APP_NAME'])
+    %h4.text-muted= t('.subheader', app_name: ENV['APP_NAME'])
+
+.row
+  .col-lg-6
+    .panel.panel-default
+      .panel-heading
+        %h3.panel-title= t('.new_datasets')
+
+      %table.table.table-striped.table-condensed
+        %thead
+          %tr
+            %th= Dataset.human_attribute_name(:name)
+            %th= User.model_name.human
+            %th= Dataset.human_attribute_name(:created_at)
+        %tbody
+          - Dataset.order('created_at desc').limit(5).each do |dataset|
+            %tr
+              %td= dataset.name
+              %td= link_to(dataset.user.name, admin_item_path(model: 'user', id: dataset.user.to_param))
+              %td= dataset.created_at
+
+    .panel.panel-default
+      .panel-heading
+        %h3.panel-title= t('.backend')
+
+      .panel-body
+        %h5= t('.database')
+
+        %ul
+          - if @corpus_size && @ping
+            %li= t('.db_size', count: @corpus_size)
+            %li= t('.latency', count: @ping)
+          - else
+            %li= t('.connection_failed')
+
+        - if @solr_info['lucene'] && @solr_info['jvm']
+          %h5= t('.solr')
+
+          %ul
+            %li= t('.solr_version', solr_ver: @solr_info['lucene']['solr-spec-version'], lucene_ver: @solr_info['lucene']['lucene-spec-version'])
+            %li= t('.java_version', java_ver: @solr_info['jvm']['version'])
+            %li= t('.memory_info', used: @solr_info['jvm']['memory']['used'], free: @solr_info['jvm']['memory']['free'], total: @solr_info['jvm']['memory']['total'], max: @solr_info['jvm']['memory']['max'])
+
+  .col-lg-6
+    .panel.panel-default
+      .panel-heading
+        %h3.panel-title= t('.new_tasks')
+
+      %table.table.table-striped.table-condensed
+        %thead
+          %tr
+            %th= Datasets::Task.human_attribute_name(:name)
+            %th= Datasets::Task.human_attribute_name(:job_type)
+            %th= Dataset.model_name.human
+            %th= Datasets::Task.human_attribute_name(:failed)
+        %tbody
+          - Datasets::Task.order('created_at desc').limit(10).each do |task|
+            %tr
+              %td= task.name
+              %td= task.job_type
+              %td= task.dataset.name
+              %td= task.dataset ? t('simple_form.yes') : t('simple_form.no')
+
+    .panel.panel-default
+      .panel-heading
+        %h3.panel-title= t('.recent_users')
+
+      %table.table.table-striped.table-condensed
+        %thead
+          %tr
+            %th= User.human_attribute_name(:name)
+            %th= User.human_attribute_name(:last_sign_in_at)
+        %tbody
+          - User.order('last_sign_in_at desc').limit(5).each do |user|
+            %tr
+              %td= link_to(user.name, admin_item_path(model: 'user', id: user.to_param))
+              %td= user.last_sign_in_at
+
+.row
+  .col-sm-12
+    .panel.panel-default
+      .panel-heading
+        %h3.panel-title= t('.environment')
+
+      %table.table.table-striped.table-condensed
+        %thead
+          %tr
+            %th= t('.variable')
+            %th= t('.value')
+        %tbody
+          - @config_vars.each do |var|
+            %tr
+              %td= var
+              %td= ENV[var]

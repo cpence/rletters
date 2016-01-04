@@ -167,7 +167,7 @@ Devise.setup do |config|
   # config.navigational_formats = ["*/*", :html]
 
   # The default HTTP method used to sign out a resource. Default is :delete.
-  config.sign_out_via = :delete
+  config.sign_out_via = Rails.env.test? ? :get : :delete
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
@@ -176,13 +176,4 @@ Devise.setup do |config|
     # Redirect to the root on a failed sign-in
     manager.failure_app = DeviseFailure
   end
-end
-
-# Use the 'full_page' layout for all Devise views
-Rails.application.config.to_prepare do
-  Devise::SessionsController.layout 'full_page'
-  Devise::RegistrationsController.layout 'full_page'
-  Devise::ConfirmationsController.layout 'full_page'
-  Devise::UnlocksController.layout 'full_page'
-  Devise::PasswordsController.layout 'full_page'
 end

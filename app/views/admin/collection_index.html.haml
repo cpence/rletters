@@ -1,0 +1,28 @@
+
+.row.pad-bottom
+  .col-sm-12
+    %h1= t('.header', model_name: @model.model_name.human(count: 100).capitalize)
+
+- if @hint
+  .row.pad-bottom
+    .col-xs-8.col-xs-offset-2
+      .well= @hint
+
+.row
+  .col-sm-12
+    %table.table.button-table.table-condensed
+      %thead
+        %tr
+          %th.button-cell
+          %th ID
+          - @model.admin_attributes.each do |attrib|
+            %th= @model.human_attribute_name(attrib)
+      %tbody
+        - @collection.each do |item|
+          %td.button-cell
+            = link_to t('.show_button'), admin_item_path(model: params[:model], id: item.to_param), class: 'btn btn-xs btn-info'
+            = link_to t('.delete_button'), admin_item_path(model: params[:model], id: item.to_param), method: :delete, data: { confirm: t('.delete_confirm') }, class: 'btn btn-xs btn-danger'
+          %td= item.to_param
+          - @model.admin_attributes.each do |attrib|
+            - val = item.send(attrib)
+            %td= val.nil? ? 'nil' : val.to_s
