@@ -6,7 +6,7 @@
 .row.pad-bottom
   .col-sm-12
     .btn-group{ role: 'group', aria: { label: t('.actions') } }
-      = link_to t('.new_button'), admin_new_item_path(model: params[:model]), class: 'btn btn-primary'
+      = link_to t('.new_button'), admin_new_item_path(model: params[:model]), class: 'btn btn-success'
 
 - if @hint
   .row.pad-bottom
@@ -26,8 +26,10 @@
       %tbody
         - @collection.each do |item|
           %tr
-            %td.button-cell
+            %td.button-cell.multi-row
               = link_to t('.show_button'), admin_item_path(model: params[:model], id: item.to_param), class: 'btn btn-xs btn-info'
+              = link_to t('.edit_button'), admin_edit_item_path(model: params[:model], id: item.to_param), class: 'btn btn-xs btn-primary'
+              %br
               = link_to t('.delete_button'), admin_item_path(model: params[:model], id: item.to_param), method: :delete, data: { confirm: t('.delete_confirm') }, class: 'btn btn-xs btn-danger'
             %td= item.to_param
             - @model.admin_attributes.each do |attrib, config|

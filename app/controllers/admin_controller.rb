@@ -37,10 +37,7 @@ class AdminController < ApplicationController
   #
   # @return [void]
   def collection_index
-    @model = params[:model].camelize.constantize
-    unless @model.respond_to?(:admin_attributes)
-      fail ActiveRecord::RecordNotFound
-    end
+    get_model
 
     @hint = I18n.t("admin.#{params[:model]}.hint_markdown", default: 'MISSING')
     if @hint == 'MISSING'
@@ -57,11 +54,7 @@ class AdminController < ApplicationController
   #
   # @return [void]
   def item_index
-    @model = params[:model].camelize.constantize
-    unless @model.respond_to?(:admin_attributes)
-      fail ActiveRecord::RecordNotFound
-    end
-
+    get_model
     @item = @model.find(params[:id])
   end
 
@@ -69,11 +62,7 @@ class AdminController < ApplicationController
   #
   # @return [void]
   def item_new
-    @model = params[:model].camelize.constantize
-    unless @model.respond_to?(:admin_attributes)
-      fail ActiveRecord::RecordNotFound
-    end
-
+    get_model
     @item = @model.new
   end
 
@@ -81,16 +70,35 @@ class AdminController < ApplicationController
   #
   # @return [void]
   def item_create
-    @model = params[:model].camelize.constantize
-    unless @model.respond_to?(:admin_attributes)
-      fail ActiveRecord::RecordNotFound
-    end
+    get_model
 
     @item = @model.new
-    if @item.update_attributes(params[:item].permit(*@model.admin_attributes))
+    if @item.update_attributes(params[:item].permit(*@model.admin_attributes.keys))
       redirect_to admin_collection_path(params[:model])
     else
       render :item_new
+    end
+  end
+
+  # Show the form for editing an item in the collection
+  #
+  # @return [void]
+  def item_edit
+    get_model
+    @item = @model.find(params[:id])
+  end
+
+  # Update an item in the collection
+  #
+  # @return [void]
+  def item_update
+    get_model
+
+    @item = @model.find(params[:id])
+    if @item.update_attributes(params[:item].permit(*@model.admin_attributes.keys))
+      redirect_to admin_collection_path(params[:model])
+    else
+      render :item_edit
     end
   end
 
@@ -98,14 +106,23 @@ class AdminController < ApplicationController
   #
   # @return [void]
   def item_delete
-    @model = params[:model].camelize.constantize
-    unless @model.respond_to?(:admin_attributes)
-      fail ActiveRecord::RecordNotFound
-    end
+    get_model
 
     @item = @model.find(params[:id])
     @item.destroy
 
     redirect_to admin_collection_path(model: params[:model])
+  end
+
+  private
+
+  # Set the @model variable to the requested model
+  #
+  # @return [void]
+  def get_model
+    @model = params[:model].camelize.constantize
+    unless @model.respond_to?(:admin_attributes)
+      fail ActiveRecord::RecordNotFound
+    end
   end
 end

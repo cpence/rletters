@@ -1,4 +1,4 @@
-= simple_form_for(@item, as: 'item', url: url) do |f|
+= simple_form_for(@item, as: 'item', url: url, method: method) do |f|
   = f.error_notification
 
   - @model.admin_attributes.each do |attrib, config|

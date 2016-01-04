@@ -23,8 +23,8 @@ table.button-table {
   width: 100%;
   margin-top: 1em;
 
-  td .button, td button { margin-bottom: 0; }
   td.button-cell, th.button-cell { width: 1px; white-space: nowrap; }
+  td.multi-row .btn, td.multi-row button { margin-bottom: 4px; }
 }
 
 // We often have sub-legends, or fieldsets that aren't the main fieldset;

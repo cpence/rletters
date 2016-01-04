@@ -5,4 +5,4 @@
 
 .row
   .col-sm-12
-    = render partial: 'item_form', locals: { url: admin_collection_path(model: params[:model]) }
+    = render partial: 'item_form', locals: { url: admin_collection_path(model: params[:model]), method: :post }

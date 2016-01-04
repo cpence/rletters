@@ -67,6 +67,10 @@ Rails.application.routes.draw do
     constraints: { id: /[0-9]+/ }
   delete 'admin/:model/:id' => 'admin#item_delete',
     constraints: { id: /[0-9]+/ }
+  patch 'admin/:model/:id' => 'admin#item_update',
+    constraints: { id: /[0-9]+/ }
+  get 'admin/:model/:id/edit' => 'admin#item_edit', as: 'admin_edit_item',
+    constraints: { id: /[0-9]+/ }
   get 'admin/:model/new' => 'admin#item_new', as: 'admin_new_item'
   post 'admin/:model' => 'admin#item_create'
 

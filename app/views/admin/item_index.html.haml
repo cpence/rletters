@@ -6,6 +6,7 @@
 .row.pad-bottom
   .col-sm-12
     .btn-group{ role: 'group', aria: { label: t('.actions') } }
+      = link_to t('admin.collection_index.edit_button'), admin_edit_item_path(model: params[:model], id: @item.to_param), class: 'btn btn-primary'
       = link_to t('admin.collection_index.delete_button'), admin_item_path(model: params[:model], id: @item.to_param), method: :delete, data: { confirm: t('admin.collection_index.delete_confirm') }, class: 'btn btn-danger'
 
 .row
