@@ -33,8 +33,8 @@ class Dataset < ApplicationRecord
     {
       user: { model: true },
       name: {},
-      queries: { array: true },
-      tasks: { array: true }
+      queries: { array: true, no_form: true },
+      tasks: { array: true, no_form: true }
     }
   end
 
