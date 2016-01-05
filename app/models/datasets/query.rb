@@ -24,6 +24,11 @@ module Datasets
 
     belongs_to :dataset
 
+    # @return [String] string representation of this query
+    def to_s
+      "q: #{q}; fq: #{fq}; def_type: #{def_type}"
+    end
+
     # Return the result of doing this query, with additional parameters added
     #
     # @return [RLetters::Solr::SearchResult] the search results

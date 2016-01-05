@@ -55,7 +55,8 @@ class User < ApplicationRecord
 
   # @return (see ApplicationRecord.admin_attributes)
   def self.admin_attributes
-    { name: {},
+    {
+      name: {},
       email: {},
       password: { no_display: true },
       password_confirmation: { no_display: true },
@@ -72,7 +73,7 @@ class User < ApplicationRecord
     }
   end
 
-  # @return [String] the name of the user
+  # @return [String] string representation of this user
   def to_s
     "#{name} <#{email}>"
   end

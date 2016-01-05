@@ -10,4 +10,6 @@
     - else
       = f.input attrib
 
-  = f.button :submit
+  = f.button :submit, class: 'btn-success'
+  - if cancel_url
+    = link_to t('common.cancel'), cancel_url, class: 'btn btn-default'

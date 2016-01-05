@@ -121,6 +121,28 @@ class AdminController < ApplicationController
     redirect_to admin_collection_path(model: params[:model])
   end
 
+  # Return an attribute's value, formatted
+  #
+  # This will return the value of an attribute, either as a string, or as an
+  # unordered list, if it's an array.
+  #
+  # @return [String] the attribute's value
+  def attribute_value_for(item, attribute, config)
+    value = item.send(attribute)
+
+    return '<nil>' if value.nil?
+    return value.to_s unless config[:array]
+    return '<empty>' if value.empty?
+
+    elements = ''.html_safe
+    value.each do |element|
+      elements += "<li>".html_safe + element.to_s + "</li>".html_safe
+    end
+
+    "<ul>#{elements}</ul>".html_safe
+  end
+  helper_method :attribute_value_for
+
   private
 
   # Set the @model variable to the requested model

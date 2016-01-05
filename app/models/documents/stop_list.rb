@@ -18,6 +18,18 @@ module Documents
     validates :language, presence: true
     validates :list, presence: true
 
+    # @return (see ApplicationRecord.admin_attributes)
+    def self.admin_attributes
+      {
+        language: {
+          form_options: { collection: I18n.available_locales.translated },
+          no_display: true
+        },
+        display_language: { no_form: true },
+        list: {}
+      }
+    end
+
     # @return [String] the `language` parameter, translated into the user's
     #   selected language
     def display_language

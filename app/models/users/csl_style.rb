@@ -25,9 +25,9 @@ module Users
       }
     end
 
-    # @return [String] the name of the model
+    # @return [String] string representation of this CSL style
     def to_s
-      "#{name} (#{user})"
+      name
     end
   end
 end

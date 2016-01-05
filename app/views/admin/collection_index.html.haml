@@ -34,5 +34,4 @@
             %td= item.to_param
             - @model.admin_attributes.each do |attrib, config|
               - next if config[:no_display]
-              - val = item.send(attrib)
-              %td= val.nil? ? 'nil' : val.to_s
+              %td= attribute_value_for(item, attrib, config)

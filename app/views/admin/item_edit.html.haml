@@ -5,4 +5,4 @@
 
 .row
   .col-sm-12
-    = render partial: 'item_form', locals: { url: admin_item_path(model: params[:model]), method: :patch }
+    = render partial: 'item_form', locals: { url: admin_item_path(model: params[:model], id: params[:id]), method: :patch, cancel_url: admin_item_path(model: params[:model], id: params[:id]) }
