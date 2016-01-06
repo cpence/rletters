@@ -51,8 +51,8 @@ $(document).on('click', '.ajax-modal', function(e) {
 });
 
 $(document).ready(function() {
-  // Load tooltips for cloud references
-  $('.cloud-tooltip').tooltip();
+  // Load tooltips wherever they may be found (we use these extensively)
+  $('[data-toggle="tooltip"]').tooltip()
 });
 
 function hideAndDisable(selector) {

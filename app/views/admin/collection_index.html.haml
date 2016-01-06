@@ -3,7 +3,9 @@
   .col-sm-12
     - unless @model.admin_configuration[:no_create]
       .pull-right
-        = link_to t('.new_button'), admin_new_item_path(model: params[:model]), class: 'btn btn-success'
+        = link_to admin_new_item_path(model: params[:model]), class: 'btn btn-success' do
+          %span.glyphicon.glyphicon-plus
+          = t('.new_button')
     %h1= t('.header', model_name: @model.model_name.human(count: 100))
 
 - if @hint
@@ -16,22 +18,22 @@
     %table.table.button-table.table-condensed
       %thead
         %tr
-          %th.button-cell
-          %th ID
           - @model.admin_attributes.each do |attrib, config|
             - next if config[:no_display]
             %th= @model.human_attribute_name(attrib)
+          %th.button-cell
       %tbody
         - @collection.each do |item|
           %tr
-            %td.button-cell.multi-row
-              = link_to t('.show_button'), admin_item_path(model: params[:model], id: item.to_param), class: 'btn btn-xs btn-info'
-              - unless @model.admin_configuration[:no_edit]
-                = link_to t('.edit_button'), admin_edit_item_path(model: params[:model], id: item.to_param), class: 'btn btn-xs btn-primary'
-              - unless @model.admin_configuration[:no_delete]
-                %br
-                = link_to t('.delete_button'), admin_item_path(model: params[:model], id: item.to_param), method: :delete, data: { confirm: t('.delete_confirm') }, class: 'btn btn-xs btn-danger'
-            %td= item.to_param
             - @model.admin_attributes.each do |attrib, config|
               - next if config[:no_display]
               %td= attribute_value_for(item, attrib, config)
+            %td.button-cell
+              = link_to admin_item_path(model: params[:model], id: item.to_param), title: t('.show_button'), data: { toggle: 'tooltip' } do
+                %span.glyphicon.glyphicon-info-sign{ aria: { hidden: 'true' } }>
+              - unless @model.admin_configuration[:no_edit]
+                = link_to admin_edit_item_path(model: params[:model], id: item.to_param), title: t('.edit_button'), data: { toggle: 'tooltip' } do
+                  %span.glyphicon.glyphicon-pencil{ aria: { hidden: 'true' } }>
+              - unless @model.admin_configuration[:no_delete]
+                = link_to admin_item_path(model: params[:model], id: item.to_param), method: :delete, title: t('.delete_button'), data: { confirm: t('.delete_confirm'), toggle: 'tooltip' } do
+                  %span.glyphicon.glyphicon-remove{ aria: { hidden: 'true' } }>
