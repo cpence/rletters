@@ -32,7 +32,8 @@ namespace :benchmarks do
     job_classes = BaseJob.job_list
     set_sizes = [10, 100, 1000]
 
-    # Start by making each of the benchmark objects and nil-ing it out
+    # Start by making each of the benchmark objects and nil-ing it out. This
+    # is also done in db/seeds.rb, though we repeat it just in case.
     job_classes.each do |klass|
       set_sizes.each do |size|
         bench = Admin::Benchmark.where(job: klass.name, size: size).first_or_create

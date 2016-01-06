@@ -51,3 +51,15 @@ Dir.glob(Rails.root.join('db', 'seeds', 'stoplists', '*.txt')) do |txt|
   Documents::StopList.where(language: language).first_or_create!(list: IO.read(txt))
   puts "Seeded stop_list:#{language}"
 end
+
+# Benchmakrs
+job_classes = BaseJob.job_list
+set_sizes = [10, 100, 1000]
+
+# Start by making each of the benchmark objects and nil-ing it out
+job_classes.each do |klass|
+  set_sizes.each do |size|
+    bench = Admin::Benchmark.where(job: klass.name, size: size).first_or_create!(time: nil)
+    puts "Seeded benchmark:#{klass.name}-#{size}"
+  end
+end
