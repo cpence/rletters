@@ -63,7 +63,7 @@
               %td= task.name
               %td= task.job_type
               %td= task.dataset.name
-              %td= task.dataset ? t('simple_form.yes') : t('simple_form.no')
+              %td= task.failed ? t('simple_form.yes') : t('simple_form.no')
 
     .panel.panel-default
       .panel-heading
