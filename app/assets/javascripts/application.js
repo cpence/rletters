@@ -1,8 +1,12 @@
 //= require jquery/dist/jquery
 //= require jquery-ujs/src/rails
-//= require jscroll/jquery.jscroll
+
 //= require bootstrap/dist/js/bootstrap.js
+
+//= require jscroll/jquery.jscroll
+//= require nestable2/jquery.nestable
 //= require typeahead.js/dist/typeahead.bundle.js
+
 //= require d3/d3
 
 //= require_self

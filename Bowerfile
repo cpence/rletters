@@ -2,8 +2,9 @@ asset 'jquery'
 asset 'jquery-ujs'
 asset 'jquery-ui'
 
-asset 'jscroll'
 asset 'typeahead.js'
+asset 'jscroll'
+asset 'nestable2'
 
 asset 'bootstrap'
 
