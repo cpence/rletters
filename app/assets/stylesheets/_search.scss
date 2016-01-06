@@ -6,7 +6,7 @@ table.document-list {
   td h5 { font-weight: bold; }
 }
 
-@media (min-width: $screen-lg-min) {
+@media (min-width: 1200px /* Bootstrap: $screen-lg-min */) {
   #filters {
     display: block;
     height: auto !important;

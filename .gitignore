@@ -12,7 +12,12 @@
 /spec/status.txt
 /tmp/*
 !/tmp/.gitkeep
+
 /vendor/bundle
 /vendor/nlp
 !/vendor/nlp/.gitkeep
 /vendor/solr
+
+/vendor/assets/.bowerrc
+/vendor/assets/bower.json
+/vendor/assets/bower_components

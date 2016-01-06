@@ -1,5 +1,3 @@
-//= require d3
-
 function createNetworkGraph() {
   // Get the elements we need
   var graphContainer = $('.network_graph');

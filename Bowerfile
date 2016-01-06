@@ -1,0 +1,10 @@
+asset 'jquery'
+asset 'jquery-ujs'
+asset 'jquery-ui'
+
+asset 'jscroll'
+asset 'typeahead.js'
+
+asset 'bootstrap'
+
+asset 'd3'

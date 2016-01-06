@@ -51,25 +51,23 @@ gem 'rdf-n3'
 gem 'prawn'
 gem 'chunky_png'
 gem 'mini_magick'
-gem 'd3_rails'
 
 # Asset tools and template generators
 gem 'draper'
+gem 'simple_form', '>= 3.1.0.rc1'
+
 gem 'haml'
 gem 'haml-rails'
+gem 'sass-rails', '>= 5.0'
 gem 'kramdown'
+
 gem 'nokogiri'
 gem 'rabl'
 
-gem 'jquery-rails'
-gem 'jquery-ui-rails'
-gem 'sass-rails', '>= 5.0'
-gem 'bootstrap-sass'
-gem 'twitter-typeahead-rails'
-gem 'simple_form', '>= 3.1.0.rc1'
-
 gem 'uglifier', '>= 1.3.0'
 gem 'roadie-rails'
+
+gem 'bower-rails'
 
 # Testing
 group :test, :development do
