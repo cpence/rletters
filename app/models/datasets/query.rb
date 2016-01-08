@@ -29,7 +29,7 @@ module Datasets
       {
         dataset: { model: true },
         q: {},
-        fq: { array: true, no_form: true },
+        fq: { array: true },
         def_type: { form_options: { collection: [:dismax, :lucene] } }
       }
     end
@@ -59,6 +59,8 @@ module Datasets
     #
     # @return [void]
     def update_size_cache
+      return unless dataset
+
       dataset.queries.reload
       dataset.document_count = dataset.queries.map(&:size).inject(:+)
       dataset.save

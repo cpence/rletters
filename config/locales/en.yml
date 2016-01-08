@@ -36,6 +36,8 @@ en:
                 edit:
                     password: New password
                     password_confirmation: Confirm new password
+        add: Add
+        remove: Remove
     helpers:
         submit:
             job_params:

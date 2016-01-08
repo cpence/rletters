@@ -7,6 +7,8 @@ class ApplicationRecord < ActiveRecord::Base
   #
   #   The keys of this hash can currently include the following:
   #
+  #   - :tree - if set, this is a `closure_tree` tree model, and gets a
+  #     different collection display page
   #   - :no_create - if set, do not allow new instances of this model to be
   #     created
   #   - :no_delete - if set, do not allow instances of this model to be deleted
@@ -27,6 +29,8 @@ class ApplicationRecord < ActiveRecord::Base
   #     table display
   #   - :form_options - if set, add these options to the SimpleForm control for
   #     the given attribute
+  #   - :array - if set, this attribute is an array, and we will have special
+  #     form support for it
   def self.admin_attributes
     {}
   end

@@ -44,7 +44,7 @@ function updateAdvancedRows()
     $('.remove-button').css('visibility', 'hidden');
 }
 
-function addRow(button)
+function addSearchAdvancedRow(button)
 {
   container = $('#advanced-rows');
   if (container.length === 0)
@@ -59,7 +59,7 @@ function addRow(button)
   updateAdvancedRows();
 }
 
-function removeRow(button)
+function removeSearchAdvancedRow(button)
 {
   row = button.parent().parent().parent().parent();
   label_row = row.prev();

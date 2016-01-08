@@ -25,6 +25,24 @@ module Documents
     # Enable closure_tree
     acts_as_tree name_column: 'name', order: 'sort_order'
 
+    # @return (see ApplicationRecord.admin_attributes)
+    def self.admin_attributes
+      {
+        name: {},
+        journals: { array: true }
+      }
+    end
+
+    # @return (see ApplicationRecord.admin_configuration)
+    def self.admin_configuration
+      { tree: true }
+    end
+
+    # @return [String] string representation of this category
+    def to_s
+      name
+    end
+
     private
 
     # Clean up list of journals when created

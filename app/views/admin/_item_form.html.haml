@@ -4,11 +4,13 @@
   - @model.admin_attributes.each do |attrib, config|
     - next if config[:no_form]
     - if config[:model]
-      = f.input "#{attrib}_id", collection: @model.reflect_on_association(attrib).class_name.constantize.all, label_method: :to_s, value_method: :to_param
+      = f.input "#{attrib}_id", collection: @model.reflect_on_association(attrib).class_name.constantize.all, label_method: :to_s, value_method: :to_param, required: false
+    - elsif config[:array]
+      = f.input attrib, as: :array, required: false
     - elsif config[:form_options]
-      = f.input attrib, config[:form_options]
+      = f.input attrib, config[:form_options].merge(required: false)
     - else
-      = f.input attrib
+      = f.input attrib, required: false
 
   = f.button :submit, class: 'btn-success'
   - if cancel_url

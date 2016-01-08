@@ -157,15 +157,27 @@ class AdminController < ApplicationController
   #
   # @return parameter object (type?)
   def item_params
+    hash_at_end = {}
+
     keys = @model.admin_attributes.map do |key, config|
-      # Models are passed in as their IDs, not as the object itself
       if config[:model]
+        # Models are passed in as their IDs, not as the object itself
         :"#{key}_id"
+      elsif config[:array]
+        # Array parameters have to be specified as an options hash at the
+        # end of the permit call
+        hash_at_end[key] = []
+        nil
       else
         key
       end
     end
+    keys.compact!
 
-    params[:item].permit(*keys)
+    if hash_at_end.empty?
+      params[:item].permit(*keys)
+    else
+      params[:item].permit(*keys, hash_at_end)
+    end
   end
 end
