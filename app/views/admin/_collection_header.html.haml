@@ -11,11 +11,20 @@
         = link_to '#', class: 'btn btn-small btn-default tree-save-button' do
           %span.glyphicon.glyphicon-floppy-disk
           = t('.tree_button')
+      - unless @model.admin_configuration[:tree] || @model.admin_configuration[:no_delete]
+        = link_to '#', class: 'btn btn-small btn-default bulk-delete-button disabled', data: { message: t('.delete_confirm') } do
+          %span.glyphicon.glyphicon-remove
+          = t('.delete_button')
 
 - if @model.admin_configuration[:tree]
   = form_tag(admin_edit_collection_path(model: params[:model]), class: 'tree-save-form', method: 'patch') do
     = hidden_field_tag 'bulk_action', 'tree'
     = hidden_field_tag 'tree'
+
+- unless @model.admin_configuration[:tree] || @model.admin_configuration[:no_delete]
+  = form_tag(admin_edit_collection_path(model: params[:model]), class: 'bulk-delete-form', method: 'patch') do
+    = hidden_field_tag 'bulk_action', 'delete'
+    = hidden_field_tag 'ids'
 
 - if @hint
   .row.pad-bottom

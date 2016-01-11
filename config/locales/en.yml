@@ -618,6 +618,8 @@ en:
             actions: Collection actions
             new_button: "Create New"
             tree_button: "Save Tree"
+            delete_button: "Delete Checked"
+            delete_confirm: "Are you sure? This will delete all checked items, and cannot be reversed!"
         collection_buttons:
             show_button: "Details"
             edit_button: "Edit"

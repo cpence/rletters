@@ -5,6 +5,7 @@
     %table.table.button-table.table-condensed
       %thead
         %tr
+          %th.button-cell
           - @model.admin_attributes.each do |attrib, config|
             - next if config[:no_display]
             %th= @model.human_attribute_name(attrib)
@@ -12,6 +13,8 @@
       %tbody
         - @collection.each do |item|
           %tr
+            %td.button-cell
+              = check_box_tag "item_#{item.to_param}", item.to_param, false, class: 'bulk-delete-checkbox'
             - @model.admin_attributes.each do |attrib, config|
               - next if config[:no_display]
               %td= attribute_value_for(item, attrib, config)

@@ -60,9 +60,15 @@ class AdminController < ApplicationController
   #
   # The `:bulk_action` parameter should be set to one of the permissible bulk
   # actions. Currently these are:
-  # - `:delete` - (not implemented yet)
+  # - `:delete` - If this is set, then `params[:ids]` should be set to a JSON
+  #   array of IDs to be deleted.
   # - `:tree` - If this is set, then `params[:tree]` should be set to a JSON
-  #   hash that specifies the IDs and children arrays of the tree elements.
+  #   array of hashes for root elements, each of which contains an ID and
+  #   possibly an array of children. The format should be like that output by
+  #   the Nestable jQuery plugin:
+  #   ```
+  #   [{"id":1},{"id":2},{"id":3,"children":[{"id":4},{"id":5}]}]
+  #   ```
   #
   # @return [void]
   def collection_edit
@@ -72,8 +78,7 @@ class AdminController < ApplicationController
     case bulk_action
     when :delete
       return head(:forbidden) if @model.admin_configuration[:no_delete]
-      # FIXME: implement this
-      return head(:unprocessable_entity)
+      return head(:unprocessable_entity) unless collection_edit_delete
     when :tree
       return head(:forbidden) if @model.admin_configuration[:no_edit]
       return head(:unprocessable_entity) unless collection_edit_tree
@@ -185,6 +190,27 @@ class AdminController < ApplicationController
   def get_model
     @model = params[:model].camelize.constantize
     fail ActiveRecord::RecordNotFound if @model.admin_attributes.empty?
+  end
+
+  # Do the batch delete bulk action.
+  #
+  # @return [Boolean] false if a serious error has occurred, true otherwise
+  def collection_edit_delete
+    # Get the array of IDs to delete
+    return false unless params[:ids]
+    begin
+      ids = JSON.parse(params[:ids])
+    rescue JSON::ParserError
+      return false
+    end
+    return false unless ids.is_a?(Array)
+    return false if ids.empty?
+
+    # Check to make sure each of these actually exists
+    ids.each { |id| return false unless @model.exists?(id) }
+
+    # Delete all of them
+    @model.destroy(ids)
   end
 
   # Do the tree edit bulk action.
