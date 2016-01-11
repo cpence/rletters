@@ -1,0 +1,23 @@
+.row.pad-bottom
+  .col-sm-12
+    %h1= t('.header', model_name: @model.model_name.human(count: 100))
+
+    .btn-group{ role: 'group' }
+      - unless @model.admin_configuration[:no_create]
+        = link_to admin_new_item_path(model: params[:model]), class: 'btn btn-small btn-default' do
+          %span.glyphicon.glyphicon-plus
+          = t('.new_button')
+      - if @model.admin_configuration[:tree]
+        = link_to '#', class: 'btn btn-small btn-default tree-save-button' do
+          %span.glyphicon.glyphicon-floppy-disk
+          = t('.tree_button')
+
+- if @model.admin_configuration[:tree]
+  = form_tag(admin_edit_collection_path(model: params[:model]), class: 'tree-save-form', method: 'patch') do
+    = hidden_field_tag 'bulk_action', 'tree'
+    = hidden_field_tag 'tree'
+
+- if @hint
+  .row.pad-bottom
+    .col-xs-8.col-xs-offset-2
+      .well= @hint

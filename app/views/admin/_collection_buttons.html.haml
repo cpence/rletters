@@ -1,0 +1,8 @@
+= link_to admin_item_path(model: params[:model], id: item.to_param), title: t('.show_button'), data: { toggle: 'tooltip' } do
+  %span.glyphicon.glyphicon-info-sign{ aria: { hidden: 'true' } }>
+- unless @model.admin_configuration[:no_edit]
+  = link_to admin_edit_item_path(model: params[:model], id: item.to_param), title: t('.edit_button'), data: { toggle: 'tooltip' } do
+    %span.glyphicon.glyphicon-pencil{ aria: { hidden: 'true' } }>
+- unless @model.admin_configuration[:no_delete]
+  = link_to admin_item_path(model: params[:model], id: item.to_param), method: :delete, title: t('.delete_button'), data: { confirm: t('.delete_confirm'), toggle: 'tooltip' } do
+    %span.glyphicon.glyphicon-remove{ aria: { hidden: 'true' } }>

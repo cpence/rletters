@@ -26,21 +26,21 @@ class SearchResultDecorator < ApplicationDecorator
 
   # Decorate the complete set of categories
   #
-  # @return [CategoriesDecorator] all categories, decorated
+  # @return [Documents::CategoriesDecorator] all categories, decorated
   def categories
     return nil unless Documents::Category.count > 0
-    CategoriesDecorator.decorate(Documents::Category.all)
+    Documents::CategoriesDecorator.decorate(Documents::Category.all)
   end
 
   # Decorate the active categories
   #
-  # @return [CategoriesDecorator] the decorated categories
+  # @return [Documents::CategoriesDecorator] the decorated categories
   def active_categories
     cats = [h.params[:categories] || []].flatten.map do |id|
       Documents::Category.find(id)
     end
 
-    CategoriesDecorator.decorate(cats)
+    Documents::CategoriesDecorator.decorate(cats)
   end
 
   # Return the path to the next page of search results

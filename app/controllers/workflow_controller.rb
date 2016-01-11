@@ -9,7 +9,7 @@ class WorkflowController < ApplicationController
   before_action :authenticate_user!, except: [:index, :image]
 
   decorates_assigned :pending_tasks, :finished_tasks,
-                     :failed_tasks, with: TaskDecorator
+                     :failed_tasks, with: Datasets::TaskDecorator
 
   # Show the introduction page or the user dashboard
   #

@@ -9,7 +9,7 @@ module Datasets
     before_action :set_current_params, only: [:new, :create]
 
     decorates_assigned :dataset, with: DatasetDecorator
-    decorates_assigned :task, with: TaskDecorator
+    decorates_assigned :task, with: Datasets::TaskDecorator
 
     # Show the list of tasks for this dataset
     #

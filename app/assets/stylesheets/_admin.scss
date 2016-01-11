@@ -1,0 +1,24 @@
+
+// Style the Nestable lists the way we'd like them
+.dd-item {
+  background-color: #fafafa;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+
+  padding: 5px 10px;
+}
+
+// Override a bunch of Nestable's styles
+.dd {
+  max-width: none !important;
+}
+.dd-handle {
+  border: none !important;
+  background: transparent !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  height: auto !important;
+}
+.dd-item > button {
+  height: auto !important;
+}

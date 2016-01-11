@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe TaskDecorator, type: :decorator do
+RSpec.describe Datasets::TaskDecorator, type: :decorator do
   context 'with JSON available' do
     before(:example) do
       @task = create(:task, job_type: 'ExportCitationsJob')

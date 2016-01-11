@@ -47,7 +47,41 @@ class AdminController < ApplicationController
       @hint = Kramdown::Document.new(@hint).to_html.html_safe
     end
 
-    @collection = @model.all
+    if @model.admin_configuration[:tree]
+      @collection = @model.decorator_class.decorate_collection(@model.roots)
+      render :collection_tree
+    else
+      @collection = @model.all
+      render
+    end
+  end
+
+  # Make a batch editing change to the entire collection
+  #
+  # The `:bulk_action` parameter should be set to one of the permissible bulk
+  # actions. Currently these are:
+  # - `:delete` - (not implemented yet)
+  # - `:tree` - If this is set, then `params[:tree]` should be set to a JSON
+  #   hash that specifies the IDs and children arrays of the tree elements.
+  #
+  # @return [void]
+  def collection_edit
+    get_model
+
+    bulk_action = params[:bulk_action].to_sym
+    case bulk_action
+    when :delete
+      return head(:forbidden) if @model.admin_configuration[:no_delete]
+      # FIXME: implement this
+      return head(:unprocessable_entity)
+    when :tree
+      return head(:forbidden) if @model.admin_configuration[:no_edit]
+      return head(:unprocessable_entity) unless collection_edit_tree
+    else
+      return head(:unprocessable_entity)
+    end
+
+    redirect_to admin_collection_path(params[:model])
   end
 
   # Show a single item from the collection
@@ -151,6 +185,43 @@ class AdminController < ApplicationController
   def get_model
     @model = params[:model].camelize.constantize
     fail ActiveRecord::RecordNotFound if @model.admin_attributes.empty?
+  end
+
+  # Do the tree edit bulk action.
+  #
+  # @return [Boolean] false if a serious error has occurred, true otherwise
+  def collection_edit_tree
+    # Get the tree value and make sure it's looking good
+    return false unless params[:tree]
+    begin
+      tree = JSON.parse(params[:tree])
+    rescue JSON::ParserError
+      return false
+    end
+    return false if tree.empty?
+
+    tree.each_with_index do |node, i|
+      # These are the roots, so they have nil parent_ids
+      item = @model.find(node['id'])
+      item.update(parent_id: nil, sort_order: i)
+
+      collection_edit_tree_recurse(node) if node['children']
+    end
+
+    true
+  end
+
+  # Recurse through the tree, taking care of saving changes to the
+  # hierarchy
+  #
+  # @return [void]
+  def collection_edit_tree_recurse(node)
+    node['children'].each_with_index do |child, i|
+      item = @model.find(child['id'])
+      item.update(parent_id: node['id'], sort_order: i)
+
+      collection_edit_tree_recurse(child) if child['children']
+    end
   end
 
   # Permit all the right parameters through the form

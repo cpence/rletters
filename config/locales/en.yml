@@ -613,10 +613,12 @@ en:
             environment: Environment Variables
             variable: Variable
             value: Value
-        collection_index:
+        collection_header:
             header: "Edit %{model_name}"
             actions: Collection actions
             new_button: "Create New"
+            tree_button: "Save Tree"
+        collection_buttons:
             show_button: "Details"
             edit_button: "Edit"
             delete_button: "Delete"

@@ -1,0 +1,11 @@
+= render partial: 'collection_header'
+
+.row
+  .col-sm-12
+    = @collection.as_nestable_list do |item|
+      .pull-right= render partial: 'collection_buttons', locals: { item: item }
+      .dd-handle= item.to_s
+
+- content_for :javascript do
+  :javascript
+    $('.dd').nestable();

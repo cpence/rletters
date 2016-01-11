@@ -1,11 +1,9 @@
 
 # Base class for all decorators
 #
-# This class adds helper methods for Bootstrap content generation to all of
+# This class adds helper methods for basic content generation to all of
 # the decorators in the app.
 class ApplicationDecorator < Draper::Decorator
-  protected
-
   # Render the Bootstrap close icon
   #
   # @return [String] the HTML markup for the Bootstrap close icon

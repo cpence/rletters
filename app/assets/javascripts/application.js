@@ -11,6 +11,7 @@
 
 //= require_self
 
+//= require admin
 //= require all_toggle
 //= require article_dates
 //= require craig_zeta

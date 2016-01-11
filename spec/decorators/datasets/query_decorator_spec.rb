@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe QueryDecorator, type: :decorator do
+RSpec.describe Datasets::QueryDecorator, type: :decorator do
   before(:example) do
     @q_query = described_class.decorate(Datasets::Query.new(q: 'testing', def_type: 'dismax'))
     @fq_query = described_class.decorate(Datasets::Query.new(q: 'testing', fq: ['year:[1960 TO 1969]'], def_type: 'lucene'))

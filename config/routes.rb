@@ -63,6 +63,7 @@ Rails.application.routes.draw do
 
   get 'admin' => 'admin#index'
   get 'admin/:model' => 'admin#collection_index', as: 'admin_collection'
+  patch 'admin/:model' => 'admin#collection_edit', as: 'admin_edit_collection'
   get 'admin/:model/:id' => 'admin#item_index', as: 'admin_item',
     constraints: { id: /[0-9]+/ }
   delete 'admin/:model/:id' => 'admin#item_delete',

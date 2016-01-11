@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe CategoriesDecorator, type: :decorator do
+RSpec.describe Documents::CategoriesDecorator, type: :decorator do
   include Capybara::RSpecMatchers
 
   describe '#removal_links' do

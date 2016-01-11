@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe CategoryDecorator, type: :decorator do
+RSpec.describe Documents::CategoryDecorator, type: :decorator do
   before(:example) do
     @category = create(:category)
     @decorated = described_class.decorate(@category)
@@ -28,7 +28,9 @@ RSpec.describe CategoryDecorator, type: :decorator do
     end
 
     it 'calls recursively for the children' do
-      expect(CategoryDecorator).to receive(:decorate).with(@subcat).and_return(double(link_tree: ''))
+      expect(described_class).to receive(:decorate)
+        .with(@subcat, {})
+        .and_return(double(link_tree: ''))
       @decorated.link_tree
     end
   end
