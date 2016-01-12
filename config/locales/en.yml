@@ -591,6 +591,7 @@ en:
     admin:
         nav:
             accounts: Accounts
+            content: Content
             branding: Branding
             settings: Settings
         index:
@@ -616,15 +617,15 @@ en:
         collection_header:
             header: "Edit %{model_name}"
             actions: Collection actions
-            new_button: "Create New"
-            tree_button: "Save Tree"
-            delete_button: "Delete Checked"
+            new_button: Create New
+            tree_button: Save Tree
+            delete_button: Delete Checked
             delete_confirm: "Are you sure? This will delete all checked items, and cannot be reversed!"
         collection_buttons:
-            show_button: "Details"
-            edit_button: "Edit"
-            delete_button: "Delete"
-            delete_confirm: "Are you sure? This action cannot be reversed!"
+            show_button: Details
+            edit_button: Edit
+            delete_button: Delete
+            delete_confirm: Are you sure? This action cannot be reversed!
         item_index:
             actions: Item actions
         item_new:

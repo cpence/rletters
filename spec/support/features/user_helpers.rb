@@ -6,6 +6,7 @@ module Features
     end
 
     def sign_up_with(params = {})
+      sign_out
       params = user_params(params)
       visit '/users/sign_up'
 
