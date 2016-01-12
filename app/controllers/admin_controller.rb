@@ -74,7 +74,7 @@ class AdminController < ApplicationController
   def collection_edit
     get_model
 
-    bulk_action = params[:bulk_action].to_sym
+    bulk_action = (params[:bulk_action] || 'missing').to_sym
     case bulk_action
     when :delete
       return head(:forbidden) if @model.admin_configuration[:no_delete]
