@@ -28,6 +28,7 @@ RSpec.configure do |config|
   # Add a variety of test helpers
   config.include FactoryGirl::Syntax::Methods
   config.include ActiveJob::TestHelper
+  config.include QueHelpers
   config.include RSpec::ActiveJob
   config.include StubConnection
   config.include Devise::TestHelpers, type: :controller

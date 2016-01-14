@@ -9,20 +9,7 @@ end
 
 class FailJob < BaseJob
   def perform(_)
-    # Mock what this would look like in the Que jobs table
-    ActiveRecord::Base.connection.execute('DELETE FROM que_jobs')
-
-    json = [{ 'job_class' => 'FailingJob', 'job_id' => @job_id,
-              'queue_name' => 'maintenance', 'arguments' => [],
-              'locale' => 'en' }].to_json
-    query = <<-SQL
-      INSERT INTO que_jobs
-      (priority, run_at, job_id, job_class, args, error_count, queue) VALUES
-      (100, now(), 1, 'ActiveJob::QueueAdapters::QueAdapter::JobWrapper',
-      '#{json}', 0, 'maintenance')
-    SQL
-    ActiveRecord::Base.connection.execute(query)
-
+    mock_que_job
     expect(ActiveRecord::Base.connection.execute('SELECT * FROM que_jobs').count).to eq(1)
 
     fail ArgumentError
