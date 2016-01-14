@@ -10,7 +10,7 @@ end
 class FailJob < BaseJob
   def perform(_)
     mock_que_job
-    expect(ActiveRecord::Base.connection.execute('SELECT * FROM que_jobs').count).to eq(1)
+    expect(RLetters::Que::Stats.stats[:total]).to eq(1)
 
     fail ArgumentError
   end
@@ -42,7 +42,7 @@ RSpec.describe BaseJob, type: :job do
         end
       }.not_to raise_exception
 
-      expect(ActiveRecord::Base.connection.execute('SELECT * FROM que_jobs').count).to eq(0)
+      expect(RLetters::Que::Stats.stats[:total]).to eq(0)
     end
   end
 

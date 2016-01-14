@@ -26,15 +26,9 @@ class BaseJob < ActiveJob::Base
     end
 
     # Try really very hard to prevent this job from sticking in the queue and
-    # repeating until the end of time. The PostgreSQL JSON type is a thing of
-    # pure beauty.
-    active_job_id = @job_id
-    query = <<-SQL
-      DELETE FROM que_jobs
-      WHERE args -> 0 ->> 'job_id' = '#{active_job_id}'
-    SQL
-
-    ActiveRecord::Base.connection.execute(query)
+    # repeating until the end of time.
+    que_jobs = RLetters::Que::Jobs.get_by(job_id: @job_id)
+    RLetters::Que::Jobs.delete(que_jobs[0][:job_id]) unless que_jobs.empty?
   end
 
   # Returns true if this job can be run right now

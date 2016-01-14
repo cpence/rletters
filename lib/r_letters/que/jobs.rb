@@ -72,8 +72,7 @@ module RLetters
       #
       # @return [Array<Hash>] list of jobs
       def self.scheduled
-        pg_result = ::Que.execute(SCHEDULED_SQL)
-        pg_result.map.each_with_index { |tup, i| pg_result[i] }
+        ::Que.execute(SCHEDULED_SQL)
       end
 
       # Get all currently failing Que jobs
@@ -82,8 +81,7 @@ module RLetters
       #
       # @return [Array<Hash>] list of jobs
       def self.failing
-        pg_result = ::Que.execute(FAILING_SQL)
-        pg_result.map.each_with_index { |tup, i| pg_result[i] }
+        ::Que.execute(FAILING_SQL)
       end
 
       # Get full information about a particular job, by job_id
@@ -91,10 +89,31 @@ module RLetters
       # @param [Integer] id ID of the job to fetch
       # @return [Hash] the job
       def self.get(id)
-        pg_result = ::Que.execute(FETCH_SQL, [id.to_i])
-        return nil if pg_result.empty?
+        res = ::Que.execute(FETCH_SQL, [id.to_i])
+        return nil if res.empty?
 
-        pg_result.first
+        res.first
+      end
+
+      # Get a job or jobs by arguments in the JSON hash
+      #
+      # @param [Hash] filter a hash of arguments to screen jobs for
+      # @return [Array<Hash>] the jobs, can be empty
+      def self.get_by(filter)
+        fetch_sql = <<-SQL
+          SELECT *
+          FROM que_jobs
+        SQL
+
+        queries = filter.map do |k, v|
+          quoted_k = ActiveRecord::Base.connection.quote(k.to_s)
+          quoted_v = ActiveRecord::Base.connection.quote(v.to_s)
+
+          "args -> 0 ->> #{quoted_k} = #{quoted_v}"
+        end
+
+        fetch_sql << " WHERE #{queries.join(' AND ')}"
+        ::Que.execute(fetch_sql)
       end
 
       # Delete a particular job, by job id
