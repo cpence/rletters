@@ -27,8 +27,7 @@ class BaseJob < ActiveJob::Base
 
     # Try really very hard to prevent this job from sticking in the queue and
     # repeating until the end of time.
-    que_jobs = RLetters::Que::Jobs.get_by(job_id: @job_id)
-    RLetters::Que::Jobs.delete(que_jobs[0][:job_id]) unless que_jobs.empty?
+    Admin::QueJob.where_args(job_id: @job_id).delete_all
   end
 
   # Returns true if this job can be run right now
