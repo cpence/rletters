@@ -3,7 +3,7 @@ module Datasets
   # Decorate task objects
   #
   # This class adds methods to display the results from tasks.
-  class Datasets::TaskDecorator < Draper::Decorator
+  class TaskDecorator < ApplicationRecordDecorator
     decorates Datasets::Task
     delegate_all
 

@@ -15,7 +15,7 @@ class DatasetsController < ApplicationController
   #
   # @return [void]
   def index
-    @datasets = current_user.datasets
+    @datasets = current_devise_user.datasets
 
     # If this is an AJAX request, render the dataset table only
     if request.xhr?
@@ -33,7 +33,7 @@ class DatasetsController < ApplicationController
   #
   # @return [void]
   def show
-    @dataset = current_user.datasets.find(params[:id])
+    @dataset = current_devise_user.datasets.find(params[:id])
 
     # Clear failed tasks if requested
     return unless params[:clear_failed] && @dataset.tasks.failed.size > 0
@@ -46,7 +46,7 @@ class DatasetsController < ApplicationController
   #
   # @return [void]
   def new
-    @dataset = current_user.datasets.build
+    @dataset = current_devise_user.datasets.build
     render layout: false
   end
 
@@ -54,15 +54,15 @@ class DatasetsController < ApplicationController
   #
   # @return [void]
   def create
-    dataset = current_user.datasets.create(name: dataset_params[:name])
+    dataset = current_devise_user.datasets.create(name: dataset_params[:name])
     dataset.queries.create(q: params[:q], fq: params[:fq],
                            def_type: params[:def_type])
 
-    if current_user.workflow_active
-      current_user.workflow_datasets << dataset.to_param
-      current_user.save
+    if current_devise_user.workflow_active
+      current_devise_user.workflow_datasets << dataset.to_param
+      current_devise_user.save
 
-      redirect_to workflow_activate_path(current_user.workflow_class),
+      redirect_to workflow_activate_path(current_devise_user.workflow_class),
                   flash: { success: I18n.t('datasets.create.workflow') }
     else
       redirect_to datasets_path,
@@ -74,7 +74,7 @@ class DatasetsController < ApplicationController
   #
   # @return [void]
   def destroy
-    @dataset = current_user.datasets.find(params[:id])
+    @dataset = current_devise_user.datasets.find(params[:id])
     @dataset.destroy
 
     redirect_to datasets_path
@@ -90,7 +90,7 @@ class DatasetsController < ApplicationController
   def update
     fail ActionController::ParameterMissing, :uid unless params[:uid]
 
-    @dataset = current_user.datasets.find(params[:id])
+    @dataset = current_devise_user.datasets.find(params[:id])
     @document = Document.find(params[:uid])
 
     # Set the fetch flag if required

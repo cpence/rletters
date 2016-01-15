@@ -628,6 +628,7 @@ en:
             delete_confirm: Are you sure? This action cannot be reversed!
         item_index:
             actions: Item actions
+            to_list_button: Back to list
         item_new:
             header: "Create new %{model_name}"
         item_edit:

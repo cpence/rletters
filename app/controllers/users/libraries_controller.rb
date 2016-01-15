@@ -13,7 +13,7 @@ module Users
     #
     # @return [void]
     def index
-      @libraries = current_user.libraries
+      @libraries = current_devise_user.libraries
       render layout: false
     end
 
@@ -21,7 +21,7 @@ module Users
     #
     # @return [void]
     def new
-      @library = current_user.libraries.build
+      @library = current_devise_user.libraries.build
       render layout: false
     end
 
@@ -29,7 +29,7 @@ module Users
     #
     # @return [void]
     def edit
-      @library = current_user.libraries.find(params[:id])
+      @library = current_devise_user.libraries.find(params[:id])
       render layout: false
     end
 
@@ -37,7 +37,7 @@ module Users
     #
     # @return [void]
     def create
-      @library = current_user.libraries.new(library_params)
+      @library = current_devise_user.libraries.new(library_params)
       if @library.save
         redirect_to edit_user_registration_path,
                     flash: { success: I18n.t('users.libraries.create.success') }
@@ -50,10 +50,10 @@ module Users
     #
     # @return [void]
     def update
-      @library = current_user.libraries.find(params[:id])
+      @library = current_devise_user.libraries.find(params[:id])
 
       if @library.update(library_params)
-        current_user.libraries.reload
+        current_devise_user.libraries.reload
         redirect_to edit_user_registration_path,
                     flash: { success: I18n.t('libraries.update.success') }
       else
@@ -65,10 +65,10 @@ module Users
     #
     # @return [void]
     def destroy
-      @library = current_user.libraries.find(params[:id])
+      @library = current_devise_user.libraries.find(params[:id])
 
       @library.destroy
-      current_user.libraries.reload
+      current_devise_user.libraries.reload
 
       redirect_to edit_user_registration_path
     end

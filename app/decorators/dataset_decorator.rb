@@ -2,10 +2,11 @@
 # Decorate dataset objects
 #
 # This class ensures that tasks are always decorated
-class DatasetDecorator < Draper::Decorator
+class DatasetDecorator < ApplicationRecordDecorator
   decorates Dataset
   delegate_all
 
+  decorates_association :user, with: UserDecorator
   decorates_association :queries, with: Datasets::QueryDecorator
   decorates_association :tasks, with: Datasets::TaskDecorator
 

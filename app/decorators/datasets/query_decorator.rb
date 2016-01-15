@@ -4,7 +4,7 @@ module Datasets
   #
   # This class adds methods to display the faceted browsing parameters in a
   # user friendly way.
-  class Datasets::QueryDecorator < Draper::Decorator
+  class QueryDecorator < ApplicationRecordDecorator
     decorates Datasets::Query
     delegate_all
 

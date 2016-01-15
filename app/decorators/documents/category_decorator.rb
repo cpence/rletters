@@ -4,7 +4,7 @@ module Documents
   #
   # This class adds methods to display links related to adding and removing
   # a category from search results.
-  class Documents::CategoryDecorator < ApplicationDecorator
+  class CategoryDecorator < ApplicationRecordDecorator
     decorates Documents::Category
     delegate_all
 

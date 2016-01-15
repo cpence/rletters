@@ -53,12 +53,12 @@ module Datasets
         @klass.perform_later(task, @current_params)
       end
 
-      if current_user.workflow_active
+      if current_devise_user.workflow_active
         # If the user was in the workflow, they're done now
-        current_user.workflow_active = false
-        current_user.workflow_class = nil
-        current_user.workflow_datasets.clear
-        current_user.save
+        current_devise_user.workflow_active = false
+        current_devise_user.workflow_class = nil
+        current_devise_user.workflow_datasets.clear
+        current_devise_user.save
 
         redirect_to root_path,
                     flash: { success: I18n.t('datasets.tasks.create.workflow') }
@@ -118,7 +118,7 @@ module Datasets
     #
     # @return [void]
     def set_task
-      @dataset = current_user.datasets.find(params[:dataset_id])
+      @dataset = current_devise_user.datasets.find(params[:dataset_id])
       @task = @dataset.tasks.find(params[:id]) if params[:id]
       @klass = Datasets::Task.job_class(params[:class]) if params[:class]
     end

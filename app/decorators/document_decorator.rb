@@ -3,7 +3,7 @@
 #
 # A few presentation methods for documents, particularly those that mix in
 # features from the current user's settings.
-class DocumentDecorator < Draper::Decorator
+class DocumentDecorator < ApplicationDecorator
   delegate_all
 
   # Get the short, formatted representation of a document

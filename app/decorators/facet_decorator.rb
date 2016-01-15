@@ -3,7 +3,7 @@
 #
 # This class adds methods to display links related to adding and removing
 # a facet from search results.
-class FacetDecorator < Draper::Decorator
+class FacetDecorator < ApplicationDecorator
   decorates RLetters::Solr::Facet
   delegate_all
 

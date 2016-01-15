@@ -100,7 +100,7 @@ class ApplicationController < ActionController::Base
   # @return [void]
   def set_locale
     if user_signed_in?
-      I18n.locale = current_user.language.to_sym
+      I18n.locale = current_devise_user.language.to_sym
     else
       I18n.locale = I18n.default_locale
     end
@@ -115,7 +115,7 @@ class ApplicationController < ActionController::Base
   # @return [void]
   def set_timezone
     if user_signed_in?
-      Time.zone = current_user.timezone
+      Time.zone = current_devise_user.timezone
     else
       Time.zone = 'Eastern Time (US & Canada)'
     end

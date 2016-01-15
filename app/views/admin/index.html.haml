@@ -17,11 +17,11 @@
             %th= User.model_name.human
             %th= Dataset.human_attribute_name(:created_at)
         %tbody
-          - Dataset.order('created_at desc').limit(5).each do |dataset|
+          - Dataset.order('created_at desc').limit(5).decorate.each do |dataset|
             %tr
-              %td= dataset.name
-              %td= link_to(dataset.user.name, admin_item_path(model: 'user', id: dataset.user.to_param))
-              %td= dataset.created_at
+              %td= dataset.admin_value_for(:name)
+              %td= dataset.admin_value_for(:user)
+              %td= dataset.admin_value_for(:created_at)
 
     .panel.panel-default
       .panel-heading
@@ -58,12 +58,12 @@
             %th= Dataset.model_name.human
             %th= Datasets::Task.human_attribute_name(:failed)
         %tbody
-          - Datasets::Task.order('created_at desc').limit(10).each do |task|
+          - Datasets::Task.order('created_at desc').limit(10).decorate.each do |task|
             %tr
-              %td= task.name
-              %td= task.job_type
-              %td= task.dataset.name
-              %td= task.failed ? t('simple_form.yes') : t('simple_form.no')
+              %td= task.admin_value_for(:name)
+              %td= task.admin_value_for(:job_type)
+              %td= task.admin_value_for(:dataset)
+              %td= task.admin_value_for(:failed)
 
     .panel.panel-default
       .panel-heading
@@ -75,10 +75,10 @@
             %th= User.human_attribute_name(:name)
             %th= User.human_attribute_name(:last_sign_in_at)
         %tbody
-          - User.order('last_sign_in_at desc').limit(5).each do |user|
+          - User.order('last_sign_in_at desc').limit(5).decorate.each do |user|
             %tr
-              %td= link_to(user.name, admin_item_path(model: 'user', id: user.to_param))
-              %td= user.last_sign_in_at
+              %td= user.admin_value_for(:name)
+              %td= user.admin_value_for(:last_sign_in_at)
 
 .row
   .col-sm-12

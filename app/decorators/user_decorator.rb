@@ -3,14 +3,17 @@
 #
 # A few presentation methods for users, mainly converting from database formats
 # to actual model objects
-class UserDecorator < Draper::Decorator
+class UserDecorator < ApplicationRecordDecorator
   delegate_all
+
+  decorates_association :datasets, with: DatasetDecorator
+  decorates_association :libraries, with: Users::LibraryDecorator
 
   # Get the user's CSL style, converting from `csl_style_id`
   #
   # @return [Users::CslStyle] the user's CSL style (or `nil`)
   def csl_style
-    Users::CslStyle.find_by(id: csl_style_id)
+    Users::CslStyle.find_by(id: csl_style_id)&.decorate
   end
 
   # Get a particular workflow dataset for this user
@@ -24,6 +27,6 @@ class UserDecorator < Draper::Decorator
   # @return [Dataset] the given dataset
   def workflow_dataset(n)
     fail ActiveRecord::RecordNotFound if workflow_datasets.size <= n
-    Dataset.find(workflow_datasets[n])
+    Dataset.find(workflow_datasets[n]).decorate
   end
 end

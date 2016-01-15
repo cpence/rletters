@@ -4,7 +4,7 @@ module Documents
   #
   # This class aggregates the decoration methods on individual categories for
   # an entire collection of categories.
-  class Documents::CategoriesDecorator < Draper::CollectionDecorator
+  class CategoriesDecorator < Draper::CollectionDecorator
     include TreeDecoration
 
     # Decorate elements with the category decorator
