@@ -77,6 +77,9 @@ en:
             admin/markdown_page:
                 one: Custom Page
                 other: Custom Pages
+            admin/que_job:
+                one: Que Job
+                other: Que Jobs
             admin/uploaded_asset:
                 one: Custom Asset
                 other: Custom Assets
@@ -602,6 +605,11 @@ en:
             new_datasets: Newest Datasets
             new_tasks: Newest Tasks
             recent_users: Recently Seen Users
+            workers: Job Workers
+            run_at: Start Time
+            priority: Priority
+            args: Job Parameters
+            errors: Errors
             backend: Backend Information
             database: Database
             db_size: "Database size: %{count} items"

@@ -180,6 +180,40 @@ RSpec.describe AdminController, type: :controller do
     end
   end
 
+  # Que jobs are very odd models; double-check that everything actually
+  # works
+  context 'with Admin::QueJob' do
+    before(:example) do
+      @admin = create(:administrator)
+      sign_in @admin
+    end
+
+    describe '#item_delete' do
+      it 'works' do
+        mock_que_job
+
+        expect {
+          delete :item_delete, model: 'admin/que_job',
+                               id: Admin::QueJob.first.to_param
+        }.to change { Admin::QueJob.count }.by(-1)
+      end
+    end
+
+    context 'bulk delete' do
+      it 'works' do
+        mock_que_job(1)
+        mock_que_job(2)
+        mock_que_job(3)
+
+        patch :collection_edit, model: 'admin/que_job', bulk_action: 'delete',
+                                ids: [1, 3].to_json
+        expect(Admin::QueJob.where(job_id: 1).count).to eq(0)
+        expect(Admin::QueJob.where(job_id: 2).count).to eq(1)
+        expect(Admin::QueJob.where(job_id: 3).count).to eq(0)
+      end
+    end
+  end
+
   context 'when not logged in' do
     describe '#index' do
       it 'redirects to admin sign-in' do

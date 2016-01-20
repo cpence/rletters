@@ -8,20 +8,22 @@
   .col-lg-6
     .panel.panel-default
       .panel-heading
-        %h3.panel-title= t('.new_datasets')
+        %h3.panel-title= t('.workers')
 
-      %table.table.table-striped.table-condensed
-        %thead
-          %tr
-            %th= Dataset.human_attribute_name(:name)
-            %th= User.model_name.human
-            %th= Dataset.human_attribute_name(:created_at)
-        %tbody
-          - Dataset.order('created_at desc').limit(5).decorate.each do |dataset|
+      .panel-body
+        %table.table.table-striped.table-condensed
+          %thead
             %tr
-              %td= dataset.admin_value_for(:name)
-              %td= dataset.admin_value_for(:user)
-              %td= dataset.admin_value_for(:created_at)
+              %th= t('.run_at')
+              %th= t('.priority')
+              %th= t('.args')
+              %th= t('.errors')
+          %tbody
+            - RLetters::Que::Stats.workers.each do |w|
+              %td= w[:run_at]
+              %td= w[:priority]
+              %td= w[:args]
+              %td= w[:error_count] + (w[:error_count] > 0 ? ": #{w[:last_error]}" : '')
 
     .panel.panel-default
       .panel-heading
@@ -64,6 +66,23 @@
               %td= task.admin_value_for(:job_type)
               %td= task.admin_value_for(:dataset)
               %td= task.admin_value_for(:failed)
+
+    .panel.panel-default
+      .panel-heading
+        %h3.panel-title= t('.new_datasets')
+
+      %table.table.table-striped.table-condensed
+        %thead
+          %tr
+            %th= Dataset.human_attribute_name(:name)
+            %th= User.model_name.human
+            %th= Dataset.human_attribute_name(:created_at)
+        %tbody
+          - Dataset.order('created_at desc').limit(5).decorate.each do |dataset|
+            %tr
+              %td= dataset.admin_value_for(:name)
+              %td= dataset.admin_value_for(:user)
+              %td= dataset.admin_value_for(:created_at)
 
     .panel.panel-default
       .panel-heading

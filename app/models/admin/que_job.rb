@@ -72,5 +72,66 @@ module Admin
 
       rel
     end
+
+    # @return (see ApplicationRecord.admin_attributes)
+    def self.admin_attributes
+      {
+        queue: {},
+        priority: {},
+        run_at: {},
+        args: {},
+        error_count: {},
+        last_error: {}
+      }
+    end
+
+    # @return (see ApplicationRecord.admin_configuration)
+    def self.admin_configuration
+      { no_create: true, no_edit: true }
+    end
+
+    # Override the to_param method so that job_id-based fetching works
+    #
+    # @return [String] the job_id as a string
+    def to_param
+      job_id.to_s
+    end
+
+    # Override the find method so that job_id-based fetching works
+    #
+    # @param [String] id the id of the job to find
+    # @return [QueJob] the requested job
+    def self.find(id)
+      Admin::QueJob.where(job_id: id.to_i).first
+    end
+
+    # Override the exists? method so that job_id-based fetching works
+    #
+    # @param [String] id the id of the job to find
+    # @return [Boolean] true if the object exists, false otherwise
+    def self.exists?(id)
+      Admin::QueJob.where(job_id: id.to_i).count > 0
+    end
+
+    # Override the destroy method so that deleting works
+    #
+    # @return [void]
+    def destroy
+      # Delete all with the same job id as the current class
+      Admin::QueJob.delete_all(job_id: job_id)
+
+      freeze
+    end
+
+    # Override the bulk-destroy method so that bulk deleting works
+    #
+    # @param [String, Array] ids the ids to be destroyed
+    # @return [void]
+    def self.destroy(ids)
+      ids = [ids] unless ids.is_a?(Array)
+      ids.map!(&:to_i)
+
+      Admin::QueJob.delete_all(job_id: ids)
+    end
   end
 end
