@@ -88,8 +88,7 @@ group :test do
   gem 'capybara-webkit'
   gem 'database_cleaner'
 
-  gem 'webmock', github: 'bblimke/webmock', require: false
-  # gem 'webmock', '> 1.22.3' require: false
+  gem 'webmock', '>= 1.22.6', require: false
 
   gem 'pdf-inspector', require: false
 
