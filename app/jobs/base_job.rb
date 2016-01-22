@@ -27,7 +27,7 @@ class BaseJob < ActiveJob::Base
 
     # Try really very hard to prevent this job from sticking in the queue and
     # repeating until the end of time.
-    Admin::QueJob.where_args(job_id: @job_id).delete_all
+    Admin::QueJob.where_args(job_id: job_id).delete_all
   end
 
   # Returns true if this job can be run right now
