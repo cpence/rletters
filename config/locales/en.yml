@@ -225,7 +225,7 @@ en:
     layouts:
         footer:
             copyright: >
-                Copyright © 2011–2015 %{app_name}, and Louisiana State
+                Copyright © 2011–2016 %{app_name}, and Louisiana State
                 University.  Article content remains copyrighted as specified
                 on individual article entries.  All rights reserved.
             rletters_markdown: >

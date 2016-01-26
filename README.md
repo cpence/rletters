@@ -22,7 +22,7 @@
 **Git:** [http://github.com/rletters/rletters](http://github.com/rletters/rletters)  
 **Author:** Charles Pence  
 **Contributors:** See Contributors section below  
-**Copyright:** &copy; 2014–2015 Louisiana State University  
+**Copyright:** &copy; 2014–2016 Louisiana State University  
 **License:** MIT License  
 **Latest Version:** v2.0.1  
 **Release Date:** January 12, 2015  
@@ -125,5 +125,5 @@ Charles Pence and Grant Ramsey were supported in the development of RLetters by 
 
 ## Copyright ##
 
-RLetters &copy; 2014–2015 Louisiana State University, &copy; 2011–2014 [Charles Pence](mailto:charles@charlespence.net). RLetters is licensed under the MIT license. Please see the {file:COPYING} document for more information.
+RLetters &copy; 2014–2016 Louisiana State University, &copy; 2011–2014 [Charles Pence](mailto:charles@charlespence.net). RLetters is licensed under the MIT license. Please see the {file:COPYING} document for more information.
 
