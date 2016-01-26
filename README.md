@@ -90,7 +90,7 @@ RLetters doesn't leave your developers out in the cold, either.  We've got suppo
 See our detailed [installation and deployment](https://github.com/rletters/rletters/wiki/Installation-and-Deployment) guide for instructions.  For the extremely impatient:
 
     # Install Ansible 1.3+ from your local package manager
-    # Establish passwordless SSH with passwordless sudo to your server running RHEL/CentOS 6
+    # Establish passwordless SSH with passwordless sudo to your server running RHEL/CentOS 7
     # Install NPM on your remote server
     git clone git://github.com/rletters/ansible-playbook.git
     
