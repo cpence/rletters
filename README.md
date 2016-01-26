@@ -91,14 +91,15 @@ See our detailed [installation and deployment](https://github.com/rletters/rlett
 
     # Install Ansible 1.3+ from your local package manager
     # Establish passwordless SSH with passwordless sudo to your server running RHEL/CentOS 6
-    git clone git://github.com/rletters/rletters.git
-
-    cd rletters/deploy
+    # Install NPM on your remote server
+    git clone git://github.com/rletters/ansible-playbook.git
+    
+    cd ansible-playbook/deploy
     cp hosts.example hosts
     $EDITOR hosts
       # Point all these paths at your server
     ansible-playbook -i hosts site.yml
-
+    
     # Open up a web browser to http://YOUR_SITE/admin/
       # Log in with admin@example.com / password
       # CHANGE THOSE DEFAULT CREDENTIALS
