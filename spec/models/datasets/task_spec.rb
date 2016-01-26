@@ -141,4 +141,22 @@ RSpec.describe Datasets::Task, type: :model do
       end
     end
   end
+
+  describe '#job_id' do
+    context 'without running anything' do
+      it 'is nil' do
+        task = create(:task, job_type: 'ExportCitationsJob')
+        expect(task.job_id).to be_nil
+      end
+    end
+  end
+
+  describe '#que_job' do
+    context 'without running anything' do
+      it 'is nil' do
+        task = create(:task, job_type: 'ExportCitationsJob')
+        expect(task.que_job).to be_nil
+      end
+    end
+  end
 end

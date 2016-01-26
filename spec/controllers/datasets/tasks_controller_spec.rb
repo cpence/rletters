@@ -111,6 +111,11 @@ RSpec.describe Datasets::TasksController, type: :controller do
         }.to enqueue_a(NamedEntitiesJob)
       end
 
+      it 'sets the job_id in the task' do
+        post :create, dataset_id: @dataset.to_param, class: 'NamedEntitiesJob'
+        expect(@dataset.tasks.first.job_id).not_to be_blank
+      end
+
       it 'redirects to the dataset page' do
         post :create, dataset_id: @dataset.to_param, class: 'NamedEntitiesJob'
         expect(response).to redirect_to(dataset_path(@dataset))

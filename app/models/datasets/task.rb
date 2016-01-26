@@ -25,6 +25,8 @@ module Datasets
   # @!attribute job_type
   #   @raise [RecordInvalid] if the job type is missing (validates :presence)
   #   @return [String] The class name of the job this task contains
+  # @!attribute job_id
+  #   @return [String] The ActiveJob UUID for this task, if available
   # @!attribute dataset
   #   @raise [RecordInvalid] if the dataset is missing (validates :presence)
   #   @return [Dataset] The dataset to which this task belongs (`belongs_to`)
@@ -54,7 +56,8 @@ module Datasets
         failed: {},
         progress: {},
         progress_message: {},
-        last_progress: {}
+        last_progress: {},
+        que_job: { model: true }
       }
     end
 
@@ -118,6 +121,14 @@ module Datasets
     # @return [Class] the job class
     def job_class
       self.class.job_class(job_type)
+    end
+
+    # Convert #job_id into a Que job, if possible
+    #
+    # @return [Admin::QueJob] the Que job for this task
+    def que_job
+      return nil unless job_id.present?
+      Admin::QueJob.where_args(job_id: job_id).first
     end
 
     # Update the status of this task

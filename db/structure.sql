@@ -2,12 +2,16 @@
 -- PostgreSQL database dump
 --
 
+-- Dumped from database version 9.5.0
+-- Dumped by pg_dump version 9.5.0
+
 SET statement_timeout = 0;
 SET lock_timeout = 0;
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
 SET check_function_bodies = false;
 SET client_min_messages = warning;
+SET row_security = off;
 
 --
 -- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: -
@@ -30,7 +34,7 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
--- Name: admin_administrators; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: admin_administrators; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE admin_administrators (
@@ -70,7 +74,7 @@ ALTER SEQUENCE admin_administrators_id_seq OWNED BY admin_administrators.id;
 
 
 --
--- Name: admin_benchmarks; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: admin_benchmarks; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE admin_benchmarks (
@@ -103,7 +107,7 @@ ALTER SEQUENCE admin_benchmarks_id_seq OWNED BY admin_benchmarks.id;
 
 
 --
--- Name: admin_feature_flags; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: admin_feature_flags; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE admin_feature_flags (
@@ -137,7 +141,7 @@ ALTER SEQUENCE admin_feature_flags_id_seq OWNED BY admin_feature_flags.id;
 
 
 --
--- Name: admin_markdown_pages; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: admin_markdown_pages; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE admin_markdown_pages (
@@ -169,7 +173,7 @@ ALTER SEQUENCE admin_markdown_pages_id_seq OWNED BY admin_markdown_pages.id;
 
 
 --
--- Name: admin_uploaded_asset_files; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: admin_uploaded_asset_files; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE admin_uploaded_asset_files (
@@ -200,7 +204,7 @@ ALTER SEQUENCE admin_uploaded_asset_files_id_seq OWNED BY admin_uploaded_asset_f
 
 
 --
--- Name: admin_uploaded_assets; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: admin_uploaded_assets; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE admin_uploaded_assets (
@@ -236,7 +240,7 @@ ALTER SEQUENCE admin_uploaded_assets_id_seq OWNED BY admin_uploaded_assets.id;
 
 
 --
--- Name: datasets; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: datasets; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE datasets (
@@ -251,7 +255,7 @@ CREATE TABLE datasets (
 
 
 --
--- Name: datasets_file_results; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: datasets_file_results; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE datasets_file_results (
@@ -282,7 +286,7 @@ ALTER SEQUENCE datasets_file_results_id_seq OWNED BY datasets_file_results.id;
 
 
 --
--- Name: datasets_files; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: datasets_files; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE datasets_files (
@@ -339,7 +343,7 @@ ALTER SEQUENCE datasets_id_seq OWNED BY datasets.id;
 
 
 --
--- Name: datasets_queries; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: datasets_queries; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE datasets_queries (
@@ -373,7 +377,7 @@ ALTER SEQUENCE datasets_queries_id_seq OWNED BY datasets_queries.id;
 
 
 --
--- Name: datasets_tasks; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: datasets_tasks; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE datasets_tasks (
@@ -387,7 +391,8 @@ CREATE TABLE datasets_tasks (
     job_type character varying(255),
     progress double precision,
     progress_message character varying,
-    last_progress timestamp without time zone
+    last_progress timestamp without time zone,
+    job_id character varying
 );
 
 
@@ -411,7 +416,7 @@ ALTER SEQUENCE datasets_tasks_id_seq OWNED BY datasets_tasks.id;
 
 
 --
--- Name: documents_categories; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: documents_categories; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE documents_categories (
@@ -445,7 +450,7 @@ ALTER SEQUENCE documents_categories_id_seq OWNED BY documents_categories.id;
 
 
 --
--- Name: documents_category_hierarchies; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: documents_category_hierarchies; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE documents_category_hierarchies (
@@ -456,7 +461,7 @@ CREATE TABLE documents_category_hierarchies (
 
 
 --
--- Name: documents_stop_lists; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: documents_stop_lists; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE documents_stop_lists (
@@ -488,7 +493,7 @@ ALTER SEQUENCE documents_stop_lists_id_seq OWNED BY documents_stop_lists.id;
 
 
 --
--- Name: que_jobs; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: que_jobs; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE que_jobs (
@@ -530,7 +535,7 @@ ALTER SEQUENCE que_jobs_job_id_seq OWNED BY que_jobs.job_id;
 
 
 --
--- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE schema_migrations (
@@ -539,7 +544,7 @@ CREATE TABLE schema_migrations (
 
 
 --
--- Name: users; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: users; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE users (
@@ -567,7 +572,7 @@ CREATE TABLE users (
 
 
 --
--- Name: users_csl_styles; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: users_csl_styles; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE users_csl_styles (
@@ -618,7 +623,7 @@ ALTER SEQUENCE users_id_seq OWNED BY users.id;
 
 
 --
--- Name: users_libraries; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: users_libraries; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE users_libraries (
@@ -770,7 +775,7 @@ ALTER TABLE ONLY users_libraries ALTER COLUMN id SET DEFAULT nextval('users_libr
 
 
 --
--- Name: admin_administrators_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: admin_administrators_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY admin_administrators
@@ -778,7 +783,7 @@ ALTER TABLE ONLY admin_administrators
 
 
 --
--- Name: admin_benchmarks_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: admin_benchmarks_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY admin_benchmarks
@@ -786,7 +791,7 @@ ALTER TABLE ONLY admin_benchmarks
 
 
 --
--- Name: admin_feature_flags_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: admin_feature_flags_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY admin_feature_flags
@@ -794,7 +799,7 @@ ALTER TABLE ONLY admin_feature_flags
 
 
 --
--- Name: admin_markdown_pages_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: admin_markdown_pages_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY admin_markdown_pages
@@ -802,7 +807,7 @@ ALTER TABLE ONLY admin_markdown_pages
 
 
 --
--- Name: admin_uploaded_asset_files_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: admin_uploaded_asset_files_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY admin_uploaded_asset_files
@@ -810,7 +815,7 @@ ALTER TABLE ONLY admin_uploaded_asset_files
 
 
 --
--- Name: admin_uploaded_assets_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: admin_uploaded_assets_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY admin_uploaded_assets
@@ -818,7 +823,7 @@ ALTER TABLE ONLY admin_uploaded_assets
 
 
 --
--- Name: datasets_file_results_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: datasets_file_results_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY datasets_file_results
@@ -826,7 +831,7 @@ ALTER TABLE ONLY datasets_file_results
 
 
 --
--- Name: datasets_files_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: datasets_files_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY datasets_files
@@ -834,7 +839,7 @@ ALTER TABLE ONLY datasets_files
 
 
 --
--- Name: datasets_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: datasets_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY datasets
@@ -842,7 +847,7 @@ ALTER TABLE ONLY datasets
 
 
 --
--- Name: datasets_queries_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: datasets_queries_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY datasets_queries
@@ -850,7 +855,7 @@ ALTER TABLE ONLY datasets_queries
 
 
 --
--- Name: datasets_tasks_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: datasets_tasks_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY datasets_tasks
@@ -858,7 +863,7 @@ ALTER TABLE ONLY datasets_tasks
 
 
 --
--- Name: documents_categories_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: documents_categories_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY documents_categories
@@ -866,7 +871,7 @@ ALTER TABLE ONLY documents_categories
 
 
 --
--- Name: documents_stop_lists_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: documents_stop_lists_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY documents_stop_lists
@@ -874,7 +879,7 @@ ALTER TABLE ONLY documents_stop_lists
 
 
 --
--- Name: que_jobs_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: que_jobs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY que_jobs
@@ -882,7 +887,7 @@ ALTER TABLE ONLY que_jobs
 
 
 --
--- Name: users_csl_styles_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: users_csl_styles_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY users_csl_styles
@@ -890,7 +895,7 @@ ALTER TABLE ONLY users_csl_styles
 
 
 --
--- Name: users_libraries_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: users_libraries_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY users_libraries
@@ -898,7 +903,7 @@ ALTER TABLE ONLY users_libraries
 
 
 --
--- Name: users_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY users
@@ -906,77 +911,77 @@ ALTER TABLE ONLY users
 
 
 --
--- Name: documents_category_anc_desc_udx; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: documents_category_anc_desc_udx; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE UNIQUE INDEX documents_category_anc_desc_udx ON documents_category_hierarchies USING btree (ancestor_id, descendant_id, generations);
 
 
 --
--- Name: documents_category_desc_idx; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: documents_category_desc_idx; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX documents_category_desc_idx ON documents_category_hierarchies USING btree (descendant_id);
 
 
 --
--- Name: index_admin_administrators_on_email; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_admin_administrators_on_email; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE UNIQUE INDEX index_admin_administrators_on_email ON admin_administrators USING btree (email);
 
 
 --
--- Name: index_admin_administrators_on_reset_password_token; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_admin_administrators_on_reset_password_token; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE UNIQUE INDEX index_admin_administrators_on_reset_password_token ON admin_administrators USING btree (reset_password_token);
 
 
 --
--- Name: index_admin_feature_flags_on_thing_type_and_thing_id_and_var; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_admin_feature_flags_on_thing_type_and_thing_id_and_var; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE UNIQUE INDEX index_admin_feature_flags_on_thing_type_and_thing_id_and_var ON admin_feature_flags USING btree (thing_type, thing_id, var);
 
 
 --
--- Name: index_datasets_on_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_datasets_on_user_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_datasets_on_user_id ON datasets USING btree (user_id);
 
 
 --
--- Name: index_datasets_tasks_on_dataset_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_datasets_tasks_on_dataset_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_datasets_tasks_on_dataset_id ON datasets_tasks USING btree (dataset_id);
 
 
 --
--- Name: index_users_libraries_on_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_users_libraries_on_user_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_users_libraries_on_user_id ON users_libraries USING btree (user_id);
 
 
 --
--- Name: index_users_on_email; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_users_on_email; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE UNIQUE INDEX index_users_on_email ON users USING btree (email);
 
 
 --
--- Name: index_users_on_reset_password_token; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_users_on_reset_password_token; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE UNIQUE INDEX index_users_on_reset_password_token ON users USING btree (reset_password_token);
 
 
 --
--- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (version);
@@ -1034,7 +1039,7 @@ ALTER TABLE ONLY users_libraries
 -- PostgreSQL database dump complete
 --
 
-SET search_path TO "$user",public;
+SET search_path TO "$user", public;
 
 INSERT INTO schema_migrations (version) VALUES ('20110908133632');
 
@@ -1167,4 +1172,6 @@ INSERT INTO schema_migrations (version) VALUES ('20151119181057');
 INSERT INTO schema_migrations (version) VALUES ('20151120145451');
 
 INSERT INTO schema_migrations (version) VALUES ('20151204013427');
+
+INSERT INTO schema_migrations (version) VALUES ('20160126134222');
 

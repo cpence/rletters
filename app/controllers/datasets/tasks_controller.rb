@@ -47,11 +47,15 @@ module Datasets
                                    job_type: params[:class])
 
       # Enqueue the job
-      if @current_params.empty?
-        @klass.perform_later(task)
-      else
-        @klass.perform_later(task, @current_params)
-      end
+      job = if @current_params.empty?
+              @klass.perform_later(task)
+            else
+              @klass.perform_later(task, @current_params)
+            end
+
+      # Save the ActiveJob ID into the task for later
+      task.job_id = job.job_id
+      task.save
 
       if current_devise_user.workflow_active
         # If the user was in the workflow, they're done now
