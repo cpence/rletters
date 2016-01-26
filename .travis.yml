@@ -17,10 +17,9 @@ addons:
 bundler_args: "--without production development --jobs 3 --retry 3"
 before_script:
   - sh -e /etc/init.d/xvfb start
-  - npm install -g bower
   - ln -s .env.example .env
   - git clone --depth=1 https://github.com/rletters/solr-example.git vendor/solr
   - 'pushd vendor/solr && ./start && popd'
-  - bundle exec rake RAILS_ENV=test db:setup assets:precompile
+  - bundle exec rake RAILS_ENV=test db:setup npm:install assets:precompile
 
 script: bundle exec rspec

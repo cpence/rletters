@@ -1,7 +1,7 @@
 //= require jquery/dist/jquery
 //= require jquery-ujs/src/rails
 
-//= require bootstrap/dist/js/bootstrap.js
+//= require bootstrap-sass/assets/javascripts/bootstrap-sprockets
 
 //= require jscroll/jquery.jscroll
 //= require nestable-fork/src/jquery.nestable

@@ -18,6 +18,4 @@
 !/vendor/nlp/.gitkeep
 /vendor/solr
 
-/vendor/assets/.bowerrc
-/vendor/assets/bower.json
-/vendor/assets/bower_components
+/vendor/assets/node_modules

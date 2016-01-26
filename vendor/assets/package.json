@@ -1,0 +1,29 @@
+{
+  "name": "rletters",
+  "version": "1.0.0",
+  "description": "Assets for the RLetters Rails app",
+  "main": "bin/rails",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rletters/rletters.git"
+  },
+  "author": "Charles Pence <charles@charlespence.net>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rletters/rletters/issues"
+  },
+  "homepage": "https://github.com/rletters/rletters#readme",
+  "dependencies": {
+    "jquery": "^2.2.0",
+    "jquery-ui": "^1.10.5",
+    "jquery-ujs": "^1.1.0-1",
+
+    "bootstrap-sass": "^3.3.6",
+    "d3": "^3.5.13",
+
+    "typeahead.js": "^0.11.1",
+    "jscroll": "^2.3.2",
+    "nestable-fork": "^1.0.2"
+  },
+  "private": true
+}

@@ -51,7 +51,6 @@ GEM
       latex-decode (~> 0.0)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
-    bower-rails (0.10.0)
     builder (3.2.2)
     byebug (8.2.1)
     capybara (2.6.0)
@@ -377,7 +376,6 @@ PLATFORMS
 DEPENDENCIES
   addressable
   bibtex-ruby
-  bower-rails
   capybara
   capybara-webkit
   cheetah

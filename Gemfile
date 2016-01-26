@@ -67,8 +67,6 @@ gem 'rabl'
 gem 'uglifier', '>= 1.3.0'
 gem 'roadie-rails'
 
-gem 'bower-rails'
-
 # Testing
 group :test, :development do
   gem 'rspec-rails', '~> 3'

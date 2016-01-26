@@ -46,6 +46,22 @@ module RLetters
     config.assets.js_compressor = :uglifier
     # config.assets.css_compressor = :sass
 
+    Rails.root.join('vendor', 'assets', 'node_modules').to_s.tap do |path|
+      config.assets.paths << path
+      config.sass.load_paths << path
+    end
+
+    # Precompile all and only the right things
+    config.assets.precompile = [
+      'application.js',
+      'application.css',
+      %r(bootstrap-sass/assets/fonts/bootstrap/[\w-]+\.(?:eot|svg|ttf|woff2?)$)
+    ]
+
+    # Minimum Sass number precision required by bootstrap-sass
+    sass_precision = [8, ::Sass::Script::Value::Number.precision].max
+    ::Sass::Script::Value::Number.precision = sass_precision
+
     config.serve_static_files = true
     unless Rails.env.test?
       config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect'
