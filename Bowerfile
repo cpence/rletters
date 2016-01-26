@@ -4,7 +4,7 @@ asset 'jquery-ui'
 
 asset 'typeahead.js'
 asset 'jscroll'
-asset 'nestable2'
+asset 'nestable-fork'
 
 asset 'bootstrap'
 

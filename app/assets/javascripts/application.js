@@ -4,7 +4,7 @@
 //= require bootstrap/dist/js/bootstrap.js
 
 //= require jscroll/jquery.jscroll
-//= require nestable2/jquery.nestable
+//= require nestable-fork/src/jquery.nestable
 //= require typeahead.js/dist/typeahead.bundle.js
 
 //= require d3/d3
