@@ -91,7 +91,6 @@ See our detailed [installation and deployment](https://github.com/rletters/rlett
 
     # Install Ansible 1.3+ from your local package manager
     # Establish passwordless SSH with passwordless sudo to your server running RHEL/CentOS 7
-    # Install NPM on your remote server
     git clone git://github.com/rletters/ansible-playbook.git
     
     cd ansible-playbook/deploy
