@@ -25,7 +25,7 @@ module Documents
           form_options: { collection: I18n.available_locales.translated },
           no_display: true
         },
-        display_language: { no_form: true },
+        display_language: { form_options: { disabled: true } },
         list: {}
       }
     end

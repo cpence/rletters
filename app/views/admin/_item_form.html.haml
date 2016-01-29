@@ -8,7 +8,8 @@
     - elsif config[:array]
       = f.input attrib, as: :array, required: false
     - elsif config[:form_options]
-      = f.input attrib, config[:form_options].merge(required: false)
+      - opts = config[:form_options].is_a?(Hash) ? config[:form_options] : config[:form_options].call(@item)
+      = f.input attrib, opts.merge(required: false)
     - else
       = f.input attrib, required: false
 

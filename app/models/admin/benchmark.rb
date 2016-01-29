@@ -15,8 +15,8 @@ module Admin
     # @return (see ApplicationRecord.admin_attributes)
     def self.admin_attributes
       {
-        job: { no_form: true },
-        size: { no_form: true },
+        job: { form_options: { disabled: true } },
+        size: { form_options: { disabled: true } },
         time: {}
       }
     end

@@ -24,7 +24,7 @@ module Admin
     # @return (see ApplicationRecord.admin_attributes)
     def self.admin_attributes
       {
-        friendly_name: { no_form: true },
+        friendly_name: { form_options: { disabled: true } },
         file_file_name: { no_form: true },
         file_file_size: { no_form: true },
         file_content_type: { no_form: true },

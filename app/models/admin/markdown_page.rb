@@ -23,7 +23,7 @@ module Admin
     # @return (see ApplicationRecord.admin_attributes)
     def self.admin_attributes
       {
-        friendly_name: { no_form: true },
+        friendly_name: { form_options: { disabled: true } },
         render: { no_form: true },
         content: { form_options: { input_html: { rows: 30 } } }
       }
