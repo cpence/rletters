@@ -67,6 +67,11 @@ gem 'rabl'
 gem 'uglifier', '>= 1.3.0'
 gem 'roadie-rails'
 
+# Development
+group :development do
+  gem 'web-console', '~> 2.0'
+end
+
 # Testing
 group :test, :development do
   gem 'rspec-rails', '~> 3'
@@ -77,7 +82,6 @@ group :test, :development do
   # Some of these need to be here to enable proper use of the development
   # server, including mailer previews
   gem 'factory_girl_rails'
-  gem 'web-console', '~> 2.0'
 end
 
 group :test do

@@ -345,7 +345,7 @@ en:
             advanced_search: Advanced search
             back_to_top: Back to top…
             more_hits: More Results
-    users:
+    devise:
         passwords:
             edit:
                 header: Change your password
@@ -371,6 +371,11 @@ en:
                 header: Sign up
                 subheader: "Welcome!  Enter some information about yourself and we'll get you off and running with a new user account."
                 submit: Sign up
+        sessions:
+            new:
+                header: Log in
+                subheader: Enter your username and password to log into your account.
+                submit: Log in
         mailer:
             reset:
                 intro: "Hello %{name}!"
@@ -380,6 +385,14 @@ en:
                 link: "Reset your password"
                 ignore: "If you didn't request this, please ignore this email."
                 no_change: "Your password won't change until you access the link above and create a new one."
+            password_change:
+                intro: "Hello %{name}!"
+                notice: >
+                    We're contacting you to notify you that your password has
+                    been changed. If you initiated this change, there's nothing
+                    more that you need to do. If not, your account may have
+                    been hacked.
+    users:
         libraries:
             edit:
                 header: Edit your library details
