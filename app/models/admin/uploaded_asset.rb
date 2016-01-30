@@ -40,7 +40,7 @@ module Admin
     # @return [String] Friendly name of this asset (looked up in locale)
     def friendly_name
       ret = I18n.t("uploaded_assets.#{name}", default: '')
-      return name if ret == ''
+      return name if ret.blank?
       ret
     end
 

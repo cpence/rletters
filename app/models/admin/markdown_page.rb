@@ -37,7 +37,7 @@ module Admin
     # @return [String] Friendly name of this page (looked up in locale)
     def friendly_name
       ret = I18n.t("markdown_pages.#{name}", default: '')
-      return name if ret == ''
+      return name if ret.blank?
       ret
     end
 

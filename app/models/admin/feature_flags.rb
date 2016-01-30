@@ -11,10 +11,17 @@ module Admin
   class FeatureFlags < Setler::Settings
     self.table_name = 'admin_feature_flags'
 
+    # All of the feature flags available in the application, with
+    # simple_form types. Make sure when adding a feature flag here to add
+    # a default value for it in the appropriate initializer.
+    ALL_FEATURES = [
+      { var: :maintenance_message, type: :string }
+    ]
+
     # @return (see ApplicationRecord.admin_attributes)
     def self.admin_attributes
       {
-        var: { form_options: { disabled: true } },
+        friendly_name: { form_options: { disabled: true } },
         value: {
           form_options: lambda do |obj|
             spec = ALL_FEATURES.find do |v|
@@ -33,9 +40,12 @@ module Admin
       { no_create: true, no_delete: true }
     end
 
-    ALL_FEATURES = [
-      { var: :maintenance_message, type: :string }
-    ]
+    # @return [String] Friendly name of this page (looked up in locale)
+    def friendly_name
+      ret = I18n.t("feature_flags.#{var}", default: '')
+      return var if ret.blank?
+      ret
+    end
 
     # Ensure that all of the variables are stored in the database for the
     # administration console
