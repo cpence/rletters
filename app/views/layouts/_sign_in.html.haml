@@ -1,6 +1,6 @@
 -# We're not using simple_form_for here, because I want precise control over
 -# the layout of this inline form.
-= form_for(:user, url: user_session_path, class: 'form-horizontal') do |f|
+= form_for(:user, url: user_session_path, html: { class: 'dropdown-sign-in-form' }) do |f|
 
   .form-group
     = f.label :email, class: 'sr-only'
@@ -15,7 +15,7 @@
 
   .form-group
     .btn-group.btn-group-justified
-      = link_to t('layouts.sign_in.sign_in'), '#', onclick: "$(this).closest('form').submit(); return false", class: 'btn btn-primary'
+      = link_to t('layouts.sign_in.sign_in'), '#', onclick: "$('.dropdown-sign-in-form').submit(); return false", class: 'btn btn-primary'
       = link_to t('layouts.sign_in.sign_up'), new_user_registration_path, class: 'btn btn-info'
 
   .form-group.text-right

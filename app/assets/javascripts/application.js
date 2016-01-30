@@ -34,6 +34,14 @@ $(document).on('click', '.dropdown input, .dropdown label', function(e) {
   e.stopPropagation();
 });
 
+// Submit the sign-in form that's on all pages on enter
+$('.dropdown-sign-in-form input').keydown(function(e) {
+  if (e.keyCode == 13 || e.keyCode == 10) {
+    this.form.submit();
+    return false;
+  }
+});
+
 // Load via jQuery any modal dialog boxes that are suitably marked up
 $(document).on('click', '.ajax-modal', function(e) {
   e.preventDefault();
