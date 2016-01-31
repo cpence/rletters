@@ -209,8 +209,6 @@ GEM
     puma (2.16.0)
     puma (2.16.0-java)
     que (0.11.2)
-    rabl (0.11.8)
-      activesupport (>= 2.3.14)
     rack (1.6.4)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -391,7 +389,6 @@ DEPENDENCIES
   pry-byebug
   puma
   que
-  rabl
   rails (~> 4.2)
   rails-i18n (= 4.0.8)
   rdf (>= 0.3.5)

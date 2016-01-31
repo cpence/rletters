@@ -58,9 +58,7 @@ gem 'haml'
 gem 'haml-rails'
 gem 'sass-rails', '>= 5.0'
 gem 'kramdown'
-
 gem 'nokogiri'
-gem 'rabl'
 
 gem 'uglifier', '>= 1.3.0'
 gem 'roadie-rails'
