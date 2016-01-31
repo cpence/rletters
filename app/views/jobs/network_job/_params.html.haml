@@ -4,6 +4,6 @@
       = f.error_notification
 
       = field_set_tag t('network_job.options_label') do
-        = f.input :word, label: I18n.t('network_job.word')
+        = f.input :focal_word, label: I18n.t('network_job.focal_word')
         = f.button :submit
         = link_to(t('common.cancel'), dataset, class: 'btn btn-default')

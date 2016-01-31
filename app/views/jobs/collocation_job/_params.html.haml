@@ -7,6 +7,6 @@
         = f.input :scoring, label: t('common.scoring.label'), collection: CollocationJob.significance_tests, include_blank: false
         = f.input :num_pairs, as: :integer, label: t('collocation_job.num_pairs'), required: false, input_html: { value: 50 }
         = f.input :all, label: t('collocation_job.all'), as: :boolean
-        = f.input :word, required: false, label: t('collocation_job.word')
+        = f.input :focal_word, required: false, label: t('collocation_job.focal_word')
         = f.button :submit
         = link_to(t('common.cancel'), dataset, class: 'btn btn-default')

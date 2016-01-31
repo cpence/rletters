@@ -25,7 +25,7 @@ RSpec.describe NetworkJob, type: :job do
     before(:example) do
       described_class.new.perform(
         @task,
-        word: 'diseases')
+        focal_word: 'diseases')
       @task.reload
     end
 
@@ -41,7 +41,7 @@ RSpec.describe NetworkJob, type: :job do
     it 'fills in some values' do
       hash = JSON.load(@task.file_for('application/json').result.file_contents(:original))
       expect(hash['name']).to eq('Dataset')
-      expect(hash['word']).to eq('diseases')
+      expect(hash['focal_word']).to eq('diseases')
       expect(hash['d3_links'][0]['strength']).to be_within(0.01).of(0.7142857142857143)
     end
   end

@@ -692,7 +692,7 @@ en:
         parts_of_speech_header: Frequency
         num_pairs: Number of collocations to find
         all: Report all collocations
-        word: Return only collocations including this word (or leave blank for all)
+        focal_word: Return only collocations including this word (or leave blank for all)
         header: "Collocation analysis for %{name}"
         subheader: "Significance test: %{test}"
         pair: 'Collocation pair'
@@ -706,7 +706,7 @@ en:
         options_label: Cooccurrence analysis options
         num_pairs: Number of cooccurrences to find
         all: Report all cooccurrences
-        word: Return coocurrences including this word (or a space-separated list)
+        words: Return coocurrences including this word (or a space-separated list)
         window: Return cooccurrences that occur within this number of words
         header: "Cooccurrence analysis for %{name}"
         subheader: "Significance test: %{test}"
@@ -785,8 +785,8 @@ en:
             What broader network of words is often found with one focal
             word of interest?
         options_label: Network analysis options
-        word: Focal word
-        subheader: "Network of associated terms surrounding word: '%{word}'"
+        focal_word: Focal word
+        subheader: "Network of associated terms surrounding word: '%{focal_word}'"
         download: Download in GraphML format
         word_stem: Word Stem
         word_forms: Forms in dataset
@@ -799,7 +799,7 @@ en:
 
             When was a word used within a particular dataset?
         options_label: Term frequency date analysis options
-        word: Focal word
+        term: Focal word
         header: "Term frequency date analysis for %{name}"
         subheader: "Occurrences of %{term}, plotted by year"
         number_column: Occurrences of Word

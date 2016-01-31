@@ -5,14 +5,14 @@ class NetworkJob < BaseJob
   #
   # @param [Datasets::Task] task the task we're working from
   # @param [Hash] options parameters for this job
-  # @option options [String] :word the focal word to analyze
+  # @option options [String] :focal_word the focal word to analyze
   # @return [void]
   def perform(task, options)
     standard_options(task, options)
 
     graph = RLetters::Analysis::Network::Graph.new(
       dataset: dataset,
-      focal_word: options.fetch(:word),
+      focal_word: options[:focal_word],
       progress: ->(p) { task.at(p, 100, t('.progress_network')) }
     )
 
@@ -32,7 +32,7 @@ class NetworkJob < BaseJob
     # Save out all the data
     data = {
       name: dataset.name,
-      word: options[:word],
+      focal_word: options[:focal_word],
       d3_nodes: d3_nodes,
       d3_links: d3_links,
       word_stem: t('.word_stem'),

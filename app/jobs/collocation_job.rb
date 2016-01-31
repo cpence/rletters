@@ -15,7 +15,7 @@ class CollocationJob < BaseJob
   #   analyze the significance of collocations.  Can be `'mutual_information'`
   #   `'t_test'` `'log_likelihood'`, or `'parts_of_speech'`.
   # @option options [String] :num_pairs number of collocations to return
-  # @option options [String] :word if present, return only collocations
+  # @option options [String] :focal_word if present, return only collocations
   #   including this word
   # @return [void]
   def perform(task, options = {})
