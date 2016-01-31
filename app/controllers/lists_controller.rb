@@ -8,16 +8,14 @@ class ListsController < ApplicationController
   #
   # @return [void]
   def authors
-    @list = list_for(:authors, :authors_facet)
-    render template: 'lists/list'
+    render json: list_for(:authors, :authors_facet)
   end
 
   # Build a list of journals
   #
   # @return [void]
   def journals
-    @list = list_for(:journal, :journal_facet)
-    render template: 'lists/list'
+    render json: list_for(:journal, :journal_facet)
   end
 
   private
@@ -28,7 +26,7 @@ class ListsController < ApplicationController
   #
   # @param [String] search_field the field to search the partial query on
   # @param [String] facet_field the field to return faceted results from
-  # @return [Array<String>] the list of results
+  # @return [Array<Hash>] the list of results
   def list_for(search_field, facet_field)
     result = solr_query_for(search_field, params[:q])
 
@@ -39,7 +37,8 @@ class ListsController < ApplicationController
     available_facets = facets.map do |f|
       f.hits > 0 ? f.value : nil
     end
-    available_facets.compact
+
+    available_facets.compact.map { |v| { 'val' => v } }
   end
 
   # Get the Solr query for a partial search for the given filter

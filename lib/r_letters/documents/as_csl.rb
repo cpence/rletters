@@ -1,4 +1,5 @@
 require 'citeproc'
+require 'csl/styles'
 
 module RLetters
   module Documents

@@ -34,6 +34,7 @@ gem 'fast-stemmer'
 # Citation processing
 gem 'bibtex-ruby', require: 'bibtex'
 gem 'citeproc-ruby', '~> 1.0'
+gem 'csl-styles'
 
 # Support for file attachments and exporting
 gem 'paperclip', '>= 4.2.0'
