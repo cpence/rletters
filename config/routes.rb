@@ -75,10 +75,6 @@ Rails.application.routes.draw do
   get 'admin/:model/new' => 'admin#item_new', as: 'admin_new_item'
   post 'admin/:model' => 'admin#item_create'
 
-  authenticate :administrator do
-    mount Que::Web, at: 'admin/jobs'
-  end
-
   # unAPI service
   get 'unapi' => 'unapi#index'
 

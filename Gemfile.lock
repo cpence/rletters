@@ -49,8 +49,6 @@ GEM
     bcrypt (3.1.10-java)
     bibtex-ruby (4.1.2)
       latex-decode (~> 0.0)
-    binding_of_caller (0.7.2)
-      debug_inspector (>= 0.0.1)
     builder (3.2.2)
     byebug (8.2.1)
     capybara (2.6.2)
@@ -89,12 +87,9 @@ GEM
       safe_yaml (~> 1.0.0)
     csl (1.4.3)
       namae (~> 0.7)
-    csl-styles (1.0.1.6)
-      csl (~> 1.0)
     css_parser (1.3.7)
       addressable
     database_cleaner (1.5.1)
-    debug_inspector (0.0.2)
     descendants_tracker (0.0.4)
       thread_safe (~> 0.3, >= 0.3.1)
     devise (3.5.5)
@@ -212,15 +207,9 @@ GEM
     puma (2.16.0)
     puma (2.16.0-java)
     que (0.11.2)
-    que-web (0.4.0)
-      erubis
-      que (~> 0.8)
-      sinatra
     rabl (0.11.8)
       activesupport (>= 2.3.14)
     rack (1.6.4)
-    rack-protection (1.5.3)
-      rack
     rack-test (0.6.3)
       rack (>= 1.0)
     rails (4.2.5.1)
@@ -315,10 +304,6 @@ GEM
       json (~> 1.8)
       simplecov-html (~> 0.10.0)
     simplecov-html (0.10.0)
-    sinatra (1.4.7)
-      rack (~> 1.5)
-      rack-protection (~> 1.4)
-      tilt (>= 1.3, < 3)
     slop (3.6.0)
     spoon (0.0.4)
       ffi
@@ -354,11 +339,6 @@ GEM
       equalizer (~> 0.0, >= 0.0.9)
     warden (1.2.5)
       rack (>= 1.0)
-    web-console (2.3.0)
-      activemodel (>= 4.0)
-      binding_of_caller (>= 0.7.2)
-      railties (>= 4.0)
-      sprockets-rails (>= 2.0, < 4.0)
     webmock (1.22.6)
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
@@ -383,7 +363,6 @@ DEPENDENCIES
   citeproc-ruby (~> 1.0)
   closure_tree
   codeclimate-test-reporter
-  csl-styles
   database_cleaner
   devise
   devise-i18n
@@ -392,7 +371,6 @@ DEPENDENCIES
   draper
   factory_girl_rails
   fast-stemmer
-  globalid (>= 0.3.6)
   haml
   haml-rails
   http_accept_language
@@ -410,7 +388,6 @@ DEPENDENCIES
   pry-byebug
   puma
   que
-  que-web
   rabl
   rails (~> 4.2)
   rails-i18n (= 4.0.8)
@@ -430,7 +407,6 @@ DEPENDENCIES
   uglifier (>= 1.3.0)
   validate_url
   virtus
-  web-console (~> 2.0)
   webmock (>= 1.22.6)
 
 BUNDLED WITH
