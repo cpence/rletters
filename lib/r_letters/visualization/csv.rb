@@ -1,3 +1,4 @@
+require 'csv'
 
 module RLetters
   # Code that manages output and visualization for analysis tasks
