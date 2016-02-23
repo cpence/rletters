@@ -7,7 +7,7 @@ RSpec.feature 'User runs workflow on a new dataset', type: :feature do
     visit root_path
     click_link 'Start a new analysis'
     click_link 'When were a given set of articles published?'
-    click_link 'Start'
+    first(:link, 'Start', exact: true).click
 
     click_link 'Create another dataset'
     create_dataset

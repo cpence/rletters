@@ -81,7 +81,7 @@ RSpec.feature 'Viewing information about a dataset', type: :feature do
     visit '/'
     click_link 'Start a new analysis'
     click_link 'When were a given set of articles published?'
-    click_link 'Start'
+    first(:link, 'Start', exact: true).click
     click_link 'Link an already created dataset'
     click_button 'Link dataset'
     click_link 'Set Job Options'

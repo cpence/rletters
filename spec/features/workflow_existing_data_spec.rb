@@ -8,7 +8,7 @@ RSpec.feature 'User runs workflow on existing datasets', type: :feature do
     visit root_path
     click_link 'Start a new analysis'
     click_link 'When were a given set of articles published?'
-    click_link 'Start'
+    first(:link, 'Start', exact: true).click
 
     click_link 'Link an already created dataset'
     within('.modal-dialog') do
@@ -37,7 +37,7 @@ RSpec.feature 'User runs workflow on existing datasets', type: :feature do
     visit root_path
     click_link 'Start a new analysis'
     click_link 'Given two sets of articles, what words mark out an article'
-    click_link 'Start'
+    first(:link, 'Start', exact: true).click
 
     click_link 'Link an already created dataset'
     within('.modal-dialog') do
