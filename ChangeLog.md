@@ -16,6 +16,7 @@
 *   Upgrade delayed job handling to use ActiveJob with Que using the database as backend, removing the need for a Redis server.
 *   Fixed the broken progress reporting in the Craig Zeta job.
 *   Fixed a bug in the Term Dates job such that terms appearing in remotely-stored documents would not be counted.
+*   Fix bugs in the Article and Term Dates jobs such that the data would sometimes come out unsorted, producing jumbled graphs.
 *   Switch the web server component to Puma to avoid slow client attacks and take advantage of multithreading.
 *   Integration testing (smoke tests) ported back to RSpec feature tests, using capybara-webkit. Dramatically increased stability and maintainability.
 *   Update language support, adding Belarusian, Spanish (Ecuador), Khmer, Marathi, Panjabi, and Uyghur.

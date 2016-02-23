@@ -51,6 +51,10 @@ RSpec.describe ArticleDatesJob, type: :job do
       elt = @data['data'].find { |y| y[1] == 0 }
       expect(elt).to be
     end
+
+    it 'returns a sorted array' do
+      expect(@data['data'].sort_by { |d| d[0] }).to eq(@data['data'])
+    end
   end
 
   context 'when normalizing to the corpus' do
@@ -95,6 +99,10 @@ RSpec.describe ArticleDatesJob, type: :job do
       expect(@data['data'].assoc(1910)).to be
       expect(@data['data'].assoc(1910)[1]).to eq(0)
     end
+
+    it 'returns a sorted array' do
+      expect(@data['data'].sort_by { |d| d[0] }).to eq(@data['data'])
+    end
   end
 
   context 'when normalizing to a dataset' do
@@ -136,6 +144,10 @@ RSpec.describe ArticleDatesJob, type: :job do
       pair = @data['data'][0]
       expect((1859..2012)).to cover(pair[0])
       expect((0..1)).to cover(pair[1])
+    end
+
+    it 'returns a sorted array' do
+      expect(@data['data'].sort_by { |d| d[0] }).to eq(@data['data'])
     end
   end
 

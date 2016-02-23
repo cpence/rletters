@@ -50,5 +50,9 @@ RSpec.describe TermDatesJob, type: :job do
       elt = @data['data'].find { |y| y[1] == 0 }
       expect(elt).to be
     end
+
+    it 'returns a sorted array' do
+      expect(@data['data'].sort_by { |d| d[0] }).to eq(@data['data'])
+    end
   end
 end

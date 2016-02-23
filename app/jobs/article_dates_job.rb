@@ -28,9 +28,10 @@ class ArticleDatesJob < BaseJob
       )
     )
 
-    # Convert the years to integers
+    # Convert the years to integers and sort
     dates = result.counts.to_a
     dates.each { |d| d[0] = Integer(d[0]) }
+    dates.sort! { |a, b| a[0] <=> b[0] }
 
     # Save out the data, including getting the name of the normalization
     # set for pretty display

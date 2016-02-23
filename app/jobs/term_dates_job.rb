@@ -23,8 +23,14 @@ class TermDatesJob < BaseJob
       dataset: dataset,
       progress: ->(p) { task.at(p, 100, t('.progress_computing')) })
 
+    # Convert the years to integers and sort
     dates = dates.to_a
     dates.each { |d| d[0] = Integer(d[0]) }
+    dates.sort! { |a, b| a[0] <=> b[0] }
+
+    # Save out the data
+    year_header = Document.human_attribute_name(:year)
+    value_header = t('.number_column')
 
     csv_string = csv_with_header(header: t('.header', name: dataset.name),
                                  subheader: t('.subheader',
@@ -32,17 +38,16 @@ class TermDatesJob < BaseJob
       write_csv_data(csv: csv,
                      data: dates,
                      data_spec: {
-                       Document.human_attribute_name(:year) => :first,
-                       t('.number_column') => :second
+                       year_header => :first,
+                       value_header => :second
                      })
     end
 
-    # Save out the data
     output = {
       data: dates,
       term: options[:term],
-      year_header: Document.human_attribute_name(:year),
-      value_header: t('.number_column') }
+      year_header: year_header,
+      value_header: value_header }
 
     # Serialize out to JSON
     task.files.create(description: 'Raw JSON Data',
