@@ -200,13 +200,10 @@ module RLetters
           excluded = exclusion_list || stop_list || nil
           included = inclusion_list || nil
 
-          # Exclude/include by checking overlap bewteen the words in the n-gram
+          # Exclude/include by checking overlap between the words in the n-gram
           # and the words in the word list
-          if excluded
-            word_list.select! { |w| (w.split & excluded).empty? }
-          elsif included
-            word_list.reject! { |w| (w.split & included).empty? }
-          end
+          word_list.select! { |w| (w.split & excluded).empty? } if excluded
+          word_list.reject! { |w| (w.split & included).empty? } if included
 
           # Take the number of words that the user requests
           self.word_list = word_list.take(num_words) if num_words != 0

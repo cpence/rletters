@@ -153,7 +153,7 @@ RSpec.describe RLetters::Analysis::Frequency::FromPosition do
       it 'produces ngrams that all contain malaria' do
         expect(@analyzer.blocks[0].size).to be > 0
         @analyzer.blocks[0].each do |k, _|
-          expect(k).to include('malaria')
+          expect(k.split).to include('malaria')
         end
       end
     end
@@ -180,12 +180,47 @@ RSpec.describe RLetters::Analysis::Frequency::FromPosition do
     context 'with n-grams' do
       before(:example) do
         @analyzer = described_class.call(dataset: @dataset,
+                                         ngrams: 3,
                                          exclusion_list: 'diseases')
       end
 
       it 'produces ngrams that do not contain diseases' do
         @analyzer.blocks[0].each do |k, _|
-          expect(k).not_to include('diseases')
+          expect(k.split).not_to include('diseases')
+        end
+      end
+    end
+
+    context 'with n-grams and both an inclusion and exclusion list' do
+      before(:example) do
+        @analyzer = described_class.call(dataset: @dataset,
+                                         ngrams: 3,
+                                         inclusion_list: 'decade',
+                                         exclusion_list: 'remains')
+      end
+
+      it 'combines the lists in the right way' do
+        @analyzer.blocks[0].each do |k, _|
+          expect(k.split).not_to include('remains')
+          expect(k.split).to include('decade')
+        end
+      end
+    end
+
+    context 'with n-grams and both an inclusion and stop list' do
+      before(:example) do
+        @analyzer = described_class.call(dataset: @dataset,
+                                         ngrams: 3,
+                                         inclusion_list: 'diseases',
+                                         stop_list: create(:stop_list))
+      end
+
+      it 'combines the lists in the right way' do
+        @analyzer.blocks[0].each do |k, _|
+          expect(k.split).to include('diseases')
+          expect(k.split).not_to include('the')
+          expect(k.split).not_to include('a')
+          expect(k.split).not_to include('an')
         end
       end
     end
