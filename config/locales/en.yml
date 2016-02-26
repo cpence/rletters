@@ -638,6 +638,10 @@ en:
             environment: Environment Variables
             variable: Variable
             value: Value
+            status: Status
+            status_failed: failed
+            status_finished: finished
+            status_working: working
         collection_header:
             header: "Edit %{model_name}"
             actions: Collection actions
