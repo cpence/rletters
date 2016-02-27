@@ -16,7 +16,7 @@ gem 'virtus'
 gem 'addressable'
 
 # User authentication and administration
-gem 'devise'
+gem 'devise', '~> 4.0.0.rc1'
 gem 'devise-i18n'
 gem 'setler'
 

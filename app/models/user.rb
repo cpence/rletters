@@ -106,19 +106,16 @@ class User < ApplicationRecord
   # @see ApplicationController::devise_parameter_sanitizer
   # :nocov:
   class ParameterSanitizer < Devise::ParameterSanitizer
-    # Permit the parameters used in the sign up form
+    # Permit the parameters used in the sign up and user edit forms
     # @return [ActionController::Parameters] permitted parameters
-    def sign_up
-      default_params.permit(:name, :email, :password, :password_confirmation,
-                            :language, :timezone)
-    end
-
-    # Permit the parameters used in the user edit form
-    # @return [ActionController::Parameters] permitted parameters
-    def account_update
-      default_params.permit(:name, :email, :password, :password_confirmation,
-                            :current_password, :language, :timezone,
-                            :csl_style_id)
+    def initialize(*)
+      super
+      permit(:sign_up,
+             keys: [:name, :email, :password, :password_confirmation,
+                    :language, :timezone])
+      permit(:account_update,
+             keys: [:name, :email, :password, :password_confirmation,
+                    :current_password, :language, :timezone, :csl_style_id])
     end
   end
   # :nocov:
