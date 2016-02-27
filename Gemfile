@@ -2,6 +2,10 @@ source 'https://rubygems.org'
 
 # Rails
 gem 'rails', '~> 4.2'
+# RAILS 5
+# Pending gems that need support for Rails 5 to go:
+# - roadie-rails (https://github.com/Mange/roadie-rails/pull/50)
+# gem 'rails', '~> 5.0.0.beta3'
 
 # Twelve factor app glue
 gem 'dotenv-rails'
@@ -22,6 +26,8 @@ gem 'setler'
 
 # Internationalization
 gem 'rails-i18n', '= 4.0.8'
+# RAILS 5
+# gem 'rails-i18n', '~> 5.0.0.beta3'
 gem 'http_accept_language'
 
 # Textual analysis
