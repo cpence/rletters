@@ -12,8 +12,7 @@ $(document).on('change', 'select#job_params_ngram_method',
     } else {
       hideAndDisable('#num_words_controls');
       hideAndDisable('#inclusion_list_controls');
-      hideAndDisable('#exclude_common_controls');
-      hideAndDisable('#exclude_list_controls');
+      $('#job_params_exclude_method').change();
     }
   });
 
@@ -49,11 +48,19 @@ $(document).on('change', 'select#job_params_exclude_method',
     if (option == 'common') {
       showAndEnable('#exclude_common_controls');
       hideAndDisable('#exclude_list_controls');
+      hideAndDisable('#exclude_list_ngram_controls');
     } else if (option == 'list') {
       hideAndDisable('#exclude_common_controls');
-      showAndEnable('#exclude_list_controls');
+      if ($('#single_controls').is(':visible')) {
+        showAndEnable('#exclude_list_controls');
+        hideAndDisable('#exclude_list_ngram_controls');
+      } else {
+        showAndEnable('#exclude_list_ngram_controls');
+        hideAndDisable('#exclude_list_controls');
+      }
     } else {
       hideAndDisable('#exclude_common_controls');
       hideAndDisable('#exclude_list_controls');
+      hideAndDisable('#exclude_list_ngram_controls');
     }
   });

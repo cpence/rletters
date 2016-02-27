@@ -10,7 +10,6 @@
           = f.input :num_words, as: :integer, label: t('compute_word_frequencies.num_ngrams'), required: false, input_html: { value: 100 }, disabled: true
           = f.input :all, as: :boolean, label: t('compute_word_frequencies.all_ngrams'), required: false, disabled: true
           = f.input :inclusion_list, label: t('compute_word_frequencies.ngram_inclusion_list'), as: :text, required: false, disabled: true
-          = f.input :exclusion_list, label: t('compute_word_frequencies.ngram_exclusion_list'), as: :text, required: false, disabled: true
         #single_controls
           = f.input :word_method, label: t('compute_word_frequencies.word_method'), collection: [[t('compute_word_frequencies.most_frequent'), :count], [t('compute_word_frequencies.all'), :all], [t('compute_word_frequencies.list'), :list]], include_blank: false
         #num_words_controls
@@ -21,6 +20,8 @@
           = f.input :stop_list, label: t('compute_word_frequencies.stop_language'), collection: Documents::StopList.all.sort_by { |l| l.language }, value_method: :language, label_method: :display_language, include_blank: false, selected: 'en', disabled: true
         #exclude_list_controls{ style: 'display: none;' }
           = f.input :exclusion_list, label: t('compute_word_frequencies.exclusion_list'), as: :text, required: false, disabled: true
+        #exclude_list_ngram_controls{ style: 'display: none;' }
+          = f.input :exclusion_list, label: t('compute_word_frequencies.ngram_exclusion_list'), as: :text, required: false, disabled: true
         #inclusion_list_controls{ style: 'display: none;' }
           = f.input :inclusion_list, label: t('compute_word_frequencies.inclusion_list'), as: :text, required: false, disabled: true
         = f.input :stemming, label: t('common.stemming.label'), collection: [[t('simple_form.no'), :no], [t('common.stemming.stem'), :stem], [t('common.stemming.lemma'), :lemma]], include_blank: false
