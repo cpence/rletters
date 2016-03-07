@@ -67,6 +67,7 @@ gem 'kramdown'
 gem 'nokogiri'
 
 gem 'uglifier', '>= 1.3.0'
+gem 'multi_mail'
 gem 'roadie-rails'
 
 # Testing
