@@ -26,7 +26,7 @@ module TreeDecoration
                       nestable_list_recursive(item.children, block)
                     end
 
-          content + recurse
+          content.html_safe + recurse
         end
       end
 
