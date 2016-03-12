@@ -21,21 +21,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  # Return the current user, decorated by Draper
-  #
-  # @return [UserDecorator] the decorated user
-  def current_user
-    return nil unless current_devise_user
-    @decorated_current_user ||= UserDecorator.decorate(current_devise_user)
-  end
-
-  # Return the current user, not decorated
-  #
-  # @return [User] the un-decorated, original user model
-  def current_devise_user
-    @current_user ||= warden.authenticate(scope: :user)
-  end
-
   # Redirect to the root on successful sign out
   #
   # This method is called by Devise.
@@ -100,7 +85,7 @@ class ApplicationController < ActionController::Base
   # @return [void]
   def set_locale
     if user_signed_in?
-      I18n.locale = current_devise_user.language.to_sym
+      I18n.locale = current_user.language.to_sym
     else
       I18n.locale = I18n.default_locale
     end
@@ -115,7 +100,7 @@ class ApplicationController < ActionController::Base
   # @return [void]
   def set_timezone
     if user_signed_in?
-      Time.zone = current_devise_user.timezone
+      Time.zone = current_user.timezone
     else
       Time.zone = 'Eastern Time (US & Canada)'
     end

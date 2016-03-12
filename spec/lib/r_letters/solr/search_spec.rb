@@ -26,6 +26,21 @@ RSpec.describe RLetters::Solr::Search do
         expect(ret[:fq][0]).to eq('journal_facet:("Gutenberg" OR "PLoS Neglected Tropical Diseases")')
       end
 
+      it 'works with empty categories' do
+        category = Documents::Category.create(name: 'Empty Category')
+        params = { q: '*:*', advanced: 'true', categories: [category.to_param] }
+        ret = described_class.params_to_query(params)
+        expect(ret[:fq]).not_to be
+      end
+
+      it 'works with empty and full categories' do
+        category_1 = Documents::Category.create(name: 'Test Category', journals: ['Gutenberg', 'PLoS Neglected Tropical Diseases'])
+        category_2 = Documents::Category.create(name: 'Empty Category')
+        params = { q: '*:*', advanced: 'true', categories: [category_1.to_param, category_2.to_param] }
+        ret = described_class.params_to_query(params)
+        expect(ret[:fq][0]).to eq('journal_facet:("Gutenberg" OR "PLoS Neglected Tropical Diseases")')
+      end
+
       it 'puts together empty advanced search correctly' do
         params = { q: '', advanced: 'true' }
         ret = described_class.params_to_query(params)

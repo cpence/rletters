@@ -9,9 +9,9 @@ RSpec.describe ApplicationController, type: :request do
 
       it 'redirects to the root path on login' do
         post(user_session_path,
-             user: { email: @user.email,
-                     password: @user.password,
-                     password_confirmation: @user.password })
+             params: { user: { email: @user.email,
+                               password: @user.password,
+                               password_confirmation: @user.password } })
         expect(response).to redirect_to(root_path)
         expect(flash[:notice]).to be
         expect(flash[:alert]).not_to be
@@ -25,9 +25,10 @@ RSpec.describe ApplicationController, type: :request do
 
       it 'redirects to the admin root on login' do
         post(administrator_session_path,
-             administrator: { email: @user.email,
-                              password: @user.password,
-                              password_confirmation: @user.password })
+             params: { administrator: { email: @user.email,
+                                        password: @user.password,
+                                        password_confirmation: @user.password
+                                      } })
         expect(response).to redirect_to(admin_path)
         expect(flash[:notice]).to be
         expect(flash[:alert]).not_to be
@@ -39,9 +40,9 @@ RSpec.describe ApplicationController, type: :request do
     before(:example) do
       @user = create(:user)
       post(user_session_path,
-           user: { email: @user.email,
-                   password: @user.password,
-                   password_confirmation: @user.password })
+           params: { user: { email: @user.email,
+                             password: @user.password,
+                             password_confirmation: @user.password } })
     end
 
     it 'redirects to the root path on logout' do

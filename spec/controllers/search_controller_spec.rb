@@ -4,7 +4,7 @@ RSpec.describe SearchController, type: :controller do
   describe '#index' do
     context 'with empty search results' do
       before(:example) do
-        get :index, q: 'fail'
+        get :index, params: { q: 'fail' }
       end
 
       it 'loads successfully' do

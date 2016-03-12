@@ -44,3 +44,9 @@ fieldset.sub-legend legend {
 
   p { margin: 0 0 0 0.5em; }
 }
+
+// Fix the styling for the nestable plugin
+.dd-list li div {
+  border: none !important;
+  background: transparent !important;
+}

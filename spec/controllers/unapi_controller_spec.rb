@@ -8,7 +8,7 @@ RSpec.describe UnapiController, type: :controller do
   def get_unapi(with_id = false, format = nil)
     if with_id
       @id = generate(:working_uid)
-      get :index, id: @id, format: format
+      get :index, params: { id: @id, format: format }
     else
       get :index
     end

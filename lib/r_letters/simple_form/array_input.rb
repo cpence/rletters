@@ -24,15 +24,16 @@ module RLetters
             @builder.text_field(attribute_name, opts) + remove_button(array_id)
           end
         end.join.html_safe +
-          add_button("#{object_name}_#{attribute_name}_#{count}")
+          add_button("#{object_name}_#{attribute_name}_#{count}",
+                     "#{object_name}[#{attribute_name}][]")
       end
 
       private
 
-      def add_button(id)
+      def add_button(id, name)
         template.content_tag(:div, class: 'input-group') do
           template.tag(:input, type: 'text', class: 'form-control',
-                               id: id, disabled: true) +
+                               name: name, id: id, disabled: true) +
           template.content_tag(:div, class: 'input-group-addon') do
             template.content_tag(:a,
                                  class: 'simple-form-add', href: '#',

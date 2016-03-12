@@ -8,9 +8,6 @@ module Datasets
     before_action :set_task
     before_action :set_current_params, only: [:new, :create]
 
-    decorates_assigned :dataset, with: DatasetDecorator
-    decorates_assigned :task, with: Datasets::TaskDecorator
-
     # Show the list of tasks for this dataset
     #
     # This list needs to be updated live, as the tasks are running in the
@@ -57,12 +54,12 @@ module Datasets
       task.job_id = job.job_id
       task.save
 
-      if current_devise_user.workflow_active
+      if current_user.workflow_active
         # If the user was in the workflow, they're done now
-        current_devise_user.workflow_active = false
-        current_devise_user.workflow_class = nil
-        current_devise_user.workflow_datasets.clear
-        current_devise_user.save
+        current_user.workflow_active = false
+        current_user.workflow_class = nil
+        current_user.workflow_datasets.clear
+        current_user.save
 
         redirect_to root_path,
                     flash: { success: I18n.t('datasets.tasks.create.workflow') }
@@ -91,11 +88,7 @@ module Datasets
     #
     # @return [void]
     def download
-      # This cast will throw if the conversion cannot be performed
-      file_number = Integer(params[:file])
-      fail ActiveRecord::RecordNotFound if @task.files.count <= file_number
-
-      @file = @task.files[file_number]
+      @file = @task.files.find(params[:file])
       fail ActiveRecord::RecordNotFound unless @file.downloadable
 
       send_data(@file.result.file_contents(:original),
@@ -113,7 +106,7 @@ module Datasets
 
       # We want to send the user back where they came from, which could either
       # be dataset_path(some_dataset) or workflow_fetch_path.
-      redirect_to :back
+      redirect_back(fallback_location: workflow_fetch_path)
     end
 
     private
@@ -122,8 +115,9 @@ module Datasets
     #
     # @return [void]
     def set_task
-      @dataset = current_devise_user.datasets.find(params[:dataset_id])
+      @dataset = current_user.datasets.find(params[:dataset_id])
       @task = @dataset.tasks.find(params[:id]) if params[:id]
+      @task_presenter = RLetters::Presenters::TaskPresenter.new(task: @task)
       @klass = Datasets::Task.job_class(params[:class]) if params[:class]
     end
 
@@ -131,7 +125,7 @@ module Datasets
     #
     # @return [void]
     def set_current_params
-      @current_params = params[:job_params] || {}
+      @current_params = params[:job_params]&.to_unsafe_h || {}
       @current_params = @current_params.with_indifferent_access
     end
   end

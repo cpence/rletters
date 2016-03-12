@@ -43,7 +43,7 @@ RSpec.describe Admin::QueJob do
     it 'works' do
       mock_que_job(1)
       expect {
-        Admin::QueJob.delete_all(job_id: 1)
+        Admin::QueJob.where(job_id: 1).delete_all
       }.to change { RLetters::Que::Stats.stats[:scheduled] }.by(-1)
     end
   end

@@ -13,6 +13,7 @@ RSpec.configure do |config|
     # Use transactions to clean database for non-feature tests, truncation for
     # features that use capybara-webkit.
     if example.metadata[:type] == :feature
+      ActiveJob::Base.queue_adapter.perform_enqueued_jobs = true
       DatabaseCleaner.strategy = :truncation
     else
       DatabaseCleaner.strategy = :transaction

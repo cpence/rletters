@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'Error pages', type: :request do
   it 'renders the 404 template' do
-    get_via_redirect '/asdf/notapage'
+    get '/asdf/notapage'
 
     expect(response.code.to_i).to eq(404)
     expect(response).to have_rendered('404')
@@ -10,7 +10,7 @@ RSpec.describe 'Error pages', type: :request do
 
   it 'renders the 500 template' do
     stub_request(:any, /(127\.0\.0\.1|localhost)/).to_timeout
-    get_via_redirect '/search/'
+    get '/search/'
 
     expect(response.code.to_i).to eq(500)
     expect(response).to have_rendered('500')

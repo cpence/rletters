@@ -1,6 +1,6 @@
 
 # Examine the network of words associated with a focal term
-class NetworkJob < BaseJob
+class NetworkJob < TaskJob
   # Examine the network of words associated with a focal term.
   #
   # @param [Datasets::Task] task the task we're working from

@@ -31,12 +31,12 @@ RSpec.describe DatasetsController, type: :controller do
 
     context 'XHR GET request' do
       it 'loads successfully' do
-        xhr :get, :index
+        get :index, xhr: true
         expect(response).to be_success
       end
 
       it 'assigns the list of datsets' do
-        xhr :get, :index
+        get :index, xhr: true
         expect(assigns(:datasets)).to eq([@dataset])
       end
     end
@@ -57,8 +57,8 @@ RSpec.describe DatasetsController, type: :controller do
   describe '#create' do
     context 'with no workflow active' do
       it 'creates the dataset' do
-        post :create, dataset: { name: 'New Dataset' },
-                      q: '*:*', fq: nil, def_type: 'lucene'
+        post :create, params: { dataset: { name: 'New Dataset' },
+                                q: '*:*', def_type: 'lucene' }
         @user.datasets.reload
 
         expect(@user.datasets.size).to eq(2)
@@ -71,8 +71,8 @@ RSpec.describe DatasetsController, type: :controller do
       end
 
       it 'redirects to index when done' do
-        post :create, dataset: { name: 'New Dataset' },
-                      q: '*:*', fq: nil, def_type: 'lucene'
+        post :create, params: { dataset: { name: 'New Dataset' },
+                                q: '*:*', def_type: 'lucene' }
 
         expect(response).to redirect_to(datasets_path)
       end
@@ -84,8 +84,8 @@ RSpec.describe DatasetsController, type: :controller do
         @user.workflow_class = 'ArticleDates'
         @user.save!
 
-        post :create, dataset: { name: 'New Dataset' },
-                      q: '*:*', fq: nil, def_type: 'lucene'
+        post :create, params: { dataset: { name: 'New Dataset' },
+                                q: '*:*', def_type: 'lucene' }
         @user.reload.datasets.reload
       end
 
@@ -113,12 +113,12 @@ RSpec.describe DatasetsController, type: :controller do
   describe '#show' do
     context 'without clear_failed' do
       it 'loads successfully' do
-        get :show, id: @dataset.to_param
+        get :show, params: { id: @dataset.to_param }
         expect(response).to be_success
       end
 
       it 'assigns dataset' do
-        get :show, id: @dataset.to_param
+        get :show, params: { id: @dataset.to_param }
         expect(assigns(:dataset)).to eq(@dataset)
       end
     end
@@ -126,7 +126,7 @@ RSpec.describe DatasetsController, type: :controller do
     context 'with clear_failed' do
       before(:example) do
         create(:task, dataset: @dataset, failed: true)
-        get :show, id: @dataset.to_param, clear_failed: true
+        get :show, params: { id: @dataset.to_param, clear_failed: true }
       end
 
       it 'loads successfully' do
@@ -145,14 +145,14 @@ RSpec.describe DatasetsController, type: :controller do
 
   describe '#destroy' do
     it 'destroys the dataset' do
-      delete :destroy, id: @dataset.to_param
+      delete :destroy, params: { id: @dataset.to_param }
 
       @user.datasets.reload
       expect(@user.datasets).to be_empty
     end
 
     it 'redirects to the index when done' do
-      delete :destroy, id: @dataset.to_param
+      delete :destroy, params: { id: @dataset.to_param }
       expect(response).to redirect_to(datasets_path)
     end
   end
@@ -161,7 +161,7 @@ RSpec.describe DatasetsController, type: :controller do
     context 'when an invalid document is passed' do
       it 'raises an exception' do
         expect {
-          patch :update, id: @dataset.to_param, uid: 'fail'
+          patch :update, params: { id: @dataset.to_param, uid: 'fail' }
         }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
@@ -169,12 +169,14 @@ RSpec.describe DatasetsController, type: :controller do
     context 'when all parameters are valid' do
       it 'adds to the dataset' do
         expect {
-          patch :update, id: @dataset.to_param, uid: generate(:working_uid)
+          patch :update, params: { id: @dataset.to_param,
+                                   uid: generate(:working_uid) }
         }.to change { @dataset.reload.document_count }.by(1)
       end
 
       it 'redirects to the dataset page' do
-        patch :update, id: @dataset.to_param, uid: generate(:working_uid)
+        patch :update, params: { id: @dataset.to_param,
+                                 uid: generate(:working_uid) }
         expect(response).to redirect_to(dataset_path(@dataset))
       end
     end
@@ -183,7 +185,7 @@ RSpec.describe DatasetsController, type: :controller do
       it 'sets the fetch flag' do
         expect(@dataset.fetch).to be false
 
-        patch :update, id: @dataset.to_param, uid: 'gutenberg:3172'
+        patch :update, params: { id: @dataset.to_param, uid: 'gutenberg:3172' }
         @dataset.reload
 
         expect(@dataset.fetch).to be true

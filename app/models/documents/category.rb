@@ -43,13 +43,54 @@ module Documents
       name
     end
 
+    # Returns the list of currently active categories
+    #
+    # @param [ActionController::Parameters] params the parameters to check
+    # @return [Array<Category>] the list of categories active
+    def self.active(params)
+      [params[:categories] || []].flatten.map { |id| find(id) }
+    end
+
+    # Is this category enabled for these params, or no?
+    #
+    # @param [ActionController::Parameters] params the parameters to check
+    # @return [Boolean] if true, category is enabled on these params
+    def enabled?(params)
+      params[:categories]&.include?(to_param)
+    end
+
+    # Generate parameters that would toggle this category on or off
+    #
+    # This function returns a copy of `params`, but with the parameters
+    # changed such that this category and all of its descendant categories
+    # are switched either on or off.
+    #
+    # @param [ActionController::Parameters] params the current parameters
+    # @return [Hash] new parameters with this category and its descendants
+    #   toggled
+    def toggle_search_params(params)
+      categories = params[:categories]&.dup || []
+
+      if enabled?(params)
+        categories -= self_and_ancestors.collect(&:to_param)
+        categories -= self_and_descendants.collect(&:to_param)
+      else
+        categories.concat(self_and_descendants.collect(&:to_param))
+      end
+      categories.uniq!
+
+      params.except(:categories).to_h.deep_dup.tap do |ret|
+        ret[:categories] = categories unless categories.empty?
+      end
+    end
+
     private
 
     # Clean up list of journals when created
     #
-    # To support empty arrays, ActiveAdmin will send us a blank item when
-    # a new category is created.  We want to prune that before the object is
-    # saved.
+    # To support empty arrays, the admin interface will send us a blank item
+    # when  a new category is created.  We want to prune that before the
+    # object is saved.
     #
     # @return [void]
     def clean_journals

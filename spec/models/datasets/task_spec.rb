@@ -74,6 +74,36 @@ RSpec.describe Datasets::Task, type: :model do
     end
   end
 
+  describe '#json' do
+    context 'with JSON available' do
+      before(:example) do
+        @task = create(:task, job_type: 'ExportCitationsJob')
+        @task.files.create!(description: 'test',
+                            short_description: 'test') do |f|
+          f.from_string('{"abc":123}', filename: 'test.json',
+                                       content_type: 'application/json')
+        end
+        @task.reload
+      end
+
+      it 'returns the JSON' do
+        expect(@task.json).to eq('{"abc":123}')
+      end
+    end
+
+    context 'with no JSON available' do
+      before(:example) do
+        @task = create(:task, job_type: 'ExportCitationsJob')
+      end
+
+      describe '#json' do
+        it 'is nil' do
+          expect(@task.json).to be_nil
+        end
+      end
+    end
+  end
+
   def create_task_with_file
     @task = create(:task)
     @file = create(:file, task: @task) do |f|
@@ -93,15 +123,15 @@ RSpec.describe Datasets::Task, type: :model do
       end
 
       it 'has the right file length' do
-        expect(@task.files[0].result_file_size).to eq(4)
+        expect(@task.files.first.result_file_size).to eq(4)
       end
 
       it 'has the right contents' do
-        expect(@task.files[0].result.file_contents(:original)).to eq('test')
+        expect(@task.files.first.result.file_contents(:original)).to eq('test')
       end
 
       it 'has the right mime type' do
-        expect(@task.files[0].result_content_type.to_s).to eq('text/plain')
+        expect(@task.files.first.result_content_type.to_s).to eq('text/plain')
       end
     end
   end

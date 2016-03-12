@@ -81,9 +81,7 @@
   .modal-dialog
     .modal-content
       .modal-header
-        %button.close{ type: 'button', data: { dismiss: 'modal' } }
-          %span{ aria: { hidden: 'true' } } &times;
-          %span.sr-only Close
+        = render partial: 'bootstrap/close_icon', locals: { data: { dismiss: 'modal' } }
 
         %h4.modal-title= t('.link_header')
         %h6.text-muted= t('.link_subheader')

@@ -19,5 +19,5 @@
                 = check_box_tag "item_#{item.to_param}", item.to_param, false, class: 'bulk-delete-checkbox'
             - @model.admin_attributes.each do |attrib, config|
               - next if config[:no_display]
-              %td= item.admin_value_for(attrib)
+              %td= admin_value_for(item, attrib)
             %td.button-cell= render partial: 'collection_buttons', locals: { item: item }

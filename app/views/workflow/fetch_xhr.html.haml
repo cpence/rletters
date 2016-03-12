@@ -1,7 +1,7 @@
 .row
   .col-sm-12
     %h4= t('.pending_header')
-    - if pending_tasks.empty?
+    - if @pending_tasks.empty?
       %p= t('.no_pending')
     - else
       %table.table.button-table
@@ -11,11 +11,12 @@
             %th.label-cell= Dataset.model_name.human
             %th.label-cell= t('.progress')
         %tbody
-          - pending_tasks.each do |t|
+          - @pending_tasks.each do |t|
+            - p = RLetters::Presenters::TaskPresenter.new(task: t)
             %tr
               %td.label-cell= t.name
               %td.label-cell= t.dataset.name
-              %td.label-cell= t.status_message || t('.no_status')
+              %td.label-cell= p.status_message || t('.no_status')
 
       .well
         %p= t_md('.pending_cancel_markdown', terminate_url: workflow_fetch_path(terminate: 'true'), email: ENV['APP_EMAIL'])
@@ -23,7 +24,7 @@
 .row
   .col-sm-12
     %h4= t('.completed_header')
-    - if finished_tasks.empty? && failed_tasks.empty?
+    - if @finished_tasks.empty? && @failed_tasks.empty?
       %p= t('.no_completed')
     - else
       %table.table.button-table
@@ -34,7 +35,7 @@
             %th.label-cell= t('.finished_column')
             %th.button-cell= t('datasets.tasks.index.results_column')
         %tbody
-          - (finished_tasks + failed_tasks).each do |t|
+          - (@finished_tasks + @failed_tasks).each do |t|
             %tr
               %td.label-cell= t.name
               %td.label-cell= t.dataset.name

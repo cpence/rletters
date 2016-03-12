@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 # Mock job class for the workflow controller
-class WorkflowJob < BaseJob
+class WorkflowJob < TaskJob
   def perform(task); end
 end
 
@@ -66,7 +66,7 @@ RSpec.describe WorkflowController, type: :controller do
 
     describe '#info' do
       it 'loads successfully' do
-        get :info, class: 'ArticleDatesJob'
+        get :info, params: { class: 'ArticleDatesJob' }
         expect(response).to be_success
       end
     end
@@ -100,7 +100,7 @@ RSpec.describe WorkflowController, type: :controller do
     describe '#activate' do
       context 'with no datasets linked' do
         before(:example) do
-          get :activate, class: 'ArticleDatesJob'
+          get :activate, params: { class: 'ArticleDatesJob' }
           @user.reload
         end
 
@@ -113,8 +113,8 @@ RSpec.describe WorkflowController, type: :controller do
 
       context 'when asked to link a dataset' do
         before(:example) do
-          get(:activate, class: 'ArticleDatesJob',
-                         link_dataset_id: @dataset.to_param)
+          get :activate, params: { class: 'ArticleDatesJob',
+                                   link_dataset_id: @dataset.to_param }
           @user.reload
         end
 
@@ -135,8 +135,8 @@ RSpec.describe WorkflowController, type: :controller do
 
         it 'raises an error' do
           expect {
-            get(:activate, class: 'ArticleDatesJob',
-                           unlink_dataset_id: '999')
+            get :activate, params: { class: 'ArticleDatesJob',
+                                     unlink_dataset_id: '999' }
           }.to raise_error(ActiveRecord::RecordNotFound)
         end
       end
@@ -148,8 +148,8 @@ RSpec.describe WorkflowController, type: :controller do
           @user.workflow_datasets = [@dataset.to_param]
           @user.save
 
-          get(:activate, class: 'ArticleDatesJob',
-                         unlink_dataset_id: @dataset.to_param)
+          get :activate, params: { class: 'ArticleDatesJob',
+                                   unlink_dataset_id: @dataset.to_param }
           @user.reload
         end
 
@@ -167,8 +167,8 @@ RSpec.describe WorkflowController, type: :controller do
           @user.workflow_datasets = [@dataset.to_param, @dataset_2.to_param]
           @user.save
 
-          get(:activate, class: 'CraigZetaJob',
-                         unlink_dataset_id: @dataset_2.to_param)
+          get :activate, params: { class: 'CraigZetaJob',
+                                   unlink_dataset_id: @dataset_2.to_param }
           @user.reload
         end
 
@@ -219,7 +219,7 @@ RSpec.describe WorkflowController, type: :controller do
 
     context 'with terminate set' do
       before(:example) do
-        get :fetch, terminate: true
+        get :fetch, params: { terminate: true }
       end
 
       it 'destroys the tasks' do
@@ -244,7 +244,7 @@ RSpec.describe WorkflowController, type: :controller do
 
     context 'with an XHR request' do
       before do
-        xhr :get, :fetch
+        get :fetch, xhr: true
       end
 
       it 'loads successfully' do
@@ -255,7 +255,7 @@ RSpec.describe WorkflowController, type: :controller do
         expect(response).to render_template(:fetch_xhr)
       end
 
-      it 'doesn\'t render a layout' do
+      it 'renders no layout' do
         expect(response.body).not_to include('<html')
       end
     end
@@ -265,7 +265,7 @@ RSpec.describe WorkflowController, type: :controller do
     context 'with an invalid id' do
       it 'returns a 404' do
         expect {
-          get :image, id: '123456789'
+          get :image, params: { id: '123456789' }
         }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
@@ -275,7 +275,7 @@ RSpec.describe WorkflowController, type: :controller do
         @asset = create(:uploaded_asset).to_param
         @id = @asset.to_param
 
-        get :image, id: @id
+        get :image, params: { id: @id }
       end
 
       it 'succeeds' do

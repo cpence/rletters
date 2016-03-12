@@ -6,9 +6,40 @@ module RLetters
     # @!attribute [r] all
     #   @return [Array<RLetters::Solr::Facet>] all the facet objects
     class Facets
-      include Draper::Decoratable
-
       attr_reader :all
+
+      # Create parameters for a link to search with the given set of facets
+      #
+      # All parameters other than `:fq` are simply duplicated (including the
+      # search query itself, `:q`).
+      #
+      # @param [ActionController::Parameters] params the active parameters
+      # @param [Array<Facet>] facets the facets to link to
+      # @return [ActionController::Parameters] params for a search for these
+      #   facets
+      def self.search_params(params, facets)
+        return params.except(:fq) if facets.empty?
+
+        params.except(:fq).tap do |ret|
+          ret[:fq] = facets.map(&:query)
+        end
+      end
+
+      # Return a list of facets that are active given these parameters
+      #
+      # @param [ActionController::Parameters] params the active parameters
+      # @return [Array<Facet>] the active facets
+      def active(params)
+        return [] if blank? || !params[:fq]
+
+        [].tap do |ret|
+          [params[:fq]].flatten.each do |query|
+            ret << for_query(query)
+          end
+
+          ret.compact!
+        end
+      end
 
       # Get all facets for a given field
       #

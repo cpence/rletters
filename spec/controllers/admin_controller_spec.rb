@@ -18,7 +18,7 @@ RSpec.describe AdminController, type: :controller do
       context 'with a normal model' do
         before(:each) do
           @users = [create(:user), create(:user)]
-          get :collection_index, model: 'user'
+          get :collection_index, params: { model: 'user' }
         end
 
         it 'loads successfully' do
@@ -38,7 +38,7 @@ RSpec.describe AdminController, type: :controller do
         before(:each) do
           @root_cat = create(:category)
           @child_cat = create(:category, parent_id: @root_cat.id)
-          get :collection_index, model: 'documents/category'
+          get :collection_index, params: { model: 'documents/category' }
         end
 
         it 'loads successfully' do
@@ -66,8 +66,9 @@ RSpec.describe AdminController, type: :controller do
           id_1 = @users[1].id
           id_2 = @users[2].id
 
-          patch :collection_edit, model: 'user', bulk_action: 'delete',
-                                  ids: [id_0, id_2].to_json
+          patch :collection_edit, params: { model: 'user',
+                                            bulk_action: 'delete',
+                                            ids: [id_0, id_2].to_json }
           expect(User.exists?(id_0)).to be false
           expect(User.exists?(id_1)).to be true
           expect(User.exists?(id_2)).to be false
@@ -84,9 +85,9 @@ RSpec.describe AdminController, type: :controller do
           tree = [{'id' => @child_cat.to_param,
                    'children' => [{'id' => @root_cat.to_param}]}]
 
-          patch :collection_edit, model: 'documents/category',
-                                  bulk_action: 'tree',
-                                  tree: tree.to_json
+          patch :collection_edit, params: { model: 'documents/category',
+                                            bulk_action: 'tree',
+                                            tree: tree.to_json }
 
           @root_cat.reload
           @child_cat.reload
@@ -100,7 +101,7 @@ RSpec.describe AdminController, type: :controller do
 
       context 'bad edit command' do
         it 'fails' do
-          patch :collection_edit, model: 'user', bulk_action: 'what'
+          patch :collection_edit, params: { model: 'user', bulk_action: 'what' }
           expect(response.code.to_i).to eq(422)
         end
       end
@@ -109,7 +110,7 @@ RSpec.describe AdminController, type: :controller do
     describe '#item_index' do
       before(:each) do
         @user = create(:user)
-        get :item_index, model: 'user', id: @user.to_param
+        get :item_index, params: { model: 'user', id: @user.to_param }
       end
 
       it 'loads successfully' do
@@ -123,7 +124,7 @@ RSpec.describe AdminController, type: :controller do
 
     describe '#item_new' do
       before(:each) do
-        get :item_new, model: 'user'
+        get :item_new, params: { model: 'user' }
       end
 
       it 'loads successfully' do
@@ -138,7 +139,7 @@ RSpec.describe AdminController, type: :controller do
     describe '#item_create' do
       it 'works correctly' do
         attributes = attributes_for(:user)
-        post :item_create, model: 'user', item: attributes
+        post :item_create, params: { model: 'user', item: attributes }
 
         expect(User.find_by(name: attributes[:name])).not_to be_nil
       end
@@ -149,7 +150,7 @@ RSpec.describe AdminController, type: :controller do
         user = create(:user)
 
         expect {
-          delete :item_delete, model: 'user', id: user.to_param
+          delete :item_delete, params: { model: 'user', id: user.to_param }
         }.to change { User.count }.by(-1)
       end
     end
@@ -157,7 +158,7 @@ RSpec.describe AdminController, type: :controller do
     describe '#item_edit' do
       before(:each) do
         @user = create(:user)
-        get :item_edit, model: 'user', id: @user.to_param
+        get :item_edit, params: { model: 'user', id: @user.to_param }
       end
 
       it 'loads successfully' do
@@ -172,8 +173,8 @@ RSpec.describe AdminController, type: :controller do
     describe '#item_update' do
       it 'works correctly' do
         user = create(:user)
-        patch :item_update, model: 'user', id: user.to_param,
-                            item: { email: 'wat@wat.com' }
+        patch :item_update, params: { model: 'user', id: user.to_param,
+                                      item: { email: 'wat@wat.com' } }
 
         expect(user.reload.email).to eq('wat@wat.com')
       end
@@ -193,8 +194,8 @@ RSpec.describe AdminController, type: :controller do
         mock_que_job
 
         expect {
-          delete :item_delete, model: 'admin/que_job',
-                               id: Admin::QueJob.first.to_param
+          delete :item_delete, params: { model: 'admin/que_job',
+                                         id: Admin::QueJob.first.to_param }
         }.to change { Admin::QueJob.count }.by(-1)
       end
     end
@@ -205,8 +206,9 @@ RSpec.describe AdminController, type: :controller do
         mock_que_job(2)
         mock_que_job(3)
 
-        patch :collection_edit, model: 'admin/que_job', bulk_action: 'delete',
-                                ids: [1, 3].to_json
+        patch :collection_edit, params: { model: 'admin/que_job',
+                                          bulk_action: 'delete',
+                                          ids: [1, 3].to_json }
         expect(Admin::QueJob.where(job_id: 1).count).to eq(0)
         expect(Admin::QueJob.where(job_id: 2).count).to eq(1)
         expect(Admin::QueJob.where(job_id: 3).count).to eq(0)
@@ -224,7 +226,7 @@ RSpec.describe AdminController, type: :controller do
 
     describe '#collection_index' do
       it 'redirects to admin sign-in' do
-        get :collection_index, model: 'user'
+        get :collection_index, params: { model: 'user' }
         expect(response).to redirect_to(new_administrator_session_path)
       end
     end
@@ -233,8 +235,9 @@ RSpec.describe AdminController, type: :controller do
       it 'redirects to admin sign-in' do
         user = create(:user)
 
-        patch :collection_edit, model: 'user', batch_action: 'delete',
-                                ids: "[#{user.to_param}]"
+        patch :collection_edit, params: { model: 'user',
+                                          batch_action: 'delete',
+                                          ids: "[#{user.to_param}]" }
         expect(response).to redirect_to(new_administrator_session_path)
       end
 
@@ -242,8 +245,9 @@ RSpec.describe AdminController, type: :controller do
         user = create(:user)
 
         expect {
-          patch :collection_edit, model: 'user', batch_action: 'delete',
-                                  ids: "[#{user.to_param}]"
+          patch :collection_edit, params: { model: 'user',
+                                            batch_action: 'delete',
+                                            ids: "[#{user.to_param}]" }
         }.not_to change { User.count }
       end
     end
@@ -252,27 +256,29 @@ RSpec.describe AdminController, type: :controller do
       it 'redirects to admin sign-in' do
         user = create(:user)
 
-        get :item_index, model: 'user', id: user.to_param
+        get :item_index, params: { model: 'user', id: user.to_param }
         expect(response).to redirect_to(new_administrator_session_path)
       end
     end
 
     describe '#item_new' do
       it 'redirects to admin sign-in' do
-        get :item_new, model: 'user'
+        get :item_new, params: { model: 'user' }
         expect(response).to redirect_to(new_administrator_session_path)
       end
     end
 
     describe '#item_create' do
       it 'redirects to admin sign-in' do
-        post :item_create, model: 'user', item: attributes_for(:user)
+        post :item_create, params: { model: 'user',
+                                     item: attributes_for(:user) }
         expect(response).to redirect_to(new_administrator_session_path)
       end
 
       it 'does no creating' do
         expect {
-          post :item_create, model: 'user', item: attributes_for(:user)
+          post :item_create, params: { model: 'user',
+                                       item: attributes_for(:user) }
         }.not_to change { User.count }
       end
     end
@@ -281,7 +287,7 @@ RSpec.describe AdminController, type: :controller do
       it 'redirects to admin sign-in' do
         user = create(:user)
 
-        delete :item_delete, model: 'user', id: user.to_param
+        delete :item_delete, params: { model: 'user', id: user.to_param }
         expect(response).to redirect_to(new_administrator_session_path)
       end
 
@@ -289,7 +295,7 @@ RSpec.describe AdminController, type: :controller do
         user = create(:user)
 
         expect {
-          delete :item_delete, model: 'user', id: user.to_param
+          delete :item_delete, params: { model: 'user', id: user.to_param }
         }.not_to change { User.count }
       end
     end
@@ -298,8 +304,8 @@ RSpec.describe AdminController, type: :controller do
       it 'redirects to admin sign-in' do
         user = create(:user)
 
-        get :item_edit, model: 'user', id: user.to_param,
-                        user: { email: 'wat@wat.com' }
+        get :item_edit, params: { model: 'user', id: user.to_param,
+                                  user: { email: 'wat@wat.com' } }
         expect(response).to redirect_to(new_administrator_session_path)
       end
     end
@@ -308,8 +314,8 @@ RSpec.describe AdminController, type: :controller do
       it 'redirects to admin sign-in' do
         user = create(:user)
 
-        patch :item_update, model: 'user', id: user.to_param,
-                            user: { email: 'wat@wat.com' }
+        patch :item_update, params: { model: 'user', id: user.to_param,
+                                      user: { email: 'wat@wat.com' } }
         expect(response).to redirect_to(new_administrator_session_path)
       end
 
@@ -317,8 +323,8 @@ RSpec.describe AdminController, type: :controller do
         user = create(:user)
 
         expect {
-          patch :item_update, model: 'user', id: user.to_param,
-                              user: { email: 'wat@wat.com' }
+          patch :item_update, params: { model: 'user', id: user.to_param,
+                                        user: { email: 'wat@wat.com' } }
         }.not_to change { user.email }
       end
     end

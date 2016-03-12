@@ -98,11 +98,22 @@ module Datasets
       files.detect { |f| f.result_content_type == content_type }
     end
 
+    # Get the JSON content from a file if available
+    #
+    # If there is no JSON file attached to this task, this method will return
+    # `nil`.
+    #
+    # @return [String] JSON data as string (or `nil`)
+    def json
+      file = file_for('application/json')
+      file && file.result.file_contents(:original).force_encoding('utf-8')
+    end
+
     # The classes that cannot actually be started as analysis jobs.
     #
     # This array includes both base classes and jobs that are started by the UI
     # or in maintenance queues.
-    DISALLOWED_CLASSES = [BaseJob, ExpireTasksJob]
+    DISALLOWED_CLASSES = [ApplicationJob, ExpireTasksJob, TaskJob]
 
     # Convert class_name to a class object
     #

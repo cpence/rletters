@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'Search API', type: :request do
   it 'loads a basic search successfully' do
-    get '/search', format: :json, page: 1, per_page: 10
+    get '/search', params: { format: :json, page: 1, per_page: 10 }
 
     expect(response).to be_success
     expect(response.content_type).to eq('application/json')
@@ -17,7 +17,8 @@ RSpec.describe 'Search API', type: :request do
   end
 
   it 'loads faceted searches correctly' do
-    get '/search', fq: ['authors_facet:"Alan Fenwick"'], format: :json
+    get '/search', params: { fq: ['authors_facet:"Alan Fenwick"'],
+                             format: :json }
 
     expect(response).to be_success
     expect(json['results']['num_hits']).to eq(9)
@@ -25,9 +26,9 @@ RSpec.describe 'Search API', type: :request do
   end
 
   it 'loads document details correctly' do
-    get '/search', q: 'doi:"10.1371/journal.pntd.0000534"',
-                   advanced: true,
-                   format: :json
+    get '/search', params: { q: 'doi:"10.1371/journal.pntd.0000534"',
+                             advanced: true,
+                             format: :json }
 
     expect(response).to be_success
     expect(json['results']['num_hits']).to eq(1)

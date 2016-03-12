@@ -6,6 +6,6 @@ class DeviseMailer < Devise::Mailer
   include Roadie::Rails::Automatic
   include Devise::Controllers::UrlHelpers
 
-  default from: 'noreply@example.com'
+  default from: ENV['APP_EMAIL'] || 'noreply@example.com'
   layout 'ink_email'
 end

@@ -34,40 +34,41 @@ $(document).on('click', '.dropdown input, .dropdown label', function(e) {
   e.stopPropagation();
 });
 
-// Submit the sign-in form that's on all pages on enter
-$('.dropdown-sign-in-form input').keydown(function(e) {
-  if (e.keyCode == 13 || e.keyCode == 10) {
-    this.form.submit();
-    return false;
-  }
-});
-
 // Load via jQuery any modal dialog boxes that are suitably marked up
 $(document).on('click', '.ajax-modal', function(e) {
   e.preventDefault();
 
-  var id = $(this).attr('id');
-  var url = $(this).attr('href');
-  var modal = $('#ajax-' + id + '-modal');
+  var context = $(this);
+  var id = context.attr('id');
+  var url = context.attr('href');
+  var modal = $('#modal-container #ajax-' + id + '-modal');
 
   if (modal.length === 0) {
     var container = $('#modal-container');
     container.append(
       "<div id='ajax-" + id +
-      "-modal' class='modal fade' tabindex='-1' role='dialog' aria-hidden='true'></div>");
+      "-modal' class='modal fade' tabindex='-1' role='dialog'></div>");
 
-    modal = $('#ajax-' + id + '-modal');
+    modal = $('#modal-container #ajax-' + id + '-modal');
   }
 
   $.get(url, function(data) {
     modal.html(data);
     modal.modal('show');
-  });
+  })
 });
 
 $(document).ready(function() {
   // Load tooltips wherever they may be found (we use these extensively)
   $('[data-toggle="tooltip"]').tooltip()
+
+  // Submit the sign-in form that's on all pages on enter
+  $('.dropdown-sign-in-form input').keydown(function(e) {
+    if (e.keyCode == 13 || e.keyCode == 10) {
+      this.form.submit();
+      return false;
+    }
+  });
 });
 
 function hideAndDisable(selector) {

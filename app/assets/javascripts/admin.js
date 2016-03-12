@@ -8,7 +8,7 @@ function checkBulkDeleteButton() {
     $('.bulk-delete-button').addClass('disabled');
 }
 
-$('.bulk-delete-checkbox').on('change', function() {
+$(document).on('change', '.bulk-delete-checkbox', function() {
   checkBulkDeleteButton();
 });
 
@@ -34,7 +34,7 @@ function doBulkDelete() {
   form.submit();
 }
 
-$('.bulk-delete-button').on('click', function() {
+$(document).on('click', '.bulk-delete-button', function() {
   doBulkDelete();
   return false;
 });
@@ -52,7 +52,7 @@ function getTreeAndSave() {
   form.submit();
 }
 
-$('.tree-save-button').on('click', function() {
+$(document).on('click', '.tree-save-button', function() {
   getTreeAndSave($(this));
   return false;
 });

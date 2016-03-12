@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 # Mock job for task controller tests
-class ControllerJob < BaseJob
+class ControllerJob < TaskJob
   def perform; end
 end
 
@@ -16,12 +16,12 @@ RSpec.describe Datasets::TasksController, type: :controller do
   describe '#index' do
     context 'with a valid dataset' do
       it 'loads successfully' do
-        get :index, dataset_id: @dataset.to_param
+        get :index, params: { dataset_id: @dataset.to_param }
         expect(response).to be_success
       end
 
       it 'assigns dataset' do
-        get :index, dataset_id: @dataset.to_param
+        get :index, params: { dataset_id: @dataset.to_param }
         expect(assigns(:dataset)).to eq(@dataset)
       end
     end
@@ -29,7 +29,7 @@ RSpec.describe Datasets::TasksController, type: :controller do
     context 'with an invalid dataset' do
       it 'raises an error' do
         expect {
-          get :index, dataset_id: 'asdf'
+          get :index, params: { dataset_id: 'asdf' }
         }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
@@ -39,7 +39,8 @@ RSpec.describe Datasets::TasksController, type: :controller do
     context 'when an invalid class is passed' do
       it 'raises an exception' do
         expect {
-          get :new, dataset_id: @dataset.to_param, class: 'ThisIsNoClass'
+          get :new, params: { dataset_id: @dataset.to_param,
+                              class: 'ThisIsNoClass' }
         }.to raise_error(ArgumentError)
       end
     end
@@ -47,15 +48,16 @@ RSpec.describe Datasets::TasksController, type: :controller do
     context 'when Base is passed' do
       it 'raises an exception' do
         expect {
-          get :new, dataset_id: @dataset.to_param, class: 'Base'
+          get :new, params: { dataset_id: @dataset.to_param, class: 'Base' }
         }.to raise_error(ArgumentError)
       end
     end
 
     context 'with valid parameters' do
       it 'loads successfully' do
-        get :new, dataset_id: @dataset.to_param, class: 'ExportCitationsJob',
-                  job_params: { format: 'bibtex' }
+        get :new, params: { dataset_id: @dataset.to_param,
+                            class: 'ExportCitationsJob',
+                            job_params: { format: 'bibtex' } }
 
         expect(response).to be_success
       end
@@ -64,8 +66,11 @@ RSpec.describe Datasets::TasksController, type: :controller do
     context 'when two datasets are needed and two are provided' do
       it 'loads successfully' do
         @dataset_2 = create(:full_dataset, user: @user, working: true)
-        get :new, dataset_id: @dataset.to_param, class: 'CraigZetaJob',
-                  job_params: { other_datasets: [@dataset_2.to_param] }
+        get :new, params: { dataset_id: @dataset.to_param,
+                            class: 'CraigZetaJob',
+                            job_params: {
+                              other_datasets: [@dataset_2.to_param]
+                            } }
 
         expect(response).to be_success
       end
@@ -75,7 +80,8 @@ RSpec.describe Datasets::TasksController, type: :controller do
       it 'raises and error' do
         @dataset_2 = create(:full_dataset, user: @user, working: true)
         expect {
-          get :new, dataset_id: @dataset.to_param, class: 'CraigZetaJob'
+          get :new, params: { dataset_id: @dataset.to_param,
+                              class: 'CraigZetaJob' }
         }.to raise_error(ArgumentError)
       end
     end
@@ -85,7 +91,8 @@ RSpec.describe Datasets::TasksController, type: :controller do
     context 'when an invalid class is passed' do
       it 'raises an exception' do
         expect {
-          post :create, dataset_id: @dataset.to_param, class: 'ThisIsNoClass'
+          post :create, params: { dataset_id: @dataset.to_param,
+                                  class: 'ThisIsNoClass' }
         }.to raise_error(ArgumentError)
       end
     end
@@ -93,7 +100,8 @@ RSpec.describe Datasets::TasksController, type: :controller do
     context 'when Base is passed' do
       it 'raises an exception' do
         expect {
-          post :create, dataset_id: @dataset.to_param, class: 'Base'
+          post :create, params: { dataset_id: @dataset.to_param,
+                                  class: 'Base' }
         }.to raise_error(ArgumentError)
       end
     end
@@ -101,23 +109,27 @@ RSpec.describe Datasets::TasksController, type: :controller do
     context 'when a valid class with no params is passed' do
       it 'does not raise an exception' do
         expect {
-          post :create, dataset_id: @dataset.to_param, class: 'NamedEntitiesJob'
+          post :create, params: { dataset_id: @dataset.to_param,
+                                  class: 'NamedEntitiesJob' }
         }.not_to raise_error
       end
 
       it 'enqueues a job' do
         expect {
-          post :create, dataset_id: @dataset.to_param, class: 'NamedEntitiesJob'
+          post :create, params: { dataset_id: @dataset.to_param,
+                                  class: 'NamedEntitiesJob' }
         }.to enqueue_a(NamedEntitiesJob)
       end
 
       it 'sets the job_id in the task' do
-        post :create, dataset_id: @dataset.to_param, class: 'NamedEntitiesJob'
+        post :create, params: { dataset_id: @dataset.to_param,
+                                class: 'NamedEntitiesJob' }
         expect(@dataset.tasks.first.job_id).not_to be_blank
       end
 
       it 'redirects to the dataset page' do
-        post :create, dataset_id: @dataset.to_param, class: 'NamedEntitiesJob'
+        post :create, params: { dataset_id: @dataset.to_param,
+                                class: 'NamedEntitiesJob' }
         expect(response).to redirect_to(dataset_path(@dataset))
       end
     end
@@ -125,23 +137,24 @@ RSpec.describe Datasets::TasksController, type: :controller do
     context 'when a valid class and params are passed' do
       it 'does not raise an exception' do
         expect {
-          post :create, dataset_id: @dataset.to_param,
-                        class: 'ExportCitationsJob',
-                        job_params: { format: 'bibtex' }
+          post :create, params: { dataset_id: @dataset.to_param,
+                                  class: 'ExportCitationsJob',
+                                  job_params: { format: 'bibtex' } }
         }.not_to raise_error
       end
 
       it 'enqueues a job' do
         expect {
-          post :create, dataset_id: @dataset.to_param,
-                        class: 'ExportCitationsJob',
-                        job_params: { format: 'bibtex' }
+          post :create, params: { dataset_id: @dataset.to_param,
+                                  class: 'ExportCitationsJob',
+                                  job_params: { format: 'bibtex' } }
         }.to enqueue_a(ExportCitationsJob)
       end
 
       it 'redirects to the dataset page' do
-        post :create, dataset_id: @dataset.to_param, class: 'ExportCitationsJob',
-                      job_params: { format: 'bibtex' }
+        post :create, params: { dataset_id: @dataset.to_param,
+                                class: 'ExportCitationsJob',
+                                job_params: { format: 'bibtex' } }
         expect(response).to redirect_to(dataset_path(@dataset))
       end
     end
@@ -153,8 +166,9 @@ RSpec.describe Datasets::TasksController, type: :controller do
         @user.workflow_class = 'ExportCitationsJob'
         @user.save
 
-        post :create, dataset_id: @dataset.to_param, class: 'ExportCitationsJob',
-                      job_params: { format: 'bibtex' }
+        post :create, params: { dataset_id: @dataset.to_param,
+                                class: 'ExportCitationsJob',
+                                job_params: { format: 'bibtex' } }
 
         @user.reload
       end
@@ -183,29 +197,29 @@ RSpec.describe Datasets::TasksController, type: :controller do
     context 'when an invalid task ID is passed' do
       it 'raises an exception' do
         expect {
-          get :view, dataset_id: @dataset.to_param,
-                     id: '12345678', template: 'test'
+          get :view, params: { dataset_id: @dataset.to_param,
+                               id: '12345678', template: 'test' }
         }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
 
     it 'raises an exception for missing views' do
       expect {
-        get :view, dataset_id: @dataset.to_param,
-                   id: @task.to_param, template: 'notaview'
+        get :view, params: { dataset_id: @dataset.to_param,
+                             id: @task.to_param, template: 'notaview' }
       }.to raise_error(ActionView::MissingTemplate)
     end
 
     it 'does not raise an exception' do
       expect {
-        get :view, dataset_id: @dataset.to_param,
-                   id: @task.to_param, template: '_params'
+        get :view, params: { dataset_id: @dataset.to_param,
+                             id: @task.to_param, template: '_params' }
       }.not_to raise_error
     end
 
     it 'renders the right view' do
-      get :view, dataset_id: @dataset.to_param,
-                 id: @task.to_param, template: '_params'
+      get :view, params: { dataset_id: @dataset.to_param,
+                           id: @task.to_param, template: '_params' }
       expect(response.body).to include('<option')
     end
   end
@@ -218,8 +232,8 @@ RSpec.describe Datasets::TasksController, type: :controller do
     context 'when an invalid task ID is passed' do
       it 'raises an exception' do
         expect {
-          get :download, dataset_id: @dataset.to_param,
-                         id: '12345678', file: '0'
+          get :download, params: { dataset_id: @dataset.to_param,
+                                   id: '12345678', file: '0' }
         }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
@@ -227,22 +241,14 @@ RSpec.describe Datasets::TasksController, type: :controller do
     context 'with a bogus file number' do
       it 'raises an exception' do
         expect {
-          get :download, dataset_id: @dataset.to_param, id: @task.to_param,
-                         file: 'asdfasdf'
-        }.to raise_error(ArgumentError)
-      end
-    end
-
-    context 'with a too-large file number' do
-      it 'raises an exception' do
-        expect {
-          get :download, dataset_id: @dataset.to_param, id: @task.to_param,
-                         file: '99'
+          get :download, params: { dataset_id: @dataset.to_param,
+                                   id: @task.to_param,
+                                   file: 'asdfasdf' }
         }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
 
-    context 'with a non-downoadable file' do
+    context 'with a non-downloadable file' do
       before(:example) do
         @file = create(:file, task: @task, downloadable: false)
         @file.from_string('test')
@@ -250,8 +256,9 @@ RSpec.describe Datasets::TasksController, type: :controller do
 
       it 'raises an exception' do
         expect {
-          get :download, dataset_id: @dataset.to_param, id: @task.to_param,
-                         file: @task.files.index(@file).to_s
+          get :download, params: { dataset_id: @dataset.to_param,
+                                   id: @task.to_param,
+                                   file: @file.to_param }
         }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
@@ -262,23 +269,27 @@ RSpec.describe Datasets::TasksController, type: :controller do
           @task,
           format: 'bibtex'
         )
+        @file = @task.files.first
       end
 
       it 'loads successfully' do
-        get :download, dataset_id: @dataset.to_param, id: @task.to_param,
-                       file: '0'
+        get :download, params: { dataset_id: @dataset.to_param,
+                                 id: @task.to_param,
+                                 file: @file.to_param }
         expect(response).to be_success
       end
 
       it 'has the right MIME type' do
-        get :download, dataset_id: @dataset.to_param, id: @task.to_param,
-                       file: '0'
+        get :download, params: { dataset_id: @dataset.to_param,
+                                 id: @task.to_param,
+                                 file: @file.to_param }
         expect(response.content_type).to eq('application/zip')
       end
 
       it 'sends some data' do
-        get :download, dataset_id: @dataset.to_param, id: @task.to_param,
-                       file: '0'
+        get :download, params: { dataset_id: @dataset.to_param,
+                                 id: @task.to_param,
+                                 file: @file.to_param }
         expect(response.body.length).to be > 0
       end
     end
@@ -288,7 +299,8 @@ RSpec.describe Datasets::TasksController, type: :controller do
     context 'when an invalid task ID is passed' do
       it 'raises an exception' do
         expect {
-          get :destroy, dataset_id: @dataset.to_param, id: '12345678'
+          get :destroy, params: { dataset_id: @dataset.to_param,
+                                  id: '12345678' }
         }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
@@ -301,12 +313,14 @@ RSpec.describe Datasets::TasksController, type: :controller do
 
       it 'deletes the task' do
         expect {
-          get :destroy, dataset_id: @dataset.to_param, id: @task.to_param
+          get :destroy, params: { dataset_id: @dataset.to_param,
+                                  id: @task.to_param }
         }.to change { @dataset.tasks.count }.by(-1)
       end
 
       it 'redirects to the prior page' do
-        get :destroy, dataset_id: @dataset.to_param, id: @task.to_param
+        get :destroy, params: { dataset_id: @dataset.to_param,
+                                id: @task.to_param }
         expect(response).to redirect_to(workflow_fetch_path)
       end
     end

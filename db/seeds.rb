@@ -53,7 +53,7 @@ Dir.glob(Rails.root.join('db', 'seeds', 'stoplists', '*.txt')) do |txt|
 end
 
 # Benchmarks
-job_classes = BaseJob.job_list
+job_classes = TaskJob.job_list
 set_sizes = [10, 100, 1000]
 
 job_classes.each do |klass|

@@ -42,11 +42,11 @@ function addArrayRow(link)
   });
 }
 
-$('.simple-form-remove').on('click', function() {
+$(document).on('click', '.simple-form-remove', function() {
   removeArrayRow($(this));
   return false;
 });
-$('.simple-form-add').on('click', function() {
+$(document).on('click', '.simple-form-add', function() {
   addArrayRow($(this));
   return false;
 });

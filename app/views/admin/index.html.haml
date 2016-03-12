@@ -60,11 +60,11 @@
             %th= Dataset.model_name.human
             %th= t('.status')
         %tbody
-          - Datasets::Task.order('created_at desc').limit(10).decorate.each do |task|
+          - Datasets::Task.order('created_at desc').limit(10).each do |task|
             %tr
-              %td= task.admin_value_for(:name)
-              %td= task.admin_value_for(:job_type)
-              %td= task.admin_value_for(:dataset)
+              %td= admin_value_for(task, :name)
+              %td= admin_value_for(task, :job_type)
+              %td= admin_value_for(task, :dataset)
               %td
                 - if task.failed
                   = t('.status_failed')
@@ -84,11 +84,11 @@
             %th= User.model_name.human
             %th= Dataset.human_attribute_name(:created_at)
         %tbody
-          - Dataset.order('created_at desc').limit(5).decorate.each do |dataset|
+          - Dataset.order('created_at desc').limit(5).each do |dataset|
             %tr
-              %td= dataset.admin_value_for(:name)
-              %td= dataset.admin_value_for(:user)
-              %td= dataset.admin_value_for(:created_at)
+              %td= admin_value_for(dataset, :name)
+              %td= admin_value_for(dataset, :user)
+              %td= admin_value_for(dataset, :created_at)
 
     .panel.panel-default
       .panel-heading
@@ -100,10 +100,10 @@
             %th= User.human_attribute_name(:name)
             %th= User.human_attribute_name(:last_sign_in_at)
         %tbody
-          - User.order('last_sign_in_at desc').limit(5).decorate.each do |user|
+          - User.order('last_sign_in_at desc').limit(5).each do |user|
             %tr
-              %td= user.admin_value_for(:name)
-              %td= user.admin_value_for(:last_sign_in_at)
+              %td= admin_value_for(user, :name)
+              %td= admin_value_for(user, :last_sign_in_at)
 
 .row
   .col-sm-12

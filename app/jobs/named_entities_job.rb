@@ -1,6 +1,6 @@
 
 # Extract proper noun named entities from documents
-class NamedEntitiesJob < BaseJob
+class NamedEntitiesJob < TaskJob
   include RLetters::Visualization::CSV
 
   # Returns true if this job can be started now

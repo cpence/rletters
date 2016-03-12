@@ -3,12 +3,7 @@
 #
 # This mailer is responsible for sending e-mails to users when their analysis
 # tasks complete.
-class UserMailer < ActionMailer::Base
-  include Roadie::Rails::Automatic
-  default from: 'noreply@example.com'
-
-  layout 'ink_email'
-
+class UserMailer < ApplicationMailer
   # E-mail users that their jobs have finished
   #
   # @param [String] email the address to send the mail

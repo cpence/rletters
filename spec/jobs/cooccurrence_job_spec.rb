@@ -36,7 +36,7 @@ RSpec.describe CooccurrenceJob, type: :job do
         }.not_to raise_error
 
         expect(@task.name).to eq('Determine significant associations between distant pairs of words')
-        expect(@task.files[0].result.file_contents(:original)).to match(/\n"?\w+,? \w+"?,\d+(\.\d+)?/)
+        expect(@task.files.first.result.file_contents(:original)).to match(/\n"?\w+,? \w+"?,\d+(\.\d+)?/)
       end
     end
   end

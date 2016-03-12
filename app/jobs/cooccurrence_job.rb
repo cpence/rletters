@@ -1,6 +1,6 @@
 
 # Determine statistically significant cooccurrences in text
-class CooccurrenceJob < BaseJob
+class CooccurrenceJob < TaskJob
   include RLetters::Visualization::CSV
 
   # Locate significant associations between words at distance.

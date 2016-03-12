@@ -41,7 +41,7 @@ RSpec.describe CollocationJob, type: :job do
 
         # There should be at least one collocation in there ("word word,X.YYYY...")
         expect(@task.name).to eq('Determine significant associations between immediate pairs of words')
-        expect(@task.files[0].result.file_contents(:original)).to match(/\n"?\w+,? \w+"?,\d+(\.\d+)?/)
+        expect(@task.files.first.result.file_contents(:original)).to match(/\n"?\w+,? \w+"?,\d+(\.\d+)?/)
       end
     end
   end

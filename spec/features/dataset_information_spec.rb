@@ -8,6 +8,7 @@ RSpec.feature 'Viewing information about a dataset', type: :feature do
     expect(page).to have_selector('td', text: 'Integration Dataset')
 
     click_link 'Manage'
+    find('#dataset-task-list table')
 
     expect(page).to have_content('Number of documents: 427')
     expect(page).to have_content('Search type Normal search')
@@ -27,7 +28,9 @@ RSpec.feature 'Viewing information about a dataset', type: :feature do
 
     visit datasets_path
     expect(page).to have_selector('td', text: 'Integration Dataset')
+
     click_link 'Manage'
+    find('#dataset-task-list table')
 
     # It shouldn't have a failed task, and should warn you about a pending task
     expect(page).not_to have_selector('.alert.alert-danger')
@@ -43,7 +46,9 @@ RSpec.feature 'Viewing information about a dataset', type: :feature do
 
     visit datasets_path
     expect(page).to have_selector('td', text: 'Integration Dataset')
+
     click_link 'Manage'
+    find('#dataset-task-list table')
 
     # It shouldn't have a pending task, and should have a failed task
     expect(page).not_to have_selector('.alert.alert-warning')
@@ -59,7 +64,9 @@ RSpec.feature 'Viewing information about a dataset', type: :feature do
 
     visit datasets_path
     expect(page).to have_selector('td', text: 'Integration Dataset')
+
     click_link 'Manage'
+    find('#dataset-task-list table')
 
     expect(page).to have_content('Integration Dataset')
     click_link '1 task failed for this dataset! Click here to clear failed tasks.'
@@ -85,11 +92,16 @@ RSpec.feature 'Viewing information about a dataset', type: :feature do
     click_link 'Link an already created dataset'
     click_button 'Link dataset'
     click_link 'Set Job Options'
-    click_button 'Start analysis job'
+
+    perform_enqueued_jobs do
+      click_button 'Start analysis job'
+    end
 
     visit datasets_path
     expect(page).to have_selector('td', text: 'Integration Dataset')
+
     click_link 'Manage'
+    find('#dataset-task-list table')
 
     expect(page).to have_content('Integration Dataset')
     click_link 'View'
@@ -98,14 +110,18 @@ RSpec.feature 'Viewing information about a dataset', type: :feature do
 
     visit datasets_path
     expect(page).to have_selector('td', text: 'Integration Dataset')
+
     click_link 'Manage'
+    find('#dataset-task-list table')
 
     expect(page).to have_content('Integration Dataset')
     click_link 'Delete'
 
     visit datasets_path
     expect(page).to have_selector('td', text: 'Integration Dataset')
+
     click_link 'Manage'
+    find('#dataset-task-list table')
 
     expect(page).to have_selector('td', text: 'No tasks found')
     expect(page).not_to have_selector('.alert.alert-danger')

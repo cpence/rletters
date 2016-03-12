@@ -8,9 +8,6 @@ class WorkflowController < ApplicationController
   layout 'full_page'
   before_action :authenticate_user!, except: [:index, :image]
 
-  decorates_assigned :pending_tasks, :finished_tasks,
-                     :failed_tasks, with: Datasets::TaskDecorator
-
   # Show the introduction page or the user dashboard
   #
   # @return [void]
@@ -34,10 +31,10 @@ class WorkflowController < ApplicationController
   #
   # @return [void]
   def destroy
-    current_devise_user.workflow_active = false
-    current_devise_user.workflow_class = nil
-    current_devise_user.workflow_datasets.clear
-    current_devise_user.save
+    current_user.workflow_active = false
+    current_user.workflow_class = nil
+    current_user.workflow_datasets.clear
+    current_user.save
 
     redirect_to workflow_path, alert: I18n.t('workflow.destroy.success')
   end
@@ -56,29 +53,29 @@ class WorkflowController < ApplicationController
     set_workflow_parameters
 
     # Write out the class that the user has chosen
-    current_devise_user.workflow_active = true
-    current_devise_user.workflow_class = params[:class]
+    current_user.workflow_active = true
+    current_user.workflow_class = params[:class]
 
     # See if we've been asked to link a dataset to this job
     if params[:link_dataset_id]
       # Actually find it, which will raise an error if it's not actually a
       # dataset that the user owns
-      dataset = current_devise_user.datasets.find(params[:link_dataset_id])
-      current_devise_user.workflow_datasets << dataset.to_param
+      dataset = current_user.datasets.find(params[:link_dataset_id])
+      current_user.workflow_datasets << dataset.to_param
     end
 
     # Same for unlinking a dataset
     if params[:unlink_dataset_id]
       # Check it and raise if it's a bad dataset ID
-      if current_devise_user.workflow_datasets.find_index(params[:unlink_dataset_id])
-        current_devise_user.workflow_datasets.delete(params[:unlink_dataset_id])
+      if current_user.workflow_datasets.find_index(params[:unlink_dataset_id])
+        current_user.workflow_datasets.delete(params[:unlink_dataset_id])
       else
         fail ActiveRecord::RecordNotFound
       end
     end
 
     # Save our changes, if any, and update the workflow parameters
-    current_devise_user.save!
+    current_user.save!
     set_workflow_parameters
   end
 
@@ -86,7 +83,7 @@ class WorkflowController < ApplicationController
   #
   # @return [void]
   def fetch
-    analysis_criteria = { datasets: { user_id: current_devise_user.to_param } }
+    analysis_criteria = { datasets: { user_id: current_user.to_param } }
     tasks = Datasets::Task.joins(:dataset).where(analysis_criteria)
 
     if params[:terminate]
@@ -131,6 +128,6 @@ class WorkflowController < ApplicationController
     fail ActiveRecord::RecordNotFound unless @klass
 
     @num_datasets = @klass.num_datasets
-    @num_workflow_datasets = current_devise_user.workflow_datasets.size
+    @num_workflow_datasets = current_user.workflow_datasets.size
   end
 end

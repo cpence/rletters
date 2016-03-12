@@ -1,28 +1,7 @@
--# Deactivate all the transitions and blackouts in testing
--# Thanks to http://blog.crowdint.com/2013/09/20/poltergeist-and-bootstrap-modals.html
-:css
-  div, a, span, footer, header {
-    -webkit-transition: none !important;
-    -moz-transition: none !important;
-    -ms-transition: none !important;
-    -o-transition: none !important;
-    transition: none !important;
-  }
-
-  .modal {
-    display: none !important;
-  }
-
-  .modal.in {
-    display: block !important;
-  }
-
-  .modal-backdrop {
-    display: none !important;
-  }
-
+-# Deactivate all of the Bootstrap animations and jQuery transitions
 - content_for :javascript do
   :javascript
     $(document).ready(function() {
-      $('.fade').removeClass('fade');
+      $.fx.off = true;
+      $.support.transition = false;
     });

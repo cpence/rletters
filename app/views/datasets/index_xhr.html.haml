@@ -1,4 +1,4 @@
-- user_pending_count = Datasets::Task.joins(:dataset).where(finished_at: nil, datasets: { user_id: current_user.to_param }).size
+- user_pending_count = Datasets::Task.joins(:dataset).where(finished_at: nil, datasets: { user_id: current_user.to_param }).count
 - if user_pending_count > 0
   .alert.alert-warning{ role: 'alert' }= t('.tasks', count: user_pending_count)
 
@@ -8,12 +8,12 @@
       %th.label-cell= t('.name_column')
       %th.button-cell
   %tbody
-    - if datasets.blank?
+    - if @datasets.blank?
       %tr
         %td.label-cell= t('.no_datasets')
         %td.button-cell
     - else
-      - datasets.each do |dataset|
+      - @datasets.each do |dataset|
         %tr
           %td.label-cell
             = dataset.name

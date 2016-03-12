@@ -6,8 +6,6 @@
 #
 # @see RLetters::Solr::Connection.search
 class SearchController < ApplicationController
-  decorates_assigned :result, with: SearchResultDecorator
-
   # Show the main search index page
   #
   # @return [void]
@@ -16,6 +14,7 @@ class SearchController < ApplicationController
     query = RLetters::Solr::Search.params_to_query(params,
                                                    request.format != :html)
     @result = RLetters::Solr::Connection.search(query)
+    @result_presenter = RLetters::Presenters::SearchResultPresenter.new(result: @result)
 
     # If this is an AJAX HTML request, render the results table rows only
     if request.format == :html && request.xhr?

@@ -56,10 +56,10 @@ class AdminController < ApplicationController
     end
 
     if @model.admin_configuration[:tree]
-      @collection = @model.decorator_class.decorate_collection(@model.roots)
+      @collection = @model.roots
       render :collection_tree
     else
-      @collection = @model.all.decorate
+      @collection = @model.all
       render
     end
   end

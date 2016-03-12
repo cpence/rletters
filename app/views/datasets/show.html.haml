@@ -1,22 +1,22 @@
 - content_for :breadcrumbs do
   %li= link_to t('breadcrumbs.root'), root_path
   %li= link_to t('breadcrumbs.datasets_index'), datasets_path
-  %li.active= t('breadcrumbs.datasets_show', name: dataset.name)
+  %li.active= t('breadcrumbs.datasets_show', name: @dataset.name)
 
 .row
   .col-sm-12
     %h1
-      = t('.header') + ' — ' + dataset.name
-      - if dataset.fetch
+      = t('.header') + ' — ' + @dataset.name
+      - if @dataset.fetch
         %span.cloud-tooltip{ data: { toggle: 'tooltip' }, title: t('datasets.index_xhr.cloud_tooltip') }
           %span.glyphicon.glyphicon-cloud
     %h4.text-muted= t('.subheader')
 
 .row
   .col-sm-12
-    = t('.num_documents', count: dataset.document_count)
+    = t('.num_documents', count: @dataset.document_count)
     |
-    = t('.created_at', date: dataset.created_at.to_formatted_s(:long))
+    = t('.created_at', date: @dataset.created_at.to_formatted_s(:long))
 
 .row
   .col-sm-12
@@ -24,24 +24,25 @@
 
     %h4= t('.queries')
 
-    - dataset.queries.each do |q|
+    - @dataset.queries.each do |q|
+      - qp = RLetters::Presenters::QueryPresenter.new(query: q)
       %table.table
         %tbody
           %tr
             %td
               %dl.dl-horizontal
                 %dt= Datasets::Query.human_attribute_name(:def_type)
-                %dd= q.def_type
+                %dd= qp.def_type_string
 
                 - if q.q&.!=('*:*')
                   %dt= Datasets::Query.human_attribute_name(:q)
                   %dd= q.q
 
-                - if q.fq
+                - if qp.fq_string
                   %dt= Datasets::Query.human_attribute_name(:fq)
                   %dd
                     %ul
-                      - q.fq.each do |fq|
+                      - qp.fq_string.each do |fq|
                         %li= fq
 
 .row
@@ -50,4 +51,4 @@
 
     %h4= t('.tasks')
 
-    #dataset-task-list{ data: { fetch_url: dataset_tasks_path(dataset) } }
+    #dataset-task-list{ data: { fetch_url: dataset_tasks_path(@dataset) } }

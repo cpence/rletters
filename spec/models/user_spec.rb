@@ -63,4 +63,12 @@ RSpec.describe User, type: :model do
       end
     end
   end
+
+  describe '#workflow_dataset' do
+    it 'needs specs'
+  end
+
+  describe '#csl_style' do
+    it 'needs specs'
+  end
 end

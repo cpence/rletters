@@ -20,6 +20,7 @@ else
                                          api_key: ENV['SENDGRID_API_KEY']
 
   # Get other configuration parameters from ENV
+  Rails.application.config.action_mailer.smtp_settings ||= {}
   Rails.application.config.action_mailer.smtp_settings.merge!({
     address: ENV['SMTP_ADDRESS'] || 'localhost',
     port: ENV['SMTP_PORT']&.to_i || 25,
@@ -30,6 +31,8 @@ else
     enable_starttls_auto: (ENV['SMTP_ENABLE_STARTTLS_AUTO'] || nil) == 'true',
     openssl_verify_mode: ENV['SMTP_OPENSSL_VERIFY_MODE'] || nil
   }.compact)
+
+  Rails.application.config.action_mailer.sendmail_settings ||= {}
   Rails.application.config.action_mailer.sendmail_settings.merge!({
     location: ENV['SENDMAIL_LOCATION'] || '/usr/sbin/sendmail',
     arguments: ENV['SENDMAIL_ARGUMENTS'] || '-i -t'
@@ -39,7 +42,7 @@ else
   GOOD_DELIVERY_METHODS = [:mailgun, :mandrill, :postmark, :sendgrid,
                            :sendmail, :smtp]
 
-  delivery_method = (ENV['MAIL_DELIVERY_METHOD'] || 'sendmail').to_env
+  delivery_method = (ENV['MAIL_DELIVERY_METHOD'] || 'sendmail').to_sym
   unless GOOD_DELIVERY_METHODS.include?(delivery_method)
     fail <<-ERROR.strip_heredoc
       The mail delivery method configured in ENV is invalid. Please edit .env

@@ -1,11 +1,10 @@
 source 'https://rubygems.org'
 
 # Rails
-gem 'rails', '~> 4.2'
-# RAILS 5
-# Pending gems that need support for Rails 5 to go:
-# - roadie-rails (https://github.com/Mange/roadie-rails/pull/50)
-# gem 'rails', '~> 5.0.0.beta3'
+gem 'rake', '~> 10.x' # FIXME: This is a bug in YARD
+
+gem 'rails', '~> 5.0.0.beta3'
+gem 'puma'
 
 # Twelve factor app glue
 gem 'dotenv-rails'
@@ -25,9 +24,7 @@ gem 'devise-i18n'
 gem 'setler'
 
 # Internationalization
-gem 'rails-i18n', '= 4.0.8'
-# RAILS 5
-# gem 'rails-i18n', '~> 5.0.0.beta3'
+gem 'rails-i18n', '~> 5.0.0.beta3'
 gem 'http_accept_language'
 
 # Textual analysis
@@ -44,7 +41,7 @@ gem 'csl-styles'
 
 # Support for file attachments and exporting
 gem 'paperclip', '>= 4.2.0'
-gem 'paperclip_database', '>= 2.2.0'
+gem 'paperclip_database', github: 'pwnall/paperclip_database', branch: 'rails5'
 gem 'rubyzip', '>= 1.1.0', require: 'zip'
 gem 'marc'
 gem 'rdf', '>= 0.3.5'
@@ -57,23 +54,23 @@ gem 'chunky_png'
 gem 'mini_magick'
 
 # Asset tools and template generators
-gem 'draper'
-gem 'simple_form', '>= 3.1.0.rc1'
-
 gem 'haml'
 gem 'haml-rails'
-gem 'sass-rails', '>= 5.0'
+gem 'sass-rails', '~> 5.0'
 gem 'kramdown'
 gem 'nokogiri'
 
+gem 'simple_form', '>= 3.1.0.rc1'
+
 gem 'uglifier', '>= 1.3.0'
 gem 'multi_mail'
-gem 'roadie-rails'
+gem 'roadie-rails', '>= 1.1.1'
 
 # Testing
 group :test, :development do
-  gem 'rspec-rails', '~> 3'
+  gem 'rspec-rails', '~> 3.5.0.beta'
   gem 'rspec-activejob', require: false
+  gem 'rails-controller-testing'
   gem 'pry'
   gem 'pry-byebug'
 
@@ -86,6 +83,8 @@ group :test do
   gem 'capybara', require: false
   # gem 'capybara-slow_finder_errors'
   gem 'capybara-webkit'
+
+  gem 'launchy'
   gem 'database_cleaner'
 
   gem 'webmock', '>= 1.22.6', require: false
@@ -94,9 +93,4 @@ group :test do
 
   gem 'simplecov', require: false
   gem 'codeclimate-test-reporter', require: false
-end
-
-# Deployment gems
-group :production do
-  gem 'puma', require: false
 end

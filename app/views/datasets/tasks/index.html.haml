@@ -1,9 +1,9 @@
 -# Unfinished (active/failed) tasks
-- if dataset.not_finished_tasks.size > 0
-  - if dataset.active_tasks.size > 0
-    .alert.alert-warning{ role: 'alert' }= t('.pending', count: dataset.active_tasks.size)
-  - if dataset.failed_tasks.size > 0
-    .alert.alert-danger{ role: 'alert' }= link_to t('.failed', count: dataset.failed_tasks.size), dataset_path(dataset, clear_failed: true)
+- if @dataset.tasks.not_finished.size > 0
+  - if @dataset.tasks.active.size > 0
+    .alert.alert-warning{ role: 'alert' }= t('.pending', count: @dataset.tasks.active.size)
+  - if @dataset.tasks.failed.size > 0
+    .alert.alert-danger{ role: 'alert' }= link_to t('.failed', count: @dataset.tasks.failed.size), dataset_path(@dataset, clear_failed: true)
 
 -# Finished tasks: link to download results and to delete
 %table.table.button-table
@@ -12,12 +12,12 @@
       %th.label-cell= t('.task_column')
       %th.button-cell
   %tbody
-    - if dataset.finished_tasks.size == 0
+    - if @dataset.tasks.finished.size == 0
       %tr
         %td.label-cell= t('.no_tasks')
         %td.button-cell
     - else
-      - dataset.finished_tasks.each do |task|
+      - @dataset.tasks.finished.each do |task|
         %tr
           %td.label-cell= task.name
           %td.button-cell= render partial: 'task_buttons', locals: { task: task }

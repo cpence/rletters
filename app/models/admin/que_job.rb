@@ -118,7 +118,7 @@ module Admin
     # @return [void]
     def destroy
       # Delete all with the same job id as the current class
-      Admin::QueJob.delete_all(job_id: job_id)
+      Admin::QueJob.where(job_id: job_id).delete_all
 
       freeze
     end
@@ -131,7 +131,7 @@ module Admin
       ids = [ids] unless ids.is_a?(Array)
       ids.map!(&:to_i)
 
-      Admin::QueJob.delete_all(job_id: ids)
+      Admin::QueJob.where(job_id: ids).delete_all
     end
   end
 end

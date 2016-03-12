@@ -70,12 +70,17 @@ module RLetters
           # And converting categories to facets
           if params[:categories]
             category_journals = params[:categories].collect do |id|
-              ::Documents::Category.find(id).journals.map { |j| "\"#{j}\"" }
-            end
-            category_journals.uniq!
+              category = ::Documents::Category.find(id)
+              next if category.journals.empty?
 
-            ret[:fq] ||= []
-            ret[:fq] << "journal_facet:(#{category_journals.join(' OR ')})"
+              category.journals.map { |j| "\"#{j}\"" }
+            end
+            category_journals.compact!&.uniq!
+
+            unless category_journals.empty?
+              ret[:fq] ||= []
+              ret[:fq] << "journal_facet:(#{category_journals.join(' OR ')})"
+            end
           end
         end
       end

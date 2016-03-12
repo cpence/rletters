@@ -18,7 +18,6 @@ module RLetters
     class Facet
       include Virtus.model(strict: true, required: false)
       include VirtusExt::Validator
-      include Draper::Decoratable
       include Comparable
 
       attribute :query, String

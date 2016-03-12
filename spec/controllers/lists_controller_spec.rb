@@ -26,7 +26,7 @@ RSpec.describe ListsController, type: :controller do
     end
 
     it 'works with filter queries' do
-      get :authors, q: 'boel'
+      get :authors, params: { q: 'boel' }
       array = JSON.load(response.body)
       expect(array).to be_an(Array)
 
@@ -60,7 +60,7 @@ RSpec.describe ListsController, type: :controller do
     end
 
     it 'works with filter queries' do
-      get :journals, q: 'act'
+      get :journals, params: { q: 'act' }
       array = JSON.load(response.body)
       expect(array).to be_an(Array)
 

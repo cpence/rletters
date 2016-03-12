@@ -28,10 +28,19 @@ module RLetters
     # ActiveRecord configuration
     config.active_record.schema_format = :sql
 
+    # Permit all our search parameters through, always (they can cause no
+    # security concern)
+    config.action_controller.always_permitted_parameters =
+      %w(controller action q fq def_type categories sort cursor_mark)
+
     # Cookie configurations
     config.session_store(:cookie_store,
                          key: "_#{ENV['APP_NAME'].underscore}_session")
     config.action_dispatch.cookies_serializer = :json
+
+    # Enhanced CSRF protection
+    config.action_controller.per_form_csrf_tokens = true
+    config.action_controller.forgery_protection_origin_check = true
 
     # Code caching and loading
     config.cache_classes = true
@@ -62,7 +71,10 @@ module RLetters
     sass_precision = [8, ::Sass::Script::Value::Number.precision].max
     ::Sass::Script::Value::Number.precision = sass_precision
 
-    config.serve_static_files = true
+    config.public_file_server.enabled = true
+    config.public_file_server.headers = {
+      'Cache-Control' => 'public, max-age=3600'
+    }
     unless Rails.env.test?
       config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect'
     end
@@ -71,14 +83,15 @@ module RLetters
     config.exceptions_app = routes
     config.consider_all_requests_local = false
     config.action_dispatch.show_exceptions = true
-    config.active_record.raise_in_transactional_callbacks = true
     config.action_mailer.raise_delivery_errors = false
 
     # Use que for job queueing (except in testing)
     config.active_job.queue_adapter = Rails.env.test? ? :test : :que
 
-    # Enable caching (except in testing)
+    # Enable caching (except in testing), but not for mails
     config.action_controller.perform_caching = !Rails.env.test?
+    # config.cache_store = :memory_store
+    config.action_mailer.perform_caching = false
 
     # Miscellaneous settings
     config.i18n.fallbacks = true

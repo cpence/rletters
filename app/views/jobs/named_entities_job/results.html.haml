@@ -1,11 +1,11 @@
-- data = JSON.load(task.json)
+- data = JSON.load(@task.json)
 - entities = data['data']
 
 .row
   .col-md-8
-    %h1== #{Dataset.model_name.human}: #{dataset.name}
+    %h1== #{Dataset.model_name.human}: #{@dataset.name}
     %h4.text-muted= t('named_entities_job.subheader')
-  .col-md-4.job-header-button= link_to t('common.download_csv'), task.download_path_for('text/csv'), class: 'btn btn-default'
+  .col-md-4.job-header-button= link_to t('common.download_csv'), task_download_path(task: @task, content_type: 'text/csv'), class: 'btn btn-default'
 
 .row
   .col-xs-12
