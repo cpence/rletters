@@ -25,7 +25,6 @@ gem 'setler'
 
 # Internationalization
 gem 'rails-i18n', '~> 5.0.0.beta3'
-gem 'http_accept_language'
 
 # Textual analysis
 gem 'rsolr', '>= 1.0.7'
@@ -71,11 +70,7 @@ group :test, :development do
   gem 'rspec-rails', '~> 3.5.0.beta'
   gem 'rspec-activejob', require: false
   gem 'rails-controller-testing'
-  gem 'pry'
-  gem 'pry-byebug'
 
-  # Some of these need to be here to enable proper use of the development
-  # server, including mailer previews
   gem 'factory_girl_rails'
 end
 

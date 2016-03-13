@@ -60,7 +60,6 @@ GEM
     bibtex-ruby (4.2.0)
       latex-decode (~> 0.0)
     builder (3.2.2)
-    byebug (8.2.2)
     capybara (2.6.2)
       addressable
       mime-types (>= 1.16)
@@ -88,7 +87,6 @@ GEM
       climate_control (>= 0.0.3, < 1.0)
     codeclimate-test-reporter (0.5.0)
       simplecov (>= 0.7.1, < 1.0.0)
-    coderay (1.1.1)
     coercible (1.0.0)
       descendants_tracker (~> 0.0.1)
     concurrent-ruby (1.0.1)
@@ -147,7 +145,6 @@ GEM
       haml (~> 4.0.0)
       nokogiri (~> 1.6.0)
       ruby_parser (~> 3.5)
-    http_accept_language (2.0.5)
     i18n (0.7.0)
     ice_nine (0.11.2)
     json (1.8.3)
@@ -210,18 +207,6 @@ GEM
     prawn (2.1.0)
       pdf-core (~> 0.6.1)
       ttfunk (~> 1.4.0)
-    pry (0.10.3)
-      coderay (~> 1.1.0)
-      method_source (~> 0.8.1)
-      slop (~> 3.4)
-    pry (0.10.3-java)
-      coderay (~> 1.1.0)
-      method_source (~> 0.8.1)
-      slop (~> 3.4)
-      spoon (~> 0.0)
-    pry-byebug (3.3.0)
-      byebug (~> 8.0)
-      pry (~> 0.10)
     puma (3.1.0)
     puma (3.1.0-java)
     que (0.11.4)
@@ -326,7 +311,6 @@ GEM
       json (~> 1.8)
       simplecov-html (~> 0.10.0)
     simplecov-html (0.10.0)
-    slop (3.6.0)
     spoon (0.0.4)
       ffi
     sprockets (3.5.2)
@@ -400,7 +384,6 @@ DEPENDENCIES
   fast-stemmer
   haml
   haml-rails
-  http_accept_language
   kramdown
   launchy
   lograge
@@ -413,8 +396,6 @@ DEPENDENCIES
   pdf-inspector
   pg
   prawn
-  pry
-  pry-byebug
   puma
   que
   rails (~> 5.0.0.beta3)

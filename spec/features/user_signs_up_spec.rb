@@ -19,13 +19,4 @@ RSpec.feature 'User signs up for an account', type: :feature do
     expect(page).to have_selector('.user_password_confirmation.has-error .help-block',
                                   text: "doesn't match Password")
   end
-
-  scenario 'requesting a foreign language' do
-    page.driver.header('Accept-Language', 'es, en')
-
-    sign_up_with
-
-    visit '/users/edit'
-    expect(page).to have_select('user[language]', selected: 'español')
-  end
 end
