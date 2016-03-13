@@ -867,3 +867,4 @@ en:
     word_cloud:
         checkbox_label: Create a word cloud?
         params: Word cloud parameters
+        inclusion_label: Show words in the inclusion list in the word cloud?

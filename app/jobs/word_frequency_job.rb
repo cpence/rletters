@@ -135,10 +135,24 @@ class WordFrequencyJob < TaskJob
     if make_word_cloud
       task.at(75, 100, t('.progress_word_cloud'))
 
+      strip_inclusion_list = (options[:word_cloud_inclusion_list] == '1')
+      word_cloud_inclusion_list = []
+      if strip_inclusion_list
+        word_cloud_inclusion_list = options[:inclusion_list].split
+      end
+
       word_cloud_options = {
         header: "Word Cloud for #{dataset.name}",
         words: analyzer.word_list.each_with_object({}) do |w, ret|
-          ret[w] = analyzer.tf_in_dataset[w]
+          tf = analyzer.tf_in_dataset[w]
+
+          # If requested, strip off any words that appear in the
+          # inclusion list for the word cloud
+          if strip_inclusion_list
+            w = (w.split - word_cloud_inclusion_list).join(' ')
+          end
+
+          ret[w] = tf
         end,
         color: options[:word_cloud_color],
         font: options[:pdf_font]

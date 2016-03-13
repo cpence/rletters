@@ -14,6 +14,9 @@ $(document).on('change', 'select#job_params_ngram_method',
       hideAndDisable('#inclusion_list_controls');
       $('#job_params_exclude_method').change();
     }
+
+    // Reset the word-cloud control visibility
+    updateWordCloudControls();
   });
 
 $(document).on('change', 'select#job_params_block_method',
