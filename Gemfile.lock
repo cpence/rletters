@@ -191,7 +191,7 @@ GEM
       mini_portile2 (~> 2.0.0.rc2)
     nokogiri (1.6.7.2-java)
     orm_adapter (0.5.0)
-    paperclip (4.3.5)
+    paperclip (4.3.6)
       activemodel (>= 3.2.0)
       activesupport (>= 3.2.0)
       cocaine (~> 0.5.5)
@@ -420,7 +420,7 @@ DEPENDENCIES
   rails (~> 5.0.0.beta3)
   rails-controller-testing
   rails-i18n (~> 5.0.0.beta3)
-  rake (~> 10.x)
+  rake (~> 10.0)
   rdf (>= 0.3.5)
   rdf-n3
   rdf-vocab

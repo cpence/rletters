@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Rails
-gem 'rake', '~> 10.x' # FIXME: This is a bug in YARD
+gem 'rake', '~> 10.0' # FIXME: This is a bug in YARD
 
 gem 'rails', '~> 5.0.0.beta3'
 gem 'puma'
