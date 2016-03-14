@@ -18,7 +18,9 @@ module Users
     belongs_to :user
 
     validates :name, presence: true
-    validates :url, presence: true, url: true
+    validates :url, presence: true, format: {
+      with: %r{\A(https?)://[^\s/$.?#].[^\s]*\z}i,
+    }
     validates :user_id, presence: true
 
     before_validation do |library|

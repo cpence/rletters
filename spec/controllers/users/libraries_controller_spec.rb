@@ -42,17 +42,21 @@ RSpec.describe Users::LibrariesController, type: :controller do
       it 'does not create a library' do
         expect {
           post :create,
-               params: { users_library: attributes_for(:library,
-                                                       url: 'what:nope',
-                                                       user: @user) }
+               params: {
+                 users_library: attributes_for(
+                   :library,
+                   url: 'foo.bar?q=Spaces should be encoded',
+                   user: @user) }
         }.to_not change { @user.libraries.count }
       end
 
       it 'renders the new form' do
         post :create,
-             params: { users_library: attributes_for(:library,
-                                                     url: 'what:nope',
-                                                     user: @user) }
+             params: {
+               users_library: attributes_for(
+                 :library,
+                 url: 'foo.bar?q=Spaces should be encoded',
+                 user: @user) }
         expect(response).not_to redirect_to(edit_user_registration_path)
       end
     end
@@ -83,16 +87,18 @@ RSpec.describe Users::LibrariesController, type: :controller do
 
     context 'when library is invalid' do
       it 'does not edit the library' do
-        put :update, params: { id: @library.to_param,
-                               users_library: { url: 'what:nope' } }
+        put :update, params: {
+          id: @library.to_param,
+          users_library: { url: 'foo.bar?q=Spaces should be encoded' } }
 
         @library.reload
         expect(@library.url).not_to eq('1234%%#$')
       end
 
       it 'renders the edit form' do
-        put :update, params: { id: @library.to_param,
-                               users_library: { url: 'what:nope' } }
+        put :update, params: {
+          id: @library.to_param,
+          users_library: { url: 'foo.bar?q=Spaces should be encoded' } }
         expect(response).not_to redirect_to(edit_user_registration_path)
       end
     end

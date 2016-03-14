@@ -14,7 +14,6 @@ gem 'lograge'
 gem 'pg'
 gem 'que'
 gem 'closure_tree'
-gem 'validate_url'
 gem 'virtus'
 
 # User authentication and administration
