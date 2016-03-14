@@ -16,7 +16,6 @@ gem 'que'
 gem 'closure_tree'
 gem 'validate_url'
 gem 'virtus'
-gem 'addressable'
 
 # User authentication and administration
 gem 'devise', '~> 4.0.0.rc1'

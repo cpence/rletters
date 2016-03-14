@@ -365,7 +365,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  addressable
   bibtex-ruby
   capybara
   capybara-webkit
