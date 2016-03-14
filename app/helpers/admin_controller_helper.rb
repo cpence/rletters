@@ -19,9 +19,11 @@ module AdminControllerHelper
     return '<empty>' if value.empty?
 
     content_tag(:ul) do
-      content_tag_for(:li, value) do |element|
-        admin_display_value(object, attribute, element)
+      tags = value.map do |element|
+        content_tag(:li) { admin_display_value(object, attribute, element) }
       end
+
+      tags.join.html_safe
     end
   end
 

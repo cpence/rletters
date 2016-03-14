@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 RSpec.describe User, type: :model do
   describe '#valid' do
@@ -65,10 +65,47 @@ RSpec.describe User, type: :model do
   end
 
   describe '#workflow_dataset' do
-    it 'needs specs'
+    it 'raises for too-high values' do
+      @user = create(:user, workflow_datasets: [])
+
+      expect {
+        @user.workflow_dataset(0)
+      }.to raise_error(ActiveRecord::RecordNotFound)
+    end
+
+    it 'raises for invalid values' do
+      @user = create(:user, workflow_datasets: [999999])
+
+      expect {
+        @user.workflow_dataset(0)
+      }.to raise_error(ActiveRecord::RecordNotFound)
+    end
+
+    it 'works for valid values' do
+      @user = create(:user)
+      @dataset = create(:dataset, user: @user)
+      @user.workflow_datasets = [@dataset.to_param]
+      @user.save
+
+      expect(@user.workflow_dataset(0)).to eq(@dataset)
+    end
   end
 
   describe '#csl_style' do
-    it 'needs specs'
+    it 'is nil if no csl_style_id is set' do
+      @user = create(:user)
+      expect(@user.csl_style).to be_nil
+    end
+
+    it 'is nil if an invalid csl_style_id is set' do
+      @user = create(:user, csl_style_id: '999999')
+      expect(@user.csl_style).to be_nil
+    end
+
+    it 'works for valid values' do
+      @csl_style = create(:csl_style)
+      @user = create(:user, csl_style_id: @csl_style.to_param)
+      expect(@user.csl_style).to eq(@csl_style)
+    end
   end
 end
