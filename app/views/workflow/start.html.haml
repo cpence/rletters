@@ -7,7 +7,7 @@
     %h1= t('.header')
     %h4.text-muted= t('.subheader')
 
-- TaskJob.job_list.each do |klass|
+- ApplicationJob.job_list.each do |klass|
   - next unless klass.available?
   .row.questions
     .col-sm-12

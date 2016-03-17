@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 # Mock job class for the workflow controller
-class WorkflowJob < TaskJob
+class WorkflowJob < ApplicationJob
   def perform(task); end
 end
 

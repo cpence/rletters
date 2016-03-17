@@ -1,15 +1,8 @@
 
 namespace :maintenance do
-  desc 'Make sure the maintenance jobs are running'
-  task start: :environment do
-    # Make sure there's at least one of every maintenance task actively
-    # running in the queue
-    que_stats = Que.job_stats
-    running_job_classes = que_stats.map { |h| h['job_class'] }
-
-    unless running_job_classes.include?('ExpireTasksJob')
-      ExpireTasksJob.perform_later
-    end
+  desc 'Remove old finished tasks from the database'
+  task expire_tasks: :environment do
+    Datasets::Task.where('created_at < ?', 2.weeks.ago).destroy_all
   end
 
   desc 'Print currently running queue sizes'

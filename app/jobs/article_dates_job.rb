@@ -1,6 +1,6 @@
 
 # Plot a dataset's members by year
-class ArticleDatesJob < TaskJob
+class ArticleDatesJob < ApplicationJob
   include RLetters::Visualization::CSV
 
   # Export the date format data

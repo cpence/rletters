@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 # Mock job for task controller tests
-class ControllerJob < TaskJob
+class ControllerJob < ApplicationJob
   def perform; end
 end
 

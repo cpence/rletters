@@ -1,7 +1,7 @@
 require 'r_letters/analysis/collocation/base'
 
 # Determine statistically significant collocations in text
-class CollocationJob < TaskJob
+class CollocationJob < ApplicationJob
   include RLetters::Visualization::CSV
 
   # Locate significant associations between words.

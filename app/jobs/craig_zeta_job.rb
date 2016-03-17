@@ -1,6 +1,6 @@
 
 # Compare two datasets using the Craig Zeta algorithm
-class CraigZetaJob < TaskJob
+class CraigZetaJob < ApplicationJob
   include RLetters::Visualization::CSV
   include RLetters::Visualization::PDF
 

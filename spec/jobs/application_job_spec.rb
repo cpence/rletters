@@ -1,13 +1,13 @@
 require 'rails_helper'
 
 # Mock jobs for testing the base code
-class MockJob < TaskJob
+class MockJob < ApplicationJob
   def perform(task, options = {})
     standard_options(task, options)
   end
 end
 
-class FailJob < TaskJob
+class FailJob < ApplicationJob
   def perform(_)
     mock_que_job
     expect(RLetters::Que::Stats.stats[:total]).to eq(1)
@@ -16,7 +16,7 @@ class FailJob < TaskJob
   end
 end
 
-RSpec.describe TaskJob, type: :job do
+RSpec.describe ApplicationJob, type: :job do
   describe 'failure case' do
     before(:example) do
       @task = create(:task)

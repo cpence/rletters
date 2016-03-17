@@ -3,7 +3,7 @@
 #
 # This job fetches the contents of the dataset and offers them to the
 # user for download as bibliographic data.
-class ExportCitationsJob < TaskJob
+class ExportCitationsJob < ApplicationJob
   # Export the dataset
   #
   # @param [Datasets::Task] task the task we're working from

@@ -754,8 +754,6 @@ en:
         progress_finished: "Finished creating, saving dataset..."
     destroy_dataset_job:
         progress_destroying: "Destroying dataset..."
-    expire_tasks_job:
-        progress_expiring: "Destroying all old tasks..."
     export_citations_job:
         name: Export Citations
         short_desc: Export dataset as citations

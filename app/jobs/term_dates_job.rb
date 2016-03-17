@@ -1,6 +1,6 @@
 
 # Plot occurrences of a term in a dataset by year
-class TermDatesJob < TaskJob
+class TermDatesJob < ApplicationJob
   include RLetters::Visualization::CSV
 
   # Export the date format data

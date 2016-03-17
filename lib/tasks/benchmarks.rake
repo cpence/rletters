@@ -29,7 +29,7 @@ namespace :benchmarks do
     Rails.application.config.log_level = 'WARN'
     Rails.logger.level = Logger::WARN
 
-    job_classes = TaskJob.job_list
+    job_classes = ApplicationJob.job_list
     set_sizes = [10, 100, 1000]
 
     # Start by making each of the benchmark objects and nil-ing it out. This
