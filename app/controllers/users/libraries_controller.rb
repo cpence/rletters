@@ -13,7 +13,6 @@ module Users
     #
     # @return [void]
     def index
-      @libraries = current_user.libraries
       render layout: false
     end
 

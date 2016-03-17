@@ -12,7 +12,7 @@
       %th.label-cell= t('.task_column')
       %th.button-cell
   %tbody
-    - if @dataset.tasks.finished.size == 0
+    - if @dataset.tasks.finished.empty?
       %tr
         %td.label-cell= t('.no_tasks')
         %td.button-cell
@@ -20,4 +20,4 @@
       - @dataset.tasks.finished.each do |task|
         %tr
           %td.label-cell= task.name
-          %td.button-cell= render partial: 'task_buttons', locals: { task: task }
+          %td.button-cell= render partial: 'datasets/tasks/task_buttons', locals: { task: task }
