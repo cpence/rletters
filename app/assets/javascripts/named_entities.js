@@ -1,6 +1,6 @@
 if (window.google !== undefined) {
 
-google.load('maps', '3', {other_params: 'sensor=false'});
+google.load('maps', '3');
 
 var global_named_entity_map;
 var global_named_entity_markers = [];
