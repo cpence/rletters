@@ -1,7 +1,12 @@
-# Use this setup block to configure all options available in SimpleForm.
+
 SimpleForm.setup do |config|
+  # Tell SimpleFrom where to find our custom input code
   config.custom_inputs_namespaces << 'RLetters::SimpleForm'
 
+  # Do not default our random job parameters to required
+  config.required_by_default = false
+
+  # Styling for Bootstrap plus SimpleForm follows
   config.error_notification_class = 'alert alert-danger'
   config.button_class = 'btn btn-default'
   config.boolean_label_class = nil
@@ -135,10 +140,7 @@ SimpleForm.setup do |config|
       ba.use :hint,  wrap_with: { tag: 'p', class: 'help-block' }
     end
   end
-  # Wrappers for forms and inputs using the Bootstrap toolkit.
-  # Check the Bootstrap docs (http://getbootstrap.com)
-  # to learn about the different styles for forms and inputs,
-  # buttons and other elements.
+
   config.default_wrapper = :vertical_form
   config.wrapper_mappings = {
     check_boxes: :vertical_radio_and_checkboxes,

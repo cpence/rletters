@@ -10,8 +10,8 @@
     = simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
       = f.error_notification
 
-      = f.input :name, autofocus: true
-      = f.input :email
+      = f.input :name, required: true, autofocus: true
+      = f.input :email, required: true
       = f.input :current_password, required: true
 
       = field_set_tag t('.change_password') do
@@ -19,8 +19,8 @@
         = f.input :password_confirmation, required: false
 
       = field_set_tag t('.settings') do
-        = f.input :language, collection: I18n.available_locales.translated
-        = f.input :timezone, collection: ActiveSupport::TimeZone.all, label_method: :to_s, value_method: :name
+        = f.input :language, required: true, collection: I18n.available_locales.translated
+        = f.input :timezone, required: true, collection: ActiveSupport::TimeZone.all, label_method: :to_s, value_method: :name
         = f.input :csl_style_id, collection: Users::CslStyle.all, label_method: :name, value_method: :to_param
 
       = link_to t('.cancel'), registration_path(resource_name), data: { confirm: t('.cancel_confirm') }, method: :delete, class: 'btn btn-danger pull-right'
