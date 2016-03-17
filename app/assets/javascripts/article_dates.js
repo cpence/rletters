@@ -59,7 +59,8 @@ function createArticleDatesGraph() {
 
   // Make a pretty table object
   var table = new google.visualization.Table(tableContainer[0]);
-  table.draw(data, { page: true, pageSize: 20, sortColumn: 0, width: '20em' });
+  table.draw(data, { page: 'enable', pageSize: 20, sortColumn: 0,
+                     width: '20em' });
 }
 
 $(document).ready(createArticleDatesGraph);

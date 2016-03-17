@@ -57,7 +57,8 @@ function createCraigZetaGraph() {
 
   // Make a pretty table object
   var table = new google.visualization.Table(tableContainer[0]);
-  table.draw(data, { page: 'enable', pageSize: 20, sort: 'disable', width: '20em' });
+  table.draw(data, { page: 'enable', pageSize: 20, sort: 'disable',
+                     width: '20em' });
 }
 
 $(document).ready(createCraigZetaGraph);
