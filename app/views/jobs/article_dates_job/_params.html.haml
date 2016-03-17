@@ -6,7 +6,7 @@
       = field_set_tag t('article_dates_job.options_label') do
         = f.input :normalize, label: t('article_dates_job.checkbox_label'), as: :boolean
         = field_set_tag t('article_dates_job.params'), id: 'normalize_controls', style: 'display: none' do
-          = f.input :normalization_dataset, label: t('article_dates_job.dataset_label'), collection: current_user.datasets, label_method: :name, value_method: :to_param, prompt: t('article_dates_job.all'), disabled: true
+          = f.input :normalization_dataset, label: t('article_dates_job.dataset_label'), collection: current_user.datasets, label_method: :name, value_method: :to_param, prompt: t('article_dates_job.all'), required: false, disabled: true
 
         = f.button :submit
         = link_to(t('common.cancel'), @dataset, class: 'btn btn-default')
