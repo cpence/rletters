@@ -135,11 +135,9 @@ class WordFrequencyJob < ApplicationJob
     if make_word_cloud
       task.at(75, 100, t('.progress_word_cloud'))
 
-      strip_inclusion_list = (options[:word_cloud_inclusion_list] != '1')
-      word_cloud_inclusion_list = []
-      if strip_inclusion_list
-        word_cloud_inclusion_list = options[:inclusion_list].split
-      end
+      strip_inclusion_list = analyzer.ngrams > 1 &&
+                             analyzer.inclusion_list.present? &&
+                             (options[:word_cloud_inclusion_list] != '1')
 
       word_cloud_options = {
         header: "Word Cloud for #{dataset.name}",
@@ -149,7 +147,7 @@ class WordFrequencyJob < ApplicationJob
           # If requested, strip off any words that appear in the
           # inclusion list for the word cloud
           if strip_inclusion_list
-            w = (w.split - word_cloud_inclusion_list).join(' ')
+            w = (w.split - analyzer.inclusion_list).join(' ')
           end
 
           ret[w] = tf

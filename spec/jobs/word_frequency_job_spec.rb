@@ -51,8 +51,12 @@ RSpec.describe WordFrequencyJob, type: :job do
            num_words: '10',
            word_cloud: '1',
            word_cloud_font: 'Roboto',
-           word_cloud_inclusion_list: false,
-           word_cloud_color: 'Blues' }]
+           word_cloud_color: 'Blues' },
+         { num_blocks: '1',
+           split_across: '1',
+           num_words: '10',
+           word_cloud: '1',
+           word_cloud_inclusion_list: '0' }]
 
       expect {
         params_to_test.each do |params|
