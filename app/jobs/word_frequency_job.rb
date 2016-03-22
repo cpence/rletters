@@ -135,7 +135,7 @@ class WordFrequencyJob < ApplicationJob
     if make_word_cloud
       task.at(75, 100, t('.progress_word_cloud'))
 
-      strip_inclusion_list = (options[:word_cloud_inclusion_list] == '1')
+      strip_inclusion_list = (options[:word_cloud_inclusion_list] != '1')
       word_cloud_inclusion_list = []
       if strip_inclusion_list
         word_cloud_inclusion_list = options[:inclusion_list].split
