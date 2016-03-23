@@ -51,8 +51,13 @@ module AdminControllerHelper
     config = object.class.admin_attributes[attribute]
     return value.to_s unless config&.has_key?(:model)
 
-    association = object.class.reflect_on_association(attribute)
-    model_name = association.class_name.underscore
+    model_name = config[:model_name]
+    unless model_name
+      association = object.class.reflect_on_association(attribute)
+      return value.to_s unless association
+
+      model_name = association.class_name.underscore
+    end
 
     link_to(value.to_s,
             admin_item_path(model: model_name, id: value.to_param))
