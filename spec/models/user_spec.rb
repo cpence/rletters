@@ -25,7 +25,7 @@ RSpec.describe User, type: :model do
     context 'when a duplicate email is specified' do
       before(:example) do
         @dupe = create(:user)
-        @user = build_stubbed(:user, email: @dupe.email)
+        @user = build(:user, email: @dupe.email)
       end
 
       it 'is not valid' do
@@ -35,7 +35,7 @@ RSpec.describe User, type: :model do
 
     context 'when a bad email is specified' do
       before(:example) do
-        @user = build_stubbed(:user, email: 'asdf-not-an-email.com')
+        @user = build(:user, email: 'asdf-not-an-email.com')
       end
 
       it 'is not valid' do

@@ -1,9 +1,7 @@
 source 'https://rubygems.org'
 
 # Rails
-gem 'rake', '~> 10.0' # FIXME: This is a bug in YARD
-
-gem 'rails', '~> 5.0.0.beta3'
+gem 'rails', '~> 5'
 gem 'puma'
 
 # Twelve factor app glue
@@ -17,12 +15,12 @@ gem 'closure_tree'
 gem 'virtus'
 
 # User authentication and administration
-gem 'devise', '~> 4.0.0.rc1'
+gem 'devise', '~> 4'
 gem 'devise-i18n'
 gem 'setler'
 
 # Internationalization
-gem 'rails-i18n', '~> 5.0.0.beta3'
+gem 'rails-i18n', '= 5.0.0'
 
 # Textual analysis
 gem 'rsolr', '>= 1.0.7'

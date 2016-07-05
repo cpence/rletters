@@ -48,7 +48,7 @@ RSpec.configure do |config|
   config.include QueHelpers
   config.include RSpec::ActiveJob
   config.include StubConnection
-  config.include Devise::TestHelpers, type: :controller
+  config.include Devise::Test::ControllerHelpers, type: :controller
   config.include ParseJson, type: :request
   config.include Features::AdminHelpers, type: :feature
   config.include Features::DatasetHelpers, type: :feature

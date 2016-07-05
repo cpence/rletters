@@ -273,7 +273,7 @@ MSL
           temp.write(script)
           temp.close
 
-          output = MiniMagick::Tool::Conjure.new(false) do |b|
+          output = MiniMagick::Tool::Conjure.new(whiny: false) do |b|
             b << temp.path
           end
 

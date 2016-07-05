@@ -31,7 +31,7 @@ RSpec.feature 'User adds links to their own libraries', type: :feature do
 
     fill_in 'users_library_name', with: 'Harvard'
     fill_in 'users_library_url', with: 'http://library.harvard.edu/?'
-    click_button 'Create library'
+    click_button 'Create Library'
 
     visit libraries_path
     expect(page).to have_selector('td', text: 'Harvard')
