@@ -63,13 +63,6 @@ module RLetters
       config.sass.load_paths << path
     end
 
-    # Precompile all and only the right things
-    config.assets.precompile = [
-      'application.js',
-      'application.css',
-      %r(bootstrap-sass/assets/fonts/bootstrap/[\w-]+\.(?:eot|svg|ttf|woff2?)$)
-    ]
-
     # Minimum Sass number precision required by bootstrap-sass
     sass_precision = [8, ::Sass::Script::Value::Number.precision].max
     ::Sass::Script::Value::Number.precision = sass_precision
