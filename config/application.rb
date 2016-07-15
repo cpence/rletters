@@ -30,6 +30,11 @@ module RLetters
 
     # Force SSL if requested
     config.force_ssl = true if ENV['HTTPS_ONLY']
+    config.ssl_options = {
+      hsts: {
+        subdomains: true
+      }
+    }
 
     # Permit all our search parameters through, always (they can cause no
     # security concern)
