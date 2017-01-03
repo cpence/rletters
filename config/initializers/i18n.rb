@@ -41,12 +41,12 @@ Rails.application.config.i18n.available_locales = ['en']
 # For the moment, I've decided to manually process these languages and rename
 # them in the CLDR vendored data files.  There is a Rake task for this purpose
 # in lib/tasks/locales.rake.
-'af, ar, az, be, bg, bn, bs, ca, cs, cy, da, de, de-AT, de-CH, el, en-AU, ' \
-'en-CA, en-GB, en-IE, en-IN, en-NZ, en-ZA, eo, es, es-419, es-AR, es-CL, ' \
-'es-CO, es-CR, es-EC, es-MX, es-PA, es-PE, es-US, es-VE, et, eu, fa, fi, ' \
-'fr, fr-CA, fr-CH, gl, he, hi, hi-IN, hr, hu, id, is, it, it-CH, ja, km, ' \
-'kn, ko, lo, lt, lv, mk, mn, mr-IN, ms, nb, ne, nl, nn, or, pa, pl, pt, ' \
-'pt-BR, rm, ro, ru, sk, sl, sr, sv, sw, ta, th, tl, tr, ug, uk, ur, uz, vi, ' \
-'zh-CN, zh-HK, zh-TW'.split(',').each do |loc|
+'af, ar, az, be, bg, bn, bs, ca, cs, cy, da, de, de-AT, de-CH, de-DE, el, ' \
+'en-AU, en-CA, en-GB, en-IE, en-IN, en-NZ, en-ZA, eo, es, es-419, es-AR, ' \
+'es-CL, es-CO, es-CR, es-EC, es-ES, es-MX, es-PA, es-PE, es-US, es-VE, et, ' \
+'eu, fa, fi, fr, fr-CA, fr-CH, fr-FR, gl, he, hi, hi-IN, hr, hu, id, is, ' \
+'it, it-CH, ja, km, kn, ko, lo, lt, lv, ml, mk, mn, mr-IN, ms, nb, ne, nl, ' \
+'nn, or, pa, pl, pt, pt-BR, rm, ro, ru, sk, sl, sq, sr, sv, sv-SE, sw, ta, ' \
+'th, tl, tr, ug, uk, ur, uz, vi, zh-CN, zh-HK, zh-TW'.split(',').each do |loc|
   Rails.application.config.i18n.available_locales << loc.strip
 end

@@ -14,7 +14,7 @@ module Features
           fill_in 'dataset_name', with: params[:name] || 'Integration Dataset'
         end
         within('.modal-footer') do
-          click_button 'Create dataset'
+          click_button 'Create Dataset'
         end
       end
     end

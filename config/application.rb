@@ -30,6 +30,11 @@ module RLetters
 
     # Force SSL if requested
     config.force_ssl = true if ENV['HTTPS_ONLY']
+    config.ssl_options = {
+      hsts: {
+        subdomains: true
+      }
+    }
 
     # Permit all our search parameters through, always (they can cause no
     # security concern)
@@ -62,13 +67,6 @@ module RLetters
       config.assets.paths << path
       config.sass.load_paths << path
     end
-
-    # Precompile all and only the right things
-    config.assets.precompile = [
-      'application.js',
-      'application.css',
-      %r(bootstrap-sass/assets/fonts/bootstrap/[\w-]+\.(?:eot|svg|ttf|woff2?)$)
-    ]
 
     # Minimum Sass number precision required by bootstrap-sass
     sass_precision = [8, ::Sass::Script::Value::Number.precision].max

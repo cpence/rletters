@@ -21,7 +21,7 @@
 *   Fix a bug in the Word Frequency component that would cause it to fail if both n-gram-inclusion and n-gram-exclusion (or stop) lists were specified.
 *   Switch the web server component to Puma to avoid slow client attacks and take advantage of multithreading.
 *   Integration testing (smoke tests) ported back to RSpec feature tests, using capybara-webkit. Dramatically increased stability and maintainability.
-*   Update language support, adding Belarusian, Spanish (Ecuador), Khmer, Marathi, Panjabi, and Uyghur.
+*   Update language support, adding Albanian, Belarusian, Spanish (Ecuador), Spanish (Spain), French (France), German (Germany), Swedish (Sweden), Khmer, Marathi, Panjabi, Malaysian, and Uyghur.
 
 
 ## Version 2.0.1 (2015-01-12)

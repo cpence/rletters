@@ -57,7 +57,7 @@ module Datasets
         progress: {},
         progress_message: {},
         last_progress: {},
-        que_job: { model: true }
+        que_job: { model: true, model_name: 'admin/que_job' }
       }
     end
 

@@ -60,7 +60,7 @@ RSpec.feature 'Using the administration interface', type: :feature do
     fill_in 'item_password_confirmation', with: 'changeme'
     fill_in 'item_name', with: 'New Name'
 
-    click_button 'Update user'
+    click_button 'Update User'
 
     expect(page).to have_selector('td', text: 'New Name')
   end

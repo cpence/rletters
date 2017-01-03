@@ -23,7 +23,7 @@
               %td= w[:run_at]
               %td= w[:priority]
               %td= w[:args]
-              %td= w[:error_count] + (w[:error_count] > 0 ? ": #{w[:last_error]}" : '')
+              %td= w[:error_count].to_i > 0 ? "#{w[:error_count]}: #{w[:last_error]}" : w[:error_count]
 
     .panel.panel-default
       .panel-heading
