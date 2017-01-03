@@ -1,6 +1,6 @@
 GIT
-  remote: git://github.com/pwnall/paperclip_database.git
-  revision: bad4fa153c2f6a87d95f76721cb4032457e92294
+  remote: https://github.com/pwnall/paperclip_database.git
+  revision: d223acccba4b815061468e0e7fa8e3c489797ee0
   branch: rails5
   specs:
     paperclip_database (2.3.1)
@@ -147,8 +147,8 @@ GEM
       ruby_parser (~> 3.5)
     i18n (0.7.0)
     ice_nine (0.11.2)
-    json (1.8.3)
-    json (1.8.3-java)
+    json (2.0.2)
+    json (2.0.2-java)
     kramdown (1.10.0)
     latex-decode (0.2.2)
       unicode (~> 0.4)
@@ -306,9 +306,9 @@ GEM
     simple_form (3.2.1)
       actionpack (> 4, < 5.1)
       activemodel (> 4, < 5.1)
-    simplecov (0.11.2)
+    simplecov (0.12.0)
       docile (~> 1.1.0)
-      json (~> 1.8)
+      json (>= 1.8, < 3)
       simplecov-html (~> 0.10.0)
     simplecov-html (0.10.0)
     spoon (0.0.4)
@@ -416,4 +416,4 @@ DEPENDENCIES
   webmock (>= 1.22.6)
 
 BUNDLED WITH
-   1.11.2
+   1.13.7

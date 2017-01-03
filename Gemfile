@@ -38,7 +38,7 @@ gem 'csl-styles'
 
 # Support for file attachments and exporting
 gem 'paperclip', '>= 4.2.0'
-gem 'paperclip_database', github: 'pwnall/paperclip_database', branch: 'rails5'
+gem 'paperclip_database', git: 'https://github.com/pwnall/paperclip_database.git', branch: 'rails5'
 gem 'rubyzip', '>= 1.1.0', require: 'zip'
 gem 'marc'
 gem 'rdf', '>= 0.3.5'
