@@ -1,4 +1,6 @@
 
+@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic);
+
 // Fix a bug in Bootstrap regarding padding on the last paragraph in a well
 .well p:last-child {
   margin-bottom: 0;
@@ -10,8 +12,7 @@
 }
 
 .required-icon {
-  @extend .text-danger;
-
+  color: $brand-danger;
   border-bottom: none !important;
 }
 
@@ -23,8 +24,6 @@
 // Styling for our various "manage" tables with a right-hand button
 // column
 table.button-table {
-  @extend .table-striped;
-
   width: 100%;
   margin-top: 1em;
 

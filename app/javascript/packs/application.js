@@ -10,6 +10,7 @@ require('bootstrap-loader');
 require('jquery-ujs');
 require('jscroll');
 require('nestable-fork');
+import 'nestable-fork/src/jquery.nestable.css';
 require('typeahead.js');
 require('d3');
 

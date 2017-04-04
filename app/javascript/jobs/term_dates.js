@@ -1,3 +1,5 @@
+import './term_dates.scss';
+
 // ---------------------------------------------------------------------------
 // Graph support for the TermDates results page
 if (window.google !== undefined) {

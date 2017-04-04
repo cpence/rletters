@@ -8,12 +8,9 @@ const { readFileSync } = require('fs')
 const configPath = resolve('config', 'webpack')
 const loadersDir = join(__dirname, 'loaders')
 const paths = safeLoad(readFileSync(join(configPath, 'paths.yml'), 'utf8'))
-const devServer = safeLoad(readFileSync(join(configPath, 'development.server.yml'), 'utf8'))
-const publicPath = env.NODE_ENV !== 'production' && devServer.enabled ?
-  `http://${devServer.host}:${devServer.port}/` : `/${paths.entry}/`
+const publicPath = `/${paths.entry}/`
 
 module.exports = {
-  devServer,
   env,
   paths,
   loadersDir,

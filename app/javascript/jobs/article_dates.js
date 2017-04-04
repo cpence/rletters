@@ -1,3 +1,5 @@
+import './article_dates.scss';
+
 // ---------------------------------------------------------------------------
 // ArticleDates job parameters page
 window.jQuery(document).on('change', 'input[name="job_params[normalize]"]',

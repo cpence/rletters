@@ -84,7 +84,7 @@ end
 
 group :test do
   gem 'launchy'
-  gem 'database_cleaner'
+  gem 'database_rewinder'
 
   gem 'webmock', '>= 1.22.6', require: false
 

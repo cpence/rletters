@@ -6,7 +6,7 @@
     .alert.alert-danger{ role: 'alert' }= link_to t('.failed', count: @dataset.tasks.failed.size), dataset_path(@dataset, clear_failed: true)
 
 -# Finished tasks: link to download results and to delete
-%table.table.button-table
+%table.table.button-table.table-striped
   %thead
     %tr
       %th.label-cell= t('.task_column')

@@ -4,7 +4,7 @@
     - if @pending_tasks.empty?
       %p= t('.no_pending')
     - else
-      %table.table.button-table
+      %table.table.button-table.table-striped
         %thead
           %tr
             %th.label-cell= t('datasets.tasks.index.task_column')
@@ -27,7 +27,7 @@
     - if @finished_tasks.empty? && @failed_tasks.empty?
       %p= t('.no_completed')
     - else
-      %table.table.button-table
+      %table.table.button-table.table-striped
         %thead
           %tr
             %th.label-cell= t('datasets.tasks.index.task_column')

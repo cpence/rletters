@@ -1,6 +1,12 @@
+// Bootstrap-compatible styling for typeahead.js
+import './typeahead.scss';
+
 // Utility modules
 require('./admin');
 require('./simple_form_array');
+
+// Global styles
+import './index.scss';
 
 // Fix input element click problem
 window.jQuery(document).on('click', '.dropdown input, .dropdown label', function(e) {

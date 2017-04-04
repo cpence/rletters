@@ -1,3 +1,5 @@
+import './craig_zeta.scss';
+
 // ---------------------------------------------------------------------------
 // Graph support for the CraigZeta results page
 if (window.google !== undefined) {

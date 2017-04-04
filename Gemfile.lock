@@ -107,7 +107,7 @@ GEM
       csl (~> 1.0)
     css_parser (1.4.10)
       addressable
-    database_cleaner (1.5.3)
+    database_rewinder (0.8.0)
     descendants_tracker (0.0.4)
       thread_safe (~> 0.3, >= 0.3.1)
     devise (4.2.1)
@@ -367,7 +367,7 @@ DEPENDENCIES
   closure_tree
   codeclimate-test-reporter
   csl-styles
-  database_cleaner
+  database_rewinder
   devise (~> 4)
   devise-i18n
   distribution

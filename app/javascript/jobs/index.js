@@ -1,3 +1,6 @@
+// General styling
+import './index.scss';
+
 // Concerns
 require('./all_toggle');
 require('./normalize_document_counts');

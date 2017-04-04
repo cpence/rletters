@@ -1,6 +1,12 @@
 require_relative 'boot'
 
-require 'rails/all'
+# Load railties manually, as we don't need action_cable
+require 'active_record/railtie'
+require 'action_controller/railtie'
+require 'action_view/railtie'
+require 'action_mailer/railtie'
+require 'active_job/railtie'
+require 'sprockets/railtie'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -60,24 +66,6 @@ module RLetters
     # Code caching and loading
     config.cache_classes = true
     config.eager_load = true
-
-    # Asset configuration
-    config.assets.version = '1.0'
-    config.assets.compile = false
-    config.assets.digest = true
-    config.assets.debug = false
-
-    config.assets.js_compressor = :uglifier
-    # config.assets.css_compressor = :sass
-
-    Rails.root.join('vendor', 'assets', 'node_modules').to_s.tap do |path|
-      config.assets.paths << path
-      config.sass.load_paths << path
-    end
-
-    # Minimum Sass number precision required by bootstrap-sass
-    sass_precision = [8, ::Sass::Script::Value::Number.precision].max
-    ::Sass::Script::Value::Number.precision = sass_precision
 
     config.public_file_server.enabled = true
     config.public_file_server.headers = {

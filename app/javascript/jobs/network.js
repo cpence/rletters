@@ -1,5 +1,7 @@
 'use strict';
 
+import './network.scss';
+
 d3 = require('d3');
 
 function createNetworkGraph() {

@@ -24,7 +24,7 @@
     - if @num_workflow_datasets < @num_datasets
       .alert.alert-danger{ role: 'alert' }= t('.pending_count', count: (@num_datasets - @num_workflow_datasets))
 
-    %table.table.button-table
+    %table.table.button-table.table-striped
       %thead
         %tr
           %th.label-cell= t('.name_column')

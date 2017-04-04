@@ -1,3 +1,5 @@
+import './named_entities.scss';
+
 if (window.google !== undefined) {
 
 google.load('maps', '3');
