@@ -1,5 +1,9 @@
-require File.expand_path('../boot', __FILE__)
+require_relative 'boot'
+
 require 'rails/all'
+
+# Require the gems listed in Gemfile, including any gems
+# you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
 module RLetters
@@ -9,6 +13,9 @@ module RLetters
   # consequence of twelve-factor development/production parity
   # <12factor.net/dev-prod-parity>.
   class Application < Rails::Application
+    # Initialize configuration defaults for current config standard here
+    config.load_defaults 5.1
+
     # Custom directories with classes and modules to be loaded
     config.eager_load_paths << config.root.join('lib').to_s
     config.eager_load_paths << config.root.join('app', 'jobs', 'concerns').to_s

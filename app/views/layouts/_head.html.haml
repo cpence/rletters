@@ -7,7 +7,8 @@
 
   = csrf_meta_tags
 
-  = stylesheet_link_tag 'application', media: 'all'
+  = javascript_pack_tag 'application'
+  = stylesheet_pack_tag 'application'
 
   -# Home screen icons (Retina iPhone, iPad, all others/Android)
   - if Admin::UploadedAsset.url_for('apple-touch-icon-high').present?
@@ -35,7 +36,3 @@
   -# Reference the unAPI server, if we need to
   - if params[:controller] == 'search'
     %link{ rel: 'unapi-server', type: 'application/xml', title: 'unAPI', href: unapi_url }/
-
-  -# Load some extra styles and JS for testing
-  - if Rails.env.test?
-    = render partial: 'layouts/test'

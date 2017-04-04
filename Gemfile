@@ -1,7 +1,12 @@
 source 'https://rubygems.org'
 
+git_source(:github) do |repo_name|
+  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
+  "https://github.com/#{repo_name}.git"
+end
+
 # Rails
-gem 'rails', '~> 5'
+gem 'rails', '~> 5.1.0.rc1'
 gem 'puma'
 
 # Twelve factor app glue
@@ -36,7 +41,7 @@ gem 'csl-styles'
 
 # Support for file attachments and exporting
 gem 'paperclip', '>= 4.2.0'
-gem 'paperclip_database', git: 'https://github.com/pwnall/paperclip_database.git', branch: 'rails5'
+gem 'paperclip_database', github: 'pwnall/paperclip_database', branch: 'rails5'
 gem 'rubyzip', '>= 1.1.0', require: 'zip'
 gem 'marc'
 gem 'rdf', '>= 0.3.5'
@@ -51,13 +56,16 @@ gem 'mini_magick'
 # Asset tools and template generators
 gem 'haml'
 gem 'haml-rails'
-gem 'sass-rails', '~> 5.0'
+gem 'sass-rails', github: 'rails/sass-rails'
 gem 'kramdown'
 gem 'nokogiri'
 
 gem 'simple_form', '>= 3.1.0.rc1'
 
 gem 'uglifier', '>= 1.3.0'
+gem 'webpacker'
+gem 'mini_racer'
+
 gem 'multi_mail'
 gem 'roadie-rails', '>= 1.1.1'
 
@@ -68,13 +76,13 @@ group :test, :development do
   gem 'rails-controller-testing'
 
   gem 'factory_girl_rails'
+
+  gem 'capybara', '~> 2.13.0'
+  # gem 'capybara-slow_finder_errors'
+  gem 'capybara-webkit'
 end
 
 group :test do
-  gem 'capybara', require: false
-  # gem 'capybara-slow_finder_errors'
-  gem 'capybara-webkit'
-
   gem 'launchy'
   gem 'database_cleaner'
 

@@ -6,6 +6,8 @@
 .sass-cache
 .yardoc
 
+/node_modules
+
 /coverage
 /doc
 /public/assets
@@ -17,5 +19,5 @@
 /vendor/nlp
 !/vendor/nlp/.gitkeep
 /vendor/solr
-
-/vendor/assets/node_modules
+/public/packs
+/node_modules
