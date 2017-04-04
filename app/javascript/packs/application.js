@@ -12,7 +12,7 @@ require('jscroll');
 require('nestable-fork');
 import 'nestable-fork/src/jquery.nestable.css';
 require('typeahead.js');
-require('d3');
+window.d3 = require('d3');
 
 // Require all of our own code
 require('../util');

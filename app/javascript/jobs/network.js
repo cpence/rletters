@@ -2,8 +2,6 @@
 
 import './network.scss';
 
-d3 = require('d3');
-
 function createNetworkGraph() {
   // Get the elements we need
   var graphContainer = window.jQuery('.network_graph');
