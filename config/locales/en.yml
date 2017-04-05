@@ -313,6 +313,7 @@ en:
         index:
             placeholder: Search for articles...
             adv_search_placeholder: (advanced search)
+            search_button: Search
             sort: "Sort"
             sort_prefix: "Sort:"
             sort_unknown: "Unknown"

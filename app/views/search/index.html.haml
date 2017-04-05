@@ -15,6 +15,7 @@
       .form-group
         %label.sr-only{ for: 'q' }= t('.placeholder')
         = search_field_tag :q, (params[:advanced] ? t('.adv_search_placeholder') : params[:q]), placeholder: t('.placeholder'), class: 'form-control'
+      %button.sr-only{ type: 'submit' }= t('.search_button')
 
   .col-lg-3.col-sm-5
     .btn-group.btn-group-justified{ role: 'group' }

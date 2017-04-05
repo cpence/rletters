@@ -4,7 +4,7 @@ module Features
     def create_dataset(params = {})
       visit search_path
       fill_in 'q', with: params[:search] || 'test'
-      page.execute_script("window.jQuery('form:first').submit();")
+      find('#q').send_keys(:enter)
 
       click_link 'Save'
       find('#modal-container .modal-content')
