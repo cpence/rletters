@@ -17,10 +17,16 @@ addons:
   postgresql: 9.6
 
 bundler_args: "--without production development --jobs 3 --retry 3"
+install:
+  - git clone --depth=1 https://github.com/rletters/solr-example.git vendor/solr
+  - nvm install node
+  - node -v
+  - npm i -g yarn
+  - yarn
+
 before_script:
   - sh -e /etc/init.d/xvfb start
   - ln -s .env.example .env
-  - git clone --depth=1 https://github.com/rletters/solr-example.git vendor/solr
   - 'pushd vendor/solr && ./start && popd'
   - bin/rails RAILS_ENV=test db:setup yarn:install assets:precompile
 
