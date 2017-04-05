@@ -17,6 +17,10 @@ class FailJob < ApplicationJob
 end
 
 RSpec.describe ApplicationJob, type: :job do
+  after(:example) do
+    clean_que_jobs
+  end
+
   describe 'failure case' do
     before(:example) do
       @task = create(:task)
