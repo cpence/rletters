@@ -35,7 +35,7 @@ module Features
       within('.dropdown-menu') do
         fill_in 'user_email', with: params[:email]
         fill_in 'user_password', with: params[:password]
-        click_link 'Sign in'
+        click_button 'Sign in'
       end
     end
 
