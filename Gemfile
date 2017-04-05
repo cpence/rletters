@@ -79,6 +79,7 @@ group :test, :development do
 
   gem 'capybara', '~> 2.13.0'
   # gem 'capybara-slow_finder_errors'
+  # gem 'poltergeist'
   gem 'capybara-webkit'
 end
 

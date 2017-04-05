@@ -10,7 +10,7 @@ RSpec.feature 'Searching to browse the database', type: :feature do
     visit search_path
 
     fill_in 'q', with: 'test'
-    page.execute_script("$('form').submit();")
+    page.execute_script("window.jQuery('form').submit();")
 
     expect(page).to have_selector('table.document-list tr td')
     expect(page).to have_content(/\d+ articles found/i)

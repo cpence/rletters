@@ -16,7 +16,7 @@ RSpec.feature 'User sets a custom citation style', type: :feature do
 
     visit '/search'
     fill_in 'q', with: 'test'
-    page.execute_script("$('form').submit();")
+    page.execute_script("window.jQuery('form').submit();")
 
     expect(page).to have_content('Díaz, R., Casanova, A., Ariza, J. & Moriyón, I. The Rose Bengal Test in Human Brucellosis: A Neglected Test for the Diagnosis of a Neglected Disease. PLoS Neglected Tropical Diseases 5, e950 (2011).')
   end

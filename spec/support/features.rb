@@ -1,3 +1,8 @@
+# Use Poltergeist for everyting
+# require 'capybara/poltergeist'
+
+# Capybara.default_driver = :poltergeist
+# Capybara.javascript_driver = :poltergeist
 
 # Use capybara-webkit for everything
 Capybara.default_driver = :webkit
