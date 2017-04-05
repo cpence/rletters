@@ -16,4 +16,17 @@ module QueHelpers
     SQL
     ActiveRecord::Base.connection.execute(query)
   end
+
+  def clean_que_jobs
+    # DatabaseRewinder doesn't see Que's custom SQL queries.
+    ActiveRecord::Base.connection.execute('DELETE FROM que_jobs')
+  end
+end
+
+RSpec.configure do |config|
+  config.after(:example, type: :feature) do
+    # We also want to do this after every feature, so that we don't have to
+    # keep track of whether they modify the jobs table.
+    ActiveRecord::Base.connection.execute('DELETE FROM que_jobs')
+  end
 end

@@ -1,6 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe Admin::QueJob do
+  after(:example) do
+    clean_que_jobs
+  end
+
   describe '.scheduled' do
     it 'works' do
       mock_que_job(1)
