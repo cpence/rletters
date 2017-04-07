@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.feature 'User runs workflow on a new dataset', type: :feature do
-  scenario 'when linking one dataset' do
+  scenario 'when linking one dataset', perform_enqueued: true do
     sign_in_with
 
     visit root_path
