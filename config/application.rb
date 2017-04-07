@@ -72,7 +72,7 @@ module RLetters
     config.action_mailer.raise_delivery_errors = false
 
     # Use que for job queueing (except in testing)
-    config.active_job.queue_adapter = Rails.env.test? ? :test : :que
+    config.active_job.queue_adapter = Rails.env.test? ? :inline : :que
 
     # Enable caching (except in testing), but not for mails
     config.action_controller.perform_caching = !Rails.env.test?

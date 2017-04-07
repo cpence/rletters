@@ -7,4 +7,8 @@ end
 
 class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   driven_by :webkit
+
+  setup do
+    Capybara.current_window.resize_to(1400, 1400)
+  end
 end

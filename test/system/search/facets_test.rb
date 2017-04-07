@@ -39,6 +39,6 @@ class FacetsTest < ApplicationSystemTestCase
     end
 
     assert_text(/1502 articles /i)
-    assert_selector 'li', text: 'Active filters'
+    assert_no_selector 'li', text: 'Active filters'
   end
 end

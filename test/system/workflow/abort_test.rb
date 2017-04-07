@@ -18,6 +18,6 @@ class AbortTest < ApplicationSystemTestCase
     click_link 'Abort Building Analysis'
 
     visit root_path
-    assert has_link?('Current Analysis')
+    refute has_link?('Current Analysis')
   end
 end

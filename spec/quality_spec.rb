@@ -48,7 +48,7 @@ RSpec.describe 'The library itself' do
   end
 
   it 'has no malformed whitespace' do
-    exempt = %r{vendor|LICENSE|\.png|\.svg|\.ico|\.ttf|\.woff|\.svg|\.eot|\.md|db/seeds/|\.xsd|\.xml|\.yml|spec/support/requests/|\.sql}
+    exempt = %r{vendor|LICENSE|\.png|\.svg|\.ico|\.ttf|\.woff|\.svg|\.eot|\.md|db/seeds/|\.xsd|\.xml|\.yml|test/helpers/requests/|spec/support/requests/|\.sql}
     error_messages = []
     Dir.chdir(File.expand_path('../..', __FILE__)) do
       `git ls-files`.split("\n").each do |filename|

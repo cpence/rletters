@@ -28,12 +28,6 @@ RSpec.configure do |config|
     Time.zone = 'Eastern Time (US & Canada)'
   end
 
-  config.after(:example) do
-    # Clean out the job queues
-    ActiveJob::Base.queue_adapter.enqueued_jobs = []
-    ActiveJob::Base.queue_adapter.performed_jobs = []
-  end
-
   config.around(:each, verify_stubs: false) do |ex|
     config.mock_with :rspec do |mocks|
       mocks.verify_partial_doubles = false
