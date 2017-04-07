@@ -50,7 +50,7 @@ gem 'rdf-n3'
 
 # Visualization
 gem 'prawn'
-gem 'rubysdl'
+gem 'rubysdl', '= 2.1.3.1'
 
 # Asset tools and template generators
 gem 'haml'

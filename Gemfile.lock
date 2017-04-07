@@ -293,7 +293,7 @@ GEM
     ruby-rc4 (0.1.5)
     ruby_parser (3.8.4)
       sexp_processor (~> 4.1)
-    rubysdl (2.2.0)
+    rubysdl (2.1.3.1)
     rubyzip (1.2.1)
     safe_yaml (1.0.4)
     sass (3.4.23)
@@ -399,7 +399,7 @@ DEPENDENCIES
   rsolr-ext
   rspec-activejob
   rspec-rails (~> 3.5.0.beta)
-  rubysdl
+  rubysdl (= 2.1.3.1)
   rubyzip (>= 1.1.0)
   sass-rails!
   setler

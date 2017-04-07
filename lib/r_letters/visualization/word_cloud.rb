@@ -59,7 +59,7 @@ module RLetters
           positions = words_to_points.each_with_object({}) do |(word, size), ret|
             ret[word] = [canvas.place_word(word: word, size: size), size]
           end
-canvas.write
+
           pdf.font(font)
 
           # Compute how much space we have and how we should scale from our

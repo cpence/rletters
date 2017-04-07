@@ -25,6 +25,7 @@ addons:
     - libsdl1.2-dev
     - libsdl-ttf2.0-dev
     - oracle-java8-installer
+    - oracle-java8-set-default
 
 install:
   - git clone --depth=1 https://github.com/rletters/solr-example.git vendor/solr

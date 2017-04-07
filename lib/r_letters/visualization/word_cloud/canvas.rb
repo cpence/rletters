@@ -17,10 +17,6 @@ module RLetters
       class Canvas
         attr_reader :width, :height
 
-def write
-  @image.save_bmp('out.bmp')
-end
-
         # Create a new canvas object
         #
         # @param [Hash<String, Integer>] words a hash mapping a word to its
@@ -191,7 +187,6 @@ end
         def font_for(size)
           font = SDL::TTF.open(@font_path, size)
           font.style = SDL::TTF::STYLE_NORMAL
-          font.hinting = SDL::TTF::HINTING_NORMAL
 
           font
         end
