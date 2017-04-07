@@ -1,6 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe RLetters::Que::Stats do
+  after(:example) do
+    clean_que_jobs
+  end
+
   describe '.stats' do
     it 'includes all four keys' do
       @stats = RLetters::Que::Stats.stats

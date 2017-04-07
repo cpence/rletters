@@ -189,6 +189,10 @@ RSpec.describe AdminController, type: :controller do
       sign_in @admin
     end
 
+    after(:example) do
+      clean_que_jobs
+    end
+
     describe '#item_delete' do
       it 'works' do
         mock_que_job
