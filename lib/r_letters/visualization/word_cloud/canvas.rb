@@ -1,3 +1,4 @@
+require 'sdl'
 
 module RLetters
   module Visualization
@@ -16,6 +17,10 @@ module RLetters
       class Canvas
         attr_reader :width, :height
 
+def write
+  @image.save_bmp('out.bmp')
+end
+
         # Create a new canvas object
         #
         # @param [Hash<String, Integer>] words a hash mapping a word to its
@@ -24,33 +29,32 @@ module RLetters
         def initialize(words:, font_path:)
           @font_path = font_path
 
-          # Get the size of the bounding box for each word
-          @extents = words.each_with_object({}) do |(word, size), ret|
-            ret[word] = get_word_extents(word: word, size: size)
-          end
+          SDL::TTF.init unless SDL::TTF.init?
 
           # Render each word to a PNG that we'll use to check whether words
           # overlap
-          @clip_pngs = words.each_with_object({}) do |(word, size), ret|
-            e = @extents[word]
-
-            clip_image = create_new_image(width: e[:width].ceil + 10,
-                                          height: e[:height].ceil + 10)
-            clip_image.combine_options do |b|
-              b.font(@font_path).pointsize(size)
-              b.stroke('black').strokewidth(1).gravity('NorthWest')
-
-              b.draw("text 5,5 \"#{word}\"")
-            end
-
-            ret[word] = ChunkyPNG::Image.from_file(clip_image.path)
+          @clip_surfaces = words.each_with_object({}) do |(word, size), ret|
+            ret[word] = font_for(size).render_solid_utf8(word, 0, 0, 0)
           end
 
           # Take a guess at how much area we'll need to build the image
           calculate_canvas_size
 
           # Build the image where we'll store the clipping data
-          @image = create_new_image(width: @width, height: @height)
+          big_endian = ([1].pack("N") == [1].pack("L"))
+          if big_endian
+            rmask = 0xff000000
+            gmask = 0x00ff0000
+            bmask = 0x0000ff00
+          else
+            rmask = 0x000000ff
+            gmask = 0x0000ff00
+            bmask = 0x00ff0000
+          end
+
+          @image = SDL::Surface.new(SDL::SWSURFACE, @width, @height, 24,
+                                    rmask, gmask, bmask, 0)
+          @image.fill_rect(0, 0, @width, @height, @image.format.map_rgb(0, 0, 0))
         end
 
         # Place a word on the canvas, not overlapping with any others
@@ -59,36 +63,34 @@ module RLetters
         # @param [Integer] size the point size for the word
         # @return [void]
         def place_word(word:, size:)
-          e = @extents[word]
+          font = font_for(size)
+          ascent = font.ascent
+          dimen = font.text_size(word)
 
           # Start at a random position on the center line
-          x_0 = ((@width - e[:width]) / 2.0).round
+          x_0 = ((@width - dimen[0]) / 2.0).round
           y_0 = Random.rand(@height).round
 
           # It's possible that the initial positions will make the word hang
           # off the edges of the canvas; if so, move it.
-          x_0 = (@width - e[:width]) if x_0 + e[:width] > @width
-          y_0 = (@height - e[:height]) if y_0 + e[:height] > @height
+          x_0 = (@width - dimen[0]) if x_0 + dimen[0] > @width
+          y_0 = (@height - dimen[1]) if y_0 + dimen[1] > @height
 
           # Set up our state
           x = x_0
           y = y_0
           theta = 0.0
-          @image_png = ChunkyPNG::Image.from_file(@image.path)
 
           loop do
-            if x > 0 && x < @width - e[:width] &&
-               y > 0 && y < @height - e[:height] &&
-               word_fits_at(word: word, extents: e, x: x, y: y)
+            if x > 0 && x < @width - dimen[0] &&
+               y > 0 && y < @height - dimen[1] &&
+               word_fits_at(word: word, x: x, y: y)
               # It fits, so add the word to the canvas
               paint_word(word: word, size: size, x: x, y: y)
 
-              # Reload the image now that we've painted on it
-              @image_png = ChunkyPNG::Image.from_file(@image.path)
-
               # Correct from our top-right gravity to PDF bottom-right gravity, and
               # return the position of the text baseline, not the top-left corner
-              return [x, @height - y - e[:ascent]]
+              return [x, @height - y - ascent]
             end
 
             # Loop until we make sure we have a point on the canvas
@@ -127,7 +129,10 @@ module RLetters
         #
         # @return [void]
         def calculate_canvas_size
-          sizes = @extents.values
+          sizes = @clip_surfaces.map do |s|
+            { width: s[1].w, height: s[1].h }
+          end
+
           sizes.sort! do |a, b|
             diff = [b[:width], b[:height]].max <=>
                    [a[:width], a[:height]].max
@@ -155,82 +160,40 @@ module RLetters
           @height = (root[:height] * 1.15).ceil
         end
 
-        # Make a brand new PNG image with MiniMagick
-        #
-        # There's no API for making an image from scratch using MiniMagic. This
-        # calls `convert` directly to make a new white PNG of the given
-        # dimensions, then loads it with MiniMagick.
-        #
-        # @param [Integer] width the width of the image
-        # @param [Integer] height the height of the image
-        # @return [MiniMagic::Image] the newly created image
-        def create_new_image(width:, height:)
-          tempfile = Tempfile.new(['wordcloud', '.png'])
-          MiniMagick::Tool::Convert.new do |new_image|
-            new_image.size "#{width}x#{height}"
-            new_image << 'xc:white'
-            new_image << tempfile.path
-          end
-
-          # Don't GC these until this class is destroyed
-          @tempfiles ||= []
-          @tempfiles << tempfile
-
-          MiniMagick::Image.new(tempfile.path)
-        end
-
         # See if the word fits at the given location
         #
-        # This checks the data in the `@clip_pngs` array to see if placing
+        # This checks the data in the `@clip_surfaces` array to see if placing
         # the given word at the given location on the canvas would overlap any
         # words that are already there.
         #
         # @param [String] word the word to check
-        # @param [Hash] extents the extents of this word
         # @param [Integer] x the x coordinate to check
         # @param [Integer] y the y coordinate to check
         # @return [Boolean] true if the word can fit without overlap
-        def word_fits_at(word:, extents:, x:, y:)
-          w = extents[:width].ceil + 10
-          h = extents[:height].ceil + 10
-
-          # If we're near the edge of the canvas, we can't just take a 5-pixel
-          # pad around the image in all directions
-          x_off = 0
-          y_off = 0
-
-          # Whether one of these edge conditions is triggered is stochastic, so
-          # skip them for coverage
-          # :nocov:
-          if x < 5
-            x_off = (5 - x)
-            w -= x_off
-          end
-          if y < 5
-            y_off = (5 - y)
-            h -= y_off
-          end
-          # :nocov:
-
-          w = @width - x + (5 - x_off) if x - (5 - x_off) + w > @width
-          h = @height - y + (5 - y_off) if y - (5 - y_off) + h > @height
-
-          clip_png = @clip_pngs[word]
+        def word_fits_at(word:, x:, y:)
+          clip_surface = @clip_surfaces[word]
+          w = clip_surface.w
+          h = clip_surface.h
 
           # Compare the pixels to check for overlap
           (0...h).each do |j|
             (0...w).each do |i|
-              clip_color = clip_png[x_off + i, y_off + j]
-              canvas_color = @image_png[x - (5 - x_off) + i, y - (5 - y_off) + j]
+              clip_color = clip_surface.get_pixel(i, j)
+              canvas_color = @image.get_pixel(x + i, y + j)
 
-              if ChunkyPNG::Color.r(clip_color) < 255 &&
-                 ChunkyPNG::Color.r(canvas_color) < 255
-                return false
-              end
+              return false if clip_color != 0 && canvas_color != 0
             end
           end
 
           true
+        end
+
+        def font_for(size)
+          font = SDL::TTF.open(@font_path, size)
+          font.style = SDL::TTF::STYLE_NORMAL
+          font.hinting = SDL::TTF::HINTING_NORMAL
+
+          font
         end
 
         # Paint a word onto the canvas
@@ -244,44 +207,7 @@ module RLetters
         # @param [Integer] y the y coordinate at which to paint
         # @return [void]
         def paint_word(word:, size:, x:, y:)
-          @image.combine_options do |b|
-            b.font(@font_path).pointsize(size)
-            b.stroke('black').strokewidth(1).gravity('NorthWest')
-
-            b.draw("text #{x},#{y} \"#{word}\"")
-          end
-        end
-
-        # Get the width and height in pixels, as well as the ascender height
-        # for this word.
-        #
-        # @param [String] word the word to get extents for
-        # @param [Integer] size the size of the font to render
-        # @return [Hash] a hash with keys `:width` and `:height` (the pixel
-        #   size of the entire word) and `:ascent` (the distance from the top
-        #   of the bounding box to the baseline)
-        def get_word_extents(word:, size:)
-          script = <<-MSL
-<?xml version="1.0" encoding="UTF-8"?>
-<image>
-  <query-font-metrics text=#{word.encode(xml: :attr)} font=#{@font_path.encode(xml: :attr)} pointsize="#{size}" />
-  <print output="%[msl:font-metrics.width] %[msl:font-metrics.height] %[msl:font-metrics.ascent]\\n" />
-</image>
-MSL
-
-          temp = Tempfile.new('out.msl')
-          temp.write(script)
-          temp.close
-
-          output = MiniMagick::Tool::Conjure.new(whiny: false) do |b|
-            b << temp.path
-          end
-
-          temp.unlink
-
-          numbers = output.split(' ').map(&:to_f)
-
-          { width: numbers[0], height: numbers[1], ascent: numbers[2] }
+          font_for(size).draw_blended_utf8(@image, word, x, y, 255, 255, 255)
         end
 
         # Find a node with sufficient space for a block of size wxh.

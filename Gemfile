@@ -50,8 +50,7 @@ gem 'rdf-n3'
 
 # Visualization
 gem 'prawn'
-gem 'chunky_png'
-gem 'mini_magick'
+gem 'rubysdl'
 
 # Asset tools and template generators
 gem 'haml'
