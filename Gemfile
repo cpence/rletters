@@ -77,6 +77,7 @@ group :test, :development do
   gem 'factory_girl_rails'
 
   gem 'capybara', '~> 2.13.0'
+  gem 'capybara-screenshot'
   # gem 'capybara-slow_finder_errors'
   # gem 'poltergeist'
   gem 'capybara-webkit'

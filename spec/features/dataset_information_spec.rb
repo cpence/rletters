@@ -81,7 +81,7 @@ RSpec.feature 'Viewing information about a dataset', type: :feature do
     expect(page).not_to have_selector('.alert.alert-danger')
   end
 
-  scenario 'when a task has finished' do
+  scenario 'when a task has finished', perform_enqueued: true do
     sign_in_with
     create_dataset
 
@@ -93,9 +93,7 @@ RSpec.feature 'Viewing information about a dataset', type: :feature do
     click_button 'Link dataset'
     click_link 'Set Job Options'
 
-    perform_enqueued_jobs do
-      click_button 'Start analysis job'
-    end
+    click_button 'Start analysis job'
 
     visit datasets_path
     expect(page).to have_selector('td', text: 'Integration Dataset')

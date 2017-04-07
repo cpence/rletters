@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.feature 'User runs workflow on existing datasets', type: :feature do
-  scenario 'when linking one dataset' do
+  scenario 'when linking one dataset', perform_enqueued: true do
     sign_in_with
     create_dataset
 
@@ -17,9 +17,7 @@ RSpec.feature 'User runs workflow on existing datasets', type: :feature do
 
     click_link 'Set Job Options'
 
-    perform_enqueued_jobs do
-      click_button 'Start analysis job'
-    end
+    click_button 'Start analysis job'
 
     within('.navbar') { click_link 'Fetch' }
     expect(page).to have_selector('td', text: 'Integration Dataset')
@@ -29,7 +27,7 @@ RSpec.feature 'User runs workflow on existing datasets', type: :feature do
     expect(page).to have_link('Download in CSV format')
   end
 
-  scenario 'when linking two datasets' do
+  scenario 'when linking two datasets', perform_enqueued: true do
     sign_in_with
     create_dataset(q: 'green')
     create_dataset(name: 'Other Dataset', q: 'blue')
