@@ -1,4 +1,3 @@
-dist: trusty
 sudo: false
 
 language: ruby
@@ -18,9 +17,14 @@ env:
     - DATABASE_URL="postgres:///rletters_test?username=postgres&pool=20&encoding=unicode"
     - secure: Lv1neEs259UnYFTpbBOja4qhbdDnDCryGiZ8ycLkBGlc7PioiSiVqCo1Py+pJrpYenA3xrguv/Z5hdNjJ3fm4dl8GDrV9kgjtNe8E388kitISpimAi5QuwvxfJS8YiRPKm9VSfs3laMlSVXjhMdlAW1PPcrcElddv+r+jMpJ9uM=
 
-# Enable the latest PostgreSQL
+# Enable the latest PostgreSQL, and install sdl and sdl_ttf
 addons:
   postgresql: 9.6
+  apt:
+    packages:
+    - libsdl1.2-dev
+    - libsdl-ttf2.0-dev
+    - openjdk-8-jdk
 
 install:
   - git clone --depth=1 https://github.com/rletters/solr-example.git vendor/solr
