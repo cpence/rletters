@@ -1,7 +1,7 @@
-require 'rails_helper'
+require 'application_system_test_case'
 
-RSpec.feature 'Searching with journal categories', type: :feature do
-  before(:example) do
+class JournalCategoriesTest < ApplicationSystemTestCase
+  setup do
     root = Documents::Category.create(
       name: 'Root',
       journals: ['PLoS Neglected Tropical Diseases', 'Gutenberg'])
@@ -10,18 +10,18 @@ RSpec.feature 'Searching with journal categories', type: :feature do
     root.children.create(name: 'Gutenberg', journals: ['Gutenberg'])
   end
 
-  scenario 'when adding a category' do
+  test 'add a category' do
     visit search_path
 
     within('.well .nav') do
       click_link('PNTD')
     end
 
-    expect(page).to have_content(/1500 articles /i)
-    expect(page).to have_selector('li', text: /Category: PNTD/)
+    assert_text(/1500 articles /i)
+    assert_selector 'li', text: /Category: PNTD/
   end
 
-  scenario 'clearing a category' do
+  test 'clear a category' do
     visit search_path
 
     within('.well .nav') do
@@ -33,11 +33,11 @@ RSpec.feature 'Searching with journal categories', type: :feature do
       click_link('Gutenberg')
     end
 
-    expect(page).to have_content(/1500 articles /i)
-    expect(page).to have_selector('li', text: /Category: PNTD/)
+    assert_text(/1500 articles /i)
+    assert_selector 'li', text: /Category: PNTD/
   end
 
-  scenario 'clearing all categories' do
+  test 'clear all categories' do
     visit search_path
 
     within('.well .nav') do
@@ -48,7 +48,7 @@ RSpec.feature 'Searching with journal categories', type: :feature do
       click_link('Remove All')
     end
 
-    expect(page).to have_content(/1502 articles /i)
-    expect(page).not_to have_selector('li', text: 'Active filters')
+    assert_text(/1502 articles /i)
+    assert_no_selector 'li', text: 'Active filters'
   end
 end

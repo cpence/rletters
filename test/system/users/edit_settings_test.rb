@@ -1,7 +1,7 @@
-require 'rails_helper'
+require 'application_system_test_case'
 
-RSpec.feature 'User edits their account settings', type: :feature do
-  scenario 'when logged in' do
+class EditSettingsTest < ApplicationSystemTestCase
+  test 'edit user settings' do
     sign_in_with
 
     within('.navbar-right') { click_link 'My Account' }
@@ -9,6 +9,6 @@ RSpec.feature 'User edits their account settings', type: :feature do
     fill_in 'user_current_password', with: 'changeme'
     click_button 'Update settings'
 
-    expect(page).to have_content('Your account has been updated successfully.')
+    assert_text 'Your account has been updated successfully.'
   end
 end

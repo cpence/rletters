@@ -1,7 +1,7 @@
-require 'rails_helper'
+require 'application_system_test_case'
 
-RSpec.feature 'User aborts the workflow construction', type: :feature do
-  scenario 'when a workflow is partially built' do
+class AbortTest < ApplicationSystemTestCase
+  test 'abort a partial workflow' do
     sign_in_with
     create_dataset
 
@@ -18,6 +18,6 @@ RSpec.feature 'User aborts the workflow construction', type: :feature do
     click_link 'Abort Building Analysis'
 
     visit root_path
-    expect(page).not_to have_link('Current Analysis')
+    assert has_link?('Current Analysis')
   end
 end

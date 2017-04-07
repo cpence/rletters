@@ -1,7 +1,7 @@
-require 'rails_helper'
+require 'application_system_test_case'
 
-RSpec.feature 'User fetching a pending task', type: :feature do
-  scenario 'when task is not finished' do
+class PendingTaskTest < ApplicationSystemTestCase
+  test 'workflow with pending task' do
     sign_in_with
     create_dataset
     visit datasets_path
@@ -10,10 +10,10 @@ RSpec.feature 'User fetching a pending task', type: :feature do
                   progress: 0.4, progress_message: 'Pending task...')
 
     within('.navbar') { click_link 'Fetch' }
-    expect(page).to have_selector('td', text: '40%: Pending task...')
+    assert_selector 'td', text: '40%: Pending task...'
   end
 
-  scenario 'when a task has failed' do
+  test 'workflow with failed task' do
     sign_in_with
     create_dataset
     visit datasets_path
@@ -22,7 +22,7 @@ RSpec.feature 'User fetching a pending task', type: :feature do
                   name: 'Blahdeblah')
 
     within('.navbar') { click_link 'Fetch' }
-    expect(page).to have_selector('td', text: 'Blahdeblah')
-    expect(page).to have_selector('td', text: 'Task failed')
+    assert_selector 'td', text: 'Blahdeblah'
+    assert_selector 'td', text: 'Task failed'
   end
 end

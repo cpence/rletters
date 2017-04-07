@@ -1,7 +1,7 @@
-require 'rails_helper'
+require 'application_system_test_case'
 
-RSpec.feature 'User adds links to their own libraries', type: :feature do
-  scenario 'when adding automatically' do
+class LinkLibrariesTest < ApplicationSystemTestCase
+  test 'link library automatically' do
     sign_in_with
 
     visit root_path
@@ -14,13 +14,13 @@ RSpec.feature 'User adds links to their own libraries', type: :feature do
     click_button 'University of NotreDame'
 
     visit libraries_path
-    expect(page).to have_selector('td', text: 'University of NotreDame')
+    assert_selector 'td', text: 'University of NotreDame'
 
     visit search_path
     find_link 'Your library: University of NotreDame', match: :first, visible: false
   end
 
-  scenario 'when adding manually' do
+  test 'link library manually' do
     sign_in_with
 
     visit root_path
@@ -34,7 +34,7 @@ RSpec.feature 'User adds links to their own libraries', type: :feature do
     click_button 'Create Library'
 
     visit libraries_path
-    expect(page).to have_selector('td', text: 'Harvard')
+    assert_selector 'td', text: 'Harvard'
 
     visit search_path
     find_link 'Your library: Harvard', match: :first, visible: false

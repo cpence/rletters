@@ -74,12 +74,11 @@ group :test, :development do
   gem 'rspec-activejob', require: false
   gem 'rails-controller-testing'
 
+  gem 'mocha', require: false
   gem 'factory_girl_rails'
 
   gem 'capybara', '~> 2.13.0'
-  gem 'capybara-screenshot'
   # gem 'capybara-slow_finder_errors'
-  # gem 'poltergeist'
   gem 'capybara-webkit'
 end
 

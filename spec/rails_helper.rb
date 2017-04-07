@@ -50,8 +50,4 @@ RSpec.configure do |config|
   config.include StubConnection
   config.include Devise::Test::ControllerHelpers, type: :controller
   config.include ParseJson, type: :request
-  config.include Features::AdminHelpers, type: :feature
-  config.include Features::DatasetHelpers, type: :feature
-  config.include Features::StubHelpers, type: :feature
-  config.include Features::UserHelpers, type: :feature
 end

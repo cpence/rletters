@@ -1,7 +1,8 @@
-require 'rails_helper'
+require 'application_system_test_case'
 
-RSpec.feature 'User runs workflow on a new dataset', type: :feature do
-  scenario 'when linking one dataset', perform_enqueued: true do
+class NewDataTest < ApplicationSystemTestCase
+  test 'workflow with one new dataset' do
+    # FIXME: perform_enqueued
     sign_in_with
 
     visit root_path
@@ -14,15 +15,15 @@ RSpec.feature 'User runs workflow on a new dataset', type: :feature do
     create_benchmark
 
     click_link 'Current Analysis'
-    expect(page).to have_selector('td', text: 'less than a minute')
+    assert_selector 'td', text: 'less than a minute'
 
     click_link 'Set Job Options'
     click_button 'Start analysis job'
 
     within('.navbar') { click_link 'Fetch' }
-    expect(page).to have_selector('td', text: 'Integration Dataset')
+    assert_selector 'td', text: 'Integration Dataset'
 
     click_link 'View'
-    expect(page).to have_link('Download in CSV format')
+    assert has_link?('Download in CSV format')
   end
 end

@@ -1,7 +1,8 @@
-require 'rails_helper'
+require 'application_system_test_case'
 
-RSpec.feature 'User runs workflow on existing datasets', type: :feature do
-  scenario 'when linking one dataset', perform_enqueued: true do
+class ExistingDataTest < ApplicationSystemTestCase
+  test 'workflow with one existing dataset' do
+    # FIXME: perform_enqueued
     sign_in_with
     create_dataset
 
@@ -20,14 +21,15 @@ RSpec.feature 'User runs workflow on existing datasets', type: :feature do
     click_button 'Start analysis job'
 
     within('.navbar') { click_link 'Fetch' }
-    expect(page).to have_selector('td', text: 'Integration Dataset')
-    expect(page).to have_selector('td', text: 'Plot number of articles by date')
+    assert_selector 'td', text: 'Integration Dataset'
+    assert_selector 'td', text: 'Plot number of articles by date'
 
     click_link 'View'
-    expect(page).to have_link('Download in CSV format')
+    assert has_link?('Download in CSV format')
   end
 
-  scenario 'when linking two datasets', perform_enqueued: true do
+  test 'workflow with two existing datasets' do
+    # FIXME: perform_enqueued
     sign_in_with
     create_dataset(q: 'green')
     create_dataset(name: 'Other Dataset', q: 'blue')
@@ -56,9 +58,9 @@ RSpec.feature 'User runs workflow on existing datasets', type: :feature do
     click_button 'Start analysis job'
 
     within('.navbar') { click_link 'Fetch' }
-    expect(page).to have_selector('td', text: 'Integration Dataset')
+    assert_selector 'td', text: 'Integration Dataset'
 
     click_link 'View'
-    expect(page).to have_link('Download in CSV format')
+    assert has_link?('Download in CSV format')
   end
 end
