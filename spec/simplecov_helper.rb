@@ -2,10 +2,6 @@
 # Coverage setup
 if ENV['TRAVIS'] || ENV['COVERAGE']
   require 'simplecov'
-  if ENV['TRAVIS']
-    require 'codeclimate-test-reporter'
-    SimpleCov.formatter = CodeClimate::TestReporter::Formatter
-  end
 
   SimpleCov.start do
     add_filter '/spec/'
