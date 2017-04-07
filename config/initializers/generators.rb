@@ -1,11 +1,9 @@
 
 # Generator configuration
-Rails.application.config.generators do |generator|
-  generator.orm :active_record
-  generator.template_engine :haml
-  generator.test_framework :rspec,
-                           view_specs: false,
-                           routing_specs: false
-  generator.fixture_replacement :factory_girl,
-                                dir: 'spec/factories'
+Rails.application.config.generators do |g|
+  g.orm             :active_record
+  g.template_engine :haml
+  g.test_framework  :test_unit,
+                    fixture: false,
+                    fixture_replacement: :factory_girl
 end
