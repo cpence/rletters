@@ -39,4 +39,7 @@ before_script:
   - 'pushd vendor/solr && ./start && popd'
   - bin/rails RAILS_ENV=test db:setup yarn:install assets:precompile
 
-script: bundle exec rspec && bundle exec codeclimate-test-reporter
+script:
+  - bundle exec rspec
+  - bin/rails test:system
+  - bundle exec codeclimate-test-reporter
