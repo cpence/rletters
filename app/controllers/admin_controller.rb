@@ -175,6 +175,7 @@ class AdminController < ApplicationController
   # @return [void]
   def get_model
     @model = params[:model].camelize.constantize
+    fail ArgumentError, "cannot find model #{model}" unless @model
     fail ActiveRecord::RecordNotFound if @model.admin_attributes.empty?
   end
 

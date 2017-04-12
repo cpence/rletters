@@ -11,4 +11,10 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   setup do
     Capybara.current_window.resize_to(1400, 1400)
   end
+
+  # Helpers for making our system tests much cleaner
+  include SystemAdminHelper
+  include SystemDatasetHelper
+  include SystemStubHelper
+  include SystemUserHelper
 end

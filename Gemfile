@@ -71,8 +71,6 @@ gem 'roadie-rails', '>= 1.1.1'
 # Testing
 group :test, :development do
   gem 'rspec-rails', '~> 3.5.0.beta'
-  gem 'rspec-activejob', require: false
-  gem 'rails-controller-testing'
 
   gem 'mocha', require: false
   gem 'factory_girl_rails'

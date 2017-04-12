@@ -11,7 +11,6 @@ end
 
 require 'spec_helper'
 require 'rspec/rails'
-require 'rspec/active_job'
 
 Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 
@@ -40,8 +39,6 @@ RSpec.configure do |config|
   config.include FactoryGirl::Syntax::Methods
   config.include ActiveJob::TestHelper
   config.include QueHelpers
-  config.include RSpec::ActiveJob
   config.include StubConnection
-  config.include Devise::Test::ControllerHelpers, type: :controller
   config.include ParseJson, type: :request
 end
