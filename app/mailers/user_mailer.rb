@@ -14,7 +14,6 @@ class UserMailer < ApplicationMailer
     @task = task
 
     mail(from: ENV['APP_EMAIL'], to: email,
-         subject: I18n.t('user_mailer.job_finished.subject',
-                         app_name: ENV['APP_NAME']))
+         subject: I18n.t('user_mailer.job_finished.subject'))
   end
 end

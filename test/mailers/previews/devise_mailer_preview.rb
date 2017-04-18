@@ -5,8 +5,17 @@ class DeviseMailerPreview < ActionMailer::Preview
   #
   # @return [void]
   def reset_password_instructions
-    user = User.first || FactoryGirl.build_stubbed(:user)
+    user = FactoryGirl.build_stubbed(:user)
 
     DeviseMailer.reset_password_instructions(user, 'asdftoken123')
+  end
+
+  # Preview the password changed e-mail
+  #
+  # @return [void]
+  def password_change
+    user = FactoryGirl.build_stubbed(:user)
+
+    DeviseMailer.password_change(user)
   end
 end

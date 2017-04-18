@@ -19,6 +19,9 @@ Devise.setup do |config|
   # Configure the class responsible to send e-mails.
   config.mailer = 'DeviseMailer'
 
+  # Configure the parent class responsible to send e-mails.
+  # config.parent_mailer = 'ActionMailer::Base'
+
   # ==> ORM configuration
   # Load and configure the ORM. Supports :active_record (default) and
   # :mongoid (bson_ext recommended) by default. Other ORMs may be
@@ -95,6 +98,12 @@ Devise.setup do |config|
   # from the server. You can disable this option at your own risk.
   # config.clean_up_csrf_token_on_authentication = true
 
+  # When false, Devise will not attempt to reload routes on eager load.
+  # This can reduce the time taken to boot the app but if your application
+  # requires the Devise mappings to be loaded during boot time the application
+  # won't boot properly.
+  # config.reload_routes = true
+
   # ==> Configuration for :database_authenticatable
   # For bcrypt, this is the cost for hashing the password and defaults to 10.
   # If using other encryptors, it sets how many times you want the password
@@ -106,14 +115,23 @@ Devise.setup do |config|
   # default encryptor), the cost increases exponentially with the number of
   # stretches (e.g. a value of 20 is already extremely slow: approx. 60 seconds
   # for 1 calculation).
-  config.stretches = Rails.env.test? ? 1 : 10
+  config.stretches = Rails.env.test? ? 1 : 11
+
+  # Set up a pepper to generate the hashed password.
+  # config.pepper = '<%= SecureRandom.hex(64) %>'
+
+  # Send a notification to the original email when the user's email is changed.
+  # config.send_email_changed_notification = false
 
   # Send a notification email when the user's password is changed
-  # config.send_password_change_notification = false
+  config.send_password_change_notification = true
 
   # ==> Configuration for :rememberable
   # The time the user will be remembered without asking for credentials again.
   config.remember_for = 2.weeks
+
+  # Invalidates all the remember me tokens when the user signs out.
+  config.expire_all_remember_me_on_sign_out = true
 
   # If true, extends the user's remember period when remembered via cookie.
   # config.extend_remember_period = false
@@ -131,15 +149,19 @@ Devise.setup do |config|
   # to give user feedback and not to assert the e-mail validity.
   # config.email_regexp = /\A[^@]+@[^@]+\z/
 
-  # ==> Configuration for :encryptable
-  # Allow you to use another encryption algorithm besides bcrypt (default). You
-  # can use :sha1, :sha512 or encryptors from others authentication tools as
-  # :clearance_sha1, :authlogic_sha512 (then you should set stretches above to
-  # 20 for default behavior) and :restful_authentication_sha1 (then you should
-  # set stretches to 10, and copy REST_AUTH_SITE_KEY to pepper).
+  # ==> Configuration for :recoverable
   #
-  # Require the `devise-encryptable` gem when using anything other than bcrypt
-  # config.encryptor = :sha512
+  # Defines which key will be used when recovering the password for an account
+  # config.reset_password_keys = [:email]
+
+  # Time interval you can reset your password with a reset password key.
+  # Don't put a too small interval or your users won't have the time to
+  # change their passwords.
+  config.reset_password_within = 6.hours
+
+  # When set to false, does not sign a user in automatically after their password is
+  # reset. Defaults to true, so a user is signed in automatically after a reset.
+  # config.sign_in_after_reset_password = true
 
   # ==> Scopes configuration
   # Turn scoped views on. Before rendering "sessions/new", it will first check

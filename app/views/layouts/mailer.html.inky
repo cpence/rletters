@@ -1,0 +1,40 @@
+!!! Strict
+%html{ xmlns: 'http://www.w3.org/1999/xhtml' }
+  %head
+    %meta{ content: 'text/html; charset=utf-8', 'http-equiv': 'Content-Type' }/
+    %meta{ content: 'width=device-width', name: 'viewport' }/
+    = stylesheet_link_tag 'foundation_emails'
+
+    %table.body{ 'data-made-with-foundation': true }
+      %tr
+        %td.center{ align: 'center', valign: 'top' }
+          %center
+            %container
+              %row.header
+                %columns
+                  %spacer{ size: '16' }
+                  %h4.text-center= ENV['APP_NAME']
+
+                  - if Admin::UploadedAsset.url_for('apple-touch-icon-high').present?
+                    %spacer{ size: '32' }
+                    %center
+                      %img{ src: Admin::UploadedAsset.url_for('apple-touch-icon-high') }
+
+              %row
+                %columns
+                  %spacer{ size: '16' }
+
+                  = yield
+
+              %spacer{ size: '32' }
+
+              %row
+                %columns
+                  %menu
+                    %item{ href: root_url }= t('mailer.visit', app_name: ENV['APP_NAME'])
+                    %item{ href: "mailto:#{ENV['APP_EMAIL']}" }= t('mailer.contact')
+
+                  %p.secondary.text-center
+                    %small= t('mailer.one_time')
+
+              %spacer{ size: '32' }

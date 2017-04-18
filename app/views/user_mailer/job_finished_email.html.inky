@@ -1,0 +1,9 @@
+%h1.text-center= t('user_mailer.job_finished.header')
+%p.text-center= t('user_mailer.job_finished.intro', task: @task.name, dataset: @task.dataset.name)
+
+%button.large.expanded{ href: workflow_fetch_url }= t('user_mailer.job_finished.link')
+
+%spacer{ size: '32' }
+
+%callout.alert
+  %p.text-center= t('user_mailer.job_finished.warning')

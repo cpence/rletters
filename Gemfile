@@ -66,12 +66,11 @@ gem 'webpacker'
 gem 'mini_racer'
 
 gem 'multi_mail'
-gem 'roadie-rails', '>= 1.1.1'
+gem 'inky-rb', require: 'inky'
+gem 'premailer-rails'
 
 # Testing
 group :test, :development do
-  gem 'rspec-rails', '~> 3.5.0.beta'
-
   gem 'mocha', require: false
   gem 'factory_girl_rails'
 

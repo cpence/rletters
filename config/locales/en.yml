@@ -17,10 +17,9 @@ en:
             t_test_header: p-value
             log_likelihood: Log-likelihood
             log_likelihood_header: "-2*log-likelihood"
-    ink_email:
-        visit: "Visit %{app_name}:"
-        contact: "Contact Us:"
-        email: "E-mail:"
+    mailer:
+        visit: "Visit %{app_name}"
+        contact: "Contact Us"
         one_time: This is a one-time message. There is no need to unsubscribe.
     simple_form:
         "yes": 'Yes'
@@ -379,14 +378,16 @@ en:
                 submit: Log in
         mailer:
             reset:
+                subject: Reset your password
                 intro: "Hello %{name}!"
                 instructions: >
-                    Someone has requested a link to change your password,
-                    and you can do this through the link below.
+                    Someone (hopefully you!) has requested to change your
+                    password, and you can do this by clicking the button below.
                 link: "Reset your password"
                 ignore: "If you didn't request this, please ignore this email."
                 no_change: "Your password won't change until you access the link above and create a new one."
             password_change:
+                subject: Your password was changed
                 intro: "Hello %{name}!"
                 notice: >
                     We're contacting you to notify you that your password has
@@ -421,11 +422,11 @@ en:
                 success: Library was successfully updated.
     user_mailer:
         job_finished:
-            subject: "%{app_name} analysis job completed"
+            subject: "Analysis job complete"
             header: Analysis job complete!
-            intro: "Your task (%{task}, analyzing dataset %{dataset}) has finished."
-            link: "Click here to see the results of the analysis, on the 'Fetch Results' page."
-            warning: "Analysis results are only kept for 14 days after job completion; please download your files before then."
+            intro: "Your task “%{task},” analyzing dataset “%{dataset},” has finished."
+            link: "See the results!"
+            warning: "Warning: Analysis results are only kept for 14 days after job completion; please download your files before then."
     workflow:
         activate:
             header: Collect data

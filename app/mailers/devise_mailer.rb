@@ -3,9 +3,8 @@
 #
 # We override this class in order to use our custom mail layout.
 class DeviseMailer < Devise::Mailer
-  include Roadie::Rails::Automatic
   include Devise::Controllers::UrlHelpers
 
   default from: ENV['APP_EMAIL'] || 'noreply@example.com'
-  layout 'ink_email'
+  layout 'mailer'
 end

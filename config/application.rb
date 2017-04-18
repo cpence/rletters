@@ -82,12 +82,6 @@ module RLetters
     # Miscellaneous settings
     config.i18n.fallbacks = true
 
-    # Enable mailer previews if requested
-    if ENV['MAILER_PREVIEWS'] == 'true'
-      config.action_mailer.preview_path = Rails.root.join('spec', 'mailers',
-                                                          'previews')
-    end
-
     # A few remaining configuration settings just for the test environment,
     # put them here instead of splitting them out into test.rb so all of our
     # configuration is in one place
