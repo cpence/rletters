@@ -99,6 +99,7 @@ class Document
   # Make this class act like an ActiveRecord model, though it's not backed by
   # the database (it's in Solr).
   include ActiveModel::Model
+  include ActiveModel::Conversion
 
   # And give it GlobalID support
   include GlobalID::Identification
@@ -112,6 +113,9 @@ class Document
 
   # For better Rails interoperability, allow :id to be read as well
   alias_attribute :id, :uid
+
+  # Inform Rails that these models are all saved by Solr
+  def persisted?; true; end
 
   # Return a document (just bibliographic data) by uid
   #
