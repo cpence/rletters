@@ -7,7 +7,7 @@ RSpec.describe RLetters::Analysis::Collocation do
   end
 
   it 'throws an exception when the scoring type is invalid' do
-    dataset = create(:full_dataset, working: true)
+    dataset = create(:full_dataset)
     expect {
       described_class.call(scoring: :nope, dataset: dataset)
     }.to raise_error(ArgumentError)

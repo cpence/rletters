@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe RLetters::Analysis::Frequency::FromPosition do
   before(:example) do
     @user = create(:user)
-    @dataset = create(:full_dataset, num_docs: 10, working: true, user: @user)
+    @dataset = create(:full_dataset, num_docs: 10, user: @user)
   end
 
   context 'with plain onegrams analysis' do

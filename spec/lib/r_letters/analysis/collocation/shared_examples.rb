@@ -2,7 +2,7 @@
 RSpec.shared_examples_for 'a collocation analyzer' do |scoring|
   before(:example) do
     @user = create(:user)
-    @dataset = create(:full_dataset, working: true)
+    @dataset = create(:full_dataset)
   end
 
   context 'without a focal word' do

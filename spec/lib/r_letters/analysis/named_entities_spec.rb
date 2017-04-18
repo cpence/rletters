@@ -9,7 +9,7 @@ RSpec.describe RLetters::Analysis::NamedEntities do
     expect(RLetters::Analysis::NLP).to receive(:named_entities).and_return(@entities)
 
     @user = create(:user)
-    @dataset = create(:full_dataset, working: true, user: @user)
+    @dataset = create(:full_dataset, user: @user)
 
     @called_sub_100 = false
     @called_100 = false

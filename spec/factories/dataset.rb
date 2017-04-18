@@ -18,16 +18,11 @@ FactoryGirl.define do
   end
 
   factory :dataset do
-    transient do
-      working false
-    end
-
     name 'Dataset'
     user
 
     factory :full_dataset do
       transient do
-        working false
         num_docs 5
       end
 
@@ -43,16 +38,8 @@ FactoryGirl.define do
   end
 
   factory :query, class: Datasets::Query do
-    transient do
-      working false
-    end
-
     sequence(:q) do
-      if working
-        "uid:\"#{FactoryGirl.generate(:working_uid)}\""
-      else
-        'title:test'
-      end
+      "uid:\"#{FactoryGirl.generate(:working_uid)}\""
     end
 
     dataset

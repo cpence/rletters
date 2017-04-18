@@ -41,6 +41,6 @@ before_script:
 
 script:
   - bundle exec rspec
-  - bin/rails test
-  - bin/rails test:system
+  - bundle exec rails test
+  - bundle exec rails test:system
   - bundle exec codeclimate-test-reporter

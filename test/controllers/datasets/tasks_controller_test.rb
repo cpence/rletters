@@ -3,7 +3,7 @@ require 'test_helper'
 class Datasets::TasksControllerTest < ActionDispatch::IntegrationTest
   test 'should get index' do
     user = create(:user)
-    dataset = create(:full_dataset, user: user, working: true)
+    dataset = create(:full_dataset, user: user)
     sign_in user
 
     get dataset_tasks_url(dataset_id: dataset.to_param)
@@ -13,7 +13,7 @@ class Datasets::TasksControllerTest < ActionDispatch::IntegrationTest
 
   test 'should not get index for invalid dataset' do
     user = create(:user)
-    dataset = create(:full_dataset, user: user, working: true)
+    dataset = create(:full_dataset, user: user)
     sign_in user
 
     get dataset_tasks_url(dataset_id: 'asdf')
@@ -23,7 +23,7 @@ class Datasets::TasksControllerTest < ActionDispatch::IntegrationTest
 
   test 'should not get new for invalid class' do
     user = create(:user)
-    dataset = create(:full_dataset, user: user, working: true)
+    dataset = create(:full_dataset, user: user)
     sign_in user
 
     get new_dataset_task_url(dataset_id: dataset.to_param,
@@ -34,7 +34,7 @@ class Datasets::TasksControllerTest < ActionDispatch::IntegrationTest
 
   test 'should not get new for Base class' do
     user = create(:user)
-    dataset = create(:full_dataset, user: user, working: true)
+    dataset = create(:full_dataset, user: user)
     sign_in user
 
     get new_dataset_task_url(dataset_id: dataset.to_param,
@@ -45,7 +45,7 @@ class Datasets::TasksControllerTest < ActionDispatch::IntegrationTest
 
   test 'should get new for one-dataset class' do
     user = create(:user)
-    dataset = create(:full_dataset, user: user, working: true)
+    dataset = create(:full_dataset, user: user)
     sign_in user
 
     get new_dataset_task_url(dataset_id: dataset.to_param,
@@ -57,8 +57,8 @@ class Datasets::TasksControllerTest < ActionDispatch::IntegrationTest
 
   test 'should get new for two-dataset class' do
     user = create(:user)
-    dataset = create(:full_dataset, user: user, working: true)
-    dataset_2 = create(:full_dataset, user: user, working: true)
+    dataset = create(:full_dataset, user: user)
+    dataset_2 = create(:full_dataset, user: user)
     sign_in user
 
     get new_dataset_task_url(dataset_id: dataset.to_param,
@@ -72,7 +72,7 @@ class Datasets::TasksControllerTest < ActionDispatch::IntegrationTest
 
   test 'should not get new for two-dataset class with one missing' do
     user = create(:user)
-    dataset = create(:full_dataset, user: user, working: true)
+    dataset = create(:full_dataset, user: user)
     sign_in user
 
     get new_dataset_task_url(dataset_id: dataset.to_param,
@@ -83,7 +83,7 @@ class Datasets::TasksControllerTest < ActionDispatch::IntegrationTest
 
   test 'should not create task with invalid class' do
     user = create(:user)
-    dataset = create(:full_dataset, user: user, working: true)
+    dataset = create(:full_dataset, user: user)
     sign_in user
 
     post dataset_tasks_url(dataset_id: dataset.to_param,
@@ -94,7 +94,7 @@ class Datasets::TasksControllerTest < ActionDispatch::IntegrationTest
 
   test 'should not create task with Base class' do
     user = create(:user)
-    dataset = create(:full_dataset, user: user, working: true)
+    dataset = create(:full_dataset, user: user)
     sign_in user
 
     post dataset_tasks_url(dataset_id: dataset.to_param,
@@ -105,7 +105,7 @@ class Datasets::TasksControllerTest < ActionDispatch::IntegrationTest
 
   test 'should create task when valid class and no params passed' do
     user = create(:user)
-    dataset = create(:full_dataset, user: user, working: true)
+    dataset = create(:full_dataset, user: user)
     sign_in user
 
     post dataset_tasks_url(dataset_id: dataset.to_param,
@@ -117,7 +117,7 @@ class Datasets::TasksControllerTest < ActionDispatch::IntegrationTest
 
   test 'should create task when valid class and params passed' do
     user = create(:user)
-    dataset = create(:full_dataset, user: user, working: true)
+    dataset = create(:full_dataset, user: user)
     sign_in user
 
     post dataset_tasks_url(dataset_id: dataset.to_param,
@@ -132,7 +132,7 @@ class Datasets::TasksControllerTest < ActionDispatch::IntegrationTest
     user = create(:user,
                   workflow_active: true,
                   workflow_class: 'ExportCitationsJob')
-    dataset = create(:full_dataset, user: user, working: true)
+    dataset = create(:full_dataset, user: user)
     user.workflow_datasets = [dataset.to_param]
     user.save
     sign_in user
@@ -149,7 +149,7 @@ class Datasets::TasksControllerTest < ActionDispatch::IntegrationTest
 
   test 'should not get view when invalid task passed' do
     user = create(:user)
-    dataset = create(:full_dataset, user: user, working: true)
+    dataset = create(:full_dataset, user: user)
     sign_in user
 
     get view_dataset_task_url(dataset_id: dataset.to_param,
@@ -161,7 +161,7 @@ class Datasets::TasksControllerTest < ActionDispatch::IntegrationTest
 
   test 'should not get view when invalid template passed' do
     user = create(:user)
-    dataset = create(:full_dataset, user: user, working: true)
+    dataset = create(:full_dataset, user: user)
     task = create(:task, dataset: dataset, job_type: 'ExportCitationsJob')
     sign_in user
 
@@ -174,7 +174,7 @@ class Datasets::TasksControllerTest < ActionDispatch::IntegrationTest
 
   test 'should get view' do
     user = create(:user)
-    dataset = create(:full_dataset, user: user, working: true)
+    dataset = create(:full_dataset, user: user)
     task = create(:task, dataset: dataset, job_type: 'ExportCitationsJob')
     sign_in user
 
@@ -188,7 +188,7 @@ class Datasets::TasksControllerTest < ActionDispatch::IntegrationTest
 
   test 'should not get download with invalid id' do
     user = create(:user)
-    dataset = create(:full_dataset, user: user, working: true)
+    dataset = create(:full_dataset, user: user)
     sign_in user
 
     get download_dataset_task_url(dataset_id: dataset.to_param,
@@ -200,7 +200,7 @@ class Datasets::TasksControllerTest < ActionDispatch::IntegrationTest
 
   test 'should not get download with invalid file number' do
     user = create(:user)
-    dataset = create(:full_dataset, user: user, working: true)
+    dataset = create(:full_dataset, user: user)
     task = create(:task, dataset: dataset, job_type: 'ExportCitationsJob')
     sign_in user
 
@@ -213,7 +213,7 @@ class Datasets::TasksControllerTest < ActionDispatch::IntegrationTest
 
   test 'should not get download with non-downloadable file' do
     user = create(:user)
-    dataset = create(:full_dataset, user: user, working: true)
+    dataset = create(:full_dataset, user: user)
     task = create(:task, dataset: dataset, job_type: 'ExportCitationsJob')
     file = create(:file, task: task, downloadable: false)
     file.from_string('test')
@@ -228,7 +228,7 @@ class Datasets::TasksControllerTest < ActionDispatch::IntegrationTest
 
   test 'should get download for a valid file' do
     user = create(:user)
-    dataset = create(:full_dataset, user: user, working: true)
+    dataset = create(:full_dataset, user: user)
     task = create(:task, dataset: dataset, job_type: 'ExportCitationsJob')
     sign_in user
 
@@ -246,7 +246,7 @@ class Datasets::TasksControllerTest < ActionDispatch::IntegrationTest
 
   test 'should not destroy for invalid id' do
     user = create(:user)
-    dataset = create(:full_dataset, user: user, working: true)
+    dataset = create(:full_dataset, user: user)
     sign_in user
 
     delete dataset_task_url(dataset_id: dataset.to_param,
@@ -257,7 +257,7 @@ class Datasets::TasksControllerTest < ActionDispatch::IntegrationTest
 
   test 'should delete task' do
     user = create(:user)
-    dataset = create(:full_dataset, user: user, working: true)
+    dataset = create(:full_dataset, user: user)
     task = create(:task, dataset: dataset, job_type: 'ExportCitationsJob')
     sign_in user
 

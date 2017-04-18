@@ -60,8 +60,7 @@ class WorkflowControllerTest < ActionDispatch::IntegrationTest
     user = create(:user, workflow_active: true,
                          workflow_class: 'ArticleDatesJob')
     sign_in user
-    dataset = create(:dataset, name: 'Test Dataset', working: true,
-                               user: user)
+    dataset = create(:dataset, name: 'Test Dataset', user: user)
     user.workflow_datasets = [dataset.to_param]
     user.save
 
@@ -88,8 +87,7 @@ class WorkflowControllerTest < ActionDispatch::IntegrationTest
   test 'should get activate and link a dataset' do
     user = create(:user)
     sign_in user
-    dataset = create(:dataset, name: 'Test Dataset', working: true,
-                               user: user)
+    dataset = create(:dataset, name: 'Test Dataset', user: user)
 
     get workflow_activate_url(class: 'ArticleDatesJob',
                               link_dataset_id: dataset.to_param)
@@ -104,8 +102,7 @@ class WorkflowControllerTest < ActionDispatch::IntegrationTest
     user = create(:user, workflow_active: true,
                          workflow_class: 'ArticleDatesJob')
     sign_in user
-    dataset = create(:dataset, name: 'Test Dataset', working: true,
-                               user: user)
+    dataset = create(:dataset, name: 'Test Dataset', user: user)
     user.workflow_datasets = [dataset.to_param]
     user.save
 
@@ -119,8 +116,7 @@ class WorkflowControllerTest < ActionDispatch::IntegrationTest
     user = create(:user, workflow_active: true,
                          workflow_class: 'ArticleDatesJob')
     sign_in user
-    dataset = create(:dataset, name: 'Test Dataset', working: true,
-                               user: user)
+    dataset = create(:dataset, name: 'Test Dataset', user: user)
     user.workflow_datasets = [dataset.to_param]
     user.save
 
@@ -135,8 +131,7 @@ class WorkflowControllerTest < ActionDispatch::IntegrationTest
     user = create(:user, workflow_active: true,
                          workflow_class: 'ArticleDatesJob')
     sign_in user
-    dataset = create(:dataset, name: 'Test Dataset', working: true,
-                               user: user)
+    dataset = create(:dataset, name: 'Test Dataset', user: user)
     dataset_2 = create(:dataset, user: user)
     user.workflow_datasets = [dataset.to_param, dataset_2.to_param]
     user.save

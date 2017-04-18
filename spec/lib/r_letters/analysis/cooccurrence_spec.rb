@@ -10,7 +10,7 @@ RSpec.describe RLetters::Analysis::Cooccurrence do
   [:log_likelihood, :mutual_information, :t_test].each do |scoring|
     before(:example) do
       @user = create(:user)
-      @dataset = create(:full_dataset, num_docs: 2, working: true, user: @user)
+      @dataset = create(:full_dataset, num_docs: 2, user: @user)
     end
 
     describe 'single word analysis' do

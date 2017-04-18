@@ -8,7 +8,7 @@ RSpec.describe RLetters::Analysis::Collocation do
       ENV['NLP_TOOL_PATH'] = nil
 
       @user = create(:user)
-      @dataset = create(:full_dataset, working: true)
+      @dataset = create(:full_dataset)
     end
 
     after(:example) do

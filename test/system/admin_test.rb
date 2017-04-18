@@ -92,9 +92,13 @@ class AdminTest < ApplicationSystemTestCase
     click_link 'Accounts'
     click_link 'Users'
 
-    accept_confirm do
-      first('a[data-original-title=Delete]').click
-    end
+    # Find the delete button in the right row (which is hard since it's an
+    # icon link)
+    td = find('td', text: 'First User')
+    buttons = td.find(:xpath, '..').find('td.item-buttons')
+    link = buttons.find('a[data-original-title=Delete]')
+
+    accept_confirm { link.click }
 
     assert_no_text 'First User'
   end

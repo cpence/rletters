@@ -20,4 +20,4 @@
             - @model.admin_attributes.each do |attrib, config|
               - next if config[:no_display]
               %td= admin_value_for(item, attrib)
-            %td.button-cell= render partial: 'collection_buttons', locals: { item: item }
+            %td.button-cell.item-buttons= render partial: 'collection_buttons', locals: { item: item }

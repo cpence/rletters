@@ -70,7 +70,7 @@ class DatasetsControllerTest < ActionDispatch::IntegrationTest
 
   test 'should get show without clear_failed' do
     user = create(:user)
-    dataset = create(:full_dataset, user: user, working: true)
+    dataset = create(:full_dataset, user: user)
     sign_in user
 
     get dataset_url(id: dataset.to_param)
@@ -80,7 +80,7 @@ class DatasetsControllerTest < ActionDispatch::IntegrationTest
 
   test 'should get show with clear_failed' do
     user = create(:user)
-    dataset = create(:full_dataset, user: user, working: true)
+    dataset = create(:full_dataset, user: user)
     create(:task, dataset: dataset, failed: true)
     sign_in user
 
@@ -93,7 +93,7 @@ class DatasetsControllerTest < ActionDispatch::IntegrationTest
 
   test 'should delete dataset' do
     user = create(:user)
-    dataset = create(:full_dataset, user: user, working: true)
+    dataset = create(:full_dataset, user: user)
     sign_in user
 
     delete dataset_url(id: dataset.to_param)
@@ -104,7 +104,7 @@ class DatasetsControllerTest < ActionDispatch::IntegrationTest
 
   test 'should fail to update with an invalid document' do
     user = create(:user)
-    dataset = create(:full_dataset, user: user, working: true)
+    dataset = create(:full_dataset, user: user)
     sign_in user
 
     patch dataset_url(id: dataset.to_param, uid: 'fail')
@@ -114,7 +114,7 @@ class DatasetsControllerTest < ActionDispatch::IntegrationTest
 
   test 'should patch update' do
     user = create(:user)
-    dataset = create(:full_dataset, user: user, working: true)
+    dataset = create(:full_dataset, user: user)
     sign_in user
 
     assert_difference('dataset.reload.document_count', 1) do
@@ -126,7 +126,7 @@ class DatasetsControllerTest < ActionDispatch::IntegrationTest
 
   test 'should patch update with a remote document' do
     user = create(:user)
-    dataset = create(:full_dataset, user: user, working: true)
+    dataset = create(:full_dataset, user: user)
     sign_in user
 
     refute dataset.fetch
