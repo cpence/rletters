@@ -27,7 +27,7 @@
         %ul.dropdown-menu{ role: 'menu' }
           - @result_presenter.sort_methods.each do |(param, desc)|
             %li
-              = link_to url_for(params.merge(sort: param).to_h) do
+              = link_to RLetters::Solr::Search::permit_params(params.merge(sort: param)) do
                 %span{ style: (param == @result.params['sort'] ? nil : 'visibility: hidden') } &check;
                 = desc
 

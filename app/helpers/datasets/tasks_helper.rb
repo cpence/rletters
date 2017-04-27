@@ -1,6 +1,6 @@
 
 module Datasets
-  module TaskControllerHelper
+  module TasksHelper
     # Create a link to download a given file, by content type
     #
     # @param [Datasets::Task] task the task to download from

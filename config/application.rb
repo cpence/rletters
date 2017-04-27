@@ -39,11 +39,6 @@ module RLetters
       }
     }
 
-    # Permit all our search parameters through, always (they can cause no
-    # security concern)
-    config.action_controller.always_permitted_parameters =
-      %w(controller action q fq def_type categories sort cursor_mark)
-
     # Cookie configuration
     config.session_store(:cookie_store,
                          key: "_#{ENV['APP_NAME'].underscore}_session")

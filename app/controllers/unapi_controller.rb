@@ -13,7 +13,7 @@ class UnapiController < ApplicationController
   # then show the list of all possible export formats.
   #
   # The best way to understand how this API works is to check out the
-  # RSpec tests for this controller, which implement a full unAPI validation
+  # tests for this controller, which implement a full unAPI validation
   # suite.
   #
   # @return [void]

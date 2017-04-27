@@ -1,5 +1,5 @@
 
-module SearchControllerHelper
+module SearchHelper
   # Get the short, formatted representation of a document
   #
   # This function returns the short bibliographic entry for a document that

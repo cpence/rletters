@@ -21,7 +21,7 @@ module SystemDatasetHelper
   def create_benchmark
     # These are to be created entirely outside the flow of the application,
     # so it's no problem that we're manually altering the database in the
-    # feature specs here.
+    # system tests.
     Admin::Benchmark.create(job: 'ArticleDatesJob', size: 10, time: 10.0)
   end
 end

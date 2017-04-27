@@ -79,9 +79,10 @@ module Documents
       end
       categories.uniq!
 
-      params.except(:categories).to_h.deep_dup.tap do |ret|
-        ret[:categories] = categories unless categories.empty?
-      end
+      ret = params.except(:categories)
+      ret[:categories] = categories unless categories.empty?
+
+      RLetters::Solr::Search::permit_params(ret)
     end
 
     private

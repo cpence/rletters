@@ -21,4 +21,4 @@
   - if @result_presenter.next_page_params(params)
     %tr
       %td.text-center
-        = link_to t('search.index.more_hits'), url_for(@result_presenter.next_page_params(params).to_h), class: 'jscroll-next'
+        = link_to t('search.index.more_hits'), url_for(@result_presenter.next_page_params(params)), class: 'jscroll-next'

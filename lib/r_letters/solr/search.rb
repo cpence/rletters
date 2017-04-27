@@ -3,6 +3,28 @@ module RLetters
   module Solr
     # Code to process search parameters inbound from the search page and API
     module Search
+      # Sanitize the parameters that should be passed through the controller
+      def self.permit_params(params)
+        params.permit(# Rails' default parameters
+                      :controller, :action,
+                      # Basic search parameters
+                      :q, :advanced, :page, :per_page, :cursor_mark, :sort,
+                      # Advanced search parameters
+                      :field_0, :field_1, :field_2, :field_3, :field_4,
+                      :field_5, :field_6, :field_7, :field_8, :field_9,
+                      :field_10, :field_11, :field_12, :field_13, :field_14,
+                      :field_15, :field_16, :value_0, :value_1, :value_2,
+                      :value_3, :value_4, :value_5, :value_6, :value_7,
+                      :value_8, :value_9, :value_10, :value_11, :value_12,
+                      :value_13, :value_14, :value_15, :value_16, :boolean_0,
+                      :boolean_1, :boolean_2, :boolean_3, :boolean_4,
+                      :boolean_5, :boolean_6, :boolean_7, :boolean_8,
+                      :boolean_9, :boolean_10, :boolean_11, :boolean_12,
+                      :boolean_13, :boolean_14, :boolean_15, :boolean_16,
+                      # Array form filter parameters
+                      fq: [], categories: [])
+      end
+
       # Convert the parameters from the SearchController to a Solr query
       #
       # @param [Hash] params the params from the controller
@@ -101,8 +123,8 @@ module RLetters
             # Copy the basic query across
             q_array << "#{params[:q]} AND " if params[:q].present?
 
-            # Hard-coded limit of 100 on the number of advanced queries
-            0.upto(100) do |i|
+            # Hard-coded limit of 16 on the number of advanced queries
+            0.upto(16) do |i|
               field = params["field_#{i}".to_sym]
               value = params["value_#{i}".to_sym]
               boolean = params["boolean_#{i}".to_sym]

@@ -1,6 +1,6 @@
 
-CSL_DATA ||= File.read(Rails.root.join('spec', 'factories', 'nature.csl'))
-POS_YAML ||= File.read(Rails.root.join('spec', 'factories', 'parts_of_speech.yml'))
+CSL_DATA ||= File.read(Rails.root.join('test', 'factories', 'nature.csl'))
+POS_YAML ||= File.read(Rails.root.join('test', 'factories', 'parts_of_speech.yml'))
 
 FactoryGirl.define do
   factory :administrator, class: Admin::Administrator do
@@ -73,7 +73,7 @@ FactoryGirl.define do
 
   factory :uploaded_asset, class: Admin::UploadedAsset do
     name 'test_asset'
-    file { File.new(Rails.root.join('spec', 'factories', '1x1.png')) }
+    file { File.new(Rails.root.join('test', 'factories', '1x1.png')) }
   end
 
   factory :stop_list, class: Documents::StopList do

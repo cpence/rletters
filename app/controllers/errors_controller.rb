@@ -18,7 +18,7 @@ class ErrorsController < ApplicationController
   # Render a 422 error page
   #
   # This isn't tested, as I can't figure out a way to programmatically generate
-  # a 422 error in an RSpec request spec.
+  # a 422 error in an integration test.
   #
   # @return [void]
   # :nocov:

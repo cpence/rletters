@@ -18,11 +18,14 @@ module RLetters
       # @return [ActionController::Parameters] params for a search for these
       #   facets
       def self.search_params(params, facets)
-        return params.except(:fq) if facets.empty?
-
-        params.except(:fq).tap do |ret|
-          ret[:fq] = facets.map(&:query)
+        if facets.empty?
+          return RLetters::Solr::Search::permit_params(params.except(:fq))
         end
+
+        ret = params.except(:fq)
+        ret[:fq] = facets.map(&:query)
+
+        RLetters::Solr::Search::permit_params(ret)
       end
 
       # Return a list of facets that are active given these parameters

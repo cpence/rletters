@@ -15,14 +15,15 @@ class Documents::CategoryTest < ActiveSupport::TestCase
 
   test 'should return toggled params when enabled' do
     cat = create(:category)
-    params = cat.toggle_search_params(categories: [cat.to_param])
+    params = ActionController::Parameters.new(categories: [cat.to_param])
+    params = cat.toggle_search_params(params)
 
     assert_nil params[:categories]
   end
 
   test 'should return toggled params when disabled' do
     cat = create(:category)
-    params = cat.toggle_search_params({})
+    params = cat.toggle_search_params(ActionController::Parameters.new())
 
     assert_equal [cat.to_param], params[:categories]
   end

@@ -78,7 +78,7 @@ module RLetters
       #   @return [Boolean] if set, ignore `num_words` and simply return all
       #     words (or ngrams)
       # @!attribute inclusion_list
-      #   @return [String] if specified, then the  analyzer will only compute
+      #   @return [String] if specified, then the analyzer will only compute
       #     frequency information for the words that are specified in this
       #     list (which is space-separated).
       #

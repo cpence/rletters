@@ -1,4 +1,4 @@
-= link_to(url_for(category.toggle_search_params(params).to_h)) do
+= link_to(url_for(category.toggle_search_params(params))) do
   = check_box_tag "category_#{category.to_param}", '1', category.enabled?(params), disabled: true
   = category.name
 

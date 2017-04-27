@@ -1,5 +1,5 @@
 
-module AdminControllerHelper
+module AdminHelper
   # Get the value of an attribute of this model for the admin interface
   #
   # This function handles turning array-form attributes into unordered list

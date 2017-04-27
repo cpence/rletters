@@ -11,8 +11,9 @@ class SearchController < ApplicationController
   # @return [void]
   def index
     # Get the documents
-    query = RLetters::Solr::Search.params_to_query(params,
-                                                   request.format != :html)
+    query = RLetters::Solr::Search.params_to_query(
+      RLetters::Solr::Search::permit_params(params).to_h,
+      request.format != :html)
     @result = RLetters::Solr::Connection.search(query)
     @result_presenter = RLetters::Presenters::SearchResultPresenter.new(result: @result)
 
