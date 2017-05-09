@@ -6,8 +6,8 @@ git_source(:github) do |repo_name|
 end
 
 # Rails
-gem 'rails', '~> 5.1.0.rc1'
-gem 'puma'
+gem 'rails', '~> 5.1'
+gem 'puma', '~> 3.7'
 
 # Twelve factor app glue
 gem 'dotenv-rails'
@@ -20,7 +20,7 @@ gem 'closure_tree'
 gem 'virtus'
 
 # User authentication and administration
-gem 'devise', '~> 4'
+gem 'devise', github: 'plataformatec/devise' #'~> 4', '>= 4.2.2'
 gem 'devise-i18n'
 gem 'setler'
 
@@ -55,11 +55,14 @@ gem 'rubysdl', '= 2.1.3.1'
 # Asset tools and template generators
 gem 'haml'
 gem 'haml-rails'
-gem 'sass-rails', github: 'rails/sass-rails'
+gem 'sass-rails', '~> 5.0'
 gem 'kramdown'
 gem 'nokogiri'
 
-gem 'simple_form', '>= 3.1.0.rc1'
+# FIXME: Remove this dependency. It is fragile.
+# Replace it with: https://github.com/bootstrap-ruby/rails-bootstrap-forms
+# since all I'm using it for is styling.
+gem 'simple_form', github: 'elsurudo/simple_form', branch: 'rails-5.1.0'
 
 gem 'uglifier', '>= 1.3.0'
 gem 'webpacker'
@@ -80,9 +83,6 @@ group :test, :development do
 end
 
 group :test do
-  gem 'launchy'
-  gem 'database_rewinder'
-
   gem 'webmock', '>= 1.22.6', require: false
 
   gem 'pdf-inspector', require: false
