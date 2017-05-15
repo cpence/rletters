@@ -9,6 +9,10 @@ end
 gem 'rails', '~> 5.1.0.rc1'
 gem 'puma'
 
+# FIXME: Temporary fix for OSVDB-131677, can remove once there's a full
+# release here
+gem 'mail', '>= 2.6.6.rc1'
+
 # Twelve factor app glue
 gem 'dotenv-rails'
 gem 'lograge'
