@@ -1,3 +1,4 @@
+require 'r_letters/analysis/craig_zeta'
 
 module SystemStubHelper
   def stub_craig_zeta!
