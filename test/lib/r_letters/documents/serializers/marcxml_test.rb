@@ -1,10 +1,8 @@
 require 'test_helper'
+require_relative './serializer_tests'
 
 class MARCXMLTest < ActiveSupport::TestCase
-  test 'class methods work' do
-    assert_kind_of String, RLetters::Documents::Serializers::MARCXML.format
-    assert_kind_of String, RLetters::Documents::Serializers::MARCXML.url
-  end
+  include SerializerTests
 
   test 'array serialization' do
     doc = build(:full_document)

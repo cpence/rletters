@@ -1,10 +1,8 @@
 require 'test_helper'
+require_relative './serializer_tests'
 
 class EndNoteTest < ActiveSupport::TestCase
-  test 'class methods work' do
-    assert_kind_of String, RLetters::Documents::Serializers::EndNote.format
-    assert_kind_of String, RLetters::Documents::Serializers::EndNote.url
-  end
+  include SerializerTests
 
   test 'single document serialization' do
     doc = build(:full_document)

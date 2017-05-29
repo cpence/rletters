@@ -1,10 +1,8 @@
 require 'test_helper'
+require_relative './serializer_tests'
 
 class BibTexTest < ActiveSupport::TestCase
-  test 'class methods work' do
-    assert_kind_of String, RLetters::Documents::Serializers::BibTex.format
-    assert_kind_of String, RLetters::Documents::Serializers::BibTex.url
-  end
+  include SerializerTests
 
   test 'single document serialization' do
     doc = build(:full_document)

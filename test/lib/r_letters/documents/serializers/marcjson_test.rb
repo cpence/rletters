@@ -1,10 +1,8 @@
 require 'test_helper'
+require_relative './serializer_tests'
 
 class MARCJSONTest < ActiveSupport::TestCase
-  test 'class methods work' do
-    assert_kind_of String, RLetters::Documents::Serializers::MARCJSON.format
-    assert_kind_of String, RLetters::Documents::Serializers::MARCJSON.url
-  end
+  include SerializerTests
 
   test 'array serialization creates the right sized arrays' do
     doc = build(:full_document)
