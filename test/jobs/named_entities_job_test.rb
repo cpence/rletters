@@ -6,7 +6,7 @@ class NamedEntitiesJobTest < ActiveJob::TestCase
     ENV['NLP_TOOL_PATH'] = 'stubbed'
 
     @entities = build(:named_entities)
-    RLetters::Analysis::NLP.stubs(:named_entities).returns(@entities)
+    flexmock(RLetters::Analysis::NLP, named_entities: @entities)
   end
 
   teardown do
@@ -52,7 +52,7 @@ class NamedEntitiesJobTest < ActiveJob::TestCase
   end
 
   test 'should still work when NLP fails' do
-    RLetters::Analysis::NLP.stubs(:named_entities).returns({})
+    flexmock(RLetters::Analysis::NLP, named_entities: {})
     NamedEntitiesJob.perform_now(create(:task, dataset: create(:full_dataset)))
   end
 end

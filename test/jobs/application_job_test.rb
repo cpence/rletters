@@ -35,7 +35,8 @@ class ApplicationJobTest < ActiveJob::TestCase
   end
 
   test 'should query the right translation keys' do
-    I18n.expects(:t).with('mock_job.testing', {}).returns('wat')
+    flexmock(I18n).should_receive(:t)
+      .with('mock_job.testing', {}).and_return('wat')
 
     MockJob.t('.testing')
   end

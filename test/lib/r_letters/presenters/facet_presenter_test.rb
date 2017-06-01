@@ -39,8 +39,9 @@ class FacetPresenterTest < ActiveSupport::TestCase
   end
 
   test 'label throws for invalid fields' do
-    f = stub(field: :space_facet, value: 'Spaceman Spiff', hits: 10,
-             to_hash: { field: :space_facet, value: 'Spaceman Spiff', hits: 10 })
+    f = flexmock(field: :space_facet, value: 'Spaceman Spiff', hits: 10,
+                 to_hash: { field: :space_facet, value: 'Spaceman Spiff',
+                            hits: 10 })
 
     assert_raises(ArgumentError) do
       RLetters::Presenters::FacetPresenter.new(facet: f).label
@@ -71,8 +72,9 @@ class FacetPresenterTest < ActiveSupport::TestCase
   end
 
   test 'field_label throws for invalid fields' do
-    f = stub(field: :space_facet, value: 'Spaceman Spiff', hits: 10,
-             to_hash: { field: :space_facet, value: 'Spaceman Spiff', hits: 10 })
+    f = flexmock(field: :space_facet, value: 'Spaceman Spiff', hits: 10,
+                 to_hash: { field: :space_facet, value: 'Spaceman Spiff',
+                            hits: 10 })
 
     assert_raises(ArgumentError) do
       RLetters::Presenters::FacetPresenter.new(facet: f).field_label

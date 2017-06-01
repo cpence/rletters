@@ -12,7 +12,7 @@ class ValidatorTest < ActiveSupport::TestCase
   end
 
   test 'validate! is called' do
-    ValidatorTester.any_instance.expects(:validate!)
+    flexmock(ValidatorTester).new_instances.should_receive(:validate!)
     ValidatorTester.new(string: 'test')
   end
 end

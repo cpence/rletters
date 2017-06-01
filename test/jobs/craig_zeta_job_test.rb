@@ -60,7 +60,7 @@ class CraigZetaJobTest < ActiveJob::TestCase
   test 'should create word clouds' do
     # Don't actually make word clouds; this is quite slow and we're testing
     # it elsewhere
-    RLetters::Visualization::WordCloud.stubs(:call).returns('this is totally a PDF')
+    flexmock(RLetters::Visualization::WordCloud, call: 'this is totally a PDF')
 
     task = create(:task, dataset: create(:full_dataset, num_docs: 1))
     dataset_2 = create(:full_dataset, user: task.dataset.user, num_docs: 1)

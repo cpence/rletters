@@ -18,7 +18,7 @@ class AsCSLTest < ActiveSupport::TestCase
   end
 
   test 'formats citations correctly' do
-    style = stub(style: <<eos)
+    style = flexmock(style: <<eos)
 <style xmlns="http://purl.org/net/xbiblio/csl"  class="in-text" version="1.0">
   <info>
     <id />

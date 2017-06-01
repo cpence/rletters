@@ -6,7 +6,7 @@ class CollocationJobTest < ActiveJob::TestCase
     ENV['NLP_TOOL_PATH'] = 'stubbed'
 
     @words = build(:parts_of_speech)
-    RLetters::Analysis::NLP.stubs(:parts_of_speech).returns(@words)
+    flexmock(RLetters::Analysis::NLP, parts_of_speech: @words)
   end
 
   teardown do

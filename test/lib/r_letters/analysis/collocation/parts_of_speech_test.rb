@@ -7,7 +7,8 @@ class PartsOfSpeechTest < ActiveSupport::TestCase
     ENV['NLP_TOOL_PATH'] = 'stubbed'
 
     words = build(:parts_of_speech)
-    RLetters::Analysis::NLP.expects(:parts_of_speech).at_least_once.returns(words)
+    flexmock(RLetters::Analysis::NLP).should_receive(:parts_of_speech)
+      .at_least.once.and_return(words)
   end
 
   teardown do

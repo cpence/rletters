@@ -4,7 +4,7 @@ class SegmentsTest < ActiveSupport::TestCase
   setup do
     # Just always return the same document stub
     @doc = build(:full_document)
-    Document.stubs(:find_by!).returns(@doc)
+    flexmock(Document, find_by!: @doc)
   end
 
   test 'with no options' do

@@ -4,7 +4,7 @@ require_relative '../config/environment'
 require 'rails/test_help'
 
 # Load some gems
-require 'mocha/mini_test'
+require 'flexmock/minitest'
 require 'webmock/minitest'
 
 # Require all of my test helpers and assertions

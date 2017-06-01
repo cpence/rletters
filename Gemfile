@@ -78,7 +78,7 @@ gem 'premailer-rails'
 
 # Testing
 group :test, :development do
-  gem 'mocha', require: false
+  gem 'flexmock', require: false
   gem 'factory_girl_rails'
 
   gem 'capybara', '~> 2.13.0'

@@ -19,7 +19,8 @@ class ConnectionTest < ActiveSupport::TestCase
   end
 
   test 'info connects to the right Solr path' do
-    RSolr::Client.any_instance.expects(:get).with('admin/system')
+    flexmock(RSolr::Client).new_instances.should_receive(:get)
+      .with('admin/system')
     RLetters::Solr::Connection.info
   end
 
