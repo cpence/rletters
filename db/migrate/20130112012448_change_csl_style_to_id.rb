@@ -1,4 +1,4 @@
-class ChangeCslStyleToId < ActiveRecord::Migration
+class ChangeCslStyleToId < ActiveRecord::Migration[4.2]
   def up
     change_table :users do |t|
       t.remove :csl_style

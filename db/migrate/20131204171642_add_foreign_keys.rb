@@ -1,4 +1,4 @@
-class AddForeignKeys < ActiveRecord::Migration
+class AddForeignKeys < ActiveRecord::Migration[4.2]
   def change
     add_foreign_key 'datasets_analysis_tasks', 'datasets', name: 'datasets_analysis_tasks_dataset_id_fk'
     add_foreign_key 'datasets_entries', 'datasets', name: 'datasets_entries_dataset_id_fk', on_delete: :cascade

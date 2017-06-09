@@ -1,4 +1,4 @@
-class CreateDatasetsFileResults < ActiveRecord::Migration
+class CreateDatasetsFileResults < ActiveRecord::Migration[4.2]
   def self.up
     create_table :datasets_file_results do |t|
       t.integer :datasets_file_id

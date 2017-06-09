@@ -1,4 +1,4 @@
-class RemovePerPageFromUsers < ActiveRecord::Migration
+class RemovePerPageFromUsers < ActiveRecord::Migration[4.2]
   def up
     remove_column :users, :per_page
   end

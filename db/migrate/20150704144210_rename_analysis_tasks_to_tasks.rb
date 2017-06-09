@@ -1,4 +1,4 @@
-class RenameAnalysisTasksToTasks < ActiveRecord::Migration
+class RenameAnalysisTasksToTasks < ActiveRecord::Migration[4.2]
   def change
     rename_table :datasets_analysis_tasks, :datasets_tasks
     rename_table :datasets_analysis_task_results, :datasets_task_results

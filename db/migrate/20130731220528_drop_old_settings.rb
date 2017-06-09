@@ -1,4 +1,4 @@
-class DropOldSettings < ActiveRecord::Migration
+class DropOldSettings < ActiveRecord::Migration[4.2]
   def self.up
     drop_table :settings
   end

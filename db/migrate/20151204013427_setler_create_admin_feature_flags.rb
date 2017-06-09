@@ -1,4 +1,4 @@
-class SetlerCreateAdminFeatureFlags < ActiveRecord::Migration
+class SetlerCreateAdminFeatureFlags < ActiveRecord::Migration[4.2]
   def self.up
     create_table(:admin_feature_flags) do |t|
       t.string :var, null: false

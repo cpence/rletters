@@ -1,4 +1,4 @@
-class CreateCslStyles < ActiveRecord::Migration
+class CreateCslStyles < ActiveRecord::Migration[4.2]
   def change
     create_table :csl_styles do |t|
       t.string :name

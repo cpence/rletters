@@ -1,4 +1,4 @@
-class ChangeWorkflowDatasetsType < ActiveRecord::Migration
+class ChangeWorkflowDatasetsType < ActiveRecord::Migration[4.2]
   def up
     # Save the current value of the parameter
     workflow_datasets = {}

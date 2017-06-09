@@ -1,4 +1,4 @@
-class CreateDatasetsFiles < ActiveRecord::Migration
+class CreateDatasetsFiles < ActiveRecord::Migration[4.2]
   def up
     # Make the new table
     create_table :datasets_files do |t|

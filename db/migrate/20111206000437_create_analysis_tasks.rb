@@ -1,4 +1,4 @@
-class CreateAnalysisTasks < ActiveRecord::Migration
+class CreateAnalysisTasks < ActiveRecord::Migration[4.2]
   def change
     create_table :analysis_tasks do |t|
       t.string :name

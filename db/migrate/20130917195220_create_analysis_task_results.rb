@@ -1,4 +1,4 @@
-class CreateAnalysisTaskResults < ActiveRecord::Migration
+class CreateAnalysisTaskResults < ActiveRecord::Migration[4.2]
   def self.up
     create_table :analysis_task_results do |t|
       t.integer :analysis_task_id

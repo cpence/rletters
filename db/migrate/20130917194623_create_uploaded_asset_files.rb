@@ -1,4 +1,4 @@
-class CreateUploadedAssetFiles < ActiveRecord::Migration
+class CreateUploadedAssetFiles < ActiveRecord::Migration[4.2]
   def self.up
     create_table :uploaded_asset_files do |t|
       t.integer :uploaded_asset_id

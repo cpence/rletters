@@ -1,4 +1,4 @@
-class AddAttachmentResultToAnalysisTasks < ActiveRecord::Migration
+class AddAttachmentResultToAnalysisTasks < ActiveRecord::Migration[4.2]
   def self.up
     change_table :analysis_tasks do |t|
       t.attachment :result

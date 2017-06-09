@@ -1,4 +1,4 @@
-class CreateDocumentsCategories < ActiveRecord::Migration
+class CreateDocumentsCategories < ActiveRecord::Migration[4.2]
   def change
     create_table :documents_categories do |t|
       t.integer :parent_id

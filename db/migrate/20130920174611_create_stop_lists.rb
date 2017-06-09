@@ -1,4 +1,4 @@
-class CreateStopLists < ActiveRecord::Migration
+class CreateStopLists < ActiveRecord::Migration[4.2]
   def change
     create_table :stop_lists do |t|
       t.string :language

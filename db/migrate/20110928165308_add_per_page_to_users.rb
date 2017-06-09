@@ -1,4 +1,4 @@
-class AddPerPageToUsers < ActiveRecord::Migration
+class AddPerPageToUsers < ActiveRecord::Migration[4.2]
   def up
     add_column :users, :per_page, :integer, default: 10
     execute 'UPDATE users SET per_page=10'

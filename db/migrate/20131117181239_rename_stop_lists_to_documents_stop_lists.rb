@@ -1,4 +1,4 @@
-class RenameStopListsToDocumentsStopLists < ActiveRecord::Migration
+class RenameStopListsToDocumentsStopLists < ActiveRecord::Migration[4.2]
   def change
     rename_table 'stop_lists', 'documents_stop_lists'
   end

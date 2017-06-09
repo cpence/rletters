@@ -1,12 +1,6 @@
---
--- PostgreSQL database dump
---
-
--- Dumped from database version 9.5.0
--- Dumped by pg_dump version 9.5.0
-
 SET statement_timeout = 0;
 SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
 SET check_function_bodies = false;
@@ -17,14 +11,14 @@ SET row_security = off;
 -- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: -
 --
 
--- CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
 
 
 --
 -- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: -
 --
 
--- COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
 
 
 SET search_path = public, pg_catalog;
@@ -237,6 +231,18 @@ CREATE SEQUENCE admin_uploaded_assets_id_seq
 --
 
 ALTER SEQUENCE admin_uploaded_assets_id_seq OWNED BY admin_uploaded_assets.id;
+
+
+--
+-- Name: ar_internal_metadata; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE ar_internal_metadata (
+    key character varying NOT NULL,
+    value character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
 
 
 --
@@ -656,126 +662,126 @@ ALTER SEQUENCE users_libraries_id_seq OWNED BY users_libraries.id;
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: admin_administrators id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY admin_administrators ALTER COLUMN id SET DEFAULT nextval('admin_administrators_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: admin_benchmarks id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY admin_benchmarks ALTER COLUMN id SET DEFAULT nextval('admin_benchmarks_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: admin_feature_flags id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY admin_feature_flags ALTER COLUMN id SET DEFAULT nextval('admin_feature_flags_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: admin_markdown_pages id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY admin_markdown_pages ALTER COLUMN id SET DEFAULT nextval('admin_markdown_pages_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: admin_uploaded_asset_files id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY admin_uploaded_asset_files ALTER COLUMN id SET DEFAULT nextval('admin_uploaded_asset_files_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: admin_uploaded_assets id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY admin_uploaded_assets ALTER COLUMN id SET DEFAULT nextval('admin_uploaded_assets_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: datasets id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY datasets ALTER COLUMN id SET DEFAULT nextval('datasets_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: datasets_file_results id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY datasets_file_results ALTER COLUMN id SET DEFAULT nextval('datasets_file_results_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: datasets_files id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY datasets_files ALTER COLUMN id SET DEFAULT nextval('datasets_files_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: datasets_queries id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY datasets_queries ALTER COLUMN id SET DEFAULT nextval('datasets_queries_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: datasets_tasks id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY datasets_tasks ALTER COLUMN id SET DEFAULT nextval('datasets_tasks_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: documents_categories id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY documents_categories ALTER COLUMN id SET DEFAULT nextval('documents_categories_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: documents_stop_lists id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY documents_stop_lists ALTER COLUMN id SET DEFAULT nextval('documents_stop_lists_id_seq'::regclass);
 
 
 --
--- Name: job_id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: que_jobs job_id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY que_jobs ALTER COLUMN job_id SET DEFAULT nextval('que_jobs_job_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: users id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: users_csl_styles id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY users_csl_styles ALTER COLUMN id SET DEFAULT nextval('users_csl_styles_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: users_libraries id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY users_libraries ALTER COLUMN id SET DEFAULT nextval('users_libraries_id_seq'::regclass);
 
 
 --
--- Name: admin_administrators_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: admin_administrators admin_administrators_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY admin_administrators
@@ -783,7 +789,7 @@ ALTER TABLE ONLY admin_administrators
 
 
 --
--- Name: admin_benchmarks_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: admin_benchmarks admin_benchmarks_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY admin_benchmarks
@@ -791,7 +797,7 @@ ALTER TABLE ONLY admin_benchmarks
 
 
 --
--- Name: admin_feature_flags_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: admin_feature_flags admin_feature_flags_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY admin_feature_flags
@@ -799,7 +805,7 @@ ALTER TABLE ONLY admin_feature_flags
 
 
 --
--- Name: admin_markdown_pages_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: admin_markdown_pages admin_markdown_pages_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY admin_markdown_pages
@@ -807,7 +813,7 @@ ALTER TABLE ONLY admin_markdown_pages
 
 
 --
--- Name: admin_uploaded_asset_files_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: admin_uploaded_asset_files admin_uploaded_asset_files_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY admin_uploaded_asset_files
@@ -815,7 +821,7 @@ ALTER TABLE ONLY admin_uploaded_asset_files
 
 
 --
--- Name: admin_uploaded_assets_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: admin_uploaded_assets admin_uploaded_assets_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY admin_uploaded_assets
@@ -823,7 +829,15 @@ ALTER TABLE ONLY admin_uploaded_assets
 
 
 --
--- Name: datasets_file_results_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: ar_internal_metadata ar_internal_metadata_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY ar_internal_metadata
+    ADD CONSTRAINT ar_internal_metadata_pkey PRIMARY KEY (key);
+
+
+--
+-- Name: datasets_file_results datasets_file_results_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY datasets_file_results
@@ -831,7 +845,7 @@ ALTER TABLE ONLY datasets_file_results
 
 
 --
--- Name: datasets_files_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: datasets_files datasets_files_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY datasets_files
@@ -839,7 +853,7 @@ ALTER TABLE ONLY datasets_files
 
 
 --
--- Name: datasets_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: datasets datasets_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY datasets
@@ -847,7 +861,7 @@ ALTER TABLE ONLY datasets
 
 
 --
--- Name: datasets_queries_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: datasets_queries datasets_queries_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY datasets_queries
@@ -855,7 +869,7 @@ ALTER TABLE ONLY datasets_queries
 
 
 --
--- Name: datasets_tasks_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: datasets_tasks datasets_tasks_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY datasets_tasks
@@ -863,7 +877,7 @@ ALTER TABLE ONLY datasets_tasks
 
 
 --
--- Name: documents_categories_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: documents_categories documents_categories_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY documents_categories
@@ -871,7 +885,7 @@ ALTER TABLE ONLY documents_categories
 
 
 --
--- Name: documents_stop_lists_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: documents_stop_lists documents_stop_lists_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY documents_stop_lists
@@ -879,7 +893,7 @@ ALTER TABLE ONLY documents_stop_lists
 
 
 --
--- Name: que_jobs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: que_jobs que_jobs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY que_jobs
@@ -887,7 +901,7 @@ ALTER TABLE ONLY que_jobs
 
 
 --
--- Name: users_csl_styles_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: users_csl_styles users_csl_styles_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY users_csl_styles
@@ -895,7 +909,7 @@ ALTER TABLE ONLY users_csl_styles
 
 
 --
--- Name: users_libraries_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: users_libraries users_libraries_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY users_libraries
@@ -903,7 +917,7 @@ ALTER TABLE ONLY users_libraries
 
 
 --
--- Name: users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY users
@@ -988,7 +1002,7 @@ CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (v
 
 
 --
--- Name: datasets_analysis_tasks_dataset_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: datasets_tasks datasets_analysis_tasks_dataset_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY datasets_tasks
@@ -996,7 +1010,7 @@ ALTER TABLE ONLY datasets_tasks
 
 
 --
--- Name: datasets_user_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: datasets datasets_user_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY datasets
@@ -1004,7 +1018,7 @@ ALTER TABLE ONLY datasets
 
 
 --
--- Name: documents_categories_parent_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: documents_categories documents_categories_parent_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY documents_categories
@@ -1012,7 +1026,7 @@ ALTER TABLE ONLY documents_categories
 
 
 --
--- Name: documents_category_hierarchies_ancestor_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: documents_category_hierarchies documents_category_hierarchies_ancestor_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY documents_category_hierarchies
@@ -1020,7 +1034,7 @@ ALTER TABLE ONLY documents_category_hierarchies
 
 
 --
--- Name: documents_category_hierarchies_descendant_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: documents_category_hierarchies documents_category_hierarchies_descendant_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY documents_category_hierarchies
@@ -1028,7 +1042,7 @@ ALTER TABLE ONLY documents_category_hierarchies
 
 
 --
--- Name: users_libraries_user_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: users_libraries users_libraries_user_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY users_libraries
@@ -1041,137 +1055,73 @@ ALTER TABLE ONLY users_libraries
 
 SET search_path TO "$user", public;
 
-INSERT INTO schema_migrations (version) VALUES ('20110908133632');
+INSERT INTO "schema_migrations" (version) VALUES
+('20110908133632'),
+('20110908232625'),
+('20110916203031'),
+('20110928165308'),
+('20110929135437'),
+('20111001233930'),
+('20111018003510'),
+('20111024225019'),
+('20111122135408'),
+('20111205172114'),
+('20111205185208'),
+('20111206000437'),
+('20120105150524'),
+('20120123202818'),
+('20120124192349'),
+('20121207143836'),
+('20130109194840'),
+('20130109194902'),
+('20130109194903'),
+('20130109223820'),
+('20130110034148'),
+('20130112012448'),
+('20130112042432'),
+('20130112162822'),
+('20130311180722'),
+('20130731220528'),
+('20130731222054'),
+('20130801021934'),
+('20130801202821'),
+('20130806005057'),
+('20130917194623'),
+('20130917195215'),
+('20130917195220'),
+('20130917195527'),
+('20130920174611'),
+('20131017161525'),
+('20131022151607'),
+('20131031130451'),
+('20131031190215'),
+('20131105202034'),
+('20131110162848'),
+('20131110184843'),
+('20131110210646'),
+('20131110214442'),
+('20131112153938'),
+('20131114011634'),
+('20131114044009'),
+('20131117181239'),
+('20131117182828'),
+('20131122160941'),
+('20131204171642'),
+('20131224154209'),
+('20140523162748'),
+('20150321205255'),
+('20150704144210'),
+('20150704153023'),
+('20150712153313'),
+('20150713141304'),
+('20150908203553'),
+('20150908210220'),
+('20150918225229'),
+('20151005170502'),
+('20151118043212'),
+('20151119181057'),
+('20151120145451'),
+('20151204013427'),
+('20160126134222');
 
-INSERT INTO schema_migrations (version) VALUES ('20110908232625');
-
-INSERT INTO schema_migrations (version) VALUES ('20110916203031');
-
-INSERT INTO schema_migrations (version) VALUES ('20110928165308');
-
-INSERT INTO schema_migrations (version) VALUES ('20110929135437');
-
-INSERT INTO schema_migrations (version) VALUES ('20111001233930');
-
-INSERT INTO schema_migrations (version) VALUES ('20111018003510');
-
-INSERT INTO schema_migrations (version) VALUES ('20111024225019');
-
-INSERT INTO schema_migrations (version) VALUES ('20111122135408');
-
-INSERT INTO schema_migrations (version) VALUES ('20111205172114');
-
-INSERT INTO schema_migrations (version) VALUES ('20111205185208');
-
-INSERT INTO schema_migrations (version) VALUES ('20111206000437');
-
-INSERT INTO schema_migrations (version) VALUES ('20120105150524');
-
-INSERT INTO schema_migrations (version) VALUES ('20120123202818');
-
-INSERT INTO schema_migrations (version) VALUES ('20120124192349');
-
-INSERT INTO schema_migrations (version) VALUES ('20121207143836');
-
-INSERT INTO schema_migrations (version) VALUES ('20130109194840');
-
-INSERT INTO schema_migrations (version) VALUES ('20130109194902');
-
-INSERT INTO schema_migrations (version) VALUES ('20130109194903');
-
-INSERT INTO schema_migrations (version) VALUES ('20130109223820');
-
-INSERT INTO schema_migrations (version) VALUES ('20130110034148');
-
-INSERT INTO schema_migrations (version) VALUES ('20130112012448');
-
-INSERT INTO schema_migrations (version) VALUES ('20130112042432');
-
-INSERT INTO schema_migrations (version) VALUES ('20130112162822');
-
-INSERT INTO schema_migrations (version) VALUES ('20130311180722');
-
-INSERT INTO schema_migrations (version) VALUES ('20130731220528');
-
-INSERT INTO schema_migrations (version) VALUES ('20130731222054');
-
-INSERT INTO schema_migrations (version) VALUES ('20130801021934');
-
-INSERT INTO schema_migrations (version) VALUES ('20130801202821');
-
-INSERT INTO schema_migrations (version) VALUES ('20130806005057');
-
-INSERT INTO schema_migrations (version) VALUES ('20130917194623');
-
-INSERT INTO schema_migrations (version) VALUES ('20130917195215');
-
-INSERT INTO schema_migrations (version) VALUES ('20130917195220');
-
-INSERT INTO schema_migrations (version) VALUES ('20130917195527');
-
-INSERT INTO schema_migrations (version) VALUES ('20130920174611');
-
-INSERT INTO schema_migrations (version) VALUES ('20131017161525');
-
-INSERT INTO schema_migrations (version) VALUES ('20131022151607');
-
-INSERT INTO schema_migrations (version) VALUES ('20131031130451');
-
-INSERT INTO schema_migrations (version) VALUES ('20131031190215');
-
-INSERT INTO schema_migrations (version) VALUES ('20131105202034');
-
-INSERT INTO schema_migrations (version) VALUES ('20131110162848');
-
-INSERT INTO schema_migrations (version) VALUES ('20131110184843');
-
-INSERT INTO schema_migrations (version) VALUES ('20131110210646');
-
-INSERT INTO schema_migrations (version) VALUES ('20131110214442');
-
-INSERT INTO schema_migrations (version) VALUES ('20131112153938');
-
-INSERT INTO schema_migrations (version) VALUES ('20131114011634');
-
-INSERT INTO schema_migrations (version) VALUES ('20131114044009');
-
-INSERT INTO schema_migrations (version) VALUES ('20131117181239');
-
-INSERT INTO schema_migrations (version) VALUES ('20131117182828');
-
-INSERT INTO schema_migrations (version) VALUES ('20131122160941');
-
-INSERT INTO schema_migrations (version) VALUES ('20131204171642');
-
-INSERT INTO schema_migrations (version) VALUES ('20131224154209');
-
-INSERT INTO schema_migrations (version) VALUES ('20140523162748');
-
-INSERT INTO schema_migrations (version) VALUES ('20150321205255');
-
-INSERT INTO schema_migrations (version) VALUES ('20150704144210');
-
-INSERT INTO schema_migrations (version) VALUES ('20150704153023');
-
-INSERT INTO schema_migrations (version) VALUES ('20150712153313');
-
-INSERT INTO schema_migrations (version) VALUES ('20150713141304');
-
-INSERT INTO schema_migrations (version) VALUES ('20150908203553');
-
-INSERT INTO schema_migrations (version) VALUES ('20150908210220');
-
-INSERT INTO schema_migrations (version) VALUES ('20150918225229');
-
-INSERT INTO schema_migrations (version) VALUES ('20151005170502');
-
-INSERT INTO schema_migrations (version) VALUES ('20151118043212');
-
-INSERT INTO schema_migrations (version) VALUES ('20151119181057');
-
-INSERT INTO schema_migrations (version) VALUES ('20151120145451');
-
-INSERT INTO schema_migrations (version) VALUES ('20151204013427');
-
-INSERT INTO schema_migrations (version) VALUES ('20160126134222');
 

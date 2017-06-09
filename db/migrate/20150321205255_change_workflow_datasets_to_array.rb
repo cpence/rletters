@@ -1,4 +1,4 @@
-class ChangeWorkflowDatasetsToArray < ActiveRecord::Migration
+class ChangeWorkflowDatasetsToArray < ActiveRecord::Migration[4.2]
   def up
     User.all.each do |u|
       if u.workflow_datasets

@@ -1,4 +1,4 @@
-class CreateAdminBenchmarks < ActiveRecord::Migration
+class CreateAdminBenchmarks < ActiveRecord::Migration[4.2]
   def change
     create_table :admin_benchmarks do |t|
       t.string :job

@@ -1,4 +1,4 @@
-class CreateDatasetsQueries < ActiveRecord::Migration
+class CreateDatasetsQueries < ActiveRecord::Migration[4.2]
   def up
     create_table :datasets_queries do |t|
       t.references :dataset

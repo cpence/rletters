@@ -1,4 +1,4 @@
-class AddTimezoneToUsers < ActiveRecord::Migration
+class AddTimezoneToUsers < ActiveRecord::Migration[4.2]
   def up
     add_column :users, :timezone, :string,
                default: 'Eastern Time (US & Canada)'
