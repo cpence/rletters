@@ -1,5 +1,5 @@
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :solr_response, class: OpenStruct do
     skip_create
 

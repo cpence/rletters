@@ -5,9 +5,9 @@ class UserMailerPreview < ActionMailer::Preview
   #
   # @return [void]
   def job_finished
-    user = FactoryGirl.build_stubbed(:user)
-    dataset = FactoryGirl.build_stubbed(:full_dataset, user: user)
-    task = FactoryGirl.build_stubbed(:task, dataset: dataset,
+    user = FactoryBot.build_stubbed(:user)
+    dataset = FactoryBot.build_stubbed(:full_dataset, user: user)
+    task = FactoryBot.build_stubbed(:task, dataset: dataset,
                                             job_type: 'ExportCitationsJob')
 
     UserMailer.job_finished_email(user.email, task)

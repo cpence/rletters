@@ -9,10 +9,6 @@ end
 gem 'rails', '~> 5.1'
 gem 'puma', '~> 3.7'
 
-# FIXME: Temporary fix for OSVDB-131677, can remove once there's a full
-# release here
-gem 'mail', '>= 2.6.6.rc1'
-
 # Twelve factor app glue
 gem 'dotenv-rails'
 gem 'lograge'
@@ -24,7 +20,7 @@ gem 'closure_tree'
 gem 'virtus'
 
 # User authentication and administration
-gem 'devise', github: 'plataformatec/devise' #'~> 4', '>= 4.2.2'
+gem 'devise', '~> 4', '>= 4.2.2'
 gem 'devise-i18n'
 gem 'setler'
 
@@ -45,6 +41,8 @@ gem 'csl-styles'
 
 # Support for file attachments and exporting
 gem 'paperclip', '>= 4.2.0'
+# FIXME: This is now unmaintained, and I apparently need to migrate away from
+# paperclip, or to file-based storage.
 gem 'paperclip_database', github: 'pwnall/paperclip_database', branch: 'rails5'
 gem 'rubyzip', '>= 1.1.0', require: 'zip'
 gem 'marc'
@@ -66,7 +64,7 @@ gem 'nokogiri'
 # FIXME: Remove this dependency. It is fragile.
 # Replace it with: https://github.com/bootstrap-ruby/rails-bootstrap-forms
 # since all I'm using it for is styling.
-gem 'simple_form', github: 'elsurudo/simple_form', branch: 'rails-5.1.0'
+gem 'simple_form', '>= 3.5.0'
 
 gem 'uglifier', '>= 1.3.0'
 gem 'webpacker'
@@ -79,7 +77,7 @@ gem 'premailer-rails'
 # Testing
 group :test, :development do
   gem 'flexmock', require: false
-  gem 'factory_girl_rails'
+  gem 'factory_bot_rails'
 
   gem 'capybara', '~> 2.13.0'
   # gem 'capybara-slow_finder_errors'

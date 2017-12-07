@@ -1,5 +1,5 @@
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :lemmatizer, class: OpenStruct do
     skip_create
 

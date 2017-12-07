@@ -1,5 +1,5 @@
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :document, class: Document do
     transient do
       uid 'doi:10.1234/this.is.a.doi'

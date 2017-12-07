@@ -5,9 +5,9 @@ class WorkflowJob < ApplicationJob
   def perform(task); end
 
   def self.create_task(dataset, finished, args = {})
-    task = FactoryGirl.create(:task, args.merge(dataset: dataset,
-                                                finished_at: finished,
-                                                job_type: 'WorkflowJob'))
+    task = FactoryBot.create(:task, args.merge(dataset: dataset,
+                                               finished_at: finished,
+                                               job_type: 'WorkflowJob'))
 
     WorkflowJob.perform_later(task)
 

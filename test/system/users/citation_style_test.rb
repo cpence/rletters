@@ -4,7 +4,7 @@ class CitationStyleTest < ApplicationSystemTestCase
   test 'set a citation style' do
     sign_in_with
 
-    style = FactoryGirl.create(:csl_style)
+    style = FactoryBot.create(:csl_style)
 
     visit root_path
     within('.navbar-right') { click_link 'My Account' }

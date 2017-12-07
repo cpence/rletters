@@ -19,7 +19,7 @@ WebMock.disable_net_connect!(allow_localhost: true)
 # Helpers for all tests
 class ActiveSupport::TestCase
   # Activate helpers from gems
-  include FactoryGirl::Syntax::Methods
+  include FactoryBot::Syntax::Methods
 
   # General test helpers
   include QueJobHelper

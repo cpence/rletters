@@ -12,7 +12,7 @@ WORKING_UIDS ||= [
   'doi:10.1371/journal.pntd.0000543'.freeze
 ].freeze
 
-FactoryGirl.define do
+FactoryBot.define do
   sequence :working_uid do |n|
     WORKING_UIDS[n % WORKING_UIDS.size]
   end
@@ -28,10 +28,10 @@ FactoryGirl.define do
 
       after(:create) do |dataset, evaluator|
         if evaluator.num_docs > 0
-          uids = (1..evaluator.num_docs).to_a.map { "\"#{FactoryGirl.generate(:working_uid)}\"" }
+          uids = (1..evaluator.num_docs).to_a.map { "\"#{FactoryBot.generate(:working_uid)}\"" }
           query = "uid:(#{uids.join(' OR ')})"
 
-          FactoryGirl.create(:query, dataset: dataset, q: query)
+          FactoryBot.create(:query, dataset: dataset, q: query)
         end
       end
     end
@@ -39,7 +39,7 @@ FactoryGirl.define do
 
   factory :query, class: Datasets::Query do
     sequence(:q) do
-      "uid:\"#{FactoryGirl.generate(:working_uid)}\""
+      "uid:\"#{FactoryBot.generate(:working_uid)}\""
     end
 
     dataset

@@ -5,5 +5,5 @@ Rails.application.config.generators do |g|
   g.template_engine :haml
   g.test_framework  :test_unit,
                     fixture: false,
-                    fixture_replacement: :factory_girl
+                    fixture_replacement: :factory_bot
 end

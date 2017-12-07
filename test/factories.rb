@@ -2,7 +2,7 @@
 CSL_DATA ||= File.read(Rails.root.join('test', 'factories', 'nature.csl'))
 POS_YAML ||= File.read(Rails.root.join('test', 'factories', 'parts_of_speech.yml'))
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :administrator, class: Admin::Administrator do
     sequence(:email) { |n| "admin#{n}@example.com" }
     password 'password'
