@@ -2,15 +2,14 @@ sudo: required
 dist: trusty
 
 language: ruby
-rvm: 2.4.1
+rvm: 2.4.2
 
 cache:
   bundler: true
+  yarn: true
   directories:
     - node_modules
-  yarn: true
 
-# Set the display value and the CodeClimate repository token
 env:
   global:
     - TMPDIR=$TRAVIS_BUILD_DIR/tmp
@@ -18,11 +17,10 @@ env:
     - DATABASE_URL="postgres:///rletters_test?username=postgres&pool=20&encoding=unicode"
     - secure: Lv1neEs259UnYFTpbBOja4qhbdDnDCryGiZ8ycLkBGlc7PioiSiVqCo1Py+pJrpYenA3xrguv/Z5hdNjJ3fm4dl8GDrV9kgjtNe8E388kitISpimAi5QuwvxfJS8YiRPKm9VSfs3laMlSVXjhMdlAW1PPcrcElddv+r+jMpJ9uM=
 
-# Enable the latest PostgreSQL, java, and install sdl and sdl_ttf
 sudo: required
 dist: trusty
-addons:
-  postgresql: 9.6
+services:
+  - postgresql
 before_install:
   - sudo apt-get -qq update
   - sudo apt-get install -y libsdl1.2-dev libsdl-ttf2.0-dev
