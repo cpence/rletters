@@ -19,8 +19,8 @@ env:
 
 sudo: required
 dist: trusty
-services:
-  - postgresql
+addons:
+  postgresql: 10.1
 before_install:
   - sudo apt-get -qq update
   - sudo apt-get install -y libsdl1.2-dev libsdl-ttf2.0-dev
