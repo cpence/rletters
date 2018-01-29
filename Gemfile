@@ -40,7 +40,7 @@ gem 'citeproc-ruby', '~> 1.0'
 gem 'csl-styles'
 
 # Support for file attachments and exporting
-gem 'paperclip', '>= 4.2.0'
+gem 'paperclip', '>= 5.2.0'
 # FIXME: This is now unmaintained, and I apparently need to migrate away from
 # paperclip, or to file-based storage.
 gem 'paperclip_database', github: 'pwnall/paperclip_database', branch: 'rails5'
