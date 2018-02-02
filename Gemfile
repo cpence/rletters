@@ -20,7 +20,7 @@ gem 'closure_tree'
 gem 'virtus'
 
 # User authentication and administration
-gem 'devise', '~> 4', '>= 4.2.2'
+gem 'devise', '~> 4', '>= 4.4.0'
 gem 'devise-i18n'
 gem 'setler'
 
