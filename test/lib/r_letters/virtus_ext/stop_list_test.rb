@@ -14,10 +14,11 @@ class StopListTest < ActiveSupport::TestCase
   end
 
   test 'coerce loads the list if there is one' do
-    create(:stop_list)
+    # This model has been seeded, so it's the real stop list
     model = StopTester.new(list: 'en')
 
-    assert_equal %w(a an the), model.list.sort
+    assert_includes model.list, 'again'
+    assert_includes model.list, 'over'
   end
 
   test 'coerce loads a string to a space-separated list without match' do
