@@ -14,7 +14,7 @@ gem 'dotenv-rails'
 gem 'lograge'
 
 # Database and related tools
-gem 'pg'
+gem 'pg', '~> 0.18' # Until Rails 5.1.5 release
 gem 'que'
 gem 'closure_tree'
 gem 'virtus'
