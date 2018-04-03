@@ -67,7 +67,6 @@ gem 'nokogiri'
 gem 'simple_form', '>= 3.5.0'
 
 gem 'uglifier', '>= 1.3.0'
-gem 'webpacker'
 gem 'mini_racer'
 
 gem 'multi_mail'
@@ -79,9 +78,11 @@ group :test, :development do
   gem 'flexmock', require: false
   gem 'factory_bot_rails'
 
-  gem 'capybara', '~> 2.13.0'
+  gem 'capybara', '~> 2.13'
   # gem 'capybara-slow_finder_errors'
   gem 'capybara-webkit'
+
+  gem 'listen', '>= 3.0.5'
 end
 
 group :test do

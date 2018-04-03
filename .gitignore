@@ -1,14 +1,9 @@
 .bundle
-.DS_Store
 .env
 .env.production
-!.env.example
-.sass-cache
-.yardoc
 
 /node_modules
 
-/coverage
 /doc
 /public/assets
 /spec/status.txt
@@ -19,8 +14,3 @@
 /vendor/nlp
 !/vendor/nlp/.gitkeep
 /vendor/solr
-/public/packs
-/node_modules
-/public/packs
-/public/packs-test
-/node_modules

@@ -1,7 +1,9 @@
 
-# We are using webpacker, *not* the traditional asset pipeline
-Rails.application.config.assets.enabled = false
+# Version of your assets, change this if you want to expire all your assets.
+Rails.application.config.assets.version = '1.0'
 
-# We don't actually precompile this (it's just in memory), but it raises an
-# error if we don't have this here.
+# Add Yarn node_modules folder to the asset load path.
+Rails.application.config.assets.paths << Rails.root.join('node_modules')
+
+# Also precompile the foundation_emails css. This is likely a bug; fix.
 Rails.application.config.assets.precompile += %w{foundation_emails.css}
