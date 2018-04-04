@@ -1,6 +1,6 @@
 # RLetters #
 
-[![Build Status][travis_img]][travis] [![Dependency Status][gemnasium_img]][gemnasium] [![Code Metrics][codeclimate_img]][codeclimate] [![Test Coverage][coverage_img]][coverage] [![Inline docs][inch_img]][inch]
+[![Build Status][travis_img]][travis] [![Code Metrics][codeclimate_img]][codeclimate] [![Test Coverage][coverage_img]][coverage] [![Inline docs][inch_img]][inch]
 [![External API Docs][apiary_img]][apiary] [![Code Docs][rubydoc_img]][rubydoc]
 
 [travis]: https://travis-ci.org/rletters/rletters
@@ -11,8 +11,6 @@
 [coverage_img]: https://codeclimate.com/github/rletters/rletters/badges/coverage.svg
 [inch]: http://inch-ci.org/github/rletters/rletters
 [inch_img]: http://inch-ci.org/github/rletters/rletters.svg?branch=master
-[gemnasium]: https://gemnasium.com/rletters/rletters
-[gemnasium_img]: http://img.shields.io/gemnasium/rletters/rletters.svg
 [apiary]: http://docs.rletters.apiary.io/
 [apiary_img]: http://img.shields.io/badge/api%20docs-apiary-brightgreen.svg
 [rubydoc]: http://rubydoc.info/github/rletters/rletters
@@ -22,7 +20,7 @@
 **Git:** [http://github.com/rletters/rletters](http://github.com/rletters/rletters)  
 **Author:** Charles Pence  
 **Contributors:** See Contributors section below  
-**Copyright:** &copy; 2014–2016 Louisiana State University  
+**Copyright:** &copy; 2014–2018 Louisiana State University  
 **License:** MIT License  
 **Latest Version:** v2.0.1  
 **Release Date:** January 12, 2015  
