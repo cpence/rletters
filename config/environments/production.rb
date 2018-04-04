@@ -14,11 +14,7 @@ Rails.application.configure do
   # Apache or nginx already handles this.
   config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present?
 
-  # Run errors through the routing system
-  config.exceptions_app = routes
-
-  # Full error reports are disabled and caching is turned on.
-  config.consider_all_requests_local       = false
+  # Enable caching.
   config.action_controller.perform_caching = true
 
   # Ignore bad email addresses and do not raise email delivery errors.

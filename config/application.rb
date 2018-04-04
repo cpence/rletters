@@ -17,7 +17,9 @@ module RLetters
     # run jobs immediately in testing.
     config.active_job.queue_adapter = :delayed_job
 
-    # Always show exception templates (raising 404s/500s), even in testing.
+    # Run errors through the routing system, showing error pages in all cases.
+    config.exceptions_app = routes
+    config.consider_all_requests_local = false
     config.action_dispatch.show_exceptions = true
 
     # Use the lowest log level to ensure availability of diagnostic information

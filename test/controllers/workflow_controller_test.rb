@@ -245,7 +245,7 @@ class WorkflowControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should have render_localized_markdown fall back to English' do
-    I18n.locale = :az
+    I18n.locale = :vi
 
     path = Rails.root.join('config', 'locales', 'article_dates_job',
                            'article_dates_job.en.md')

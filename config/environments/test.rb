@@ -18,8 +18,7 @@ Rails.application.configure do
     'Cache-Control' => "public, max-age=#{1.hour.seconds.to_i}"
   }
 
-  # Show full error reports and disable caching.
-  config.consider_all_requests_local       = true
+  # Disable caching.
   config.action_controller.perform_caching = false
 
   # Tell Action Mailer not to deliver emails to the real world.
