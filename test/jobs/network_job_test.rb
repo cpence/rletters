@@ -4,7 +4,6 @@ class NetworkJobTest < ActiveJob::TestCase
   def perform
     @task = create(:task, dataset: create(:dataset))
     create(:query, dataset: @task.dataset, q: "uid:\"#{WORKING_UIDS[2]}\"")
-    create(:stop_list)
     NetworkJob.new.perform(@task, 'focal_word' => 'diseases')
   end
 
@@ -17,7 +16,6 @@ class NetworkJobTest < ActiveJob::TestCase
   test 'should work' do
     task = create(:task, dataset: create(:dataset))
     create(:query, dataset: task.dataset, q: "uid:\"#{WORKING_UIDS[2]}\"")
-    create(:stop_list)
 
     NetworkJob.perform_now(task, 'focal_word' => 'diseases')
 
@@ -28,6 +26,14 @@ class NetworkJobTest < ActiveJob::TestCase
 
     assert_equal 'Dataset', data['name']
     assert_equal 'diseases', data['focal_word']
-    assert_in_epsilon 0.7142857142857143, data['d3_links'][0]['strength']
+
+    progress_node = data['d3_nodes'].index { |n| n['name'] == 'progress' }
+    diseas_node = data['d3_nodes'].index { |n| n['name'] == 'diseas' }
+
+    edge = data['d3_links'].find do |l|
+      l['source'] == progress_node && l['target'] == diseas_node
+    end
+
+    assert_in_epsilon 0.625, edge['strength']
   end
 end
