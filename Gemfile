@@ -25,7 +25,7 @@ gem 'devise-i18n'
 gem 'setler'
 
 # Internationalization
-gem 'rails-i18n', '= 5.0.0'
+gem 'rails-i18n', '= 5.1.1'
 gem 'twitter_cldr'
 
 # Textual analysis
