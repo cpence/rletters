@@ -71,7 +71,7 @@ class WordFrequencyJobTest < ActiveJob::TestCase
 
     assert_equal 'Analyze word frequency in dataset', task.reload.name
 
-    data = CSV.parse(task.file_for('text/csv').result.file_contents(:original))
+    data = CSV.parse(Paperclip.io_adapters.for(task.file_for('text/csv').result).read)
     assert_kind_of Array, data
   end
 
@@ -98,7 +98,7 @@ class WordFrequencyJobTest < ActiveJob::TestCase
                                  'split_across' => '1',
                                  'num_words' => '0')
 
-    data = CSV.parse(task.file_for('text/csv').result.file_contents(:original))
+    data = CSV.parse(Paperclip.io_adapters.for(task.file_for('text/csv').result).read)
     assert_kind_of Array, data
   end
 end

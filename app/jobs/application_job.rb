@@ -16,16 +16,13 @@ class JobKilledError < RuntimeError; end
 #   task is completed, the user will be offered a link to view this template
 #   in addition to whatever downloadable file results the task produces.
 class ApplicationJob < ActiveJob::Base
-  # Try to rescue from everything, setting the failed bit
+  # Try to rescue from everything, setting the failed bit on the task if we
+  # can find it. This will help us clean up tasks in our watcher.
   rescue_from(Exception) do |e|
     task = arguments[0]
     if task.is_a?(Datasets::Task)
       task.mark_failed(e.backtrace[0] + ': ' + e.to_s)
     end
-
-    # Try really very hard to prevent this job from sticking in the queue and
-    # repeating until the end of time.
-    Admin::QueJob.where_args(job_id: job_id).delete_all
   end
 
   # Returns true if this job can be run right now

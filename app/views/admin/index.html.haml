@@ -19,11 +19,11 @@
               %th= t('.args')
               %th= t('.errors')
           %tbody
-            - RLetters::Que::Stats.workers.each do |w|
-              %td= w[:run_at]
-              %td= w[:priority]
-              %td= w[:args]
-              %td= w[:error_count].to_i > 0 ? "#{w[:error_count]}: #{w[:last_error]}" : w[:error_count]
+            %tr
+              %td FIXME
+              %td
+              %td
+              %td
 
     .panel.panel-default
       .panel-heading

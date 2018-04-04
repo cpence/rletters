@@ -126,34 +126,6 @@ class AdminControllerTest < ActionDispatch::IntegrationTest
     assert_equal 'wat@wat.com', user.reload.email
   end
 
-  test 'should delete Que jobs' do
-    sign_in create(:administrator)
-    mock_que_job
-
-    assert_difference('Admin::QueJob.count', -1) do
-      delete admin_item_url(model: 'admin/que_job',
-                            id: Admin::QueJob.first.to_param)
-    end
-  end
-
-  test 'should bulk delete Que jobs' do
-    sign_in create(:administrator)
-    mock_que_job(1)
-    mock_que_job(2)
-    mock_que_job(3)
-
-    patch admin_edit_collection_url(model: 'admin/que_job',
-                                    bulk_action: 'delete',
-                                    ids: [1, 3].to_json)
-
-    assert_equal(0, Admin::QueJob.where(job_id: 1).count)
-    assert_equal(1, Admin::QueJob.where(job_id: 2).count)
-    assert_equal(0, Admin::QueJob.where(job_id: 3).count)
-
-# FIXME
-#    clean_que_jobs
-  end
-
   test 'should redirect index if not logged in' do
     get admin_url
 

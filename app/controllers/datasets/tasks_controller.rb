@@ -91,7 +91,7 @@ module Datasets
       @file = @task.files.find(params[:file])
       fail ActiveRecord::RecordNotFound unless @file.downloadable
 
-      send_data(@file.result.file_contents(:original),
+      send_data(Paperclip.io_adapters.for(@file.result),
                 filename: @file.result_file_name,
                 type: @file.result_content_type)
     end

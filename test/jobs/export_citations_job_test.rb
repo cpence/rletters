@@ -26,7 +26,7 @@ class ExportCitationsJobTest < ActiveJob::TestCase
     assert_equal 'Export dataset as citations', task.reload.name
 
     # Make sure it made the right number of entries in the ZIP
-    data = task.file_for('application/zip').result.file_contents(:original)
+    data = Paperclip.io_adapters.for(task.file_for('application/zip').result).read
     entries = 0
     ::Zip::InputStream.open(StringIO.new(data)) do |zis|
       entries += 1 while zis.get_next_entry

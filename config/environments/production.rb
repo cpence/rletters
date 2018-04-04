@@ -47,9 +47,6 @@ Rails.application.configure do
     }
   }
 
-  # Use a real queuing backend for Active Job
-  config.active_job.queue_adapter = :que
-
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 

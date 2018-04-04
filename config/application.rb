@@ -13,11 +13,12 @@ module RLetters
     config.eager_load_paths << config.root.join('lib').to_s
     config.eager_load_paths << config.root.join('app', 'jobs', 'concerns').to_s
 
-    # Que wants us to save schemas in SQL rather than Ruby
-    config.active_record.schema_format = :sql
+    # Use Delayed Job in all cases; its configuration (see initializer) will
+    # run jobs immediately in testing.
+    config.active_job.queue_adapter = :delayed_job
 
-    # Global logging must be configured here, as it doesn't seem to take effect
-    # otherwise.
+    # Always show exception templates (raising 404s/500s), even in testing.
+    config.action_dispatch.show_exceptions = true
 
     # Use the lowest log level to ensure availability of diagnostic information
     # when problems arise.

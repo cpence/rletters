@@ -68,7 +68,7 @@ class Datasets::TaskTest < ActiveSupport::TestCase
     end
 
     assert_equal 4, task.reload.files.first.result_file_size
-    assert_equal 'test', task.files.first.result.file_contents(:original)
+    assert_equal 'test', Paperclip.io_adapters.for(task.files.first.result).read
     assert_equal 'text/plain', task.files.first.result_content_type.to_s
   end
 
@@ -102,11 +102,5 @@ class Datasets::TaskTest < ActiveSupport::TestCase
     task = create(:task, job_type: 'ExportCitationsJob')
 
     assert_nil task.job_id
-  end
-
-  test 'should default to nil que_job' do
-    task = create(:task, job_type: 'ExportCitationsJob')
-
-    assert_nil task.que_job
   end
 end

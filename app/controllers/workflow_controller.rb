@@ -112,7 +112,7 @@ class WorkflowController < ApplicationController
   # @return [void]
   def image
     model = Admin::UploadedAsset.find(params[:id])
-    send_data model.file.file_contents(:original),
+    send_data Paperclip.io_adapters.for(model.file),
               filename: model.file_file_name,
               content_type: model.file_content_type
   end

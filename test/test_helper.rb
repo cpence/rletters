@@ -22,7 +22,6 @@ class ActiveSupport::TestCase
   include FactoryBot::Syntax::Methods
 
   # General test helpers
-  include QueJobHelper
   include StubConnectionHelper
 end
 

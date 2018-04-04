@@ -16,9 +16,7 @@ module Admin
     validates :name, presence: true
 
     # Store these assets in the database
-    has_attached_file :file,
-                      database_table: 'admin_uploaded_asset_files',
-                      url: '/workflow/image/:id'
+    has_attached_file :file, url: '/workflow/image/:id'
     validates_attachment_content_type :file, content_type: %r{\Aimage/.*\Z}
 
     # @return (see ApplicationRecord.admin_attributes)

@@ -56,8 +56,7 @@ module Datasets
         failed: {},
         progress: {},
         progress_message: {},
-        last_progress: {},
-        que_job: { model: true, model_name: 'admin/que_job' }
+        last_progress: {}
       }
     end
 
@@ -106,7 +105,7 @@ module Datasets
     # @return [String] JSON data as string (or `nil`)
     def json
       file = file_for('application/json')
-      file && file.result.file_contents(:original).force_encoding('utf-8')
+      file && Paperclip.io_adapters.for(file.result).read.force_encoding('utf-8')
     end
 
     # The classes that cannot actually be started as analysis jobs.
@@ -132,14 +131,6 @@ module Datasets
     # @return [Class] the job class
     def job_class
       self.class.job_class(job_type)
-    end
-
-    # Convert #job_id into a Que job, if possible
-    #
-    # @return [Admin::QueJob] the Que job for this task
-    def que_job
-      return nil unless job_id.present?
-      Admin::QueJob.where_args(job_id: job_id).first
     end
 
     # Update the status of this task

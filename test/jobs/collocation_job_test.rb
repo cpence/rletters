@@ -37,7 +37,7 @@ class CollocationJobTest < ActiveJob::TestCase
       assert_equal 'Determine significant associations between immediate pairs of words', task.reload.name
 
       # There should be at least one collocation in there ("word word,X.YYYY...")
-      assert_match /\n"?\w+,? \w+"?,\d+(\.\d+)?/, task.files.first.result.file_contents(:original)
+      assert_match /\n"?\w+,? \w+"?,\d+(\.\d+)?/, Paperclip.io_adapters.for(task.files.first.result).read
     end
   end
 

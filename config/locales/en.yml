@@ -294,6 +294,7 @@ en:
             no_datasets: No datasets available
             submit: Add
         advanced_row:
+            boolean_label: 'Boolean operator:'
             and: AND
             or: OR
             row_label: 'Search condition:'
@@ -331,7 +332,6 @@ en:
                 other: "%{count} articles in database"
             active_filters: Active filters
             remove_all: Remove All
-            filters: Filter search
             authors_facet: Authors
             journal_facet: Journal
             year_facet: Publication Date
@@ -345,6 +345,8 @@ en:
             advanced_search: Advanced search
             back_to_top: Back to top…
             more_hits: More Results
+        filters:
+            header: Filter search
     devise:
         passwords:
             edit:

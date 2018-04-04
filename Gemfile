@@ -14,8 +14,8 @@ gem 'dotenv-rails'
 gem 'lograge'
 
 # Database and related tools
-gem 'pg', '~> 0.18' # Until Rails 5.1.5 release
-gem 'que'
+gem 'pg'
+gem 'delayed_job_active_record'
 gem 'closure_tree'
 gem 'virtus'
 
@@ -41,10 +41,8 @@ gem 'citeproc-ruby', '~> 1.0'
 gem 'csl-styles'
 
 # Support for file attachments and exporting
-gem 'paperclip', '>= 5.2.0'
-# FIXME: This is now unmaintained, and I apparently need to migrate away from
-# paperclip, or to file-based storage.
-gem 'paperclip_database', github: 'pwnall/paperclip_database', branch: 'rails5'
+gem 'paperclip', '~> 6'
+gem 'aws-sdk-s3'
 gem 'rubyzip', '>= 1.1.0', require: 'zip'
 gem 'marc'
 gem 'rdf', '>= 0.3.5'

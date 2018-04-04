@@ -23,7 +23,7 @@ class NetworkJobTest < ActiveJob::TestCase
 
     assert_equal 'Compute network of associated terms', task.reload.name
 
-    data = JSON.load(task.file_for('application/json').result.file_contents(:original))
+    data = JSON.load(Paperclip.io_adapters.for(task.file_for('application/json').result))
     assert_kind_of Hash, data
 
     assert_equal 'Dataset', data['name']
