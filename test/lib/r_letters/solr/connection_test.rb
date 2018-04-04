@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ConnectionTest < ActiveSupport::TestCase
+class RLetters::Solr::ConnectionTest < ActiveSupport::TestCase
   test 'search wraps results in a result object' do
     res = RLetters::Solr::Connection.search(q: '*:*')
 
@@ -19,8 +19,7 @@ class ConnectionTest < ActiveSupport::TestCase
   end
 
   test 'info connects to the right Solr path' do
-    flexmock(RSolr::Client).new_instances.should_receive(:get)
-      .with('admin/system')
+    RSolr::Client.any_instance.expects(:get).with('admin/system')
     RLetters::Solr::Connection.info
   end
 

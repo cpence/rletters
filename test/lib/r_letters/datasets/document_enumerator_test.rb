@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class DocumentEnumeratorTest < ActiveSupport::TestCase
+class RLetters::Datasets::DocumentEnumeratorTest < ActiveSupport::TestCase
   test 'with no custom fields, enumerates documents' do
     enum = RLetters::Datasets::DocumentEnumerator.new(dataset: create(:full_dataset, num_docs: 2))
 

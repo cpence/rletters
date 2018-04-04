@@ -1,7 +1,7 @@
 require 'test_helper'
 require 'pdf/inspector'
 
-class PDFTest < ActiveSupport::TestCase
+class RLetters::Visualization::PDFTest < ActiveSupport::TestCase
   class TestClass
     include RLetters::Visualization::PDF
   end

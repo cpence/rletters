@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class AsOpenURLTest < ActiveSupport::TestCase
+class RLetters::Documents::AsOpenURLTest < ActiveSupport::TestCase
   test 'creates good OpenURL params' do
     doc = build(:full_document)
     params = RLetters::Documents::AsOpenURL.new(doc).params

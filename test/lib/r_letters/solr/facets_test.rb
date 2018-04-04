@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class FacetsTest < ActiveSupport::TestCase
+class RLetters::Solr::FacetsTest < ActiveSupport::TestCase
   setup do
     solr_response = build(:solr_response).response
     rsolr = RSolr::Ext::Response::Base.new(solr_response, 'search', nil)

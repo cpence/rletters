@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class CraigZetaTest < ActiveSupport::TestCase
+class RLetters::Analysis::CraigZetaTest < ActiveSupport::TestCase
   setup do
     user = create(:user)
 

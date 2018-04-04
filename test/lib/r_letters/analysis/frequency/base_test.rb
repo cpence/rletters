@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class BaseTest < ActiveSupport::TestCase
+class RLetters::Analysis::Frequency::BaseTest < ActiveSupport::TestCase
   test 'creates FromTF when available' do
     analyzer = RLetters::Analysis::Frequency::Base.call(dataset: create(:full_dataset))
 

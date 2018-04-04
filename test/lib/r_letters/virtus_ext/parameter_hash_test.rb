@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ParameterHashTest < ActiveSupport::TestCase
+class RLetters::VirtusExt::ParameterHashTest < ActiveSupport::TestCase
   class ParamHashTester
     include Virtus.model(strict: true)
     include RLetters::VirtusExt::ParameterHash

@@ -1,37 +1,37 @@
 require 'test_helper'
 
-class SearchResultPresenterTest < ActiveSupport::TestCase
+class RLetters::Presenters::SearchResultPresenterTest < ActiveSupport::TestCase
   test 'num_hits_string returns "in database" without search' do
-    r = flexmock(num_hits: 100, params: {})
+    r = stub(num_hits: 100, params: {})
     pres = RLetters::Presenters::SearchResultPresenter.new(result: r)
 
     assert_equal '100 articles in database', pres.num_hits_string
   end
 
   test 'num_hits_string returns "found" with search' do
-    r = flexmock(num_hits: 100, params: { q: 'Test search' })
+    r = stub(num_hits: 100, params: { q: 'Test search' })
     pres = RLetters::Presenters::SearchResultPresenter.new(result: r)
 
     assert_equal '100 articles found', pres.num_hits_string
   end
 
   test 'num_hits_string returns "found" with faceting' do
-    r = flexmock(num_hits: 100,
-                 params: { fq: ['journal:(PLoS Neglected Tropical Diseases)'] })
+    r = stub(num_hits: 100,
+             params: { fq: ['journal:(PLoS Neglected Tropical Diseases)'] })
     pres = RLetters::Presenters::SearchResultPresenter.new(result: r)
 
     assert_equal '100 articles found', pres.num_hits_string
   end
 
   test 'current_sort_method works' do
-    r = flexmock(params: { 'sort' => 'score desc' })
+    r = stub(params: { 'sort' => 'score desc' })
     pres = RLetters::Presenters::SearchResultPresenter.new(result: r)
 
     assert_equal 'Sort: Relevance', pres.current_sort_method
   end
 
   test 'sort_methods works' do
-    r = flexmock(params: { 'sort' => 'score desc' })
+    r = stub(params: { 'sort' => 'score desc' })
     pres = RLetters::Presenters::SearchResultPresenter.new(result: r)
 
     assert_equal 'Sort: Relevance', pres.sort_methods.assoc('score desc')[1]

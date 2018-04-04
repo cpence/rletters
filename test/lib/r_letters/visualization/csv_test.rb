@@ -2,7 +2,7 @@ require 'test_helper'
 require 'csv'
 require 'r_letters/visualization/csv'
 
-class CSVTest < ActiveSupport::TestCase
+class RLetters::Visualization::CSVTest < ActiveSupport::TestCase
   class TestClass
     include RLetters::Visualization::CSV
   end

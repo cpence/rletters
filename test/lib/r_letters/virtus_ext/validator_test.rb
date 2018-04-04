@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ValidatorTest < ActiveSupport::TestCase
+class RLetters::VirtusExt::ValidatorTest < ActiveSupport::TestCase
   class ValidatorTester
     include Virtus.model(strict: true)
     include RLetters::VirtusExt::Validator
@@ -12,7 +12,7 @@ class ValidatorTest < ActiveSupport::TestCase
   end
 
   test 'validate! is called' do
-    flexmock(ValidatorTester).new_instances.should_receive(:validate!)
+    ValidatorTester.any_instance.expects(:validate!)
     ValidatorTester.new(string: 'test')
   end
 end

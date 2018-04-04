@@ -237,9 +237,9 @@ class WorkflowControllerTest < ActionDispatch::IntegrationTest
 
     get workflow_url
 
-    flexmock(@controller).should_receive(:render_to_string)
+    @controller.expects(:render_to_string)
       .with(file: path, layout: false)
-      .and_return('')
+      .returns('')
 
     @controller.render_localized_markdown(:article_dates_job)
   end
@@ -252,9 +252,9 @@ class WorkflowControllerTest < ActionDispatch::IntegrationTest
 
     get workflow_url
 
-    flexmock(@controller).should_receive(:render_to_string)
+    @controller.expects(:render_to_string)
       .with(file: path, layout: false)
-      .and_return('')
+      .returns('')
 
     @controller.render_localized_markdown(:article_dates_job)
 

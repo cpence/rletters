@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class StopListTest < ActiveSupport::TestCase
+class RLetters::VirtusExt::StopListTest < ActiveSupport::TestCase
   class StopTester
     include Virtus.model(strict: true)
     attribute :list, RLetters::VirtusExt::StopList, required: true

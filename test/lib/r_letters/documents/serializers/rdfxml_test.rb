@@ -1,10 +1,10 @@
 require 'test_helper'
-require_relative './serializer_tests'
+require_relative './common_tests'
 
 # This tests both halves of the RDF serializers, the same code is generating
 # the N3 representation, but this is easier to spec.
-class RDFXMLTest < ActiveSupport::TestCase
-  include SerializerTests
+class RLetters::Documents::Serializers::RDFXMLTest < ActiveSupport::TestCase
+  include RLetters::Documents::Serializers::CommonTests
 
   test 'single document serialization' do
     doc = build(:full_document)

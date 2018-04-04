@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class FromTFTest < ActiveSupport::TestCase
+class RLetters::Analysis::Frequency::FromTFTest < ActiveSupport::TestCase
   test 'with one block, includes all words' do
     analyzer = RLetters::Analysis::Frequency::FromTF.call(dataset: create(:full_dataset,
                                                                           num_docs: 10))

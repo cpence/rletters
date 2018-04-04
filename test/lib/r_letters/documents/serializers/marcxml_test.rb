@@ -1,8 +1,8 @@
 require 'test_helper'
-require_relative './serializer_tests'
+require_relative './common_tests'
 
-class MARCXMLTest < ActiveSupport::TestCase
-  include SerializerTests
+class RLetters::Documents::Serializers::MARCXMLTest < ActiveSupport::TestCase
+  include RLetters::Documents::Serializers::CommonTests
 
   test 'array serialization' do
     doc = build(:full_document)

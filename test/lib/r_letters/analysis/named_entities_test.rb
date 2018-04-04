@@ -1,13 +1,12 @@
 require 'test_helper'
 
-class NamedEntitiesTest < ActiveSupport::TestCase
+class RLetters::Analysis::NamedEntitiesTest < ActiveSupport::TestCase
   test 'works' do
     old_path = ENV['NLP_TOOL_PATH']
     ENV['NLP_TOOL_PATH'] = 'stubbed'
 
     entities = build(:named_entities)
-    flexmock(RLetters::Analysis::NLP).should_receive(:named_entities)
-      .and_return(entities)
+    RLetters::Analysis::NLP.expects(:named_entities).returns(entities)
 
     called_sub_100 = false
     called_100 = false

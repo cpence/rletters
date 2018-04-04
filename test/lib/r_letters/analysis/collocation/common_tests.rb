@@ -1,5 +1,5 @@
 
-module CollocationTests
+module RLetters::Analysis::Collocation::CommonTests
   def run_no_focal_word_test(klass, scoring)
     called_sub_100 = false
     called_100 = false

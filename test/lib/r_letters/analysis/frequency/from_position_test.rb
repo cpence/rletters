@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class FromPositionTest < ActiveSupport::TestCase
+class RLetters::Analysis::Frequency::FromPositionTest < ActiveSupport::TestCase
   test 'basic onegram analysis, saves blocks' do
     analyzer = RLetters::Analysis::Frequency::FromPosition.call(
       dataset: create(:full_dataset, num_docs: 10),

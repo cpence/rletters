@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class SegmentsTest < ActiveSupport::TestCase
+class RLetters::Datasets::SegmentsTest < ActiveSupport::TestCase
   test 'should report progress' do
     called_sub_100 = false
     called_100 = false

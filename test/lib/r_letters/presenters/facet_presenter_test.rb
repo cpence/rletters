@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class FacetPresenterTest < ActiveSupport::TestCase
+class RLetters::Presenters::FacetPresenterTest < ActiveSupport::TestCase
   test 'label reproduces authors' do
     f = RLetters::Solr::Facet.new(field: 'authors_facet',
                                   value: '"W. Shatner"', hits: 10)
@@ -39,9 +39,9 @@ class FacetPresenterTest < ActiveSupport::TestCase
   end
 
   test 'label throws for invalid fields' do
-    f = flexmock(field: :space_facet, value: 'Spaceman Spiff', hits: 10,
-                 to_hash: { field: :space_facet, value: 'Spaceman Spiff',
-                            hits: 10 })
+    f = stub(field: :space_facet, value: 'Spaceman Spiff', hits: 10,
+             to_hash: { field: :space_facet, value: 'Spaceman Spiff',
+                        hits: 10 })
 
     assert_raises(ArgumentError) do
       RLetters::Presenters::FacetPresenter.new(facet: f).label
@@ -72,9 +72,9 @@ class FacetPresenterTest < ActiveSupport::TestCase
   end
 
   test 'field_label throws for invalid fields' do
-    f = flexmock(field: :space_facet, value: 'Spaceman Spiff', hits: 10,
-                 to_hash: { field: :space_facet, value: 'Spaceman Spiff',
-                            hits: 10 })
+    f = stub(field: :space_facet, value: 'Spaceman Spiff', hits: 10,
+             to_hash: { field: :space_facet, value: 'Spaceman Spiff',
+                        hits: 10 })
 
     assert_raises(ArgumentError) do
       RLetters::Presenters::FacetPresenter.new(facet: f).field_label

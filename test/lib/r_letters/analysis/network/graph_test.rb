@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class GraphTest < ActiveSupport::TestCase
+class RLetters::Analysis::Network::GraphTest < ActiveSupport::TestCase
   setup do
     create(:stop_list)
     @dataset = create(:dataset)

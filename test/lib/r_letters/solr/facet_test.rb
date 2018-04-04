@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class FacetTest < ActiveSupport::TestCase
+class RLetters::Solr::FacetTest < ActiveSupport::TestCase
   test 'initialize with query but no hits raises' do
     assert_raises(Virtus::CoercionError) do
       RLetters::Solr::Facet.new(query: 'year:[1960 TO 1969]')

@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class QueryPresenterTest < ActiveSupport::TestCase
+class RLetters::Presenters::QueryPresenterTest < ActiveSupport::TestCase
   test 'def_type_string works for regular search' do
     q = Datasets::Query.new(q: 'testing', def_type: 'dismax')
     pres = RLetters::Presenters::QueryPresenter.new(query: q)

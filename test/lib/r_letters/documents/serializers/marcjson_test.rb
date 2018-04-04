@@ -1,8 +1,8 @@
 require 'test_helper'
-require_relative './serializer_tests'
+require_relative './common_tests'
 
-class MARCJSONTest < ActiveSupport::TestCase
-  include SerializerTests
+class RLetters::Documents::Serializers::MARCJSONTest < ActiveSupport::TestCase
+  include RLetters::Documents::Serializers::CommonTests
 
   test 'array serialization creates the right sized arrays' do
     doc = build(:full_document)

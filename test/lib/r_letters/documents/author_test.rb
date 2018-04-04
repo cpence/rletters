@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class AuthorTest < ActiveSupport::TestCase
+class RLetters::Documents::AuthorTest < ActiveSupport::TestCase
   # Correctly deal with splitting by boolean operators and removing parentheses,
   # when needed
   def query_to_array(str)

@@ -1,8 +1,8 @@
 require 'test_helper'
-require_relative './collocation_tests'
+require_relative './common_tests'
 
-class BaseTest < ActiveSupport::TestCase
-  include CollocationTests
+class RLetters::Analysis::Collocation::BaseTest < ActiveSupport::TestCase
+  include RLetters::Analysis::Collocation::CommonTests
   run_common_tests(RLetters::Analysis::Collocation,
                    [:mutual_information, :t_test, :log_likelihood])
 

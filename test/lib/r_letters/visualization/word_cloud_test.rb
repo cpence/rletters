@@ -1,7 +1,7 @@
 require 'test_helper'
 require 'pdf/inspector'
 
-class WordCloudTest < ActiveSupport::TestCase
+class RLetters::Visualization::WordCloudTest < ActiveSupport::TestCase
   test 'creates one page' do
     pdf_string = RLetters::Visualization::WordCloud.call(
       header: 'Test Header',

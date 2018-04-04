@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class SplitListTest < ActiveSupport::TestCase
+class RLetters::VirtusExt::SplitListTest < ActiveSupport::TestCase
   class SplitTester
     include Virtus.model(strict: true)
     attribute :list, RLetters::VirtusExt::SplitList, required: true

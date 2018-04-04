@@ -1,10 +1,10 @@
 require 'test_helper'
 
-class WordListTest < ActiveSupport::TestCase
+class RLetters::Documents::WordListTest < ActiveSupport::TestCase
   setup do
     # Just always return the same document stub
     @doc = build(:full_document)
-    flexmock(Document, find_by!: @doc)
+    Document.stubs(:find_by!).returns(@doc)
   end
 
   test 'with 1-grams' do
@@ -43,8 +43,8 @@ class WordListTest < ActiveSupport::TestCase
 
     lister = RLetters::Documents::WordList.new(stemming: :lemma)
     words = build(:lemmatizer).words
-    flexmock(RLetters::Analysis::NLP).should_receive(:lemmatize_words)
-      .at_least.once.and_return(words)
+    RLetters::Analysis::NLP.expects(:lemmatize_words)
+      .at_least_once.returns(words)
     list = lister.words_for(@doc.uid)
 
     assert_equal %w(it be the), list.take(3)

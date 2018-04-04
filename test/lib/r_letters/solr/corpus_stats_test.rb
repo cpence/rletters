@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class CorpusStatsTest < ActiveSupport::TestCase
+class RLetters::Solr::CorpusStatsTest < ActiveSupport::TestCase
   test 'works' do
     stats = RLetters::Solr::CorpusStats.new
 

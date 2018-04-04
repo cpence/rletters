@@ -1,10 +1,9 @@
 
 module AnalysisJobHelper
   def test_should_call_finish_and_send_email
-    mailer_ret = flexmock()
-    mailer_ret.should_receive(:deliver_later).with(queue: :maintenance)
-    flexmock(UserMailer).should_receive(:job_finished_email)
-      .and_return(mailer_ret)
+    mailer_ret = mock()
+    mailer_ret.expects(:deliver_later).with(queue: :maintenance)
+    UserMailer.expects(:job_finished_email).returns(mailer_ret)
 
     perform
 

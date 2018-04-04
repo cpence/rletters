@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ParseTermVectorsTest < ActiveSupport::TestCase
+class RLetters::Solr::ParseTermVectorsTest < ActiveSupport::TestCase
   test 'term vector parsing works for good vectors' do
     solr_result = build(:solr_response).response
     array = solr_result['termVectors']

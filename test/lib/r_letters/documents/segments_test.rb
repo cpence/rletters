@@ -1,10 +1,9 @@
 require 'test_helper'
 
-class SegmentsTest < ActiveSupport::TestCase
+class RLetters::Documents::SegmentsTest < ActiveSupport::TestCase
   setup do
-    # Just always return the same document stub
     @doc = build(:full_document)
-    flexmock(Document, find_by!: @doc)
+    Document.stubs(:find_by!).returns(@doc)
   end
 
   test 'with no options' do
@@ -124,7 +123,8 @@ class SegmentsTest < ActiveSupport::TestCase
   test 'reset scrubs all the parameters' do
     segmenter = RLetters::Documents::Segments.new
     segmenter.add(@doc.uid)
-    segmenter.blocks
+
+    assert_equal 1, segmenter.blocks.size
 
     segmenter.reset!
     new_blocks = segmenter.blocks

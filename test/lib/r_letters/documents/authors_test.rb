@@ -1,10 +1,9 @@
 require 'test_helper'
 
-class AuthorsTest < ActiveSupport::TestCase
+class RLetters::Documents::AuthorsTest < ActiveSupport::TestCase
   test 'from_list works with a list of names' do
-    flexmock(RLetters::Documents::Author)
-      .should_receive(:new).with(full: 'A One')
-      .should_receive(:new).with(full: 'B Two')
+    RLetters::Documents::Author.expects(:new).with(full: 'A One')
+    RLetters::Documents::Author.expects(:new).with(full: 'B Two')
 
     RLetters::Documents::Authors.from_list('A One, B Two')
   end

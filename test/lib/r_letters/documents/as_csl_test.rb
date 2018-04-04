@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class AsCSLTest < ActiveSupport::TestCase
+class RLetters::Documents::AsCSLTest < ActiveSupport::TestCase
   test 'creates good citeproc items' do
     doc = build(:full_document)
     as_csl = RLetters::Documents::AsCSL.new(doc)
@@ -18,7 +18,7 @@ class AsCSLTest < ActiveSupport::TestCase
   end
 
   test 'formats citations correctly' do
-    style = flexmock(style: <<eos)
+    style = stub(style: <<eos)
 <style xmlns="http://purl.org/net/xbiblio/csl"  class="in-text" version="1.0">
   <info>
     <id />

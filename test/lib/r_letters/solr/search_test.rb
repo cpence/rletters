@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class SearchTest < ActiveSupport::TestCase
+class RLetters::Solr::SearchTest < ActiveSupport::TestCase
   test 'eliminates blank params' do
     params = { q: '', advanced: '' }
     ret = RLetters::Solr::Search.params_to_query(params)

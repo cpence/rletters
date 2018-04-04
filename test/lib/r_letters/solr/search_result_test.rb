@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class SearchResultTest < ActiveSupport::TestCase
+class RLetters::Solr::SearchResultTest < ActiveSupport::TestCase
   test 'solr_response returns what was passed to new' do
     solr_result = build(:solr_response).response
     rsolr = RSolr::Ext::Response::Base.new(solr_result, 'search', nil)
@@ -11,7 +11,7 @@ class SearchResultTest < ActiveSupport::TestCase
   end
 
   test 'solr_response throws if the response is bad' do
-    fail_response = flexmock(ok?: false, params: {})
+    fail_response = stub(ok?: false, params: {})
 
     assert_raises(RLetters::Solr::ConnectionError) do
       RLetters::Solr::SearchResult.new(fail_response)
@@ -31,16 +31,16 @@ class SearchResultTest < ActiveSupport::TestCase
     solr_result = build(:solr_response).response
     rsolr = RSolr::Ext::Response::Base.new(solr_result, 'search', nil)
 
-    flexmock(Document).should_receive(:new).with(rsolr.docs[0])
+    Document.expects(:new).with(rsolr.docs[0])
 
     RLetters::Solr::SearchResult.new(rsolr)
   end
 
   test 'passes term vector hashes to their parser' do
-    mock_parser = flexmock()
-    mock_parser.should_receive(:for_document).with('doi:10.5678/dickens')
-    flexmock(RLetters::Solr::ParseTermVectors).should_receive(:new)
-      .and_return(mock_parser)
+    mock_parser = mock()
+    mock_parser.expects(:for_document).with('doi:10.5678/dickens')
+    RLetters::Solr::ParseTermVectors.expects(:new)
+      .returns(mock_parser)
 
     solr_result = build(:solr_response).response
     rsolr = RSolr::Ext::Response::Base.new(solr_result, 'search', nil)
@@ -71,7 +71,7 @@ class SearchResultTest < ActiveSupport::TestCase
     solr_result = build(:solr_response).response
     rsolr = RSolr::Ext::Response::Base.new(solr_result, 'search', nil)
 
-    flexmock(RLetters::Solr::Facets).should_receive(:new)
+    RLetters::Solr::Facets.expects(:new)
       .with(rsolr.facets, rsolr.facet_queries)
 
     RLetters::Solr::SearchResult.new(rsolr)

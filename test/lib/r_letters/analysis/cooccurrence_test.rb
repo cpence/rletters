@@ -1,6 +1,7 @@
 require 'test_helper'
+require 'r_letters/analysis/nlp'
 
-class CooccurrenceTest < ActiveSupport::TestCase
+class RLetters::Analysis::CooccurrenceTest < ActiveSupport::TestCase
   test 'raises an error for invalid scoring method' do
     assert_raises(ArgumentError) do
       RLetters::Analysis::Cooccurrence.call(scoring: :nope, dataset: create(:dataset))
@@ -83,9 +84,17 @@ class CooccurrenceTest < ActiveSupport::TestCase
       old_path = ENV['NLP_TOOL_PATH']
       ENV['NLP_TOOL_PATH'] = 'stubbed'
 
-      flexmock(RLetters::Analysis::NLP).should_receive(:lemmatize_words)
-        .at_least.once
-        .and_return { |array| array == ['abstract'] ? ['the'] : array }
+      # This is annoying, but it's the simplest way to monkey-patch in a fake
+      # version of NLP so that we can be sure it's actually being called.
+      class RLetters::Analysis::NLP
+        def self.fake_lemmatize_words(array)
+          array == ['abstract'] ? ['the'] : array
+        end
+
+        singleton_class.send(:alias_method, :real_lemmatize_words, :lemmatize_words)
+        singleton_class.send(:alias_method, :lemmatize_words, :fake_lemmatize_words)
+      end
+
 
       result = RLetters::Analysis::Cooccurrence.call(
         scoring: scoring,
@@ -94,6 +103,10 @@ class CooccurrenceTest < ActiveSupport::TestCase
         words: 'abstract',
         window: 50,
         stemming: :lemma)
+
+      class RLetters::Analysis::NLP
+        singleton_class.send(:alias_method, :lemmatize_words, :real_lemmatize_words)
+      end
 
       assert_kind_of RLetters::Analysis::Cooccurrence::Result, result
       assert_equal scoring, result.scoring

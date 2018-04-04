@@ -1,8 +1,8 @@
 require 'test_helper'
-require_relative './serializer_tests'
+require_relative './common_tests'
 
-class MODSTest < ActiveSupport::TestCase
-  include SerializerTests
+class RLetters::Documents::Serializers::MODSTest < ActiveSupport::TestCase
+  include RLetters::Documents::Serializers::CommonTests
 
   test 'single document serialization' do
     doc = build(:full_document, pages: '123-456')

@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class CountArticlesByFieldTest < ActiveSupport::TestCase
+class RLetters::Analysis::CountArticlesByFieldTest < ActiveSupport::TestCase
   test 'progress reporting works without a dataset' do
     called_sub_100 = false
     called_100 = false

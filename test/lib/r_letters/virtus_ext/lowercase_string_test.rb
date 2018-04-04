@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class LowercaseStringTest < ActiveSupport::TestCase
+class RLetters::VirtusExt::LowercaseStringTest < ActiveSupport::TestCase
   class LowerStringTester
     include Virtus.model(strict: true)
     attribute :string, RLetters::VirtusExt::LowercaseString, required: true

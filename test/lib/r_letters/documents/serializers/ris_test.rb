@@ -1,8 +1,8 @@
 require 'test_helper'
-require_relative './serializer_tests'
+require_relative './common_tests'
 
-class RISTest < ActiveSupport::TestCase
-  include SerializerTests
+class RLetters::Documents::Serializers::RISTest < ActiveSupport::TestCase
+  include RLetters::Documents::Serializers::CommonTests
 
   test 'single document serialization' do
     doc = build(:full_document)

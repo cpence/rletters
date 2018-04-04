@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class DatasetIDTest < ActiveSupport::TestCase
+class RLetters::VirtusExt::DatasetIDTest < ActiveSupport::TestCase
   class DsIdTester
     include Virtus.model(strict: true)
     attribute :dataset, RLetters::VirtusExt::DatasetID, required: true

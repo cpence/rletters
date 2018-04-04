@@ -76,7 +76,7 @@ class WordFrequencyJobTest < ActiveJob::TestCase
   end
 
   test 'should still work when no corpus dfs are returned' do
-    analyzer = flexmock(
+    analyzer = stub(
       blocks: [{ 'word' => 2, 'other' => 5 },
                { 'word' => 1, 'other' => 6 }],
       block_stats: [
@@ -88,8 +88,8 @@ class WordFrequencyJobTest < ActiveJob::TestCase
       num_dataset_tokens: 14,
       num_dataset_types: 2,
       df_in_corpus: nil)
-    flexmock(RLetters::Analysis::Frequency).should_receive(:call)
-      .and_return(analyzer)
+    RLetters::Analysis::Frequency.expects(:call)
+      .returns(analyzer)
 
     task = create(:task, dataset: create(:full_dataset, num_docs: 2))
 

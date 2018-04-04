@@ -136,7 +136,6 @@ GEM
       multipart-post (>= 1.2, < 3)
     fast-stemmer (1.0.2)
     ffi (1.9.23)
-    flexmock (2.3.6)
     foundation_emails (2.2.1.0)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
@@ -188,6 +187,7 @@ GEM
     marc (1.0.2)
       scrub_rb (>= 1.0.1, < 2)
       unf
+    metaclass (0.0.4)
     method_source (0.9.0)
     mime-types (3.1)
       mime-types-data (~> 3.2015)
@@ -198,6 +198,8 @@ GEM
     mini_racer (0.1.15)
       libv8 (~> 6.3)
     minitest (5.11.3)
+    mocha (1.4.0)
+      metaclass (~> 0.0.1)
     multi_mail (0.1.6)
       faraday (~> 0.9.0)
       mail (~> 2.5)
@@ -381,7 +383,6 @@ DEPENDENCIES
   dotenv-rails
   factory_bot_rails
   fast-stemmer
-  flexmock
   haml
   haml-rails
   inky-rb
@@ -390,6 +391,7 @@ DEPENDENCIES
   lograge
   marc
   mini_racer
+  mocha
   multi_mail
   nokogiri
   paperclip (~> 6)

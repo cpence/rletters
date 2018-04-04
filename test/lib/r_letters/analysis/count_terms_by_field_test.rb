@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class CountTermsByFieldTest < ActiveSupport::TestCase
+class RLetters::Analysis::CountTermsByFieldTest < ActiveSupport::TestCase
   test 'works without a dataset' do
     called_sub_100 = false
     called_100 = false
