@@ -2,7 +2,6 @@ require 'test_helper'
 
 class RLetters::Analysis::Network::GraphTest < ActiveSupport::TestCase
   setup do
-    create(:stop_list)
     @dataset = create(:dataset)
     create(:query, dataset: @dataset, q: "uid:\"#{WORKING_UIDS[2]}\"")
   end
@@ -98,7 +97,6 @@ class RLetters::Analysis::Network::GraphTest < ActiveSupport::TestCase
   end
 
   test 'with different language, uses correct stop list' do
-    create(:stop_list, language: 'de', list: 'der die das')
     graph = RLetters::Analysis::Network::Graph.new(dataset: @dataset,
                                                    language: 'de')
 
