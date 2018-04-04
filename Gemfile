@@ -26,6 +26,7 @@ gem 'setler'
 
 # Internationalization
 gem 'rails-i18n', '= 5.0.0'
+gem 'twitter_cldr'
 
 # Textual analysis
 gem 'rsolr', '>= 1.0.7'

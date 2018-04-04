@@ -24,10 +24,15 @@ module RLetters
     config.lograge.enabled = true
     config.log_level = :debug
 
-    # Send all logs to stdout
-    log_level = (ENV['VERBOSE_LOGS'] == 'true') ? 'DEBUG' : 'WARN'
-    config.logger = Logger.new(STDOUT)
-    config.logger.level = Logger.const_get(log_level)
-    config.log_level = log_level
+    if Rails.env.test?
+      # In testing, save logs
+      config.paths['log'] = Rails.root.join('tmp', 'test.log')
+    else
+      # Send all logs to stdout
+      log_level = (ENV['VERBOSE_LOGS'] == 'true') ? 'DEBUG' : 'WARN'
+      config.logger = Logger.new(STDOUT)
+      config.logger.level = Logger.const_get(log_level)
+      config.log_level = log_level
+    end
   end
 end

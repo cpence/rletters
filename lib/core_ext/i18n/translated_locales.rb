@@ -7,14 +7,34 @@ RLetters::Application.config.after_initialize do
   # Open up the I18n.available_locales object and add a method to it that
   # returns translated strings suitable for use with simple_form
   def locales.translated
+    current_locale = TwitterCldr::Shared::Locale.parse(I18n.locale.downcase)
+    current_lang = current_locale.language
+
     sort.map do |loc|
-      parts = loc.to_s.split('-')
+      ret = TwitterCldr::Shared::Languages.from_code_for_locale(loc.downcase,
+                                                                current_lang).dup
 
-      # Language, optionally with a territory as well
-      name = I18n.t("languages.#{parts[0]}")
-      name << " (#{I18n.t("territories.#{parts[1]}")})" if parts.size == 2
+      if ret.nil?
+        # If that didn't work, parse it and try to do it ourselves
+        loc = TwitterCldr::Shared::Locale.parse(loc.downcase)
 
-      [name, loc.to_s]
+        ret = TwitterCldr::Shared::Languages.from_code_for_locale(loc.language,
+                                                                  current_lang).dup
+        fail "Cannot translate #{loc} into #{I18n.locale}" unless ret
+
+        # See if there's a region we should try to add
+        if loc.region
+          reg = TwitterCldr::Shared::Territories.from_territory_code_for_locale(loc.region,
+                                                                                current_lang).dup
+
+          # Just use the code if there's no translation
+          reg ||= loc.region
+
+          ret << " (#{reg})"
+        end
+      end
+
+      [ret, loc.to_s]
     end
   end
 end

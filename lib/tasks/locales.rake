@@ -23,28 +23,4 @@ namespace :locales do
   task :push do
     `tx push -s`
   end
-
-  desc 'Clean up problematic CLDR languages'
-  task :fixup do
-    LOCALES_TO_FIX = {
-      'fil:' => 'tl:',
-      'zh-Hans:' => 'zh-CN:',
-      'zh-Hant:' => 'zh-TW:',
-      'zh-Hant-HK:' => 'zh-HK:'
-    }
-
-    Dir[Rails.root.join('vendor', 'locales', 'cldr', '**', '*.{rb,yml}').to_s].each do |file|
-      text = IO.read(file)
-      LOCALES_TO_FIX.each { |from, to| text.gsub!(from, to) }
-      File.open(file, 'w') { |f| f.write(text) }
-    end
-
-    Dir[Rails.root.join('vendor', 'locales', 'cldr', '**', '*.rb').to_s].each do |file|
-      Bundler.with_clean_env { `hash_syntax --to-19 #{file}` }
-    end
-
-    Dir[Rails.root.join('vendor', 'locales', 'cldr', '**', '*.{rb,yml}').to_s].each do |file|
-      `perl -i -pe 's/[\t ]+$//g' #{file}`
-    end
-  end
 end

@@ -60,6 +60,7 @@ GEM
     bibtex-ruby (4.4.6)
       latex-decode (~> 0.0)
     builder (3.2.3)
+    camertron-eprun (1.1.1)
     capybara (2.13.0)
       addressable
       mime-types (>= 1.16)
@@ -77,6 +78,7 @@ GEM
     citeproc-ruby (1.1.10)
       citeproc (~> 1.0, >= 1.0.9)
       csl (~> 1.5)
+    cldr-plurals-runtime-rb (1.0.1)
     climate_control (0.2.0)
     closure_tree (6.6.0)
       activerecord (>= 4.1.0)
@@ -319,6 +321,10 @@ GEM
     thread_safe (0.3.6)
     tilt (2.0.8)
     ttfunk (1.5.1)
+    twitter_cldr (4.4.3)
+      camertron-eprun
+      cldr-plurals-runtime-rb (~> 1.0)
+      tzinfo
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
     uglifier (4.1.8)
@@ -395,6 +401,7 @@ DEPENDENCIES
   setler
   simple_form (>= 3.5.0)
   simplecov
+  twitter_cldr
   uglifier (>= 1.3.0)
   virtus
   webmock (>= 1.22.6)
