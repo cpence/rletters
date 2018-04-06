@@ -35,6 +35,7 @@ END
           chdir: 'vendor'
 
   puts "\n== Attempting to build NLP tool (needs Java, Maven) =="
+  system! 'mkdir vendor/nlp'
   system! 'git clone https://github.com/rletters/nlp-tool.git source',
           chdir: 'vendor/nlp'
   system! 'mvn install', chdir: 'vendor/nlp/source'

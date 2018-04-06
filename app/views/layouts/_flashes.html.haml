@@ -1,5 +1,5 @@
-- if Admin::FeatureFlags[:maintenance_message].present?
-  .alert.alert-warning{ role: 'alert' }= Admin::FeatureFlags[:maintenance_message].html_safe
+- if ENV['maintenance_message']
+  .alert.alert-warning{ role: 'alert' }= ENV['maintenance_message'].html_safe
 - flash.each do |key, value|
   %div{ class: "alert alert-dismissible alert-#{ { success: 'success', alert: 'danger' }[key.to_sym] || 'info' }", role: 'alert' }
     = render partial: 'bootstrap/close_icon', locals: { data: { dismiss: 'alert' } }

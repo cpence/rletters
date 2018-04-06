@@ -3,9 +3,9 @@
 ## Version 3.0 (unreleased)
 
 *   **Upgrade to bundling a more recent version of Solr (4.10.4).** This is a **significant and breaking change** for users, who *must* upgrade their Solr installations, as we are using some of the new features in later Solr versions to provide (in some cases dramatic) speed improvements. Reindexing content is not required, but is recommended when feasible.
-*   **Upgrade to use features in contemporary Ruby (2.3.0).** This is a **significant change** for users, who *must* upgrade their deployed version of Ruby.
-*   "Feature flag" support has now been implemented. This will extend to allow users to disable parts of RLetters that they do not need; for now it has only support for showing a scheduled maintenance message.
-*   Static site configuration is now edited via a `.env` file in the root directory of the project, or can be controlled via environment variables.
+*   **Upgrade to use features in contemporary Ruby (2.3.0+).** This is a **significant change** for users, who *must* upgrade their deployed version of Ruby.
+*   Site configuration is now edited via a `.env` file in the root directory of the project, or can be controlled via environment variables.
+*   Features of the application can now be readily enabled and disabled using these environment variables.
 *   Add support for sending application e-mails using a variety of different mail services, including Mandrill, Sendgrid, Postmark, and Mailgun, in addition to Rails' default Sendmail and SMTP support, and configure all these methods in the `.env` file.
 *   The main search interface has been slightly redesigned to include support for infinite scrolling and be more functional on mobile/tablet screens.
 *   Datasets are now stored not as a list of entries, but as a list of the searches that were used to create them. This list of searches can be viewed on the dataset information page.
@@ -14,7 +14,7 @@
 *   Add support for PDF word cloud generation to the word frequency and Craig Zeta analysis jobs.
 *   Allow all analysis tasks to potentially generate multiple output files, enabling enhanced visualizations.
 *   Upgrade the settings handling to move application settings into the environment.
-*   Upgrade delayed job handling to use ActiveJob with Que using the database as backend, removing the need for a Redis server.
+*   Upgrade delayed job handling to use ActiveJob with DelayedJob using the database as backend, removing the need for a Redis server.
 *   Fixed the broken progress reporting in the Craig Zeta job.
 *   Fixed a bug in the Term Dates job such that terms appearing in remotely-stored documents would not be counted.
 *   Fix bugs in the Article and Term Dates jobs such that the data would sometimes come out unsorted, producing jumbled graphs.

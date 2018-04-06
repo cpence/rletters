@@ -22,7 +22,6 @@ gem 'virtus'
 # User authentication and administration
 gem 'devise', '~> 4', '>= 4.4.0'
 gem 'devise-i18n'
-gem 'setler'
 
 # Internationalization
 gem 'rails-i18n', '= 5.1.1'

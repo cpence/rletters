@@ -48,7 +48,6 @@
             = t('admin.nav.settings')
             %span.caret
           %ul.dropdown-menu
-            %li= link_to Admin::FeatureFlags.model_name.human(count: 100), admin_collection_path(model: 'admin/feature_flags')
             %li= link_to Admin::Benchmark.model_name.human(count: 100), admin_collection_path(model: 'admin/benchmark')
 
       %ul.nav.navbar-nav.navbar-right

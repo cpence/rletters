@@ -72,7 +72,6 @@ en:
             admin/benchmark:
                 one: Benchmark
                 other: Benchmarks
-            admin/feature_flags: Feature Flags
             admin/markdown_page:
                 one: Custom Page
                 other: Custom Pages
@@ -113,10 +112,6 @@ en:
                 password: Password
                 password_confirmation: Confirm password
                 remember_me: Remember me?
-            admin/feature_flags:
-                friendly_name: Feature
-                var: Feature
-                value: Value
             admin/markdown_page:
                 friendly_name: Name
                 name: Name
@@ -592,8 +587,6 @@ en:
                 We've got this error registered in our logs, and we'll see what
                 we can do.  Head back to the front page, and if you see this
                 error message again, let us know and we'll try to fix it.
-    feature_flags:
-        maintenance_message: Maintenance Banner Message
     markdown_pages:
         landing: Landing Page
         caption-one: First Screenshot Caption

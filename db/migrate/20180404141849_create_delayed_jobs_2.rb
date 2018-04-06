@@ -16,13 +16,11 @@ class CreateDelayedJobs2 < ActiveRecord::Migration[5.1]
     add_index :delayed_jobs, [:priority, :run_at], name: "delayed_jobs_priority"
 
     # Remove the Que table
-    Que.migrate! version: 0
+    drop_table :que_jobs
   end
 
   def self.down
-    drop_table :delayed_jobs
-
-    # Recreate the Que table
-    Que.migrate! version: 3
+    # Sorry, you can't undo this, as the Que gem won't be installed anymore.
+    fail ActiveRecord::IrreversibleMigration
   end
 end

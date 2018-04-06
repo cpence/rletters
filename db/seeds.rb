@@ -62,6 +62,3 @@ job_classes.each do |klass|
     puts "Seeded benchmark:#{klass.name}-#{size}"
   end
 end
-
-# Feature flags
-Admin::FeatureFlags.save_to_db
