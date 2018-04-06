@@ -8,8 +8,7 @@ class AdvancedTest < ApplicationSystemTestCase
     click_button 'Perform advanced search'
 
     assert_selector 'table.document-list tr td'
-    within 'table.document-list:first-of-type' do
-      assert_text 'Fenimore Cooper'
-    end
+    element = find('table.document-list:first-of-type', match: :first)
+    element.assert_text 'Fenimore Cooper'
   end
 end

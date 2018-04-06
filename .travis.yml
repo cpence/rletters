@@ -38,7 +38,7 @@ before_script:
   - sh -e /etc/init.d/xvfb start
   - ln -s .env.example .env
   - 'pushd vendor/solr && ./start && popd'
-  - bin/rails RAILS_ENV=test db:setup yarn:install assets:precompile
+  - bin/rails RAILS_ENV=test db:setup yarn:install
 
 script:
   - bundle exec rails test
