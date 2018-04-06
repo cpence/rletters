@@ -10,12 +10,6 @@ FactoryBot.define do
     remember_me false
   end
 
-  factory :benchmark, class: Admin::Benchmark do
-    job 'ArticleDatesJob'
-    size 10
-    time 60.0
-  end
-
   factory :file, class: Datasets::File do
     description 'A task file'
     short_description 'File'

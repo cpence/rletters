@@ -99,13 +99,6 @@ class ApplicationJob < ActiveJob::Base
     classes
   end
 
-  # Get all of the available benchmarks for this job
-  #
-  # @return [Array<Admin::Benchmark>] all benchmarks for this class
-  def self.benchmarks
-    Admin::Benchmark.where(job: name).where.not(time: nil)
-  end
-
   # Access the task, but only if it hasn't been deleted
   #
   # @return [Datasets::Task] the task we're working on

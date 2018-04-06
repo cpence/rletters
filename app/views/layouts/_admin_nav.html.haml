@@ -43,13 +43,6 @@
             %li= link_to Admin::MarkdownPage.model_name.human(count: 100), admin_collection_path(model: 'admin/markdown_page')
             %li= link_to Admin::UploadedAsset.model_name.human(count: 100), admin_collection_path(model: 'admin/uploaded_asset')
 
-        %li.dropdowm
-          = link_to '#', class: 'dropdown-toggle', data: { toggle: 'dropdown' }, role: 'button', aria: { haspopup: 'true', expanded: 'false' } do
-            = t('admin.nav.settings')
-            %span.caret
-          %ul.dropdown-menu
-            %li= link_to Admin::Benchmark.model_name.human(count: 100), admin_collection_path(model: 'admin/benchmark')
-
       %ul.nav.navbar-nav.navbar-right
         - if administrator_signed_in?
           %li= link_to t('layouts.nav.sign_out'), destroy_administrator_session_path, method: :delete

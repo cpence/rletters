@@ -61,22 +61,6 @@
         - else
           = link_to t('.button_start'), dataset_tasks_path(current_user.workflow_dataset(0), button_params), method: :post, class: 'btn btn-success'
 
-  - if @klass.benchmarks.size > 0
-    .row.activate-pad
-      .col-xs-12.col-lg-6.col-lg-offset-3
-        %h4= t('.benchmark_header')
-
-        %table.table.table-striped
-          %thead
-            %tr
-              %th= t('.benchmark_size_column')
-              %th= t('.benchmark_time_column')
-          %tbody
-            - @klass.benchmarks.each do |b|
-              %tr
-                %td= b.size
-                %td= distance_of_time_in_words(b.time)
-
 .modal.fade#link-modal{ tabindex: '-1', role: 'dialog', aria: { hidden: 'true' } }
   .modal-dialog
     .modal-content
