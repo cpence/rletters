@@ -1,6 +1,4 @@
 
-@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic);
-
 // Fix a bug in Bootstrap regarding padding on the last paragraph in a well
 .well p:last-child {
   margin-bottom: 0;
@@ -12,7 +10,7 @@
 }
 
 .required-icon {
-  color: $brand-danger;
+  color: theme-color("danger");
   border-bottom: none !important;
 }
 

@@ -6,7 +6,7 @@
   }
 
   h4 {
-    color: $gray-light;
+    color: color("gray");
 
     margin-top: 1.5em;
     margin-bottom: 2.5em;
@@ -43,7 +43,7 @@
 
 #markdown-info {
   h4 {
-    color: $gray-light;
+    color: color("gray");
 
     padding-bottom: 1em;
   }
