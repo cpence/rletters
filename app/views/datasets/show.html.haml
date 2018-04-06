@@ -30,17 +30,17 @@
         %tbody
           %tr
             %td
-              %dl.dl-horizontal
-                %dt= Datasets::Query.human_attribute_name(:def_type)
-                %dd= qp.def_type_string
+              %dl.row
+                %dt.col-sm-3= Datasets::Query.human_attribute_name(:def_type)
+                %dd.col-sm-9= qp.def_type_string
 
                 - if q.q&.!=('*:*')
-                  %dt= Datasets::Query.human_attribute_name(:q)
-                  %dd= q.q
+                  %dt.col-sm-3= Datasets::Query.human_attribute_name(:q)
+                  %dd.col-sm-9= q.q
 
                 - if qp.fq_string
-                  %dt= Datasets::Query.human_attribute_name(:fq)
-                  %dd
+                  %dt.col-sm-3= Datasets::Query.human_attribute_name(:fq)
+                  %dd.col-sm-9
                     %ul
                       - qp.fq_string.each do |fq|
                         %li= fq
