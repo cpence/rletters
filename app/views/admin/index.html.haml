@@ -11,7 +11,7 @@
         %h3.panel-title= t('.workers')
 
       .panel-body
-        %table.table.table-striped.table-condensed
+        %table.table.table-striped.table-sm
           %thead
             %tr
               %th= t('.run_at')
@@ -52,7 +52,7 @@
       .panel-heading
         %h3.panel-title= t('.new_tasks')
 
-      %table.table.table-striped.table-condensed
+      %table.table.table-striped.table-sm
         %thead
           %tr
             %th= Datasets::Task.human_attribute_name(:name)
@@ -77,7 +77,7 @@
       .panel-heading
         %h3.panel-title= t('.new_datasets')
 
-      %table.table.table-striped.table-condensed
+      %table.table.table-striped.table-sm
         %thead
           %tr
             %th= Dataset.human_attribute_name(:name)
@@ -94,7 +94,7 @@
       .panel-heading
         %h3.panel-title= t('.recent_users')
 
-      %table.table.table-striped.table-condensed
+      %table.table.table-striped.table-sm
         %thead
           %tr
             %th= User.human_attribute_name(:name)
@@ -111,7 +111,7 @@
       .panel-heading
         %h3.panel-title= t('.environment')
 
-      %table.table.table-striped.table-condensed
+      %table.table.table-striped.table-sm
         %thead
           %tr
             %th= t('.variable')
