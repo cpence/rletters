@@ -18,8 +18,8 @@
               %td.label-cell= t.dataset.name
               %td.label-cell= p.status_message || t('.no_status')
 
-      .well
-        %p= t_md('.pending_cancel_markdown', terminate_url: workflow_fetch_path(terminate: 'true'), email: ENV['APP_EMAIL'])
+      .card.text-white.bg-secondary.card-body
+        %p.card-text= t_md('.pending_cancel_markdown', terminate_url: workflow_fetch_path(terminate: 'true'), email: ENV['APP_EMAIL'])
 
 .row
   .col-12
