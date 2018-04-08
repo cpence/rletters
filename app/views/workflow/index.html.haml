@@ -9,22 +9,24 @@
   .col-6.offset-3
     #screenshot-carousel.carousel.slide{ data: { ride: 'carousel' } }
       %ol.carousel-indicators
-        %li.active{ data: { "target" => '#screenshot-carousel', "slide-to" => "0" }}
-        %li{ data: { "target" => '#screenshot-carousel', "slide-to" => "1" }}
-        %li{ data: { "target" => '#screenshot-carousel', "slide-to" => "2" }}
+        %li.active{ data: { target: '#screenshot-carousel', 'slide-to': '0' }}
+        %li{ data: { target: '#screenshot-carousel', 'slide-to': '1' }}
+        %li{ data: { target: '#screenshot-carousel', 'slide-to': '2' }}
 
       .carousel-inner
-        .item.active
-          %img{ src: Admin::UploadedAsset.url_for('screenshot-one') }
-          .carousel-caption= Admin::MarkdownPage.render('caption-one')
-        .item
-          %img{ src: Admin::UploadedAsset.url_for('screenshot-two') }
-          .carousel-caption= Admin::MarkdownPage.render('caption-two')
-        .item
-          %img{ src: Admin::UploadedAsset.url_for('screenshot-three') }
-          .carousel-caption= Admin::MarkdownPage.render('caption-three')
+        .carousel-item.active
+          %img.d-block.w-100{ src: Admin::UploadedAsset.url_for('screenshot-one') }
+          .carousel-caption.d-none.d-md-block= Admin::MarkdownPage.render('caption-one')
+        .carousel-item
+          %img.d-block.w-100{ src: Admin::UploadedAsset.url_for('screenshot-two') }
+          .carousel-caption.d-none.d-md-block= Admin::MarkdownPage.render('caption-two')
+        .carousel-item
+          %img.d-block.w-100{ src: Admin::UploadedAsset.url_for('screenshot-three') }
+          .carousel-caption.d-none.d-md-block= Admin::MarkdownPage.render('caption-three')
 
-      = link_to '#screenshot-carousel', class: 'left carousel-control', role: 'button', data: { slide: 'prev' } do
-        %span.glyphicon.glyphicon-chevron-left
-      = link_to '#screenshot-carousel', class: 'right carousel-control', role: 'button', data: { slide: 'next' } do
-        %span.glyphicon.glyphicon-chevron-right
+      %a.carousel-control-prev{ href: '#screenshot-carousel', role: 'button', data: { slide: 'prev' } }
+        %span.carousel-control-prev-icon{ aria: { hidden: 'true' } }
+        %span.sr-only Previous
+      %a.carousel-control-next{ href: '#screenshot-carousel', role: 'button', data: { slide: 'next' } }
+        %span.carousel-control-next-icon{ aria: { hidden: 'true' } }
+        %span.sr-only Next
