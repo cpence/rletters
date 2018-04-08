@@ -1,4 +1,4 @@
-.navbar.navbar-expand-lg
+%nav.navbar.navbar-expand-lg.navbar-light.bg-light
   = link_to ENV['APP_NAME'], root_path, class: 'navbar-brand'
 
   %button.navbar-toggler{ type: 'button', data: { toggle: 'collapse', target: '#main-nav-collapse' }, aria: { controls: 'main-nav-collapse', expanded: 'false', label: 'Toggle navigation' } }
@@ -6,14 +6,14 @@
 
   .collapse.navbar-collapse#main-nav-collapse
     %ul.navbar-nav.mt-2.mt-lg-0
-      %li.nav-item{ class: (params[:controller] == 'workflow' && params[:action] == 'start') ? 'active' : nil }= link_to t('layouts.nav.new_analysis'), workflow_start_path
-      %li.nav-item{ class: (params[:controller] == 'workflow' && params[:action] == 'fetch') ? 'active' : nil }= link_to t('layouts.nav.fetch_results'), workflow_fetch_path
+      %li.nav-item{ class: (params[:controller] == 'workflow' && params[:action] == 'start') ? 'active' : nil }= link_to t('layouts.nav.new_analysis'), workflow_start_path, class: 'nav-link'
+      %li.nav-item{ class: (params[:controller] == 'workflow' && params[:action] == 'fetch') ? 'active' : nil }= link_to t('layouts.nav.fetch_results'), workflow_fetch_path, class: 'nav-link'
       %li.nav-item.dropdown
-        = link_to '#', data: { toggle: 'dropdown' } do
+        = link_to '#', id: 'nav-advanced-dropdown', class: 'nav-link dropdown-toggle', role: 'button', data: { toggle: 'dropdown' }, aria: { haspopup: 'true', expanded: 'false' } do
           = t('layouts.nav.advanced')
-        %ul.dropdown-menu{ role: 'menu' }
-          %li.dropdown-item= link_to t('layouts.nav.browse'), search_path
-          %li.dropdown-item= link_to t('layouts.nav.manage'), datasets_path
+        .dropdown-menu{ aria: { labelledby: 'nav-advanced-dropdown' } }
+          = link_to t('layouts.nav.browse'), search_path, class: 'dropdown-item'
+          = link_to t('layouts.nav.manage'), datasets_path, class: 'dropdown-item'
 
     .mr-auto
       - if user_signed_in? && current_user.workflow_active
@@ -21,13 +21,13 @@
         = link_to t('layouts.nav.abort'), workflow_destroy_path, class: 'btn btn-danger', data: { confirm: t('layouts.nav.abort_warning') }
 
     %ul.navbar-nav.mt-2.mt-lg-0
-      %li.nav-item= link_to t('layouts.nav.help'), 'http://rletters.net/help'
+      %li.nav-item= link_to t('layouts.nav.help'), 'http://rletters.net/help', class: 'nav-link'
       - if user_signed_in?
-        %li.nav-item{ class: (params[:controller] == 'users') ? 'active' : nil }= link_to t('layouts.nav.account'), edit_user_registration_path
-        %li.nav-item= link_to t('layouts.nav.sign_out'), destroy_user_session_path, method: :delete
+        %li.nav-item{ class: (params[:controller] == 'users') ? 'active' : nil }= link_to t('layouts.nav.account'), edit_user_registration_path, class: 'nav-link'
+        %li.nav-item= link_to t('layouts.nav.sign_out'), destroy_user_session_path, method: :delete, class: 'nav-link'
       - else
         %li.nav-item.dropdown
-          = link_to '#', data: { toggle: 'dropdown' } do
+          = link_to '#', id: 'nav-signin-dropdown', class: 'nav-link dropdown-toggle', role: 'button', data: { toggle: 'dropdown' }, aria: { haspopup: 'true', expanded: 'false' } do
             = t('layouts.nav.sign_in')
-          .dropdown-menu{ style: 'padding: 15px; padding-bottom: 15px; width: 20em;' }
+          .dropdown-menu{ style: 'padding: 15px; padding-bottom: 15px; width: 20em;', aria: { labelledby: 'nav-signin-dropdown' } }
             = render partial: 'layouts/sign_in'
