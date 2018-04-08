@@ -5,9 +5,9 @@
         %abbr{ class: 'unapi-id', title: d.uid }= ''
 
         .dropdown.pull-right
-          %button.btn.btn-secondary.dropdown-toggle{ type: 'button', id: "drop-#{d.uid.html_id}", data: { toggle: 'dropdown' } }
+          %button.btn.btn-secondary.dropdown-toggle{ type: 'button', id: "drop-#{d.uid.html_id}", data: { toggle: 'dropdown' }, aria: { haspopup: 'true', expanded: 'false' } }
             = t('search.index.dropdown_button')
-          %ul.dropdown-menu.dropdown-menu-right{ role: 'menu', aria: { labelledby: "drop-#{d.uid.html_id}" } }
+          .dropdown-menu.dropdown-menu-right{ aria: { labelledby: "drop-#{d.uid.html_id}" } }
             = render partial: 'dropdown', locals: { document: d }
 
         = document_citation(d)

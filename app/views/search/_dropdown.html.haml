@@ -1,37 +1,37 @@
 - if user_signed_in?
-  %li.dropdown-header= t('.dataset_header')
-  %li.dropdown-item= link_to t('.single_dataset'), new_dataset_path(q: "uid:\"#{document.uid}\"", def_type: 'lucene', fq: nil), class: 'ajax-modal', id: "single-#{document.uid.html_id}"
-  %li.dropdown-item= link_to t('.add_to_dataset'), '#', data: { toggle: 'modal', target: "#add-#{document.uid.html_id}-modal" }
+  %h6.dropdown-header= t('.dataset_header')
+  = link_to t('.single_dataset'), new_dataset_path(q: "uid:\"#{document.uid}\"", def_type: 'lucene', fq: nil), class: 'dropdown-item ajax-modal', id: "single-#{document.uid.html_id}"
+  = link_to t('.add_to_dataset'), '#', class: 'dropdown-item', data: { toggle: 'modal', target: "#add-#{document.uid.html_id}-modal" }
 
-  %li.dropdown-divider
+  .dropdown-divider
 
 - if document.doi
-  %li.dropdown-item= link_to t('.journal'), "http://dx.doi.org/#{document.doi}"
-  %li.dropdown-divider
+  = link_to t('.journal'), "http://dx.doi.org/#{document.doi}", class: 'dropdown-item'
+  .dropdown-divider
 
-%li.dropdown-header= t('.library')
+%h6.dropdown-header= t('.library')
 
 - if user_signed_in?
   - current_user.libraries.each do |library|
-    %li.dropdown-item= link_to t('.yours') + ' ' + library.name, "#{library.url}#{RLetters::Documents::AsOpenURL.new(document).params}"
-%li.dropdown-item{ role: 'presentation' }= link_to t('.worldcat'), "http://worldcatlibraries.org/registry/gateway?#{RLetters::Documents::AsOpenURL.new(document).params}"
-%li.dropdown-item= link_to t('.uk_openurl'), "http://openurl.ac.uk/?#{RLetters::Documents::AsOpenURL.new(document).params}"
-%li.dropdown-divider
+    = link_to t('.yours') + ' ' + library.name, "#{library.url}#{RLetters::Documents::AsOpenURL.new(document).params}", class: 'dropdown-item'
+= link_to t('.worldcat'), "http://worldcatlibraries.org/registry/gateway?#{RLetters::Documents::AsOpenURL.new(document).params}", class: 'dropdown-item'
+= link_to t('.uk_openurl'), "http://openurl.ac.uk/?#{RLetters::Documents::AsOpenURL.new(document).params}", class: 'dropdown-item'
+.dropdown-divider
 
-%li.dropdown-header= t('.online')
+%h6.dropdown-header= t('.online')
 
 - if document.title
-  %li.dropdown-item= link_to t('.google'), "http://scholar.google.com/scholar?q=#{CGI.escape(document.title)}"
-%li.dropdown-item= link_to t('.citeulike'), documents_citeulike_path(document.uid)
+  = link_to t('.google'), "http://scholar.google.com/scholar?q=#{CGI.escape(document.title)}", class: 'dropdown-item'
+= link_to t('.citeulike'), documents_citeulike_path(document.uid), class: 'dropdown-item'
 
-%li.dropdown-divider{ role: 'presentation' }
-%li.dropdown-header{ role: 'presentation' }= t('.details_header')
+.dropdown-divider
+%h6.dropdown-header= t('.details_header')
 
 - if document.doi
-  %li.dropdown-item.small= link_to "DOI: #{document.doi}", "http://dx.doi.org/#{document.doi}"
+  = link_to "DOI: #{document.doi}", "http://dx.doi.org/#{document.doi}", class: 'dropdown-item small'
 - if document.license_url
-  %li.dropdown-item.small= link_to t('.license', license: document.license || t('.no_license')), document.license_url
+  = link_to t('.license', license: document.license || t('.no_license')), document.license_url, class: 'dropdown-item small'
 - else
-  %li.dropdown-header= t('.license', license: document.license || t('.no_license'))
+  = link_to t('.license', license: document.license || t('.no_license')), '#', class: 'dropdown-item small disabled'
 - if document.data_source
-  %li.dropdown-header= t('.data_source', source: document.data_source)
+  = link_to t('.data_source', source: document.data_source), '#', class: 'dropdown-item small disabled'

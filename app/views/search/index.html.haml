@@ -20,15 +20,14 @@
   .col-5.col-lg-3
     .btn-group.d-flex{ role: 'group' }
       .btn-group.w-100{ role: 'group' }
-        = link_to('#', class: 'btn btn-secondary dropdown-toggle', data: { toggle: 'dropdown' }, role: 'button') do
+        = link_to('#', class: 'btn btn-secondary dropdown-toggle', data: { toggle: 'dropdown' }, role: 'button', aria: { haspopup: 'true', expanded: 'false' }) do
           %span.glyphicon.glyphicon-sort{ aria: { hidden: 'true' } }
           = t('.sort')
-        %ul.dropdown-menu{ role: 'menu' }
+        .dropdown-menu
           - @result_presenter.sort_methods.each do |(param, desc)|
-            %li.dropdown-item
-              = link_to RLetters::Solr::Search::permit_params(params.merge(sort: param)) do
-                %span{ style: (param == @result.params['sort'] ? nil : 'visibility: hidden') } &check;
-                = desc
+            = link_to RLetters::Solr::Search::permit_params(params.merge(sort: param), class: 'dropdown-item') do
+              %span{ style: (param == @result.params['sort'] ? nil : 'visibility: hidden') } &check;
+              = desc
 
       %a.btn.btn-secondary.w-100.collapsed#filters-button{ href: '#', type: 'button', data: { toggle: 'collapse', target: '#filters' } }
         %span.glyphicon.glyphicon-filter{ aria: { hidden: 'true' } }

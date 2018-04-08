@@ -1,6 +1,6 @@
 -# We're not using simple_form_for here, because I want precise control over
 -# the layout of this inline form.
-= form_for(:user, url: user_session_path, html: { class: 'dropdown-sign-in-form' }) do |f|
+= form_for(:user, url: user_session_path, html: { class: 'px-4 py-3' }) do |f|
 
   .form-group
     = f.label :email, class: 'sr-only'
@@ -12,10 +12,8 @@
     = f.check_box :remember_me, class: 'form-check-input'
     = f.label :remember_me, class: 'form-check-label'
 
-  .form-group
-    .btn-group.d-flex{ role: 'group' }
-      %button.btn.btn-primary.w-100{ type: 'submit' }= t('layouts.sign_in.sign_in')
-      = link_to t('layouts.sign_in.sign_up'), new_user_registration_path, class: 'btn btn-info w-100'
+  %button.btn.btn-primary{ type: 'submit' }= t('layouts.sign_in.sign_in')
 
-  .form-group.text-right
-    %small= link_to t('layouts.sign_in.forgot_password'), new_user_password_path
+.dropdown-divider
+= link_to t('layouts.sign_in.forgot_password'), new_user_password_path, class: 'dropdown-item small'
+= link_to t('layouts.sign_in.sign_up'), new_user_registration_path, class: 'dropdown-item small'
