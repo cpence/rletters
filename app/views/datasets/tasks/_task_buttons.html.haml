@@ -9,9 +9,8 @@
   .btn-group
     = link_to '#', class: 'btn btn-sm btn-success dropdown-toggle', data: { toggle: 'dropdown' } do
       = t('.download_button')
-      %span.caret
     %ul.dropdown-menu
       - task.files.downloadable.each do |f|
-        %li= link_to "#{f.description} (#{f.short_description})", download_dataset_task_path(task.dataset, task, file: f.to_param)
+        %li.dropdown-item= link_to "#{f.description} (#{f.short_description})", download_dataset_task_path(task.dataset, task, file: f.to_param)
 
 = link_to t('.delete_button'), dataset_task_path(task.dataset, task), method: :delete, class: 'btn btn-sm btn-danger', data: { confirm: t('.delete_confirm') }

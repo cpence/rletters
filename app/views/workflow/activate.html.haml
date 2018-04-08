@@ -5,7 +5,7 @@
   %li.active= t('breadcrumbs.workflow_activate')
 
 .row
-  .col-sm-12
+  .col-12
     %h1= t('.header')
     - if @num_workflow_datasets < @num_datasets
       %h4.text-muted= t('.subheader_pending')
@@ -14,11 +14,11 @@
 
 - if @num_workflow_datasets < @num_datasets
   .row
-    .col-sm-12
+    .col-12
       %p= t('.pending_instructions', count: @num_datasets)
 
 .row
-  .col-sm-12
+  .col-12
     %h3= t('.dataset_list')
 
     - if @num_workflow_datasets < @num_datasets
@@ -47,13 +47,13 @@
 
 - if @num_workflow_datasets < @num_datasets
   .row
-    .col-lg-12
+    .col-12
       .btn-group
         = link_to t('.create_button'), search_path, class: 'btn btn-success'
         = link_to t('.link_button'), '#', data: { toggle: 'modal', target: '#link-modal' }, class: 'btn btn-secondary'
 - else
   .row.activate-pad
-    .col-xs-12.col-lg-6.col-lg-offset-3
+    .col-12.col-lg-6.offset-lg-3
       - button_params = { class: params[:class], job_params: { other_datasets: current_user.workflow_datasets[1..-1] } }
       - if lookup_context.exists?('params', "jobs/#{params[:class].underscore}", true)
         = link_to t('.button_params'), new_dataset_task_path(current_user.workflow_dataset(0), button_params), class: 'btn btn-primary w-100'
@@ -76,7 +76,7 @@
         = form_tag workflow_activate_path(params[:class]), method: :get do
           .modal-body
             .row
-              .col-sm-6
+              .col-6
                 = label_tag :link_dataset_id, Dataset.model_name.human
                 = select_tag :link_dataset_id, options_from_collection_for_select(current_user.datasets, 'to_param', 'name'), class: 'form-control'
 

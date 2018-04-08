@@ -1,10 +1,10 @@
 
 .row
-  .col-sm-12
+  .col-12
     %h1= "#{@model.model_name.human}: #{@item}"
 
 .row
-  .col-sm-12
+  .col-12
     .btn-group{ role: 'group' }
       - unless @model.admin_configuration[:no_edit]
         = link_to admin_edit_item_path(model: params[:model], id: @item.to_param), class: 'btn btn-small btn-secondary' do
@@ -21,7 +21,7 @@
 .row.pad-bottom
 
 .row
-  .col-sm-12
+  .col-12
     %table.table.table-striped.table-sm
       %tbody
         - @model.column_names.each do |column|

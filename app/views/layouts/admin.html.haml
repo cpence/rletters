@@ -10,11 +10,11 @@
       = render partial: 'layouts/flashes'
 
       .row
-        .col-sm-12
+        .col-12
           = content_for?(:content) ? yield(:content) : yield
 
       .row.footer.text-muted.small
-        .col-xs-12
+        .col-12
           %hr
           = render partial: 'layouts/copyright'
 

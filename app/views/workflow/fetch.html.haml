@@ -3,8 +3,9 @@
   %li.active= t('breadcrumbs.workflow_fetch')
 
 .row
-  .col-sm-12
+  .col-12
     %h1= t('.header')
     %h4.text-muted= t('.subheader')
 
-#workflow-task-list.col-sm-12{ data: { fetch_url: workflow_fetch_path } }= render template: 'workflow/fetch_xhr', layout: false
+.row
+  #workflow-task-list.col-12{ data: { fetch_url: workflow_fetch_path } }= render template: 'workflow/fetch_xhr', layout: false

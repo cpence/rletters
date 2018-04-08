@@ -1,5 +1,5 @@
 .row
-  .col-sm-12
+  .col-12
     %h4= t('.pending_header')
     - if @pending_tasks.empty?
       %p= t('.no_pending')
@@ -22,7 +22,7 @@
         %p= t_md('.pending_cancel_markdown', terminate_url: workflow_fetch_path(terminate: 'true'), email: ENV['APP_EMAIL'])
 
 .row
-  .col-sm-12
+  .col-12
     %h4= t('.completed_header')
     - if @finished_tasks.empty? && @failed_tasks.empty?
       %p= t('.no_completed')

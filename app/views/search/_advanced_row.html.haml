@@ -1,18 +1,18 @@
 .row.advanced-label-row.visible-xs
-  .col-xs-12
+  .col-12
     %hr/
 
     %strong= t('.row_label')
 .row.advanced-row
-  .col-sm-3
+  .col-3
     .form-group.field-group
       = label_tag :field_0, t('.field_label'), class: 'sr-only'
       = select_tag :field_0, options_for_select(@search_fields), class: 'form-control'
-  .col-sm-6
+  .col-6
     .form-group.value-group
       = label_tag :value_0, t('.value_label'), class: 'sr-only'
       = text_field_tag :value_0, nil, class: 'form-control'
-  .col-sm-3.form-inline
+  .col-3.form-inline
     .form-group.bool-group
       .btn-group
         = link_to '#', class: 'btn btn-secondary add-button', type: 'button', aria: { label: t('.add_label') }, onclick: 'addSearchAdvancedRow(window.jQuery(this)); return false' do

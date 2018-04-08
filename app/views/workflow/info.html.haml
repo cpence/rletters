@@ -4,16 +4,16 @@
   %li.active= t('breadcrumbs.workflow_info')
 
 .row
-  .col-lg-6.col-lg-offset-6
+  .col-12.col-lg-6.offset-lg-6
     .btn-group.d-flex{ role: 'group' }
       = link_to t('.back'), workflow_start_path, class: 'btn btn-secondary w-100'
       = link_to t('.start'), workflow_activate_path(params[:class]), class: 'btn btn-success w-100'
 
 .row
-  #markdown-info.col-sm-12= render_localized_markdown(@klass.name.underscore)
+  #markdown-info.col-12= render_localized_markdown(@klass.name.underscore)
 
 .row
-  .col-lg-6.col-lg-offset-6
+  .col-12.col-lg-6.offset-lg-6
     .btn-group.d-flex{ role: 'group' }
       = link_to t('.back'), workflow_start_path, class: 'btn btn-secondary w-100'
       = link_to t('.start'), workflow_activate_path(params[:class]), class: 'btn btn-success w-100'

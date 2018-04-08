@@ -7,7 +7,7 @@
   %li.active= t('breadcrumbs.search_index')
 
 .row
-  .col-lg-9.col-sm-7
+  .col-7.col-lg-9
     = form_tag(search_path, method: :get, role: 'form') do
       - if @result.params['fq']
         - [@result.params['fq']].flatten.each do |p|
@@ -17,16 +17,15 @@
         = search_field_tag :q, (params[:advanced] ? t('.adv_search_placeholder') : params[:q]), placeholder: t('.placeholder'), class: 'form-control'
       %button.sr-only{ type: 'submit' }= t('.search_button')
 
-  .col-lg-3.col-sm-5
+  .col-5.col-lg-3
     .btn-group.d-flex{ role: 'group' }
       .btn-group.w-100{ role: 'group' }
         = link_to('#', class: 'btn btn-secondary dropdown-toggle', data: { toggle: 'dropdown' }, role: 'button') do
           %span.glyphicon.glyphicon-sort{ aria: { hidden: 'true' } }
           = t('.sort')
-          %span.caret
         %ul.dropdown-menu{ role: 'menu' }
           - @result_presenter.sort_methods.each do |(param, desc)|
-            %li
+            %li.dropdown-item
               = link_to RLetters::Solr::Search::permit_params(params.merge(sort: param)) do
                 %span{ style: (param == @result.params['sort'] ? nil : 'visibility: hidden') } &check;
                 = desc
@@ -40,7 +39,7 @@
         = t('.create_dataset')
 
 .row
-  .col-sm-12.col-lg-3.col-lg-push-9
+  .col-12.col-lg-3.order-lg-last
     %p.text-center= @result_presenter.num_hits_string
 
     .well.collapse#filters
@@ -49,7 +48,7 @@
 
       = link_to t('.advanced_search'), search_advanced_path, class: 'btn btn-secondary w-100'
 
-  .col-sm-12.col-lg-9.col-lg-pull-3
+  .col-12.col-lg-9.order-lg-first
     #jscroll= render partial: 'result_table'
 
 %div.text-center#back-to-top

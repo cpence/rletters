@@ -3,9 +3,9 @@
   %li.active= t('breadcrumbs.datasets_index')
 
 .row
-  .col-sm-12
+  .col-12
     %h1= t('.header')
     %h4.text-muted= t('.subheader')
 
 .row
-  #dataset-list.col-sm-12{ data: { fetch_url: datasets_path } }= render template: 'datasets/index_xhr', layout: false
+  #dataset-list.col-12{ data: { fetch_url: datasets_path } }= render template: 'datasets/index_xhr', layout: false

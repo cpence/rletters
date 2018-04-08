@@ -1,15 +1,15 @@
 - data = JSON.load(@task.json)
 
 .row
-  .col-md-8
+  .col-12.col-md-8
     %h1== #{Dataset.model_name.human}: #{@dataset.name}
     %h4.text-muted= t('term_dates_job.subheader', term: data['term'])
 
-  .col-md-4.job-header-button
+  .col-12.col-md-4.job-header-button
     = link_to t('common.download_csv'), task_download_path(task: @task, content_type: 'text/csv'), class: 'btn btn-secondary'
 
 .row
-  .col-xs-12
+  .col-12
     %hr
 
     %script{ type: 'text/javascript' }

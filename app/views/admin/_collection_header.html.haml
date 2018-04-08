@@ -1,5 +1,5 @@
 .row.pad-bottom
-  .col-sm-12
+  .col-12
     %h1= t('.header', model_name: @model.model_name.human(count: 100))
 
     .btn-group{ role: 'group' }
@@ -28,5 +28,5 @@
 
 - if @hint
   .row.pad-bottom
-    .col-xs-8.col-xs-offset-2
+    .col-8.offset-2
       .well= @hint

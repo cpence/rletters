@@ -6,7 +6,7 @@
 %h4.text-muted= t('.subheader')
 
 .row
-  .col-sm-6
+  .col-6
     = simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
       = f.error_notification
 
@@ -28,7 +28,7 @@
       = f.button :submit, t('.submit')
 
 .row
-  .col-sm-12
+  .col-12
     %hr
 
     %h2= t('.library_links_header')

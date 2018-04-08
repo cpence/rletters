@@ -1,11 +1,11 @@
 
 .row.pad-bottom
-  .col-sm-12
+  .col-12
     %h1= t('.header', app_name: ENV['APP_NAME'])
     %h4.text-muted= t('.subheader', app_name: ENV['APP_NAME'])
 
 .row
-  .col-lg-6
+  .col-12.col-lg-6
     .panel.panel-default
       .panel-heading
         %h3.panel-title= t('.workers')
@@ -47,7 +47,7 @@
             %li= t('.java_version', java_ver: @solr_info['jvm']['version'])
             %li= t('.memory_info', used: @solr_info['jvm']['memory']['used'], free: @solr_info['jvm']['memory']['free'], total: @solr_info['jvm']['memory']['total'], max: @solr_info['jvm']['memory']['max'])
 
-  .col-lg-6
+  .col-12.col-lg-6
     .panel.panel-default
       .panel-heading
         %h3.panel-title= t('.new_tasks')
@@ -106,7 +106,7 @@
               %td= admin_value_for(user, :last_sign_in_at)
 
 .row
-  .col-sm-12
+  .col-12
     .panel.panel-default
       .panel-heading
         %h3.panel-title= t('.environment')

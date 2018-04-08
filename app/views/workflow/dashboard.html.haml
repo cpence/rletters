@@ -1,17 +1,17 @@
 .row
-  .col-sm-9.col-sm-offset-1
+  .col-9.offset-1
     %h1= t('.header', app_name: ENV['APP_NAME'])
     %h4.text-muted= t('.subheader', app_name: ENV['APP_NAME'])
 
 .row.dashboard
-  .col-sm-4.col-sm-offset-1
+  .col-4.offset-1
     = link_to t('.start_button'), workflow_start_path, class: 'btn btn-success w-100'
     %p= t('.start_explanation')
-  .col-sm-4
+  .col-4
     = link_to t('.fetch_button'), workflow_fetch_path, class: 'btn btn-secondary w-100'
     %p= t('.fetch_explanation')
 
 .row.dashboard
-  .col-sm-4.col-sm-offset-3
+  .col-4.offset-3
     = link_to t('.advanced_button'), search_path, class: 'btn btn-secondary w-100'
     %p= t('.advanced_explanation')
