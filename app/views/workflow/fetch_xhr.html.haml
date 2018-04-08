@@ -41,6 +41,6 @@
               %td.label-cell= t.dataset.name
               %td.label-cell= t.failed ? t('common.progress_generic_fail') : l(t.finished_at, format: :short)
               - if t.failed
-                %td.button-cell= link_to t('datasets.index_xhr.delete_button'), dataset_task_path(t.dataset, t), method: :delete, class: 'btn btn-xs btn-danger', data: { confirm: t('datasets.index_xhr.delete_confirm') }
+                %td.button-cell= link_to t('datasets.index_xhr.delete_button'), dataset_task_path(t.dataset, t), method: :delete, class: 'btn btn-sm btn-danger', data: { confirm: t('datasets.index_xhr.delete_confirm') }
               - else
                 %td.button-cell= render partial: 'datasets/tasks/task_buttons', locals: { task: t }

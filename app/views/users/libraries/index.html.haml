@@ -13,8 +13,8 @@
       %tr
         %td.label-cell= library.name
         %td.button-cell
-          = link_to t('.edit_button'), edit_library_path(library), class: 'btn btn-xs btn-secondary ajax-modal', id: "edit-library-#{i}"
-          = link_to t('.delete_button'), library_path(library), method: 'delete', data: { confirm: t('.delete_confirm') }, class: 'btn btn-xs btn-danger'
+          = link_to t('.edit_button'), edit_library_path(library), class: 'btn btn-sm btn-secondary ajax-modal', id: "edit-library-#{i}"
+          = link_to t('.delete_button'), library_path(library), method: 'delete', data: { confirm: t('.delete_confirm') }, class: 'btn btn-sm btn-danger'
     - if current_user.libraries.empty?
       %tr
         %td.label-cell= t('.no_libraries')
