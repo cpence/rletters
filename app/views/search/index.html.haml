@@ -20,7 +20,7 @@
   .col-5.col-lg-3
     .btn-group.d-flex{ role: 'group' }
       .btn-group.w-100{ role: 'group' }
-        = link_to('#', class: 'btn btn-secondary w-100 dropdown-toggle', data: { toggle: 'dropdown' }, role: 'button', aria: { haspopup: 'true', expanded: 'false' }) do
+        = link_to('#', class: 'btn btn-light w-100 dropdown-toggle', data: { toggle: 'dropdown' }, role: 'button', aria: { haspopup: 'true', expanded: 'false' }) do
           %span.glyphicon.glyphicon-sort{ aria: { hidden: 'true' } }
           = t('.sort')
         .dropdown-menu
@@ -29,7 +29,7 @@
               %span{ style: (param == @result.params['sort'] ? nil : 'visibility: hidden') } &check;
               = desc
 
-      %a.btn.btn-secondary.w-100.collapsed#filters-button{ href: '#', type: 'button', data: { toggle: 'collapse', target: '#filters' } }
+      %a.btn.btn-light.w-100.d-lg-none.collapsed#filters-button{ href: '#', role: 'button', data: { toggle: 'collapse', target: '#filters' } }
         %span.glyphicon.glyphicon-filter{ aria: { hidden: 'true' } }
         = t('.toggle_filters')
 
@@ -41,12 +41,12 @@
   .col-12.col-lg-3.order-lg-last
     %p.text-center= @result_presenter.num_hits_string
 
-    .collapse#filters
+    #filters.collapse.d-lg-block.mb-3
       .card.bg-light.card-body
         - if @result.facets || Documents::Category.count
           = render partial: 'search/filters'
 
-        = link_to t('.advanced_search'), search_advanced_path, class: 'btn btn-secondary w-100'
+        = link_to t('.advanced_search'), search_advanced_path, class: 'btn btn-outline-secondary w-100'
 
   .col-12.col-lg-9.order-lg-first
     #jscroll= render partial: 'result_table'

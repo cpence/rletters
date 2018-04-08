@@ -1,6 +1,6 @@
 %h4= t('.header')
 
-%ul.nav.nav-pills.nav-stacked.filter-list
+%nav.nav.nav-pills.flex-column.filter-list
   - if params[:fq].present? || Documents::Category.active(params).present?
     = render partial: 'search/filters/remove'
   = render partial: 'search/filters/add'

@@ -6,45 +6,16 @@ table.document-list {
   td h5 { font-weight: bold; }
 }
 
-@media (min-width: 1200px /* Bootstrap: $screen-lg-min */) {
-  #filters {
-    display: block;
-    height: auto !important;
-  }
-
-  #filters-button {
-    display: none;
-  }
-}
-
-ul.filter-list {
+nav.filter-list {
   margin-bottom: 1em;
 
   li.filter-header {
-    border-bottom: 1px solid #ddd;
-    margin-top: 1em !important;
+    border-bottom: 1px solid $gray-500;
+    margin-top: 1em;
   }
 
-  li input {
-    margin-right: 0.5em;
-  }
-
-  ul {
-    list-style-type: none;
-    padding-left: 20px;
-  }
-  li > a {
-    // This is copied from the relevant nav style in Bootstrap, which is
-    // unfortunate, but necessary. It's also tweaked a bit to tighten the
-    // vertical spacing.
-    position: relative;
-    display: block;
-    padding: 5px 15px 5px 0;
-
-    &:hover, &:focus {
-      text-decoration: none;
-      background-color: #eee;
-    }
+  .badge {
+    font-weight: 400;
   }
 }
 
