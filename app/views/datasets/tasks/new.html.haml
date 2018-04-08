@@ -1,8 +1,8 @@
 - content_for :breadcrumbs do
-  %li= link_to t('breadcrumbs.root'), root_path
-  %li= link_to t('breadcrumbs.datasets_index'), datasets_path
-  %li= link_to t('breadcrumbs.datasets_show', name: @dataset.name), @dataset
-  %li.active= t('breadcrumbs.datasets_tasks_new')
+  %li.breadcrumb-item= link_to t('breadcrumbs.root'), root_path
+  %li.breadcrumb-item= link_to t('breadcrumbs.datasets_index'), datasets_path
+  %li.breadcrumb-item= link_to t('breadcrumbs.datasets_show', name: @dataset.name), @dataset
+  %li.breadcrumb-item.active= t('breadcrumbs.datasets_tasks_new')
 
 .row.pad-bottom
   .col-12

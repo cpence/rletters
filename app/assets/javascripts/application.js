@@ -1,7 +1,7 @@
 //= require jquery/dist/jquery
 //= require jquery-ujs/src/rails
 //
-//= require popper.js/dist/popper
+//= require popper.js/dist/umd/popper
 //= require bootstrap/dist/js/bootstrap
 //
 //= require jscroll/jquery.jscroll

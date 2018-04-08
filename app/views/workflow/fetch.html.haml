@@ -1,6 +1,6 @@
 - content_for :breadcrumbs do
-  %li= link_to t('breadcrumbs.root'), root_path
-  %li.active= t('breadcrumbs.workflow_fetch')
+  %li.breadcrumb-item= link_to t('breadcrumbs.root'), root_path
+  %li.breadcrumb-item.active= t('breadcrumbs.workflow_fetch')
 
 .row
   .col-12

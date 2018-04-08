@@ -4,9 +4,10 @@
   %body
     = render partial: 'layouts/admin_nav'
 
-    .container.main
+    .container.main.mt-3
       - if content_for? :breadcrumbs
-        %ol.breadcrumb= yield(:breadcrumbs)
+        %nav{ aria: { label: 'breadcrumb' } }
+          %ol.breadcrumb= yield(:breadcrumbs)
       = render partial: 'layouts/flashes'
 
       .row

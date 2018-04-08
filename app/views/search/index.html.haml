@@ -1,10 +1,10 @@
 - content_for :breadcrumbs do
-  %li= link_to t('breadcrumbs.root'), root_path
+  %li.breadcrumb-item= link_to t('breadcrumbs.root'), root_path
   - if user_signed_in? && current_user.workflow_active
-    %li= link_to t('breadcrumbs.workflow_start'), workflow_start_path
-    %li= link_to t('breadcrumbs.workflow_info'), workflow_info_path(current_user.workflow_class)
-    %li= link_to t('breadcrumbs.workflow_activate'), workflow_activate_path(current_user.workflow_class)
-  %li.active= t('breadcrumbs.search_index')
+    %l.breadcrumb-item= link_to t('breadcrumbs.workflow_start'), workflow_start_path
+    %li.breadcrumb-item= link_to t('breadcrumbs.workflow_info'), workflow_info_path(current_user.workflow_class)
+    %li.breadcrumb-item= link_to t('breadcrumbs.workflow_activate'), workflow_activate_path(current_user.workflow_class)
+  %li.breadcrumb-item.active= t('breadcrumbs.search_index')
 
 .row
   .col-7.col-lg-9
@@ -20,12 +20,12 @@
   .col-5.col-lg-3
     .btn-group.d-flex{ role: 'group' }
       .btn-group.w-100{ role: 'group' }
-        = link_to('#', class: 'btn btn-secondary dropdown-toggle', data: { toggle: 'dropdown' }, role: 'button', aria: { haspopup: 'true', expanded: 'false' }) do
+        = link_to('#', class: 'btn btn-secondary w-100 dropdown-toggle', data: { toggle: 'dropdown' }, role: 'button', aria: { haspopup: 'true', expanded: 'false' }) do
           %span.glyphicon.glyphicon-sort{ aria: { hidden: 'true' } }
           = t('.sort')
         .dropdown-menu
           - @result_presenter.sort_methods.each do |(param, desc)|
-            = link_to RLetters::Solr::Search::permit_params(params.merge(sort: param), class: 'dropdown-item') do
+            = link_to RLetters::Solr::Search::permit_params(params.merge(sort: param)), class: 'dropdown-item' do
               %span{ style: (param == @result.params['sort'] ? nil : 'visibility: hidden') } &check;
               = desc
 

@@ -1,6 +1,6 @@
 - content_for :breadcrumbs do
-  %li= link_to t('breadcrumbs.root'), root_path
-  %li.active= t('breadcrumbs.users_passwords_edit')
+  %li.breadcrumb-item= link_to t('breadcrumbs.root'), root_path
+  %li.breadcrumb-item.active= t('breadcrumbs.users_passwords_edit')
 
 .row
   .col-12
