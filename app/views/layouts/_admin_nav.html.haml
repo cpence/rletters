@@ -18,7 +18,7 @@
           %ul.dropdown-menu
             %li= link_to User.model_name.human(count: 100), admin_collection_path(model: 'user')
             %li= link_to "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;".html_safe + Users::Library.model_name.human(count: 100), admin_collection_path(model: 'users/library')
-            %li.divider{ role: 'separator' }
+            %li.dropdown-divider{ role: 'separator' }
             %li= link_to Admin::Administrator.model_name.human(count: 100), admin_collection_path(model: 'admin/administrator')
 
         %li.dropdown
@@ -29,9 +29,9 @@
             %li= link_to Dataset.model_name.human(count: 100), admin_collection_path(model: 'dataset')
             %li= link_to "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;".html_safe + Datasets::Query.model_name.human(count: 100), admin_collection_path(model: 'datasets/query')
             %li= link_to "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;".html_safe + Datasets::Task.model_name.human(count: 100), admin_collection_path(model: 'datasets/task')
-            %li.divider{ role: 'separator' }
+            %li.dropdown-divider{ role: 'separator' }
             %li= link_to Documents::Category.model_name.human(count: 100), admin_collection_path(model: 'documents/category')
-            %li.divider{ role: 'separator' }
+            %li.dropdown-divider{ role: 'separator' }
             %li= link_to Documents::StopList.model_name.human(count: 100), admin_collection_path(model: 'documents/stop_list')
             %li= link_to Users::CslStyle.model_name.human(count: 100), admin_collection_path(model: 'users/csl_style')
 
