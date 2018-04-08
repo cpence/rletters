@@ -15,9 +15,9 @@
   .col-sm-3.form-inline
     .form-group.bool-group
       .btn-group
-        = link_to '#', class: 'btn btn-default add-button', type: 'button', aria: { label: t('.add_label') }, onclick: 'addSearchAdvancedRow(window.jQuery(this)); return false' do
+        = link_to '#', class: 'btn btn-secondary add-button', type: 'button', aria: { label: t('.add_label') }, onclick: 'addSearchAdvancedRow(window.jQuery(this)); return false' do
           %span.glyphicon.glyphicon-plus{ aria: { hidden: 'true' } }
-        = link_to '#', class: 'btn btn-default remove-button', type: 'button', aria: { label: t('.remove_label') }, style: 'visibility: hidden', onclick: 'removeSearchAdvancedRow(window.jQuery(this)); return false' do
+        = link_to '#', class: 'btn btn-secondary remove-button', type: 'button', aria: { label: t('.remove_label') }, style: 'visibility: hidden', onclick: 'removeSearchAdvancedRow(window.jQuery(this)); return false' do
           %span.glyphicon.glyphicon-minus{ aria: { hidden: 'true' } }
 
       = label_tag :boolean_0, t('.boolean_label'), class: 'sr-only'

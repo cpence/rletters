@@ -5,7 +5,7 @@
         %abbr{ class: 'unapi-id', title: d.uid }= ''
 
         .dropdown.pull-right
-          %button.btn.btn-default.dropdown-toggle{ type: 'button', id: "drop-#{d.uid.html_id}", data: { toggle: 'dropdown' } }
+          %button.btn.btn-secondary.dropdown-toggle{ type: 'button', id: "drop-#{d.uid.html_id}", data: { toggle: 'dropdown' } }
             = t('search.index.dropdown_button')
             %span.caret
           %ul.dropdown-menu.dropdown-menu-right{ role: 'menu', aria: { labelledby: "drop-#{d.uid.html_id}" } }

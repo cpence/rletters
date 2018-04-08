@@ -20,7 +20,7 @@
   .col-lg-3.col-sm-5
     .btn-group.btn-group-justified{ role: 'group' }
       .btn-group
-        = link_to('#', class: 'btn btn-default dropdown-toggle', data: { toggle: 'dropdown' }, role: 'button') do
+        = link_to('#', class: 'btn btn-secondary dropdown-toggle', data: { toggle: 'dropdown' }, role: 'button') do
           %span.glyphicon.glyphicon-sort{ aria: { hidden: 'true' } }
           = t('.sort')
           %span.caret
@@ -31,7 +31,7 @@
                 %span{ style: (param == @result.params['sort'] ? nil : 'visibility: hidden') } &check;
                 = desc
 
-      %a.btn.btn-default.collapsed#filters-button{ href: '#', type: 'button', data: { toggle: 'collapse', target: '#filters' } }
+      %a.btn.btn-secondary.collapsed#filters-button{ href: '#', type: 'button', data: { toggle: 'collapse', target: '#filters' } }
         %span.glyphicon.glyphicon-filter{ aria: { hidden: 'true' } }
         = t('.toggle_filters')
 
@@ -48,7 +48,7 @@
         = render partial: 'search/filters'
 
       .btn-group.btn-group-justified
-        = link_to t('.advanced_search'), search_advanced_path, class: 'btn btn-default'
+        = link_to t('.advanced_search'), search_advanced_path, class: 'btn btn-secondary'
 
   .col-sm-12.col-lg-9.col-lg-pull-3
     #jscroll= render partial: 'result_table'

@@ -6,4 +6,4 @@
       = field_set_tag t('export_citations_job.options_label') do
         = f.input :format, label: I18n.t('export_citations_job.format'), collection: RLetters::Documents::Serializers::Base.available.map { |k| [RLetters::Documents::Serializers::Base.for(k).format, k] }
         = f.button :submit
-        = link_to(t('common.cancel'), @dataset, class: 'btn btn-default')
+        = link_to(t('common.cancel'), @dataset, class: 'btn btn-secondary')
