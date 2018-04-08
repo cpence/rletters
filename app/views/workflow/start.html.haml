@@ -11,5 +11,4 @@
   - next unless klass.available?
   .row.questions
     .col-sm-12
-      .btn-group.btn-group-justified
-        = link_to simple_format(klass.t('.question'), {}, wrapper_tag: 'span'), workflow_info_path(klass.name.to_s), class: 'btn btn-secondary'
+      = link_to simple_format(klass.t('.question'), {}, wrapper_tag: 'span'), workflow_info_path(klass.name.to_s), class: 'btn btn-secondary w-100'

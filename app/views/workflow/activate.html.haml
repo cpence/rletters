@@ -54,12 +54,11 @@
 - else
   .row.activate-pad
     .col-xs-12.col-lg-6.col-lg-offset-3
-      .btn-group.btn-group-justified
-        - button_params = { class: params[:class], job_params: { other_datasets: current_user.workflow_datasets[1..-1] } }
-        - if lookup_context.exists?('params', "jobs/#{params[:class].underscore}", true)
-          = link_to t('.button_params'), new_dataset_task_path(current_user.workflow_dataset(0), button_params), class: 'btn btn-primary'
-        - else
-          = link_to t('.button_start'), dataset_tasks_path(current_user.workflow_dataset(0), button_params), method: :post, class: 'btn btn-success'
+      - button_params = { class: params[:class], job_params: { other_datasets: current_user.workflow_datasets[1..-1] } }
+      - if lookup_context.exists?('params', "jobs/#{params[:class].underscore}", true)
+        = link_to t('.button_params'), new_dataset_task_path(current_user.workflow_dataset(0), button_params), class: 'btn btn-primary w-100'
+      - else
+        = link_to t('.button_start'), dataset_tasks_path(current_user.workflow_dataset(0), button_params), method: :post, class: 'btn btn-success w-100'
 
 .modal.fade#link-modal{ tabindex: '-1', role: 'dialog', aria: { hidden: 'true' } }
   .modal-dialog

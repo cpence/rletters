@@ -5,16 +5,13 @@
 
 .row.dashboard
   .col-sm-4.col-sm-offset-1
-    .btn-group.btn-group-justified
-      = link_to t('.start_button'), workflow_start_path, class: 'btn btn-success'
+    = link_to t('.start_button'), workflow_start_path, class: 'btn btn-success w-100'
     %p= t('.start_explanation')
   .col-sm-4
-    .btn-group.btn-group-justified
-      = link_to t('.fetch_button'), workflow_fetch_path, class: 'btn btn-secondary'
+    = link_to t('.fetch_button'), workflow_fetch_path, class: 'btn btn-secondary w-100'
     %p= t('.fetch_explanation')
 
 .row.dashboard
   .col-sm-4.col-sm-offset-3
-    .btn-group.btn-group-justified
-      = link_to t('.advanced_button'), search_path, class: 'btn btn-secondary'
+    = link_to t('.advanced_button'), search_path, class: 'btn btn-secondary w-100'
     %p= t('.advanced_explanation')

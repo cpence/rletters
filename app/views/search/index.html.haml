@@ -18,8 +18,8 @@
       %button.sr-only{ type: 'submit' }= t('.search_button')
 
   .col-lg-3.col-sm-5
-    .btn-group.btn-group-justified{ role: 'group' }
-      .btn-group
+    .btn-group.d-flex{ role: 'group' }
+      .btn-group.w-100{ role: 'group' }
         = link_to('#', class: 'btn btn-secondary dropdown-toggle', data: { toggle: 'dropdown' }, role: 'button') do
           %span.glyphicon.glyphicon-sort{ aria: { hidden: 'true' } }
           = t('.sort')
@@ -31,11 +31,11 @@
                 %span{ style: (param == @result.params['sort'] ? nil : 'visibility: hidden') } &check;
                 = desc
 
-      %a.btn.btn-secondary.collapsed#filters-button{ href: '#', type: 'button', data: { toggle: 'collapse', target: '#filters' } }
+      %a.btn.btn-secondary.w-100.collapsed#filters-button{ href: '#', type: 'button', data: { toggle: 'collapse', target: '#filters' } }
         %span.glyphicon.glyphicon-filter{ aria: { hidden: 'true' } }
         = t('.toggle_filters')
 
-      = link_to user_signed_in? ? new_dataset_path(q: @result.params['q'], def_type: @result.params['defType'], fq: @result.params['fq']) : '#', class: "btn btn-success #{user_signed_in? ? 'ajax-modal' : 'disabled'}", id: 'new-dataset' do
+      = link_to user_signed_in? ? new_dataset_path(q: @result.params['q'], def_type: @result.params['defType'], fq: @result.params['fq']) : '#', class: "btn btn-success w-100 #{user_signed_in? ? 'ajax-modal' : 'disabled'}", id: 'new-dataset' do
         %span.glyphicon.glyphicon-floppy-disk
         = t('.create_dataset')
 
@@ -47,8 +47,7 @@
       - if @result.facets || Documents::Category.count
         = render partial: 'search/filters'
 
-      .btn-group.btn-group-justified
-        = link_to t('.advanced_search'), search_advanced_path, class: 'btn btn-secondary'
+      = link_to t('.advanced_search'), search_advanced_path, class: 'btn btn-secondary w-100'
 
   .col-sm-12.col-lg-9.col-lg-pull-3
     #jscroll= render partial: 'result_table'

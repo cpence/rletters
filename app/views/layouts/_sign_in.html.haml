@@ -13,10 +13,9 @@
     = f.label :remember_me, class: 'form-check-label'
 
   .form-group
-    .btn-group.btn-group-justified
-      .btn-group
-        %button.btn.btn-primary{ type: 'submit' }= t('layouts.sign_in.sign_in')
-      .btn-group= link_to t('layouts.sign_in.sign_up'), new_user_registration_path, class: 'btn btn-info'
+    .btn-group.d-flex{ role: 'group' }
+      %button.btn.btn-primary.w-100{ type: 'submit' }= t('layouts.sign_in.sign_in')
+      = link_to t('layouts.sign_in.sign_up'), new_user_registration_path, class: 'btn btn-info w-100'
 
   .form-group.text-right
     %small= link_to t('layouts.sign_in.forgot_password'), new_user_password_path
