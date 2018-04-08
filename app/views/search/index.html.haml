@@ -21,7 +21,7 @@
     .btn-group.d-flex{ role: 'group' }
       .btn-group.w-100{ role: 'group' }
         = link_to('#', class: 'btn btn-light w-100 dropdown-toggle', data: { toggle: 'dropdown' }, role: 'button', aria: { haspopup: 'true', expanded: 'false' }) do
-          %span.glyphicon.glyphicon-sort{ aria: { hidden: 'true' } }
+          %i.fas.fa-sort
           = t('.sort')
         .dropdown-menu
           - @result_presenter.sort_methods.each do |(param, desc)|
@@ -34,7 +34,7 @@
         = t('.toggle_filters')
 
       = link_to user_signed_in? ? new_dataset_path(q: @result.params['q'], def_type: @result.params['defType'], fq: @result.params['fq']) : '#', class: "btn btn-success w-100 #{user_signed_in? ? 'ajax-modal' : 'disabled'}", id: 'new-dataset' do
-        %span.glyphicon.glyphicon-floppy-disk
+        %i.fas.fa-save
         = t('.create_dataset')
 
 .row

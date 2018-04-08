@@ -9,4 +9,7 @@
 //= require typeahead.js/dist/typeahead.jquery
 //= require d3/build/d3
 //
+//= require @fortawesome/fontawesome/index
+//= require @fortawesome/fontawesome-free-solid/index
+//
 //= require_tree .
