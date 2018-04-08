@@ -1,37 +1,33 @@
-.navbar.navbar-default.navbar-static-top{ role: 'navigation' }
-  .container
-    .navbar-header
-      %button.navbar-toggle.collapsed{ type: 'button', data: { toggle: 'collapse', target: '#main-nav-collapse' }}
-        %span.sr-only Toggle navigation
+.navbar.navbar-expand-lg
+  = link_to ENV['APP_NAME'], root_path, class: 'navbar-brand'
 
-        %span.icon-bar
-        %span.icon-bar
-        %span.icon-bar
-      = link_to ENV['APP_NAME'], root_path, class: 'navbar-brand'
+  %button.navbar-toggler{ type: 'button', data: { toggle: 'collapse', target: '#main-nav-collapse' }, aria: { controls: 'main-nav-collapse', expanded: 'false', label: 'Toggle navigation' } }
+    %span.navbar-toggler-icon
 
-    .collapse.navbar-collapse#main-nav-collapse
-      %ul.nav.navbar-nav
-        %li{ class: (params[:controller] == 'workflow' && params[:action] == 'start') ? 'active' : nil }= link_to t('layouts.nav.new_analysis'), workflow_start_path
-        %li{ class: (params[:controller] == 'workflow' && params[:action] == 'fetch') ? 'active' : nil }= link_to t('layouts.nav.fetch_results'), workflow_fetch_path
-        %li.dropdown
-          = link_to '#', data: { toggle: 'dropdown' } do
-            = t('layouts.nav.advanced')
-          %ul.dropdown-menu{ role: 'menu' }
-            %li.dropdown-item= link_to t('layouts.nav.browse'), search_path
-            %li.dropdown-item= link_to t('layouts.nav.manage'), datasets_path
+  .collapse.navbar-collapse#main-nav-collapse
+    %ul.navbar-nav.mt-2.mt-lg-0
+      %li.nav-item{ class: (params[:controller] == 'workflow' && params[:action] == 'start') ? 'active' : nil }= link_to t('layouts.nav.new_analysis'), workflow_start_path
+      %li.nav-item{ class: (params[:controller] == 'workflow' && params[:action] == 'fetch') ? 'active' : nil }= link_to t('layouts.nav.fetch_results'), workflow_fetch_path
+      %li.nav-item.dropdown
+        = link_to '#', data: { toggle: 'dropdown' } do
+          = t('layouts.nav.advanced')
+        %ul.dropdown-menu{ role: 'menu' }
+          %li.dropdown-item= link_to t('layouts.nav.browse'), search_path
+          %li.dropdown-item= link_to t('layouts.nav.manage'), datasets_path
 
+    .mr-auto
       - if user_signed_in? && current_user.workflow_active
-        = link_to t('layouts.nav.current'), workflow_activate_path(current_user.workflow_class), class: 'btn navbar-btn btn-success'
-        = link_to t('layouts.nav.abort'), workflow_destroy_path, class: 'btn navbar-btn btn-danger', data: { confirm: t('layouts.nav.abort_warning') }
+        = link_to t('layouts.nav.current'), workflow_activate_path(current_user.workflow_class), class: 'btn btn-success'
+        = link_to t('layouts.nav.abort'), workflow_destroy_path, class: 'btn btn-danger', data: { confirm: t('layouts.nav.abort_warning') }
 
-      %ul.nav.navbar-nav.navbar-right
-        %li= link_to t('layouts.nav.help'), 'http://rletters.net/help'
-        - if user_signed_in?
-          %li{ class: (params[:controller] == 'users') ? 'active' : nil }= link_to t('layouts.nav.account'), edit_user_registration_path
-          %li= link_to t('layouts.nav.sign_out'), destroy_user_session_path, method: :delete
-        - else
-          %li.dropdown
-            = link_to '#', data: { toggle: 'dropdown' } do
-              = t('layouts.nav.sign_in')
-            .dropdown-menu{ style: 'padding: 15px; padding-bottom: 15px; width: 20em;' }
-              = render partial: 'layouts/sign_in'
+    %ul.navbar-nav.mt-2.mt-lg-0
+      %li.nav-item= link_to t('layouts.nav.help'), 'http://rletters.net/help'
+      - if user_signed_in?
+        %li.nav-item{ class: (params[:controller] == 'users') ? 'active' : nil }= link_to t('layouts.nav.account'), edit_user_registration_path
+        %li.nav-item= link_to t('layouts.nav.sign_out'), destroy_user_session_path, method: :delete
+      - else
+        %li.nav-item.dropdown
+          = link_to '#', data: { toggle: 'dropdown' } do
+            = t('layouts.nav.sign_in')
+          .dropdown-menu{ style: 'padding: 15px; padding-bottom: 15px; width: 20em;' }
+            = render partial: 'layouts/sign_in'

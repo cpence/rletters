@@ -1,47 +1,42 @@
-.navbar.navbar-default.navbar-static-top.navbar-inverse{ role: 'navigation' }
-  .container
-    .navbar-header
-      %button.navbar-toggle.collapsed{ type: 'button', data: { toggle: 'collapse', target: '#main-nav-collapse' }}
-        %span.sr-only Toggle navigation
+.navbar.navbar-expand-lg.navbar-dark.bg-dark
+  = link_to t('admin.index.header', app_name: ENV['APP_NAME']), admin_path, class: 'navbar-brand'
 
-        %span.icon-bar
-        %span.icon-bar
-        %span.icon-bar
-      = link_to t('admin.index.header', app_name: ENV['APP_NAME']), admin_path, class: 'navbar-brand'
+  %button.navbar-toggler{ type: 'button', data: { toggle: 'collapse', target: '#main-nav-collapse' }, aria: { controls: 'main-nav-collapse', expanded: 'false', label: 'Toggle navigation' } }
+    %span.navbar-toggler-icon
 
-    .collapse.navbar-collapse#main-nav-collapse
-      %ul.nav.navbar-nav
-        %li.dropdown
-          = link_to '#', class: 'dropdown-toggle', data: { toggle: 'dropdown' }, role: 'button', aria: { haspopup: 'true', expanded: 'false' } do
-            = t('admin.nav.accounts')
-          %ul.dropdown-menu
-            %li.dropdown-item= link_to User.model_name.human(count: 100), admin_collection_path(model: 'user')
-            %li.dropdown-item= link_to "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;".html_safe + Users::Library.model_name.human(count: 100), admin_collection_path(model: 'users/library')
-            %li.dropdown-divider{ role: 'separator' }
-            %li.dropdown-item= link_to Admin::Administrator.model_name.human(count: 100), admin_collection_path(model: 'admin/administrator')
+  .collapse.navbar-collapse#main-nav-collapse
+    %ul.navbar-nav.mr-auto.mt-2.mt-lg-0
+      %li.nav-item.dropdown
+        = link_to '#', class: 'dropdown-toggle', data: { toggle: 'dropdown' }, role: 'button', aria: { haspopup: 'true', expanded: 'false' } do
+          = t('admin.nav.accounts')
+        %ul.dropdown-menu
+          %li.dropdown-item= link_to User.model_name.human(count: 100), admin_collection_path(model: 'user')
+          %li.dropdown-item= link_to "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;".html_safe + Users::Library.model_name.human(count: 100), admin_collection_path(model: 'users/library')
+          %li.dropdown-divider{ role: 'separator' }
+          %li.dropdown-item= link_to Admin::Administrator.model_name.human(count: 100), admin_collection_path(model: 'admin/administrator')
 
-        %li.dropdown
-          = link_to '#', class: 'dropdown-toggle', data: { toggle: 'dropdown' }, role: 'button', aria: { haspopup: 'true', expanded: 'false' } do
-            = t('admin.nav.content')
-          %ul.dropdown-menu
-            %li.dropdown-item= link_to Dataset.model_name.human(count: 100), admin_collection_path(model: 'dataset')
-            %li.dropdown-item= link_to "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;".html_safe + Datasets::Query.model_name.human(count: 100), admin_collection_path(model: 'datasets/query')
-            %li.dropdown-item= link_to "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;".html_safe + Datasets::Task.model_name.human(count: 100), admin_collection_path(model: 'datasets/task')
-            %li.dropdown-divider{ role: 'separator' }
-            %li.dropdown-item= link_to Documents::Category.model_name.human(count: 100), admin_collection_path(model: 'documents/category')
-            %li.dropdown-divider{ role: 'separator' }
-            %li.dropdown-item= link_to Documents::StopList.model_name.human(count: 100), admin_collection_path(model: 'documents/stop_list')
-            %li.dropdown-item= link_to Users::CslStyle.model_name.human(count: 100), admin_collection_path(model: 'users/csl_style')
+      %li.nav-item.dropdown
+        = link_to '#', class: 'dropdown-toggle', data: { toggle: 'dropdown' }, role: 'button', aria: { haspopup: 'true', expanded: 'false' } do
+          = t('admin.nav.content')
+        %ul.dropdown-menu
+          %li.dropdown-item= link_to Dataset.model_name.human(count: 100), admin_collection_path(model: 'dataset')
+          %li.dropdown-item= link_to "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;".html_safe + Datasets::Query.model_name.human(count: 100), admin_collection_path(model: 'datasets/query')
+          %li.dropdown-item= link_to "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;".html_safe + Datasets::Task.model_name.human(count: 100), admin_collection_path(model: 'datasets/task')
+          %li.dropdown-divider{ role: 'separator' }
+          %li.dropdown-item= link_to Documents::Category.model_name.human(count: 100), admin_collection_path(model: 'documents/category')
+          %li.dropdown-divider{ role: 'separator' }
+          %li.dropdown-item= link_to Documents::StopList.model_name.human(count: 100), admin_collection_path(model: 'documents/stop_list')
+          %li.dropdown-item= link_to Users::CslStyle.model_name.human(count: 100), admin_collection_path(model: 'users/csl_style')
 
-        %li.dropdown
-          = link_to '#', class: 'dropdown-toggle', data: { toggle: 'dropdown' }, role: 'button', aria: { haspopup: 'true', expanded: 'false' } do
-            = t('admin.nav.branding')
-          %ul.dropdown-menu
-            %li.dropdown-item= link_to Admin::MarkdownPage.model_name.human(count: 100), admin_collection_path(model: 'admin/markdown_page')
-            %li.dropdown-item= link_to Admin::UploadedAsset.model_name.human(count: 100), admin_collection_path(model: 'admin/uploaded_asset')
+      %li.nav-item.dropdown
+        = link_to '#', class: 'dropdown-toggle', data: { toggle: 'dropdown' }, role: 'button', aria: { haspopup: 'true', expanded: 'false' } do
+          = t('admin.nav.branding')
+        %ul.dropdown-menu
+          %li.dropdown-item= link_to Admin::MarkdownPage.model_name.human(count: 100), admin_collection_path(model: 'admin/markdown_page')
+          %li.dropdown-item= link_to Admin::UploadedAsset.model_name.human(count: 100), admin_collection_path(model: 'admin/uploaded_asset')
 
-      %ul.nav.navbar-nav.navbar-right
-        - if administrator_signed_in?
-          %li= link_to t('layouts.nav.sign_out'), destroy_administrator_session_path, method: :delete
-        - else
-          %li= link_to t('layouts.nav.sign_in'), new_administrator_session_path
+    %ul.navbar-nav.mt-2.mt-lg-0
+      - if administrator_signed_in?
+        %li.nav-item= link_to t('layouts.nav.sign_out'), destroy_administrator_session_path, method: :delete
+      - else
+        %li.nav-item= link_to t('layouts.nav.sign_in'), new_administrator_session_path
