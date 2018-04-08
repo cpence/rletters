@@ -11,54 +11,63 @@
   .col-12
     %hr
 
-    .panel-group#accordion{ role: 'tablist', aria: { multiselectable: 'true' } }
+    #accordion
       - if entities['PERSON']
-        .panel.panel-default
-          .panel-heading#heading1{ role: 'tab' }
-            %h4.panel-title
-              = link_to t('named_entities_job.people_category'), '#collapse1', data: { toggle: 'collapse', parent: '#accordion' }, aria: { expanded: 'true', controls: 'collapse1' }
-          .panel-collapse.collapse.in#collapse1{ role: 'tabpanel', aria: { labelledby: 'heading1' } }
-            .panel-body
+        .card
+          .card-header#heading1
+            %h5.mb-0
+              %button.btn.btn-link{ data: { toggle: 'collapse', target: '#collapse1' }, aria: { expanded: 'true', controls: 'collapse1' } }= t('named_entities_job.people_category')
+
+          .collapse.show#collapse1{ aria: { labelledby: 'heading1' }, data: { parent: '#accordion' } }
+            .card-body
               %ul
                 - entities['PERSON'].uniq.sort.each do |p|
                   %li= link_to p, t('named_entities_job.wikipedia_link', query: CGI.escape(p))
+
       - if entities['ORGANIZATION']
-        .panel-panel-default
-          .panel-heading#heading2{ role: 'tab' }
-            %h4.panel-title
-              = link_to t('named_entities_job.organization_category'), '#collapse2', class: 'collapsed', data: { toggle: 'collapse', parent: '#accordion' }, aria: { expanded: 'false', controls: 'collapse2' }
-          .panel-collapse.collapse#collapse2{ role: 'tabpanel', aria: { labelledby: 'heading2' } }
-            .panel-body
+        .card
+          .card-header#heading2
+            %h5.mb-0
+              %button.btn.btn-link{ data: { toggle: 'collapse', target: '#collapse2' }, aria: { expanded: 'false', controls: 'collapse2' } }= t('named_entities_job.organization_category')
+
+          .collapse#collapse2{ aria: { labelledby: 'heading2' }, data: { parent: '#accordion' } }
+            .card-body
               %ul
                 - entities['ORGANIZATION'].uniq.sort.each do |o|
                   %li= link_to o, t('named_entities_job.wikipedia_link', query: CGI.escape(o))
+
       - if entities['LOCATION']
-        .panel.panel-deafult
-          .panel-heading#heading3{ role: 'tab' }
-            %h4.panel-title
-              = link_to t('named_entities_job.location_map'), '#collapse3', class: 'collapsed', data: { toggle: 'collapse', parent: '#accordion' }, aria: { expanded: 'false', controls: 'collapse3' }
-          .panel-collapse.collapse#collapse3{ role: 'tabpanel', aria: { labelledby: 'heading3' } }
-            .panel-body
+        .card
+          .card-header#heading3
+            %h5.mb-0
+              %button.btn.btn-link{ data: { toggle: 'collapse', target: '#collapse3' }, aria: { expanded: 'false', controls: 'collapse3' } }= t('named_entities_job.location_map')
+
+          .collapse#collapse3{ aria: { labelledby: 'heading3' }, data: { parent: '#accordion' } }
+            .card-body
               #ne-map-data= entities['LOCATION'].uniq.sort.to_json
               #ne-map
-        .panel.panel-default
-          .panel-heading#heading4{ role: 'tab' }
-            %h4.panel-title
-              = link_to t('named_entities_job.location_list'), '#collapse4', class: 'collapsed', data: { toggle: 'collapse', parent: '#accordion' }, aria: { expanded: 'false', controls: 'collapse4' }
-          .panel-collapse.collapse#collapse4{ role: 'tabpanel', aria: { labelledby: 'heading4' } }
-            .panel-body
+
+        .card
+          .card-header#heading4
+            %h5.mb-0
+              %button.btn.btn-link{ data: { toggle: 'collapse', target: '#collapse4' }, aria: { expanded: 'false', controls: 'collapse4' } }= t('named_entities_job.location_list')
+
+          .collapse#collapse4{ aria: { labelledby: 'heading4' }, data: { parent: '#accordion' } }
+            .card-body
               %ul
                 - entities['LOCATION'].uniq.sort.each do |l|
                   %li= link_to l, t('named_entities_job.wikipedia_link', query: CGI.escape(l))
+
       - unless entities.reject { |c| %w{PERSON ORGANIZATION LOCATION}.include?(c) }.empty?
-        .panel.panel-default
-          .panel-heading#heading5{ role: 'tab' }
-            %h4.panel-title
-              = link_to t('named_entities_job.other_category'), '#collapse5', class: 'collapsed', data: { toggle: 'collapse', parent: '#accordion' }, aria: { expanded: 'false', controls: 'collapse5' }
-          .panel-collapse.collapse#collapse5{ role: 'tabpanel', aria: { labelledby: 'heading5' } }
-            .panel-body
+        .card
+          .card-header#heading5
+            %h5.mb-0
+              %button.btn.btn-link{ data: { toggle: 'collapse', target: '#collapse5' }, aria: { expanded: 'false', controls: 'collapse5' } }= t('named_entities_job.other_category')
+
+          .collapse#collapse5{ aria: { labelledby: 'heading5' }, data: { parent: '#accordion' } }
+            .card-body
               - entities.reject { |c| %w{PERSON ORGANIZATION LOCATION}.include?(c) }.each do |c|
-                %p
+                %p.card-text
                   %strong= c
                 %ul
                   - c.uniq.sort.each do |o|

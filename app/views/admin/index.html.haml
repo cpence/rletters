@@ -4,13 +4,12 @@
     %h1= t('.header', app_name: ENV['APP_NAME'])
     %h4.text-muted= t('.subheader', app_name: ENV['APP_NAME'])
 
-.row
+.row.mb-3
   .col-12.col-lg-6
-    .panel.panel-default
-      .panel-heading
-        %h3.panel-title= t('.workers')
+    .card.mb-3
+      .card-body
+        %h3.card-title= t('.workers')
 
-      .panel-body
         %table.table.table-striped.table-sm
           %thead
             %tr
@@ -25,99 +24,99 @@
               %td
               %td
 
-    .panel.panel-default
-      .panel-heading
-        %h3.panel-title= t('.backend')
+    .card
+      .card-body
+        %h3.card-title= t('.backend')
 
-      .panel-body
-        %h5= t('.database')
+      %ul.list-group.list-group-flush
+        %li.list-group-item
+          %h5= t('.database')
 
-        %ul
-          - if @corpus_size && @ping
-            %li= t('.db_size', count: @corpus_size)
-            %li= t('.latency', count: @ping)
-          - else
-            %li= t('.connection_failed')
+        - if @corpus_size && @ping
+          %li.list-group-item= t('.db_size', count: @corpus_size)
+          %li.list-group-item= t('.latency', count: @ping)
+        - else
+          %li.list-group-item= t('.connection_failed')
 
         - if @solr_info['lucene'] && @solr_info['jvm']
-          %h5= t('.solr')
+          %li.list-group-item
+            %h5= t('.solr')
 
-          %ul
-            %li= t('.solr_version', solr_ver: @solr_info['lucene']['solr-spec-version'], lucene_ver: @solr_info['lucene']['lucene-spec-version'])
-            %li= t('.java_version', java_ver: @solr_info['jvm']['version'])
-            %li= t('.memory_info', used: @solr_info['jvm']['memory']['used'], free: @solr_info['jvm']['memory']['free'], total: @solr_info['jvm']['memory']['total'], max: @solr_info['jvm']['memory']['max'])
+          %li.list-group-item= t('.solr_version', solr_ver: @solr_info['lucene']['solr-spec-version'], lucene_ver: @solr_info['lucene']['lucene-spec-version'])
+          %li.list-group-item= t('.java_version', java_ver: @solr_info['jvm']['version'])
+          %li.list-group-item= t('.memory_info', used: @solr_info['jvm']['memory']['used'], free: @solr_info['jvm']['memory']['free'], total: @solr_info['jvm']['memory']['total'], max: @solr_info['jvm']['memory']['max'])
 
   .col-12.col-lg-6
-    .panel.panel-default
-      .panel-heading
-        %h3.panel-title= t('.new_tasks')
+    .card.mb-3
+      .card-body
+        %h3.card-title= t('.new_tasks')
 
-      %table.table.table-striped.table-sm
-        %thead
-          %tr
-            %th= Datasets::Task.human_attribute_name(:name)
-            %th= Datasets::Task.human_attribute_name(:job_type)
-            %th= Dataset.model_name.human
-            %th= t('.status')
-        %tbody
-          - Datasets::Task.order('created_at desc').limit(10).each do |task|
+        %table.table.table-striped.table-sm
+          %thead
             %tr
-              %td= admin_value_for(task, :name)
-              %td= admin_value_for(task, :job_type)
-              %td= admin_value_for(task, :dataset)
-              %td
-                - if task.failed
-                  = t('.status_failed')
-                - elsif task.finished_at
-                  = t('.status_finished')
-                - else
-                  = t('.status_working')
+              %th= Datasets::Task.human_attribute_name(:name)
+              %th= Datasets::Task.human_attribute_name(:job_type)
+              %th= Dataset.model_name.human
+              %th= t('.status')
+          %tbody
+            - Datasets::Task.order('created_at desc').limit(10).each do |task|
+              %tr
+                %td= admin_value_for(task, :name)
+                %td= admin_value_for(task, :job_type)
+                %td= admin_value_for(task, :dataset)
+                %td
+                  - if task.failed
+                    = t('.status_failed')
+                  - elsif task.finished_at
+                    = t('.status_finished')
+                  - else
+                    = t('.status_working')
 
-    .panel.panel-default
-      .panel-heading
-        %h3.panel-title= t('.new_datasets')
+    .card.mb-3
+      .card-body
+        %h3.card-title= t('.new_datasets')
 
-      %table.table.table-striped.table-sm
-        %thead
-          %tr
-            %th= Dataset.human_attribute_name(:name)
-            %th= User.model_name.human
-            %th= Dataset.human_attribute_name(:created_at)
-        %tbody
-          - Dataset.order('created_at desc').limit(5).each do |dataset|
+        %table.table.table-striped.table-sm
+          %thead
             %tr
-              %td= admin_value_for(dataset, :name)
-              %td= admin_value_for(dataset, :user)
-              %td= admin_value_for(dataset, :created_at)
+              %th= Dataset.human_attribute_name(:name)
+              %th= User.model_name.human
+              %th= Dataset.human_attribute_name(:created_at)
+          %tbody
+            - Dataset.order('created_at desc').limit(5).each do |dataset|
+              %tr
+                %td= admin_value_for(dataset, :name)
+                %td= admin_value_for(dataset, :user)
+                %td= admin_value_for(dataset, :created_at)
 
-    .panel.panel-default
-      .panel-heading
-        %h3.panel-title= t('.recent_users')
+    .card
+      .card-body
+        %h3.card-title= t('.recent_users')
 
-      %table.table.table-striped.table-sm
-        %thead
-          %tr
-            %th= User.human_attribute_name(:name)
-            %th= User.human_attribute_name(:last_sign_in_at)
-        %tbody
-          - User.order('last_sign_in_at desc').limit(5).each do |user|
+        %table.table.table-striped.table-sm
+          %thead
             %tr
-              %td= admin_value_for(user, :name)
-              %td= admin_value_for(user, :last_sign_in_at)
+              %th= User.human_attribute_name(:name)
+              %th= User.human_attribute_name(:last_sign_in_at)
+          %tbody
+            - User.order('last_sign_in_at desc').limit(5).each do |user|
+              %tr
+                %td= admin_value_for(user, :name)
+                %td= admin_value_for(user, :last_sign_in_at)
 
 .row
   .col-12
-    .panel.panel-default
-      .panel-heading
-        %h3.panel-title= t('.environment')
+    .card
+      .card-body
+        %h3.card-title= t('.environment')
 
-      %table.table.table-striped.table-sm
-        %thead
-          %tr
-            %th= t('.variable')
-            %th= t('.value')
-        %tbody
-          - @config_vars.each do |var|
+        %table.table.table-striped.table-sm
+          %thead
             %tr
-              %td= var
-              %td= ENV[var]
+              %th= t('.variable')
+              %th= t('.value')
+          %tbody
+            - @config_vars.each do |var|
+              %tr
+                %td= var
+                %td= ENV[var]
