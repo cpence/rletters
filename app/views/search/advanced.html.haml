@@ -32,19 +32,16 @@
 
 .row.advanced-solr
   .col-12.col-md-10.offset-md-1
-    .panel-group#solr-accordion{ role: 'tablist' }
-      .panel.panel-default
-        .panel-heading#solr-heading{ role: 'tab' }
-          %h4.panel-title
-            %a{ href: '#solr-collapse', data: { toggle: 'collapse', parent: '#solr-accordion' }, aria: { expanded: 'true', controls: 'solr-collapse' } }= t('.solr_header')
-        .panel-collapse.collapse#solr-collapse{ role: 'tabpanel', aria: { labelledby: 'solr-heading' } }
-          .panel-body
-            = form_tag search_path, method: 'get' do
-              = hidden_field_tag :advanced, true
+    %button.btn.btn-secondary.btn-sm{ type: 'button', data: { toggle: 'collapse', target: '#solr-collapse' }, aria: { expanded: 'false', controls: 'solr-collapse' } }= t('.solr-header')
 
-              .form-group
-                = label_tag :q, t('.solr_label'), class: 'sr-only'
-                = text_area_tag(:q, nil, escape: false, class: 'form-control')
+    .collapse#solr-collapse
+      .card.card-body
+        = form_tag search_path, method: 'get' do
+          = hidden_field_tag :advanced, true
 
-              .form-group
-                = submit_tag t('.solr_button'), class: 'btn btn-primary'
+          .form-group
+            = label_tag :q, t('.solr_label'), class: 'sr-only'
+            = text_area_tag(:q, nil, escape: false, class: 'form-control')
+
+          .form-group
+            = submit_tag t('.solr_button'), class: 'btn btn-primary'
