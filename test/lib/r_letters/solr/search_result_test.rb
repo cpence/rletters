@@ -1,4 +1,5 @@
 require 'test_helper'
+require 'r_letters/solr/connection'
 
 class RLetters::Solr::SearchResultTest < ActiveSupport::TestCase
   test 'solr_response returns what was passed to new' do
