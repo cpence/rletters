@@ -15,6 +15,7 @@ env:
     - TMPDIR=$TRAVIS_BUILD_DIR/tmp
     - DISPLAY=":99.0"
     - DATABASE_URL="postgres:///rletters_test?username=postgres&pool=20&encoding=unicode"
+    - QMAKE=/usr/lib/x86_64-linux-gnu/qt5/bin/qmake
     - secure: Lv1neEs259UnYFTpbBOja4qhbdDnDCryGiZ8ycLkBGlc7PioiSiVqCo1Py+pJrpYenA3xrguv/Z5hdNjJ3fm4dl8GDrV9kgjtNe8E388kitISpimAi5QuwvxfJS8YiRPKm9VSfs3laMlSVXjhMdlAW1PPcrcElddv+r+jMpJ9uM=
 
 sudo: required
@@ -22,8 +23,9 @@ dist: trusty
 addons:
   postgresql: 9.6
 before_install:
+  - sudo add-apt-repository --yes ppa:ubuntu-sdk-team/ppa
   - sudo apt-get -qq update
-  - sudo apt-get install -y libsdl1.2-dev libsdl-ttf2.0-dev
+  - sudo apt-get install -y -qq libsdl1.2-dev libsdl-ttf2.0-dev libqt5webkit5-dev qtdeclarative5-dev
 
 install:
   - jdk_switcher home oraclejdk9
