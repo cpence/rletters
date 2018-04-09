@@ -1,10 +1,10 @@
-.modal-dialog
+.modal-dialog{ role: 'document' }
   .modal-content
     .modal-header
-      = render partial: 'bootstrap/close_icon', locals: { data: { dismiss: 'modal' } }
-
       %h4.modal-title= t('.header')
       %h6.text-muted= t('.subheader')
+
+      = render partial: 'bootstrap/close_icon', locals: { data: { dismiss: 'modal' } }
 
     .modal-body
       - if @libraries.empty?
@@ -15,3 +15,5 @@
             = hidden_field_tag 'users_library[name]', library[:name]
             = hidden_field_tag 'users_library[url]', library[:url]
             = submit_tag library[:name], class: 'button small secondary'
+    .modal-footer
+      %button.btn.btn-secondary{ data: { dismiss: 'modal' } }= t('common.cancel')

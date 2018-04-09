@@ -1,10 +1,10 @@
-.modal-dialog
+.modal-dialog{ role: 'document' }
   .modal-content
     .modal-header
-      = render partial: 'bootstrap/close_icon', locals: { data: { dismiss: 'modal' } }
-
       %h4.modal-title= t('.header')
       %h6.text-muted= t('.subheader')
+
+      = render partial: 'bootstrap/close_icon', locals: { data: { dismiss: 'modal' } }
 
     = simple_form_for(@dataset) do |f|
       .modal-body
@@ -20,3 +20,4 @@
 
       .modal-footer
         = f.button :submit, class: 'btn btn-primary'
+        %button.btn.btn-secondary{ data: { dismiss: 'modal' } }= t('common.cancel')

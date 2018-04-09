@@ -62,17 +62,19 @@
 
 -# FIXME this should probably have the fade class?
 .modal#link-modal{ tabindex: '-1', role: 'dialog', aria: { hidden: 'true' } }
-  .modal-dialog
+  .modal-dialog{ role: 'document' }
     .modal-content
       .modal-header
-        = render partial: 'bootstrap/close_icon', locals: { data: { dismiss: 'modal' } }
-
         %h4.modal-title= t('.link_header')
         %h6.text-muted= t('.link_subheader')
+
+        = render partial: 'bootstrap/close_icon', locals: { data: { dismiss: 'modal' } }
 
       - if current_user.datasets.empty?
         .modal-body
           %p= t('.link_no_datasets')
+        .modal-footer
+          %button.btn.btn-secondary{ data: { dismiss: 'modal' } }= t('common.cancel')
       - else
         = form_tag workflow_activate_path(params[:class]), method: :get do
           .modal-body
@@ -83,3 +85,4 @@
 
           .modal-footer
             = submit_tag t('.link_submit'), class: 'btn btn-success'
+            %button.btn.btn-secondary{ data: { dismiss: 'modal' } }= t('common.cancel')

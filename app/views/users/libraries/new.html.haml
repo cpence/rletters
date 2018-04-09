@@ -1,9 +1,9 @@
-.modal-dialog
+.modal-dialog{ role: 'document' }
   .modal-content
     .modal-header
-      = render partial: 'bootstrap/close_icon', locals: { data: { dismiss: 'modal' } }
-
       %h4.modal-title= t('.header')
       %h6.text-muted= t('.subheader')
+
+      = render partial: 'bootstrap/close_icon', locals: { data: { dismiss: 'modal' } }
 
     = render partial: 'form', locals: { url: libraries_path }

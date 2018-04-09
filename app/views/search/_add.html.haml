@@ -1,10 +1,10 @@
-.modal-dialog
+.modal-dialog{ role: 'document' }
   .modal-content
     .modal-header
-      = render partial: 'bootstrap/close_icon', locals: { data: { dismiss: 'modal' } }
-
       %h4.modal-title= t('.header')
       %h6.text-muted= t('.subheader')
+
+      = render partial: 'bootstrap/close_icon', locals: { data: { dismiss: 'modal' } }
 
     - if current_user.datasets.blank?
       .modal-body
@@ -19,6 +19,7 @@
 
         .modal-footer
           %button.btn.btn-success{ type: 'submit' }= t('.submit')
+          %button.btn.btn-secondary{ data: { dismiss: 'modal' } }= t('common.cancel')
 
 - content_for(:javascript) do
   :javascript
