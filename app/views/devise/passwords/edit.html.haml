@@ -17,7 +17,9 @@
       .form-group
         = f.label :password
         = f.password_field :password, class: 'form-control', required: true, autofocus: true
+        .invalid-feedback= t('activerecord.errors.models.user.password.blank')
       .form-group
         = f.label :password_confirmation
         = f.password_field :password_confirmation, class: 'form-control', required: true
+        .invalid-feedback= t('activerecord.errors.models.user.password_confirmation.blank')
       = f.submit t('.submit')

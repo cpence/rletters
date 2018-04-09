@@ -183,6 +183,10 @@ en:
                         blank: You must specify a name
                     email:
                         blank: You must enter an email address
+                    password:
+                        blank: You must enter a password
+                    password_confirmation:
+                        blank: You must re-type your password
                     language:
                         blank: Preferred language must be specified (internal error)
                         invalid: Preferred language must be a valid locale code (internal error)
@@ -357,6 +361,7 @@ en:
                 subheader: "You can configure your user settings here, change your password, or delete your account."
                 change_password: Change your password?
                 password_placeholder: (leave blank for no change)
+                password_blank: You must enter your password to make changes
                 settings: Site settings
                 submit: Update settings
                 cancel: Cancel my account
