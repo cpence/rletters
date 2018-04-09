@@ -5,15 +5,15 @@
     .btn-group{ role: 'group' }
       - unless @model.admin_configuration[:no_create]
         = link_to admin_new_item_path(model: params[:model]), class: 'btn btn-small btn-secondary' do
-          %span.glyphicon.glyphicon-plus
+          %i.fas.fa-plus
           = t('.new_button')
       - if @model.admin_configuration[:tree]
         = link_to '#', class: 'btn btn-small btn-secondary tree-save-button' do
-          %span.glyphicon.glyphicon-floppy-disk
+          %i.fas.fa-save
           = t('.tree_button')
       - unless @model.admin_configuration[:tree] || @model.admin_configuration[:no_delete]
         = link_to '#', class: 'btn btn-small btn-secondary bulk-delete-button disabled', data: { message: t('.delete_confirm') } do
-          %span.glyphicon.glyphicon-remove
+          %i.fas.fa-minus-circle
           = t('.delete_button')
 
 - if @model.admin_configuration[:tree]

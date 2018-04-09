@@ -38,7 +38,7 @@ module RLetters
             template.content_tag(:a,
                                  class: 'simple-form-add', href: '#',
                                  'aria-label': I18n.t('simple_form.add')) do
-              template.tag(:span, class: 'glyphicon glyphicon-plus',
+              template.tag(:i, class: 'fas fa-plus',
                                   'aria-hidden': 'true')
             end
           end
@@ -50,7 +50,7 @@ module RLetters
           template.content_tag(:a,
                                class: 'simple-form-remove', href: '#',
                                'aria-label': I18n.t('simple_form.remove')) do
-            template.tag(:span, class: 'glyphicon glyphicon-minus',
+            template.tag(:i, class: 'fas fa-minus',
                                 'aria-hidden': 'true')
           end
         end

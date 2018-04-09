@@ -5,7 +5,7 @@
         %abbr{ class: 'unapi-id', title: d.uid }= ''
 
         .dropdown.float-right
-          %button.btn.btn-outline-secondary.dropdown-toggle{ type: 'button', id: "drop-#{d.uid.html_id}", data: { toggle: 'dropdown' }, aria: { haspopup: 'true', expanded: 'false' } }
+          %button.btn.btn-outline-secondary.btn-sm.ml-1.mb-1.dropdown-toggle{ type: 'button', id: "drop-#{d.uid.html_id}", data: { toggle: 'dropdown' }, aria: { haspopup: 'true', expanded: 'false' } }
             = t('search.index.dropdown_button')
           .dropdown-menu.dropdown-menu-right{ aria: { labelledby: "drop-#{d.uid.html_id}" } }
             = render partial: 'dropdown', locals: { document: d }

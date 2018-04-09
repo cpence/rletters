@@ -8,14 +8,14 @@
     .btn-group{ role: 'group' }
       - unless @model.admin_configuration[:no_edit]
         = link_to admin_edit_item_path(model: params[:model], id: @item.to_param), class: 'btn btn-small btn-secondary' do
-          %span.glyphicon.glyphicon-pencil{ aria: { hidden: true } }
+          %i.fas.fa-edit
           = t('admin.collection_buttons.edit_button')
       - unless @model.admin_configuration[:no_delete]
         = link_to admin_item_path(model: params[:model], id: @item.to_param), method: :delete, data: { confirm: t('admin.collection_buttons.delete_confirm') }, class: 'btn btn-small btn-secondary' do
-          %span.glyphicon.glyphicon-remove{ aria: { hidden: 'true' } }
+          %i.fas.fa-minus-circle
           = t('admin.collection_buttons.delete_button')
       = link_to admin_collection_path(model: params[:model]), class: 'btn btn-small btn-secondary' do
-        %span.glyphicon.glyphicon-list{ aria: { hidden: true } }
+        %i.fas.fa-list
         = t('.to_list_button')
 
 .row.pad-bottom

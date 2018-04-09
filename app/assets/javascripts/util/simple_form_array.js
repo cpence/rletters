@@ -35,7 +35,7 @@ function addArrayRow(link)
 
   // Swap out its add link for a remove link (FIXME: localize?)
   link.attr('class', 'simple-form-remove').attr('aria-label', 'Remove');
-  link.find('span').attr('class', 'glyphicon glyphicon-minus');
+  link.find('i').attr('class', 'fas fa-minus');
   link.off('click').on('click', function() {
     removeArrayRow(window.jQuery(this));
     return false;

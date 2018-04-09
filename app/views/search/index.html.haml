@@ -30,7 +30,7 @@
               = desc
 
       %a.btn.btn-light.w-100.d-lg-none.collapsed#filters-button{ href: '#', role: 'button', data: { toggle: 'collapse', target: '#filters' } }
-        %span.glyphicon.glyphicon-filter{ aria: { hidden: 'true' } }
+        %i.fas.fa-filter
         = t('.toggle_filters')
 
       = link_to user_signed_in? ? new_dataset_path(q: @result.params['q'], def_type: @result.params['defType'], fq: @result.params['fq']) : '#', class: "btn btn-success w-100 #{user_signed_in? ? 'ajax-modal' : 'disabled'}", id: 'new-dataset' do
