@@ -3,7 +3,7 @@ require 'application_system_test_case'
 class SolrQueryTest < ApplicationSystemTestCase
   test 'run an author search via Solr' do
     visit '/search/advanced'
-    click_link 'Search with Solr syntax'
+    click_button 'Search with Solr syntax'
     fill_in 'q', with: 'authors:"Hotez" OR journal:"Gutenberg"'
     click_button 'Perform Solr query'
 

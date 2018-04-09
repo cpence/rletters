@@ -7,7 +7,7 @@ class CitationStyleTest < ApplicationSystemTestCase
     style = FactoryBot.create(:csl_style)
 
     visit root_path
-    within('.navbar-right') { click_link 'My Account' }
+    within('.navbar') { click_link 'My Account' }
     select style.name, from: 'user_csl_style_id'
     fill_in 'user_current_password', with: 'changeme'
     click_button 'Update settings'

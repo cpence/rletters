@@ -4,18 +4,18 @@ class FacetsTest < ApplicationSystemTestCase
   test 'browse by journal' do
     visit search_path
 
-    within('.well .nav') do
+    within('.filter-list') do
       click_link 'PLoS Neglected Tropical Diseases'
     end
 
     assert_text(/1500 articles /i)
-    assert_selector 'li', text: 'PLoS Neglected Tropical Diseases'
+    assert_selector 'a.nav-link', text: 'PLoS Neglected Tropical Diseases'
   end
 
   test 'clear a single facet' do
     visit search_path
 
-    within('.well .nav') do
+    within('.filter-list') do
       click_link 'PLoS Neglected Tropical Diseases'
       click_link 'Peter J. Hotez'
     end
@@ -25,13 +25,13 @@ class FacetsTest < ApplicationSystemTestCase
     end
 
     assert_text(/1500 articles /i)
-    assert_selector 'li', text: 'PLoS Neglected Tropical Diseases'
+    assert_selector 'a.nav-link', text: 'PLoS Neglected Tropical Diseases'
   end
 
   test 'clear all facets' do
     visit search_path
 
-    within('.well .nav') do
+    within('.filter-list') do
       click_link 'PLoS Neglected Tropical Diseases'
     end
     within('#filters') do
@@ -39,6 +39,6 @@ class FacetsTest < ApplicationSystemTestCase
     end
 
     assert_text(/1502 articles /i)
-    assert_no_selector 'li', text: 'Active filters'
+    assert_no_selector '.filter-header', text: 'Active filters'
   end
 end

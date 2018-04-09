@@ -1,17 +1,13 @@
 - if @result.facets
-  %li.filter-header
-    %strong= I18n.t('search.index.authors_facet')
+  .filter-header= I18n.t('search.index.authors_facet')
   = facet_addition_links(@result.facets, :authors_facet)
 
-  %li.filter-header
-    %strong= I18n.t('search.index.journal_facet')
+  .filter-header= I18n.t('search.index.journal_facet')
   = facet_addition_links(@result.facets, :journal_facet)
 
-  %li.filter-header
-    %strong= I18n.t('search.index.year_facet')
+  .filter-header= I18n.t('search.index.year_facet')
   = facet_addition_links(@result.facets, :year)
 
 - if Documents::Category.count > 0
-  %li.filter-header
-    %strong= I18n.t('search.index.categories')
+  .filter-header= I18n.t('search.index.categories')
   = category_addition_tree

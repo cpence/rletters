@@ -46,13 +46,11 @@ module SearchHelper
 
     # Build the return value
     tags = field_facets.map do |f|
-      content_tag(:li) do
-        p = RLetters::Presenters::FacetPresenter.new(facet: f)
-        render(partial: 'search/filters/facet_add_link', locals: {
-                 hits: f.hits.to_s,
-                 label: p.label,
-                 facets: active_facets + [f] })
-      end
+      p = RLetters::Presenters::FacetPresenter.new(facet: f)
+      render(partial: 'search/filters/facet_add_link', locals: {
+               hits: f.hits.to_s,
+               label: p.label,
+               facets: active_facets + [f] })
     end
 
     tags.join.html_safe

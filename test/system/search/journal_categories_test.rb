@@ -13,34 +13,34 @@ class JournalCategoriesTest < ApplicationSystemTestCase
   test 'add a category' do
     visit search_path
 
-    within('.well .nav') do
+    within('.filter-list') do
       click_link('PNTD')
     end
 
     assert_text(/1500 articles /i)
-    assert_selector 'li', text: /Category: PNTD/
+    assert_selector 'a.nav-link', text: /Category: PNTD/
   end
 
   test 'clear a category' do
     visit search_path
 
-    within('.well .nav') do
+    within('.filter-list') do
       click_link('PNTD')
       click_link('Gutenberg')
     end
 
-    within('.well .nav') do
+    within('.filter-list') do
       click_link('Gutenberg')
     end
 
     assert_text(/1500 articles /i)
-    assert_selector 'li', text: /Category: PNTD/
+    assert_selector 'a.nav-link', text: /Category: PNTD/
   end
 
   test 'clear all categories' do
     visit search_path
 
-    within('.well .nav') do
+    within('.filter-list') do
       click_link('Gutenberg')
     end
 
@@ -49,6 +49,6 @@ class JournalCategoriesTest < ApplicationSystemTestCase
     end
 
     assert_text(/1502 articles /i)
-    assert_no_selector 'li', text: 'Active filters'
+    assert_no_selector '.filter-header', text: 'Active filters'
   end
 end

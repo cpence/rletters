@@ -9,9 +9,13 @@ table.document-list {
 nav.filter-list {
   margin-bottom: 1em;
 
-  li.filter-header {
+  .filter-header {
+    display: block;
+
     border-bottom: 1px solid $gray-500;
     margin-top: 1em;
+
+    font-weight: bold;
   }
 
   .badge {

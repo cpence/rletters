@@ -1,5 +1,4 @@
-%li.filter-header
-  %strong= I18n.t('search.index.active_filters')
+.filter-header= I18n.t('search.index.active_filters')
 
 -# Remove all link
 = render partial: 'search/filters/facet_remove_link', locals: { params: RLetters::Solr::Search::permit_params(params.except(:categories, :fq)), label: I18n.t('search.index.remove_all') }

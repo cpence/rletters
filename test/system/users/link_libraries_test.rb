@@ -5,7 +5,7 @@ class LinkLibrariesTest < ApplicationSystemTestCase
     sign_in_with
 
     visit root_path
-    within('.navbar-right') { click_link 'My Account' }
+    within('.navbar') { click_link 'My Account' }
 
     stub_connection(/worldcat.org/, 'worldcat_notre_dame')
     click_link 'Look up your library automatically'
@@ -24,7 +24,7 @@ class LinkLibrariesTest < ApplicationSystemTestCase
     sign_in_with
 
     visit root_path
-    within('.navbar-right') { click_link 'My Account' }
+    within('.navbar') { click_link 'My Account' }
 
     click_link('Add your library manually')
     find('.modal-dialog')
