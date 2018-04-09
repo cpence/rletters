@@ -11,7 +11,7 @@ span.twitter-typeahead {
   }
 
   .tt-suggestion.tt-cursor {
-    @extend .dropdown-item.active;
+    @extend .dropdown-item, .active;
   }
 
   .input-group & {
