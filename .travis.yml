@@ -22,10 +22,10 @@ sudo: required
 dist: trusty
 addons:
   postgresql: 9.6
+  chrome: stable
 before_install:
-  - sudo add-apt-repository --yes ppa:ubuntu-sdk-team/ppa
   - sudo apt-get -qq update
-  - sudo apt-get install -y -qq libsdl1.2-dev libsdl-ttf2.0-dev libqt5webkit5-dev qtdeclarative5-dev
+  - sudo apt-get install -y -qq libsdl1.2-dev libsdl-ttf2.0-dev
 
 install:
   - jdk_switcher home oraclejdk9

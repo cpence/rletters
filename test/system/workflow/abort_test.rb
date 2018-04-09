@@ -15,7 +15,9 @@ class AbortTest < ApplicationSystemTestCase
       click_button 'Link dataset'
     end
 
-    click_link 'Abort Building Analysis'
+    accept_confirm do
+      click_link 'Abort Building Analysis'
+    end
 
     visit root_path
     refute has_link?('Current Analysis')

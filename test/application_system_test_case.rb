@@ -1,12 +1,21 @@
 require 'test_helper'
+require 'selenium/webdriver'
 
-Capybara::Webkit.configure do |config|
-  config.block_unknown_urls
-  config.skip_image_loading
+Capybara.register_driver :headless_chrome do |app|
+  capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
+    chromeOptions: { args: %w(headless disable-gpu no-sandbox) }
+
+    # Uncomment this instead to watch the tests happen live
+    # chromeOptions: { args: %w(disable-gpu no-sandbox) }
+  )
+
+  Capybara::Selenium::Driver.new app,
+    browser: :chrome,
+    desired_capabilities: capabilities
 end
 
 class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
-  driven_by :webkit
+  driven_by :headless_chrome
 
   setup do
     Capybara.current_window.resize_to(1400, 1400)

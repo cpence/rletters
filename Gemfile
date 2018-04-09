@@ -78,12 +78,14 @@ group :test, :development do
 
   gem 'capybara', '~> 2.13'
   # gem 'capybara-slow_finder_errors'
-  gem 'capybara-webkit'
 
   gem 'listen', '>= 3.0.5'
 end
 
 group :test do
+  gem 'capybara-selenium'
+  gem 'chromedriver-helper'
+
   gem 'webmock', '>= 1.22.6', require: false
 
   gem 'pdf-inspector', require: false

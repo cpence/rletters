@@ -15,7 +15,8 @@
         -# The modal dialog box for adding this document to an existing dataset
         -# needs to be outside the dropdown menu
         - if user_signed_in?
-          .modal.fade{ id: "add-#{d.uid.html_id}-modal", tabindex: '-1', role: 'dialog', aria: { hidden: 'true' } }= render partial: 'add', locals: { document: d }
+          -# FIXME this should probably have the fade class?
+          .modal{ id: "add-#{d.uid.html_id}-modal", tabindex: '-1', role: 'dialog', aria: { hidden: 'true' } }= render partial: 'add', locals: { document: d }
 
   - if @result_presenter.next_page_params(params)
     %tr

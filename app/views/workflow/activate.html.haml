@@ -60,7 +60,8 @@
       - else
         = link_to t('.button_start'), dataset_tasks_path(current_user.workflow_dataset(0), button_params), method: :post, class: 'btn btn-success w-100'
 
-.modal.fade#link-modal{ tabindex: '-1', role: 'dialog', aria: { hidden: 'true' } }
+-# FIXME this should probably have the fade class?
+.modal#link-modal{ tabindex: '-1', role: 'dialog', aria: { hidden: 'true' } }
   .modal-dialog
     .modal-content
       .modal-header

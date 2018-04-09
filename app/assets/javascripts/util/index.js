@@ -15,9 +15,11 @@ window.jQuery(document).on('click', '.ajax-modal', function(e) {
 
   if (modal.length === 0) {
     var container = window.jQuery('#modal-container');
+    // FIXME: should add the 'fade' class after 'modal' here, but it's causing
+    // strange bugs in system tests.
     container.append(
       "<div id='ajax-" + id +
-      "-modal' class='modal fade' tabindex='-1' role='dialog'></div>");
+      "-modal' class='modal' tabindex='-1' role='dialog'></div>");
 
     modal = window.jQuery('#modal-container #ajax-' + id + '-modal');
   }

@@ -10,13 +10,13 @@ class SignUpTest < ApplicationSystemTestCase
   test 'sign up with invalid e-mail' do
     sign_up_with(email: 'notanemail')
 
-    assert_selector '.user_email.has-error'
+    assert_selector '.user_email:invalid'
   end
 
   test 'sign up with mismatched password' do
     sign_up_with(password_confirmation: 'changeme123')
 
-    assert_selector '.user_password_confirmation.has-error .help-block',
+    assert_selector '.user_password_confirmation:invalid .help-block',
                     text: "doesn't match Password"
   end
 end

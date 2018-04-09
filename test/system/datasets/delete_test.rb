@@ -8,7 +8,9 @@ class DeleteTest < ApplicationSystemTestCase
     visit datasets_path
     assert_selector 'td', text: 'Integration Dataset'
 
-    click_link 'Delete'
+    accept_confirm do
+      click_link 'Delete'
+    end
 
     assert_selector 'td', text: 'No datasets'
   end

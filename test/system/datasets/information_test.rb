@@ -114,7 +114,9 @@ class InformationTest < ApplicationSystemTestCase
     find('#dataset-task-list table')
 
     assert_text 'Integration Dataset'
-    click_link 'Delete'
+    accept_confirm do
+      click_link 'Delete'
+    end
 
     visit datasets_path
     assert_selector 'td', text: 'Integration Dataset'
