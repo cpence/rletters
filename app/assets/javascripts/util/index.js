@@ -1,8 +1,21 @@
 
-// Fix input element click problem
-window.jQuery(document).on('click', '.dropdown input, .dropdown label', function(e) {
-  e.stopPropagation();
-});
+// Enable BS4's client-side form validation for all forms within root
+function checkBootstrapValidation(root) {
+  // Fetch all the forms we want to apply custom Bootstrap validation styles to
+  var forms = root.find('.needs-validation');
+
+  // Loop over them and prevent submission
+  window.jQuery.each(forms, function(index, form) {
+    window.jQuery(form).on('submit', function(event) {
+      if (form.checkValidity() === false) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+    });
+  });
+
+  forms.addClass('was-validated');
+}
 
 // Load via jQuery any modal dialog boxes that are suitably marked up
 window.jQuery(document).on('click', '.ajax-modal', function(e) {
@@ -26,6 +39,7 @@ window.jQuery(document).on('click', '.ajax-modal', function(e) {
 
   window.jQuery.get(url, function(data) {
     modal.html(data);
+    checkBootstrapValidation(modal);
     modal.modal('show');
   })
 });
@@ -33,6 +47,9 @@ window.jQuery(document).on('click', '.ajax-modal', function(e) {
 window.jQuery(function() {
   // Load tooltips wherever they may be found (we use these extensively)
   window.jQuery('[data-toggle="tooltip"]').tooltip()
+
+  // Set up Bootstrap validation for any forms currently shown
+  checkBootstrapValidation(window.jQuery(document));
 
   // Submit the sign-in form that's on all pages on enter
   window.jQuery('.dropdown-sign-in-form input').keydown(function(e) {

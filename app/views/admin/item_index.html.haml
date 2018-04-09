@@ -3,7 +3,7 @@
   .col-12
     %h1= "#{@model.model_name.human}: #{@item}"
 
-.row
+.row.mb-3
   .col-12
     .btn-group{ role: 'group' }
       - unless @model.admin_configuration[:no_edit]
@@ -17,8 +17,6 @@
       = link_to admin_collection_path(model: params[:model]), class: 'btn btn-small btn-secondary' do
         %i.fas.fa-list
         = t('.to_list_button')
-
-.row.pad-bottom
 
 .row
   .col-12

@@ -1,7 +1,4 @@
--# We're not using simple_form_for here, because I want precise control over
--# the layout of this inline form.
-= form_for(:user, url: user_session_path, html: { class: 'px-4 py-3' }) do |f|
-
+= form_for(:user, url: user_session_path, html: { class: 'px-4 pt-3 pb-1' }) do |f|
   .form-group
     = f.label :email, class: 'sr-only'
     = f.email_field :email, class: 'form-control', placeholder: User.human_attribute_name(:email)
@@ -12,7 +9,7 @@
     = f.check_box :remember_me, class: 'form-check-input'
     = f.label :remember_me, class: 'form-check-label'
 
-  %button.btn.btn-primary{ type: 'submit' }= t('layouts.sign_in.sign_in')
+  = f.submit t('layouts.sign_in.sign_in'), class: 'btn btn-primary'
 
 .dropdown-divider
 = link_to t('layouts.sign_in.forgot_password'), new_user_password_path, class: 'dropdown-item small'

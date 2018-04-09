@@ -4,16 +4,6 @@
   margin-left: 0.3em;
 }
 
-.required-icon {
-  color: theme-color("danger");
-  border-bottom: none !important;
-}
-
-// Styling for various headers that need extra padding
-.row.pad-bottom {
-  margin-bottom: 2em;
-}
-
 // Styling for our various "manage" tables with a right-hand button
 // column
 table.button-table {
@@ -22,13 +12,6 @@ table.button-table {
 
   td.button-cell, th.button-cell { width: 1px; white-space: nowrap; }
   td.multi-row .btn, td.multi-row button { margin-bottom: 4px; }
-}
-
-// We often have sub-legends, or fieldsets that aren't the main fieldset;
-// style them in a less obtrusive manner
-fieldset.sub-legend legend {
-  font-size: 125%;
-  color: #777;
 }
 
 .footer {
@@ -41,4 +24,10 @@ fieldset.sub-legend legend {
 .dd-list li div {
   border: none !important;
   background: transparent !important;
+}
+
+// Styling to make Rails automatic form validation markup do the right thing
+// in Bootstrap
+.field_with_errors input {
+  @extend .is-invalid;
 }

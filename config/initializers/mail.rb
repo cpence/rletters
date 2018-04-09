@@ -3,6 +3,10 @@
 if Rails.env.test?
   # Tell Action Mailer not to deliver emails to the real world
   Rails.application.config.action_mailer.delivery_method = :test
+elsif Rails.env.development?
+  # Save mails to file so that we can inspect them
+  Rails.application.config.action_mailer.delivery_method = :file
+  ActionMailer::Base.file_settings = { location: Rails.root.join('tmp/mail') }
 else
   # Add delivery methods to ActionMailer from multi_mail
   ActionMailer::Base.add_delivery_method :mailgun, MultiMail::Sender::Mailgun,

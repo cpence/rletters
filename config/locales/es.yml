@@ -1,12 +1,12 @@
 es:
   common:
     cancel: Cancelar
+    forms:
+      error_header: "Por favor, subsane los siguientes problemas:"
     download_csv: Descargar en formato CSV
   simple_form:
     'yes': 'Sí'
     'no': 'No'
-    error_notification:
-      default_message: "Por favor, subsane los siguientes problemas:"
     labels:
       user:
         edit:

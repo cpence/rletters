@@ -1,6 +1,8 @@
 en:
     common:
         cancel: Cancel
+        forms:
+            error_header: "Please review the problems below:"
         download_csv: Download in CSV format
         progress_initializing: "Initializing..."
         progress_finished: "Finished, generating output..."
@@ -28,8 +30,6 @@ en:
             text: 'required'
             mark: ''
             html: ''
-        error_notification:
-            default_message: "Please review the problems below:"
         labels:
             user:
                 edit:
@@ -181,6 +181,8 @@ en:
                 user:
                     name:
                         blank: You must specify a name
+                    email:
+                        blank: You must enter an email address
                     language:
                         blank: Preferred language must be specified (internal error)
                         invalid: Preferred language must be a valid locale code (internal error)
@@ -521,6 +523,7 @@ en:
         new:
             header:  Create a new dataset
             subheader: "Give these search results a name, and they will be preserved as a new dataset."
+            submit: Create Dataset
         create:
             success: "Dataset built."
             workflow: "Dataset built and linked to analysis."

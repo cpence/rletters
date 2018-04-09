@@ -30,6 +30,19 @@ class ApplicationController < ActionController::Base
     root_url
   end
 
+  # Don't store user session paths, just send back to the root
+  #
+  # This method is called by Devise.
+  #
+  # @return [void]
+  def stored_location_for(resource)
+    if resource.is_a?(Admin::Administrator)
+      admin_url
+    else
+      root_url
+    end
+  end
+
   def layout_for
     if devise_controller?
       if resource_name == :administrator

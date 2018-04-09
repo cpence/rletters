@@ -6,18 +6,20 @@
 
       = render partial: 'bootstrap/close_icon', locals: { data: { dismiss: 'modal' } }
 
-    = simple_form_for(@dataset) do |f|
+    = form_for(@dataset, html: { novalidate: true, class: 'needs-validation' }) do |f|
       .modal-body
-        = f.error_notification
-
+        -# Send across the queries currently in effect
         = hidden_field_tag :q, params[:q]
         = hidden_field_tag :def_type, params[:def_type]
         - if params[:fq]
           - [params[:fq]].flatten.each do |fq|
             = hidden_field_tag 'fq[]', fq
 
-        = f.input :name
+        .form-group
+          = f.label :name
+          = f.text_field :name, class: 'form-control', required: true
+          .invalid-feedback= t('activerecord.errors.models.dataset.name.blank')
 
       .modal-footer
-        = f.button :submit, class: 'btn btn-primary'
         %button.btn.btn-secondary{ data: { dismiss: 'modal' } }= t('common.cancel')
+        = f.submit t('.submit'), class: 'btn btn-primary'

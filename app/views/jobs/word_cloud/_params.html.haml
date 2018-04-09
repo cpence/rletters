@@ -1,6 +1,9 @@
 = f.input :word_cloud, label: t('word_cloud.checkbox_label'), as: :boolean
-= field_set_tag t('word_cloud.params'), id: 'word_cloud_controls', style: 'display: none', class: 'sub-legend' do
-  = render partial: 'jobs/pdf/fonts', locals: { f: f, disabled: true }
-  = f.input :word_cloud_color, collection: ['Blues', 'Greens', 'Reds', 'Purples', 'Oranges', 'Greys'], include_blank: false
-  %div#word_cloud_ngram_controls
-    = f.input :word_cloud_inclusion_list, label: t('word_cloud.inclusion_label'), as: :boolean, input_html: { checked: true }
+
+.card.mb-3#word_cloud_controls{ style: 'display: none;' }
+  .card-body
+    %h5.card-title= t('word_cloud.params')
+    = render partial: 'jobs/pdf/fonts', locals: { f: f, disabled: true }
+    = f.input :word_cloud_color, collection: ['Blues', 'Greens', 'Reds', 'Purples', 'Oranges', 'Greys'], include_blank: false
+    %div#word_cloud_ngram_controls
+      = f.input :word_cloud_inclusion_list, label: t('word_cloud.inclusion_label'), as: :boolean, input_html: { checked: true }
