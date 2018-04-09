@@ -47,14 +47,6 @@ class AdminController < ApplicationController
   def collection_index
     get_model
 
-    @hint = I18n.t("admin.#{params[:model]}.hint_markdown", default: 'MISSING')
-    if @hint == 'MISSING'
-      @hint = I18n.t("admin.#{params[:model]}.hint", default: 'MISSING')
-      @hint = nil if @hint == 'MISSING'
-    else
-      @hint = Kramdown::Document.new(@hint).to_html.html_safe
-    end
-
     if @model.admin_configuration[:tree]
       @collection = @model.roots
       render :collection_tree

@@ -652,11 +652,6 @@ en:
             header: "Create new %{model_name}"
         item_edit:
             header: "Edit %{model_name}"
-        markdown_page:
-            hint_markdown: >
-                Custom pages may be formatted using the Markdown syntax.  Visit the
-                [Kramdown syntax guide](http://kramdown.rubyforge.org/syntax.html)
-                for information on the permitted syntax.
     article_dates_job:
         name: Plot Article Counts by Date
         short_desc: Plot number of articles by date

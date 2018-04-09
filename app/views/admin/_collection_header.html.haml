@@ -25,8 +25,3 @@
   = form_tag(admin_edit_collection_path(model: params[:model]), class: 'bulk-delete-form', method: 'patch') do
     = hidden_field_tag 'bulk_action', 'delete'
     = hidden_field_tag 'ids'
-
-- if @hint
-  .row.pad-bottom
-    .col-8.offset-2
-      .card.text-white.bg-secondary.card-body= @hint
