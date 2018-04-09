@@ -11,10 +11,9 @@ function checkBootstrapValidation(root) {
         event.preventDefault();
         event.stopPropagation();
       }
+      window.jQuery(form).addClass('was-validated');
     });
   });
-
-  forms.addClass('was-validated');
 }
 
 // Load via jQuery any modal dialog boxes that are suitably marked up
