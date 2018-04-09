@@ -370,13 +370,8 @@ en:
                 library_links_subheader: "You can add links to your local library's document retrieval system, which you can later use to obtain access to content."
             new:
                 header: Sign up
-                subheader: "Welcome!  Enter some information about yourself and we'll get you off and running with a new user account."
-                submit: Sign up
-        sessions:
-            new:
-                header: Log in
-                subheader: Enter your username and password to log into your account.
-                submit: Log in
+                subheader: "Welcome! Enter some information about yourself and we'll get you off and running with a new user account."
+                submit: Sign Up
         mailer:
             reset:
                 subject: Reset your password
