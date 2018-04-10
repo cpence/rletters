@@ -1,12 +1,23 @@
 .row
   .col-12.col-md-6
-    = simple_form_for :job_params, url: dataset_tasks_path(@dataset, class: 'CollocationJob'), method: :post do |f|
-      = f.error_notification
+    = form_for :job_params, url: dataset_tasks_path(@dataset, class: 'CollocationJob'), method: :post do |f|
+      .card.card-body.mb-3
+        %h5.card-title= t('collocation_job.options_label')
 
-      = field_set_tag t('collocation_job.options_label') do
-        = f.input :scoring, label: t('common.scoring.label'), collection: CollocationJob.significance_tests, include_blank: false
-        = f.input :num_pairs, as: :integer, label: t('collocation_job.num_pairs'), input_html: { value: 50 }
-        = f.input :all, label: t('collocation_job.all'), as: :boolean
-        = f.input :focal_word, label: t('collocation_job.focal_word')
-        = f.button :submit
+        .form-group
+          = f.label :scoring, t('common.scoring.label')
+          = f.select :scoring, options_for_select(CollocationJob.significance_tests), { include_blank: false }, class: 'form-control'
+        .form-group
+          = f.label :num_pairs, t('collocation_job.num_pairs')
+          = f.number_field :num_pairs, value: 50, class: 'form-control'
+        .form-group
+          .form-check
+            = f.check_box :all, class: 'form-check-input'
+            = f.label :all, t('collocation_job.all'), class: 'form-check-label'
+        .form-group
+          = f.label :focal_word, t('collocation_job.focal_word')
+          = f.text_field :focal_word, class: 'form-control'
+
+      .float-right
         = link_to(t('common.cancel'), @dataset, class: 'btn btn-secondary')
+        = f.submit class: 'btn btn-primary'
