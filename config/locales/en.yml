@@ -710,7 +710,9 @@ en:
         num_pairs: Number of cooccurrences to find
         all: Report all cooccurrences
         words: Return coocurrences including this word (or a space-separated list)
+        words_blank: Must specify a word or list of words
         window: Return cooccurrences that occur within this number of words
+        window_blank: Must specify a value for window
         header: "Cooccurrence analysis for %{name}"
         subheader: "Significance test: %{test}"
         pair: 'Cooccurrence pair'
@@ -864,4 +866,5 @@ en:
     word_cloud:
         checkbox_label: Create a word cloud?
         params: Word cloud parameters
+        color: Color set for text
         inclusion_label: Show words in the inclusion list in the word cloud?

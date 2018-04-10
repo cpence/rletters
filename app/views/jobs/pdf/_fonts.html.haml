@@ -1,1 +1,3 @@
-= f.input :pdf_font, label: t('pdf.font'), collection: RLetters::Visualization::PDF::FONTS, label_method: :first, value_method: :first, include_blank: false, disabled: disabled
+.form-group
+  = f.label :pdf_font, t('pdf.font')
+  = f.collection_select :pdf_font, RLetters::Visualization::PDF::FONTS, :last, :first, { include_blank: false }, class: 'form-control', disabled: disabled
