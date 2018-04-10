@@ -3,8 +3,7 @@
     .modal-header
       %h4.modal-title= t('.header')
       %h6.text-muted= t('.subheader')
-
-      = render partial: 'bootstrap/close_icon', locals: { data: { dismiss: 'modal' } }
+      = close_icon(dismiss: 'modal')
 
     = form_for(@dataset, html: { novalidate: true, class: 'needs-validation' }) do |f|
       .modal-body
@@ -18,7 +17,7 @@
         .form-group
           = f.label :name
           = f.text_field :name, class: 'form-control', required: true
-          .invalid-feedback= t('activerecord.errors.models.dataset.name.blank')
+          .invalid-feedback= validation_errors_for(@dataset, :name, true)
 
       .modal-footer
         %button.btn.btn-secondary{ data: { dismiss: 'modal' } }= t('common.cancel')

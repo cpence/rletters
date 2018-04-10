@@ -3,7 +3,6 @@
     .modal-header
       %h4.modal-title= t('.header')
       %h6.text-muted= t('.subheader')
-
-      = render partial: 'bootstrap/close_icon', locals: { data: { dismiss: 'modal' } }
+      = close_icon(dismiss: 'modal')
 
     = render partial: 'form', locals: { url: library_path(@library) }

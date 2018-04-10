@@ -10,11 +10,9 @@
 .row
   .col-6
     = form_for(resource, as: resource_name, url: password_path(resource_name), html: { novalidate: true, class: 'needs-validation' }) do |f|
-      = render partial: 'bootstrap/form_validation', locals: { object: resource }
-
       .form-group
         = f.label :email
         = f.email_field :email, class: 'form-control', required: true, autofocus: true
-        .invalid-feedback= t('activerecord.errors.models.user.email.blank')
+        .invalid-feedback= validation_errors_for(resource, :email, true)
 
       = f.submit t('.submit')

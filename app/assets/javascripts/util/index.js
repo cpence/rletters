@@ -12,6 +12,15 @@ function checkBootstrapValidation(root) {
         event.stopPropagation();
       }
       window.jQuery(form).addClass('was-validated');
+
+      // Remove all server-side validation, as the user has now changed the
+      // form
+      window.jQuery(form).find('.is-invalid').removeClass('is-invalid');
+      window.jQuery(form).find('.server-errors').hide();
+
+      // Show the client-side error messages, which will be displayed if the
+      // client-side validation failed
+      window.jQuery(form).find('.client-errors').show();
     });
   });
 }

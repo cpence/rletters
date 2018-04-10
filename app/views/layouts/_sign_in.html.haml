@@ -2,11 +2,11 @@
   .form-group
     = f.label :email, class: 'sr-only'
     = f.email_field :email, class: 'form-control', placeholder: User.human_attribute_name(:email), required: true
-    .invalid-feedback= t('activerecord.errors.models.user.email.blank')
+    .invalid-feedback= validation_errors_for(:user, :email, true)
   .form-group
     = f.label :password, class: 'sr-only'
     = f.password_field :password, class: 'form-control', placeholder: User.human_attribute_name(:password), required: true
-    .invalid-feedback= t('activerecord.errors.models.user.password.blank')
+    .invalid-feedback= validation_errors_for(:user, :password, true)
   .form-group
     .form-check
       = f.check_box :remember_me, class: 'form-check-input'

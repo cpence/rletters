@@ -67,8 +67,7 @@
       .modal-header
         %h4.modal-title= t('.link_header')
         %h6.text-muted= t('.link_subheader')
-
-        = render partial: 'bootstrap/close_icon', locals: { data: { dismiss: 'modal' } }
+        = close_icon(dismiss: 'modal')
 
       - if current_user.datasets.empty?
         .modal-body

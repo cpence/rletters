@@ -8,20 +8,18 @@
 .row
   .col-6
     = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, novalidate: true, class: 'needs-validation' }) do |f|
-      = render partial: 'bootstrap/form_validation', locals: { object: resource }
-
       .form-group
         = f.label :name
         = f.text_field :name, class: 'form-control', required: true, autofocus: true
-        .invalid-feedback= t('activerecord.errors.models.user.name.blank')
+        .invalid-feedback= validation_errors_for(resource, :name, true)
       .form-group
         = f.label :email
         = f.email_field :email, class: 'form-control', required: true
-        .invalid-feedback= t('activerecord.errors.models.user.email.blank')
+        .invalid-feedback= validation_errors_for(resource, :email, true)
       .form-group
         = f.label :current_password
         = f.password_field :current_password, class: 'form-control', required: true
-        .invalid-feedback= t('.password_blank')
+        .invalid-feedback= validation_errors_for(resource, :current_password, true, 'devise.registrations.edit.password_blank')
 
       .card.mb-3
         .card-body

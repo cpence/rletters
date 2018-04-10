@@ -1,7 +1,0 @@
-- if object.errors.any?
-  .alert.alert-danger{ role: 'alert' }
-    %h5.alert-heading= t('common.forms.error_header')
-
-    %ul.mb-0
-      - object.errors.full_messages.each do |msg|
-        %li= msg
