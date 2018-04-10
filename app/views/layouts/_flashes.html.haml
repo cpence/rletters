@@ -3,4 +3,4 @@
 - flash.each do |key, value|
   %div{ class: "alert alert-dismissible alert-#{ { success: 'success', alert: 'danger' }[key.to_sym] || 'info' }", role: 'alert' }
     = value
-    = close_icon(dismiss: 'modal')
+    = close_icon(dismiss: 'alert')
