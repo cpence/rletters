@@ -19,7 +19,7 @@ module SystemUserHelper
               with: params[:password_confirmation]
     end
 
-    click_button 'Sign up'
+    click_button 'Sign Up'
   end
 
   def sign_in_with(params = {}, create = true)

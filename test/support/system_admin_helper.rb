@@ -11,6 +11,6 @@ module SystemAdminHelper
     visit '/admin'
     fill_in 'administrator_email', with: 'admin@example.com'
     fill_in 'administrator_password', with: 'password'
-    click_button 'Log in'
+    click_button 'Log In'
   end
 end
