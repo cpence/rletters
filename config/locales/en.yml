@@ -672,7 +672,6 @@ en:
             When were a given set of articles published?
         options_label: Article date analysis options
         checkbox_label: Divide counts by the number of documents in another dataset to produce relative fractions?
-        params: Normalization parameters
         dataset_label: Dataset to divide by
         all: Entire corpus
         fraction_subheader: "Fraction of documents in %{normalization_set} found in the %{name} dataset, plotted by year"
@@ -804,6 +803,7 @@ en:
             When was a word used within a particular dataset?
         options_label: Term frequency date analysis options
         term: Focal word
+        term_blank: Must specify a focal word
         header: "Term frequency date analysis for %{name}"
         subheader: "Occurrences of %{term}, plotted by year"
         number_column: Occurrences of Word
@@ -866,6 +866,5 @@ en:
         font: Font
     word_cloud:
         checkbox_label: Create a word cloud?
-        params: Word cloud parameters
         color: Color set for text
         inclusion_label: Show words in the inclusion list in the word cloud?

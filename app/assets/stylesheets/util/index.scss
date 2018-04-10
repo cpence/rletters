@@ -26,8 +26,14 @@ table.button-table {
   background: transparent !important;
 }
 
-// Styling to make Rails automatic form validation markup do the right thing
-// in Bootstrap
-.field_with_errors input {
-  @extend .is-invalid;
+// Styling for our expandable "sub-fields" in forms that depend on other
+// state
+.sub-form {
+  @extend .pl-3;
+  border-left: 4px solid theme-color('secondary');
+  margin-bottom: $form-group-margin-bottom;
+}
+
+.sub-form.form-group {
+  padding-bottom: $form-group-margin-bottom;
 }

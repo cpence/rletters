@@ -1,9 +1,14 @@
 .row
   .col-12.col-md-6
-    = simple_form_for :job_params, url: dataset_tasks_path(@dataset, class: 'TermDatesJob'), method: :post do |f|
-      = f.error_notification
+    = form_for :job_params, url: dataset_tasks_path(@dataset, class: 'TermDatesJob'), method: :post, html: { novalidate: true, class: 'needs-validation' } do |f|
+      .card.card-body.mb-3
+        %h5.card-title= t('term_dates_job.options_label')
 
-      = field_set_tag t('term_dates_job.options_label') do
-        = f.input :term, label: I18n.t('term_dates_job.term')
-        = f.button :submit
+        .form-group
+          = f.label :term, t('term_dates_job.term')
+          = f.text_field :term, class: 'form-control', required: true
+          .invalid-feedback= validation_errors_for(:job_params, :term, true, 'term_dates_job.term_blank')
+
+      .float-right
         = link_to(t('common.cancel'), @dataset, class: 'btn btn-secondary')
+        = f.submit class: 'btn btn-primary'

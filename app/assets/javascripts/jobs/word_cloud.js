@@ -8,14 +8,14 @@ function updateWordCloudControls() {
     ngrams_enabled = true;
   }
 
-  // First, show or hide the whole word cloud control box
+  // Show or hide the whole word cloud control box
   if (word_cloud_checked) {
     showAndEnable('#word_cloud_controls');
   } else {
     hideAndDisable('#word_cloud_controls');
   }
 
-  // Then show or hide the special ngram word cloud controls
+  // Show or hide the special ngram word cloud controls
   if (ngrams_enabled && word_cloud_checked) {
     showAndEnable('#word_cloud_ngram_controls');
   } else {

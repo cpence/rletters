@@ -33,7 +33,8 @@ module Documents
     # @return [String] the `language` parameter, translated into the user's
     #   selected language
     def display_language
-      I18n.t("languages.#{language}")
+      rec = I18n.available_locales.translated.find { |l| l[1] == language.to_s }
+      rec[0]
     end
   end
 end

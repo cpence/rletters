@@ -9,12 +9,9 @@
             = f.check_box :normalize, class: 'form-check-input'
             = f.label :normalize, t('article_dates_job.checkbox_label'), class: 'form-check-label'
 
-        .card.card-body.mb-3#normalize_controls{ style: 'display: none' }
-          %h5.card-title= t('article_dates_job.params')
-
-          .form-group
-            = f.label :normalization_dataset, t('article_dates_job.dataset_label')
-            = f.collection_select :normalization_dataset, current_user.datasets, :to_param, :name, { prompt: t('article_dates_job.all') }, class: 'form-control', disabled: true
+        .form-group.sub-form#normalize_controls{ style: 'display: none;' }
+          = f.label :normalization_dataset, t('article_dates_job.dataset_label')
+          = f.collection_select :normalization_dataset, current_user.datasets, :to_param, :name, { prompt: t('article_dates_job.all') }, class: 'form-control', disabled: true
 
       .float-right
         = link_to t('common.cancel'), @dataset, class: 'btn btn-secondary'

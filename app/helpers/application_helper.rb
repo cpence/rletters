@@ -41,7 +41,7 @@ module ApplicationHelper
       # start the client-side error message as hidden, and show it when we do
       # the actual JS client-side validation.
       if !object.is_a?(Symbol) && object.errors[field]
-        client_error = '<span class="client-errors" style="display:none">'
+        client_error = '<span class="client-errors" style="display: none;">'
       else
         client_error = '<span class="client-errors">'
       end
