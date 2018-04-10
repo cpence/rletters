@@ -372,6 +372,11 @@ en:
                 header: Sign up
                 subheader: "Welcome! Enter some information about yourself and we'll get you off and running with a new user account."
                 submit: Sign Up
+        sessions:
+            new:
+                header: Log in
+                subheader: Enter your username and password to log into your account.
+                submit: Log in
         mailer:
             reset:
                 subject: Reset your password
