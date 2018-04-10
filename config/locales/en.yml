@@ -151,6 +151,11 @@ en:
                 url: Base URL
         errors:
             models:
+                admin/administrator:
+                    email:
+                        blank: You must enter an email address
+                    password:
+                        blank: You must enter a password
                 admin/markdown_page:
                     name:
                         blank: Name was not specified (internal error)
@@ -376,7 +381,7 @@ en:
             new:
                 header: Log in
                 subheader: Enter your username and password to log into your account.
-                submit: Log in
+                submit: Log In
         mailer:
             reset:
                 subject: Reset your password
