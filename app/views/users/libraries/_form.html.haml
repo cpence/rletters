@@ -1,10 +1,14 @@
-= simple_form_for(@library, url: url) do |f|
+= form_for(@library, url: url, html: { novalidate: true, class: 'needs-validation' }) do |f|
   .modal-body
-    = f.error_notification
-
-    = f.input :name
-    = f.input :url
+    .form-group
+      = f.label :name
+      = f.text_field :name, class: 'form-control', required: true, autofocus: true
+      .invalid-feedback= validation_errors_for(@library, :name, true)
+    .form-group
+      = f.label :url
+      = f.text_field :url, class: 'form-control', required: true
+      .invalid-feedback= validation_errors_for(@library, :url, true)
 
   .modal-footer
-    = f.button :submit
     %button.btn.btn-secondary{ data: { dismiss: 'modal' } }= t('common.cancel')
+    = f.submit class: 'btn btn-primary'

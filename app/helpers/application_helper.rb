@@ -4,7 +4,8 @@ module ApplicationHelper
   # These will be concatenated and separated by <br> tags, for display in the
   # Bootstrap 4 invalid-feedback field.
   #
-  # @param [Object] object the object to check for errors on
+  # @param [Object] object the object to check for errors on (or symbol
+  #   denoting class name)
   # @param [Symbol] field the field to check for errors on
   # @param [Boolean] client_side if true, we are performing client-side
   #   validation on this field, so even if there are no server-side validation
@@ -16,7 +17,7 @@ module ApplicationHelper
                             client_side_message = nil)
     ret = ''
 
-    if object.is_a?(ActiveModel) && object.errors[field]
+    if !object.is_a?(Symbol) && object.errors[field]
       server_errors = '<span class="server-errors">'
       server_errors << object.errors[field].map { |e| sanitize(e) }.join('<br>')
       server_errors << '</span>'
@@ -28,10 +29,10 @@ module ApplicationHelper
       if client_side_message
         key = client_side_message
       else
-        if object.is_a?(ActiveModel)
-          klass = object.model_name.i18n_key
-        else
+        if object.is_a?(Symbol)
           klass = object
+        else
+          klass = object.model_name.i18n_key
         end
         key = "activerecord.errors.models.#{klass}.#{field}.blank"
       end
@@ -39,7 +40,7 @@ module ApplicationHelper
       # If we have a server-side error message to show (on initial load), then
       # start the client-side error message as hidden, and show it when we do
       # the actual JS client-side validation.
-      if object.is_a?(ActiveModel) && object.errors[field]
+      if !object.is_a?(Symbol) && object.errors[field]
         client_error = '<span class="client-errors" style="display:none">'
       else
         client_error = '<span class="client-errors">'
