@@ -1,9 +1,14 @@
 .row
   .col-12.col-md-6
-    = simple_form_for :job_params, url: dataset_tasks_path(@dataset, class: 'NetworkJob'), method: :post do |f|
-      = f.error_notification
+    = form_for :job_params, url: dataset_tasks_path(@dataset, class: 'NetworkJob'), method: :post, html: { novalidate: true, class: 'needs-validation' } do |f|
+      .card.card-body.mb-3
+        %h5.card-title= t('network_job.options_label')
 
-      = field_set_tag t('network_job.options_label') do
-        = f.input :focal_word, label: I18n.t('network_job.focal_word')
-        = f.button :submit
+        .form-group
+          = f.label :focal_word, t('network_job.focal_word')
+          = f.text_field :focal_word, class: 'form-control', required: true
+          .invalid-feedback= validation_errors_for(:job_params, :focal_word, true, 'network_job.focal_word_blank')
+
+      .float-right
         = link_to(t('common.cancel'), @dataset, class: 'btn btn-secondary')
+        = f.submit class: 'btn btn-primary'

@@ -1,9 +1,13 @@
 .row
   .col-12.col-md-6
-    = simple_form_for :job_params, url: dataset_tasks_path(@dataset, class: 'ExportCitationsJob'), method: :post do |f|
-      = f.error_notification
+    = form_for :job_params, url: dataset_tasks_path(@dataset, class: 'ExportCitationsJob'), method: :post do |f|
+      .card.card-body.mb-3
+        %h5.card-title= t('export_citations_job.options_label')
 
-      = field_set_tag t('export_citations_job.options_label') do
-        = f.input :format, label: I18n.t('export_citations_job.format'), collection: RLetters::Documents::Serializers::Base.available.map { |k| [RLetters::Documents::Serializers::Base.for(k).format, k] }
-        = f.button :submit
+        .form-group
+          = f.label :format, t('export_citations_job.format')
+          = f.select :format, options_for_select(RLetters::Documents::Serializers::Base.available.map { |k| [RLetters::Documents::Serializers::Base.for(k).format, k] }.sort_by(&:first)), {}, class: 'form-control'
+
+      .float-right
         = link_to(t('common.cancel'), @dataset, class: 'btn btn-secondary')
+        = f.submit class: 'btn btn-primary'

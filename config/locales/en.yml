@@ -789,6 +789,7 @@ en:
             word of interest?
         options_label: Network analysis options
         focal_word: Focal word
+        focal_word_blank: Must specify a focal word
         subheader: "Network of associated terms surrounding word: '%{focal_word}'"
         download: Download in GraphML format
         word_stem: Word Stem

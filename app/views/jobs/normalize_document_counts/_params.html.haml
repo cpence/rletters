@@ -1,3 +1,0 @@
-= f.input :normalize_doc_counts, label: t('normalize_document_counts.checkbox_label'), as: :boolean
-= field_set_tag t('normalize_document_counts.params'), id: 'normalize_doc_counts_controls', style: 'display: none' do
-  = f.input :normalize_doc_dataset, label: t('normalize_document_counts.dataset_label'), collection: current_user.datasets, label_method: :name, value_method: :to_param, prompt: t('normalize_document_counts.all'), disabled: true
