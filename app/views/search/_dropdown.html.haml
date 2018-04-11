@@ -32,6 +32,6 @@
 - if document.license_url
   = link_to t('.license', license: document.license || t('.no_license')), document.license_url, class: 'dropdown-item small'
 - else
-  = link_to t('.license', license: document.license || t('.no_license')), '#', class: 'dropdown-item small disabled'
+  %span.dropdown-item-text= t('.license', license: document.license || t('.no_license'))
 - if document.data_source
-  = link_to t('.data_source', source: document.data_source), '#', class: 'dropdown-item small disabled'
+  %span.dropdown-item-text= t('.data_source', source: document.data_source)
