@@ -31,15 +31,6 @@ module Users
       library.url << '?' unless library.url&.end_with?('?')
     end
 
-    # @return (see ApplicationRecord.admin_attributes)
-    def self.admin_attributes
-      {
-        user: { model: true },
-        name: {},
-        url: {}
-      }
-    end
-
     # @return [String] string representation of this library
     def to_s
       name

@@ -1,8 +1,0 @@
-
-.row
-  .col-12
-    %h1= t('.header', model_name: @model.model_name.human)
-
-.row
-  .col-12
-    = render partial: 'item_form', locals: { url: admin_collection_path(model: params[:model]), method: :post, cancel_url: admin_collection_path(model: params[:model]) }

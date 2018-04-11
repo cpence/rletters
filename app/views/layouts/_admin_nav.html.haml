@@ -10,30 +10,24 @@
         = link_to '#', class: 'nav-link dropdown-toggle', data: { toggle: 'dropdown' }, role: 'button', aria: { haspopup: 'true', expanded: 'false' } do
           = t('admin.nav.accounts')
         .dropdown-menu
-          = link_to User.model_name.human(count: 100), admin_collection_path(model: 'user'), class: 'dropdown-item'
-          = link_to "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;".html_safe + Users::Library.model_name.human(count: 100), admin_collection_path(model: 'users/library'), class: 'dropdown-item'
-          .dropdown-divider{ role: 'separator' }
-          = link_to Admin::Administrator.model_name.human(count: 100), admin_collection_path(model: 'admin/administrator'), class: 'dropdown-item'
+          = link_to User.model_name.human(count: 100), '#', class: 'dropdown-item'
+          = link_to Admin::Administrator.model_name.human(count: 100), '#', class: 'dropdown-item'
 
       %li.nav-item.dropdown
         = link_to '#', class: 'nav-link dropdown-toggle', data: { toggle: 'dropdown' }, role: 'button', aria: { haspopup: 'true', expanded: 'false' } do
           = t('admin.nav.content')
         .dropdown-menu
-          = link_to Dataset.model_name.human(count: 100), admin_collection_path(model: 'dataset'), class: 'dropdown-item'
-          = link_to "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;".html_safe + Datasets::Query.model_name.human(count: 100), admin_collection_path(model: 'datasets/query'), class: 'dropdown-item'
-          = link_to "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;".html_safe + Datasets::Task.model_name.human(count: 100), admin_collection_path(model: 'datasets/task'), class: 'dropdown-item'
+          = link_to Documents::Category.model_name.human(count: 100), '#', class: 'dropdown-item'
           .dropdown-divider
-          = link_to Documents::Category.model_name.human(count: 100), admin_collection_path(model: 'documents/category'), class: 'dropdown-item'
-          .dropdown-divider
-          = link_to Documents::StopList.model_name.human(count: 100), admin_collection_path(model: 'documents/stop_list'), class: 'dropdown-item'
-          = link_to Users::CslStyle.model_name.human(count: 100), admin_collection_path(model: 'users/csl_style'), class: 'dropdown-item'
+          = link_to Documents::StopList.model_name.human(count: 100), '#', class: 'dropdown-item'
+          = link_to Users::CslStyle.model_name.human(count: 100), '#', class: 'dropdown-item'
 
       %li.nav-item.dropdown
         = link_to '#', class: 'nav-link dropdown-toggle', data: { toggle: 'dropdown' }, role: 'button', aria: { haspopup: 'true', expanded: 'false' } do
           = t('admin.nav.branding')
         .dropdown-menu
-          = link_to Admin::MarkdownPage.model_name.human(count: 100), admin_collection_path(model: 'admin/markdown_page'), class: 'dropdown-item'
-          = link_to Admin::UploadedAsset.model_name.human(count: 100), admin_collection_path(model: 'admin/uploaded_asset'), class: 'dropdown-item'
+          = link_to Admin::MarkdownPage.model_name.human(count: 100), '#', class: 'dropdown-item'
+          = link_to Admin::UploadedAsset.model_name.human(count: 100), '#', class: 'dropdown-item'
 
     %ul.navbar-nav.mt-2.mt-lg-0
       - if administrator_signed_in?

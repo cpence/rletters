@@ -59,11 +59,6 @@ gem 'sass-rails', '~> 5.0'
 gem 'kramdown'
 gem 'nokogiri'
 
-# FIXME: Remove this dependency. It is fragile. And yet, it's baked deep into
-# the administration form system. Crap. If I can get that cleaned out, use
-# https://github.com/bootstrap-ruby/rails-bootstrap-forms
-gem 'simple_form', '>= 3.5.0'
-
 gem 'uglifier', '>= 1.3.0'
 gem 'mini_racer'
 

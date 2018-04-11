@@ -85,9 +85,9 @@
           %tbody
             - Dataset.order('created_at desc').limit(5).each do |dataset|
               %tr
-                %td= admin_value_for(dataset, :name)
-                %td= admin_value_for(dataset, :user)
-                %td= admin_value_for(dataset, :created_at)
+                %td= dataset.name
+                %td= dataset.user
+                %td= dataset.created_at
 
     .card
       .card-body
@@ -101,8 +101,8 @@
           %tbody
             - User.order('last_sign_in_at desc').limit(5).each do |user|
               %tr
-                %td= admin_value_for(user, :name)
-                %td= admin_value_for(user, :last_sign_in_at)
+                %td= user.name
+                %td= user.last_sign_in_at
 
 .row
   .col-12
@@ -110,13 +110,16 @@
       .card-body
         %h3.card-title= t('.environment')
 
-        %table.table.table-striped.table-sm
+        %table.table.table-hover.table-sm
           %thead
             %tr
               %th= t('.variable')
               %th= t('.value')
           %tbody
-            - @config_vars.each do |var|
-              %tr
-                %td= var
-                %td= ENV[var]
+            - @config_vars.each do |key, vars|
+              %tr.table-secondary
+                %td{ colspan: '2' }= t(key)
+              - vars.each do |var|
+                %tr
+                  %td= var
+                  %td= ENV[var]

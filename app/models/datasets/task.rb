@@ -45,26 +45,6 @@ module Datasets
     scope :active, -> { not_finished.where(failed: false) }
     scope :failed, -> { not_finished.where(failed: true) }
 
-    # @return (see ApplicationRecord.admin_attributes)
-    def self.admin_attributes
-      {
-        dataset: { model: true },
-        name: {},
-        job_type: {},
-        created_at: {},
-        finished_at: {},
-        failed: {},
-        progress: {},
-        progress_message: {},
-        last_progress: {}
-      }
-    end
-
-    # @return (see ApplicationRecord.admin_configuration)
-    def self.admin_configuration
-      { no_edit: true, no_create: true }
-    end
-
     # @return [String] string representation of this task
     def to_s
       status = if finished_at.nil?

@@ -17,14 +17,6 @@ module Users
     validates :name, presence: true
     validates :style, presence: true
 
-    # @return (see ApplicationRecord.admin_attributes)
-    def self.admin_attributes
-      {
-        name: {},
-        style: { no_display: true, form_options: { input_html: { rows: 30 } } }
-      }
-    end
-
     # @return [String] string representation of this CSL style
     def to_s
       name

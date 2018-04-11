@@ -61,18 +61,6 @@ Rails.application.routes.draw do
                               only: ['sessions']
 
   get 'admin' => 'admin#index'
-  get 'admin/:model' => 'admin#collection_index', as: 'admin_collection'
-  patch 'admin/:model' => 'admin#collection_edit', as: 'admin_edit_collection'
-  get 'admin/:model/:id' => 'admin#item_index', as: 'admin_item',
-    constraints: { id: /[0-9]+/ }
-  delete 'admin/:model/:id' => 'admin#item_delete',
-    constraints: { id: /[0-9]+/ }
-  patch 'admin/:model/:id' => 'admin#item_update',
-    constraints: { id: /[0-9]+/ }
-  get 'admin/:model/:id/edit' => 'admin#item_edit', as: 'admin_edit_item',
-    constraints: { id: /[0-9]+/ }
-  get 'admin/:model/new' => 'admin#item_new', as: 'admin_new_item'
-  post 'admin/:model' => 'admin#item_create'
 
   # unAPI service
   get 'unapi' => 'unapi#index'

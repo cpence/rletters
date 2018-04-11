@@ -28,16 +28,6 @@ class Dataset < ApplicationRecord
   has_many :queries, class_name: 'Datasets::Query', dependent: :destroy
   has_many :tasks, class_name: 'Datasets::Task', dependent: :destroy
 
-  # @return (see ApplicationRecord.admin_attributes)
-  def self.admin_attributes
-    {
-      user: { model: true },
-      name: {},
-      queries: { array: true, model: true, no_form: true },
-      tasks: { array: true, model: true, no_form: true }
-    }
-  end
-
   # @return [String] string representation of this dataset
   def to_s
     name

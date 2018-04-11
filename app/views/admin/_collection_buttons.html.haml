@@ -1,8 +1,0 @@
-= link_to admin_item_path(model: params[:model], id: item.to_param), title: t('.show_button'), data: { toggle: 'tooltip' } do
-  %i.fas.fa-info-circle>
-- unless @model.admin_configuration[:no_edit]
-  = link_to admin_edit_item_path(model: params[:model], id: item.to_param), title: t('.edit_button'), data: { toggle: 'tooltip' } do
-    %i.fas.fa-edit>
-- unless @model.admin_configuration[:no_delete]
-  = link_to admin_item_path(model: params[:model], id: item.to_param), method: :delete, title: t('.delete_button'), data: { confirm: t('.delete_confirm'), toggle: 'tooltip' } do
-    %i.fas.fa-minus-circle>

@@ -20,20 +20,6 @@ module Admin
     self.table_name = 'admin_markdown_pages'
     validates :name, presence: true
 
-    # @return (see ApplicationRecord.admin_attributes)
-    def self.admin_attributes
-      {
-        friendly_name: { form_options: { disabled: true } },
-        render: { no_form: true },
-        content: { form_options: { input_html: { rows: 30 } } }
-      }
-    end
-
-    # @return (see ApplicationRecord.admin_configuration)
-    def self.admin_configuration
-      { no_create: true, no_delete: true }
-    end
-
     # @return [String] Friendly name of this page (looked up in locale)
     def friendly_name
       ret = I18n.t("markdown_pages.#{name}", default: '')

@@ -19,22 +19,6 @@ module Admin
     has_attached_file :file, url: '/workflow/image/:id'
     validates_attachment_content_type :file, content_type: %r{\Aimage/.*\Z}
 
-    # @return (see ApplicationRecord.admin_attributes)
-    def self.admin_attributes
-      {
-        friendly_name: { form_options: { disabled: true } },
-        file_file_name: { no_form: true },
-        file_file_size: { no_form: true },
-        file_content_type: { no_form: true },
-        file: { no_display: true }
-      }
-    end
-
-    # @return (see ApplicationRecord.admin_configuration)
-    def self.admin_configuration
-      { no_create: true, no_delete: true }
-    end
-
     # @return [String] Friendly name of this asset (looked up in locale)
     def friendly_name
       ret = I18n.t("uploaded_assets.#{name}", default: '')

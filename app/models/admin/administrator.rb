@@ -12,19 +12,6 @@ module Admin
 
     devise :database_authenticatable, :rememberable, :trackable, :validatable
 
-    # Attributes that may be edited in the administration interface
-    #
-    # @return [Array<Symbol>] a list of attribute methods
-    def self.admin_attributes
-      {
-        email: {},
-        password: { no_display: true },
-        password_confirmation: { no_display: true },
-        last_sign_in_at: { no_form: true },
-        last_sign_in_ip: { no_form: true }
-      }
-    end
-
     # Override the Devise e-mail delivery logic to queue mail delivery
     #
     # We tap into this method to make sure that e-mails from Devise are

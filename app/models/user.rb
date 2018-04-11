@@ -53,26 +53,6 @@ class User < ApplicationRecord
   has_many :datasets
   has_many :libraries, class_name: 'Users::Library'
 
-  # @return (see ApplicationRecord.admin_attributes)
-  def self.admin_attributes
-    {
-      name: {},
-      email: {},
-      password: { no_display: true },
-      password_confirmation: { no_display: true },
-      last_sign_in_at: { no_form: true },
-      last_sign_in_ip: { no_form: true },
-      language: {
-        form_options: { collection: I18n.available_locales.translated }
-      },
-      timezone: { form_options: { collection: ActiveSupport::TimeZone.all,
-                                  label_method: :to_s, value_method: :name } },
-      csl_style_id: { form_options: { collection: Users::CslStyle.all,
-                                      label_method: :name,
-                                      value_method: :to_param } }
-    }
-  end
-
   # @return [String] string representation of this user
   def to_s
     "#{name} <#{email}>"

@@ -24,16 +24,6 @@ module Datasets
 
     belongs_to :dataset
 
-    # @return (see ApplicationRecord.admin_attributes)
-    def self.admin_attributes
-      {
-        dataset: { model: true },
-        q: {},
-        fq: { array: true },
-        def_type: { form_options: { collection: [:dismax, :lucene] } }
-      }
-    end
-
     # @return [String] string representation of this query
     def to_s
       "q: #{q}; fq: #{fq}; def_type: #{def_type}"

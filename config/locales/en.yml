@@ -614,14 +614,13 @@ en:
     admin:
         nav:
             accounts: Accounts
-            content: Content
+            content: Site Content
             branding: Branding
-            settings: Settings
         index:
             header: "%{app_name} Administration"
             subheader: >
                 The administration interface for %{app_name}. You can edit
-                a variety of user data, control feature flags, and so on.
+                a variety of site-specific settings.
             new_datasets: Newest Datasets
             new_tasks: Newest Tasks
             recent_users: Recently Seen Users
@@ -640,31 +639,17 @@ en:
             java_version: "Java version %{java_ver}"
             memory_info: "Memory: %{used} used, with %{free} free of %{total}; %{max} max"
             environment: Environment Variables
-            variable: Variable
-            value: Value
             status: Status
             status_failed: failed
             status_finished: finished
             status_working: working
-        collection_header:
-            header: "Edit %{model_name}"
-            actions: Collection actions
-            new_button: Create New
-            tree_button: Save Tree
-            delete_button: Delete Checked
-            delete_confirm: "Are you sure? This will delete all checked items, and cannot be reversed!"
-        collection_buttons:
-            show_button: Details
-            edit_button: Edit
-            delete_button: Delete
-            delete_confirm: Are you sure? This action cannot be reversed!
-        item_index:
-            actions: Item actions
-            to_list_button: Back to list
-        item_new:
-            header: "Create new %{model_name}"
-        item_edit:
-            header: "Edit %{model_name}"
+            variable: Variable
+            value: Value
+            branding_vars: Personalization and branding
+            server_vars: Server settings
+            mail_vars: Mail delivery settings
+            feature_flags: Feature flags
+            ruby_vars: Ruby runtime environment
     article_dates_job:
         name: Plot Article Counts by Date
         short_desc: Plot number of articles by date
