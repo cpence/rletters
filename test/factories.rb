@@ -3,13 +3,6 @@ CSL_DATA ||= File.read(Rails.root.join('test', 'factories', 'nature.csl'))
 POS_YAML ||= File.read(Rails.root.join('test', 'factories', 'parts_of_speech.yml'))
 
 FactoryBot.define do
-  factory :administrator, class: Admin::Administrator do
-    sequence(:email) { |n| "admin#{n}@example.com" }
-    password 'password'
-    password_confirmation 'password'
-    remember_me false
-  end
-
   factory :file, class: Datasets::File do
     description 'A task file'
     short_description 'File'

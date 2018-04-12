@@ -377,11 +377,6 @@ en:
                 header: Sign up
                 subheader: "Welcome! Enter some information about yourself and we'll get you off and running with a new user account."
                 submit: Sign Up
-        sessions:
-            new:
-                header: Log in
-                subheader: Enter your username and password to log into your account.
-                submit: Log In
         mailer:
             reset:
                 subject: Reset your password
@@ -612,6 +607,7 @@ en:
         screenshot-two: Second Screenshot
         screenshot-three: Third Screenshot
     admin:
+        login_error: You must provide the administrator password to continue.
         nav:
             accounts: Accounts
             content: Site Content
@@ -650,6 +646,12 @@ en:
             mail_vars: Mail delivery settings
             feature_flags: Feature flags
             ruby_vars: Ruby runtime environment
+        login:
+            header: Authenticate as administrator
+            subheader: Please enter the administration password to continue.
+            password: Password
+            password_blank: You must enter a password
+            submit: Log In
     article_dates_job:
         name: Plot Article Counts by Date
         short_desc: Plot number of articles by date

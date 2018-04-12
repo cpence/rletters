@@ -11,7 +11,6 @@
           = t('admin.nav.accounts')
         .dropdown-menu
           = link_to User.model_name.human(count: 100), '#', class: 'dropdown-item'
-          = link_to Admin::Administrator.model_name.human(count: 100), '#', class: 'dropdown-item'
 
       %li.nav-item.dropdown
         = link_to '#', class: 'nav-link dropdown-toggle', data: { toggle: 'dropdown' }, role: 'button', aria: { haspopup: 'true', expanded: 'false' } do
@@ -30,7 +29,4 @@
           = link_to Admin::UploadedAsset.model_name.human(count: 100), '#', class: 'dropdown-item'
 
     %ul.navbar-nav.mt-2.mt-lg-0
-      - if administrator_signed_in?
-        %li.nav-item= link_to t('layouts.nav.sign_out'), destroy_administrator_session_path, method: :delete, class: 'nav-link'
-      - else
-        %li.nav-item= link_to t('layouts.nav.sign_in'), new_administrator_session_path, class: 'nav-link'
+      %li.nav-item= link_to t('layouts.nav.sign_out'), admin_logout_path, method: :delete, class: 'nav-link'

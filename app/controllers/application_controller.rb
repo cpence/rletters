@@ -11,14 +11,10 @@ class ApplicationController < ActionController::Base
   #
   # This method is called by Devise.
   #
-  # @param [User, Admin::Administrator] resource the user that just signed in
+  # @param [User] resource the user that just signed in
   # @return [void]
   def after_sign_in_path_for(resource)
-    if resource.is_a?(Admin::Administrator)
-      admin_url
-    else
-      root_url
-    end
+    root_url
   end
 
   # Redirect to the root on successful sign out
@@ -36,20 +32,12 @@ class ApplicationController < ActionController::Base
   #
   # @return [void]
   def stored_location_for(resource)
-    if resource.is_a?(Admin::Administrator)
-      admin_url
-    else
-      root_url
-    end
+    root_url
   end
 
   def layout_for
     if devise_controller?
-      if resource_name == :administrator
-        'admin'
-      else
-        'full_page'
-      end
+      'full_page'
     else
       'application'
     end

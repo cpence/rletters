@@ -1,0 +1,12 @@
+%h1= t('.header')
+%h4.text-muted= t('.subheader')
+
+.row
+  .col-6
+    = form_tag(admin_login_path, method: :post, novalidate: true, class: 'needs-validation') do
+      .form-group
+        = label_tag :password, t('.password'), class: 'sr-only'
+        = password_field_tag :password, nil, class: 'form-control', required: true, placeholder: t('.password')
+        .invalid-feedback= validation_errors_for(:admin_password, :password, true, 'admin.login.password_blank')
+
+      .float-right= submit_tag t('.submit'), class: 'btn btn-primary'

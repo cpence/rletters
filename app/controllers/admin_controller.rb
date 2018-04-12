@@ -1,3 +1,4 @@
+require 'digest'
 
 # The environment variables that should be shown on the administration
 # dashboard
@@ -28,7 +29,7 @@ ENVIRONMENT_VARIABLES_TO_PRINT = {
 # the site administrator to configure and modify a variety of settings and
 # data.
 class AdminController < ApplicationController
-  before_action :authenticate_administrator!
+  before_action :require_login, except: :login
   layout 'admin'
 
   # Show the administration dashboard
@@ -39,5 +40,45 @@ class AdminController < ApplicationController
     @corpus_size = RLetters::Solr::CorpusStats.new.size
     @ping = RLetters::Solr::Connection.ping
     @solr_info = RLetters::Solr::Connection.info
+  end
+
+  # Log in to the administration system
+  #
+  # @return [void]
+  def login
+    params.permit(:password)
+    if params[:password]
+      password_digest = Digest::SHA256.hexdigest(params[:password])
+      admin_pw_digest = Digest::SHA256.hexdigest(ENV['ADMIN_PASSWORD'])
+
+      if password_digest == admin_pw_digest
+        session[:admin_password] = password_digest
+        redirect_to admin_path
+      else
+        flash[:alert] = I18n.t('admin.login_error')
+      end
+    end
+  end
+
+  # Remove the administrator password from the session
+  #
+  # @return [void]
+  def logout
+    session.delete(:admin_password)
+    redirect_to admin_login_path
+  end
+
+  private
+
+  # Ensure that the administrator is authenticated, and redirect to the login
+  # page if not
+  #
+  # @return [void]
+  def require_login
+    admin_pw_digest = Digest::SHA256.hexdigest(ENV['ADMIN_PASSWORD'])
+    if session[:admin_password] != admin_pw_digest
+      session.delete(:admin_password)
+      redirect_to admin_login_path, alert: I18n.t('admin.login_error')
+    end
   end
 end

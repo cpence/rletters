@@ -1,13 +1,4 @@
 
-# If we have no administration users at all, then create the default one
-unless Admin::Administrator.exists?
-  Admin::Administrator.create!(email: 'admin@example.com',
-                               password: 'password',
-                               password_confirmation: 'password')
-  puts 'Seeded administrator:admin@example.com'
-  puts "   -> CHANGE THIS USER'S PASSWORD IMMEDIATELY"
-end
-
 # CSL styles
 Dir.glob(Rails.root.join('db', 'seeds', 'csl', '*.csl')) do |csl|
   name = ''
@@ -51,3 +42,7 @@ Dir.glob(Rails.root.join('db', 'seeds', 'stoplists', '*.txt')) do |txt|
   Documents::StopList.where(language: language).first_or_create!(list: IO.read(txt))
   puts "Seeded stop_list:#{language}"
 end
+
+# Warn the user about the administrator password
+puts "----------"
+puts "Make sure to edit the .env file and change your administrator password!"

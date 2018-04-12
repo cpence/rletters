@@ -57,10 +57,10 @@ Rails.application.routes.draw do
   end
 
   # Administration pages
-  devise_for :administrators, path: 'admin', class_name: 'Admin::Administrator',
-                              only: ['sessions']
-
   get 'admin' => 'admin#index'
+  get 'admin/login' => 'admin#login'
+  post 'admin/login' => 'admin#login'
+  delete 'admin/logout' => 'admin#logout'
 
   # unAPI service
   get 'unapi' => 'unapi#index'
