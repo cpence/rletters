@@ -1,12 +1,7 @@
 source 'https://rubygems.org'
 
-git_source(:github) do |repo_name|
-  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
-  "https://github.com/#{repo_name}.git"
-end
-
 # Rails
-gem 'rails', '~> 5.1'
+gem 'rails', '~> 5.1.0'
 gem 'puma', '~> 3.7'
 
 # Twelve factor app glue
@@ -50,7 +45,7 @@ gem 'rdf-n3'
 
 # Visualization
 gem 'prawn'
-gem 'rubysdl', '= 2.1.3.1'
+gem 'rubysdl', '>= 2.1.3.1'
 
 # Asset tools and template generators
 gem 'haml'
