@@ -5,7 +5,7 @@ include FileUtils
 require 'io/console'
 
 # path to your application root.
-APP_ROOT = Pathname.new File.expand_path('../../',  __FILE__)
+APP_ROOT = File.expand_path('..', __dir__)
 
 def system!(*args)
   system(*args) || abort("\n== Command #{args} failed ==")
@@ -48,6 +48,9 @@ END
     system! 'cp .env.example .env'
     system! 'bin/rake secrets:regen'
   end
+
+  puts "\n== Installing client-side modules =="
+  system('bin/yarn')
 
   puts "\n== Preparing database =="
   system! 'bin/rails db:setup'

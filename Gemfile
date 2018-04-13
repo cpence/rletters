@@ -1,8 +1,12 @@
 source 'https://rubygems.org'
+git_source(:github) { |repo| "https://github.com/#{repo}.git" }
+
+ruby '2.5.0'
 
 # Rails
-gem 'rails', '~> 5.1.0'
-gem 'puma', '~> 3.7'
+gem 'rails', '~> 5.2.0'
+gem 'puma', '~> 3.11'
+gem 'bootsnap', '>= 1.1.0', require: false
 
 # Twelve factor app glue
 gem 'dotenv-rails'
@@ -11,7 +15,8 @@ gem 'lograge'
 # Database and related tools
 gem 'pg'
 gem 'delayed_job_active_record'
-gem 'closure_tree'
+gem 'closure_tree', github: 'ClosureTree/closure_tree'
+#gem 'closure_tree', '>= 6.7.0' maybe? (broken in 6.6.0, fixed on GH)
 gem 'virtus'
 
 # User authentication and administration
@@ -66,10 +71,10 @@ group :test, :development do
   gem 'mocha', require: false
   gem 'factory_bot_rails'
 
-  gem 'capybara', '~> 2.13'
+  gem 'capybara', '>= 2.15', '< 4.0'
   # gem 'capybara-slow_finder_errors'
 
-  gem 'listen', '>= 3.0.5'
+  gem 'listen', '>= 3.0.5', '< 3.2'
 end
 
 group :test do

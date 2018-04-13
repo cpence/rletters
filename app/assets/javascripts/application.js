@@ -1,5 +1,8 @@
+//= require_self
+//
+//= require rails-ujs
 //= require jquery/dist/jquery
-//= require jquery-ujs/src/rails
+//= require activestorage
 //
 //= require popper.js/dist/umd/popper
 //= require bootstrap/dist/js/bootstrap
@@ -13,3 +16,7 @@
 //= require @fortawesome/fontawesome-free-solid/index
 //
 //= require_tree .
+
+// Use this file itself for configuration variables that need to be set prior
+// to loading any packages
+FontAwesomeConfig = { autoAddCss: false }

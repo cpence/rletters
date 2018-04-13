@@ -4,13 +4,13 @@
     = f.label :word_cloud, t('word_cloud.checkbox_label'), class: 'form-check-label'
 
 .sub-form
-  #word_cloud_controls{ style: 'display: none;' }
+  .start-hidden#word_cloud_controls
     = render partial: 'jobs/pdf/fonts', locals: { f: f, disabled: true }
 
     .form-group
       = f.label :word_cloud_color, t('word_cloud.color')
       = f.select :word_cloud_color, options_for_select(['Blues', 'Greens', 'Reds', 'Purples', 'Oranges', 'Greys']), { include_blank: false }, class: 'form-control'
-  .form-group#word_cloud_ngram_controls{ style: 'display: none;' }
+  .form-group.start-hidden#word_cloud_ngram_controls
     .form-check
       = f.check_box :word_cloud_inclusion_list, checked: true, class: 'form-check-label'
       = f.label :word_cloud_inclusion_list, t('word_cloud.inclusion_label'), class: 'form-check-label'

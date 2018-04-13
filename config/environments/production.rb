@@ -45,8 +45,4 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
-
-  # Enhanced CSRF protection
-  config.action_controller.per_form_csrf_tokens = true
-  config.action_controller.forgery_protection_origin_check = true
 end

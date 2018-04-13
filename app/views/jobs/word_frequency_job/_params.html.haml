@@ -8,7 +8,7 @@
           = f.label :ngram_method, t('compute_word_frequencies.ngram_method')
           = f.select :ngram_method, options_for_select([[t('compute_word_frequencies.single_words'), :single], [t('compute_word_frequencies.n_grams'), :ngrams]]), { include_blank: false }, class: 'form-control'
 
-        .sub-form#ngram_controls{ style: 'display: none' }
+        .sub-form.start-hidden#ngram_controls
           .form-group
             = f.label :ngrams, t('compute_word_frequencies.ngram_size')
             = f.number_field :ngrams, class: 'form-control', value: '2', min: 2, max: 20, disabled: true
@@ -32,7 +32,7 @@
             = f.label :num_words, t('compute_word_frequencies.num_words')
             = f.number_field :num_words, class: 'form-control', value: '100'
 
-          .form-group.sub-form#inclusion_list_controls{ style: 'display: none;' }
+          .form-group.sub-form.start-hidden#inclusion_list_controls
             = f.label :inclusion_list, t('compute_word_frequencies.inclusion_list')
             = f.text_field :inclusion_list, class: 'form-control', disabled: true
 
@@ -40,15 +40,15 @@
           = f.label :exclude_method, t('compute_word_frequencies.exclude_method')
           = f.select :exclude_method, options_for_select([[t('compute_word_frequencies.none'), :none], [t('compute_word_frequencies.stop'), :common], [t('compute_word_frequencies.list'), :list]]), { include_blank: false }, class: 'form-control'
 
-        .form-group.sub-form#exclude_common_controls{ style: 'display: none;' }
+        .form-group.sub-form.start-hidden#exclude_common_controls
           = f.label :stop_list, t('compute_word_frequencies.stop_language')
           = f.collection_select :stop_list, Documents::StopList.all.sort_by { |l| l.language }, :language, :display_language, { include_blank: false, selected: 'en' }, class: 'form-control', disabled: true
 
-        .form-group.sub-form#exclude_list_controls{ style: 'display: none;' }
+        .form-group.sub-form.start-hidden#exclude_list_controls
           = f.label :exclusion_list, t('compute_word_frequencies.exclusion_list')
           = f.text_field :exclusion_list, class: 'form-control', disabled: true
 
-        .form-group.sub-form#exclude_list_ngram_controls{ style: 'display: none;' }
+        .form-group.sub-form.start-hidden#exclude_list_ngram_controls
           = f.label :exclusion_list, t('compute_word_frequencies.ngram_exclusion_list')
           = f.text_field :exclusion_list, class: 'form-control', disabled: true
 
@@ -68,7 +68,7 @@
             = f.label :last_block, t('compute_word_frequencies.last_block')
             = f.select :last_block, options_for_select([[t('compute_word_frequencies.big_last'), :big_last], [t('compute_word_frequencies.small_last'), :small_last], [t('compute_word_frequencies.truncate_last'), :truncate_last], [t('compute_word_frequencies.truncate_all'), :truncate_all]]), { include_blank: false }, class: 'form-control'
 
-        .form-group.sub-form#blocks_controls{ style: 'display: none;' }
+        .form-group.sub-form.start-hidden#blocks_controls
           = f.label :num_blocks, t('compute_word_frequencies.num_blocks_label')
           = f.number_field :num_blocks, class: 'form-control', value: '10', disabled: true
 

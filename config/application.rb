@@ -6,7 +6,7 @@ module RLetters
   # Central application class, started by Rails
   class Application < Rails::Application
     # Initialize configuration defaults for current config standard here
-    config.load_defaults 5.1
+    config.load_defaults 5.2
 
     # Custom directories with classes and modules to be loaded. This has to be
     # done here rather than in an initializer, as this array gets frozen.

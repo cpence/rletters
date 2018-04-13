@@ -19,7 +19,6 @@
     "bootstrap": "^4.1.0",
     "d3": "^4.7.4",
     "jquery": "^3.2.1",
-    "jquery-ujs": "^1.2.2",
     "jscroll": "^2.3.7",
     "nestable-fork": "^1.2.0",
     "popper.js": "^1.12.9",

@@ -26,7 +26,7 @@
         .dropdown-menu
           - @result_presenter.sort_methods.each do |(param, desc)|
             = link_to RLetters::Solr::Search::permit_params(params.merge(sort: param)), class: 'dropdown-item' do
-              %span{ style: (param == @result.params['sort'] ? nil : 'visibility: hidden') } &check;
+              %span{ class: (param == @result.params['sort'] ? nil : 'start-invisible') } &check;
               = desc
 
       %a.btn.btn-light.w-100.d-lg-none.collapsed#filters-button{ href: '#', role: 'button', data: { toggle: 'collapse', target: '#filters' } }
