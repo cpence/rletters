@@ -6,7 +6,6 @@ ruby '2.5.0'
 # Rails
 gem 'rails', '~> 5.2.0'
 gem 'puma', '~> 3.11'
-gem 'bootsnap', '>= 1.1.0', require: false
 
 # Twelve factor app glue
 gem 'dotenv-rails'
