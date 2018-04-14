@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_04_12_181510) do
+ActiveRecord::Schema.define(version: 2018_04_14_134125) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -96,20 +96,12 @@ ActiveRecord::Schema.define(version: 2018_04_12_181510) do
   end
 
   create_table "documents_categories", id: :serial, force: :cascade do |t|
-    t.integer "parent_id"
-    t.integer "sort_order"
     t.string "name", limit: 255
     t.text "journals"
     t.datetime "created_at"
     t.datetime "updated_at"
-  end
-
-  create_table "documents_category_hierarchies", id: false, force: :cascade do |t|
-    t.integer "ancestor_id", null: false
-    t.integer "descendant_id", null: false
-    t.integer "generations", null: false
-    t.index ["ancestor_id", "descendant_id", "generations"], name: "documents_category_anc_desc_udx", unique: true
-    t.index ["descendant_id"], name: "documents_category_desc_idx"
+    t.string "ancestry"
+    t.index ["ancestry"], name: "index_documents_categories_on_ancestry"
   end
 
   create_table "documents_stop_lists", id: :serial, force: :cascade do |t|
@@ -161,8 +153,5 @@ ActiveRecord::Schema.define(version: 2018_04_12_181510) do
 
   add_foreign_key "datasets", "users", name: "datasets_user_id_fk", on_delete: :cascade
   add_foreign_key "datasets_tasks", "datasets", name: "datasets_analysis_tasks_dataset_id_fk"
-  add_foreign_key "documents_categories", "documents_categories", column: "parent_id", name: "documents_categories_parent_id_fk"
-  add_foreign_key "documents_category_hierarchies", "documents_categories", column: "ancestor_id", name: "documents_category_hierarchies_ancestor_id_fk"
-  add_foreign_key "documents_category_hierarchies", "documents_categories", column: "descendant_id", name: "documents_category_hierarchies_descendant_id_fk"
   add_foreign_key "users_libraries", "users", name: "users_libraries_user_id_fk", on_delete: :cascade
 end

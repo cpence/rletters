@@ -113,8 +113,7 @@ class SearchHelperTest < ActionView::TestCase
 
   test 'category_addition_tree works' do
     parent = create(:category, name: 'Parent')
-    child = create(:category, name: 'Child')
-    parent.children << child
+    child = create(:category, name: 'Child', parent: parent)
     Documents::Category.stubs(:roots).returns([parent])
 
     h = ActionController::Parameters.new(controller: 'search', action: 'index').permit!

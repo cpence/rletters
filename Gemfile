@@ -14,8 +14,7 @@ gem 'lograge'
 # Database and related tools
 gem 'pg'
 gem 'delayed_job_active_record'
-gem 'closure_tree', github: 'ClosureTree/closure_tree'
-#gem 'closure_tree', '>= 6.7.0' maybe? (broken in 6.6.0, fixed on GH)
+gem 'ancestry'
 gem 'virtus'
 
 # User authentication and administration

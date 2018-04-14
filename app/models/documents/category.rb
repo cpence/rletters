@@ -5,11 +5,8 @@ module Documents
   # RLetters supports categorization of journals, so that users can filter
   # results by journal type.  This is the class for each category in the tree.
   #
-  # @!attribute parent_id
-  #   @return [Integer] id of parent node, or `nil` (internal, used by
-  #     `closure_tree`)
-  # @!attribute sort_order
-  #   @return [Integer] sort order field (internal, used by `closure_tree`)
+  # @!attribute ancestry
+  #   @return [String] ancestors of this node (internal, used by `ancestry`)
   # @!attribute name
   #   @raise [RecordInvalid] if the name is missing (`validates :presence`)
   #   @return [String] name of the category
@@ -22,8 +19,8 @@ module Documents
     before_save :clean_journals
     serialize :journals, Array
 
-    # Enable closure_tree
-    acts_as_tree name_column: 'name', order: 'sort_order'
+    # Enable ancestry
+    has_ancestry
 
     # @return [String] string representation of this category
     def to_s
@@ -59,10 +56,11 @@ module Documents
       categories = params[:categories]&.dup || []
 
       if enabled?(params)
-        categories -= self_and_ancestors.collect(&:to_param)
-        categories -= self_and_descendants.collect(&:to_param)
+        categories -= [to_param]
+        categories -= descendants.collect(&:to_param)
       else
-        categories.concat(self_and_descendants.collect(&:to_param))
+        categories << to_param
+        categories.concat(descendants.collect(&:to_param))
       end
       categories.uniq!
 

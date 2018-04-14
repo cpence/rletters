@@ -2,5 +2,5 @@
   = check_box_tag "category_#{category.to_param}", '1', category.enabled?(params), disabled: true
   = category.name
 
-- unless category.leaf?
+- if category.has_children?
   %ul= category_addition_tree(category.children)
