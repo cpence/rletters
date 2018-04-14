@@ -14,6 +14,7 @@ env:
   global:
     - TMPDIR=$TRAVIS_BUILD_DIR/tmp
     - DISPLAY=":99.0"
+    - RAILS_ENV=test
     - DATABASE_URL="postgres:///rletters_test?username=postgres&pool=20&encoding=unicode"
     - QMAKE=/usr/lib/x86_64-linux-gnu/qt5/bin/qmake
     - secure: Lv1neEs259UnYFTpbBOja4qhbdDnDCryGiZ8ycLkBGlc7PioiSiVqCo1Py+pJrpYenA3xrguv/Z5hdNjJ3fm4dl8GDrV9kgjtNe8E388kitISpimAi5QuwvxfJS8YiRPKm9VSfs3laMlSVXjhMdlAW1PPcrcElddv+r+jMpJ9uM=
@@ -37,9 +38,9 @@ before_script:
   - sh -e /etc/init.d/xvfb start
   - ln -s .env.example .env
   - 'pushd vendor/solr && ./start && popd'
-  - bin/rails RAILS_ENV=test db:create db:schema:load db:seed
+  - bin/rails db:setup
 
 script:
-  - bundle exec rails test
-  - bundle exec rails test:system
+  - bin/rails test
+  - bin/rails test:system
   - bundle exec codeclimate-test-reporter
