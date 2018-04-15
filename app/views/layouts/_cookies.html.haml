@@ -1,0 +1,7 @@
+.start-hidden#cookie-alert
+  #cookie-container
+    = t('layouts.cookies.warning')
+
+    .btn-group{ role: 'group' }
+      %button.btn.btn-danger#decline-cookies-btn{ type: 'button' }= t('layouts.cookies.button_no')
+      %button.btn.btn-primary#accept-cookies-btn{ type: 'button' }= t('layouts.cookies.button_yes')
