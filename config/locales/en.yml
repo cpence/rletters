@@ -213,6 +213,7 @@ en:
         workflow_start: Start Analysis
         workflow_info: Job Info
         workflow_activate: Collect Data
+        static_cookies: Cookies
     layouts:
         footer:
             copyright: >
@@ -246,6 +247,7 @@ en:
                 This site uses cookies to track and remember whether you are
                 logged into your account. If you disagree, we will limit cookie
                 usage as much as possible.
+            more_info: More information…
             button_yes: I agree
             button_no: I disagree
     lib:

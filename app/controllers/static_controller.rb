@@ -16,4 +16,12 @@ class StaticController < ApplicationController
               filename: model.file_file_name,
               content_type: model.file_content_type
   end
+
+  # Show the cookie information page
+  #
+  # @return [void]
+  def cookies
+    @page = :cookies
+    render :page
+  end
 end

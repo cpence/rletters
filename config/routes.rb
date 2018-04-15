@@ -56,6 +56,7 @@ Rails.application.routes.draw do
   end
 
   # Static content
+  get 'static/cookies' => 'static#cookies', as: 'static_cookies'
   get 'static/image/:id' => 'static#image', as: 'static_image'
 
   # Administration pages

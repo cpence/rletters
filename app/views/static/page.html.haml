@@ -1,0 +1,6 @@
+- content_for :breadcrumbs do
+  %li.breadcrumb-item= link_to t('breadcrumbs.root'), root_path
+  %li.breadcrumb-item.active= t("breadcrumbs.static_#{@page}")
+
+.row
+  .col-12= render_localized_markdown("static_#{@page}")
