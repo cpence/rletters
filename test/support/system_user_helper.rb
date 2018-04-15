@@ -30,6 +30,7 @@ module SystemUserHelper
     end
 
     visit '/'
+    click_button 'I agree'
     click_link 'Sign In'
     within('.dropdown-menu') do
       fill_in 'user_email', with: params[:email]
