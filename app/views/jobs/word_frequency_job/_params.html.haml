@@ -54,7 +54,7 @@
 
         .form-group
           = f.label :stemming, t('common.stemming.label')
-          = f.select :stemming, options_for_select([[t('simple_form.no'), :no], [t('common.stemming.stem'), :stem], [t('common.stemming.lemma'), :lemma]]), { include_blank: false }, class: 'form-control'
+          = f.select :stemming, options_for_select([[t('common.no'), :no], [t('common.stemming.stem'), :stem], [t('common.stemming.lemma'), :lemma]]), { include_blank: false }, class: 'form-control'
 
         .form-group
           = f.label :block_method, t('compute_word_frequencies.block_method')

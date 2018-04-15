@@ -1,17 +1,11 @@
 es:
   common:
+    'yes': 'Sí'
+    'no': 'No'
     cancel: Cancelar
     forms:
       error_header: "Por favor, subsane los siguientes problemas:"
     download_csv: Descargar en formato CSV
-  simple_form:
-    'yes': 'Sí'
-    'no': 'No'
-    labels:
-      user:
-        edit:
-          password: Nueva contraseña
-          password_confirmation: Confirme nueva contraseña
   helpers:
     submit:
       job_params:

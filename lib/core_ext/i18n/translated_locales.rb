@@ -5,7 +5,7 @@ RLetters::Application.config.after_initialize do
   locales = I18n.available_locales
 
   # Open up the I18n.available_locales object and add a method to it that
-  # returns translated strings suitable for use with simple_form
+  # returns translated strings suitable for use with form helpers
   def locales.translated
     current_locale = TwitterCldr::Shared::Locale.parse(I18n.locale.downcase)
     current_lang = current_locale.language

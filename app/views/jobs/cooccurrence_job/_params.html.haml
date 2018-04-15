@@ -24,7 +24,7 @@
           .invalid-feedback= validation_errors_for(:job_params, :words, true, 'cooccurrence_job.words_blank')
         .form-group
           = f.label :stemming, t('common.stemming.label')
-          = f.select :stemming, options_for_select([[t('simple_form.no'), :no], [t('common.stemming.stem'), :stem]), [t('common.stemming.lemma'), :lemma]], { include_blank: false }, class: 'form-control'
+          = f.select :stemming, options_for_select([[t('common.no'), :no], [t('common.stemming.stem'), :stem]), [t('common.stemming.lemma'), :lemma]], { include_blank: false }, class: 'form-control'
 
       .float-right
         = link_to(t('common.cancel'), @dataset, class: 'btn btn-secondary')

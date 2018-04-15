@@ -1,5 +1,7 @@
 en:
     common:
+        "yes": 'Yes'
+        "no": 'No'
         cancel: Cancel
         forms:
             error_header: "Please review the problems below:"
@@ -23,20 +25,6 @@ en:
         visit: "Visit %{app_name}"
         contact: "Contact Us"
         one_time: This is a one-time message. There is no need to unsubscribe.
-    simple_form:
-        "yes": 'Yes'
-        "no": 'No'
-        required:
-            text: 'required'
-            mark: ''
-            html: ''
-        labels:
-            user:
-                edit:
-                    password: New password
-                    password_confirmation: Confirm new password
-        add: Add
-        remove: Remove
     helpers:
         submit:
             job_params:
