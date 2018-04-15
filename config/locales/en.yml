@@ -214,6 +214,7 @@ en:
         workflow_info: Job Info
         workflow_activate: Collect Data
         static_cookies: Cookies
+        static_user_data: User Data
     layouts:
         footer:
             copyright: >
@@ -235,6 +236,8 @@ en:
             abort: Abort Building Analysis
             abort_warning: Are you sure? The analysis now under construction will be lost!
             help: Help
+            manual: Manual
+            user_data: User Data
             account: My Account
             sign_out: Sign Out
             sign_in: Sign In

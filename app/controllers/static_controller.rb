@@ -17,11 +17,13 @@ class StaticController < ApplicationController
               content_type: model.file_content_type
   end
 
-  # Show the cookie information page
+  # Show a variety of static information pages
   #
   # @return [void]
-  def cookies
-    @page = :cookies
-    render :page
+  %i{cookies user_data}.each do |page|
+    define_method page do
+      @page = page
+      render :page
+    end
   end
 end
