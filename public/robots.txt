@@ -6,7 +6,7 @@ Disallow: /documents
 Disallow: /search
 Disallow: /unapi
 Disallow: /users
-Disallow: /workflow/image
+Disallow: /static/image
 
 User-agent: AhrefsBot
 Disallow: /

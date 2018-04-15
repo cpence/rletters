@@ -12,7 +12,7 @@
 *   Iterate through datasets, no matter the size, much faster, using the cursor support present in Solr >= 4.8. This is a dramatic speed improvement especially for those installations using distributed or sharded Solr servers.
 *   Add support for PDF word cloud generation to the word frequency and Craig Zeta analysis jobs.
 *   Allow all analysis tasks to potentially generate multiple output files, enabling enhanced visualizations.
-*   Upgrade the settings handling to move application settings into the environment.
+*   Enable support for recent EU legislation, by including a cookie warning.
 *   Upgrade delayed job handling to use ActiveJob with DelayedJob using the database as backend, removing the need for a Redis server.
 *   Fixed the broken progress reporting in the Craig Zeta job.
 *   Fixed a bug in the Term Dates job such that terms appearing in remotely-stored documents would not be counted.

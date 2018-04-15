@@ -182,22 +182,6 @@ class WorkflowControllerTest < ActionDispatch::IntegrationTest
     refute_includes @response.body, '<html'
   end
 
-  test 'should not get image with invalid id' do
-    get workflow_image_url(id: '123456789')
-
-    assert_response 404
-  end
-
-  test 'should get image' do
-    asset = create(:uploaded_asset)
-
-    get workflow_image_url(id: asset.to_param)
-
-    assert_response :success
-    assert_equal 'image/png', @response.content_type
-    assert @response.body.length > 0
-  end
-
   # These are tests for behavior in ApplicationController, but we put them
   # here because there's a nice simple index page
   test 'should leave set_locale at default with no user' do

@@ -33,7 +33,7 @@ class Admin::UploadedAssetTest < ActiveSupport::TestCase
     asset = create(:uploaded_asset)
     url = Admin::UploadedAsset.url_for(asset.name)
 
-    assert url.start_with?('/workflow/image/')
+    assert url.start_with?('/static/image/')
     assert_includes url, (asset.to_param + '?')
   end
 end

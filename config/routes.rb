@@ -2,7 +2,6 @@
 Rails.application.routes.draw do
   # The user workflow
   get 'workflow' => 'workflow#index'
-  get 'workflow/image/:id' => 'workflow#image', as: 'workflow_image'
   get 'workflow/start' => 'workflow#start'
   get 'workflow/destroy' => 'workflow#destroy'
   get 'workflow/info/:class' => 'workflow#info', as: 'workflow_info',
@@ -55,6 +54,9 @@ Rails.application.routes.draw do
       end
     end
   end
+
+  # Static content
+  get 'static/image/:id' => 'static#image', as: 'static_image'
 
   # Administration pages
   get 'admin' => 'admin#index'

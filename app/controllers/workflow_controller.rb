@@ -6,7 +6,7 @@
 # is responsible for all of that.
 class WorkflowController < ApplicationController
   layout 'full_page'
-  before_action :authenticate_user!, except: [:index, :image]
+  before_action :authenticate_user!, except: :index
 
   # Show the introduction page or the user dashboard
   #
@@ -105,16 +105,6 @@ class WorkflowController < ApplicationController
     else
       render
     end
-  end
-
-  # Return one of the uploaded-asset images
-  #
-  # @return [void]
-  def image
-    model = Admin::UploadedAsset.find(params[:id])
-    send_data Paperclip.io_adapters.for(model.file).read,
-              filename: model.file_file_name,
-              content_type: model.file_content_type
   end
 
   private

@@ -16,7 +16,7 @@ module Admin
     validates :name, presence: true
 
     # Store these assets in the database
-    has_attached_file :file, url: '/workflow/image/:id'
+    has_attached_file :file, url: '/static/image/:id'
     validates_attachment_content_type :file, content_type: %r{\Aimage/.*\Z}
 
     # @return [String] Friendly name of this asset (looked up in locale)
