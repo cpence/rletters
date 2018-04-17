@@ -1,4 +1,3 @@
-# Rename languages that are different in the CLDR or Transifex
 require 'fileutils'
 
 namespace :locales do

@@ -14,6 +14,7 @@ gem 'lograge'
 # Database and related tools
 gem 'pg'
 gem 'delayed_job_active_record'
+gem 'daemons'
 gem 'ancestry'
 gem 'virtus'
 
@@ -85,4 +86,11 @@ group :test do
 
   gem 'simplecov', require: false
   gem 'codeclimate-test-reporter', require: false
+end
+
+# Tools that we need for developers, but not for any deployment or testing
+group :tools do
+  gem 'bundle-audit'
+  gem 'brakeman'
+  gem 'rubocop'
 end

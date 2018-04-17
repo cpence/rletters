@@ -5,51 +5,64 @@ host = https://www.transifex.com
 file_filter = config/locales/<lang>.yml
 source_file = config/locales/en.yml
 source_lang = en
-
-[rletters.collocation]
-file_filter = config/locales/collocation/collocation.<lang>.md
-source_file = config/locales/collocation/collocation.en.md
-source_lang = en
-type = TXT
-
-[rletters.cooccurrence]
-file_filter = config/locales/cooccurrence/cooccurrence.<lang>.md
-source_file = config/locales/cooccurrence/cooccurrence.en.md
-source_lang = en
-type = TXT
-
-[rletters.craig_zeta]
-file_filter = config/locales/craig_zeta/craig_zeta.<lang>.md
-source_file = config/locales/craig_zeta/craig_zeta.en.md
-source_lang = en
-type = TXT
-
-[rletters.export_citations]
-file_filter = config/locales/export_citations/export_citations.<lang>.md
-source_file = config/locales/export_citations/export_citations.en.md
-source_lang = en
-type = TXT
-
-[rletters.named_entities]
-file_filter = config/locales/named_entities/named_entities.<lang>.md
-source_file = config/locales/named_entities/named_entities.en.md
-source_lang = en
-type = TXT
-
-[rletters.network]
-file_filter = config/locales/network/network.<lang>.md
-source_file = config/locales/network/network.en.md
-source_lang = en
-type = TXT
+type = YML
 
 [rletters.article_dates]
-file_filter = config/locales/article_dates/article_dates.<lang>.md
-source_file = config/locales/article_dates/article_dates.en.md
+file_filter = config/locales/article_dates_job/article_dates_job.<lang>.md
+source_file = config/locales/article_dates_job/article_dates_job.en.md
 source_lang = en
-type = TXT
+type = GITHUBMARKDOWN
+
+[rletters.collocation]
+file_filter = config/locales/collocation_job/collocation_job.<lang>.md
+source_file = config/locales/collocation_job/collocation_job.en.md
+source_lang = en
+type = GITHUBMARKDOWN
+
+[rletters.cooccurrence]
+file_filter = config/locales/cooccurrence_job/cooccurrence_job.<lang>.md
+source_file = config/locales/cooccurrence_job/cooccurrence_job.en.md
+source_lang = en
+type = GITHUBMARKDOWN
+
+[rletters.craig_zeta]
+file_filter = config/locales/craig_zeta_job/craig_zeta_job.<lang>.md
+source_file = config/locales/craig_zeta_job/craig_zeta_job.en.md
+source_lang = en
+type = GITHUBMARKDOWN
+
+[rletters.export_citations]
+file_filter = config/locales/export_citations_job/export_citations_job.<lang>.md
+source_file = config/locales/export_citations_job/export_citations_job.en.md
+source_lang = en
+type = GITHUBMARKDOWN
+
+[rletters.named_entities]
+file_filter = config/locales/named_entities_job/named_entities_job.<lang>.md
+source_file = config/locales/named_entities_job/named_entities_job.en.md
+source_lang = en
+type = GITHUBMARKDOWN
+
+[rletters.network]
+file_filter = config/locales/network_job/network_job.<lang>.md
+source_file = config/locales/network_job/network_job.en.md
+source_lang = en
+type = GITHUBMARKDOWN
+
+[rletters.cookies]
+file_filter = config/locales/static_cookies/static_cookies.<lang>.md
+source_file = config/locales/static_cookies/static_cookies.en.md
+source_lang = en
+type = GITHUBMARKDOWN
+
+[rletters.user_data]
+file_filter = config/locales/static_user_data/static_user_data.<lang>.md
+source_file = config/locales/static_user_data/static_user_data.en.md
+source_lang = en
+type = GITHUBMARKDOWN
 
 [rletters.word_frequency]
-file_filter = config/locales/word_frequency/word_frequency.<lang>.md
-source_file = config/locales/word_frequency/word_frequency.en.md
+file_filter = config/locales/word_frequency_job/word_frequency_job.<lang>.md
+source_file = config/locales/word_frequency_job/word_frequency_job.en.md
 source_lang = en
-type = TXT
+type = GITHUBMARKDOWN
