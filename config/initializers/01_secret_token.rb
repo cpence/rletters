@@ -6,7 +6,7 @@ else
   unless ENV['SECRET_KEY_BASE']
     fail <<-ERROR.strip_heredoc
       No secret keys available in ENV. Please copy .env.example to .env, and
-      run rake secrets:regen.
+      run rake rletters:secrets:regen.
     ERROR
   end
 

@@ -1,14 +1,8 @@
 
-# Default configuration for DelayedJob workers
-Delayed::Worker.sleep_delay = 60
-Delayed::Worker.max_attempts = 3
+# Default configuration for DelayedJob workers. We'll work jobs one at a time,
+# so none of the other configuration settings actually matter for us.
 Delayed::Worker.delay_jobs = !Rails.env.test? && !ENV['BLOCKING_JOBS']
+Delayed::Worker.max_attempts = 1
 Delayed::Worker.logger = Logger.new(File.join(Rails.root, 'tmp', 'delayed_job.log'))
-
-# Set the max run time to 36 hours. The watcher process will terminate any
-# workers that have run for longer than 24.
-Delayed::Worker.max_run_time = 36.hours
-
-# If this is uncommented, then SIGTERM will cause workers to blow up with
-# exceptions, abort their jobs, and unlock for other workers.
-# Delayed::Worker.raise_signal_exceptions = :term
+Delayed::Worker.max_run_time = 1.day
+Delayed::Worker.destroy_failed_jobs = true

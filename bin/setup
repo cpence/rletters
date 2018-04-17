@@ -46,7 +46,7 @@ END
   unless File.exist?('.env')
     puts "\n== Copying default environment and creating new secrets =="
     system! 'cp .env.example .env'
-    system! 'bin/rake secrets:regen'
+    system! 'bin/rake rletters:secrets:regen'
   end
 
   puts "\n== Installing client-side modules =="
