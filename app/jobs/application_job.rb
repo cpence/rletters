@@ -82,7 +82,8 @@ class ApplicationJob < ActiveJob::Base
     # Get all the job files
     analysis_files = Dir[Rails.root.join('app', 'jobs', '*.rb')]
     classes = analysis_files.map do |f|
-      next if %w(application_job.rb).include?(File.basename(f))
+      next if %w(application_job.rb
+                 user_export_job.rb).include?(File.basename(f))
 
       # This will raise a NameError if the class doesn't exist, but we want
       # that, because that means there's a file in app/jobs that doesn't
