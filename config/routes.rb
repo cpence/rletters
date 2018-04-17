@@ -44,6 +44,9 @@ Rails.application.routes.draw do
 
     # Redirect to the root after a successful user edit
     get 'users' => 'workflow#index'
+
+    # Add a custom action to download exported user data
+    get 'users/export' => 'users#export', as: 'user_export'
   end
 
   scope '/users' do

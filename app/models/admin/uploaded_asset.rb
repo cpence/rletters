@@ -15,7 +15,7 @@ module Admin
     self.table_name = 'admin_uploaded_assets'
     validates :name, presence: true
 
-    # Store these assets in the database
+    # Store these assets
     has_attached_file :file, url: '/static/image/:id'
     validates_attachment_content_type :file, content_type: %r{\Aimage/.*\Z}
 

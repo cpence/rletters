@@ -7,6 +7,8 @@
 # @!attribute name
 #   @raise [RecordInvalid] if the name is missing (`validates :presence`)
 #   @return [String] Full name
+# @!attribute email
+#   @return [String] Email address
 #
 # @!attribute language
 #   @raise [RecordInvalid] if the language is missing (`validates :presence`)
@@ -52,6 +54,10 @@ class User < ApplicationRecord
 
   has_many :datasets
   has_many :libraries, class_name: 'Users::Library'
+
+  has_attached_file :export_archive, url: '/users/export'
+  validates_attachment_content_type :export_archive,
+                                    content_type: 'application/zip'
 
   # @return [String] string representation of this user
   def to_s

@@ -1,5 +1,5 @@
 xml.instruct!
-data = JSON.load(task.file_for('application/json').result.file_contents(:original))
+data = JSON.load(Paperclip.io_adapters.for(task.file_for('application/json').result).read)
 nodes = data['d3_nodes']
 xml.graphml('xmlns' => 'http://graphml.graphdrawing.org/xmlns',
             'xmlns:xsi' => 'http://www.w3.org/2001/XMLSchema-instance',
