@@ -19,6 +19,7 @@ Rails.application.config.i18n.fallbacks = true
 # update the version of rails-i18n and the rest will be automatic here.
 'af, ar, az, be, bg, bn, bs, ca, cs, cy, da, de, de-AT, de-CH, de-DE, el, el-CY, en, en-AU, en-CA, en-GB, en-IE, en-IN, en-NZ, en-US, en-ZA, en-CY,eo, es, es-419, es-AR, es-CL, es-CO, es-CR, es-EC, es-ES, es-MX, es-NI, es-PA, es-PE, es-US, es-VE, et, eu, fa, fi, fr, fr-CA, fr-CH, fr-FR, gl, he, hi, hi-IN, hr, hu, id, is, it, it-CH, ja, ka, km, kn, ko, lb, lo, lt, lv, mk, ml, mn, mr-IN, ms, nb, ne, nl, nn, oc, or, pa, pl, pt, pt-BR, rm, ro, ru, sk, sl, sq, sr, sw, ta, th, tl, tr, tt, ug, ur, uz, vi, wo, zh-CN, zh-HK, zh-TW, zh-YUE'.split(',').each do |loc|
   loc.strip!
+  next if loc == 'en-US' # No special translation for US English
   next unless TwitterCldr.supported_locale?(loc.downcase)
 
   Rails.application.config.i18n.available_locales << loc
