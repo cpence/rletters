@@ -5,6 +5,14 @@
 *   Standardize e-mail vs email
 
 
+*   GDPR compliance todo:
+    -   [backend done, need frontend] User data export to ZIP in machine-readable formats
+    -   Make sure that deleting a user account will cascade to deleting all datasets, queries, tasks, and files for that user
+    -   Remove Google Analytics support
+    -   Ensure that profile editing can edit all fields about the user
+    -   On sign-up, ask if users are under 16; either do not allow them to register or ask a parent for permission
+    -   Consider implementing papertrail for logging all changes to user data and where they came from
+
 *   New admin panel:
     -   Need a rake task that will print details on currently running job workers, in concert with the work on timeout-based worker watcher support that's about to hit.
     -   Dupe same thing in admin view
