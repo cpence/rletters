@@ -49,7 +49,7 @@ class WorkerRakeTest < ActiveSupport::TestCase
 
     # Call the Rake runner, which should itself fail
     assert_raises(Exception) do
-      @rake['rletters:jobs:analysis'].invoke
+      @rake['rletters:jobs:analysis_one'].invoke
     end
 
     # It should have set the task's failed bit and destroyed the job
@@ -64,7 +64,7 @@ class WorkerRakeTest < ActiveSupport::TestCase
 
     # Call the Rake runner, which should itself fail
     assert_raises(Exception) do
-      @rake['rletters:jobs:analysis'].invoke
+      @rake['rletters:jobs:analysis_one'].invoke
     end
 
     # It should have set the task's failed bit and destroyed the job

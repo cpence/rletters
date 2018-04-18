@@ -47,15 +47,13 @@ namespace :rletters do
       end
     end
 
+    desc 'Run exactly one job from the analysis job queue'
+    task :analysis_one => :environment do
+      work_one_analysis
+    end
+
     desc 'Work the analysis job queue'
     task :analysis => :environment do
-      # We'll let these jobs run for one day, once, after which point they will
-      # be killed by Timeout, their open jobs/tasks, will be destroyed by the
-      # error handler above, and then the DJ entry will be purged from the DB.
-      Delayed::Worker.max_attempts = 1
-      Delayed::Worker.max_run_time = 1.day
-      Delayed::Worker.destroy_failed_jobs = true
-
       # Simply work the analysis queue, one-at-a-time, until the end of time,
       # sleeping for 15 seconds between each go to let GC/VM catch up. Each
       # worker iteration should never take longer than 24h, according to our
