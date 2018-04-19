@@ -186,64 +186,6 @@ class Datasets::TasksControllerTest < ActionDispatch::IntegrationTest
     assert_includes @response.body, '<option'
   end
 
-  test 'should not get download with invalid id' do
-    user = create(:user)
-    dataset = create(:full_dataset, user: user)
-    sign_in user
-
-    get download_dataset_task_url(dataset_id: dataset.to_param,
-                                  id: '12345678',
-                                  file: '0')
-
-    assert_response 404
-  end
-
-  test 'should not get download with invalid file number' do
-    user = create(:user)
-    dataset = create(:full_dataset, user: user)
-    task = create(:task, dataset: dataset, job_type: 'ExportCitationsJob')
-    sign_in user
-
-    get download_dataset_task_url(dataset_id: dataset.to_param,
-                                  id: task.to_param,
-                                  file: 'asdfasdf')
-
-    assert_response 404
-  end
-
-  test 'should not get download with non-downloadable file' do
-    user = create(:user)
-    dataset = create(:full_dataset, user: user)
-    task = create(:task, dataset: dataset, job_type: 'ExportCitationsJob')
-    file = create(:file, task: task, downloadable: false)
-    file.from_string('test')
-    sign_in user
-
-    get download_dataset_task_url(dataset_id: dataset.to_param,
-                                  id: task.to_param,
-                                  file: file.to_param)
-
-    assert_response 404
-  end
-
-  test 'should get download for a valid file' do
-    user = create(:user)
-    dataset = create(:full_dataset, user: user)
-    task = create(:task, dataset: dataset, job_type: 'ExportCitationsJob')
-    sign_in user
-
-    ExportCitationsJob.new.perform(task, format: 'bibtex')
-    file = task.files.first
-
-    get download_dataset_task_url(dataset_id: dataset.to_param,
-                                  id: task.to_param,
-                                  file: file.to_param)
-
-    assert_response :success
-    assert_equal 'application/zip', @response.content_type
-    assert @response.body.length > 0
-  end
-
   test 'should not destroy for invalid id' do
     user = create(:user)
     dataset = create(:full_dataset, user: user)

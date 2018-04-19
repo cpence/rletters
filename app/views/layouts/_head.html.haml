@@ -12,14 +12,14 @@
   = javascript_include_tag 'application'
 
   -# Home screen icons (Retina iPhone, iPad, all others/Android)
-  - if Admin::UploadedAsset.url_for('apple-touch-icon-high').present?
-    %link{ href: Admin::UploadedAsset.url_for('apple-touch-icon-high'), rel: "apple-touch-icon-precomposed", sizes: "114x114" }/
-  - if Admin::UploadedAsset.url_for('apple-touch-icon-med').present?
-    %link{ href: Admin::UploadedAsset.url_for('apple-touch-icon-med'), rel: "apple-touch-icon-precomposed", sizes: "72x72" }/
-  - if Admin::UploadedAsset.url_for('apple-touch-icon-low').present?
-    %link{ href: Admin::UploadedAsset.url_for('apple-touch-icon-low'), rel: "apple-touch-icon-precomposed" }/
-  - if Admin::UploadedAsset.url_for('favicon').present?
-    %link{ href: Admin::UploadedAsset.url_for('favicon'), rel: "shortcut icon" }/
+  - if Admin::UploadedAsset.exists?(name: 'apple-touch-icon-high')
+    %link{ href: url_for(Admin::UploadedAsset.find_by(name: 'apple-touch-icon-high').file), rel: "apple-touch-icon-precomposed", sizes: "114x114" }/
+  - if Admin::UploadedAsset.exists?(name: 'apple-touch-icon-med')
+    %link{ href: url_for(Admin::UploadedAsset.find_by(name: 'apple-touch-icon-med').file), rel: "apple-touch-icon-precomposed", sizes: "72x72" }/
+  - if Admin::UploadedAsset.exists?(name: 'apple-touch-icon-low')
+    %link{ href: url_for(Admin::UploadedAsset.find_by(name: 'apple-touch-icon-low').file), rel: "apple-touch-icon-precomposed" }/
+  - if Admin::UploadedAsset.exists?(name: 'favicon')
+    %link{ href: url_for(Admin::UploadedAsset.find_by(name: 'favicon').file), rel: "shortcut icon" }/
 
   -# Load Google Analytics (if enabled)
   - if ENV['GOOGLE_ANALYTICS_KEY'].present?

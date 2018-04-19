@@ -24,7 +24,7 @@ class TermDatesJobTest < ActiveJob::TestCase
     refute_nil task.file_for('application/json')
     refute_nil task.file_for('text/csv')
 
-    data = JSON.load(Paperclip.io_adapters.for(task.file_for('application/json').result))
+    data = JSON.load(task.file_for('application/json').result.download)
     assert_kind_of Hash, data
 
     # Data is reasonable

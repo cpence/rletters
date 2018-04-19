@@ -74,7 +74,7 @@ module Datasets
     # @param [String] content_type the content type to find
     # @return [Datasets::File] the file object
     def file_for(content_type)
-      files.detect { |f| f.result_content_type == content_type }
+      files.detect { |f| f.result.content_type == content_type }
     end
 
     # Get the JSON content from a file if available
@@ -85,7 +85,7 @@ module Datasets
     # @return [String] JSON data as string (or `nil`)
     def json
       file = file_for('application/json')
-      file && Paperclip.io_adapters.for(file.result).read.force_encoding('utf-8')
+      file && file.result.download.force_encoding('utf-8')
     end
 
     # The classes that cannot actually be started as analysis jobs.

@@ -29,13 +29,15 @@ class ExportCitationsJob < ApplicationJob
     ios.rewind
 
     # Save it out
-    file = Paperclip.io_adapters.for(ios)
-    file.original_filename = 'export_citations.zip'
-    file.content_type = 'application/zip'
+    blob = ActiveStorage::Blob.create_after_upload!(
+      io: ios,
+      filename: 'export_citations.zip',
+      content_type: 'application/zip'
+    )
 
     task.files.create(description: 'Exported Citations (ZIP)',
                       short_description: 'Download',
-                      result: file, downloadable: true)
+                      result: blob, downloadable: true)
     task.mark_completed
   end
 end

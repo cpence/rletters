@@ -26,7 +26,6 @@ Rails.application.routes.draw do
                       except: [:edit, :update, :show] do
       member do
         get 'view/:template', action: 'view', as: 'view'
-        get 'download/:file', action: 'download', as: 'download'
       end
     end
   end
@@ -44,9 +43,6 @@ Rails.application.routes.draw do
 
     # Redirect to the root after a successful user edit
     get 'users' => 'workflow#index'
-
-    # Add a custom action to download exported user data
-    get 'users/export' => 'users#export', as: 'user_export'
   end
 
   scope '/users' do
@@ -61,7 +57,6 @@ Rails.application.routes.draw do
   # Static content
   get 'static/cookies' => 'static#cookies'
   get 'static/user_data' => 'static#user_data'
-  get 'static/image/:id' => 'static#image', as: 'static_image'
 
   # Administration pages
   get 'admin' => 'admin#index'

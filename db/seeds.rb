@@ -29,7 +29,16 @@ Dir.glob(Rails.root.join('db', 'seeds', 'images', '*')) do |img|
   name = File.basename(img, extension)
   Admin::UploadedAsset.where(name: name).first_or_create! do |asset|
     f = File.new(img)
-    asset.file = f
+
+    blob = ActiveStorage::Blob.create_after_upload!(
+      io: f,
+      filename: File.basename(img),
+      content_type: Mime::Type.lookup_by_extension(extension[1..-1])
+    )
+
+    asset.file.attach(blob)
+    asset.save
+
     f.close
   end
 

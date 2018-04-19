@@ -10,7 +10,7 @@ module Datasets
       file = task.file_for(content_type)
       return nil unless file
 
-      download_dataset_task_path(task.dataset, task, file: file.to_param)
+      url_for(file.result)
     end
   end
 end

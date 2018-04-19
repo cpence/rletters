@@ -67,9 +67,9 @@ class Datasets::TaskTest < ActiveSupport::TestCase
       f.from_string('test')
     end
 
-    assert_equal 4, task.reload.files.first.result_file_size
-    assert_equal 'test', Paperclip.io_adapters.for(task.files.first.result).read
-    assert_equal 'text/plain', task.files.first.result_content_type.to_s
+    assert_equal 4, task.reload.files.first.result.byte_size
+    assert_equal 'test', task.files.first.result.download
+    assert_equal 'text/plain', task.files.first.result.content_type
   end
 
   test 'should return good job_class (class method)' do

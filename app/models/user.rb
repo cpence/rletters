@@ -55,9 +55,7 @@ class User < ApplicationRecord
   has_many :datasets
   has_many :libraries, class_name: 'Users::Library'
 
-  has_attached_file :export_archive, url: '/users/export'
-  validates_attachment_content_type :export_archive,
-                                    content_type: 'application/zip'
+  has_one_attached :export_archive
 
   # @return [String] string representation of this user
   def to_s

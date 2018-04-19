@@ -31,7 +31,7 @@ class CooccurrenceJobTest < ActiveJob::TestCase
       assert_equal 'Determine significant associations between distant pairs of words', task.reload.name
 
       # There should be at least one cooccurrence in there ("word word,X.YYYY...")
-      assert_match /\n"?\w+,? \w+"?,\d+(\.\d+)?/, Paperclip.io_adapters.for(task.files.first.result).read
+      assert_match /\n"?\w+,? \w+"?,\d+(\.\d+)?/, task.files.first.result.download
     end
   end
 

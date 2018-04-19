@@ -105,7 +105,7 @@ class UserExportJob < ActiveJob::Base
               next
             end
 
-            filename = "#{t.to_param}_#{f.to_param}_#{f.result_file_name}"
+            filename = "#{t.to_param}_#{f.to_param}_#{f.result.filename.to_s}"
             files_to_save[filename] = f.result
             task[:files] << filename
           end
@@ -122,18 +122,20 @@ class UserExportJob < ActiveJob::Base
       # And all of the files
       files_to_save.each do |filename, file|
         zos.put_next_entry(filename)
-        zos.write(Paperclip.io_adapters.for(file).read)
+        zos.write(file.download)
       end
     end
 
     # Save it into the user object, and they'll be able to download it
     ios.rewind
 
-    file = Paperclip.io_adapters.for(ios)
-    file.original_filename = 'export.zip'
-    file.content_type = 'application/zip'
+    blob = ActiveStorage::Blob.create_after_upload!(
+      io: ios,
+      filename: 'export.zip',
+      content_type: 'application/zip'
+    )
 
-    user.export_archive = file
+    user.export_archive.attach(blob)
     user.save
   end
 end

@@ -81,21 +81,6 @@ module Datasets
              locals: { klass: @task.job_class })
     end
 
-    # Download a file from a task
-    #
-    # If the file is not available or downloadable, this action will raise
-    # `ActiveRecord::RecordNotFound`.
-    #
-    # @return [void]
-    def download
-      @file = @task.files.find(params[:file])
-      fail ActiveRecord::RecordNotFound unless @file.downloadable
-
-      send_data(Paperclip.io_adapters.for(@file.result),
-                filename: @file.result_file_name,
-                type: @file.result_content_type)
-    end
-
     # Delete a task
     #
     # This action deletes a given task and its associated files.

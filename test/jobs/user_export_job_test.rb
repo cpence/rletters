@@ -34,13 +34,13 @@ class UserExportJobTest < ActiveJob::TestCase
     # And do the export
     UserExportJob.perform_now(user)
 
-    assert_equal 'export.zip', user.export_archive_file_name
-    assert_equal 'application/zip', user.export_archive_content_type
-    assert user.export_archive_file_size > 0
+    assert_equal 'export.zip', user.export_archive.filename.to_s
+    assert_equal 'application/zip', user.export_archive.content_type
+    assert user.export_archive.byte_size > 0
 
     # Unpack the zip into a hash
     zip_contents = {}
-    data = Paperclip.io_adapters.for(user.export_archive).read
+    data = user.export_archive.download
     ::Zip::InputStream.open(StringIO.new(data)) do |zis|
       while (entry = zis.get_next_entry)
         zip_contents[entry.name] = zis.read

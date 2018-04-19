@@ -15,13 +15,13 @@
 
       .carousel-inner
         .carousel-item.active
-          %img.d-block.w-100{ src: Admin::UploadedAsset.url_for('screenshot-one') }
+          %img.d-block.w-100{ src: url_for(Admin::UploadedAsset.find_by(name: 'screenshot-one').file) }
           .carousel-caption.d-none.d-md-block= Admin::MarkdownPage.render('caption-one')
         .carousel-item
-          %img.d-block.w-100{ src: Admin::UploadedAsset.url_for('screenshot-two') }
+          %img.d-block.w-100{ src: url_for(Admin::UploadedAsset.find_by(name: 'screenshot-two').file) }
           .carousel-caption.d-none.d-md-block= Admin::MarkdownPage.render('caption-two')
         .carousel-item
-          %img.d-block.w-100{ src: Admin::UploadedAsset.url_for('screenshot-three') }
+          %img.d-block.w-100{ src: url_for(Admin::UploadedAsset.find_by(name: 'screenshot-three').file) }
           .carousel-caption.d-none.d-md-block= Admin::MarkdownPage.render('caption-three')
 
       %a.carousel-control-prev{ href: '#screenshot-carousel', role: 'button', data: { slide: 'prev' } }

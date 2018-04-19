@@ -7,6 +7,9 @@
 /doc
 /public/assets
 /spec/status.txt
+
+/storage/*
+!/storage/.gitkeep
 /tmp/*
 !/tmp/.gitkeep
 
