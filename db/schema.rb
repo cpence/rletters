@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_04_19_012416) do
+ActiveRecord::Schema.define(version: 2018_04_19_133902) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,11 +45,6 @@ ActiveRecord::Schema.define(version: 2018_04_19_012416) do
 
   create_table "admin_uploaded_assets", id: :serial, force: :cascade do |t|
     t.string "name", limit: 255
-    t.string "file_file_name", limit: 255
-    t.string "file_content_type", limit: 255
-    t.integer "file_file_size"
-    t.datetime "file_updated_at"
-    t.string "file_fingerprint", limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -68,10 +63,6 @@ ActiveRecord::Schema.define(version: 2018_04_19_012416) do
     t.string "description"
     t.string "short_description"
     t.integer "task_id"
-    t.string "result_file_name"
-    t.string "result_content_type"
-    t.integer "result_file_size"
-    t.datetime "result_updated_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "downloadable", default: false

@@ -1,5 +1,5 @@
 class RemoveDatabaseFileTables < ActiveRecord::Migration[5.1]
-  def change
+  def up
     drop_table :datasets_file_results do |t|
       t.integer :datasets_file_id
       t.string :style
@@ -11,5 +11,9 @@ class RemoveDatabaseFileTables < ActiveRecord::Migration[5.1]
       t.string :style
       t.binary :file_contents
     end
+  end
+
+  def down
+    fail ActiveRecord::IrreversibleMigration
   end
 end
