@@ -1,3 +1,6 @@
+require 'socket'
+require 'action_view/helpers/date_helper'
+
 # Open up the job wrapper class used by ActiveJob, and add a failure
 # handler to it. When Rails updates, we should check this against
 # https://github.com/rails/rails/blob/master/activejob/lib/active_job/queue_adapters/delayed_job_adapter.rb
@@ -27,40 +30,75 @@ class ActiveJob::QueueAdapters::DelayedJobAdapter::JobWrapper
   end
 end
 
+# Instantiate the date helpers for printing out our durations below
+class DurationHelper
+  include ActionView::Helpers::DateHelper
+end
+
 # Work one job, and then quit with an exit code. Designed to be monitored by
 # our monitoring process.
 namespace :rletters do
   namespace :jobs do
-    def work_one_analysis
-      worker = Delayed::Worker.new(quiet: true)
-      success, failure = worker.work_off(1)
-
-      if success == 0 && failure == 0
-        Rails.logger.info 'No tasks available to work, exiting'
-      elsif success == 1 && failure == 0
-        Rails.logger.info 'Successfully performed a single job'
-      elsif success == 0 && failure == 1
-        # Don't abort, however; we should have cleaned up after ourselves
-        Rails.logger.error 'The job we were asked to run has failed'
+    desc 'Print statistics about running job workers'
+    task :stats => :environment do
+      if Admin::WorkerStats.count == 0
+        puts "<no workers running>"
       else
-        fail "An unexpected combination of return codes resulted from working jobs (#{success}, #{failure})"
+        Admin::WorkerStats.all.each do |stat|
+          duration = DurationHelper.new.distance_of_time_in_words(stat.started_at, DateTime.now)
+          puts "Worker [#{stat.worker_type}]: PID #{stat.pid} on #{stat.host}, running since #{stat.started_at} (for #{duration})"
+        end
       end
     end
 
     desc 'Run exactly one job from the analysis job queue'
     task :analysis_one => :environment do
-      work_one_analysis
+      # Record our presence in the DB
+      stat = Admin::WorkerStats.create(
+        worker_type: 'analysis worker',
+        host: Socket.gethostname,
+        pid: Process.pid,
+        started_at: DateTime.now)
+
+      begin
+        worker = Delayed::Worker.new(quiet: true)
+        success, failure = worker.work_off(1)
+
+        if success == 0 && failure == 0
+          Rails.logger.info 'No tasks available to work, exiting'
+        elsif success == 1 && failure == 0
+          Rails.logger.info 'Successfully performed a single job'
+        elsif success == 0 && failure == 1
+          # Don't abort, however; we should have cleaned up after ourselves
+          Rails.logger.error 'The job we were asked to run has failed'
+        else
+          fail "An unexpected combination of return codes resulted from working jobs (#{success}, #{failure})"
+        end
+      ensure
+        stat.destroy
+      end
     end
 
     desc 'Work the analysis job queue'
     task :analysis => :environment do
-      # Simply work the analysis queue, one-at-a-time, until the end of time,
-      # sleeping for 15 seconds between each go to let GC/VM catch up. Each
-      # worker iteration should never take longer than 24h, according to our
-      # configuration above.
-      loop do
-        work_one_analysis
-        sleep 15
+      # Record our presence in the DB
+      stat = Admin::WorkerStats.create(
+        worker_type: 'analysis worker manager',
+        host: Socket.gethostname,
+        pid: Process.pid,
+        started_at: DateTime.now)
+
+      begin
+        # Simply work the analysis queue, one-at-a-time, until the end of time,
+        # sleeping for 15 seconds between each go to let GC/VM catch up. Each
+        # worker iteration should never take longer than 24h, according to our
+        # configuration above.
+        loop do
+          system('bundle exec rake rletters:jobs:analysis_one')
+          sleep 15
+        end
+      ensure
+        stat.destroy
       end
     end
   end

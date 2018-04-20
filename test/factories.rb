@@ -63,6 +63,11 @@ FactoryBot.define do
     file { File.new(Rails.root.join('test', 'factories', '1x1.png')) }
   end
 
+  factory :worker_stats, class: Admin::WorkerStats do
+    pid 1
+    started_at "2018-04-20 10:28:33"
+  end
+
   factory :stop_list, class: Documents::StopList do
     language 'en'
     list 'a an the'

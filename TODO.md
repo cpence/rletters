@@ -14,8 +14,6 @@
     -   Consider implementing papertrail for logging all changes to user data and where they came from
 
 *   New admin panel:
-    -   Need a rake task that will print details on currently running job workers, in concert with the work on timeout-based worker watcher support that's about to hit.
-    -   Dupe same thing in admin view
     -   Need to be able to edit:
         +   Categories
         +   Stop lists
