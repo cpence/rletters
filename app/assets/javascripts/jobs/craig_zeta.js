@@ -1,17 +1,14 @@
 // ---------------------------------------------------------------------------
 // Graph support for the CraigZeta results page
-if (window.google !== undefined) {
 
-google.load('visualization', '1.0', {'packages':['corechart','table']});
-
-function createCraigZetaGraph() {
+function drawCraigZetaGraph() {
   // Get the elements we need
-  var graphContainer = window.jQuery('#cz-graph');
-  var tableContainer = window.jQuery('#cz-table');
+  var graphContainer = $('#cz-graph');
+  var tableContainer = $('#cz-table');
   if (graphContainer.length === 0 || tableContainer.length === 0)
     return;
 
-  var results = window.jQuery.parseJSON(window.json_data);
+  var results = $.parseJSON(window.json_data);
 
   // Make a DataTable object for the graph
   var data = new google.visualization.DataTable();
@@ -23,7 +20,7 @@ function createCraigZetaGraph() {
   data.addRows(rows);
 
   // Make the scatter chart object
-  var w = window.jQuery(window).width();
+  var w = $(window).width();
   if (w > 750) {
     w = 750;
   }
@@ -61,6 +58,16 @@ function createCraigZetaGraph() {
                      width: '20em' });
 }
 
-window.jQuery(createCraigZetaGraph);
+function setupCraigZetaGraph() {
+  // Get the elements we need
+  if ($('#cz-graph').length === 0 || $('#cz-table').length === 0)
+    return;
 
+  // Load the external libraries we need
+  if (google.charts === undefined)
+    return;
+  google.charts.load('current', {'packages':['corechart','table']});
+  google.charts.setOnLoadCallback(drawCraigZetaGraph);
 }
+
+$(setupCraigZetaGraph);

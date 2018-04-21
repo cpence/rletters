@@ -16,3 +16,6 @@
       = render partial: 'layouts/cookies'
 
     #modal-container
+
+    - if content_for?(:javascripts)
+      = yield :javascripts

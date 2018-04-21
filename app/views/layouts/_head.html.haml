@@ -21,10 +21,6 @@
   - if Admin::UploadedAsset.exists?(name: 'favicon')
     %link{ href: url_for(Admin::UploadedAsset.find_by(name: 'favicon').file), rel: "shortcut icon" }/
 
-  -# Load the Google loader
-  -# FIXME: ?key=GOOGLE_API_KEY
-  = javascript_include_tag('https://www.google.com/jsapi')
-
   -# Reference the unAPI server, if we need to
   - if params[:controller] == 'search'
     %link{ rel: 'unapi-server', type: 'application/xml', title: 'unAPI', href: unapi_url }/

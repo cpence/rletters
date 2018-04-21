@@ -9,13 +9,16 @@
 # custom form styles to actually work. There is a bug report:
 # https://github.com/twbs/bootstrap/issues/25394
 # but so far the Bootstrap folks don't seem very concerned about it.
+#
+# The 'gstatic.com' URLs, as well as the :unsafe_eval in script_src, are
+# required by the Google Charts API.
 Rails.application.config.content_security_policy do |policy|
   policy.default_src :self, :https
   policy.font_src    :none
-  policy.img_src     :self, :data
+  policy.img_src     :self, :data, 'https://ssl.gstatic.com'
   policy.object_src  :none
-  policy.script_src  :self, 'https://www.google.com'
-  policy.style_src   :self, :unsafe_inline
+  policy.script_src  :self, :unsafe_eval, 'https://www.google.com', 'https://www.gstatic.com'
+  policy.style_src   :self, :unsafe_inline, 'https://www.gstatic.com'
 end
 
 # Enable automatic nonce generation for UJS

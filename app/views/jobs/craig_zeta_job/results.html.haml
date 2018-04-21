@@ -1,4 +1,6 @@
 - data = JSON.load(@task.json)
+- content_for :javascripts do
+  = javascript_include_tag('https://www.gstatic.com/charts/loader.js')
 
 .row
   .col-12.col-md-8
@@ -13,8 +15,7 @@
     %h5= t('craig_zeta_job.graph_header')
     %p= t('craig_zeta_job.graph_explanation')
 
-    %script{ type: 'text/javascript' }
-      == window.json_data = '#{@task_presenter.json_escaped}';
+    = javascript_tag("window.json_data = '#{@task.json}';", nonce: true)
     #cz-graph
 
     %hr

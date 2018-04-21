@@ -1,4 +1,6 @@
 - data = JSON.load(@task.json)
+- content_for :javascripts do
+  = javascript_include_tag('https://www.gstatic.com/charts/loader.js')
 
 .row
   .col-12.col-md-8
@@ -16,8 +18,7 @@
   .col-12
     %hr
 
-    %script{ type: 'text/javascript' }
-      == window.json_data = '#{@task_presenter.json_escaped}';
+    = javascript_tag("window.json_data = '#{@task.json}';", nonce: true)
     .article_dates_graph
 
     %hr

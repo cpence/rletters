@@ -1,17 +1,14 @@
 // ---------------------------------------------------------------------------
 // Graph support for the TermDates results page
-if (window.google !== undefined) {
 
-google.load('visualization', '1.0', {'packages':['corechart','table']});
-
-function createTermDatesGraph() {
+function drawTermDatesGraph() {
   // Get the elements we need
-  var graphContainer = window.jQuery('.term_dates_graph');
-  var tableContainer = window.jQuery('.term_dates_table');
+  var graphContainer = $('.term_dates_graph');
+  var tableContainer = $('.term_dates_table');
   if (graphContainer.length === 0 || tableContainer.length === 0)
     return;
 
-  var results = window.jQuery.parseJSON(window.json_data);
+  var results = $.parseJSON(window.json_data);
 
   // Make a DataTable object
   var data = new google.visualization.DataTable();
@@ -22,7 +19,7 @@ function createTermDatesGraph() {
   data.addRows(rows);
 
   // Make the line chart object
-  var w = window.jQuery(window).width();
+  var w = $(window).width();
   if (w > 750) {
     w = 750;
   }
@@ -52,6 +49,17 @@ function createTermDatesGraph() {
                      width: '20em' });
 }
 
-window.jQuery(createTermDatesGraph);
+function setupTermDatesGraph() {
+  // Get the elements we need
+  if ($('.term_dates_graph').length === 0 ||
+      $('.term_dates_table').length === 0)
+    return;
 
+  // Load the external libraries we need
+  if (google.charts === undefined)
+    return;
+  google.charts.load('current', {'packages':['corechart','table']});
+  google.charts.setOnLoadCallback(drawTermDatesGraph);
 }
+
+$(setupTermDatesGraph);

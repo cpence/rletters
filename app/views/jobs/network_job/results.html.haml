@@ -12,8 +12,7 @@
   .col-12
     %hr
 
-    %script{ type: 'text/javascript' }
-      == window.json_data = '#{@task_presenter.json_escaped}';
+    = javascript_tag("window.json_data = '#{@task.json}';", nonce: true)
     .network_graph
       .network_graph_box
         %p ...

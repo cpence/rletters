@@ -1,26 +1,6 @@
 require 'test_helper'
 
 class RLetters::Presenters::TaskPresenterTest < ActiveSupport::TestCase
-  test 'json_escaped works if available' do
-    task = create(:task, job_type: 'ExportCitationsJob')
-    task.files.create!(description: 'test',
-                       short_description: 'test') do |f|
-      f.from_string('{"abc":123}', filename: 'test.json',
-                                   content_type: 'application/json')
-    end
-    task.reload
-    pres = RLetters::Presenters::TaskPresenter.new(task: task)
-
-    assert_equal '{\"abc\":123}', pres.json_escaped
-  end
-
-  test 'json_escaped is nil if not available' do
-    task = create(:task, job_type: 'ExportCitationsJob')
-    pres = RLetters::Presenters::TaskPresenter.new(task: task)
-
-    assert_nil pres.json_escaped
-  end
-
   test 'status_message works with both percent and message' do
     task = stub(progress: 0.3, progress_message: 'Going')
     pres = RLetters::Presenters::TaskPresenter.new(task: task)

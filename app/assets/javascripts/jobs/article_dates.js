@@ -1,24 +1,22 @@
 // ---------------------------------------------------------------------------
 // ArticleDates job parameters page
-window.jQuery(document).on('change', 'input[name="job_params[normalize]"]',
+
+$(document).on('change', 'input[name="job_params[normalize]"]',
   function(event, data) {
     toggleVisAndDisabled('#normalize_controls');
   });
 
 // ---------------------------------------------------------------------------
 // Graph support for the ArticleDates results page
-if (window.google !== undefined) {
 
-google.load('visualization', '1.0', {'packages':['corechart','table']});
-
-function createArticleDatesGraph() {
+function drawArticleDatesGraph() {
   // Get the elements we need
-  var graphContainer = window.jQuery('.article_dates_graph');
-  var tableContainer = window.jQuery('.article_dates_table');
+  var graphContainer = $('.article_dates_graph');
+  var tableContainer = $('.article_dates_table');
   if (graphContainer.length === 0 || tableContainer.length === 0)
     return;
 
-  var results = window.jQuery.parseJSON(window.json_data);
+  var results = $.parseJSON(window.json_data);
 
   // Make a DataTable object
   var data = new google.visualization.DataTable();
@@ -30,7 +28,7 @@ function createArticleDatesGraph() {
   data.addRows(rows);
 
   // Make the line chart object
-  var w = window.jQuery(window).width();
+  var w = $(window).width();
   if (w > 750) {
     w = 750;
   }
@@ -63,6 +61,17 @@ function createArticleDatesGraph() {
                      width: '20em' });
 }
 
-window.jQuery(createArticleDatesGraph);
+function setupArticleDatesGraph() {
+  // Get the elements we need
+  if ($('.article_dates_graph').length === 0 ||
+      $('.article_dates_table').length === 0)
+    return;
 
+  // Load the external libraries we need
+  if (google.charts === undefined)
+    return;
+  google.charts.load('current', {'packages':['corechart','table']});
+  google.charts.setOnLoadCallback(drawArticleDatesGraph);
 }
+
+$(setupArticleDatesGraph);
