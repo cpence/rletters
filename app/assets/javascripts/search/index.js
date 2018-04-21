@@ -19,4 +19,9 @@ window.jQuery(function() {
         window.jQuery('#back-to-top').fadeOut();
     });
   }
+
+  window.jQuery('.document-list').on('change', '.search-add-select', function() {
+    window.jQuery(this).parents('form').attr('action', '/datasets/' + window.jQuery(this).val() + '/');
+  });
+  window.jQuery('.search-add-select').trigger('change');
 });
