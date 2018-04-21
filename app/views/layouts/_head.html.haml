@@ -21,10 +21,6 @@
   - if Admin::UploadedAsset.exists?(name: 'favicon')
     %link{ href: url_for(Admin::UploadedAsset.find_by(name: 'favicon').file), rel: "shortcut icon" }/
 
-  -# Load Google Analytics (if enabled)
-  - if ENV['GOOGLE_ANALYTICS_KEY'].present?
-    = render partial: 'layouts/google'
-
   -# Load the Google loader
   -# FIXME: ?key=GOOGLE_API_KEY
   = javascript_include_tag('https://www.google.com/jsapi')

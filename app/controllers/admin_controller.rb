@@ -4,7 +4,7 @@ require 'digest'
 # dashboard
 ENVIRONMENT_VARIABLES_TO_PRINT = {
   'admin.index.branding_vars':
-    ['APP_NAME', 'APP_EMAIL', 'GOOGLE_ANALYTICS_KEY'],
+    ['APP_NAME', 'APP_EMAIL'],
   'admin.index.server_vars':
     ['HTTPS_ONLY', 'VERBOSE_LOGS', 'BLOCKING_JOBS', 'DATABASE_URL', 'SOLR_URL',
      'SOLR_TIMEOUT', 'FILE_PATH', 'S3_ACCESS_KEY_ID', 'S3_BUCKET',

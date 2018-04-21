@@ -78,7 +78,6 @@ And you can export bibliographic data in the following standard formats:
 RLetters doesn't leave your developers out in the cold, either.  We've got support for the following features that make development, deployment, maintenance, and monitoring easier:
 
 -   Server provisioning entirely handled [by Ansible](http://www.ansibleworks.com)
--   Track page views with [Google Analytics](http://google.com/analytics)
 -   Source well-documented using [Yard](http://yardoc.org)
 -   Continuous integration support with [Travis](http://travis-ci.org/)
 
