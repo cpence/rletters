@@ -61,7 +61,7 @@ function addSearchAdvancedRow(button)
 
 function removeSearchAdvancedRow(button)
 {
-  row = button.parent().parent().parent().parent();
+  row = button.parents('.advanced-row').first();
   label_row = row.prev();
   label_row.remove();
   row.remove();
@@ -73,7 +73,7 @@ function fieldDropdownChange(event)
 {
   var field = window.jQuery(this);
   var option = window.jQuery(this).find('option:selected');
-  var row = field.parent().parent().parent();
+  var row = field.parents('.advanced-row').first();
 
   // See if the row has a typeahead attached or not
   if (row.data('typeahead-active') === undefined)

@@ -3,7 +3,7 @@ window.jQuery(document).on('change', 'input[name="job_params[all]"]',
   function(event, data) {
     checked = window.jQuery(this).is(':checked');
 
-    checkbox = window.jQuery(this).parent().parent();
+    checkbox = window.jQuery(this).parents('.form-group').first();
     number = window.jQuery(checkbox).prev();
 
     if (checked)
