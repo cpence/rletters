@@ -654,6 +654,20 @@ en:
             password: Password
             password_blank: You must enter a password
             submit: Log In
+        categories_index:
+            header: Edit categories
+            subheader: Use this interface to edit the categories that users can use to browse your available journals.
+            no_categories: No categories have been defined.
+            add: Add Category
+            add_header: Create new category
+        categories:
+            validation_error: Could not create category
+            new:
+                header: Create a new category
+            edit:
+                header: Edit category %{category}
+            form:
+                checkboxes_empty: Must select at least one journal for category
     article_dates_job:
         name: Plot Article Counts by Date
         short_desc: Plot number of articles by date

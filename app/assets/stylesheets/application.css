@@ -1,5 +1,4 @@
 /*
- *= require nestable-fork/dist/jquery.nestable.min
  *= require @fortawesome/fontawesome/styles
  *
  * We want to import all of our SCSS in a single root file, so that all

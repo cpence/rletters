@@ -68,6 +68,21 @@ class AdminController < ApplicationController
     redirect_to admin_login_path
   end
 
+  # Show an editable list of all categories
+  #
+  # @return [void]
+  def categories_index
+  end
+
+  # Update the order of the categories
+  #
+  # This is called by the Nestable JS code whenever the user drags around the
+  # order of the categories.
+  #
+  # @return [void]
+  def categories_edit
+  end
+
   private
 
   # Ensure that the administrator is authenticated, and redirect to the login

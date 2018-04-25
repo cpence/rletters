@@ -3,6 +3,9 @@
 @import 'bootstrap_variables';
 @import 'bootstrap/scss/bootstrap';
 
+// Import external libraries
+@import 'nestable2/jquery.nestable.scss';
+
 // Import our local code
 @import './jobs/**/*';
 @import './search/**/*';

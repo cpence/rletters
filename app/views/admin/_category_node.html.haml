@@ -1,0 +1,7 @@
+%li.dd-item{ data: { id: category.to_param } }
+  .dd-handle= category.name
+
+  - if category.has_children?
+    %ol.dd-list
+      - category.children.each do |c|
+        = render partial: 'category_node', locals: { category: c }

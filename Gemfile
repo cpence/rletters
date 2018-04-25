@@ -15,7 +15,7 @@ gem 'lograge'
 gem 'pg'
 gem 'delayed_job_active_record'
 gem 'daemons'
-gem 'ancestry'
+gem 'ancestry', '~> 3', '>= 3.0.2'
 gem 'virtus'
 
 # User authentication and administration
