@@ -615,7 +615,6 @@ en:
     admin:
         login_error: You must provide the administrator password to continue.
         nav:
-            accounts: Accounts
             content: Site Content
             branding: Branding
         index:

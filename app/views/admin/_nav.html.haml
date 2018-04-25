@@ -8,12 +8,6 @@
     %ul.navbar-nav.mr-auto.mt-2.mt-lg-0
       %li.nav-item.dropdown
         = link_to '#', class: 'nav-link dropdown-toggle', data: { toggle: 'dropdown' }, role: 'button', aria: { haspopup: 'true', expanded: 'false' } do
-          = t('admin.nav.accounts')
-        .dropdown-menu
-          = link_to User.model_name.human(count: 100), '#', class: 'dropdown-item'
-
-      %li.nav-item.dropdown
-        = link_to '#', class: 'nav-link dropdown-toggle', data: { toggle: 'dropdown' }, role: 'button', aria: { haspopup: 'true', expanded: 'false' } do
           = t('admin.nav.content')
         .dropdown-menu
           = link_to Documents::Category.model_name.human(count: 100), categories_path, class: 'dropdown-item'
