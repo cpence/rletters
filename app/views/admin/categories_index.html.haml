@@ -15,7 +15,7 @@
     - if Documents::Category.roots.empty?
       %p= t('.no_categories')
     - else
-      .dd
+      .dd#category-dd
         %ol.dd-list
           - Documents::Category.roots.each do |r|
             = render partial: 'category_node', locals: { category: r }

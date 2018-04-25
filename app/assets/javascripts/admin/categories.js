@@ -16,3 +16,17 @@ function checkCategoryForm() {
 }
 
 $(checkCategoryForm);
+
+// ---------------------------------------------------------------------------
+// Activate Nestable2 on our category index page
+function onNestableChange() {
+  // fixme, do the things
+}
+
+function nestableCategoryList() {
+  $('#category-dd').nestable({
+    callback: onNestableChange
+  })
+}
+
+$(nestableCategoryList);

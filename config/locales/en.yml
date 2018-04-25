@@ -660,6 +660,9 @@ en:
             no_categories: No categories have been defined.
             add: Add Category
             add_header: Create new category
+        category_node:
+            delete_confirm: This will delete the category. Are you sure?
+            delete: Delete Category
         categories:
             validation_error: Could not create category
             new:

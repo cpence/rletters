@@ -1,28 +1,58 @@
-
-// Style the Nestable lists the way we'd like them
-.dd-item {
-  background-color: #fafafa;
+.category-content {
+  display: block;
+  height: 30px;
+  margin: 5px 0;
+  padding: 5px 10px 5px 40px;
+  color: #333;
+  text-decoration: none;
+  font-weight: bold;
   border: 1px solid #ccc;
+  background: #fafafa;
+  background: -webkit-linear-gradient(top, #fafafa 0%, #eee 100%);
+  background: -moz-linear-gradient(top, #fafafa 0%, #eee 100%);
+  background: linear-gradient(top, #fafafa 0%, #eee 100%);
+  -webkit-border-radius: 3px;
   border-radius: 3px;
-
-  padding: 5px 10px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
 }
 
-// Override a bunch of Nestable's styles
-.dd {
-  max-width: none !important;
+.dd-dragel > .category-item > .category-content {
+  margin: 0;
 }
-.dd-handle {
-  border: none !important;
-  background: transparent !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  height: auto !important;
+
+.category-item > button {
+  margin-left: 30px;
 }
-.dd-item > button {
-  height: auto !important;
+
+.category-handle {
+  position: absolute;
+  margin: 0;
+  left: 0;
+  top: 0;
+  cursor: pointer;
+  width: 30px;
+  text-indent: 30px;
+  white-space: nowrap;
+  overflow: hidden;
+  border: 1px solid #aaa;
+  background: #ddd;
+  background: -webkit-linear-gradient(top, #ddd 0%, #bbb 100%);
+  background: -moz-linear-gradient(top, #ddd 0%, #bbb 100%);
+  background: linear-gradient(top, #ddd 0%, #bbb 100%);
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
 }
-.dd-list li div {
-  border: none !important;
-  background: transparent !important;
+
+.category-handle .icon {
+  display: block;
+  position: absolute;
+  left: 7px;
+  top: 5px;
+  color: #fff;
+  text-align: center;
+}
+
+.category-handle:hover {
+  background: #ddd;
 }
