@@ -27,9 +27,9 @@ module Admin
       puts params
       category = Documents::Category.create(category_params)
       if category.save
-        redirect_to admin_categories_path
+        redirect_to categories_path
       else
-        redirect_to admin_categories_path, alert: I18n.t('admin.categories.validation_error')
+        redirect_to categories_path, alert: I18n.t('admin.categories.validation_error')
       end
     end
 
@@ -49,7 +49,7 @@ module Admin
     def update
       category = Documents::Category.find(params[:id])
       category.update!(category_params)
-      redirect_to admin_categories_path
+      redirect_to categories_path
     end
 
     # Delete an individual category
@@ -59,7 +59,7 @@ module Admin
       category = Documents::Category.find(params[:id])
       category.destroy()
 
-      redirect_to admin_categories_path
+      redirect_to categories_path
     end
 
     private

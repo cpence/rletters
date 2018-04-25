@@ -80,7 +80,23 @@ class AdminController < ApplicationController
   # order of the categories.
   #
   # @return [void]
-  def categories_edit
+  def categories_order
+    # This will already have been deserialized by Rails, and is thus likely to
+    # be an array (though maybe a Hash if there's only one of them).
+    new_order = params[:order]
+    new_order = [new_order] if new_order.is_a?(Hash)
+
+    # Loop the roots and make them roots, then recursively set their children
+    new_order.each do |h|
+      id = h['id']
+      category = Documents::Category.find(id)
+      category.parent = nil
+      category.save
+
+      set_children_for(category, h)
+    end
+
+    head :no_content
   end
 
   private
@@ -94,6 +110,28 @@ class AdminController < ApplicationController
     if session[:admin_password] != admin_pw_digest
       session.delete(:admin_password)
       redirect_to admin_login_path, alert: I18n.t('admin.login_error')
+    end
+  end
+
+  # Take the given hash and category, and set its children as appropriate
+  #
+  # @return [void]
+  def set_children_for(category, h)
+    if h['children']
+      h['children'].each do |ch|
+        child = Documents::Category.find(ch['id'])
+        child.parent = category
+        child.save
+
+        set_children_for(child, ch)
+      end
+    else
+      # Can't remove children, so nil out the parent of anything that's listed
+      # as a child of this node
+      category.children.each do |c|
+        c.parent = nil
+        c.save
+      end
     end
   end
 end
