@@ -1,3 +1,10 @@
+
+.category-content .float-right a {
+  text-decoration: none;
+}
+
+// The following come from the Nestable2 docs on how to make draggable-handle
+// items, slightly modified
 .category-content {
   display: block;
   height: 30px;

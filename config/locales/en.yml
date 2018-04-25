@@ -3,6 +3,7 @@ en:
         "yes": 'Yes'
         "no": 'No'
         cancel: Cancel
+        ok: OK
         forms:
             error_header: "Please review the problems below:"
         download_csv: Download in CSV format
@@ -661,10 +662,14 @@ en:
             add: Add Category
             add_header: Create new category
         category_node:
+            info: Details
+            edit: Edit Category
             delete_confirm: This will delete the category. Are you sure?
             delete: Delete Category
         categories:
             validation_error: Could not create category
+            show:
+                header: Category details
             new:
                 header: Create a new category
             edit:
