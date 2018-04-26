@@ -250,9 +250,9 @@ jscroll@^2.3.7:
   version "2.4.1"
   resolved "https://registry.yarnpkg.com/jscroll/-/jscroll-2.4.1.tgz#b8ea7bdbe290c577b20d00e54fb5da606f610e31"
 
-nestable-fork@^1.2.0:
-  version "1.3.1"
-  resolved "https://registry.yarnpkg.com/nestable-fork/-/nestable-fork-1.3.1.tgz#714126d785f73ec062ed32a731c162ece8471593"
+nestable2@^1.6.0:
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/nestable2/-/nestable2-1.6.0.tgz#83ffe2483cca1c63771ec0012693b5155bfdd115"
   dependencies:
     jquery ">=1.7.2"
 

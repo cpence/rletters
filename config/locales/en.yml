@@ -3,6 +3,7 @@ en:
         "yes": 'Yes'
         "no": 'No'
         cancel: Cancel
+        ok: OK
         forms:
             error_header: "Please review the problems below:"
         download_csv: Download in CSV format
@@ -622,7 +623,6 @@ en:
     admin:
         login_error: You must provide the administrator password to continue.
         nav:
-            accounts: Accounts
             content: Site Content
             branding: Branding
         index:
@@ -662,6 +662,27 @@ en:
             password: Password
             password_blank: You must enter a password
             submit: Log In
+        categories_index:
+            header: Edit categories
+            subheader: Use this interface to edit the categories that users can use to browse your available journals.
+            no_categories: No categories have been defined.
+            add: Add Category
+            add_header: Create new category
+        category_node:
+            info: Details
+            edit: Edit Category
+            delete_confirm: This will delete the category. Are you sure?
+            delete: Delete Category
+        categories:
+            validation_error: Could not create category
+            show:
+                header: Category details
+            new:
+                header: Create a new category
+            edit:
+                header: Edit category %{category}
+            form:
+                checkboxes_empty: Must select at least one journal for category
     article_dates_job:
         name: Plot Article Counts by Date
         short_desc: Plot number of articles by date

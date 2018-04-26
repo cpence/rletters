@@ -7,8 +7,7 @@
   = link_to t('.download_button'), url_for(task.files.downloadable.first.result), class: 'btn btn-sm btn-success'
 - elsif task.files.downloadable.count > 1
   .btn-group
-    = link_to '#', class: 'btn btn-sm btn-success dropdown-toggle', data: { toggle: 'dropdown' }, role: 'button', aria: { haspopup: 'true', expanded: 'false' } do
-      = t('.download_button')
+    = link_to t('.download_button'), '#', class: 'btn btn-sm btn-success dropdown-toggle', data: { toggle: 'dropdown' }, role: 'button', aria: { haspopup: 'true', expanded: 'false' }
     .dropdown-menu
       - task.files.downloadable.each do |f|
         = link_to "#{f.description} (#{f.short_description})", url_for(f.result), class: 'dropdown-item'

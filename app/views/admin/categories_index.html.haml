@@ -1,0 +1,21 @@
+
+.row.mb-3
+  .col-12
+    %h1= t('.header')
+    %h4.text-muted= t('.subheader')
+
+.row.mb-2
+  .col-12
+    = link_to new_category_path, class: 'btn btn-secondary float-right ajax-modal', data: { toggle: 'modal', target: '#add-category-modal' } do
+      %i.fas.fa-plus
+      = t('.add')
+
+.row
+  .col-12
+    - if Documents::Category.roots.empty?
+      %p= t('.no_categories')
+    - else
+      .dd#category-dd{ data: { target: categories_order_path } }
+        %ol.dd-list
+          - Documents::Category.roots.each do |r|
+            = render partial: 'category_node', locals: { category: r }

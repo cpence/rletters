@@ -13,7 +13,6 @@
 
 *   New admin panel:
     -   Need to be able to edit:
-        +   Categories
         +   Stop lists
         +   CSL styles
         +   Custom pages

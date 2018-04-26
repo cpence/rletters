@@ -62,9 +62,9 @@
           %tbody
             - Datasets::Task.order('created_at desc').limit(10).each do |task|
               %tr
-                %td= admin_value_for(task, :name)
-                %td= admin_value_for(task, :job_type)
-                %td= admin_value_for(task, :dataset)
+                %td= task.name
+                %td= task.job_type
+                %td= task.dataset.name
                 %td
                   - if task.failed
                     = t('.status_failed')

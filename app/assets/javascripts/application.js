@@ -8,7 +8,7 @@
 //= require bootstrap/dist/js/bootstrap
 //
 //= require jscroll/jquery.jscroll
-//= require nestable-fork/dist/jquery.nestable.min
+//= require nestable2/jquery.nestable
 //= require typeahead.js/dist/typeahead.jquery
 //= require d3/build/d3
 //

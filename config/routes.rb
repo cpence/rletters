@@ -68,6 +68,13 @@ Rails.application.routes.draw do
   post 'admin/login' => 'admin#login'
   delete 'admin/logout' => 'admin#logout'
 
+  get 'admin/categories' => 'admin#categories_index'
+  post 'admin/categories/order' => 'admin#categories_order', as: :categories_order
+
+  scope '/admin' do
+    resources :categories, module: 'admin', except: :index
+  end
+
   # unAPI service
   get 'unapi' => 'unapi#index'
 

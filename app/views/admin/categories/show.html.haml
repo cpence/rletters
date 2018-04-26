@@ -1,0 +1,20 @@
+.modal-dialog{ role: 'document' }
+  .modal-content
+    .modal-header
+      %h4.modal-title= t('.header')
+      = close_icon(dismiss: 'modal')
+
+    .modal-body
+      %p
+        %strong= Documents::Category.human_attribute_name(:name)
+        %br
+        = @category.name
+
+      %p
+        %strong= Documents::Category.human_attribute_name(:journals)
+        %ul
+          - @category.journals.each do |j|
+            %li= j
+
+    .modal-footer
+      %button.btn.btn-secondary{ data: { dismiss: 'modal' } }= t('common.ok')
