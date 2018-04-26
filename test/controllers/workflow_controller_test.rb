@@ -197,6 +197,10 @@ class WorkflowControllerTest < ActionDispatch::IntegrationTest
     get workflow_url
 
     assert_equal :'es-MX', I18n.locale
+
+    # Sometimes this doesn't get reset, if we get tests in a strange random
+    # order.
+    I18n.locale = :en
   end
 
   test 'should leave set_timezone at default with no user' do
