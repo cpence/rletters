@@ -41,6 +41,10 @@ Rails.application.routes.draw do
     match 'users/sign_out' => 'devise/sessions#destroy',
           as: :destroy_user_session, via: Devise.mappings[:user].sign_out_via
 
+    # User export manipulation
+    get 'users/export' => 'users#export_create', as: :user_export
+    delete 'users/export' => 'users#export_delete'
+
     # Redirect to the root after a successful user edit
     get 'users' => 'workflow#index'
   end

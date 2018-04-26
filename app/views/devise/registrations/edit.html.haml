@@ -58,3 +58,40 @@
     %h5.text-muted= t('.library_links_subheader')
 
     %div#library-list{ data: { fetch_url: libraries_path } }= render template: 'users/libraries/index', layout: false
+
+.row
+  .col-12
+    %hr
+
+    %h2= t('.export_data_header')
+    %h5.text-muted= t('.export_data_subheader')
+
+    - if current_user.export_archive.attached?
+      .btn-group{ role: 'group' }
+        = link_to rails_blob_path(current_user.export_archive, disposition: 'attachment'), class: 'btn btn-primary' do
+          %i.fas.fa-save
+          = t('.export_download')
+        = link_to user_export_path, method: :delete, class: 'btn btn-danger' do
+          %i.fas.fa-trash
+          = t('.export_delete')
+    - elsif current_user.can_export?
+      = link_to '#', class: 'btn btn-info', data: { toggle: 'modal', target: '#export-request-modal' } do
+        %i.fas.fa-cloud-download-alt
+        = t('.export_request')
+    - else
+      %p= t('.export_unavailable')
+
+- if current_user.can_export?
+  .modal{ id: 'export-request-modal', tabindex: '-1', role: 'dialog', aria: { hidden: 'true' } }
+    .modal-dialog{ role: 'document' }
+      .modal-content
+        .modal-header
+          %h4.modal-title= t('.export_data_header')
+          = close_icon(dismiss: 'modal')
+
+        .modal-body
+          %p= t('.export_request_text')
+
+        .modal-footer
+          %button.btn.btn-secondary{ data: { dismiss: 'modal' } }= t('common.cancel')
+          = link_to t('.export_request_button'), user_export_path, class: 'btn btn-primary'

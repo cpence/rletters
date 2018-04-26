@@ -8,6 +8,9 @@ else
   Rails.application.config.active_storage.service = :local
 end
 
+# Send all ActiveStorage jobs to the maintenance queue
+Rails.application.config.active_storage.queue = :maintenance
+
 Rails.application.config.after_initialize do
   # Defeat the ActiveStorage MIME type detection. It fails miserably in almost
   # all of our cases.

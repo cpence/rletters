@@ -1,12 +1,17 @@
 
 # Export all of the data belonging to a user
 class UserExportJob < ActiveJob::Base
+  queue_as :maintenance
+
   # Export all of a user's data as a ZIP file
   #
   # @param [User] user the user whose data we want to export
   # @return [void]
   def perform(user)
     fail 'Attempted to export a non-user object' unless user.is_a?(User)
+
+    # Kill any already attached file
+    user.export_archive.purge if user.export_archive.attached?
 
     # All of this goes into a ZIP file
     ios = ::Zip::OutputStream.write_buffer(StringIO.new('')) do |zos|

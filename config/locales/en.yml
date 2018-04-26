@@ -378,6 +378,14 @@ en:
                 cancel_confirm: Are you sure? We’d hate to see you go!
                 library_links_header: Library access links
                 library_links_subheader: "You can add links to your local library’s document retrieval system, which you can later use to obtain access to content."
+                export_data_header: Export your data
+                export_data_subheader: "If you would like to export all of your personal data from your account, you can do so here."
+                export_unavailable: "You can only export your data once every twenty-four hours. Come back tomorrow to try again."
+                export_download: Download
+                export_delete: Delete
+                export_request: Build export
+                export_request_text: "When you click the button below, we will start the process of creating your full data export. Visit your account page in a few hours to collect it."
+                export_request_button: Build Export
             new:
                 header: Sign up
                 subheader: "Welcome! Enter some information about yourself and we’ll get you off and running with a new user account."

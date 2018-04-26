@@ -42,6 +42,12 @@
 #   @return [Array<Dataset>] An array of the datasets the user has selected
 #     to perform in the workflow controller
 #
+# @!attribute export_archive
+#   @return [ActiveStorage::Attachment] The user's data, collected as a ZIP
+#     file archive
+# @!attribute export_requested_at
+#   @return [DateTime] The time at which the user last requested a data export
+#
 # @!macro devise_user
 class User < ApplicationRecord
   devise :database_authenticatable, :registerable, :recoverable,
@@ -81,6 +87,14 @@ class User < ApplicationRecord
   # @return [Users::CslStyle] the user's CSL style (or `nil`)
   def csl_style
     Users::CslStyle.find_by(id: csl_style_id)
+  end
+
+  # Returns true if the user is allowed to start another export job
+  #
+  # @return [Boolean] true if the user can export their data now
+  def can_export?
+    return true unless export_requested_at
+    return export_requested_at < 1.day.ago
   end
 
   # Override the Devise e-mail delivery logic to queue mail delivery
