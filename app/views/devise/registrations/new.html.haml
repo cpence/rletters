@@ -36,4 +36,10 @@
             = f.label :timezone
             = f.time_zone_select :timezone, nil, { default: resource.timezone }, class: 'form-control'
 
+      .form-group
+        .form-check
+          = check_box_tag :age_check, '1', false, class: 'form-check-input', required: true
+          = label_tag :age_check, t('.age'), class: 'form-check-label'
+          .invalid-feedback= t('.age_required')
+
       = f.submit t('.submit'), class: 'btn btn-primary'

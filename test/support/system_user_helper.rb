@@ -17,6 +17,7 @@ module SystemUserHelper
       fill_in 'user_password', with: params[:password]
       fill_in 'user_password_confirmation',
               with: params[:password_confirmation]
+      check 'age_check'
     end
 
     click_button 'Sign Up'
