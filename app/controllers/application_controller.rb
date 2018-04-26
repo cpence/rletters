@@ -109,6 +109,18 @@ class ApplicationController < ActionController::Base
 
   protected
 
+  # Ensure that the administrator is authenticated, and redirect to the login
+  # page if not
+  #
+  # @return [void]
+  def authenticate_admin!
+    admin_pw_digest = Digest::SHA256.hexdigest(ENV['ADMIN_PASSWORD'])
+    if session[:admin_password] != admin_pw_digest
+      session.delete(:admin_password)
+      redirect_to admin_login_path, alert: I18n.t('admin.login_error')
+    end
+  end
+
   # Set cache control headers
   #
   # This helper can be called when we want a page to expire.  This is similar

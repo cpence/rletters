@@ -1,6 +1,39 @@
 
 module Admin
   class CategoriesController < ApplicationController
+    before_action :authenticate_admin!
+
+    # Show the full list of categories
+    #
+    # @return [void]
+    def index
+    end
+
+    # Update the order of the categories
+    #
+    # This is called by the Nestable JS code whenever the user drags around the
+    # order of the categories.
+    #
+    # @return [void]
+    def order
+      # This will already have been deserialized by Rails, and is thus likely to
+      # be an array (though maybe a Hash if there's only one of them).
+      new_order = params[:order]
+      new_order = [new_order] if new_order.is_a?(Hash)
+
+      # Loop the roots and make them roots, then recursively set their children
+      new_order.each do |h|
+        id = h['id']
+        category = Documents::Category.find(id)
+        category.parent = nil
+        category.save
+
+        set_children_for(category, h)
+      end
+
+      head :no_content
+    end
+
     # Show the details of an individual category
     #
     # @return [void]
@@ -24,7 +57,6 @@ module Admin
     #
     # @return [void]
     def create
-      puts params
       category = Documents::Category.create(category_params)
       if category.save
         redirect_to categories_path
@@ -70,6 +102,28 @@ module Admin
     #   mass-assignment
     def category_params
       params.require(:documents_category).permit(:name, journals: [])
+    end
+
+    # Take the given hash and category, and set its children as appropriate
+    #
+    # @return [void]
+    def set_children_for(category, h)
+      if h['children']
+        h['children'].each do |ch|
+          child = Documents::Category.find(ch['id'])
+          child.parent = category
+          child.save
+
+          set_children_for(child, ch)
+        end
+      else
+        # Can't remove children, so nil out the parent of anything that's listed
+        # as a child of this node
+        category.children.each do |c|
+          c.parent = nil
+          c.save
+        end
+      end
     end
 
     # Return a list of all journals that can be added to a category

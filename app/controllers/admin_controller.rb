@@ -29,7 +29,7 @@ ENVIRONMENT_VARIABLES_TO_PRINT = {
 # the site administrator to configure and modify a variety of settings and
 # data.
 class AdminController < ApplicationController
-  before_action :require_login, except: :login
+  before_action :authenticate_admin!, except: :login
   layout 'admin'
 
   # Show the administration dashboard
@@ -66,72 +66,5 @@ class AdminController < ApplicationController
   def logout
     session.delete(:admin_password)
     redirect_to admin_login_path
-  end
-
-  # Show an editable list of all categories
-  #
-  # @return [void]
-  def categories_index
-  end
-
-  # Update the order of the categories
-  #
-  # This is called by the Nestable JS code whenever the user drags around the
-  # order of the categories.
-  #
-  # @return [void]
-  def categories_order
-    # This will already have been deserialized by Rails, and is thus likely to
-    # be an array (though maybe a Hash if there's only one of them).
-    new_order = params[:order]
-    new_order = [new_order] if new_order.is_a?(Hash)
-
-    # Loop the roots and make them roots, then recursively set their children
-    new_order.each do |h|
-      id = h['id']
-      category = Documents::Category.find(id)
-      category.parent = nil
-      category.save
-
-      set_children_for(category, h)
-    end
-
-    head :no_content
-  end
-
-  private
-
-  # Ensure that the administrator is authenticated, and redirect to the login
-  # page if not
-  #
-  # @return [void]
-  def require_login
-    admin_pw_digest = Digest::SHA256.hexdigest(ENV['ADMIN_PASSWORD'])
-    if session[:admin_password] != admin_pw_digest
-      session.delete(:admin_password)
-      redirect_to admin_login_path, alert: I18n.t('admin.login_error')
-    end
-  end
-
-  # Take the given hash and category, and set its children as appropriate
-  #
-  # @return [void]
-  def set_children_for(category, h)
-    if h['children']
-      h['children'].each do |ch|
-        child = Documents::Category.find(ch['id'])
-        child.parent = category
-        child.save
-
-        set_children_for(child, ch)
-      end
-    else
-      # Can't remove children, so nil out the parent of anything that's listed
-      # as a child of this node
-      category.children.each do |c|
-        c.parent = nil
-        c.save
-      end
-    end
   end
 end

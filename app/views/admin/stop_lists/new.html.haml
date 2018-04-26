@@ -1,0 +1,7 @@
+.modal-dialog{ role: 'document' }
+  .modal-content
+    .modal-header
+      %h4.modal-title= t('.header')
+      = close_icon(dismiss: 'modal')
+
+    = render partial: 'form', locals: { url: stop_lists_path, method: :post }

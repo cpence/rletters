@@ -52,9 +52,7 @@ Rails.application.routes.draw do
   scope '/users' do
     # Libraries, nested under users
     resources :libraries, module: 'users', except: :show do
-      collection do
-        get 'query'
-      end
+      collection { get 'query' }
     end
   end
 
@@ -68,11 +66,11 @@ Rails.application.routes.draw do
   post 'admin/login' => 'admin#login'
   delete 'admin/logout' => 'admin#logout'
 
-  get 'admin/categories' => 'admin#categories_index'
-  post 'admin/categories/order' => 'admin#categories_order', as: :categories_order
-
   scope '/admin' do
-    resources :categories, module: 'admin', except: :index
+    resources :categories, module: 'admin' do
+      collection { post 'order' }
+    end
+    resources :stop_lists, module: 'admin', except: [:show]
   end
 
   # unAPI service

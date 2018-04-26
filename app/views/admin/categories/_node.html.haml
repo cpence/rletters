@@ -15,4 +15,4 @@
   - if category.has_children?
     %ol.dd-list
       - category.children.each do |c|
-        = render partial: 'category_node', locals: { category: c }
+        = render partial: 'node', locals: { category: c }

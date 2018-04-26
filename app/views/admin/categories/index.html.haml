@@ -6,7 +6,7 @@
 
 .row.mb-2
   .col-12
-    = link_to new_category_path, class: 'btn btn-secondary float-right ajax-modal', data: { toggle: 'modal', target: '#add-category-modal' } do
+    = link_to new_category_path, class: 'btn btn-secondary float-right ajax-modal' do
       %i.fas.fa-plus
       = t('.add')
 
@@ -15,7 +15,7 @@
     - if Documents::Category.roots.empty?
       %p= t('.no_categories')
     - else
-      .dd#category-dd{ data: { target: categories_order_path } }
+      .dd#category-dd{ data: { target: order_categories_path } }
         %ol.dd-list
           - Documents::Category.roots.each do |r|
-            = render partial: 'category_node', locals: { category: r }
+            = render partial: 'node', locals: { category: r }

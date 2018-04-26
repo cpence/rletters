@@ -664,19 +664,18 @@ en:
             password: Password
             password_blank: You must enter a password
             submit: Log In
-        categories_index:
-            header: Edit categories
-            subheader: Use this interface to edit the categories that users can use to browse your available journals.
-            no_categories: No categories have been defined.
-            add: Add Category
-            add_header: Create new category
-        category_node:
-            info: Details
-            edit: Edit Category
-            delete_confirm: This will delete the category. Are you sure?
-            delete: Delete Category
         categories:
             validation_error: Could not create category
+            index:
+                header: Edit categories
+                subheader: Here you can define categories that users can use to browse your journals.
+                no_categories: No categories have been defined.
+                add: Add Category
+            node:
+                info: Details
+                edit: Edit Category
+                delete_confirm: This will delete the category. Are you sure?
+                delete: Delete Category
             show:
                 header: Category details
             new:
@@ -685,6 +684,19 @@ en:
                 header: Edit category %{category}
             form:
                 checkboxes_empty: Must select at least one journal for category
+        stop_lists:
+            validation_error: Could not create stop list
+            index:
+                header: Edit stop lists
+                subheader: You can set stop lists that users can use to analyze texts in various languages.
+                add: Add Stop List
+                edit: Edit Stop List
+                delete_confirm: This will delete the stop list. Are you sure?
+                delete: Delete Stop List
+            new:
+                header: Create a new stop list
+            edit:
+                header: Edit stop list
     article_dates_job:
         name: Plot Article Counts by Date
         short_desc: Plot number of articles by date
