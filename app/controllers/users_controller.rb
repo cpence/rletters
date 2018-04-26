@@ -10,6 +10,10 @@ class UsersController < ApplicationController
   #
   # @return [void]
   def export_create
+    unless current_user.can_export?
+      fail ArgumentError, 'user has exported too recently'
+    end
+
     UserExportJob.perform_later(current_user)
 
     current_user.export_requested_at = DateTime.now

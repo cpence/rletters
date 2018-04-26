@@ -43,7 +43,7 @@ Rails.application.routes.draw do
 
     # User export manipulation
     get 'users/export' => 'users#export_create', as: :user_export
-    delete 'users/export' => 'users#export_delete'
+    delete 'users/export' => 'users#export_delete', as: ''
 
     # Redirect to the root after a successful user edit
     get 'users' => 'workflow#index'
