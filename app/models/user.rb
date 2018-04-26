@@ -58,8 +58,8 @@ class User < ApplicationRecord
                        format: { with: /\A[a-z]{2,3}(-[A-Z]{2})?\Z/ }
   validates :timezone, presence: true
 
-  has_many :datasets
-  has_many :libraries, class_name: 'Users::Library'
+  has_many :datasets, dependent: :destroy
+  has_many :libraries, class_name: 'Users::Library', dependent: :destroy
 
   has_one_attached :export_archive
 
