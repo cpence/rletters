@@ -16,8 +16,6 @@ module RLetters
     #   @return [String] any "Jr."-type strings to appear after the last name
     # @!attribute [rw] full
     #   @return [String] the full name, as passed to the constructor
-    # @!attribute [r] citeproc
-    #    @return [Hash] the author, as a Citeproc-compatible hash
     class Author
       include Virtus.model(strict: true, required: false, nullify_blank: true)
 
@@ -28,8 +26,7 @@ module RLetters
                 default: lambda do |author, _|
                   BibTeX::Names.parse(author.full)[0] ||
                     Struct.new(first: nil, last: nil,
-                               prefix: nil, suffix: nil,
-                               to_citeproc: {})
+                               prefix: nil, suffix: nil)
                 end)
 
       attribute :first, String,
@@ -44,9 +41,6 @@ module RLetters
       attribute :suffix, String,
                 lazy: true, writer: :private,
                 default: ->(author, _) { author.bibtex.suffix }
-      attribute :citeproc, Hash,
-                lazy: true, writer: :private,
-                default: ->(author, _) { author.bibtex.to_citeproc }
 
       # @return [String] the full name, as passed to the constructor
       def to_s

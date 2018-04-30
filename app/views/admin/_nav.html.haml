@@ -11,9 +11,7 @@
           = t('admin.nav.content')
         .dropdown-menu
           = link_to Documents::Category.model_name.human(count: 100), categories_path, class: 'dropdown-item'
-          .dropdown-divider
           = link_to Documents::StopList.model_name.human(count: 100), stop_lists_path, class: 'dropdown-item'
-          = link_to Users::CslStyle.model_name.human(count: 100), '#', class: 'dropdown-item'
 
       %li.nav-item.dropdown
         = link_to '#', class: 'nav-link dropdown-toggle', data: { toggle: 'dropdown' }, role: 'button', aria: { haspopup: 'true', expanded: 'false' } do

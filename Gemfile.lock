@@ -98,11 +98,6 @@ GEM
     chromedriver-helper (1.2.0)
       archive-zip (~> 0.10)
       nokogiri (~> 1.8)
-    citeproc (1.0.9)
-      namae (~> 1.0)
-    citeproc-ruby (1.1.10)
-      citeproc (~> 1.0, >= 1.0.9)
-      csl (~> 1.5)
     cldr-plurals-runtime-rb (1.0.1)
     codeclimate-test-reporter (1.0.8)
       simplecov (<= 0.13)
@@ -112,10 +107,6 @@ GEM
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
     crass (1.0.4)
-    csl (1.5.0)
-      namae (~> 1.0)
-    csl-styles (1.0.1.8)
-      csl (~> 1.0)
     css_parser (1.6.0)
       addressable
     daemons (1.2.6)
@@ -222,7 +213,6 @@ GEM
       mail (~> 2.5)
       rack
     multipart-post (2.0.0)
-    namae (1.0.1)
     nio4r (2.3.0)
     nokogiri (1.8.2)
       mini_portile2 (~> 2.3.0)
@@ -395,9 +385,7 @@ DEPENDENCIES
   capybara-selenium
   cheetah
   chromedriver-helper
-  citeproc-ruby (~> 1.0)
   codeclimate-test-reporter
-  csl-styles
   daemons
   delayed_job_active_record
   devise (~> 4, >= 4.4.0)

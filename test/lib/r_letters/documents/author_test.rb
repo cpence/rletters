@@ -122,11 +122,4 @@ class RLetters::Documents::AuthorTest < ActiveSupport::TestCase
 
     assert_equal expected.sort, actual.sort
   end
-
-  test 'citeproc creates good values' do
-    citeproc = RLetters::Documents::Author.new(full: 'First M M Last').citeproc
-
-    assert_equal 'Last', citeproc['family']
-    assert_equal 'First M M', citeproc['given']
-  end
 end

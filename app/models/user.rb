@@ -18,9 +18,6 @@
 # @!attribute timezone
 #   @raise [RecordInvalid] if the timezone is missing (`validates :presence`)
 #   @return [String] User's timezone, in Rails' format
-# @!attribute csl_style_id
-#   @return [Integer] User's preferred citation style (id of a
-#     Users::CslStyle in database)
 #
 # @!attribute datasets
 #   @raise [RecordInvalid] if any of the datasets are invalid
@@ -82,13 +79,6 @@ class User < ApplicationRecord
     Dataset.find(workflow_datasets[n])
   end
 
-  # Get the user's CSL style, converting from `csl_style_id`
-  #
-  # @return [Users::CslStyle] the user's CSL style (or `nil`)
-  def csl_style
-    Users::CslStyle.find_by(id: csl_style_id)
-  end
-
   # Returns true if the user is allowed to start another export job
   #
   # @return [Boolean] true if the user can export their data now
@@ -134,7 +124,7 @@ class User < ApplicationRecord
                     :language, :timezone])
       permit(:account_update,
              keys: [:name, :email, :password, :password_confirmation,
-                    :current_password, :language, :timezone, :csl_style_id])
+                    :current_password, :language, :timezone])
     end
   end
   # :nocov:

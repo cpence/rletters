@@ -7,5 +7,4 @@
 
 *   New admin panel:
     -   Need to be able to edit:
-        +   CSL styles
         +   Custom pages

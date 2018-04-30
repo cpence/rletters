@@ -10,7 +10,7 @@
           .dropdown-menu.dropdown-menu-right{ aria: { labelledby: "drop-#{d.uid.html_id}" } }
             = render partial: 'dropdown', locals: { document: d }
 
-        = document_citation(d)
+        = render partial: 'document', locals: { document: d }
 
         -# The modal dialog box for adding this document to an existing dataset
         -# needs to be outside the dropdown menu

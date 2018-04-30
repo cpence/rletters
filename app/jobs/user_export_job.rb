@@ -37,11 +37,6 @@ class UserExportJob < ActiveJob::Base
         workflow_datasets: user.workflow_datasets.to_s
       }
 
-      # This is a reference to another class, go get the name
-      if user.csl_style
-        user_data[:csl_style] = user.csl_style.name
-      end
-
       # Serialize it to the ZIP
       zos.put_next_entry('user.json')
       zos.print user_data.to_json

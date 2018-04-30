@@ -62,23 +62,4 @@ class UserTest < ActiveSupport::TestCase
 
     assert_equal dataset, user.workflow_dataset(0)
   end
-
-  test 'should get no csl_style if not set' do
-    user = create(:user)
-
-    assert_nil user.csl_style
-  end
-
-  test 'should get no csl_style if invalid' do
-    user = create(:user, csl_style_id: '999999')
-
-    assert_nil user.csl_style
-  end
-
-  test 'should get csl style' do
-    csl_style = create(:csl_style)
-    user = create(:user, csl_style_id: csl_style.to_param)
-
-    assert_equal csl_style, user.csl_style
-  end
 end

@@ -62,9 +62,6 @@ es:
       user:
         one: Usuario
         other: Usuarios
-      users/csl_style:
-        one: Estilo CSL
-        other: Estilos CSL
       users/library:
         one: Biblioteca
         other: Bibliotecas
@@ -106,10 +103,6 @@ es:
         per_page: Número de resultados por página
         language: Idioma preferido
         timezone: Zona horaria
-        csl_style_id: Estilo de cita
-      users/csl_style:
-        name: Nombre
-        style: Estilo (XML)
       users/library:
         name: Nombre
         url: URL base
@@ -154,11 +147,6 @@ es:
             invalid: El idioma preferido debe ser un código de idioma válido (error interno)
           timezone:
             blank: Debe seleccionarse una zona horaria (error interno)
-        users/csl_style:
-          name:
-            blank: No se especificó el nombre (error interno)
-          style:
-            blank: No se especificó un estilo (error interno)
         users/library:
           name:
             blank: Debe poner nombre a esta entrada de la biblioteca

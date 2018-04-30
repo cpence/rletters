@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_04_22_154908) do
+ActiveRecord::Schema.define(version: 2018_04_30_221635) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -146,7 +146,6 @@ ActiveRecord::Schema.define(version: 2018_04_22_154908) do
     t.datetime "last_sign_in_at"
     t.string "current_sign_in_ip", limit: 255
     t.string "last_sign_in_ip", limit: 255
-    t.integer "csl_style_id"
     t.boolean "workflow_active", default: false
     t.string "workflow_class", limit: 255
     t.text "workflow_datasets", default: [], array: true
@@ -157,13 +156,6 @@ ActiveRecord::Schema.define(version: 2018_04_22_154908) do
     t.datetime "export_requested_at"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
-  end
-
-  create_table "users_csl_styles", id: :serial, force: :cascade do |t|
-    t.string "name", limit: 255
-    t.text "style"
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   create_table "users_libraries", id: :serial, force: :cascade do |t|

@@ -85,9 +85,6 @@ en:
             user:
                 one: User
                 other: Users
-            users/csl_style:
-                one: CSL Style
-                other: CSL Styles
             users/library:
                 one: Library
                 other: Libraries
@@ -136,10 +133,6 @@ en:
                 remember_me: Remember me?
                 language: Preferred language
                 timezone: Time zone
-                csl_style_id: Citation style
-            users/csl_style:
-                name: Name
-                style: Style (XML)
             users/library:
                 name: Name
                 url: Base URL
@@ -191,11 +184,6 @@ en:
                         invalid: Preferred language must be a valid locale code (internal error)
                     timezone:
                         blank: Timezone must be specified (internal error)
-                users/csl_style:
-                    name:
-                        blank: Name was not specified (internal error)
-                    style:
-                        blank: Style was not specified (internal error)
                 users/library:
                     name:
                         blank: You must specify a name for this library record

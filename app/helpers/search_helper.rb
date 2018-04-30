@@ -1,33 +1,5 @@
 
 module SearchHelper
-  # Get the short, formatted representation of a document
-  #
-  # This function returns the short bibliographic entry for a document that
-  # will appear in the search results list.  The formatting here depends on
-  # the current user's settings.  By default, we use a partial that does some
-  # nice standard formatting.  The user can set, however, to format the
-  # bibliographic entries using their favorite CSL style.
-  #
-  # @param [Document] doc the document to render
-  # @return [String] bibliographic entry for document
-  def document_citation(doc)
-    if user_signed_in? && current_user.csl_style
-      if doc.fulltext_url
-        cloud_icon = content_tag(:span, '',
-                                 data: { tooltip: true },
-                                 title: I18n.t('search.document.cloud_tooltip'),
-                                 class: 'icon fi-upload-cloud has-tip')
-      else
-        cloud_icon = ''
-      end
-
-      csl = RLetters::Documents::AsCSL.new(doc).entry(current_user.csl_style)
-      return (csl + cloud_icon).html_safe
-    end
-
-    render partial: 'document', locals: { document: doc }
-  end
-
   # Get the list of facet links for one particular field
   #
   # This function takes the facets from the `Document` class, checks them

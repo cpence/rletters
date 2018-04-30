@@ -1,47 +1,6 @@
 require 'test_helper'
 
 class SearchHelperTest < ActionView::TestCase
-  test 'document_citation renders default when not logged in' do
-    doc = Document.find(generate(:working_uid))
-    self.stubs(:current_user).returns(nil)
-    self.stubs(:user_signed_in?).returns(false)
-    self.expects(:render)
-      .with(partial: 'document', locals: { document: doc })
-    document_citation(doc)
-  end
-
-  test 'document_citation renders default when no CSL style set' do
-    doc = Document.find(generate(:working_uid))
-    self.stubs(:current_user).returns(create(:user))
-    self.stubs(:user_signed_in?).returns(true)
-    self.expects(:render)
-      .with(partial: 'document', locals: { document: doc })
-    document_citation(doc)
-  end
-
-  test 'document_citation renders CSL style for local document' do
-    doc = Document.find(generate(:working_uid))
-    csl_style = create(:csl_style)
-    self.stubs(:current_user).returns(create(:user, csl_style_id: csl_style.id))
-    self.stubs(:user_signed_in?).returns(true)
-    RLetters::Documents::AsCSL.any_instance
-      .expects(:entry).with(csl_style).returns('')
-
-    document_citation(doc)
-  end
-
-  test 'document_citation renders cloud icon for remote document' do
-    doc = Document.find('gutenberg:3172')
-    csl_style = create(:csl_style)
-    self.stubs(:current_user).returns(create(:user, csl_style_id: csl_style.id))
-    self.stubs(:user_signed_in?).returns(true)
-    RLetters::Documents::AsCSL.any_instance
-      .expects(:entry).with(csl_style).returns('')
-
-    ret = document_citation(doc)
-    assert_includes ret, 'fi-upload-cloud'
-  end
-
   test 'facet_addition_links should have link for adding author facet' do
     h = ActionController::Parameters.new(controller: 'search', action: 'index')
     controller.stubs(:params).returns(h)

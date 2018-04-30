@@ -1,5 +1,4 @@
 
-CSL_DATA ||= File.read(Rails.root.join('test', 'factories', 'nature.csl'))
 POS_YAML ||= File.read(Rails.root.join('test', 'factories', 'parts_of_speech.yml'))
 
 FactoryBot.define do
@@ -18,11 +17,6 @@ FactoryBot.define do
   factory :category, class: Documents::Category do
     name 'Test Category'
     journals ['PLoS Neglected Tropical Diseases']
-  end
-
-  factory :csl_style, class: Users::CslStyle do
-    name 'Nature'
-    style CSL_DATA
   end
 
   factory :library, class: Users::Library do
