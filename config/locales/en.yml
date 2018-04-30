@@ -664,6 +664,12 @@ en:
             password: Password
             password_blank: You must enter a password
             submit: Log In
+        assets:
+            header: Customize images
+            subheader: You can customize the branding images that are displayed here.
+            not_attached: No image uploaded!
+            upload: Upload
+            upload_button: Upload New Image
         categories:
             validation_error: Could not create category
             index:

@@ -7,7 +7,5 @@
 
 *   New admin panel:
     -   Need to be able to edit:
-        +   Stop lists
         +   CSL styles
         +   Custom pages
-        +   Custom images

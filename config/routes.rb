@@ -65,6 +65,8 @@ Rails.application.routes.draw do
   get 'admin/login' => 'admin#login'
   post 'admin/login' => 'admin#login'
   delete 'admin/logout' => 'admin#logout'
+  get 'admin/assets' => 'admin#assets'
+  post 'admin/asset/:id' => 'admin#asset_upload', as: :admin_asset_upload
 
   scope '/admin' do
     resources :categories, module: 'admin' do

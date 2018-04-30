@@ -1,0 +1,26 @@
+.row.mb-3
+  .col-12
+    %h1= t('.header')
+    %h4.text-muted= t('.subheader')
+
+.row
+  .col-12
+    %table.table
+      %thead
+        %th= Admin::UploadedAsset.human_attribute_name(:name)
+        %th= Admin::UploadedAsset.human_attribute_name(:file)
+        %th.text-center= t('.upload')
+      %tbody
+        - Admin::UploadedAsset.all.order(:name).each do |a|
+          %tr
+            %td= a.friendly_name
+            %td
+              - if a.file.attached?
+                %img{ src: url_for(a.file) }
+              - else
+                = t('.not_attached')
+            %td.text-center
+              = form_tag(admin_asset_upload_path(a), method: :post, multipart: true) do
+                = label_tag :file, for: "file-#{a.to_param}", title: t('.upload_button') do
+                  %i.fas.fa-upload.text-primary
+                = file_field_tag :file, id: "file-#{a.to_param}", accept: 'image/*', class: 'd-none asset-upload-field'
