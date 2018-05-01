@@ -2,6 +2,8 @@ require 'test_helper'
 require 'rake'
 
 class FailingRakeTestJob < ApplicationJob
+  queue_as :analysis
+
   def perform(task, options = {})
     standard_options(task, options)
     fail Exception, 'oh no'
@@ -9,6 +11,8 @@ class FailingRakeTestJob < ApplicationJob
 end
 
 class LongRakeTestJob < ApplicationJob
+  queue_as :analysis
+
   def perform(task, options = {})
     standard_options(task, options)
     sleep 1000
@@ -49,7 +53,7 @@ class WorkerRakeTest < ActiveSupport::TestCase
 
     # Call the Rake runner, which should itself fail
     assert_raises(Exception) do
-      @rake['rletters:jobs:analysis_one'].invoke
+      @rake['rletters:jobs:analysis_work'].invoke
     end
 
     # It should have set the task's failed bit and destroyed the job
@@ -64,7 +68,7 @@ class WorkerRakeTest < ActiveSupport::TestCase
 
     # Call the Rake runner, which should itself fail
     assert_raises(Exception) do
-      @rake['rletters:jobs:analysis_one'].invoke
+      @rake['rletters:jobs:analysis_work'].invoke
     end
 
     # It should have set the task's failed bit and destroyed the job
