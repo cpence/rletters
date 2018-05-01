@@ -71,6 +71,7 @@ Rails.application.routes.draw do
       collection { post 'order' }
     end
     resources :stop_lists, module: 'admin', except: [:show]
+    resources :snippets, module: 'admin', except: [:show]
 
     get 'assets' => 'admin/assets#index', as: :assets
     post 'asset/:id' => 'admin/assets#upload', as: :upload_asset

@@ -3,6 +3,7 @@ module Admin
   # View and edit custom assets
   class AssetsController < ApplicationController
     before_action :authenticate_admin!
+    layout 'admin'
 
     # Show a list of uploaded assets
     #

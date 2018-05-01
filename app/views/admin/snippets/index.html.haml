@@ -1,0 +1,34 @@
+.row.mb-3
+  .col-12
+    %h1= t('.header')
+    %h4.text-muted= t('.subheader')
+
+    .mt-3
+      = t_md('.help_markdown')
+
+.row.mb-2
+  .col-12
+    = link_to new_snippet_path, class: 'btn btn-secondary float-right ajax-modal' do
+      %i.fas.fa-plus
+      = t('.add')
+
+.row
+  .col-12
+    %table.table
+      %thead
+        %td= Admin::Snippet.human_attribute_name(:name)
+        %td= Admin::Snippet.human_attribute_name(:language)
+        %td= Admin::Snippet.human_attribute_name(:content)
+        %td
+      %tbody
+        - Admin::Snippet.all.order(:name, :language).each do |s|
+          %tr
+            %td= s.name
+            %td= s.language
+            %td= s.render
+            %td
+              = link_to edit_snippet_path(s), title: t('.edit'), class: 'ajax-modal' do
+                %i.fas.fa-edit.text-secondary
+              - if s.language != 'en'
+                = link_to snippet_path(s), method: :delete, data: { confirm: t('.delete_confirm') }, title: t('.delete') do
+                  %i.fas.fa-minus-circle.text-danger

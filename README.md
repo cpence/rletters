@@ -20,10 +20,12 @@
 **Git:** [http://github.com/rletters/rletters](http://github.com/rletters/rletters)  
 **Author:** Charles Pence  
 **Contributors:** See Contributors section below  
-**Copyright:** &copy; 2014–2018 Louisiana State University  
+**Copyright:** &copy; 2014–2018 Charles Pence and the RLetters Team  
 **License:** MIT License  
-**Latest Version:** v2.0.1  
+**Latest Released Version:** v2.0.1  
 **Release Date:** January 12, 2015  
+
+(*Note:* This README file describes the unreleased Git version, not the last release, which is in many cases substantially different.)
 
 RLetters is an application designed to let users perform complex searches as well as digital-humanities and text-mining analysis tasks on a corpus of journal articles.
 

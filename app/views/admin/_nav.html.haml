@@ -17,7 +17,7 @@
         = link_to '#', class: 'nav-link dropdown-toggle', data: { toggle: 'dropdown' }, role: 'button', aria: { haspopup: 'true', expanded: 'false' } do
           = t('admin.nav.branding')
         .dropdown-menu
-          = link_to Admin::Snippet.model_name.human(count: 100), '#', class: 'dropdown-item'
+          = link_to Admin::Snippet.model_name.human(count: 100), snippets_path, class: 'dropdown-item'
           = link_to Admin::Asset.model_name.human(count: 100), assets_path, class: 'dropdown-item'
 
     %ul.navbar-nav.mt-2.mt-lg-0

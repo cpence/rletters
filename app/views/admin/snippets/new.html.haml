@@ -4,4 +4,4 @@
       %h4.modal-title= t('.header')
       = close_icon(dismiss: 'modal')
 
-    = render partial: 'form', locals: { url: stop_list_path(@stop_list), method: :patch }
+    = render partial: 'form', locals: { url: snippets_path, method: :post }

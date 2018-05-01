@@ -48,11 +48,6 @@ en:
                 pages: Pages
                 fulltext: Full text
                 term_vectors: Term vectors
-        errors:
-            models:
-                document:
-                    uid:
-                        blank: "Unique ID was not specified (internal error)"
     activerecord:
         models:
             admin/asset:
@@ -93,8 +88,8 @@ en:
             admin/snippet:
                 friendly_name: Name
                 name: Name
+                language: Language
                 content: Content
-                render: Preview
             admin/worker_stats:
                 worker_type: Worker type
                 host: Hostname
@@ -129,55 +124,9 @@ en:
                 url: Base URL
         errors:
             models:
-                admin/snippet:
-                    name:
-                        blank: Name was not specified (internal error)
-                admin/asset:
-                    name:
-                        blank: Name was not specified (internal error)
-                dataset:
-                    name:
-                        blank: You must specify a name for this dataset
-                    user_id:
-                        blank: Dataset must have a user ID specified (internal error)
-                datasets/query:
-                    def_type:
-                        blank: Search type was not specified (internal error)
-                datasets/task:
-                    name:
-                        blank: You must specify a name for this task (internal error)
-                    dataset:
-                        blank: Task not connected to dataset (internal error)
-                documents/category:
-                    name:
-                        blank: You must specify a name for this category
-                documents/stop_list:
-                    language:
-                        blank: Language was not specified (internal error)
-                    list:
-                        blank: Stop list was not specified (internal error)
-                user:
-                    name:
-                        blank: You must specify a name
-                    email:
-                        blank: You must enter an email address
-                    password:
-                        blank: You must enter a password
-                    password_confirmation:
-                        blank: You must re-type your password
-                    language:
-                        blank: Preferred language must be specified (internal error)
-                        invalid: Preferred language must be a valid locale code (internal error)
-                    timezone:
-                        blank: Timezone must be specified (internal error)
                 users/library:
-                    name:
-                        blank: You must specify a name for this library record
                     url:
-                        blank: You must specify a URL for this library record
                         invalid: Library base URL must be a URL
-                    user_id:
-                        blank: Library must be associated with user (internal error)
     breadcrumbs:
         root: Home
         datasets_index: Manage Datasets
@@ -198,12 +147,12 @@ en:
     layouts:
         footer:
             copyright: >
-                Copyright © 2011–2018 %{app_name}, and Louisiana State
-                University.  Article content remains copyrighted as specified
-                on individual article entries.  All rights reserved.
+                Copyright © 2011–2018 %{app_name}, Charles Pence, and the
+                RLetters team. Article content remains copyrighted as specified
+                on individual article entries. All rights reserved.
             rletters_markdown: >
                 Built with RLetters—the Open Source article textual analysis
-                platform.  For more information, see
+                platform. For more information, see
                 [rletters.net.](http://rletters.net/)
         nav:
             menu: Menu
@@ -639,13 +588,14 @@ en:
             password_blank: You must enter a password
             submit: Log In
         assets:
-            header: Customize images
-            subheader: You can customize the branding images that are displayed here.
-            not_attached: No image uploaded!
-            upload: Upload
-            upload_button: Upload New Image
+            index:
+                header: Customize images
+                subheader: You can customize the branding images that are displayed here.
+                not_attached: No image uploaded!
+                upload: Upload
+                upload_button: Upload New Image
         categories:
-            validation_error: Could not create category
+            validation_error: Could not create category!
             index:
                 header: Edit categories
                 subheader: Here you can define categories that users can use to browse your journals.
@@ -665,7 +615,7 @@ en:
             form:
                 checkboxes_empty: Must select at least one journal for category
         stop_lists:
-            validation_error: Could not create stop list
+            validation_error: Could not create stop list!
             index:
                 header: Edit stop lists
                 subheader: You can set stop lists that users can use to analyze texts in various languages.
@@ -677,6 +627,24 @@ en:
                 header: Create a new stop list
             edit:
                 header: Edit stop list
+        snippets:
+            validation_error: Could not create snippet! Perhaps a snippet with the same name and language already exists?
+            index:
+                header: Edit content snippets
+                subheader: Here you can edit and localize a variety of small, customizable snippets of content for your site.
+                help_markdown: >
+                    You may format these snippets using the Markdown formatting
+                    language, to help you style the rendering of the snippets.
+                    For more information about Markdown syntax, visit the
+                    [Kramdown guide.](http://kramdown.rubyforge.org/syntax.html)
+                add: Add Snippet
+                edit: Edit Snippet
+                delete_confirm: This will delete the snippet. Are you sure?
+                delete: Delete Snippet
+            new:
+                header: Create a new snippet
+            edit:
+                header: Edit snippet
     article_dates_job:
         name: Plot Article Counts by Date
         short_desc: Plot number of articles by date

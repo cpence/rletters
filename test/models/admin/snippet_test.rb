@@ -19,6 +19,20 @@ class Admin::SnippetTest < ActiveSupport::TestCase
     assert snippet.valid?
   end
 
+  test 'should be invalid if duplicating name and language' do
+    source = create(:snippet)
+
+    snippet = build_stubbed(:snippet, name: source.name, language: source.language)
+    refute snippet.valid?
+  end
+
+  test 'should be valid if duplicating language with different name' do
+    source = create(:snippet)
+
+    snippet = build_stubbed(:snippet, name: 'different_name_time', language: source.language)
+    assert snippet.valid?
+  end
+
   test 'should return translated friendly_name' do
     # There's no way to *delete* a translation from the I18n backend, so
     # we have to do this in one test to make sure they're in order

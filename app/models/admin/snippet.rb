@@ -17,13 +17,16 @@ module Admin
   #   @return [String] Name of this snippet (an internal ID)
   # @!attribute language
   #   @raise [RecordInvalid] if the language is missing (`validates :presence`)
+  #     or a snippet with the same name and language already exists
+  #     (`validates :uniqueness`)
   #   @return [String] Language of this snippet (in Rails locale code form)
   # @!attribute content
   #   @return [String] Markdown content for this snippet
   class Snippet < ApplicationRecord
     self.table_name = 'admin_snippets'
     validates :name, presence: true
-    validates :language, presence: true
+    validates :language, presence: true,
+                         uniqueness: { scope: :name }
 
     # @return [String] Friendly name of this snippet (looked up in locale)
     def friendly_name
