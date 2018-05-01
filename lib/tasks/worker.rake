@@ -52,7 +52,7 @@ namespace :rletters do
     end
 
     desc 'Run exactly one job from the analysis job queue'
-    task :analysis_one => :environment do
+    task :analysis_work => :environment do
       # Record our presence in the DB
       stat = Admin::WorkerStats.create(
         worker_type: 'analysis worker',
@@ -94,7 +94,47 @@ namespace :rletters do
         # worker iteration should never take longer than 24h, according to our
         # configuration above.
         loop do
-          system('bundle exec rake rletters:jobs:analysis_one')
+          system('bundle exec rake rletters:jobs:analysis_work')
+          sleep 15
+        end
+      ensure
+        stat.destroy
+      end
+    end
+
+    desc 'Work tasks off the maintenance job queue'
+    task :maintenance_work => :environment do
+      # Record our presence in the DB
+      stat = Admin::WorkerStats.create(
+        worker_type: 'maintenance worker',
+        host: Socket.gethostname,
+        pid: Process.pid,
+        started_at: DateTime.now)
+
+      begin
+        worker = Delayed::Worker.new(quiet: true,
+                                     queues: [:maintenance],
+                                     sleep_delay: 5)
+        worker.start
+      ensure
+        stat.destroy
+      end
+    end
+
+    desc 'Work the maintenance job queue'
+    task :maintenance => :environment do
+      # Record our presence in the DB
+      stat = Admin::WorkerStats.create(
+        worker_type: 'maintenance worker manager',
+        host: Socket.gethostname,
+        pid: Process.pid,
+        started_at: DateTime.now)
+
+      begin
+        # Exceptions can cause this worker process to fail, restart it when
+        # that happens
+        loop do
+          system('bundle exec rake rletters:jobs:maintenance_work')
           sleep 15
         end
       ensure
