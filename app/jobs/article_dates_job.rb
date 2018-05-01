@@ -3,6 +3,8 @@
 class ArticleDatesJob < ApplicationJob
   include RLetters::Visualization::CSV
 
+  queue_as :analysis
+
   # Export the date format data
   #
   # Like all view/multiexport jobs, this job saves its data out as a JSON

@@ -61,7 +61,7 @@ namespace :rletters do
         started_at: DateTime.now)
 
       begin
-        worker = Delayed::Worker.new(quiet: true)
+        worker = Delayed::Worker.new(quiet: true, queues: [:analysis])
         success, failure = worker.work_off(1)
 
         if success == 0 && failure == 0

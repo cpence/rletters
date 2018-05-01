@@ -3,6 +3,8 @@
 class CooccurrenceJob < ApplicationJob
   include RLetters::Visualization::CSV
 
+  queue_as :analysis
+
   # Locate significant associations between words at distance.
   #
   # This saves its data out as a CSV file to be downloaded by the user

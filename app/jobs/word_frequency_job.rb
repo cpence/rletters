@@ -5,6 +5,8 @@ class WordFrequencyJob < ApplicationJob
   include RLetters::Visualization::CSV
   include RLetters::Visualization::PDF
 
+  queue_as :analysis
+
   # Export the word frequency data.
   #
   # This saves its data out as a CSV file to be downloaded by the user

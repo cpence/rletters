@@ -3,6 +3,8 @@
 class NamedEntitiesJob < ApplicationJob
   include RLetters::Visualization::CSV
 
+  queue_as :analysis
+
   # Returns true if this job can be started now
   #
   # @return [Boolean] true if the Stanford NLP toolkit is available

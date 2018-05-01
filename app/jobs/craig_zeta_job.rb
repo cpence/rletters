@@ -4,6 +4,8 @@ class CraigZetaJob < ApplicationJob
   include RLetters::Visualization::CSV
   include RLetters::Visualization::PDF
 
+  queue_as :analysis
+
   # Return how many datasets this job requires
   #
   # @return [Integer] number of datasets needed to perform this job

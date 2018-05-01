@@ -4,6 +4,8 @@ require 'r_letters/analysis/collocation/base'
 class CollocationJob < ApplicationJob
   include RLetters::Visualization::CSV
 
+  queue_as :analysis
+
   # Locate significant associations between words.
   #
   # This saves its data out as a CSV file to be downloaded by the user
