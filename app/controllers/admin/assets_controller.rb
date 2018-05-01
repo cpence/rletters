@@ -1,6 +1,7 @@
 
 module Admin
-  class CategoriesController < ApplicationController
+  # View and edit custom assets
+  class AssetsController < ApplicationController
     before_action :authenticate_admin!
 
     # Show a list of uploaded assets

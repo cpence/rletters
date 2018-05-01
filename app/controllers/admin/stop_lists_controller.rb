@@ -1,5 +1,6 @@
 
 module Admin
+  # View and edit stop lists in various languages
   class StopListsController < ApplicationController
     before_action :authenticate_admin!
 

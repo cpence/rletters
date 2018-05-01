@@ -1,5 +1,6 @@
 
 module Admin
+  # View, edit, and order categorization of journals
   class CategoriesController < ApplicationController
     before_action :authenticate_admin!
 
