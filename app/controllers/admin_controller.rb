@@ -67,24 +67,4 @@ class AdminController < ApplicationController
     session.delete(:admin_password)
     redirect_to admin_login_path
   end
-
-  # Show a list of uploaded assets
-  #
-  # @return [void]
-  def assets
-  end
-
-  # Replace an Admin::UploadedAsset with the uploaded file
-  #
-  # @return [void]
-  def asset_upload
-    fail ActionController::ParameterMissing, :file unless params[:file]
-    asset = Admin::UploadedAsset.find(params[:id])
-
-    asset.file.purge
-    asset.file.attach(params[:file])
-    asset.file.save
-
-    redirect_to admin_assets_path
-  end
 end

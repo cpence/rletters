@@ -20,7 +20,7 @@
               - else
                 = t('.not_attached')
             %td.text-center
-              = form_tag(admin_asset_upload_path(a), method: :post, multipart: true) do
+              = form_tag(upload_asset_path(a), method: :post, multipart: true) do
                 = label_tag :file, for: "file-#{a.to_param}", title: t('.upload_button') do
                   %i.fas.fa-upload.text-primary
                 = file_field_tag :file, id: "file-#{a.to_param}", accept: 'image/*', class: 'd-none asset-upload-field'

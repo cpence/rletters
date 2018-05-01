@@ -65,14 +65,15 @@ Rails.application.routes.draw do
   get 'admin/login' => 'admin#login'
   post 'admin/login' => 'admin#login'
   delete 'admin/logout' => 'admin#logout'
-  get 'admin/assets' => 'admin#assets'
-  post 'admin/asset/:id' => 'admin#asset_upload', as: :admin_asset_upload
 
   scope '/admin' do
     resources :categories, module: 'admin' do
       collection { post 'order' }
     end
     resources :stop_lists, module: 'admin', except: [:show]
+
+    get 'assets' => 'admin/assets#index', as: :assets
+    post 'asset/:id' => 'admin/assets#upload', as: :upload_asset
   end
 
   # unAPI service
