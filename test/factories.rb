@@ -27,6 +27,7 @@ FactoryBot.define do
 
   factory :snippet, class: Admin::Snippet do
     name 'test_page'
+    language :en
     content '# Header'
   end
 

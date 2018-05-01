@@ -14,36 +14,44 @@ module Admin
   #
   # @!attribute name
   #   @raise [RecordInvalid] if the name is missing (`validates :presence`)
-  #   @return [String] Name of this page (an internal ID)
+  #   @return [String] Name of this snippet (an internal ID)
+  # @!attribute language
+  #   @raise [RecordInvalid] if the language is missing (`validates :presence`)
+  #   @return [String] Language of this snippet (in Rails locale code form)
   # @!attribute content
-  #   @return [String] Markdown content for this page
+  #   @return [String] Markdown content for this snippet
   class Snippet < ApplicationRecord
     self.table_name = 'admin_snippets'
     validates :name, presence: true
+    validates :language, presence: true
 
-    # @return [String] Friendly name of this page (looked up in locale)
+    # @return [String] Friendly name of this snippet (looked up in locale)
     def friendly_name
       ret = I18n.t("snippets.#{name}", default: '')
       return name if ret.blank?
       ret
     end
 
-    # Render the Markdown page for a particular name.  This will return an
-    # empty string if an invalid name is passed.
+    # Render the snippet for a particular name.  This will return an empty
+    # string if an invalid name is passed.
     #
-    # @param [String] name The internal ID of the page to render (*not* the
+    # @param [String] name The internal ID of the snippet to render (*not* the
     #   friendly name)
-    # @return [String] HTML output of rendering this page to Markdown
-    def self.render(name)
-      page = find_by(name: name)
-      return '' unless page
+    # @param [Symbol] language The language of the snippet to render (defaults
+    #   to current locale)
+    # @return [String] HTML output of rendering this snippet to Markdown
+    def self.render(name, language = nil)
+      language = I18n.locale unless language
 
-      page.render
+      snippet = find_by(name: name, language: language)
+      return '' unless snippet
+
+      snippet.render
     end
 
-    # Render this Markdown page.
+    # Render this snippet.
     #
-    # @return [String] HTML output of rendering this page to Markdown
+    # @return [String] HTML output of rendering this snippet to Markdown
     def render
       erb_page = ERB.new(content).result(binding)
       Kramdown::Document.new(erb_page).to_html.html_safe

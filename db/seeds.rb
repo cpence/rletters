@@ -1,13 +1,17 @@
 
-# Markdown pages
-Dir.glob(Rails.root.join('db', 'seeds', 'markdown', '*.md')) do |md|
-  name = File.basename(md, '.md')
-  Admin::Snippet.where(name: name).first_or_create!(content: IO.read(md))
-  puts "Seeded snippet:#{name}"
+# Snippets
+Dir.glob(Rails.root.join('db', 'seeds', 'snippets', '*')) do |dir|
+  lang = File.basename(dir)
+
+  Dir.glob(Rails.root.join('db', 'seeds', 'snippets', lang, '*.md')) do |md|
+    name = File.basename(md, '.md')
+    Admin::Snippet.where(name: name, language: lang).first_or_create!(content: IO.read(md))
+    puts "Seeded snippet:#{name} [#{lang}]"
+  end
 end
 
-# Uploaded assets
-Dir.glob(Rails.root.join('db', 'seeds', 'images', '*')) do |img|
+# Assets
+Dir.glob(Rails.root.join('db', 'seeds', 'assets', '*')) do |img|
   extension = File.extname(img)
   name = File.basename(img, extension)
   Admin::Asset.where(name: name).first_or_create! do |asset|
