@@ -1,32 +1,33 @@
 .row
-  #markdown-landing.col-8.offset-2= Admin::MarkdownPage.render('landing')
+  #markdown-landing.col-8.offset-2= Admin::Snippet.render('landing')
 
 .row
   #landing-login.col-4.offset-4
     = link_to t('.sign_up_button'), new_user_registration_path, class: 'btn btn-primary btn-lg w-100'
 
-.row
-  .col-6.offset-3
-    #screenshot-carousel.carousel.slide{ data: { ride: 'carousel' } }
-      %ol.carousel-indicators
-        %li.active{ data: { target: '#screenshot-carousel', 'slide-to': '0' }}
-        %li{ data: { target: '#screenshot-carousel', 'slide-to': '1' }}
-        %li{ data: { target: '#screenshot-carousel', 'slide-to': '2' }}
+- if Admin::Asset.usable?('screenshot-one') && Admin::Asset.usable?('screenshot-two') && Admin::Asset.usable?('screenshot-three')
+  .row
+    .col-6.offset-3
+      #screenshot-carousel.carousel.slide{ data: { ride: 'carousel' } }
+        %ol.carousel-indicators
+          %li.active{ data: { target: '#screenshot-carousel', 'slide-to': '0' }}
+          %li{ data: { target: '#screenshot-carousel', 'slide-to': '1' }}
+          %li{ data: { target: '#screenshot-carousel', 'slide-to': '2' }}
 
-      .carousel-inner
-        .carousel-item.active
-          %img.d-block.w-100{ src: url_for(Admin::UploadedAsset.find_by(name: 'screenshot-one').file) }
-          .carousel-caption.d-none.d-md-block= Admin::MarkdownPage.render('caption-one')
-        .carousel-item
-          %img.d-block.w-100{ src: url_for(Admin::UploadedAsset.find_by(name: 'screenshot-two').file) }
-          .carousel-caption.d-none.d-md-block= Admin::MarkdownPage.render('caption-two')
-        .carousel-item
-          %img.d-block.w-100{ src: url_for(Admin::UploadedAsset.find_by(name: 'screenshot-three').file) }
-          .carousel-caption.d-none.d-md-block= Admin::MarkdownPage.render('caption-three')
+        .carousel-inner
+          .carousel-item.active
+            %img.d-block.w-100{ src: url_for(Admin::Asset.find_by(name: 'screenshot-one').file) }
+            .carousel-caption.d-none.d-md-block= Admin::Snippet.render('caption-one')
+          .carousel-item
+            %img.d-block.w-100{ src: url_for(Admin::Asset.find_by(name: 'screenshot-two').file) }
+            .carousel-caption.d-none.d-md-block= Admin::Snippet.render('caption-two')
+          .carousel-item
+            %img.d-block.w-100{ src: url_for(Admin::Asset.find_by(name: 'screenshot-three').file) }
+            .carousel-caption.d-none.d-md-block= Admin::Snippet.render('caption-three')
 
-      %a.carousel-control-prev{ href: '#screenshot-carousel', role: 'button', data: { slide: 'prev' } }
-        %span.carousel-control-prev-icon{ aria: { hidden: 'true' } }
-        %span.sr-only Previous
-      %a.carousel-control-next{ href: '#screenshot-carousel', role: 'button', data: { slide: 'next' } }
-        %span.carousel-control-next-icon{ aria: { hidden: 'true' } }
-        %span.sr-only Next
+        %a.carousel-control-prev{ href: '#screenshot-carousel', role: 'button', data: { slide: 'prev' } }
+          %span.carousel-control-prev-icon{ aria: { hidden: 'true' } }
+          %span.sr-only Previous
+        %a.carousel-control-next{ href: '#screenshot-carousel', role: 'button', data: { slide: 'next' } }
+          %span.carousel-control-next-icon{ aria: { hidden: 'true' } }
+          %span.sr-only Next

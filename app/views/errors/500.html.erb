@@ -11,7 +11,9 @@
 </head>
 
 <body>
-  <img src="<%= url_for(Admin::UploadedAsset.find_by(name: 'error-watermark').file) %>">
+  <% if Admin::Asset.usable?('error-watermark') %>
+    <img src="<%= url_for(Admin::Asset.find_by(name: 'error-watermark').file) %>">
+  <% end %>
 
   <div>
     <h1><%= t('.header') %></h1>

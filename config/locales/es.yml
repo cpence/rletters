@@ -35,13 +35,10 @@ es:
             blank: "No se especificó el identificador único (error interno)"
   activerecord:
     models:
-      admin/administrator:
-        one: Administrador
-        other: Administradores
-      admin/uploaded_asset:
+      admin/asset:
         one: Recurso personalizable
         other: Recursos personalizables
-      admin/markdown_page:
+      admin/snippet:
         one: Página personalizable
         other: Páginas personalizables
       dataset:
@@ -66,20 +63,14 @@ es:
         one: Biblioteca
         other: Bibliotecas
     attributes:
-      admin/administrator:
-        email: Correo-e
-        name: Nombre
-        password: Contraseña
-        password_confirmation: Confirmar contraseña
-        remember_me: ¿Recordar datos de inicio de sesión?
-      admin/markdown_page:
-        friendly_name: Nombre
-        name: Nombre
-        content: Índice
-      admin/uploaded_asset:
+      admin/asset:
         friendly_name: Nombre
         name: Nombre
         file: Archivo adjunto
+      admin/snippet:
+        friendly_name: Nombre
+        name: Nombre
+        content: Índice
       dataset:
         name: Nombre
       datasets/analysis_task:
@@ -108,10 +99,10 @@ es:
         url: URL base
     errors:
       models:
-        admin/markdown_page:
+        admin/asset:
           name:
             blank: No se especificó el nombre (error interno)
-        admin/uploaded_asset:
+        admin/snippet:
           name:
             blank: No se especificó el nombre (error interno)
         dataset:
@@ -590,12 +581,12 @@ es:
         subheader: Esta tarea tiene más prefereferias que puede configurar antes de comenzarla.
       create:
         workflow: "Ejecutando análisis, vuelva más tarde para ver los resultados..."
-  markdown_pages:
+  snippets:
     landing: Página de llegada
     caption-one: Primer titular de captura de pantalla
     caption-two: Segundo titular de captura de pantalla
     caption-three: Tercer titular de captura de pantalla
-  uploaded_assets:
+  assets:
     splash-low: Pantalla de bienvenida (320x460)
     splash-high: Pantalla de bienvenida (768x1004)
     favicon: Icono de favorito (16x16)
@@ -623,13 +614,13 @@ es:
       solr_version: "Versión de Solr %{solr_ver}, versión de Lucene %{lucene_ver}"
       java_version: "Versión de Java %{java_ver}"
       memory_info: "Memoria: usada %{used}, con %{free} libres de %{total}; máximo %{max}"
-    markdown_page:
+    snippet:
       markdown_info_markdown: >
         Se puede dar formato a las páginas personalizadas con el lenguaje markdown.
         Visite la [guía de Kramdown](http://kramdown.rubyforge.org/syntax.html) para
         información más detallada.⏎
       page_header: "Página: %{name}"
-    uploaded_asset:
+    asset:
       file_details: "%{size} bytes"
       asset_header: "Recurso: %{name}"
     stop_list:

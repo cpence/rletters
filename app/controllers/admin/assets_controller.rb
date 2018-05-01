@@ -9,12 +9,12 @@ module Admin
     def index
     end
 
-    # Replace an Admin::UploadedAsset with the uploaded file
+    # Replace an Admin::Asset with the uploaded file
     #
     # @return [void]
     def upload
       fail ActionController::ParameterMissing, :file unless params[:file]
-      asset = Admin::UploadedAsset.find(params[:id])
+      asset = Admin::Asset.find(params[:id])
 
       asset.file.purge
       asset.file.attach(params[:file])

@@ -7,11 +7,11 @@
   .col-12
     %table.table
       %thead
-        %th= Admin::UploadedAsset.human_attribute_name(:name)
-        %th= Admin::UploadedAsset.human_attribute_name(:file)
+        %th= Admin::Asset.human_attribute_name(:name)
+        %th= Admin::Asset.human_attribute_name(:file)
         %th.text-center= t('.upload')
       %tbody
-        - Admin::UploadedAsset.all.order(:name).each do |a|
+        - Admin::Asset.all.order(:name).each do |a|
           %tr
             %td= a.friendly_name
             %td

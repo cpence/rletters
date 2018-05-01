@@ -15,10 +15,10 @@
                   %spacer{ size: '16' }
                   %h4.text-center= ENV['APP_NAME']
 
-                  - if Admin::UploadedAsset.exists?(name: 'apple-touch-icon-high')
+                  - if Admin::Asset.usable?('apple-touch-icon-high')
                     %spacer{ size: '32' }
                     %center
-                      %img{ src: url_for(Admin::UploadedAsset.find_by(name: 'apple-touch-icon-high').file) }
+                      %img{ src: url_for(Admin::Asset.find_by(name: 'apple-touch-icon-high').file) }
 
               %row
                 %columns

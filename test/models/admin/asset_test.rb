@@ -1,14 +1,14 @@
 require 'test_helper'
 
-class Admin::UploadedAssetTest < ActiveSupport::TestCase
+class Admin::AssetTest < ActiveSupport::TestCase
   test 'should be invalid with no name' do
-    asset = build_stubbed(:uploaded_asset, name: nil)
+    asset = build_stubbed(:asset, name: nil)
 
     refute asset.valid?
   end
 
   test 'should be valid with name' do
-    asset = build_stubbed(:uploaded_asset)
+    asset = build_stubbed(:asset)
 
     assert asset.valid?
   end
@@ -16,11 +16,11 @@ class Admin::UploadedAssetTest < ActiveSupport::TestCase
   test 'should return translated friendly_name' do
     # There's no way to *delete* a translation from the I18n backend, so
     # we have to do this in one test to make sure they're in order
-    asset = build_stubbed(:uploaded_asset)
+    asset = build_stubbed(:asset)
 
     assert_equal asset.name, asset.friendly_name
 
-    I18n.backend.store_translations :en, uploaded_assets:
+    I18n.backend.store_translations :en, assets:
       { asset.name.to_sym => 'The Friendly Name' }
     assert_equal 'The Friendly Name', asset.friendly_name
   end

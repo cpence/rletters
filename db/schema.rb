@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_04_30_221635) do
+ActiveRecord::Schema.define(version: 2018_05_01_135704) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,15 +36,15 @@ ActiveRecord::Schema.define(version: 2018_04_30_221635) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
-  create_table "admin_markdown_pages", id: :serial, force: :cascade do |t|
+  create_table "admin_assets", id: :serial, force: :cascade do |t|
     t.string "name", limit: 255
-    t.text "content"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "admin_uploaded_assets", id: :serial, force: :cascade do |t|
+  create_table "admin_snippets", id: :serial, force: :cascade do |t|
     t.string "name", limit: 255
+    t.text "content"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

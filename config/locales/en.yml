@@ -55,18 +55,15 @@ en:
                         blank: "Unique ID was not specified (internal error)"
     activerecord:
         models:
-            admin/administrator:
-                one: Administrator
-                other: Administrators
-            admin/markdown_page:
-                one: Custom Page
-                other: Custom Pages
+            admin/asset:
+                one: Custom Asset
+                other: Custom Assets
+            admin/snippet:
+                one: Custom Content
+                other: Custom Content
             admin/worker_stats:
                 one: Worker Statistics
                 other: Worker Statisics
-            admin/uploaded_asset:
-                one: Custom Asset
-                other: Custom Assets
             dataset:
                 one: Dataset
                 other: Datasets
@@ -89,21 +86,15 @@ en:
                 one: Library
                 other: Libraries
         attributes:
-            admin/administrator:
-                email: E-mail
+            admin/asset:
+                friendly_name: Name
                 name: Name
-                password: Password
-                password_confirmation: Confirm password
-                remember_me: Remember me?
-            admin/markdown_page:
+                file: Attachment
+            admin/snippet:
                 friendly_name: Name
                 name: Name
                 content: Content
                 render: Preview
-            admin/uploaded_asset:
-                friendly_name: Name
-                name: Name
-                file: Attachment
             admin/worker_stats:
                 worker_type: Worker type
                 host: Hostname
@@ -138,15 +129,10 @@ en:
                 url: Base URL
         errors:
             models:
-                admin/administrator:
-                    email:
-                        blank: You must enter an email address
-                    password:
-                        blank: You must enter a password
-                admin/markdown_page:
+                admin/snippet:
                     name:
                         blank: Name was not specified (internal error)
-                admin/uploaded_asset:
+                admin/asset:
                     name:
                         blank: Name was not specified (internal error)
                 dataset:
@@ -593,12 +579,12 @@ en:
                 We’ve got this error registered in our logs, and we’ll see what
                 we can do.  Head back to the front page, and if you see this
                 error message again, let us know and we’ll try to fix it.
-    markdown_pages:
+    snippets:
         landing: Landing Page
         caption-one: First Screenshot Caption
         caption-two: Second Screenshot Caption
         caption-three: Third Screenshot Caption
-    uploaded_assets:
+    assets:
         splash-low: Splash Screen (320x460)
         splash-high: Splash Screen (768x1004)
         favicon: Favorite Icon (16x16)

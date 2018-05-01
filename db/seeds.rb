@@ -2,15 +2,15 @@
 # Markdown pages
 Dir.glob(Rails.root.join('db', 'seeds', 'markdown', '*.md')) do |md|
   name = File.basename(md, '.md')
-  Admin::MarkdownPage.where(name: name).first_or_create!(content: IO.read(md))
-  puts "Seeded markdown_page:#{name}"
+  Admin::Snippet.where(name: name).first_or_create!(content: IO.read(md))
+  puts "Seeded snippet:#{name}"
 end
 
 # Uploaded assets
 Dir.glob(Rails.root.join('db', 'seeds', 'images', '*')) do |img|
   extension = File.extname(img)
   name = File.basename(img, extension)
-  Admin::UploadedAsset.where(name: name).first_or_create! do |asset|
+  Admin::Asset.where(name: name).first_or_create! do |asset|
     f = File.new(img)
 
     blob = ActiveStorage::Blob.create_after_upload!(

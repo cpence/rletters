@@ -25,7 +25,7 @@ FactoryBot.define do
     user
   end
 
-  factory :markdown_page, class: Admin::MarkdownPage do
+  factory :snippet, class: Admin::Snippet do
     name 'test_page'
     content '# Header'
   end
@@ -52,7 +52,7 @@ FactoryBot.define do
     end
   end
 
-  factory :uploaded_asset, class: Admin::UploadedAsset do
+  factory :asset, class: Admin::Asset do
     name 'test_asset'
     file { File.new(Rails.root.join('test', 'factories', '1x1.png')) }
   end
