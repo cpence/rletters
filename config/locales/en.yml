@@ -48,6 +48,11 @@ en:
                 pages: Pages
                 fulltext: Full text
                 term_vectors: Term vectors
+        errors:
+            models:
+                document:
+                    uid:
+                        blank: "Unique ID was not specified (internal error)"
     activerecord:
         models:
             admin/asset:
@@ -124,9 +129,58 @@ en:
                 url: Base URL
         errors:
             models:
+                admin/snippet:
+                    name:
+                        blank: Name was not specified (internal error)
+                    language:
+                        blank: Language was not specified (internal error)
+                        taken: A snippet with this name and language already exists
+                admin/asset:
+                    name:
+                        blank: Name was not specified (internal error)
+                dataset:
+                    name:
+                        blank: You must specify a name for this dataset
+                    user_id:
+                        blank: Dataset must have a user ID specified (internal error)
+                datasets/query:
+                    def_type:
+                        blank: Search type was not specified (internal error)
+                datasets/task:
+                    name:
+                        blank: You must specify a name for this task (internal error)
+                    dataset:
+                        blank: Task not connected to dataset (internal error)
+                documents/category:
+                    name:
+                        blank: You must specify a name for this category
+                documents/stop_list:
+                    language:
+                        blank: Language was not specified (internal error)
+                    list:
+                        blank: Stop list was not specified (internal error)
+                user:
+                    name:
+                        blank: You must specify a name
+                    email:
+                        blank: You must enter an email address
+                    password:
+                        blank: You must enter a password
+                    password_confirmation:
+                        blank: You must re-type your password
+                    language:
+                        blank: Preferred language must be specified (internal error)
+                        invalid: Preferred language must be a valid locale code (internal error)
+                    timezone:
+                        blank: Timezone must be specified (internal error)
                 users/library:
+                    name:
+                        blank: You must specify a name for this library record
                     url:
+                        blank: You must specify a URL for this library record
                         invalid: Library base URL must be a URL
+                    user_id:
+                        blank: Library must be associated with user (internal error)
     breadcrumbs:
         root: Home
         datasets_index: Manage Datasets
