@@ -46,7 +46,6 @@ class AdminController < ApplicationController
   #
   # @return [void]
   def login
-    params.permit(:password)
     if params[:password]
       password_digest = Digest::SHA256.hexdigest(params[:password])
       admin_pw_digest = Digest::SHA256.hexdigest(ENV['ADMIN_PASSWORD'])
