@@ -44,4 +44,6 @@ before_script:
 script:
   - bin/rails test
   - bin/rails test:system
+
+after_script:
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
