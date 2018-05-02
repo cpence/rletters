@@ -99,8 +99,6 @@ GEM
       archive-zip (~> 0.10)
       nokogiri (~> 1.8)
     cldr-plurals-runtime-rb (1.0.1)
-    codeclimate-test-reporter (1.0.8)
-      simplecov (<= 0.13)
     coercible (1.0.0)
       descendants_tracker (~> 0.0.1)
     concurrent-ruby (1.0.5)
@@ -385,7 +383,6 @@ DEPENDENCIES
   capybara-selenium
   cheetah
   chromedriver-helper
-  codeclimate-test-reporter
   daemons
   delayed_job_active_record
   devise (~> 4, >= 4.4.0)

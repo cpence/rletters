@@ -82,7 +82,6 @@ group :test do
   gem 'pdf-inspector', require: false
 
   gem 'simplecov', require: false
-  gem 'codeclimate-test-reporter', require: false
 end
 
 # Tools that we need for developers, but not for any deployment or testing

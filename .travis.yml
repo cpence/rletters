@@ -17,16 +17,16 @@ env:
     - RAILS_ENV=test
     - DATABASE_URL="postgres:///rletters_test?username=postgres&pool=20&encoding=unicode"
     - QMAKE=/usr/lib/x86_64-linux-gnu/qt5/bin/qmake
-    - secure: Lv1neEs259UnYFTpbBOja4qhbdDnDCryGiZ8ycLkBGlc7PioiSiVqCo1Py+pJrpYenA3xrguv/Z5hdNjJ3fm4dl8GDrV9kgjtNe8E388kitISpimAi5QuwvxfJS8YiRPKm9VSfs3laMlSVXjhMdlAW1PPcrcElddv+r+jMpJ9uM=
+    - secure: umc1IysRHrVN9iN6AtT0sp6C+9ZaZYlXHRpCE7Qk2nKMPfOwrARBN/q16VpI/L8LTj6IbTGRGQ1wCOaGduJ661E5UenSTXNDoD8BzUofTRn3nwW4wO50DMhKppTEW9Nk44WkTGOtTC2Zm+Q8X0CGmQQJJkIBmIiOeNAD6CnfmgQ=
 
-sudo: required
-dist: trusty
 addons:
   postgresql: 9.6
   chrome: stable
 before_install:
   - sudo apt-get -qq update
   - sudo apt-get install -y -qq libsdl1.2-dev libsdl-ttf2.0-dev
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
 
 install:
   - jdk_switcher home oraclejdk9
@@ -37,10 +37,11 @@ install:
 before_script:
   - sh -e /etc/init.d/xvfb start
   - ln -s .env.example .env
-  - 'pushd vendor/solr && ./start && popd'
+  - pushd vendor/solr && ./start && popd
   - bin/rails db:setup
+  - ./cc-test-reporter before-build
 
 script:
   - bin/rails test
   - bin/rails test:system
-  - bundle exec codeclimate-test-reporter
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
