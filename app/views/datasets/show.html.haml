@@ -51,4 +51,4 @@
 
     %h4= t('.tasks')
 
-    #dataset-task-list{ data: { fetch_url: dataset_tasks_path(@dataset) } }= render template: 'datasets/tasks/index', layout: false
+    #dataset-task-list{ data: { fetch: 'auto', fetch_url: dataset_tasks_path(@dataset) } }= render template: 'datasets/tasks/index', layout: false
