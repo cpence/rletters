@@ -5,6 +5,13 @@ class TermDatesJob < ApplicationJob
 
   queue_as :analysis
 
+  # Returns true if this job can be started now
+  #
+  # @return [Boolean] true if this job is not disabled
+  def self.available?
+    ENV['TERM_DATES_JOB_DISABLED'].nil?
+  end
+
   # Export the date format data
   #
   # Like all view/multiexport jobs, this job saves its data out as a JSON

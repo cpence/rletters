@@ -8,6 +8,7 @@
 *   Site configuration is now edited via a `.env` file in the root directory of the project, or can be controlled via environment variables.
 *   Features of the application can now be readily enabled and disabled using these environment variables.
 *   Add support for sending application e-mails using a variety of different mail services, including Mandrill, Sendgrid, Postmark, and Mailgun, in addition to Rails' default Sendmail and SMTP support, and configure all these methods in the `.env` file.
+*   Any particular type of analysis job can be disabled using a feature flag, should they cause problems on any server installation.
 *   The main search interface has been slightly redesigned to include support for infinite scrolling and be more functional on mobile/tablet screens.
 *   Datasets are now stored not as a list of entries, but as a list of the searches that were used to create them. This list of searches can be viewed on the dataset information page.
 *   Iterate through datasets, no matter the size, much faster, using the cursor support present in Solr >= 4.8. This is a dramatic speed improvement especially for those installations using distributed or sharded Solr servers.

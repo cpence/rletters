@@ -6,6 +6,13 @@ class CraigZetaJob < ApplicationJob
 
   queue_as :analysis
 
+  # Returns true if this job can be started now
+  #
+  # @return [Boolean] true if this job is not disabled
+  def self.available?
+    ENV['CRAIG_ZETA_JOB_DISABLED'].nil?
+  end
+
   # Return how many datasets this job requires
   #
   # @return [Integer] number of datasets needed to perform this job

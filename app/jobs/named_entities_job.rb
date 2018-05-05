@@ -7,9 +7,10 @@ class NamedEntitiesJob < ApplicationJob
 
   # Returns true if this job can be started now
   #
-  # @return [Boolean] true if the Stanford NLP toolkit is available
+  # @return [Boolean] true if the Stanford NLP toolkit is available and this
+  #   job is not disabled
   def self.available?
-    ENV['NLP_TOOL_PATH'].present?
+    ENV['NLP_TOOL_PATH'].present? && ENV['NAMED_ENTITIES_JOB_DISABLED'].nil?
   end
 
   # Export the named entity data

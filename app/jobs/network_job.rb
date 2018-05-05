@@ -3,6 +3,13 @@
 class NetworkJob < ApplicationJob
   queue_as :analysis
 
+  # Returns true if this job can be started now
+  #
+  # @return [Boolean] true if this job is not disabled
+  def self.available?
+    ENV['NETWORK_JOB_DISABLED'].nil?
+  end
+
   # Examine the network of words associated with a focal term.
   #
   # @param [Datasets::Task] task the task we're working from

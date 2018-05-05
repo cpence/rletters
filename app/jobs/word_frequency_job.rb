@@ -7,6 +7,13 @@ class WordFrequencyJob < ApplicationJob
 
   queue_as :analysis
 
+  # Returns true if this job can be started now
+  #
+  # @return [Boolean] true if this job is not disabled
+  def self.available?
+    ENV['WORD_FREQUENCY_JOB_DISABLED'].nil?
+  end
+
   # Export the word frequency data.
   #
   # This saves its data out as a CSV file to be downloaded by the user

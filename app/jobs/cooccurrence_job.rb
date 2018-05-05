@@ -5,6 +5,13 @@ class CooccurrenceJob < ApplicationJob
 
   queue_as :analysis
 
+  # Returns true if this job can be started now
+  #
+  # @return [Boolean] true if this job is not disabled
+  def self.available?
+    ENV['COOCCURRENCE_JOB_DISABLED'].nil?
+  end
+
   # Locate significant associations between words at distance.
   #
   # This saves its data out as a CSV file to be downloaded by the user

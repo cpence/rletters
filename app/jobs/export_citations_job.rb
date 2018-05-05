@@ -6,6 +6,13 @@
 class ExportCitationsJob < ApplicationJob
   queue_as :analysis
 
+  # Returns true if this job can be started now
+  #
+  # @return [Boolean] true if this job is not disabled
+  def self.available?
+    ENV['EXPORT_CITATIONS_JOB_DISABLED'].nil?
+  end
+
   # Export the dataset
   #
   # @param [Datasets::Task] task the task we're working from
