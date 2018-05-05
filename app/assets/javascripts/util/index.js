@@ -68,31 +68,37 @@ window.jQuery(function() {
   });
 });
 
+// Return a list of all form elements that can take a 'disabled' class, within
+// the current selector.
+function formElementsFor(selector) {
+  var elements = [
+    selector,
+    selector + ' div',
+    selector + ' label',
+    selector + ' input',
+    selector + ' select',
+    selector + ' textarea'
+  ];
+
+  return $(elements.join(','));
+}
+
+function setVisibleAndDisabled(selector, state) {
+  $(selector).toggle(state);
+  formElementsFor(selector)
+    .toggleClass('disabled', !state)
+    .prop('disabled', !state);
+}
+
 window.hideAndDisable = function(selector) {
-  window.jQuery(selector).hide().addClass('disabled');
-  window.jQuery(selector + ' div').addClass('disabled');
-  window.jQuery(selector + ' label').addClass('disabled');
-  window.jQuery(selector + ' input').prop('disabled', true).addClass('disabled');
-  window.jQuery(selector + ' select').prop('disabled', true).addClass('disabled');
-  window.jQuery(selector + ' textarea').prop('disabled', true).addClass('disabled');
+  setVisibleAndDisabled(selector, false);
 }
 
 window.showAndEnable = function(selector) {
-  window.jQuery(selector).show().removeClass('disabled');
-  window.jQuery(selector + ' div').removeClass('disabled');
-  window.jQuery(selector + ' label').removeClass('disabled');
-  window.jQuery(selector + ' input').prop('disabled', false).removeClass('disabled');
-  window.jQuery(selector + ' select').prop('disabled', false).removeClass('disabled');
-  window.jQuery(selector + ' textarea').prop('disabled', false).removeClass('disabled') ;
+  setVisibleAndDisabled(selector, true);
 }
 
 window.toggleVisAndDisabled = function(selector) {
-  window.jQuery(selector).toggle();
-
-  var visible = window.jQuery(selector).is(':visible');
-  window.jQuery(selector + ' div').toggleClass('disabled', !visible);
-  window.jQuery(selector + ' label').toggleClass('disabled', !visible);
-  window.jQuery(selector + ' input').prop('disabled', !visible).toggleClass('disabled', !visible);
-  window.jQuery(selector + ' select').prop('disabled', !visible).toggleClass('disabled', !visible);
-  window.jQuery(selector + ' textarea').prop('disabled', !visible).toggleClass('disabled', !visible);
+  var visible = $(selector).is(':visible');
+  setVisibleAndDisabled(selector, !visible);
 }
