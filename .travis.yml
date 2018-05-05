@@ -16,7 +16,6 @@ env:
     - DISPLAY=":99.0"
     - RAILS_ENV=test
     - DATABASE_URL="postgres:///rletters_test?username=postgres&pool=20&encoding=unicode"
-    - QMAKE=/usr/lib/x86_64-linux-gnu/qt5/bin/qmake
     - secure: umc1IysRHrVN9iN6AtT0sp6C+9ZaZYlXHRpCE7Qk2nKMPfOwrARBN/q16VpI/L8LTj6IbTGRGQ1wCOaGduJ661E5UenSTXNDoD8BzUofTRn3nwW4wO50DMhKppTEW9Nk44WkTGOtTC2Zm+Q8X0CGmQQJJkIBmIiOeNAD6CnfmgQ=
 
 addons:
