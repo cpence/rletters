@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 module Users
   # Modify behavior of the Devise password-reset system.

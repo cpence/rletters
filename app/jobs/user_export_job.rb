@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 # Export all of the data belonging to a user
 class UserExportJob < ActiveJob::Base
@@ -14,7 +15,7 @@ class UserExportJob < ActiveJob::Base
     user.export_archive.purge if user.export_archive.attached?
 
     # All of this goes into a ZIP file
-    ios = ::Zip::OutputStream.write_buffer(StringIO.new('')) do |zos|
+    ios = ::Zip::OutputStream.write_buffer(StringIO.new) do |zos|
       # Every user column, straight off the schema
       user_data = {
         name: user.name,

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 POS_YAML ||= File.read(Rails.root.join('test', 'factories', 'parts_of_speech.yml'))
 

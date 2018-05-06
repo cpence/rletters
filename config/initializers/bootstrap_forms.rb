@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Override the default 'field_with_errors' behavior in Rails to produce the
 # kind of invalid markers we want in Bootstrap 4.
 Rails.application.config.action_view.field_error_proc = Proc.new do |html_tag, instance|

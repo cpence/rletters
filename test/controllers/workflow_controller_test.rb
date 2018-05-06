@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'test_helper'
 
 # Mock job class for the workflow controller

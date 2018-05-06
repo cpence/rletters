@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class InitSchema < ActiveRecord::Migration
   def up
     # These are extensions that must be enabled in order to support this database

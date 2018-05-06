@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 # Determine statistically significant cooccurrences in text
 class CooccurrenceJob < ApplicationJob

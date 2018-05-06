@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 module Datasets
   # A search query used to construct a dataset

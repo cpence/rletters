@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 # We only want to run this patch once, after we're done with setting up
 # all the locales in the initializer

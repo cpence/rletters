@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 module RLetters
   # All classes that encapsulate behavior for handing models and attributes in

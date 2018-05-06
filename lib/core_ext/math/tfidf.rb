@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 # Ruby's standard Math module
 module Math

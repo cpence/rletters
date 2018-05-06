@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 # The module containing all domain-specific logic for RLetters
 module RLetters

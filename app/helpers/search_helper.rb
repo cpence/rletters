@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 module SearchHelper
   # Get the list of facet links for one particular field

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 # Ruby's standard Hash class
 class Hash
@@ -7,7 +8,7 @@ class Hash
   #
   #  hash = { person: { name: 'Rob', age: '28' } }
   #
-  #  hash.deep_transform_keys{ |key| key.to_s.upcase }
+  #  hash.deep_transform_values { |key| key.to_s.upcase }
   #  # => {:person=>{:name=>"ROB", :age=>"28"}}
   def deep_transform_values(&block)
     _deep_transform_values_in_object(self, &block)

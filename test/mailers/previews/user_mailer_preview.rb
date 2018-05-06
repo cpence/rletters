@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 # Preview the output from the UserMailer
 class UserMailerPreview < ActionMailer::Preview

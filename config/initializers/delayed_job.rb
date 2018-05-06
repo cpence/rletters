@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 # Don't delay jobs in testing. Also, let the BLOCKING_JOBS setting force all
 # jobs to the foreground thread.

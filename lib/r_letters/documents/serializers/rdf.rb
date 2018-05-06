@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'r_letters/documents/as_open_url'
 require 'rdf/n3'
 
@@ -26,7 +27,7 @@ module RLetters
           doc = ::RDF::Node.new
 
           d.authors.each do |a|
-            name = ''
+            name = ''.dup
             name << "#{a.prefix} " if a.prefix
             name << "#{a.last}"
             name << " #{a.suffix}" if a.suffix
@@ -35,7 +36,8 @@ module RLetters
           end
           graph << [doc, ::RDF::Vocab::DC.issued, d.year] if d.year
 
-          citation = "#{d.journal}" if d.journal
+          citation = ''.dup
+          citation << d.journal if d.journal
           citation << (d.volume ? " #{d.volume}" : ' ')
           citation << "(#{d.number})" if d.number
           citation << ", #{d.pages}" if d.pages

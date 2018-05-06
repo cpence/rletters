@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'marc'
 
 module RLetters
@@ -37,7 +38,7 @@ module RLetters
             to_marc_record(doc),
             include_namespace: include_namespace
           )
-          xml = ''
+          xml = ''.dup
           formatter = REXML::Formatters::Default.new
           formatter.write(rexml_element, xml)
 

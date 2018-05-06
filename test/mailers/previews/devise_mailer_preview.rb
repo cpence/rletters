@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 # Preview the output from the DeviseMailer
 class DeviseMailerPreview < ActionMailer::Preview

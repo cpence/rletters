@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 module RLetters
   module Documents
@@ -15,7 +16,7 @@ module RLetters
           end
           cite_key = "#{first_author}#{doc.year}"
 
-          ret = "@article{#{cite_key},\n"
+          ret = "@article{#{cite_key},\n".dup
           ret << "    author = {#{doc.authors.map(&:full).join(' and ')}},\n" unless doc.authors.empty?
           ret << "    title = {#{doc.title}},\n" if doc.title
           ret << "    journal = {#{doc.journal}},\n" if doc.journal

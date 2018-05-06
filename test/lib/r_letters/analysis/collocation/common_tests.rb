@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 module RLetters::Analysis::Collocation::CommonTests
   def run_no_focal_word_test(klass, scoring)

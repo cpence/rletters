@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'marc'
 
 module RLetters
@@ -89,7 +90,7 @@ module RLetters
             )
           end
 
-          marc_volume = ''
+          marc_volume = ''.dup
           marc_volume << "v. #{doc.volume}" if doc.volume
           marc_volume << ' ' if doc.volume && doc.number
           marc_volume << "no. #{doc.number}" if doc.number
@@ -108,7 +109,7 @@ module RLetters
             )
           )
 
-          marc_free = ''
+          marc_free = ''.dup
           if doc.volume
             marc_free << "Vol. #{doc.volume}"
             marc_free << (doc.number ? ', ' : ' ')
@@ -117,7 +118,7 @@ module RLetters
           marc_free << "(#{doc.year})" if doc.year
           marc_free << ", p. #{doc.pages}" if doc.pages
 
-          marc_enumeration = ''
+          marc_enumeration = ''.dup
           marc_enumeration << doc.volume if doc.volume
           marc_enumeration << ":#{doc.number}" if doc.number
           marc_enumeration << "<#{doc.start_page}" if doc.start_page
@@ -156,7 +157,7 @@ module RLetters
         # @param [RLetters::Documents::Author] a an author
         # @return [String] author formatted as MARC expects it
         def author_to_marc(a)
-          author = ''
+          author = ''.dup
           author << a.prefix + ' ' if a.prefix
           author << a.last
           author << ' ' + a.suffix if a.suffix

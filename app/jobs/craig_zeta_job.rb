@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 # Compare two datasets using the Craig Zeta algorithm
 class CraigZetaJob < ApplicationJob

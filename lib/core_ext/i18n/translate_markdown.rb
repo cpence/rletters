@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 # Ruby's internationalization module
 module I18n

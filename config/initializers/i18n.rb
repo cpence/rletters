@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Enable pluralization and language fallbacks (from 'de-DE' to 'de')
 require 'i18n/backend/fallbacks'
 I18n::Backend::Simple.send(:include, I18n::Backend::Fallbacks)

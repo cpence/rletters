@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 module RLetters
   module Presenters
@@ -10,15 +11,13 @@ module RLetters
       #
       # @return [String] percentage message
       def status_message
-        ret = ''
-
-        if task.progress
-          ret << "#{(task.progress * 100).to_i}%"
-          ret << ': ' if task.progress_message.present?
+        ''.dup.tap do |ret|
+          if task.progress
+            ret << "#{(task.progress * 100).to_i}%"
+            ret << ': ' if task.progress_message.present?
+          end
+          ret << task.progress_message if task.progress_message.present?
         end
-        ret << task.progress_message if task.progress_message.present?
-
-        ret
       end
     end
   end

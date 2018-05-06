@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 module Admin
   # Images and other static assets uploaded by the administrator

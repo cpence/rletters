@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 # Display the user's workflow through RLetters
 #

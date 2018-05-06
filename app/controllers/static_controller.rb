@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 # Display static pages and images
 #

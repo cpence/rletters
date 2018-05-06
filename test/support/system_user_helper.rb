@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 module SystemUserHelper
   def sign_out

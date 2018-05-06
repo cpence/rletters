@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 # Display, modify, delete, and analyze datasets belonging to a given user
 #

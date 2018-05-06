@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 module RLetters
   module Solr
@@ -65,7 +66,7 @@ module RLetters
         # Make sure that we set the encoding on all the returned Solr strings
         solr_response.deep_transform_values! do |v|
           if v.is_a?(String)
-            v.force_encoding(Encoding::UTF_8)
+            v.dup.force_encoding(Encoding::UTF_8)
           else
             v
           end

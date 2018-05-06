@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 module Users
   # Work with the library records belonging to a given user

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 # The exception raised when we kill a job externally
 class JobKilledError < RuntimeError; end

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class AddLanguageToSnippets < ActiveRecord::Migration[5.2]
   def up
     add_column :admin_snippets, :language, :string

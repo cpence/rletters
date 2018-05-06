@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 # Snippets
 Dir.glob(Rails.root.join('db', 'seeds', 'snippets', '*')) do |dir|

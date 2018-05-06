@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 # The saved results of a given search, for analysis
 #

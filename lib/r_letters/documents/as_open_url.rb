@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 module RLetters
   module Documents
@@ -14,7 +15,7 @@ module RLetters
       #
       # @return [String] article as OpenURL parameters
       def params
-        params = 'ctx_ver=Z39.88-2004&rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&rft.genre=article'
+        params = 'ctx_ver=Z39.88-2004&rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&rft.genre=article'.dup
         params << "&rft_id=info:doi%2F#{CGI.escape(@doc.doi)}" if @doc.doi
         params << "&rft.atitle=#{CGI.escape(@doc.title)}" if @doc.title
         params << "&rft.title=#{CGI.escape(@doc.journal)}" if @doc.journal

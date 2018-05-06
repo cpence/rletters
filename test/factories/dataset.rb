@@ -1,15 +1,16 @@
+# frozen_string_literal: true
 
 WORKING_UIDS ||= [
-  'doi:10.1371/journal.pntd.0000534'.freeze,
-  'doi:10.1371/journal.pntd.0000535'.freeze,
-  'doi:10.1371/journal.pntd.0000536'.freeze,
-  'doi:10.1371/journal.pntd.0000537'.freeze,
-  'doi:10.1371/journal.pntd.0000538'.freeze,
-  'doi:10.1371/journal.pntd.0000539'.freeze,
-  'doi:10.1371/journal.pntd.0000540'.freeze,
-  'doi:10.1371/journal.pntd.0000541'.freeze,
-  'doi:10.1371/journal.pntd.0000542'.freeze,
-  'doi:10.1371/journal.pntd.0000543'.freeze
+  'doi:10.1371/journal.pntd.0000534',
+  'doi:10.1371/journal.pntd.0000535',
+  'doi:10.1371/journal.pntd.0000536',
+  'doi:10.1371/journal.pntd.0000537',
+  'doi:10.1371/journal.pntd.0000538',
+  'doi:10.1371/journal.pntd.0000539',
+  'doi:10.1371/journal.pntd.0000540',
+  'doi:10.1371/journal.pntd.0000541',
+  'doi:10.1371/journal.pntd.0000542',
+  'doi:10.1371/journal.pntd.0000543'
 ].freeze
 
 FactoryBot.define do

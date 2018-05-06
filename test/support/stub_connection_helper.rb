@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 # Helper methods for stubbing out HTTP queries
 module StubConnectionHelper

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 # Code for objects belonging to users
 module Users

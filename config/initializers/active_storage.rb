@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 if Rails.env.test?
   Rails.application.config.active_storage.service = :test

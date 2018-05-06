@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 module Admin
   # A database table to track currently running job workers

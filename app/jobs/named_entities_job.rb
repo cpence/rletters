@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 # Extract proper noun named entities from documents
 class NamedEntitiesJob < ApplicationJob

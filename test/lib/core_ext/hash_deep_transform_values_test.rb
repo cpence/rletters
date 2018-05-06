@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'test_helper'
 require 'core_ext/hash/deep_transform_values'
 
@@ -18,7 +19,7 @@ class HashDeepTransformValuesTest < ActiveSupport::TestCase
   end
 
   test 'deep_transform_values! modifies keys of the original' do
-    original = { a: 'a', b: 'b' }
+    original = { a: 'a'.dup, b: 'b'.dup }
     mapped = original.deep_transform_values!(&:upcase)
 
     assert_equal({ a: 'A', b: 'B' }, original)
@@ -26,7 +27,7 @@ class HashDeepTransformValuesTest < ActiveSupport::TestCase
   end
 
   test 'deep_transform_values! finds nested hashes' do
-    original = { a: 'a', b: { c: 'c' }, d: [{ e: 'f' }] }
+    original = { a: 'a'.dup, b: { c: 'c'.dup }, d: [{ e: 'f'.dup }] }
     original.deep_transform_values!(&:upcase)
 
     assert_equal({ a: 'A', b: { c: 'C' }, d: [{ e: 'F' }] }, original)

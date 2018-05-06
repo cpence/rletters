@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 # Generator configuration
 Rails.application.config.generators do |g|

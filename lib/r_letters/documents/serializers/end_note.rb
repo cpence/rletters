@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 module RLetters
   module Documents
@@ -6,7 +7,7 @@ module RLetters
       class EndNote < Base
         define_array(:endnote, 'EndNote',
                      'http://auditorymodels.org/jba/bibs/NetBib/Tools/bp-0.2.97/doc/endnote.html') do |doc|
-          ret = "%0 Journal Article\n"
+          ret = "%0 Journal Article\n".dup
           doc.authors.each do |a|
             ret << "%A #{a.last}, #{a.first}"
             ret << " #{a.prefix}" if a.prefix

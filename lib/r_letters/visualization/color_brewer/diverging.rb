@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module RLetters
   module Visualization
     module ColorBrewer

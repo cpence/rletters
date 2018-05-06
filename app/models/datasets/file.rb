@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 module Datasets
   # A file full of results that belongs to a dataset task

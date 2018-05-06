@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 module RLetters::Documents::Serializers::CommonTests
   def test_class_methods_work

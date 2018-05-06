@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 module RLetters
   # Code for manipulating datasets and the documents they contain

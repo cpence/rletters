@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 module RLetters
   module Solr
@@ -54,12 +55,13 @@ module RLetters
           # Default sort to relevance if there's a search, otherwise year; also
           # let the params override this if there is a sort specified in the
           # query
-          if params[:advanced] || params[:q]
-            ret[:sort] = 'score desc'
+          if params[:sort]
+            ret[:sort] = params[:sort].dup
+          elsif params[:advanced] || params[:q]
+            ret[:sort] = 'score desc'.dup
           else
-            ret[:sort] = 'year_sort desc'
+            ret[:sort] = 'year_sort desc'.dup
           end
-          ret[:sort] = params[:sort] if params[:sort].present?
 
           # If this is an API search, they are allowed to set page and per_page
           # to control the start and rows values; otherwise we are using cursor

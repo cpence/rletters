@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 # Send notification e-mails to users
 #

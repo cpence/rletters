@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 # Representation of a document in the Solr database
 #

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 module RLetters
   # A module which, when included, adds a class `call` method, to give us a

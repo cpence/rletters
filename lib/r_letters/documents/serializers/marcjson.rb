@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'r_letters/documents/serializers/marc_record'
 
 module RLetters

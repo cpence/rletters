@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 module RLetters
   module Documents
@@ -6,7 +7,7 @@ module RLetters
       class RIS < Base
         define_array(:ris, 'RefMan/RIS',
                      'http://www.refman.com/support/risformat_intro.asp') do |doc|
-          ret = "TY  - JOUR\n"
+          ret = "TY  - JOUR\n".dup
           doc.authors.each do |a|
             ret << 'AU  - '
             ret << "#{a.prefix} " if a.prefix

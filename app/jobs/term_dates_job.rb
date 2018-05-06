@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 # Plot occurrences of a term in a dataset by year
 class TermDatesJob < ApplicationJob

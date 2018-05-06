@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 module AnalysisJobHelper
   def test_should_call_finish_and_send_email

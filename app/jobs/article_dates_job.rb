@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 # Plot a dataset's members by year
 class ArticleDatesJob < ApplicationJob

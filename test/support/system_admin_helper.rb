@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 module SystemAdminHelper
   def sign_out_admin

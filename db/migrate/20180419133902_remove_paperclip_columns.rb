@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class RemovePaperclipColumns < ActiveRecord::Migration[5.2]
   def change
     remove_column :admin_uploaded_assets, :file_file_name, :string

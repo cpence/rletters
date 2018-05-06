@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 module Admin
   # View, edit, and order categorization of journals

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 module RLetters
   # Code for performing various analyses on document text
@@ -34,7 +35,7 @@ module RLetters
         return nil if ENV['NLP_TOOL_PATH'].blank?
 
         total = dataset.document_count
-        text_cache = ''
+        text_cache = ''.dup
 
         enum = RLetters::Datasets::DocumentEnumerator.new(dataset: dataset,
                                                           fulltext: true)

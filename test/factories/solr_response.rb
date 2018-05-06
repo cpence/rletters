@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 FactoryBot.define do
   factory :solr_response, class: OpenStruct do

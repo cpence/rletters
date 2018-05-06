@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 module RLetters
   # Code for manipulating and parsing documents and their contents
@@ -59,7 +60,7 @@ module RLetters
       def to_lucene
         # Construct the last name we'll use, which is last name with von part
         # and suffix w/o period
-        all_last = ''
+        all_last = ''.dup
         all_last << "#{prefix} " if prefix
         all_last << last
         all_last << " #{suffix.chomp('.')}" if suffix

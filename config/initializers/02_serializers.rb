@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Make sure all of the serializers are loaded, so that they are registered
 # with the base factory
 serializer_files = File.join(Rails.root, 'lib', 'r_letters', 'documents',
