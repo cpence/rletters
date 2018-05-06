@@ -98,7 +98,7 @@ module RLetters
           options[:id] = options.delete(:stem) if options[:stem]
 
           unless options[:word] || options[:id]
-            fail ArgumentError, 'no find option specified'
+            raise ArgumentError, 'no find option specified'
           end
 
           if options[:word]

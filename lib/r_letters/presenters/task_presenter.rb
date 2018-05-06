@@ -11,7 +11,7 @@ module RLetters
       #
       # @return [String] percentage message
       def status_message
-        ''.dup.tap do |ret|
+        (+'').tap do |ret|
           if task.progress
             ret << "#{(task.progress * 100).to_i}%"
             ret << ': ' if task.progress_message.present?

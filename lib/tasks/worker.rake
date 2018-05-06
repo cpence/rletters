@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'socket'
 require 'action_view/helpers/date_helper'
 
@@ -72,7 +73,7 @@ namespace :rletters do
           # Don't abort, however; we should have cleaned up after ourselves
           Rails.logger.error 'The job we were asked to run has failed'
         else
-          fail "An unexpected combination of return codes resulted from working jobs (#{success}, #{failure})"
+          raise "An unexpected combination of return codes resulted from working jobs (#{success}, #{failure})"
         end
       ensure
         stat.destroy

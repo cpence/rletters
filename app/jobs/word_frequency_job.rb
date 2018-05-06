@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'r_letters/analysis/frequency/base'
 
 # Produce a parallel word frequency list for a dataset

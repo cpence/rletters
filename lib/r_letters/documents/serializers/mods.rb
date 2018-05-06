@@ -69,7 +69,7 @@ module RLetters
             first_name_elt.content = a.first
             first_name_elt['type'] = 'given'
 
-            last_name = ''.dup
+            last_name = +''
             last_name << " #{a.prefix}" if a.prefix
             last_name << a.last
             last_name << ", #{a.suffix}" if a.suffix

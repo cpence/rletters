@@ -267,7 +267,7 @@ module RLetters
           elsif can_grow_down
             grow_down(root: root, height: height)
           else
-            fail "Can't fit #{width}x#{height} into root, shouldn't happen"
+            raise "Can't fit #{width}x#{height} into root, shouldn't happen"
           end
           # :nocov:
         end

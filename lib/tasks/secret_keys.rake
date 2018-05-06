@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Overwrite the secret key lines in .env to contain fresh secrets
 namespace :rletters do
   namespace :secrets do

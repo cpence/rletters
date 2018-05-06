@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class RemoveSetler < ActiveRecord::Migration[5.1]
   def up
     drop_table :admin_feature_flags

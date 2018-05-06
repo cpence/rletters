@@ -45,7 +45,7 @@ module Datasets
         content_type: options[:content_type] || 'text/plain'
       )
 
-      self.result.attach(blob)
+      result.attach(blob)
       save!
     end
   end

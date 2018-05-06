@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
@@ -5,17 +7,17 @@ ruby '2.5.0'
 
 # Rails
 gem 'rails', '~> 5.2.0'
-gem 'puma', '~> 3.11'
 
 # Twelve factor app glue
 gem 'dotenv-rails'
 gem 'lograge'
+gem 'puma', '~> 3.11'
 
 # Database and related tools
-gem 'pg'
-gem 'delayed_job_active_record'
-gem 'daemons'
 gem 'ancestry', '~> 3', '>= 3.0.2'
+gem 'daemons'
+gem 'delayed_job_active_record'
+gem 'pg'
 gem 'virtus'
 
 # User authentication and administration
@@ -27,22 +29,22 @@ gem 'rails-i18n', '= 5.1.1'
 gem 'twitter_cldr'
 
 # Textual analysis
-gem 'rsolr', '>= 1.0.7'
-gem 'rsolr-ext'
 gem 'cheetah'
 gem 'distribution'
 gem 'fast-stemmer'
+gem 'rsolr', '>= 1.0.7'
+gem 'rsolr-ext'
 
 # Citation processing
 gem 'bibtex-ruby', require: 'bibtex'
 
 # Support for file attachments and exporting
 gem 'aws-sdk-s3'
-gem 'rubyzip', '>= 1.1.0', require: 'zip'
 gem 'marc'
 gem 'rdf', '>= 0.3.5'
-gem 'rdf-vocab'
 gem 'rdf-n3'
+gem 'rdf-vocab'
+gem 'rubyzip', '>= 1.1.0', require: 'zip'
 
 # Visualization
 gem 'prawn'
@@ -51,26 +53,24 @@ gem 'rubysdl', '>= 2.1.3.1'
 # Asset tools and template generators
 gem 'haml'
 gem 'haml-rails'
-gem 'sass-rails', '~> 5.0'
 gem 'kramdown'
 gem 'nokogiri'
+gem 'sass-rails', '~> 5.0'
 
-gem 'uglifier', '>= 1.3.0'
 gem 'mini_racer'
+gem 'uglifier', '>= 1.3.0'
 
-gem 'multi_mail'
 gem 'inky-rb', require: 'inky'
+gem 'multi_mail'
 gem 'premailer-rails'
 
 # Testing
 group :test, :development do
-  gem 'mocha', require: false
-  gem 'factory_bot_rails'
-
   gem 'capybara', '>= 2.15', '< 4.0'
   # gem 'capybara-slow_finder_errors'
-
+  gem 'factory_bot_rails'
   gem 'listen', '>= 3.0.5', '< 3.2'
+  gem 'mocha', require: false
 end
 
 group :test do
@@ -86,7 +86,7 @@ end
 
 # Tools that we need for developers, but not for any deployment or testing
 group :tools do
-  gem 'bundle-audit'
   gem 'brakeman'
+  gem 'bundle-audit'
   gem 'rubocop'
 end

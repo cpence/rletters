@@ -23,7 +23,7 @@ module RLetters
         when :year
           year_label
         else
-          fail ArgumentError, "do not know how to handle facets on #{facet.field}"
+          raise ArgumentError, "do not know how to handle facets on #{facet.field}"
         end
       end
 
@@ -39,7 +39,7 @@ module RLetters
         when :year
           I18n.t('search.index.year_facet_short')
         else
-          fail ArgumentError, "do not know how to handle facets on #{facet.field}"
+          raise ArgumentError, "do not know how to handle facets on #{facet.field}"
         end
       end
 
@@ -54,7 +54,7 @@ module RLetters
           value_without_brackets = facet.value[1..-2]
 
           parts = value_without_brackets.split
-          fail ArgumentError, 'invalid year query' unless parts.size == 3
+          raise ArgumentError, 'invalid year query' unless parts.size == 3
 
           decade = parts[0]
           decade = '1790' if decade == '*'

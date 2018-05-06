@@ -44,7 +44,7 @@
 #   @return [ActiveStorage::Attachment] The user's data, collected as a ZIP
 #     file archive
 # @!attribute export_requested_at
-#   @return [DateTime] The time at which the user last requested a data export
+#   @return [Time] The time at which the user last requested a data export
 #
 # @!macro devise_user
 class User < ApplicationRecord
@@ -75,9 +75,9 @@ class User < ApplicationRecord
   # @raise [RecordNotFound] if the index is outside the range for the number
   #   of datasets in the user's workflow
   # @return [Dataset] the given dataset
-  def workflow_dataset(n)
-    fail ActiveRecord::RecordNotFound if workflow_datasets.size <= n
-    Dataset.find(workflow_datasets[n])
+  def workflow_dataset(num)
+    raise ActiveRecord::RecordNotFound if workflow_datasets.size <= num
+    Dataset.find(workflow_datasets[num])
   end
 
   # Returns true if the user is allowed to start another export job
@@ -85,7 +85,7 @@ class User < ApplicationRecord
   # @return [Boolean] true if the user can export their data now
   def can_export?
     return true unless export_requested_at
-    return export_requested_at < 1.day.ago
+    export_requested_at < 1.day.ago
   end
 
   # Override the Devise e-mail delivery logic to queue mail delivery
@@ -121,11 +121,11 @@ class User < ApplicationRecord
     def initialize(*)
       super
       permit(:sign_up,
-             keys: [:name, :email, :password, :password_confirmation,
-                    :language, :timezone])
+             keys: %i[name email password password_confirmation language
+                      timezone])
       permit(:account_update,
-             keys: [:name, :email, :password, :password_confirmation,
-                    :current_password, :language, :timezone])
+             keys: %i[name email password password_confirmation
+                      current_password language timezone])
     end
   end
   # :nocov:

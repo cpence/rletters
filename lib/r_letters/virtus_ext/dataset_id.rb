@@ -21,7 +21,7 @@ module RLetters
           end
         end
 
-        fail ArgumentError, "cannot create dataset from #{value.class}"
+        raise ArgumentError, "cannot create dataset from #{value.class}"
       end
     end
   end

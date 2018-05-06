@@ -7,7 +7,7 @@ module Datasets
   class TasksController < ApplicationController
     before_action :authenticate_user!
     before_action :set_task
-    before_action :set_current_params, only: [:new, :create]
+    before_action :set_current_params, only: %i[new create]
 
     # Show the list of tasks for this dataset
     #
@@ -30,7 +30,7 @@ module Datasets
       return if @current_params[:other_datasets]&.size ==
                 (@klass.num_datasets - 1)
 
-      fail ArgumentError, "not enough datasets specified for #{params[:class]}"
+      raise ArgumentError, "not enough datasets specified for #{params[:class]}"
     end
 
     # Start an task for this dataset

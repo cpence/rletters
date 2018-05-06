@@ -12,9 +12,9 @@ module Datasets
   #   @raise [RecordInvalid] if the name is missing (validates :presence)
   #   @return [String] The name of this task
   # @!attribute created_at
-  #   @return [DateTime] The time at which this task was created
+  #   @return [Time] The time at which this task was created
   # @!attribute finished_at
-  #   @return [DateTime] The time at which this task was finished
+  #   @return [Time] The time at which this task was finished
   # @!attribute failed
   #   @return [Boolean] True if this job has failed
   # @!attribute progress
@@ -22,7 +22,7 @@ module Datasets
   # @!attribute progress_message
   #   @return [String] the last progress update message from this task
   # @!attribute last_progress
-  #   @return [DateTime] the time of the last progress update
+  #   @return [Time] the time of the last progress update
   # @!attribute job_type
   #   @raise [RecordInvalid] if the job type is missing (validates :presence)
   #   @return [String] The class name of the job this task contains
@@ -93,7 +93,7 @@ module Datasets
     #
     # This array includes both base classes and jobs that are started by the UI
     # or in maintenance queues.
-    DISALLOWED_CLASSES = [ApplicationJob, UserExportJob]
+    DISALLOWED_CLASSES = [ApplicationJob, UserExportJob].freeze
 
     # Convert class_name to a class object
     #
@@ -102,7 +102,7 @@ module Datasets
     def self.job_class(class_name)
       class_name.safe_constantize.tap do |klass|
         if klass.nil? || DISALLOWED_CLASSES.include?(klass)
-          fail ArgumentError, "#{class_name} is not a valid class"
+          raise ArgumentError, "#{class_name} is not a valid class"
         end
       end
     end
@@ -121,11 +121,11 @@ module Datasets
     # @param [String] message the current progress message
     # @return [void]
     def at(current, total, message)
-      return if DateTime.now.to_i - last_progress.to_i < 5
+      return if Time.current.to_i - last_progress.to_i < 5
 
       self.progress = (current.to_f / total.to_f).bound(0.0, 1.0)
       self.progress_message = message
-      self.last_progress = DateTime.now
+      self.last_progress = Time.current
 
       save
     end
@@ -135,11 +135,11 @@ module Datasets
     # @return [void]
     def mark_completed
       self.failed = false
-      self.finished_at = DateTime.current
+      self.finished_at = Time.current
 
       self.progress = 1.0
       self.progress_message = I18n.t('common.progress_finished')
-      self.last_progress = DateTime.now
+      self.last_progress = Time.current
 
       finish!
     end
@@ -152,7 +152,7 @@ module Datasets
       self.failed = true
 
       self.progress_message = message || I18n.t('common.progress_generic_fail')
-      self.last_progress = DateTime.now
+      self.last_progress = Time.current
 
       finish!
     end

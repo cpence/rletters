@@ -7,7 +7,7 @@ module RLetters
       class EndNote < Base
         define_array(:endnote, 'EndNote',
                      'http://auditorymodels.org/jba/bibs/NetBib/Tools/bp-0.2.97/doc/endnote.html') do |doc|
-          ret = "%0 Journal Article\n".dup
+          ret = +"%0 Journal Article\n"
           doc.authors.each do |a|
             ret << "%A #{a.last}, #{a.first}"
             ret << " #{a.prefix}" if a.prefix

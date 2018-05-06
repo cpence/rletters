@@ -64,7 +64,7 @@ module RLetters
         when :t_test
           score_class = Scoring::TTest
         else
-          fail ArgumentError, "#{scoring} is an invalid scoring method"
+          raise ArgumentError, "#{scoring} is an invalid scoring method"
         end
 
         case stemming

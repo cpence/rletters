@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class AddAncestryToDocumentsCategory < ActiveRecord::Migration[5.2]
   def up
     add_column :documents_categories, :ancestry, :string
@@ -26,6 +27,6 @@ class AddAncestryToDocumentsCategory < ActiveRecord::Migration[5.2]
 
   def down
     # closure_tree doesn't have the methods we need to do this
-    fail ActiveRecord::IrreversibleMigration
+    raise ActiveRecord::IrreversibleMigration
   end
 end

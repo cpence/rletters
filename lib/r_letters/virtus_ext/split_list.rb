@@ -17,7 +17,7 @@ module RLetters
         return value if value.is_a?(Array)
         return value.list.split if value.is_a?(::Documents::StopList)
         return value.mb_chars.downcase.to_s.strip.split if value.is_a?(String)
-        fail ArgumentError, "cannot create list from #{value.class}"
+        raise ArgumentError, "cannot create list from #{value.class}"
       end
     end
   end

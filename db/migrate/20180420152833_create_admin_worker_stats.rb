@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class CreateAdminWorkerStats < ActiveRecord::Migration[5.2]
   def change
     create_table :admin_worker_stats do |t|

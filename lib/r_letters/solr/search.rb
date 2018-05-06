@@ -56,11 +56,11 @@ module RLetters
           # let the params override this if there is a sort specified in the
           # query
           if params[:sort]
-            ret[:sort] = params[:sort].dup
+            ret[:sort] = params[:sort]
           elsif params[:advanced] || params[:q]
-            ret[:sort] = 'score desc'.dup
+            ret[:sort] = +'score desc'
           else
-            ret[:sort] = 'year_sort desc'.dup
+            ret[:sort] = +'year_sort desc'
           end
 
           # If this is an API search, they are allowed to set page and per_page

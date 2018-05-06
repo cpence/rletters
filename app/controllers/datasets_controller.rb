@@ -36,7 +36,7 @@ class DatasetsController < ApplicationController
     @dataset = current_user.datasets.find(params[:id])
 
     # Clear failed tasks if requested
-    return unless params[:clear_failed] && @dataset.tasks.failed.size > 0
+    return unless params[:clear_failed] && !@dataset.tasks.failed.empty?
 
     @dataset.tasks.failed.destroy_all
     flash[:notice] = t('datasets.show.deleted')
@@ -88,7 +88,7 @@ class DatasetsController < ApplicationController
   #
   # @return [void]
   def update
-    fail ActionController::ParameterMissing, :uid unless params[:uid]
+    raise ActionController::ParameterMissing, :uid unless params[:uid]
 
     @dataset = current_user.datasets.find(params[:id])
     @document = Document.find(params[:uid])

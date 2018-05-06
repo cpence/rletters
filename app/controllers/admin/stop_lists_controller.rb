@@ -50,7 +50,7 @@ module Admin
     # @return [void]
     def destroy
       list = Documents::StopList.find(params[:id])
-      list.destroy()
+      list.destroy
 
       redirect_to stop_lists_path
     end

@@ -106,8 +106,9 @@ class Document
   include GlobalID::Identification
 
   attr_accessor :uid, :doi, :license, :license_url, :data_source, :authors,
-                :title, :journal, :year, :volume, :number, :pages, :fulltext,
+                :title, :journal, :year, :volume, :number, :pages,
                 :fulltext_url, :fulltext_requested, :term_vectors
+  attr_writer :fulltext
 
   # The uid attribute is the only required one
   validates :uid, presence: true
@@ -116,7 +117,9 @@ class Document
   alias_attribute :id, :uid
 
   # Inform Rails that these models are all saved by Solr
-  def persisted?; true; end
+  def persisted?
+    true
+  end
 
   # Return a document (just bibliographic data) by uid
   #
@@ -147,7 +150,7 @@ class Document
   # @raise [ActiveRecord::RecordNotFound] thrown if no matching document can
   #   be found
   def self.find_by!(args)
-    find_by(args) || fail(ActiveRecord::RecordNotFound)
+    find_by(args) || raise(ActiveRecord::RecordNotFound)
   end
 
   # Query a document and return it (or nil)
@@ -254,9 +257,8 @@ class Document
     # authors here, that's done specially. Finally, don't do this for
     # the full text, because that might trigger a fetch from an external
     # source that we wouldn't otherwise have to do
-    [:uid, :doi, :license, :license_url,
-     :data_source, :title, :journal,
-     :year, :volume, :number, :pages].each do |a|
+    %i[uid doi license license_url data_source title journal year volume
+       number pages].each do |a|
       value = send(a)
       send("#{a}=".to_sym, nil) if value&.strip&.empty?
     end

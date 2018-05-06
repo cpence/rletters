@@ -145,7 +145,7 @@ module RLetters
                      '#fdb462', '#b3de69', '#fccde5', '#d9d9d9', '#bc80bd',
                      '#ccebc5', '#ffed6f']
         }
-      }
+      }.freeze
     end
   end
 end

@@ -13,7 +13,7 @@ module RLetters
       def coerce(value)
         return nil if value.blank?
         return value.mb_chars.downcase.to_s if value.is_a?(String)
-        fail ArgumentError, "cannot create lowercase string from #{value.class}"
+        raise ArgumentError, "cannot create lowercase string from #{value.class}"
       end
     end
   end

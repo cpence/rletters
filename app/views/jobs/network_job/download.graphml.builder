@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 xml.instruct!
 data = JSON.load(task.file_for('application/json').result.download)
 nodes = data['d3_nodes']

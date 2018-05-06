@@ -49,7 +49,7 @@ else
 
   delivery_method = (ENV['MAIL_DELIVERY_METHOD'] || 'sendmail').to_sym
   unless GOOD_DELIVERY_METHODS.include?(delivery_method)
-    fail <<-ERROR.strip_heredoc
+    raise <<-ERROR.strip_heredoc
       The mail delivery method configured in ENV is invalid. Please edit .env
       and set to one of the delivery methods present in
       config/initializers/mail.rb.

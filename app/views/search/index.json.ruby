@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 ret = { 'results' => { 'num_hits' => @result.num_hits } }
 
 if @result.solr_response.dig('responseHeader', 'params')

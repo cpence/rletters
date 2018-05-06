@@ -105,7 +105,7 @@ class ApplicationJob < ActiveJob::Base
   # @return [Dataset] the dataset we are working on
   def dataset
     if @datasets
-      fail ArgumentError, 'task was created with more than one dataset'
+      raise ArgumentError, 'task was created with more than one dataset'
     end
 
     task.dataset
@@ -117,7 +117,7 @@ class ApplicationJob < ActiveJob::Base
   # @return [Array<Dataset>] the array of datasets we are working on
   def datasets
     unless @datasets
-      fail ArgumentError, 'task was only created with one dataset'
+      raise ArgumentError, 'task was only created with one dataset'
     end
 
     check_task
@@ -178,6 +178,6 @@ class ApplicationJob < ActiveJob::Base
   # @raise [JobKilledError] if the task has been deleted
   # @return [void]
   def check_task
-    fail JobKilledError unless Datasets::Task.exists?(@task_id)
+    raise JobKilledError unless Datasets::Task.exists?(@task_id)
   end
 end

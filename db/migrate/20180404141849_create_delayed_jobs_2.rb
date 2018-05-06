@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class CreateDelayedJobs2 < ActiveRecord::Migration[5.1]
   def self.up
     create_table :delayed_jobs, force: true do |table|
@@ -22,6 +23,6 @@ class CreateDelayedJobs2 < ActiveRecord::Migration[5.1]
 
   def self.down
     # Sorry, you can't undo this, as the Que gem won't be installed anymore.
-    fail ActiveRecord::IrreversibleMigration
+    raise ActiveRecord::IrreversibleMigration
   end
 end

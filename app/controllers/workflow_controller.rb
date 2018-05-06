@@ -71,7 +71,7 @@ class WorkflowController < ApplicationController
       if current_user.workflow_datasets.find_index(params[:unlink_dataset_id])
         current_user.workflow_datasets.delete(params[:unlink_dataset_id])
       else
-        fail ActiveRecord::RecordNotFound
+        raise ActiveRecord::RecordNotFound
       end
     end
 
@@ -114,9 +114,9 @@ class WorkflowController < ApplicationController
   #
   # @return [void]
   def set_workflow_parameters
-    fail ActiveRecord::RecordNotFound unless params[:class]
+    raise ActiveRecord::RecordNotFound unless params[:class]
     @klass = params[:class].safe_constantize
-    fail ActiveRecord::RecordNotFound unless @klass
+    raise ActiveRecord::RecordNotFound unless @klass
 
     @num_datasets = @klass.num_datasets
     @num_workflow_datasets = current_user.workflow_datasets.size

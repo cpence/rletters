@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'net/http'
 
 # Ruby's standard networking module
@@ -22,7 +23,7 @@ module Net
         Net::ProtocolError,
         SocketError,
         Timeout::Error
-      ]
+      ].freeze
     end
   end
 end

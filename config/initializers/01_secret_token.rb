@@ -6,7 +6,7 @@ if Rails.env.development? || Rails.env.test?
 else
   # Load from .env, raising an exception if not found
   unless ENV['SECRET_KEY_BASE']
-    fail <<-ERROR.strip_heredoc
+    raise <<-ERROR.strip_heredoc
       No secret keys available in ENV. Please copy .env.example to .env, and
       run rake rletters:secrets:regen.
     ERROR

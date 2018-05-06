@@ -9,7 +9,7 @@ class UserExportJob < ActiveJob::Base
   # @param [User] user the user whose data we want to export
   # @return [void]
   def perform(user)
-    fail 'Attempted to export a non-user object' unless user.is_a?(User)
+    raise 'Attempted to export a non-user object' unless user.is_a?(User)
 
     # Kill any already attached file
     user.export_archive.purge if user.export_archive.attached?

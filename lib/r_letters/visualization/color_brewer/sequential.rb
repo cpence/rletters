@@ -269,7 +269,7 @@ module RLetters
           'Greys' => ['#ffffff', '#f0f0f0', '#d9d9d9', '#bdbdbd', '#969696',
                       '#737373', '#525252', '#252525', '#000000']
         }
-      }
+      }.freeze
     end
   end
 end

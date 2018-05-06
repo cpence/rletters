@@ -12,12 +12,12 @@ class UsersController < ApplicationController
   # @return [void]
   def export_create
     unless current_user.can_export?
-      fail ArgumentError, 'user has exported too recently'
+      raise ArgumentError, 'user has exported too recently'
     end
 
     UserExportJob.perform_later(current_user)
 
-    current_user.export_requested_at = DateTime.now
+    current_user.export_requested_at = Time.current
     current_user.save
 
     redirect_to edit_user_registration_path
@@ -28,7 +28,7 @@ class UsersController < ApplicationController
   # @return [void]
   def export_delete
     unless current_user.export_archive.attached?
-      fail ActiveRecord::RecordNotFound
+      raise ActiveRecord::RecordNotFound
     end
 
     current_user.export_archive.purge_later

@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
   #
   # @param [User] resource the user that just signed in
   # @return [void]
-  def after_sign_in_path_for(resource)
+  def after_sign_in_path_for(_resource)
     root_url
   end
 
@@ -23,7 +23,7 @@ class ApplicationController < ActionController::Base
   # This method is called by Devise.
   #
   # @return [void]
-  def after_sign_out_path_for(_)
+  def after_sign_out_path_for(_resource)
     root_url
   end
 
@@ -32,7 +32,7 @@ class ApplicationController < ActionController::Base
   # This method is called by Devise.
   #
   # @return [void]
-  def stored_location_for(resource)
+  def stored_location_for(_resource)
     root_url
   end
 
@@ -65,9 +65,9 @@ class ApplicationController < ActionController::Base
 
     # Give up if we can't find it
     unless File.exist?(path)
-      fail I18n::MissingTranslationData.new(I18n.locale,
-                                            "localized_markdown.#{file}",
-                                            {})
+      raise I18n::MissingTranslationData.new(I18n.locale,
+                                             "localized_markdown.#{file}",
+                                             {})
     end
 
     render_to_string(file: path, layout: false).html_safe
@@ -86,11 +86,11 @@ class ApplicationController < ActionController::Base
   #
   # @return [void]
   def set_locale
-    if user_signed_in?
-      I18n.locale = current_user.language.to_sym
-    else
-      I18n.locale = I18n.default_locale
-    end
+    I18n.locale = if user_signed_in?
+                    current_user.language.to_sym
+                  else
+                    I18n.default_locale
+                  end
   end
 
   # Set the timezone if the user is logged in
@@ -101,11 +101,11 @@ class ApplicationController < ActionController::Base
   #
   # @return [void]
   def set_timezone
-    if user_signed_in?
-      Time.zone = current_user.timezone
-    else
-      Time.zone = 'Eastern Time (US & Canada)'
-    end
+    Time.zone = if user_signed_in?
+                  current_user.timezone
+                else
+                  'Eastern Time (US & Canada)'
+                end
   end
 
   protected
@@ -116,10 +116,10 @@ class ApplicationController < ActionController::Base
   # @return [void]
   def authenticate_admin!
     admin_pw_digest = Digest::SHA256.hexdigest(ENV['ADMIN_PASSWORD'])
-    if session[:admin_password] != admin_pw_digest
-      session.delete(:admin_password)
-      redirect_to admin_login_path, alert: I18n.t('admin.login_error')
-    end
+    return if session[:admin_password] == admin_pw_digest
+
+    session.delete(:admin_password)
+    redirect_to admin_login_path, alert: I18n.t('admin.login_error')
   end
 
   # Set cache control headers

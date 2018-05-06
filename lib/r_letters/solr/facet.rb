@@ -50,7 +50,7 @@ module RLetters
           # Construct field and value from the query
           parts = query.split(':')
           unless parts.size == 2
-            fail ArgumentError, 'facet query not separated by colon'
+            raise ArgumentError, 'facet query not separated by colon'
           end
 
           self.field = parts[0].to_sym
@@ -61,15 +61,15 @@ module RLetters
 
           # We only know how to handle one field, year
           unless field == :year
-            fail ArgumentError, "do not know how to handle facet queries for #{field}"
+            raise ArgumentError, "do not know how to handle facet queries for #{field}"
           end
         else
-          fail ArgumentError, 'facet without field' if field.blank?
-          fail ArgumentError, 'facet without value' if value.blank?
+          raise ArgumentError, 'facet without field' if field.blank?
+          raise ArgumentError, 'facet without value' if value.blank?
 
           # We only know how to handle :authors_facet and :journal_facet
           unless [:authors_facet, :journal_facet].include?(field)
-            fail ArgumentError, "do not know how to handle facets on #{field}"
+            raise ArgumentError, "do not know how to handle facets on #{field}"
           end
 
           # Strip quotes from the value if present

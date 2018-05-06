@@ -10,7 +10,7 @@ module Admin
   # @!attribute pid
   #   @return [Integer] The PID of this worker
   # @!attribute started_at
-  #   @return [DateTime] The time at which this worker was started
+  #   @return [Time] The time at which this worker was started
   class WorkerStats < ApplicationRecord
     self.table_name = 'admin_worker_stats'
   end

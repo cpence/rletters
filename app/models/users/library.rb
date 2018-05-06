@@ -20,7 +20,7 @@ module Users
 
     validates :name, presence: true
     validates :url, presence: true, format: {
-      with: %r{\A(https?)://[^\s/$.?#].[^\s]*\z}i,
+      with: %r{\A(https?)://[^\s/$.?#].[^\s]*\z}i
     }
     validates :user_id, presence: true
 

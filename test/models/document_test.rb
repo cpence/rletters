@@ -85,7 +85,7 @@ class UserTest < ActiveSupport::TestCase
 
   test 'find should work with external fulltext with BOM' do
     stub_request(:get, /www\.gutenberg\.org/).to_return(
-      body: "\xEF\xBB\xBFStart of Response".dup,
+      body: +"\xEF\xBB\xBFStart of Response",
       status: 200,
       headers: { 'Content-Length' => 20 })
     doc = Document.find('gutenberg:3172', fulltext: true, term_vectors: true)

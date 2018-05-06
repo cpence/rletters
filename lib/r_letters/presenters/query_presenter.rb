@@ -16,7 +16,7 @@ module RLetters
         query.fq.map do |q|
           parts = q.split(':')
           unless parts.size == 2
-            fail ArgumentError, 'facet query not separated by colon'
+            raise ArgumentError, 'facet query not separated by colon'
           end
 
           facet = RLetters::Solr::Facet.new(field: parts[0].to_sym,

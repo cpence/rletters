@@ -47,7 +47,7 @@ module RLetters
       # @return [void]
       def write_csv_data(csv:, data:, data_spec:)
         unless data.respond_to?(:each)
-          fail ArgumentError, 'data object passed to write_data not enumerable'
+          raise ArgumentError, 'data object passed to write_data not enumerable'
         end
 
         csv << data_spec.keys

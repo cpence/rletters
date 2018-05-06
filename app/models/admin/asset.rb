@@ -31,7 +31,7 @@ module Admin
     # @return [Boolean] true if this asset can be used
     def self.usable?(name)
       asset = find_by(name: name)
-      return asset && asset.file.attached?
+      asset&.file&.attached?
     end
   end
 end

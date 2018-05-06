@@ -7,4 +7,4 @@ Rails.application.config.assets.version = '1.0'
 Rails.application.config.assets.paths << Rails.root.join('node_modules')
 
 # Also precompile the foundation_emails css. This is likely a bug; fixme.
-Rails.application.config.assets.precompile += %w{foundation_emails.css}
+Rails.application.config.assets.precompile += %w[foundation_emails.css]

@@ -45,7 +45,7 @@ module Admin
     #   to current locale)
     # @return [String] HTML output of rendering this snippet to Markdown
     def self.render(name, language = nil)
-      language = I18n.locale unless language
+      language ||= I18n.locale
 
       snippet = find_by(name: name, language: language)
       return '' unless snippet

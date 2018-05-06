@@ -69,7 +69,7 @@ module RLetters
           when :t_test
             score_class = Scoring::TTest
           else
-            fail ArgumentError, "cannot score collocations with #{scoring}"
+            raise ArgumentError, "cannot score collocations with #{scoring}"
           end
 
           # Ignore num_pairs if we want all of the cooccurrences

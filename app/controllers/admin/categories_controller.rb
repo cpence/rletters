@@ -9,8 +9,7 @@ module Admin
     # Show the full list of categories
     #
     # @return [void]
-    def index
-    end
+    def index; end
 
     # Update the order of the categories
     #
@@ -92,7 +91,7 @@ module Admin
     # @return [void]
     def destroy
       category = Documents::Category.find(params[:id])
-      category.destroy()
+      category.destroy
 
       redirect_to categories_path
     end
@@ -110,9 +109,9 @@ module Admin
     # Take the given hash and category, and set its children as appropriate
     #
     # @return [void]
-    def set_children_for(category, h)
-      if h['children']
-        h['children'].each do |ch|
+    def set_children_for(category, hash)
+      if hash['children']
+        hash['children'].each do |ch|
           child = Documents::Category.find(ch['id'])
           child.parent = category
           child.save
@@ -142,7 +141,8 @@ module Admin
           def_type: 'lucene',
           rows: 1,
           'facet.count': '100',
-          'facet.offset': offset.to_s)
+          'facet.offset': offset.to_s
+        )
 
         break unless result.facets
 
@@ -152,7 +152,7 @@ module Admin
         break if facets.empty?
 
         available_facets = facets.map do |f|
-          f.hits > 0 ? f.value : nil
+          f.hits.positive? ? f.value : nil
         end
 
         available_facets.compact!

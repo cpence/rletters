@@ -48,7 +48,7 @@
                 - entities['LOCATION'].uniq.sort.each do |l|
                   %li= link_to l, t('named_entities_job.wikipedia_link', query: CGI.escape(l))
 
-      - unless entities.reject { |c| %w{PERSON ORGANIZATION LOCATION}.include?(c) }.empty?
+      - unless entities.reject { |c| %w[PERSON ORGANIZATION LOCATION].include?(c) }.empty?
         .card
           .card-header#heading4
             %h5.mb-0
@@ -56,7 +56,7 @@
 
           .collapse#collapse4{ aria: { labelledby: 'heading4' }, data: { parent: '#accordion' } }
             .card-body
-              - entities.reject { |c| %w{PERSON ORGANIZATION LOCATION}.include?(c) }.each do |c|
+              - entities.reject { |c| %w[PERSON ORGANIZATION LOCATION].include?(c) }.each do |c|
                 %p.card-text
                   %strong= c
                 %ul

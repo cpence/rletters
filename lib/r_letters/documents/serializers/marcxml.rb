@@ -38,7 +38,7 @@ module RLetters
             to_marc_record(doc),
             include_namespace: include_namespace
           )
-          xml = ''.dup
+          xml = +''
           formatter = REXML::Formatters::Default.new
           formatter.write(rexml_element, xml)
 

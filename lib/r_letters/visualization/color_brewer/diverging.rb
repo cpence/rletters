@@ -203,7 +203,7 @@ module RLetters
                                '#fee08b', '#ffffbf', '#d9ef8b', '#a6d96a',
                                '#66bd63', '#1a9850', '#006837']
         }
-      }
+      }.freeze
     end
   end
 end

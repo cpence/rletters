@@ -64,7 +64,7 @@ module RLetters
 
             # :nocov:
             if cursor_mark == search_result.solr_response['nextCursorMark']
-              fail 'Expected more hits, but received the same cursor in response'
+              raise 'Expected more hits, but received the same cursor in response'
             end
             # :nocov:
 

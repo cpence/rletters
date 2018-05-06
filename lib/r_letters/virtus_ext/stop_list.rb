@@ -17,7 +17,7 @@ module RLetters
           return dsl.list.split if dsl
           return value.mb_chars.downcase.to_s.strip.split
         end
-        fail ArgumentError, "cannot create stop list from #{value.class}"
+        raise ArgumentError, "cannot create stop list from #{value.class}"
       end
     end
   end

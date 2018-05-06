@@ -17,10 +17,10 @@ module ApplicationHelper
   # @return [String] the contents of the invalid-feedback div
   def validation_errors_for(object, field, client_side = false,
                             client_side_message = nil)
-    ret = ''.dup
+    ret = +''
 
     if !object.is_a?(Symbol) && object.errors[field]
-      server_errors = '<span class="server-errors">'.dup
+      server_errors = +'<span class="server-errors">'
       server_errors << object.errors[field].map { |e| sanitize(e) }.join('<br>')
       server_errors << '</span>'
 
@@ -42,7 +42,7 @@ module ApplicationHelper
       # If we have a server-side error message to show (on initial load), then
       # start the client-side error message as hidden, and show it when we do
       # the actual JS client-side validation.
-      client_error = '<span class="client-errors"'.dup
+      client_error = +'<span class="client-errors"'
       if !object.is_a?(Symbol) && object.errors[field]
         client_error << ' style="display: none;"'
       end
@@ -61,7 +61,7 @@ module ApplicationHelper
   # @param [Hash] data if set, data attributes for the tag
   # @return [String] the close icon
   def close_icon(data = nil)
-    ret = '<button class="close" type="button" aria-label="close"'.dup
+    ret = +'<button class="close" type="button" aria-label="close"'
     if data
       data.each do |k, v|
         ret << " data-#{k}='#{v}'"

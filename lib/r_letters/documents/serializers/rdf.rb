@@ -27,7 +27,7 @@ module RLetters
           doc = ::RDF::Node.new
 
           d.authors.each do |a|
-            name = ''.dup
+            name = +''
             name << "#{a.prefix} " if a.prefix
             name << "#{a.last}"
             name << " #{a.suffix}" if a.suffix
@@ -36,7 +36,7 @@ module RLetters
           end
           graph << [doc, ::RDF::Vocab::DC.issued, d.year] if d.year
 
-          citation = ''.dup
+          citation = +''
           citation << d.journal if d.journal
           citation << (d.volume ? " #{d.volume}" : ' ')
           citation << "(#{d.number})" if d.number

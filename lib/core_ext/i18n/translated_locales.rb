@@ -21,7 +21,7 @@ RLetters::Application.config.after_initialize do
 
         ret = TwitterCldr::Shared::Languages.from_code_for_locale(loc.language,
                                                                   current_lang).dup
-        fail "Cannot translate #{loc} into #{I18n.locale}" unless ret
+        raise "Cannot translate #{loc} into #{I18n.locale}" unless ret
 
         # See if there's a region we should try to add
         if loc.region

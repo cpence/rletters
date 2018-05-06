@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class RemoveDatabaseFileTables < ActiveRecord::Migration[5.1]
   def up
     drop_table :datasets_file_results do |t|
@@ -15,6 +16,6 @@ class RemoveDatabaseFileTables < ActiveRecord::Migration[5.1]
   end
 
   def down
-    fail ActiveRecord::IrreversibleMigration
+    raise ActiveRecord::IrreversibleMigration
   end
 end

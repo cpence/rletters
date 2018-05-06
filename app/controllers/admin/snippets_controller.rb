@@ -9,8 +9,7 @@ module Admin
     # Show all of the currently defined snippets
     #
     # @return [void]
-    def index
-    end
+    def index; end
 
     # Show the form to create a new snippet
     #
@@ -62,9 +61,9 @@ module Admin
     # @return [void]
     def destroy
       snippet = Admin::Snippet.find(params[:id])
-      fail ActionController::ParameterMissing, :language if snippet.language == 'en'
+      raise ActionController::ParameterMissing, :language if snippet.language == 'en'
 
-      snippet.destroy()
+      snippet.destroy
 
       redirect_to snippets_path
     end

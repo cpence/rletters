@@ -51,8 +51,8 @@ class DocumentsController < ApplicationController
       json = res.body
       cul_docs = JSON.parse(json)
 
-      unless cul_docs&.size > 0 && cul_docs&.first
-        fail ActiveRecord::RecordNotFound
+      unless !cul_docs&.empty? && cul_docs&.first
+        raise ActiveRecord::RecordNotFound
       end
 
       redirect_to cul_docs[0]['href']

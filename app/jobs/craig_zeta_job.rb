@@ -36,7 +36,7 @@ class CraigZetaJob < ApplicationJob
     standard_options(task, options)
 
     unless datasets.size == 2
-      fail ArgumentError, 'Wrong number of other datasets provided'
+      raise ArgumentError, 'Wrong number of other datasets provided'
     end
     make_word_cloud = options[:word_cloud] == '1'
 
