@@ -41,5 +41,5 @@ Dir.glob(Rails.root.join('db', 'seeds', 'stoplists', '*.txt')) do |txt|
 end
 
 # Warn the user about the administrator password
-puts "----------"
-puts "Make sure to edit the .env file and change your administrator password!"
+puts '----------'
+puts 'Make sure to edit the .env file and change your administrator password!'

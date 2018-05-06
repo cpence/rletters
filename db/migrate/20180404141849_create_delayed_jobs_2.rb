@@ -15,7 +15,7 @@ class CreateDelayedJobs2 < ActiveRecord::Migration[5.1]
       table.timestamps null: true
     end
 
-    add_index :delayed_jobs, [:priority, :run_at], name: "delayed_jobs_priority"
+    add_index :delayed_jobs, %i[priority run_at], name: 'delayed_jobs_priority'
 
     # Remove the Que table
     drop_table :que_jobs

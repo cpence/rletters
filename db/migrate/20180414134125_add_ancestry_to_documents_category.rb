@@ -12,7 +12,7 @@ class AddAncestryToDocumentsCategory < ActiveRecord::Migration[5.2]
     remove_column :documents_categories, :sort_order
 
     remove_index :documents_category_hierarchies,
-                 column: [:ancestor_id, :descendant_id, :generations],
+                 column: %i[ancestor_id descendant_id generations],
                  unique: true, name: 'documents_category_anc_desc_udx'
     remove_index :documents_category_hierarchies,
                  column: [:descendant_id],
