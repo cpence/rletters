@@ -24,4 +24,4 @@ Rails.application.config.content_security_policy do |policy|
 end
 
 # Enable automatic nonce generation for UJS
-Rails.application.config.content_security_policy_nonce_generator = -> request { SecureRandom.base64(16) }
+Rails.application.config.content_security_policy_nonce_generator = proc { SecureRandom.base64(16) }

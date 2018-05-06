@@ -38,14 +38,14 @@ else
   }.compact)
 
   Rails.application.config.action_mailer.sendmail_settings ||= {}
-  Rails.application.config.action_mailer.sendmail_settings.merge!({
+  Rails.application.config.action_mailer.sendmail_settings.merge!(
     location: ENV['SENDMAIL_LOCATION'] || '/usr/sbin/sendmail',
     arguments: ENV['SENDMAIL_ARGUMENTS'] || '-i -t'
-  })
+  )
 
   # Set the delivery method
-  GOOD_DELIVERY_METHODS = [:mailgun, :mandrill, :postmark, :sendgrid,
-                           :sendmail, :smtp]
+  GOOD_DELIVERY_METHODS = %i[mailgun mandrill postmark sendgrid sendmail
+                             smtp].freeze
 
   delivery_method = (ENV['MAIL_DELIVERY_METHOD'] || 'sendmail').to_sym
   unless GOOD_DELIVERY_METHODS.include?(delivery_method)

@@ -1,13 +1,14 @@
 # frozen_string_literal: true
 
-if Rails.env.test?
-  Rails.application.config.active_storage.service = :test
-elsif ENV['S3_ACCESS_KEY_ID'] && ENV['S3_SECRET_ACCESS_KEY'] &&
-   ENV['S3_BUCKET']
-  Rails.application.config.active_storage.service = :s3
-else
-  Rails.application.config.active_storage.service = :local
-end
+Rails.application.config.active_storage.service =
+  if Rails.env.test?
+    :test
+  elsif ENV['S3_ACCESS_KEY_ID'] && ENV['S3_SECRET_ACCESS_KEY'] &&
+        ENV['S3_BUCKET']
+    :s3
+  else
+    :local
+  end
 
 # Send all ActiveStorage jobs to the maintenance queue
 Rails.application.config.active_storage.queue = :maintenance
