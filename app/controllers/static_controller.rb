@@ -11,7 +11,7 @@ class StaticController < ApplicationController
   # Show a variety of static information pages
   #
   # @return [void]
-  %i{cookies user_data}.each do |page|
+  %i[cookies user_data].each do |page|
     define_method page do
       @page = page
       render :page

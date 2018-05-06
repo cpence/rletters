@@ -31,7 +31,8 @@ class TermDatesJob < ApplicationJob
       term: options[:term],
       field: :year,
       dataset: dataset,
-      progress: ->(p) { task.at(p, 100, t('.progress_computing')) })
+      progress: ->(p) { task.at(p, 100, t('.progress_computing')) }
+    )
 
     # Convert the years to integers and sort
     dates = dates.to_a
@@ -57,7 +58,8 @@ class TermDatesJob < ApplicationJob
       data: dates,
       term: options[:term],
       year_header: year_header,
-      value_header: value_header }
+      value_header: value_header
+    }
 
     # Serialize out to JSON
     task.files.create(description: 'Raw JSON Data',

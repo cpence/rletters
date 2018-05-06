@@ -47,11 +47,11 @@ class ArticleDatesJob < ApplicationJob
     # set for pretty display
     norm_set_name = ''
     if result.normalize
-      if result.normalization_dataset
-        norm_set_name = result.normalization_dataset.name
-      else
-        norm_set_name = t('.entire_corpus')
-      end
+      norm_set_name = if result.normalization_dataset
+                        result.normalization_dataset.name
+                      else
+                        t('.entire_corpus')
+                      end
       value_header = t('.fraction_column')
     else
       value_header = t('.number_column')

@@ -8,7 +8,7 @@ class ListsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_includes @response.body, 'Peter J. Hotez'
 
-    obj = JSON.load(@response.body)
+    obj = JSON.parse(@response.body)
     assert_instance_of Array, obj
     assert_instance_of Hash, obj[0]
     refute_nil obj[0]['val']
@@ -21,7 +21,7 @@ class ListsControllerTest < ActionDispatch::IntegrationTest
     assert_includes @response.body, 'Marleen Boelaert'
     refute_includes @response.body, 'Peter J. Hotez'
 
-    obj = JSON.load(@response.body)
+    obj = JSON.parse(@response.body)
     assert_instance_of Array, obj
     assert_instance_of Hash, obj[0]
     refute_nil obj[0]['val']
@@ -33,7 +33,7 @@ class ListsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_includes @response.body, 'PLoS Neglected Tropical Diseases'
 
-    obj = JSON.load(@response.body)
+    obj = JSON.parse(@response.body)
     assert_instance_of Array, obj
     assert_instance_of Hash, obj[0]
     refute_nil obj[0]['val']
@@ -46,7 +46,7 @@ class ListsControllerTest < ActionDispatch::IntegrationTest
     assert_includes @response.body, 'Actually a Novel'
     refute_includes @response.body, 'PLoS Neglected Tropical Diseases'
 
-    obj = JSON.load(@response.body)
+    obj = JSON.parse(@response.body)
     assert_instance_of Array, obj
     assert_instance_of Hash, obj[0]
     refute_nil obj[0]['val']

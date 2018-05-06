@@ -84,13 +84,13 @@ class WordFrequencyJob < ApplicationJob
             r << Math.tfidf((b[word] || 0).to_f / s[:tokens].to_f,
                             analyzer.df_in_dataset[word],
                             dataset_size)
-            if analyzer.df_in_corpus.present?
-              r << Math.tfidf((b[word] || 0).to_f / s[:tokens].to_f,
+            r << if analyzer.df_in_corpus.present?
+                   Math.tfidf((b[word] || 0).to_f / s[:tokens].to_f,
                               analyzer.df_in_corpus[word],
                               corpus_size)
-            else
-              r << ''
-            end
+                 else
+                   ''
+                 end
           end
 
           # Output the block stats at the end

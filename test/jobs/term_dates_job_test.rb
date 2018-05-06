@@ -25,7 +25,7 @@ class TermDatesJobTest < ActiveJob::TestCase
     refute_nil task.file_for('application/json')
     refute_nil task.file_for('text/csv')
 
-    data = JSON.load(task.file_for('application/json').result.download)
+    data = JSON.parse(task.json)
     assert_kind_of Hash, data
 
     # Data is reasonable

@@ -22,7 +22,7 @@ class NetworkJobTest < ActiveJob::TestCase
 
     assert_equal 'Compute network of associated terms', task.reload.name
 
-    data = JSON.load(task.file_for('application/json').result.download)
+    data = JSON.parse(task.json)
     assert_kind_of Hash, data
 
     assert_equal 'Dataset', data['name']

@@ -62,7 +62,8 @@ class CraigZetaJob < ApplicationJob
         csv: csv,
         data: analyzer.dataset_1_markers.zip(analyzer.dataset_2_markers),
         data_spec: { t('.marker_header', name: datasets[0].name) => :first,
-                     t('.marker_header', name: datasets[1].name) => :second })
+                     t('.marker_header', name: datasets[1].name) => :second }
+      )
       csv << [''] << ['']
 
       # Output the graphing points
@@ -73,7 +74,8 @@ class CraigZetaJob < ApplicationJob
         data: analyzer.graph_points,
         data_spec: { t('.marker_column', name: datasets[0].name) => :x,
                      t('.marker_column', name: datasets[1].name) => :y,
-                     t('.block_name_column') => :name })
+                     t('.block_name_column') => :name }
+      )
       csv << [''] << ['']
 
       # Output the Zeta scores
@@ -83,7 +85,8 @@ class CraigZetaJob < ApplicationJob
         csv: csv,
         data: analyzer.zeta_scores,
         data_spec: { t('.word_column') => :first,
-                     t('.score_column') => :second })
+                     t('.score_column') => :second }
+      )
     end
 
     data = {

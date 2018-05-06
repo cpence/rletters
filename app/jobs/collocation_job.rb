@@ -82,8 +82,7 @@ class CollocationJob < ApplicationJob
   # @return [Array<(String, Symbol)>] pairs of test method names and their
   #   associated symbols
   def self.significance_tests
-    [:mutual_information, :t_test, :log_likelihood,
-     :parts_of_speech].map do |sym|
+    %i[mutual_information t_test log_likelihood parts_of_speech].map do |sym|
       if sym == :parts_of_speech
         [t('.parts_of_speech'), :parts_of_speech]
       else

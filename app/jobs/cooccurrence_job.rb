@@ -82,7 +82,7 @@ class CooccurrenceJob < ApplicationJob
   # @return [Array<(String, Symbol)>] pairs of test method names and their
   #   associated symbols
   def self.significance_tests
-    [:mutual_information, :t_test, :log_likelihood].map do |sym|
+    %i[mutual_information t_test log_likelihood].map do |sym|
       [t("common.scoring.#{sym}"), sym]
     end
   end

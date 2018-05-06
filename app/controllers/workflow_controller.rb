@@ -25,8 +25,7 @@ class WorkflowController < ApplicationController
   # Start running a new analysis
   #
   # @return [void]
-  def start
-  end
+  def start; end
 
   # Destroy the currently building analysis, leaving workflow mode
   #
@@ -68,11 +67,11 @@ class WorkflowController < ApplicationController
     # Same for unlinking a dataset
     if params[:unlink_dataset_id]
       # Check it and raise if it's a bad dataset ID
-      if current_user.workflow_datasets.find_index(params[:unlink_dataset_id])
-        current_user.workflow_datasets.delete(params[:unlink_dataset_id])
-      else
+      unless current_user.workflow_datasets.find_index(params[:unlink_dataset_id])
         raise ActiveRecord::RecordNotFound
       end
+
+      current_user.workflow_datasets.delete(params[:unlink_dataset_id])
     end
 
     # Save our changes, if any, and update the workflow parameters

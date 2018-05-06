@@ -36,7 +36,7 @@ class ListsController < ApplicationController
     return [] unless facets
 
     available_facets = facets.map do |f|
-      f.hits > 0 ? f.value : nil
+      f.hits.positive? ? f.value : nil
     end
 
     available_facets.compact.map { |v| { 'val' => v } }
@@ -48,11 +48,7 @@ class ListsController < ApplicationController
   # @param [String] filter the partial query to search for
   # @return [Hash] the Solr query parameters
   def solr_query_for(field, filter)
-    if filter
-      query = "#{field}:*#{filter}*"
-    else
-      query = '*:*'
-    end
+    query = filter ? "#{field}:*#{filter}*" : '*:*'
 
     RLetters::Solr::Connection.search(q: query, def_type: 'lucene', rows: 1)
   end

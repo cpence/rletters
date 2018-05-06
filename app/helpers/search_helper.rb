@@ -23,7 +23,8 @@ module SearchHelper
       render(partial: 'search/filters/facet_add_link', locals: {
                hits: f.hits.to_s,
                label: p.label,
-               facets: active_facets + [f] })
+               facets: active_facets + [f]
+             })
     end
 
     tags.join.html_safe
@@ -40,7 +41,8 @@ module SearchHelper
         locals: {
           params: RLetters::Solr::Facets.search_params(params, other_facets),
           label: "#{p.field_label}: #{p.label}"
-        })
+        }
+      )
     end
 
     tags.join.html_safe
@@ -64,7 +66,8 @@ module SearchHelper
         locals: {
           params: category.toggle_search_params(params),
           label: "#{Documents::Category.model_name.human}: #{category.name}"
-        })
+        }
+      )
     end
 
     tags.join.html_safe

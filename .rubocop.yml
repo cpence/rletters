@@ -25,11 +25,13 @@ Metrics/PerceivedComplexity:
 Style/Documentation:
   Enabled: false
 
-# FIXME: These are bad.
+# FIXME: These are bad. Reduce them to the defaults soon.
 MethodLength:
   Max: 150
 Metrics/ClassLength:
   Max: 250
+Metrics/BlockLength:
+  Max: 100
 
 # FIXME: This is bad.
 LineLength:

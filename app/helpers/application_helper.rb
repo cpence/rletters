@@ -31,11 +31,11 @@ module ApplicationHelper
       if client_side_message
         key = client_side_message
       else
-        if object.is_a?(Symbol)
-          klass = object
-        else
-          klass = object.model_name.i18n_key
-        end
+        klass = if object.is_a?(Symbol)
+                  object
+                else
+                  object.model_name.i18n_key
+                end
         key = "activerecord.errors.models.#{klass}.#{field}.blank"
       end
 
@@ -62,10 +62,8 @@ module ApplicationHelper
   # @return [String] the close icon
   def close_icon(data = nil)
     ret = +'<button class="close" type="button" aria-label="close"'
-    if data
-      data.each do |k, v|
-        ret << " data-#{k}='#{v}'"
-      end
+    data&.each do |k, v|
+      ret << " data-#{k}='#{v}'"
     end
     ret << '><i class="fa fa-window-close"></i></button>'
     ret.html_safe

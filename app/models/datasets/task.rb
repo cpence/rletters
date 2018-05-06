@@ -86,7 +86,7 @@ module Datasets
     # @return [String] JSON data as string (or `nil`)
     def json
       file = file_for('application/json')
-      file && file.result.download.force_encoding('utf-8')
+      file&.result&.download&.force_encoding('utf-8')
     end
 
     # The classes that cannot actually be started as analysis jobs.

@@ -26,20 +26,19 @@ class NamedEntitiesJob < ApplicationJob
 
     refs = RLetters::Analysis::NamedEntities.call(
       dataset: dataset,
-      progress: ->(p) { task.at(p, 100, t('.progress_finding')) })
+      progress: ->(p) { task.at(p, 100, t('.progress_finding')) }
+    )
+    refs ||= {}
 
-    if refs.blank?
-      csv_string = ''
-    else
-      csv_string = csv_with_header(header: t('.header',
-                                             name: dataset.name)) do |csv|
-        write_csv_data(
-          csv: csv,
-          # This turns {s => [a, b], ...} into [[s, a], [s, b], ...]
-          data: refs.flat_map { |k, v| [k].product(v) },
-          data_spec: { t('.type_column') => :first,
-                       t('.hit_column') => :second })
-      end
+    csv_string = csv_with_header(header: t('.header',
+                                           name: dataset.name)) do |csv|
+      write_csv_data(
+        csv: csv,
+        # This turns {s => [a, b], ...} into [[s, a], [s, b], ...]
+        data: refs.flat_map { |k, v| [k].product(v) },
+        data_spec: { t('.type_column') => :first,
+                     t('.hit_column') => :second }
+      )
     end
 
     output = { data: refs }

@@ -10,7 +10,7 @@ module Users
     # This method is called by Devise.
     #
     # @return [void]
-    def after_sending_reset_password_instructions_path_for(resource)
+    def after_sending_reset_password_instructions_path_for(_resource)
       root_url
     end
 
@@ -19,7 +19,7 @@ module Users
     # This method is called by Devise.
     #
     # @return [void]
-    def after_resetting_password_path_for(resource)
+    def after_resetting_password_path_for(_resource)
       root_url
     end
   end

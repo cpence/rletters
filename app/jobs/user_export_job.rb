@@ -106,7 +106,7 @@ class UserExportJob < ActiveJob::Base
               next
             end
 
-            filename = "#{t.to_param}_#{f.to_param}_#{f.result.filename.to_s}"
+            filename = "#{t.to_param}_#{f.to_param}_#{f.result.filename}"
             files_to_save[filename] = f.result
             task[:files] << filename
           end

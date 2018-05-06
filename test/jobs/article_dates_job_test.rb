@@ -25,7 +25,7 @@ class ArticleDatesJobTest < ActiveJob::TestCase
     refute_nil task.file_for('application/json')
     refute_nil task.file_for('text/csv')
 
-    data = JSON.load(task.file_for('application/json').result.download)
+    data = JSON.parse(task.json)
     assert_kind_of Hash, data
 
     # Data is reasonable
@@ -51,7 +51,7 @@ class ArticleDatesJobTest < ActiveJob::TestCase
     refute_nil task.file_for('application/json')
     refute_nil task.file_for('text/csv')
 
-    data = JSON.load(task.file_for('application/json').result.download)
+    data = JSON.parse(task.json)
     assert_kind_of Hash, data
 
     # Save the normalization set in the data
@@ -82,7 +82,7 @@ class ArticleDatesJobTest < ActiveJob::TestCase
     refute_nil task.file_for('application/json')
     refute_nil task.file_for('text/csv')
 
-    data = JSON.load(task.file_for('application/json').result.download)
+    data = JSON.parse(task.json)
     assert_kind_of Hash, data
 
     # Save the normalization set in the data
@@ -107,7 +107,7 @@ class ArticleDatesJobTest < ActiveJob::TestCase
     ArticleDatesJob.perform_now(task,
                                 'normalize' => '1',
                                 'normalization_dataset' => normalization_set.to_param)
-    data = JSON.load(task.reload.file_for('application/json').result.download)
+    data = JSON.parse(task.reload.json)
 
     data['data'].each do |a|
       assert_equal 0, a[1]

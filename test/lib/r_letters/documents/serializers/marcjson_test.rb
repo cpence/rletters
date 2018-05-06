@@ -10,7 +10,7 @@ class RLetters::Documents::Serializers::MARCJSONTest < ActiveSupport::TestCase
     docs = [doc, doc]
     json = RLetters::Documents::Serializers::MARCJSON.new(docs).serialize
 
-    parsed = JSON.load(json)
+    parsed = JSON.parse(json)
 
     assert_kind_of Array, parsed
     assert_equal 2, parsed.size
