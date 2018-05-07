@@ -166,7 +166,7 @@ module RLetters
         # @return [self]
         def call
           # Check for the quick-out
-          if (num_blocks == 1 || (num_blocks == 0 && block_size == 0)) &&
+          if (num_blocks == 1 || (num_blocks.zero? && block_size.zero?)) &&
              ngrams == 1 && stemming.nil?
             return FromTF.call(parameter_hash)
           end
@@ -183,7 +183,7 @@ module RLetters
           # Look for the "all n-grams" option and use it to override the
           # number of words
           self.num_words = 0 if all
-          raise ArgumentError, 'number of words negative' if num_words < 0
+          raise ArgumentError, 'number of words negative' if num_words.negative?
         end
 
         # Cull `word_list` with the exclusion/inclusion lists

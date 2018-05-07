@@ -50,11 +50,8 @@ module RLetters
           _, tv_uid, _, vectors = array
           next unless tv_uid == uid
 
-          if !vectors.is_a?(Array) || vectors.empty?
-            return nil
-          else
-            return vectors
-          end
+          return nil if !vectors.is_a?(Array) || vectors.empty?
+          return vectors
         end
       end
 

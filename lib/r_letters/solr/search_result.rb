@@ -61,7 +61,7 @@ module RLetters
         unless solr_response.ok?
           raise ConnectionError, 'Solr server returned nothing or failed request'
         end
-        return if solr_response.total == 0
+        return if solr_response.total.zero?
 
         # Make sure that we set the encoding on all the returned Solr strings
         solr_response.deep_transform_values! do |v|
@@ -88,7 +88,7 @@ module RLetters
           end
 
           # Add the fulltext_requested parameter
-          doc.merge!(fulltext_requested: fulltext_requested)
+          doc[:fulltext_requested] = fulltext_requested
 
           # Make the document
           @documents << Document.new(doc)

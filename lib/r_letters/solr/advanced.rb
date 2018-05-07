@@ -58,13 +58,11 @@ module RLetters
         query + boolean
       end
 
-      private
-
       # Convert from a passed field parameter to a Solr field parameter
       #
       # @param [String] field the field parameter from params
       # @return [Symbol] the Solr field to search
-      def self.parse_field(field)
+      private_class_method def self.parse_field(field)
         return 'year' if field == 'year_ranges'
         return field unless field.include?('_')
 
@@ -86,7 +84,7 @@ module RLetters
       #
       # @param [String] value the authors search string
       # @return [String] the Solr query for this list of authors
-      def self.authors_query(value)
+      private_class_method def self.authors_query(value)
         authors = value.split(',').map do |a|
           RLetters::Documents::Author.new(full: a.strip).to_lucene
         end
@@ -99,7 +97,7 @@ module RLetters
       #
       # @param [String] year_ranges the list of year ranges
       # @return [String] query string for this set of year ranges
-      def self.year_ranges_query(year_ranges)
+      private_class_method def self.year_ranges_query(year_ranges)
         # Strip whitespace, split on commas
         ranges = year_ranges.gsub(/\s/, '').split(',')
         year_queries = []

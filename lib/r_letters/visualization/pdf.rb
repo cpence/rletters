@@ -18,7 +18,7 @@ module RLetters
         'Old Standard TT' => 'OldStandard',
         'Roboto' => 'Roboto',
         'Vollkorn' => 'Vollkorn'
-      }
+      }.freeze
 
       # Write a PDF to a string, yielding a Prawn PDF document
       #
@@ -80,12 +80,12 @@ module RLetters
       # @param [String] root The font family root to add
       # @return [void]
       def add_font_family(pdf:, name:, root:)
-        if root == 'OldStandard'
-          # No Bold-Italic variant in OldStandard
-          bold_italic_name = "#{root}-Bold.ttf"
-        else
-          bold_italic_name = "#{root}-BoldItalic.ttf"
-        end
+        # No Bold-Italic variant in OldStandard
+        bold_italic_name = if root == 'OldStandard'
+                             "#{root}-Bold.ttf"
+                           else
+                             "#{root}-BoldItalic.ttf"
+                           end
 
         pdf.font_families.update(
           name => {

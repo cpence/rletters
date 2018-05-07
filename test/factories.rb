@@ -50,7 +50,7 @@ FactoryBot.define do
     end
 
     initialize_with do
-      YAML.load(yml)
+      YAML.safe_load(yml)
     end
   end
 

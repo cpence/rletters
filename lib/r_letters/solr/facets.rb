@@ -20,13 +20,13 @@ module RLetters
       #   facets
       def self.search_params(params, facets)
         if facets.empty?
-          return RLetters::Solr::Search::permit_params(params.except(:fq))
+          return RLetters::Solr::Search.permit_params(params.except(:fq))
         end
 
         ret = params.except(:fq)
         ret[:fq] = facets.map(&:query)
 
-        RLetters::Solr::Search::permit_params(ret)
+        RLetters::Solr::Search.permit_params(ret)
       end
 
       # Return a list of facets that are active given these parameters
@@ -85,19 +85,17 @@ module RLetters
         @all = []
 
         # Step through the facets
-        if facets
-          facets.each do |f|
-            f.items.each do |it|
-              next if Integer(it.hits) == 0
-              @all << Facet.new(field: f.name, value: it.value, hits: it.hits)
-            end
+        facets&.each do |f|
+          f.items.each do |it|
+            next if Integer(it.hits).zero?
+            @all << Facet.new(field: f.name, value: it.value, hits: it.hits)
           end
         end
 
         # Step through the facet queries
         return unless facet_queries
         facet_queries.each do |k, v|
-          next if Integer(v) == 0
+          next if Integer(v).zero?
           @all << Facet.new(query: k, hits: v)
         end
       end

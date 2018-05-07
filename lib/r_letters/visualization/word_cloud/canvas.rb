@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'sdl'
 
 module RLetters
@@ -38,7 +39,7 @@ module RLetters
           calculate_canvas_size
 
           # Build the image where we'll store the clipping data
-          big_endian = ([1].pack("N") == [1].pack("L"))
+          big_endian = ([1].pack('N') == [1].pack('L'))
           if big_endian
             rmask = 0xff000000
             gmask = 0x00ff0000
@@ -65,22 +66,22 @@ module RLetters
           dimen = font.text_size(word)
 
           # Start at a random position on the center line
-          x_0 = ((@width - dimen[0]) / 2.0).round
-          y_0 = Random.rand(@height).round
+          x0 = ((@width - dimen[0]) / 2.0).round
+          y0 = Random.rand(@height).round
 
           # It's possible that the initial positions will make the word hang
           # off the edges of the canvas; if so, move it.
-          x_0 = (@width - dimen[0]) if x_0 + dimen[0] > @width
-          y_0 = (@height - dimen[1]) if y_0 + dimen[1] > @height
+          x0 = (@width - dimen[0]) if x0 + dimen[0] > @width
+          y0 = (@height - dimen[1]) if y0 + dimen[1] > @height
 
           # Set up our state
-          x = x_0
-          y = y_0
+          x = x0
+          y = y0
           theta = 0.0
 
           loop do
-            if x > 0 && x < @width - dimen[0] &&
-               y > 0 && y < @height - dimen[1] &&
+            if x.positive? && x < @width - dimen[0] &&
+               y.positive? && y < @height - dimen[1] &&
                word_fits_at(word: word, x: x, y: y)
               # It fits, so add the word to the canvas
               paint_word(word: word, size: size, x: x, y: y)
@@ -92,14 +93,14 @@ module RLetters
 
             # Loop until we make sure we have a point on the canvas
             theta += 0.1
-            x = (x_0 + ((8.0 * theta * Math.cos(theta)) / (2 * Math::PI))).round
-            y = (y_0 + ((8.0 * theta * Math.sin(theta)) / (2 * Math::PI))).round
+            x = (x0 + ((8.0 * theta * Math.cos(theta)) / (2 * Math::PI))).round
+            y = (y0 + ((8.0 * theta * Math.sin(theta)) / (2 * Math::PI))).round
 
             # Freak out if we've left the image entirely
             next unless 8.0 * theta > ([@width, @height].max * 1.8)
 
-            x = x_0
-            y = y_0 = Random.rand(@height).round
+            x = x0
+            y = y0 = Random.rand(@height).round
             theta = 0.0
           end
         end
@@ -133,8 +134,10 @@ module RLetters
           sizes.sort! do |a, b|
             diff = [b[:width], b[:height]].max <=>
                    [a[:width], a[:height]].max
-            diff = [b[:width], b[:height]].min <=>
-                   [a[:width], a[:height]].min if diff.zero?
+            if diff.zero?
+              diff = [b[:width], b[:height]].min <=>
+                     [a[:width], a[:height]].min
+            end
             diff = b[:height] <=> a[:height] if diff.zero?
             diff = b[:width] <=> a[:width] if diff.zero?
             diff
@@ -167,6 +170,7 @@ module RLetters
         # @param [Integer] x the x coordinate to check
         # @param [Integer] y the y coordinate to check
         # @return [Boolean] true if the word can fit without overlap
+        # rubocop:disable UncommunicativeMethodParamName
         def word_fits_at(word:, x:, y:)
           clip_surface = @clip_surfaces[word]
           w = clip_surface.w
@@ -184,6 +188,7 @@ module RLetters
 
           true
         end
+        # rubocop:enable UncommunicativeMethodParamName
 
         def font_for(size)
           font = SDL::TTF.open(@font_path, size)
@@ -202,9 +207,11 @@ module RLetters
         # @param [Integer] x the x coordinate at which to paint
         # @param [Integer] y the y coordinate at which to paint
         # @return [void]
+        # rubocop:disable UncommunicativeMethodParamName
         def paint_word(word:, size:, x:, y:)
           font_for(size).draw_blended_utf8(@image, word, x, y, 255, 255, 255)
         end
+        # rubocop:enable UncommunicativeMethodParamName
 
         # Find a node with sufficient space for a block of size wxh.
         #

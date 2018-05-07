@@ -40,7 +40,8 @@ module RLetters
         Result.new(
           counts: normalize_counts(dataset ? group_dataset : group_corpus),
           normalize: normalize,
-          normalization_dataset: normalization_dataset)
+          normalization_dataset: normalization_dataset
+        )
       end
 
       private
@@ -84,13 +85,14 @@ module RLetters
             fl: 'uid',
             facet: 'false',
             start: start.to_s,
-            rows: 100)
+            rows: 100
+          )
 
           # These conditions would indicate a malformed Solr response
           break unless search_result.dig('grouped', field.to_s, 'matches')
 
           grouped = search_result['grouped'][field.to_s]
-          break if grouped['matches'] == 0
+          break if grouped['matches'].zero?
 
           groups = grouped['groups']
           break unless groups
@@ -200,18 +202,20 @@ module RLetters
 
         norm_counts = CountArticlesByField.call(
           field: field,
-          dataset: normalization_dataset).counts
+          dataset: normalization_dataset
+        ).counts
 
         ret = counts.each_with_object({}) do |(k, v), out|
-          if norm_counts[k]&.>(0)
-            out[k] = v.to_f / norm_counts[k]
-          else
-            # I'm not sure if this is the right thing to do when you give
-            # me a dataset that can't properly normalize (i.e., you ask me
-            # to compute 1/0).  But at least it won't throw a
-            # divide-by-zero.
-            out[k] = 0.0
-          end
+          out[k] =
+            if norm_counts[k]&.>(0)
+              v.to_f / norm_counts[k]
+            else
+              # I'm not sure if this is the right thing to do when you give
+              # me a dataset that can't properly normalize (i.e., you ask me
+              # to compute 1/0).  But at least it won't throw a
+              # divide-by-zero.
+              0.0
+            end
         end
 
         zero_intervening(ret, norm_counts)

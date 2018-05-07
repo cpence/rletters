@@ -84,13 +84,13 @@ module RLetters
         enum.each_with_index do |doc, i|
           document_segmenter.add(doc.uid)
           add_to_dfs(document_segmenter.words_for_last)
-          progress.call((i.to_f / total * 100.0).to_i) if progress
+          progress&.call((i.to_f / total * 100.0).to_i)
         end
 
         # Update the corpus DFs from all these documents
         corpus_dfs.merge!(document_segmenter.corpus_dfs)
 
-        progress.call(100) if progress
+        progress&.call(100)
 
         document_segmenter.blocks
       end
@@ -116,10 +116,10 @@ module RLetters
               ret << b
             end
 
-            progress.call((i.to_f / total * 100.0).to_i) if progress
+            progress&.call((i.to_f / total * 100.0).to_i)
           end
 
-          progress.call(100) if progress
+          progress&.call(100)
         end
       end
     end

@@ -103,8 +103,6 @@ module RLetters
         result ['responseHeader']['QTime']
       end
 
-      private
-
       # Retrieve the Solr connection object
       #
       # Since the Solr connection URL can be updated on the fly using the
@@ -112,7 +110,7 @@ module RLetters
       # and reconnect to Solr when required.
       #
       # @return [void]
-      def self.ensure_connected!
+      private_class_method def self.ensure_connected!
         Thread.current[:solr_url] ||= ENV['SOLR_URL']
         Thread.current[:solr_handle] ||= connect
       end
@@ -122,7 +120,7 @@ module RLetters
       # Read the appropriate settings and connect to the Solr server
       #
       # @return [RSolr::Client] the Solr connection object
-      def self.connect
+      private_class_method def self.connect
         RSolr::Ext.connect(
           url: ENV['SOLR_URL'],
           read_timeout: Integer(ENV['SOLR_TIMEOUT']),
@@ -137,7 +135,7 @@ module RLetters
       #
       # @param [Hash] params the parameters to convert
       # @return [Hash] those parameters, converted from snake_case to camelCase
-      def self.camelize_params!(params)
+      private_class_method def self.camelize_params!(params)
         params.keys.each do |k|
           if k.to_s.include? '_'
             params[k.to_s.camelize(:lower)] = params.delete(k)

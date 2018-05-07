@@ -2,6 +2,7 @@
 
 module RLetters
   module Visualization
+    # rubocop:disable ModuleLength
     module ColorBrewer
       # The diverging color schemes
       #
@@ -205,5 +206,6 @@ module RLetters
         }
       }.freeze
     end
+    # rubocop:enable ModuleLength
   end
 end

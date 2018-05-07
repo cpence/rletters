@@ -52,7 +52,7 @@ module RLetters
           # Just copy everything out, rejecting any words not in the list to
           # be analyzed
           self.blocks = [
-            tf_in_dataset.reject { |k, _| !word_list.include?(k) }
+            tf_in_dataset.select { |k, _| word_list.include?(k) }
           ]
           self.block_stats = [{
             name: I18n.t('lib.frequency.block_count_dataset',
@@ -84,7 +84,7 @@ module RLetters
 
           # Clean out zero values from the blocks
           blocks.map! do |b|
-            b.reject { |_, v| v.to_i == 0 }
+            b.reject { |_, v| v.to_i.zero? }
           end
 
           progress&.call(90)
@@ -133,7 +133,7 @@ module RLetters
               df_in_dataset[k] ||= 0
               df_in_dataset[k] += 1
 
-              df_in_corpus[k] = v[:df] if !df_in_corpus[k] && v[:df] > 0
+              df_in_corpus[k] = v[:df] if !df_in_corpus[k] && v[:df].positive?
             end
 
             # Call the progress function appropriately

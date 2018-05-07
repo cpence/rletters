@@ -27,6 +27,7 @@ module RLetters
         # @param [Float] f_ab the frequency of joint appearance of A and B in
         #   blocks
         # @param [Float] n the number of blocks
+        # rubocop:disable UncommunicativeMethodParamName
         def self.score(f_a, f_b, f_ab, n)
           ll = log_l(f_ab, f_a, f_a / n) +
                log_l(f_b - f_ab, n - f_a, f_a / n) -
@@ -35,6 +36,7 @@ module RLetters
 
           -2.0 * ll
         end
+        # rubocop:enable UncommunicativeMethodParamName
 
         # Sort results by the score
         #
@@ -46,8 +48,6 @@ module RLetters
           grams.sort { |a, b| b[1] <=> a[1] }
         end
 
-        private
-
         # The L-function required in the log-likelihood calculation
         #
         # @return [Float] the log-likelihood of obtaining the outcome x in
@@ -55,12 +55,14 @@ module RLetters
         # @param [Integer] k number of successes
         # @param [Integer] n number of trials
         # @param [Float] x the observed outcome
-        def self.log_l(k, n, x)
+        # rubocop:disable UncommunicativeMethodParamName
+        private_class_method def self.log_l(k, n, x)
           # L(k, n, x) = x^k (1 - x)^(n - k)
           l = x**k * ((1 - x)**(n - k))
           l = Math.log(l) unless l.abs < 0.001
           l
         end
+        # rubocop:enable UncommunicativeMethodParamName
       end
     end
   end

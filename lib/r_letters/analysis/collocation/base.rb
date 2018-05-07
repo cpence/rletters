@@ -117,7 +117,8 @@ module RLetters
         def analyzers
           onegram_analyzer = Frequency.call(
             dataset: dataset,
-            progress: ->(p) { progress&.call((p.to_f / 100 * 33).to_i) })
+            progress: ->(p) { progress&.call((p.to_f / 100 * 33).to_i) }
+          )
 
           # The bigrams should only include the focal word, if the user has
           # restricted the analysis
@@ -127,7 +128,8 @@ module RLetters
             inclusion_list: focal_word,
             num_blocks: 1,
             split_across: true,
-            progress: ->(p) { progress&.call((p.to_f / 100 * 33).to_i + 33) })
+            progress: ->(p) { progress&.call((p.to_f / 100 * 33).to_i + 33) }
+          )
 
           [onegram_analyzer, bigram_analyzer]
         end

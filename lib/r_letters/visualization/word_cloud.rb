@@ -30,13 +30,13 @@ module RLetters
       #
       # @return [String] the generated PDF file (binary, do not inspect)
       def call
-        if words.size < 3
-          color_size = 3
-        elsif words.size > 9
-          color_size = 9
-        else
-          color_size = words.size
-        end
+        color_size = if words.size < 3
+                       3
+                     elsif words.size > 9
+                       9
+                     else
+                       words.size
+                     end
 
         # This will raise an exception if you pass a color ramp that doesn't
         # exist in ColorBrewer.

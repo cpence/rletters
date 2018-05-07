@@ -53,14 +53,13 @@ module RLetters
               facet: false,
               fl: if fl
                     fl
+                  elsif fulltext
+                    RLetters::Solr::Connection::DEFAULT_FIELDS_FULLTEXT
                   else
-                    if fulltext
-                      RLetters::Solr::Connection::DEFAULT_FIELDS_FULLTEXT
-                    else
-                      RLetters::Solr::Connection::DEFAULT_FIELDS
-                    end
+                    RLetters::Solr::Connection::DEFAULT_FIELDS
                   end,
-              tv: term_vectors)
+              tv: term_vectors
+            )
 
             # :nocov:
             if cursor_mark == search_result.solr_response['nextCursorMark']

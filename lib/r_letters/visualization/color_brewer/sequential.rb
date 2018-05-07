@@ -24,6 +24,7 @@ module RLetters
     #
     # In particular, these were adapted from Mike Bostock's bl.ocks.org code
     # listing: http://bl.ocks.org/mbostock/5577023
+    # rubocop:disable ModuleLength
     module ColorBrewer
       # The sequential color schemes
       #
@@ -271,5 +272,6 @@ module RLetters
         }
       }.freeze
     end
+    # rubocop:enable ModuleLength
   end
 end

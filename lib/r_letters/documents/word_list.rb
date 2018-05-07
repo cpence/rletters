@@ -92,14 +92,14 @@ module RLetters
           # that.
           next if hash[:df] <= 0
 
-          case stemming
-          when :stem
-            key = word.stem
-          when :lemma
-            key = Analysis::NLP.lemmatize_words(word)[0]
-          else
-            key = word
-          end
+          key = case stemming
+                when :stem
+                  word.stem
+                when :lemma
+                  Analysis::NLP.lemmatize_words(word)[0]
+                else
+                  word
+                end
 
           corpus_dfs[key] ||= hash[:df]
         end

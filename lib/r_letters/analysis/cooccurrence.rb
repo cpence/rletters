@@ -95,29 +95,29 @@ module RLetters
         n = n.to_f
         ret = []
 
-        pairs.each_with_index do |(word, word_2_array), i|
+        pairs.each_with_index do |(word, word2_array), i|
           f_a = base_frequencies[word].to_f
 
           # Loop over the right array -- either just the words that we want
           # to query, or all of them
-          if word_2_array.empty?
-            enum = base_frequencies.each_key
-          else
-            enum = word_2_array.each
-          end
+          enum = if word2_array.empty?
+                   base_frequencies.each_key
+                 else
+                   word2_array.each
+                 end
           total_words = enum.size.to_f
 
-          enum.each_with_index do |word_2, j|
+          enum.each_with_index do |word2, j|
             if progress
               p = (i.to_f / total_i) + (1 / total_i) * j.to_f / total_words
               progress.call((p * 33.0).to_i + 66)
             end
-            next if word_2 == word
+            next if word2 == word
 
-            f_b = base_frequencies[word_2].to_f
-            f_ab = joint_frequencies[word][word_2].to_f
+            f_b = base_frequencies[word2].to_f
+            f_ab = joint_frequencies[word][word2].to_f
 
-            ret << [word + ' ' + word_2,
+            ret << [word + ' ' + word2,
                     score_class.score(f_a, f_b, f_ab, n)]
           end
         end
@@ -153,7 +153,8 @@ module RLetters
           block_size: window,
           last_block: :small_last,
           split_across: false,
-          progress: ->(p) { progress&.call((p.to_f / 100.0 * 33.0).to_i) })
+          progress: ->(p) { progress&.call((p.to_f / 100.0 * 33.0).to_i) }
+        )
 
         # Combine all the block hashes, summing the values
         total = analyzer.blocks.size.to_f
@@ -170,25 +171,25 @@ module RLetters
 
         # Get the frequencies of cooccurrence with the word in question
         joint_frequencies = {}
-        pairs.each_with_index do |(word, word_2_array), i|
+        pairs.each_with_index do |(word, word2_array), i|
           joint_frequencies[word] = {}
 
           analyzer.blocks.each_with_index do |b, j|
             if progress
-              p = ((i.to_f) / pairs.size.to_f) +
+              p = (i.to_f / pairs.size.to_f) +
                   (1 / pairs.size.to_f) * (j.to_f / total.to_f)
               progress.call((p * 17.0).to_i + 49)
             end
 
             next unless b[word]&.>(0)
 
-            if word_2_array.empty?
+            if word2_array.empty?
               b.each_key do |k|
                 joint_frequencies[word][k] ||= 0
                 joint_frequencies[word][k] += 1
               end
             else
-              word_2_array.each do |w|
+              word2_array.each do |w|
                 if b.keys.include?(w)
                   joint_frequencies[word][w] ||= 0
                   joint_frequencies[word][w] += 1

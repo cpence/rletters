@@ -22,7 +22,7 @@ module RLetters
         # Call the external tool
         yml = Cheetah.run(ENV['NLP_TOOL_PATH'], '-l',
                           stdin: words.join(' '), stdout: :capture)
-        YAML.load(yml)
+        YAML.safe_load(yml)
       end
 
       # Returns an array of words with parts-of-speech tags
@@ -38,7 +38,7 @@ module RLetters
         # Call the external tool
         yml = Cheetah.run(ENV['NLP_TOOL_PATH'], '-p',
                           stdin: text, stdout: :capture)
-        YAML.load(yml)
+        YAML.safe_load(yml)
       end
 
       # Returns an array of named entity references
@@ -52,7 +52,7 @@ module RLetters
         # Call the external tool
         yml = Cheetah.run(ENV['NLP_TOOL_PATH'], '-n',
                           stdin: text, stdout: :capture)
-        YAML.load(yml)
+        YAML.safe_load(yml)
       end
     end
     # :nocov:

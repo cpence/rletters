@@ -103,14 +103,16 @@ module RLetters
           block_size: 500,
           last_block: :big_last,
           split_across: true,
-          progress: ->(p) { progress&.call((p.to_f * 0.25).to_i) })
+          progress: ->(p) { progress&.call((p.to_f * 0.25).to_i) }
+        )
 
         self.analyzer_2 = Frequency.call(
           dataset: dataset_2,
           block_size: 500,
           last_block: :big_last,
           split_across: true,
-          progress: ->(p) { progress&.call((p.to_f * 0.25).to_i + 25) })
+          progress: ->(p) { progress&.call((p.to_f * 0.25).to_i + 25) }
+        )
       end
 
       # Convert from word blocks to counts of blocks

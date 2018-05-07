@@ -68,7 +68,7 @@ module RLetters
           raise ArgumentError, 'facet without value' if value.blank?
 
           # We only know how to handle :authors_facet and :journal_facet
-          unless [:authors_facet, :journal_facet].include?(field)
+          unless %i[authors_facet journal_facet].include?(field)
             raise ArgumentError, "do not know how to handle facets on #{field}"
           end
 

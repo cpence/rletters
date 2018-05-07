@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'marc'
 
 module RLetters
@@ -38,11 +39,11 @@ module RLetters
             )
           )
 
-          if doc.year
-            year_control = format('%04d', doc.year)
-          else
-            year_control = '0000'
-          end
+          year_control = if doc.year
+                           format('%04d', doc.year)
+                         else
+                           '0000'
+                         end
           record.append(
             ::MARC::ControlField.new(
               '008', "110501s#{year_control}       ||||fo     ||0 0|eng d"
@@ -50,14 +51,14 @@ module RLetters
           )
 
           record.append(::MARC::DataField.new('040', ' ', ' ',
-                                              %w(a RLetters),
-                                              %w(b eng),
-                                              %w(c RLetters)))
+                                              %w[a RLetters],
+                                              %w[b eng],
+                                              %w[c RLetters]))
 
           if doc.doi
             record.append(::MARC::DataField.new('024', '7', ' ',
-                                                %w(2 doi),
-                                                %W(a #{doc.doi})))
+                                                %w[2 doi],
+                                                %W[a #{doc.doi}]))
           end
 
           unless doc.authors.empty?
@@ -126,10 +127,10 @@ module RLetters
           record.append(
             ::MARC::DataField.new(
               '773', '0', ' ',
-              %W(t #{doc.journal}),
-              %W(g #{marc_free}),
-              %W(q #{marc_enumeration}),
-              %w(7 nnas)
+              %W[t #{doc.journal}],
+              %W[g #{marc_free}],
+              %W[q #{marc_enumeration}],
+              %w[7 nnas]
             )
           )
 
@@ -144,7 +145,7 @@ module RLetters
             record.append(
               ::MARC::DataField.new(
                 '362', '0', ' ',
-                %W(a #{doc.year}.)
+                %W[a #{doc.year}.]
               )
             )
           end
@@ -154,15 +155,15 @@ module RLetters
 
         # Convert the given author to MARC's format
         #
-        # @param [RLetters::Documents::Author] a an author
+        # @param [RLetters::Documents::Author] author an author
         # @return [String] author formatted as MARC expects it
-        def author_to_marc(a)
-          author = +''
-          author << a.prefix + ' ' if a.prefix
-          author << a.last
-          author << ' ' + a.suffix if a.suffix
-          author << ', ' + a.first
-          author
+        def author_to_marc(author)
+          (+'').tap do |ret|
+            ret << author.prefix + ' ' if author.prefix
+            ret << author.last
+            ret << ' ' + author.suffix if author.suffix
+            ret << ', ' + author.first
+          end
         end
       end
     end

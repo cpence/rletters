@@ -65,7 +65,7 @@ module RLetters
         POS_BI_REGEXES = [
           /[^\s]+_JJ[^\s]?\s+[^\s]+_NN[^\s]{0,2}/, # ADJ NOUN
           /[^\s]+_NN[^\s]{0,2}\s+[^\s]+_NN[^\s]{0,2}/ # NOUN NOUN
-        ]
+        ].freeze
 
         # Regular expressions which match trigram part-of-speech patterns
         POS_TRI_REGEXES = [
@@ -74,7 +74,7 @@ module RLetters
           /[^\s]+_NN[^\s]{0,2}\s+[^\s]+_JJ[^\s]?\s+[^\s]+_NN[^\s]{0,2}/, # NOUN ADJ NOUN
           /[^\s]+_NN[^\s]{0,2}\s+[^\s]+_NN[^\s]{0,2}\s+[^\s]+_NN[^\s]{0,2}/, # NOUN NOUN NOUN
           /[^\s]+_NN[^\s]{0,2}\s+[^\s]+_IN\s+[^\s]+_NN[^\s]{0,2}/ # NOUN PREP NOUN
-        ]
+        ].freeze
 
         # Search for regexes of a given number of words
         #
@@ -89,7 +89,7 @@ module RLetters
         # @return [void]
         def search_for_regexes(tagged_words, size, regexes)
           tagged_words.each_cons(size).map do |t|
-            if focal_word && !t.any? { |w| w.start_with?("#{focal_word}_") }
+            if focal_word && t.none? { |w| w.start_with?("#{focal_word}_") }
               next
             end
 

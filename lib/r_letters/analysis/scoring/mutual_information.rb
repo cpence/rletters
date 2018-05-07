@@ -22,6 +22,7 @@ module RLetters
         # @param [Float] f_ab the frequency of joint appearance of A and B in
         #   blocks
         # @param [Float] n the number of blocks
+        # rubocop:disable UncommunicativeMethodParamName
         def self.score(f_a, f_b, f_ab, n)
           # Hard to know what to do with cases where A or B basically don't
           # appear -- but we certainly shouldn't return NaN
@@ -32,6 +33,7 @@ module RLetters
 
           l
         end
+        # rubocop:enable UncommunicativeMethodParamName
 
         # Sort results by the score
         #

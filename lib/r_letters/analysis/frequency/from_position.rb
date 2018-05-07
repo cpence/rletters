@@ -18,7 +18,8 @@ module RLetters
                     RLetters::Datasets::Segments.new(
                       analyzer.parameter_hash.merge(progress: lambda do |p|
                         analyzer.progress&.call((p * 0.8).to_i)
-                      end))
+                      end)
+                    )
                   end)
 
         attribute :word_blocks, Array[RLetters::Documents::Block],
@@ -61,7 +62,7 @@ module RLetters
           # not in the list of words to keep and adding zero values for words
           # that aren't present
           self.blocks = word_blocks.map do |b|
-            b.words.reject { |k, _| !@word_list.include?(k) }
+            b.words.select { |k, _| @word_list.include?(k) }
           end
 
           progress&.call(97)

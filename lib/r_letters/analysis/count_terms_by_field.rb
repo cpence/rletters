@@ -81,13 +81,14 @@ module RLetters
             fl: 'uid',
             facet: 'false',
             start: start.to_s,
-            rows: 1)
+            rows: 1
+          )
 
           # These conditions would indicate a malformed Solr response
           break unless group_result.dig('grouped', field.to_s, 'matches')
 
           grouped = group_result['grouped'][field.to_s]
-          break if grouped['matches'] == 0
+          break if grouped['matches'].zero?
 
           groups = grouped['groups']
           break unless groups
@@ -111,7 +112,8 @@ module RLetters
             facet: 'false',
             start: start.to_s,
             rows: 1,
-            'group.limit' => group_size)
+            'group.limit' => group_size
+          )
 
           # Malformed Solr response
           break unless uids_result.dig('grouped', field.to_s, 'groups')
