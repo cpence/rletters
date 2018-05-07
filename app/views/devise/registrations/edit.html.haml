@@ -28,9 +28,11 @@
           .form-group
             = f.label :password
             = f.password_field :password, class: 'form-control', autocomplete: 'off', placeholder: t('.password_placeholder')
+            .invalid-feedback= validation_errors_for(resource, :password)
           .form-group
             = f.label :password_confirmation
             = f.password_field :password_confirmation, class: 'form-control', autocomplete: 'off', placeholder: t('.password_placeholder')
+            .invalid-feedback= validation_errors_for(resource, :password_confirmation)
 
       .card.mb-3
         .card-body

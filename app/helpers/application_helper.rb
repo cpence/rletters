@@ -17,12 +17,12 @@ module ApplicationHelper
   # @return [String] the contents of the invalid-feedback div
   def validation_errors_for(object, field, client_side = false,
                             client_side_message = nil)
-    ret = +''
+    ret = []
 
     if !object.is_a?(Symbol) && object.errors[field]
-      server_errors = +'<span class="server-errors">'
-      server_errors << object.errors[field].map { |e| sanitize(e) }.join('<br>')
-      server_errors << '</span>'
+      server_errors = content_tag(:span, class: 'server-errors') do
+        safe_join(object.errors[field], tag(:br))
+      end
 
       ret << server_errors
     end
@@ -42,18 +42,21 @@ module ApplicationHelper
       # If we have a server-side error message to show (on initial load), then
       # start the client-side error message as hidden, and show it when we do
       # the actual JS client-side validation.
-      client_error = +'<span class="client-errors"'
-      if !object.is_a?(Symbol) && object.errors[field]
-        client_error << ' style="display: none;"'
+      client_error = content_tag(
+        :span,
+        class: 'client-errors',
+        style: if !object.is_a?(Symbol) && object.errors[field]
+                 'display: none'
+               else
+                 nil
+               end) do
+        I18n.t(key)
       end
-      client_error << '>'
-      client_error << I18n.t(key)
-      client_error << '</span>'
 
       ret << client_error
     end
 
-    ret.html_safe
+    safe_join(ret)
   end
 
   # Standard markup for a close icon
@@ -61,11 +64,15 @@ module ApplicationHelper
   # @param [Hash] data if set, data attributes for the tag
   # @return [String] the close icon
   def close_icon(data = nil)
-    ret = +'<button class="close" type="button" aria-label="close"'
-    data&.each do |k, v|
-      ret << " data-#{k}='#{v}'"
+    attributes = {
+      class: 'close',
+      type: 'button',
+      'aria-label': I18n.t('common.close')
+    }
+    data&.each { |k, v| attributes["data-#{k}"] = v }
+
+    content_tag(:button, attributes) do
+      tag(:i, class: 'fa fa-window-close')
     end
-    ret << '><i class="fa fa-window-close"></i></button>'
-    ret.html_safe
   end
 end

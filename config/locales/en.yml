@@ -4,6 +4,7 @@ en:
         "no": 'No'
         cancel: Cancel
         ok: OK
+        close: Close
         forms:
             error_header: "Please review the problems below:"
         download_csv: Download in CSV format
