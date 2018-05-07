@@ -34,9 +34,9 @@ FactoryBot.define do
 
   factory :named_entities, class: Hash do
     transient do
-      entity_hash {
-        { 'PERSON' => %w(Tom Dick Harry) }
-      }
+      entity_hash do
+        { 'PERSON' => %w[Tom Dick Harry] }
+      end
     end
 
     initialize_with do
@@ -63,7 +63,7 @@ FactoryBot.define do
     worker_type 'test worker'
     host 'localhost'
     pid 1
-    started_at "2018-04-20 10:28:33"
+    started_at '2018-04-20 10:28:33'
   end
 
   factory :stop_list, class: Documents::StopList do

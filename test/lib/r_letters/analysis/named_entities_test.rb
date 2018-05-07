@@ -12,23 +12,24 @@ module RLetters
         entities = build(:named_entities)
         RLetters::Analysis::NLP.expects(:named_entities).returns(entities)
 
-        called_sub_100 = false
-        called_100 = false
+        called_sub100 = false
+        called100 = false
 
         refs = RLetters::Analysis::NamedEntities.call(
           dataset: create(:full_dataset),
           progress: lambda do |p|
             if p < 100
-              called_sub_100 = true
+              called_sub100 = true
             else
-              called_100 = true
+              called100 = true
             end
-          end)
+          end
+        )
 
         assert_includes refs['PERSON'], 'Harry'
 
-        assert called_sub_100
-        assert called_100
+        assert called_sub100
+        assert called100
 
         ENV['NLP_TOOL_PATH'] = old_path
       end

@@ -134,12 +134,12 @@ class WorkflowControllerTest < ActionDispatch::IntegrationTest
                          workflow_class: 'ArticleDatesJob')
     sign_in user
     dataset = create(:dataset, name: 'Test Dataset', user: user)
-    dataset_2 = create(:dataset, user: user)
-    user.workflow_datasets = [dataset.to_param, dataset_2.to_param]
+    dataset2 = create(:dataset, user: user)
+    user.workflow_datasets = [dataset.to_param, dataset2.to_param]
     user.save
 
     get workflow_activate_url(class: 'CraigZetaJob',
-                              unlink_dataset_id: dataset_2.to_param)
+                              unlink_dataset_id: dataset2.to_param)
 
     user.reload
     assert_equal [dataset.to_param], user.workflow_datasets
@@ -147,18 +147,18 @@ class WorkflowControllerTest < ActionDispatch::IntegrationTest
 
   test 'should terminate when asked to via fetch' do
     user = create(:user)
-    user_2 = create(:user)
+    user2 = create(:user)
     sign_in user
 
     dataset = create(:dataset, user: user, name: 'Enabled')
-    dataset_2 = create(:dataset, user: user_2, name: 'OtherUser')
+    dataset2 = create(:dataset, user: user2, name: 'OtherUser')
 
     finished = WorkflowJob.create_task(dataset, Time.current)
     pending = WorkflowJob.create_task(dataset, nil)
     working = WorkflowJob.create_task(dataset, nil, progress: 0.3)
     failed = WorkflowJob.create_task(dataset, nil, failed: true)
 
-    other = WorkflowJob.create_task(dataset_2, Time.current)
+    other = WorkflowJob.create_task(dataset2, Time.current)
 
     get workflow_fetch_url(terminate: true)
 

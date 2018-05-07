@@ -19,7 +19,7 @@ module RLetters
         assert_equal 'Block #1/1', blocks[0].name
 
         assert_equal @doc.fulltext.split.count, blocks[0].words.size
-        assert_equal %w(it was the best of), blocks[0].words.take(5)
+        assert_equal %w[it was the best of], blocks[0].words.take(5)
 
         assert_equal 1486, segmenter.corpus_dfs['it']
       end
@@ -33,7 +33,7 @@ module RLetters
         assert_equal 'Block #1/1', blocks[0].name
 
         assert_equal @doc.fulltext.split.size, blocks[0].words.size
-        assert_equal %w(it was the best of), blocks[0].words.take(5)
+        assert_equal %w[it was the best of], blocks[0].words.take(5)
 
         assert_includes segmenter.words_for_last, 'it'
         assert_includes segmenter.words_for_last, 'was'
@@ -74,7 +74,7 @@ module RLetters
 
         assert_equal (@doc.fulltext.split.size.to_f / 3.0).floor, blocks.size
         assert_equal 'Block #1 of 3 words', blocks[0].name
-        assert_equal %w(it was the), blocks.first.words
+        assert_equal %w[it was the], blocks.first.words
 
         assert blocks.last.words.count > 3
 
@@ -89,7 +89,7 @@ module RLetters
 
         assert_equal (@doc.fulltext.split.count / 3.0).ceil, blocks.size
         assert_equal 'Block #1 of 3 words', blocks[0].name
-        assert_equal %w(it was the), blocks.first.words
+        assert_equal %w[it was the], blocks.first.words
 
         assert blocks.last.words.count < 3
 
@@ -104,7 +104,7 @@ module RLetters
 
         assert_equal (@doc.fulltext.split.count / 3.0).floor, blocks.size
         assert_equal 'Block #1 of 3 words', blocks[0].name
-        assert_equal %w(it was the), blocks.first.words
+        assert_equal %w[it was the], blocks.first.words
 
         assert_equal 3, blocks.last.words.count
 
@@ -119,7 +119,7 @@ module RLetters
 
         assert_equal 1, blocks.size
         assert_equal 'Block #1 of 3 words', blocks[0].name
-        assert_equal %w(it was the), blocks.first.words
+        assert_equal %w[it was the], blocks.first.words
 
         assert_equal 1486, segmenter.corpus_dfs['it']
       end

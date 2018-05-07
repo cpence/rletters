@@ -13,7 +13,7 @@ module RLetters
 
           words = build(:parts_of_speech)
           RLetters::Analysis::NLP.expects(:parts_of_speech).at_least_once
-            .returns(words)
+                                 .returns(words)
         end
 
         teardown do

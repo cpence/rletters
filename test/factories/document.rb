@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# rubocop:disable BlockLength
+
 FactoryBot.define do
   factory :document, class: Document do
     transient do
@@ -33,7 +35,7 @@ FactoryBot.define do
       number '1'
       pages '1'
       fulltext_requested true
-      fulltext <<-eos
+      fulltext <<-TEXT
         It was the best of times,
         it was the worst of times,
         it was the age of wisdom,
@@ -51,9 +53,9 @@ FactoryBot.define do
         in short, the period was so far like the present period, that some of
         its noisiest authorities insisted on its being received, for good or for
         evil, in the superlative degree of comparison only.
-      eos
+      TEXT
 
-      term_vectors {
+      term_vectors do
         { 'age' => { tf: 2, positions: [15, 21], df: 735.0 },
           'all' => { tf: 2, positions: [72, 79], df: 1464.0 },
           'authorities' => { tf: 1, positions: [101], df: 156.0 },
@@ -125,7 +127,7 @@ FactoryBot.define do
           'winter' => { tf: 1, positions: [57], df: 40.0 },
           'wisdom' => { tf: 1, positions: [17], df: 5.0 },
           'worst' => { tf: 1, positions: [9], df: 60.0 } }
-      }
+      end
     end
 
     initialize_with do
@@ -140,3 +142,5 @@ FactoryBot.define do
     end
   end
 end
+
+# rubocop:enable BlockLength

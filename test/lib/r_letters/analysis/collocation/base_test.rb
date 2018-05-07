@@ -9,7 +9,7 @@ module RLetters
       class BaseTest < ActiveSupport::TestCase
         include CommonTests
         run_common_tests(RLetters::Analysis::Collocation,
-                         [:mutual_information, :t_test, :log_likelihood])
+                         %i[mutual_information t_test log_likelihood])
 
         test 'throws an exception when scoring is invalid' do
           assert_raises(ArgumentError) do
@@ -25,10 +25,12 @@ module RLetters
           result = RLetters::Analysis::Collocation.call(
             scoring: :parts_of_speech,
             dataset: create(:full_dataset),
-            num_pairs: 10)
+            num_pairs: 10
+          )
+
           assert_equal :mutual_information, result.scoring
 
-          ENV['NLP_TOOL_PATH'] = @old_path
+          ENV['NLP_TOOL_PATH'] = old_path
         end
       end
     end

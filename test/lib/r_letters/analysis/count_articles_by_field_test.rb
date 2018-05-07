@@ -6,21 +6,22 @@ module RLetters
   module Analysis
     class CountArticlesByFieldTest < ActiveSupport::TestCase
       test 'progress reporting works without a dataset' do
-        called_sub_100 = false
-        called_100 = false
+        called_sub100 = false
+        called100 = false
 
         RLetters::Analysis::CountArticlesByField.call(
           field: :year,
           progress: lambda do |p|
             if p < 100
-              called_sub_100 = true
+              called_sub100 = true
             else
-              called_100 = true
+              called100 = true
             end
-          end)
+          end
+        )
 
-        assert called_sub_100
-        assert called_100
+        assert called_sub100
+        assert called100
       end
 
       test 'works without a dataset' do
@@ -41,28 +42,30 @@ module RLetters
       end
 
       test 'progress reporting works with a dataset' do
-        called_sub_100 = false
-        called_100 = false
+        called_sub100 = false
+        called100 = false
 
         RLetters::Analysis::CountArticlesByField.call(
           field: :year,
           dataset: create(:full_dataset, num_docs: 10),
           progress: lambda do |p|
             if p < 100
-              called_sub_100 = true
+              called_sub100 = true
             else
-              called_100 = true
+              called100 = true
             end
-          end)
+          end
+        )
 
-        assert called_sub_100
-        assert called_100
+        assert called_sub100
+        assert called100
       end
 
       test 'works with a dataset' do
         result = RLetters::Analysis::CountArticlesByField.call(
           field: :year,
-          dataset: create(:full_dataset, num_docs: 10))
+          dataset: create(:full_dataset, num_docs: 10)
+        )
 
         assert_kind_of RLetters::Analysis::CountArticlesByField::Result, result
         refute result.normalize
@@ -87,7 +90,8 @@ module RLetters
           field: :year,
           dataset: create(:full_dataset, num_docs: 10),
           normalize: true,
-          normalization_dataset: create(:full_dataset, num_docs: 10))
+          normalization_dataset: create(:full_dataset, num_docs: 10)
+        )
 
         assert_kind_of RLetters::Analysis::CountArticlesByField::Result, result
         assert result.normalize
@@ -101,7 +105,8 @@ module RLetters
         result = RLetters::Analysis::CountArticlesByField.call(
           field: :year,
           dataset: create(:full_dataset, num_docs: 10),
-          normalize: true)
+          normalize: true
+        )
 
         assert_kind_of RLetters::Analysis::CountArticlesByField::Result, result
         assert result.normalize
@@ -117,7 +122,8 @@ module RLetters
         result = RLetters::Analysis::CountArticlesByField.call(
           field: :journal_facet,
           dataset: create(:full_dataset, num_docs: 10),
-          normalize: true)
+          normalize: true
+        )
 
         assert_equal 0, result.counts['Actually a Novel']
       end

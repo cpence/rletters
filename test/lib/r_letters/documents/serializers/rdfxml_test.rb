@@ -36,7 +36,8 @@ module RLetters
             'rft_id=info:doi%2F10.5678%2Fdickens&' \
             'rft.atitle=A+Tale+of+Two+Cities&rft.title=Actually+a+Novel&' \
             'rft.date=1859&rft.volume=1&rft.issue=1&rft.spage=1&rft.aufirst=C.&' \
-            'rft.aulast=Dickens', 'Actually a Novel 1(1), 1. (1859)']
+            'rft.aulast=Dickens', 'Actually a Novel 1(1), 1. (1859)'
+          ]
 
           citations = xml.css('dc|bibliographicCitation')
           assert_equal 2, citations.size

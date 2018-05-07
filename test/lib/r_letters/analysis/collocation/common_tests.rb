@@ -5,8 +5,8 @@ module RLetters
     module Collocation
       module CommonTests
         def run_no_focal_word_test(klass, scoring)
-          called_sub_100 = false
-          called_100 = false
+          called_sub100 = false
+          called100 = false
 
           result = klass.call(
             scoring: scoring,
@@ -14,11 +14,12 @@ module RLetters
             num_pairs: 10,
             progress: lambda do |p|
               if p < 100
-                called_sub_100 = true
+                called_sub100 = true
               else
-                called_100 = true
+                called100 = true
               end
-            end)
+            end
+          )
 
           assert_kind_of RLetters::Analysis::Collocation::Result, result
           assert_equal scoring, result.scoring
@@ -26,12 +27,12 @@ module RLetters
 
           result.collocations.each do |g|
             assert_kind_of Numeric, g[1]
-            assert g[1] > 0 if g[1].is_a?(Integer)
+            assert g[1].positive? if g[1].is_a?(Integer)
             assert g[1].finite? if g[1].is_a?(Float)
           end
 
-          assert called_sub_100
-          assert called_100
+          assert called_sub100
+          assert called100
         end
 
         def run_focal_word_test(klass, scoring)
@@ -39,7 +40,8 @@ module RLetters
             scoring: scoring,
             dataset: create(:full_dataset),
             num_pairs: 10,
-            focal_word: 'present')
+            focal_word: 'present'
+          )
 
           assert_kind_of RLetters::Analysis::Collocation::Result, result
           assert_equal scoring, result.scoring
@@ -52,7 +54,7 @@ module RLetters
 
           result.collocations.each do |g|
             assert_kind_of Numeric, g[1]
-            assert g[1] > 0 if g[1].is_a?(Integer)
+            assert g[1].positive? if g[1].is_a?(Integer)
             assert g[1].finite? if g[1].is_a?(Float)
           end
         end
@@ -62,7 +64,8 @@ module RLetters
             scoring: scoring,
             dataset: create(:full_dataset),
             num_pairs: 10,
-            focal_word: 'PRESENT')
+            focal_word: 'PRESENT'
+          )
 
           assert_includes result.collocations[0][0].split, 'present'
         end

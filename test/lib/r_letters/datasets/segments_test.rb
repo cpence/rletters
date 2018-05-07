@@ -6,20 +6,20 @@ module RLetters
   module Datasets
     class SegmentsTest < ActiveSupport::TestCase
       test 'should report progress' do
-        called_sub_100 = false
-        called_100 = false
+        called_sub100 = false
+        called100 = false
 
         RLetters::Datasets::Segments.new(dataset: create(:full_dataset, num_docs: 10),
                                          progress: lambda do |p|
                                            if p < 100
-                                             called_sub_100 = true
+                                             called_sub100 = true
                                            else
-                                             called_100 = true
+                                             called100 = true
                                            end
                                          end).segments
 
-        assert called_sub_100
-        assert called_100
+        assert called_sub100
+        assert called100
       end
 
       test 'with one dataset block, splitting across, it works' do
@@ -39,7 +39,7 @@ module RLetters
         segments = analyzer.segments
 
         assert_equal 10, segments.size
-        assert segments[0].name.start_with?("Block #1/1 (within ‘doi:10.")
+        assert segments[0].name.start_with?('Block #1/1 (within ‘doi:10.')
         assert_equal 8, analyzer.dfs['disease']
         assert_equal 1104, analyzer.corpus_dfs['disease']
       end
@@ -79,7 +79,7 @@ module RLetters
         assert_equal 10, segments.size
         assert_equal 10, segments[0].words.size
         assert_equal 10, segments[1].words.size
-        assert segments[0].name.start_with?("Block #1 of 10 words (within ‘doi:10.")
+        assert segments[0].name.start_with?('Block #1 of 10 words (within ‘doi:10.')
         assert_equal 8, analyzer.dfs['disease']
         assert_equal 1104, analyzer.corpus_dfs['disease']
       end

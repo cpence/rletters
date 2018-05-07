@@ -66,20 +66,20 @@ class SearchHelperTest < ActionView::TestCase
   test 'facet_removal_links works with overlapping facet and category' do
     cat = create(:category)
     h = ActionController::Parameters.new(controller: 'search', action: 'index',
-                                         categories: [@category.to_param],
+                                         categories: [cat.to_param],
                                          fq: ['journal_facet:"PLoS Neglected Tropical Diseases"']).permit!
     controller.stubs(:params).returns(h)
 
     res = RLetters::Solr::Connection.search(params.to_h)
     ret = facet_removal_links(res.facets)
 
-    assert_includes ret, "href=\"/search?categories%5B%5D=#{@category.to_param}\""
+    assert_includes ret, "href=\"/search?categories%5B%5D=#{cat.to_param}\""
     assert_includes ret, 'Journal: PLoS Neglected Tropical Diseases'
   end
 
   test 'category_addition_tree works' do
     parent = create(:category, name: 'Parent')
-    child = create(:category, name: 'Child', parent: parent)
+    create(:category, name: 'Child', parent: parent)
     Documents::Category.stubs(:roots).returns([parent])
 
     h = ActionController::Parameters.new(controller: 'search', action: 'index').permit!
@@ -87,8 +87,8 @@ class SearchHelperTest < ActionView::TestCase
 
     tree = category_addition_tree
 
-    assert_includes tree, "Parent</a><ul>"
-    assert_includes tree, "Child</a></li></ul>"
+    assert_includes tree, 'Parent</a><ul>'
+    assert_includes tree, 'Child</a></li></ul>'
   end
 
   test 'category_removal_links works with nothing active' do

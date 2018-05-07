@@ -28,7 +28,7 @@ FactoryBot.define do
       end
 
       after(:create) do |dataset, evaluator|
-        if evaluator.num_docs > 0
+        if evaluator.num_docs.positive?
           uids = (1..evaluator.num_docs).to_a.map { "\"#{FactoryBot.generate(:working_uid)}\"" }
           query = "uid:(#{uids.join(' OR ')})"
 

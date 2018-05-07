@@ -42,10 +42,10 @@ module RLetters
       end
 
       test 'passes term vector hashes to their parser' do
-        mock_parser = mock()
+        mock_parser = mock
         mock_parser.expects(:for_document).with('doi:10.5678/dickens')
         RLetters::Solr::ParseTermVectors.expects(:new)
-          .returns(mock_parser)
+                                        .returns(mock_parser)
 
         solr_result = build(:solr_response).response
         rsolr = RSolr::Ext::Response::Base.new(solr_result, 'search', nil)
@@ -77,7 +77,7 @@ module RLetters
         rsolr = RSolr::Ext::Response::Base.new(solr_result, 'search', nil)
 
         RLetters::Solr::Facets.expects(:new)
-          .with(rsolr.facets, rsolr.facet_queries)
+                              .with(rsolr.facets, rsolr.facet_queries)
 
         RLetters::Solr::SearchResult.new(rsolr)
       end

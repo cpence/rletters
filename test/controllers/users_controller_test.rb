@@ -60,7 +60,8 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     user = create(:user)
     user.export_archive = ActiveStorage::Blob.create_after_upload!(
       io: StringIO.new('this is not really a zip file'),
-      filename: 'export.zip', content_type: 'application/zip')
+      filename: 'export.zip', content_type: 'application/zip'
+    )
     sign_in user
 
     assert_enqueued_jobs 0, only: ActiveStorage::PurgeJob

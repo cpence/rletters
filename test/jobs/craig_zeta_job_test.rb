@@ -5,9 +5,9 @@ require 'test_helper'
 class CraigZetaJobTest < ActiveJob::TestCase
   def perform
     dataset = create(:full_dataset, user: create(:user), num_docs: 1)
-    dataset_2 = create(:full_dataset, user: dataset.user, num_docs: 1)
+    dataset2 = create(:full_dataset, user: dataset.user, num_docs: 1)
     @task = create(:task, dataset: dataset)
-    CraigZetaJob.new.perform(@task, 'other_datasets' => [dataset_2.to_param])
+    CraigZetaJob.new.perform(@task, 'other_datasets' => [dataset2.to_param])
   end
 
   include AnalysisJobHelper
@@ -37,10 +37,10 @@ class CraigZetaJobTest < ActiveJob::TestCase
 
   test 'should work' do
     task = create(:task, dataset: create(:full_dataset, num_docs: 1))
-    dataset_2 = create(:full_dataset, user: task.dataset.user, num_docs: 1)
+    dataset2 = create(:full_dataset, user: task.dataset.user, num_docs: 1)
 
     CraigZetaJob.perform_now(task,
-                             'other_datasets' => [dataset_2.to_param])
+                             'other_datasets' => [dataset2.to_param])
 
     assert_equal 'Determine words that differentiate two datasets (Craig Zeta)', task.reload.name
     assert_equal 2, task.files.count
@@ -63,13 +63,13 @@ class CraigZetaJobTest < ActiveJob::TestCase
     # Don't actually make word clouds; this is quite slow and we're testing
     # it elsewhere
     RLetters::Visualization::WordCloud.stubs(:call)
-      .returns('this is totally a PDF')
+                                      .returns('this is totally a PDF')
 
     task = create(:task, dataset: create(:full_dataset, num_docs: 1))
-    dataset_2 = create(:full_dataset, user: task.dataset.user, num_docs: 1)
+    dataset2 = create(:full_dataset, user: task.dataset.user, num_docs: 1)
 
     CraigZetaJob.perform_now(task,
-                             'other_datasets' => [dataset_2.to_param],
+                             'other_datasets' => [dataset2.to_param],
                              'word_cloud' => '1')
 
     assert_equal 4, task.reload.files.count

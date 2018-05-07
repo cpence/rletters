@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 ENV['RAILS_ENV'] ||= 'test'
 require_relative 'support/simplecov'
 require_relative '../config/environment'
@@ -18,15 +19,19 @@ end
 WebMock.disable_net_connect!(allow_localhost: true)
 
 # Helpers for all tests
-class ActiveSupport::TestCase
-  # Activate helpers from gems
-  include FactoryBot::Syntax::Methods
+module ActiveSupport
+  class TestCase
+    # Activate helpers from gems
+    include FactoryBot::Syntax::Methods
 
-  # General test helpers
-  include StubConnectionHelper
+    # General test helpers
+    include StubConnectionHelper
+  end
 end
 
 # Helpers for controller and integration tests
-class ActionDispatch::IntegrationTest
-  include Devise::Test::IntegrationHelpers
+module ActionDispatch
+  class IntegrationTest
+    include Devise::Test::IntegrationHelpers
+  end
 end

@@ -6,26 +6,27 @@ module RLetters
   module Analysis
     class CountTermsByFieldTest < ActiveSupport::TestCase
       test 'works without a dataset' do
-        called_sub_100 = false
-        called_100 = false
+        called_sub100 = false
+        called100 = false
 
         counts = RLetters::Analysis::CountTermsByField.call(
           term: 'online',
           field: :year,
           progress: lambda do |p|
             if p < 100
-              called_sub_100 = true
+              called_sub100 = true
             else
-              called_100 = true
+              called100 = true
             end
-          end)
+          end
+        )
 
         assert_equal 3, counts['2009']
         assert_equal 8, counts['2011']
         assert_equal 0, counts['1930']
 
-        assert called_sub_100
-        assert called_100
+        assert called_sub100
+        assert called100
       end
 
       test 'returns empty counts without dataset when Solr fails' do
@@ -35,8 +36,8 @@ module RLetters
       end
 
       test 'works with a dataset' do
-        called_sub_100 = false
-        called_100 = false
+        called_sub100 = false
+        called100 = false
 
         counts = RLetters::Analysis::CountTermsByField.call(
           term: 'disease',
@@ -44,17 +45,18 @@ module RLetters
           dataset: create(:full_dataset, num_docs: 2),
           progress: lambda do |p|
             if p < 100
-              called_sub_100 = true
+              called_sub100 = true
             else
-              called_100 = true
+              called100 = true
             end
-          end)
+          end
+        )
 
         assert_equal 1, counts.size
-        assert counts['2009'] > 0
+        assert counts['2009'].positive?
 
-        assert called_sub_100
-        assert called_100
+        assert called_sub100
+        assert called100
       end
 
       # FIXME: this is failing and I don't know how to deal with it

@@ -15,7 +15,7 @@ module RLetters
         lister = RLetters::Documents::WordList.new
         list = lister.words_for(@doc.uid)
 
-        assert_equal %w(it was the best of), list.take(5)
+        assert_equal %w[it was the best of], list.take(5)
         assert_equal 1486, lister.corpus_dfs['it']
       end
 
@@ -48,10 +48,10 @@ module RLetters
         lister = RLetters::Documents::WordList.new(stemming: :lemma)
         words = build(:lemmatizer).words
         RLetters::Analysis::NLP.expects(:lemmatize_words)
-          .at_least_once.returns(words)
+                               .at_least_once.returns(words)
         list = lister.words_for(@doc.uid)
 
-        assert_equal %w(it be the), list.take(3)
+        assert_equal %w[it be the], list.take(3)
         refute_includes list, 'was'
 
         ENV['NLP_TOOL_PATH'] = old_path

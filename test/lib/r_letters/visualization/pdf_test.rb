@@ -29,8 +29,8 @@ module RLetters
         pdf_string = TestClass.new.pdf_with_header(header: 'Test Header') { |_| }
         text_analysis = ::PDF::Inspector::Text.analyze(pdf_string)
 
-        assert text_analysis.font_settings.any? { |s| s[:name] =~ /Roboto-Regular/ }
-        assert text_analysis.font_settings.any? { |s| s[:name] =~ /Roboto-Bold/ }
+        assert(text_analysis.font_settings.any? { |s| s[:name] =~ /Roboto-Regular/ })
+        assert(text_analysis.font_settings.any? { |s| s[:name] =~ /Roboto-Bold/ })
       end
     end
   end

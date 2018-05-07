@@ -24,7 +24,7 @@ class QualityTest < ActiveSupport::TestCase
   test 'code should not have any tab characters' do
     @files.each do |filename|
       File.readlines(filename).each_with_index do |line, number|
-        refute_match /\t/, line, "#{filename} has a tab character on line #{number}"
+        refute_match(/\t/, line, "#{filename} has a tab character on line #{number}")
       end
     end
   end
@@ -33,7 +33,7 @@ class QualityTest < ActiveSupport::TestCase
     @files.each do |filename|
       File.readlines(filename).each_with_index do |line, number|
         next if line =~ /^\s+#.*\s+\n$/
-        refute_match /\s+\n$/, line, "#{filename} has spaces on EOL on line #{number}"
+        refute_match(/\s+\n$/, line, "#{filename} has spaces on EOL on line #{number}")
       end
     end
   end

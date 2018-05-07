@@ -1,20 +1,20 @@
 # frozen_string_literal: true
 
+# rubocop:disable BlockLength
+
 FactoryBot.define do
   factory :solr_response, class: OpenStruct do
     skip_create
 
-    response {
-      { 'responseHeader'  =>
+    response do
+      { 'responseHeader' =>
         { 'status' => 0,
           'QTime' => 5,
           'params' =>
           { 'q' => 'doi:10.5678/dickens',
             'defType' => 'lucene',
             'fl' => 'uid,doi,license,license_url,data_source,authors,title,journal,year,volume,number,pages,fulltext_url,fulltext',
-            'wt' => 'ruby'
-          }
-        },
+            'wt' => 'ruby' } },
         'response' =>
         { 'numFound' => 1,
           'start' => 0,
@@ -47,9 +47,7 @@ FactoryBot.define do
       we were all going direct the other way--
       in short, the period was so far like the present period, that some of
       its noisiest authorities insisted on its being received, for good or for
-      evil, in the superlative degree of comparison only.'
-          }]
-        },
+      evil, in the superlative degree of comparison only.' }] },
         'facet_counts' =>
         { 'facet_queries' =>
           { 'year:[* TO 1799]' => 0,
@@ -74,8 +72,7 @@ FactoryBot.define do
             'year:[1980 TO 1989]' => 0,
             'year:[1990 TO 1999]' => 0,
             'year:[2000 TO 2009]' => 0,
-            'year:[2010 TO *]' => 1
-          },
+            'year:[2010 TO *]' => 1 },
           'facet_fields' =>
           { 'authors_facet' =>
             ['C. Dickens', 1,
@@ -91,11 +88,9 @@ FactoryBot.define do
             'journal_facet' =>
             ['Actually a Novel', 1,
              'Gutenberg', 0,
-             'PLoS Neglected Tropical Diseases', 0]
-          },
+             'PLoS Neglected Tropical Diseases', 0] },
           'facet_dates' => {},
-          'facet_ranges' => {}
-        },
+          'facet_ranges' => {} },
         'termVectors' =>
           ['uniqueKeyFieldName', 'uid', 'doi:10.5678/dickens',
            ['uniqueKey', 'doi:10.5678/dickens', 'fulltext',
@@ -201,8 +196,9 @@ FactoryBot.define do
                       'df', 1463],
              'winter', ['tf', 1, 'positions', ['position', 57], 'df', 40],
              'wisdom', ['tf', 1, 'positions', ['position', 17], 'df', 5],
-             'worst', ['tf', 1, 'positions', ['position', 9], 'df', 60]]]]
-      }
-    }
+             'worst', ['tf', 1, 'positions', ['position', 9], 'df', 60]]]] }
+    end
   end
 end
+
+# rubocop:enable BlockLength

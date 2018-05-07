@@ -40,9 +40,9 @@ module RLetters
       end
 
       test 'works with empty and full categories' do
-        category_1 = ::Documents::Category.create(name: 'Test Category', journals: ['Gutenberg', 'PLoS Neglected Tropical Diseases'])
-        category_2 = ::Documents::Category.create(name: 'Empty Category')
-        params = { q: '*:*', advanced: 'true', categories: [category_1.to_param, category_2.to_param] }
+        category1 = ::Documents::Category.create(name: 'Test Category', journals: ['Gutenberg', 'PLoS Neglected Tropical Diseases'])
+        category2 = ::Documents::Category.create(name: 'Empty Category')
+        params = { q: '*:*', advanced: 'true', categories: [category1.to_param, category2.to_param] }
         ret = RLetters::Solr::Search.params_to_query(params)
 
         assert_equal 'journal_facet:("Gutenberg" OR "PLoS Neglected Tropical Diseases")', ret[:fq][0]

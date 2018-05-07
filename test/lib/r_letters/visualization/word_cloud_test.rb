@@ -11,7 +11,8 @@ module RLetters
           header: 'Test Header',
           words: { 'one' => 5, 'two' => 3, 'th&ree' => 1 },
           color: 'Reds',
-          font: 'Arvo')
+          font: 'Arvo'
+        )
         page_analysis = ::PDF::Inspector::Page.analyze(pdf_string)
 
         assert_equal 1, page_analysis.pages.size
@@ -22,7 +23,8 @@ module RLetters
           header: 'Test Header',
           words: { 'one' => 5, 'two' => 3, 'th&ree' => 1 },
           color: 'Reds',
-          font: 'Arvo')
+          font: 'Arvo'
+        )
         text_analysis = ::PDF::Inspector::Text.analyze(pdf_string)
 
         assert_includes text_analysis.strings, 'Test Header'
@@ -36,10 +38,11 @@ module RLetters
           header: 'Test Header',
           words: { 'one' => 5, 'two' => 3, 'th&ree' => 1 },
           color: 'Reds',
-          font: 'Arvo')
+          font: 'Arvo'
+        )
         text_analysis = ::PDF::Inspector::Text.analyze(pdf_string)
 
-        assert text_analysis.font_settings.any? { |s| s[:name] =~ /Arvo/ }
+        assert(text_analysis.font_settings.any? { |s| s[:name] =~ /Arvo/ })
       end
     end
   end

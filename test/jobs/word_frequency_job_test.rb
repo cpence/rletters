@@ -83,15 +83,17 @@ class WordFrequencyJobTest < ActiveJob::TestCase
                { 'word' => 1, 'other' => 6 }],
       block_stats: [
         { name: 'first block', tokens: 7, types: 2 },
-        { name: 'second block', tokens: 7, types: 2 }],
-      word_list: %w(word other),
+        { name: 'second block', tokens: 7, types: 2 }
+      ],
+      word_list: %w[word other],
       tf_in_dataset: { 'word' => 3, 'other' => 11 },
       df_in_dataset: { 'word' => 2, 'other' => 3 },
       num_dataset_tokens: 14,
       num_dataset_types: 2,
-      df_in_corpus: nil)
+      df_in_corpus: nil
+    )
     RLetters::Analysis::Frequency.expects(:call)
-      .returns(analyzer)
+                                 .returns(analyzer)
 
     task = create(:task, dataset: create(:full_dataset, num_docs: 2))
 

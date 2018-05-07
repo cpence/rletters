@@ -14,7 +14,7 @@ module RLetters
         stop_list = build(:stop_list)
         model = StopTester.new(list: stop_list)
 
-        assert_equal %w(a an the), model.list.sort
+        assert_equal %w[a an the], model.list.sort
       end
 
       test 'coerce loads the list if there is one' do
@@ -28,7 +28,7 @@ module RLetters
       test 'coerce loads a string to a space-separated list without match' do
         model = StopTester.new(list: 'a an the')
 
-        assert_equal %w(a an the), model.list.sort
+        assert_equal %w[a an the], model.list.sort
       end
 
       test 'coerce chokes on anything else' do

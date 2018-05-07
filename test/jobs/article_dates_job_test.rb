@@ -16,7 +16,7 @@ class ArticleDatesJobTest < ActiveJob::TestCase
 
   test 'should work when not normalizing' do
     dataset = create(:full_dataset)
-    create(:query, dataset: dataset, q: "uid:\"gutenberg:3172\"")
+    create(:query, dataset: dataset, q: 'uid:"gutenberg:3172"')
     task = create(:task, dataset: dataset)
 
     ArticleDatesJob.perform_now(task, 'normalize' => '0')
@@ -34,7 +34,7 @@ class ArticleDatesJobTest < ActiveJob::TestCase
     assert_includes 1..5, data['data'][0][1]
 
     # Fills in intervening years between new and old documents with zeros
-    refute_nil data['data'].find { |y| y[1] == 0}
+    refute_nil(data['data'].find { |y| y[1].zero? })
 
     # Data is sorted by year
     assert_equal data['data'].sort_by { |d| d[0] }, data['data']
@@ -64,7 +64,7 @@ class ArticleDatesJobTest < ActiveJob::TestCase
     assert_includes 0..1, data['data'][0][1]
 
     # Fills in intervening years between new and old documents with zeros
-    refute_nil data['data'].find { |y| y[1] == 0}
+    refute_nil(data['data'].find { |y| y[1].zero? })
 
     # Data is sorted by year
     assert_equal data['data'].sort_by { |d| d[0] }, data['data']
@@ -102,7 +102,7 @@ class ArticleDatesJobTest < ActiveJob::TestCase
   # the dataset of interest isn't a subset
   test 'should work when normalizing badly' do
     normalization_set = create(:dataset)
-    create(:query, dataset: normalization_set, q: "uid:\"gutenberg:3172\"")
+    create(:query, dataset: normalization_set, q: 'uid:"gutenberg:3172"')
     task = create(:task, dataset: create(:full_dataset, user: normalization_set.user))
 
     ArticleDatesJob.perform_now(task,

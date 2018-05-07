@@ -11,8 +11,7 @@ module RLetters
 
         attribute :string, String
 
-        def validate!
-        end
+        def validate!; end
       end
 
       test 'validate! is called' do

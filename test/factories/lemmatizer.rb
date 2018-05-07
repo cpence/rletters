@@ -4,7 +4,7 @@ FactoryBot.define do
   factory :lemmatizer, class: OpenStruct do
     skip_create
 
-    words {
+    words do
       ['it', 'be', 'the', 'best', 'of', 'time', ',', 'it', 'be', 'the',
        'worst', 'of', 'time', ',', 'it', 'be', 'the', 'age', 'of', 'wisdom',
        ',', 'it', 'be', 'the', 'age', 'of', 'foolishness', ',', 'it', 'be',
@@ -20,6 +20,6 @@ FactoryBot.define do
        'of', 'its', 'noisiest', 'authority', 'insist', 'on', 'its', 'be',
        'receive', ',', 'for', 'good', 'or', 'for', 'evil', ',', 'in', 'the',
        'superlative', 'degree', 'of', 'comparison', 'only', '.']
-    }
+    end
   end
 end

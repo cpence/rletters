@@ -10,14 +10,15 @@ module RLetters
 
         # N.B.: If you do 10-doc datasets here, all the words are in common, and
         # there's no zeta scores.
-        @dataset_1 = create(:full_dataset, num_docs: 2, user: user, name: 'First Dataset')
-        @dataset_2 = create(:full_dataset, num_docs: 2, user: user, name: 'Second Dataset')
+        @dataset1 = create(:full_dataset, num_docs: 2, user: user, name: 'First Dataset')
+        @dataset2 = create(:full_dataset, num_docs: 2, user: user, name: 'Second Dataset')
       end
 
       test 'zeta_scores are properly valued and sorted' do
         analyzer = RLetters::Analysis::CraigZeta.call(
-          dataset_1: @dataset_1,
-          dataset_2: @dataset_2)
+          dataset_1: @dataset1,
+          dataset_2: @dataset2
+        )
 
         assert analyzer.zeta_scores.first[1] > analyzer.zeta_scores.reverse_each.first[1]
 
@@ -28,8 +29,9 @@ module RLetters
 
       test 'dataset markers work' do
         analyzer = RLetters::Analysis::CraigZeta.call(
-          dataset_1: @dataset_1,
-          dataset_2: @dataset_2)
+          dataset_1: @dataset1,
+          dataset_2: @dataset2
+        )
 
         assert_equal analyzer.zeta_scores.first[0], analyzer.dataset_1_markers.first
         assert_equal analyzer.zeta_scores.reverse_each.first[0], analyzer.dataset_2_markers.first
@@ -38,8 +40,9 @@ module RLetters
 
       test 'graph_points work' do
         analyzer = RLetters::Analysis::CraigZeta.call(
-          dataset_1: @dataset_1,
-          dataset_2: @dataset_2)
+          dataset_1: @dataset1,
+          dataset_2: @dataset2
+        )
 
         assert_kind_of Float, analyzer.graph_points[0].x
         assert_kind_of Float, analyzer.graph_points[0].y
@@ -53,22 +56,23 @@ module RLetters
       end
 
       test 'progress reporting works' do
-        called_sub_100 = false
-        called_100 = false
+        called_sub100 = false
+        called100 = false
 
-        analyzer = RLetters::Analysis::CraigZeta.call(
-          dataset_1: @dataset_1,
-          dataset_2: @dataset_2,
+        RLetters::Analysis::CraigZeta.call(
+          dataset_1: @dataset1,
+          dataset_2: @dataset2,
           progress: lambda do |p|
             if p < 100
-              called_sub_100 = true
+              called_sub100 = true
             else
-              called_100 = true
+              called100 = true
             end
-          end)
+          end
+        )
 
-        assert called_sub_100
-        assert called_100
+        assert called_sub100
+        assert called100
       end
     end
   end

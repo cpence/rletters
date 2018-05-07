@@ -29,21 +29,22 @@ module RLetters
         end
 
         test 'progress reporting works' do
-          called_sub_100 = false
-          called_100 = false
+          called_sub100 = false
+          called100 = false
 
-          graph = RLetters::Analysis::Network::Graph.new(
+          RLetters::Analysis::Network::Graph.new(
             dataset: @dataset,
             progress: lambda do |p|
               if p < 100
-                called_sub_100 = true
+                called_sub100 = true
               else
-                called_100 = true
+                called100 = true
               end
-            end)
+            end
+          )
 
-          assert called_sub_100
-          assert called_100
+          assert called_sub100
+          assert called100
         end
 
         test 'find_node works for various search types' do
@@ -67,15 +68,15 @@ module RLetters
 
         test 'find_edge finds both ways' do
           graph = RLetters::Analysis::Network::Graph.new(dataset: @dataset)
-          node_1 = graph.find_node(word: 'disease')
-          node_2 = graph.find_node(word: 'blood')
+          node1 = graph.find_node(word: 'disease')
+          node2 = graph.find_node(word: 'blood')
 
-          e_1 = graph.find_edge(node_1.id, node_2.id)
-          e_2 = graph.find_edge(node_2.id, node_1.id)
+          e1 = graph.find_edge(node1.id, node2.id)
+          e2 = graph.find_edge(node2.id, node1.id)
 
-          refute_nil e_1
-          refute_nil e_2
-          assert_equal e_1, e_2
+          refute_nil e1
+          refute_nil e2
+          assert_equal e1, e2
         end
 
         test 'max_edge_weight works' do
@@ -92,11 +93,11 @@ module RLetters
 
           graph.nodes.each do |n|
             connectivity[n.id] = graph.edges.inject(0) do |sum, edge|
-              sum + ((edge.one == n.id || edge.two == n.id) ? 1 : 0)
+              sum + (edge.one == n.id || edge.two == n.id ? 1 : 0)
             end
           end
 
-          max_connectivity = connectivity.max { |a, b| a[1] <=> b[1] }
+          max_connectivity = connectivity.max_by { |a| a[1] }
 
           assert_equal max_connectivity[0], 'diseas'
         end

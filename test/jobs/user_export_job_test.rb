@@ -7,38 +7,38 @@ class UserExportJobTest < ActiveJob::TestCase
     user = create(:user)
 
     # One library entry
-    library = create(:library, user: user, name: 'A library', url: 'https://google.com?')
+    create(:library, user: user, name: 'A library', url: 'https://google.com?')
 
     # Three datasets
-    dataset_1 = create(:full_dataset, name: 'First Dataset', num_docs: 3, user: user)
-    dataset_2 = create(:full_dataset, name: 'Second Dataset', num_docs: 3, user: user)
-    dataset_3 = create(:full_dataset, name: 'Empty Dataset', num_docs: 3, user: user)
+    dataset1 = create(:full_dataset, name: 'First Dataset', num_docs: 3, user: user)
+    dataset2 = create(:full_dataset, name: 'Second Dataset', num_docs: 3, user: user)
+    create(:full_dataset, name: 'Empty Dataset', num_docs: 3, user: user)
 
     # One has two tasks, two has one task
-    task_1_1 = create(:task, dataset: dataset_1, job_type: 'ExportCitationsJob', finished_at: Time.current)
-    task_1_2 = create(:task, dataset: dataset_1, job_type: 'MultipleFilesJob', finished_at: Time.current)
-    task_2_1 = create(:task, dataset: dataset_2, job_type: 'ExportCitationsJob', finished_at: Time.current)
+    task11 = create(:task, dataset: dataset1, job_type: 'ExportCitationsJob', finished_at: Time.current)
+    task12 = create(:task, dataset: dataset1, job_type: 'MultipleFilesJob', finished_at: Time.current)
+    task21 = create(:task, dataset: dataset2, job_type: 'ExportCitationsJob', finished_at: Time.current)
 
     # Both the first tasks have a file with the same name, to test collision
-    file_1_1 = create(:file, task: task_1_1)
-    file_2_1 = create(:file, task: task_2_1)
-    file_1_1.from_string('these two will have the same content_type and filename')
-    file_2_1.from_string('these two will have the same content_type and filename')
+    file11 = create(:file, task: task11)
+    file21 = create(:file, task: task21)
+    file11.from_string('these two will have the same content_type and filename')
+    file21.from_string('these two will have the same content_type and filename')
 
     # The second task has multiple files
-    file_1_2_1 = create(:file, task: task_1_2)
-    file_1_2_1.from_string('this is a first one', filename: 'something.csv', content_type: 'text/csv')
-    file_1_2_2 = create(:file, task: task_1_2)
-    file_1_2_2.from_string('this is another one', filename: 'out.txt', content_type: 'text/plain')
-    file_1_2_3 = create(:file, task: task_1_2)
-    file_1_2_3.from_string('this is a last one', filename: 'woot.json', content_type: 'application/json')
+    file121 = create(:file, task: task12)
+    file121.from_string('this is a first one', filename: 'something.csv', content_type: 'text/csv')
+    file122 = create(:file, task: task12)
+    file122.from_string('this is another one', filename: 'out.txt', content_type: 'text/plain')
+    file123 = create(:file, task: task12)
+    file123.from_string('this is a last one', filename: 'woot.json', content_type: 'application/json')
 
     # And do the export
     UserExportJob.perform_now(user)
 
     assert_equal 'export.zip', user.export_archive.filename.to_s
     assert_equal 'application/zip', user.export_archive.content_type
-    assert user.export_archive.byte_size > 0
+    assert user.export_archive.byte_size.positive?
 
     # Unpack the zip into a hash
     zip_contents = {}

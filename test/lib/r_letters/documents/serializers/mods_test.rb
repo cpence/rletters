@@ -33,8 +33,8 @@ module RLetters
           raw = RLetters::Documents::Serializers::MODS.new(doc).serialize
           xml = Nokogiri::XML::Document.parse(raw)
 
-          schema_path = File.expand_path('../../../../../support/xsd/mods-3-4.xsd',
-                                         __FILE__)
+          schema_path = Rails.root.join('test', 'support', 'xsd',
+                                        'mods-3-4.xsd')
           schema = Nokogiri::XML::Schema.new(File.open(schema_path))
 
           errors = schema.validate(xml)
@@ -59,8 +59,8 @@ module RLetters
           raw = RLetters::Documents::Serializers::MODS.new(docs).serialize
           xml = Nokogiri::XML::Document.parse(raw)
 
-          schema_path = File.expand_path('../../../../../support/xsd/mods-3-4.xsd',
-                                         __FILE__)
+          schema_path = Rails.root.join('test', 'support', 'xsd',
+                                        'mods-3-4.xsd')
           schema = Nokogiri::XML::Schema.new(File.open(schema_path))
 
           errors = schema.validate(xml)

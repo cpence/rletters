@@ -33,8 +33,8 @@ class ApplicationJobTest < ActiveJob::TestCase
   test 'should fail to return multiple datasets through dataset' do
     task = create(:task)
     job = MockJob.new
-    dataset_2 = create(:dataset, user: task.dataset.user)
-    job.perform(task, other_datasets: [dataset_2.to_param])
+    dataset2 = create(:dataset, user: task.dataset.user)
+    job.perform(task, other_datasets: [dataset2.to_param])
 
     assert_raises(ArgumentError) { job.dataset }
   end
@@ -50,10 +50,10 @@ class ApplicationJobTest < ActiveJob::TestCase
   test 'should return multiple datasets' do
     task = create(:task)
     job = MockJob.new
-    dataset_2 = create(:dataset, user: task.dataset.user)
-    job.perform(task, other_datasets: [dataset_2.to_param])
+    dataset2 = create(:dataset, user: task.dataset.user)
+    job.perform(task, other_datasets: [dataset2.to_param])
 
-    assert_equal [task.dataset, dataset_2], job.datasets
+    assert_equal [task.dataset, dataset2], job.datasets
   end
 
   test 'should fail check_task when we kill the job' do

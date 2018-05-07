@@ -8,7 +8,7 @@ class FailingRakeTestJob < ApplicationJob
 
   def perform(task, options = {})
     standard_options(task, options)
-    fail Exception, 'oh no'
+    raise Exception, 'oh no'
   end
 end
 
@@ -18,7 +18,7 @@ class LongRakeTestJob < ApplicationJob
   def perform(task, options = {})
     standard_options(task, options)
     sleep 1000
-    puts 'never reached'
+    raise 'never reached'
   end
 end
 
@@ -27,7 +27,9 @@ class WorkerRakeTest < ActiveSupport::TestCase
     # Some glue to make Rake testing work. Thanks to
     # https://robots.thoughtbot.com/test-rake-tasks-like-a-boss
     task_path = File.join('lib', 'tasks', 'worker')
-    loaded_files_excluding_current_rake_file = $".reject {|file| file == Rails.root.join("#{task_path}.rake").to_s }
+    loaded_files_excluding_current_rake_file = $LOADED_FEATURES.reject do |file|
+      file == Rails.root.join("#{task_path}.rake").to_s
+    end
 
     @rake = Rake::Application.new
     Rake.application = @rake

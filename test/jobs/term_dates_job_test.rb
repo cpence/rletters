@@ -16,7 +16,7 @@ class TermDatesJobTest < ActiveJob::TestCase
 
   test 'should work' do
     task = create(:task, dataset: create(:dataset))
-    create(:query, dataset: task.dataset, q: "uid:\"gutenberg:3172\"")
+    create(:query, dataset: task.dataset, q: 'uid:"gutenberg:3172"')
 
     TermDatesJob.perform_now(task,
                              'term' => 'disease')
@@ -34,7 +34,7 @@ class TermDatesJobTest < ActiveJob::TestCase
     assert_includes 0..10, data['data'][0][1]
 
     # Fills in intervening years between new and old documents with zeros
-    refute_nil data['data'].find { |y| y[1] == 0}
+    refute_nil(data['data'].find { |y| y[1].zero? })
 
     # Data is sorted by year
     assert_equal data['data'].sort_by { |d| d[0] }, data['data']
