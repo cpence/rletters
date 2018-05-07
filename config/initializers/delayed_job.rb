@@ -3,7 +3,7 @@
 # Don't delay jobs in testing. Also, let the BLOCKING_JOBS setting force all
 # jobs to the foreground thread.
 Delayed::Worker.delay_jobs = !Rails.env.test? && !ENV['BLOCKING_JOBS']
-Delayed::Worker.logger = Logger.new(File.join(Rails.root, 'tmp', 'delayed_job.log'))
+Delayed::Worker.logger = Logger.new(Rails.root.join('tmp', 'delayed_job.log'))
 
 # We'll let these jobs run for one day, once, after which point they will be
 # killed by Timeout, their open jobs/tasks, will be destroyed by the error

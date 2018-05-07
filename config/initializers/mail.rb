@@ -7,7 +7,9 @@ if Rails.env.test?
 elsif Rails.env.development?
   # Save mails to file so that we can inspect them
   Rails.application.config.action_mailer.delivery_method = :file
-  ActionMailer::Base.file_settings = { location: Rails.root.join('tmp/mail') }
+  ActionMailer::Base.file_settings = {
+    location: Rails.root.join('tmp', 'mail')
+  }
 else
   # Add delivery methods to ActionMailer from multi_mail
   ActionMailer::Base.add_delivery_method :mailgun, MultiMail::Sender::Mailgun,

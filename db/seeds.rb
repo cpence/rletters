@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+# It's okay to print to the console here; it's being *run* at the console.
+# rubocop:disable Rails/Output
+
 # Snippets
 Dir.glob(Rails.root.join('db', 'seeds', 'snippets', '*')) do |dir|
   lang = File.basename(dir)
@@ -43,3 +46,5 @@ end
 # Warn the user about the administrator password
 puts '----------'
 puts 'Make sure to edit the .env file and change your administrator password!'
+
+# rubocop:enable Rails/Output
