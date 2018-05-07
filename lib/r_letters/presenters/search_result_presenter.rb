@@ -21,7 +21,7 @@ module RLetters
         ret = params.except(:cursor_mark)
         ret[:cursor_mark] = result.solr_response['nextCursorMark']
 
-        RLetters::Solr::Search::permit_params(ret)
+        RLetters::Solr::Search.permit_params(ret)
       end
 
       # Return a formatted version of the number of hits for the last search
@@ -62,7 +62,7 @@ module RLetters
         'journal_sort desc',
         'year_sort asc',
         'year_sort desc'
-      ]
+      ].freeze
 
       # Convert a precise sort method into a friendly string
       #

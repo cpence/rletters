@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'r_letters/documents/serializers/rdf'
 require 'rdf/n3'
 

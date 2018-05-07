@@ -35,7 +35,7 @@ module RLetters
           record.append(::MARC::ControlField.new('003', 'RLID'))
           record.append(
             ::MARC::ControlField.new(
-              '005', Time.now.strftime('%Y%m%d%H%M%S.0')
+              '005', Time.current.strftime('%Y%m%d%H%M%S.0')
             )
           )
 

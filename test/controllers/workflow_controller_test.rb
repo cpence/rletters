@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'test_helper'
 
 # Mock job class for the workflow controller
@@ -152,12 +153,12 @@ class WorkflowControllerTest < ActionDispatch::IntegrationTest
     dataset = create(:dataset, user: user, name: 'Enabled')
     dataset_2 = create(:dataset, user: user_2, name: 'OtherUser')
 
-    finished = WorkflowJob.create_task(dataset, DateTime.now)
+    finished = WorkflowJob.create_task(dataset, Time.current)
     pending = WorkflowJob.create_task(dataset, nil)
     working = WorkflowJob.create_task(dataset, nil, progress: 0.3)
     failed = WorkflowJob.create_task(dataset, nil, failed: true)
 
-    other = WorkflowJob.create_task(dataset_2, DateTime.now)
+    other = WorkflowJob.create_task(dataset_2, Time.current)
 
     get workflow_fetch_url(terminate: true)
 

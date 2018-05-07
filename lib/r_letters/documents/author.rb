@@ -127,19 +127,20 @@ module RLetters
         first_name_forms = []
 
         first.each do |f|
-          if f.length == 1
-            # Just an initial, search it with a wildcard
-            first_name_forms << ["#{f}*"]
-          else
-            # A name, search it as itself and as an initial, but without
-            # a wildcard.
-            first_name_forms << [f, f[0]]
-          end
+          first_name_forms <<
+            if f.length == 1
+              # Just an initial, search it with a wildcard
+              ["#{f}*"]
+            else
+              # A name, search it as itself and as an initial, but without
+              # a wildcard.
+              [f, f[0]]
+            end
         end
 
         # Form the list of all the names we're actually going to use
-        first_name_forms_0 = first_name_forms.shift
-        names = first_name_forms_0.product(*first_name_forms).map { |n| n << last }
+        first_name_forms0 = first_name_forms.shift
+        names = first_name_forms0.product(*first_name_forms).map { |n| n << last }
 
         # Step through these and create the combined-initials queries
         new_names = []

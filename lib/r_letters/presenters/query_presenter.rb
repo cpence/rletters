@@ -11,7 +11,7 @@ module RLetters
       #
       # @return [Array<String>] an array of decorated facet strings
       def fq_string
-        return nil unless query.fq.present?
+        return nil if query.fq.blank?
 
         query.fq.map do |q|
           parts = q.split(':')

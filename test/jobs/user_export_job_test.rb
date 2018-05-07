@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'test_helper'
 
 class UserExportJobTest < ActiveJob::TestCase
@@ -14,9 +15,9 @@ class UserExportJobTest < ActiveJob::TestCase
     dataset_3 = create(:full_dataset, name: 'Empty Dataset', num_docs: 3, user: user)
 
     # One has two tasks, two has one task
-    task_1_1 = create(:task, dataset: dataset_1, job_type: 'ExportCitationsJob', finished_at: DateTime.now)
-    task_1_2 = create(:task, dataset: dataset_1, job_type: 'MultipleFilesJob', finished_at: DateTime.now)
-    task_2_1 = create(:task, dataset: dataset_2, job_type: 'ExportCitationsJob', finished_at: DateTime.now)
+    task_1_1 = create(:task, dataset: dataset_1, job_type: 'ExportCitationsJob', finished_at: Time.current)
+    task_1_2 = create(:task, dataset: dataset_1, job_type: 'MultipleFilesJob', finished_at: Time.current)
+    task_2_1 = create(:task, dataset: dataset_2, job_type: 'ExportCitationsJob', finished_at: Time.current)
 
     # Both the first tasks have a file with the same name, to test collision
     file_1_1 = create(:file, task: task_1_1)

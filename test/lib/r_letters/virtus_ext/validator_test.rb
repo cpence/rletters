@@ -1,19 +1,24 @@
 # frozen_string_literal: true
+
 require 'test_helper'
 
-class RLetters::VirtusExt::ValidatorTest < ActiveSupport::TestCase
-  class ValidatorTester
-    include Virtus.model(strict: true)
-    include RLetters::VirtusExt::Validator
+module RLetters
+  module VirtusExt
+    class ValidatorTest < ActiveSupport::TestCase
+      class ValidatorTester
+        include Virtus.model(strict: true)
+        include RLetters::VirtusExt::Validator
 
-    attribute :string, String
+        attribute :string, String
 
-    def validate!
+        def validate!
+        end
+      end
+
+      test 'validate! is called' do
+        ValidatorTester.any_instance.expects(:validate!)
+        ValidatorTester.new(string: 'test')
+      end
     end
-  end
-
-  test 'validate! is called' do
-    ValidatorTester.any_instance.expects(:validate!)
-    ValidatorTester.new(string: 'test')
   end
 end

@@ -32,9 +32,11 @@ module SearchHelper
     tags = []
 
     # Remove all link
-    remove_params = params.except(:categories, :fq)
-    remove_params = RLetters::Solr::Search.permit_params(remove_params)
-    tags << facet_remove_link(remove_params, I18n.t('search.index.remove_all'))
+    if params[:categories] || params[:fq]
+      remove_params = params.except(:categories, :fq)
+      remove_params = RLetters::Solr::Search.permit_params(remove_params)
+      tags << facet_remove_link(remove_params, I18n.t('search.index.remove_all'))
+    end
 
     active_facets.each do |f|
       other_facets = active_facets.reject { |x| x == f }
@@ -80,7 +82,7 @@ module SearchHelper
   end
 
   def category_add_link(category)
-    link_to category.toggle_search_params(params), class: 'nav-link' do
+    link = link_to category.toggle_search_params(params), class: 'nav-link' do
       contents = [
         check_box_tag("category_#{category.to_param}",
                       '1',
@@ -89,12 +91,15 @@ module SearchHelper
         category.name
       ]
 
-      if category.has_children?
-        contents << category_addition_tree(category.children)
-      end
-
       safe_join(contents)
     end
+
+    tags = [link]
+    if category.has_children?
+      tags << content_tag(:ul, category_addition_tree(category.children))
+    end
+
+    safe_join(tags)
   end
 
   def facet_remove_link(params, label)

@@ -99,7 +99,7 @@ module RLetters
                             start: 0,
                             rows: 0)
 
-        return nil if !result || result.empty?
+        return nil if result.blank?
         result ['responseHeader']['QTime']
       end
 

@@ -26,12 +26,10 @@ class Numeric
   def bound(min, max)
     if self < min
       min
+    elsif self > max
+      max
     else
-      if self > max
-        max
-      else
-        self
-      end
+      self
     end
   end
 end

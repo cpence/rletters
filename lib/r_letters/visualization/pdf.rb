@@ -36,7 +36,7 @@ module RLetters
           'Author':       ENV['APP_NAME'],
           'Creator':      'RLetters',
           'Producer':     'Prawn',
-          'CreationDate': Time.now
+          'CreationDate': Time.current
         }
 
         pdf = Prawn::Document.new(info: info,

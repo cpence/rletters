@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'r_letters/documents/serializers/marc_record'
 
 module RLetters
@@ -131,13 +132,13 @@ module RLetters
             date_issued.content = doc.year
           end
 
-          journal_genre_1 = Nokogiri::XML::Node.new('genre', xml_doc)
-          related_item.add_child(journal_genre_1)
-          journal_genre_1.content = 'periodical'
-          journal_genre_1['authority'] = 'marcgt'
-          journal_genre_2 = Nokogiri::XML::Node.new('genre', xml_doc)
-          related_item.add_child(journal_genre_2)
-          journal_genre_2.content = 'academic journal'
+          journal_genre1 = Nokogiri::XML::Node.new('genre', xml_doc)
+          related_item.add_child(journal_genre1)
+          journal_genre1.content = 'periodical'
+          journal_genre1['authority'] = 'marcgt'
+          journal_genre2 = Nokogiri::XML::Node.new('genre', xml_doc)
+          related_item.add_child(journal_genre2)
+          journal_genre2.content = 'academic journal'
 
           part = Nokogiri::XML::Node.new('part', xml_doc)
           related_item.add_child(part)

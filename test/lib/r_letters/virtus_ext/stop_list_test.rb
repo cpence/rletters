@@ -1,36 +1,41 @@
 # frozen_string_literal: true
+
 require 'test_helper'
 
-class RLetters::VirtusExt::StopListTest < ActiveSupport::TestCase
-  class StopTester
-    include Virtus.model(strict: true)
-    attribute :list, RLetters::VirtusExt::StopList, required: true
-  end
+module RLetters
+  module VirtusExt
+    class StopListTest < ActiveSupport::TestCase
+      class StopTester
+        include Virtus.model(strict: true)
+        attribute :list, RLetters::VirtusExt::StopList, required: true
+      end
 
-  test 'coerce passes through a Documents::StopList' do
-    stop_list = build(:stop_list)
-    model = StopTester.new(list: stop_list)
+      test 'coerce passes through a Documents::StopList' do
+        stop_list = build(:stop_list)
+        model = StopTester.new(list: stop_list)
 
-    assert_equal %w(a an the), model.list.sort
-  end
+        assert_equal %w(a an the), model.list.sort
+      end
 
-  test 'coerce loads the list if there is one' do
-    # This model has been seeded, so it's the real stop list
-    model = StopTester.new(list: 'en')
+      test 'coerce loads the list if there is one' do
+        # This model has been seeded, so it's the real stop list
+        model = StopTester.new(list: 'en')
 
-    assert_includes model.list, 'again'
-    assert_includes model.list, 'over'
-  end
+        assert_includes model.list, 'again'
+        assert_includes model.list, 'over'
+      end
 
-  test 'coerce loads a string to a space-separated list without match' do
-    model = StopTester.new(list: 'a an the')
+      test 'coerce loads a string to a space-separated list without match' do
+        model = StopTester.new(list: 'a an the')
 
-    assert_equal %w(a an the), model.list.sort
-  end
+        assert_equal %w(a an the), model.list.sort
+      end
 
-  test 'coerce chokes on anything else' do
-    assert_raises(ArgumentError) do
-      StopTester.new(list: 38)
+      test 'coerce chokes on anything else' do
+        assert_raises(ArgumentError) do
+          StopTester.new(list: 38)
+        end
+      end
     end
   end
 end

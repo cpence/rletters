@@ -1,11 +1,13 @@
 # frozen_string_literal: true
+
 require 'application_system_test_case'
 
 class JournalCategoriesTest < ApplicationSystemTestCase
   setup do
     root = Documents::Category.create(
       name: 'Root',
-      journals: ['PLoS Neglected Tropical Diseases', 'Gutenberg'])
+      journals: ['PLoS Neglected Tropical Diseases', 'Gutenberg']
+    )
     root.children.create(name: 'PNTD',
                          journals: ['PLoS Neglected Tropical Diseases'])
     root.children.create(name: 'Gutenberg', journals: ['Gutenberg'])

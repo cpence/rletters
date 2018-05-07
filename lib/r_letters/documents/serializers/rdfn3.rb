@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'r_letters/documents/serializers/rdf'
 require 'rdf/n3'
 
@@ -13,11 +14,11 @@ module RLetters
           # generation in the RDF/XML format instead.
           # :nocov:
           ::RDF::Writer.for(:n3).buffer do |writer|
-            if doc.is_a? Enumerable
-              writer << doc.each { |d| to_rdf_graph(d) }
-            else
-              writer << to_rdf_graph(doc)
-            end
+            writer << if doc.is_a? Enumerable
+                        doc.each { |d| to_rdf_graph(d) }
+                      else
+                        to_rdf_graph(doc)
+                      end
           end
           # :nocov:
         end

@@ -14,11 +14,8 @@ module RLetters
         return value if value.is_a?(Dataset)
 
         if value.is_a?(String)
-          if value.start_with?('gid://')
-            return GlobalID::Locator.locate(value)
-          else
-            return Dataset.find(value)
-          end
+          return GlobalID::Locator.locate(value) if value.start_with?('gid://')
+          return Dataset.find(value)
         end
 
         raise ArgumentError, "cannot create dataset from #{value.class}"

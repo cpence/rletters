@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'r_letters/documents/as_open_url'
 require 'rdf/n3'
 
@@ -22,38 +23,38 @@ module RLetters
         #
         # @param [Document] d the document to convert
         # @return [RDF::Graph] the RDF graph
-        def to_rdf_graph(d)
+        def to_rdf_graph(doc)
           graph = ::RDF::Graph.new
-          doc = ::RDF::Node.new
+          node = ::RDF::Node.new
 
-          d.authors.each do |a|
+          doc.authors.each do |a|
             name = +''
             name << "#{a.prefix} " if a.prefix
-            name << "#{a.last}"
+            name << a.last.to_s
             name << " #{a.suffix}" if a.suffix
             name << ", #{a.first}"
-            graph << [doc, ::RDF::Vocab::DC.creator, name]
+            graph << [node, ::RDF::Vocab::DC.creator, name]
           end
-          graph << [doc, ::RDF::Vocab::DC.issued, d.year] if d.year
+          graph << [node, ::RDF::Vocab::DC.issued, doc.year] if doc.year
 
           citation = +''
-          citation << d.journal if d.journal
-          citation << (d.volume ? " #{d.volume}" : ' ')
-          citation << "(#{d.number})" if d.number
-          citation << ", #{d.pages}" if d.pages
-          citation << ". (#{d.year})" if d.year
-          graph << [doc, ::RDF::Vocab::DC.bibliographicCitation, citation]
+          citation << doc.journal if doc.journal
+          citation << (doc.volume ? " #{doc.volume}" : ' ')
+          citation << "(#{doc.number})" if doc.number
+          citation << ", #{doc.pages}" if doc.pages
+          citation << ". (#{doc.year})" if doc.year
+          graph << [node, ::RDF::Vocab::DC.bibliographicCitation, citation]
 
           ourl = ::RDF::Literal.new(
-            '&' + RLetters::Documents::AsOpenURL.new(d).params,
+            '&' + RLetters::Documents::AsOpenURL.new(doc).params,
             datatype: ::RDF::URI.new('info:ofi/fmt:kev:mtx:ctx')
           )
-          graph << [doc, ::RDF::Vocab::DC.bibliographicCitation, ourl]
+          graph << [node, ::RDF::Vocab::DC.bibliographicCitation, ourl]
 
-          graph << [doc, ::RDF::Vocab::DC.relation, d.journal] if d.journal
-          graph << [doc, ::RDF::Vocab::DC.title, d.title] if d.title
-          graph << [doc, ::RDF::Vocab::DC.type, 'Journal Article']
-          graph << [doc, ::RDF::Vocab::DC.identifier, "info:doi/#{d.doi}"] if d.doi
+          graph << [node, ::RDF::Vocab::DC.relation, doc.journal] if doc.journal
+          graph << [node, ::RDF::Vocab::DC.title, doc.title] if doc.title
+          graph << [node, ::RDF::Vocab::DC.type, 'Journal Article']
+          graph << [node, ::RDF::Vocab::DC.identifier, "info:doi/#{doc.doi}"] if doc.doi
 
           graph
         end

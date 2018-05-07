@@ -12,9 +12,9 @@ module I18n
     # @param [String] key the lookup key for the translation requested
     # @return [String] the requested translation, parsed as Markdown
     def translate_markdown(key, options = {})
-      Kramdown::Document.new(I18n.t(key, options)).to_html.html_safe
+      Kramdown::Document.new(I18n.t(key, options)).to_html.html_safe # rubocop:disable OutputSafety
     end
-    alias_method :t_md, :translate_markdown
+    alias t_md translate_markdown
   end
 end
 
@@ -39,9 +39,9 @@ module ActionView
         # This method is private, but it's what maps the ".not_found" shortcut
         # style keys to their full equivalents
         key_trans = scope_key_by_partial(key)
-        I18n.translate_markdown(key_trans, options).html_safe
+        I18n.translate_markdown(key_trans, options).html_safe # rubocop:disable OutputSafety
       end
-      alias_method :t_md, :translate_markdown
+      alias t_md translate_markdown
     end
   end
 end

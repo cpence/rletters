@@ -9,11 +9,12 @@ module RLetters
                      'http://mirrors.ctan.org/biblio/bibtex/contrib/doc/btxdoc.pdf') do |doc|
           # We don't have a concept of cite keys, so we're forced to just use
           # AuthorYear and hope it doesn't collide
-          if doc.authors.empty?
-            first_author = 'Anon'
-          else
-            first_author = doc.authors[0].last.delete(' ').gsub(/[^A-za-z0-9_]/, '')
-          end
+          first_author =
+            if doc.authors.empty?
+              'Anon'
+            else
+              doc.authors[0].last.delete(' ').gsub(/[^A-za-z0-9_]/, '')
+            end
           cite_key = "#{first_author}#{doc.year}"
 
           ret = +"@article{#{cite_key},\n"

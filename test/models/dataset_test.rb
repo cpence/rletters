@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'test_helper'
 
 class DatasetTest < ActiveSupport::TestCase
@@ -22,7 +23,7 @@ class DatasetTest < ActiveSupport::TestCase
 
   test 'should associate with tasks' do
     dataset = create(:dataset)
-    task = create(:task, dataset: dataset, name: 'test')
+    create(:task, dataset: dataset, name: 'test')
 
     assert_equal 1, dataset.tasks.reload.size
     assert_equal 'test', dataset.tasks[0].name
@@ -30,7 +31,7 @@ class DatasetTest < ActiveSupport::TestCase
 
   test 'should associate with users' do
     user = create(:user)
-    dataset = create(:full_dataset, user: user, num_docs: 2)
+    create(:full_dataset, user: user, num_docs: 2)
 
     assert_equal 1, user.datasets.reload.size
   end

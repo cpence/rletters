@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'r_letters/analysis/craig_zeta'
 
 module SystemStubHelper

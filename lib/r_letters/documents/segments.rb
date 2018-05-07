@@ -86,7 +86,11 @@ module RLetters
         self.words_for_last = words.uniq
         corpus_dfs.merge!(word_lister.corpus_dfs)
 
-        num_blocks > 0 ? add_for_num_blocks(words) : add_for_block_size(words)
+        if num_blocks.positive?
+          add_for_num_blocks(words)
+        else
+          add_for_block_size(words)
+        end
       end
 
       # Return the blocks from this segmenter
@@ -97,7 +101,7 @@ module RLetters
       #
       # @return [Array<Block>] a list of blocks of words for these documents
       def blocks
-        if num_blocks > 0
+        if num_blocks.positive?
           blocks_for_num_blocks
         else
           blocks_for_block_size
@@ -112,7 +116,7 @@ module RLetters
       def validate!
         # If we get num_blocks and block_size, then the user's done something
         # wrong; just take block_size
-        self.num_blocks = 0 if num_blocks > 0 && block_size > 0
+        self.num_blocks = 0 if num_blocks.positive? && block_size.positive?
 
         # Default to a single block unless otherwise specified
         self.num_blocks = 1 if num_blocks <= 0 && block_size <= 0
@@ -160,7 +164,7 @@ module RLetters
 
         # Fill up the last block
         current_left = block_size - block_list.last.words.size
-        if current_left > 0
+        if current_left.positive?
           block_list.last.words.concat(words.shift(current_left))
         end
 
@@ -201,8 +205,10 @@ module RLetters
         case last_block
         when :truncate_all
           # Implemented in add_for_block_size
+          nil
         when :small_last
           # Implemented just above
+          nil
         when :truncate_last
           block_list.pop
         else # default to :big_last behavior

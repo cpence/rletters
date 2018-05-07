@@ -1,10 +1,13 @@
 # frozen_string_literal: true
+
 require 'minitest/assertions'
 
-module Minitest::Assertions
-  def assert_valid_download(mime, response)
-    assert response.successful?
-    assert response.content_type = mime
-    assert response.body.length != 0
+module Minitest
+  module Assertions
+    def assert_valid_download(mime, response)
+      assert response.successful?
+      assert response.content_type = mime
+      refute response.body.empty?
+    end
   end
 end

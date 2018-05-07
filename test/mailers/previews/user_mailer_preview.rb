@@ -9,7 +9,7 @@ class UserMailerPreview < ActionMailer::Preview
     user = FactoryBot.build_stubbed(:user)
     dataset = FactoryBot.build_stubbed(:full_dataset, user: user)
     task = FactoryBot.build_stubbed(:task, dataset: dataset,
-                                            job_type: 'ExportCitationsJob')
+                                           job_type: 'ExportCitationsJob')
 
     UserMailer.job_finished_email(user.email, task)
   end

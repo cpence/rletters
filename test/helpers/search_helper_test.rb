@@ -1,7 +1,13 @@
 # frozen_string_literal: true
+
 require 'test_helper'
 
 class SearchHelperTest < ActionView::TestCase
+  # There's no reason that we should have to do this, but for some reason Rails
+  # isn't including the other helpers into the context when we test this helper.
+  # Try removing this in future Rails versions to see if it gets fixed.
+  include ApplicationHelper
+
   test 'facet_addition_links should have link for adding author facet' do
     h = ActionController::Parameters.new(controller: 'search', action: 'index')
     controller.stubs(:params).returns(h)
@@ -81,8 +87,8 @@ class SearchHelperTest < ActionView::TestCase
 
     tree = category_addition_tree
 
-    assert_includes tree, "Parent\n</a><ul>"
-    assert_includes tree, "Child\n</a></li></ul>"
+    assert_includes tree, "Parent</a><ul>"
+    assert_includes tree, "Child</a></li></ul>"
   end
 
   test 'category_removal_links works with nothing active' do
