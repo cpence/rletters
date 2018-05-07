@@ -8,61 +8,67 @@ source_lang = en
 type = YML
 
 [rletters.article_dates]
-file_filter = config/locales/article_dates_job/article_dates_job.<lang>.md
-source_file = config/locales/article_dates_job/article_dates_job.en.md
+file_filter = app/views/jobs/article_dates_job/_info.<lang>.html.md
+source_file = app/views/jobs/article_dates_job/_info.en.html.md
 source_lang = en
 type = GITHUBMARKDOWN
 
 [rletters.collocation]
-file_filter = config/locales/collocation_job/collocation_job.<lang>.md
-source_file = config/locales/collocation_job/collocation_job.en.md
+file_filter = app/views/jobs/collocation_job/_info.<lang>.html.md
+source_file = app/views/jobs/collocation_job/_info.en.html.md
 source_lang = en
 type = GITHUBMARKDOWN
 
 [rletters.cooccurrence]
-file_filter = config/locales/cooccurrence_job/cooccurrence_job.<lang>.md
-source_file = config/locales/cooccurrence_job/cooccurrence_job.en.md
+file_filter = app/views/jobs/cooccurrence_job/_info.<lang>.html.md
+source_file = app/views/jobs/cooccurrence_job/_info.en.html.md
 source_lang = en
 type = GITHUBMARKDOWN
 
 [rletters.craig_zeta]
-file_filter = config/locales/craig_zeta_job/craig_zeta_job.<lang>.md
-source_file = config/locales/craig_zeta_job/craig_zeta_job.en.md
+file_filter = app/views/jobs/craig_zeta_job/_info.<lang>.html.md
+source_file = app/views/jobs/craig_zeta_job/_info.en.html.md
 source_lang = en
 type = GITHUBMARKDOWN
 
 [rletters.export_citations]
-file_filter = config/locales/export_citations_job/export_citations_job.<lang>.md
-source_file = config/locales/export_citations_job/export_citations_job.en.md
+file_filter = app/views/jobs/export_citations_job/_info.<lang>.html.md
+source_file = app/views/jobs/export_citations_job/_info.en.html.md
 source_lang = en
 type = GITHUBMARKDOWN
 
 [rletters.named_entities]
-file_filter = config/locales/named_entities_job/named_entities_job.<lang>.md
-source_file = config/locales/named_entities_job/named_entities_job.en.md
+file_filter = app/views/jobs/named_entities_job/_info.<lang>.html.md
+source_file = app/views/jobs/named_entities_job/_info.en.html.md
 source_lang = en
 type = GITHUBMARKDOWN
 
 [rletters.network]
-file_filter = config/locales/network_job/network_job.<lang>.md
-source_file = config/locales/network_job/network_job.en.md
+file_filter = app/views/jobs/network_job/_info.<lang>.html.md
+source_file = app/views/jobs/network_job/_info.en.html.md
 source_lang = en
 type = GITHUBMARKDOWN
 
-[rletters.cookies]
-file_filter = config/locales/static_cookies/static_cookies.<lang>.md
-source_file = config/locales/static_cookies/static_cookies.en.md
-source_lang = en
-type = GITHUBMARKDOWN
-
-[rletters.user_data]
-file_filter = config/locales/static_user_data/static_user_data.<lang>.md
-source_file = config/locales/static_user_data/static_user_data.en.md
+[rletters.term_dates]
+file_filter = app/views/jobs/term_dates_job/_info.<lang>.html.md
+source_file = app/views/jobs/term_dates_job/_info.en.html.md
 source_lang = en
 type = GITHUBMARKDOWN
 
 [rletters.word_frequency]
-file_filter = config/locales/word_frequency_job/word_frequency_job.<lang>.md
-source_file = config/locales/word_frequency_job/word_frequency_job.en.md
+file_filter = app/views/jobs/word_frequency_job/_info.<lang>.html.md
+source_file = app/views/jobs/word_frequency_job/_info.en.html.md
+source_lang = en
+type = GITHUBMARKDOWN
+
+[rletters.cookies]
+file_filter = app/views/static/_cookies.<lang>.html.md
+source_file = app/views/static/_cookies.en.html.md
+source_lang = en
+type = GITHUBMARKDOWN
+
+[rletters.user_data]
+file_filter = app/views/static/_user_data.<lang>.html.md
+source_file = app/views/static/_user_data.en.html.md
 source_lang = en
 type = GITHUBMARKDOWN

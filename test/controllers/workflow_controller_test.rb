@@ -218,43 +218,4 @@ class WorkflowControllerTest < ActionDispatch::IntegrationTest
 
     assert_equal 'Mexico City', Time.zone.name
   end
-
-  test 'should have render_localized_markdown work with a good locale' do
-    I18n.locale = :en
-    path = Rails.root.join('config', 'locales', 'article_dates_job',
-                           'article_dates_job.en.md')
-
-    get workflow_url
-
-    @controller.expects(:render_to_string)
-      .with(file: path, layout: false)
-      .returns('')
-
-    @controller.render_localized_markdown(:article_dates_job)
-  end
-
-  test 'should have render_localized_markdown fall back to English' do
-    I18n.locale = :vi
-
-    path = Rails.root.join('config', 'locales', 'article_dates_job',
-                           'article_dates_job.en.md')
-
-    get workflow_url
-
-    @controller.expects(:render_to_string)
-      .with(file: path, layout: false)
-      .returns('')
-
-    @controller.render_localized_markdown(:article_dates_job)
-
-    I18n.locale = :en
-  end
-
-  test 'should fail on render_localized_markdown with a missing file' do
-    assert_raises(I18n::MissingTranslationData) do
-      get workflow_url
-
-      @controller.render_localized_markdown(:not_there)
-    end
-  end
 end

@@ -10,7 +10,7 @@
       = link_to t('.start'), workflow_activate_path(params[:class]), class: 'btn btn-success w-100'
 
 .row
-  #markdown-info.col-12= render_localized_markdown(@klass.name.underscore)
+  #markdown-info.col-12= render partial: "jobs/#{@klass.name.underscore}/info"
 
 .row
   .col-12.col-lg-6.offset-lg-6

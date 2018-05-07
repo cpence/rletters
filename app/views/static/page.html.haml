@@ -3,4 +3,4 @@
   %li.breadcrumb-item.active= t("breadcrumbs.static_#{@page}")
 
 .row
-  .col-12= render_localized_markdown("static_#{@page}")
+  .col-12= render partial: @page.to_s
