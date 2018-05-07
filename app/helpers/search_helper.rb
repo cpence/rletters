@@ -14,9 +14,6 @@ module SearchHelper
     active_facets = facets.active(params)
     field_facets = (facets.sorted_for_field(field) - active_facets).take(5)
 
-    # Bail if there's no facets
-    return ''.html_safe if field_facets.empty?
-
     # Build the return value
     tags = field_facets.map do |f|
       p = RLetters::Presenters::FacetPresenter.new(facet: f)
@@ -57,7 +54,7 @@ module SearchHelper
       end
     end
 
-    tags.join.html_safe
+    safe_join(tags)
   end
 
   def category_removal_links
