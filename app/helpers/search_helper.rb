@@ -72,12 +72,10 @@ module SearchHelper
 
   def facet_add_link(params, hits, label)
     link_to params, class: 'nav-link' do
-      safe_join([
-        content_tag(:div,
-          hits.to_s,
-          class: 'float-right badge badge-light bg-white mt-1'),
-        label
-      ])
+      hits = content_tag(:div, hits.to_s,
+                         class: 'float-right badge badge-light bg-white mt-1')
+
+      safe_join([hits, label])
     end
   end
 
@@ -101,10 +99,9 @@ module SearchHelper
 
   def facet_remove_link(params, label)
     link_to params, class: 'nav-link' do
-      safe_join([
-        content_tag(:div, close_icon, class: 'float-right'),
-        label
-      ])
+      close = content_tag(:div, close_icon, class: 'float-right')
+
+      safe_join([close, label])
     end
   end
 end

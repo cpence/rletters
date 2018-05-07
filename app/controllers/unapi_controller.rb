@@ -32,7 +32,7 @@ class UnapiController < ApplicationController
              formats: [:xml],
              handlers: [:builder],
              layout: false,
-             status: 300
+             status: :multiple_choices
       return
     end
 
@@ -43,7 +43,7 @@ class UnapiController < ApplicationController
       render template: 'errors/404',
              layout: false,
              formats: [:html],
-             status: 406
+             status: :not_acceptable
     end
   end
 end

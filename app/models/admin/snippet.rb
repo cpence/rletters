@@ -58,7 +58,7 @@ module Admin
     # @return [String] HTML output of rendering this snippet to Markdown
     def render
       erb_page = ERB.new(content).result(binding)
-      Kramdown::Document.new(erb_page).to_html.html_safe
+      Kramdown::Document.new(erb_page).to_html.html_safe # rubocop:disable OutputSafety
     end
   end
 end

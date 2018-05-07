@@ -18,8 +18,9 @@ module ApplicationHelper
   def validation_errors_for(object, field, client_side = false,
                             client_side_message = nil)
     ret = []
+    has_server_error = !object.is_a?(Symbol) && object.errors[field]
 
-    if !object.is_a?(Symbol) && object.errors[field]
+    if has_server_error
       server_errors = content_tag(:span, class: 'server-errors') do
         safe_join(object.errors[field], tag(:br))
       end
@@ -45,11 +46,8 @@ module ApplicationHelper
       client_error = content_tag(
         :span,
         class: 'client-errors',
-        style: if !object.is_a?(Symbol) && object.errors[field]
-                 'display: none'
-               else
-                 nil
-               end) do
+        style: ('display: none' if has_server_error)
+      ) do
         I18n.t(key)
       end
 

@@ -32,7 +32,7 @@ class DocumentsController < ApplicationController
         render template: 'errors/404',
                layout: false,
                formats: [:html],
-               status: 406
+               status: :not_acceptable
         return
       end
     end

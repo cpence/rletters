@@ -127,9 +127,7 @@ class ApplicationJob < ActiveJob::Base
   # Access the user, but only if the job hasn't been deleted
   #
   # @return [User] the user whose dataset we are working on
-  def user
-    dataset.user
-  end
+  delegate :user, to: :dataset
 
   protected
 
@@ -161,7 +159,7 @@ class ApplicationJob < ActiveJob::Base
     @task.at(0, 100, t('common.progress_initializing'))
 
     # Set the @datasets variable if the :other_datasets option was passed
-    return unless options.present?
+    return if options.blank?
     other_datasets = options[:other_datasets]
 
     return unless other_datasets

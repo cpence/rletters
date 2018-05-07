@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 # Export all of the data belonging to a user
+# rubocop:disable ApplicationJob
 class UserExportJob < ActiveJob::Base
   queue_as :maintenance
 
@@ -140,3 +141,4 @@ class UserExportJob < ActiveJob::Base
     user.save
   end
 end
+# rubocop:enable ApplicationJob
