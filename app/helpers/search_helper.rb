@@ -20,39 +20,40 @@ module SearchHelper
     # Build the return value
     tags = field_facets.map do |f|
       p = RLetters::Presenters::FacetPresenter.new(facet: f)
-      render(partial: 'search/filters/facet_add_link', locals: {
-               hits: f.hits.to_s,
-               label: p.label,
-               facets: active_facets + [f]
-             })
+
+      new_facets = active_facets + [f]
+      new_params = RLetters::Solr::Facets.search_params(params, new_facets)
+
+      facet_add_link(new_params, f.hits.to_s, p.label)
     end
 
-    tags.join.html_safe
+    safe_join(tags)
   end
 
   def facet_removal_links(facets)
     active_facets = facets.active(params)
-    tags = active_facets.map do |f|
+    tags = []
+
+    # Remove all link
+    remove_params = params.except(:categories, :fq)
+    remove_params = RLetters::Solr::Search.permit_params(remove_params)
+    tags << facet_remove_link(remove_params, I18n.t('search.index.remove_all'))
+
+    active_facets.each do |f|
       other_facets = active_facets.reject { |x| x == f }
+      other_params = RLetters::Solr::Facets.search_params(params, other_facets)
 
       p = RLetters::Presenters::FacetPresenter.new(facet: f)
-      render(
-        partial: 'search/filters/facet_remove_link',
-        locals: {
-          params: RLetters::Solr::Facets.search_params(params, other_facets),
-          label: "#{p.field_label}: #{p.label}"
-        }
-      )
+      tags << facet_remove_link(other_params, "#{p.field_label}: #{p.label}")
     end
 
-    tags.join.html_safe
+    safe_join(tags)
   end
 
   def category_addition_tree(roots = Documents::Category.roots)
     tags = roots.map do |root|
       content_tag(:li) do
-        render(partial: 'search/filters/category_add_link',
-               locals: { category: root })
+        category_add_link(root)
       end
     end
 
@@ -61,15 +62,52 @@ module SearchHelper
 
   def category_removal_links
     tags = Documents::Category.active(params).map do |category|
-      render(
-        partial: 'search/filters/facet_remove_link',
-        locals: {
-          params: category.toggle_search_params(params),
-          label: "#{Documents::Category.model_name.human}: #{category.name}"
-        }
+      facet_remove_link(
+        category.toggle_search_params(params),
+        "#{Documents::Category.model_name.human}: #{category.name}"
       )
     end
 
-    tags.join.html_safe
+    safe_join(tags)
+  end
+
+  private
+
+  def facet_add_link(params, hits, label)
+    link_to params, class: 'nav-link' do
+      safe_join([
+        content_tag(:div,
+          hits.to_s,
+          class: 'float-right badge badge-light bg-white mt-1'),
+        label
+      ])
+    end
+  end
+
+  def category_add_link(category)
+    link_to category.toggle_search_params(params), class: 'nav-link' do
+      contents = [
+        check_box_tag("category_#{category.to_param}",
+                      '1',
+                      category.enabled?(params),
+                      disabled: true),
+        category.name
+      ]
+
+      if category.has_children?
+        contents << category_addition_tree(category.children)
+      end
+
+      safe_join(contents)
+    end
+  end
+
+  def facet_remove_link(params, label)
+    link_to params, class: 'nav-link' do
+      safe_join([
+        content_tag(:div, close_icon, class: 'float-right'),
+        label
+      ])
+    end
   end
 end

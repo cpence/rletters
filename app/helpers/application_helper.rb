@@ -72,7 +72,7 @@ module ApplicationHelper
     data&.each { |k, v| attributes["data-#{k}"] = v }
 
     content_tag(:button, attributes) do
-      tag(:i, class: 'fa fa-window-close')
+      content_tag(:i, '', class: 'fa fa-window-close')
     end
   end
 end
