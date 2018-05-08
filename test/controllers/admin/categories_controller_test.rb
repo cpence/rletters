@@ -93,11 +93,21 @@ module Admin
     end
 
     test 'should not create if params are invalid' do
-      skip
+      post admin_login_url(password: ENV['ADMIN_PASSWORD'])
+      post categories_url, params: { documents_category: { journals: ['Actually A Novel'] } }
+
+      assert_redirected_to categories_url
+      assert flash[:alert]
+
+      assert Documents::Category.all.empty?
     end
 
     test 'should not create if not logged in' do
-      skip
+      post categories_url, params: { documents_category: { name: 'New Category', journals: ['Actually A Novel'] } }
+
+      assert_redirected_to admin_login_url
+
+      assert Documents::Category.all.empty?
     end
 
     test 'should get edit form' do
@@ -125,27 +135,61 @@ module Admin
     end
 
     test 'should patch update' do
-      skip
+      cat = create(:category)
+
+      post admin_login_url(password: ENV['ADMIN_PASSWORD'])
+      patch category_url(cat), params: { documents_category: { name: 'new name' } }
+
+      assert_redirected_to categories_url
+      assert_equal 'new name', cat.reload.name
     end
 
     test 'should not patch update for invalid id' do
-      skip
+      cat = create(:category)
+
+      post admin_login_url(password: ENV['ADMIN_PASSWORD'])
+      patch category_url(id: '9999'), params: { documents_category: { name: 'new name' } }
+
+      assert_response 404
+      assert_equal 'Test Category', cat.reload.name
     end
 
     test 'should not patch update if not logged in' do
-      skip
+      cat = create(:category)
+
+      patch category_url(cat), params: { documents_category: { name: 'new name' } }
+
+      assert_redirected_to admin_login_url
+      assert_equal 'Test Category', cat.reload.name
     end
 
     test 'should delete destroy' do
-      skip
+      cat = create(:category)
+
+      post admin_login_url(password: ENV['ADMIN_PASSWORD'])
+      delete category_url(cat)
+
+      assert_redirected_to categories_url
+      assert Documents::Category.count.zero?
     end
 
     test 'should not delete destroy for invalid id' do
-      skip
+      create(:category)
+
+      post admin_login_url(password: ENV['ADMIN_PASSWORD'])
+      delete category_url(id: '9999')
+
+      assert_response 404
+      assert_equal 1, Documents::Category.count
     end
 
     test 'should not delete destroy if not logged in' do
-      skip
+      cat = create(:category)
+
+      delete category_url(cat)
+
+      assert_redirected_to admin_login_url
+      assert_equal 1, Documents::Category.count
     end
   end
 end
