@@ -6,6 +6,11 @@ module Admin
     before_action :authenticate_admin!
     layout 'admin'
 
+    # Show the list of all stop lists
+    #
+    # @return [void]
+    def index; end
+
     # Show the stop list creation form
     #
     # @return [void]
