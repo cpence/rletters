@@ -46,7 +46,7 @@ class CraigZetaJob < ApplicationJob
       dataset_2: datasets[1],
       progress: lambda do |p|
         if make_word_cloud
-          task.at((p / 100) * 60, 60, t('.progress_computing'))
+          task.at((p / 100) * 60, 100, t('.progress_computing'))
         else
           task.at(p, 100, t('.progress_computing'))
         end
