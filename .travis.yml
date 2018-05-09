@@ -16,7 +16,7 @@ env:
     - DISPLAY=":99.0"
     - RAILS_ENV=test
     - DATABASE_URL="postgres:///rletters_test?username=postgres&pool=20&encoding=unicode"
-    - secure: umc1IysRHrVN9iN6AtT0sp6C+9ZaZYlXHRpCE7Qk2nKMPfOwrARBN/q16VpI/L8LTj6IbTGRGQ1wCOaGduJ661E5UenSTXNDoD8BzUofTRn3nwW4wO50DMhKppTEW9Nk44WkTGOtTC2Zm+Q8X0CGmQQJJkIBmIiOeNAD6CnfmgQ=
+    - CC_TEST_REPORTER_ID=8f6c00a1149fc25667a28154b0036edf3679b3dc82ac57fe3ad375a944cfe3c9
 
 addons:
   postgresql: 9.6
