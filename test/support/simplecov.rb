@@ -13,4 +13,9 @@ if ENV['TRAVIS'] || ENV['COVERAGE']
     add_filter '.erb'
     add_filter '.builder'
   end
+
+  SimpleCov.merge_timeout 3600
+
+  # We'll override this in the system tests
+  SimpleCov.command_name 'test:unit'
 end

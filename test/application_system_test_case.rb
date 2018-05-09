@@ -3,6 +3,9 @@
 require 'test_helper'
 require 'selenium/webdriver'
 
+# Set a new command name to be sure that we don't clobber merged tests
+SimpleCov.command_name 'test:system' if ENV['TRAVIS'] || ENV['COVERAGE']
+
 Capybara.register_driver :headless_chrome do |app|
   capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
     chromeOptions: { args: %w[headless disable-gpu no-sandbox] }
