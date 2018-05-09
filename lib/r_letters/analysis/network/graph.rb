@@ -73,12 +73,10 @@ module RLetters
           self.nodes = []
           self.edges = []
 
-          # Create the word list from the provided dataset and stop words
-          create_word_list
-
           # Run the analysis for each of the gaps
-          gaps.each do |g|
+          gaps.each_with_index do |g, i|
             add_nodes_for_gap(g)
+            progress&.call((i + 1).to_f / gaps.size.to_f * 100.0)
           end
 
           # Final progress tick
@@ -137,27 +135,6 @@ module RLetters
 
         private
 
-        # Create a list of words from the provided dataset
-        #
-        # This function fills in the `words` attributes and scrubs out any
-        # words listed in `stop_words`.
-        #
-        # @return [void]
-        def create_word_list
-          # Create a list of lowercase, stemmed words
-          progress&.call(1)
-          enum = RLetters::Datasets::DocumentEnumerator.new(dataset: dataset,
-                                                            fulltext: true)
-          doc_words = enum.map do |doc|
-            doc.fulltext.gsub(/[^A-Za-z ]/, '').mb_chars.downcase.to_s.split
-          end
-
-          # Remove stop words and stem
-          progress&.call(17)
-          self.words = doc_words.flatten - stop_words
-          self.words_stem = words.map(&:stem)
-        end
-
         # Add nodes and edges for a given gap
         #
         # This function adds nodes and edges to the graph for a given size of
@@ -166,21 +143,22 @@ module RLetters
         # @param [Integer] gap the gap size to use
         # @return [void]
         def add_nodes_for_gap(gap)
-          words.each_cons(gap).each_with_index do |gap_words, i|
-            # Get the stemmed words to go with the un-stemmed words
-            gap_words_stem = words_stem[i, gap]
+          analyzer = Frequency.call(
+            dataset: dataset,
+            ngrams: gap,
+            num_blocks: 1,
+            split_across: true,
+            progress: ->(p) { progress&.call((p.to_f / 100 * 33).to_i + 33) }
+          )
+          ngrams = analyzer.blocks[0]
 
-            # Update progress meter
-            if progress
-              val = (i.to_f / (words.size - 1).to_f) * (66.0 / gaps.size)
-              progress.call(val.to_i + 33)
-            end
+          ngrams.each do |(gram, count)|
+            gram_words = gram.split(' ')
+            stemmed_gram_words = gram_words.map(&:stem)
 
-            # Cull based on focal word (stemmed) if present
-            next if focal_word && !gap_words_stem.include?(focal_word_stem)
+            next if focal_word && !stemmed_gram_words.include?(focal_word_stem)
 
-            # Find or create nodes for all of these words
-            nodes = gap_words_stem.zip(gap_words).map do |w|
+            nodes = stemmed_gram_words.zip(gram_words).map do |w|
               find_or_add_node(*w)
             end
 
