@@ -71,10 +71,7 @@ module RLetters
       # @!attribute stemming
       #   @return [Symbol] if set to +:stem+, pass the words through a Porter
       #     stemmer before returning them.  If set to +:lemma+, pass them
-      #     through the Stanford NLP lemmatizer, if available.  The NLP
-      #     lemmatizer is much slower, as it requires accessing the fulltext
-      #     of the document rather than reconstructing from the term vectors.
-      #     Defaults to no stemming.
+      #     through a lemmatizer. Defaults to no stemming.
       # @!attribute all
       #   @return [Boolean] if set, ignore `num_words` and simply return all
       #     words (or ngrams)

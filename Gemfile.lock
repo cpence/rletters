@@ -175,6 +175,7 @@ GEM
     json (2.1.0)
     kramdown (1.16.2)
     latex-decode (0.3.1)
+    lemmatizer (0.1.1)
     libv8 (6.3.292.48.1)
     link_header (0.0.8)
     listen (3.1.5)
@@ -399,6 +400,7 @@ DEPENDENCIES
   haml-rails
   inky-rb
   kramdown
+  lemmatizer
   listen (>= 3.0.5, < 3.2)
   lograge
   marc

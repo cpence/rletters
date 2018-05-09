@@ -9,22 +9,6 @@ module RLetters
     #
     # :nocov:
     class NLP
-      # Return an array of lemmatized words
-      #
-      # @param [Array<String>] words the word or words to lemmatize
-      # @return [Array<String>] the words after lemmatization
-      def self.lemmatize_words(words)
-        words = [words] if words.is_a?(String)
-
-        # No lemmatization if we don't have the nlp_tool
-        return words if ENV['NLP_TOOL_PATH'].blank?
-
-        # Call the external tool
-        yml = Cheetah.run(ENV['NLP_TOOL_PATH'], '-l',
-                          stdin: words.join(' '), stdout: :capture)
-        YAML.safe_load(yml)
-      end
-
       # Returns an array of words with parts-of-speech tags
       #
       # @param [String] text the text to obtain POS tags for

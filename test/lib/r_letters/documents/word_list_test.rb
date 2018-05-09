@@ -42,19 +42,11 @@ module RLetters
       end
 
       test 'with lemmatization' do
-        old_path = ENV['NLP_TOOL_PATH']
-        ENV['NLP_TOOL_PATH'] = 'stubbed'
-
         lister = RLetters::Documents::WordList.new(stemming: :lemma)
-        words = build(:lemmatizer).words
-        RLetters::Analysis::NLP.expects(:lemmatize_words)
-                               .at_least_once.returns(words)
         list = lister.words_for(@doc.uid)
 
         assert_equal %w[it be the], list.take(3)
         refute_includes list, 'was'
-
-        ENV['NLP_TOOL_PATH'] = old_path
       end
     end
   end

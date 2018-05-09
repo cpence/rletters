@@ -10,10 +10,7 @@ module RLetters
     # @!attribute stemming
     #   @return [Symbol] If set to +:stem+, pass the words through a Porter
     #     stemmer before returning them.  If set to +:lemma+, pass them through
-    #     the Stanford NLP lemmatizer, if available.  The NLP lemmatizer is
-    #     much slower, as it requires accessing the fulltext of the document
-    #     rather than reconstructing from the term vectors. Defaults to no
-    #     stemming.
+    #     a lemmatizer. Defaults to no stemming.
     # @!attribute corpus_dfs
     #   @return [Hash<String, Integer>] A hash where the keys are the words in
     #     the document and the values are the document frequencies in the
@@ -36,11 +33,7 @@ module RLetters
       # @return [Array<String>] the words in the document, in word order,
       #   possibly stemmed or lemmatized
       def words_for(uid)
-        word_list = if stemming == :lemma && ENV['NLP_TOOL_PATH'].present?
-                      get_lemmatized_words(uid)
-                    else
-                      get_words(uid)
-                    end
+        word_list = get_words(uid)
 
         return word_list if ngrams <= 1
         word_list.each_cons(ngrams).map { |a| a.join(' ') }
@@ -48,9 +41,7 @@ module RLetters
 
       private
 
-      # Get the word list for this document, possibly stemmed
-      #
-      # This method reconstructs the word list from doc.term_vectors.
+      # Get the word list for this document, possibly stemmed or lemmatized
       #
       # @return [Array<String>] list of words for document
       def get_words(uid)
@@ -60,25 +51,21 @@ module RLetters
         # This converts from a hash to an array like:
         #  [[['word', pos], ['word', pos]], [['other', pos], ...], ...]
         word_list = doc.term_vectors.map do |k, v|
-          [stemming == :stem ? k.stem : k].product(v[:positions])
+          k = case stemming
+              when :stem
+                k.stem
+              when :lemma
+                RLetters::Analysis::Lemmatizer.lemma(k).dup
+              else
+                k
+              end
+
+          [k].product(v[:positions])
         end
 
         # Peel off one layer of inner arrays, sort it by the position, and
         # then return the array of just words in sorted order
         word_list.flatten(1).sort_by(&:last).map(&:first)
-      end
-
-      # Get the word list for this document, lemmatized
-      #
-      # This method hits doc.fulltext.
-      #
-      # @param [String] uid the document to get lemmatized words for
-      # @return [Array<String>] list of lemmatized words for document
-      def get_lemmatized_words(uid)
-        doc = Document.find(uid, fulltext: true, term_vectors: true)
-        add_dfs(doc)
-
-        Analysis::NLP.lemmatize_words(doc.fulltext.split)
       end
 
       # Add the DFs to our cache for this document
@@ -96,7 +83,7 @@ module RLetters
                 when :stem
                   word.stem
                 when :lemma
-                  Analysis::NLP.lemmatize_words(word)[0]
+                  RLetters::Analysis::Lemmatizer.lemma(word).dup
                 else
                   word
                 end

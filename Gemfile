@@ -32,6 +32,7 @@ gem 'twitter_cldr'
 gem 'cheetah'
 gem 'distribution'
 gem 'fast-stemmer'
+gem 'lemmatizer'
 gem 'rsolr', '>= 1.0.7'
 gem 'rsolr-ext'
 

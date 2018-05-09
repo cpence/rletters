@@ -69,7 +69,7 @@ module RLetters
 
         case stemming
         when :lemma
-          self.words = NLP.lemmatize_words(words)
+          words.map! { |w| RLetters::Analysis::Lemmatizer.lemma(w).dup }
         when :stem
           words.map!(&:stem)
         end

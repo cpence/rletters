@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'test_helper'
-require 'r_letters/analysis/nlp'
 
 module RLetters
   module Analysis
@@ -88,17 +87,6 @@ module RLetters
         end
 
         test "lemmatized analysis with #{scoring} works" do
-          old_path = ENV['NLP_TOOL_PATH']
-          ENV['NLP_TOOL_PATH'] = 'stubbed'
-
-          # This is annoying, but it's the simplest way to monkey-patch in a fake
-          # version of NLP so that we can be sure it's actually being called.
-          RLetters::Analysis::NLP.define_singleton_method :fake_lemmatize_words do |array|
-            array == ['abstract'] ? ['the'] : array
-          end
-          RLetters::Analysis::NLP.singleton_class.send(:alias_method, :real_lemmatize_words, :lemmatize_words)
-          RLetters::Analysis::NLP.singleton_class.send(:alias_method, :lemmatize_words, :fake_lemmatize_words)
-
           result = RLetters::Analysis::Cooccurrence.call(
             scoring: scoring,
             dataset: create(:full_dataset, num_docs: 2),
@@ -108,17 +96,16 @@ module RLetters
             stemming: :lemma
           )
 
-          RLetters::Analysis::NLP.singleton_class.send(:alias_method, :lemmatize_words, :real_lemmatize_words)
-
           assert_kind_of RLetters::Analysis::Cooccurrence::Result, result
           assert_equal scoring, result.scoring
           assert_equal :lemma, result.stemming
 
-          result.cooccurrences.each do |g|
-            assert g.first.start_with?('the ')
+          # Make sure that we don't include any obvious un-lemmatized words
+          # in these grams
+          second_words = result.cooccurrences.map { |g| g[0].split.second }
+          second_words.each do |w|
+            refute_includes %w[established limited is associated], w
           end
-
-          ENV['NLP_TOOL_PATH'] = old_path
         end
 
         # Regression test for a bug
