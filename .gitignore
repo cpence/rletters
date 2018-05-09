@@ -1,17 +1,16 @@
+.env*
+!.env.example
+
 .bundle
-.env
-.env.production
-
 /node_modules
-
-/doc
 /public/assets
-/spec/status.txt
 
 /storage/*
 !/storage/.gitkeep
 /tmp/*
 !/tmp/.gitkeep
+
+/coverage
 
 /vendor/nlp
 /vendor/solr

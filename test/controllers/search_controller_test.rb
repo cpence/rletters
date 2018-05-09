@@ -15,6 +15,12 @@ class SearchControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test 'should get XHR request' do
+    get search_url, xhr: true, headers: { 'HTTP_ACCEPT' => 'text/html' }
+
+    assert_response :success
+  end
+
   test 'should get advanced' do
     get search_advanced_url
 

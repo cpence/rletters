@@ -145,6 +145,14 @@ class WorkflowControllerTest < ActionDispatch::IntegrationTest
     assert_equal [dataset.to_param], user.workflow_datasets
   end
 
+  test 'should get fetch' do
+    sign_in create(:user)
+
+    get workflow_fetch_url
+
+    assert_response :success
+  end
+
   test 'should terminate when asked to via fetch' do
     user = create(:user)
     user2 = create(:user)
@@ -182,41 +190,5 @@ class WorkflowControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :success
     refute_includes @response.body, '<html'
-  end
-
-  # These are tests for behavior in ApplicationController, but we put them
-  # here because there's a nice simple index page
-  test 'should leave set_locale at default with no user' do
-    get workflow_url
-
-    assert_equal I18n.default_locale, I18n.locale
-  end
-
-  test 'should have set_locale return user locale when logged in' do
-    user = create(:user, language: 'es-MX')
-    sign_in user
-
-    get workflow_url
-
-    assert_equal :'es-MX', I18n.locale
-
-    # Sometimes this doesn't get reset, if we get tests in a strange random
-    # order.
-    I18n.locale = :en
-  end
-
-  test 'should leave set_timezone at default with no user' do
-    get workflow_url
-
-    assert_equal 'Eastern Time (US & Canada)', Time.zone.name
-  end
-
-  test 'should have set_timezone return user timezone when logged in' do
-    user = create(:user, timezone: 'Mexico City')
-    sign_in user
-
-    get workflow_url
-
-    assert_equal 'Mexico City', Time.zone.name
   end
 end

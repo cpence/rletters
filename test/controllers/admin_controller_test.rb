@@ -22,6 +22,13 @@ class AdminControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to admin_url
   end
 
+  test 'should fail for invalid password' do
+    post admin_login_url(password: 'thisiswrong')
+
+    assert_response :success
+    assert flash[:alert]
+  end
+
   test 'should log out after logging in' do
     post admin_login_url(password: ENV['ADMIN_PASSWORD'])
     assert_redirected_to admin_url

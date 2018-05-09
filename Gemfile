@@ -81,6 +81,7 @@ group :test do
 
   gem 'pdf-inspector', require: false
 
+  gem 'rails-controller-testing'
   gem 'simplecov', require: false
 end
 

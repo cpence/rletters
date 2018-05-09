@@ -17,7 +17,7 @@ module Admin
       assert_redirected_to admin_login_url
     end
 
-    test 'should reorder by posting order' do
+    test 'should add children by posting order' do
       cat1 = create(:category)
       cat2 = create(:category)
       cat3 = create(:category)
@@ -39,6 +39,27 @@ module Admin
 
       assert_equal cat3, cat2.parent
       assert_equal [cat2], cat3.children
+    end
+
+    test 'should remove children by posting order' do
+      cat1 = create(:category)
+      cat2 = create(:category, parent: cat1)
+      cat3 = create(:category, parent: cat1)
+
+      post admin_login_url(password: ENV['ADMIN_PASSWORD'])
+
+      order = [{ 'id': cat2.id, 'children': [{ 'id': cat1.id }] },
+               { 'id': cat3.id }]
+      post order_categories_url, params: { order: order }, as: :json
+
+      assert_response 204
+
+      assert cat2.reload.children?
+      assert cat3.reload.childless?
+      assert cat1.reload.childless?
+
+      assert_equal cat2, cat1.parent
+      assert_equal [cat1], cat2.children
     end
 
     test 'should not be able to post order if not logged in' do

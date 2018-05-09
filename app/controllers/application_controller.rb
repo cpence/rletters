@@ -8,34 +8,9 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   layout :layout_for
 
-  # Redirect to the root on successful sign in
+  # Render the full_page layout on Devise views
   #
-  # This method is called by Devise.
-  #
-  # @param [User] resource the user that just signed in
-  # @return [void]
-  def after_sign_in_path_for(_resource)
-    root_url
-  end
-
-  # Redirect to the root on successful sign out
-  #
-  # This method is called by Devise.
-  #
-  # @return [void]
-  def after_sign_out_path_for(_resource)
-    root_url
-  end
-
-  # Don't store user session paths, just send back to the root
-  #
-  # This method is called by Devise.
-  #
-  # @return [void]
-  def stored_location_for(_resource)
-    root_url
-  end
-
+  # @return [String] the layout to render
   def layout_for
     if devise_controller?
       'full_page'
@@ -79,6 +54,25 @@ class ApplicationController < ActionController::Base
   end
 
   protected
+
+  # Redirect to the root on successful sign in
+  #
+  # This method is called by Devise.
+  #
+  # @param [User] resource the user that just signed in
+  # @return [void]
+  def after_sign_in_path_for(_resource)
+    root_url
+  end
+
+  # Redirect to the root on successful sign out
+  #
+  # This method is called by Devise.
+  #
+  # @return [void]
+  def after_sign_out_path_for(_resource)
+    root_url
+  end
 
   # Ensure that the administrator is authenticated, and redirect to the login
   # page if not
