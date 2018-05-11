@@ -124,5 +124,5 @@ Charles Pence and Grant Ramsey were supported in the development of RLetters by 
 
 ## Copyright ##
 
-RLetters &copy; 2014–2016 Louisiana State University, &copy; 2011–2014 [Charles Pence](mailto:charles@charlespence.net). RLetters is licensed under the MIT license. Please see the {file:COPYING} document for more information.
+RLetters &copy; 2011–2018 [Charles Pence](mailto:charles@charlespence.net). RLetters is licensed under the MIT license. Please see the {file:COPYING} document for more information.
 
