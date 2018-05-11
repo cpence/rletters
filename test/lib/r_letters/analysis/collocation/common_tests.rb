@@ -40,7 +40,7 @@ module RLetters
         def run_focal_word_test(klass, scoring)
           result = klass.call(
             scoring: scoring,
-            dataset: create(:full_dataset),
+            dataset: create(:full_dataset, num_docs: 10),
             num_pairs: 10,
             focal_word: 'rabies'
           )
@@ -65,7 +65,7 @@ module RLetters
         def run_uppercase_focal_word_test(klass, scoring)
           result = klass.call(
             scoring: scoring,
-            dataset: create(:full_dataset),
+            dataset: create(:full_dataset, num_docs: 10),
             num_pairs: 10,
             focal_word: 'RABIES'
           )

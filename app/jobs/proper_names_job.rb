@@ -1,30 +1,29 @@
 # frozen_string_literal: true
 
-# Extract proper noun named entities from documents
-class NamedEntitiesJob < ApplicationJob
+# Extract proper nouns from documents
+class ProperNamesJob < ApplicationJob
   include RLetters::Visualization::CSV
 
   queue_as :analysis
 
   # Returns true if this job can be started now
   #
-  # @return [Boolean] true if the Stanford NLP toolkit is available and this
-  #   job is not disabled
+  # @return [Boolean] true if this job is not disabled
   def self.available?
-    ENV['NLP_TOOL_PATH'].present? && ENV['NAMED_ENTITIES_JOB_DISABLED'].nil?
+    ENV['PROPER_NAMES_JOB_DISABLED'].nil?
   end
 
-  # Export the named entity data
+  # Export the proper name data
   #
-  # This function saves out the NER data as a JSON hash, to be visualized
-  # in a number of different ways by the job views.
+  # This function saves out the proper names as a JSON array, to be visualized
+  # by the job views.
   #
   # @param [Datasets::Task] task the task we're working from
   # @return [void]
   def perform(task)
     standard_options(task)
 
-    refs = RLetters::Analysis::NamedEntities.call(
+    refs = RLetters::Analysis::ProperNames.call(
       dataset: dataset,
       progress: ->(p) { task.at(p, 100, t('.progress_finding')) }
     )
@@ -34,19 +33,18 @@ class NamedEntitiesJob < ApplicationJob
                                            name: dataset.name)) do |csv|
       write_csv_data(
         csv: csv,
-        # This turns {s => [a, b], ...} into [[s, a], [s, b], ...]
-        data: refs.flat_map { |k, v| [k].product(v) },
-        data_spec: { t('.type_column') => :first,
-                     t('.hit_column') => :second }
+        data: refs,
+        data_spec: { t('.name_column') => :first,
+                     t('.count_coumnt') => :second }
       )
     end
 
-    output = { data: refs }
+    output = { names: refs }
 
     # Write it out
     task.files.create(description: 'Raw JSON Data',
                       short_description: 'JSON') do |f|
-      f.from_string(output.to_json, filename: 'named_entites.json',
+      f.from_string(output.to_json, filename: 'proper_names.json',
                                     content_type: 'application/json')
     end
 

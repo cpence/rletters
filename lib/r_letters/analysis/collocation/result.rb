@@ -10,9 +10,7 @@ module RLetters
       #     associated significance values, sorted in order of significance
       #     (most significant first)
       # @!attribute scoring
-      #   @return [Symbol] the scoring method actually used. This can be
-      #     altered by the analyzer, e.g., when parts of speech analysis is
-      #     requested but the Stanford NLP is not available.
+      #   @return [Symbol] the scoring method actually used
       class Result
         include Virtus.model(strict: true, required: true, nullify_blank: true)
 

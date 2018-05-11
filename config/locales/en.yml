@@ -798,23 +798,17 @@ en:
         options_label: Citation export options
         format: Format for export
         progress_creating: "Creating citations: %{progress}..."
-    named_entities_job:
+    proper_names_job:
         name: Extract Proper Names
         short_desc: Extract references to proper names
         question: >
             What proper names (locations, people, organizations) are
             mentioned in a given set of articles?
         subheader: References to proper names
-        wikipedia_link: "https://en.wikipedia.org/w/index.php?title=Special:Search&search=%{query}&fulltext=Search"
-        people_category: People
-        organization_category: Organizations
-        location_map: Locations (Map)
-        location_category: Locations (List)
-        other_category: Other
-        header: "Named entity analysis for %{name}"
-        type_column: Type
-        hit_column: Hit
-        progress_finding: "Finding named entities..."
+        header: "Proper name analysis for %{name}"
+        name_column: Name
+        count_column: Count
+        progress_finding: "Finding proper names..."
     network_job:
         name: Compute Term Network
         short_desc: Compute network of associated terms

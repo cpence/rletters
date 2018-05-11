@@ -19,12 +19,7 @@ module AnalysisJobHelper
     klass = class_name.constantize
 
     ENV[env_variable] = '1'
-    old_ntp = ENV['NLP_TOOL_PATH']
-    ENV['NLP_TOOL_PATH'] = 'yes'
-
     refute klass.available?
-
     ENV.delete(env_variable)
-    ENV['NLP_TOOL_PATH'] = old_ntp
   end
 end

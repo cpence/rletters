@@ -4,6 +4,7 @@
 
 *   **Upgrade to bundling a more recent version of Solr (4.10.4).** This is a **significant and breaking change** for users, who *must* upgrade their Solr installations, as we are using some of the new features in later Solr versions to provide (in some cases dramatic) speed improvements. Reindexing content is not required, but is recommended when feasible.
 *   **Upgrade to use features in contemporary Ruby (2.3.0+).** This is a **significant change** for users, who *must* upgrade their deployed version of Ruby.
+*   Remove the Stanford NLP connection and replace it with pure-Ruby solutions. No more dependency on a functional NLP install and a JVM.
 *   User data handling is now entirely compliant with the European Union's GDPR.
 *   Site configuration is now edited via a `.env` file in the root directory of the project, or can be controlled via environment variables.
 *   Features of the application can now be readily enabled and disabled using these environment variables.

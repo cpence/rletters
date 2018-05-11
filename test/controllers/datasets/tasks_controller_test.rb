@@ -112,7 +112,7 @@ module Datasets
       sign_in user
 
       post dataset_tasks_url(dataset_id: dataset.to_param,
-                             class: 'NamedEntitiesJob')
+                             class: 'ProperNamesJob')
 
       assert_redirected_to dataset_url(id: dataset.to_param)
       refute_empty dataset.reload.tasks.first.job_id

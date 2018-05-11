@@ -152,7 +152,7 @@ module RLetters
           )
           ngrams = analyzer.blocks[0]
 
-          ngrams.each do |(gram, count)|
+          ngrams.each do |(gram, _)|
             gram_words = gram.split(' ')
             stemmed_gram_words = gram_words.map(&:stem)
 

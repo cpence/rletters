@@ -101,7 +101,7 @@ module Admin
     end
 
     test 'should not patch update for invalid id' do
-      snippet = Admin::Snippet.find_by!(name: 'landing')
+      Admin::Snippet.find_by!(name: 'landing')
 
       post admin_login_url(password: ENV['ADMIN_PASSWORD'])
       patch snippet_url(id: '9999'), params: { admin_snippet: { content: 'test' } }
