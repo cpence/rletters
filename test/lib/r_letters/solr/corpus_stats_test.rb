@@ -8,7 +8,7 @@ module RLetters
       test 'works' do
         stats = RLetters::Solr::CorpusStats.new
 
-        assert_equal 1502, stats.size
+        assert_equal 1501, stats.size
       end
     end
   end

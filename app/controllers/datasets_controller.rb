@@ -93,12 +93,6 @@ class DatasetsController < ApplicationController
     @dataset = current_user.datasets.find(params[:id])
     @document = Document.find(params[:uid])
 
-    # Set the fetch flag if required
-    if @document.fulltext_url
-      @dataset.fetch = true
-      @dataset.save
-    end
-
     @dataset.queries.create(q: "uid:\"#{params[:uid]}\"", def_type: 'lucene')
     redirect_to dataset_path(@dataset)
   end

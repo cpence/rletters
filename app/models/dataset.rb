@@ -11,9 +11,6 @@
 # @!attribute user
 #   @raise [RecordInvalid] if the user is missing (`validates :presence`)
 #   @return [User] The user that owns this dataset
-# @!attribute fetch
-#   @return [Boolean] true if at least one document in this dataset must be
-#     fetched over an external connection
 # @!attribute queries
 #   @raise [RecordInvalid] if any of the queries are invalid
 #     (`validates_associated`)

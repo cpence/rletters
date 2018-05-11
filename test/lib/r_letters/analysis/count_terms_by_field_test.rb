@@ -23,7 +23,7 @@ module RLetters
 
         assert_equal 3, counts['2009']
         assert_equal 8, counts['2011']
-        assert_equal 0, counts['1930']
+        assert_equal 0, counts['2010']
 
         assert called_sub100
         assert called100

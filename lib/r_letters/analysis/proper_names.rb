@@ -26,8 +26,7 @@ module RLetters
         total = dataset.document_count
         ret = {}
 
-        enum = RLetters::Datasets::DocumentEnumerator.new(dataset: dataset,
-                                                          fulltext: true)
+        enum = RLetters::Datasets::DocumentEnumerator.new(dataset: dataset)
         enum.each_with_index do |doc, i|
           progress&.call((i.to_f / total.to_f * 100).to_i)
 

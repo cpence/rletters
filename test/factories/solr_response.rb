@@ -13,7 +13,7 @@ FactoryBot.define do
           'params' =>
           { 'q' => 'doi:10.5678/dickens',
             'defType' => 'lucene',
-            'fl' => 'uid,doi,license,license_url,data_source,authors,title,journal,year,volume,number,pages,fulltext_url,fulltext',
+            'fl' => 'uid,doi,license,license_url,data_source,authors,title,journal,year,volume,number,pages',
             'wt' => 'ruby' } },
         'response' =>
         { 'numFound' => 1,
@@ -30,24 +30,7 @@ FactoryBot.define do
              'volume' => '1',
              'number' => '1',
              'pages' => '1',
-             'journal' => 'Actually a Novel',
-             'fulltext' => 'It was the best of times,
-      it was the worst of times,
-      it was the age of wisdom,
-      it was the age of foolishness,
-      it was the epoch of belief,
-      it was the epoch of incredulity,
-      it was the season of Light,
-      it was the season of Darkness,
-      it was the spring of hope,
-      it was the winter of despair,
-      we had everything before us,
-      we had nothing before us,
-      we were all going direct to Heaven,
-      we were all going direct the other way--
-      in short, the period was so far like the present period, that some of
-      its noisiest authorities insisted on its being received, for good or for
-      evil, in the superlative degree of comparison only.' }] },
+             'journal' => 'Actually a Novel' }] },
         'facet_counts' =>
         { 'facet_queries' =>
           { 'year:[* TO 1799]' => 0,

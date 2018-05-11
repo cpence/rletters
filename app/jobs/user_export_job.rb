@@ -68,7 +68,6 @@ class UserExportJob < ActiveJob::Base
           name: d.name,
           created_at: d.created_at.to_s,
           updated_at: d.updated_at.to_s,
-          fetch: d.fetch,
           document_count: d.document_count.to_s,
           queries: [],
           tasks: []

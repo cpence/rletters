@@ -125,16 +125,4 @@ class DatasetsControllerTest < ActionDispatch::IntegrationTest
 
     assert_redirected_to dataset_url(dataset)
   end
-
-  test 'should patch update with a remote document' do
-    user = create(:user)
-    dataset = create(:full_dataset, user: user)
-    sign_in user
-
-    refute dataset.fetch
-
-    patch dataset_url(id: dataset.to_param, uid: 'gutenberg:3172')
-
-    assert dataset.reload.fetch
-  end
 end

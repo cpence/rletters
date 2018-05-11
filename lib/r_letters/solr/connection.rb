@@ -10,10 +10,7 @@ module RLetters
     # Methods for managing the singleton connection to the Solr server
     module Connection
       # The default Solr search fields
-      DEFAULT_FIELDS = 'uid,doi,license,license_url,data_source,authors,title,journal,year,volume,number,pages,fulltext_url'
-
-      # The default Solr search fields, with the fulltext added
-      DEFAULT_FIELDS_FULLTEXT = 'uid,doi,license,license_url,data_source,authors,title,journal,year,volume,number,pages,fulltext_url,fulltext'
+      DEFAULT_FIELDS = 'uid,doi,license,license_url,data_source,authors,title,journal,year,volume,number,pages'
 
       # Exceptions that can be raised by the Solr connection
       EXCEPTIONS = Net::HTTP::EXCEPTIONS + [

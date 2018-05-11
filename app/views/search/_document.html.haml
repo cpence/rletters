@@ -3,9 +3,6 @@
     = document.title
   - else
     = t('.untitled')
-
-  - if document.fulltext_url
-    %span.icon.fi-upload-cloud.has-tip{ data: { tooltip: true }, title: t('.cloud_tooltip') }
 %p
   - if document.authors
     = document.authors

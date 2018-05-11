@@ -11,8 +11,6 @@ module RLetters
     # @!attribute fl
     #   @return [String] Fields to return in documents. Should be a
     #     comma-separated list
-    # @!attribute fulltext
-    #   @return [Boolean] If true, return document full text. Defaults to false
     # @!attribute term_vectors
     #   @return [Boolean] If true, return term vectors
     class DocumentEnumerator
@@ -21,7 +19,6 @@ module RLetters
 
       attribute :dataset, Dataset, required: true
       attribute :term_vectors, Boolean, default: false
-      attribute :fulltext, Boolean, default: false
       attribute :fl, String
 
       # How many documents are in the dataset?
@@ -53,8 +50,6 @@ module RLetters
               facet: false,
               fl: if fl
                     fl
-                  elsif fulltext
-                    RLetters::Solr::Connection::DEFAULT_FIELDS_FULLTEXT
                   else
                     RLetters::Solr::Connection::DEFAULT_FIELDS
                   end,
@@ -83,10 +78,10 @@ module RLetters
       #
       # @return [Integer] batch size for database queries
       def batch_size
-        @batch_size ||= if term_vectors || fulltext
+        @batch_size ||= if term_vectors
                           # These larger searches that include term vectors
-                          # and full text just take longer to transmit down
-                          # the wire, and have caused Solr timeouts.
+                          # just take longer to transmit down the wire, and
+                          # have caused Solr timeouts.
                           50
                         else
                           1000

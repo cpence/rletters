@@ -6,7 +6,7 @@ class SolrQueryTest < ApplicationSystemTestCase
   test 'run an author search via Solr' do
     visit '/search/advanced'
     click_button 'Search with Solr syntax'
-    fill_in 'q', with: 'authors:"Hotez" OR journal:"Gutenberg"'
+    fill_in 'q', with: 'authors:"Hotez" OR journal:"Actually a Novel"'
     click_button 'Perform Solr query'
 
     assert_selector 'table.document-list tr td'

@@ -8,9 +8,9 @@ module RLetters
       #   their corresponding label strings
       def self.search_fields
         {
-          Document.human_attribute_name(:fulltext) + ' ' +
+          I18n.t('lib.solr.advanced.fulltext') + ' ' +
             I18n.t('lib.solr.advanced.type_fuzzy') => :fulltext_fuzzy,
-          Document.human_attribute_name(:fulltext) + ' ' +
+          I18n.t('lib.solr.advanced.fulltext') + ' ' +
             I18n.t('lib.solr.advanced.type_exact') => :fulltext_exact,
           Document.human_attribute_name(:title) + ' ' +
             I18n.t('lib.solr.advanced.type_fuzzy') => :title_fuzzy,
@@ -67,11 +67,6 @@ module RLetters
         return field unless field.include?('_')
 
         data, type = field.split('_')
-        if data == 'fulltext'
-          return 'fulltext_search' if type == 'exact'
-          return 'fulltext_stem'
-        end
-
         return data if type == 'exact'
         "#{data}_stem"
       end

@@ -16,7 +16,11 @@ class ArticleDatesJobTest < ActiveJob::TestCase
 
   test 'should work when not normalizing' do
     dataset = create(:full_dataset)
-    create(:query, dataset: dataset, q: 'uid:"gutenberg:3172"')
+    # Add another article from a much later year, so that we get some
+    # intervening zeros
+    create(:query,
+           dataset: dataset,
+           q: 'uid:"doi:10.1371/journal.pntd.0001716"')
     task = create(:task, dataset: dataset)
 
     ArticleDatesJob.perform_now(task, 'normalize' => '0')
@@ -30,7 +34,7 @@ class ArticleDatesJobTest < ActiveJob::TestCase
     assert_kind_of Hash, data
 
     # Data is reasonable
-    assert_includes [2009, 1895], data['data'][0][0]
+    assert_includes 2009..2012, data['data'][0][0]
     assert_includes 1..5, data['data'][0][1]
 
     # Fills in intervening years between new and old documents with zeros
@@ -102,7 +106,9 @@ class ArticleDatesJobTest < ActiveJob::TestCase
   # the dataset of interest isn't a subset
   test 'should work when normalizing badly' do
     normalization_set = create(:dataset)
-    create(:query, dataset: normalization_set, q: 'uid:"gutenberg:3172"')
+    create(:query,
+           dataset: normalization_set,
+           q: 'uid:"doi:10.1371/journal.pntd.0001716"')
     task = create(:task, dataset: create(:full_dataset, user: normalization_set.user))
 
     ArticleDatesJob.perform_now(task,

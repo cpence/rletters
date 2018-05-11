@@ -16,8 +16,6 @@ FactoryBot.define do
       volume nil
       number nil
       pages nil
-      fulltext nil
-      fulltext_requested nil
       term_vectors nil
     end
 
@@ -34,26 +32,6 @@ FactoryBot.define do
       volume '1'
       number '1'
       pages '1'
-      fulltext_requested true
-      fulltext <<-TEXT
-        It was the best of times,
-        it was the worst of times,
-        it was the age of wisdom,
-        it was the age of foolishness,
-        it was the epoch of belief,
-        it was the epoch of incredulity,
-        it was the season of Light,
-        it was the season of Darkness,
-        it was the spring of hope,
-        it was the winter of despair,
-        we had everything before us,
-        we had nothing before us,
-        we were all going direct to Heaven,
-        we were all going direct the other way--
-        in short, the period was so far like the present period, that some of
-        its noisiest authorities insisted on its being received, for good or for
-        evil, in the superlative degree of comparison only.
-      TEXT
 
       term_vectors do
         { 'age' => { tf: 2, positions: [15, 21], df: 735.0 },
@@ -134,9 +112,7 @@ FactoryBot.define do
       doc = Document.new(uid: uid, doi: doi, license: license,
                          license_url: license_url, authors: authors,
                          title: title, journal: journal, year: year,
-                         volume: volume, number: number, pages: pages,
-                         fulltext: fulltext,
-                         fulltext_requested: fulltext_requested)
+                         volume: volume, number: number, pages: pages)
       doc.term_vectors = term_vectors&.with_indifferent_access
       doc
     end

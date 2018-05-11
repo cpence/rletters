@@ -72,12 +72,6 @@ module RLetters
           end
         end
 
-        # See if we were asked to get the full text (we need to tell the
-        # Document constructor, so that we don't try to fetch URLs if we
-        # shouldn't)
-        fields = @params['fl']&.split(',')
-        fulltext_requested = fields&.include?('fulltext')
-
         # Make the documents
         term_vectors = solr_response['termVectors']
         solr_response.docs.each do |doc|
@@ -86,9 +80,6 @@ module RLetters
             @parser ||= ParseTermVectors.new(term_vectors)
             doc['term_vectors'] = @parser.for_document(doc['uid'])
           end
-
-          # Add the fulltext_requested parameter
-          doc[:fulltext_requested] = fulltext_requested
 
           # Make the document
           @documents << Document.new(doc)

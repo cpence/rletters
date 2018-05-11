@@ -15,8 +15,12 @@ class TermDatesJobTest < ActiveJob::TestCase
   end
 
   test 'should work' do
-    task = create(:task, dataset: create(:dataset))
-    create(:query, dataset: task.dataset, q: 'uid:"gutenberg:3172"')
+    task = create(:task, dataset: create(:full_dataset))
+    # Add another article from a much later year, so that we get some
+    # intervening zeros
+    create(:query,
+           dataset: task.dataset,
+           q: 'uid:"doi:10.1371/journal.pntd.0001716"')
 
     TermDatesJob.perform_now(task,
                              'term' => 'disease')
@@ -30,7 +34,7 @@ class TermDatesJobTest < ActiveJob::TestCase
     assert_kind_of Hash, data
 
     # Data is reasonable
-    assert_includes [1895, 2009], data['data'][0][0]
+    assert_includes 2009..2012, data['data'][0][0]
     assert_includes 0..10, data['data'][0][1]
 
     # Fills in intervening years between new and old documents with zeros

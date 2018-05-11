@@ -26,7 +26,6 @@ es:
         volume: Tomo
         number: Número
         pages: Páginas
-        fulltext: Texto completo
         term_vectors: Importancia de términos
     errors:
       models:
@@ -294,7 +293,6 @@ es:
           ¿Qué nombres propios (lugares, personas u organizaciones) se mencionan en
           un conjunto de artículos dado?
         subheader: Referencias a nombres propios
-        wikipedia_link: "https://en.wikipedia.org/w/index.php?title=Special:Search&search=%{query}&fulltext=Search"
         people_category: Personas
         organization_category: Organizaciones
         location_map: Localizaciones (Mapa)
@@ -335,10 +333,6 @@ es:
   search:
     document:
       untitled: "[sin título]"
-      cloud_tooltip: |
-        El análisis de este documento puede llevar un tiempo,
-        ya que el texto completo está almacenado externamente
-        con uno de nuestro patrocinadores de contenido.
       volume_abbr: "Tomo %{volume}"
       number_abbr: "Nº %{number}"
       pages_abbr: "%{pages} págs."
@@ -545,10 +539,6 @@ es:
         other: "Tiene %{count} tareas de análisis pendientes..."
       name_column: Nombre del conjunto de datos
       no_datasets: Ningún conjunto de datos
-      cloud_tooltip: |
-        El análisis de este conjunto de datos puede llevar un tiempo,
-        ya que los documentos están almacenados externamente
-        con uno de nuestro patrocinadores de contenido.
       manage_button: Administrar
       delete_button: Eliminar
       delete_confirm: ¿Está seguro?

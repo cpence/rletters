@@ -5,11 +5,7 @@
 
 .row
   .col-12
-    %h1
-      = t('.header') + ' — ' + @dataset.name
-      - if @dataset.fetch
-        %span.cloud-tooltip{ data: { toggle: 'tooltip' }, title: t('datasets.index_xhr.cloud_tooltip') }
-          %i.fas.fa-cloud
+    %h1= t('.header') + ' — ' + @dataset.name
     %h4.text-muted= t('.subheader')
 
 .row

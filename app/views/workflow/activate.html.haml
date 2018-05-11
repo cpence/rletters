@@ -38,11 +38,7 @@
           - current_user.workflow_datasets.each do |id|
             - d = Dataset.find(id)
             %tr
-              %td.label-cell
-                = d.name
-                - if d.fetch
-                  %span.cloud-tooltip{ data: { toggle: 'tooltip' }, title: t('datasets.index_xhr.cloud_tooltip') }
-                    %i.fas.fa-cloud
+              %td.label-cell= d.name
               %td.button-cell= link_to t('.delete_button'), workflow_activate_path(params[:class], unlink_dataset_id: d.to_param), data: { confirm: t('.delete_confirm') }, class: 'btn btn-sm btn-danger'
 
 - if @num_workflow_datasets < @num_datasets

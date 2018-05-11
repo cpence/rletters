@@ -95,7 +95,7 @@ module RLetters
 
         assert_includes ret[:q], 'journal:"Astrobiology"'
         assert_includes ret[:q], 'title:"Testing with Spaces"'
-        assert_includes ret[:q], 'fulltext_search:"alien"'
+        assert_includes ret[:q], 'fulltext:"alien"'
       end
 
       test 'handles fuzzy params with type set to fuzzy' do

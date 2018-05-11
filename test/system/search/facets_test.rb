@@ -40,7 +40,7 @@ class FacetsTest < ApplicationSystemTestCase
       click_link('Remove All')
     end
 
-    assert_text(/1502 articles /i)
+    assert_text(/1501 articles /i)
     assert_no_selector '.filter-header', text: 'Active filters'
   end
 end

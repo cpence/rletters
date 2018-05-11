@@ -47,7 +47,6 @@ en:
                 volume: Volume
                 number: Number
                 pages: Pages
-                fulltext: Full text
                 term_vectors: Term vectors
         errors:
             models:
@@ -246,15 +245,13 @@ en:
             block_doc_suffix: " (within ‘%{title}’)"
         solr:
             advanced:
+                fulltext: Full text
                 type_fuzzy: (fuzzy)
                 type_exact: (exact)
                 year_ranges: Year ranges
     search:
         document:
             untitled: "[untitled]"
-            cloud_tooltip: |
-                This document may take a while to analyze, as its full text is
-                stored externally with one of our content partners.
             volume_abbr: "Vol. %{volume}"
             number_abbr: "No. %{number}"
             pages_abbr: "pp. %{pages}"
@@ -512,10 +509,6 @@ en:
                 other: "You have %{count} tasks pending..."
             name_column: Dataset Name
             no_datasets: No datasets
-            cloud_tooltip: |
-                This dataset may take a while to analyze, as at least one of
-                its documents is stored externally with one of our content
-                partners.
             manage_button: Manage
             delete_button: Delete
             delete_confirm: Are you sure?
