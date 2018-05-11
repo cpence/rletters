@@ -31,6 +31,7 @@ gem 'twitter_cldr'
 # Textual analysis
 gem 'cheetah'
 gem 'distribution'
+gem 'engtagger'
 gem 'fast-stemmer'
 gem 'lemmatizer'
 gem 'rsolr', '>= 1.0.7'

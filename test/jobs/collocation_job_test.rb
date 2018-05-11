@@ -3,18 +3,6 @@
 require 'test_helper'
 
 class CollocationJobTest < ActiveJob::TestCase
-  setup do
-    @old_path = ENV['NLP_TOOL_PATH']
-    ENV['NLP_TOOL_PATH'] = 'stubbed'
-
-    @words = build(:parts_of_speech)
-    RLetters::Analysis::NLP.stubs(:parts_of_speech).returns(@words)
-  end
-
-  teardown do
-    ENV['NLP_TOOL_PATH'] = @old_path
-  end
-
   def perform
     @task = create(:task, dataset: create(:full_dataset, num_docs: 2))
     CollocationJob.new.perform(@task, 'scoring' => 'mutual_information')

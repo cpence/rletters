@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'r_letters/analysis/collocation'
+
 module RLetters
   module Analysis
     module Collocation
@@ -40,7 +42,7 @@ module RLetters
             scoring: scoring,
             dataset: create(:full_dataset),
             num_pairs: 10,
-            focal_word: 'present'
+            focal_word: 'rabies'
           )
 
           assert_kind_of RLetters::Analysis::Collocation::Result, result
@@ -49,7 +51,7 @@ module RLetters
           assert result.collocations.size >= 1
 
           result.collocations.each do |g|
-            assert_includes g[0].split, 'present'
+            assert_includes g[0].split, 'rabies'
           end
 
           result.collocations.each do |g|
@@ -59,15 +61,16 @@ module RLetters
           end
         end
 
+        # Regression test for a bug that didn't have a GH issue created
         def run_uppercase_focal_word_test(klass, scoring)
           result = klass.call(
             scoring: scoring,
             dataset: create(:full_dataset),
             num_pairs: 10,
-            focal_word: 'PRESENT'
+            focal_word: 'RABIES'
           )
 
-          assert_includes result.collocations[0][0].split, 'present'
+          assert_includes result.collocations[0][0].split, 'rabies'
         end
 
         module ClassMethods

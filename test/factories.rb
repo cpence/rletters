@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-POS_YAML ||= File.read(Rails.root.join('test', 'factories', 'parts_of_speech.yml'))
-
 FactoryBot.define do
   factory :file, class: Datasets::File do
     description 'A task file'
@@ -41,16 +39,6 @@ FactoryBot.define do
 
     initialize_with do
       entity_hash
-    end
-  end
-
-  factory :parts_of_speech, class: Array do
-    transient do
-      yml POS_YAML
-    end
-
-    initialize_with do
-      YAML.safe_load(yml)
     end
   end
 

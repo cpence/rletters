@@ -33,19 +33,21 @@ module RLetters
           # Ignore num_pairs if we want all of the cooccurrences
           self.num_pairs = nil if all || num_pairs&.<=(0)
 
+          self.result = {}
+
+          enum = Datasets::DocumentEnumerator.new(
+            dataset: dataset,
+            fl: 'uid'
+          )
           total = dataset.document_count
 
-          # We actually aren't going to use Analysis::WordFrequency here; the
-          # NLP POS tagger requires us to send it full sentences for maximum
-          # accuracy.
-          enum = RLetters::Datasets::DocumentEnumerator.new(dataset: dataset,
-                                                            fulltext: true)
-
-          self.result = {}
           enum.each_with_index do |doc, i|
             progress&.call((i.to_f / total.to_f * 100).to_i)
 
-            tagged = NLP.parts_of_speech(doc.fulltext.mb_chars.downcase.to_s)
+            lister = Documents::WordList.new
+            words = lister.words_for(doc.uid)
+
+            tagged = Tagger.get_readable(words.join(' ')).split
 
             search_for_regexes(tagged, 2, POS_BI_REGEXES)
             search_for_regexes(tagged, 3, POS_TRI_REGEXES)
@@ -63,17 +65,17 @@ module RLetters
 
         # Regular expressions which match bigram part-of-speech patterns
         POS_BI_REGEXES = [
-          /[^\s]+_JJ[^\s]?\s+[^\s]+_NN[^\s]{0,2}/, # ADJ NOUN
-          /[^\s]+_NN[^\s]{0,2}\s+[^\s]+_NN[^\s]{0,2}/ # NOUN NOUN
+          %r{[^\s]+/JJ[^\s]?\s+[^\s]+/NN[^\s]{0,2}}, # ADJ NOUN
+          %r{[^\s]+/NN[^\s]{0,2}\s+[^\s]+/NN[^\s]{0,2}} # NOUN NOUN
         ].freeze
 
         # Regular expressions which match trigram part-of-speech patterns
         POS_TRI_REGEXES = [
-          /[^\s]+_JJ[^\s]?\s+[^\s]+_JJ[^\s]?\s+[^\s]+_NN[^\s]{0,2}/, # ADJ ADJ NOUN
-          /[^\s]+_JJ[^\s]?\s+[^\s]+_NN[^\s]{0,2}\s+[^\s]+_NN[^\s]{0,2}/, # ADJ NOUN NOUN
-          /[^\s]+_NN[^\s]{0,2}\s+[^\s]+_JJ[^\s]?\s+[^\s]+_NN[^\s]{0,2}/, # NOUN ADJ NOUN
-          /[^\s]+_NN[^\s]{0,2}\s+[^\s]+_NN[^\s]{0,2}\s+[^\s]+_NN[^\s]{0,2}/, # NOUN NOUN NOUN
-          /[^\s]+_NN[^\s]{0,2}\s+[^\s]+_IN\s+[^\s]+_NN[^\s]{0,2}/ # NOUN PREP NOUN
+          %r{[^\s]+/JJ[^\s]?\s+[^\s]+/JJ[^\s]?\s+[^\s]+/NN[^\s]{0,2}}, # ADJ ADJ NOUN
+          %r{[^\s]+/JJ[^\s]?\s+[^\s]+/NN[^\s]{0,2}\s+[^\s]+/NN[^\s]{0,2}}, # ADJ NOUN NOUN
+          %r{[^\s]+/NN[^\s]{0,2}\s+[^\s]+/JJ[^\s]?\s+[^\s]+/NN[^\s]{0,2}}, # NOUN ADJ NOUN
+          %r{[^\s]+/NN[^\s]{0,2}\s+[^\s]+/NN[^\s]{0,2}\s+[^\s]+/NN[^\s]{0,2}}, # NOUN NOUN NOUN
+          %r{[^\s]+/NN[^\s]{0,2}\s+[^\s]+/IN\s+[^\s]+/NN[^\s]{0,2}} # NOUN PREP NOUN
         ].freeze
 
         # Search for regexes of a given number of words
@@ -89,14 +91,14 @@ module RLetters
         # @return [void]
         def search_for_regexes(tagged_words, size, regexes)
           tagged_words.each_cons(size).map do |t|
-            if focal_word && t.none? { |w| w.start_with?("#{focal_word}_") }
+            if focal_word && t.none? { |w| w.start_with?("#{focal_word.downcase}/") }
               next
             end
 
             gram = t.join(' ')
             next unless regexes.any? { |r| gram =~ r }
 
-            stripped = gram.gsub(/_(JJ[^\s]?|NN[^\s]{0,2}|IN)(\s+|\Z)/, '\2')
+            stripped = gram.gsub(%r{/(JJ[^\s]?|NN[^\s]{0,2}|IN)(\s+|\Z)}, '\2')
 
             result[stripped] ||= 0
             result[stripped] += 1

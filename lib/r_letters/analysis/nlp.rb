@@ -9,22 +9,6 @@ module RLetters
     #
     # :nocov:
     class NLP
-      # Returns an array of words with parts-of-speech tags
-      #
-      # @param [String] text the text to obtain POS tags for
-      # @return [Array<String>] an array of tagged words
-      def self.parts_of_speech(text)
-        # No tagging if we don't have the nlp_tool (FIXME: this should
-        # probably be an exception, as this is going to return data that
-        # the caller can't actually use)
-        return text.split if ENV['NLP_TOOL_PATH'].blank?
-
-        # Call the external tool
-        yml = Cheetah.run(ENV['NLP_TOOL_PATH'], '-p',
-                          stdin: text, stdout: :capture)
-        YAML.safe_load(yml)
-      end
-
       # Returns an array of named entity references
       #
       # @param [String] text the text to obtain named entities for

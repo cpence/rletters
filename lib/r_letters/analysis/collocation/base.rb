@@ -2,32 +2,7 @@
 
 module RLetters
   module Analysis
-    # Various analyzers for word collocations
-    #
-    # Collocations are pairs of words with particular significance or
-    # meaning in language.  Linguists use them to point out particular
-    # features of a language -- for example, speakers of English use the
-    # phrase "strong tea" but would never say "strong computers", preferring
-    # instead "powerful computers" (but never "powerful tea").
     module Collocation
-      # Syntactic sugar for calling the appropriate analyzer
-      #
-      # @return [RLetters::Analysis::Collocation::Result] analysis results
-      def self.call(*args)
-        analyzer = Base.new(*args)
-
-        # Part of speech tagging requires the Stanford NLP
-        if analyzer.scoring == :parts_of_speech
-          if ENV['NLP_TOOL_PATH'].blank?
-            analyzer.scoring = :mutual_information
-          else
-            analyzer = PartsOfSpeech.new(*args)
-          end
-        end
-
-        analyzer.call
-      end
-
       # Base methods common to all collocation analyzers
       #
       # @!attribute dataset

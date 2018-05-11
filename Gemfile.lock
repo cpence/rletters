@@ -129,6 +129,7 @@ GEM
     dotenv-rails (2.2.2)
       dotenv (= 2.2.2)
       railties (>= 3.2, < 6.0)
+    engtagger (0.2.1)
     equalizer (0.0.11)
     erubi (1.7.1)
     erubis (2.7.0)
@@ -394,6 +395,7 @@ DEPENDENCIES
   devise-i18n
   distribution
   dotenv-rails
+  engtagger
   factory_bot_rails
   fast-stemmer
   haml
