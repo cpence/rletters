@@ -36,6 +36,6 @@ class NetworkJobTest < ActiveJob::TestCase
       l['source'] == progress_node && l['target'] == diseas_node
     end
 
-    assert_in_epsilon 0.625, edge['strength']
+    assert_in_epsilon 0.42857142857142855, edge['strength']
   end
 end
