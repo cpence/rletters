@@ -134,7 +134,9 @@ function setupWordCloud() {
   var data = $.parseJSON(window.json_data);
   var words = data['word_cloud_words'];
   var numWords = Object.keys(words).length;
-  var size = [800, 600];
+
+  var containerWidth = container.innerWidth();
+  var size = [containerWidth, containerWidth * 0.7];
 
   // Build elements
   var svg = d3.select('#word-cloud').append('svg')
@@ -176,6 +178,17 @@ function setupWordCloud() {
   window.wordCloudLayout.start();
 
   window.wordCloudRotated = true;
+
+  // Hook up our controls
+  $('#word_cloud_font').blur(function() {
+    setWordCloudFont($(this).val());
+  });
+  $('#word_cloud_color').change(function() {
+    setWordCloudColor(this.value);
+  });
+  $('#word_cloud_rotate').click(function() {
+    toggleWordCloudRotation();
+  });
 }
 
 $(setupWordCloud);
