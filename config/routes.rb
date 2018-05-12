@@ -60,6 +60,7 @@ Rails.application.routes.draw do
 
   # Static content
   get 'static/cookies' => 'static#cookies'
+  post 'static/echo' => 'static#echo'
   get 'static/user_data' => 'static#user_data'
 
   # Administration pages

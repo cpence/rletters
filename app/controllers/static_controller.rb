@@ -17,4 +17,17 @@ class StaticController < ApplicationController
       render :page
     end
   end
+
+  # Return the form posted to this URL as a download
+  #
+  # This is used to facilitate downloads of SVG files from D3.js, among other
+  # uses.
+  #
+  # @return [void]
+  def echo
+    params.require([:data, :content_type, :filename])
+
+    send_data(params[:data], filename: params[:filename],
+                             type: params[:content_type])
+  end
 end

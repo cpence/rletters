@@ -81,6 +81,10 @@ function setWordCloudFont(font) {
   redrawWordCloud(newWords);
 }
 
+function downloadWordCloud() {
+  downloadD3asSVG(window.wordCloudSVG.node());
+}
+
 function drawWordCloud(words, extents) {
   var text = window.wordCloudVis.selectAll('text').data(words);
   var size = window.wordCloudLayout.size();
@@ -139,10 +143,10 @@ function setupWordCloud() {
   var size = [containerWidth, containerWidth * 0.7];
 
   // Build elements
-  var svg = d3.select('#word-cloud').append('svg')
+  window.wordCloudSVG = d3.select('#word-cloud').append('svg')
     .attr('width', size[0])
     .attr('height', size[1]);
-  window.wordCloudVis = svg.append('g')
+  window.wordCloudVis = window.wordCloudSVG.append('g')
     .attr('transform', 'translate(' + size[0] / 2 + ',' + size[1] / 2 + ')');
 
   // Normalize the words to the largest one present
@@ -188,6 +192,9 @@ function setupWordCloud() {
   });
   $('#word_cloud_rotate').click(function() {
     toggleWordCloudRotation();
+  });
+  $('#word_cloud_download').click(function() {
+    downloadWordCloud();
   });
 }
 

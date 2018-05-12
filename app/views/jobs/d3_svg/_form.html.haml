@@ -1,0 +1,4 @@
+= form_tag(static_echo_path, method: :post, target: '_blank', id: 'd3-svg-form') do
+  = hidden_field_tag :content_type, nil, id: 'd3-svg-content-type'
+  = hidden_field_tag :filename, nil, id: 'd3-svg-filename'
+  = hidden_field_tag :data, nil, id: 'd3-svg-data'
