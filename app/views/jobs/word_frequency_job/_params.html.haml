@@ -77,8 +77,6 @@
             = f.check_box :split_across, class: 'form-check-input', checked: true
             = f.label :split_across, t('compute_word_frequencies.split_across'), class: 'form-check-label'
 
-        = render partial: 'jobs/word_cloud/params', locals: { f: f }
-
       .float-right
         = link_to(t('common.cancel'), @dataset, class: 'btn btn-secondary')
         = f.submit class: 'btn btn-primary'

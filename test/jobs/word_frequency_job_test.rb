@@ -43,18 +43,7 @@ class WordFrequencyJobTest < ActiveJob::TestCase
        { 'num_blocks' => '1',
          'split_across' => '1',
          'ngrams' => '2',
-         'all' => '1' },
-       { 'num_blocks' => '1',
-         'split_across' => '1',
-         'num_words' => '10',
-         'word_cloud' => '1',
-         'word_cloud_font' => 'Roboto',
-         'word_cloud_color' => 'Blues' },
-       { 'num_blocks' => '1',
-         'split_across' => '1',
-         'num_words' => '10',
-         'word_cloud' => '1',
-         'word_cloud_inclusion_list' => '0' }]
+         'all' => '1' }]
 
     task = create(:task, dataset: create(:full_dataset, num_docs: 2))
 

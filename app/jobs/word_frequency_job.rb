@@ -27,7 +27,6 @@ class WordFrequencyJob < ApplicationJob
   # @return [void]
   def perform(task, options = {})
     standard_options(task, options)
-    make_word_cloud = options[:word_cloud] == '1'
 
     # Patch up the two strange arguments that don't come in the right format
     # from the web form
@@ -38,13 +37,7 @@ class WordFrequencyJob < ApplicationJob
     analyzer = RLetters::Analysis::Frequency.call(
       options.merge(
         dataset: dataset,
-        progress: lambda do |p|
-          if make_word_cloud
-            task.at((p / 100) * 75, 100, t('.progress_calculating'))
-          else
-            task.at(p, 100, t('.progress_calculating'))
-          end
-        end
+        progress: ->(p) { task.at(p, 100, t('.progress_calculating')) }
       )
     )
 
@@ -142,38 +135,17 @@ class WordFrequencyJob < ApplicationJob
                                 content_type: 'text/csv')
     end
 
-    # See if we were asked to build a word cloud, and do it if so
-    if make_word_cloud
-      task.at(75, 100, t('.progress_word_cloud'))
-
-      strip_inclusion_list = analyzer.ngrams > 1 &&
-                             analyzer.inclusion_list.present? &&
-                             (options[:word_cloud_inclusion_list] != '1')
-
-      word_cloud_options = {
-        header: "Word Cloud for #{dataset.name}",
-        words: analyzer.word_list.each_with_object({}) do |w, ret|
-          tf = analyzer.tf_in_dataset[w]
-
-          # If requested, strip off any words that appear in the
-          # inclusion list for the word cloud
-          if strip_inclusion_list
-            w = (w.split - analyzer.inclusion_list).join(' ')
-          end
-
-          ret[w] = tf
-        end,
-        color: options[:word_cloud_color],
-        font: options[:pdf_font]
-      }.compact
-
-      pdf = RLetters::Visualization::WordCloud.call(word_cloud_options)
-
-      task.files.create(description: 'Word Cloud',
-                        short_description: 'PDF', downloadable: true) do |f|
-        f.from_string(pdf, filename: 'word_cloud.pdf',
-                           content_type: 'application/pdf')
+    # Save out JSON to make an interactive word cloud
+    word_cloud_data = {
+      word_cloud_words: analyzer.word_list.each_with_object({}) do |w, ret|
+        ret[w] = analyzer.tf_in_dataset[w]
       end
+    }
+
+    task.files.create(description: 'JSON Data for Word Cloud',
+                      short_description: 'JSON') do |f|
+      f.from_string(word_cloud_data.to_json, filename: 'word_cloud.json',
+                                             content_type: 'application/json')
     end
 
     task.mark_completed

@@ -852,7 +852,7 @@ en:
         tfidf_corpus_header: TF/IDF (vs. corpus)
         df_header: DF (in corpus)
         progress_calculating: "Calculating word frequencies..."
-        progress_word_cloud: "Building word cloud..."
+        subheader: Information about word frequencies
     compute_word_frequencies:
         ngram_method: Analyze single words or n-grams?
         single_words: Single words

@@ -1,3 +1,5 @@
+// ---------------------------------------------------------------------------
+// Support for the dependencies between the form controls on the params page
 
 window.jQuery(document).on('change', 'select#job_params_ngram_method',
   function(event, data) {
