@@ -12,6 +12,8 @@
   .col-12
     %hr
 
+    %h5.mb-4= t('word_frequency_job.cloud_header')
+
     .word-cloud{ data: { word_cloud: data['word_cloud_words'].to_json } }
       = render partial: 'jobs/word_cloud/controls'
 

@@ -12,7 +12,7 @@
   .col-12
     %hr
 
-    = javascript_tag("window.json_data = '#{@task.json}';", nonce: true)
+    = javascript_tag("window.json_data = '#{j @task.json}';", nonce: true)
     .network_graph
       .network_graph_box
         %p ...

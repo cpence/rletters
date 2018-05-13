@@ -753,6 +753,7 @@ en:
         options_label: Craig Zeta analysis options
         header: "Comparison of %{name_1} with %{name_2}"
         subheader: (Craig Zeta algorithm)
+        cloud_header: Marker words for %{name}
         csv_header: "Craig Zeta comparison for dataset %{name_1} with %{name_2}"
         marker_header: "Marker words for membership in dataset %{name}"
         graph_header: Separation graph for all analyzed text blocks
@@ -853,6 +854,7 @@ en:
         df_header: DF (in corpus)
         progress_calculating: "Calculating word frequencies..."
         subheader: Information about word frequencies
+        cloud_header: Word cloud of all words analyzed
     compute_word_frequencies:
         ngram_method: Analyze single words or n-grams?
         single_words: Single words

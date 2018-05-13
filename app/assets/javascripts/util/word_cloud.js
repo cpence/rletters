@@ -156,10 +156,13 @@ function setupWordCloud(container) {
   container.data('rotated', true);
 
   // Normalize the words to the largest one present
-  var max = 0;
+  var max = 0, min = 9999;
   for (w in words) {
     if (words[w] > max) {
       max = words[w];
+    }
+    if (words[w] < min) {
+      min = words[w];
     }
   }
 
@@ -167,7 +170,7 @@ function setupWordCloud(container) {
   wordData = Object.keys(words).map(function(w) {
     return {
       text: w,
-      size: words[w] / max * 100
+      size: ((words[w] - min) / (max - min) * 90) + 10
     }
   });
 

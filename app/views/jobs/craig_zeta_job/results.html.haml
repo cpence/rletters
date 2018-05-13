@@ -15,8 +15,22 @@
     %h5= t('craig_zeta_job.graph_header')
     %p= t('craig_zeta_job.graph_explanation')
 
-    = javascript_tag("window.json_data = '#{@task.json}';", nonce: true)
+    = javascript_tag("window.json_data = '#{j @task.json}';", nonce: true)
     #cz-graph
+
+    %hr
+
+    %h5= t('craig_zeta_job.cloud_header', name: data['name_1'])
+
+    .word-cloud{ data: { word_cloud: data['word_cloud_1_words'].to_json } }
+      = render partial: 'jobs/word_cloud/controls'
+
+    %hr
+
+    %h5= t('craig_zeta_job.cloud_header', name: data['name_2'])
+
+    .word-cloud{ data: { word_cloud: data['word_cloud_2_words'].map { |k, v| [k, -v] }.to_h.to_json } }
+      = render partial: 'jobs/word_cloud/controls'
 
     %hr
 
@@ -24,3 +38,5 @@
     %p= t('craig_zeta_job.zeta_score_explanation', name_1: data['name_1'], name_2: data['name_2'])
 
     #cz-table
+
+= render partial: 'jobs/d3_svg/form'

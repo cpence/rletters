@@ -14,7 +14,7 @@
   .col-12
     %hr
 
-    = javascript_tag("window.json_data = '#{@task.json}';", nonce: true)
+    = javascript_tag("window.json_data = '#{j @task.json}';", nonce: true)
     .term_dates_graph
 
     %hr
