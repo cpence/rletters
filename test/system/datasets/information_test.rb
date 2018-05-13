@@ -13,8 +13,8 @@ class InformationTest < ApplicationSystemTestCase
     find('#dataset-task-list table')
 
     assert_text 'Number of documents: 427'
-    assert_text 'Search type Normal search'
-    assert_text 'Search query test'
+    assert_text "Search type\nNormal search"
+    assert_text "Search query\ntest"
 
     assert_selector 'div#dataset-task-list'
     assert_selector 'div#dataset-task-list table.button-table'
