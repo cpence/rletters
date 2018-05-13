@@ -1,3 +1,5 @@
+- data = JSON.parse(@task.json)
+
 .row
   .col-12.col-md-8
     %h1== #{Dataset.model_name.human}: #{@dataset.name}
@@ -10,8 +12,7 @@
   .col-12
     %hr
 
-    = javascript_tag("window.json_data = '#{@task.json}';", nonce: true)
+    .word-cloud{ data: { word_cloud: data['word_cloud_words'].to_json } }
+      = render partial: 'jobs/word_cloud/controls'
 
-    #word-cloud
-
-    = render partial: 'jobs/word_cloud/controls'
+= render partial: 'jobs/d3_svg/form'

@@ -55,39 +55,48 @@ function setWordFont(words, font) {
   }
 }
 
-function redrawWordCloud(newWords) {
-  window.wordCloudLayout.stop().words(newWords).start();
+function redrawWordCloud(layout, newWords) {
+  layout.stop().words(newWords).start();
 }
 
-function toggleWordCloudRotation() {
-  var newWords = window.wordCloudLayout.words();
+function toggleWordCloudRotation(container) {
+  var layout = container.data('layout');
+  var rotated = container.data('rotated');
 
-  window.wordCloudRotated = !window.wordCloudRotated;
-  setWordRotation(newWords, window.wordCloudRotated);
-  redrawWordCloud(newWords);
+  var newWords = layout.words();
+
+  setWordRotation(newWords, !rotated);
+  container.data('rotated', !rotated);
+  redrawWordCloud(layout, newWords);
 }
 
-function setWordCloudColor(color) {
-  var newWords = window.wordCloudLayout.words();
+function setWordCloudColor(container, color) {
+  var layout = container.data('layout');
+  var newWords = layout.words();
 
   setWordColor(newWords, color);
-  redrawWordCloud(newWords);
+  redrawWordCloud(layout, newWords);
 }
 
-function setWordCloudFont(font) {
-  var newWords = window.wordCloudLayout.words();
+function setWordCloudFont(container, font) {
+  var layout = container.data('layout');
+  var newWords = layout.words();
 
   setWordFont(newWords, font);
-  redrawWordCloud(newWords);
+  redrawWordCloud(layout, newWords);
 }
 
-function downloadWordCloud() {
-  downloadD3asSVG(window.wordCloudSVG.node());
+function downloadWordCloud(container) {
+  var svg = container.data('svg');
+  downloadD3asSVG(svg.node());
 }
 
 function drawWordCloud(words, extents) {
-  var text = window.wordCloudVis.selectAll('text').data(words);
-  var size = window.wordCloudLayout.size();
+  var vis = $(this).data('vis');
+  var layout = $(this).data('layout');
+
+  var text = vis.selectAll('text').data(words);
+  var size = layout.size();
 
   // Automatically scale to keep the words visible
   var scale = 1;
@@ -124,30 +133,27 @@ function drawWordCloud(words, extents) {
         .style('font-size', function(d) { return d.size + 'px'; })
 
   // Animated transition for scaling
-  window.wordCloudVis
-    .transition().delay(1e3).duration(750)
+  vis.transition().delay(1e3).duration(750)
     .attr('transform', 'translate(' + [size[0] / 2, size[1] / 2] + ')scale(' + scale + ')');
 }
 
-function setupWordCloud() {
-  var container = $('#word-cloud');
-  if (container.length === 0) {
-    return;
-  }
-
-  var data = $.parseJSON(window.json_data);
-  var words = data['word_cloud_words'];
+function setupWordCloud(container) {
+  var words = container.data('word-cloud');
   var numWords = Object.keys(words).length;
 
   var containerWidth = container.innerWidth();
   var size = [containerWidth, containerWidth * 0.7];
 
   // Build elements
-  window.wordCloudSVG = d3.select('#word-cloud').append('svg')
+  var svg = d3.select(container.get(0)).append('svg')
     .attr('width', size[0])
     .attr('height', size[1]);
-  window.wordCloudVis = window.wordCloudSVG.append('g')
+  var vis = svg.append('g')
     .attr('transform', 'translate(' + size[0] / 2 + ',' + size[1] / 2 + ')');
+
+  container.data('svg', svg);
+  container.data('vis', vis);
+  container.data('rotated', true);
 
   // Normalize the words to the largest one present
   var max = 0;
@@ -176,26 +182,30 @@ function setupWordCloud() {
     .rotate(function(d) { return d.rotate; })
     .font(function(d) { return d.font; })
     .fontSize(function(d) { return d.size; })
-    .on('end', drawWordCloud);
+    .on('end', drawWordCloud.bind(container));
 
-  window.wordCloudLayout = layout;
-  window.wordCloudLayout.start();
-
-  window.wordCloudRotated = true;
+  container.data('layout', layout);
+  layout.start();
 
   // Hook up our controls
-  $('#word_cloud_font').blur(function() {
-    setWordCloudFont($(this).val());
+  container.on('blur', '.word-cloud-font', function() {
+    setWordCloudFont(container, $(this).val());
   });
-  $('#word_cloud_color').change(function() {
-    setWordCloudColor(this.value);
+  container.on('change', '.word-cloud-color', function() {
+    setWordCloudColor(container, this.value);
   });
-  $('#word_cloud_rotate').click(function() {
-    toggleWordCloudRotation();
+  container.on('click', '.word-cloud-rotate', function() {
+    toggleWordCloudRotation(container);
   });
-  $('#word_cloud_download').click(function() {
-    downloadWordCloud();
+  container.on('click', '.word-cloud-download', function() {
+    downloadWordCloud(container);
   });
 }
 
-$(setupWordCloud);
+function detectWordClouds() {
+  $('.word-cloud').each(function(idx, elt) {
+    setupWordCloud($(elt));
+  })
+}
+
+$(detectWordClouds);

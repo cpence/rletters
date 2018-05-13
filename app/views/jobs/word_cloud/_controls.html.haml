@@ -1,17 +1,15 @@
 .row.form-group
   = label_tag :word_cloud_font, t('word_cloud.font'), class: 'col-sm-1 col-form-label'
   .col-sm-3
-    = text_field_tag :word_cloud_font, 'sans-serif', class: 'form-control'
+    = text_field_tag :word_cloud_font, 'sans-serif', class: 'form-control word-cloud-font'
   = label_tag :word_cloud_color, t('word_cloud.color'), class: 'col-sm-1 col-form-label'
   .col-sm-3
-    = select_tag :word_cloud_color, options_for_select([[I18n.t('color_brewer.blues'), 'blues'], [I18n.t('color_brewer.greens'), 'greens'], [I18n.t('color_brewer.greys'), 'greys'], [I18n.t('color_brewer.oranges'), 'oranges'], [I18n.t('color_brewer.purples'), 'purples'], [I18n.t('color_brewer.reds'), 'reds']]), class: 'form-control'
+    = select_tag :word_cloud_color, options_for_select([[I18n.t('color_brewer.blues'), 'blues'], [I18n.t('color_brewer.greens'), 'greens'], [I18n.t('color_brewer.greys'), 'greys'], [I18n.t('color_brewer.oranges'), 'oranges'], [I18n.t('color_brewer.purples'), 'purples'], [I18n.t('color_brewer.reds'), 'reds']]), class: 'form-control word-cloud-color'
   .col-sm-4
     .btn-group.d-flex{ role: 'group' }
-      %button#word_cloud_rotate.btn.btn-secondary.w-100{ type: 'button' }
+      %button.word-cloud-rotate.btn.btn-secondary.w-100{ type: 'button' }
         %i.fas.fa-expand-arrows-alt
         = t('word_cloud.rotate')
-      %button#word_cloud_download.btn.btn-primary.w-100{ type: 'button' }
+      %button.word-cloud-download.btn.btn-primary.w-100{ type: 'button' }
         %i.fas.fa-save
         = t('word_cloud.download')
-
-= render partial: 'jobs/d3_svg/form'
