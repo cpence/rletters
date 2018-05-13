@@ -1,13 +1,13 @@
-= form_for(@snippet, url: url, method: method, html: { novalidate: true, class: 'needs-validation' }) do |f|
+= form_for(snippet, url: url, method: method, html: { novalidate: true, class: 'needs-validation' }) do |f|
   .modal-body
     .form-group
       = f.label :name
-      = f.select :name, options_for_select(@snippet_list), {}, class: 'form-control'
-      .invalid-feedback= validation_errors_for(@snippet, :name, true)
+      = f.select :name, options_for_select(list), {}, class: 'form-control'
+      .invalid-feedback= validation_errors_for(snippet, :name, true)
     .form-group
       = f.label :language
-      = f.select :language, options_for_select(I18n.available_locales.translated, @snippet.language), {}, class: 'form-control'
-      .invalid-feedback= validation_errors_for(@snippet, :language, true)
+      = f.select :language, options_for_select(I18n.available_locales.translated, snippet.language), {}, class: 'form-control'
+      .invalid-feedback= validation_errors_for(snippet, :language, true)
 
     .form-group
       = f.label :content

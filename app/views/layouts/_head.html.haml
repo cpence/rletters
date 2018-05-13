@@ -1,7 +1,7 @@
 %head
   %meta{ charset: 'utf-8' }/
-  %meta{ "http-equiv" => "X-UA-Compatible", "content" => "IE=edge" }/
-  %meta{ name: 'viewport', content: "width=device-width, initial-scale=1" }/
+  %meta{ http_equiv: 'X-UA-Compatible', content: 'IE=edge' }/
+  %meta{ name: 'viewport', content: 'width=device-width, initial-scale=1' }/
 
   %title= ENV['APP_NAME']
 
@@ -13,13 +13,13 @@
 
   -# Home screen icons (Retina iPhone, iPad, all others/Android)
   - if Admin::Asset.usable?('apple-touch-icon-high')
-    %link{ href: url_for(Admin::Asset.find_by(name: 'apple-touch-icon-high').file), rel: "apple-touch-icon-precomposed", sizes: "114x114" }/
+    %link{ href: url_for(Admin::Asset.find_by(name: 'apple-touch-icon-high').file), rel: 'apple-touch-icon-precomposed', sizes: '114x114' }/
   - if Admin::Asset.usable?('apple-touch-icon-med')
-    %link{ href: url_for(Admin::Asset.find_by(name: 'apple-touch-icon-med').file), rel: "apple-touch-icon-precomposed", sizes: "72x72" }/
+    %link{ href: url_for(Admin::Asset.find_by(name: 'apple-touch-icon-med').file), rel: 'apple-touch-icon-precomposed', sizes: '72x72' }/
   - if Admin::Asset.usable?('apple-touch-icon-low')
-    %link{ href: url_for(Admin::Asset.find_by(name: 'apple-touch-icon-low').file), rel: "apple-touch-icon-precomposed" }/
+    %link{ href: url_for(Admin::Asset.find_by(name: 'apple-touch-icon-low').file), rel: 'apple-touch-icon-precomposed' }/
   - if Admin::Asset.usable?('favicon')
-    %link{ href: url_for(Admin::Asset.find_by(name: 'favicon').file), rel: "shortcut icon" }/
+    %link{ href: url_for(Admin::Asset.find_by(name: 'favicon').file), rel: 'shortcut icon' }/
 
   -# Reference the unAPI server, if we need to
   - if params[:controller] == 'search'

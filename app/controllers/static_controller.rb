@@ -25,7 +25,7 @@ class StaticController < ApplicationController
   #
   # @return [void]
   def echo
-    params.require([:data, :content_type, :filename])
+    params.require(%i[data content_type filename])
 
     send_data(params[:data], filename: params[:filename],
                              type: params[:content_type])

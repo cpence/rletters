@@ -1,9 +1,9 @@
-= form_for(@stop_list, url: url, method: method, html: { novalidate: true, class: 'needs-validation' }) do |f|
+= form_for(stop_list, url: url, method: method, html: { novalidate: true, class: 'needs-validation' }) do |f|
   .modal-body
     .form-group
       = f.label :language
       = f.text_field :language, class: 'form-control', required: true, autofocus: true
-      .invalid-feedback= validation_errors_for(@stop_list, :language, true)
+      .invalid-feedback= validation_errors_for(stop_list, :language, true)
 
     .form-group
       = f.label :list

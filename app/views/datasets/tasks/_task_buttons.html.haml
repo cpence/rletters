@@ -1,8 +1,7 @@
 - if lookup_context.exists?(task.template_path('results'))
   = link_to t('.view_button'), view_dataset_task_path(task.dataset, task, template: 'results'), class: 'btn btn-sm btn-success'
 
--# Render a single button for the download if there's only one, or render
--# a dropdown button if there's multiple files
+-# Render a single button for the download if there's only one, or render a dropdown button if there's multiple files
 - if task.files.downloadable.count == 1
   = link_to t('.download_button'), url_for(task.files.downloadable.first.result), class: 'btn btn-sm btn-success'
 - elsif task.files.downloadable.count > 1

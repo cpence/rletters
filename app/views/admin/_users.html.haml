@@ -1,0 +1,14 @@
+.card.mb-3
+  .card-body
+    %h3.card-title= t('.header')
+
+    %table.table.table-striped.table-sm
+      %thead
+        %tr
+          %th= User.human_attribute_name(:name)
+          %th= User.human_attribute_name(:last_sign_in_at)
+      %tbody
+        - User.order('last_sign_in_at desc').limit(5).each do |user|
+          %tr
+            %td= user.name
+            %td= user.last_sign_in_at

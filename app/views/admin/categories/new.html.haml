@@ -4,4 +4,4 @@
       %h4.modal-title= t('.header')
       = close_icon(dismiss: 'modal')
 
-    = render partial: 'form', locals: { url: categories_path, method: :post }
+    = render partial: 'form', locals: { category: @category, url: categories_path, method: :post }

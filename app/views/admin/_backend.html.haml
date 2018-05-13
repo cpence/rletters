@@ -1,0 +1,21 @@
+.card.mb-3
+  .card-body
+    %h3.card-title= t('.header')
+
+  %ul.list-group.list-group-flush
+    %li.list-group-item
+      %h5= t('.database')
+
+    - if corpus_size && ping
+      %li.list-group-item= t('.db_size', count: corpus_size)
+      %li.list-group-item= t('.latency', count: ping)
+    - else
+      %li.list-group-item= t('.connection_failed')
+
+    - if solr_info['lucene'] && solr_info['jvm']
+      %li.list-group-item
+        %h5= t('.solr')
+
+      %li.list-group-item= t('.solr_version', solr_ver: solr_info['lucene']['solr-spec-version'], lucene_ver: solr_info['lucene']['lucene-spec-version'])
+      %li.list-group-item= t('.java_version', java_ver: solr_info['jvm']['version'])
+      %li.list-group-item= t('.memory_info', used: solr_info['jvm']['memory']['used'], free: solr_info['jvm']['memory']['free'], total: solr_info['jvm']['memory']['total'], max: solr_info['jvm']['memory']['max'])

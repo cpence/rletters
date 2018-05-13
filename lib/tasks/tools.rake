@@ -10,9 +10,10 @@ unless Rails.env.production?
         system('bundle exec brakeman -q')
       end
 
-      desc 'Check code style with Rubocop'
-      task :style do
+      desc 'Check code style with linters'
+      task :lint do
         system('bundle exec rubocop')
+        system('bundle exec haml-lint')
       end
     end
   end

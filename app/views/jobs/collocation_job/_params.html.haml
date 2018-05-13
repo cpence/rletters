@@ -1,6 +1,6 @@
 .row
   .col-12.col-md-6
-    = form_for :job_params, url: dataset_tasks_path(@dataset, class: 'CollocationJob'), method: :post do |f|
+    = form_for :job_params, url: dataset_tasks_path(dataset, class: 'CollocationJob'), method: :post do |f|
       .card.card-body.mb-3
         %h5.card-title= t('collocation_job.options_label')
 
@@ -19,5 +19,5 @@
           = f.text_field :focal_word, class: 'form-control'
 
       .float-right
-        = link_to(t('common.cancel'), @dataset, class: 'btn btn-secondary')
+        = link_to(t('common.cancel'), dataset, class: 'btn btn-secondary')
         = f.submit class: 'btn btn-primary'

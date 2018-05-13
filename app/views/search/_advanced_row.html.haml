@@ -7,7 +7,7 @@
   .col-3
     .form-group.field-group
       = label_tag :field_0, t('.field_label'), class: 'sr-only'
-      = select_tag :field_0, options_for_select(@search_fields), class: 'form-control'
+      = select_tag :field_0, options_for_select(fields), class: 'form-control'
   .col-6
     .form-group.value-group
       = label_tag :value_0, t('.value_label'), class: 'sr-only'

@@ -1,6 +1,6 @@
 .row
   .col-12.col-md-6
-    = form_for :job_params, url: dataset_tasks_path(@dataset, class: 'TermDatesJob'), method: :post, html: { novalidate: true, class: 'needs-validation' } do |f|
+    = form_for :job_params, url: dataset_tasks_path(dataset, class: 'TermDatesJob'), method: :post, html: { novalidate: true, class: 'needs-validation' } do |f|
       .card.card-body.mb-3
         %h5.card-title= t('term_dates_job.options_label')
 
@@ -10,5 +10,5 @@
           .invalid-feedback= validation_errors_for(:job_params, :term, true, 'term_dates_job.term_blank')
 
       .float-right
-        = link_to(t('common.cancel'), @dataset, class: 'btn btn-secondary')
+        = link_to(t('common.cancel'), dataset, class: 'btn btn-secondary')
         = f.submit class: 'btn btn-primary'

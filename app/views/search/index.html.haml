@@ -11,7 +11,7 @@
     = form_tag(search_path, method: :get, role: 'form') do
       - if @result.params['fq']
         - [@result.params['fq']].flatten.each do |p|
-          = hidden_field_tag "fq[]", p
+          = hidden_field_tag 'fq[]', p
       .form-group
         %label.sr-only{ for: 'q' }= t('.placeholder')
         = search_field_tag :q, (params[:advanced] ? t('.adv_search_placeholder') : params[:q]), placeholder: t('.placeholder'), class: 'form-control'
@@ -25,7 +25,7 @@
           = t('.sort')
         .dropdown-menu
           - @result_presenter.sort_methods.each do |(param, desc)|
-            = link_to RLetters::Solr::Search::permit_params(params.merge(sort: param)), class: 'dropdown-item' do
+            = link_to RLetters::Solr::Search.permit_params(params.merge(sort: param)), class: 'dropdown-item' do
               %span{ class: (param == @result.params['sort'] ? nil : 'start-invisible') } &check;
               = desc
 
@@ -41,15 +41,36 @@
   .col-12.col-lg-3.order-lg-last
     %p.text-center= @result_presenter.num_hits_string
 
-    #filters.collapse.d-lg-block.mb-3
+    .collapse.d-lg-block.mb-3#filters
       .card.bg-light.card-body
         - if @result.facets || Documents::Category.count
-          = render partial: 'search/filters'
+          %h4= t('.filter_header')
+
+          %nav.nav.nav-pills.flex-column.filter-list
+            - if params[:fq].present? || Documents::Category.active(params).present?
+              .filter-header= I18n.t('.active_filters')
+
+              = facet_removal_links(@result.facets)
+              = category_removal_links
+
+            - if @result.facets
+              .filter-header= I18n.t('.authors_facet')
+              = facet_addition_links(@result.facets, :authors_facet)
+
+              .filter-header= I18n.t('.journal_facet')
+              = facet_addition_links(@result.facets, :journal_facet)
+
+              .filter-header= I18n.t('.year_facet')
+              = facet_addition_links(@result.facets, :year)
+
+            - if Documents::Category.count.positive?
+              .filter-header= I18n.t('.categories')
+              = category_addition_tree
 
         = link_to t('.advanced_search'), search_advanced_path, class: 'btn btn-outline-secondary w-100'
 
   .col-12.col-lg-9.order-lg-first
-    #jscroll= render partial: 'result_table'
+    #jscroll= render partial: 'result_table', locals: { result: @result, presenter: @result_presenter }
 
-%div.text-center#back-to-top
+.text-center#back-to-top
   = link_to t('.back_to_top'), '#', class: 'btn btn-info btn-sm'

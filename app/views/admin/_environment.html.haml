@@ -1,0 +1,17 @@
+.card
+  .card-body
+    %h3.card-title= t('.header')
+
+    %table.table.table-hover.table-sm
+      %thead
+        %tr
+          %th= t('.variable')
+          %th= t('.value')
+      %tbody
+        - vars.each do |key, vars|
+          %tr.table-secondary
+            %td{ colspan: '2' }= t(key)
+          - vars.each do |var|
+            %tr
+              %td= var
+              %td= ENV[var]

@@ -56,7 +56,7 @@
     %h2= t('.library_links_header')
     %h5.text-muted= t('.library_links_subheader')
 
-    %div#library-list{ data: { fetch_url: libraries_path } }= render template: 'users/libraries/index', layout: false
+    #library-list{ data: { fetch_url: libraries_path } }= render template: 'users/libraries/index', layout: false
 
 .row
   .col-12

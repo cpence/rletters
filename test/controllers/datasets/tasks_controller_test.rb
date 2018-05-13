@@ -186,10 +186,9 @@ module Datasets
 
       get view_dataset_task_url(dataset_id: dataset.to_param,
                                 id: task.to_param,
-                                template: '_params')
+                                template: '_info')
 
       assert_response :success
-      assert_includes @response.body, '<option'
     end
 
     test 'should not destroy for invalid id' do

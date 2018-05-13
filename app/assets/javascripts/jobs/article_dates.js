@@ -3,7 +3,7 @@
 
 $(document).on('change', 'input[name="job_params[normalize]"]',
   function(event, data) {
-    toggleVisAndDisabled('#normalize_controls');
+    toggleVisAndDisabled('#normalize-controls');
   });
 
 // ---------------------------------------------------------------------------

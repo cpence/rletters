@@ -61,7 +61,6 @@ module RLetters
         segmenter.add(@doc.uid)
         blocks = segmenter.blocks
 
-
         assert_equal 39, blocks.size
       end
 

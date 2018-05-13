@@ -1,6 +1,6 @@
 .row
   .col-12.col-md-6
-    = form_for :job_params, url: dataset_tasks_path(@dataset, class: 'CooccurrenceJob'), method: :post, html: { novalidate: true, class: 'needs-validation' } do |f|
+    = form_for :job_params, url: dataset_tasks_path(dataset, class: 'CooccurrenceJob'), method: :post, html: { novalidate: true, class: 'needs-validation' } do |f|
       .card.card-body.mb-3
         %h5.card-title= t('cooccurrence_job.options_label')
 
@@ -24,8 +24,8 @@
           .invalid-feedback= validation_errors_for(:job_params, :words, true, 'cooccurrence_job.words_blank')
         .form-group
           = f.label :stemming, t('common.stemming.label')
-          = f.select :stemming, options_for_select([[t('common.no'), :no], [t('common.stemming.stem'), :stem]), [t('common.stemming.lemma'), :lemma]], { include_blank: false }, class: 'form-control'
+          = f.select :stemming, options_for_select([[t('common.no'), :no], [t('common.stemming.stem'), :stem], [t('common.stemming.lemma'), :lemma]]), { include_blank: false }, class: 'form-control'
 
       .float-right
-        = link_to(t('common.cancel'), @dataset, class: 'btn btn-secondary')
+        = link_to(t('common.cancel'), dataset, class: 'btn btn-secondary')
         = f.submit class: 'btn btn-primary'

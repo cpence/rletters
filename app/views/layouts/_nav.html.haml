@@ -6,8 +6,8 @@
 
   .collapse.navbar-collapse#main-nav-collapse
     %ul.navbar-nav.mt-2.mt-lg-0
-      %li.nav-item{ class: (params[:controller] == 'workflow' && params[:action] == 'start') ? 'active' : nil }= link_to t('layouts.nav.new_analysis'), workflow_start_path, class: 'nav-link'
-      %li.nav-item{ class: (params[:controller] == 'workflow' && params[:action] == 'fetch') ? 'active' : nil }= link_to t('layouts.nav.fetch_results'), workflow_fetch_path, class: 'nav-link'
+      %li.nav-item{ class: params[:controller] == 'workflow' && params[:action] == 'start' ? 'active' : nil }= link_to t('layouts.nav.new_analysis'), workflow_start_path, class: 'nav-link'
+      %li.nav-item{ class: params[:controller] == 'workflow' && params[:action] == 'fetch' ? 'active' : nil }= link_to t('layouts.nav.fetch_results'), workflow_fetch_path, class: 'nav-link'
       %li.nav-item.dropdown
         = link_to '#', id: 'nav-advanced-dropdown', class: 'nav-link dropdown-toggle', role: 'button', data: { toggle: 'dropdown' }, aria: { haspopup: 'true', expanded: 'false' } do
           = t('layouts.nav.advanced')
@@ -29,7 +29,7 @@
           = link_to t('layouts.nav.user_data'), static_user_data_path, class: 'dropdown-item'
 
       - if user_signed_in?
-        %li.nav-item{ class: (params[:controller] == 'users') ? 'active' : nil }= link_to t('layouts.nav.account'), edit_user_registration_path, class: 'nav-link'
+        %li.nav-item{ class: params[:controller] == 'users' ? 'active' : nil }= link_to t('layouts.nav.account'), edit_user_registration_path, class: 'nav-link'
         %li.nav-item= link_to t('layouts.nav.sign_out'), destroy_user_session_path, method: :delete, class: 'nav-link'
       - else
         %li.nav-item.dropdown

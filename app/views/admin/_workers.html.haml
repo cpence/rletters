@@ -1,0 +1,18 @@
+.card.mb-3
+  .card-body
+    %h3.card-title= t('.header')
+
+    %table.table.table-striped.table-sm
+      %thead
+        %tr
+          %th= Admin::WorkerStats.human_attribute_name(:worker_type)
+          %th= Admin::WorkerStats.human_attribute_name(:host)
+          %th= Admin::WorkerStats.human_attribute_name(:pid)
+          %th= Admin::WorkerStats.human_attribute_name(:started_at)
+      %tbody
+        - Admin::WorkerStats.all.each do |stat|
+          %tr
+            %td= stat.worker_type
+            %td= stat.host
+            %td= stat.pid
+            %td= t('.duration', started: stat.started_at, duration: time_ago_in_words(stat.started_at))

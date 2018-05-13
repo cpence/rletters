@@ -9,4 +9,4 @@
     %h1= t('.header')
     %h4.text-muted= t('.subheader')
 
-= render partial: "jobs/#{@klass.name.underscore}/params"
+= render partial: "jobs/#{@klass.name.underscore}/params", locals: { dataset: @dataset }

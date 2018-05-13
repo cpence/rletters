@@ -30,7 +30,7 @@
           %th.label-cell= t('.name_column')
           %th.button-cell
       %tbody
-        - if @num_workflow_datasets == 0
+        - if @num_workflow_datasets.zero?
           %tr
             %td.label-cell= t('.no_datasets')
             %td.button-cell
@@ -56,7 +56,7 @@
       - else
         = link_to t('.button_start'), dataset_tasks_path(current_user.workflow_dataset(0), button_params), method: :post, class: 'btn btn-success w-100'
 
--# FIXME this should probably have the fade class?
+-# FIXME: this should probably have the fade class?
 .modal#link-modal{ tabindex: '-1', role: 'dialog', aria: { hidden: 'true' } }
   .modal-dialog{ role: 'document' }
     .modal-content

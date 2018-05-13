@@ -3,25 +3,25 @@
 
 window.jQuery(document).on('change', 'select#job_params_ngram_method',
   function(event, data) {
-    toggleVisAndDisabled('#single_controls');
-    toggleVisAndDisabled('#ngram_controls');
+    toggleVisAndDisabled('#single-controls');
+    toggleVisAndDisabled('#ngram-controls');
 
     // If we've shown the single controls, then reset the sub-control
     // visibility, otherwise hide the sub-controls
-    if (window.jQuery('#single_controls').is(':visible')) {
+    if (window.jQuery('#single-controls').is(':visible')) {
       window.jQuery('#job_params_word_method').change();
       window.jQuery('#job_params_exclude_method').change();
     } else {
-      hideAndDisable('#num_words_controls');
-      hideAndDisable('#inclusion_list_controls');
+      hideAndDisable('#num-words-controls');
+      hideAndDisable('#inclusion-list-controls');
       window.jQuery('#job_params_exclude_method').change();
     }
   });
 
 window.jQuery(document).on('change', 'select#job_params_block_method',
   function(event, data) {
-    toggleVisAndDisabled('#count_controls');
-    toggleVisAndDisabled('#blocks_controls');
+    toggleVisAndDisabled('#count-controls');
+    toggleVisAndDisabled('#blocks-controls');
   });
 
 window.jQuery(document).on('change', 'select#job_params_word_method',
@@ -29,17 +29,17 @@ window.jQuery(document).on('change', 'select#job_params_word_method',
     var option = this.options[this.selectedIndex].value;
 
     if (option == 'count') {
-      showAndEnable('#num_words_controls');
-      hideAndDisable('#inclusion_list_controls');
-      showAndEnable('#exclusion_controls');
+      showAndEnable('#num-words-controls');
+      hideAndDisable('#inclusion-list-controls');
+      showAndEnable('#exclusion-controls');
     } else if (option == 'list') {
-      hideAndDisable('#num_words_controls');
-      showAndEnable('#inclusion_list_controls');
-      hideAndDisable('#exclusion_controls');
+      hideAndDisable('#num-words-controls');
+      showAndEnable('#inclusion-list-controls');
+      hideAndDisable('#exclusion-controls');
     } else {
-      hideAndDisable('#num_words_controls');
-      hideAndDisable('#inclusion_list_controls');
-      showAndEnable('#exclusion_controls');
+      hideAndDisable('#num-words-controls');
+      hideAndDisable('#inclusion-list-controls');
+      showAndEnable('#exclusion-controls');
     }
   });
 
@@ -48,21 +48,21 @@ window.jQuery(document).on('change', 'select#job_params_exclude_method',
     var option = this.options[this.selectedIndex].value;
 
     if (option == 'common') {
-      showAndEnable('#exclude_common_controls');
-      hideAndDisable('#exclude_list_controls');
-      hideAndDisable('#exclude_list_ngram_controls');
+      showAndEnable('#exclude-common-controls');
+      hideAndDisable('#exclude-list-controls');
+      hideAndDisable('#exclude-list-ngram-controls');
     } else if (option == 'list') {
-      hideAndDisable('#exclude_common_controls');
-      if (window.jQuery('#single_controls').is(':visible')) {
-        showAndEnable('#exclude_list_controls');
-        hideAndDisable('#exclude_list_ngram_controls');
+      hideAndDisable('#exclude-common-controls');
+      if (window.jQuery('#single-controls').is(':visible')) {
+        showAndEnable('#exclude-list-controls');
+        hideAndDisable('#exclude-list-ngram-controls');
       } else {
-        showAndEnable('#exclude_list_ngram_controls');
-        hideAndDisable('#exclude_list_controls');
+        showAndEnable('#exclude-list-ngram-controls');
+        hideAndDisable('#exclude-list-controls');
       }
     } else {
-      hideAndDisable('#exclude_common_controls');
-      hideAndDisable('#exclude_list_controls');
-      hideAndDisable('#exclude_list_ngram_controls');
+      hideAndDisable('#exclude-common-controls');
+      hideAndDisable('#exclude-list-controls');
+      hideAndDisable('#exclude-list-ngram-controls');
     }
   });

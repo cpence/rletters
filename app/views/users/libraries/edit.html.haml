@@ -5,4 +5,4 @@
       %h6.text-muted= t('.subheader')
       = close_icon(dismiss: 'modal')
 
-    = render partial: 'form', locals: { url: library_path(@library) }
+    = render partial: 'form', locals: { library: @library, url: library_path(@library) }

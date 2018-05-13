@@ -3,7 +3,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.5.0'
+ruby '2.5.1'
 
 # Rails
 gem 'rails', '~> 5.2.0'
@@ -83,7 +83,8 @@ end
 
 # Tools that we need for developers, but not for any deployment or testing
 group :tools do
-  gem 'brakeman'
-  gem 'bundle-audit'
-  gem 'rubocop'
+  gem 'brakeman', require: false
+  gem 'bundle-audit', require: false
+  gem 'haml_lint', require: false
+  gem 'rubocop', require: false
 end

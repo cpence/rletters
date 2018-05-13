@@ -1,18 +1,18 @@
 .row
-  #markdown-landing.col-8.offset-2= Admin::Snippet.render('landing')
+  .col-8.offset-2#markdown-landing= Admin::Snippet.render('landing')
 
 .row
-  #landing-login.col-4.offset-4
+  .col-4.offset-4#landing-login
     = link_to t('.sign_up_button'), new_user_registration_path, class: 'btn btn-primary btn-lg w-100'
 
 - if Admin::Asset.usable?('screenshot-one') && Admin::Asset.usable?('screenshot-two') && Admin::Asset.usable?('screenshot-three')
   .row
     .col-6.offset-3
-      #screenshot-carousel.carousel.slide{ data: { ride: 'carousel' } }
+      .carousel.slide#screenshot-carousel{ data: { ride: 'carousel' } }
         %ol.carousel-indicators
-          %li.active{ data: { target: '#screenshot-carousel', 'slide-to': '0' }}
-          %li{ data: { target: '#screenshot-carousel', 'slide-to': '1' }}
-          %li{ data: { target: '#screenshot-carousel', 'slide-to': '2' }}
+          %li.active{ data: { target: '#screenshot-carousel', 'slide-to': '0' } }
+          %li{ data: { target: '#screenshot-carousel', 'slide-to': '1' } }
+          %li{ data: { target: '#screenshot-carousel', 'slide-to': '2' } }
 
         .carousel-inner
           .carousel-item.active

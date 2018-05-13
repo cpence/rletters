@@ -329,8 +329,7 @@ en:
             advanced_search: Advanced search
             back_to_top: Back to top…
             more_hits: More Results
-        filters:
-            header: Filter search
+            filter_header: Filter search
     devise:
         passwords:
             edit:
@@ -603,12 +602,11 @@ en:
             subheader: >
                 The administration interface for %{app_name}. You can edit
                 a variety of site-specific settings.
-            new_datasets: Newest Datasets
-            new_tasks: Newest Tasks
-            recent_users: Recently Seen Users
-            workers: Job Workers
+        workers:
+            header: Job Workers
             duration: "%{started} (running for %{duration})"
-            backend: Backend Information
+        backend:
+            header: Backend Information
             database: Database
             db_size: "Database size: %{count} items"
             connection_failed: Cannot connect to Solr!  Configure the Solr URL in the .env file.
@@ -617,11 +615,18 @@ en:
             solr_version: "Solr version %{solr_ver}, Lucene version %{lucene_ver}"
             java_version: "Java version %{java_ver}"
             memory_info: "Memory: %{used} used, with %{free} free of %{total}; %{max} max"
-            environment: Environment Variables
+        tasks:
+            header: Newest Tasks
             status: Status
             status_failed: failed
             status_finished: finished
             status_working: working
+        datasets:
+            header: Newest Datasets
+        users:
+            header: Recently Seen Users
+        environment:
+            header: Environment Variables
             variable: Variable
             value: Value
             branding_vars: Personalization and branding

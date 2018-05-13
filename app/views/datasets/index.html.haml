@@ -8,4 +8,4 @@
     %h4.text-muted= t('.subheader')
 
 .row
-  #dataset-list.col-12{ data: { fetch: 'auto', fetch_url: datasets_path } }= render template: 'datasets/index_xhr', layout: false
+  .col-12#dataset-list{ data: { fetch: 'auto', fetch_url: datasets_path } }= render template: 'datasets/index_xhr', layout: false

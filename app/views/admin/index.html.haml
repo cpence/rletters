@@ -1,4 +1,3 @@
-
 .row.mb-3
   .col-12
     %h1= t('.header', app_name: ENV['APP_NAME'])
@@ -6,121 +5,14 @@
 
 .row.mb-3
   .col-12.col-lg-6
-    .card.mb-3
-      .card-body
-        %h3.card-title= t('.workers')
-
-        %table.table.table-striped.table-sm
-          %thead
-            %tr
-              %th= Admin::WorkerStats.human_attribute_name(:worker_type)
-              %th= Admin::WorkerStats.human_attribute_name(:host)
-              %th= Admin::WorkerStats.human_attribute_name(:pid)
-              %th= Admin::WorkerStats.human_attribute_name(:started_at)
-          %tbody
-            - Admin::WorkerStats.all.each do |stat|
-              %tr
-                %td= stat.worker_type
-                %td= stat.host
-                %td= stat.pid
-                %td= t('.duration', started: stat.started_at, duration: time_ago_in_words(stat.started_at))
-
-    .card
-      .card-body
-        %h3.card-title= t('.backend')
-
-      %ul.list-group.list-group-flush
-        %li.list-group-item
-          %h5= t('.database')
-
-        - if @corpus_size && @ping
-          %li.list-group-item= t('.db_size', count: @corpus_size)
-          %li.list-group-item= t('.latency', count: @ping)
-        - else
-          %li.list-group-item= t('.connection_failed')
-
-        - if @solr_info['lucene'] && @solr_info['jvm']
-          %li.list-group-item
-            %h5= t('.solr')
-
-          %li.list-group-item= t('.solr_version', solr_ver: @solr_info['lucene']['solr-spec-version'], lucene_ver: @solr_info['lucene']['lucene-spec-version'])
-          %li.list-group-item= t('.java_version', java_ver: @solr_info['jvm']['version'])
-          %li.list-group-item= t('.memory_info', used: @solr_info['jvm']['memory']['used'], free: @solr_info['jvm']['memory']['free'], total: @solr_info['jvm']['memory']['total'], max: @solr_info['jvm']['memory']['max'])
+    = render partial: 'workers'
+    = render partial: 'backend', locals: { corpus_size: @corpus_size, ping: @ping, solr_info: @solr_info }
 
   .col-12.col-lg-6
-    .card.mb-3
-      .card-body
-        %h3.card-title= t('.new_tasks')
-
-        %table.table.table-striped.table-sm
-          %thead
-            %tr
-              %th= Datasets::Task.human_attribute_name(:name)
-              %th= Datasets::Task.human_attribute_name(:job_type)
-              %th= Dataset.model_name.human
-              %th= t('.status')
-          %tbody
-            - Datasets::Task.order('created_at desc').limit(10).each do |task|
-              %tr
-                %td= task.name
-                %td= task.job_type
-                %td= task.dataset.name
-                %td
-                  - if task.failed
-                    = t('.status_failed')
-                  - elsif task.finished_at
-                    = t('.status_finished')
-                  - else
-                    = t('.status_working')
-
-    .card.mb-3
-      .card-body
-        %h3.card-title= t('.new_datasets')
-
-        %table.table.table-striped.table-sm
-          %thead
-            %tr
-              %th= Dataset.human_attribute_name(:name)
-              %th= User.model_name.human
-              %th= Dataset.human_attribute_name(:created_at)
-          %tbody
-            - Dataset.order('created_at desc').limit(5).each do |dataset|
-              %tr
-                %td= dataset.name
-                %td= dataset.user
-                %td= dataset.created_at
-
-    .card
-      .card-body
-        %h3.card-title= t('.recent_users')
-
-        %table.table.table-striped.table-sm
-          %thead
-            %tr
-              %th= User.human_attribute_name(:name)
-              %th= User.human_attribute_name(:last_sign_in_at)
-          %tbody
-            - User.order('last_sign_in_at desc').limit(5).each do |user|
-              %tr
-                %td= user.name
-                %td= user.last_sign_in_at
+    = render partial: 'tasks'
+    = render partial: 'datasets'
+    = render partial: 'users'
 
 .row
   .col-12
-    .card
-      .card-body
-        %h3.card-title= t('.environment')
-
-        %table.table.table-hover.table-sm
-          %thead
-            %tr
-              %th= t('.variable')
-              %th= t('.value')
-          %tbody
-            - @config_vars.each do |key, vars|
-              %tr.table-secondary
-                %td{ colspan: '2' }= t(key)
-              - vars.each do |var|
-                %tr
-                  %td= var
-                  %td= ENV[var]
+    = render partial: 'environment', locals: { vars: @config_vars }

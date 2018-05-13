@@ -1,8 +1,8 @@
 -# Unfinished (active/failed) tasks
-- if @dataset.tasks.not_finished.size > 0
-  - if @dataset.tasks.active.size > 0
+- unless @dataset.tasks.not_finished.empty?
+  - unless @dataset.tasks.active.empty?
     .alert.alert-warning{ role: 'alert' }= t('.pending', count: @dataset.tasks.active.size)
-  - if @dataset.tasks.failed.size > 0
+  - unless @dataset.tasks.failed.empty?
     .alert.alert-danger{ role: 'alert' }= link_to t('.failed', count: @dataset.tasks.failed.size), dataset_path(@dataset, clear_failed: true)
 
 -# Finished tasks: link to download results and to delete

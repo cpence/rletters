@@ -72,7 +72,7 @@ module RLetters
           total = documents.size.to_f
 
           self.blocks = documents.each_with_index.map do |d, i|
-            progress.call((i.to_f / total * 40.0).to_i + 40) if progress
+            progress&.call((i.to_f / total * 40.0).to_i + 40)
 
             d.term_vectors.each_with_object({}) do |(k, v), ret|
               next unless word_list.include?(k)
