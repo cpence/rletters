@@ -41,7 +41,7 @@ gem 'rsolr-ext'
 gem 'bibtex-ruby', require: 'bibtex'
 
 # Support for file attachments and exporting
-gem 'aws-sdk-s3'
+gem 'aws-sdk-s3', require: false
 gem 'marc'
 gem 'rdf', '>= 0.3.5'
 gem 'rdf-n3'

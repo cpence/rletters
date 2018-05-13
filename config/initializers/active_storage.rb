@@ -5,7 +5,7 @@ Rails.application.config.active_storage.service =
     :test
   elsif ENV['S3_ACCESS_KEY_ID'] && ENV['S3_SECRET_ACCESS_KEY'] &&
         ENV['S3_BUCKET']
-    :s3
+    :amazon
   else
     :local
   end
