@@ -3,8 +3,19 @@
 # Overwrite the secret key lines in .env to contain fresh secrets
 namespace :rletters do
   namespace :secrets do
-    desc 'Regenerate values for secret keys in .env'
-    task :regen do
+    desc 'Print environment variable values for secret keys'
+    task :print do
+      new_key_base = SecureRandom.hex(128)
+      new_devise_key = SecureRandom.hex(128)
+      env_file = Rails.root.join('.env')
+
+      puts 'Set the following environment variables:'
+      puts "SECRET_KEY_BASE=#{new_key_base}"
+      puts "DEVISE_SECRET_KEY=#{new_devise_key}"
+    end
+
+    desc 'Overwrite secret key values in .env with new keys'
+    task :env do
       new_key_base = SecureRandom.hex(128)
       new_devise_key = SecureRandom.hex(128)
       env_file = Rails.root.join('.env')
