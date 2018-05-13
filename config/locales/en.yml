@@ -886,8 +886,6 @@ en:
         truncate_all: Truncate every document to given size
         num_blocks_label: Number of blocks
         split_across: Split blocks across documents?
-    pdf:
-        font: Font
     word_cloud:
         font: Font
         color: Color

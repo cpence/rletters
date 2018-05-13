@@ -56,8 +56,7 @@ class ExistingDataTest < ApplicationSystemTestCase
       click_button 'Link dataset'
     end
 
-    click_link 'Set Job Options'
-    click_button 'Start analysis job'
+    click_link 'Start Analysis', class: 'btn'
 
     within('.navbar') { click_link 'Fetch' }
     assert_selector 'td', text: 'Integration Dataset'

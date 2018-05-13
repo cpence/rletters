@@ -35,7 +35,7 @@ class TermDatesJobTest < ActiveJob::TestCase
 
     # Data is reasonable
     assert_includes 2009..2012, data['data'][0][0]
-    assert_includes 0..10, data['data'][0][1]
+    assert_includes 0..30, data['data'][0][1]
 
     # Fills in intervening years between new and old documents with zeros
     refute_nil(data['data'].find { |y| y[1].zero? })

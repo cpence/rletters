@@ -58,23 +58,4 @@ class CraigZetaJobTest < ActiveJob::TestCase
     assert_kind_of Array, data['graph_points']
     assert_kind_of Array, data['zeta_scores']
   end
-
-  test 'should create word clouds' do
-    # Don't actually make word clouds; this is quite slow and we're testing
-    # it elsewhere
-    RLetters::Visualization::WordCloud.stubs(:call)
-                                      .returns('this is totally a PDF')
-
-    task = create(:task, dataset: create(:full_dataset, num_docs: 1))
-    dataset2 = create(:full_dataset, user: task.dataset.user, num_docs: 1)
-
-    CraigZetaJob.perform_now(task,
-                             'other_datasets' => [dataset2.to_param],
-                             'word_cloud' => '1')
-
-    assert_equal 4, task.reload.files.count
-    refute_nil task.file_for('application/json')
-    refute_nil task.file_for('text/csv')
-    refute_nil task.file_for('application/pdf')
-  end
 end

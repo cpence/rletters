@@ -5,7 +5,7 @@
 *   **Upgrade to bundling a more recent version of Solr (4.10.4).** This is a **significant and breaking change** for users, who *must* upgrade their Solr installations, as we are using some of the new features in later Solr versions to provide (in some cases dramatic) speed improvements. Reindexing content is not required, but is recommended when feasible.
 *   **Upgrade to use features in contemporary Ruby (2.3.0+).** This is a **significant change** for users, who *must* upgrade their deployed version of Ruby.
 *   Remove the Stanford NLP connection and replace it with pure-Ruby solutions. No more dependency on a functional NLP install and a JVM.
-*   User data handling is now entirely compliant with the European Union's GDPR.
+*   User data handling is now entirely compliant with the European Union's GDPR and cookie policies.
 *   Site configuration is now edited via a `.env` file in the root directory of the project, or can be controlled via environment variables.
 *   Features of the application can now be readily enabled and disabled using these environment variables.
 *   Add support for sending application e-mails using a variety of different mail services, including Mandrill, Sendgrid, Postmark, and Mailgun, in addition to Rails' default Sendmail and SMTP support, and configure all these methods in the `.env` file.
@@ -13,17 +13,15 @@
 *   The main search interface has been slightly redesigned to include support for infinite scrolling and be more functional on mobile/tablet screens.
 *   Datasets are now stored not as a list of entries, but as a list of the searches that were used to create them. This list of searches can be viewed on the dataset information page.
 *   Iterate through datasets, no matter the size, much faster, using the cursor support present in Solr >= 4.8. This is a dramatic speed improvement especially for those installations using distributed or sharded Solr servers.
-*   Add support for PDF word cloud generation to the word frequency and Craig Zeta analysis jobs.
+*   Add support for client-side, downloadable word cloud generation to the word frequency and Craig Zeta analysis jobs.
 *   Allow all analysis tasks to potentially generate multiple output files, enabling enhanced visualizations.
-*   Enable support for recent EU legislation, by including a cookie warning.
 *   Upgrade delayed job handling to use ActiveJob with DelayedJob using the database as backend, removing the need for a Redis server.
 *   Fixed the broken progress reporting in the Craig Zeta job.
-*   Fixed a bug in the Term Dates job such that terms appearing in remotely-stored documents would not be counted.
 *   Fix bugs in the Article and Term Dates jobs such that the data would sometimes come out unsorted, producing jumbled graphs.
 *   Fix a bug in the Word Frequency component that would cause it to fail if both n-gram-inclusion and n-gram-exclusion (or stop) lists were specified.
 *   Remove mapping component from named entity job. The amount of geocoding that was being requested from Google Maps would require significant charges under the Maps API billing system.
 *   Switch the web server component to Puma to avoid slow client attacks and take advantage of multithreading.
-*   Integration testing (smoke tests) ported back to RSpec feature tests, using capybara-webkit. Dramatically increased stability and maintainability.
+*   Integration testing (smoke tests) ported back to Rails system tests. Dramatically increased stability and maintainability.
 *   Update language support.
 
 

@@ -48,10 +48,6 @@ gem 'rdf-n3'
 gem 'rdf-vocab'
 gem 'rubyzip', '>= 1.1.0', require: 'zip'
 
-# Visualization
-gem 'prawn'
-gem 'rubysdl', '>= 2.1.3.1'
-
 # Asset tools and template generators
 gem 'haml'
 gem 'haml-rails'
@@ -80,8 +76,6 @@ group :test do
   gem 'chromedriver-helper'
 
   gem 'webmock', '>= 1.22.6', require: false
-
-  gem 'pdf-inspector', require: false
 
   gem 'rails-controller-testing'
   gem 'simplecov', require: false

@@ -58,20 +58,23 @@ module Datasets
       assert_response :success
     end
 
-    test 'should get new for two-dataset class' do
-      user = create(:user)
-      dataset = create(:full_dataset, user: user)
-      dataset2 = create(:full_dataset, user: user)
-      sign_in user
+    # At the moment, we have no two-dataset classes that have a params view,
+    # and thus this test can't actually test any real code.
+    #
+    # test 'should get new for two-dataset class' do
+    #   user = create(:user)
+    #   dataset = create(:full_dataset, user: user)
+    #   dataset2 = create(:full_dataset, user: user)
+    #   sign_in user
 
-      get new_dataset_task_url(dataset_id: dataset.to_param,
-                               class: 'CraigZetaJob',
-                               job_params: {
-                                 other_datasets: [dataset2.to_param]
-                               })
+    #   get new_dataset_task_url(dataset_id: dataset.to_param,
+    #                            class: 'CraigZetaJob',
+    #                            job_params: {
+    #                              other_datasets: [dataset2.to_param]
+    #                            })
 
-      assert_response :success
-    end
+    #   assert_response :success
+    # end
 
     test 'should not get new for two-dataset class with one missing' do
       user = create(:user)
