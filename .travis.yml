@@ -1,5 +1,5 @@
-sudo: required
 dist: trusty
+sudo: false
 
 language: ruby
 rvm: 2.5.1
@@ -15,15 +15,14 @@ env:
     - TMPDIR=$TRAVIS_BUILD_DIR/tmp
     - DISPLAY=":99.0"
     - RAILS_ENV=test
-    - DATABASE_URL="postgres:///rletters_test?username=postgres&pool=20&encoding=unicode"
+    - DATABASE_URL="postgres:///rletters_test?username=postgres"
     - CC_TEST_REPORTER_ID=8f6c00a1149fc25667a28154b0036edf3679b3dc82ac57fe3ad375a944cfe3c9
 
 addons:
   postgresql: 9.6
   chrome: stable
 before_install:
-  - sudo apt-get -qq update
-  - sudo apt-get install -y -qq libsdl1.2-dev libsdl-ttf2.0-dev
+  - gem install bundler
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter
 
