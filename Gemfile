@@ -81,8 +81,8 @@ group :test do
   gem 'simplecov', require: false
 end
 
-# Tools that we need for developers, but not for any deployment or testing
-group :tools do
+group :development do
+  # Tools that we need for developers, but not for any deployment or testing
   gem 'brakeman', require: false
   gem 'bundle-audit', require: false
   gem 'haml_lint', require: false
