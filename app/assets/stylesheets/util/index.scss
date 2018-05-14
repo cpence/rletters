@@ -1,7 +1,7 @@
 
-// Icon styling
-.cloud-tooltip {
-  margin-left: 0.3em;
+// Utility class to force-break long text in an element
+.break-all {
+  word-break: break-all;
 }
 
 // Styling for our various "manage" tables with a right-hand button
