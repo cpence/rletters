@@ -1,7 +1,7 @@
 .row
   .col-9.offset-1
-    %h1= t('.header', app_name: ENV['APP_NAME'])
-    %h4.text-muted= t('.subheader', app_name: ENV['APP_NAME'])
+    %h1= t('.header', app_name: ENV['APP_NAME'] || 'RLetters')
+    %h4.text-muted= t('.subheader', app_name: ENV['APP_NAME'] || 'RLetters')
 
 .row.dashboard
   .col-4.offset-1

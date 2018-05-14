@@ -15,29 +15,24 @@ module RLetters
     config.eager_load_paths << config.root.join('lib').to_s
     config.eager_load_paths << config.root.join('app', 'jobs', 'concerns').to_s
 
-    # Use Delayed Job in all cases; its configuration (see initializer) will
-    # run jobs immediately in testing.
-    config.active_job.queue_adapter = :delayed_job
-
     # Run errors through the routing system, showing error pages in all cases.
     config.exceptions_app = routes
     config.consider_all_requests_local = false
     config.action_dispatch.show_exceptions = true
 
-    # Use the lowest log level to ensure availability of diagnostic information
-    # when problems arise.
-    config.lograge.enabled = true
-    config.log_level = :debug
+    # Enable the public file server if requested
+    config.public_file_server.enabled =
+      (ENV['RAILS_SERVE_STATIC_FILES'] || 'true').to_bool
 
-    if Rails.env.test?
-      # In testing, save logs
-      config.paths['log'] = Rails.root.join('tmp', 'test.log')
-    else
-      # Send all logs to stdout
-      log_level = ENV['VERBOSE_LOGS'] == 'true' ? 'DEBUG' : 'WARN'
+    # Log at :info with lograge, to try to make logs readable
+    config.lograge.enabled = true
+    config.log_level = :info
+
+    if (ENV['RAILS_LOG_TO_STDOUT'] || 'true').to_bool
       config.logger = Logger.new(STDOUT)
-      config.logger.level = Logger.const_get(log_level)
-      config.log_level = log_level
+      config.logger.level = Logger::INFO
+    else
+      config.paths['log'] = Rails.root.join('tmp', 'rletters.log')
     end
   end
 end

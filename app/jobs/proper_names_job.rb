@@ -10,7 +10,7 @@ class ProperNamesJob < ApplicationJob
   #
   # @return [Boolean] true if this job is not disabled
   def self.available?
-    ENV['PROPER_NAMES_JOB_DISABLED'].nil?
+    !(ENV['PROPER_NAMES_JOB_DISABLED'] || 'false').to_bool
   end
 
   # Export the proper name data

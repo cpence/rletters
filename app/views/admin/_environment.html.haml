@@ -6,12 +6,14 @@
       %thead
         %tr
           %th= t('.variable')
+          %th= t('.default')
           %th= t('.value')
       %tbody
-        - vars.each do |key, vars|
+        - vars.each do |key, h|
           %tr.table-secondary
-            %td{ colspan: '2' }= t(key)
-          - vars.each do |var|
+            %td{ colspan: '3' }= t(key)
+          - h.each do |var, default|
             %tr
-              %td= var
-              %td= ENV[var]
+              %td= var.to_s
+              %td= default
+              %td= ENV[var.to_s]

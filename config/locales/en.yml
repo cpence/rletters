@@ -594,6 +594,7 @@ en:
         screenshot-three: Third Screenshot
     admin:
         login_error: You must provide the administrator password to continue.
+        login_unset: You must set the administrator password before logging in.
         nav:
             content: Site Content
             branding: Branding
@@ -628,6 +629,7 @@ en:
         environment:
             header: Environment Variables
             variable: Variable
+            default: Default
             value: Value
             branding_vars: Personalization and branding
             server_vars: Server settings

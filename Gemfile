@@ -5,13 +5,12 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.5.1'
 
-# Rails
-gem 'rails', '~> 5.2.0'
-
-# Twelve factor app glue
+# Rails and basics
 gem 'dotenv-rails'
 gem 'lograge'
 gem 'puma', '~> 3.11'
+gem 'rails', '~> 5.2.0'
+gem 'to_bool'
 
 # Database and related tools
 gem 'ancestry', '~> 3', '>= 3.0.2'

@@ -3,7 +3,7 @@
   %meta{ http_equiv: 'X-UA-Compatible', content: 'IE=edge' }/
   %meta{ name: 'viewport', content: 'width=device-width, initial-scale=1' }/
 
-  %title= ENV['APP_NAME']
+  %title= ENV['APP_NAME'] || 'RLetters'
 
   = csrf_meta_tags
   = csp_meta_tag

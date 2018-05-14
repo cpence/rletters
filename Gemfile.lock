@@ -336,6 +336,7 @@ GEM
     thor (0.20.0)
     thread_safe (0.3.6)
     tilt (2.0.8)
+    to_bool (1.0.1)
     twitter_cldr (4.4.3)
       camertron-eprun
       cldr-plurals-runtime-rb (~> 1.0)
@@ -415,6 +416,7 @@ DEPENDENCIES
   rubyzip (>= 1.1.0)
   sass-rails (~> 5.0)
   simplecov
+  to_bool
   twitter_cldr
   uglifier (>= 1.3.0)
   virtus

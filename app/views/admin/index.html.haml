@@ -1,7 +1,7 @@
 .row.mb-3
   .col-12
-    %h1= t('.header', app_name: ENV['APP_NAME'])
-    %h4.text-muted= t('.subheader', app_name: ENV['APP_NAME'])
+    %h1= t('.header', app_name: ENV['APP_NAME'] || 'RLetters')
+    %h4.text-muted= t('.subheader', app_name: ENV['APP_NAME'] || 'RLetters')
 
 .row.mb-3
   .col-12.col-lg-6

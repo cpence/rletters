@@ -12,7 +12,7 @@ class CollocationJob < ApplicationJob
   #
   # @return [Boolean] true if this job is not disabled
   def self.available?
-    ENV['COLLOCATION_JOB_DISABLED'].nil?
+    !(ENV['COLLOCATION_JOB_DISABLED'] || 'false').to_bool
   end
 
   # Locate significant associations between words.

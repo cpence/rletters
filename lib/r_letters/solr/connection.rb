@@ -120,8 +120,8 @@ module RLetters
       private_class_method def self.connect
         RSolr::Ext.connect(
           url: ENV['SOLR_URL'],
-          read_timeout: Integer(ENV['SOLR_TIMEOUT']),
-          open_timeout: Integer(ENV['SOLR_TIMEOUT'])
+          read_timeout: Integer(ENV['SOLR_TIMEOUT'] || '120'),
+          open_timeout: Integer(ENV['SOLR_TIMEOUT'] || '120')
         )
       end
 

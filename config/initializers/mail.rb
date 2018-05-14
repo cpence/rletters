@@ -35,7 +35,7 @@ else
     user_name: ENV['SMTP_USERNAME'] || nil,
     password: ENV['SMTP_PASSWORD'] || nil,
     authentication: ENV['SMTP_AUTHENTICATION']&.to_sym || nil,
-    enable_starttls_auto: (ENV['SMTP_ENABLE_STARTTLS_AUTO'] || nil) == 'true',
+    enable_starttls_auto: (ENV['SMTP_ENABLE_STARTTLS_AUTO'] || nil).to_bool,
     openssl_verify_mode: ENV['SMTP_OPENSSL_VERIFY_MODE'] || nil
   }.compact)
 
@@ -63,9 +63,9 @@ end
 
 # Set mailer defaults
 Rails.application.config.action_mailer.default_url_options =
-  { host: ENV['MAIL_DOMAIN'] }
+  { host: ENV['MAIL_DOMAIN'] || 'example.com' }
 ActionMailer::Base.default_url_options =
-  { host: ENV['MAIL_DOMAIN'] }
+  { host: ENV['MAIL_DOMAIN'] || 'example.com' }
 
 # Configure Inky, our mail template engine
 Inky.configure do |config|

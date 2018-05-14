@@ -10,7 +10,7 @@ class CooccurrenceJob < ApplicationJob
   #
   # @return [Boolean] true if this job is not disabled
   def self.available?
-    ENV['COOCCURRENCE_JOB_DISABLED'].nil?
+    !(ENV['COOCCURRENCE_JOB_DISABLED'] || 'false').to_bool
   end
 
   # Locate significant associations between words at distance.

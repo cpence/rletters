@@ -7,7 +7,6 @@ namespace :rletters do
     task :print do
       new_key_base = SecureRandom.hex(128)
       new_devise_key = SecureRandom.hex(128)
-      env_file = Rails.root.join('.env')
 
       puts 'Set the following environment variables:'
       puts "SECRET_KEY_BASE=#{new_key_base}"

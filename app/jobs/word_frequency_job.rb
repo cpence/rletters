@@ -12,7 +12,7 @@ class WordFrequencyJob < ApplicationJob
   #
   # @return [Boolean] true if this job is not disabled
   def self.available?
-    ENV['WORD_FREQUENCY_JOB_DISABLED'].nil?
+    !(ENV['WORD_FREQUENCY_JOB_DISABLED'] || 'false').to_bool
   end
 
   # Export the word frequency data.

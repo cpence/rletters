@@ -10,7 +10,7 @@ class CraigZetaJob < ApplicationJob
   #
   # @return [Boolean] true if this job is not disabled
   def self.available?
-    ENV['CRAIG_ZETA_JOB_DISABLED'].nil?
+    !(ENV['CRAIG_ZETA_JOB_DISABLED'] || 'false').to_bool
   end
 
   # Return how many datasets this job requires

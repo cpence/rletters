@@ -12,10 +12,6 @@ Rails.application.configure do
   # Rake tasks automatically ignore this option for performance.
   config.eager_load = true
 
-  # Disable serving static files from the `/public` folder by default since
-  # Apache or nginx already handles this.
-  config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present?
-
   # Enable caching.
   config.action_controller.perform_caching = true
 
@@ -38,7 +34,7 @@ Rails.application.configure do
   config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for nginx
 
   # Force SSL if requested
-  config.force_ssl = true if ENV['HTTPS_ONLY']
+  config.force_ssl = (ENV['HTTPS_ONLY'] || 'false').to_bool
   config.ssl_options = {
     hsts: {
       subdomains: true

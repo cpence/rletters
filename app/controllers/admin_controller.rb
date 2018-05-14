@@ -3,28 +3,68 @@
 require 'digest'
 
 # The environment variables that should be shown on the administration
-# dashboard
+# dashboard, with their default values
 ENVIRONMENT_VARIABLES_TO_PRINT = {
-  '.branding_vars':
-    %w[APP_NAME APP_EMAIL],
-  '.server_vars':
-    %w[HTTPS_ONLY VERBOSE_LOGS BLOCKING_JOBS DATABASE_URL SOLR_URL
-       SOLR_TIMEOUT FILE_PATH S3_ACCESS_KEY_ID S3_BUCKET S3_REGION],
-  '.mail_vars':
-    %w[MAIL_DOMAIN MAIL_DELIVERY_METHOD MAILGUN_API_KEY MANDRILL_API_KEY
-       POSTMARK_API_KEY SENDGRID_API_USER SENDGRID_API_KEY SENDMAIL_LOCATION
-       SENDMAIL_ARGUMENTS SMTP_ADDRESS SMTP_PORT SMTP_DOMAIN SMTP_USERNAME
-       SMTP_AUTHENTICATION SMTP_ENABLE_STARTTLS_AUTO SMTP_OPENSSL_VERIFY_MODE
-       MAILER_PREVIEWS],
-  '.feature_flags':
-    %w[MAINTENANCE_MESSAGE ARTICLE_DATES_JOB_DISABLED COLLOCATION_JOB_DISABLED
-       COOCCURRENCE_JOB_DISABLED CRAIG_ZETA_JOB_DISABLED
-       EXPORT_CITATIONS_JOB_DISABLED NAMED_ENTITIES_JOB_DISABLED
-       NETWORK_JOB_DISABLED TERM_DATES_JOB_DISABLED
-       WORD_FREQUENCY_JOB_DISABLED],
-  '.ruby_vars':
-    %w[RBENV_VERSION RUBYOPT RUBYLIB GEM_PATH GEM_HOME BUNDLE_BIN_PATH
-       BUNDLE_GEMFILE RACK_ENV RAILS_ENV]
+  '.branding_vars': {
+    APP_NAME: 'RLetters',
+    APP_EMAIL: 'noreply@example.com'
+  },
+  '.server_vars': {
+    WEB_CONCURRENCY: '2',
+    RAILS_MAX_THREADS: '5',
+    HTTPS_ONLY: 'false',
+    RAILS_SERVE_STATIC_FILES: 'true',
+    RAILS_LOG_TO_STDOUT: 'true',
+    BLOCKING_JOBS: 'false',
+    DATABASE_URL: '<unset>',
+    SOLR_URL: '<unset>',
+    SOLR_TIMEOUT: '120',
+    FILE_PATH: '<unset>',
+    S3_ACCESS_KEY_ID: '<unset>',
+    S3_BUCKET: '<unset>',
+    S3_REGION: '<unset>'
+  },
+  '.mail_vars': {
+    MAIL_DOMAIN: 'example.com',
+    MAIL_DELIVERY_METHOD: 'sendmail',
+    MAILGUN_API_KEY: '<unset>',
+    MANDRILL_API_KEY: '<unset>',
+    POSTMARK_API_KEY: '<unset>',
+    SENDGRID_API_USER: '<unset>',
+    SENDGRID_API_KEY: '<unset>',
+    SENDMAIL_LOCATION: '/usr/sbin/sendmail',
+    SENDMAIL_ARGUMENTS: '-i -t',
+    SMTP_ADDRESS: 'localhost',
+    SMTP_PORT: '25',
+    SMTP_DOMAIN: '<unset>',
+    SMTP_USERNAME: '<unset>',
+    SMTP_AUTHENTICATION: '<unset>',
+    SMTP_ENABLE_STARTTLS_AUTO: '<unset>',
+    SMTP_OPENSSL_VERIFY_MODE: '<unset>'
+  },
+  '.feature_flags': {
+    MAINTENANCE_MESSAGE: '<unset>',
+    ARTICLE_DATES_JOB_DISABLED: 'false',
+    COLLOCATION_JOB_DISABLED: 'false',
+    COOCCURRENCE_JOB_DISABLED: 'false',
+    CRAIG_ZETA_JOB_DISABLED: 'false',
+    EXPORT_CITATIONS_JOB_DISABLED: 'false',
+    NAMED_ENTITIES_JOB_DISABLED: 'false',
+    NETWORK_JOB_DISABLED: 'false',
+    TERM_DATES_JOB_DISABLED: 'false',
+    WORD_FREQUENCY_JOB_DISABLED: 'false'
+  },
+  '.ruby_vars': {
+    RBENV_VERSION: '',
+    RUBYOPT: '',
+    RUBYLIB: '',
+    GEM_PATH: '',
+    GEM_HOME: '',
+    BUNDLE_BIN_PATH: '',
+    BUNDLE_GEMFILE: '',
+    RACK_ENV: '',
+    RAILS_ENV: ''
+  }
 }.freeze
 
 # The administrative backend for RLetters
@@ -51,6 +91,11 @@ class AdminController < ApplicationController
   # @return [void]
   def login
     return unless params[:password]
+
+    if ENV['ADMIN_PASSWORD'].blank?
+      flash[:alert] = I18n.t('admin.login_unset')
+      return
+    end
 
     password_digest = Digest::SHA256.hexdigest(params[:password])
     admin_pw_digest = Digest::SHA256.hexdigest(ENV['ADMIN_PASSWORD'])

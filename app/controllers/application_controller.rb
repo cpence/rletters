@@ -79,11 +79,17 @@ class ApplicationController < ActionController::Base
   #
   # @return [void]
   def authenticate_admin!
-    admin_pw_digest = Digest::SHA256.hexdigest(ENV['ADMIN_PASSWORD'])
-    return if session[:admin_password] == admin_pw_digest
+    if ENV['ADMIN_PASSWORD'].present?
+      admin_pw_digest = Digest::SHA256.hexdigest(ENV['ADMIN_PASSWORD'])
+      return if session[:admin_password] == admin_pw_digest
+
+      alert = I18n.t('admin.login_error')
+    else
+      alert = I18n.t('admin.login_unset')
+    end
 
     session.delete(:admin_password)
-    redirect_to admin_login_path, alert: I18n.t('admin.login_error')
+    redirect_to admin_login_path, alert: alert
   end
 
   # Set cache control headers
