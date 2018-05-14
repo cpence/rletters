@@ -17,7 +17,7 @@
 Rails.application.config.content_security_policy do |policy|
   policy.default_src :self, :https
   policy.font_src    :none
-  policy.img_src     :self, :data, 'https://ssl.gstatic.com'
+  policy.img_src     :self, :data, 'https://ssl.gstatic.com', 'https://s3.amazonaws.com', 'http://s3.amazonaws.com'
   policy.object_src  :none
   policy.script_src  :self, :unsafe_eval, 'https://www.google.com', 'https://www.gstatic.com'
   policy.style_src   :self, :unsafe_inline, 'https://www.gstatic.com'
