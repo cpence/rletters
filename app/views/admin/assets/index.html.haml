@@ -16,7 +16,7 @@
             %td= a.friendly_name
             %td
               - if a.file.attached?
-                %img.w-100{ src: url_for(a.file) }
+                %img.mw-100{ src: url_for(a.file) }
               - else
                 = t('.not_attached')
             %td.text-center
