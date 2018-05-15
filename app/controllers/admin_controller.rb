@@ -16,6 +16,7 @@ ENVIRONMENT_VARIABLES_TO_PRINT = {
     RAILS_SERVE_STATIC_FILES: 'true',
     RAILS_LOG_TO_STDOUT: 'true',
     BLOCKING_JOBS: 'false',
+    JOB_TIMEOUT: '12 <hours>',
     DATABASE_URL: '<unset>',
     SOLR_URL: '<unset>',
     SOLR_TIMEOUT: '120',
