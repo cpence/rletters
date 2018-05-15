@@ -44,7 +44,7 @@ class WorkerRakeTest < ActiveSupport::TestCase
 
   teardown do
     Delayed::Worker.delay_jobs = false
-    Delayed::Worker.max_run_time = 1.day
+    Delayed::Worker.max_run_time = 12.hours
   end
 
   test 'should destroy failing jobs' do
