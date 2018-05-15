@@ -31,6 +31,7 @@ install:
   - git clone --depth=1 https://github.com/rletters/solr-example.git vendor/solr
   - bundle install --without production development tools --jobs 3 --retry 3
   - yarn
+  - ln -s .env.example .env
 
 before_script:
   - sh -e /etc/init.d/xvfb start
