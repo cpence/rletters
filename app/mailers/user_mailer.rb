@@ -14,7 +14,10 @@ class UserMailer < ApplicationMailer
     # Only way to get locals into the mail templates is to set instance vars
     @task = task
 
-    mail(from: ENV['APP_EMAIL'] || 'noreply@example.com', to: email,
-         subject: I18n.t('user_mailer.job_finished.subject'))
+    make_bootstrap_mail(
+      from: ENV['APP_EMAIL'] || 'noreply@example.com',
+      to: email,
+      subject: I18n.t('user_mailer.job_finished.subject')
+    )
   end
 end

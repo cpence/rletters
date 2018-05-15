@@ -66,8 +66,3 @@ Rails.application.config.action_mailer.default_url_options =
   { host: ENV['MAIL_DOMAIN'] || 'example.com' }
 ActionMailer::Base.default_url_options =
   { host: ENV['MAIL_DOMAIN'] || 'example.com' }
-
-# Configure Inky, our mail template engine
-Inky.configure do |config|
-  config.template_engine = :haml
-end

@@ -1,0 +1,7 @@
+%preview= t('user_mailer.job_finished.preview')
+
+%h5.mb-3= t('user_mailer.job_finished.header')
+%p= t('user_mailer.job_finished.intro', task: @task.name, dataset: @task.dataset.name)
+= link_to t('user_mailer.job_finished.link'), workflow_fetch_url, class: 'btn btn-primary btn-lg mx-auto mt-4 mb-4'
+
+.alert.alert-warning= t('user_mailer.job_finished.warning')

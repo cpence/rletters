@@ -53,13 +53,11 @@ gem 'haml-rails'
 gem 'kramdown'
 gem 'nokogiri'
 gem 'sass-rails', '~> 5.0'
-
-gem 'mini_racer'
 gem 'uglifier', '>= 1.3.0'
 
-gem 'inky-rb', require: 'inky'
+# Mail
+gem 'bootstrap-email', github: 'stuyam/bootstrap-email'
 gem 'multi_mail'
-gem 'premailer-rails'
 
 # Testing
 group :test, :development do

@@ -1,0 +1,25 @@
+!!! Strict
+%html
+  %head
+    %meta{ http_equiv: 'Content-Type', content: 'text/html; charset=utf-8' }/
+    = stylesheet_link_tag 'application-mailer', media: 'all'
+
+  %body.bg-light
+    .container
+      - if Admin::Asset.usable?('apple-touch-icon-high')
+        %img.mx-auto.mt-4.mb-3{ src: url_for(Admin::Asset.find_by(name: 'apple-touch-icon-high').file) }
+
+      .card.mb-4
+        .card-body
+          %h4.text-center= ENV['APP_NAME'] || 'RLetters'
+
+          %hr
+
+          = yield
+
+      .text-center.text-muted.mb-2
+        = link_to t('mailer.visit', app_name: ENV['APP_NAME'] || 'RLetters'), root_url
+        ·
+        = link_to t('mailer.contact'), "mailto:#{ENV['APP_EMAIL'] || 'noreply@example.com'}"
+      .text-center.text-muted.mb-4
+        %small= t('mailer.one_time')

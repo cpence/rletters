@@ -1,3 +1,3 @@
-//= link foundation_emails.css
-//= link_directory ../javascripts .js
-//= link_directory ../stylesheets .css
+//= link application.css
+//= link application-mailer.scss
+//= link application.js

@@ -359,15 +359,16 @@ en:
         mailer:
             reset:
                 subject: Reset your password
+                preview: Follow these instructions to access your account.
                 intro: "Hello %{name}!"
                 instructions: >
                     Someone (hopefully you!) has requested to change your
                     password, and you can do this by clicking the button below.
                 link: "Reset your password"
-                ignore: "If you didn’t request this, please ignore this email."
-                no_change: "Your password won’t change until you access the link above and create a new one."
+                ignore: "If you didn’t request this, please ignore this email. Your password won’t change until you access the link above and create a new one."
             password_change:
                 subject: Your password was changed
+                preview: Check this message to confirm your account security.
                 intro: "Hello %{name}!"
                 notice: >
                     We’re contacting you to notify you that your password has
@@ -402,7 +403,8 @@ en:
                 success: Library was successfully updated.
     user_mailer:
         job_finished:
-            subject: "Analysis job complete"
+            subject: Analysis job complete
+            preview: Collect the results of your analysis!
             header: Analysis job complete!
             intro: "Your task “%{task},” analyzing dataset “%{dataset},” has finished."
             link: "See the results!"
