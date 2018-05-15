@@ -34,8 +34,8 @@ install:
 
 before_script:
   - sh -e /etc/init.d/xvfb start
-  - ln -s .env.example .env
   - pushd vendor/solr && bin/solr start && popd
+  - bin/rails db:create db:schema:load
   - ./cc-test-reporter before-build
 
 script:
