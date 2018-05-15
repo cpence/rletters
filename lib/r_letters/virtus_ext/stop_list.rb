@@ -2,8 +2,7 @@
 
 module RLetters
   module VirtusExt
-    # A class to coerce strings to stop lists, and then on to arrays of
-    # strings
+    # A class to coerce strings to stop lists
     class StopList < Virtus::Attribute
       # Coerce the list into an array if it's a string
       #
@@ -11,10 +10,12 @@ module RLetters
       # @return [Array] representation as an array
       def coerce(value)
         return nil if value.blank?
-        return value.list.split if value.is_a?(::Documents::StopList)
+        return value if value.is_a?(Array)
         if value.is_a?(String)
-          dsl = ::Documents::StopList.find_by(language: value)
-          return dsl.list.split if dsl
+          list = RLetters::Analysis::StopList.for(value.to_sym)
+          return list if list.present?
+
+          # Treat the string as a space-separated list
           return value.mb_chars.downcase.to_s.strip.split
         end
         raise ArgumentError, "cannot create stop list from #{value.class}"

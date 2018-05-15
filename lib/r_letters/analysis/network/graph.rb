@@ -65,8 +65,7 @@ module RLetters
           # Extract the stop list if provided
           self.stop_words = []
           if language
-            stop_list = ::Documents::StopList.find_by!(language: language)
-            self.stop_words = stop_list.list.split
+            self.stop_words = RLetters::Analysis::StopList.for(language)
           end
 
           # Clear final attributes

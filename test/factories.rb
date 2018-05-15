@@ -25,7 +25,7 @@ FactoryBot.define do
   end
 
   factory :snippet, class: Admin::Snippet do
-    name 'test_page'
+    name 'test'
     language :en
     content '# Header'
   end
@@ -52,11 +52,6 @@ FactoryBot.define do
     host 'localhost'
     pid 1
     started_at '2018-04-20 10:28:33'
-  end
-
-  factory :stop_list, class: Documents::StopList do
-    language 'en'
-    list 'a an the'
   end
 
   factory :user do

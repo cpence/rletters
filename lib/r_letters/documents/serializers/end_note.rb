@@ -5,7 +5,7 @@ module RLetters
     module Serializers
       # Convert a document to an EndNote record
       class EndNote < Base
-        define_array(:endnote, 'EndNote',
+        define_array('EndNote',
                      'http://auditorymodels.org/jba/bibs/NetBib/Tools/bp-0.2.97/doc/endnote.html') do |doc|
           ret = +"%0 Journal Article\n"
           doc.authors.each do |a|

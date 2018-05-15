@@ -10,7 +10,21 @@ module RLetters
     module Serializers
       # Code common to all serializers
       class Base
-        cattr_accessor :serializers
+        # The list of all available serializers
+        #
+        # @return [Hash<Symbol, String>] a hash mapping format keys to string
+        #   class names
+        SERIALIZER_LIST = {
+          bibtex: 'RLetters::Documents::Serializers::BibTex',
+          endnote: 'RLetters::Documents::Serializers::EndNote',
+          json: 'RLetters::Documents::Serializers::MARCJSON',
+          marc: 'RLetters::Documents::Serializers::MARC21',
+          marcxml: 'RLetters::Documents::Serializers::MARCXML',
+          mods: 'RLetters::Documents::Serializers::MODS',
+          n3: 'RLetters::Documents::Serializers::RDFN3',
+          rdf: 'RLetters::Documents::Serializers::RDFXML',
+          ris: 'RLetters::Documents::Serializers::RIS'
+        }.freeze
 
         # Find the serializer for serializing to the given format
         #
@@ -18,24 +32,22 @@ module RLetters
         # @return [Class] an appropriate serializer class
         def self.for(format)
           key = format.to_sym
-          Base.serializers.fetch(key)
+          SERIALIZER_LIST.fetch(key).safe_constantize
         end
 
         # Return the list of available serializer MIME types
         #
         # @return [Array[Symbol]] the list of MIME types
         def self.available
-          Base.serializers.keys
+          SERIALIZER_LIST.keys
         end
 
         # Create a serializer that can serialize only individual documents
         #
-        # @param [Symbol] key A symbol key for this serializer
         # @param [String] format The name of the serializer
         # @param [String] url A URL for information about this format
         # @return [void]
-        def self.define_single(key, format, url, &block)
-          register(key, self)
+        def self.define_single(format, url, &block)
           define_common_methods(format, url)
 
           define_method :serialize do
@@ -45,12 +57,10 @@ module RLetters
 
         # Create a serializer that can serialize documents or arrays
         #
-        # @param [Symbol] key A symbol key for this serializer
         # @param [String] format The name of the serializer
         # @param [String] url A URL for information about this format
         # @return [void]
-        def self.define_array(key, format, url, &block)
-          register(key, self)
+        def self.define_array(format, url, &block)
           define_common_methods(format, url)
 
           define_method :serialize do
@@ -67,16 +77,6 @@ module RLetters
           define_method :do_serialize do |doc|
             instance_exec doc, &block
           end
-        end
-
-        # Register a serializer into the internal list
-        #
-        # @param [Symbol] key A symbol key for this serializer
-        # @param [Class] klass The class to serialize with
-        # @return [void]
-        def self.register(key, klass)
-          Base.serializers ||= {}
-          Base.serializers[key] = klass
         end
 
         # Define the common `.format` and `.url` class methods, as well as

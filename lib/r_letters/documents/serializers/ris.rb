@@ -5,7 +5,7 @@ module RLetters
     module Serializers
       # Convert a document to a RIS record
       class RIS < Base
-        define_array(:ris, 'RefMan/RIS',
+        define_array('RefMan/RIS',
                      'http://www.refman.com/support/risformat_intro.asp') do |doc|
           ret = +"TY  - JOUR\n"
           doc.authors.each do |a|

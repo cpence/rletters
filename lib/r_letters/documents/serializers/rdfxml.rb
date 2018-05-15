@@ -8,7 +8,7 @@ module RLetters
     module Serializers
       # Convert a document to an RDF/XML record
       class RDFXML < RDF
-        define_single(:rdf, 'RDF/XML',
+        define_single('RDF/XML',
                       'http://www.w3.org/TR/rdf-syntax-grammar/') do |docs|
           doc = Nokogiri::XML::Document.new
           rdf = Nokogiri::XML::Node.new('rdf', doc)

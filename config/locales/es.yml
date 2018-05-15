@@ -52,9 +52,6 @@ es:
       documents/category:
         one: Categoría
         other: Categorías
-      documents/stop_list:
-        one: Lista de palabras no significativas
-        other: Listas de palabras no significativas
       user:
         one: Usuario
         other: Usuarios
@@ -81,9 +78,6 @@ es:
       documents/category:
         name: Nombre
         journals: Lista de revistas
-      documents/stop_list:
-        language: Idioma
-        list: Lista de palabras no significativas
       user:
         email: Correo-e
         name: Nombre
@@ -120,11 +114,6 @@ es:
         documents/category:
           name:
             blank: Debe poner un nombre a esta categoría
-        documents/stop_list:
-          language:
-            blank: No se especificó el idioma (error interno)
-          list:
-            blank: No se especificó la lista de palabras no significativas (error interno)
         user:
           name:
             blank: Debe poner un nombre
@@ -613,5 +602,3 @@ es:
     asset:
       file_details: "%{size} bytes"
       asset_header: "Recurso: %{name}"
-    stop_list:
-      header: "Lista de palabras no significativas: %{language}"

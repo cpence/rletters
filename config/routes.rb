@@ -73,7 +73,6 @@ Rails.application.routes.draw do
     resources :categories, module: 'admin' do
       collection { post 'order' }
     end
-    resources :stop_lists, module: 'admin', except: [:show]
     resources :snippets, module: 'admin', except: [:show]
 
     get 'assets' => 'admin/assets#index', as: :assets

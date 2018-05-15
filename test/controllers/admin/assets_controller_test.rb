@@ -18,7 +18,7 @@ module Admin
     end
 
     test 'should post upload' do
-      asset = Admin::Asset.first
+      asset = create(:asset)
 
       post admin_login_url(password: ENV['ADMIN_PASSWORD'])
       post upload_asset_url(asset),
@@ -29,8 +29,10 @@ module Admin
     end
 
     test 'should not post upload without file' do
+      asset = create(:asset)
+
       post admin_login_url(password: ENV['ADMIN_PASSWORD'])
-      post upload_asset_url(id: Admin::Asset.first.to_param)
+      post upload_asset_url(id: asset.to_param)
 
       assert_response 400
     end
@@ -44,7 +46,9 @@ module Admin
     end
 
     test 'should not be able to post upload if not logged in' do
-      post upload_asset_url(id: Admin::Asset.first.to_param),
+      asset = create(:asset)
+
+      post upload_asset_url(id: asset.to_param),
            params: { file: fixture_file_upload(Rails.root.join('test', 'factories', '1x1.png')) }
 
       assert_redirected_to admin_login_url

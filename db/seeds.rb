@@ -36,13 +36,6 @@ Dir.glob(Rails.root.join('db', 'seeds', 'assets', '*')) do |img|
   puts "Seeded asset:#{name}"
 end
 
-# Stop lists
-Dir.glob(Rails.root.join('db', 'seeds', 'stoplists', '*.txt')) do |txt|
-  language = File.basename(txt, '.txt')
-  Documents::StopList.where(language: language).first_or_create!(list: IO.read(txt))
-  puts "Seeded stop_list:#{language}"
-end
-
 # Warn the user about the administrator password
 puts '----------'
 puts 'Make sure to edit the .env file and change your administrator password!'

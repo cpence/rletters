@@ -193,10 +193,9 @@ module RLetters
         end
 
         test 'stop_list works' do
-          list = create(:stop_list)
           analyzer = RLetters::Analysis::Frequency::FromTF.call(dataset: create(:full_dataset,
                                                                                 num_docs: 10),
-                                                                stop_list: list)
+                                                                stop_list: %w[a an the])
 
           refute_includes analyzer.blocks[0].keys, 'a'
           refute_includes analyzer.blocks[0].keys, 'the'

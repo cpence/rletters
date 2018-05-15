@@ -8,7 +8,7 @@ module RLetters
     module Serializers
       # Convert a document to an RDF/N3 record
       class RDFN3 < RDF
-        define_single(:n3, 'RDF/N3',
+        define_single('RDF/N3',
                       'http://www.w3.org/DesignIssues/Notation3.html') do |doc|
           # Not covered by specs, as we're testing the RDF base class
           # generation in the RDF/XML format instead.

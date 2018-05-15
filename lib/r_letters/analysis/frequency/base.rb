@@ -94,7 +94,7 @@ module RLetters
       #     If an ngram contains _any of the words_ in this list, then it will
       #     not be analyzed.
       # @!attribute stop_list
-      #   @return [Documents::StopList] if specified, then the analyzer will
+      #   @return [Array<String>] if specified, then the analyzer will
       #     *not* compute frequency information for the words that appear
       #     within this stop list.  Cannot be used if +ngrams+ is set.
       # @!attribute [r] blocks

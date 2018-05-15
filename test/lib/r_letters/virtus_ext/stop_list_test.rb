@@ -10,19 +10,18 @@ module RLetters
         attribute :list, RLetters::VirtusExt::StopList, required: true
       end
 
-      test 'coerce passes through a Documents::StopList' do
-        stop_list = build(:stop_list)
+      test 'coerce passes through an array' do
+        stop_list = %w[a an the]
         model = StopTester.new(list: stop_list)
 
         assert_equal %w[a an the], model.list.sort
       end
 
       test 'coerce loads the list if there is one' do
-        # This model has been seeded, so it's the real stop list
         model = StopTester.new(list: 'en')
 
-        assert_includes model.list, 'again'
-        assert_includes model.list, 'over'
+        assert_includes model.list, 'the'
+        assert_includes model.list, 'or'
       end
 
       test 'coerce loads a string to a space-separated list without match' do

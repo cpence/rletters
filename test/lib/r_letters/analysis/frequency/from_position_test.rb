@@ -209,7 +209,7 @@ module RLetters
             dataset: create(:full_dataset, num_docs: 10),
             ngrams: 3,
             inclusion_list: 'decade',
-            stop_list: create(:stop_list)
+            stop_list: %w[a an the]
           )
 
           analyzer.blocks[0].keys.each do |k|
@@ -225,7 +225,7 @@ module RLetters
         test 'basic onegram analysis, stop_list works' do
           analyzer = RLetters::Analysis::Frequency::FromPosition.call(
             dataset: create(:full_dataset, num_docs: 10),
-            stop_list: create(:stop_list)
+            stop_list: %w[a an the]
           )
 
           refute_includes analyzer.blocks[0].keys, 'a'

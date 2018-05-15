@@ -76,9 +76,6 @@ en:
             documents/category:
                 one: Category
                 other: Categories
-            documents/stop_list:
-                one: Stop List
-                other: Stop Lists
             user:
                 one: User
                 other: Users
@@ -113,9 +110,6 @@ en:
             documents/category:
                 name: Name
                 journals: List of Journals
-            documents/stop_list:
-                language: Language
-                list: List of Stop Words
             user:
                 email: E-mail
                 name: Name
@@ -154,11 +148,6 @@ en:
                 documents/category:
                     name:
                         blank: You must specify a name for this category
-                documents/stop_list:
-                    language:
-                        blank: Language was not specified (internal error)
-                    list:
-                        blank: Stop list was not specified (internal error)
                 user:
                     name:
                         blank: You must specify a name
@@ -669,19 +658,6 @@ en:
                 header: Edit category %{category}
             form:
                 checkboxes_empty: Must select at least one journal for category
-        stop_lists:
-            validation_error: Could not create stop list!
-            index:
-                header: Edit stop lists
-                subheader: You can set stop lists that users can use to analyze texts in various languages.
-                add: Add Stop List
-                edit: Edit Stop List
-                delete_confirm: This will delete the stop list. Are you sure?
-                delete: Delete Stop List
-            new:
-                header: Create a new stop list
-            edit:
-                header: Edit stop list
         snippets:
             validation_error: Could not create snippet! Perhaps a snippet with the same name and language already exists?
             index:

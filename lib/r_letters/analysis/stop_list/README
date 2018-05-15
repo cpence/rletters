@@ -1,0 +1,5 @@
+These stop-word lists are taken from the standard configuration provided by
+Solr.
+
+NOTE: The Solr files include Czech with the non-standard language code 'cz', so
+that file needs to be renamed.

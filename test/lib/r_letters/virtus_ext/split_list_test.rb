@@ -16,13 +16,6 @@ module RLetters
         assert_equal [1, 2, 3], model.list
       end
 
-      test 'coerce passes through a Documents::StopList' do
-        stop_list = build(:stop_list)
-        model = SplitTester.new(list: stop_list)
-
-        assert_equal %w[a an the], model.list.sort
-      end
-
       test 'coerce loads a string to a space-separated list' do
         model = SplitTester.new(list: 'a an the')
 
