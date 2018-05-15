@@ -10,7 +10,7 @@ class QualityTest < ActiveSupport::TestCase
   setup do
     @files = []
 
-    exempt = %r{vendor|LICENSE|\.sql|\.png|\.svg|\.ico|\.ttf|\.woff|\.svg|\.eot|\.md|db/seeds/|\.xsd|\.xml|\.yml|test/support/requests/}
+    exempt = %r{vendor|LICENSE|\.sql|\.png|\.svg|\.ico|\.ttf|\.woff|\.svg|\.eot|\.md|db/seeds/|lib/r_letters/analysis/stop_list/|\.xsd|\.xml|\.yml|test/support/requests/}
     Dir.chdir(Rails.root) do
       `git ls-files`.split("\n").each do |filename|
         next if filename =~ exempt
