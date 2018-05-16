@@ -56,7 +56,7 @@ gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 
 # Mail
-gem 'bootstrap-email', github: 'stuyam/bootstrap-email'
+gem 'bootstrap-email', '>= 0.2.3'
 gem 'multi_mail'
 
 # Testing

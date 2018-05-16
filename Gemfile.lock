@@ -1,13 +1,3 @@
-GIT
-  remote: https://github.com/stuyam/bootstrap-email.git
-  revision: 6268da0ba3c6b04eb1c0e5ec19c3b3d877c36d4f
-  specs:
-    bootstrap-email (0.2.2)
-      actionmailer (>= 3, < 6)
-      nokogiri (~> 1.6)
-      premailer-rails (~> 1.9)
-      rails (>= 3, < 6)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -81,6 +71,11 @@ GEM
     bcrypt (3.1.11)
     bibtex-ruby (4.4.6)
       latex-decode (~> 0.0)
+    bootstrap-email (0.2.3)
+      actionmailer (>= 3, < 6)
+      nokogiri (~> 1.6)
+      premailer-rails (~> 1.9)
+      rails (>= 3, < 6)
     brakeman (4.3.0)
     builder (3.2.3)
     bundle-audit (0.1.0)
@@ -376,7 +371,7 @@ DEPENDENCIES
   ancestry (~> 3, >= 3.0.2)
   aws-sdk-s3
   bibtex-ruby
-  bootstrap-email!
+  bootstrap-email (>= 0.2.3)
   brakeman
   bundle-audit
   capybara (>= 2.15, < 4.0)
