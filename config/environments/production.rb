@@ -43,4 +43,53 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  # Add delivery methods to ActionMailer from multi_mail
+  ActionMailer::Base.add_delivery_method :mailgun, MultiMail::Sender::Mailgun,
+                                         api_key: ENV['MAILGUN_API_KEY'],
+                                         domain: ENV['MAIL_DOMAIN']
+  ActionMailer::Base.add_delivery_method :mandrill,
+                                         MultiMail::Sender::Mandrill,
+                                         api_key: ENV['MANDRILL_API_KEY']
+  ActionMailer::Base.add_delivery_method :postmark,
+                                         MultiMail::Sender::Postmark,
+                                         api_key: ENV['POSTMARK_API_KEY']
+  ActionMailer::Base.add_delivery_method :sendgrid,
+                                         MultiMail::Sender::SendGrid,
+                                         api_user: ENV['SENDGRID_API_USER'],
+                                         api_key: ENV['SENDGRID_API_KEY']
+
+  # Get other configuration parameters from ENV
+  config.action_mailer.smtp_settings ||= {}
+  config.action_mailer.smtp_settings.merge!({
+    address: ENV['SMTP_ADDRESS'] || 'localhost',
+    port: ENV['SMTP_PORT']&.to_i || 25,
+    domain: ENV['SMTP_DOMAIN'] || nil,
+    user_name: ENV['SMTP_USERNAME'] || nil,
+    password: ENV['SMTP_PASSWORD'] || nil,
+    authentication: ENV['SMTP_AUTHENTICATION']&.to_sym || nil,
+    enable_starttls_auto: (ENV['SMTP_ENABLE_STARTTLS_AUTO'] || nil).to_bool,
+    openssl_verify_mode: ENV['SMTP_OPENSSL_VERIFY_MODE'] || nil
+  }.compact)
+
+  config.action_mailer.sendmail_settings ||= {}
+  config.action_mailer.sendmail_settings.merge!(
+    location: ENV['SENDMAIL_LOCATION'] || '/usr/sbin/sendmail',
+    arguments: ENV['SENDMAIL_ARGUMENTS'] || '-i -t'
+  )
+
+  # Set the delivery method
+  GOOD_DELIVERY_METHODS = %i[mailgun mandrill postmark sendgrid sendmail
+                             smtp].freeze
+
+  delivery_method = (ENV['MAIL_DELIVERY_METHOD'] || 'sendmail').to_sym
+  unless GOOD_DELIVERY_METHODS.include?(delivery_method)
+    raise <<-ERROR.strip_heredoc
+      The mail delivery method configured in ENV is invalid. Please edit .env
+      and set to one of the delivery methods present in
+      config/initializers/mail.rb.
+    ERROR
+  end
+
+  config.action_mailer.delivery_method = delivery_method
 end

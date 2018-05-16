@@ -34,5 +34,9 @@ module RLetters
     else
       config.paths['log'] = Rails.root.join('tmp', 'rletters.log')
     end
+
+    # Set mailer defaults
+    config.action_mailer.default_url_options =
+      { host: ENV['MAIL_DOMAIN'] || 'example.com' }
   end
 end
