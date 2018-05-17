@@ -2,7 +2,7 @@
 
 ## Version 3.0 (unreleased)
 
-*   **Upgrade to bundling a more recent version of Solr (4.10.4).** This is a **significant and breaking change** for users, who *must* upgrade their Solr installations, as we are using some of the new features in later Solr versions to provide (in some cases dramatic) speed improvements. Reindexing content is not required, but is recommended when feasible.
+*   **Upgrade to bundling a more recent version of Solr (7.3.0).** This is a **significant and breaking change** for users, who *must* upgrade their Solr installations, as we are using some of the new features in later Solr versions to provide (in some cases dramatic) speed improvements. Reindexing content is not required, but is recommended when feasible.
 *   **Upgrade to use features in contemporary Ruby (2.3.0+).** This is a **significant change** for users, who *must* upgrade their deployed version of Ruby.
 *   Remove the Stanford NLP connection and replace it with pure-Ruby solutions. No more dependency on a functional NLP install and a JVM.
 *   User data handling is now entirely compliant with the European Union's GDPR and cookie policies.
@@ -10,6 +10,7 @@
 *   Features of the application can now be readily enabled and disabled using these environment variables.
 *   Add support for sending application e-mails using a variety of different mail services, including Mandrill, Sendgrid, Postmark, and Mailgun, in addition to Rails' default Sendmail and SMTP support, and configure all these methods in the `.env` file.
 *   Any particular type of analysis job can be disabled using a feature flag, should they cause problems on any server installation.
+*   The interface can now be themed using themes from Bootswatch.
 *   The main search interface has been slightly redesigned to include support for infinite scrolling and be more functional on mobile/tablet screens.
 *   Datasets are now stored not as a list of entries, but as a list of the searches that were used to create them. This list of searches can be viewed on the dataset information page.
 *   Iterate through datasets, no matter the size, much faster, using the cursor support present in Solr >= 4.8. This is a dramatic speed improvement especially for those installations using distributed or sharded Solr servers.
