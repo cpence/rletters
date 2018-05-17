@@ -1,0 +1,20 @@
+-# iOS icons
+- with_asset 'icon-180' do |url|
+  %link{ rel: 'apple-touch-icon', sizes: '180x180', href: url }
+
+-# Safari pinned-tab mask icon
+- with_asset 'safari-pinned-tab' do |url|
+  %link{ rel: 'mask-icon', href: url, color: ENV['BRANDING_COLOR'] || '#007bff' }
+
+-# Classic desktop browsers
+- with_asset 'icon-32' do |url, content_type|
+  %link{ rel: 'icon', type: content_type, sizes: '32x32', href: url }
+- with_asset 'icon-16' do |url, content_type|
+  %link{ rel: 'icon', type: content_type, sizes: '16x16', href: url }
+
+-# Android web application manifest
+%link{ rel: 'manifest', href: manifest_path(format: :json) }
+
+-# Windows 10 web application configuration
+%meta{ name: 'msapplication-TileColor', content: ENV['BRANDING_COLOR'] || '#007bff' }
+%meta{ name: 'msapplication-config', content: browserconfig_path(format: :xml) }

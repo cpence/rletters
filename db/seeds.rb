@@ -15,9 +15,13 @@ Dir.glob(Rails.root.join('db', 'seeds', 'snippets', '*')) do |dir|
 end
 
 # Assets
+asset_names = []
+
 Dir.glob(Rails.root.join('db', 'seeds', 'assets', '*')) do |img|
   extension = File.extname(img)
   name = File.basename(img, extension)
+  asset_names << name
+
   Admin::Asset.where(name: name).first_or_create! do |asset|
     f = File.new(img)
 
@@ -34,6 +38,11 @@ Dir.glob(Rails.root.join('db', 'seeds', 'assets', '*')) do |img|
   end
 
   puts "Seeded asset:#{name}"
+end
+
+Admin::Asset.all.each do |a|
+  # Delete assets that are no longer present in the seeds folder
+  a.destroy unless asset_names.include?(a.name)
 end
 
 # Warn the user about the administrator password

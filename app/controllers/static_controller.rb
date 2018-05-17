@@ -30,4 +30,26 @@ class StaticController < ApplicationController
     send_data(params[:data], filename: params[:filename],
                              type: params[:content_type])
   end
+
+  # Redirect to the favicon
+  #
+  # @return [void]
+  def favicon
+    favicon = Admin::Asset.find_by!(name: 'favicon')
+    redirect_to url_for(favicon.file)
+  end
+
+  # Render the web app manifest
+  #
+  # This needs to by dynamic, as our icons are stored in ActiveStorage.
+  #
+  # @return [void]
+  def manifest; end
+
+  # Render the IE browser configuration
+  #
+  # This needs to by dynamic, as our icons are stored in ActiveStorage.
+  #
+  # @return [void]
+  def browserconfig; end
 end

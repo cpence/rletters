@@ -1,0 +1,23 @@
+{
+  'short_name': '<%= ENV['APP_NAME'] || 'RLetters' %>',
+  'name': '<%= ENV['APP_NAME'] || 'RLetters' %>',
+  'icons': [
+    <%- with_asset 'icon-192' do |url, content_type| %>
+    {
+      'src': '<%= url %>,
+      'type': '<%= content_type %>',
+      'sizes': '192x192'
+    },
+    <%- end %>
+    <%- with_asset 'icon-512' do |url, content_type| %>
+    {
+      'src': '<%= url %>',
+      'type': '<%= content_type %>',
+      'sizes': '512x512'
+    }
+    <%- end %>
+  ],
+  'background_color': '<%= ENV['BRANDING_COLOR'] || '#007bff' %>',
+  'display': 'standalone',
+  'theme_color': '<%= ENV['BRANDING_COLOR'] || '#007bff' %>'
+}
