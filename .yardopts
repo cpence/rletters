@@ -4,7 +4,6 @@
 --charset utf-8
 --title 'RLetters Code Documentation'
 --markup markdown
-config/doc_macros.rb
 app/**/*.rb
 lib/**/*.rb
 -

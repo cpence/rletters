@@ -84,4 +84,5 @@ group :development do
   gem 'bundle-audit', require: false
   gem 'haml_lint', require: false
   gem 'rubocop', require: false
+  gem 'yard', require: false
 end
