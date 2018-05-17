@@ -2,15 +2,15 @@
 <browserconfig>
    <msapplication>
      <tile>
-        <%- with_asset 'icon-70' do |url| %>
+        <% with_asset 'icon-70' do |url| %>
           <square70x70logo src="<%= url %>"/>
-        <%- end %>
-        <%- with_asset 'icon-150' do |url| %>
+        <% end %>
+        <% with_asset 'icon-150' do |url| %>
           <square150x150logo src="<%= url %>"/>
-        <%- end %>
-        <%- with_asset 'icon-310' do |url| %>
+        <% end %>
+        <% with_asset 'icon-310' do |url| %>
           <square310x310logo src="<%= url %>"/>
-        <%- end %>
+        <% end %>
         <TileColor><%= ENV['BRANDING_COLOR'] || '#007bff' %></TileColor>
      </tile>
    </msapplication>

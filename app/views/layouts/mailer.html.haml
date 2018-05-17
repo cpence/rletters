@@ -6,8 +6,8 @@
 
   %body.bg-light
     .container
-      - if Admin::Asset.usable?('apple-touch-icon-high')
-        %img.mx-auto.mt-4.mb-3{ src: url_for(Admin::Asset.find_by(name: 'apple-touch-icon-high').file) }
+      - with_asset 'icon-310' do |url|
+        %img.mx-auto.mt-4.mb-3{ src: url, style: 'width: 155px; height: 155px;' }
 
       .card.mb-4
         .card-body

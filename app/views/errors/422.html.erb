@@ -11,8 +11,8 @@
 </head>
 
 <body>
-  <% if Admin::Asset.usable?('error-watermark') %>
-    <img src="<%= url_for(Admin::Asset.find_by(name: 'error-watermark').file) %>">
+  <% with_asset 'error-watermark' do |url| %>
+    <img src="<%= url %>">
   <% end %>
 
   <div>
