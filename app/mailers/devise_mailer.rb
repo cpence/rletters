@@ -6,14 +6,14 @@
 class DeviseMailer < ApplicationMailer
   include Devise::Mailers::Helpers
 
-  def reset_password_instructions(record, token, opts={})
+  def reset_password_instructions(record, token, opts = {})
     @token = token
     initialize_from_record(record)
 
     make_bootstrap_mail headers_for(:reset_password_instructions, opts)
   end
 
-  def password_change(record, opts={})
+  def password_change(record, opts = {})
     initialize_from_record(record)
 
     make_bootstrap_mail headers_for(:password_change, opts)

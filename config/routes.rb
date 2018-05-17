@@ -66,11 +66,11 @@ Rails.application.routes.draw do
   # Static controller also is rendering favicon/logo components that invoke
   # ActiveStorage images
   get 'favicon' => 'static#favicon', format: true,
-    constraints: { format: :ico }
+      constraints: { format: :ico }
   get 'manifest' => 'static#manifest', format: true,
-    constraints: { format: :json }
+      constraints: { format: :json }
   get 'browserconfig' => 'static#browserconfig', format: true,
-    constraints: { format: :xml }
+      constraints: { format: :xml }
 
   # Administration pages
   get 'admin' => 'admin#index'
