@@ -1,7 +1,13 @@
 
 // Import Bootstrap
 @import 'bootstrap_variables';
+<% if ENV['BOOTSWATCH_THEME'].present? %>
+@import '<%= "bootswatch/dist/#{ENV['BOOTSWATCH_THEME']}/variables" %>';
+<% end %>
 @import 'bootstrap/scss/bootstrap';
+<% if ENV['BOOTSWATCH_THEME'].present? %>
+@import '<%= "bootswatch/dist/#{ENV['BOOTSWATCH_THEME']}/bootswatch" %>';
+<% end %>
 
 // Import external libraries
 @import 'nestable2/jquery.nestable.scss';
