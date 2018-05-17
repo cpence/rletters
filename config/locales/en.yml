@@ -572,14 +572,18 @@ en:
         caption-two: Second Screenshot Caption
         caption-three: Third Screenshot Caption
     assets:
-        splash-low: Splash Screen (320x460)
-        splash-high: Splash Screen (768x1004)
         favicon: Favorite Icon (16x16)
         error-watermark: Error Page Watermark (~500x400)
-        apple-touch-icon-precomposed-low: App Icon (precomposed, 57x57)
-        apple-touch-icon-low: App Icon (57x57)
-        apple-touch-icon-med: App Icon (72x72)
-        apple-touch-icon-high: App Icon (114x114)
+        icon-16: Icon (16x16)
+        icon-32: Icon (32x32)
+        icon-48: Icon (48x48)
+        icon-70: Icon (70x70)
+        icon-150: Icon (150x150)
+        icon-180: Icon (180x180)
+        icon-192: Icon (192x192)
+        icon-310: Icon (310x310)
+        icon-512: Icon (512x512)
+        safari-pinned-tab: Safari SVG Tab Icon (16x16)
         screenshot-one: First Screenshot
         screenshot-two: Second Screenshot
         screenshot-three: Third Screenshot
