@@ -101,7 +101,7 @@ class UserExportJob < ActiveJob::Base
           }
 
           t.files.each do |f|
-            unless f.result
+            unless f.result&.attached?
               task[:files] << '<empty file record>'
               next
             end

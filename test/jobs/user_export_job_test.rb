@@ -31,7 +31,7 @@ class UserExportJobTest < ActiveJob::TestCase
     file122 = create(:file, task: task12)
     file122.from_string('this is another one', filename: 'out.txt', content_type: 'text/plain')
     file123 = create(:file, task: task12)
-    file123.from_string('this is a last one', filename: 'woot.json', content_type: 'application/json')
+    # This is a file record with a purged/deleted file
 
     # And do the export
     UserExportJob.perform_now(user)
@@ -100,12 +100,14 @@ class UserExportJobTest < ActiveJob::TestCase
     assert_not_equal small_task['files'][0], dataset_2_hash['tasks'][0]['files'][0]
 
     # And make sure all the files are actually present, too
+    big_task_file_count = 0
     big_task['files'].each do |f|
-      assert zip_contents[f]
+      big_task_file_count += 1 if zip_contents[f]
     end
+    assert_equal 2, big_task_file_count
     assert zip_contents[small_task['files'][0]]
     assert zip_contents[dataset_2_hash['tasks'][0]['files'][0]]
 
-    assert_equal 8, zip_contents.count
+    assert_equal 7, zip_contents.count
   end
 end
