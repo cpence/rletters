@@ -6,6 +6,19 @@ es:
     forms:
       error_header: "Por favor, subsane los siguientes problemas:"
     download_csv: Descargar en formato CSV
+    progress_initializing: "Iniciando"
+    progress_finished: "Terminado, generando presentación de datos..."
+    stemming:
+      label: ¿Podar palabras?
+    scoring:
+      mutual_information: Información común
+      mutual_information_header: Información común
+      t_test: Prueba t de student
+      t_test_header: Valor p
+      log_likelihood: Logaritmo de verosimilitud
+      log_likelihood_header: "-2*logaritmo de verosimilitud"
+  mailer:
+    one_time: Esto es un mensaje único, no es necesario cancelar la suscripción.
   helpers:
     submit:
       job_params:
@@ -34,21 +47,9 @@ es:
             blank: "No se especificó el identificador único (error interno)"
   activerecord:
     models:
-      admin/asset:
-        one: Recurso personalizable
-        other: Recursos personalizables
-      admin/snippet:
-        one: Página personalizable
-        other: Páginas personalizables
       dataset:
         one: Conjunto de datos
         other: Conjuntos de datos
-      datasets/analysis_task:
-        one: Tarea de análisis
-        other: Tareas de análisis
-      datasets/entry:
-        one: Entrada del conjunto de datos
-        other: Entradas del conjunto de datos
       documents/category:
         one: Categoría
         other: Categorías
@@ -66,15 +67,14 @@ es:
       admin/snippet:
         friendly_name: Nombre
         name: Nombre
+        language: Idioma
         content: Índice
       dataset:
         name: Nombre
-      datasets/analysis_task:
+      datasets/task:
         name: Nombre
         created_at: Hora de creación
         finished_at: Hora de finalización
-      datasets/entry:
-        uid: Identificador único
       documents/category:
         name: Nombre
         journals: Lista de revistas
@@ -84,7 +84,6 @@ es:
         password: Contraseña
         password_confirmation: Confirmar contraseña
         remember_me: ¿Recordar datos de inicio de sesión?
-        per_page: Número de resultados por página
         language: Idioma preferido
         timezone: Zona horaria
       users/library:
@@ -92,10 +91,12 @@ es:
         url: URL base
     errors:
       models:
-        admin/asset:
+        admin/snippet:
           name:
             blank: No se especificó el nombre (error interno)
-        admin/snippet:
+          language:
+            blank: No se especificó el idioma (error interno)
+        admin/asset:
           name:
             blank: No se especificó el nombre (error interno)
         dataset:
@@ -103,34 +104,19 @@ es:
             blank: Debe poner un nombre a este conjunto de datos
           user_id:
             blank: El conjunto de datos debe tener un identificador de usuario (error interno)
-        datasets/analysis_task:
-          name:
-            blank: Debe poner un nombre a esta tarea de análisis
-          dataset:
-            blank: Tarea de análisis no conectada al conjunto de datos (error interno)
-        datasets/entry:
-          uid:
-            blank: No se especificó un el identificador único (error interno)
         documents/category:
           name:
             blank: Debe poner un nombre a esta categoría
         user:
           name:
             blank: Debe poner un nombre
-          per_page:
-            blank: Debe especificarse el número de resultados por página (error interno)
-            not_a_number: El número de resultados por página debe ser un número entero
-            inclusion: El número de resultados de búsqueda debe ser superior a cero
           language:
             blank: Debe especificarse un idioma preferido (error interno)
             invalid: El idioma preferido debe ser un código de idioma válido (error interno)
           timezone:
             blank: Debe seleccionarse una zona horaria (error interno)
         users/library:
-          name:
-            blank: Debe poner nombre a esta entrada de la biblioteca
           url:
-            blank: Debe poner una URL a esta entrada de la biblioteca
             invalid: La URL base de la biblioteca debe ser una URL
           user_id:
             blank: La biblioteca debe asociarse a un usuario (error interno)
@@ -138,7 +124,7 @@ es:
     root: Inicio
     datasets_index: Administrar conjuntos de datos
     datasets_show: "Administrar: %{name}"
-    datasets_analysis_tasks_new: Preferencias de tarea
+    datasets_tasks_new: Preferencias de tarea
     search_index: Buscar base de datos
     search_advanced: Búsqueda avanzada
     users_passwords_edit: Cambiar contraseña
@@ -150,14 +136,6 @@ es:
     workflow_info: Información de la tarea
     workflow_activate: Recopilar datos
   layouts:
-    footer:
-      copyright: >
-        Copyright © 2011–2013 %{app_name} y el equipo de desarrollo de RLetters. El
-        contenido del artículo tiene derechos de autor, como se especifica en entradas
-        de artículos individuales. Todos los derechos reservados.
-      rletters_markdown: >
-        Creado con RLetters —la plataforma de análisis textual de artículos de código
-        abierto. Para más información, ver [rletters.net.](http://rletters.net/)
     nav:
       menu: Menú
       new_analysis: Nuevo análisis
@@ -176,149 +154,14 @@ es:
       forgot_password: ¿Contraseña olvidada?
       sign_in: Identificarse
       sign_up: Registrarse
-  jobs:
-    concerns:
-      compute_word_frequencies:
-        ngram_method: ¿Analizar palabras sueltas o n-gramas?
-        single_words: Palabras sueltas
-        n_grams: N-gramas (frases de varias palabras)
-        ngram_size: Tamaño de las frases para analizar
-        num_ngrams: Número de n-gramas para analizar
-        ngram_inclusion_list: Incluir únicamente n-gramas que contengan una de las siguientes palabras (separadas por espacios)
-        ngram_exclusion_list: Excluir cualquier n-grama que contenga una de las siguientes palabras (separadas por espacios)
-        word_method: Método de selección de palabras
-        most_frequent: Palabras más frecuentes
-        list: Lista explícita de palabras
-        num_words: Número de palabras para analizar
-        exclude_method: ¿Excluir alguna palabra?
-        none: 'No'
-        stop: Palabras más comunes (palabras no significativas)
-        stop_language: Idioma del texto (para la lista de palabras no significativas)
-        exclusion_list: Palabras a excluir (separadas por espacios)
-        inclusion_list: Palabras a analizar (separadas por espacios)
-        block_method: Método con bloque de texto
-        num_words_split: Por número de palabras
-        num_blocks_split: Por número de bloques
-        block_size: Número de palabras por bloque
-        last_block: Último método con bloque
-        big_last: Último bloque grande
-        small_last: Último bloque pequeño
-        truncate_last: Excluir palabras restantes
-        truncate_all: Excluir cualquier documento del tamaño especificado
-        num_blocks_label: Número de bloques
-        split_across: ¿Dividir bloques en documentos distintos?
-      normalize_document_counts:
-        checkbox_label: ¿Normalizar recuentos de documentos a francciones relativas de documentos?
-        params: Opciones de normalización
-        dataset_label: Normalizar contra conjunto de datos
-        all: Todo el corpus
-    analysis:
-      article_dates:
-        fraction_subheader: "Fracción de documentos en %{normalization_set} encontrados en el conjunto de datos %{name}, trazada por año"
-        number_subheader: "Número de documentos, trazados por año"
-        fraction_column: Fracción de documentos
-        number_column: Número de documentos
-        entire_corpus: Todo el corpus
-      collocation:
-        name: Análisis de colocaciones
-        mi: Información común
-        mi_column: Información común
-        t: Prueba t de student
-        t_column: Valor p
-        likelihood: Logaritmo de verosimilitud
-        likelihood_column: "-2*logaritmo de verosimilitud"
-        pos: Frecuencia (filtrada por partes del discurso)
-        pos_column: Frecuencia
-        scoring: Prueba para importancia
-        num_pairs: Número de colocaciones para buscar
-        header: "Análisis de colocaciones para %{name}"
-        subheader: "Prueba de importancia: %{test}"
-        pair: 'Par de colocaciones'
-      cooccurrence:
-        mi: Información común
-        mi_column: Información común
-        t: Prueba t de student
-        t_column: Valor p
-        scoring: Prueba para importancia
-        subheader: "Prueba de importancia: %{test}"
-      craig_zeta:
-        name: Craig Zeta
-        short_desc: Determina palabras que diferencian dos bases de datos (Craig Zeta)
-        question: >
-          Dados dos conjuntos de artículos, ¿qué palabras revelan la pertenencia de
-          un artículo al conjunto A en vez de al conjunto B o viceversa?
-        header: "Comparación de %{name_1} con %{name_2}"
-        subheader: (Algoritmo Craig Zeta)
-        csv_header: "Comparación de Craig Zeta para el conjunto de datos %{name_1} con %{name_2}"
-        marker_header: "Palabras indicadoras para miembros en el conjunto de datos %{name}"
-        graph_header: Gráfica de separación para todos los bloques de texto analizados
-        graph_explanation: >
-          Esta gráfica traza la fracción de palabras, en cada bloque de texto individual
-          analizado, con las coordenadas correspondientes a la fracción de palabras,
-          en cada bloque, que pertenezcan a los dos conjuntos identificados. Si el
-          análisis se realiza con éxito, debería poder ver dos nubes de puntos claramente
-          separadas por una pequeña superposición, lo cual muestra que las palabras
-          indicadoras pueden distinguir bloques de texto de cada conjunto de datos
-          fácilmente.
-        block_name_column: Nombre del bloque de texto
-        marker_column: "Fracción de palabras indicadoras para %{name}"
-        zeta_score_header: Resultados Zeta para todas las palabras analizadas
-        zeta_score_explanation: >
-          Resultados Zeta correctos para todas las palabras analizadas. El rango de
-          resultados de dos (una palabra indicadora perfecta que indentifica a un
-          miembro en %{name_1}) a cero (una antipalabra indicadora que identifica
-          a un miembro en %{name_2}).
-      export_citations:
-        name: Exportar citas
-        short_desc: Exportar conjunto de datos como citas
-        question: >
-          ¿Puedo exportar un conjunto de artículos a mi formato favorito o al administrador
-          de referencias?
-        format: Formato de exportación
-      named_entities:
-        name: Extraer nombres propios
-        short_desc: Extraer referencias a nombres propios
-        question: >
-          ¿Qué nombres propios (lugares, personas u organizaciones) se mencionan en
-          un conjunto de artículos dado?
-        subheader: Referencias a nombres propios
-        people_category: Personas
-        organization_category: Organizaciones
-        location_map: Localizaciones (Mapa)
-        location_category: Localizaciones (Lista)
-        other_category: Otros
-        type_column: Tipo
-        hit_column: Coincidencia
-      network:
-        name: Calcular red de términos
-        short_desc: Calcular red de términos asociados
-        question: >
-          ¿Qué mayor red de palabras se encuentra a menudo con una palabra importante
-          de interés?
-        word: Palabra importante
-        subheader: "Red de términos asociados que rodean a la palabra: '%{word}'"
-        download: Descargar en formato GraphML
-      term_dates:
-        word: Palabra importante
-      word_frequency:
-        name: Frecuencia de palabras
-        short_desc: Analizar la frecuencia de palabras en el conjunto de datos
-        question: >
-          ¿Cuál es la frecuencia de uso de palabras en un conjunto de artículos dado?
-
-          ¿Cuál es la palabra «más importante» o «más frecuente» empleada en un conjunto
-          dado?
-        csv_header: "Información de frecuencia de palabras para el conjunto de datos %{name}"
-        each_block: "Cada bloque del documento:"
-        whole_dataset: "Para todo el conjunto de datos:"
-        types_header: Número de tipos
-        tokens_header: Número de tokens
-        ttr_header: Ratio de tipo/token
-        freq_header: Frecuencia
-        prop_header: Proporción
-        tfidf_dataset_header: TF/IDF (Frecuencia de términos/Frecuencia inversa de documentos contra conjunto de datos)
-        tfidf_corpus_header: TF/DF (Frecuencia de términos/Frecuencia de documentos contra corpus)
-        df_header: DF (Frecuencia de documentos en el corpus)
+  lib:
+    frequency:
+      block_count_dataset: "Bloque #%{num}/%{total}"
+      block_size_dataset: "Bloque #%{num} de %{size} palabras"
+    solr:
+      advanced:
+        fulltext: Texto completo
+        year_ranges: Intervalo de años
   search:
     document:
       untitled: "[sin título]"
@@ -326,6 +169,7 @@ es:
       number_abbr: "Nº %{number}"
       pages_abbr: "%{pages} págs."
     dropdown:
+      dataset_header: Herramientas de conjunto de datos
       single_dataset: Crear conjunto de datos a partir de este documento
       add_to_dataset: Añadir este documento a un conjunto de datos existente
       journal: Descargar de la revista
@@ -335,7 +179,6 @@ es:
       uk_openurl: Buscar en OpenURL
       online: Buscar en línea
       google: Buscar en Google Académico
-      mendeley: Buscar en Mendeley
       citeulike: Buscar en CiteULike
       details_header: Detalles del documento
       data_source: "Fuente de datos: %{source}"
@@ -349,18 +192,6 @@ es:
       submit: Añadir
     advanced:
       header: Búsqueda avanzada
-      subheader_markdown: >
-        Esta página le permite realizar una búsqueda avanzada en la bases de datos
-        de artículos. Puede elegir bien nuestro formulario de búsqueda guiada o bien
-        realizarla directamente mediante [búsquedas con Solr](http://wiki.apache.org/solr/SolrQuerySyntax),
-        que es un superconjunto de las [búsquedas con Lucene](http://lucene.apache.org/java/2_9_1/queryparsersyntax.html).
-      search_header: Búsqueda guiada
-      type_fuzzy: "Tipo de búsqueda: Aproximada"
-      type_exact: "Tipo de búsqueda: Exacta"
-      year_ranges: Intervalo de años
-      authors_placeholder: "p. ej. A. Johnson, B. Smith"
-      year_ranges_placeholder: "p. ej. 1999, 2005-2010, 2001"
-      pages_placeholder: "p. ej. 135-150"
       search_button: Realizar búsqueda avanzada
       solr_header: Buscar con Solr
       solr_label: Búsqueda con Solr
@@ -368,6 +199,7 @@ es:
     index:
       placeholder: Buscando artículos...
       adv_search_placeholder: (búsqueda avanzada)
+      sort: "Ordenar"
       sort_prefix: "Ordenar:"
       sort_unknown: "Desconocido"
       sort_asc: "(ascendente)"
@@ -381,9 +213,7 @@ es:
         zero: No hay artículos en la base de datos.
         one: Hay un artículo en la base de datos.
         other: "Hay un total de %{count} artículos en la base de datos."
-      no_filters: No hay filtros activos
       remove_all: Eliminar todo
-      filters: Búsqueda con filtros
       authors_facet: Autores
       journal_facet: Revista
       year_facet: Fecha de publicación
@@ -392,17 +222,17 @@ es:
       year_facet_short: Año
       year_before_1800: Antes de 1800
       year_after_2010: De 2010 en adelante
+      dropdown_button: Más
       categories: Categorías de revistas
       advanced_search: Búsqueda avanzada
-  users:
+      filter_header: Búsqueda con filtros
+  devise:
     passwords:
       edit:
         header: Cambiar contraseña
-        subheader: "Introduzca una nueva contraseña y cambiaremos la que olvidó por ésta."
         submit: Cambiar contraseña
       new:
         header: ¿Olvidó su contraseña?
-        subheader: "Introduzca su dirección de correo-e para poder enviarle un enlace para crear una nueva contraseña."
         submit: Enviarme intrucciones de reestablecimiento de contraseña.
     registrations:
       edit:
@@ -413,17 +243,23 @@ es:
         settings: Configuración de la página
         submit: Actualizar configuración
         cancel: Eliminar cuenta
-        cancel_confirm: ¿Está seguro? ¡Nos apena mucho verle partir!
         library_links_header: Enlaces de acceso a bibliotecas
-        library_links_subheader: "Puede añadir enlaces al sistema de recuperación de documentos de la biblioteca local que más tarde podrá utilizar para tener acceso al contenido."
+        export_download: Descargar
+        export_delete: Eliminar
       new:
         header: Registrarse
-        subheader: "¡Bienvenido! Escriba algunos detalles sobre usted y podrá utilizar libremente su nueva cuenta de usuario."
         submit: Registrarse
+    mailer:
+      reset:
+        subject: Restablecer contraseña
+        intro: "¡Hola %{name}!"
+        link: "Restablecer contraseña"
+      password_change:
+        intro: "¡Hola %{name}!"
+  users:
     libraries:
       edit:
         header: Editar detalles de biblioteca
-        subheader: "Rellene los detalles en el solucionador de OpenURL de la biblioteca y los tomaremos de ahí."
       index:
         query: Buscar biblioteca automáticamente
         add_new: Añadir biblioteca manualmente
@@ -434,17 +270,16 @@ es:
         no_libraries: No se encontraron bibliotecas
       new:
         header: Añadir nueva biblioteca
-        subheader: "Escriba los datos en el solucionador de OpenURL de la biblioteca y los tomaremos de ahí."
       query:
         header: Bibliotecas encontradas cerca de usted
         subheader: "Haga clic en el botón correspondiente a la biblioteca que desea añadir."
-        no_libraries: >
-          No se pudo determinar la biblioteca automáticamente. Si aún lo desea, puede
-          añadir la biblioteca manualmente.
       create:
         success: Conexión con la biblioteca realizada con éxito.
       update:
         success: Biblioteca actualizada con éxito.
+  user_mailer:
+    job_finished:
+      header: ¡Tarea de análisis completada!
   workflow:
     activate:
       header: Recopilar datos
@@ -452,21 +287,22 @@ es:
       subheader_done: "Se han recopilado todos los datos. ¡Haga clic en el botón para comenzar el análisis!"
       pending_instructions:
         one: >
-          Para poder realizarla, esta tarea de análisis necesita que se cree al menos
-          1 conjunto de datos. Los conjuntos de datos se crean al realizar búsquedas
-          y guardar un conjunto de resultados.
+            Para poder realizarla, esta tarea de análisis necesita que se cree al
+            menos 1 conjunto de datos. Los conjuntos de datos se crean al realizar
+            búsquedas y guardar un conjunto de resultados.
         other: >
-          Para poder realizarla, esta tarea de análisis necesita que se creen al menos
-          %{count} conjuntos de datos. Los conjuntos de datos se crean al realizar
-          búsquedas y guardar un conjunto de resultados.
+            Para poder realizarla, esta tarea de análisis necesita que se creen al
+            menos %{count} conjuntos de datos. Los conjuntos de datos se crean al
+            realizar búsquedas y guardar un conjunto de resultados.
       button_params: Establecer preferencias de tarea
       button_start: Comenzar análisis
       pending_count:
-        one: Todavía debe añadirse 1 conjuntos de datos
-        other: Todavía deben añadirse %{count} conjuntos de datos
+        one: "Todavía debe añadirse 1 conjuntos de datos"
+        other: "Todavía deben añadirse %{count} conjuntos de datos"
       dataset_list: "Conjuntos de datos para esta tarea:"
       name_column: Nombre del conjunto de datos
       no_datasets: No se especificó ningún conjunto de datos
+      delete_button: Eliminar
       delete_confirm: ¿Está seguro?
       create_button: Crear otro conjunto de datos
       link_button: Enlazar un conjunto de datos ya creado
@@ -477,32 +313,26 @@ es:
     dashboard:
       header: "Panel de %{app_name}"
       subheader: >
-        Panel de control principal de %{app_name}. Desde aquí podrá realizar análisis,
-        buscar en los resultados de análisis completos o buscar en la base de datos
-        de artículos.
+          Panel de control principal de %{app_name}. Desde aquí podrá realizar análisis,
+          buscar en los resultados de análisis completos o buscar en la base de datos
+          de artículos.
       start_button: Comenzar un nuevo análisis
-      start_explanation: >
-        Decida a qué tipo de pregunta le gustaría responder, seleccione los datos
-        que le gustaría consultar y obtenga los resultados.
       fetch_button: Ver resultados de análisis anteriores
       fetch_explanation: >
-        ¿Ha finalizado un análisis? Recopile aquí los resultados. Los datos del análisis
-        estarán disponibles durante 14 días.
+          ¿Ha realizado un análisis? Recopile aquí los resultados. Los datos del análisis
+          estarán disponibles durante 14 días.
       advanced_button: Modo avanzado
-      advanced_explanation: >
-        Buscar y guardar conjuntos de datos manualmente y comenzar una tarea de análisis
-        en el conjuto de datos de su elección.
     fetch:
       header: Buscar resultados de análisis
       subheader: "Aquí podrá recuperar los datos generados por los análisis. Asegúrese de guardarlos al poco tiempo, pues sólo estarán disponibles durante 14 días."
-      terminate: Intentando cancelar todas las tareas de análisis pendientes...
     fetch_xhr:
-      pending_header: Tareas de análisis pendientes
+      progress: Progreso de la tarea
+      no_status: "En curso... (estado no disponible)"
       pending_cancel_markdown: >
-        ¿Los análisis tardan mucho en finalizar? Podemos intentar [interrumpir todas
-        la tareas pendientes,](%{terminate_url}) pero puede no funcionar. Si falla,
-        [envíe un correo-e a los administradores de la página.](mailto:%{email})
-      completed_header: Tareas de análisis completadas
+          ¿Los análisis tardan mucho en finalizar? Podemos intentar [interrumpir todas
+          la tareas pendientes,](%{terminate_url}) pero puede no funcionar. Si falla,
+          [envíe un correo-e a los administradores de la página.](mailto:%{email})
+      finished_column: Completada el
     index:
       sign_up_button: ¡Regístrese para comenzar!
       screenshots_header: ¿Qué puedo hacer?
@@ -512,20 +342,15 @@ es:
     start:
       header: Comenzar un nuevo análisis
       subheader: >
-        Comience ejecutando un nuevo análisis al decidir qué tipo de pregunta quiere
-        realizar sobre literatura. Haga clic sobre la pregunta que sea explorar para
-        continuar.
+          Comience ejecutando un nuevo análisis al decidir qué tipo de pregunta quiere
+          realizar sobre literatura. Haga clic sobre la pregunta que sea explorar
+          para continuar.
     destroy:
       success: ¡inicio de análisis abortado!
   datasets:
     index:
       header: Administrar conjuntos de datos
-      subheader: "En esta página puede administrar de forma avanzada los conjuntos de datos, incluyendo tareas de análisis manuales en marcha."
     index_xhr:
-      tasks:
-        zero: No tiene ninguna tarea de análisis pendiente...
-        one: Tiene una tarea de análisis pendiente...
-        other: "Tiene %{count} tareas de análisis pendientes..."
       name_column: Nombre del conjunto de datos
       no_datasets: Ningún conjunto de datos
       manage_button: Administrar
@@ -534,71 +359,213 @@ es:
     new:
       header: Crear un nuevo conjunto de datos
       subheader: "Ponga nombre a los resultados de búsquedas y se guardarán como un nuevo conjunto de datos."
-    create:
-      building: "Creando conjunto de datos. Espere, por favor."
-      building_workflow: "Creando conjunto de datos, se enlazará cuando se haya completado"
     show:
       header: Información para el conjunto de datos
-      subheader: "Administrar este conjunto de datos, incluyendo el inicio manual de tareas de análisis y búsqueda de resultados de análisis previos."
       num_documents: "Número de documentos: %{count}"
       created_at: "Creado el: %{date}"
       deleted: Todas las tareas de análisis fallidas han sido eliminadas.
-      tasks: Tareas de análisis
-    analysis_tasks:
+      advanced_search: Búsqueda avanzada
+    tasks:
       index:
-        pending:
-          one: "Hay 1 tarea de análisis pendiente para este conjunto de datos..."
-          other: "Hay %{count} tareas de análisis pendientes para este conjunto de datos..."
-        failed:
-          one: "¡Falló 1 tarea de análisis para este conjunto de datos! haga clic aquí para eliminar las tareas fallidas."
-          other: "¡Fallaron %{count} tareas de análisis para este conjunto de datos! Haga clic aquí para eliminar las tareas fallidas."
-        task_column: Tarea de análisis
-        no_tasks: No se encontraron tareas de análisis
+        results_column: Resultados
+      task_buttons:
+        download_button: Descargar
+        view_button: Ver
         delete_button: Eliminar
+        delete_confirm: ¿Está seguro?
       new:
         header: Preferencias de tarea
         subheader: Esta tarea tiene más prefereferias que puede configurar antes de comenzarla.
       create:
         workflow: "Ejecutando análisis, vuelva más tarde para ver los resultados..."
+  errors:
+    '404':
+      title: Puede continuar con sus asuntos.
+      header: "Error 404: pagina no encontrada"
+    '422':
+      header: "Error 422: Entidad no procesable"
+    '500':
+      header: "Error 500: error interno del servidor"
   snippets:
     landing: Página de llegada
     caption-one: Primer titular de captura de pantalla
     caption-two: Segundo titular de captura de pantalla
     caption-three: Tercer titular de captura de pantalla
   assets:
-    splash-low: Pantalla de bienvenida (320x460)
-    splash-high: Pantalla de bienvenida (768x1004)
     favicon: Icono de favorito (16x16)
     error-watermark: Página de error de marca de agua (~500x400)
-    apple-touch-icon-precomposed-low: Icono de aplicación (precompuesto, 57x57)
-    apple-touch-icon-low: Icono de aplicación (57x57)
-    apple-touch-icon-med: Icono de aplicación (72x72)
-    apple-touch-icon-high: Icono de aplicación (114x114)
     screenshot-one: Primera captura de pantalla
     screenshot-two: Segunda captura de pantalla
     screenshot-three: Tercera captura de pantalla
   admin:
-    administrator:
-      admin_details: Detalles del administrador
-    dashboard:
-      new_datasets: Conjuntos de datos recientes
-      new_analysis_tasks: Tareas de análisis más recientes
-      recent_users: Usuarios conectados recientemente
-      backend: Información de backend
+    backend:
+      header: Información de backend
       database: Base de datos
       db_size: "Tamaño de la base de datos: %{count} artículos"
-      connection_failed: ¡No se pudo conectar con Solr! Configure la URL de Solr en la pestaña Configuración
       latency: "Latencia de la base de datos local: %{count} ms"
       solr: Servidor Solr
       solr_version: "Versión de Solr %{solr_ver}, versión de Lucene %{lucene_ver}"
       java_version: "Versión de Java %{java_ver}"
       memory_info: "Memoria: usada %{used}, con %{free} libres de %{total}; máximo %{max}"
-    snippet:
-      markdown_info_markdown: >
-        Se puede dar formato a las páginas personalizadas con el lenguaje markdown.
-        Visite la [guía de Kramdown](http://kramdown.rubyforge.org/syntax.html) para
-        información más detallada.⏎
-      page_header: "Página: %{name}"
-    asset:
-      file_details: "%{size} bytes"
-      asset_header: "Recurso: %{name}"
+    datasets:
+      header: Conjuntos de datos recientes
+    users:
+      header: Usuarios conectados recientemente
+    environment:
+      value: Valor
+    login:
+      password: Contraseña
+  article_dates_job:
+    name: Trazar recuento de artículos por fecha
+    short_desc: Trazar artículos por fecha
+    question: >
+        ¿Cuándo se publicó un conjunto de artículos dado?
+    all: Todo el corpus
+    fraction_subheader: "Fracción de documentos en %{normalization_set} encontrados en el conjunto de datos %{name}, trazada por año"
+    number_subheader: "Número de documentos, trazados por año"
+    fraction_column: Fracción de documentos
+    percent_column: Porcentaje de documentos
+    number_column: Número de documentos
+    entire_corpus: Todo el corpus
+    progress_counting: "Recuento de artículos por año en curso..."
+  collocation_job:
+    name: Análisis de colocaciones
+    short_desc: Determinar asociaciones relevantes entre pares de palabras cercanos
+    question: >
+        ¿Qué pares de palabras aparecen a menudo juntos?
+
+        ¿Qué términos técnicos o frases aparecen en la literatura?
+    parts_of_speech: Frecuencia (filtrada por partes del discurso)
+    parts_of_speech_header: Frecuencia
+    num_pairs: Número de colocaciones para buscar
+    header: "Análisis de colocaciones para %{name}"
+    subheader: "Prueba de importancia: %{test}"
+    pair: 'Par de colocaciones'
+    progress_computing: "Calculando colocaciones para el conjunto de datos..."
+  cooccurrence_job:
+    name: Análisis de coocurrencias
+    short_desc: Determinar asociaciones relevantes entre pares de palabras alejados
+    question: >
+        ¿Qué pares de palabras aparecen a menudo en la misma frase, párrafo, sección
+        o artículo?
+    num_pairs: Número de coocurrencias para buscar
+    window: Mostrar coocurrencias que se den en dentro de este número de palabras
+    header: "Análisis de coocurrencias para %{name}"
+    subheader: "Prueba de importancia: %{test}"
+    pair: 'Par de coocurrencias'
+    progress_computing: "Calculando coocurrencias para el conjunto de datos..."
+  craig_zeta_job:
+    name: Craig Zeta
+    short_desc: Determina palabras que diferencian dos bases de datos (Craig Zeta)
+    question: >
+        Dados dos conjuntos de artículos, ¿qué palabras revelan la pertenencia de
+        un artículo al conjunto A en vez de al conjunto B o viceversa?
+    header: "Comparación de %{name_1} con %{name_2}"
+    subheader: (Algoritmo Craig Zeta)
+    csv_header: "Comparación de Craig Zeta para el conjunto de datos %{name_1} con %{name_2}"
+    marker_header: "Palabras indicadoras para miembros en el conjunto de datos %{name}"
+    graph_header: Gráfica de separación para todos los bloques de texto analizados
+    graph_explanation: >
+        Esta gráfica traza la fracción de palabras, en cada bloque de texto individual
+        analizado, con las coordenadas correspondientes a la fracción de palabras,
+        en cada bloque, que pertenezcan a los dos conjuntos identificados. Si el análisis
+        se realiza con éxito, debería poder ver dos nubes de puntos claramente separadas
+        por una pequeña superposición, lo cual muestra que las palabras indicadoras
+        pueden distinguir bloques de texto de cada conjunto de datos fácilmente.
+    block_name_column: Nombre del bloque de texto
+    marker_column: "Fracción de palabras indicadoras para %{name}"
+    zeta_score_header: Resultados Zeta para todas las palabras analizadas
+    zeta_score_explanation: >
+        Resultados Zeta correctos para todas las palabras analizadas. El rango de
+        resultados de dos (una palabra indicadora perfecta que indentifica a un miembro
+        en %{name_1}) a cero (una antipalabra indicadora que identifica a un miembro
+        en %{name_2}).
+    word_column: Palabra
+    score_column: Zeta Score
+  create_dataset_job:
+    progress_fetching: "Buscando documentos..."
+    progress_finished: "Creación terminada, guardando conjunto de datos."
+  destroy_dataset_job:
+    progress_destroying: "Eliminando conjunto de datos..."
+  export_citations_job:
+    name: Exportar citas
+    short_desc: Exportar conjunto de datos como citas
+    question: >
+        ¿Puedo exportar un conjunto de artículos a mi formato favorito o al administrador
+        de referencias?
+    format: Formato de exportación
+    progress_creating: "Creando citas: %{progress}..."
+  proper_names_job:
+    name: Extraer nombres propios
+    short_desc: Extraer referencias a nombres propios
+    question: >
+        ¿Qué nombres propios (lugares, personas u organizaciones) se mencionan en
+        un conjunto de artículos dado?
+    subheader: Referencias a nombres propios
+    name_column: Nombre
+  network_job:
+    name: Calcular red de términos
+    short_desc: Calcular red de términos asociados
+    question: >
+        ¿Qué mayor red de palabras se encuentra a menudo con una palabra importante
+        de interés?
+    focal_word: Palabra importante
+    download: Descargar en formato GraphML
+    word_stem: Podado de palabras
+    word_forms: Unidades en el conjunto de datos
+    progress_network: "Generando red de plabras..."
+  term_dates_job:
+    name: Apariciones de palabras por fecha
+    short_desc: Trazar apariciones de palabras por fecha
+    question: >
+        ¿Cómo ha cambiado la frecuencia de un término con el paso del tiempo?
+
+        ¿Cuándo se utilizó esta palabra en conjunto de datos en concreto?
+    term: Palabra importante
+    subheader: "Apariciones de %{term}, trazadas por año"
+    number_column: Apariciones de la palabras
+    progress_computing: "Buscando en el recuento de frecuencia de términos..."
+  word_frequency_job:
+    name: Frecuencia de palabras
+    short_desc: Analizar la frecuencia de palabras en el conjunto de datos
+    csv_header: "Información de frecuencia de palabras para el conjunto de datos %{name}"
+    each_block: "Cada bloque del documento:"
+    whole_dataset: "Para todo el conjunto de datos:"
+    types_header: Número de tipos
+    tokens_header: Número de tokens
+    ttr_header: Ratio de tipo/token
+    freq_header: Frecuencia
+    prop_header: Proporción
+    tfidf_dataset_header: TF/IDF (Frecuencia de términos/Frecuencia inversa de documentos contra conjunto de datos)
+    tfidf_corpus_header: TF/DF (Frecuencia de términos/Frecuencia de documentos contra corpus)
+    df_header: DF (Frecuencia de documentos en el corpus)
+    progress_calculating: "Calculando frecuencia de palabras..."
+  compute_word_frequencies:
+    ngram_method: ¿Analizar palabras sueltas o n-gramas?
+    single_words: Palabras sueltas
+    n_grams: N-gramas (frases de varias palabras)
+    ngram_size: Tamaño de las frases para analizar
+    num_ngrams: Número de n-gramas para analizar
+    ngram_inclusion_list: Incluir únicamente n-gramas que contengan una de las siguientes palabras (separadas por espacios)
+    ngram_exclusion_list: Excluir cualquier n-grama que contenga una de las siguientes palabras (separadas por espacios)
+    word_method: Método de selección de palabras
+    most_frequent: Palabras más frecuentes
+    list: Lista explícita de palabras
+    num_words: Número de palabras para analizar
+    exclude_method: ¿Excluir alguna palabra?
+    none: 'No'
+    stop: Palabras más comunes (palabras no significativas)
+    stop_language: Idioma del texto (para la lista de palabras no significativas)
+    exclusion_list: Palabras a excluir (separadas por espacios)
+    inclusion_list: Palabras a analizar (separadas por espacios)
+    block_method: Método con bloque de texto
+    num_words_split: Por número de palabras
+    num_blocks_split: Por número de bloques
+    block_size: Número de palabras por bloque
+    last_block: Último método con bloque
+    big_last: Último bloque grande
+    small_last: Último bloque pequeño
+    truncate_last: Excluir palabras restantes
+    truncate_all: Excluir cualquier documento del tamaño especificado
+    num_blocks_label: Número de bloques
+    split_across: ¿Dividir bloques en documentos distintos?

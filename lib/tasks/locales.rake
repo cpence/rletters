@@ -20,10 +20,5 @@ namespace :rletters do
         `sed -i'' -e 's/#{underscore_base}:/#{dash_base}:/g' #{dest}`
       end
     end
-
-    desc 'Send source file to Transifex'
-    task :push do
-      `tx push -s`
-    end
   end
 end

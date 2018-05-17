@@ -37,15 +37,15 @@ source_file = app/views/jobs/export_citations_job/_info.en.html.md
 source_lang = en
 type = GITHUBMARKDOWN
 
-[rletters.named_entities]
-file_filter = app/views/jobs/named_entities_job/_info.<lang>.html.md
-source_file = app/views/jobs/named_entities_job/_info.en.html.md
-source_lang = en
-type = GITHUBMARKDOWN
-
 [rletters.network]
 file_filter = app/views/jobs/network_job/_info.<lang>.html.md
 source_file = app/views/jobs/network_job/_info.en.html.md
+source_lang = en
+type = GITHUBMARKDOWN
+
+[rletters.proper_names]
+file_filter = app/views/jobs/proper_names_job/_info.<lang>.html.md
+source_file = app/views/jobs/proper_names_job/_info.en.html.md
 source_lang = en
 type = GITHUBMARKDOWN
 
