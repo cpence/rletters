@@ -29,6 +29,18 @@ class AdminControllerTest < ActionDispatch::IntegrationTest
     assert flash[:alert]
   end
 
+  test 'should fail when password is unset' do
+    password = ENV['ADMIN_PASSWORD']
+    ENV.delete('ADMIN_PASSWORD')
+
+    post admin_login_url(password: password)
+
+    assert_response :success
+    assert flash[:alert]
+
+    ENV['ADMIN_PASSWORD'] = password
+  end
+
   test 'should log out after logging in' do
     post admin_login_url(password: ENV['ADMIN_PASSWORD'])
     assert_redirected_to admin_url
@@ -50,5 +62,19 @@ class AdminControllerTest < ActionDispatch::IntegrationTest
     delete admin_logout_url
 
     assert_redirected_to admin_login_url
+  end
+
+  test 'should not allow authentication if password is unset' do
+    post admin_login_url(password: ENV['ADMIN_PASSWORD'])
+    assert_redirected_to admin_url
+
+    password = ENV['ADMIN_PASSWORD']
+    ENV.delete('ADMIN_PASSWORD')
+
+    get admin_url
+    assert_redirected_to admin_login_url
+    assert flash[:alert]
+
+    ENV['ADMIN_PASSWORD'] = password
   end
 end
