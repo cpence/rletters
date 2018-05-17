@@ -4,7 +4,7 @@ require 'test_helper'
 
 module Datasets
   class TasksHelperTest < ActionView::TestCase
-    test 'task_download_path' do
+    test 'task_download_path works' do
       task = create(:task, job_type: 'ExportCitationsJob')
       create(:file, task: task, description: 'test', short_description: 'test') do |f|
         f.from_string('{"abc":123}', filename: 'test.json',

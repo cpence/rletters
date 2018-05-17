@@ -18,7 +18,7 @@ module ApplicationHelper
   def validation_errors_for(object, field, client_side = false,
                             client_side_message = nil)
     ret = []
-    has_server_error = !object.is_a?(Symbol) && object.errors[field]
+    has_server_error = !object.is_a?(Symbol) && object.errors[field].present?
 
     if has_server_error
       server_errors = content_tag(:span, class: 'server-errors') do
