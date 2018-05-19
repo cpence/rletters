@@ -28,6 +28,12 @@ module Users
       assert library.valid?
     end
 
+    test 'to_s should work' do
+      library = create(:library)
+
+      assert_includes library.to_s, library.name
+    end
+
     test 'should parse a protocol-free URL' do
       library = create(:library, url: 'google.com/wut?')
 

@@ -47,4 +47,10 @@ class DatasetTest < ActiveSupport::TestCase
 
     assert_equal 2, dataset.document_count
   end
+
+  test 'to_s should work' do
+    dataset = build(:dataset)
+
+    assert_includes dataset.to_s, dataset.name
+  end
 end

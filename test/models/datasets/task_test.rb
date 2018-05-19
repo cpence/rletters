@@ -4,6 +4,8 @@ require 'test_helper'
 
 module Datasets
   class TaskTest < ActiveSupport::TestCase
+    include ActionMailer::TestHelper
+
     test 'should be invalid without name' do
       task = build_stubbed(:task, name: nil)
 
@@ -26,6 +28,25 @@ module Datasets
       task = create(:task)
 
       assert task.valid?
+    end
+
+    test 'to_s should work for active' do
+      task = create(:task, progress: 0.5, progress_message: 'message')
+
+      assert_includes task.to_s, 'message'
+      assert_includes task.to_s, task.name
+    end
+
+    test 'to_s should work for failed' do
+      task = create(:task, failed: true)
+
+      assert_includes task.to_s, 'failed'
+    end
+
+    test 'to_s should work for finished' do
+      task = create(:task, finished_at: 2.days.ago)
+
+      assert_includes task.to_s, 'finished'
     end
 
     test 'should return template path' do
@@ -105,6 +126,37 @@ module Datasets
       task = create(:task, job_type: 'ExportCitationsJob')
 
       assert_nil task.job_id
+    end
+
+    test 'at works' do
+      task = create(:task)
+
+      task.at(40, 50, 'message')
+      task.at(49, 50, 'unused')
+
+      assert_equal 0.8, task.progress
+      assert_equal 'message', task.progress_message
+    end
+
+    test 'mark_completed works' do
+      task = create(:task)
+
+      task.mark_completed
+
+      refute task.failed
+      assert task.finished_at
+      assert_equal 1.0, task.progress
+      assert_enqueued_emails 1
+    end
+
+    test 'mark_failed works' do
+      task = create(:task)
+
+      task.mark_failed('lastmessage')
+
+      assert task.failed
+      assert_equal 'lastmessage', task.progress_message
+      assert_enqueued_emails 1
     end
   end
 end

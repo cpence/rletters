@@ -40,6 +40,30 @@ class UserTest < ActiveSupport::TestCase
     assert user.valid?
   end
 
+  test 'to_s should work' do
+    user = build(:user)
+
+    assert_includes user.to_s, user.email
+  end
+
+  test 'can_export should be false if just exported' do
+    user = create(:user, export_requested_at: Time.current)
+
+    refute user.can_export?
+  end
+
+  test 'can_export should be true if never exported' do
+    user = create(:user)
+
+    assert user.can_export?
+  end
+
+  test 'can_export should be true if exported long ago' do
+    user = create(:user, export_requested_at: 3.weeks.ago)
+
+    assert user.can_export?
+  end
+
   test 'should not get workflow dataset for too-large' do
     user = create(:user, workflow_datasets: [])
 

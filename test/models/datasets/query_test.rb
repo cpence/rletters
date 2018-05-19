@@ -15,5 +15,11 @@ module Datasets
 
       assert query.valid?
     end
+
+    test 'to_s should work' do
+      query = build(:query)
+
+      assert_includes query.to_s, query.def_type
+    end
   end
 end
