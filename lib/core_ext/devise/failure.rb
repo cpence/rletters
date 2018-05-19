@@ -5,6 +5,8 @@
 # This class ensures that when we fail to authenticate a user, we redirect
 # back to the root page, rather than to the login page (since we no longer
 # have a dedicated login action).
+#
+# This class is tested in the ApplicationControllerTest.
 class DeviseFailure < Devise::FailureApp
   # The redirection URL on failure
   #

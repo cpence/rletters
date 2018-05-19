@@ -9,6 +9,8 @@ module I18n
     # Markdown before returning it.  Note that this method does *not* call
     # html_safe by default; if you need that you should call it yourself.
     #
+    # This is tested in the ApplicationHelperTest.
+    #
     # @param [String] key the lookup key for the translation requested
     # @return [String] the requested translation, parsed as Markdown
     def translate_markdown(key, options = {})
