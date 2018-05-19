@@ -42,7 +42,7 @@
 
         .form-group.sub-form.start-hidden#exclude-common-controls
           = f.label :stop_list, t('compute_word_frequencies.stop_language')
-          = f.collection_select :stop_list, RLetters::Analysis::StopList.available.sort, :to_s, ->(s) { RLetters::Analysis::StopList.friendly_name(s) }, { include_blank: false, selected: 'en' }, class: 'form-control', disabled: true
+          = f.collection_select :stop_list, RLetters::Analysis::StopList.available.sort, :to_s, ->(s) { I18n.translate_locale(s) }, { include_blank: false, selected: 'en' }, class: 'form-control', disabled: true
 
         .form-group.sub-form.start-hidden#exclude-list-controls
           = f.label :exclusion_list, t('compute_word_frequencies.exclusion_list')

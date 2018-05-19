@@ -214,7 +214,9 @@ module RLetters
               # me a dataset that can't properly normalize (i.e., you ask me
               # to compute 1/0).  But at least it won't throw a
               # divide-by-zero.
+              # :nocov:
               0.0
+              # :nocov:
             end
         end
 

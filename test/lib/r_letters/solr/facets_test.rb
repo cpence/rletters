@@ -12,6 +12,37 @@ module RLetters
         @facets = RLetters::Solr::Facets.new(rsolr.facets, rsolr.facet_queries)
       end
 
+      test 'search_params works for empty set of facets' do
+        p = ActionController::Parameters.new(controller: 'search', action: 'index',
+                                             fq: ['authors_facet:"C. Dickens"'])
+
+        out = RLetters::Solr::Facets.search_params(p, [])
+        assert_nil out[:fq]
+      end
+
+      test 'search_params works for a facet' do
+        p = ActionController::Parameters.new(controller: 'search', action: 'index')
+        f = @facets.for_field(:authors_facet).find { |o| o.value == 'C. Dickens' }
+
+        out = RLetters::Solr::Facets.search_params(p, [f])
+        assert_equal 1, out[:fq].count
+        assert_equal 'authors_facet:"C. Dickens"', out[:fq][0]
+      end
+
+      test 'active works when empty' do
+        p = ActionController::Parameters.new(controller: 'search', action: 'index')
+
+        assert_empty @facets.active(p)
+      end
+
+      test 'active works for a facet' do
+        p = ActionController::Parameters.new(controller: 'search', action: 'index',
+                                             fq: ['authors_facet:"C. Dickens"'])
+        f = @facets.for_field(:authors_facet).find { |o| o.value == 'C. Dickens' }
+
+        assert_equal [f], @facets.active(p)
+      end
+
       test 'for_field has the right hash keys' do
         refute_empty @facets.for_field(:authors_facet)
         refute_empty @facets.for_field(:journal_facet)
@@ -67,6 +98,10 @@ module RLetters
       test 'for_query works' do
         refute_nil @facets.for_query('year:[1850 TO 1859]')
         refute_nil @facets.for_query('authors_facet:"C. Dickens"')
+      end
+
+      test 'empty works' do
+        assert RLetters::Solr::Facets.new(nil, nil).empty?
       end
     end
   end

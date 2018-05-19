@@ -49,15 +49,6 @@ module RLetters
           end
         end
       end
-
-      # Return the translated name of a stop list language
-      #
-      # @param [Symbol] lang language to translate
-      # @return [String] translated
-      def self.friendly_name(lang)
-        dest = TwitterCldr::Shared::Locale.parse(I18n.locale.downcase).language
-        TwitterCldr::Shared::Languages.from_code_for_locale(lang.to_s, dest).dup
-      end
     end
   end
 end

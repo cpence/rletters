@@ -9,6 +9,15 @@ module RLetters
       class MARCJSONTest < ActiveSupport::TestCase
         include CommonTests
 
+        test 'single serialization makes no array' do
+          doc = build(:full_document)
+          json = RLetters::Documents::Serializers::MARCJSON.new(doc).serialize
+
+          parsed = JSON.parse(json)
+
+          assert_kind_of Hash, parsed
+        end
+
         test 'array serialization creates the right sized arrays' do
           doc = build(:full_document)
           docs = [doc, doc]

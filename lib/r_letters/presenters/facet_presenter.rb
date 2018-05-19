@@ -23,7 +23,9 @@ module RLetters
         when :year
           year_label
         else
+          # :nocov:
           raise ArgumentError, "do not know how to handle facets on #{facet.field}"
+          # :nocov:
         end
       end
 
@@ -39,7 +41,9 @@ module RLetters
         when :year
           I18n.t('search.index.year_facet_short')
         else
+          # :nocov:
           raise ArgumentError, "do not know how to handle facets on #{facet.field}"
+          # :nocov:
         end
       end
 

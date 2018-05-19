@@ -52,6 +52,8 @@ module RLetters
           assert_includes (0..1), p.x
           assert_includes (0..1), p.y
           assert_includes p.name, ' Dataset: '
+
+          assert_kind_of Array, p.to_a
         end
       end
 

@@ -83,6 +83,7 @@ module RLetters
         assert_includes ret[:q], 'volume:"30"'
         assert_includes ret[:q], 'number:"5"'
         assert_includes ret[:q], 'pages:"300-301"'
+        assert_includes ret[:q], ' AND '
       end
 
       test 'handles fuzzy params with type set to verbatim' do
@@ -227,6 +228,13 @@ module RLetters
         ret = RLetters::Solr::Search.params_to_query(params)
 
         assert_equal 'score desc,uid asc', ret[:sort]
+      end
+
+      test 'passes through explicit sorts' do
+        params = { sort: +'authors_sort desc' }
+        ret = RLetters::Solr::Search.params_to_query(params)
+
+        assert_equal 'authors_sort desc,uid asc', ret[:sort]
       end
 
       test 'successfully parses page and per_page parameters for API searches' do

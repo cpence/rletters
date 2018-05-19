@@ -6,7 +6,7 @@
       .invalid-feedback= validation_errors_for(snippet, :name, true)
     .form-group
       = f.label :language
-      = f.select :language, options_for_select(I18n.available_locales.translated, snippet.language), {}, class: 'form-control'
+      = f.select :language, options_for_select(I18n.locale_options_array, snippet.language), {}, class: 'form-control'
       .invalid-feedback= validation_errors_for(snippet, :language, true)
 
     .form-group
