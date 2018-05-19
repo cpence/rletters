@@ -47,6 +47,9 @@ class WorkerRakeTest < ActiveSupport::TestCase
     Delayed::Worker.max_run_time = 12.hours
   end
 
+  # This is only a partial test; we just want to be sure that the worker hooks
+  # for cleaning up after itself are actually doing their jobs, so that we
+  # don't leave stale jobs around.
   test 'should destroy failing jobs' do
     # Create the task
     task = create(:task)

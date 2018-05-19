@@ -8,6 +8,7 @@ if ENV['TRAVIS'] || ENV['COVERAGE']
     add_filter '/test/'
     add_filter '/config/'
     add_filter '/db/'
+    add_filter '/lib/tasks/'
     add_filter '/vendor/bundle/'
     add_filter '.haml'
     add_filter '.erb'
@@ -20,7 +21,6 @@ if ENV['TRAVIS'] || ENV['COVERAGE']
     add_group 'Models', 'app/models'
     add_group 'Core Extensions', 'lib/core_ext'
     add_group 'Library', 'lib/r_letters'
-    add_group 'Rake Tasks', 'lib/tasks'
   end
 
   SimpleCov.merge_timeout 3600
