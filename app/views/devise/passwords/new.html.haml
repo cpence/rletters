@@ -15,4 +15,4 @@
         = f.email_field :email, class: 'form-control', required: true, autofocus: true
         .invalid-feedback= validation_errors_for(resource, :email, true)
 
-      = f.submit t('.submit')
+      = f.submit t('.submit'), class: 'btn btn-primary'
