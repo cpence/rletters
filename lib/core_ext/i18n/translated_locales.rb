@@ -10,7 +10,7 @@ module I18n
   # @return [String] the language (and possibly region), translated into the
   #   current language
   def self.translate_locale(locale)
-    loc = locale.to_s.downcase.gsub('_', '-')
+    loc = locale.to_s.downcase.tr('_', '-')
 
     cur_locale = TwitterCldr::Shared::Locale.parse(I18n.locale.downcase)
     cur_lang = cur_locale.language
@@ -22,14 +22,16 @@ module I18n
       parsed = TwitterCldr::Shared::Locale.parse(loc)
       ret = TwitterCldr::Shared::Languages.from_code_for_locale(
         parsed.language,
-        cur_lang).dup
+        cur_lang
+      ).dup
       raise "Cannot translate #{locale} into #{I18n.locale}" unless ret
 
       # See if there's a region we should try to add
       if parsed.region
         reg = TwitterCldr::Shared::Territories.from_territory_code_for_locale(
           parsed.region,
-          cur_lang).dup
+          cur_lang
+        ).dup
 
         # Just use the code if there's no translation
         reg ||= parsed.region
@@ -51,4 +53,3 @@ module I18n
     end
   end
 end
-

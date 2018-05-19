@@ -19,7 +19,7 @@ module Admin
     end
 
     test 'with_asset works' do
-      asset = create(
+      create(
         :asset,
         name: 'favicon',
         file: fixture_file_upload(Rails.root.join('test', 'factories', '1x1.png'))

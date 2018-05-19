@@ -8,6 +8,6 @@ class MathTFIDFTest < ActiveSupport::TestCase
   end
 
   test 'it works' do
-    assert_equal 300, Math.tfidf(100, 10, 10000)
+    assert_equal 300, Math.tfidf(100, 10, 10_000)
   end
 end

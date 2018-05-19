@@ -38,7 +38,7 @@ class StaticControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should redirect if favicon present' do
-    asset = create(
+    create(
       :asset,
       name: 'favicon',
       file: fixture_file_upload(Rails.root.join('test', 'factories', '1x1.png'))

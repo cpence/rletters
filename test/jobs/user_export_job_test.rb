@@ -30,7 +30,7 @@ class UserExportJobTest < ActiveJob::TestCase
     file121.from_string('this is a first one', filename: 'something.csv', content_type: 'text/csv')
     file122 = create(:file, task: task12)
     file122.from_string('this is another one', filename: 'out.txt', content_type: 'text/plain')
-    file123 = create(:file, task: task12)
+    create(:file, task: task12)
     # This is a file record with a purged/deleted file
 
     # And do the export
