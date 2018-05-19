@@ -77,8 +77,8 @@ namespace :rletters do
       end
     end
 
-    desc 'Work tasks off the maintenance job queue'
-    task maintenance_work: :environment do
+    desc 'Work the maintenance job queue'
+    task maintenance: :environment do
       # Record our presence in the DB
       stat = Admin::WorkerStats.create(
         worker_type: 'maintenance worker',
@@ -90,30 +90,8 @@ namespace :rletters do
       begin
         worker = Delayed::Worker.new(quiet: true,
                                      queues: [:maintenance],
-                                     sleep_delay: 5)
+                                     exit_on_complete: true)
         worker.start
-      ensure
-        stat.destroy
-      end
-    end
-
-    desc 'Work the maintenance job queue'
-    task maintenance: :environment do
-      # Record our presence in the DB
-      stat = Admin::WorkerStats.create(
-        worker_type: 'maintenance worker manager',
-        host: Socket.gethostname,
-        pid: Process.pid,
-        started_at: Time.current
-      )
-
-      begin
-        # Exceptions can cause this worker process to fail, restart it when
-        # that happens
-        loop do
-          system('bundle exec rake rletters:jobs:maintenance_work')
-          sleep 15
-        end
       ensure
         stat.destroy
       end
