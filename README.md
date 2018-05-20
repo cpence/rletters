@@ -1,4 +1,4 @@
-# RLetters #
+# RLetters
 
 [![Build Status][travis_img]][travis] [![Code Metrics][codeclimate_img]][codeclimate] [![Test Coverage][coverage_img]][coverage] [![Inline docs][inch_img]][inch]
 [![External API Docs][apiary_img]][apiary] [![Code Docs][rubydoc_img]][rubydoc]
@@ -29,9 +29,9 @@
 
 RLetters is an application designed to let users perform complex searches as well as digital-humanities and text-mining analysis tasks on a corpus of journal articles.
 
-## Features ##
+## Features
 
-### Text analysis ###
+### Text analysis
 
 RLetters allows users to save the results of a given search as a "dataset."  This produces a saved record that users can return to later in order to perform text analysis tasks.
 
@@ -45,7 +45,7 @@ While text analysis tasks are a current area of active development in RLetters, 
 -   Extract references to proper names (locations, people, organizations)
 -   Export dataset as citations in a variety of formats
 
-### Complex search ###
+### Complex search
 
 The Solr backend on which RLetters is based allows for a number of complicated searching operations:
 
@@ -56,7 +56,7 @@ The Solr backend on which RLetters is based allows for a number of complicated s
 -   Fuzzy matching (matching words similar to the requested term)
 -   Proximity searching (two terms within N words of one another)
 
-### Support for web and library standards ###
+### Support for web and library standards
 
 RLetters features a [JSON API to return search results](http://docs.rletters.apiary.io/) to other services around the internet.  We also provide support for the following web and library standards:
 
@@ -75,35 +75,13 @@ And you can export bibliographic data in the following standard formats:
 -   [EndNote (ENW format)](http://www.endnote.com/)
 -   [Reference Manager (RIS format)](http://www.refman.com/support/risformat_intro.asp)
 
-### Cutting-edge development and maintenance tools ###
+### Cutting-edge development and maintenance tools
 
-RLetters doesn't leave your developers out in the cold, either.  We've got support for the following features that make development, deployment, maintenance, and monitoring easier:
+RLetters doesn't leave your developers out in the cold, either.  We've got speedy deployments on [Heroku,](https://www.heroku.com/) and our code has a thorough test suite and adheres to a probably unnecessary level of linting and style-guide fanaticism.
 
--   Server provisioning entirely handled [by Ansible](http://www.ansibleworks.com)
--   Source well-documented using [Yard](http://yardoc.org)
--   Continuous integration support with [Travis](http://travis-ci.org/)
+Visit [the website](https://www.rletters.net/) for more developer information, especially our [deployment guide.](https://www.rletters.net/dev/heroku.html)
 
-
-## Installation / Deployment ##
-
-See our detailed [installation and deployment](https://github.com/rletters/rletters/wiki/Installation-and-Deployment) guide for instructions.  For the extremely impatient:
-
-    # Install Ansible 1.3+ from your local package manager
-    # Establish passwordless SSH with passwordless sudo to your server running RHEL/CentOS 7
-    git clone git://github.com/rletters/ansible-playbook.git
-    
-    cd ansible-playbook/deploy
-    cp hosts.example hosts
-    $EDITOR hosts
-      # Point all these paths at your server
-    ansible-playbook -i hosts site.yml
-    
-    # Open up a web browser to http://YOUR_SITE/admin/
-      # Log in with admin@example.com / password
-      # CHANGE THOSE DEFAULT CREDENTIALS
-      # Configure any other settings that strike your fancy
-
-## Contributors / Support ##
+## Contributors / Support
 
 Special thanks to all contributors to the code here on GitHub. A full list of contributors including their patches can be found at:
 
