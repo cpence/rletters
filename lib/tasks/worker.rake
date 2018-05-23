@@ -39,7 +39,7 @@ namespace :rletters do
         success, failure = worker.work_off(1)
 
         if success.zero? && failure.zero?
-          Rails.logger.info 'No tasks available to work, exiting'
+          Rails.logger.debug 'No tasks available to work, exiting'
         elsif success == 1 && failure.zero?
           Rails.logger.info 'Successfully performed a single job'
         elsif success.zero? && failure == 1
