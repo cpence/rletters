@@ -48,23 +48,23 @@
 
           %nav.nav.nav-pills.flex-column.filter-list
             - if params[:fq].present? || Documents::Category.active(params).present?
-              .filter-header= I18n.t('.active_filters')
+              .filter-header= t('.active_filters')
 
               = facet_removal_links(@result.facets)
               = category_removal_links
 
             - if @result.facets
-              .filter-header= I18n.t('.authors_facet')
+              .filter-header= t('.authors_facet')
               = facet_addition_links(@result.facets, :authors_facet)
 
-              .filter-header= I18n.t('.journal_facet')
+              .filter-header= t('.journal_facet')
               = facet_addition_links(@result.facets, :journal_facet)
 
-              .filter-header= I18n.t('.year_facet')
+              .filter-header= t('.year_facet')
               = facet_addition_links(@result.facets, :year)
 
             - if Documents::Category.count.positive?
-              .filter-header= I18n.t('.categories')
+              .filter-header= t('.categories')
               = category_addition_tree
 
         = link_to t('.advanced_search'), search_advanced_path, class: 'btn btn-outline-secondary w-100'
