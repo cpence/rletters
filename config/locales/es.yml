@@ -382,10 +382,6 @@ es:
     '404':
       title: Puede continuar con sus asuntos.
       header: "Error 404: pagina no encontrada"
-    '422':
-      header: "Error 422: Entidad no procesable"
-    '500':
-      header: "Error 500: error interno del servidor"
   snippets:
     landing: Página de llegada
     caption-one: Primer titular de captura de pantalla
