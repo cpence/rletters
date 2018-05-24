@@ -99,7 +99,11 @@ Rails.application.routes.draw do
   root to: 'workflow#index'
 
   # Error pages
-  get '/404' => 'errors#not_found'
-  get '/422' => 'errors#unprocessable'
-  get '/500' => 'errors#internal_error'
+  ([:not_found] + ErrorsController::INTERNAL_ERRORS).each do |sym|
+    match "/#{Rack::Utils::SYMBOL_TO_STATUS_CODE[sym]}", via: :all,
+                                                         to: "errors##{sym}"
+  end
+
+  # Don't raise application routing errors for 404s
+  match '*any', via: :all, to: 'errors#not_found'
 end

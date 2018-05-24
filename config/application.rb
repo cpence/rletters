@@ -26,6 +26,10 @@ module RLetters
 
     # Log at :info with lograge, to try to make logs readable
     config.lograge.enabled = true
+    config.lograge.custom_options = lambda do |event|
+      { exception: event.payload[:exception],
+        exception_object: event.payload[:exception_object] }
+    end
     config.log_level = :info
 
     if (ENV['RAILS_LOG_TO_STDOUT'] || 'true').to_bool

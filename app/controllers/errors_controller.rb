@@ -20,33 +20,29 @@ class ErrorsController < ApplicationController
     end
   end
 
-  # Render a 422 error page
-  #
-  # This isn't tested, as I can't figure out a way to programmatically generate
-  # a 422 error in an integration test.
+  # The internal error pages that we render
+  INTERNAL_ERRORS = %i[
+    bad_request internal_server_error unprocessable_entity
+  ].freeze
+
+  # Render a number of internal error pages with the same template
   #
   # @return [void]
   # :nocov:
-  def unprocessable
-    respond_to do |format|
-      format.html do
-        render(template: 'errors/422',
-               layout: false,
-               status: :unprocessable_entity)
-      end
-      format.any do
-        render(plain: '422 Unprocessable Entity',
-               status: :unprocessable_entity)
+  INTERNAL_ERRORS.each do |sym|
+    define_method sym do
+      respond_to do |format|
+        format.html do
+          render(template: 'errors/500', layout: false, formats: [:html],
+                 status: sym)
+        end
+        format.any do
+          code = Rack::Utils::SYMBOL_TO_STATUS_CODE[sym]
+          string = Rack::Utils::HTTP_STATUS_CODES[code]
+          render(plain: "#{code} #{string}", status: sym)
+        end
       end
     end
   end
   # :nocov:
-
-  # Render a 500 error page
-  #
-  # @return [void]
-  def internal_error
-    render(template: 'errors/500', layout: false,
-           formats: [:html], status: :internal_server_error)
-  end
 end
