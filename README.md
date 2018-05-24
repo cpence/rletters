@@ -22,10 +22,10 @@
 **Contributors:** See Contributors section below  
 **Copyright:** &copy; 2014–2018 Charles Pence and the RLetters Team  
 **License:** MIT License  
-**Latest Released Version:** v2.0.1  
-**Release Date:** January 12, 2015  
+**Latest Released Version:** v3.0  
+**Release Date:** May 24, 2018  
 
-(*Note:* This README file describes the unreleased Git version, not the last release, which is in many cases substantially different.)
+(*Note:* This README file describes the unreleased Git version, not the last release, which may be different. Select the appropriate release tag at the top left to see the README for the version you're using.)
 
 RLetters is an application designed to let users perform complex searches as well as digital-humanities and text-mining analysis tasks on a corpus of journal articles.
 

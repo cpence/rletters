@@ -1,6 +1,8 @@
 # RLetters ChangeLog
 
-## Version 3.0 (unreleased)
+## Version 3.0 (2018-05-24)
+
+**Note: There is not a clean migration path from 2.0 to 3.0, as we have moved our file storage from inside the database (support for which was always difficult to maintain) to ActiveStorage, in the filesystem or S3.**
 
 *   **Upgrade to bundling a more recent version of Solr (7.3.0).** This is a **significant and breaking change** for users, who *must* upgrade their Solr installations, as we are using some of the new features in later Solr versions to provide (in some cases dramatic) speed improvements. Reindexing content is not required, but is recommended when feasible.
 *   **Upgrade to use features in contemporary Ruby (2.3.0+).** This is a **significant change** for users, who *must* upgrade their deployed version of Ruby.
