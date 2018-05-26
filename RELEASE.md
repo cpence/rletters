@@ -41,8 +41,8 @@
 5.  Create a new release tag and push it upstream:
 
     ```shell_session
-    $ git tag -am 'vX.Y.Z' vX.Y.Z
+    $ git tag -am 'vX.Y' vX.Y
     $ git push --tags
     ```
 
-6.  Visit GitHub Releases. Click "Draft a new release." Select the new tag you just created from the pull-down menu. Under "Release title," repeat the tag name, "vX.Y.Z". If the changeset for this release is small enough that you can summarize it in a bulleted list, do that in the description, otherwise simply write "See ChangeLog for details.".
+6.  Visit GitHub Releases. Click "Draft a new release." Select the new tag you just created from the pull-down menu. Under "Release title," repeat the tag name, "vX.Y". If the changeset for this release is small enough that you can summarize it in a bulleted list, do that in the description, otherwise simply write "See ChangeLog for details.".

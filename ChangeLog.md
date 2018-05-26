@@ -1,5 +1,12 @@
 # RLetters ChangeLog
 
+
+## Version 3.1 (unreleased)
+
+*   Fix bug with advanced search not working (#95, thanks to Jess Folsom for the bug report).
+*   Fix loading of external Google fonts by Bootswatch themes.
+
+
 ## Version 3.0 (2018-05-24)
 
 **Note: There is not a clean migration path from 2.0 to 3.0, as we have moved our file storage from inside the database (support for which was always difficult to maintain) to ActiveStorage, in the filesystem or S3.**
