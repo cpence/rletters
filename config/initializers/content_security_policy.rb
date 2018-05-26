@@ -16,11 +16,12 @@
 # required by the Google Charts API.
 Rails.application.config.content_security_policy do |policy|
   policy.default_src :self, :https
-  policy.font_src    :none
-  policy.img_src     :self, :data, 'https://ssl.gstatic.com', 'https://s3.amazonaws.com', 'http://s3.amazonaws.com'
+  policy.font_src    'fonts.gstatic.com'
+  policy.img_src     :self, :data, 'ssl.gstatic.com', 's3.amazonaws.com'
   policy.object_src  :none
-  policy.script_src  :self, :unsafe_eval, 'https://www.google.com', 'https://www.gstatic.com'
-  policy.style_src   :self, :unsafe_inline, 'https://www.gstatic.com'
+  policy.script_src  :self, :unsafe_eval, 'www.google.com', 'www.gstatic.com'
+  policy.style_src   :self, :unsafe_inline, 'www.gstatic.com',
+                     'fonts.googleapis.com'
 end
 
 # Enable automatic nonce generation for UJS
