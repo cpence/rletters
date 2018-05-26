@@ -1,0 +1,15 @@
+
+.advanced-solr {
+  padding-top: 5em;
+}
+
+.bool-group {
+  .form-control {
+    width: auto;
+  }
+
+  .btn-group {
+    // Override one style from Bootstrap here to make this fit within the form
+    vertical-align: top;
+  }
+}

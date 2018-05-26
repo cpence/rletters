@@ -10,6 +10,7 @@
 //= require jscroll/jquery.jscroll
 //= require nestable2/jquery.nestable
 //= require typeahead.js/dist/typeahead.jquery
+//= require typeahead.js/dist/bloodhound
 //=
 //= require d3/build/d3
 //= require d3-scale-chromatic/dist/d3-scale-chromatic

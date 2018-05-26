@@ -3,57 +3,57 @@
 
 function updateAdvancedRows()
 {
-  var rowContainer = window.jQuery('#advanced-rows');
+  var rowContainer = $('#advanced-rows');
   if (rowContainer.length === 0)
     return;
 
   // Reset all of the IDs on these rows
-  window.jQuery('.advanced-row .field-group label').attr('for', function(arr) {
+  $('.advanced-row .field-group label').attr('for', function(arr) {
     return 'field_' + arr;
   });
 
-  window.jQuery('.advanced-row .field-group select').attr('id', function(arr) {
+  $('.advanced-row .field-group select').attr('id', function(arr) {
     return 'field_' + arr;
   }).attr('name', function (arr) {
     return 'field_' + arr;
   });
 
-  window.jQuery('.advanced-row .value-group label').attr('for', function(arr) {
+  $('.advanced-row .value-group label').attr('for', function(arr) {
     return 'value_' + arr;
   });
 
-  window.jQuery('.advanced-row .value-group input').attr('id', function(arr) {
+  $('.advanced-row .value-group input').attr('id', function(arr) {
     return 'value_' + arr;
   }).attr('name', function(arr) {
     return 'value_' + arr;
   });
 
   // Show the boolean toggles on every row but the last one
-  window.jQuery('.bool-group select').css('visibility', 'visible');
-  window.jQuery('.bool-group select').last().css('visibility', 'hidden');
+  showAndEnable('.advanced-row:not(:last-of-type) .bool-group select');
+  hideAndDisable('.advanced-row:last-of-type .bool-group select');
 
   // Show all the minus buttons
-  window.jQuery('.remove-button').css('visibility', 'visible');
+  $('.advanced-remove-button').css('visibility', 'visible');
 
   // Hide all but the last plus button
-  window.jQuery('.add-button').css('visibility', 'hidden');
-  window.jQuery('.add-button').last().css('visibility', 'visible');
+  $('.advanced-add-button').css('visibility', 'hidden');
+  $('.advanced-add-button').last().css('visibility', 'visible');
 
   // If there's only one row, nothing gets minus buttons
-  if (window.jQuery('.advanced-row').length == 1)
-    window.jQuery('.remove-button').css('visibility', 'hidden');
+  if ($('.advanced-row').length == 1)
+    $('.advanced-remove-button').css('visibility', 'hidden');
 }
 
 function addSearchAdvancedRow(button)
 {
-  container = window.jQuery('#advanced-rows');
+  container = $('#advanced-rows');
   if (container.length === 0)
   {
     alert("ERROR: Could not find row container from add row button");
     return;
   }
 
-  new_row = window.jQuery(window.rlRowMarkup);
+  new_row = $(window.rlRowMarkup);
   new_row.appendTo(container);
 
   updateAdvancedRows();
@@ -69,10 +69,21 @@ function removeSearchAdvancedRow(button)
   updateAdvancedRows();
 }
 
+function setAdvancedButtons() {
+  $(document).on('click', '.advanced-add-button', function() {
+    addSearchAdvancedRow($(this));
+    return false;
+  });
+  $(document).on('click', '.advanced-remove-button', function() {
+    removeSearchAdvancedRow($(this));
+    return false;
+  });
+}
+
 function fieldDropdownChange(event)
 {
-  var field = window.jQuery(this);
-  var option = window.jQuery(this).find('option:selected');
+  var field = $(this);
+  var option = $(this).find('option:selected');
   var row = field.parents('.advanced-row').first();
 
   // See if the row has a typeahead attached or not
@@ -126,7 +137,7 @@ function fieldDropdownChange(event)
 
 function createAutocompleteSystem()
 {
-  container = window.jQuery('#advanced-rows');
+  container = $('#advanced-rows');
   if (container.length === 0)
     return;
 
@@ -158,9 +169,10 @@ function createAutocompleteSystem()
   window.rlBloodhoundJournals.initialize();
 
   // Hook the change events to create and destroy typeaheads
-  window.jQuery(document).on('change', '.advanced-row .field-group select',
+  $(document).on('change', '.advanced-row .field-group select',
                  fieldDropdownChange);
 }
 
-window.jQuery(updateAdvancedRows);
-window.jQuery(createAutocompleteSystem);
+$(updateAdvancedRows);
+$(createAutocompleteSystem);
+$(setAdvancedButtons);

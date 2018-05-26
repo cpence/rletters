@@ -1,8 +1,3 @@
-.row.advanced-label-row.visible-xs
-  .col-12
-    %hr/
-
-    %strong= t('.row_label')
 .row.advanced-row
   .col-3
     .form-group.field-group
@@ -12,13 +7,13 @@
     .form-group.value-group
       = label_tag :value_0, t('.value_label'), class: 'sr-only'
       = text_field_tag :value_0, nil, class: 'form-control'
-  .col-3.form-inline
+  .col-3
     .form-group.bool-group
       .btn-group
-        = link_to '#', class: 'btn btn-secondary add-button', type: 'button', aria: { label: t('.add_label') }, onclick: 'addSearchAdvancedRow(window.jQuery(this)); return false' do
+        = link_to '#', class: 'btn btn-secondary advanced-add-button', type: 'button', aria: { label: t('.add_label') } do
           %i.fas.fa-plus
-        = link_to '#', class: 'btn btn-secondary remove-button start-invisible', type: 'button', aria: { label: t('.remove_label') }, onclick: 'removeSearchAdvancedRow(window.jQuery(this)); return false' do
+        = link_to '#', class: 'btn btn-secondary advanced-remove-button start-invisible', type: 'button', aria: { label: t('.remove_label') } do
           %i.fas.fa-minus
 
       = label_tag :boolean_0, t('.boolean_label'), class: 'sr-only'
-      = select_tag :boolean_0, options_for_select([[t('.and'), :and], [t('.or'), :or]]), class: 'form-control start-invisible'
+      = select_tag :boolean_0, options_for_select([[t('.and'), :and], [t('.or'), :or]]), class: 'form-control start-hidden'
