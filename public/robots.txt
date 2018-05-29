@@ -1,12 +1,12 @@
 User-agent: *
 Crawl-Delay: 10
+Disallow: /admin
 Disallow: /assets
-Disallow: /datasets
 Disallow: /documents
 Disallow: /search
 Disallow: /unapi
-Disallow: /users
-Disallow: /static/image
+Disallow: /lists
+Disallow: /rails/active_storage
 
 User-agent: AhrefsBot
 Disallow: /
