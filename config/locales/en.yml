@@ -540,24 +540,6 @@ en:
                 subheader: This job has some more options that you can configure before you get started.
             create:
                 workflow: "Running analysis now, check back soon for results..."
-    errors:
-        '404':
-            title: He can go about his business.
-            header: "404: Not Found"
-            message: >
-                As you can see, things seem to be falling apart over here.
-                Either we’ve moved a page, or you’ve mis-typed a link, as there
-                doesn’t seem to be anything here.  Head back to the front page,
-                and if you see this error message again, let us know and we’ll
-                try to fix it.
-        '500':
-            title: "Well, that isn’t good."
-            header: "Internal Server Error"
-            message: >
-                As you can see, things seem to be falling apart over here.
-                We’ve got this error registered in our logs, and we’ll see what
-                we can do.  Head back to the front page, and if you see this
-                error message again, let us know and we’ll try to fix it.
     snippets:
         landing: Landing Page
         caption-one: First Screenshot Caption

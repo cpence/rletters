@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'test_helper'
+require 'fileutils'
 
 class ApplicationControllerTest < ActionDispatch::IntegrationTest
   test 'devise should redirect to root after login' do
@@ -67,5 +68,26 @@ class ApplicationControllerTest < ActionDispatch::IntegrationTest
     get workflow_url
 
     assert_equal 'Mexico City', Time.zone.name
+  end
+
+  test 'should return localized error path when possible' do
+    user = create(:user, language: 'es')
+    sign_in user
+
+    path = Rails.root.join('public', '555.es.html')
+    FileUtils.touch(path)
+
+    get workflow_url
+    assert_equal path, controller.send(:error_page_path, '555')
+
+    FileUtils.rm(path)
+    I18n.locale = :en
+  end
+
+  test 'should return error path' do
+    path = Rails.root.join('public', '404.html')
+
+    get workflow_url
+    assert_equal path, controller.send(:error_page_path)
   end
 end

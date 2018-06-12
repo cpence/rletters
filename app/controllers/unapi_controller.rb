@@ -40,8 +40,7 @@ class UnapiController < ApplicationController
     if RLetters::Documents::Serializers::Base.available.include? format.to_sym
       redirect_to documents_export_path(params[:id], format: format)
     else
-      render template: 'errors/404',
-             layout: false,
+      render file: error_page_path,
              formats: [:html],
              status: :not_acceptable
     end

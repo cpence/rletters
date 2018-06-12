@@ -97,13 +97,4 @@ Rails.application.routes.draw do
 
   # Start off on the landing/dashboard page
   root to: 'workflow#index'
-
-  # Error pages
-  ([:not_found] + ErrorsController::INTERNAL_ERRORS).each do |sym|
-    match "/#{Rack::Utils::SYMBOL_TO_STATUS_CODE[sym]}", via: :all,
-                                                         to: "errors##{sym}"
-  end
-
-  # Don't raise application routing errors for 404s
-  match '*any', via: :all, to: 'errors#not_found'
 end

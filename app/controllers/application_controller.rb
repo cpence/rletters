@@ -106,6 +106,20 @@ class ApplicationController < ActionController::Base
     response.headers['Expires'] = 'Fri, 01 Jan 1990 00:00:00 GMT'
   end
 
+  # Get the path to an error template
+  #
+  # This checks for a localized error page, just like the internal Rails code
+  # that renders 404/500s.
+  #
+  # @param [String] error error code to look for
+  # @return [String] file path to error page
+  def error_page_path(error = '404')
+    path = Rails.root.join('public', "#{error}.#{I18n.locale}.html")
+    return path if File.exist?(path)
+
+    Rails.root.join('public', "#{error}.html")
+  end
+
   # Send the right parameter sanitizers to Devise
   #
   # Devise in Rails 4 uses this hook in the application controller in order

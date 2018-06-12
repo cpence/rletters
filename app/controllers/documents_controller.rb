@@ -29,8 +29,7 @@ class DocumentsController < ApplicationController
         return
       end
       format.any do
-        render template: 'errors/404',
-               layout: false,
+        render file: error_page_path,
                formats: [:html],
                status: :not_acceptable
         return

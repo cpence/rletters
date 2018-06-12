@@ -15,8 +15,7 @@ module RLetters
     config.eager_load_paths << config.root.join('lib').to_s
     config.eager_load_paths << config.root.join('app', 'jobs', 'concerns').to_s
 
-    # Run errors through the routing system, showing error pages in all cases.
-    config.exceptions_app = routes
+    # Show error pages in all environments
     config.consider_all_requests_local = false
     config.action_dispatch.show_exceptions = true
 
