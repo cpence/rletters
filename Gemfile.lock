@@ -316,6 +316,8 @@ GEM
     selenium-webdriver (3.12.0)
       childprocess (~> 0.5)
       rubyzip (~> 1.2)
+    sentry-raven (2.7.3)
+      faraday (>= 0.7.6, < 1.0)
     sexp_processor (4.11.0)
     simplecov (0.16.1)
       docile (~> 1.1)
@@ -412,6 +414,7 @@ DEPENDENCIES
   rubocop
   rubyzip (>= 1.1.0)
   sass-rails (~> 5.0)
+  sentry-raven
   simplecov
   to_bool
   twitter_cldr
