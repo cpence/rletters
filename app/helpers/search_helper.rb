@@ -28,7 +28,7 @@ module SearchHelper
   end
 
   def facet_removal_links(facets)
-    active_facets = facets.active(params)
+    active_facets = facets&.active(params)
     tags = []
 
     # Remove all link
@@ -38,7 +38,7 @@ module SearchHelper
       tags << facet_remove_link(remove_params, I18n.t('search.index.remove_all'))
     end
 
-    active_facets.each do |f|
+    active_facets&.each do |f|
       other_facets = active_facets.reject { |x| x == f }
       other_params = RLetters::Solr::Facets.search_params(params, other_facets)
 

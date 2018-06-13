@@ -6,6 +6,7 @@
 *   Install the sentry-raven gem, to report errors to Sentry if the correct environment variable is set.
 *   Fix bug with advanced search not working (#95, thanks to Jess Folsom for the bug report).
 *   Fix loading of external Google fonts by Bootswatch themes.
+*   Fix error when Solr returns no facets (#98).
 
 
 ## Version 3.0 (2018-05-24)

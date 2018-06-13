@@ -41,6 +41,15 @@ class SearchHelperTest < ActionView::TestCase
     assert_includes ret, url
   end
 
+  # rletters/rletters#98
+  test 'facet_removal_links works with nil facets' do
+    h = ActionController::Parameters.new(controller: 'search', action: 'index',
+                                         q: '*:*', defType: 'lucene').permit!
+    controller.stubs(:params).returns(h)
+
+    assert_empty facet_removal_links(nil)
+  end
+
   test 'facet_removal_links works with nothing active' do
     h = ActionController::Parameters.new(controller: 'search', action: 'index',
                                          q: '*:*', defType: 'lucene').permit!
