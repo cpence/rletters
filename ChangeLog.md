@@ -7,6 +7,7 @@
 *   Fix bug with advanced search not working (#95, thanks to Jess Folsom for the bug report).
 *   Fix loading of external Google fonts by Bootswatch themes.
 *   Fix error when Solr returns no facets (#98).
+*   Fix error when Solr returns facets without values (#97).
 
 
 ## Version 3.0 (2018-05-24)

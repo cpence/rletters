@@ -88,6 +88,7 @@ module RLetters
         facets&.each do |f|
           f.items.each do |it|
             next if Integer(it.hits).zero?
+            next if it.value.blank?
             @all << Facet.new(field: f.name, value: it.value, hits: it.hits)
           end
         end
