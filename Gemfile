@@ -13,11 +13,11 @@ gem 'rails', '~> 5.2.0'
 gem 'sentry-raven'
 gem 'to_bool'
 
-# Database and related tools
+# Database, job queue, and related tools
 gem 'ancestry', '~> 3', '>= 3.0.2'
-gem 'daemons'
 gem 'delayed_job_active_record'
 gem 'pg'
+gem 'platform-api'
 gem 'virtus'
 
 # User authentication and administration
@@ -29,7 +29,6 @@ gem 'rails-i18n', '= 5.1.1'
 gem 'twitter_cldr'
 
 # Textual analysis
-gem 'cheetah'
 gem 'distribution'
 gem 'engtagger'
 gem 'fast-stemmer'

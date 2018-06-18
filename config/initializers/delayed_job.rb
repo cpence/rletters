@@ -17,6 +17,18 @@ job_timeout = (ENV['JOB_TIMEOUT'] || '12').to_i
 Delayed::Worker.max_run_time = job_timeout.hours
 Delayed::Worker.destroy_failed_jobs = true
 
+# Don't autoscale jobs with Heroku if we don't have the dyno metadata enabled.
+if ENV['HEROKU_APP_NAME'].blank? && ENV['AUTOSCALE_JOBS'] == 'heroku'
+  ENV['AUTOSCALE_JOBS'] = ''
+  Rails.logger.warn 'Cannot use Heroku autoscaler, run `heroku labs:enable runtime-dyno-metadata`.'
+end
+
+# Don't autoscale jobs with Heroku if we don't have an API key set.
+if ENV['AUTOSCALE_API_KEY'].blank? && ENV['AUTOSCALE_JOBS'] == 'heroku'
+  ENV['AUTOSCALE_JOBS'] = ''
+  Rails.logger.warn 'Cannot use Heroku autoscaler, set up AUTOSCALE_API_KEY'
+end
+
 # Open up the job wrapper class used by ActiveJob, and add a failure
 # handler to it. When Rails updates, we should check this against
 # https://github.com/rails/rails/blob/master/activejob/lib/active_job/queue_adapters/delayed_job_adapter.rb
