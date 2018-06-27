@@ -36,8 +36,24 @@ class TermDatesJob < ApplicationJob
 
     # Convert the years to integers and sort
     dates = dates.to_a
-    dates.each { |d| d[0] = Integer(d[0]) }
-    dates.sort! { |a, b| a[0] <=> b[0] }
+    dates.each do |d|
+      begin
+        # If the field is an integer, convert it to an integer, otherwise leave
+        # it alone
+        converted = Integer(d[0])
+        d[0] = converted
+      rescue ArgumentError
+      end
+    end
+
+    dates.sort! do |a, b|
+      # We don't want to fail out for bad data; rather, put weird non-numeric
+      # data at year zero
+      a_int = a[0].is_a?(Integer) ? a[0] : 0
+      b_int = b[0].is_a?(Integer) ? b[0] : 0
+
+      a_int <=> b_int
+    end
 
     # Save out the data
     year_header = Document.human_attribute_name(:year)
