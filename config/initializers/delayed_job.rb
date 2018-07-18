@@ -50,7 +50,7 @@ module ActiveJob
           if ENV['KEEN_PROJECT_ID']
             Keen.publish('analyses_started', job: @job_data['job_class'],
                                              id: @job_data['job_id'],
-                                             args: args)
+                                             args: @job_data['arguments'])
           end
         end
 
@@ -64,7 +64,7 @@ module ActiveJob
           if ENV['KEEN_PROJECT_ID']
             Keen.publish('analyses_succeeded', job: @job_data['job_class'],
                                                id: @job_data['job_id'],
-                                               args: args)
+                                               args: @job_data['arguments'])
           end
         end
 
