@@ -7,6 +7,7 @@ ruby '2.5.1'
 
 # Rails and basics
 gem 'dotenv-rails'
+gem 'keen'
 gem 'lograge'
 gem 'puma', '~> 3.11'
 gem 'rails', '~> 5.2.0'

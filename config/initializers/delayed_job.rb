@@ -30,16 +30,62 @@ if ENV['AUTOSCALE_API_KEY'].blank? && ENV['AUTOSCALE_JOBS'] == 'heroku'
 end
 
 # Open up the job wrapper class used by ActiveJob, and add a failure
-# handler to it. When Rails updates, we should check this against
+# handler an additional logging handlers to it.
+#
+# When Rails updates, we should check this against:
 # https://github.com/rails/rails/blob/master/activejob/lib/active_job/queue_adapters/delayed_job_adapter.rb
 module ActiveJob
   module QueueAdapters
     class DelayedJobAdapter
       class JobWrapper
+        # Send a Keen event when a job starts, if configured. Note that the
+        # DJ worker will output job information to the Rails log, so we do not
+        # need to do that here.
+        #
+        # This is a callback, executed internally by DelajedJob.
+        #
+        # @param [Delayed::Job] job the job that is starting
+        # @return [void]
+        def before(job)
+          if ENV['KEEN_PROJECT_ID']
+            Keen.publish('analyses_started', job: @job_data['job_class'],
+                                             id: @job_data['job_id'],
+                                             args: args)
+          end
+        end
+
+        # Send a Keen event when a job succeeds, if configured.
+        #
+        # This is a callback, executed internally by DelajedJob.
+        #
+        # @param [Delayed::Job] job the job that succeeded
+        # @return [void]
+        def success(job)
+          if ENV['KEEN_PROJECT_ID']
+            Keen.publish('analyses_succeeded', job: @job_data['job_class'],
+                                               id: @job_data['job_id'],
+                                               args: args)
+          end
+        end
+
+        # Save the details of this error into our database so they aren't lost.
+        #
+        # TR14his is a callback, executed internally by DelajedJob.
+        #
+        # @param [Delayed::Job] job the job which failed
+        # @param [Exception] exception the error which caused it to fail
+        # @return [void]
         def error(job, exception)
+          args = @job_data['arguments']
+
+          if ENV['KEEN_PROJECT_ID']
+            Keen.publish('analyses_failed', job: @job_data['job_class'],
+                                            id: @job_data['job_id'],
+                                            args: args)
+          end
+
           # When this is called, the worker will have aborted the job, and
           # possibly attempted to reschedule it.
-          args = @job_data['arguments']
           if args
             begin
               args_real = ActiveJob::Arguments.deserialize(args)
