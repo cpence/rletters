@@ -81,7 +81,8 @@ module ActiveJob
           if ENV['KEEN_PROJECT_ID']
             Keen.publish('analyses_failed', job: @job_data['job_class'],
                                             id: @job_data['job_id'],
-                                            args: args)
+                                            args: args,
+                                            exception: exception)
           end
 
           # When this is called, the worker will have aborted the job, and
