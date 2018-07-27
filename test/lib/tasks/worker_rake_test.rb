@@ -58,12 +58,10 @@ class WorkerRakeTest < ActiveSupport::TestCase
     refute task.failed
     assert_equal 1, Delayed::Job.count
 
-    # Call the Rake runner, which should itself fail
-    assert_raises(Exception) do
-      @rake['rletters:jobs:analysis_work'].invoke
-    end
+    # Call the Rake runner, which should succeed, though the task failed
+    @rake['rletters:jobs:analysis_work'].invoke
 
-    # It should have set the task's failed bit and destroyed the job
+    # But it should have set the task's failed bit and destroyed the job
     assert task.reload.failed
     assert_equal 0, Delayed::Job.count
   end
@@ -73,12 +71,10 @@ class WorkerRakeTest < ActiveSupport::TestCase
     task = create(:task)
     LongRakeTestJob.perform_later(task)
 
-    # Call the Rake runner, which should itself fail
-    assert_raises(Exception) do
-      @rake['rletters:jobs:analysis_work'].invoke
-    end
+    # Call the Rake runner, which should succeed, though the task failed
+    @rake['rletters:jobs:analysis_work'].invoke
 
-    # It should have set the task's failed bit and destroyed the job
+    # But it should have set the task's failed bit and destroyed the job
     assert task.reload.failed
     assert_equal 0, Delayed::Job.count
   end

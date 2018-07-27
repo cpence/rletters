@@ -104,8 +104,9 @@ module ActiveJob
             end
           end
 
-          # Don't let it be rescheduled, whatever we do.
-          job.destroy
+          # Make sure that the job does not get rescheduled, regardless of what
+          # might be happening with max_attempts elsewhere.
+          job.max_attempts = 1
         end
       end
     end
