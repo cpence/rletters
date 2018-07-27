@@ -10,10 +10,12 @@ module RLetters
     # Initialize configuration defaults for current config standard here
     config.load_defaults 5.2
 
-    # Custom directories with classes and modules to be loaded. This has to be
-    # done here rather than in an initializer, as this array gets frozen.
+    # Custom directories with classes and modules to be eager-loaded.
     config.eager_load_paths << config.root.join('lib').to_s
-    config.eager_load_paths << config.root.join('app', 'jobs', 'concerns').to_s
+
+    # Add autoload paths for 'lib' and its subdirectories.
+    config.autoload_paths << config.root.join('lib').to_s
+    config.autoload_paths += Dir[config.root.join('lib')]
 
     # Show error pages in all environments
     config.consider_all_requests_local = false
