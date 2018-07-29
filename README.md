@@ -4,17 +4,17 @@
 [![External API Docs][apiary_img]][apiary] [![Code Docs][rubydoc_img]][rubydoc]
 
 [travis]: https://travis-ci.org/rletters/rletters
-[travis_img]: https://travis-ci.org/rletters/rletters.svg?branch=master
+[travis_img]: https://img.shields.io/travis/rletters/rletters/master.svg?style=flat-square
 [codeclimate]: https://codeclimate.com/github/rletters/rletters
-[codeclimate_img]: https://codeclimate.com/github/rletters/rletters/badges/gpa.svg
+[codeclimate_img]: https://img.shields.io/codeclimate/maintainability/rletters/rletters.svg?style=flat-square
 [coverage]: https://codeclimate.com/github/rletters/rletters/coverage
-[coverage_img]: https://codeclimate.com/github/rletters/rletters/badges/coverage.svg
+[coverage_img]: https://img.shields.io/codeclimate/coverage/rletters/rletters.svg?style=flat-square
 [inch]: http://inch-ci.org/github/rletters/rletters
-[inch_img]: http://inch-ci.org/github/rletters/rletters.svg?branch=master
+[inch_img]: http://inch-ci.org/github/rletters/rletters.svg?branch=master&style=flat-square
 [apiary]: http://docs.rletters.apiary.io/
-[apiary_img]: http://img.shields.io/badge/api%20docs-apiary-brightgreen.svg
+[apiary_img]: http://img.shields.io/badge/api%20docs-apiary-brightgreen.svg?style=flat-square&longCache=true
 [rubydoc]: http://rubydoc.info/github/rletters/rletters
-[rubydoc_img]: http://img.shields.io/badge/code%20docs-rubydoc-brightgreen.svg
+[rubydoc_img]: http://img.shields.io/badge/code%20docs-rubydoc-brightgreen.svg?style=flat-square&longCache=true
 
 **Homepage:** [http://rletters.net](http://rletters.net)  
 **Git:** [http://github.com/rletters/rletters](http://github.com/rletters/rletters)  
