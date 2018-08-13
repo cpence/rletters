@@ -38,6 +38,14 @@ module ActiveJob
   module QueueAdapters
     class DelayedJobAdapter
       class JobWrapper
+        # Make sure that the job does not get rescheduled, regardless of what
+        # might be happening with max_attempts elsewhere.
+        #
+        # @return [Integer] 1
+        def max_attempts
+          1
+        end
+
         # Send a Keen event when a job starts, if configured. Note that the
         # DJ worker will output job information to the Rails log, so we do not
         # need to do that here.
@@ -103,10 +111,6 @@ module ActiveJob
               # standard system errors that you normally don't want to rescue.
             end
           end
-
-          # Make sure that the job does not get rescheduled, regardless of what
-          # might be happening with max_attempts elsewhere.
-          job.max_attempts = 1
         end
       end
     end
