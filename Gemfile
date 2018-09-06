@@ -46,7 +46,7 @@ gem 'marc'
 gem 'rdf', '>= 0.3.5'
 gem 'rdf-n3'
 gem 'rdf-vocab'
-gem 'rubyzip', '>= 1.1.0', require: 'zip'
+gem 'rubyzip', '~> 1.2.2', require: 'zip'
 
 # Asset tools and template generators
 gem 'haml'
