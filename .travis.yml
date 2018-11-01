@@ -2,7 +2,7 @@ dist: trusty
 sudo: false
 
 language: ruby
-rvm: 2.5.2
+rvm: 2.5.3
 
 cache:
   bundler: true
