@@ -4,13 +4,13 @@ require_relative 'boot'
 require 'rails/all'
 Bundler.require(*Rails.groups)
 
+# Load our core extensions here, before we even configure the application
+core_ext_files = File.expand_path('../lib/core_ext/**/*.rb', __dir__)
+Dir[core_ext_files].each { |l| require l }
+
 module RLetters
   # Central application class, started by Rails
   class Application < Rails::Application
-    # Load our core extensions here, before we even configure the application
-    core_ext_files = config.root.join('lib', 'core_ext', '**', '*.rb')
-    Dir[core_ext_files].each { |l| require l }
-
     # Initialize configuration defaults for current config standard here
     config.load_defaults 5.2
 
