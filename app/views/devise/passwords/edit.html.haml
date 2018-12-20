@@ -19,5 +19,5 @@
       .form-group
         = f.label :password_confirmation
         = f.password_field :password_confirmation, class: 'form-control', required: true
-        .invalid-feedback= vlidation_errors_for(resource, :password_confirmation, true)
+        .invalid-feedback= validation_errors_for(resource, :password_confirmation, true)
       = f.submit t('.submit'), class: 'btn btn-primary'
