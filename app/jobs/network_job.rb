@@ -8,7 +8,7 @@ class NetworkJob < ApplicationJob
   #
   # @return [Boolean] true if this job is not disabled
   def self.available?
-    !(ENV['NETWORK_JOB_DISABLED'] || 'false').to_bool
+    !(ENV['NETWORK_JOB_DISABLED'] || 'false').to_boolean
   end
 
   # Examine the network of words associated with a focal term.

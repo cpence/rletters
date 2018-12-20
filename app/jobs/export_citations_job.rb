@@ -11,7 +11,7 @@ class ExportCitationsJob < ApplicationJob
   #
   # @return [Boolean] true if this job is not disabled
   def self.available?
-    !(ENV['EXPORT_CITATIONS_JOB_DISABLED'] || 'false').to_bool
+    !(ENV['EXPORT_CITATIONS_JOB_DISABLED'] || 'false').to_boolean
   end
 
   # Export the dataset

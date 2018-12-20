@@ -5,33 +5,33 @@
 FactoryBot.define do
   factory :document, class: Document do
     transient do
-      uid 'doi:10.1234/this.is.a.doi'
-      doi nil
-      license nil
-      license_url nil
-      authors nil
-      title nil
-      journal nil
-      year nil
-      volume nil
-      number nil
-      pages nil
-      term_vectors nil
+      uid { 'doi:10.1234/this.is.a.doi' }
+      doi { nil }
+      license { nil }
+      license_url { nil }
+      authors { nil }
+      title { nil }
+      journal { nil }
+      year { nil }
+      volume { nil }
+      number { nil }
+      pages { nil }
+      term_vectors { nil }
     end
 
     factory :full_document do
-      uid 'doi:10.5678/dickens'
-      doi '10.5678/dickens'
-      license 'Public domain'
-      data_source 'Project Gutenberg'
-      license_url 'http://www.gutenberg.org/license'
-      authors 'C. Dickens'
-      title 'A Tale of Two Cities'
-      journal 'Actually a Novel'
-      year '1859'
-      volume '1'
-      number '1'
-      pages '1'
+      uid { 'doi:10.5678/dickens' }
+      doi { '10.5678/dickens' }
+      license { 'Public domain' }
+      data_source { 'Project Gutenberg' }
+      license_url { 'http://www.gutenberg.org/license' }
+      authors { 'C. Dickens' }
+      title { 'A Tale of Two Cities' }
+      journal { 'Actually a Novel' }
+      year { '1859' }
+      volume { '1' }
+      number { '1' }
+      pages { '1' }
 
       term_vectors do
         { 'age' => { tf: 2, positions: [15, 21], df: 735.0 },

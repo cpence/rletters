@@ -19,12 +19,12 @@ FactoryBot.define do
   end
 
   factory :dataset do
-    name 'Dataset'
+    name { 'Dataset' }
     user
 
     factory :full_dataset do
       transient do
-        num_docs 5
+        num_docs { 5 }
       end
 
       after(:create) do |dataset, evaluator|
@@ -44,8 +44,8 @@ FactoryBot.define do
     end
 
     dataset
-    fq nil
-    def_type 'lucene'
+    fq { nil }
+    def_type { 'lucene' }
 
     after(:create) do |query, _|
       query.update_size_cache

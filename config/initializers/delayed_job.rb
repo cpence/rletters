@@ -5,7 +5,7 @@ ActiveJob::Base.queue_adapter = :delayed_job
 
 # Don't delay jobs in testing. Also, let the BLOCKING_JOBS setting force all
 # jobs to the foreground thread.
-Delayed::Worker.delay_jobs = !Rails.env.test? && !(ENV['BLOCKING_JOBS'] || 'false').to_bool
+Delayed::Worker.delay_jobs = !Rails.env.test? && !(ENV['BLOCKING_JOBS'] || 'false').to_boolean
 Delayed::Worker.logger = Logger.new(Rails.root.join('tmp', 'delayed_job.log'))
 
 # We'll let these jobs run for twelve hours (by default), one time, after which

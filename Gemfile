@@ -12,7 +12,6 @@ gem 'lograge'
 gem 'puma', '~> 3.11'
 gem 'rails', '~> 5.2.0'
 gem 'sentry-raven'
-gem 'to_bool'
 
 # Database, job queue, and related tools
 gem 'ancestry', '~> 3', '>= 3.0.2'
@@ -79,11 +78,15 @@ group :test do
   gem 'simplecov', require: false
 end
 
+# Tools that we need for developers, but not for any deployment or testing
 group :development do
-  # Tools that we need for developers, but not for any deployment or testing
   gem 'brakeman', require: false
   gem 'bundle-audit', require: false
-  gem 'haml_lint', require: false
   gem 'rubocop', require: false
+
+  gem 'haml_lint', require: false
+
   gem 'yard', require: false
+
+  gem 'pry', require: false
 end

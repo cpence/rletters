@@ -16,7 +16,7 @@ module RLetters
         #
         # @return [undefined]
         def initialize(attributes = nil)
-          super(attributes)
+          super
           validate!
         end
       end

@@ -54,7 +54,7 @@ module RLetters
 
         # Create a network of adjacency information from the text.
         def initialize(*args)
-          super(*args)
+          super
 
           # Save parameters
           if focal_word

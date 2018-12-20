@@ -34,7 +34,7 @@ Rails.application.configure do
   config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for nginx
 
   # Force SSL if requested
-  config.force_ssl = (ENV['HTTPS_ONLY'] || 'false').to_bool
+  config.force_ssl = (ENV['HTTPS_ONLY'] || 'false').to_boolean
   config.ssl_options = {
     hsts: {
       subdomains: true
@@ -68,7 +68,7 @@ Rails.application.configure do
     user_name: ENV['SMTP_USERNAME'] || nil,
     password: ENV['SMTP_PASSWORD'] || nil,
     authentication: ENV['SMTP_AUTHENTICATION']&.to_sym || nil,
-    enable_starttls_auto: (ENV['SMTP_ENABLE_STARTTLS_AUTO'] || nil).to_bool,
+    enable_starttls_auto: (ENV['SMTP_ENABLE_STARTTLS_AUTO'] || nil).to_boolean,
     openssl_verify_mode: ENV['SMTP_OPENSSL_VERIFY_MODE'] || nil
   }.compact)
 

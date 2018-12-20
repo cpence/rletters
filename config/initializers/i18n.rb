@@ -14,7 +14,7 @@ Rails.application.config.i18n.default_locale = :en
 Rails.application.config.i18n.available_locales = []
 
 # Always use the fallbacks
-Rails.application.config.i18n.fallbacks = true
+Rails.application.config.i18n.fallbacks = [I18n.default_locale]
 
 # This exact line is taken from the README file of the rails-i18n gem, which
 # supplies localizations for all our Rails defaults. Just paste it in when you

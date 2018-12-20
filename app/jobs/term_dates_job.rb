@@ -10,7 +10,7 @@ class TermDatesJob < ApplicationJob
   #
   # @return [Boolean] true if this job is not disabled
   def self.available?
-    !(ENV['TERM_DATES_JOB_DISABLED'] || 'false').to_bool
+    !(ENV['TERM_DATES_JOB_DISABLED'] || 'false').to_boolean
   end
 
   # Export the date format data

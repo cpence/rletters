@@ -7,6 +7,10 @@ Bundler.require(*Rails.groups)
 module RLetters
   # Central application class, started by Rails
   class Application < Rails::Application
+    # Load our core extensions here, before we even configure the application
+    core_ext_files = config.root.join('lib', 'core_ext', '**', '*.rb')
+    Dir[core_ext_files].each { |l| require l }
+
     # Initialize configuration defaults for current config standard here
     config.load_defaults 5.2
 
@@ -23,7 +27,7 @@ module RLetters
 
     # Enable the public file server if requested
     config.public_file_server.enabled =
-      (ENV['RAILS_SERVE_STATIC_FILES'] || 'true').to_bool
+      (ENV['RAILS_SERVE_STATIC_FILES'] || 'true').to_boolean
 
     # Log at :info with lograge, to try to make logs readable
     config.lograge.enabled = true
@@ -33,7 +37,7 @@ module RLetters
     end
     config.log_level = :info
 
-    if (ENV['RAILS_LOG_TO_STDOUT'] || 'true').to_bool
+    if (ENV['RAILS_LOG_TO_STDOUT'] || 'true').to_boolean
       config.logger = Logger.new(STDOUT)
       config.logger.level = Logger::INFO
     else

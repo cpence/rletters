@@ -21,7 +21,7 @@ module RLetters
         # @return [undefined]
         def initialize(attributes = nil)
           @parameter_hash = attributes || {}
-          super(attributes)
+          super
         end
       end
 
