@@ -3,7 +3,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.5.3'
+ruby '2.6.0'
 
 # Rails and basics
 gem 'dotenv-rails'
@@ -72,7 +72,7 @@ group :test do
   gem 'capybara-selenium'
   gem 'chromedriver-helper'
 
-  gem 'webmock', '>= 1.22.6', require: false
+  gem 'webmock', '>= 3.5.0', require: false
 
   gem 'rails-controller-testing'
   gem 'simplecov', require: false
