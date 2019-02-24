@@ -19,7 +19,7 @@ env:
     - CC_TEST_REPORTER_ID=8f6c00a1149fc25667a28154b0036edf3679b3dc82ac57fe3ad375a944cfe3c9
 
 addons:
-  postgresql: 9.6
+  postgresql: 10
   chrome: stable
 before_install:
   - gem install bundler
