@@ -35,7 +35,7 @@ module RLetters
 
           self.result = {}
 
-          enum = Datasets::DocumentEnumerator.new(
+          enum = RLetters::Datasets::DocumentEnumerator.new(
             dataset: dataset,
             fl: 'uid'
           )
@@ -44,10 +44,12 @@ module RLetters
           enum.each_with_index do |doc, i|
             progress&.call((i.to_f / total.to_f * 100).to_i)
 
-            lister = Documents::WordList.new
+            lister = RLetters::Documents::WordList.new
             words = lister.words_for(doc.uid)
 
-            tagged = Tagger.get_readable(words.join(' ')).split
+            tagged = RLetters::Analysis::Tagger.get_readable(
+              words.join(' ')
+            ).split
 
             search_for_regexes(tagged, 2, POS_BI_REGEXES)
             search_for_regexes(tagged, 3, POS_TRI_REGEXES)
