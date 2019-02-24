@@ -13,6 +13,12 @@ class ExportTest < ApplicationSystemTestCase
     click_link 'Build export'
     click_link 'Build Export'
 
+    perform_enqueued_jobs
+
+    # Force the page to refresh now that the job was performed
+    visit root_path
+    within('.navbar') { click_link 'My Account' }
+
     # Make sure the download button is there
     assert_link 'Download'
 

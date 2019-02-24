@@ -84,7 +84,6 @@ class InformationTest < ApplicationSystemTestCase
   end
 
   test 'view a finished task' do
-    # FIXME: perform_enqueued
     sign_in_with
     create_dataset
 
@@ -97,6 +96,8 @@ class InformationTest < ApplicationSystemTestCase
     click_link 'Set Job Options'
 
     click_button 'Start analysis job'
+
+    perform_enqueued_jobs
 
     visit datasets_path
     assert_selector 'td', text: 'Integration Dataset'

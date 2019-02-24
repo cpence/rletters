@@ -11,7 +11,7 @@ module Admin
     end
 
     test 'with_asset does not call block for asset without file' do
-      asset = create(:asset)
+      asset = create(:asset, name: 'favicon', file: nil)
 
       with_asset asset.name do
         flunk

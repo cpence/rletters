@@ -54,7 +54,8 @@ class DocumentsController < ApplicationController
         raise ActiveRecord::RecordNotFound
       end
 
-      redirect_to cul_docs[0]['href']
+      # We know that we're going to an external website here (that's the point)
+      redirect_to cul_docs[0]['href'], allow_other_host: true
     rescue *Net::HTTP::EXCEPTIONS
       raise ActiveRecord::RecordNotFound
     end

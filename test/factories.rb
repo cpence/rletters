@@ -44,7 +44,7 @@ FactoryBot.define do
 
   factory :asset, class: Admin::Asset do
     name { 'test_asset' }
-    file { File.new(Rails.root.join('test', 'factories', '1x1.png')) }
+    file { Rack::Test::UploadedFile.new(Rails.root.join('test', 'factories', '1x1.png')) }
   end
 
   factory :worker_stat, class: Admin::WorkerStats do

@@ -34,4 +34,7 @@ Rails.application.configure do
 
   # Tell Action Mailer not to deliver emails to the real world
   config.action_mailer.delivery_method = :test
+
+  # Prevent expensive template finalization at end of test suite runs.
+  config.action_view.finalize_compiled_template_methods = false
 end

@@ -35,7 +35,7 @@ module Admin
     end
 
     test 'usable should fail for asset present without file' do
-      asset = create(:asset)
+      asset = create(:asset, name: 'favicon', file: nil)
 
       refute Admin::Asset.usable? asset.name
     end

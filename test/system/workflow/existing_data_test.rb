@@ -4,7 +4,6 @@ require 'application_system_test_case'
 
 class ExistingDataTest < ApplicationSystemTestCase
   test 'workflow with one existing dataset' do
-    # FIXME: perform_enqueued
     sign_in_with
     create_dataset
 
@@ -21,6 +20,7 @@ class ExistingDataTest < ApplicationSystemTestCase
     click_link 'Set Job Options'
 
     click_button 'Start analysis job'
+    perform_enqueued_jobs
 
     within('.navbar') { click_link 'Fetch' }
     assert_selector 'td', text: 'Integration Dataset'
@@ -31,7 +31,6 @@ class ExistingDataTest < ApplicationSystemTestCase
   end
 
   test 'workflow with two existing datasets' do
-    # FIXME: perform_enqueued
     sign_in_with
     create_dataset(q: 'green')
     create_dataset(name: 'Other Dataset', q: 'blue')
@@ -57,6 +56,7 @@ class ExistingDataTest < ApplicationSystemTestCase
     end
 
     click_link 'Start Analysis', class: 'btn'
+    perform_enqueued_jobs
 
     within('.navbar') { click_link 'Fetch' }
     assert_selector 'td', text: 'Integration Dataset'

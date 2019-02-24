@@ -11,7 +11,8 @@ Rails.application.config.active_storage.service =
   end
 
 # Send all ActiveStorage jobs to the maintenance queue
-Rails.application.config.active_storage.queue = :maintenance
+Rails.application.config.active_storage.queues.purge = :maintenance
+Rails.application.config.active_storage.queues.analysis = :maintenance
 
 Rails.application.config.after_initialize do
   # Defeat the ActiveStorage MIME type detection. It fails miserably in almost

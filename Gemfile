@@ -10,7 +10,7 @@ gem 'dotenv-rails'
 gem 'keen'
 gem 'lograge'
 gem 'puma', '~> 3.11'
-gem 'rails', '~> 5.2.0'
+gem 'rails', '~> 6.0.0.beta'
 gem 'sentry-raven'
 
 # Database, job queue, and related tools
@@ -49,7 +49,7 @@ gem 'rubyzip', '~> 1.2.2', require: 'zip'
 
 # Asset tools and template generators
 gem 'haml'
-gem 'haml-rails'
+gem 'haml-rails', github: 'indirect/haml-rails'
 gem 'kramdown'
 gem 'nokogiri'
 gem 'sass-rails', '~> 5.0'
