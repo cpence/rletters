@@ -13,8 +13,8 @@ module MarkdownHandler
   #
   # @param [String] template the Markdown/ERB source to render
   # @return [String] the HTML source
-  def self.call(template)
-    compiled_source = erb.call(template)
+  def self.call(template, source = nil)
+    compiled_source = erb.call(template, source)
     "Kramdown::Document.new(begin;#{compiled_source};end, auto_ids: false).to_html.html_safe"
   end
 end

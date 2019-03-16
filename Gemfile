@@ -48,8 +48,8 @@ gem 'rdf-vocab'
 gem 'rubyzip', '~> 1.2.2', require: 'zip'
 
 # Asset tools and template generators
-gem 'haml'
-gem 'haml-rails', github: 'indirect/haml-rails'
+gem 'haml', github: 'haml/haml' #, '>= 5.0.4'
+gem 'haml-rails', '~> 2.0'
 gem 'kramdown'
 gem 'nokogiri'
 gem 'sass-rails', '~> 5.0'
