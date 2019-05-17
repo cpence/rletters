@@ -3,7 +3,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.6.2'
+ruby '2.6.3'
 
 # Rails and basics
 gem 'dotenv-rails'
@@ -48,7 +48,7 @@ gem 'rdf-vocab'
 gem 'rubyzip', '~> 1.2.2', require: 'zip'
 
 # Asset tools and template generators
-gem 'haml', github: 'haml/haml' #, '>= 5.0.4'
+gem 'haml', '>= 5.1.0'
 gem 'haml-rails', '~> 2.0'
 gem 'kramdown'
 gem 'nokogiri'
@@ -83,8 +83,6 @@ group :development do
   gem 'brakeman', require: false
   gem 'bundle-audit', require: false
   gem 'rubocop', require: false
-
-  gem 'haml_lint', require: false
 
   gem 'yard', require: false
 
