@@ -28,7 +28,7 @@ addons:
     - postgresql-client-10
 before_install:
   - gem install bundler
-  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - "curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter"
   - chmod +x ./cc-test-reporter
 
 install:
@@ -42,11 +42,15 @@ before_script:
   - sh -e /etc/init.d/xvfb start
   - pushd vendor/solr && bin/solr start && popd
   - bin/rails db:create db:schema:load
-  - ./cc-test-reporter before-build
+  - "./cc-test-reporter before-build"
 
 script:
   - bin/rails test
   - bin/rails test:system
 
 after_script:
-  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
+  - "./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT"
+
+notifications:
+  slack:
+    secure: nmy/cyBKnLn8rdxVcbphVE8neOxCEgJSGzvsgvsduLnGrbxrIz0vuN7htsAj3xY59AZhj8aHLDe6taV3jcTjC6Dvhazjrai1VpN9YSNPFezO0WaWZJ+uvPteghMj0Z4+SkkffNjlRFKwvvPjewRQ+Ruc3Ga4JR/L2za77BqozdE=
