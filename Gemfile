@@ -84,7 +84,7 @@ group :development do
   gem 'bundle-audit', require: false
   gem 'rubocop', require: false
 
-  gem 'yard', require: false
+  gem 'yard', "~> 0.9.20", require: false
 
   gem 'pry', require: false
 end
