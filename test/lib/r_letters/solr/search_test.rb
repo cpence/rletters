@@ -69,7 +69,7 @@ module RLetters
                    boolean_1: 'or', field_2: 'pages', value_2: '300-301' }
         ret = RLetters::Solr::Search.params_to_query(params)
 
-        assert_equal 'volume:"30" AND number:"5" OR pages:"300-301"', ret[:q]
+        assert_equal 'volume:(30) AND number:(5) OR pages:(300-301)', ret[:q]
       end
 
       test 'mixes in verbatim search parameters correctly' do
@@ -80,9 +80,9 @@ module RLetters
         ret = RLetters::Solr::Search.params_to_query(params)
 
         assert_includes ret[:q], 'authors:(("W* Shatner"))'
-        assert_includes ret[:q], 'volume:"30"'
-        assert_includes ret[:q], 'number:"5"'
-        assert_includes ret[:q], 'pages:"300-301"'
+        assert_includes ret[:q], 'volume:(30)'
+        assert_includes ret[:q], 'number:(5)'
+        assert_includes ret[:q], 'pages:(300-301)'
         assert_includes ret[:q], ' AND '
       end
 
@@ -94,9 +94,9 @@ module RLetters
                    value_2: 'alien' }
         ret = RLetters::Solr::Search.params_to_query(params)
 
-        assert_includes ret[:q], 'journal:"Astrobiology"'
-        assert_includes ret[:q], 'title:"Testing with Spaces"'
-        assert_includes ret[:q], 'fulltext:"alien"'
+        assert_includes ret[:q], 'journal:(Astrobiology)'
+        assert_includes ret[:q], 'title:(Testing with Spaces)'
+        assert_includes ret[:q], 'fulltext:(alien)'
       end
 
       test 'handles fuzzy params with type set to fuzzy' do
@@ -107,9 +107,9 @@ module RLetters
                    value_2: 'alien' }
         ret = RLetters::Solr::Search.params_to_query(params)
 
-        assert_includes ret[:q], 'journal_stem:"Astrobiology"'
-        assert_includes ret[:q], 'title_stem:"Testing with Spaces"'
-        assert_includes ret[:q], 'fulltext_stem:"alien"'
+        assert_includes ret[:q], 'journal_stem:(Astrobiology)'
+        assert_includes ret[:q], 'title_stem:(Testing with Spaces)'
+        assert_includes ret[:q], 'fulltext_stem:(alien)'
       end
 
       test 'handles multiple authors correctly' do
