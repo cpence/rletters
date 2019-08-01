@@ -56,6 +56,8 @@ module RLetters
         enum = RLetters::Datasets::DocumentEnumerator.new(dataset: dataset)
         enum.each_with_index do |doc, i|
           key = get_field_from_document(doc)
+          next unless key
+
           ret[key] ||= 0
           ret[key] += 1
 
@@ -138,14 +140,26 @@ module RLetters
         # Support Y-M-D or Y/M/D dates, even though this field is supposed to
         # be only year values
         if field == :year
+          return nil unless doc.year
+
           parts = doc.year.split(%r{[-/]})
-          return parts[0]
+          year = parts[0]
+
+          # Issues #108 and #109: make sure to exclude non-numerical year
+          # values
+          begin
+            Integer(parts[0])
+          rescue ArgumentError
+            return nil
+          end
+
+          return year
         end
 
         # We're not yet actually faceting on anything other than journal,
         # author, or year; so this code isn't tested
         # :nocov:
-        doc.send(field)
+        nil
         # :nocov:
       end
 
