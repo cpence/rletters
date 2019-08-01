@@ -7,7 +7,7 @@
 # Read the Guide for Upgrading Ruby on Rails for more info on each option.
 
 # Don't force requests from old versions of IE to be UTF-8 encoded.
-# Rails.application.config.action_view.default_enforce_utf8 = false
+Rails.application.config.action_view.default_enforce_utf8 = false
 
 # Embed purpose and expiry metadata inside signed and encrypted
 # cookies for increased security.
@@ -17,7 +17,7 @@
 # Rails.application.config.action_dispatch.use_cookies_with_metadata = true
 
 # Return false instead of self when enqueuing is aborted from a callback.
-# Rails.application.config.active_job.return_false_on_aborted_enqueue = true
+Rails.application.config.active_job.return_false_on_aborted_enqueue = true
 
 # Use ActionMailer::MailDeliveryJob for sending parameterized and normal mail.
 #

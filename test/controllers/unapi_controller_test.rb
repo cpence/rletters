@@ -22,7 +22,7 @@ class UnapiControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
 
     # Validate the unAPI response here
-    assert_equal 'application/xml', @response.content_type
+    assert_equal 'application/xml', @response.media_type
     assert_equal 'formats', @doc.root.name
     refute_empty @formats
 
@@ -37,7 +37,7 @@ class UnapiControllerTest < ActionDispatch::IntegrationTest
 
     assert_response 300
 
-    assert_equal 'application/xml', @response.content_type
+    assert_equal 'application/xml', @response.media_type
     refute_empty @formats
 
     @formats.each do |f|
