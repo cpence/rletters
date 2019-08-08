@@ -56,7 +56,7 @@ module RLetters
         enum = RLetters::Datasets::DocumentEnumerator.new(dataset: dataset)
         enum.each_with_index do |doc, i|
           key = get_field_from_document(doc)
-          next unless key
+          next if key.nil?
 
           ret[key] ||= 0
           ret[key] += 1
@@ -140,7 +140,7 @@ module RLetters
         # Support Y-M-D or Y/M/D dates, even though this field is supposed to
         # be only year values
         if field == :year
-          return nil unless doc.year
+          return nil unless doc.year.present?
 
           parts = doc.year.split(%r{[-/]})
           year = parts[0]
@@ -165,20 +165,19 @@ module RLetters
 
       # Fill in zeros for any missing values in the counts
       #
-      # If numeric is true, we'll actually fill in the intervening values by
+      # If field is year, we'll actually fill in the intervening years by
       # count. Otherwise, we'll just fill in any values that are present in
       # the normalization set but missing in the counts.
       #
       # @param [Hash<String, Numeric>] counts the counts queried
       # @param [Hash<String, Numeric>] normalization_counts the counts from the
       #   normalization set, nil if we didn't normalize
-      # @param [Boolean] numeric if true, treat these as numbers.
       # @return [Hash<String, Numeric>] the counts with intervening values set
       #   to zero
-      def zero_intervening(counts, normalization_counts = nil, numeric = false)
+      def zero_intervening(counts, normalization_counts = nil)
         normalization_counts ||= {}
 
-        if numeric
+        if field == :year
           # Find the low and high values for the numerical contents here, if
           # asked to do so
           min = 99999
@@ -197,12 +196,12 @@ module RLetters
             max = num if num > max
           end
 
-          # Actually fill in all of the numerically intervening years
+          # Fill in all of the numerically intervening years
           Range.new(min, max).each do |i|
             counts[i.to_s] ||= 0.0
           end
         else
-          normalization_counts.keys.each do |k|
+          normalization_counts.keys.compact.each do |k|
             counts[k] ||= 0.0
           end
         end
@@ -219,7 +218,7 @@ module RLetters
       # @param [Hash<String, Float>] the normalized counts
       def normalize_counts(counts)
         return {} if counts.empty?
-        return zero_intervening(counts, nil, field == :year) unless normalize
+        return zero_intervening(counts) unless normalize
 
         norm_counts = CountArticlesByField.call(
           field: field,
@@ -227,21 +226,13 @@ module RLetters
         ).counts
 
         ret = counts.each_with_object({}) do |(k, v), out|
-          out[k] =
-            if norm_counts[k]&.>(0)
-              v.to_f / norm_counts[k]
-            else
-              # I'm not sure if this is the right thing to do when you give
-              # me a dataset that can't properly normalize (i.e., you ask me
-              # to compute 1/0).  But at least it won't throw a
-              # divide-by-zero.
-              # :nocov:
-              0.0
-              # :nocov:
-            end
+          # Just don't save an entry for any really strange values here
+          if k.present? && norm_counts[k]&.>(0)
+            out[k] = v.to_f / norm_counts[k]
+          end
         end
 
-        zero_intervening(ret, norm_counts, field == :year)
+        zero_intervening(ret, norm_counts)
       end
     end
   end
