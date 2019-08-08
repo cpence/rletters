@@ -68,6 +68,27 @@ module RLetters
         ret
       end
 
+      # Allow for and clean up particularly weird values of the year field
+      #
+      # @param [String] year the year to clean
+      # @return [String] the cleaned year
+      def clean_year(year)
+        return nil unless year.present?
+
+        parts = year.split(%r{[-/]})
+        ret = parts[0]
+
+        # Issues #108 and #109: make sure to ignore non-numerical year
+        # values when grouping
+        begin
+          Integer(ret)
+        rescue ArgumentError
+          return nil
+        end
+
+        return ret
+      end
+
       # Group the entire corpus by field, using Solr's result grouping
       #
       # @return [Hash<String, Integer>] number of documents in each group
@@ -105,6 +126,11 @@ module RLetters
           # Add this batch to the return
           groups.each do |g|
             key = g['groupValue']
+
+            # Allow for pathological year values
+            key = clean_year(key) if field == :year
+            next if key.nil?
+
             val = g['doclist']['numFound']
 
             ret[key] = val
@@ -137,24 +163,8 @@ module RLetters
         return doc.journal if field == :journal_facet
         return doc.authors if field == :authors_facet
 
-        # Support Y-M-D or Y/M/D dates, even though this field is supposed to
-        # be only year values
-        if field == :year
-          return nil unless doc.year.present?
-
-          parts = doc.year.split(%r{[-/]})
-          year = parts[0]
-
-          # Issues #108 and #109: make sure to exclude non-numerical year
-          # values
-          begin
-            Integer(parts[0])
-          rescue ArgumentError
-            return nil
-          end
-
-          return year
-        end
+        # Clean up pathological year values
+        return clean_year(doc.year) if field == :year
 
         # We're not yet actually faceting on anything other than journal,
         # author, or year; so this code isn't tested
