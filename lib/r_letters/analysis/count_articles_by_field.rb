@@ -165,34 +165,41 @@ module RLetters
 
       # Fill in zeros for any missing values in the counts
       #
-      # If counts has numeric keys, we'll actually fill in the intervening
-      # values. Otherwise, we'll just fill in any values that are present in
+      # If numeric is true, we'll actually fill in the intervening values by
+      # count. Otherwise, we'll just fill in any values that are present in
       # the normalization set but missing in the counts.
       #
       # @param [Hash<String, Numeric>] counts the counts queried
       # @param [Hash<String, Numeric>] normalization_counts the counts from the
       #   normalization set, nil if we didn't normalize
+      # @param [Boolean] numeric if true, treat these as numbers.
       # @return [Hash<String, Numeric>] the counts with intervening values set
       #   to zero
-      def zero_intervening(counts, normalization_counts = nil)
-        is_numeric = false
-        begin
-          # Throw an exception if this isn't actually a numeric key
-          Integer(counts.keys.first)
-
-          is_numeric = true
-        rescue ArgumentError
-          is_numeric = false
-        end
-
-        # Make our array operations easier below
+      def zero_intervening(counts, normalization_counts = nil, numeric = false)
         normalization_counts ||= {}
 
-        if is_numeric
+        if numeric
+          # Find the low and high values for the numerical contents here, if
+          # asked to do so
+          min = 99999
+          max = -99999
+
+          full_set = (counts.keys + normalization_counts.keys).compact
+          full_set.each do |k|
+            num = 0
+            begin
+              num = Integer(k)
+            rescue ArgumentError
+              next
+            end
+
+            min = num if num < min
+            max = num if num > max
+          end
+
           # Actually fill in all of the numerically intervening years
-          range = (counts.keys + normalization_counts.keys).minmax
-          Range.new(*range).each do |k|
-            counts[k] ||= 0.0
+          Range.new(min, max).each do |i|
+            counts[i.to_s] ||= 0.0
           end
         else
           normalization_counts.keys.each do |k|
@@ -212,7 +219,7 @@ module RLetters
       # @param [Hash<String, Float>] the normalized counts
       def normalize_counts(counts)
         return {} if counts.empty?
-        return zero_intervening(counts) unless normalize
+        return zero_intervening(counts, nil, field == :year) unless normalize
 
         norm_counts = CountArticlesByField.call(
           field: field,
@@ -234,7 +241,7 @@ module RLetters
             end
         end
 
-        zero_intervening(ret, norm_counts)
+        zero_intervening(ret, norm_counts, field == :year)
       end
     end
   end
