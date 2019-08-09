@@ -25,9 +25,9 @@ module RLetters
       attribute(:bibtex, BibTeX::Name,
                 lazy: true, writer: :private,
                 default: lambda do |author, _|
-                  BibTeX::Names.parse(author.full)[0] ||
-                    Struct.new(first: nil, last: nil,
-                               prefix: nil, suffix: nil)
+                  BibTeX::Name.parse(author.full) ||
+                    BibTeX::Name.new(first: nil, last: nil,
+                                     prefix: nil, suffix: nil)
                 end)
 
       attribute :first, String,

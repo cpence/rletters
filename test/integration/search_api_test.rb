@@ -8,7 +8,7 @@ class SearchApiTest < ActionDispatch::IntegrationTest
     json = JSON.parse(@response.body)
 
     assert_response :success
-    assert_equal 'application/json', @response.content_type
+    assert_equal 'application/json', @response.media_type
 
     assert_equal 1501, json['results']['num_hits']
     assert_equal 10, json['results']['documents'].size

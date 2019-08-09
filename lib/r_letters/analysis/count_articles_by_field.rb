@@ -56,6 +56,8 @@ module RLetters
         enum = RLetters::Datasets::DocumentEnumerator.new(dataset: dataset)
         enum.each_with_index do |doc, i|
           key = get_field_from_document(doc)
+          next if key.nil?
+
           ret[key] ||= 0
           ret[key] += 1
 
@@ -64,6 +66,27 @@ module RLetters
 
         progress&.call(100)
         ret
+      end
+
+      # Allow for and clean up particularly weird values of the year field
+      #
+      # @param [String] year the year to clean
+      # @return [String] the cleaned year
+      def clean_year(year)
+        return nil unless year.present?
+
+        parts = year.split(%r{[-/]})
+        ret = parts[0]
+
+        # Issues #108 and #109: make sure to ignore non-numerical year
+        # values when grouping
+        begin
+          Integer(ret)
+        rescue ArgumentError
+          return nil
+        end
+
+        return ret
       end
 
       # Group the entire corpus by field, using Solr's result grouping
@@ -103,6 +126,11 @@ module RLetters
           # Add this batch to the return
           groups.each do |g|
             key = g['groupValue']
+
+            # Allow for pathological year values
+            key = clean_year(key) if field == :year
+            next if key.nil?
+
             val = g['doclist']['numFound']
 
             ret[key] = val
@@ -135,24 +163,20 @@ module RLetters
         return doc.journal if field == :journal_facet
         return doc.authors if field == :authors_facet
 
-        # Support Y-M-D or Y/M/D dates, even though this field is supposed to
-        # be only year values
-        if field == :year
-          parts = doc.year.split(%r{[-/]})
-          return parts[0]
-        end
+        # Clean up pathological year values
+        return clean_year(doc.year) if field == :year
 
         # We're not yet actually faceting on anything other than journal,
         # author, or year; so this code isn't tested
         # :nocov:
-        doc.send(field)
+        nil
         # :nocov:
       end
 
       # Fill in zeros for any missing values in the counts
       #
-      # If counts has numeric keys, we'll actually fill in the intervening
-      # values. Otherwise, we'll just fill in any values that are present in
+      # If field is year, we'll actually fill in the intervening years by
+      # count. Otherwise, we'll just fill in any values that are present in
       # the normalization set but missing in the counts.
       #
       # @param [Hash<String, Numeric>] counts the counts queried
@@ -161,27 +185,33 @@ module RLetters
       # @return [Hash<String, Numeric>] the counts with intervening values set
       #   to zero
       def zero_intervening(counts, normalization_counts = nil)
-        is_numeric = false
-        begin
-          # Throw an exception if this isn't actually a numeric key
-          Integer(counts.keys.first)
-
-          is_numeric = true
-        rescue ArgumentError
-          is_numeric = false
-        end
-
-        # Make our array operations easier below
         normalization_counts ||= {}
 
-        if is_numeric
-          # Actually fill in all of the numerically intervening years
-          range = (counts.keys + normalization_counts.keys).minmax
-          Range.new(*range).each do |k|
-            counts[k] ||= 0.0
+        if field == :year
+          # Find the low and high values for the numerical contents here, if
+          # asked to do so
+          min = 99999
+          max = -99999
+
+          full_set = (counts.keys + normalization_counts.keys).compact
+          full_set.each do |k|
+            num = 0
+            begin
+              num = Integer(k)
+            rescue ArgumentError
+              next
+            end
+
+            min = num if num < min
+            max = num if num > max
+          end
+
+          # Fill in all of the numerically intervening years
+          Range.new(min, max).each do |i|
+            counts[i.to_s] ||= 0.0
           end
         else
-          normalization_counts.keys.each do |k|
+          normalization_counts.keys.compact.each do |k|
             counts[k] ||= 0.0
           end
         end
@@ -206,18 +236,10 @@ module RLetters
         ).counts
 
         ret = counts.each_with_object({}) do |(k, v), out|
-          out[k] =
-            if norm_counts[k]&.>(0)
-              v.to_f / norm_counts[k]
-            else
-              # I'm not sure if this is the right thing to do when you give
-              # me a dataset that can't properly normalize (i.e., you ask me
-              # to compute 1/0).  But at least it won't throw a
-              # divide-by-zero.
-              # :nocov:
-              0.0
-              # :nocov:
-            end
+          # Just don't save an entry for any really strange values here
+          if k.present? && norm_counts[k]&.>(0)
+            out[k] = v.to_f / norm_counts[k]
+          end
         end
 
         zero_intervening(ret, norm_counts)

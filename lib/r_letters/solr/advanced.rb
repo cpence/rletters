@@ -43,7 +43,7 @@ module RLetters
                 elsif field == 'year'
                   year_ranges_query(value)
                 else
-                  "#{field}:\"#{value}\""
+                  "#{field}:(#{value})"
                 end
 
         # The boolean connective

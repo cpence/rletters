@@ -73,6 +73,18 @@ module RLetters
         assert_equal 'Jr.', au.suffix
       end
 
+      test 'everything works if BibTeX fails' do
+        BibTeX::Name.expects(:parse).with("testy testerson").returns(nil)
+        au = RLetters::Documents::Author.new(full: 'testy testerson');
+
+        assert_nil au.first
+        assert_nil au.last
+        assert_nil au.prefix
+        assert_nil au.suffix
+
+        assert_equal 'testy testerson', au.full
+      end
+
       test 'to_lucene works for Last' do
         expected = ['Last']
         actual = query_to_array(RLetters::Documents::Author.new(full: 'Last').to_lucene)

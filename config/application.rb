@@ -14,6 +14,9 @@ module RLetters
     # Initialize configuration defaults for current config standard here
     config.load_defaults 5.2
 
+    # Disable a Rails 6.1 deprecation warning that we're already ready for
+    config.action_dispatch.return_only_media_type_on_content_type = false
+
     # Custom directories with classes and modules to be eager-loaded.
     config.eager_load_paths << config.root.join('lib').to_s
 
