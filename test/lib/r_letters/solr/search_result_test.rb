@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'test_helper'
-require 'r_letters/solr/connection'
 
 module RLetters
   module Solr

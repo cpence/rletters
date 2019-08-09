@@ -1,10 +1,8 @@
 # frozen_string_literal: true
 
-require_dependency 'r_letters/analysis/collocation'
-
 # Determine statistically significant collocations in text
 class CollocationJob < ApplicationJob
-  include RLetters::Visualization::CSV
+  include RLetters::Visualization::Csv
 
   queue_as :analysis
 

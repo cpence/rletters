@@ -6,13 +6,13 @@ require_relative './common_tests'
 module RLetters
   module Documents
     module Serializers
-      class MARCXMLTest < ActiveSupport::TestCase
+      class MarcXmlTest < ActiveSupport::TestCase
         include CommonTests
 
         test 'array serialization' do
           doc = build(:full_document)
           docs = [doc, doc]
-          raw = RLetters::Documents::Serializers::MARCXML.new(docs).serialize
+          raw = RLetters::Documents::Serializers::MarcXml.new(docs).serialize
           xml = Nokogiri::XML::Document.parse(raw)
 
           assert_equal 2, xml.css('collection record').size
@@ -94,7 +94,7 @@ module RLetters
 
         test 'works when documents have no year' do
           doc = build(:full_document, year: nil)
-          raw = RLetters::Documents::Serializers::MARCXML.new(doc).serialize
+          raw = RLetters::Documents::Serializers::MarcXml.new(doc).serialize
           xml = Nokogiri::XML::Document.parse(raw)
 
           rec = xml.css('record').first

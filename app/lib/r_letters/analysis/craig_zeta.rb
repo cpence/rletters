@@ -2,29 +2,6 @@
 
 module RLetters
   module Analysis
-    # A class that encapsulates an X-Y point for CraigZeta
-    #
-    # @!attribute x
-    #   @return [Float] the x coordinate
-    # @!attribute y
-    #   @return [Float] the y coordinate
-    # @!attribute name
-    #   @return [String] a description of this point (its segment name)
-    class CraigZetaPoint
-      include Virtus.model(strict: true, required: true, nullify_blank: true)
-
-      attribute :x, Float
-      attribute :y, Float
-      attribute :name, String
-
-      # Return these in an `[x, y, name]` array.
-      #
-      # @return [Array<Float, Float, String>] `[x, y, name]`
-      def to_a
-        [x, y, name]
-      end
-    end
-
     # Compute significant marker words for two datasets, Craig Zeta algorithm
     #
     # Marker words for dataset 1 appears as the first words in the zeta score
@@ -49,10 +26,33 @@ module RLetters
     #   @return [Array<String>] the list of words that indicate a paper would
     #     be likely to be a member of dataset 2 (as opposed to 1)
     # @!attribute [r] graph_points
-    #   @return [Array<CraigZetaPoint>] the list of points for the
+    #   @return [Array<Point>] the list of points for the
     #     separation graph. Arrays of X coordinate, Y coordinate, and point
     #     labels.
     class CraigZeta
+      # A class that encapsulates an X-Y point for CraigZeta
+      #
+      # @!attribute x
+      #   @return [Float] the x coordinate
+      # @!attribute y
+      #   @return [Float] the y coordinate
+      # @!attribute name
+      #   @return [String] a description of this point (its segment name)
+      class Point
+        include Virtus.model(strict: true, required: true, nullify_blank: true)
+
+        attribute :x, Float
+        attribute :y, Float
+        attribute :name, String
+
+        # Return these in an `[x, y, name]` array.
+        #
+        # @return [Array<Float, Float, String>] `[x, y, name]`
+        def to_a
+          [x, y, name]
+        end
+      end
+
       include Service
       include Virtus.model(strict: true, required: false, nullify_blank: true)
 
@@ -63,7 +63,7 @@ module RLetters
       attribute :zeta_scores, Hash[String => Float], writer: :private
       attribute :dataset_1_markers, Array[String], writer: :private
       attribute :dataset_2_markers, Array[String], writer: :private
-      attribute :graph_points, Array[CraigZetaPoint], writer: :private
+      attribute :graph_points, Array[Point], writer: :private
 
       attribute :analyzer_1, RLetters::Analysis::Frequency::FromPosition,
                 reader: :private, writer: :private
@@ -197,8 +197,8 @@ module RLetters
             x_val = (dataset_1_markers & b.keys).size.to_f / b.keys.size.to_f
             y_val = (dataset_2_markers & b.keys).size.to_f / b.keys.size.to_f
 
-            graph_points << CraigZetaPoint.new(x: x_val, y: y_val,
-                                               name: "#{name}: #{i + 1}")
+            graph_points << Point.new(x: x_val, y: y_val,
+                                      name: "#{name}: #{i + 1}")
           end
         end
       end

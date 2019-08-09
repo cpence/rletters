@@ -3,7 +3,7 @@
 module RLetters
   module Documents
     # Convert a document to an OpenURL query
-    class AsOpenURL
+    class AsOpenUrl
       # Initialize an OpenURL converter
       #
       # @param document [Document] the document to convert

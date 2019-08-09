@@ -13,9 +13,9 @@
 
 - if user_signed_in?
   - current_user.libraries.each do |library|
-    = link_to t('.yours') + ' ' + library.name, "#{library.url}#{RLetters::Documents::AsOpenURL.new(document).params}", class: 'dropdown-item'
-= link_to t('.worldcat'), "http://worldcatlibraries.org/registry/gateway?#{RLetters::Documents::AsOpenURL.new(document).params}", class: 'dropdown-item'
-= link_to t('.uk_openurl'), "http://openurl.ac.uk/?#{RLetters::Documents::AsOpenURL.new(document).params}", class: 'dropdown-item'
+    = link_to t('.yours') + ' ' + library.name, "#{library.url}#{RLetters::Documents::AsOpenUrl.new(document).params}", class: 'dropdown-item'
+= link_to t('.worldcat'), "http://worldcatlibraries.org/registry/gateway?#{RLetters::Documents::AsOpenUrl.new(document).params}", class: 'dropdown-item'
+= link_to t('.uk_openurl'), "http://openurl.ac.uk/?#{RLetters::Documents::AsOpenUrl.new(document).params}", class: 'dropdown-item'
 .dropdown-divider
 
 %h6.dropdown-header= t('.online')

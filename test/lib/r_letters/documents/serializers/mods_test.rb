@@ -6,12 +6,12 @@ require_relative './common_tests'
 module RLetters
   module Documents
     module Serializers
-      class MODSTest < ActiveSupport::TestCase
+      class ModsTest < ActiveSupport::TestCase
         include CommonTests
 
         test 'single document serialization' do
           doc = build(:full_document, pages: '123-456')
-          raw = RLetters::Documents::Serializers::MODS.new(doc).serialize
+          raw = RLetters::Documents::Serializers::Mods.new(doc).serialize
           xml = Nokogiri::XML::Document.parse(raw)
 
           # This test is incomplete, but we'll validate the schema in the next test
@@ -30,7 +30,7 @@ module RLetters
 
         test 'single document schema validation' do
           doc = build(:full_document, pages: '123-456')
-          raw = RLetters::Documents::Serializers::MODS.new(doc).serialize
+          raw = RLetters::Documents::Serializers::Mods.new(doc).serialize
           xml = Nokogiri::XML::Document.parse(raw)
 
           schema_path = Rails.root.join('test', 'support', 'xsd',
@@ -45,7 +45,7 @@ module RLetters
           doc = build(:full_document)
           doc2 = build(:full_document, uid: 'doi:10.5678/dickens2')
           docs = [doc, doc2]
-          raw = RLetters::Documents::Serializers::MODS.new(docs).serialize
+          raw = RLetters::Documents::Serializers::Mods.new(docs).serialize
           xml = Nokogiri::XML::Document.parse(raw)
 
           assert_equal 'A Tale of Two Cities', xml.at_css('modsCollection mods titleInfo title').content
@@ -56,7 +56,7 @@ module RLetters
           doc = build(:full_document)
           doc2 = build(:full_document, uid: 'doi:10.5678/dickens2')
           docs = [doc, doc2]
-          raw = RLetters::Documents::Serializers::MODS.new(docs).serialize
+          raw = RLetters::Documents::Serializers::Mods.new(docs).serialize
           xml = Nokogiri::XML::Document.parse(raw)
 
           schema_path = Rails.root.join('test', 'support', 'xsd',

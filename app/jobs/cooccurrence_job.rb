@@ -2,7 +2,7 @@
 
 # Determine statistically significant cooccurrences in text
 class CooccurrenceJob < ApplicationJob
-  include RLetters::Visualization::CSV
+  include RLetters::Visualization::Csv
 
   queue_as :analysis
 

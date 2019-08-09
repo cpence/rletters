@@ -1,12 +1,10 @@
 # frozen_string_literal: true
 
-require 'r_letters/documents/serializers/marc_record'
-
 module RLetters
   module Documents
     module Serializers
       # Convert a document to a MODS XML document
-      class MODS < Base
+      class Mods < Base
         define_single('MODS', 'http://www.loc.gov/standards/mods/') do |docs|
           if docs.is_a? Enumerable
             doc = Nokogiri::XML::Document.new

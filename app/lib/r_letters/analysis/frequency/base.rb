@@ -12,7 +12,7 @@ module RLetters
       # `offsets` variable.
       #
       # @see FromPosition
-      # @see FromTF
+      # @see FromTf
       #
       # @!attribute dataset
       #   @return [Dataset] the dataset to analyze
@@ -144,7 +144,7 @@ module RLetters
 
         # Create the correct frequency analyzer class and call it
         #
-        # The `FromTF` analyzer is a quick-out option for a very specific set
+        # The `FromTf` analyzer is a quick-out option for a very specific set
         # of options. Look for those options here. Otherwise, build and call
         # `FromPosition`.
         #
@@ -153,7 +153,7 @@ module RLetters
           # Check for the quick-out
           if (num_blocks == 1 || (num_blocks.zero? && block_size.zero?)) &&
              ngrams == 1 && stemming.nil?
-            return FromTF.call(parameter_hash)
+            return FromTf.call(parameter_hash)
           end
 
           FromPosition.call(parameter_hash)

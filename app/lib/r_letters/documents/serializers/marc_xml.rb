@@ -6,7 +6,7 @@ module RLetters
   module Documents
     module Serializers
       # Convert a document to a MARC-XML record
-      class MARCXML < MARCRecord
+      class MarcXml < MarcRecord
         define_single('MARCXML',
                       'http://www.loc.gov/standards/marcxml/') do |docs|
           if docs.is_a? Enumerable

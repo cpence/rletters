@@ -8,12 +8,12 @@ require_relative './common_tests'
 module RLetters
   module Documents
     module Serializers
-      class RDFXMLTest < ActiveSupport::TestCase
+      class RdfXmlTest < ActiveSupport::TestCase
         include CommonTests
 
         test 'single document serialization' do
           doc = build(:full_document)
-          raw = RLetters::Documents::Serializers::RDFXML.new(doc).serialize
+          raw = RLetters::Documents::Serializers::RdfXml.new(doc).serialize
           xml = Nokogiri::XML::Document.parse(raw)
 
           assert_equal 'rdf', xml.root.name
@@ -49,7 +49,7 @@ module RLetters
           doc = build(:full_document)
           doc2 = build(:full_document, uid: 'doi:10.5678/otherdickens')
           docs = [doc, doc2]
-          raw = RLetters::Documents::Serializers::RDFXML.new(docs).serialize
+          raw = RLetters::Documents::Serializers::RdfXml.new(docs).serialize
           xml = Nokogiri::XML::Document.parse(raw)
 
           assert_equal 2, xml.css('Description').size

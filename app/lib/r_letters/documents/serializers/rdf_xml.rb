@@ -1,13 +1,12 @@
 # frozen_string_literal: true
 
-require 'r_letters/documents/serializers/rdf'
 require 'rdf/n3'
 
 module RLetters
   module Documents
     module Serializers
       # Convert a document to an RDF/XML record
-      class RDFXML < RDF
+      class RdfXml < Rdf
         define_single('RDF/XML',
                       'http://www.w3.org/TR/rdf-syntax-grammar/') do |docs|
           doc = Nokogiri::XML::Document.new

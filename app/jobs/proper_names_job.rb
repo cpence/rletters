@@ -2,7 +2,7 @@
 
 # Extract proper nouns from documents
 class ProperNamesJob < ApplicationJob
-  include RLetters::Visualization::CSV
+  include RLetters::Visualization::Csv
 
   queue_as :analysis
 

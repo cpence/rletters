@@ -2,7 +2,7 @@
 
 # Plot a dataset's members by year
 class ArticleDatesJob < ApplicationJob
-  include RLetters::Visualization::CSV
+  include RLetters::Visualization::Csv
 
   queue_as :analysis
 

@@ -2,7 +2,7 @@
 
 # Compare two datasets using the Craig Zeta algorithm
 class CraigZetaJob < ApplicationJob
-  include RLetters::Visualization::CSV
+  include RLetters::Visualization::Csv
 
   queue_as :analysis
 

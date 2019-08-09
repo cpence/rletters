@@ -6,12 +6,12 @@ require_relative './common_tests'
 module RLetters
   module Documents
     module Serializers
-      class RISTest < ActiveSupport::TestCase
+      class RisTest < ActiveSupport::TestCase
         include CommonTests
 
         test 'single document serialization' do
           doc = build(:full_document)
-          str = RLetters::Documents::Serializers::RIS.new(doc).serialize
+          str = RLetters::Documents::Serializers::Ris.new(doc).serialize
 
           assert str.start_with?("TY  - JOUR\n")
           assert_includes str, 'AU  - Dickens,C.'
@@ -28,7 +28,7 @@ module RLetters
         test 'array serialization' do
           doc = build(:full_document)
           docs = [doc, doc]
-          str = RLetters::Documents::Serializers::RIS.new(docs).serialize
+          str = RLetters::Documents::Serializers::Ris.new(docs).serialize
 
           assert str.start_with?("TY  - JOUR\n")
           assert_includes str, "ER  - \nTY  - JOUR\n"

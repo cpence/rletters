@@ -17,13 +17,13 @@ module RLetters
         SERIALIZER_LIST = {
           bibtex: 'RLetters::Documents::Serializers::BibTex',
           endnote: 'RLetters::Documents::Serializers::EndNote',
-          json: 'RLetters::Documents::Serializers::MARCJSON',
-          marc: 'RLetters::Documents::Serializers::MARC21',
-          marcxml: 'RLetters::Documents::Serializers::MARCXML',
-          mods: 'RLetters::Documents::Serializers::MODS',
-          n3: 'RLetters::Documents::Serializers::RDFN3',
-          rdf: 'RLetters::Documents::Serializers::RDFXML',
-          ris: 'RLetters::Documents::Serializers::RIS'
+          json: 'RLetters::Documents::Serializers::MarcJson',
+          marc: 'RLetters::Documents::Serializers::Marc21',
+          marcxml: 'RLetters::Documents::Serializers::MarcXml',
+          mods: 'RLetters::Documents::Serializers::Mods',
+          n3: 'RLetters::Documents::Serializers::Rdfn3',
+          rdf: 'RLetters::Documents::Serializers::RdfXml',
+          ris: 'RLetters::Documents::Serializers::Ris'
         }.freeze
 
         # Find the serializer for serializing to the given format

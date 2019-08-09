@@ -4,7 +4,7 @@ module RLetters
   module VirtusExt
     # A class to encapsulate a dataset ID, which may need to be looked up from
     # a string
-    class DatasetID < Virtus::Attribute
+    class DatasetId < Virtus::Attribute
       # Coerce the ID to a Dataset
       #
       # @param [Object] value the object to coerce

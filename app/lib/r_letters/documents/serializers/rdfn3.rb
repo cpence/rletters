@@ -1,13 +1,12 @@
 # frozen_string_literal: true
 
-require 'r_letters/documents/serializers/rdf'
 require 'rdf/n3'
 
 module RLetters
   module Documents
     module Serializers
       # Convert a document to an RDF/N3 record
-      class RDFN3 < RDF
+      class Rdfn3 < Rdf
         define_single('RDF/N3',
                       'http://www.w3.org/DesignIssues/Notation3.html') do |doc|
           # Not covered by specs, as we're testing the RDF base class

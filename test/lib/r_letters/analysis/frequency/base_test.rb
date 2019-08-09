@@ -6,10 +6,10 @@ module RLetters
   module Analysis
     module Frequency
       class BaseTest < ActiveSupport::TestCase
-        test 'creates FromTF when available' do
+        test 'creates FromTf when available' do
           analyzer = RLetters::Analysis::Frequency::Base.call(dataset: create(:full_dataset))
 
-          assert_kind_of RLetters::Analysis::Frequency::FromTF, analyzer
+          assert_kind_of RLetters::Analysis::Frequency::FromTf, analyzer
         end
 
         test 'creates FromPosition otherwise' do

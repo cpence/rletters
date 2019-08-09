@@ -2,7 +2,7 @@
 
 # Plot occurrences of a term in a dataset by year
 class TermDatesJob < ApplicationJob
-  include RLetters::Visualization::CSV
+  include RLetters::Visualization::Csv
 
   queue_as :analysis
 

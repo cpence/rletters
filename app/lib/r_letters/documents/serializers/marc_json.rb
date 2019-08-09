@@ -1,12 +1,10 @@
 # frozen_string_literal: true
 
-require 'r_letters/documents/serializers/marc_record'
-
 module RLetters
   module Documents
     module Serializers
       # Convert a document to a MARC record
-      class MARCJSON < MARCRecord
+      class MarcJson < MarcRecord
         # This isn't really a single, but we need separate array support that's
         # not the usual.
         define_single('MARC-in-JSON',

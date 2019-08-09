@@ -4,10 +4,10 @@ require 'test_helper'
 
 module RLetters
   module Documents
-    class AsOpenURLTest < ActiveSupport::TestCase
+    class AsOpenUrlTest < ActiveSupport::TestCase
       test 'creates good OpenURL params' do
         doc = build(:full_document, authors: 'C. Dickens, M. Twain')
-        params = RLetters::Documents::AsOpenURL.new(doc).params
+        params = RLetters::Documents::AsOpenUrl.new(doc).params
 
         assert_equal(
           'ctx_ver=Z39.88-2004&rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3A' \

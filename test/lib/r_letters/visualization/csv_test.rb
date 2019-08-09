@@ -2,13 +2,12 @@
 
 require 'test_helper'
 require 'csv'
-require 'r_letters/visualization/csv'
 
 module RLetters
   module Visualization
     class CSVTest < ActiveSupport::TestCase
       class TestClass
-        include RLetters::Visualization::CSV
+        include RLetters::Visualization::Csv
       end
 
       test 'csv_with_header yields a CSV object' do

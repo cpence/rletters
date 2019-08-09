@@ -24,7 +24,7 @@ module RLetters
       attribute :field, Symbol
       attribute :dataset, Dataset
       attribute :normalize, Boolean, default: false
-      attribute :normalization_dataset, VirtusExt::DatasetID
+      attribute :normalization_dataset, VirtusExt::DatasetId
       attribute :progress, Proc
 
       # Count up a dataset (or the corpus) by a field

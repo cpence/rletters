@@ -5,16 +5,16 @@ require 'test_helper'
 module RLetters
   module Analysis
     module Frequency
-      class FromTFTest < ActiveSupport::TestCase
+      class FromTfTest < ActiveSupport::TestCase
         test 'with one block, includes all words' do
-          analyzer = RLetters::Analysis::Frequency::FromTF.call(dataset: create(:full_dataset,
+          analyzer = RLetters::Analysis::Frequency::FromTf.call(dataset: create(:full_dataset,
                                                                                 num_docs: 10))
 
           assert_equal analyzer.blocks[0].size, analyzer.block_stats[0][:types]
         end
 
         test 'with one block, builds correct blocks' do
-          analyzer = RLetters::Analysis::Frequency::FromTF.call(dataset: create(:full_dataset,
+          analyzer = RLetters::Analysis::Frequency::FromTf.call(dataset: create(:full_dataset,
                                                                                 num_docs: 10))
 
           assert_kind_of Array, analyzer.blocks
@@ -27,7 +27,7 @@ module RLetters
         end
 
         test 'with one block, puts the same words in all blocks' do
-          analyzer = RLetters::Analysis::Frequency::FromTF.call(dataset: create(:full_dataset,
+          analyzer = RLetters::Analysis::Frequency::FromTf.call(dataset: create(:full_dataset,
                                                                                 num_docs: 10))
 
           analyzer.blocks.each do |b|
@@ -36,7 +36,7 @@ module RLetters
         end
 
         test 'with one block, gives same stats as dataset' do
-          analyzer = RLetters::Analysis::Frequency::FromTF.call(dataset: create(:full_dataset,
+          analyzer = RLetters::Analysis::Frequency::FromTf.call(dataset: create(:full_dataset,
                                                                                 num_docs: 10))
 
           assert_equal analyzer.num_dataset_types, analyzer.blocks[0].size
@@ -47,7 +47,7 @@ module RLetters
         end
 
         test 'with one block, gives correct tf_in_dataset' do
-          analyzer = RLetters::Analysis::Frequency::FromTF.call(dataset: create(:full_dataset,
+          analyzer = RLetters::Analysis::Frequency::FromTf.call(dataset: create(:full_dataset,
                                                                                 num_docs: 10))
 
           analyzer.word_list.each do |w|
@@ -56,7 +56,7 @@ module RLetters
         end
 
         test 'with one block, df_in_dataset works' do
-          analyzer = RLetters::Analysis::Frequency::FromTF.call(dataset: create(:full_dataset,
+          analyzer = RLetters::Analysis::Frequency::FromTf.call(dataset: create(:full_dataset,
                                                                                 num_docs: 10))
 
           analyzer.word_list.each do |w|
@@ -68,7 +68,7 @@ module RLetters
         end
 
         test 'with one block, df_in_corpus works' do
-          analyzer = RLetters::Analysis::Frequency::FromTF.call(dataset: create(:full_dataset,
+          analyzer = RLetters::Analysis::Frequency::FromTf.call(dataset: create(:full_dataset,
                                                                                 num_docs: 10))
 
           analyzer.word_list.each do |w|
@@ -80,7 +80,7 @@ module RLetters
         end
 
         test 'with one block per document, builds correct blocks' do
-          analyzer = RLetters::Analysis::Frequency::FromTF.call(dataset: create(:full_dataset,
+          analyzer = RLetters::Analysis::Frequency::FromTf.call(dataset: create(:full_dataset,
                                                                                 num_docs: 10),
                                                                 split_across: false)
 
@@ -94,7 +94,7 @@ module RLetters
         end
 
         test 'with one block per document, gives correct number of blocks' do
-          analyzer = RLetters::Analysis::Frequency::FromTF.call(dataset: create(:full_dataset,
+          analyzer = RLetters::Analysis::Frequency::FromTf.call(dataset: create(:full_dataset,
                                                                                 num_docs: 10),
                                                                 split_across: false)
 
@@ -102,7 +102,7 @@ module RLetters
         end
 
         test 'with one block per document, includes all words' do
-          analyzer = RLetters::Analysis::Frequency::FromTF.call(dataset: create(:full_dataset,
+          analyzer = RLetters::Analysis::Frequency::FromTf.call(dataset: create(:full_dataset,
                                                                                 num_docs: 10),
                                                                 split_across: false)
 
@@ -112,7 +112,7 @@ module RLetters
         end
 
         test 'with one block per document, tf_in_dataset works' do
-          analyzer = RLetters::Analysis::Frequency::FromTF.call(dataset: create(:full_dataset,
+          analyzer = RLetters::Analysis::Frequency::FromTf.call(dataset: create(:full_dataset,
                                                                                 num_docs: 10),
                                                                 split_across: false)
 
@@ -122,7 +122,7 @@ module RLetters
         end
 
         test 'with one block per document, df_in_dataset works' do
-          analyzer = RLetters::Analysis::Frequency::FromTF.call(dataset: create(:full_dataset,
+          analyzer = RLetters::Analysis::Frequency::FromTf.call(dataset: create(:full_dataset,
                                                                                 num_docs: 10),
                                                                 split_across: false)
 
@@ -135,7 +135,7 @@ module RLetters
         end
 
         test 'with one block per document, df_in_corpus works' do
-          analyzer = RLetters::Analysis::Frequency::FromTF.call(dataset: create(:full_dataset,
+          analyzer = RLetters::Analysis::Frequency::FromTf.call(dataset: create(:full_dataset,
                                                                                 num_docs: 10),
                                                                 split_across: false)
 
@@ -149,13 +149,13 @@ module RLetters
 
         test 'raises if num_words is negative' do
           assert_raises(ArgumentError) do
-            RLetters::Analysis::Frequency::FromTF.call(dataset: create(:full_dataset),
+            RLetters::Analysis::Frequency::FromTf.call(dataset: create(:full_dataset),
                                                        num_words: -1)
           end
         end
 
         test 'num_words limits number of words returned' do
-          analyzer = RLetters::Analysis::Frequency::FromTF.call(dataset: create(:full_dataset,
+          analyzer = RLetters::Analysis::Frequency::FromTf.call(dataset: create(:full_dataset,
                                                                                 num_docs: 10),
                                                                 num_words: 10)
 
@@ -165,7 +165,7 @@ module RLetters
         end
 
         test 'num_words is ignored when all is set' do
-          analyzer = RLetters::Analysis::Frequency::FromTF.call(dataset: create(:full_dataset,
+          analyzer = RLetters::Analysis::Frequency::FromTf.call(dataset: create(:full_dataset,
                                                                                 num_docs: 10),
                                                                 num_words: 10,
                                                                 all: true)
@@ -174,7 +174,7 @@ module RLetters
         end
 
         test 'inclusion_list works' do
-          analyzer = RLetters::Analysis::Frequency::FromTF.call(dataset: create(:full_dataset,
+          analyzer = RLetters::Analysis::Frequency::FromTf.call(dataset: create(:full_dataset,
                                                                                 num_docs: 10),
                                                                 inclusion_list: 'malaria disease')
 
@@ -182,7 +182,7 @@ module RLetters
         end
 
         test 'exclusion_list works' do
-          analyzer = RLetters::Analysis::Frequency::FromTF.call(dataset: create(:full_dataset,
+          analyzer = RLetters::Analysis::Frequency::FromTf.call(dataset: create(:full_dataset,
                                                                                 num_docs: 10),
                                                                 exclusion_list: 'a the')
 
@@ -193,7 +193,7 @@ module RLetters
         end
 
         test 'stop_list works' do
-          analyzer = RLetters::Analysis::Frequency::FromTF.call(dataset: create(:full_dataset,
+          analyzer = RLetters::Analysis::Frequency::FromTf.call(dataset: create(:full_dataset,
                                                                                 num_docs: 10),
                                                                 stop_list: %w[a an the])
 
@@ -204,7 +204,7 @@ module RLetters
         end
 
         test 'word_list only includes the requested list of words' do
-          analyzer = RLetters::Analysis::Frequency::FromTF.call(dataset: create(:full_dataset,
+          analyzer = RLetters::Analysis::Frequency::FromTf.call(dataset: create(:full_dataset,
                                                                                 num_docs: 10),
                                                                 num_words: 10)
 
@@ -212,7 +212,7 @@ module RLetters
         end
 
         test 'word_list gives analyzed words' do
-          analyzer = RLetters::Analysis::Frequency::FromTF.call(dataset: create(:full_dataset,
+          analyzer = RLetters::Analysis::Frequency::FromTf.call(dataset: create(:full_dataset,
                                                                                 num_docs: 10),
                                                                 num_words: 10)
 
@@ -225,7 +225,7 @@ module RLetters
           called_sub100 = false
           called100 = false
 
-          RLetters::Analysis::Frequency::FromTF.call(
+          RLetters::Analysis::Frequency::FromTf.call(
             dataset: create(:full_dataset, num_docs: 10),
             progress: lambda do |p|
               if p < 100

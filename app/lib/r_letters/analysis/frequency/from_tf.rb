@@ -9,7 +9,7 @@ module RLetters
       # block, then we can analyze the words simply by reading the +tf+ values
       # from the term vectors, which is much faster than reconstructing the
       # full text from the +offsets.+
-      class FromTF < RLetters::Analysis::Frequency::Base
+      class FromTf < RLetters::Analysis::Frequency::Base
         # N.B.: Do not coerce this value, as it is an enumerator, and Virtus
         # will try to coerce it as an array of objects.
         attribute(:documents, RLetters::Datasets::DocumentEnumerator,

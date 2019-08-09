@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'r_letters/analysis/collocation'
-
 module RLetters
   module Analysis
     module Collocation

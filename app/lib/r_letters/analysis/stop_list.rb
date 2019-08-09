@@ -8,7 +8,7 @@ module RLetters
       #
       # @return [Hash<Symbol, Array<String>>] all present stop lists
       def self.available
-        file_list = Rails.root.join('lib', 'r_letters', 'analysis',
+        file_list = Rails.root.join('app', 'lib', 'r_letters', 'analysis',
                                     'stop_list', 'stopwords_*.txt')
 
         [].tap do |ret|
@@ -26,7 +26,7 @@ module RLetters
       # @param [Symbol] lang language to request
       # @return [Array<String>] stop words for this language
       def self.for(lang)
-        filename = Rails.root.join('lib', 'r_letters', 'analysis',
+        filename = Rails.root.join('app', 'lib', 'r_letters', 'analysis',
                                    'stop_list', "stopwords_#{lang}.txt")
         return nil unless File.exist?(filename)
 

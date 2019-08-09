@@ -6,12 +6,12 @@ require_relative './common_tests'
 module RLetters
   module Documents
     module Serializers
-      class MARCJSONTest < ActiveSupport::TestCase
+      class MarcJsonTest < ActiveSupport::TestCase
         include CommonTests
 
         test 'single serialization makes no array' do
           doc = build(:full_document)
-          json = RLetters::Documents::Serializers::MARCJSON.new(doc).serialize
+          json = RLetters::Documents::Serializers::MarcJson.new(doc).serialize
 
           parsed = JSON.parse(json)
 
@@ -21,7 +21,7 @@ module RLetters
         test 'array serialization creates the right sized arrays' do
           doc = build(:full_document)
           docs = [doc, doc]
-          json = RLetters::Documents::Serializers::MARCJSON.new(docs).serialize
+          json = RLetters::Documents::Serializers::MarcJson.new(docs).serialize
 
           parsed = JSON.parse(json)
 

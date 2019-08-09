@@ -4,10 +4,10 @@ require 'test_helper'
 
 module RLetters
   module VirtusExt
-    class DatasetIDTest < ActiveSupport::TestCase
+    class DatasetIdTest < ActiveSupport::TestCase
       class DsIdTester
         include Virtus.model(strict: true)
-        attribute :dataset, RLetters::VirtusExt::DatasetID, required: true
+        attribute :dataset, RLetters::VirtusExt::DatasetId, required: true
       end
 
       test 'coerce passes through a dataset' do

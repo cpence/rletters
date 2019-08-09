@@ -6,7 +6,7 @@ module RLetters
   # Code that manages output and visualization for analysis tasks
   module Visualization
     # Mix-ins to facilitate saving data out to CSV files
-    module CSV
+    module Csv
       extend ActiveSupport::Concern
 
       # Write a CSV file with the given header and subheader text

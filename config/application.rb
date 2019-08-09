@@ -13,16 +13,10 @@ module RLetters
   class Application < Rails::Application
     # Initialize configuration defaults for current config standard here
     config.load_defaults 5.2
+    config.autoloader = :zeitwerk
 
     # Disable a Rails 6.1 deprecation warning that we're already ready for
     config.action_dispatch.return_only_media_type_on_content_type = false
-
-    # Custom directories with classes and modules to be eager-loaded.
-    config.eager_load_paths << config.root.join('lib').to_s
-
-    # Add autoload paths for 'lib' and its subdirectories.
-    config.autoload_paths << config.root.join('lib').to_s
-    config.autoload_paths += Dir[config.root.join('lib')]
 
     # Show error pages in all environments
     config.consider_all_requests_local = false

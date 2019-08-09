@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require 'r_letters/documents/as_open_url'
 require 'rdf/n3'
 
 module RLetters
@@ -16,7 +15,7 @@ module RLetters
       # namespace), in a second bibliographicCitation element.  The precise way
       # to encode journal articles in DC is in serious flux, but this should
       # provide a reasonable solution.
-      class RDF < Base
+      class Rdf < Base
         private
 
         # Return the document as an RDF::Graph object
@@ -46,7 +45,7 @@ module RLetters
           graph << [node, ::RDF::Vocab::DC.bibliographicCitation, citation]
 
           ourl = ::RDF::Literal.new(
-            '&' + RLetters::Documents::AsOpenURL.new(doc).params,
+            '&' + RLetters::Documents::AsOpenUrl.new(doc).params,
             datatype: ::RDF::URI.new('info:ofi/fmt:kev:mtx:ctx')
           )
           graph << [node, ::RDF::Vocab::DC.bibliographicCitation, ourl]
