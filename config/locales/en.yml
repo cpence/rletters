@@ -63,7 +63,7 @@ en:
                 other: Custom Content
             admin/worker_stats:
                 one: Worker Statistics
-                other: Worker Statisics
+                other: Worker Statistics
             dataset:
                 one: Dataset
                 other: Datasets
