@@ -12,11 +12,7 @@ module RLetters
   # Central application class, started by Rails
   class Application < Rails::Application
     # Initialize configuration defaults for current config standard here
-    config.load_defaults 5.2
-    config.autoloader = :zeitwerk
-
-    # Disable a Rails 6.1 deprecation warning that we're already ready for
-    config.action_dispatch.return_only_media_type_on_content_type = false
+    config.load_defaults 6.0
 
     # Show error pages in all environments
     config.consider_all_requests_local = false
