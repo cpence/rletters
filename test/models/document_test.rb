@@ -48,7 +48,7 @@ class UserTest < ActiveSupport::TestCase
 
   test 'find should raise when Solr times out' do
     stub_request(:any, /(127\.0\.0\.1|localhost)/).to_timeout
-    assert_raises(RLetters::Solr::ConnectionError) do
+    assert_raises(RLetters::Solr::Connection::Error) do
       Document.find('fail')
     end
   end
@@ -73,7 +73,7 @@ class UserTest < ActiveSupport::TestCase
 
   test 'find_by! should raise when Solr times out' do
     stub_request(:any, /(127\.0\.0\.1|localhost)/).to_timeout
-    assert_raises(RLetters::Solr::ConnectionError) do
+    assert_raises(RLetters::Solr::Connection::Error) do
       Document.find_by!(uid: 'fail')
     end
   end

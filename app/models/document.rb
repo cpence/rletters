@@ -111,7 +111,7 @@ class Document
   # @param [Hash] options options which modify the behavior of the search
   # @option options [Boolean] :term_vectors if true, return term vectors
   # @return [Document] the document requested
-  # @raise [RLetters::Solr::ConnectionError] thrown if there is an error
+  # @raise [RLetters::Solr::Connection::Error] thrown if there is an error
   #   querying Solr
   # @raise [ActiveRecord::RecordNotFound] thrown if no matching document can
   #   be found
@@ -125,7 +125,7 @@ class Document
   # @option args [String] :field any document field may be queried here as a
   #   search query (see example)
   # @return [Document] the document requested, or nil if not found
-  # @raise [RLetters::Solr::ConnectionError] thrown if there is an error
+  # @raise [RLetters::Solr::Connection::Error] thrown if there is an error
   #   querying Solr
   # @raise [ActiveRecord::RecordNotFound] thrown if no matching document can
   #   be found
@@ -139,7 +139,7 @@ class Document
   # @option args [String] :field any document field may be queried here as a
   #   search query (see example)
   # @return [Document] the document requested, or nil if not found
-  # @raise [RLetters::Solr::ConnectionError] thrown if there is an error
+  # @raise [RLetters::Solr::Connection::Error] thrown if there is an error
   #   querying Solr
   def self.find_by(args)
     # Delete the special arguments

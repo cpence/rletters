@@ -4,11 +4,11 @@
 module RLetters
   # Code that connects RLetters to a Solr server and parses its responses
   module Solr
-    # Exception thrown on failure to connect to Solr
-    class ConnectionError < RuntimeError; end
-
     # Methods for managing the singleton connection to the Solr server
     module Connection
+      # Exception thrown on failure to connect to Solr
+      class Error < RuntimeError; end
+
       # The default Solr search fields
       DEFAULT_FIELDS = 'uid,doi,license,license_url,data_source,authors,title,journal,year,volume,number,pages'
 
@@ -16,7 +16,7 @@ module RLetters
       EXCEPTIONS = Net::HTTP::EXCEPTIONS + [
         RSolr::Error::Http,
         RSolr::Error::InvalidRubyResponse,
-        RLetters::Solr::ConnectionError
+        RLetters::Solr::Connection::Error
       ]
 
       # Get a response from Solr

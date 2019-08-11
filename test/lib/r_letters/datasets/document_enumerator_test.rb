@@ -21,7 +21,7 @@ module RLetters
         enum = RLetters::Datasets::DocumentEnumerator.new(dataset: create(:full_dataset, num_docs: 2))
         stub_request(:any, /(127\.0\.0\.1|localhost)/).to_timeout
 
-        assert_raises(RLetters::Solr::ConnectionError) do
+        assert_raises(RLetters::Solr::Connection::Error) do
           enum.each { |_| }
         end
       end

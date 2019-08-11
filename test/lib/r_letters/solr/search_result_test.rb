@@ -17,7 +17,7 @@ module RLetters
       test 'solr_response throws if the response is bad' do
         fail_response = stub(ok?: false, params: {})
 
-        assert_raises(RLetters::Solr::ConnectionError) do
+        assert_raises(RLetters::Solr::Connection::Error) do
           RLetters::Solr::SearchResult.new(fail_response)
         end
       end

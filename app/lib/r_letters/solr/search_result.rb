@@ -43,7 +43,7 @@ module RLetters
       # Create a search result from a Solr response
       #
       # @param [RSolr::Ext::Response] response the returned Solr response
-      # @raise [ConnectionError] if the Solr server returned an invalid
+      # @raise [Connection::Error] if the Solr server returned an invalid
       #   response
       def initialize(response)
         # Initialize all our variables
@@ -59,7 +59,8 @@ module RLetters
 
         # Raise an error if Solr does not respond
         unless solr_response.ok?
-          raise ConnectionError, 'Solr server returned nothing or failed request'
+          raise Connection::Error,
+            'Solr server returned nothing or failed request'
         end
         return if solr_response.total.zero?
 

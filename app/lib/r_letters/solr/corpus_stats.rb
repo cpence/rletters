@@ -15,7 +15,7 @@ module RLetters
                        rows: 0 }
 
         Connection.search(solr_query).num_hits
-      rescue ConnectionError
+      rescue Connection::Error
         nil
       end
     end
