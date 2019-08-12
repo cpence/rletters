@@ -13,9 +13,11 @@ This task can use the following two different methods for determining significan
 
 The user can specify the following parameters:
 
-*   The word of interest -- the analysis will return significance values for *every* cooccurrence with this word.
+*   The word of interest -- the analysis will return significance values for *every* cooccurrence with this word. Alternatively, you may provide a space-separated list of words to return *only* cooccurrences between the words given, taken pair-wise.
 *   How many of the most significant cooccurrences to preserve.
 *   The window for which we will detect cooccurrences. The cooccurrence algorithm checks for significant correlations between words that occur within a particular distance. To emulate "phrase-level" cooccurrence, use a distance of 5 words. For "sentence-level" cooccurrence, try 20. For "paragraph-level" cooccurrence, use 200. The maximum distance is the article level -- set the distance to a large number to search for article-level cooccurrence.
+
+To optimize memory usage for this job, you can (1) increase the value of the window for coocurrence detection, or (2) specify the precise list of cooccurrences of interest.
 
 Once the job is finished, the requested cooccurrences are offered to the user for download.  This job can answer a variety of interesting questions:
 

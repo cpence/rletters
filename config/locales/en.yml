@@ -699,7 +699,7 @@ en:
         options_label: Cooccurrence analysis options
         num_pairs: Number of cooccurrences to find
         all: Report all cooccurrences
-        words: Return coocurrences including this word (or a space-separated list)
+        words: Return all coocurrences including this word (or a space-separated list to return only cooccurrences between the given words)
         words_blank: Must specify a word or list of words
         window: Return cooccurrences that occur within this number of words
         window_blank: Must specify a value for window
