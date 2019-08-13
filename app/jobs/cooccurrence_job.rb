@@ -51,7 +51,7 @@ class CooccurrenceJob < ApplicationJob
       column = t('common.scoring.t_test_header')
     when :log_likelihood
       algorithm = t('common.scoring.log_likelihood')
-      column = t('common.scoring.loglikelihood_header')
+      column = t('common.scoring.log_likelihood_header')
     end
 
     # Save out all the data
