@@ -703,6 +703,7 @@ en:
         words_blank: Must specify a word or list of words
         window: Return cooccurrences that occur within this number of words
         window_blank: Must specify a value for window
+        min_count: Return only cooccurrences that appear at least this many times
         header: "Cooccurrence analysis for %{name}"
         subheader: "Significance test: %{test}"
         pair: 'Cooccurrence pair'

@@ -28,6 +28,7 @@ class CooccurrenceJobTest < ActiveJob::TestCase
                                   'scoring' => type,
                                   mode => num,
                                   'window' => '25',
+                                  'min_count' => '1',
                                   'words' => words)
 
       assert_equal 'Determine significant associations between distant pairs of words', task.reload.name
