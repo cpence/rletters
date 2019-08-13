@@ -4,6 +4,7 @@
 ## Version 3.1 (unreleased)
 
 *   Install the sentry-raven gem, to report errors to Sentry if the correct environment variable is set.
+*   Add a 'min_count' parameter to collocation jobs, so that we can filter out hapax cooccurrences.
 *   Fix a number of issues with loading of Ruby code (auto/eager loads) and with job starts/stops (#104, #99).
 *   Fix bug with advanced search not working (#95, thanks to Jess Folsom for the bug report).
 *   Fix loading of external Google fonts by Bootswatch themes.
