@@ -52,7 +52,7 @@ gem 'haml', '>= 5.1.0'
 gem 'haml-rails', '~> 2.0'
 gem 'kramdown'
 gem 'nokogiri'
-gem 'sass-rails', '>= 5.0'
+gem 'sassc-rails', '>= 2.1.1'
 gem 'uglifier', '>= 1.3.0'
 
 # Mail
