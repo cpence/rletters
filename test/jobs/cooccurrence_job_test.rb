@@ -8,7 +8,8 @@ class CooccurrenceJobTest < ActiveJob::TestCase
     CooccurrenceJob.new.perform(@task,
                                 'scoring' => 't_test',
                                 'words' => 'was',
-                                'window' => '6')
+                                'window' => '6',
+                                'min_count' => '1')
   end
 
   include AnalysisJobHelper
@@ -18,7 +19,7 @@ class CooccurrenceJobTest < ActiveJob::TestCase
   end
 
   types = %w[mutual_information t_test log_likelihood]
-  words_list = ['disease', 'tropical, disease']
+  words_list = ['disease', 'tropical disease']
   nums = [%w[num_pairs 10], %w[all 1]]
   types.product(words_list).product(nums).each do |((type, words), (mode, num))|
     test "should run with type '#{type}', mode '#{mode}', and words '#{words}'" do
@@ -28,12 +29,13 @@ class CooccurrenceJobTest < ActiveJob::TestCase
                                   'scoring' => type,
                                   mode => num,
                                   'window' => '25',
+                                  'min_count' => '1',
                                   'words' => words)
 
       assert_equal 'Determine significant associations between distant pairs of words', task.reload.name
 
       # There should be at least one cooccurrence in there ("word word,X.YYYY...")
-      assert_match(/\n"?\w+,? \w+"?,\d+(\.\d+)?/, task.files.first.result.download)
+      assert_match(/\n\w+ \w+,-?\d+(\.\d+)?/, task.files.first.result.download)
     end
   end
 

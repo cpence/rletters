@@ -29,6 +29,10 @@ module RLetters
     #   @return [Integer] the window size to use for analysis.
     #     The default size of 200 approximates "paragraph-level" cooccurrence
     #     analysis.
+    # @!attribute min_count
+    #   @return [Integer] the minimum frequency of returned cooccurrences. If a
+    #     detected cooccurrence is present in the text fewer times than this,
+    #     it will be discarded. The default value is 3.
     # @!attribute stemming
     #   @return [Symbol] the stemming method to use; can be +nil+ for
     #     no stemming, +:stem+ for basic Porter stemming, or +:lemma+ for
@@ -47,6 +51,7 @@ module RLetters
       attribute :num_pairs, Integer, default: 0
       attribute :all, Boolean, default: false
       attribute :window, Integer, default: 200
+      attribute :min_count, Integer, default: 3
       attribute :stemming, Symbol
 
       attribute :score_class, Class
@@ -116,6 +121,9 @@ module RLetters
 
             f_b = base_frequencies[word2].to_f
             f_ab = joint_frequencies[word][word2].to_f
+
+            next if f_ab == 0
+            next if f_ab < min_count
 
             ret << [word + ' ' + word2,
                     score_class.score(f_a, f_b, f_ab, n)]

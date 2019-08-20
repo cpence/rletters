@@ -18,10 +18,11 @@ module RLetters
 
           result = RLetters::Analysis::Cooccurrence.call(
             scoring: scoring,
-            dataset: create(:full_dataset, num_docs: 2),
+            dataset: create(:full_dataset, num_docs: 10),
             num_pairs: 10,
             words: 'abstract',
             window: 50,
+            min_count: 1,
             progress: lambda do |p|
               if p < 100
                 called_sub100 = true
@@ -47,13 +48,37 @@ module RLetters
           assert called100
         end
 
+        test "min_count with #{scoring} works" do
+          result = RLetters::Analysis::Cooccurrence.call(
+            scoring: scoring,
+            dataset: create(:full_dataset, num_docs: 10),
+            num_pairs: 10,
+            words: 'abstract',
+            window: 50,
+            min_count: 5  # Large enough to make <10 grams appear
+          )
+
+          assert_kind_of RLetters::Analysis::Cooccurrence::Result, result
+          assert_equal scoring, result.scoring
+
+          grams = result.cooccurrences
+          assert_operator grams.size, :<, 10
+
+          grams.each do |g|
+            assert_kind_of Numeric, g[1]
+            assert g[1].positive? if g[1].is_a?(Integer)
+            assert g[1].finite? if g[1].is_a?(Float)
+          end
+        end
+
         test "multiple word analysis with #{scoring} works" do
           result = RLetters::Analysis::Cooccurrence.call(
             scoring: scoring,
-            dataset: create(:full_dataset, num_docs: 2),
+            dataset: create(:full_dataset, num_docs: 10),
             num_pairs: 10,
             words: 'abstract background',
-            window: 50
+            window: 50,
+            min_count: 1
           )
 
           assert_kind_of RLetters::Analysis::Cooccurrence::Result, result
@@ -72,9 +97,10 @@ module RLetters
         test "stemmed analysis with #{scoring} works" do
           result = RLetters::Analysis::Cooccurrence.call(
             scoring: scoring,
-            dataset: create(:full_dataset, num_docs: 2),
+            dataset: create(:full_dataset, num_docs: 10),
             words: 'abstract',
             window: 50,
+            min_count: 1,
             stemming: :stem
           )
 
@@ -89,10 +115,11 @@ module RLetters
         test "lemmatized analysis with #{scoring} works" do
           result = RLetters::Analysis::Cooccurrence.call(
             scoring: scoring,
-            dataset: create(:full_dataset, num_docs: 2),
+            dataset: create(:full_dataset, num_docs: 10),
             num_pairs: 10,
             words: 'abstract',
             window: 50,
+            min_count: 1,
             stemming: :lemma
           )
 
@@ -112,10 +139,11 @@ module RLetters
         test "analysis with an uppercased word works with #{scoring}" do
           result = RLetters::Analysis::Cooccurrence.call(
             scoring: scoring,
-            dataset: create(:full_dataset, num_docs: 2),
+            dataset: create(:full_dataset, num_docs: 10),
             num_pairs: 10,
             words: 'ABSTRACT',
-            window: 50
+            window: 50,
+            min_count: 1
           )
 
           assert_includes result.cooccurrences[0][0].split, 'abstract'

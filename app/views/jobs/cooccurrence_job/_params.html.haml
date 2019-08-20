@@ -19,6 +19,9 @@
           = f.number_field :window, class: 'form-control', required: true
           .invalid-feedback= validation_errors_for(:job_params, :window, true, 'cooccurrence_job.window_blank')
         .form-group
+          = f.label :min_count, t('cooccurrence_job.min_count')
+          = f.number_field :min_count, value: 3, class: 'form-control'
+        .form-group
           = f.label :words, t('cooccurrence_job.words')
           = f.text_field :words, class: 'form-control', required: true
           .invalid-feedback= validation_errors_for(:job_params, :words, true, 'cooccurrence_job.words_blank')
