@@ -6,6 +6,7 @@ require_relative '../config/environment'
 require 'rails/test_help'
 
 # Load some gems
+require 'capybara/rails'
 require 'mocha/minitest'
 require 'webmock/minitest'
 
@@ -16,7 +17,11 @@ Dir[Rails.root.join('test', 'support', '**', 'assert_*.rb')]).each do |helper|
 end
 
 # Global configuration
-WebMock.disable_net_connect!(allow_localhost: true)
+WebMock.disable_net_connect!(
+  allow_localhost: true,
+  # Allow the chromedriver downloader to go get drivers for us
+  allow: 'chromedriver.storage.googleapis.com'
+)
 
 # Helpers for all tests
 module ActiveSupport

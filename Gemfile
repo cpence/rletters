@@ -69,11 +69,8 @@ group :test, :development do
 end
 
 group :test do
-  gem 'capybara-selenium'
-  gem 'chromedriver-helper'
-
+  gem 'webdrivers', '~> 4.0', require: false
   gem 'webmock', '>= 3.5.0', require: false
-
   gem 'rails-controller-testing'
   gem 'simplecov', require: false
 end
