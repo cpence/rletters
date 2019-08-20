@@ -10,7 +10,7 @@ gem 'dotenv-rails'
 gem 'keen'
 gem 'lograge'
 gem 'puma', '~> 3.11'
-gem 'rails', '~> 6.0.0.beta'
+gem 'rails', '~> 6'
 gem 'sentry-raven'
 
 # Database, job queue, and related tools
@@ -25,7 +25,7 @@ gem 'devise', '~> 4', '>= 4.4.0'
 gem 'devise-i18n'
 
 # Internationalization
-gem 'rails-i18n', '= 5.1.1'
+gem 'rails-i18n', '= 6.0.0'
 gem 'twitter_cldr'
 
 # Textual analysis
@@ -51,12 +51,12 @@ gem 'rubyzip', '~> 1.2.2', require: 'zip'
 gem 'haml', '>= 5.1.0'
 gem 'haml-rails', '~> 2.0'
 gem 'kramdown'
-gem 'nokogiri'
+gem 'nokogiri', '>= 1.10.4'
 gem 'sassc-rails', '>= 2.1.1'
 gem 'uglifier', '>= 1.3.0'
 
 # Mail
-gem 'bootstrap-email', '>= 0.2.3'
+gem 'bootstrap-email', github: 'hwhelchel/bootstrap-email', branch: 'rails-6'
 gem 'multi_mail'
 
 # Testing
