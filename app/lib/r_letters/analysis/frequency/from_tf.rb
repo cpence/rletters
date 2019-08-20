@@ -26,10 +26,6 @@ module RLetters
           # Compute the DF and TF values for the whole dataset and cull the
           # word list
           compute_df_tf
-
-          self.word_list = tf_in_dataset.keys
-          sorted_pairs = tf_in_dataset.to_a.sort { |a, b| b[1] <=> a[1] }
-          self.word_list = sorted_pairs.map { |a| a[0] }
           cull_words
 
           # We're treating either the entire dataset or individual documents

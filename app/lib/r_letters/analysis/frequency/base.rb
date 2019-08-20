@@ -173,11 +173,12 @@ module RLetters
 
         # Cull `word_list` with the exclusion/inclusion lists
         #
-        # Before this function is called, the `word_list` variable should be
-        # set with the full list of words available in the document.  It then
-        # consults `inclusion_list`, `exclusion_list`, `@stop_list`, and
-        # `num_words` in order to build the list of words that should be
-        # analyzed (which is saved into `word_list`, which is overwritten).
+        # Before this function is called, tf_in_dataset should be filled in
+        # with the term frequencies in the dataset. This function will then
+        # possibly sort, and consult `inclusion_list`, `exclusion_list`,
+        # `@stop_list`, and `num_words` in order to build the list of words
+        # that the analyzer should actually return (which is saved into
+        # `word_list`).
         #
         # @return [void]
         def cull_words
@@ -185,6 +186,21 @@ module RLetters
           # specified
           excluded = exclusion_list || stop_list || nil
           included = inclusion_list || nil
+
+          if excluded.nil? && included.nil? && num_words == 0
+            # Skip all of this processing and copying if we can
+            self.word_list = tf_in_dataset.keys
+            return
+          end
+
+          # Start by sorting, if requested, while we still have the full hash
+          if num_words != 0
+            self.word_list = tf_in_dataset
+              .sort_by { |key, val| -val }
+              .map { |arr| arr[0] }
+          else
+            self.word_list = tf_in_dataset.keys
+          end
 
           # Exclude/include by checking overlap between the words in the n-gram
           # and the words in the word list

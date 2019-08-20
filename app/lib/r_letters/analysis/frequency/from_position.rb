@@ -53,8 +53,6 @@ module RLetters
           progress&.call(90)
 
           # Pick out the set of words we'll analyze
-          sorted_pairs = tf_in_dataset.to_a.sort { |a, b| b[1] <=> a[1] }
-          self.word_list = sorted_pairs.map { |a| a[0] }
           cull_words
           progress&.call(93)
 
