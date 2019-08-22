@@ -56,7 +56,7 @@ gem 'sassc-rails', '>= 2.1.1'
 gem 'uglifier', '>= 1.3.0'
 
 # Mail
-gem 'bootstrap-email', github: 'hwhelchel/bootstrap-email', branch: 'rails-6'
+gem 'bootstrap-email', '>= 0.2.6'
 gem 'multi_mail'
 
 # Testing
