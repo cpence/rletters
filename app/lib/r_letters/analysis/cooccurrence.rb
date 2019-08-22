@@ -130,8 +130,7 @@ module RLetters
           end
         end
 
-        ret.compact!
-        ret = score_class.sort_results(ret)
+        score_class.sort_results!(ret)
         ret = ret.take(num_pairs) if num_pairs
 
         progress&.call(100)

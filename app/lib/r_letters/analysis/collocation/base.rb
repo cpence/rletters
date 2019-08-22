@@ -71,7 +71,7 @@ module RLetters
             [b[0], score_class.score(f_a, f_b, f_ab, n)]
           end
 
-          ret.collocations = score_class.sort_results(ret.collocations)
+          score_class.sort_results!(ret.collocations)
           ret.collocations = ret.collocations.take(num_pairs) if num_pairs
 
           progress&.call(100)

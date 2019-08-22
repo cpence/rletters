@@ -47,9 +47,9 @@ module RLetters
         # Small p-values indicate more significant grams.
         #
         # @param [Array<Array<(String, Float)>>] grams grams in unsorted order
-        # @return [Array<Array<(String, Float)>>] grams in sorted order
-        def self.sort_results(grams)
-          grams.sort_by { |a| a[1] }
+        # @return [Array<Array<(String, Float)>>] the same array, sorted
+        def self.sort_results!(grams)
+          grams.sort_by! { |a| a[1] }
         end
       end
     end

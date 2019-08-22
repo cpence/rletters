@@ -43,9 +43,9 @@ module RLetters
         # High log-likelihood results indicate more significant grams.
         #
         # @param [Array<Array<(String, Float)>>] grams grams in unsorted order
-        # @return [Array<Array<(String, Float)>>] grams in sorted order
-        def self.sort_results(grams)
-          grams.sort { |a, b| b[1] <=> a[1] }
+        # @return [Array<Array<(String, Float)>>] the same array, sorted
+        def self.sort_results!(grams)
+          grams.sort! { |a, b| b[1] <=> a[1] }
         end
 
         # The L-function required in the log-likelihood calculation
