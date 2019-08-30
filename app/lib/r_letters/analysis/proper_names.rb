@@ -34,7 +34,12 @@ module RLetters
           words = lister.words_for(doc.uid)
 
           tagged = Tagger.add_tags(words.join(' '))
-          ret.merge!(Tagger.get_nouns(tagged)) { |_, v1, v2| v1 + v2 }
+          next if tagged.nil?
+
+          nouns = Tagger.get_nouns(tagged)
+          next if nouns.nil?
+
+          ret.merge!(nouns) { |_, v1, v2| v1 + v2 }
         end
 
         progress&.call(100)
