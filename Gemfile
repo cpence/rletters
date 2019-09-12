@@ -3,7 +3,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.6.3'
+ruby '2.6.4'
 
 # Rails and basics
 gem 'dotenv-rails'
@@ -21,7 +21,7 @@ gem 'platform-api'
 gem 'virtus'
 
 # User authentication and administration
-gem 'devise', '~> 4', '>= 4.4.0'
+gem 'devise', '~> 4', '>= 4.7.1'
 gem 'devise-i18n'
 
 # Internationalization
