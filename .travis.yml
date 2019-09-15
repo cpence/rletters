@@ -14,21 +14,16 @@ env:
   global:
     - TMPDIR=$TRAVIS_BUILD_DIR/tmp
     - RAILS_ENV=test
-    - DATABASE_URL="postgres:///rletters_test?username=postgres"
+    - DATABASE_URL="postgres:///travis_ci_test"
     - CC_TEST_REPORTER_ID=8f6c00a1149fc25667a28154b0036edf3679b3dc82ac57fe3ad375a944cfe3c9
-    - PGPORT=5433
     - CHROME_BIN=google-chrome-stable
 
 services:
   - xvfb
+  - postgresql
 
 addons:
-  postgresql: "10"
   chrome: stable
-  apt:
-    packages:
-    - postgresql-10
-    - postgresql-client-10
 
 before_install:
   - gem install bundler
