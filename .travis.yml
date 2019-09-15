@@ -1,14 +1,18 @@
-dist: xenial
-sudo: false
+dist: bionic
 
 language: ruby
 rvm: 2.6.4
 
+services:
+  - postgresql
+  - xvfb
+addons:
+  chrome: stable
+
 cache:
-  bundler: true
-  yarn: true
-  directories:
-    - node_modules
+  - bundler
+  - yarn
+  - npm
 
 env:
   global:
@@ -18,15 +22,7 @@ env:
     - CC_TEST_REPORTER_ID=8f6c00a1149fc25667a28154b0036edf3679b3dc82ac57fe3ad375a944cfe3c9
     - CHROME_BIN=google-chrome-stable
 
-services:
-  - xvfb
-  - postgresql
-
-addons:
-  chrome: stable
-
 before_install:
-  - gem install bundler
   - "curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter"
   - chmod +x ./cc-test-reporter
 
