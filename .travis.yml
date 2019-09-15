@@ -32,7 +32,6 @@ before_install:
   - chmod +x ./cc-test-reporter
 
 install:
-  - jdk_switcher home oraclejdk9
   - git clone --depth=1 https://github.com/rletters/solr-example.git vendor/solr
   - bundle install --without production development tools --jobs 3 --retry 3
   - yarn
