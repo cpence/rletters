@@ -75,8 +75,11 @@ group :test do
   gem 'simplecov', require: false
 end
 
-# Tools that we need for developers, but not for any deployment or testing
 group :development do
+  gem 'capistrano','~> 3.11', require: false
+  gem 'capistrano-bundler', '~> 1.6', require: false
+  gem "capistrano-rails", "~> 1.4", require: false
+
   gem 'brakeman', require: false
   gem 'bundle-audit', require: false
   gem 'rubocop', require: false

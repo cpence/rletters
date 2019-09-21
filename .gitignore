@@ -1,6 +1,9 @@
 .env*
 !.env.example
 
+config/deploy/*
+!config/deploy/example.rb
+
 .bundle
 /node_modules
 /public/assets
