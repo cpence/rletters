@@ -17,18 +17,6 @@ job_timeout = (ENV['JOB_TIMEOUT'] || '12').to_i
 Delayed::Worker.max_run_time = job_timeout.hours
 Delayed::Worker.destroy_failed_jobs = true
 
-# Don't autoscale jobs with Heroku if we don't have the dyno metadata enabled.
-if ENV['HEROKU_APP_NAME'].blank? && ENV['AUTOSCALE_JOBS'] == 'heroku'
-  ENV['AUTOSCALE_JOBS'] = ''
-  Rails.logger.warn 'Cannot use Heroku autoscaler, run `heroku labs:enable runtime-dyno-metadata`.'
-end
-
-# Don't autoscale jobs with Heroku if we don't have an API key set.
-if ENV['AUTOSCALE_API_KEY'].blank? && ENV['AUTOSCALE_JOBS'] == 'heroku'
-  ENV['AUTOSCALE_JOBS'] = ''
-  Rails.logger.warn 'Cannot use Heroku autoscaler, set up AUTOSCALE_API_KEY'
-end
-
 # Open up the job wrapper class used by ActiveJob, and add a failure
 # handler an additional logging handlers to it.
 #
@@ -46,36 +34,6 @@ module ActiveJob
           1
         end
 
-        # Send a Keen event when a job starts, if configured. Note that the
-        # DJ worker will output job information to the Rails log, so we do not
-        # need to do that here.
-        #
-        # This is a callback, executed internally by DelajedJob.
-        #
-        # @param [Delayed::Job] job the job that is starting
-        # @return [void]
-        def before(job)
-          if ENV['KEEN_PROJECT_ID']
-            Keen.publish('analyses_started', job: @job_data['job_class'],
-                                             id: @job_data['job_id'],
-                                             args: @job_data['arguments'])
-          end
-        end
-
-        # Send a Keen event when a job succeeds, if configured.
-        #
-        # This is a callback, executed internally by DelajedJob.
-        #
-        # @param [Delayed::Job] job the job that succeeded
-        # @return [void]
-        def success(job)
-          if ENV['KEEN_PROJECT_ID']
-            Keen.publish('analyses_succeeded', job: @job_data['job_class'],
-                                               id: @job_data['job_id'],
-                                               args: @job_data['arguments'])
-          end
-        end
-
         # Save the details of this error into our database so they aren't lost.
         #
         # TR14his is a callback, executed internally by DelajedJob.
@@ -85,13 +43,6 @@ module ActiveJob
         # @return [void]
         def error(job, exception)
           args = @job_data['arguments']
-
-          if ENV['KEEN_PROJECT_ID']
-            Keen.publish('analyses_failed', job: @job_data['job_class'],
-                                            id: @job_data['job_id'],
-                                            args: args,
-                                            exception: exception)
-          end
 
           # When this is called, the worker will have aborted the job, and
           # possibly attempted to reschedule it.

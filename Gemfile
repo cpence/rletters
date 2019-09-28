@@ -7,7 +7,6 @@ ruby '2.6.4'
 
 # Rails and basics
 gem 'dotenv-rails'
-gem 'keen'
 gem 'lograge'
 gem 'puma', '~> 3.11'
 gem 'rails', '~> 6'
@@ -17,7 +16,6 @@ gem 'sentry-raven'
 gem 'ancestry', '~> 3', '>= 3.0.2'
 gem 'delayed_job_active_record'
 gem 'pg'
-gem 'platform-api'
 gem 'virtus'
 
 # User authentication and administration
@@ -78,7 +76,8 @@ end
 group :development do
   gem 'capistrano','~> 3.11', require: false
   gem 'capistrano-bundler', '~> 1.6', require: false
-  gem "capistrano-rails", "~> 1.4", require: false
+  gem 'capistrano-rails', '~> 1.4', require: false
+  # gem 'capistrano-maintenance', '~> 1.2', require: false
 
   gem 'brakeman', require: false
   gem 'bundle-audit', require: false

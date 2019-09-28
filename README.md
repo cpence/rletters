@@ -77,9 +77,9 @@ And you can export bibliographic data in the following standard formats:
 
 ### Cutting-edge development and maintenance tools
 
-RLetters doesn't leave your developers out in the cold, either.  We've got speedy deployments on [Heroku,](https://www.heroku.com/) exception monitoring with [Sentry,](https://sentry.io/welcome/) and our code has a thorough test suite and adheres to a probably unnecessary level of linting and style-guide fanaticism.
+RLetters doesn't leave your developers out in the cold, either.  We've got speedy deployments with [Ansible](https://www.ansible.com/) and [Capistrano,](https://capistranorb.com/) exception monitoring with [Sentry,](https://sentry.io/welcome/) and our code has a thorough test suite and adheres to a probably unnecessary level of linting and style-guide fanaticism.
 
-Visit [the website](https://www.rletters.net/) for more developer information, especially our [deployment guide.](https://www.rletters.net/dev/heroku.html)
+Visit [the website](https://www.rletters.net/) for more developer information.
 
 ## Contributors / Support
 
