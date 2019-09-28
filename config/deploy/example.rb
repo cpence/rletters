@@ -1,3 +1,6 @@
+# Roles: app, worker
+# MUST HAVE one app with primary: true
+
 # server-based syntax
 # ======================
 # Defines a single server with a list of roles and multiple properties.
