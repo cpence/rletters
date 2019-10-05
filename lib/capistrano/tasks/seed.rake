@@ -17,7 +17,6 @@ namespace :deploy do
 
   desc 'Runs rake db:seed'
   task seeding: [:set_rails_env] do
-    p primary(:app)
     on fetch(:seed_servers) do
       within release_path do
         with rails_env: fetch(:rails_env) do
@@ -33,7 +32,7 @@ end
 namespace :load do
   task :defaults do
     set :conditionally_seed, fetch(:conditionally_seed, false)
-    set :seed_role, fetch(:seed_role, :app)
+    set :seed_role, fetch(:seed_role, :db)
     set :seed_servers, -> { primary(fetch(:seed_role)) }
   end
 end

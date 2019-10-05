@@ -1,15 +1,24 @@
-# Roles: app, worker
-# MUST HAVE one app with primary: true
+
+# For a successful RLetters deployment, you *must* configure the connection
+# details for at least one server of type :web and at least one server of type
+# :worker. These can be the same server.
+
+# At least one :web server must be tagged with the property primary: true, and
+# this server will be in charge of performing database migrations and seeding.
+# Similarly, the primary :worker server will be in charge of running the
+# maintenance tasks (and should have been so configured in Ansible).
+
+# What follows is mostly the original Capistrano documentation for configuring
+# servers in this file, slightly modified for our use case.
+
 
 # server-based syntax
 # ======================
 # Defines a single server with a list of roles and multiple properties.
 # You can define all roles on a single server, or split them:
 
-# server "example.com", user: "deploy", roles: %w{app db web}, my_property: :my_value
-# server "example.com", user: "deploy", roles: %w{app web}, other_property: :other_value
-# server "db.example.com", user: "deploy", roles: %w{db}
-
+# server "example.com", user: "deploy", roles: %w{web worker}, primary: true
+# server "www2.example.com", user: "deploy", roles: %w{web}
 
 
 # role-based syntax
@@ -20,20 +29,8 @@
 # property set. Specify the username and a domain or IP for the server.
 # Don't use `:all`, it's a meta role.
 
-# role :app, %w{deploy@example.com}, my_property: :my_value
-# role :web, %w{user1@primary.com user2@additional.com}, other_property: :other_value
-# role :db,  %w{deploy@example.com}
-
-
-
-# Configuration
-# =============
-# You can set any configuration variable like in config/deploy.rb
-# These variables are then only loaded and set in this stage.
-# For available Capistrano configuration variables see the documentation page.
-# http://capistranorb.com/documentation/getting-started/configuration/
-# Feel free to add new variables to customise your setup.
-
+# role :web, %w{user1@primary.com user2@additional.com}
+# role :worker,  %w{deploy@example.com}
 
 
 # Custom SSH Options
@@ -54,7 +51,7 @@
 # ------------------------------------
 # server "example.com",
 #   user: "user_name",
-#   roles: %w{web app},
+#   roles: %w{web worker},
 #   ssh_options: {
 #     user: "user_name", # overrides user setting above
 #     keys: %w(/home/user_name/.ssh/id_rsa),
