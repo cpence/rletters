@@ -3,6 +3,7 @@
 
 config/deploy/*
 !config/deploy/example.rb
+!config/deploy/test.rb
 
 .bundle
 /node_modules
