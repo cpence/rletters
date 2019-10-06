@@ -22,17 +22,27 @@ set :migration_role, :web
 set :seed_role, :web
 
 # Restart services after deployment
+def reload_or_start(service)
+  status = capture("sudo systemctl is-active #{service}",
+                   raise_on_non_zero_exit: false)
+  if status.start_with?('active')
+    execute "sudo systemctl reload #{service}"
+  else
+    execute "sudo systemctl restart #{service}"
+  end
+end
+
 namespace :deploy do
   desc 'Reload or restart relevant systemd services'
   task :restart_services do
     on roles(:web) do
-      execute 'sudo systemctl reload-or-restart rletters-puma'
+      reload_or_start('rletters-puma')
     end
     on roles(:worker) do
-      execute 'sudo systemctl reload-or-restart rletters-analysis'
+      reload_or_start('rletters-analysis')
     end
     on primary(:worker) do
-      execute 'sudo systemctl reload-or-restart rletters-maintenance'
+      reload_or_start('rletters-maintenance')
     end
   end
 
