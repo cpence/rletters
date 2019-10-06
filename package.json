@@ -14,8 +14,7 @@
   "homepage": "https://github.com/rletters/rletters#readme",
   "private": true,
   "dependencies": {
-    "@fortawesome/fontawesome": "^1.1.5",
-    "@fortawesome/fontawesome-free-solid": "^5.0.9",
+    "@fortawesome/fontawesome-free": "^5.11.2",
     "bootstrap": "^4.1.0",
     "bootswatch": "^4.1.1",
     "d3": "^4.7.4",
