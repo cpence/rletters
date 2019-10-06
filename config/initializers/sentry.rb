@@ -8,7 +8,7 @@ if ENV['SENTRY_DSN'].present?
       'JobKilledError',
       # Produced by DelayedJob when a job runs for too long
       'Delayed::WorkerTimeout',
-      # Produced by Heroku and other process managers, not indicative of anything
+      # Produced by process managers, not indicative of anything
       # happening in our code
       'SignalException'
     ]

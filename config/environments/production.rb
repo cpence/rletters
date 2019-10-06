@@ -29,10 +29,9 @@ Rails.application.configure do
   config.assets.compile = false
 
   # Specifies the header that your server uses for sending files. Default to
-  # nil, for Heroku deploys.
+  # the value for nginx deploys.
   # config.action_dispatch.x_sendfile_header = 'X-Sendfile' # for Apache
-  # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for nginx
-  config.action_dispatch.x_sendfile_header = nil # for Heroku
+  config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for nginx
 
   # Force SSL if requested
   config.force_ssl = (ENV['HTTPS_ONLY'] || 'false').to_boolean
