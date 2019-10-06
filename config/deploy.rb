@@ -2,7 +2,6 @@ lock '~> 3.11.1'
 
 set :application, 'rletters'
 set :repo_url, 'https://github.com/rletters/rletters.git'
-set :branch, 'capistrano'
 set :deploy_to, '/var/rletters'
 
 # Preserve all installed packages (Bundler/yarn) and all of the stuff that's
