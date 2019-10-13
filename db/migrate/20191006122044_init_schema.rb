@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 class InitSchema < ActiveRecord::Migration[6.0]
-  def up
+  def change
     # These are extensions that must be enabled in order to support this database
     enable_extension "plpgsql"
 
-    create_table "active_storage_attachments", force: :cascade do |t|
+    create_table "active_storage_attachments" do |t|
       t.string "name", null: false
       t.string "record_type", null: false
       t.bigint "record_id", null: false
@@ -15,7 +15,7 @@ class InitSchema < ActiveRecord::Migration[6.0]
       t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
     end
 
-    create_table "active_storage_blobs", force: :cascade do |t|
+    create_table "active_storage_blobs" do |t|
       t.string "key", null: false
       t.string "filename", null: false
       t.string "content_type"
@@ -26,13 +26,13 @@ class InitSchema < ActiveRecord::Migration[6.0]
       t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
     end
 
-    create_table "admin_assets", id: :serial, force: :cascade do |t|
+    create_table "admin_assets", id: :serial do |t|
       t.string "name", limit: 255
       t.datetime "created_at"
       t.datetime "updated_at"
     end
 
-    create_table "admin_snippets", id: :serial, force: :cascade do |t|
+    create_table "admin_snippets", id: :serial do |t|
       t.string "name", limit: 255
       t.text "content"
       t.datetime "created_at"
@@ -40,14 +40,14 @@ class InitSchema < ActiveRecord::Migration[6.0]
       t.string "language"
     end
 
-    create_table "admin_worker_stats", force: :cascade do |t|
+    create_table "admin_worker_stats" do |t|
       t.string "worker_type"
       t.string "host"
       t.integer "pid"
       t.datetime "started_at"
     end
 
-    create_table "datasets", id: :serial, force: :cascade do |t|
+    create_table "datasets", id: :serial do |t|
       t.string "name", limit: 255
       t.integer "user_id"
       t.datetime "created_at"
@@ -56,7 +56,7 @@ class InitSchema < ActiveRecord::Migration[6.0]
       t.index ["user_id"], name: "index_datasets_on_user_id"
     end
 
-    create_table "datasets_files", id: :serial, force: :cascade do |t|
+    create_table "datasets_files", id: :serial do |t|
       t.string "description"
       t.string "short_description"
       t.integer "task_id"
@@ -65,7 +65,7 @@ class InitSchema < ActiveRecord::Migration[6.0]
       t.boolean "downloadable", default: false
     end
 
-    create_table "datasets_queries", id: :serial, force: :cascade do |t|
+    create_table "datasets_queries", id: :serial do |t|
       t.integer "dataset_id"
       t.string "q"
       t.string "fq"
@@ -74,7 +74,7 @@ class InitSchema < ActiveRecord::Migration[6.0]
       t.datetime "updated_at", null: false
     end
 
-    create_table "datasets_tasks", id: :serial, force: :cascade do |t|
+    create_table "datasets_tasks", id: :serial do |t|
       t.string "name", limit: 255
       t.datetime "finished_at"
       t.integer "dataset_id"
@@ -89,7 +89,7 @@ class InitSchema < ActiveRecord::Migration[6.0]
       t.index ["dataset_id"], name: "index_datasets_tasks_on_dataset_id"
     end
 
-    create_table "delayed_jobs", force: :cascade do |t|
+    create_table "delayed_jobs" do |t|
       t.integer "priority", default: 0, null: false
       t.integer "attempts", default: 0, null: false
       t.text "handler", null: false
@@ -104,7 +104,7 @@ class InitSchema < ActiveRecord::Migration[6.0]
       t.index ["priority", "run_at"], name: "delayed_jobs_priority"
     end
 
-    create_table "documents_categories", id: :serial, force: :cascade do |t|
+    create_table "documents_categories", id: :serial do |t|
       t.string "name", limit: 255
       t.text "journals"
       t.datetime "created_at"
@@ -113,7 +113,7 @@ class InitSchema < ActiveRecord::Migration[6.0]
       t.index ["ancestry"], name: "index_documents_categories_on_ancestry"
     end
 
-    create_table "users", id: :serial, force: :cascade do |t|
+    create_table "users", id: :serial do |t|
       t.string "email", limit: 255, default: "", null: false
       t.string "name", limit: 255
       t.datetime "created_at"
@@ -141,7 +141,7 @@ class InitSchema < ActiveRecord::Migration[6.0]
       t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     end
 
-    create_table "users_libraries", id: :serial, force: :cascade do |t|
+    create_table "users_libraries", id: :serial do |t|
       t.string "name", limit: 255
       t.string "url", limit: 255
       t.integer "user_id"
@@ -154,9 +154,5 @@ class InitSchema < ActiveRecord::Migration[6.0]
     add_foreign_key "datasets", "users", name: "datasets_user_id_fk", on_delete: :cascade
     add_foreign_key "datasets_tasks", "datasets", name: "datasets_analysis_tasks_dataset_id_fk"
     add_foreign_key "users_libraries", "users", name: "users_libraries_user_id_fk", on_delete: :cascade
-  end
-
-  def down
-    raise ActiveRecord::IrreversibleMigration, "The initial migration is not revertable"
   end
 end
