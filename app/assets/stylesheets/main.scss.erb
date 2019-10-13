@@ -2,11 +2,11 @@
 // Import Bootstrap
 @import 'bootstrap_variables';
 <% if ENV['BOOTSWATCH_THEME'].present? %>
-@import '<%= "bootswatch/dist/#{ENV['BOOTSWATCH_THEME']}/variables" %>';
+@import '<%= "bootswatch/dist/#{ENV['BOOTSWATCH_THEME']}/_variables.scss" %>';
 <% end %>
 @import 'bootstrap/scss/bootstrap';
 <% if ENV['BOOTSWATCH_THEME'].present? %>
-@import '<%= "bootswatch/dist/#{ENV['BOOTSWATCH_THEME']}/bootswatch" %>';
+@import '<%= "bootswatch/dist/#{ENV['BOOTSWATCH_THEME']}/_bootswatch.scss" %>';
 <% end %>
 
 // Import external libraries
