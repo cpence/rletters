@@ -8,6 +8,17 @@
 # Similarly, the primary :worker server will be in charge of running the
 # maintenance tasks (and should have been so configured in Ansible).
 
+# If you would like to configure reporting of new deployments to Sentry,
+# include the following lines in your settings:
+
+# set :sentry_api_token, '0123456789abcdef0123456789abcdef'
+# set :sentry_organization, 'my-org'
+# set :sentry_project, 'my-proj'
+# set :sentry_repo, 'my-org/my-proj'
+
+# before 'deploy:starting', 'sentry:validate_config'
+# after 'deploy:published', 'sentry:notice_deployment'
+
 # What follows is mostly the original Capistrano documentation for configuring
 # servers in this file, slightly modified for our use case.
 
