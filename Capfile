@@ -1,12 +1,13 @@
-require "capistrano/setup"
-require "capistrano/deploy"
+require 'capistrano/setup'
+require 'capistrano/deploy'
 
-require "capistrano/scm/git"
+require 'capistrano/scm/git'
 install_plugin Capistrano::SCM::Git
 
-require "capistrano/bundler"
-require "capistrano/yarn"
-require "capistrano/rails/assets"
-require "capistrano/rails/migrations"
+require 'capistrano/bundler'
+require 'capistrano/yarn'
+require 'capistrano/rails/assets'
+require 'capistrano/rails/migrations'
+require 'capistrano/maintenance'
 
 Dir.glob('lib/capistrano/tasks/*.rake').each { |r| import r }
