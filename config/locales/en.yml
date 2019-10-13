@@ -190,13 +190,15 @@ en:
     layouts:
         footer:
             copyright: >
-                Copyright © 2011–2018 %{app_name}, Charles Pence, and the
+                Copyright © 2011–2019 %{app_name}, Charles Pence, and the
                 RLetters team. Article content remains copyrighted as specified
                 on individual article entries. All rights reserved.
             rletters_markdown: >
                 Built with RLetters—the Open Source article textual analysis
                 platform. For more information, see
                 [rletters.net.](http://rletters.net/)
+            version: >
+                Server running code build %{version}.
         nav:
             menu: Menu
             new_analysis: New Analysis

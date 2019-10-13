@@ -20,7 +20,7 @@
 **Git:** [http://github.com/rletters/rletters](http://github.com/rletters/rletters)  
 **Author:** Charles Pence  
 **Contributors:** See Contributors section below  
-**Copyright:** &copy; 2014–2018 Charles Pence and the RLetters Team  
+**Copyright:** &copy; 2014–2019 Charles Pence and the RLetters Team  
 **License:** MIT License  
 **Latest Released Version:** v3.0  
 **Release Date:** May 24, 2018  
@@ -102,5 +102,5 @@ Charles Pence and Grant Ramsey were supported in the development of RLetters by 
 
 ## Copyright ##
 
-RLetters &copy; 2011–2018 [Charles Pence](mailto:charles@charlespence.net). RLetters is licensed under the MIT license. Please see the {file:COPYING} document for more information.
+RLetters &copy; 2011–2019 [Charles Pence](mailto:charles@charlespence.net). RLetters is licensed under the MIT license. Please see the {file:COPYING} document for more information.
 

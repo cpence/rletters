@@ -1,2 +1,5 @@
 %p= t('layouts.footer.copyright', app_name: ENV['APP_NAME'] || 'RLetters')
 = t_md('layouts.footer.rletters_markdown')
+
+- if Rails.application.config.version
+  %p= t('layouts.footer.version', version: Rails.application.config.version)
