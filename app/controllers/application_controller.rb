@@ -21,7 +21,7 @@ class ApplicationController < ActionController::Base
 
   private
 
-  before_action :set_locale, :set_timezone
+  before_action :set_locale, :set_timezone, :set_sentry_params
 
   # Set the locale if the user is logged in
   #
@@ -51,6 +51,19 @@ class ApplicationController < ActionController::Base
                 else
                   'Eastern Time (US & Canada)'
                 end
+  end
+
+  # Pass extra context variables to Sentry
+  #
+  # This function is called as a `before_action` in all controllers, you do
+  # not need to call it yourself.
+  #
+  # @return [void]
+  def set_sentry_params
+    return unless ENV['SENTRY_DSN'].present?
+
+    Raven.user_context(id: current_user.email) if user_signed_in?
+    Raven.extra_context(params: params.to_unsafe_h, url: request.url)
   end
 
   protected
