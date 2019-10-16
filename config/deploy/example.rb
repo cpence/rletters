@@ -19,6 +19,13 @@
 # before 'deploy:starting', 'sentry:validate_config'
 # after 'deploy:published', 'sentry:notice_deployment'
 
+# If you would like deployment notifications to be pushed to Slack, create a
+# new Slack app, grant it access to your workspace, enable incoming webhooks,
+# add a new webhook, and paste its URL here:
+
+# set :slack_hook: 'https://hooks.slack.com/services/.../.../....'
+# after 'deploy:published', 'deploy:notify_slack'
+
 # What follows is mostly the original Capistrano documentation for configuring
 # servers in this file, slightly modified for our use case.
 
