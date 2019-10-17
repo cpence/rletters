@@ -60,7 +60,7 @@ module RLetters
         # Raise an error if Solr does not respond
         unless solr_response.ok?
           raise Connection::Error,
-            'Solr server returned nothing or failed request'
+            "Solr server request failed: #{response}"
         end
         return if solr_response.total.zero?
 
