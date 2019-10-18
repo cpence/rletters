@@ -23,6 +23,9 @@ set :seed_role, :web
 # Compile assets on the worker, because it sends emails
 set :assets_roles, [:web, :worker]
 
+# Don't keep too many versions of old assets
+set :keep_assets, 3
+
 # Restart services after deployment
 def reload_or_start(service)
   status = capture("sudo systemctl is-active #{service}",
