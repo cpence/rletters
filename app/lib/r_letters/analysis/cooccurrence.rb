@@ -198,7 +198,7 @@ module RLetters
               end
             else
               word2_array.each do |w|
-                if b.keys.include?(w)
+                if b.key?(w)
                   joint_frequencies[word][w] ||= 0
                   joint_frequencies[word][w] += 1
                 end
