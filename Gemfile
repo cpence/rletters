@@ -83,12 +83,4 @@ group :development do
 
   gem 'ed25519', '>= 1.2', '< 2.0'
   gem 'bcrypt_pbkdf', '>= 1.0', '< 2.0'
-
-  gem 'brakeman', require: false
-  gem 'bundle-audit', require: false
-  gem 'rubocop', require: false
-
-  gem 'yard', "~> 0.9.20", require: false
-
-  gem 'pry', require: false
 end
