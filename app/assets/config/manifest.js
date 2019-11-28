@@ -1,3 +1,3 @@
 //= link application.css
-//= link application-mailer.scss
+//= link application-mailer.css
 //= link application.js

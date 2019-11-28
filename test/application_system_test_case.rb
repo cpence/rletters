@@ -14,6 +14,9 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
     Capybara.current_window.resize_to(1400, 1400)
   end
 
+  # We need to test delayed jobs in the system tests
+  include ActiveJob::TestHelper
+
   # Helpers for making our system tests much cleaner
   include SystemAdminHelper
   include SystemDatasetHelper
