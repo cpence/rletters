@@ -8,7 +8,7 @@ ruby '2.6.5'
 # Rails and basics
 gem 'dotenv-rails'
 gem 'lograge'
-gem 'puma', '~> 3.11'
+gem 'puma', '~> 3.12'
 gem 'rails', '~> 6'
 gem 'sentry-raven'
 
