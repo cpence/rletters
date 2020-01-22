@@ -10,7 +10,7 @@ end
 
 class ApplicationJobTest < ActiveJob::TestCase
   test 'should query the right translation keys' do
-    I18n.expects(:t).with('mock_job.testing', {}).returns('wat')
+    I18n.expects(:t).with('mock_job.testing').returns('wat')
     MockJob.t('.testing')
   end
 

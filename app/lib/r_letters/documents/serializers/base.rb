@@ -72,11 +72,11 @@ module RLetters
             end
           end
 
-          private
-
           define_method :do_serialize do |doc|
             instance_exec doc, &block
           end
+
+          private :do_serialize
         end
 
         # Define the common `.format` and `.url` class methods, as well as

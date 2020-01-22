@@ -47,9 +47,9 @@ class ApplicationJob < ActiveJob::Base
   # @param [Hash] opts the options for the translation
   # @return [String] the translated message
   def self.t(key, opts = {})
-    return I18n.t(key, opts) unless key[0] == '.'
+    return I18n.t(key, **opts) unless key[0] == '.'
 
-    I18n.t("#{name.underscore.tr('/', '.')}#{key}", opts)
+    I18n.t("#{name.underscore.tr('/', '.')}#{key}", **opts)
   end
 
   # Returns a translated string for this job
@@ -60,7 +60,7 @@ class ApplicationJob < ActiveJob::Base
   # @param [String] key the translation to look up (e.g., '.short_desc')
   # @return [String] the translated message
   def t(key, opts = {})
-    self.class.t(key, opts)
+    self.class.t(key, **opts)
   end
 
   # Get a list of all classes that are analysis jobs
