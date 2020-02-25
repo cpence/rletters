@@ -401,7 +401,7 @@ DEPENDENCIES
   bcrypt_pbkdf (>= 1.0, < 2.0)
   bibtex-ruby
   bootstrap-email (>= 0.2.6)
-  capistrano (~> 3.11)
+  capistrano (~> 3.12)
   capistrano-bundler (~> 1.6)
   capistrano-maintenance (~> 1.2)
   capistrano-rails (~> 1.4)

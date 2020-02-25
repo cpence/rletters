@@ -1,4 +1,4 @@
-lock '~> 3.11.1'
+lock '~> 3.12'
 
 set :application, 'rletters'
 set :repo_url, 'https://github.com/rletters/rletters.git'
