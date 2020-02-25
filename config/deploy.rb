@@ -26,6 +26,24 @@ set :assets_roles, [:web, :worker]
 # Don't keep too many versions of old assets
 set :keep_assets, 3
 
+# Fix bundler configuration for the latest version (>= 2.1)
+set :bundle_flags, '--quiet'
+set :bundle_path, nil
+set :bundle_without, nil
+
+namespace :deploy do
+  desc 'Configure local bundler options'
+  task :config_bundler do
+    on roles(/.*/) do
+      execute 'bundle config --local deployment true'
+      execute 'bundle config --local without "development test"'
+      execute "bundle config --local path #{shared_path.join('bundle')}"
+    end
+  end
+end
+
+before 'bundler:install', 'deploy:config_bundler'
+
 # Restart services after deployment
 def reload_or_start(service)
   status = capture("sudo systemctl is-active #{service}",
