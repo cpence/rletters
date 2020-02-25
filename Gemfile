@@ -49,7 +49,7 @@ gem 'rubyzip', '~> 1.3.0', require: 'zip'
 gem 'haml', '>= 5.1.0'
 gem 'haml-rails', '~> 2.0'
 gem 'kramdown'
-gem 'nokogiri', '>= 1.10.4'
+gem 'nokogiri', '>= 1.10.8'
 gem 'sassc-rails', '>= 2.1.1'
 gem 'uglifier', '>= 1.3.0'
 

@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 # Coverage setup
-if ENV['TRAVIS'] || ENV['COVERAGE']
-  require 'simplecov'
+require 'simplecov'
 
+if ENV['TRAVIS'] || ENV['COVERAGE']
   SimpleCov.start do
     add_filter '/test/'
     add_filter '/config/'
