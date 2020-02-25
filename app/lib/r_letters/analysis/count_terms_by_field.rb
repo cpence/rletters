@@ -146,6 +146,7 @@ module RLetters
       # @return [String] the field value
       def get_field_from_document(doc)
         return doc.send(field) unless field == :year
+        return nil unless doc.year
 
         # Support Y-M-D or Y/M/D dates, even though this field is supposed to
         # be only year values
