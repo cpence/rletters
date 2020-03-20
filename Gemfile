@@ -9,7 +9,7 @@ ruby '2.7.0'
 gem 'dotenv-rails'
 gem 'lograge'
 gem 'puma', '~> 3.12'
-gem 'rails', '~> 6'
+gem 'rails', '~> 6', '>= 6.0.2.2'
 gem 'sentry-raven'
 
 # Database, job queue, and related tools
