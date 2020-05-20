@@ -1,1 +1,0 @@
-FontAwesome.config.autoAddCss = false

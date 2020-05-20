@@ -1,9 +1,0 @@
-.start-hidden#cookie-alert
-  #cookie-container
-    .span
-      = t('layouts.cookies.warning')
-      = link_to t('layouts.cookies.more_info'), static_cookies_path
-
-    .btn-group{ role: 'group' }
-      %button.btn.btn-danger#decline-cookies-btn{ type: 'button' }= t('layouts.cookies.button_no')
-      %button.btn.btn-primary#accept-cookies-btn{ type: 'button' }= t('layouts.cookies.button_yes')

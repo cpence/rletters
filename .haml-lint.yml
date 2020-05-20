@@ -1,5 +1,0 @@
-linters:
-  # Sublime Text's syntax highlighting for HAML doesn't work if you break
-  # lines after commas, so I just have no control over my line lengths.
-  LineLength:
-    enabled: false

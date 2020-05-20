@@ -1,8 +1,0 @@
-/*
- *= require @fortawesome/fontawesome-free/css/svg-with-js
- *
- * We want to import all of our SCSS in a single root file, so that all
- * variables (especially things like Bootstrap's colors) are evaluated in the
- * same context.
- *= require main
- */

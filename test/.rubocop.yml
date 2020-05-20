@@ -1,5 +1,0 @@
-inherit_from: ../.rubocop.yml
-
-# Checking lots of very long string literals is pretty common in tests.
-LineLength:
-  Enabled: false

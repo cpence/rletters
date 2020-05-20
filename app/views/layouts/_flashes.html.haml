@@ -1,6 +1,0 @@
-- if ENV['MAINTENANCE_MESSAGE'].present?
-  .alert.alert-warning{ role: 'alert' }= ENV['MAINTENANCE_MESSAGE']
-- flash.each do |key, value|
-  %div{ class: "alert alert-dismissible alert-#{{ success: 'success', alert: 'danger' }[key.to_sym] || 'info'}", role: 'alert' }
-    = value
-    = close_icon(dismiss: 'alert')
